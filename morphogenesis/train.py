@@ -70,9 +70,9 @@ from nca_core import (
 
     StatePool,
 
-    create_deterministic_generator,
-
 )
+
+from config import create_deterministic_generator
 
 from topology import compute_topology_metrics, get_binary_mask
 

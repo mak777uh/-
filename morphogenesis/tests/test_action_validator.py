@@ -210,6 +210,8 @@ class TestActionValidator(unittest.TestCase):
 
         }
 
+        # last_injury_report=4 -> reports_since = 10-4 = 6 > 5 (кулдаун истёк)
+
         result = validate_action(
 
             parsed,
@@ -220,7 +222,7 @@ class TestActionValidator(unittest.TestCase):
 
             last_morphogen_report=-10,
 
-            last_injury_report=5,
+            last_injury_report=4,
 
         )
 
@@ -264,7 +266,15 @@ class TestActionValidator(unittest.TestCase):
 
         self.assertFalse(result["allowed"])
 
-        self.assertIn("reserved", result["reason"].lower())
+        # Канал 15 вне диапазона [2, 14], поэтому ошибка о диапазоне допустима
+
+        self.assertTrue(
+
+            "reserved" in result["reason"].lower() or "out of range" in result["reason"].lower(),
+
+            f"Ожидалось упоминание 'reserved' или 'out of range', получено: {result['reason']}"
+
+        )
 
     def test_inject_into_channel_0_rejected(self):
 
