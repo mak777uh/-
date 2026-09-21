@@ -30,9 +30,9 @@ from nca_core import (
 
     init_state,
 
-    create_deterministic_generator,
-
 )
+
+from config import create_deterministic_generator
 
 from topology import compute_extended_topology_metrics, get_binary_mask
 

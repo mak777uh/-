@@ -54,9 +54,9 @@ from nca_core import (
 
     StatePool,
 
-    create_deterministic_generator,
-
 )
+
+from config import create_deterministic_generator
 
 from topology import (
 

@@ -276,6 +276,30 @@ def validate_action(
 
             return result
 
+        # Сначала проверяем диапазон морфогенов [2, 14].
+
+        if not (
+
+            config.MORPHOGEN_MIN_CHANNEL
+
+            <= channel
+
+            <= config.MORPHOGEN_MAX_CHANNEL
+
+        ):
+
+            result["reason"] = (
+
+                f"Parameter channel out of range "
+
+                f"[{config.MORPHOGEN_MIN_CHANNEL}, {config.MORPHOGEN_MAX_CHANNEL}]"
+
+            )
+
+            return result
+
+        # Затем проверяем зарезервированные каналы.
+
         if channel in config.RESERVED_SYSTEM_CHANNELS:
 
             result["reason"] = (
@@ -291,26 +315,6 @@ def validate_action(
             result["reason"] = (
 
                 f"Channel {channel} cannot be used for INJECT_MORPHOGEN"
-
-            )
-
-            return result
-
-        if not (
-
-            config.MORPHOGEN_MIN_CHANNEL
-
-            <= channel
-
-            <= config.MORPHOGEN_MAX_CHANNEL
-
-        ):
-
-            result["reason"] = (
-
-                f"Channel {channel} outside morphogen range "
-
-                f"[{config.MORPHOGEN_MIN_CHANNEL}, {config.MORPHOGEN_MAX_CHANNEL}]"
 
             )
 
