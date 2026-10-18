@@ -2,7 +2,7 @@
 
 agent_backends.py — Бэкенды агента.
 
-[v5.5-EXP FINAL Rev.7]
+[v5.6-EXP FINAL Rev.11]
 
 По умолчанию используется RuleBasedAgentV2, а не блокирующий input().
 
@@ -124,7 +124,7 @@ class RuleBasedAgentV2(RuleBasedAgent):
 
     Его цель — минимальные вмешательства, если состояние явно отклоняется от цели.
 
-    [v5.5-EXP FINAL Rev.7]:
+    [v5.6-EXP FINAL Rev.11]:
 
     - правило «Ленивый Агент»;
 
@@ -780,7 +780,7 @@ class LocalLLMAgent(AgentBackend):
 
     Внешние облачные API запрещены.
 
-    [v5.5-EXP FINAL Rev.7] ПРАВИЛО 35:
+    [v5.6-EXP FINAL Rev.11] ПРАВИЛО 35:
 
     Локальная LLM не используется для расчёта бюджета, доз и параметров
 

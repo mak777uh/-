@@ -2,7 +2,7 @@
 
 test_budget_edge_cases.py — Тесты граничных случаев бюджета.
 
-[v5.5-EXP FINAL Rev.7]
+[v5.6-EXP FINAL Rev.11]
 
 Проверяет:
 

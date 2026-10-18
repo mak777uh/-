@@ -2,7 +2,7 @@
 
 memory_manager.py — Управление памятью агента.
 
-[v5.5-EXP FINAL Rev.7]
+[v5.6-EXP FINAL Rev.11]
 
 """
 

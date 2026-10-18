@@ -4,7 +4,7 @@ topology.py — Вычисление топологических инвариа
 
 ТОЛЬКО МОНИТОРИНГ. Никаких дифференцируемых прокси.
 
-[v5.5-EXP FINAL] Rev.7
+[v5.6-EXP FINAL] Rev.11
 
 Ключевые требования:
 
@@ -80,17 +80,19 @@ def _get_structure(connectivity=None):
 
 # === ЕДИНАЯ БИНАРНАЯ МАСКА ===
 
-def get_binary_mask(state, threshold=None):
+def get_binary_mask_batch(state, threshold=None):
 
     """
 
-    ПРАВИЛО: единый source of truth для бинаризации.
+    Бинарная маска по ВСЕМУ батчу: (B, H, W) numpy uint8.
 
-    binary_mask = (sigmoid(alpha) > ALIVE_THRESHOLD) AND (sigmoid(visible) > BINARY_THRESHOLD)
+    ПРАВИЛО: единый source of truth для бинаризации —
 
-    Принимает 4D состояние (B, C, H, W) или 3D (C, H, W).
+    (sigmoid(alpha) > ALIVE_THRESHOLD) AND (visible > BINARY_THRESHOLD).
 
-    Возвращает 2D numpy bool mask (H, W) для первого батча.
+    [Rev.11] get_binary_mask возвращает только sample 0; при BATCH_SIZE > 1
+
+    метрики мониторинга по одному сэмплу искажают картину (условие §23).
 
     """
 
@@ -106,11 +108,9 @@ def get_binary_mask(state, threshold=None):
 
         s = torch.as_tensor(np.asarray(state))
 
-    # Приводим к (B, C, H, W).
-
     if s.dim() == 2:
 
-        raise ValueError("get_binary_mask ожидает состояние с каналами, а не 2D картинку.")
+        raise ValueError("get_binary_mask_batch ожидает состояние с каналами, а не 2D картинку.")
 
     if s.dim() == 3:
 
@@ -120,9 +120,9 @@ def get_binary_mask(state, threshold=None):
 
         raise ValueError(f"Некорректная размерность состояния: {s.dim()}")
 
-    alpha = torch.sigmoid(s[0, config.ALIVE_CHANNEL, :, :])
+    alpha = torch.sigmoid(s[:, config.ALIVE_CHANNEL, :, :])
 
-    visible = s[0, config.VISIBLE_CHANNEL, :, :]
+    visible = s[:, config.VISIBLE_CHANNEL, :, :]
 
     if config.USE_SIGMOID_VISIBLE:
 
@@ -131,6 +131,24 @@ def get_binary_mask(state, threshold=None):
     mask = (alpha > config.ALIVE_THRESHOLD) & (visible > threshold)
 
     return mask.numpy().astype(np.uint8)
+
+def get_binary_mask(state, threshold=None):
+
+    """
+
+    ПРАВИЛО: единый source of truth для бинаризации.
+
+    binary_mask = (sigmoid(alpha) > ALIVE_THRESHOLD) AND (sigmoid(visible) > BINARY_THRESHOLD)
+
+    Принимает 4D состояние (B, C, H, W) или 3D (C, H, W).
+
+    Возвращает 2D numpy bool mask (H, W) для первого батча.
+
+    Для метрик по всему батчу используйте get_binary_mask_batch.
+
+    """
+
+    return get_binary_mask_batch(state, threshold=threshold)[0]
 
 def tensor_to_binary(image_tensor, threshold=None):
 
@@ -368,6 +386,16 @@ def compute_symmetric_chamfer_error(pred_mask, target_mask, grid_size=None):
 
     large = diag
 
+    # [Rev.11] Пустая предсказанная маска и пустая цель — это СОВПАДЕНИЕ, а не
+
+    # максимальная ошибка. Ранее обе ветки давали large/diag = 1.0, что
+
+    # завышало ошибку на полностью мёртвой ткани при пустой цели.
+
+    if (not pred_mask.any()) and (not target_mask.any()):
+
+        return 0.0
+
     if pred_mask.any():
 
         pred_to_target = float(dt_target[pred_mask].mean())
@@ -480,7 +508,7 @@ def compute_extended_topology_metrics(
 
     """
 
-    Расширенные топологические метрики для v5.5.
+    Расширенные топологические метрики (v5.6-EXP FINAL).
 
     Вход:
 
@@ -642,6 +670,22 @@ def compute_extended_topology_metrics(
 
     spatial_entropy = _spatial_entropy(float_image)
 
+    # === Отклонения от целевой топологии (§12.3.4, обязательны для отчётов) ===
+
+    ref_topology = target_topology if target_topology is not None else config.TARGET_TOPOLOGY
+
+    target_b0_ref = int(ref_topology.get("b0", config.TARGET_TOPOLOGY["b0"]))
+
+    target_b1_ref = int(ref_topology.get("b1", config.TARGET_TOPOLOGY["b1"]))
+
+    target_chi_ref = int(ref_topology.get("chi", config.TARGET_TOPOLOGY["chi"]))
+
+    b0_error = int(abs(b0 - target_b0_ref))
+
+    b1_error = int(abs(b1 - target_b1_ref))
+
+    chi_error = int(abs(chi - target_chi_ref))
+
     # === Сырые флаги галлюцинаций (без гистерезиса). ===
 
     topological_hallucination_raw = False
@@ -699,6 +743,18 @@ def compute_extended_topology_metrics(
         "largest_hole_area": largest_hole_area,
 
         "spatial_entropy": spatial_entropy,
+
+        "b0_error": b0_error,
+
+        "b1_error": b1_error,
+
+        "chi_error": chi_error,
+
+        "target_b0": target_b0_ref,
+
+        "target_b1": target_b1_ref,
+
+        "target_chi": target_chi_ref,
 
         "domain_wall_energy": domain_wall_energy,
 

@@ -6,7 +6,9 @@ config.py — ВСЕ гиперпараметры проекта.
 
 Меняй значения ТОЛЬКО здесь.
 
-[v5.5-EXP FINAL] Rev.7
+[v5.6-EXP FINAL] Rev.11-IMPLEMENTATION-READY
+
+Активная спецификация: docs/spec/MORPHOGENESIS_v5.6_Rev11.md
 
 """
 
@@ -40,7 +42,7 @@ N_CHANNELS = 16
 
 BATCH_SIZE = 2
 
-# ВАЖНО [v5.5]:
+# ВАЖНО [v5.6]:
 
 # Используем constant / zero-padding для восприятия и alive-маски,
 
@@ -156,7 +158,7 @@ TOPOLOGY_TOLERANCE_B1 = 0
 
 # === ПОРОГИ ГАЛЛЮЦИНАЦИЙ ===
 
-# Нормировка порогов (Rev.7):
+# Нормировка порогов (Rev.11):
 
 # MSE_HALLUCINATION_THRESHOLD относится к MSE, усреднённому по всем пикселям
 
@@ -182,7 +184,7 @@ SYMMETRIC_CHAMFER_HALLUCINATION_THRESHOLD = 0.10
 
 HALLUCINATION_PERSISTENCE = 3
 
-# === СТРЕСС-КАНАЛ И СТРЕСС-ШЕРИНГ [v5.5] ===
+# === СТРЕСС-КАНАЛ И СТРЕСС-ШЕРИНГ [v5.6] ===
 
 # Канал 15 — системный стресс-канал. НЕ доступен для INJECT_MORPHOGEN.
 
@@ -192,7 +194,7 @@ STRESS_CHANNEL = 15
 
 RESERVED_SYSTEM_CHANNELS = [STRESS_CHANNEL]
 
-# ВАЖНО [v5.5]: gain снижен с 1.0 до 0.15.
+# ВАЖНО [v5.6]: gain снижен с 1.0 до 0.15.
 
 # Стационарное решение s* = GAIN * x / DECAY.
 
@@ -234,7 +236,7 @@ STRESS_SHUFFLE_MODE = False
 
 STRESS_TARGET_ERROR_MODE = False
 
-# Rev.7: опциональная логарифмическая компрессия входа стресса.
+# Rev.11: опциональная логарифмическая компрессия входа стресса.
 
 STRESS_COMPRESS_INPUT = False
 
@@ -242,7 +244,7 @@ STRESS_COMPRESS_INPUT = False
 
 INIT_NOISE_LEVEL = 0.95
 
-# Rev.7: переименовано из MAX_CONTINUE_STEPS.
+# Rev.11: переименовано из MAX_CONTINUE_STEPS.
 
 MAX_EXTRA_STEPS_PER_REPORT = 500
 
@@ -268,7 +270,7 @@ MORPHOGEN_MIN_VALUE = -3.0
 
 MORPHOGEN_MAX_VALUE = 3.0
 
-# === ЭКОНОМИКА ВМЕШАТЕЛЬСТВ [v5.5] ===
+# === ЭКОНОМИКА ВМЕШАТЕЛЬСТВ [v5.6] ===
 
 # АТР-бюджет: сколько стоимости действий доступно за один отчёт.
 
@@ -294,7 +296,7 @@ INTERVENTION_COST_WEIGHT = 0.1
 
 INJURY_COOLDOWN_REPORTS = 5
 
-# Rev.7: формула полезности против доминирования бесплатного CONTINUE_TRAINING.
+# Rev.11: формула полезности против доминирования бесплатного CONTINUE_TRAINING.
 
 MIN_UTILITY_THRESHOLD = 0.005
 
@@ -348,7 +350,7 @@ MINI_MAINTENANCE_STEPS = 30
 
 MAINTENANCE_WINDOW = 200
 
-# === СТАРЕНИЕ / ОМОЛОЖЕНИЕ [v5.5] ===
+# === СТАРЕНИЕ / ОМОЛОЖЕНИЕ [v5.6] ===
 
 AGING_STEPS = 1000
 
@@ -372,7 +374,7 @@ REJUVENATION_ENTROPY_INCREASE = 0.15
 
 REJUVENATION_B0_ERROR = 2
 
-# === КРИТИЧНОСТЬ [v5.5] ===
+# === КРИТИЧНОСТЬ [v5.6] ===
 
 CRITICALITY_SCAN_ENABLED = True
 
@@ -394,7 +396,7 @@ DENSITY_VAR_MIN = 0.01
 
 DENSITY_VAR_MAX = 10.0
 
-# === АБЛЯЦИЯ [v5.5] ===
+# === АБЛЯЦИЯ [v5.6] ===
 
 # Минимум 6 сидов, потому что при n=5 двусторонний точный тест Уилкоксона
 
@@ -404,7 +406,7 @@ ABLATION_MIN_SEEDS = 6
 
 ABLATION_RECOMMENDED_SEEDS = 10
 
-# Rev.7: для подтверждающего (не пилотного) прогона.
+# Rev.11: для подтверждающего (не пилотного) прогона.
 
 ABLATION_CONFIRMATION_SEEDS = 15
 
@@ -430,9 +432,9 @@ LOG_EVERY = 10
 
 # === ВЕРСИЯ ===
 
-SPEC_VERSION = "v5.5-EXP FINAL"
+SPEC_VERSION = "v5.6-EXP FINAL"
 
-SPEC_REVISION = "Rev.7"
+SPEC_REVISION = "Rev.11-IMPLEMENTATION-READY"
 
 # === ПУТИ ===
 
@@ -458,7 +460,7 @@ def set_seed(seed=None):
 
     """
 
-    Полный контроль энтропии [Rev.7].
+    Полный контроль энтропии [Rev.11].
 
     Фиксируем все глобальные ГПСЧ. Для детерминированных операций
 
@@ -498,7 +500,7 @@ def create_deterministic_generator(seed=None):
 
     """
 
-    [Rev.7] Инвариант полного контроля энтропии.
+    [Rev.11] Инвариант полного контроля энтропии.
 
     Возвращает отдельный torch.Generator для данного сида.
 
@@ -522,7 +524,7 @@ def get_checkpoint_metadata(seed=None, experiment_id="", iteration=0, best_loss=
 
     """
 
-    [Rev.7] Обязательные метаданные чекпоинта.
+    [Rev.11] Обязательные метаданные чекпоинта.
 
     Каждый чекпоинт обязан содержать этот словарь.
 
@@ -568,13 +570,61 @@ def get_checkpoint_metadata(seed=None, experiment_id="", iteration=0, best_loss=
 
     }
 
+def assert_checkpoint_compatible(checkpoint, allow_missing_metadata=False, context=""):
+
+    """
+
+    [Rev.11] §13.5: чекпоинты разных версий спецификации НЕ смешиваются.
+
+    Базлайн молча предупреждал и продолжал загружать чужие веса — это
+
+    делало результаты невоспроизводимыми. Теперь — отказ загрузки.
+
+    """
+
+    if not isinstance(checkpoint, dict):
+
+        raise TypeError("checkpoint должен быть dict с метаданными.")
+
+    metadata = checkpoint.get("metadata") or {}
+
+    version = metadata.get("spec_version")
+
+    if version is None:
+
+        if allow_missing_metadata:
+
+            return
+
+        raise RuntimeError(
+
+            f"Чекпоинт без метаданных spec_version ({context or 'контекст не указан'}); "
+
+            f"загрузка запрещена §13.5."
+
+        )
+
+    if version != SPEC_VERSION:
+
+        raise RuntimeError(
+
+            f"Несовместимая версия чекпоинта: {version} (ревизия "
+
+            f"{metadata.get('revision', '?')}), активная спецификация — "
+
+            f"{SPEC_VERSION} ({SPEC_REVISION}). Откатитесь на matching-баслайну "
+
+            f"вес или переобучите (§13)."
+
+        )
+
 def validate():
 
     """
 
     Проверяет все абсолютные правила.
 
-    [v5.5-EXP FINAL Rev.7]: полная валидация.
+    [v5.6-EXP FINAL Rev.11]: полная валидация.
 
     """
 
@@ -732,7 +782,7 @@ def validate():
 
     assert BOUNDARY_MODE == "constant", (
 
-        "В v5.5-EXP FINAL BOUNDARY_MODE должен быть 'constant', "
+        "В v5.6-EXP FINAL BOUNDARY_MODE должен быть 'constant', "
 
         "иначе NCA-физика и scipy-топология могут расходиться."
 

@@ -2,7 +2,7 @@
 
 bridge.py — Мост между симулятором и когнитивным контуром.
 
-[v5.5-EXP FINAL Rev.7]
+[v5.6-EXP FINAL Rev.11]
 
 Использует единый валидатор для всех проверок бюджета.
 
@@ -924,7 +924,7 @@ def apply_action(
 
         changes["DT"] = {"old": old, "new": new_val}
 
-        # Явные поля отката (Rev.7).
+        # Явные поля отката (Rev.11).
 
         result["rollback_state"] = {
 

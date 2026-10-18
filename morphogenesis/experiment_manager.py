@@ -2,7 +2,7 @@
 
 experiment_manager.py — Управление серией экспериментов.
 
-[v5.5-EXP FINAL Rev.7]
+[v5.6-EXP FINAL Rev.11]
 
 Первичные эндпоинты:
 
@@ -232,19 +232,43 @@ def bootstrap_ci(a, b, n_resamples=10000, ci=0.95, seed=42):
 
 def validate_checkpoint(checkpoint, expected_grid_size=None):
 
+    """
+
+    [Rev.11] §13.5: чужая версия спецификации — отказ загрузки (не предупреждение).
+
+    Дополнительно: grid_size может лежать как в корне чекпоинта, так и в
+
+    metadata (пишется get_checkpoint_metadata) — проверяем оба размещения.
+
+    """
+
     if "model_state_dict" not in checkpoint:
 
         return False, "Отсутствует ключ: model_state_dict"
 
-    if expected_grid_size and "grid_size" in checkpoint:
+    metadata = checkpoint.get("metadata") or {}
 
-        if checkpoint["grid_size"] != expected_grid_size:
+    version = metadata.get("spec_version", checkpoint.get("spec_version"))
+
+    if version is not None and version != config.SPEC_VERSION:
+
+        return False, (
+
+            f"Несовместимая версия чекпоинта: {version}, активная — "
+
+            f"{config.SPEC_VERSION} (§13.5)"
+
+        )
+
+    grid_size = checkpoint.get("grid_size", metadata.get("grid_size"))
+
+    if expected_grid_size and grid_size is not None:
+
+        if grid_size != expected_grid_size:
 
             return False, (
 
-                f"Несовместимый grid_size: "
-
-                f"чекпоинт={checkpoint['grid_size']}, "
+                f"Несовместимый grid_size: чекпоинт={grid_size}, "
 
                 f"конфиг={expected_grid_size}"
 
@@ -598,7 +622,7 @@ class ExperimentManager:
 
         stress = compute_stress_summary(state)
 
-        saturation_ok = stress["saturated_fraction"] < 0.5
+        saturation_ok = stress["saturation_fraction"] < 0.5
 
         density_ok = 0.001 <= topo["density"] <= 0.95
 
@@ -1638,7 +1662,7 @@ class ExperimentManager:
 
     def run_all(self):
 
-        self.log("ALL", "=== ЗАПУСК ЭКСПЕРИМЕНТОВ v5.5-EXP FINAL Rev.7 ===")
+        self.log("ALL", "=== ЗАПУСК ЭКСПЕРИМЕНТОВ v5.6-EXP FINAL Rev.11 ===")
 
         results = {}
 

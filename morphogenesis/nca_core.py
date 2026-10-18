@@ -2,7 +2,7 @@
 
 nca_core.py — Ядро Нейроклеточного Автомата.
 
-[v5.5-EXP FINAL] Rev.7
+[v5.6-EXP FINAL] Rev.11
 
 Ключевые требования:
 
@@ -114,7 +114,7 @@ class NeuralCellularAutomaton(nn.Module):
 
     """
 
-    [v5.5-EXP FINAL Rev.7]
+    [v5.6-EXP FINAL Rev.11]
 
     - alive_mask_enabled вместо _current_iteration;
 
@@ -172,11 +172,35 @@ class NeuralCellularAutomaton(nn.Module):
 
         self.generator = None
 
+        # [Rev.11] Целевая маска для диагностического «Оракула» (STRESS_TARGET_ERROR_MODE).
+
+        # По умолчанию отсутствует: биологический контур не имеет доступа к цели.
+
+        self._target_mask = None
+
     def set_generator(self, generator):
 
-        """[Rev.7] Привязка детерминированного генератора к модели."""
+        """[Rev.11] Привязка детерминированного генератора к модели."""
 
         self.generator = generator
+
+    def set_target_mask(self, target_mask):
+
+        """
+
+        [Rev.11] Явная передача цели для диагностического режима «Оракул».
+
+        Вызывается ТОЛЬКО из обучающего/диагностического кода и никогда
+
+        из экспериментального инференса (см. §6.3, STRESS_INFERENCE_LOCK).
+
+        """
+
+        if target_mask is not None and not isinstance(target_mask, torch.Tensor):
+
+            raise TypeError("target_mask должен быть torch.Tensor или None.")
+
+        self._target_mask = target_mask
 
     def _rand_like(self, template):
 
@@ -212,13 +236,19 @@ class NeuralCellularAutomaton(nn.Module):
 
         update = base_delta
 
-        if stochastic and self.training:
+        # [Rev.11] §4.5: стохастическое обновление встроено в forward ЯВНО и
+
+        # не зависит от self.training — иначе поведение на обучении и в
+
+        # экспериментах/оценке расходится (один и тот же сид даёт другую динамику).
+
+        if stochastic:
 
             random_mask = (self._rand_like(update) < config.UPDATE_PROB).float()
 
             update = update * random_mask
 
-        # === ВАЖНО [v5.5]: life_support_mask считается ДО обновления. ===
+        # === ВАЖНО [v5.6]: life_support_mask считается ДО обновления. ===
 
         # Это запрещает самовоскрешение из пустоты.
 
@@ -320,7 +350,7 @@ class NeuralCellularAutomaton(nn.Module):
 
         """
 
-        Системное обновление стресс-канала [v5.5 Rev.7].
+        Системное обновление стресс-канала [v5.6 Rev.11].
 
         Всегда возвращает тензор стресса формы (B, 1, H, W).
 
@@ -424,6 +454,14 @@ class NeuralCellularAutomaton(nn.Module):
 
         Возвращает тензор той же формы, что и стресс.
 
+        [Rev.11] «Оракул» требует ЯВНО переданной целевой маски. Молчаливый
+
+        откат на девиационный источник запрещён: режим и так помечен как
+
+        небиологический, а подмена источника стресса внутри него делала
+
+        абляцию нечитаемой (в базлайне `_target_mask` не выставлялся нигде).
+
         """
 
         # Целевая маска может быть установлена извне (например, из когнитивного цикла).
@@ -432,17 +470,17 @@ class NeuralCellularAutomaton(nn.Module):
 
         if target is None:
 
-            # Нет цели — падаем в девиационный источник.
+            raise RuntimeError(
 
-            delta_masked = (state * life_support_mask.float())
+                "STRESS_TARGET_ERROR_MODE=True, но целевая маска не передана "
 
-            delta_for_stress = delta_masked.clone()
+                "в model.set_target_mask(...). Диагностический «Оракул» требует "
 
-            delta_for_stress[:, config.STRESS_CHANNEL, :, :] = 0.0
+                "явного знания цели; включите STRESS_TARGET_ERROR_MODE=False, "
 
-            delta_norm = delta_for_stress.abs().mean(dim=1, keepdim=True)
+                "если нужен биологический девиационный источник стресса."
 
-            return torch.clamp(delta_norm - self.stress_ema, 0.0, config.STRESS_MAX)
+            )
 
         # Бинарная текущая маска (единое правило).
 
@@ -548,7 +586,7 @@ class NeuralCellularAutomaton(nn.Module):
 
         Сглаживание 3×3 для диффузии стресса.
 
-        ВАЖНО [v5.5]: используется reflect-паддинг, чтобы края не были стоками.
+        ВАЖНО [v5.6]: используется reflect-паддинг, чтобы края не были стоками.
 
         """
 
@@ -788,7 +826,7 @@ class StatePool:
 
     Пул состояний.
 
-    [v5.5 Rev.7]: поддерживает детерминированный генератор.
+    [v5.6 Rev.11]: поддерживает детерминированный генератор.
 
     """
 
@@ -803,6 +841,10 @@ class StatePool:
         self.states = [init_state(device=device, generator=generator) for _ in range(size)]
 
         self.ages = [0] * size
+
+        # [Rev.11] Счётчик шагов симуляции для ПРАВИЛА 29 (привязка сброса к sim_step).
+
+        self.last_reset_sim_step = 0
 
     def set_generator(self, generator):
 
@@ -862,9 +904,27 @@ class StatePool:
 
         Периодический сброс.
 
-        ПРАВИЛО 29: привязка к sim_step, а не к step.
+        ПРАВИЛО 29 [Rev.11]: привязка к sim_step, а не к step.
+
+        sim_step — накопленное число шагов симуляции (unroll-ы), а не номер
+
+        итерации оптимизатора. Сброс happens не чаще STATE_RESET_EVERY
+
+        шагов симуляции.
 
         """
+
+        sim_step = int(sim_step)
+
+        due = sim_step - self.last_reset_sim_step >= config.STATE_RESET_EVERY
+
+        if due:
+
+            self.replace_all_fresh()
+
+            self.last_reset_sim_step = sim_step
+
+        # Страхующий сброс пересидевших слотов (защита от застоя пула).
 
         for i in range(self.size):
 
@@ -904,6 +964,8 @@ class StatePool:
 
             "ages": self.ages,
 
+            "last_reset_sim_step": int(self.last_reset_sim_step),
+
         }
 
     def load_state_dict(self, state_dict):
@@ -913,3 +975,7 @@ class StatePool:
             self.states[i] = s.to(self.device)
 
         self.ages = state_dict["ages"]
+
+        # [Rev.11] Старые чекпоинты могут не содержать счётчик — это совместимо.
+
+        self.last_reset_sim_step = int(state_dict.get("last_reset_sim_step", 0))

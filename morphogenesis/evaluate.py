@@ -2,7 +2,7 @@
 
 evaluate.py — Визуализация, оценка и морфогенетические вмешательства.
 
-[v5.5-EXP FINAL Rev.7]
+[v5.6-EXP FINAL Rev.11]
 
 Ключевые требования:
 
@@ -94,7 +94,7 @@ def compute_stress_summary(state):
 
     Сводка по стресс-каналу.
 
-    [Rev.7]: добавлен saturation_fraction.
+    [Rev.11]: добавлен saturation_fraction.
 
     """
 
@@ -110,7 +110,9 @@ def compute_stress_summary(state):
 
             "std": 0.0,
 
-            "saturated_fraction": 0.0,
+            "saturation_fraction": 0.0,
+
+            "saturated_fraction": 0.0,  # legacy-алиас
 
         }
 
@@ -140,7 +142,9 @@ def compute_stress_summary(state):
 
         "std": std,
 
-        "saturated_fraction": saturated_fraction,
+        "saturation_fraction": saturated_fraction,
+
+        "saturated_fraction": saturated_fraction,  # legacy-алиас
 
     }
 
@@ -234,7 +238,7 @@ def compute_lyapunov_exponent(model, state, steps=100, eps=1e-3):
 
     - Логируется число пропущенных шагов.
 
-    [Rev.7]: если пропущено более 50% шагов, результат считается ненадёжным.
+    [Rev.11]: если пропущено более 50% шагов, результат считается ненадёжным.
 
     """
 
@@ -320,7 +324,7 @@ def evaluate_model(model, state, target, n_steps=100):
 
     Оценка модели.
 
-    [v5.5-EXP FINAL Rev.7]:
+    [v5.6-EXP FINAL Rev.11]:
 
     - model.eval();
 
@@ -650,7 +654,7 @@ def inject_morphogen(
 
     Локальная инъекция морфогена в скрытый канал.
 
-    [v5.5-EXP FINAL Rev.7]
+    [v5.6-EXP FINAL Rev.11]
 
     Правила:
 
@@ -888,7 +892,7 @@ def apply_aging_noise(state, noise_std=None, generator=None):
 
     Каналы 0, 1 и стресс-канал не шумятся напрямую.
 
-    [Rev.7]: поддержка детерминированного генератора.
+    [Rev.11]: поддержка детерминированного генератора.
 
     """
 
@@ -976,7 +980,7 @@ def run_aging_protocol(
 
     - стресс.
 
-    [Rev.7]: пре-регистрированные пороги деградации.
+    [Rev.11]: пре-регистрированные пороги деградации.
 
     """
 

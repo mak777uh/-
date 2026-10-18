@@ -2,7 +2,7 @@
 
 train.py — Основной цикл обучения с Truncated BPTT.
 
-[v5.5-EXP FINAL Rev.7]
+[v5.6-EXP FINAL Rev.11]
 
 Ключевые требования:
 
@@ -114,7 +114,7 @@ def compute_loss(state, target, model, l1_weight=config.L1_REG_WEIGHT):
 
     Delta считается С ГРАДИЕНТАМИ.
 
-    [v5.5-EXP FINAL Rev.7]:
+    [v5.6-EXP FINAL Rev.11]:
 
     - Супервизия альфа-канала.
 
@@ -312,23 +312,17 @@ def train(resume_from=None, experiment_id="E02", seed=None):
 
             )
 
-        # Загрузка с метаданными.
+        # Загрузка с метаданными [Rev.11] §13.5: чужая версия — отказ загрузки.
 
-        if "metadata" in checkpoint:
+        config.assert_checkpoint_compatible(
 
-            metadata = checkpoint["metadata"]
+            checkpoint,
 
-            if metadata.get("spec_version") != config.SPEC_VERSION:
+            allow_missing_metadata=True,
 
-                print(
+            context=f"train.resume({resume_from})",
 
-                    f"⚠️ Предупреждение: чекпоинт имеет версию "
-
-                    f"{metadata.get('spec_version')}, "
-
-                    f"ожидалась {config.SPEC_VERSION}"
-
-                )
+        )
 
         model.load_state_dict(checkpoint["model_state_dict"])
 
@@ -398,6 +392,12 @@ def train(resume_from=None, experiment_id="E02", seed=None):
 
     nan_count = 0
 
+    # [Rev.11] ПРАВИЛО 29: сброс пула привязан к накопленным шагам СИМУЛЯЦИИ,
+
+    # а не к номеру итерации оптимизатора.
+
+    sim_steps_accumulated = start_iteration * get_current_unroll(start_iteration)
+
     model.train()
 
     for iteration in range(start_iteration, config.TOTAL_TRAIN_ITERS + 1):
@@ -406,6 +406,7 @@ def train(resume_from=None, experiment_id="E02", seed=None):
 
         unroll = get_current_unroll(iteration)
 
+        sim_steps_accumulated += unroll
         if config.ALIVE_WARMUP_ITERS > 0 and iteration == config.ALIVE_WARMUP_ITERS:
 
             pool.replace_all_fresh()
@@ -466,6 +467,14 @@ def train(resume_from=None, experiment_id="E02", seed=None):
 
                     )
 
+                    config.assert_checkpoint_compatible(
+
+                        ckpt,
+
+                        context="train.nan_rollback",
+
+                    )
+
                     model.load_state_dict(ckpt["model_state_dict"])
 
                     optimizer.load_state_dict(ckpt["optimizer_state_dict"])
@@ -502,7 +511,7 @@ def train(resume_from=None, experiment_id="E02", seed=None):
 
         pool.update(state, pool_idx)
 
-        pool.maybe_reset(iteration)
+        pool.maybe_reset(sim_steps_accumulated)
 
         check_memory()
 

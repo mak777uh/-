@@ -1,0 +1,19 @@
+# CUDA-окружение для PROJECT MORPHOGENESIS (спека §9.1: ≤8 ГБ VRAM).
+#
+# Установка (Windows, PowerShell / bash):
+#   python -m venv .venv
+#   .venv\Scripts\python.exe -m pip install -U pip
+#   .venv\Scripts\python.exe -m pip install --index-url https://download.pytorch.org/whl/cu124 \
+#       --extra-index-url https://pypi.org/simple -r morphogenesis/requirements-cuda.txt
+#
+# Если для вашей версии Python нет wheel'а cu124, возьмите доступный CUDA-вариант
+# (см. https://pytorch.org/get-started/locally/) — например cu126/cu128.
+# ВАЖНО: torch обязан быть CUDA-сборкой, иначе §9.2 (детерминизм CUDA) не проверяем.
+
+torch==2.6.0+cu124
+torchvision==0.21.0+cu124
+
+# Общие зависимости (ядро) — requirements.txt в этом же каталоге
+-r requirements.txt
+
+# llama-cpp-python>=0.2.0  # локальный LLM-бэкенд: слой 5 (cortex), в MVP не устанавливается

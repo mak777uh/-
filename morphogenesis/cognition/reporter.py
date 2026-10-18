@@ -2,7 +2,7 @@ r"""
 
 reporter.py — Система отчётности.
 
-[v5.5-EXP FINAL Rev.7]
+[v5.6-EXP FINAL Rev.11]
 
 ВАЖНО:
 
@@ -246,7 +246,7 @@ class Reporter:
 
                     f"| Максимальный | {self._safe_float(stress_summary.get('max', 0)):.3f} |",
 
-                    f"| Насыщение | {self._safe_float(stress_summary.get('saturated_fraction', 0)):.3f} |",
+                    f"| Насыщение | {self._safe_float(stress_summary.get('saturation_fraction', stress_summary.get('saturated_fraction', 0))):.3f} |",
 
                 ]
 

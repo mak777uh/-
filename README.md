@@ -4,7 +4,7 @@
 
 Проект реализует инженерную модель идей Майкла Левина о биологической «целенаправленности»: локальные клетки без глобального плана, стресс как сигнал рассогласования с целевой морфологией и экономия вмешательств («ленивый агент»), которая заставляет систему достигать цели минимальными действиями.
 
-> Спецификация: **v5.5-EXP FINAL**, ревизия **Rev.7** (`Stress, Teleonomy Lite, Intervention Economy`).
+> Спецификация: **v5.6-EXP FINAL**, ревизия **Rev.11-IMPLEMENTATION-READY** (`Stress, Teleonomy Lite, Intervention Economy`).
 
 ## Содержание
 
@@ -86,7 +86,6 @@
 │   ├── evaluate.py             # оценка, визуализация, вмешательства
 │   ├── experiment_manager.py   # серия экспериментов E01–E07
 │   ├── smoke_test.py           # быстрая проверка работоспособности
-│   ├── requirements.txt        # зависимости
 │   ├── cognition/              # когнитивный контур
 │   │   ├── protocol.py
 │   │   ├── agent_backends.py
@@ -95,23 +94,42 @@
 │   │   ├── cognitive_loop.py
 │   │   ├── memory_manager.py
 │   │   └── reporter.py
+│   ├── utils/                  # детерминизм, логирование, статистика
 │   ├── tests/                  # модульные тесты (pytest)
-│   ├── memory/                 # goal_state.json, hypotheses.md
-│   ├── checkpoints/            # сохранённые веса
-│   ├── logs/                   # TensorBoard и JSONL-логи
-│   ├── outputs/                # кадры и результаты оценки
-│   └── experiments/            # результаты экспериментов
-└── спецификация исследования, проверка гипотез Майкла Левина (30|31).md
+│   ├── memory/                 # hypotheses.md, decisions_log.jsonl, goal_state.json
+│   ├── checkpoints/            # сохранённые веса (в git не попадают)
+│   ├── logs/                   # TensorBoard и JSONL-логи (в git не попадают)
+│   ├── outputs/                # кадры и результаты оценки (в git не попадают)
+│   └── experiments/            # результаты экспериментов (results.json, journal.jsonl)
+├── docs/spec/
+│   ├── MORPHOGENESIS_v5.6_Rev11.md   # АКТИВНАЯ спецификация (единственный источник истины)
+│   └── archived/                     # замороженные ревизии, использовать запрещено (§0.2)
+├── requirements.txt            # зависимости (CPU-ядро)
+├── requirements-cuda.txt       # CUDA-сборка torch для RTX 3070 (§9.1)
+├── pyproject.toml              # пакет + конфигурация pytest/ruff
+├── run_tests.py                # локальный «CI»: pytest + smoke_test
+└── LICENSE
 ```
 
 ## Установка
 
-Требуется Python 3.12 и (опционально) CUDA.
+Требуется Python 3.11+ и (для проверки детерминизма §9.2) CUDA-сборка torch.
 
 ```bash
 git clone https://github.com/mak777uh/-.git morphogenesis-repo
-cd morphogenesis-repo/morphogenesis
-pip install -r requirements.txt
+cd morphogenesis-repo
+python -m venv .venv
+# CPU (тесты и диагностика):
+.venv/Scripts/pip install -r requirements.txt
+# GPU RTX 3070 8GB (обучение, §9.1-9.2):
+.venv/Scripts/pip install --index-url https://download.pytorch.org/whl/cu124 --extra-index-url https://pypi.org/simple -r requirements-cuda.txt
+```
+
+Локальный «CI» (из корня репозитория):
+
+```bash
+python run_tests.py           # pytest + smoke_test
+python run_tests.py --quick   # только pytest
 ```
 
 ## Быстрый старт
@@ -128,8 +146,10 @@ python smoke_test.py
 
 ```bash
 python train.py --experiment E02 --seed 42
-# возобновить из чекпоинта:
+# возобновить из чекпоинта этой же версии спецификации:
 python train.py --resume checkpoints/E02_seed0_stress1/nca_best.pt
+# Чекпоинты v5.5 (в т.ч. лежащие локально в checkpoints/E02_seed0_stress1/) не загружаются:
+# §13.5 запрещает смешивать веса разных ревизий, check-guard поднимет RuntimeError.
 ```
 
 Когнитивный контур (название фазы, общее число шагов, интервал отчётов):
@@ -182,14 +202,11 @@ python -m pytest tests/ -p no:libtmux -v
 
 ## Зависимости
 
-- `torch >= 2.0.0`
-- `numpy >= 1.24.0`
-- `scipy >= 1.10.0`
-- `matplotlib >= 3.7.0`
-- `tensorboard >= 2.13.0`
-- `llama-cpp-python >= 0.2.0` *(опционально, для локальной LLM)*
-- `pytest >= 7.0.0` *(для тестов)*
+Пинованы в `requirements.txt` (CPU-ядро) и `requirements-cuda.txt` (CUDA-сборка torch):
+
+- `torch` (CPU или `+cu124`), `numpy`, `scipy`, `matplotlib`, `tensorboard`, `pytest`
+- `llama-cpp-python` — НЕ входит в MVP: локальный LLM-бэкенд относится к слою 5 (кора) и подключается только после прохода гейтов слоёв 0–2 (§1.8, §19.6).
 
 ## Лицензия
 
-Лицензия пока не выбрана. Добавьте файл `LICENSE`, чтобы явно указать условия использования.
+MIT (см. `LICENSE`).

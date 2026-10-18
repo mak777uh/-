@@ -1,0 +1,42 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "morphogenesis"
+version = "5.6.0"
+description = "Проверка гипотез Майкла Левина: NCA + стресс-канал + когнитивный агент (спецификация v5.6-EXP FINAL Rev.11)"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "mak777uh" }]
+dependencies = [
+    "numpy==1.26.4",
+    "scipy==1.11.4",
+    "matplotlib==3.8.4",
+    "tensorboard==2.16.2",
+    "pytest==8.2.0",
+]
+
+[project.optional-dependencies]
+# CUDA-сборка для RTX 3070 8ГБ; ставится отдельным шагом (см. requirements-cuda.txt),
+# чтобы не тянуть ~3ГБ при установке только для CPU-тестов.
+cuda = ["torch==2.5.1+cu124", "torchvision==0.20.1+cu124"]
+cpu = ["torch==2.5.1", "torchvision==0.20.1"]
+dev = ["ruff==0.4.8"]
+
+[tool.setuptools]
+packages = ["morphogenesis", "morphogenesis.cognition", "morphogenesis.utils"]
+
+[tool.pytest.ini_options]
+testpaths = ["morphogenesis/tests"]
+python_files = ["test_*.py"]
+addopts = "-q --strict-markers -p no:cacheprovider"
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "B"]
+ignore = ["E501", "B008"]

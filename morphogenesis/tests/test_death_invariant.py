@@ -2,7 +2,7 @@
 
 test_death_invariant.py — Тесты смерть-инварианта.
 
-[v5.5-EXP FINAL Rev.7]
+[v5.6-EXP FINAL Rev.11]
 
 Проверяет:
 

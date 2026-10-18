@@ -2,7 +2,7 @@
 
 target_patterns.py — Создание целевых паттернов.
 
-[v5.5-EXP FINAL Rev.7]
+[v5.6-EXP FINAL Rev.11]
 
 Совместимость:
 

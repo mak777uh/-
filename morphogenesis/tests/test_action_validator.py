@@ -2,7 +2,7 @@
 
 test_action_validator.py — Тесты единого валидатора действий.
 
-[v5.5-EXP FINAL Rev.7] ПРАВИЛО 34
+[v5.6-EXP FINAL Rev.11] ПРАВИЛО 34
 
 Проверяет:
 

@@ -1,4 +1,3 @@
-```
 # Python
 __pycache__/
 *.py[cod]
@@ -11,22 +10,51 @@ dist/
 downloads/
 eggs/
 .eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
+# NOTE: lib/, var/ и подобные паттерны нужны только для build-артефактов,
+# но они могли бы проглотить исходники проекта (morphogenesis/utils/...).
+# Ограничиваем их корнем репозитория.
+/lib/
+/lib64/
+/parts/
+/sdist/
+/var/
+/wheels/
 *.egg-info/
 .installed.cfg
 *.egg
 
-# Images/Outputs (from experiments and outputs)
-morphogenesis/experiments/*/frame_*.png
-morphogenesis/outputs/frames/
+# Виртуальные окружения
+.venv/
+venv-cuda/
+env/
+bin/
+include/
+pyvenv.cfg
 
-# Logs
+# Веса и чекпоинты моделей (политика отката §13: хранятся локально, не в git)
+*.pt
+*.pth
+*.ckpt
+
+# TensorBoard
+*/logs/
+logs/
+*.tfevents*
+events.out.tfevents.*
+
+# Кадры и выходные артефакты прогонов
+morphogenesis/outputs/frames/
+morphogenesis/outputs/cognition_frames/
+morphogenesis/outputs/eval/
+morphogenesis/experiments/*/frame_*.png
+
+# Логи прогонов
 *.log
+morphogenesis/logs/*.jsonl
+
+# Преходящее runtime-состояние (не знание агента)
+morphogenesis/memory/current_state.json
+morphogenesis/reports/
 
 # Environment
 .env
@@ -43,4 +71,10 @@ coverage.xml
 # Testing
 .pytest_cache/
 .hypothesis/
-```
+
+# IDE / OS
+.idea/
+.vscode/
+*.swp
+Thumbs.db
+.DS_Store

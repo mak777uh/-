@@ -2,7 +2,7 @@
 
 cognitive_loop.py — Главный цикл когнитивного контура.
 
-[v5.5-EXP FINAL Rev.7]
+[v5.6-EXP FINAL Rev.11]
 
 Запуск:
 
@@ -19,6 +19,8 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 import torch
+
+import numpy as np
 
 import config
 
@@ -1360,27 +1362,25 @@ def run_cognitive_experiment(
 
     )
 
-    # Проверка метаданных чекпоинта.
+    # Проверка метаданных чекпоинта [Rev.11] §13.5: чужая версия — отказ, не предупреждение.
 
-    metadata = checkpoint.get("metadata", {})
+    config.assert_checkpoint_compatible(
 
-    if metadata.get("spec_version") != config.SPEC_VERSION:
+        checkpoint,
 
-        print(
+        context="cognitive_loop.load_checkpoint",
 
-            f"⚠️ Предупреждение: чекпоинт имеет версию "
+    )
 
-            f"{metadata.get('spec_version')}, "
+    metadata = checkpoint.get("metadata") or {}
 
-            f"ожидалась {config.SPEC_VERSION}"
-
-        )
-
-    if metadata.get("grid_size") != config.GRID_SIZE:
+    if metadata.get("grid_size", checkpoint.get("grid_size")) != config.GRID_SIZE:
 
         raise ValueError(
 
-            f"Несовместимый чекпоинт: grid_size={metadata.get('grid_size')}, "
+            f"Несовместимый чекпоинт: grid_size="
+
+            f"{metadata.get('grid_size', checkpoint.get('grid_size'))}, "
 
             f"конфиг={config.GRID_SIZE}"
 

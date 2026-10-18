@@ -2,7 +2,7 @@
 
 smoke_test.py — Сухая проверка перед запуском.
 
-[v5.5-EXP FINAL Rev.7]
+[v5.6-EXP FINAL Rev.11]
 
 Расширенные проверки:
 
@@ -408,7 +408,7 @@ def smoke_test():
 
     print("=" * 60)
 
-    print("SMOKE TEST v5.5-EXP FINAL Rev.7")
+    print("SMOKE TEST v5.6-EXP FINAL Rev.11")
 
     print("=" * 60)
 
