@@ -51,6 +51,19 @@ morphogenesis/experiments/*/frame_*.png
 # Логи прогонов
 *.log
 morphogenesis/logs/*.jsonl
+# Преходящий stdout диагностических прогонов (перенаправление `> logs_gate_*.txt`,
+# `> logs_wp4_*.txt`); воспроизводится командами `python gate_layer1.py` и
+# `python wp4_ablations.py`, в git не нужен — машинный результат лежит в
+# experiments/E02_pattern/*.json.
+morphogenesis/logs_gate_*.txt
+morphogenesis/logs_wp4_*.txt
+# То же, но перенаправленное в корень репозитория (`> ../logs_gate_800.txt`):
+# относительные пути в config.py привязаны к morphogenesis/, и stdout-лог легко
+# оказывается на уровень выше. Машинный результат лежит в experiments/*.json.
+/logs_gate_*.txt
+/logs_wp4_*.txt
+/pytest_*.txt
+/nohup.out
 
 # Преходящее runtime-состояние (не знание агента)
 morphogenesis/memory/current_state.json

@@ -60,29 +60,33 @@ from utils.determinism import randperm as _randperm
 
 class PerceptionLayer(nn.Module):
 
-    def __init__(self, channels, boundary_mode="constant"):
+    """
+
+    Восприятие без параметров (§12.2.2): окрестность Мура 3×3.
+
+    [v5.6 Rev.11] Здесь больше НЕТ обучаемого свёрточного слоя: в Rev.7/8
+
+    perception был Conv2d(C→C, 3×3), то есть клетка видела не соседей, а
+
+    их выученную линейную смесь, и «локальность» архитектуры была мнимой.
+
+    Теперь вход клетки — конкатенация 9 сдвигов состояния (9·C каналов),
+
+    а вся нелинейность живёт в CellBrain (§12.2.2).
+
+    Порядок каналов: (dy, dx) → блок из C каналов, т.е. канал k·C + c
+
+    соответствует соседу MOORE_NEIGHBOR_OFFSETS[k] и каналу c.
+
+    Граничные клетки видят «мёртвых» соседей как нули (constant-pad, §12.2.2).
+
+    """
+
+    def __init__(self, boundary_mode=config.BOUNDARY_MODE):
 
         super().__init__()
 
         self.boundary_mode = boundary_mode
-
-        self.conv = nn.Conv2d(
-
-            channels,
-
-            channels,
-
-            kernel_size=3,
-
-            padding=0,
-
-            bias=True,
-
-        )
-
-        nn.init.xavier_uniform_(self.conv.weight, gain=0.1)
-
-        nn.init.zeros_(self.conv.bias)
 
     def forward(self, state):
 
@@ -90,37 +94,117 @@ class PerceptionLayer(nn.Module):
 
             padded = F.pad(state, (1, 1, 1, 1), mode="circular")
 
+        elif self.boundary_mode == "reflect":
+
+            padded = F.pad(state, (1, 1, 1, 1), mode="reflect")
+
         else:
 
-            # ПРАВИЛО 23: восприятие использует constant.
+            # ПРАВИЛО 23 / §12.2.2: восприятие использует constant.
 
             padded = F.pad(state, (1, 1, 1, 1), mode="constant", value=0)
 
-        return self.conv(padded)
+        b, c, h, w = state.shape
+
+        views = []
+
+        for dy, dx in config.MOORE_NEIGHBOR_OFFSETS:
+
+            views.append(padded[:, :, 1 + dy:1 + dy + h, 1 + dx:1 + dx + w])
+
+        return torch.cat(views, dim=1)
+
+def apply_channel_dropout(perception, generator=None, draws=None):
+
+    """
+
+    §12.1.6 / §12.6.9: Channel Dropout только на восприятие.
+
+    Обнуляются ВСЕ 9 копий одного канала состояния (k·C + c для всех k),
+
+    иначе клетка продолжала бы видеть этот канал через других соседей.
+
+    Запрещено применять к состоянию перед backward (§12.1.6).
+
+    draws — готовый вектор равномерных чисел (нужен для репоя стохастики при
+
+    градиентном чекпоинтинге); если None, рисуется локальным генератором.
+
+    """
+
+    if not config.CHANNEL_DROPOUT_ENABLED or not config.CHANNEL_DROPOUT_CHANNELS:
+
+        return perception
+
+    channels = config.N_CHANNELS
+
+    b, pc, h, w = perception.shape
+
+    n_blocks = pc // channels
+
+    dropout_channels = [int(c) for c in config.CHANNEL_DROPOUT_CHANNELS if 0 <= int(c) < channels]
+
+    if not dropout_channels:
+
+        return perception
+
+    # Один векторный рисунок на шаг — детерминированно и дёшево.
+
+    if draws is None:
+
+        draws = _rand(
+
+            (len(dropout_channels),),
+
+            generator=generator,
+
+            device="cpu",
+
+            dtype=torch.float32,
+
+        )
+
+    drop = (draws < config.CHANNEL_DROPOUT_PROB)
+
+    keep = torch.ones(pc, device=perception.device, dtype=perception.dtype)
+
+    for k_pos, channel in enumerate(dropout_channels):
+
+        if bool(drop[k_pos]):
+
+            for block in range(n_blocks):
+
+                keep[block * channels + channel] = 0.0
+
+    return perception * keep.view(1, pc, 1, 1)
 
 class CellBrain(nn.Module):
 
     """
 
+    §12.2.2: Conv2d 9C→hidden→hidden→C со kernel_size=1 (все 1×1).
+
     Последний слой инициализируется НУЛЯМИ — система стартует из покоя.
 
     """
 
-    def __init__(self, channels, hidden=64):
+    def __init__(self, channels=config.N_CHANNELS, hidden_dim=config.CELL_BRAIN_HIDDEN_DIM):
 
         super().__init__()
 
+        self.input_channels = config.CELL_BRAIN_INPUT_CHANNELS
+
         self.net = nn.Sequential(
 
-            nn.Conv2d(channels, hidden, kernel_size=1),
+            nn.Conv2d(self.input_channels, hidden_dim, kernel_size=1),
 
             nn.ReLU(),
 
-            nn.Conv2d(hidden, hidden, kernel_size=1),
+            nn.Conv2d(hidden_dim, hidden_dim, kernel_size=1),
 
             nn.ReLU(),
 
-            nn.Conv2d(hidden, channels, kernel_size=1),
+            nn.Conv2d(hidden_dim, channels, kernel_size=1),
 
         )
 
@@ -128,9 +212,97 @@ class CellBrain(nn.Module):
 
         nn.init.zeros_(self.net[-1].bias)
 
-    def forward(self, local_view):
+    def forward(self, perception):
 
-        return self.net(local_view)
+        """perception: (B, 9*C, H, W) -> delta: (B, C, H, W)."""
+
+        return self.net(perception)
+
+class AliveSTE(torch.autograd.Function):
+
+    """
+
+    §5.8: живая маска с жёстким forward и суррогатным градиентом в backward.
+
+    forward  — смерть-инвариант соблюдается строго: мёртвая клетка обнуляется
+
+               ЦЕЛИКОМ, включая стресс-канал (§5.7 Rev.11);
+
+    backward — вместо нулевой производной порога используется мягкий сигмоидный
+
+               суррогат с температурой ALIVE_SURROGATE_TAU, чтобы оптимизатор
+
+               не попадал в мёртвую зону по alive-каналу (главный механизм
+
+               death-spiral, из-за которого E02 складывался на ~30 итерации).
+
+    Предикат живости — канонический для проекта: sigmoid(alpha) > ALIVE_THRESHOLD
+
+    (совпадает с topology/evaluate/тестами; спека §5.1 пишет сравнение сырого
+
+    канала — отклонение зарегистрировано в decisions_log). Соответствующий
+
+    суррогат в alpha-пространстве: sigmoid(alpha / tau), т.к.
+
+    sigmoid(alpha) > 0.5 <=> alpha > 0.
+
+    """
+
+    @staticmethod
+
+    def forward(ctx, state, alive_channel, threshold):
+
+        alive_hard = (torch.sigmoid(alive_channel) > threshold).float()
+
+        ctx.save_for_backward(alive_channel)
+
+        ctx.threshold = threshold
+
+        return state * alive_hard
+
+    @staticmethod
+
+    def backward(ctx, grad_output):
+
+        (alive_channel,) = ctx.saved_tensors
+
+        tau = max(float(config.ALIVE_SURROGATE_TAU), 1e-6)
+
+        soft = torch.sigmoid(alive_channel / tau)
+
+        density = soft * (1.0 - soft) / tau
+
+        # Floor: глубоко мёртвая клетка обязана оставаться обучаемой (§5.8).
+
+        floor = max(float(getattr(config, "ALIVE_SURROGATE_GRAD_FLOOR", 0.0)), 0.0)
+
+        density = torch.clamp(density, min=floor)
+
+        # Градиент по состоянию проходит напрямую.
+
+        # Градиент по alive-каналу — через производную мягкой маски (§5.8).
+
+        grad_state = grad_output
+
+        grad_alive = grad_output.mean(dim=1, keepdim=True) * density
+
+        return grad_state, grad_alive, None
+
+def alive_hard_mask(state):
+
+    """Бинарная живость (B, 1, H, W): sigmoid(alive-канал) > порог."""
+
+    alpha = state[:, config.ALIVE_CHANNEL:config.ALIVE_CHANNEL + 1, :, :]
+
+    return (torch.sigmoid(alpha) > config.ALIVE_THRESHOLD).float()
+
+def enforce_alive_policy(state):
+
+    """§12.2.8: применить AliveSTE к состоянию."""
+
+    alive_channel = state[:, config.ALIVE_CHANNEL:config.ALIVE_CHANNEL + 1, :, :]
+
+    return AliveSTE.apply(state, alive_channel, config.ALIVE_THRESHOLD)
 
 class NeuralCellularAutomaton(nn.Module):
 
@@ -144,13 +316,19 @@ class NeuralCellularAutomaton(nn.Module):
 
     - мёртвая клетка без живых соседей не может самопроизвольно ожить;
 
+    - после каждого шага применяется AliveSTE (§5.7–5.8): мёртвая клетка
+
+      обнуляется целиком, включая стресс-канал;
+
     - системный стресс-канал с девиацией от EMA;
 
     - стресс не воскрешает мёртвые клетки;
 
     - поддержка режимов абляции / перемешивания / целевой ошибки / компрессии;
 
-    - детерминированный генератор для стохастики.
+    - детерминированный генератор для стохастики;
+
+    - резервирование каналов 12–14 (§3.5) и Channel Dropout (§12.1.6).
 
     """
 
@@ -160,15 +338,9 @@ class NeuralCellularAutomaton(nn.Module):
 
         self.channels = channels
 
-        self.perception = PerceptionLayer(
+        self.perception = PerceptionLayer(boundary_mode=config.BOUNDARY_MODE)
 
-            channels,
-
-            boundary_mode=config.BOUNDARY_MODE,
-
-        )
-
-        self.brain = CellBrain(channels)
+        self.brain = CellBrain(channels=channels)
 
         self.dt = config.DT
 
@@ -199,6 +371,19 @@ class NeuralCellularAutomaton(nn.Module):
         # По умолчанию отсутствует: биологический контур не имеет доступа к цели.
 
         self._target_mask = None
+
+        # [WP3] Реплей стохастики для градиентного чекпоинтинга.
+        #
+        # torch.utils.checkpoint при обратном проходе ПОВТОРНО выполняет forward.
+        # Если стохастические маски (channel dropout, update mask, шум
+        # резервирования) рисуются заново, то (а) градиент считается по ДРУГОЙ
+        # реализации шума, чем прямой проход, и (б) воспроизводимость прогона
+        # по §9.2 нарушается. Поэтому forward принимает noise_key: все рисования
+        # одного шага кэшируются по этому ключу и на рекомпьюте берутся из
+        # кэша. Ключ присваивает run_steps монотонно, т.е. он сам детерминирован.
+        self._noise_cache = {}
+        self._noise_key = None
+        self._noise_seq = 0
 
     def set_generator(self, generator):
 
@@ -244,31 +429,80 @@ class NeuralCellularAutomaton(nn.Module):
 
         return torch.rand_like(template)
 
-    def forward(self, state, stochastic=None):
+    def _draw(self, kind, shape, *, device, dtype, normal=False):
+
+        """
+
+        Единственная точка рисования случайных величин внутри forward (§9.2).
+
+        Локальный генератор + реплей по noise_key (см. __init__). kind обязан
+
+        быть уникальным в пределах одного шага.
+
+        """
+        op = _randn if normal else _rand
+        key = (self._noise_key, kind)
+        if self._noise_key is not None and key in self._noise_cache:
+            cached = self._noise_cache[key]
+            return cached.to(device=device, dtype=dtype)
+        value = op(tuple(shape), generator=self.generator, device=device, dtype=dtype)
+        if self._noise_key is not None:
+            self._noise_cache[key] = value.detach()
+        return value
+
+    def begin_segment(self):
+        """Новая серия шагов: кэш ремпья очищается, счётчик ключей сохраняется."""
+        self._noise_cache = {}
+
+    def allocate_keys(self, steps):
+        base = self._noise_seq
+        self._noise_seq += int(steps)
+        return base
+
+    def forward(self, state, stochastic=None, noise_key=None):
+
+        """
+
+        Один шаг NCA по псевдокоду §12.2.3 (без резонанса и gap junctions —
+
+        они относятся к слоям 4–5 и запрещены §1.8 до прохода гейтов).
+
+        Порядок: восприятие → dropout восприятия → delta → life-support → dt →
+
+        стресс → обновление → стохастический выбор клеток → кламп →
+
+        резервирование каналов → запись стресса → кламп → alive-политика.
+
+        """
+
+        if noise_key is None:
+            noise_key = self.allocate_keys(1)
+        self._noise_key = noise_key
 
         if stochastic is None:
 
-            stochastic = config.STOCHASTIC_UPDATE
+            stochastic = config.STOCHASTIC_UPDATE_ENABLED
 
-        local_view = self.perception(state)
+        # 1\. Восприятие: окрестность Мура 3×3, без обучаемых параметров.
 
-        raw_delta = self.brain(local_view)
+        perception = self.perception(state)
 
-        base_delta = torch.tanh(raw_delta)
+        # 2\. Channel Dropout ТОЛЬКО на восприятие (§12.1.6). В eval-режиме
 
-        update = base_delta
+        #    выключен: оценка должна быть детерминированной, а стохастика
 
-        # [Rev.11] §4.5: стохастическое обновление встроено в forward ЯВНО и
+        #    обучения не имеет права проникать в метрики экспериментов.
 
-        # не зависит от self.training — иначе поведение на обучении и в
+        if self.training and config.CHANNEL_DROPOUT_ENABLED:
+            n_drop = len([c for c in config.CHANNEL_DROPOUT_CHANNELS if 0 <= int(c) < self.channels])
+            draws = self._draw("channel_dropout", (n_drop,), device="cpu", dtype=torch.float32)
+            perception = apply_channel_dropout(perception, self.generator, draws=draws)
 
-        # экспериментах/оценке расходится (один и тот же сид даёт другую динамику).
+        # 3\. Модель клетки.
 
-        if stochastic:
+        raw_delta = self.brain(perception)
 
-            random_mask = (self._rand_like(update) < config.UPDATE_PROB).float()
-
-            update = update * random_mask
+        update = torch.tanh(raw_delta)
 
         # === ВАЖНО [v5.6]: life_support_mask считается ДО обновления. ===
 
@@ -284,11 +518,37 @@ class NeuralCellularAutomaton(nn.Module):
 
         local_dt = self._resolve_dt(state, life_support_mask, update)
 
-        # === Системное обновление стресс-канала. ===
+        # === Системное обновление стресс-канала (шаг 6 §12.2.3). ===
 
         stress_new = self._update_stress(state, life_support_mask, update)
 
+        # 4\. Обновление состояния.
+
         new_state = state + local_dt * update
+
+        # 5\. Стохастическое обновление (§4.5 Rev.11): mask выбирает КЛЕТКИ,
+
+        #    которые вообще обновляются на этом шаге:
+
+        #      new_state = torch.where(update_mask, new_state, state).
+
+        #    Раньше вместо этого обнулялась дельта с вероятностью UPDATE_PROB,
+
+        #    что семантически отличалось от «клетка не обновилась» и путало
+
+        #    frac_delta_nonzero с плотностью обновлений.
+
+        # [Rev.11] §4.5: не зависит от self.training — иначе поведение на
+
+        # обучении и в экспериментах расходится при одном и том же сиде.
+
+        if stochastic and config.STOCHASTIC_UPDATE_ENABLED:
+
+            update_mask = self._generate_update_mask(state, new_state)
+
+            new_state = torch.where(update_mask, new_state, state)
+
+        # 10\. Кламп (§3.7).
 
         new_state = torch.clamp(
 
@@ -299,6 +559,10 @@ class NeuralCellularAutomaton(nn.Module):
             config.STATE_CLAMP_MAX,
 
         )
+
+        # Резервирование каналов 12–14 (§3.5) — только на обучении.
+
+        new_state = self._apply_channel_reservation(new_state)
 
         # Канал 15 перезаписывается системным значением стресса.
 
@@ -316,7 +580,107 @@ class NeuralCellularAutomaton(nn.Module):
 
         )
 
+        # 11\. Alive-политика и смерть-инвариант (§5.7–5.8, §12.2.8):
+
+        # мёртвая клетка обнуляется ЦЕЛИКОМ, включая стресс-канал.
+
+        if self.alive_mask_enabled:
+
+            new_state = enforce_alive_policy(new_state)
+
         return new_state
+
+    def _generate_update_mask(self, state, template):
+
+        """
+
+        §4.5: булева маска клеток, обновляемых на этом шаге (доля UPDATE_FRACTION).
+
+        Форма (B, 1, H, W) — решение принимается на клетку, а не на канал.
+
+        """
+
+        b, _c, h, w = state.shape
+
+        draws = self._draw(
+            "update_mask",
+            (b, 1, h, w),
+            device=template.device,
+            dtype=template.dtype,
+        )
+
+        return draws < config.UPDATE_FRACTION
+
+    def _apply_channel_reservation(self, state):
+
+        """
+
+        §3.5: резервирование каналов 12–14 во время обучения базовой модели.
+
+        Каналы остаются доступными для ЧТЕНИЯ (это требование §12.6.8), но
+
+        случайно зануляются с вероятностью ENTRAINMENT_CHANNEL_DROPOUT_PROB
+
+        и получают ограниченный шум — так модель не может сделать из них
+
+        основную память целевой формы, и E08 останется измеримым.
+
+        Только self.training: на инференсе состояние обязано быть детерминированным.
+
+        """
+
+        if not config.ENTRAINMENT_CHANNEL_RESERVATION_ENABLED or not self.training:
+
+            return state
+
+        reserved = [int(c) for c in config.ENTRAINMENT_CHANNELS if 0 <= int(c) < self.channels]
+
+        if not reserved:
+
+            return state
+
+        draws = self._draw(
+            "reservation_keep",
+            (len(reserved),),
+            device="cpu",
+            dtype=torch.float32,
+        )
+
+        dropped = (draws < config.ENTRAINMENT_CHANNEL_DROPOUT_PROB)
+
+        keep = torch.ones(self.channels, device=state.device, dtype=state.dtype)
+
+        for pos, channel in enumerate(reserved):
+
+            if bool(dropped[pos]):
+
+                keep[channel] = 0.0
+
+        state = state * keep.view(1, -1, 1, 1)
+
+        std = float(config.ENTRAINMENT_CHANNEL_NOISE_STD)
+
+        if std > 0.0:
+
+            noise = torch.zeros_like(state)
+
+            for pos, channel in enumerate(reserved):
+
+                if bool(dropped[pos]):
+
+                    continue  # занулённый канал не нужно ещё и зашумлять
+
+                noise[:, channel:channel + 1] = self._draw(
+                    f"reservation_noise:{channel}",
+                    tuple(state[:, channel:channel + 1].shape),
+                    device=state.device,
+                    dtype=state.dtype,
+                    normal=True,
+                ) * std
+
+            state = state + noise
+
+        return state
 
     def _resolve_dt(self, state, life_support_mask, update):
 
@@ -574,11 +938,7 @@ class NeuralCellularAutomaton(nn.Module):
 
         """
 
-        alpha = state[:, config.ALIVE_CHANNEL:config.ALIVE_CHANNEL + 1, :, :]
-
-        alpha_prob = torch.sigmoid(alpha)
-
-        alive_binary = (alpha_prob > config.ALIVE_THRESHOLD).float()
+        alive_binary = alive_hard_mask(state)
 
         has_alive_neighbor = F.max_pool2d(
 
@@ -645,17 +1005,27 @@ class NeuralCellularAutomaton(nn.Module):
         return self.dt * torch.tanh(delta)
 
 def run_steps(model, state, steps):
+    """
+    Серия шагов с градиентами.
 
-    for _ in range(steps):
-
-        if torch.is_grad_enabled():
-
-            state = grad_checkpoint(model, state, use_reentrant=False)
-
-        else:
-
+    Ключи стохастики выделяются СЮДА, а не рисуются внутри forward: при
+    torch.utils.checkpoint forward выполняется дважды (прямой проход и рекомпьют
+    на backward), и без внешнего ключа маски обновлений/dropout/шума
+    перерисовывались бы заново — градиент считался бы по другой реализации шума,
+    а воспроизводимость прогона (§9.2) терялась бы.
+    """
+    use_checkpoint = bool(getattr(config, "GRAD_CHECKPOINTING", True))
+    if hasattr(model, "begin_segment"):
+        model.begin_segment()
+    base = model.allocate_keys(steps) if hasattr(model, "allocate_keys") else None
+    for i in range(steps):
+        key = None if base is None else base + i
+        if torch.is_grad_enabled() and use_checkpoint:
+            state = grad_checkpoint(model, state, None, key, use_reentrant=False)
+        elif key is None:
             state = model(state)
-
+        else:
+            state = model(state, noise_key=key)
     return state
 
 def run_steps_no_grad(model, state, steps):
@@ -738,7 +1108,7 @@ def _guarantee_alive(state, generator=None):
 
 def init_state(
 
-    batch_size=config.BATCH_SIZE,
+    batch_size=config.EVAL_BATCH_SIZE,
 
     channels=config.N_CHANNELS,
 
@@ -804,6 +1174,49 @@ def init_state(
 
     return state
 
+def target_conditioned_state(
+    target,
+    batch_size=config.EVAL_BATCH_SIZE,
+    channels=config.N_CHANNELS,
+    grid_size=config.GRID_SIZE,
+    device=config.DEVICE,
+    logit_scale=4.0,
+):
+    """
+
+    Диагностическое состояние для TRAIN_POOL_INIT_MODE="target" (WP4).
+
+    Видимый канал равен ЦЕЛИ (насыщенный логит: sigmoid(+-4) = 0.982/0.018),
+    альфа-канал положителен ВЕЗДЕ (живы все клетки — иначе нарушение ПРАВИЛА 31,
+    у цели ring плотность 0.1523 < FRESH_MIN_ALIVE_FRACTION=0.20), скрытые
+    каналы и канал стресса обнулены.
+
+    Зачем: аблации H-K1/H-K2/H-N1 показали, что visible_mse встаёт на аналитическом
+    плато почти-чёрного поля с grad_norm ~0.004. Этим состоянием отделяется вопрос
+    «способна ли архитектура представить и УДЕРЖАТЬ кольцо» от вопроса «способна ли
+    она вырастить кольцо из шума за горизонт BPTT». Шум здесь отсутствует намеренно:
+    детерминированность (§9.2) требует, чтобы прогон был воспроизводим без генератора.
+
+    """
+
+    state = torch.zeros(batch_size, channels, grid_size, grid_size, device=device)
+
+    mask = (target > 0).to(state.dtype)
+
+    if mask.ndim == 3:
+
+        # (B, H, W) -> (B, 1, H, W) для broadcast по каналам.
+
+        mask = mask.unsqueeze(1)
+
+    state[:, config.VISIBLE_CHANNEL, :, :] = logit_scale * (2.0 * mask[:, 0] - 1.0)
+
+    state[:, config.ALIVE_CHANNEL, :, :] = logit_scale
+
+    state[:, config.STRESS_CHANNEL, :, :] = 0.0
+
+    return state
+
 def _validate_fresh_state(state):
 
     """
@@ -846,7 +1259,21 @@ class StatePool:
 
     """
 
-    def __init__(self, size=config.STATE_POOL_SIZE, device=config.DEVICE, generator=None):
+    def __init__(
+
+        self,
+
+        size=config.TRAIN_SAMPLE_POOL_SIZE,
+
+        device=config.DEVICE,
+
+        generator=None,
+
+        batch_size=config.TRAIN_BATCH_SIZE,
+
+        fresh_fn=None,
+
+    ):
 
         self.size = size
 
@@ -854,7 +1281,22 @@ class StatePool:
 
         self.generator = generator
 
-        self.states = [init_state(device=device, generator=generator) for _ in range(size)]
+        self.batch_size = int(batch_size)
+
+        # [WP4] fresh_fn задаёт, чем наполняется пул при сбросе. По умолчанию —
+        # шум init_state (§14.2 «расти из шума»). train.py подставляет
+        # target_conditioned_state, когда TRAIN_POOL_INIT_MODE="target": иначе
+        # периодический сброс (ПРАВИЛО 29) молча вернул бы шум и диагноз
+        # «архитектура не может» перепутался бы с «не успела вырасти».
+        self.fresh_fn = fresh_fn
+
+        self.states = [
+
+            self._fresh_state()
+
+            for _ in range(size)
+
+        ]
 
         self.ages = [0] * size
 
@@ -890,7 +1332,21 @@ class StatePool:
 
     def _fresh_state(self):
 
-        state = init_state(device=self.device, generator=self.generator)
+        if self.fresh_fn is not None:
+
+            state = self.fresh_fn()
+
+        else:
+
+            state = init_state(
+
+                batch_size=self.batch_size,
+
+                device=self.device,
+
+                generator=self.generator,
+
+            )
 
         _validate_fresh_state(state)
 

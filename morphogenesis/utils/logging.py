@@ -108,6 +108,24 @@ def log(path, level="info", **fields):
     return append_jsonl(path, dict(fields, level=level))
 
 
+def final_run_rows(rows, key="iteration"):
+    """
+    Из строк одного jsonl-лога — только последний прогон.
+
+    Лог прогона пишется в режиме append (§7.7: историю не перезаписывают),
+    поэтому в файле может лежать несколько прогонов подряд — например когда
+    один и тот же experiment_id выпускали на разном горизонте. Минимум/финал
+    по всему файлу приписал бы текущему прогону чужие точки, поэтому оставляем
+    финальный монотонный по `key` фрагмент: он начинается там, где счётчик
+    итераций обнулился.
+    """
+    start = 0
+    for i in range(1, len(rows)):
+        if rows[i][key] <= rows[i - 1][key]:
+            start = i
+    return rows[start:]
+
+
 class Journal:
     """
 

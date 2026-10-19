@@ -1,0 +1,498 @@
+{
+  "spec_version": "v5.6-EXP FINAL",
+  "revision": "Rev.11-IMPLEMENTATION-READY",
+  "target_pattern": "ring",
+  "target_topology": {
+    "b0": 1,
+    "b1": 1,
+    "chi": 0
+  },
+  "target_density": 0.15234375,
+  "loss_weights": {
+    "visible_mse": 1.0,
+    "alive_policy": 0.5,
+    "hidden_regularization": 0.05,
+    "stress_proxy": 0.1,
+    "topo_proxy": 0.1,
+    "attractor_divergence": 0.2
+  },
+  "alive_policy_mode": "supervised_mse",
+  "alpha_supervision_weight": 1.0,
+  "collapse_threshold": 0.076171875,
+  "collapse_threshold_absolute": 0.15,
+  "collapse_threshold_ratio": 0.5,
+  "seeds_passed_no_collapse": 0,
+  "seeds_passed_coverage": 0,
+  "seeds_with_coverage_measured": 5,
+  "seeds_passed_chamfer": 0,
+  "structureless_f1_ceiling": 0.26440677966101694,
+  "seeds_with_structure_beyond_ceiling": 0,
+  "runs": [
+    {
+      "seed": 42,
+      "steps": 800,
+      "batch_size": 8,
+      "alive_fraction_min": 0.064788818359375,
+      "alive_fraction_final": 0.001434326171875,
+      "no_collapse": false,
+      "f1_first": 0.18606529594958343,
+      "f1_last": 0.011214596640632903,
+      "f1_max": 0.18606529594958343,
+      "coverage_measured": true,
+      "coverage_improving": false,
+      "f1_final_eval": 0.0,
+      "structureless_f1_ceiling": 0.26440677966101694,
+      "threshold_scan_gated": {
+        "f1_at_default_threshold": 0.0,
+        "best": {
+          "threshold": 0.5,
+          "f1": 0.0,
+          "recall": 0.0,
+          "precision": 0.0,
+          "pred_fraction": 0.0
+        },
+        "gain_over_default": 0.0
+      },
+      "structure_beyond_ceiling": false,
+      "chamfer_first": 0.041065448165639215,
+      "chamfer_last": 0.07580665404824313,
+      "chamfer_final_eval": 0.7663876696316275,
+      "chamfer_decreasing": false,
+      "final_topology": {
+        "iteration": 150,
+        "chamfer": 0.07580665404824313,
+        "coverage": {
+          "recall": 0.005809294871794872,
+          "precision": 0.1687483107277999,
+          "f1": 0.011214596640632903,
+          "over_coverage": 0.004547119140625,
+          "missed": 0.151458740234375
+        },
+        "alive_fraction": 0.064788818359375,
+        "b0": 0.0,
+        "b1": 0.0,
+        "total": 0.4369480311870575
+      },
+      "trajectory": [
+        {
+          "iteration": 50,
+          "chamfer": 0.041065448165639215,
+          "coverage": {
+            "recall": 0.2345753205128205,
+            "precision": 0.1542335697568733,
+            "f1": 0.18606529594958343,
+            "over_coverage": 0.1961669921875,
+            "missed": 0.116607666015625
+          },
+          "alive_fraction": 0.482818603515625,
+          "b0": 78.75,
+          "b1": 8.375,
+          "total": 0.4794310927391052
+        },
+        {
+          "iteration": 100,
+          "chamfer": 0.05406504669617895,
+          "coverage": {
+            "recall": 0.027043269230769232,
+            "precision": 0.14640131646424623,
+            "f1": 0.04561786378834197,
+            "over_coverage": 0.02386474609375,
+            "missed": 0.148223876953125
+          },
+          "alive_fraction": 0.1439208984375,
+          "b0": 0.0,
+          "b1": 0.0,
+          "total": 0.429216206073761
+        },
+        {
+          "iteration": 150,
+          "chamfer": 0.07580665404824313,
+          "coverage": {
+            "recall": 0.005809294871794872,
+            "precision": 0.1687483107277999,
+            "f1": 0.011214596640632903,
+            "over_coverage": 0.004547119140625,
+            "missed": 0.151458740234375
+          },
+          "alive_fraction": 0.064788818359375,
+          "b0": 0.0,
+          "b1": 0.0,
+          "total": 0.4369480311870575
+        }
+      ]
+    },
+    {
+      "seed": 101,
+      "steps": 800,
+      "batch_size": 8,
+      "alive_fraction_min": 0.0667724609375,
+      "alive_fraction_final": 0.001434326171875,
+      "no_collapse": false,
+      "f1_first": 0.18277841204034945,
+      "f1_last": 0.0093016089630191,
+      "f1_max": 0.18277841204034945,
+      "coverage_measured": true,
+      "coverage_improving": false,
+      "f1_final_eval": 0.0,
+      "structureless_f1_ceiling": 0.26440677966101694,
+      "threshold_scan_gated": {
+        "f1_at_default_threshold": 0.0,
+        "best": {
+          "threshold": 0.5,
+          "f1": 0.0,
+          "recall": 0.0,
+          "precision": 0.0,
+          "pred_fraction": 0.0
+        },
+        "gain_over_default": 0.0
+      },
+      "structure_beyond_ceiling": false,
+      "chamfer_first": 0.04158002497451864,
+      "chamfer_last": 0.07722824292073494,
+      "chamfer_final_eval": 0.7663876696316275,
+      "chamfer_decreasing": false,
+      "final_topology": {
+        "iteration": 150,
+        "chamfer": 0.07722824292073494,
+        "coverage": {
+          "recall": 0.004807692307692308,
+          "precision": 0.1543818166958899,
+          "f1": 0.0093016089630191,
+          "over_coverage": 0.00408935546875,
+          "missed": 0.151611328125
+        },
+        "alive_fraction": 0.0667724609375,
+        "b0": 0.0,
+        "b1": 0.0,
+        "total": 0.43731075525283813
+      },
+      "trajectory": [
+        {
+          "iteration": 50,
+          "chamfer": 0.04158002497451864,
+          "coverage": {
+            "recall": 0.22896634615384615,
+            "precision": 0.15216850874867405,
+            "f1": 0.18277841204034945,
+            "over_coverage": 0.1942138671875,
+            "missed": 0.117462158203125
+          },
+          "alive_fraction": 0.477142333984375,
+          "b0": 82.125,
+          "b1": 9.75,
+          "total": 0.4791014492511749
+        },
+        {
+          "iteration": 100,
+          "chamfer": 0.051816170283625104,
+          "coverage": {
+            "recall": 0.030849358974358976,
+            "precision": 0.14457916707510335,
+            "f1": 0.05080112797211217,
+            "over_coverage": 0.027496337890625,
+            "missed": 0.14764404296875
+          },
+          "alive_fraction": 0.154388427734375,
+          "b0": 0.125,
+          "b1": 0.0,
+          "total": 0.42861950397491455
+        },
+        {
+          "iteration": 150,
+          "chamfer": 0.07722824292073494,
+          "coverage": {
+            "recall": 0.004807692307692308,
+            "precision": 0.1543818166958899,
+            "f1": 0.0093016089630191,
+            "over_coverage": 0.00408935546875,
+            "missed": 0.151611328125
+          },
+          "alive_fraction": 0.0667724609375,
+          "b0": 0.0,
+          "b1": 0.0,
+          "total": 0.43731075525283813
+        }
+      ]
+    },
+    {
+      "seed": 202,
+      "steps": 800,
+      "batch_size": 8,
+      "alive_fraction_min": 0.068145751953125,
+      "alive_fraction_final": 0.00140380859375,
+      "no_collapse": false,
+      "f1_first": 0.18535433011130237,
+      "f1_last": 0.010460845441372296,
+      "f1_max": 0.18535433011130237,
+      "coverage_measured": true,
+      "coverage_improving": false,
+      "f1_final_eval": 0.0,
+      "structureless_f1_ceiling": 0.26440677966101694,
+      "threshold_scan_gated": {
+        "f1_at_default_threshold": 0.0,
+        "best": {
+          "threshold": 0.0,
+          "f1": 0.006339144215530904,
+          "recall": 0.003205128205128205,
+          "precision": 0.2857142857142857,
+          "pred_fraction": 0.001708984375
+        },
+        "gain_over_default": 0.006339144215530904
+      },
+      "structure_beyond_ceiling": false,
+      "chamfer_first": 0.04136209813390619,
+      "chamfer_last": 0.06672956648133928,
+      "chamfer_final_eval": 0.7663876696316275,
+      "chamfer_decreasing": false,
+      "final_topology": {
+        "iteration": 150,
+        "chamfer": 0.06672956648133928,
+        "coverage": {
+          "recall": 0.005408653846153846,
+          "precision": 0.16791505063563886,
+          "f1": 0.010460845441372296,
+          "over_coverage": 0.003814697265625,
+          "missed": 0.151519775390625
+        },
+        "alive_fraction": 0.068145751953125,
+        "b0": 0.0,
+        "b1": 0.0,
+        "total": 0.43821263313293457
+      },
+      "trajectory": [
+        {
+          "iteration": 50,
+          "chamfer": 0.04136209813390619,
+          "coverage": {
+            "recall": 0.23257211538461536,
+            "precision": 0.15408983806570659,
+            "f1": 0.18535433011130237,
+            "over_coverage": 0.19439697265625,
+            "missed": 0.116912841796875
+          },
+          "alive_fraction": 0.480865478515625,
+          "b0": 78.25,
+          "b1": 9.0,
+          "total": 0.47920000553131104
+        },
+        {
+          "iteration": 100,
+          "chamfer": 0.0549654709618914,
+          "coverage": {
+            "recall": 0.027243589743589744,
+            "precision": 0.15928606570675613,
+            "f1": 0.04648567978610929,
+            "over_coverage": 0.02191162109375,
+            "missed": 0.148193359375
+          },
+          "alive_fraction": 0.1402587890625,
+          "b0": 0.0,
+          "b1": 0.0,
+          "total": 0.428329735994339
+        },
+        {
+          "iteration": 150,
+          "chamfer": 0.06672956648133928,
+          "coverage": {
+            "recall": 0.005408653846153846,
+            "precision": 0.16791505063563886,
+            "f1": 0.010460845441372296,
+            "over_coverage": 0.003814697265625,
+            "missed": 0.151519775390625
+          },
+          "alive_fraction": 0.068145751953125,
+          "b0": 0.0,
+          "b1": 0.0,
+          "total": 0.43821263313293457
+        }
+      ]
+    },
+    {
+      "seed": 303,
+      "steps": 800,
+      "batch_size": 8,
+      "alive_fraction_min": 0.066680908203125,
+      "alive_fraction_final": 0.00146484375,
+      "no_collapse": false,
+      "f1_first": 0.17740803020767218,
+      "f1_last": 0.007378954495359413,
+      "f1_max": 0.17740803020767218,
+      "coverage_measured": true,
+      "coverage_improving": false,
+      "f1_final_eval": 0.0,
+      "structureless_f1_ceiling": 0.26440677966101694,
+      "threshold_scan_gated": {
+        "f1_at_default_threshold": 0.0,
+        "best": {
+          "threshold": 0.054947570469231995,
+          "f1": 0.0031796502384737677,
+          "recall": 0.0016025641025641025,
+          "precision": 0.2,
+          "pred_fraction": 0.001220703125
+        },
+        "gain_over_default": 0.0031796502384737677
+      },
+      "structure_beyond_ceiling": false,
+      "chamfer_first": 0.04150432138143213,
+      "chamfer_last": 0.0788714813237569,
+      "chamfer_final_eval": 0.7663876696316275,
+      "chamfer_decreasing": false,
+      "final_topology": {
+        "iteration": 150,
+        "chamfer": 0.0788714813237569,
+        "coverage": {
+          "recall": 0.0038060897435897435,
+          "precision": 0.12339143312827523,
+          "f1": 0.007378954495359413,
+          "over_coverage": 0.004119873046875,
+          "missed": 0.151763916015625
+        },
+        "alive_fraction": 0.066680908203125,
+        "b0": 0.0,
+        "b1": 0.0,
+        "total": 0.43518877029418945
+      },
+      "trajectory": [
+        {
+          "iteration": 50,
+          "chamfer": 0.04150432138143213,
+          "coverage": {
+            "recall": 0.22175480769230768,
+            "precision": 0.1478685958995161,
+            "f1": 0.17740803020767218,
+            "over_coverage": 0.19464111328125,
+            "missed": 0.118560791015625
+          },
+          "alive_fraction": 0.474578857421875,
+          "b0": 78.75,
+          "b1": 12.375,
+          "total": 0.4789140820503235
+        },
+        {
+          "iteration": 100,
+          "chamfer": 0.0539229058178446,
+          "coverage": {
+            "recall": 0.027043269230769232,
+            "precision": 0.13483562344290015,
+            "f1": 0.04502256457929839,
+            "over_coverage": 0.02642822265625,
+            "missed": 0.148223876953125
+          },
+          "alive_fraction": 0.14501953125,
+          "b0": 0.0,
+          "b1": 0.0,
+          "total": 0.4298272132873535
+        },
+        {
+          "iteration": 150,
+          "chamfer": 0.0788714813237569,
+          "coverage": {
+            "recall": 0.0038060897435897435,
+            "precision": 0.12339143312827523,
+            "f1": 0.007378954495359413,
+            "over_coverage": 0.004119873046875,
+            "missed": 0.151763916015625
+          },
+          "alive_fraction": 0.066680908203125,
+          "b0": 0.0,
+          "b1": 0.0,
+          "total": 0.43518877029418945
+        }
+      ]
+    },
+    {
+      "seed": 404,
+      "steps": 800,
+      "batch_size": 8,
+      "alive_fraction_min": 0.0679931640625,
+      "alive_fraction_final": 0.00164794921875,
+      "no_collapse": false,
+      "f1_first": 0.18002663960964438,
+      "f1_last": 0.011516323330890234,
+      "f1_max": 0.18002663960964438,
+      "coverage_measured": true,
+      "coverage_improving": false,
+      "f1_final_eval": 0.0,
+      "structureless_f1_ceiling": 0.26440677966101694,
+      "threshold_scan_gated": {
+        "f1_at_default_threshold": 0.0,
+        "best": {
+          "threshold": 0.5,
+          "f1": 0.0,
+          "recall": 0.0,
+          "precision": 0.0,
+          "pred_fraction": 0.0
+        },
+        "gain_over_default": 0.0
+      },
+      "structure_beyond_ceiling": false,
+      "chamfer_first": 0.04167791265754055,
+      "chamfer_last": 0.0719080063999972,
+      "chamfer_final_eval": 0.7663876696316275,
+      "chamfer_decreasing": false,
+      "final_topology": {
+        "iteration": 150,
+        "chamfer": 0.0719080063999972,
+        "coverage": {
+          "recall": 0.006009615384615384,
+          "precision": 0.1398728287841191,
+          "f1": 0.011516323330890234,
+          "over_coverage": 0.005523681640625,
+          "missed": 0.15142822265625
+        },
+        "alive_fraction": 0.0679931640625,
+        "b0": 0.0,
+        "b1": 0.0,
+        "total": 0.4346533715724945
+      },
+      "trajectory": [
+        {
+          "iteration": 50,
+          "chamfer": 0.04167791265754055,
+          "coverage": {
+            "recall": 0.22576121794871795,
+            "precision": 0.14977307010626278,
+            "f1": 0.18002663960964438,
+            "over_coverage": 0.19500732421875,
+            "missed": 0.117950439453125
+          },
+          "alive_fraction": 0.483123779296875,
+          "b0": 76.625,
+          "b1": 8.5,
+          "total": 0.4787426292896271
+        },
+        {
+          "iteration": 100,
+          "chamfer": 0.054394120730841836,
+          "coverage": {
+            "recall": 0.02644230769230769,
+            "precision": 0.15806499802772245,
+            "f1": 0.04526644173752916,
+            "over_coverage": 0.02130126953125,
+            "missed": 0.1483154296875
+          },
+          "alive_fraction": 0.14080810546875,
+          "b0": 0.0,
+          "b1": 0.0,
+          "total": 0.42788809537887573
+        },
+        {
+          "iteration": 150,
+          "chamfer": 0.0719080063999972,
+          "coverage": {
+            "recall": 0.006009615384615384,
+            "precision": 0.1398728287841191,
+            "f1": 0.011516323330890234,
+            "over_coverage": 0.005523681640625,
+            "missed": 0.15142822265625
+          },
+          "alive_fraction": 0.0679931640625,
+          "b0": 0.0,
+          "b1": 0.0,
+          "total": 0.4346533715724945
+        }
+      ]
+    }
+  ],
+  "gate_passed": false
+}

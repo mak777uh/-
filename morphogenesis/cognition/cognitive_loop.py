@@ -204,7 +204,7 @@ class CognitiveLoop:
 
     def _get_model_params(self):
 
-        lr = config.LEARNING_RATE
+        lr = config.TRAIN_LR
 
         if self.optimizer is not None:
 
@@ -228,7 +228,7 @@ class CognitiveLoop:
 
             "lr": lr,
 
-            "l1_reg": config.L1_REG_WEIGHT,
+            "l1_reg": float(config.LOSS_WEIGHTS["hidden_regularization"]),
 
             "target_b0": target_b0,
 

@@ -458,7 +458,7 @@ class Reporter:
 
             f"**Фаза:** {phase}",
 
-            f"**Тип:** КРИТИЧЕСКАЯ ОШИБКА",
+            "**Тип:** КРИТИЧЕСКАЯ ОШИБКА",
 
             f"**Версия спецификации:** {config.SPEC_VERSION}",
 
@@ -508,7 +508,7 @@ class Reporter:
 
                 "2. Уменьшить размер сетки до 32×32",
 
-                "3. Уменьшить UNROLL_STEPS до 5",
+                "3. Уменьшить TRAIN_BPTT_CURRICULUM / TRAIN_BATCH_SIZE",
 
                 "4. Проверить память GPU: `nvidia-smi`",
 

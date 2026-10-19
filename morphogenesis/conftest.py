@@ -51,7 +51,7 @@ def pytest_report_header():
 
         f"torch={torch.__version__} device={config.DEVICE} "
 
-        f"cuda={torch.cuda.is_available()}",
+        f"cuda_usable={config.CUDA_USABLE} n_devices={config.CUDA_DEVICE_COUNT}",
 
         f"cwd={os.getcwd()}",
 

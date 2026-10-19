@@ -38,8 +38,6 @@ from cognition.action_validator import (
 
     compute_action_cost,
 
-    estimate_normalized_dose,
-
 )
 
 class TestActionValidator(unittest.TestCase):

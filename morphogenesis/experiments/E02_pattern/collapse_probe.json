@@ -1,0 +1,606 @@
+{
+  "spec_version": "v5.6-EXP FINAL",
+  "revision": "Rev.11-IMPLEMENTATION-READY",
+  "target_pattern": "ring",
+  "target_density": 0.15234375,
+  "loss_weights": {
+    "visible_mse": 1.0,
+    "alive_policy": 0.5,
+    "hidden_regularization": 0.05,
+    "stress_proxy": 0.1,
+    "topo_proxy": 0.1,
+    "attractor_divergence": 0.2
+  },
+  "alpha_supervision_weight": 1.0,
+  "collapse_alive_fraction_min": 0.15,
+  "modes": {
+    "supervised_mse": {
+      "arms": {
+        "fresh_model": {
+          "dead_zero_state": {
+            "total": 0.42746156454086304,
+            "visible_mse": 0.25,
+            "alive_policy": 0.25,
+            "hidden_reg": 0.0,
+            "stress_proxy": 0.13158276677131653,
+            "topo_proxy": 0.3930329978466034,
+            "attractor_divergence": 0.0,
+            "alive_fraction": 0.0,
+            "frac_delta_nonzero": 0.0,
+            "alive_fraction_measured": 0.0
+          },
+          "dead_alpha_minus5": {
+            "total": 0.376813679933548,
+            "visible_mse": 0.25,
+            "alive_policy": 0.15034933388233185,
+            "hidden_reg": 0.0,
+            "stress_proxy": 0.12335715442895889,
+            "topo_proxy": 0.3930329978466034,
+            "attractor_divergence": 0.0,
+            "alive_fraction": 0.0,
+            "frac_delta_nonzero": 0.0,
+            "alive_fraction_measured": 0.0
+          },
+          "alive_blank_grey": {
+            "total": 0.7322489023208618,
+            "visible_mse": 0.25,
+            "alive_policy": 0.8363546133041382,
+            "hidden_reg": 0.0,
+            "stress_proxy": 0.24768315255641937,
+            "topo_proxy": 0.3930329978466034,
+            "attractor_divergence": 0.0,
+            "alive_fraction": 1.0,
+            "frac_delta_nonzero": 0.0,
+            "alive_fraction_measured": 1.0
+          },
+          "alive_blank_black": {
+            "total": 0.5848410725593567,
+            "visible_mse": 0.15034933388233185,
+            "alive_policy": 0.8363546133041382,
+            "hidden_reg": 0.0,
+            "stress_proxy": 0.12275491654872894,
+            "topo_proxy": 0.04038957878947258,
+            "attractor_divergence": 0.0,
+            "alive_fraction": 1.0,
+            "frac_delta_nonzero": 0.0,
+            "alive_fraction_measured": 1.0
+          },
+          "ring_alive_everywhere": {
+            "total": 0.4222041368484497,
+            "visible_mse": 4.479420749703422e-05,
+            "alive_policy": 0.8363546133041382,
+            "hidden_reg": 0.0,
+            "stress_proxy": 6.330719770630822e-05,
+            "topo_proxy": 0.03975722938776016,
+            "attractor_divergence": 0.0,
+            "alive_fraction": 1.0,
+            "frac_delta_nonzero": 0.0,
+            "alive_fraction_measured": 1.0
+          },
+          "ring_alive_only_in_target": {
+            "total": 0.004045124631375074,
+            "visible_mse": 4.479420749703422e-05,
+            "alive_policy": 4.479420749703422e-05,
+            "hidden_reg": 0.0,
+            "stress_proxy": 2.2102511138655245e-05,
+            "topo_proxy": 0.03975722938776016,
+            "attractor_divergence": 0.0,
+            "alive_fraction": 0.15234375,
+            "frac_delta_nonzero": 0.0,
+            "alive_fraction_measured": 0.15234375
+          }
+        },
+        "gate_seed42_collapsed": {
+          "dead_zero_state": {
+            "total": 0.41980594396591187,
+            "visible_mse": 0.25,
+            "alive_policy": 0.25,
+            "hidden_reg": 0.04201187938451767,
+            "stress_proxy": 0.034020692110061646,
+            "topo_proxy": 0.3930329978466034,
+            "attractor_divergence": 0.0,
+            "alive_fraction": 0.0,
+            "frac_delta_nonzero": 0.9375,
+            "alive_fraction_measured": 0.0
+          },
+          "dead_alpha_minus5": {
+            "total": 0.3759688138961792,
+            "visible_mse": 0.25,
+            "alive_policy": 0.15034933388233185,
+            "hidden_reg": 0.02032562345266342,
+            "stress_proxy": 0.10474573820829391,
+            "topo_proxy": 0.3930329978466034,
+            "attractor_divergence": 0.0,
+            "alive_fraction": 0.0,
+            "frac_delta_nonzero": 0.9375,
+            "alive_fraction_measured": 0.0
+          },
+          "alive_blank_grey": {
+            "total": 0.7313433289527893,
+            "visible_mse": 0.25,
+            "alive_policy": 0.8363546133041382,
+            "hidden_reg": 0.09356669336557388,
+            "stress_proxy": 0.19184425473213196,
+            "topo_proxy": 0.3930329978466034,
+            "attractor_divergence": 0.0,
+            "alive_fraction": 1.0,
+            "frac_delta_nonzero": 0.9375,
+            "alive_fraction_measured": 1.0
+          },
+          "alive_blank_black": {
+            "total": 0.6479389667510986,
+            "visible_mse": 0.15034933388233185,
+            "alive_policy": 0.8363546133041382,
+            "hidden_reg": 0.09372131526470184,
+            "stress_proxy": 0.7068737745285034,
+            "topo_proxy": 0.04038957878947258,
+            "attractor_divergence": 0.0,
+            "alive_fraction": 1.0,
+            "frac_delta_nonzero": 0.9375,
+            "alive_fraction_measured": 1.0
+          },
+          "ring_alive_everywhere": {
+            "total": 0.5131792426109314,
+            "visible_mse": 4.479420749703422e-05,
+            "alive_policy": 0.8363546133041382,
+            "hidden_reg": 0.09366296231746674,
+            "stress_proxy": 0.8629825711250305,
+            "topo_proxy": 0.03975722938776016,
+            "attractor_divergence": 0.0,
+            "alive_fraction": 1.0,
+            "frac_delta_nonzero": 0.9375,
+            "alive_fraction_measured": 1.0
+          },
+          "ring_alive_only_in_target": {
+            "total": 0.08471071720123291,
+            "visible_mse": 4.479420749703422e-05,
+            "alive_policy": 4.479420749703422e-05,
+            "hidden_reg": 0.08753162622451782,
+            "stress_proxy": 0.7629121541976929,
+            "topo_proxy": 0.03975722938776016,
+            "attractor_divergence": 0.0,
+            "alive_fraction": 0.15234375,
+            "frac_delta_nonzero": 0.9375,
+            "alive_fraction_measured": 0.15234375
+          }
+        }
+      },
+      "gradient_direction": {
+        "pool_init": {
+          "descent_dalpha_inside_target": 6.4044097598525696e-06,
+          "descent_dalpha_outside_target": -6.409317848010687e-06,
+          "descent_dalpha_all": -4.457226623344468e-06,
+          "frac_cells_pushed_to_death": 0.84765625,
+          "alive_fraction_start": 0.49993896484375
+        },
+        "after_rollout16": {
+          "descent_dalpha_inside_target": 6.0690204009006266e-06,
+          "descent_dalpha_outside_target": -7.941172043501865e-06,
+          "descent_dalpha_all": -5.80680716666393e-06,
+          "frac_cells_pushed_to_death": 0.84765625,
+          "alive_fraction_start": 0.49993896484375
+        },
+        "alive_blank_grey": {
+          "descent_dalpha_inside_target": 2.715706326483769e-09,
+          "descent_dalpha_outside_target": -4.0304800563717436e-07,
+          "descent_dalpha_all": -3.4123246450690203e-07,
+          "frac_cells_pushed_to_death": 0.84765625,
+          "alive_fraction_start": 1.0
+        },
+        "dead_zero_state": {
+          "descent_dalpha_inside_target": 7.62939453125e-06,
+          "descent_dalpha_outside_target": -7.62939453125e-06,
+          "descent_dalpha_all": -5.304813385009766e-06,
+          "frac_cells_pushed_to_death": 0.84765625,
+          "alive_fraction_start": 0.0
+        }
+      },
+      "verdict": {
+        "fresh_model": {
+          "loss_dead": 0.42746156454086304,
+          "loss_ring_built": 0.004045124631375074,
+          "loss_ring_alive_everywhere": 0.4222041368484497,
+          "best_alive_total": 0.4222041368484497,
+          "death_is_optimum_of_implemented_loss": false,
+          "death_beats_best_alive_state": false
+        },
+        "gate_seed42_collapsed": {
+          "loss_dead": 0.41980594396591187,
+          "loss_ring_built": 0.08471071720123291,
+          "loss_ring_alive_everywhere": 0.5131792426109314,
+          "best_alive_total": 0.5131792426109314,
+          "death_is_optimum_of_implemented_loss": false,
+          "death_beats_best_alive_state": true
+        }
+      },
+      "topo_grad_test": {
+        "backend": "soft_topological_proxy",
+        "passed": true,
+        "probe": "disk",
+        "grad_norm": 6.318910598754883,
+        "loss": 0.0016025641234591603,
+        "probes": {
+          "blurred_target": {
+            "passed": true,
+            "grad_norm": 5.846745491027832,
+            "loss": 0.14708319306373596,
+            "nan": false
+          },
+          "disk": {
+            "passed": true,
+            "grad_norm": 6.318910598754883,
+            "loss": 0.0016025641234591603,
+            "nan": false
+          },
+          "soft_noise": {
+            "passed": true,
+            "grad_norm": 2.96334171295166,
+            "loss": 0.622177243232727,
+            "nan": false
+          }
+        }
+      },
+      "term_attribution": {
+        "weights": "last_trained_or_fresh",
+        "alive_blank_grey": {
+          "visible_mse": {
+            "term_value": 0.25,
+            "descent_dalpha_outside_target": 0.0,
+            "descent_dalpha_inside_target": 0.0,
+            "killed": false
+          },
+          "alive_policy": {
+            "term_value": 0.4181773066520691,
+            "descent_dalpha_outside_target": -4.0304800563717436e-07,
+            "descent_dalpha_inside_target": 2.715706326483769e-09,
+            "killed": true
+          },
+          "hidden_regularization": {
+            "term_value": 0.004678334575146437,
+            "descent_dalpha_outside_target": -4.91042595474056e-10,
+            "descent_dalpha_inside_target": -4.242725337721964e-10,
+            "killed": true
+          },
+          "stress_proxy": {
+            "term_value": 0.019184425473213196,
+            "descent_dalpha_outside_target": -8.604052581517863e-09,
+            "descent_dalpha_inside_target": -7.364463705528124e-09,
+            "killed": true
+          },
+          "topo_proxy": {
+            "descent_dalpha_outside_target": 0.0,
+            "descent_dalpha_inside_target": 0.0,
+            "killed": false,
+            "note": "обнулён весом"
+          }
+        },
+        "dead_zero_state": {
+          "visible_mse": {
+            "term_value": 0.25,
+            "descent_dalpha_outside_target": 0.0,
+            "descent_dalpha_inside_target": 0.0,
+            "killed": false
+          },
+          "alive_policy": {
+            "term_value": 0.125,
+            "descent_dalpha_outside_target": -7.62939453125e-06,
+            "descent_dalpha_inside_target": 7.62939453125e-06,
+            "killed": true
+          },
+          "hidden_regularization": {
+            "term_value": 0.0021005941089242697,
+            "descent_dalpha_outside_target": -4.7175177542158053e-07,
+            "descent_dalpha_inside_target": -4.83776773307909e-07,
+            "killed": true
+          },
+          "stress_proxy": {
+            "term_value": 0.0034020692110061646,
+            "descent_dalpha_outside_target": -2.885147296183277e-06,
+            "descent_dalpha_inside_target": 4.575841558107641e-06,
+            "killed": true
+          },
+          "topo_proxy": {
+            "descent_dalpha_outside_target": 0.0,
+            "descent_dalpha_inside_target": 0.0,
+            "killed": false,
+            "note": "обнулён весом"
+          }
+        }
+      }
+    },
+    "death_penalty": {
+      "arms": {
+        "fresh_model": {
+          "dead_zero_state": {
+            "total": 0.34054750204086304,
+            "visible_mse": 0.25,
+            "alive_policy": 0.076171875,
+            "hidden_reg": 0.0,
+            "stress_proxy": 0.13158276677131653,
+            "topo_proxy": 0.3930329978466034,
+            "attractor_divergence": 0.0,
+            "alive_fraction": 0.0,
+            "frac_delta_nonzero": 0.0,
+            "alive_fraction_measured": 0.0
+          },
+          "dead_alpha_minus5": {
+            "total": 0.37730109691619873,
+            "visible_mse": 0.25,
+            "alive_policy": 0.15132415294647217,
+            "hidden_reg": 0.0,
+            "stress_proxy": 0.12335715442895889,
+            "topo_proxy": 0.3930329978466034,
+            "attractor_divergence": 0.0,
+            "alive_fraction": 0.0,
+            "frac_delta_nonzero": 0.0,
+            "alive_fraction_measured": 0.0
+          },
+          "alive_blank_grey": {
+            "total": 0.31458142399787903,
+            "visible_mse": 0.25,
+            "alive_policy": 0.0010196103248745203,
+            "hidden_reg": 0.0,
+            "stress_proxy": 0.24768315255641937,
+            "topo_proxy": 0.3930329978466034,
+            "attractor_divergence": 0.0,
+            "alive_fraction": 1.0,
+            "frac_delta_nonzero": 0.0,
+            "alive_fraction_measured": 1.0
+          },
+          "alive_blank_black": {
+            "total": 0.1671735793352127,
+            "visible_mse": 0.15034933388233185,
+            "alive_policy": 0.0010196103248745203,
+            "hidden_reg": 0.0,
+            "stress_proxy": 0.12275491654872894,
+            "topo_proxy": 0.04038957878947258,
+            "attractor_divergence": 0.0,
+            "alive_fraction": 1.0,
+            "frac_delta_nonzero": 0.0,
+            "alive_fraction_measured": 1.0
+          },
+          "ring_alive_everywhere": {
+            "total": 0.004536652937531471,
+            "visible_mse": 4.479420749703422e-05,
+            "alive_policy": 0.0010196103248745203,
+            "hidden_reg": 0.0,
+            "stress_proxy": 6.330719770630822e-05,
+            "topo_proxy": 0.03975722938776016,
+            "attractor_divergence": 0.0,
+            "alive_fraction": 1.0,
+            "frac_delta_nonzero": 0.0,
+            "alive_fraction_measured": 1.0
+          },
+          "ring_alive_only_in_target": {
+            "total": 0.004532532766461372,
+            "visible_mse": 4.479420749703422e-05,
+            "alive_policy": 0.0010196103248745203,
+            "hidden_reg": 0.0,
+            "stress_proxy": 2.2102511138655245e-05,
+            "topo_proxy": 0.03975722938776016,
+            "attractor_divergence": 0.0,
+            "alive_fraction": 0.15234375,
+            "frac_delta_nonzero": 0.0,
+            "alive_fraction_measured": 0.15234375
+          }
+        },
+        "gate_seed42_collapsed": {
+          "dead_zero_state": {
+            "total": 0.33289188146591187,
+            "visible_mse": 0.25,
+            "alive_policy": 0.076171875,
+            "hidden_reg": 0.04201187938451767,
+            "stress_proxy": 0.034020692110061646,
+            "topo_proxy": 0.3930329978466034,
+            "attractor_divergence": 0.0,
+            "alive_fraction": 0.0,
+            "frac_delta_nonzero": 0.9375,
+            "alive_fraction_measured": 0.0
+          },
+          "dead_alpha_minus5": {
+            "total": 0.37645623087882996,
+            "visible_mse": 0.25,
+            "alive_policy": 0.15132415294647217,
+            "hidden_reg": 0.02032562345266342,
+            "stress_proxy": 0.10474573820829391,
+            "topo_proxy": 0.3930329978466034,
+            "attractor_divergence": 0.0,
+            "alive_fraction": 0.0,
+            "frac_delta_nonzero": 0.9375,
+            "alive_fraction_measured": 0.0
+          },
+          "alive_blank_grey": {
+            "total": 0.3136758804321289,
+            "visible_mse": 0.25,
+            "alive_policy": 0.0010196103248745203,
+            "hidden_reg": 0.09356669336557388,
+            "stress_proxy": 0.19184425473213196,
+            "topo_proxy": 0.3930329978466034,
+            "attractor_divergence": 0.0,
+            "alive_fraction": 1.0,
+            "frac_delta_nonzero": 0.9375,
+            "alive_fraction_measured": 1.0
+          },
+          "alive_blank_black": {
+            "total": 0.23027154803276062,
+            "visible_mse": 0.15034933388233185,
+            "alive_policy": 0.0010196103248745203,
+            "hidden_reg": 0.09372131526470184,
+            "stress_proxy": 0.7068737745285034,
+            "topo_proxy": 0.04038957878947258,
+            "attractor_divergence": 0.0,
+            "alive_fraction": 1.0,
+            "frac_delta_nonzero": 0.9375,
+            "alive_fraction_measured": 1.0
+          },
+          "ring_alive_everywhere": {
+            "total": 0.09551173448562622,
+            "visible_mse": 4.479420749703422e-05,
+            "alive_policy": 0.0010196103248745203,
+            "hidden_reg": 0.09366296231746674,
+            "stress_proxy": 0.8629825711250305,
+            "topo_proxy": 0.03975722938776016,
+            "attractor_divergence": 0.0,
+            "alive_fraction": 1.0,
+            "frac_delta_nonzero": 0.9375,
+            "alive_fraction_measured": 1.0
+          },
+          "ring_alive_only_in_target": {
+            "total": 0.08519811928272247,
+            "visible_mse": 4.479420749703422e-05,
+            "alive_policy": 0.0010196103248745203,
+            "hidden_reg": 0.08753162622451782,
+            "stress_proxy": 0.7629121541976929,
+            "topo_proxy": 0.03975722938776016,
+            "attractor_divergence": 0.0,
+            "alive_fraction": 0.15234375,
+            "frac_delta_nonzero": 0.9375,
+            "alive_fraction_measured": 0.15234375
+          }
+        }
+      },
+      "gradient_direction": {
+        "pool_init": {
+          "descent_dalpha_inside_target": 6.408130502677523e-06,
+          "descent_dalpha_outside_target": 0.0,
+          "descent_dalpha_all": 9.76238652583561e-07,
+          "frac_cells_pushed_to_death": 0.0,
+          "alive_fraction_start": 0.49993896484375
+        },
+        "after_rollout16": {
+          "descent_dalpha_inside_target": 7.006287432886893e-06,
+          "descent_dalpha_outside_target": 0.0,
+          "descent_dalpha_all": 1.0673641099856468e-06,
+          "frac_cells_pushed_to_death": 0.0,
+          "alive_fraction_start": 0.49993896484375
+        },
+        "alive_blank_grey": {
+          "descent_dalpha_inside_target": 2.0288184998662473e-07,
+          "descent_dalpha_outside_target": 0.0,
+          "descent_dalpha_all": 3.09077812232772e-08,
+          "frac_cells_pushed_to_death": 0.0,
+          "alive_fraction_start": 1.0
+        },
+        "dead_zero_state": {
+          "descent_dalpha_inside_target": 7.62939453125e-06,
+          "descent_dalpha_outside_target": 0.0,
+          "descent_dalpha_all": 1.1622905731201172e-06,
+          "frac_cells_pushed_to_death": 0.0,
+          "alive_fraction_start": 0.0
+        }
+      },
+      "verdict": {
+        "fresh_model": {
+          "loss_dead": 0.34054750204086304,
+          "loss_ring_built": 0.004532532766461372,
+          "loss_ring_alive_everywhere": 0.004536652937531471,
+          "best_alive_total": 0.004536652937531471,
+          "death_is_optimum_of_implemented_loss": false,
+          "death_beats_best_alive_state": false
+        },
+        "gate_seed42_collapsed": {
+          "loss_dead": 0.33289188146591187,
+          "loss_ring_built": 0.08519811928272247,
+          "loss_ring_alive_everywhere": 0.09551173448562622,
+          "best_alive_total": 0.09551173448562622,
+          "death_is_optimum_of_implemented_loss": false,
+          "death_beats_best_alive_state": false
+        }
+      },
+      "topo_grad_test": {
+        "backend": "soft_topological_proxy",
+        "passed": true,
+        "probe": "disk",
+        "grad_norm": 6.318910598754883,
+        "loss": 0.0016025641234591603,
+        "probes": {
+          "blurred_target": {
+            "passed": true,
+            "grad_norm": 5.846745491027832,
+            "loss": 0.14708319306373596,
+            "nan": false
+          },
+          "disk": {
+            "passed": true,
+            "grad_norm": 6.318910598754883,
+            "loss": 0.0016025641234591603,
+            "nan": false
+          },
+          "soft_noise": {
+            "passed": true,
+            "grad_norm": 2.96334171295166,
+            "loss": 0.622177243232727,
+            "nan": false
+          }
+        }
+      },
+      "term_attribution": {
+        "weights": "last_trained_or_fresh",
+        "alive_blank_grey": {
+          "visible_mse": {
+            "term_value": 0.25,
+            "descent_dalpha_outside_target": 0.0,
+            "descent_dalpha_inside_target": 0.0,
+            "killed": false
+          },
+          "alive_policy": {
+            "term_value": 0.0005098051624372602,
+            "descent_dalpha_outside_target": 0.0,
+            "descent_dalpha_inside_target": 2.0288184998662473e-07,
+            "killed": false
+          },
+          "hidden_regularization": {
+            "term_value": 0.004678334575146437,
+            "descent_dalpha_outside_target": -4.91042595474056e-10,
+            "descent_dalpha_inside_target": -4.242725337721964e-10,
+            "killed": true
+          },
+          "stress_proxy": {
+            "term_value": 0.019184425473213196,
+            "descent_dalpha_outside_target": -8.604052581517863e-09,
+            "descent_dalpha_inside_target": -7.364463705528124e-09,
+            "killed": true
+          },
+          "topo_proxy": {
+            "descent_dalpha_outside_target": 0.0,
+            "descent_dalpha_inside_target": 0.0,
+            "killed": false,
+            "note": "обнулён весом"
+          }
+        },
+        "dead_zero_state": {
+          "visible_mse": {
+            "term_value": 0.25,
+            "descent_dalpha_outside_target": 0.0,
+            "descent_dalpha_inside_target": 0.0,
+            "killed": false
+          },
+          "alive_policy": {
+            "term_value": 0.0380859375,
+            "descent_dalpha_outside_target": 0.0,
+            "descent_dalpha_inside_target": 7.62939453125e-06,
+            "killed": false
+          },
+          "hidden_regularization": {
+            "term_value": 0.0021005941089242697,
+            "descent_dalpha_outside_target": -4.7175177542158053e-07,
+            "descent_dalpha_inside_target": -4.83776773307909e-07,
+            "killed": true
+          },
+          "stress_proxy": {
+            "term_value": 0.0034020692110061646,
+            "descent_dalpha_outside_target": -2.885147296183277e-06,
+            "descent_dalpha_inside_target": 4.575841558107641e-06,
+            "killed": true
+          },
+          "topo_proxy": {
+            "descent_dalpha_outside_target": 0.0,
+            "descent_dalpha_inside_target": 0.0,
+            "killed": false,
+            "note": "обнулён весом"
+          }
+        }
+      }
+    }
+  }
+}

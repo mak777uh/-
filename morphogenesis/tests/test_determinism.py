@@ -60,7 +60,7 @@ def _training_fingerprint(seed, iterations=20, unroll=4):
 
     from nca_core import NeuralCellularAutomaton, StatePool, run_steps
 
-    from target_patterns import create_target_circles
+    from target_patterns import create_target
 
     from train import compute_loss
 
@@ -78,23 +78,25 @@ def _training_fingerprint(seed, iterations=20, unroll=4):
 
         model.parameters(),
 
-        lr=config.LEARNING_RATE,
+        lr=config.TRAIN_LR,
 
-        weight_decay=config.WEIGHT_DECAY,
+        weight_decay=config.TRAIN_WEIGHT_DECAY,
 
     )
 
-    target = create_target_circles(
+    target = create_target(device=device)
 
-        grid_size=config.GRID_SIZE,
+    pool = StatePool(
 
-        n_circles=config.TARGET_COMPONENTS,
+        size=config.TRAIN_SAMPLE_POOL_SIZE,
 
         device=device,
 
-    )
+        generator=generator,
 
-    pool = StatePool(size=config.STATE_POOL_SIZE, device=device, generator=generator)
+        batch_size=config.TRAIN_BATCH_SIZE,
+
+    )
 
     model.train()
 
@@ -124,7 +126,7 @@ def _training_fingerprint(seed, iterations=20, unroll=4):
 
         total_loss.backward()
 
-        torch.nn.utils.clip_grad_norm_(model.parameters(), config.GRAD_CLIP)
+        torch.nn.utils.clip_grad_norm_(model.parameters(), config.TRAIN_GRAD_CLIP_NORM)
 
         optimizer.step()
 
@@ -158,7 +160,7 @@ def _training_fingerprint(seed, iterations=20, unroll=4):
 
         "digest": h.hexdigest(),
 
-        "first_loss": loss_dict["pattern"],
+        "first_loss": loss_dict["visible_mse"],
 
         "losses": [float(x) for x in losses],
 
@@ -225,6 +227,23 @@ class DeterminismEnvironmentTests(unittest.TestCase):
         # Гейт предзапуска (§23) обязан проходить в собранном окружении.
 
         assert_deterministic_ready(report)
+
+    def test_device_matches_real_cuda_device_count(self):
+        """DEVICE обязан называть "cpu", когда устройств CUDA нет.
+
+        Замеренная ловушка (torch 2.6.0+cu124, Windows): при CUDA_VISIBLE_DEVICES=""
+        torch.cuda.is_available() возвращает True, а device_count() — 0. Из-за этого
+        config.DEVICE оставался "cuda", и тест с torch.load(map_location=device) падал
+        с "Attempting to deserialize object on CUDA device 0". Правила выбора
+        железа и отчёт детерминизма проверяются здесь вместе.
+        """
+        n = int(torch.cuda.device_count()) if torch.cuda.is_available() else 0
+
+        self.assertEqual(config.CUDA_DEVICE_COUNT, n)
+
+        self.assertEqual(config.CUDA_USABLE, n > 0)
+
+        self.assertEqual(config.DEVICE, "cuda" if n > 0 else "cpu")
 
     def test_entry_modules_import_config_first(self):
 

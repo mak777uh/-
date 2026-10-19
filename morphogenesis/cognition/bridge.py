@@ -10,7 +10,6 @@ bridge.py — Мост между симулятором и когнитивны
 
 import json
 
-import math
 
 # §9.2: config импортируется раньше torch — он выставляет
 # CUBLAS_WORKSPACE_CONFIG до загрузки CUDA. Порядок не менять (isort/intelliJ
@@ -34,11 +33,8 @@ from topology import (
 
     _get_structure_8,
 
-    get_binary_mask,
-
 )
 
-from evaluate import compute_symmetric_chamfer_error
 
 from cognition.protocol import (
 
@@ -55,10 +51,6 @@ from cognition.protocol import (
 from cognition.action_validator import (
 
     validate_action,
-
-    compute_action_cost,
-
-    estimate_normalized_dose,
 
 )
 
@@ -942,19 +934,19 @@ def apply_action(
 
     elif action == "MODIFY_LR":
 
-        old = config.LEARNING_RATE
+        old = config.TRAIN_LR
 
         new_val = max(
 
             1e-5,
 
-            min(1e-2, float(params.get("new_value", config.LEARNING_RATE))),
+            min(1e-2, float(params.get("new_value", config.TRAIN_LR))),
 
         )
 
-        config.LEARNING_RATE = new_val
+        config.TRAIN_LR = new_val
 
-        changes["LEARNING_RATE"] = {"old": old, "new": new_val}
+        changes["TRAIN_LR"] = {"old": old, "new": new_val}
 
         if optimizer is not None:
 
@@ -978,19 +970,22 @@ def apply_action(
 
     elif action == "MODIFY_L1_REG":
 
-        old = config.L1_REG_WEIGHT
+        # §12.6.3: L1-регулярность — это ВЕС члена hidden_regularization,
+        # а не отдельный глобальный параметр; пишем ровно туда, откуда читает
+        # train.compute_loss (иначе «действие» агента было бы пустышкой).
+        old = float(config.LOSS_WEIGHTS["hidden_regularization"])
 
         new_val = max(
 
             0.0,
 
-            min(0.1, float(params.get("new_value", config.L1_REG_WEIGHT))),
+            min(0.1, float(params.get("new_value", old))),
 
         )
 
-        config.L1_REG_WEIGHT = new_val
+        config.LOSS_WEIGHTS["hidden_regularization"] = new_val
 
-        changes["L1_REG_WEIGHT"] = {"old": old, "new": new_val}
+        changes["LOSS_WEIGHTS.hidden_regularization"] = {"old": old, "new": new_val}
 
         if optimizer is not None:
 

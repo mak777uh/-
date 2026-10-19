@@ -39,28 +39,19 @@ import numpy as np
 
 import torch
 
-import torch.nn.functional as F
 
 from scipy.ndimage import label, center_of_mass, distance_transform_edt
 
 
 from topology import (
 
-    compute_topology_metrics,
-
     compute_extended_topology_metrics,
 
     _get_structure_8,
 
-    _get_structure_4,
-
     remove_small_clusters,
 
     get_binary_mask,
-
-    count_connected_components,
-
-    count_holes,
 
 )
 
@@ -203,6 +194,108 @@ def compute_symmetric_chamfer_error(pred_mask, target_mask, grid_size=None):
     err = 0.5 * (pred_to_target + target_to_pred)
 
     return float(err / diag)
+
+
+def compute_coverage_endpoints(pred_mask, target_mask):
+    """
+    Эндпоинт, который видит ПЕРЕПОКРЫНИЕ ткани (§3.3; введён в WP4).
+
+    Мотивация — измеренный дефект симметричного Chamfer
+    (experiments/E02_pattern/collapse_probe.json): он двусторонний, но
+    нормирован на расстояние, а не на площадь, поэтому раздутая лужа стоит
+    почти столько же, что и корректная ткань: всё-белое поле 0.036, случайное
+    p=0.5 0.040, полустёртое кольцо 0.035 против 0.766 у пустого поля. Значит
+    «Chamfer убывает» выполним и вымершей тканью, и лужей — как первичная
+    точка отсчёта E02 он непригоден.
+
+    Здесь сравнение идёт по множества клеток, поэтому перепокрытие наказывается
+    напрямую:
+
+      recall    = |pred ∩ target| / |target|   — ткань там, где её требуют;
+      precision = |pred ∩ target| / |pred|     — ткань не больше, чем требуется;
+      f1        = гармоническое среднее (0, если пересечения нет);
+      over_coverage = |pred \\ target| / |cells|  — лишняя ткань как доля поля.
+
+    Пустое предсказание и пустая цель не дают деления на ноль: метрики
+    возвращаются в 0 с явно проставленным флагом.
+
+    pred_mask, target_mask: 2D numpy bool/uint8 (или приводящиеся к ним).
+    """
+    pred = np.asarray(pred_mask, dtype=bool)
+    target = np.asarray(target_mask, dtype=bool)
+    if pred.shape != target.shape:
+        raise ValueError(f"формы масок не совпадают: pred={pred.shape}, target={target.shape}")
+
+    cells = int(pred.size)
+    inter = int(np.logical_and(pred, target).sum())
+    n_pred = int(pred.sum())
+    n_target = int(target.sum())
+
+    recall = inter / n_target if n_target > 0 else 0.0
+    precision = inter / n_pred if n_pred > 0 else 0.0
+    f1 = (2.0 * precision * recall / (precision + recall)) if (precision + recall) > 0 else 0.0
+
+    return {
+        "recall": float(recall),
+        "precision": float(precision),
+        "f1": float(f1),
+        "over_coverage": float((n_pred - inter) / cells),
+        "missed": float((n_target - inter) / cells),
+        "pred_cells": n_pred,
+        "target_cells": n_target,
+        "target_empty": bool(n_target == 0),
+        "pred_empty": bool(n_pred == 0),
+    }
+
+
+def best_threshold_coverage(soft_pred, target_mask, candidate_thresholds=None):
+    """
+    Эндпоинт БЕЗ фиксированного порога бинаризации (WP4, §5.1).
+
+    Причина: измерено (log/WP4_H-N1_s2000), что visible_mse падает до 0.106, то
+    есть НИЖЕ пола лучшего константного предсказания p(1-p)=0.12914 — структура в
+    поле появляется, — а coverage.f1 при этом 0.000, потому что амплитуда
+    выученной структуры не доходит до ALIVE_THRESHOLD=0.5. Один порок порога не
+    позволяет отличить «не выучила форму» от «выучила, но бледно».
+
+    soft_pred: 2D numpy float в [0,1] (sigmoid видимого канала, маска НЕ применена).
+    candidate_thresholds: по умолчанию — квантили самого поля + обязательная
+    точка 0.5 (штатный порог), чтобы вывод всегда можно было сверить с ним.
+
+    Возвращает f1 при пороге 0.5, лучшую точку скана и саму кривую.
+    """
+    soft = np.asarray(soft_pred, dtype=float)
+    target = np.asarray(target_mask, dtype=bool)
+    if soft.shape != target.shape:
+        raise ValueError(f"формы не совпадают: pred={soft.shape}, target={target.shape}")
+
+    if candidate_thresholds is None:
+        qs = np.linspace(0.0, 0.999, 60)
+        candidate_thresholds = np.unique(np.quantile(soft, qs))
+    thresholds = np.unique(np.concatenate([np.asarray(candidate_thresholds, dtype=float), [0.5]]))
+
+    curve = []
+    for t in thresholds:
+        cov = compute_coverage_endpoints(soft > t, target)
+        curve.append(
+            {
+                "threshold": float(t),
+                "f1": cov["f1"],
+                "recall": cov["recall"],
+                "precision": cov["precision"],
+                "pred_fraction": float(np.mean(soft > t)),
+            }
+        )
+    at_default = next(c for c in curve if abs(c["threshold"] - 0.5) < 1e-12)
+    best = max(curve, key=lambda c: (c["f1"], -abs(c["threshold"] - 0.5)))
+    return {
+        "f1_at_default_threshold": at_default["f1"],
+        "default_threshold": float(config.ALIVE_THRESHOLD),
+        "best": best,
+        "gain_over_default": float(best["f1"] - at_default["f1"]),
+        "curve": curve,
+    }
+
 
 def compute_distance_transform_error(pred_mask, target_mask):
 

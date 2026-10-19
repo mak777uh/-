@@ -24,15 +24,12 @@ experiment_manager.py — Управление серией эксперимен
 
 """
 
-import glob
 
 import json
 
-import math
 
 import os
 
-import shutil
 
 import time
 
@@ -60,11 +57,8 @@ from nca_core import (
 
     init_state,
 
-    StatePool,
-
 )
 
-from config import create_deterministic_generator
 
 from utils.determinism import numpy_generator
 
@@ -73,8 +67,6 @@ from topology import (
     compute_topology_metrics,
 
     compute_extended_topology_metrics,
-
-    get_binary_mask,
 
 )
 
@@ -92,23 +84,11 @@ from evaluate import (
 
     save_frame,
 
-    evaluate_model,
-
     apply_injury,
-
-    plot_evaluation,
-
-    inject_morphogen,
 
     compute_stress_summary,
 
-    run_self_maintenance_probe,
-
-    apply_aging_noise,
-
     run_aging_protocol,
-
-    compute_symmetric_chamfer_error,
 
     compute_lyapunov_exponent,
 
@@ -116,7 +96,6 @@ from evaluate import (
 
 from train import train, append_to_log, atomic_save
 
-from cognition.cognitive_loop import CognitiveLoop
 
 from cognition.agent_backends import RuleBasedAgentV2, AgentBackend
 
@@ -550,6 +529,56 @@ class ExperimentManager:
 
     # ========================================================================
 
+    def _lyapunov_scan(self, scales, steps=100, out_path=None):
+        """
+        Кривая λ от амплитуды симметризующего возмущения последнего слоя.
+
+        §12.2.2 требует нулевую инициализацию последнего слоя, поэтому без
+        возмущения E01 измерял бы покой (λ = 0 тривиально). Скан показывает,
+        что коридор §7.3 — это осмысленное окно, а не следствие выбора числа.
+        """
+        rows = []
+        for scale in scales:
+            torch.manual_seed(config.SEED)
+            model = NeuralCellularAutomaton().to(config.DEVICE)
+            model.eval()
+            model.alive_mask_enabled = True
+            with torch.no_grad():
+                for p in model.brain.net[-1].parameters():
+                    p.add_(float(scale) * torch.randn_like(p))
+            state = init_state(device=config.DEVICE)
+            lam, valid, skipped = compute_lyapunov_exponent(model, state.clone(), steps=steps)
+            rolled = run_steps_no_grad(model, state.clone(), steps=50)
+            topo = compute_topology_metrics(rolled)
+            alive_fraction = float(
+                (
+                    torch.sigmoid(rolled[:, config.ALIVE_CHANNEL, :, :])
+                    > config.ALIVE_THRESHOLD
+                )
+                .float()
+                .mean()
+                .item()
+            )
+            rows.append(
+                {
+                    "perturbation": float(scale),
+                    "lyapunov": float(lam),
+                    "valid_steps": int(valid),
+                    "skipped_steps": int(skipped),
+                    "in_corridor": bool(
+                        config.CRITICALITY_LYAPUNOV_MIN < lam < config.CRITICALITY_LYAPUNOV_MAX
+                    ),
+                    "alive_fraction": alive_fraction,
+                    "b0": topo["b0"],
+                    "b1": topo["b1"],
+                    "density": topo["density"],
+                }
+            )
+            del model
+        if out_path:
+            self._save_json(out_path, {"scales": rows, "steps": int(steps)})
+        return rows
+
     def run_E01_criticality(self):
 
         exp_dir = os.path.join(self.base_dir, "E01_criticality")
@@ -574,7 +603,7 @@ class ExperimentManager:
 
             for p in model.brain.net[-1].parameters():
 
-                p.add_(0.05 * torch.randn_like(p))
+                p.add_(config.CRITICALITY_INIT_PERTURBATION * torch.randn_like(p))
 
         state = init_state(device=config.DEVICE)
 
@@ -661,6 +690,22 @@ class ExperimentManager:
         }
 
         save_frame(model, state, 50, save_dir=exp_dir)
+
+        # Прозрачность выбора амплитуды: λ зависит от CRITICALITY_INIT_PERTURBATION,
+
+        # поэтому вместе с результатом сохраняется ВСЯ кривая скана. Без неё
+
+        # «попадание в коридор» было бы неотличимо от подгонки.
+
+        result["lyapunov_scan"] = self._lyapunov_scan(
+
+            scales=config.CRITICALITY_SCAN_SCALES,
+
+            steps=config.CRITICALITY_STEPS,
+
+            out_path=os.path.join(exp_dir, "lyapunov_scan.json"),
+
+        )
 
         self._save_json(os.path.join(exp_dir, "results.json"), result)
 
@@ -1218,7 +1263,7 @@ class ExperimentManager:
 
             model.parameters(),
 
-            lr=config.LEARNING_RATE * 0.5,
+            lr=config.TRAIN_LR * 0.5,
 
         )
 
@@ -1246,7 +1291,7 @@ class ExperimentManager:
 
             model.alive_mask_enabled = True
 
-            state = run_steps(model, state, steps=config.UNROLL_STEPS)
+            state = run_steps(model, state, steps=config.TRAIN_BPTT_CURRICULUM[0])
 
             visible = model.visible_image(state)
 
@@ -1268,7 +1313,7 @@ class ExperimentManager:
 
             loss.backward()
 
-            torch.nn.utils.clip_grad_norm_(model.parameters(), config.GRAD_CLIP)
+            torch.nn.utils.clip_grad_norm_(model.parameters(), config.TRAIN_GRAD_CLIP_NORM)
 
             optimizer.step()
 

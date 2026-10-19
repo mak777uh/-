@@ -36,7 +36,6 @@ smoke_test.py — Сухая проверка перед запуском.
 
 """
 
-import os
 
 # §9.2: config импортируется раньше torch — он выставляет
 # CUBLAS_WORKSPACE_CONFIG до загрузки CUDA. Порядок не менять (isort/intelliJ
@@ -71,8 +70,6 @@ from topology import (
     count_holes,
 
     count_connected_components,
-
-    get_binary_mask,
 
 )
 
@@ -354,9 +351,7 @@ def test_checkpoint_metadata():
 
     """
 
-    import tempfile
 
-    import torch
 
     metadata = config.get_checkpoint_metadata(
 
@@ -626,7 +621,7 @@ def smoke_test():
 
         # === Проверка памяти ===
 
-        if torch.cuda.is_available():
+        if config.CUDA_USABLE:
 
             mem_mb = torch.cuda.memory_allocated() / 1e6
 

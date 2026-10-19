@@ -24,7 +24,6 @@ import unittest
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-import config
 
 from cognition.action_validator import validate_action, compute_action_cost
 

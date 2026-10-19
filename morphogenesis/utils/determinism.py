@@ -69,7 +69,10 @@ def init_determinism(seed=None, strict=None):
     np.random.seed(seed)
 
     torch.manual_seed(seed)
-    cuda_available = torch.cuda.is_available()
+    # config.CUDA_USABLE, а не torch.cuda.is_available(): при пустом
+    # CUDA_VISIBLE_DEVICES is_available() возвращает True при device_count()==0
+    # (замерено на torch 2.6.0+cu124), и отчёт об окружении начал бы врать.
+    cuda_available = bool(config.CUDA_USABLE)
     if cuda_available:
         torch.cuda.manual_seed_all(seed)
 
@@ -80,6 +83,7 @@ def init_determinism(seed=None, strict=None):
         "seed": seed,
         "strict": strict,
         "cuda_available": cuda_available,
+        "cuda_device_count": int(getattr(config, "CUDA_DEVICE_COUNT", 0)),
         "cublas_workspace_config": os.environ.get("CUBLAS_WORKSPACE_CONFIG"),
         "cublas_env_value_present": os.environ.get("CUBLAS_WORKSPACE_CONFIG")
         == config.CUBLAS_WORKSPACE_CONFIG,
@@ -235,7 +239,7 @@ def assert_deterministic_ready(report=None):
         problems.append(
             "config импортирован после torch — переменная окружения задана поздно (§9.2)"
         )
-    if torch.cuda.is_available() and not torch.are_deterministic_algorithms_enabled():
+    if config.CUDA_USABLE and not torch.are_deterministic_algorithms_enabled():
         problems.append("use_deterministic_algorithms(False) при доступном CUDA")
     if report is not None and report.get("warn_only"):
         problems.append("use_deterministic_algorithms работает в warn_only (деградация)")

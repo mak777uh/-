@@ -1,0 +1,253 @@
+{
+  "spec_version": "v5.6-EXP FINAL",
+  "revision": "Rev.11-IMPLEMENTATION-READY",
+  "target_pattern": "ring",
+  "target_topology": {
+    "b0": 1,
+    "b1": 1,
+    "chi": 0
+  },
+  "loss_weights": {
+    "visible_mse": 1.0,
+    "alive_policy": 0.5,
+    "hidden_regularization": 0.05,
+    "stress_proxy": 0.1,
+    "topo_proxy": 0.1,
+    "attractor_divergence": 0.2
+  },
+  "collapse_threshold": 0.15,
+  "seeds_passed_no_collapse": 0,
+  "seeds_passed_chamfer": 0,
+  "runs": [
+    {
+      "seed": 42,
+      "steps": 400,
+      "batch_size": 8,
+      "alive_fraction_min": 0.064788818359375,
+      "alive_fraction_final": 0.001434326171875,
+      "no_collapse": false,
+      "chamfer_first": 0.041065448165639215,
+      "chamfer_last": 0.07580665404824313,
+      "chamfer_final_eval": 0.7663876696316275,
+      "chamfer_decreasing": false,
+      "final_topology": {
+        "iteration": 150,
+        "chamfer": 0.07580665404824313,
+        "alive_fraction": 0.064788818359375,
+        "b0": 0.0,
+        "b1": 0.0,
+        "total": 0.4369480311870575
+      },
+      "trajectory": [
+        {
+          "iteration": 50,
+          "chamfer": 0.041065448165639215,
+          "alive_fraction": 0.482818603515625,
+          "b0": 78.75,
+          "b1": 8.375,
+          "total": 0.4794310927391052
+        },
+        {
+          "iteration": 100,
+          "chamfer": 0.05406504669617895,
+          "alive_fraction": 0.1439208984375,
+          "b0": 0.0,
+          "b1": 0.0,
+          "total": 0.429216206073761
+        },
+        {
+          "iteration": 150,
+          "chamfer": 0.07580665404824313,
+          "alive_fraction": 0.064788818359375,
+          "b0": 0.0,
+          "b1": 0.0,
+          "total": 0.4369480311870575
+        }
+      ]
+    },
+    {
+      "seed": 101,
+      "steps": 400,
+      "batch_size": 8,
+      "alive_fraction_min": 0.0667724609375,
+      "alive_fraction_final": 0.001434326171875,
+      "no_collapse": false,
+      "chamfer_first": 0.04158002497451864,
+      "chamfer_last": 0.07722824292073494,
+      "chamfer_final_eval": 0.7663876696316275,
+      "chamfer_decreasing": false,
+      "final_topology": {
+        "iteration": 150,
+        "chamfer": 0.07722824292073494,
+        "alive_fraction": 0.0667724609375,
+        "b0": 0.0,
+        "b1": 0.0,
+        "total": 0.43731075525283813
+      },
+      "trajectory": [
+        {
+          "iteration": 50,
+          "chamfer": 0.04158002497451864,
+          "alive_fraction": 0.477142333984375,
+          "b0": 82.125,
+          "b1": 9.75,
+          "total": 0.4791014492511749
+        },
+        {
+          "iteration": 100,
+          "chamfer": 0.051816170283625104,
+          "alive_fraction": 0.154388427734375,
+          "b0": 0.125,
+          "b1": 0.0,
+          "total": 0.42861950397491455
+        },
+        {
+          "iteration": 150,
+          "chamfer": 0.07722824292073494,
+          "alive_fraction": 0.0667724609375,
+          "b0": 0.0,
+          "b1": 0.0,
+          "total": 0.43731075525283813
+        }
+      ]
+    },
+    {
+      "seed": 202,
+      "steps": 400,
+      "batch_size": 8,
+      "alive_fraction_min": 0.068145751953125,
+      "alive_fraction_final": 0.00140380859375,
+      "no_collapse": false,
+      "chamfer_first": 0.04136209813390619,
+      "chamfer_last": 0.06672956648133928,
+      "chamfer_final_eval": 0.7663876696316275,
+      "chamfer_decreasing": false,
+      "final_topology": {
+        "iteration": 150,
+        "chamfer": 0.06672956648133928,
+        "alive_fraction": 0.068145751953125,
+        "b0": 0.0,
+        "b1": 0.0,
+        "total": 0.43821263313293457
+      },
+      "trajectory": [
+        {
+          "iteration": 50,
+          "chamfer": 0.04136209813390619,
+          "alive_fraction": 0.480865478515625,
+          "b0": 78.25,
+          "b1": 9.0,
+          "total": 0.47920000553131104
+        },
+        {
+          "iteration": 100,
+          "chamfer": 0.0549654709618914,
+          "alive_fraction": 0.1402587890625,
+          "b0": 0.0,
+          "b1": 0.0,
+          "total": 0.428329735994339
+        },
+        {
+          "iteration": 150,
+          "chamfer": 0.06672956648133928,
+          "alive_fraction": 0.068145751953125,
+          "b0": 0.0,
+          "b1": 0.0,
+          "total": 0.43821263313293457
+        }
+      ]
+    },
+    {
+      "seed": 303,
+      "steps": 400,
+      "batch_size": 8,
+      "alive_fraction_min": 0.066680908203125,
+      "alive_fraction_final": 0.00146484375,
+      "no_collapse": false,
+      "chamfer_first": 0.04150432138143213,
+      "chamfer_last": 0.0788714813237569,
+      "chamfer_final_eval": 0.7663876696316275,
+      "chamfer_decreasing": false,
+      "final_topology": {
+        "iteration": 150,
+        "chamfer": 0.0788714813237569,
+        "alive_fraction": 0.066680908203125,
+        "b0": 0.0,
+        "b1": 0.0,
+        "total": 0.43518877029418945
+      },
+      "trajectory": [
+        {
+          "iteration": 50,
+          "chamfer": 0.04150432138143213,
+          "alive_fraction": 0.474578857421875,
+          "b0": 78.75,
+          "b1": 12.375,
+          "total": 0.4789140820503235
+        },
+        {
+          "iteration": 100,
+          "chamfer": 0.0539229058178446,
+          "alive_fraction": 0.14501953125,
+          "b0": 0.0,
+          "b1": 0.0,
+          "total": 0.4298272132873535
+        },
+        {
+          "iteration": 150,
+          "chamfer": 0.0788714813237569,
+          "alive_fraction": 0.066680908203125,
+          "b0": 0.0,
+          "b1": 0.0,
+          "total": 0.43518877029418945
+        }
+      ]
+    },
+    {
+      "seed": 404,
+      "steps": 400,
+      "batch_size": 8,
+      "alive_fraction_min": 0.0679931640625,
+      "alive_fraction_final": 0.00164794921875,
+      "no_collapse": false,
+      "chamfer_first": 0.04167791265754055,
+      "chamfer_last": 0.0719080063999972,
+      "chamfer_final_eval": 0.7663876696316275,
+      "chamfer_decreasing": false,
+      "final_topology": {
+        "iteration": 150,
+        "chamfer": 0.0719080063999972,
+        "alive_fraction": 0.0679931640625,
+        "b0": 0.0,
+        "b1": 0.0,
+        "total": 0.4346533715724945
+      },
+      "trajectory": [
+        {
+          "iteration": 50,
+          "chamfer": 0.04167791265754055,
+          "alive_fraction": 0.483123779296875,
+          "b0": 76.625,
+          "b1": 8.5,
+          "total": 0.4787426292896271
+        },
+        {
+          "iteration": 100,
+          "chamfer": 0.054394120730841836,
+          "alive_fraction": 0.14080810546875,
+          "b0": 0.0,
+          "b1": 0.0,
+          "total": 0.42788809537887573
+        },
+        {
+          "iteration": 150,
+          "chamfer": 0.0719080063999972,
+          "alive_fraction": 0.0679931640625,
+          "b0": 0.0,
+          "b1": 0.0,
+          "total": 0.4346533715724945
+        }
+      ]
+    }
+  ]
+}

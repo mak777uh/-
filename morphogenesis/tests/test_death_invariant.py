@@ -26,7 +26,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 import config
 
-from nca_core import NeuralCellularAutomaton, init_state
+from nca_core import NeuralCellularAutomaton
 
 class TestDeathInvariant(unittest.TestCase):
 
