@@ -277,7 +277,17 @@ class TestAlivePolicyLandscape(unittest.TestCase):
         )
 
     def test_survival_mode_keys_match_spec(self):
-        """Контракт §12.6.3 не зависит от режима: набор членов тот же."""
+        """Контракт §12.6.3 не зависит от режима: набор членов тот же.
+
+        retention_mse / retention_survival / retention_quiet в наборе присутствуют
+        всегда (0.0 при выключенном члене): набор ключей лога не должен зависеть от
+        конфига, иначе два прогона становятся несопоставимы на уровне разбора, а не
+        чисел. retention_quiet добавлен в wave 9 как вторая половина полосы
+        (§14.2 + NEG-20: выживание без штрафа за живость фона даёт «живо всё») —
+        набор вырос на один ключ у ВСЕХ прогонов сразу, включая старые режимы, и
+        инвариант «не зависит от ALIVE_POLICY_MODE / RETENTION_* » это не ломает:
+        ровно поэтому ключ пишется и при quiet весе 0.0.
+        """
         from train import compute_loss
 
         config.ALIVE_POLICY_MODE = "survival"
@@ -300,6 +310,9 @@ class TestAlivePolicyLandscape(unittest.TestCase):
                 "stress_proxy",
                 "topo_proxy",
                 "attractor_divergence",
+                "retention_mse",
+                "retention_survival",
+                "retention_quiet",
                 "alive_fraction",
                 "frac_delta_nonzero",
             },

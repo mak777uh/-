@@ -2,7 +2,7 @@
 gate_layer1.py — про гейт слоя 1 (§19.2, план WP3).
 
 Запускает КОРОТКИЕ диагностические прогоны E02 (5 сидов, стресс включён) и
-проверяет три условия гейта:
+проверяет четыре условия гейта (с WP4b):
 
 1. ткань не коллапсирует: alive_fraction >= относительного порога
    config.collapse_alive_fraction_min(плотность цели) — того же, из которого
@@ -17,6 +17,13 @@ gate_layer1.py — про гейт слоя 1 (§19.2, план WP3).
 
 3. симметричный Chamfer убывает — оставлен как ВТОРОЕ (диагностическое) условие
    и пишется в json, но решение о гейте по нему не принимается.
+
+4. УДЕРЖАНИЕ (WP4b, §14.2): после RETENTION_GATE_STEPS автономных шагов лучший
+   f1 по скану порогов (с условием живости) остаётся выше потолка
+   бесструктурного предсказателя 2p/(1+p) с зазором 0.05. Добавлено по решению
+   владельца спеки после NEG-17: пять сидов из пяти умирали на одной и той же
+   итерации 200, а f1 на последнем шаге обучения не отличает «форма есть» от
+   «форма была бы, если бы динамику выключить».
 
 Отдельно пишется, но НЕ участвует в решении скан порога бинаризации (NEG-10):
 f1@0.5 = 0 означает ещё и «выучила форму амплитудой ниже порога», поэтому в
@@ -91,6 +98,7 @@ def run_gate(steps, seeds, batch_size=None):
         compute_symmetric_chamfer_error,
         best_threshold_coverage,
     )
+    from nca_core import run_steps_no_grad
     from train import train, alive_fraction_of
 
     os.makedirs(config.EXPERIMENT_DIR if hasattr(config, "EXPERIMENT_DIR") else "experiments", exist_ok=True)
@@ -145,6 +153,30 @@ def run_gate(steps, seeds, batch_size=None):
         # +0.05 — тот же шумовой зазор, что в wp4_threshold_probe.py: потолок
         # бесструктурного «всё яркое» 2p/(1+p) достигается точно.
         beyond_ceiling = bool(scan["best"]["f1"] > ceiling + 0.05)
+        # WP4b, §14.2 «удержать»: автономный прогон на RETENTION_GATE_STEPS шагов и
+        # тот же скан порогов. Решение владельца спеки после NEG-17 (5 из 5
+        # сидов умирают на итерации 200): «удержание» перестаёт быть текстом
+        # гейта и становится условием, потому что f1 на последнем шаге обучения
+        # ничего не говорит об устойчивости формы — NEG-10 измерил 0.4747 ->
+        # 0.2783 после 200 автономных шагов. Инференс в eval(): channel dropout
+        # и резервирование каналов (§12.1.6) training-only, иначе автономный
+        # прогон мерил бы обучающую возмущающую добавку, а не динамику модели.
+        model.eval()
+        with torch.no_grad():
+            held = run_steps_no_grad(model, state, steps=int(config.RETENTION_GATE_STEPS))
+            held_soft = torch.sigmoid(held[0, config.VISIBLE_CHANNEL]).cpu().numpy()
+            held_alive = (
+                torch.sigmoid(held[0, config.ALIVE_CHANNEL]) > config.ALIVE_THRESHOLD
+            ).cpu().numpy()
+            held_af = float(
+                (torch.sigmoid(held[:, config.ALIVE_CHANNEL]) > config.ALIVE_THRESHOLD)
+                .float()
+                .mean()
+                .item()
+            )
+        held_scan = best_threshold_coverage(np.where(held_alive, held_soft, 0.0), target_np)
+        retention_ok = bool(held_scan["best"]["f1"] > ceiling + 0.05)
+        model.train()
         alive_series = [r["alive_fraction"] for r in rows if r["iteration"] > config.ALIVE_WARMUP_ITERS]
         chamfer_series = [r["chamfer"] for r in rows]
         f1_series = [
@@ -186,6 +218,13 @@ def run_gate(steps, seeds, batch_size=None):
                     "gain_over_default": scan["gain_over_default"],
                 },
                 "structure_beyond_ceiling": beyond_ceiling,
+                # Удержание (§14.2): форма после RETENTION_GATE_STEPS автономных
+                # шагов. Это НЕ справочное число — см. gate_passed ниже.
+                "retention_steps": int(config.RETENTION_GATE_STEPS),
+                "retention_alive_fraction": held_af,
+                "retention_f1_gated_best": held_scan["best"]["f1"],
+                "retention_f1_at_default_threshold": held_scan["f1_at_default_threshold"],
+                "retention_holds": retention_ok,
                 "chamfer_first": chamfer_series[0] if chamfer_series else None,
                 "chamfer_last": chamfer_series[-1] if chamfer_series else None,
                 "chamfer_final_eval": final_chamfer,
@@ -202,7 +241,10 @@ def run_gate(steps, seeds, batch_size=None):
             f"{scan['best']['threshold']:.4f} выше потолка={beyond_ceiling} | "
             f"chamfer {chamfer_series[0] if chamfer_series else float('nan'):.4f} -> "
             f"{chamfer_series[-1] if chamfer_series else float('nan'):.4f} "
-            f"decreasing={decreasing_ok}"
+            f"decreasing={decreasing_ok} | "
+            f"удержание после {config.RETENTION_GATE_STEPS} автономных шагов: "
+            f"f1(gated)={held_scan['best']['f1']:.4f} af={held_af:.3f} "
+            f"holds={retention_ok}"
         )
 
     config.CHECKPOINT_DIR = original_ckpt
@@ -228,16 +270,30 @@ def run_gate(steps, seeds, batch_size=None):
         # потолка бесструктурного предсказателя при калибровке порога.
         "structureless_f1_ceiling": 2.0 * target_density / (1.0 + target_density),
         "seeds_with_structure_beyond_ceiling": sum(r["structure_beyond_ceiling"] for r in results),
+        # Удержание (§14.2) — четвёртое условие гейта с WP4b; считается по
+        # автономному прогону в RETENTION_GATE_STEPS шагов, а не по последнему
+        # шагу обучения.
+        "seeds_passed_retention": sum(r["retention_holds"] for r in results),
+        "retention": {
+            "autonomous_steps": int(config.RETENTION_GATE_STEPS),
+            "condition": "лучший gated f1 после автономных шагов > потолок + 0.05",
+            "structureless_f1_ceiling": 2.0 * target_density / (1.0 + target_density),
+            "trained_with_rollout_loss": bool(config.RETENTION_ENABLED),
+            "rollout_loss_weight": float(config.LOSS_WEIGHTS.get("retention", 0.0)),
+            "rollout_loss_steps": int(config.RETENTION_ROLLOUT_STEPS),
+        },
         "runs": results,
     }
-    # Решение по гейту: живая ткань И растущее покрытие на КАЖДОМ сиде.
-    # Chamfer в решение не входит (см. модульный докстринг) — он справочный.
+    # Решение по гейту: живая ткань И растущее покрытие И удержанная форма на
+    # КАЖДОМ сиде. Chamfer в решение не входит (см. модульный докстринг) — он
+    # справочный.
     n = len(results)
     summary["gate_passed"] = bool(
         n > 0
         and summary["seeds_passed_no_collapse"] == n
         and summary["seeds_with_coverage_measured"] == n
         and summary["seeds_passed_coverage"] == n
+        and summary["seeds_passed_retention"] == n
     )
     path = os.path.join(out_dir, "gate_layer1.json")
     with open(path, "w", encoding="utf-8") as fh:
@@ -249,6 +305,7 @@ def run_gate(steps, seeds, batch_size=None):
         f"покрытие_растёт={summary['seeds_passed_coverage']} "
         f"структура_выше_потолка(справочно)={summary['seeds_with_structure_beyond_ceiling']} "
         f"chamfer_убывает(справочно)={summary['seeds_passed_chamfer']} "
+        f"удержание={summary['seeds_passed_retention']}/{n} "
         f"гейт={'ПРОЙДЕН' if summary['gate_passed'] else 'НЕ ПРОЙДЕН'}"
     )
     return summary

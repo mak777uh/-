@@ -643,8 +643,6 @@ class ExperimentManager:
 
         state = run_steps_no_grad(model, state, steps=50)
 
-        visible = model.visible_image(state)
-
         topo = compute_extended_topology_metrics(
 
             state,
@@ -1287,7 +1285,7 @@ class ExperimentManager:
 
         loss = torch.tensor(0.0, device=config.DEVICE)
 
-        for iteration in range(1, 501):
+        for _ in range(1, 501):
 
             model.alive_mask_enabled = True
 
@@ -1324,8 +1322,6 @@ class ExperimentManager:
         model.eval()
 
         model.alive_mask_enabled = True
-
-        visible_final = model.visible_image(state)
 
         final_mse = _compute_visible_mse(model, state, target_ring)
 
@@ -1494,8 +1490,6 @@ class ExperimentManager:
             state = state.to(config.DEVICE)
 
         target = create_target_circles(device=config.DEVICE)
-
-        target_b0 = int(config.TARGET_TOPOLOGY["b0"])
 
         # Sweep по шуму.
 

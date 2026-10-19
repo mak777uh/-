@@ -199,6 +199,111 @@ def coverage_summary(state, target):
     return {k: float(np.mean([r[k] for r in rows])) for k in ("recall", "precision", "f1", "over_coverage", "missed")}
 
 
+def retention_rollout_loss(model, state, target_expanded, steps=None, mode=None):
+    """§14.2 «удержать»: K автономных шагов из state с градиентом через них.
+
+    Возвращает (mse, survival, quiet): среднюю за K шагов ошибку формы к цели,
+    среднюю потерю живости по клеткам ЦЕЛИ и средний штраф за живость по клеткам
+    ВНЕ цели.
+
+    Почему это отдельный член, а не «длиннее unroll»: обычный BPTT считает лосс
+    на ОДНОМ целевом кадре и на состоянии, полученном из пула (то есть из
+    распределения, которое сама модель и породила). Оптимум такого лосса достижим
+    мёртвым полем — замерено в wp4_collapse_probe (NEG-07: мёртвое поле не есть
+    глобальный оптимум, но NEG-17: на постановке без удержания ткань умирает у
+    5 из 5 сидов на итерации 200). Roll-out требует, чтобы поле оставалось
+    целевым и живым ПОСЛЕ того, как teacher-forcing выключен, — то есть переносит
+    второй критерий §14.2 из текста гейта в целевую функцию.
+
+    Старт detach(): градиент через весь накопленный unroll удвоил бы память, а
+    вопрос «удерживает ли модель форму» не про то, как она пришла в это состояние.
+    Шаг берётся через run_steps, поэтому стохастические ключи (шум, dropout,
+    выбор 10% обновлений) выделяются тем же ГПСЧ прогона — детерминизм §9.2
+    сохраняется и внутри roll-out.
+
+    Два режима survival-члена (config.RETENTION_SURVIVAL_MODE, см. комментарий
+    там же — выбор основан на измерении, NEG-18):
+      transition: relu(alpha_prev − alpha) · alpha_prev — потеря живости клеткой,
+        которая была жива (идея fitness из Growing NCA).
+      level: relu(ALIVE_THRESHOLD + margin − alpha) по клеткам ЦЕЛИ — требование
+        «то, что должно быть живым, остаётся живым с запасом».
+
+    Почему нужен level, а не только transition. Мёртвая клетка по AliveSTE имеет
+    обнулённое состояние, а sigmoid(0) = 0.5 = ALIVE_THRESHOLD (§5.7–5.8). Для
+    transition-штрафа «умереть» — это alpha_prev = alpha = 0.5, то есть ровно 0:
+    член тождественно слеп к поглощающей смерти и в прогоне R-1 дал 1.9e-4…8.5e-4
+    против visible_mse 0.25 (вклад в total ~5e-5, траектория не изменилась).
+    level при alpha = 0.5 даёт ровно margin, а в полосе alpha ∈ (0.5; 0.5+margin),
+    где клетка ещё живая, но уже на грани, — ненулевой и по значению, и по
+    градиенту (замер: gn 0.043…0.136 против gn(visible_mse) 0.66).
+
+    Граница метода, чтобы её не приписывали члену задним числом: на ПОЛНОСТЬЮ
+    мёртвом поле градиент ОБОИХ форм равен 0 — обнулённое состояние нельзя
+    обратить ничем (§5.2, поглощающая смерть). Значит retention может только
+    предотвращать смерть в момент, когда ткань ещё живая; прогон, где ткань уже
+    мертва, он не спасёт, и это проверяется тестом
+    tests/test_retention_loss.py::TestLevelSurvivalSeesAbsorbingDeath.
+
+    Третий член, quiet: relu(alpha − (ALIVE_THRESHOLD − RETENTION_QUIET_MARGIN))
+    по клеткам ВНЕ цели на той же траектории. Он нужен потому, что односторонний
+    survival даёт только выживание: прогон R-8 (level ×10, flat curriculum,
+    alive_policy вес 2.0) на итерациях 50…600 дал af 0.988…0.999 при
+    f1 ≤ 0.196 — «живо всё», NEG-20. Штраф за фон из ОДНОГО целевого кадра
+    (alive_policy) эту динамику не лечит: вырождение живёт после выключения
+    teacher-forcing, поэтому наказание обязано считаться на том же roll-out.
+    Вес члена по умолчанию 0.0 — при нулевом весе суммарный лосс побитово
+    совпадает с R-1…R-8.
+    """
+    k = int(config.RETENTION_ROLLOUT_STEPS if steps is None else steps)
+    survival_mode = str(config.RETENTION_SURVIVAL_MODE if mode is None else mode)
+    if survival_mode not in config.RETENTION_SURVIVAL_MODES:
+        raise ValueError(
+            f"retention survival mode={survival_mode!r} вне списка "
+            f"{config.RETENTION_SURVIVAL_MODES}"
+        )
+    device, dtype = state.device, state.dtype
+    if k <= 0:
+        zero = torch.zeros((), device=device, dtype=dtype)
+        return zero, zero, zero
+    cur = state.detach()
+    with torch.no_grad():
+        alpha_prev = torch.sigmoid(cur[:, config.ALIVE_CHANNEL : config.ALIVE_CHANNEL + 1])
+        # Клетки, которые по цели обязаны быть живыми. Порог 0.5 — бинаризация
+        # soft-цели, а не ALIVE_THRESHOLD: это про «где должен быть рисунок».
+        live_required = (target_expanded > 0.5).to(dtype=dtype)
+        n_required = float(live_required.sum().item())
+        alpha_floor = float(config.ALIVE_THRESHOLD) + float(config.RETENTION_ALIVE_MARGIN)
+        # Зеркальная половина: клетки, которым право быть живыми цель НЕ даёт.
+        quiet_mask = 1.0 - live_required
+        n_quiet = float(quiet_mask.sum().item())
+        alpha_ceiling = float(config.ALIVE_THRESHOLD) - float(config.RETENTION_QUIET_MARGIN)
+    mse_acc = torch.zeros((), device=device, dtype=dtype)
+    surv_acc = torch.zeros((), device=device, dtype=dtype)
+    quiet_acc = torch.zeros((), device=device, dtype=dtype)
+    for _ in range(k):
+        cur = run_steps(model, cur, steps=1)
+        mse_acc = mse_acc + F.mse_loss(model.visible_image(cur), target_expanded)
+        alpha = torch.sigmoid(cur[:, config.ALIVE_CHANNEL : config.ALIVE_CHANNEL + 1])
+        if survival_mode == "level":
+            if n_required <= 0:
+                raise ValueError(
+                    "retention survival mode=level, а в цели нет обязательных для "
+                    "жизни клеток: член был бы делением на ноль и молча нулевым"
+                )
+            surv = (F.relu(alpha_floor - alpha) * live_required).sum() / n_required
+        else:
+            surv = (F.relu(alpha_prev - alpha) * alpha_prev).mean()
+        # quiet считается всегда (вклад в сумму решает вес): нулевой вес должен
+        # давать побитово тот же лосс, что и до появления члена (R-1…R-8).
+        if n_quiet > 0:
+            quiet_acc = quiet_acc + (
+                F.relu(alpha - alpha_ceiling) * quiet_mask
+            ).sum() / n_quiet
+        surv_acc = surv_acc + surv
+        alpha_prev = alpha.detach()
+    return mse_acc / k, surv_acc / k, quiet_acc / k
+
+
 def compute_loss(
     state,
     target,
@@ -213,6 +318,8 @@ def compute_loss(
     §12.6.3: лосс — ВЗВЕШЕННАЯ СУММА членов из config.LOSS_WEIGHTS:
       visible_mse, alive_policy, hidden_regularization, stress_proxy, topo_proxy;
       attractor_divergence добавляется только в фазе 3.
+    Плюс retention (вне списка §12.6.3, расширение по §14.2): считается только
+    при RETENTION_ENABLED и весе > 0 — в состоянии «как в спеке» его нет.
 
     Формулы alive_policy / stress_proxy спецификацией не заданы (заданы только
     имена и веса) — реализация зафиксирована в decisions_log (§0.3):
@@ -284,6 +391,36 @@ def compute_loss(
     }
     total_loss = sum(weighted.values())
 
+    # 6. retention — автономный roll-out (§14.2 «удержать»), см.
+    #    retention_rollout_loss. Выключен по умолчанию (вес 0.0 и
+    #    RETENTION_ENABLED=False), чтобы лосс §12.6.3 в базовом состоянии совпадал
+    #    со спекой побитово.
+    retention_term = torch.zeros((), device=state.device, dtype=state.dtype)
+    retention_mse = torch.zeros((), device=state.device, dtype=state.dtype)
+    retention_survival = torch.zeros((), device=state.device, dtype=state.dtype)
+    retention_quiet = torch.zeros((), device=state.device, dtype=state.dtype)
+    retention_on = (
+        bool(config.RETENTION_ENABLED)
+        and float(weights.get("retention", 0.0)) > 0.0
+        and int(getattr(config, "RETENTION_EVERY", 1)) >= 1
+        and iteration >= int(getattr(config, "RETENTION_START_ITER", 0))
+        and (iteration % int(config.RETENTION_EVERY) == 0)
+    )
+    if retention_on:
+        retention_mse, retention_survival, retention_quiet = retention_rollout_loss(
+            model, state, target_expanded
+        )
+        retention_term = float(weights["retention"]) * (
+            retention_mse
+            + float(config.RETENTION_SURVIVAL_WEIGHT) * retention_survival
+            # Парная половина удержания: «живое должно жить» без «фоном прав нет»
+            # даёт вырождение «живо всё» (замерено в R-8, NEG-20). При весе 0.0
+            # слагаемое тождественно ноль, поэтому R-1…R-8 не меняются.
+            + float(config.RETENTION_QUIET_WEIGHT) * retention_quiet
+        )
+        weighted["retention"] = retention_term
+        total_loss = total_loss + retention_term
+
     attractor_term = torch.zeros((), device=state.device, dtype=state.dtype)
     if phase == 3:
         if attractor_loss is None:
@@ -306,6 +443,9 @@ def compute_loss(
         "stress_proxy": float(stress_proxy.item()),
         "topo_proxy": float(topo_proxy_loss.item()),
         "attractor_divergence": float(attractor_term.item()),
+        "retention_mse": float(retention_mse.item()),
+        "retention_survival": float(retention_survival.item()),
+        "retention_quiet": float(retention_quiet.item()),
         "alive_fraction": alive_fraction_of(state),
         "frac_delta_nonzero": frac_delta_nonzero,
     }
@@ -558,6 +698,14 @@ def train(
         f"  Плотность цели: {target_density:.4f} | порог коллапса: {collapse_threshold:.4f} "
         f"(ratio {config.COLLAPSE_ALIVE_FRACTION_RATIO} от цели, floor {config.COLLAPSE_ALIVE_FRACTION_FLOOR})"
     )
+    print(
+        f"  Retention (§14.2): enabled={config.RETENTION_ENABLED} "
+        f"вес={config.LOSS_WEIGHTS.get('retention')} K={config.RETENTION_ROLLOUT_STEPS} "
+        f"survival={config.RETENTION_SURVIVAL_WEIGHT} mode={config.RETENTION_SURVIVAL_MODE}"
+        f" margin={config.RETENTION_ALIVE_MARGIN}"
+        f" quiet={config.RETENTION_QUIET_WEIGHT}"
+        f"(margin={config.RETENTION_QUIET_MARGIN}) every={config.RETENTION_EVERY}"
+    )
     print()
 
     append_to_log(
@@ -578,6 +726,27 @@ def train(
             "batch_size": config.TRAIN_BATCH_SIZE,
             "pool_init_mode": config.TRAIN_POOL_INIT_MODE,
             "loss_weights": dict(config.LOSS_WEIGHTS),
+            # Retention (§14.2): вес сам по себе в loss_weights есть, но K,
+            # survival-множитель и интервал — отдельные числа, и без них запись
+            # run_start не различает «retention при K=8 каждый шаг» и «K=32 раз в
+            # 4 шага» при одинаковом весе.
+            "retention": {
+                "enabled": bool(config.RETENTION_ENABLED),
+                "rollout_steps": int(config.RETENTION_ROLLOUT_STEPS),
+                "survival_weight": float(config.RETENTION_SURVIVAL_WEIGHT),
+                # Форма штрафа (transition/level) решает, видит ли член
+                # поглощающую смерть вообще, поэтому два прогона с одинаковым
+                # весом, но разным mode — разные эксперименты (§13.5).
+                "survival_mode": str(config.RETENTION_SURVIVAL_MODE),
+                "alive_margin": float(config.RETENTION_ALIVE_MARGIN),
+                # Парная половина без этих двух чисел неразличима: прогон
+                # «survival + quiet» и прогон «только survival» при одном и том
+                # же survival-весе — разные эксперименты (§13.5).
+                "quiet_weight": float(config.RETENTION_QUIET_WEIGHT),
+                "quiet_margin": float(config.RETENTION_QUIET_MARGIN),
+                "every": int(config.RETENTION_EVERY),
+                "start_iter": int(config.RETENTION_START_ITER),
+            },
             "topo_proxy_backend": topo_proxy.backend,
             "topo_proxy_grad_test": grad_report,
             "device": config.DEVICE,
@@ -747,7 +916,7 @@ def train(
                     f"loss={loss_dict['total']:.4f}, grad_norm={last_grad_norm:.4f}"
                 ),
                 interpretation=(
-                    "Целевая функция достижима ценой полной смерти ткани: MSE(mёртвое поле, "
+                    "Целевая функция достижима ценой полной смерти ткани: MSE(мёртвое поле, "
                     "фон) минимален. См. диагностику WP4 (H-A..H-D)."
                 ),
                 next_step="ALIVE_POLICY_MODE, ALPHA_SUPERVISION_WEIGHT / warmup, hidden_regularization, ёмкость CellBrain, LR-sweep.",
@@ -784,11 +953,23 @@ def train(
             sym_chamfer = chamfer_summary(state, target)
             coverage = coverage_summary(state, target)
 
+            ret_note = (
+                f", ret={loss_dict['retention_mse']:.4f} "
+                f"surv={loss_dict['retention_survival']:.4f}"
+                if config.RETENTION_ENABLED
+                else ""
+            )
+            # quiet печатается только когда член реально входит в сумму: строка
+            # лога, обещающая «удержание с парой» при выключенном члене, — это
+            # ровно тот класс самообмана, из-за которого §13.3 требует пару
+            # старт/финиш.
+            if config.RETENTION_ENABLED and float(config.RETENTION_QUIET_WEIGHT) > 0.0:
+                ret_note += f" quiet={loss_dict['retention_quiet']:.4f}"
             print(
                 f"[{iteration:5d}/{total_steps}] loss={loss_dict['total']:.4f} "
                 f"(vis={loss_dict['visible_mse']:.4f}, alive={loss_dict['alive_policy']:.4f}, "
                 f"l1={loss_dict['hidden_reg']:.5f}, str={loss_dict['stress_proxy']:.4f}, "
-                f"topo={loss_dict['topo_proxy']:.4f}) "
+                f"topo={loss_dict['topo_proxy']:.4f}{ret_note}) "
                 f"| β₀={topo_metrics['b0']:.1f} β₁={topo_metrics['b1']:.1f} "
                 f"| af={loss_dict['alive_fraction']:.3f} "
                 f"| stress={stress_mean:.3f} | chamfer={sym_chamfer:.3f} "

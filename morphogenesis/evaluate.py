@@ -359,7 +359,7 @@ def compute_lyapunov_exponent(model, state, steps=100, eps=1e-3):
 
     with torch.no_grad():
 
-        for t in range(steps):
+        for _ in range(steps):
 
             state = model(state)
 

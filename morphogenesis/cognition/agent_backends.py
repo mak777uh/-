@@ -206,8 +206,6 @@ class RuleBasedAgentV2(RuleBasedAgent):
 
         density = metrics.get("density", 0.0)
 
-        stress_mean = metrics.get("stress_mean", 0.0)
-
         stress_max = metrics.get("stress_max", 0.0)
 
         symmetric_chamfer_error = metrics.get("symmetric_chamfer_error", 0.0)

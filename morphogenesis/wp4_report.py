@@ -228,6 +228,107 @@ def _capacity_digest(runs):
     ]
 
 
+def _retention_digest(runs):
+    """Wave 7 (§14.2 «удержание как цель»): плечи с включённым retention-членом.
+
+    Отдельный дайджест нужен потому, что у этих прогонов ДВА разных исхода, и
+    один из них раньше не наблюдался вовсе: выживание без формы. R-7
+    (level-член, множитель 10) — первый прогон за всю историю WP4, доживший
+    горизонт (alive_min 0.810 при пороге 0.0762), но его f1_max 0.1886 ниже
+    потолка «поля без структуры» 0.2644. То есть выживание перестало быть
+    блокёром и блокёром стала форма; в общем списке arms это различие теряется,
+    потому что там вердикт один — survived True/False.
+    """
+    out = []
+    for r in runs:
+        if not r.get("retention_enabled_by_overrides"):
+            continue
+        ov = r.get("overrides") or {}
+        # overrides содержит только то, что arm менял явно. Для R-плечей без
+        # строки про множитель/mode это дефолты config, а не «неизвестно» —
+        # иначе R-1 выглядел бы плечом без survival-члена, хотя он именно его
+        # и прогонял (в форме transition по умолчанию).
+        mode = r.get("retention_survival_mode") or str(config.RETENTION_SURVIVAL_MODE)
+        margin = (
+            r.get("retention_alive_margin")
+            if r.get("retention_alive_margin") is not None
+            else float(config.RETENTION_ALIVE_MARGIN)
+        )
+        curriculum = ov.get("TRAIN_BPTT_CURRICULUM") or list(config.TRAIN_BPTT_CURRICULUM)
+        out.append(
+            {
+                "arm": r["arm"],
+                "seed": r["seed"],
+                "steps": r["steps"],
+                "survival_mode": mode,
+                "alive_margin": margin,
+                "survival_weight": float(
+                    ov.get("RETENTION_SURVIVAL_WEIGHT", config.RETENTION_SURVIVAL_WEIGHT)
+                ),
+                "rollout_steps": int(
+                    ov.get("RETENTION_ROLLOUT_STEPS", config.RETENTION_ROLLOUT_STEPS)
+                ),
+                "flat_curriculum": len(set(curriculum)) == 1,
+                "alive_policy_weight": float(
+                    (ov.get("LOSS_WEIGHTS") or {}).get(
+                        "alive_policy", config.LOSS_WEIGHTS["alive_policy"]
+                    )
+                ),
+                # Парная половина (quiet): живость ВНЕ цели на той же траектории.
+                # Без неё прогон «survival + quiet» неотличим от «только
+                # survival», а именно на этой паре решается вопрос о форме.
+                "quiet_weight": float(
+                    ov.get("RETENTION_QUIET_WEIGHT", config.RETENTION_QUIET_WEIGHT)
+                ),
+                "quiet_margin": float(
+                    ov.get("RETENTION_QUIET_MARGIN", config.RETENTION_QUIET_MARGIN)
+                ),
+                "quiet_final": r.get("retention_quiet_final"),
+                # Фон «на полу» — это НЕ доказанная мёртвость, а отсутствие
+                # штрафа: при margin=0 полу соответствует ровно мёртвый фон
+                # (alpha = 0.5 даёт relu(0)=0), при margin>0 пол равен margin и
+                # его не обойти даже поглощающей смертью. Поле честит именно
+                # это: quiet_final <= margin значит «живости вне цели не
+                # зафиксировано», и не больше. При выключенном члене поля нет —
+                # None, а не False: False читалось бы как «фон живой».
+                "background_at_quiet_floor": (
+                    None
+                    if float(ov.get("RETENTION_QUIET_WEIGHT", config.RETENTION_QUIET_WEIGHT)) <= 0.0
+                    or r.get("retention_quiet_final") is None
+                    else float(r["retention_quiet_final"])
+                    <= float(
+                        ov.get("RETENTION_QUIET_MARGIN", config.RETENTION_QUIET_MARGIN)
+                    )
+                    + 1e-6
+                ),
+                "survived": r["survived"],
+                "alive_fraction_min": r["alive_fraction_min"],
+                "collapse_iteration": r["collapse_iteration"],
+                # first и final вместе: R-8 (NEG-20) дожил до конца горизонта, а
+                # его первичный эндпоинт стал ХУЖЕ мёртвого поля, и по одному
+                # final это не видно.
+                "visible_mse_first": r.get("visible_mse_first"),
+                "visible_mse_final": r["visible_mse_final"],
+                "f1_max": r["f1_max"],
+                # Где достигнут максимум f1. Без этой колонки ряд «f1_max=0.1886»
+                # выглядит как измеренный результат обучения, а в wave 9 (NEG-21)
+                # он равен значению на итерации 50 — то есть iniziale модели:
+                # на коротком горизонте по f1_max судить о форме нельзя.
+                "f1_max_iteration": r.get("f1_max_iteration"),
+                # Насыщение level-члена = margin означает «вся цель мертва»:
+                # значение большое, градиента нет (NEG-18/NEG-19). Без этого
+                # поля прогон с saturating-штрафом выглядит «удержанием заняты».
+                "survival_saturated": (
+                    mode == "level"
+                    and r.get("retention_survival_final") is not None
+                    and abs(float(r["retention_survival_final"]) - float(margin)) < 1e-3
+                ),
+                "truncated": r["truncated"],
+            }
+        )
+    return out
+
+
 def _read_jsonl_rows(path):
     """Построчный разбор jsonl: (строки, число битых хвостов).
 
@@ -282,6 +383,7 @@ def _journal_integrity(log_dir=None, manager_journal_path=None):
     jrows, jbad = _read_jsonl(journal_path)
     pending = {}
     supported_pending = {}
+    closed = {}
     counts = {"start": 0, "finish": 0, "error": 0, "checkpoint": 0}
     for row in jrows:
         event = row.get("event")
@@ -294,6 +396,7 @@ def _journal_integrity(log_dir=None, manager_journal_path=None):
                 supported_pending[exp] = supported_pending.get(exp, 0) + 1
         elif event in ("finish", "error"):
             pending[exp] = max(pending.get(exp, 0) - 1, 0)
+            closed[exp] = closed.get(exp, 0) + 1
             if supported_pending.get(exp):
                 supported_pending[exp] -= 1
     journal = {
@@ -303,7 +406,7 @@ def _journal_integrity(log_dir=None, manager_journal_path=None):
         "finishes": counts["finish"],
         "errors": counts["error"],
         "malformed_lines": jbad,
-        # Все висячие start (включаяlegacy-строки) — справочно.
+        # Все висячие start (включая legacy-строки) — справочно.
         "unpaired_experiments": sorted(e for e, n in pending.items() if n > 0),
         # Висячие start актуального поколения — нарушение §13.3.
         "supported_starts": sum(
@@ -312,6 +415,19 @@ def _journal_integrity(log_dir=None, manager_journal_path=None):
             if r.get("event") == "start" and r.get("emits_run_finish")
         ),
         "supported_unpaired_experiments": sorted(e for e, n in supported_pending.items() if n > 0),
+        # Подкласс, который меняет диагностику, но не отменяет нарушение: старт
+        # без финиша у эксперимента, у которого ДРУГОЙ старт всё-таки закрылся.
+        # Так выглядит убитый извне процесс (atexit не успевает написать
+        # «aborted»), перезапущенный потом под тем же experiment_id. Считается
+        # по тому же счётчику, поэтому не «исправляет» §13.3, а объясняет, из
+        # чего состоит дыра: оператор уронил прогон, а не эмитент перестал
+        # закрывать пары.
+        "supported_unpaired_superseded": sorted(
+            e for e, n in supported_pending.items() if n > 0 and closed.get(e, 0) > 0
+        ),
+        "supported_unpaired_hard": sorted(
+            e for e, n in supported_pending.items() if n > 0 and closed.get(e, 0) == 0
+        ),
     }
 
     # Третий источник — журнал менеджера экспериментов (experiments/journal.jsonl):
@@ -441,6 +557,19 @@ def _journal_integrity(log_dir=None, manager_journal_path=None):
             # нарушение §13.3.
             "supported_starts": supported_total,
             "supported_unpaired": supported_hanging,
+            # Подкласс висячих стартов: у эксперимента есть finish ОТ ДРУГОГО
+            # старта под тем же id. Так выглядит прогон, убитый извне (GPU-
+            # процесс снимают без SIGTERM-обработки, atexit-маркер «aborted» не
+            # успевает отработать), и затем перезапущенный. Это НЕ отменяет
+            # нарушение §13.3 (пара обязана быть на каждый старт), но отделяет
+            # «эмитент перестал закрывать пары» от «оператор уронил процесс» —
+            # иначе диагностика вела бы в неверную сторону.
+            "supported_unpaired_superseded": sorted(
+                e for e in supported_hanging if runs[e]["run_finishes"] > 0
+            ),
+            "supported_unpaired_hard": sorted(
+                e for e in supported_hanging if runs[e]["run_finishes"] == 0
+            ),
             # Прогоны старше поля: старт без финиша по построению, не починка.
             "legacy_start_rows": legacy_starts,
             "paired": with_finish,
@@ -611,7 +740,7 @@ def _threshold_digest(probe):
                 "gated_best_f1_after_autonomous_steps": gauto_best.get("f1"),
                 "best_f1_any_threshold": rec.get("best_f1_any_threshold"),
                 "best_f1_any_threshold_gated": rec.get("best_f1_any_threshold_gated"),
-                # по-maxимуму по gated-сканам (сохраненное поле + автономный rollout)
+                # по-максимуму по gated-сканам (сохраненное поле + автономный rollout)
                 "structure_beyond_ceiling": rec.get("structure_beyond_ceiling"),
                 "structure_beyond_ceiling_ungated": rec.get("structure_beyond_ceiling_ungated"),
             }
@@ -737,6 +866,64 @@ def _conclusions(runs, threshold, threshold_probe=None, density=None, journal_in
         lines.append(
             "Ни один arm на горизонте, включающем переход куррикулума, не удержал ткань выше порога."
         )
+    ret = _retention_digest(runs)
+    if ret:
+        ceiling_line = []
+        for e in ret:
+            # «None» в этой колонке читается как «фона на полу нет», а означает
+            # «поле не измерялось этим членом» — разница ровно та же, из-за
+            # которой digest берёт пропущенные поля из config.
+            if e["quiet_weight"] <= 0.0:
+                floor_note = "quiet выкл."
+            elif e["background_at_quiet_floor"] is None:
+                floor_note = "quiet вкл., не записан"
+            else:
+                floor_note = (
+                    "ФОН НА ПОЛУ (живости вне цели нет)"
+                    if e["background_at_quiet_floor"]
+                    else "фон не на полу (живость вне цели есть)"
+                )
+            ceiling_line.append(
+                f"{e['arm']}/s{e['steps']} (mode={e['survival_mode']}, "
+                f"множитель {_fmt(e['survival_weight'], '.1f')}, K={e['rollout_steps']}, "
+                f"flat-curriculum={e['flat_curriculum']}, "
+                f"quiet вес={_fmt(e['quiet_weight'], '.1f')}, "
+                f"alive_policy вес={_fmt(e['alive_policy_weight'], '.1f')}): "
+                f"выжил={e['survived']} alive_min={_fmt(e['alive_fraction_min'])} "
+                f"f1_max={_fmt(e['f1_max'])}@it{_fmt(e['f1_max_iteration'], 'd')} "
+                f"vis {_fmt(e['visible_mse_first'])}->{_fmt(e['visible_mse_final'])} "
+                f"{floor_note} "
+                f"{'штраф насыщен (цель мертва)' if e['survival_saturated'] else 'штраф не насыщен'}"
+            )
+        lines.append(
+            "Wave 7+9, удержание как член лосса (§14.2): " + "; ".join(ceiling_line) + ". "
+            "Смысл ряда в том, что выживание и форма расцеплены: transition-форма не меняла "
+            "исхода вообще (NEG-18), level-форма удерживает жизнь (R-7: alive_min 0.810 при пороге "
+            f"{threshold:.4f} — первое выживание на mask-ON постановке), но её f1_max всё равно "
+            "не превышает потолок поля без структуры 0.2644, то есть кольцо не собирается. "
+            "Wave 9 добавила вторую половину полосы (quiet = живость ВНЕ цели на том же roll-out): "
+            "пари по фону из одного целевого кадра не хватало — R-8 с alive_policy весом 2.0 дожил "
+            "до конца горизонта 2000 (alive_min 0.4575, коллапса нет, штраф не насыщен: "
+            "survival_final 1.62e-02), но f1_max=0.2300 < 0.2644 при precision ~0.15, то есть "
+            "остался «живо всё» (NEG-20). Отдельно и неприятно: его финальный visible_mse 0.2948 "
+            "ХУЖЕ аналитического мёртвого поля 0.25, т.е. выживание куплено ценой первичного "
+            "эндпоинта — ещё одна причина, почему про wave 7/9 нельзя судить по колонке survived. "
+            "Отрицательный итог этих волн нельзя читать как «удержание не "
+            "работает»: оно работает и переводит вопрос из «ткань умирает» в «ткань живая, но "
+            "бесформенная», а дальше проверяется, закрывает ли вторую половину именно roll-out "
+            "налог (R-9/R-10/R-11, веса quiet 1.0/3.0/1.0 калиброваны по замеру градиента на "
+            "чекпоинте R-8), а не ещё один вес. "
+            "Правило чтения f1_max (NEG-21): у всех плеч с горизонтом 400 argmax f1 приходится "
+            "на итерацию 50, то есть на самое первое измерение после сброса маски — на таком "
+            "горизонте f1_max измеряет начальное состояние модели, а не результат обучения, "
+            "поэтому вывод «формы нет» по 400 итерациям не делается, и волна 9 перезапущена "
+            "на 2000 (ряд сравнения — R-8, у которого максимум f1=0.2300 достигнут на "
+            "итерации 1250, то есть сильно после конца экрана: eval-точки идут 0.0813@200 -> "
+            "0.0581@400 -> 0.1559@600 -> 0.2252@1200). quiet при этом передаёт давление "
+            "измеримо: quiet_final 0.3410 при весе 1.0 против 0.1329 при весе 3.0 (R-9/R-10), "
+            "то есть член работает как написан, и его нулевой эффект на f1 — это результат "
+            "про форму, а не про сломанный штраф."
+        )
     lines.append(
         "Все диагностические прогоны (<=400 итераций) лежат ВНУТРИ линейного warmup "
         "(TRAIN_WARMUP_STEPS=500): фактический LR растёт с 0 до TRAIN_LR, косинусная ветка не "
@@ -761,11 +948,22 @@ def _conclusions(runs, threshold, threshold_probe=None, density=None, journal_in
                 f"не дописываются задним числом (§7.7, NEG-11). Эмитент пар в train.py ({emitter})."
             )
         else:
+            superseded = pl.get("supported_unpaired_superseded") or []
+            hard = [e for e in pl["supported_unpaired"] if e not in superseded]
             tail = (
                 " Требование НЕ выполнено: у прогона(ов) актуального поколения старт без финиша ("
                 + ", ".join(pl["supported_unpaired"])
                 + ") — это ровно та дыра §13.3, из-за которой оборванный эксперимент выглядел "
                 "завершённым."
+                + (
+                    f" Из них {len(superseded)} — убитые извне попытки, перезапущенные под тем же "
+                    "id и закрытые финишем второй попытки (" + ", ".join(superseded) + "): atexit-"
+                    "маркер «aborted» на жёсткое снятие процесса не распространяется. Настоящих "
+                    "нарушений эмитента (старт без единого финиша): "
+                    + (", ".join(hard) if hard else "нет") + "."
+                    if superseded
+                    else ""
+                )
             )
         lines.append(
             "Журнал §13.3 (гейт WP4 требует пару на каждую start-строку): "
@@ -1064,6 +1262,12 @@ def build_report():
             "seeds_passed_no_collapse": gate.get("seeds_passed_no_collapse"),
             "seeds_passed_chamfer": gate.get("seeds_passed_chamfer"),
             "seeds_passed_coverage": gate.get("seeds_passed_coverage"),
+            # §14.2 «удержать» как условие гейта слоя 1 (WP4b).
+            "seeds_passed_retention": gate.get("seeds_passed_retention"),
+            "retention": gate.get("retention"),
+            "per_seed_retention_f1": [
+                r.get("retention_f1_gated_best") for r in gate.get("runs", [])
+            ],
             "seeds_with_coverage_measured": gate.get("seeds_with_coverage_measured"),
             "seeds_with_structure_beyond_ceiling": gate.get("seeds_with_structure_beyond_ceiling"),
             "structureless_f1_ceiling": gate.get("structureless_f1_ceiling"),
@@ -1117,6 +1321,9 @@ def build_report():
         # Тест ёмкости: пул из цели. Отделяет «архитектура не может» от
         # «не вырастает из шума» (см. пост-скриптум к NEG-09).
         "capacity_probe": _capacity_digest(runs),
+        # Wave 7: удержание как член лосса (§14.2). Выживание и форма — два
+        # разных исхода, и после R-7 они расцеплены: ткань жива, кольца нет.
+        "retention_arms": _retention_digest(runs),
         # Сканирование порога бинаризации: f1@0.5 против лучшего f1 по порогу.
         # Без него вывод «цель не выучена» неотличим от «выучена ниже порога».
         "threshold_probe": _threshold_digest(thresh),

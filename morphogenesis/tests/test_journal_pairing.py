@@ -132,6 +132,47 @@ class TestJournalIntegrityInstrument(unittest.TestCase):
         self.assertEqual(pl["supported_unpaired"], ["X_twice"])
         self.assertFalse(report["all_starts_paired"])
 
+    def test_killed_attempt_before_successful_rerun_is_superseded(self):
+        """Убитый извне прогон и затем перезапущенный под тем же id.
+
+        Так выглядит Р-7 на практике: процесс сняли без SIGTERM-обработки,
+        atexit-маркер «aborted» не отработал, старт остался без финиша; затем
+        прогон повторили, и он закрылся. Нарушение §13.3 остаётся нарушением
+        (пара обязана быть на каждый старт), но диагностика обязана показывать,
+        что эмитент работает, а дыра — от способа остановки: иначе вывод
+        «train.py перестал писать finish» уводит разбор в неверную сторону.
+        """
+        self._run_log(
+            "X_killed_then_ok",
+            [
+                dict({"event": "run_start", "experiment_id": "X_killed_then_ok"}, **STAMPED),
+                dict({"event": "run_start", "experiment_id": "X_killed_then_ok"}, **STAMPED),
+                {
+                    "event": "run_finish",
+                    "experiment_id": "X_killed_then_ok",
+                    "stop_reason": "max_steps",
+                },
+            ],
+        )
+        report = self.probe(log_dir=self.dir)
+        pl = report["per_run_logs"]
+        self.assertEqual(pl["supported_unpaired"], ["X_killed_then_ok"])
+        self.assertEqual(pl["supported_unpaired_superseded"], ["X_killed_then_ok"])
+        self.assertEqual(pl["supported_unpaired_hard"], [])
+        self.assertFalse(report["all_starts_paired"])
+
+    def test_run_without_any_finish_is_hard_violation(self):
+        """Если у эксперимента нет НИ ОДНОГО финиша, это нарушение эмитента, а
+        не снятый оператором процесс — различие должно быть видно в тех же
+        полях."""
+        self._run_log(
+            "X_never_closed",
+            [dict({"event": "run_start", "experiment_id": "X_never_closed"}, **STAMPED)],
+        )
+        pl = self.probe(log_dir=self.dir)["per_run_logs"]
+        self.assertEqual(pl["supported_unpaired_hard"], ["X_never_closed"])
+        self.assertEqual(pl["supported_unpaired_superseded"], [])
+
     def test_stop_reason_survives_from_finish_row(self):
         self._run_log(
             "X_collapse",

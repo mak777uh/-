@@ -266,7 +266,7 @@ def encode_observation(
 
         ]
 
-        for idx, (size, center) in enumerate(zip(sizes, centers)):
+        for idx, (size, center) in enumerate(zip(sizes, centers, strict=True)):
 
             cluster_info.append(
 

@@ -68,8 +68,6 @@ class TestReportSchedule(unittest.TestCase):
 
         # Здесь проверяем, что формула ограничения верна.
 
-        step_size = config.COGNITION_STEP_SIZE
-
         report_interval = 20
 
         extra_requested = 100
