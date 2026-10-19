@@ -11,19 +11,24 @@ requires-python = ">=3.11"
 license = { text = "MIT" }
 authors = [{ name = "mak777uh" }]
 dependencies = [
-    "numpy==1.26.4",
-    "scipy==1.11.4",
-    "matplotlib==3.8.4",
-    "tensorboard==2.16.2",
-    "pytest==8.2.0",
+    # Диапазоны, а не пины: воспроизводимость фиксируется в requirements.txt
+    # (вариант A/B) и фактическими версиями в memory/decisions_log.jsonl (§0.3).
+    # Среда, на которой реально гоняли тесты: Python 3.13.11 + numpy 2.5.4 +
+    # torch 2.6.0+cu124; numpy 1.26.4 под 3.13 не собирается (нет wheel'ов cp313).
+    "numpy>=1.26,<3",
+    "scipy>=1.11,<2",
+    "matplotlib>=3.8,<4",
+    "tensorboard>=2.16,<3",
+    "pytest>=8.2,<10",
 ]
 
 [project.optional-dependencies]
 # CUDA-сборка для RTX 3070 8ГБ; ставится отдельным шагом (см. requirements-cuda.txt),
 # чтобы не тянуть ~3ГБ при установке только для CPU-тестов.
-cuda = ["torch==2.5.1+cu124", "torchvision==0.20.1+cu124"]
-cpu = ["torch==2.5.1", "torchvision==0.20.1"]
-dev = ["ruff==0.4.8"]
+# +cu124 требует --index-url https://download.pytorch.org/whl/cu124 (см. README).
+cuda = ["torch==2.6.0", "torchvision==0.21.0"]
+cpu = ["torch==2.6.0", "torchvision==0.21.0"]
+dev = ["ruff>=0.4"]
 
 [tool.setuptools]
 packages = ["morphogenesis", "morphogenesis.cognition", "morphogenesis.utils"]
@@ -40,3 +45,10 @@ target-version = "py311"
 [tool.ruff.lint]
 select = ["E", "F", "W", "B"]
 ignore = ["E501", "B008"]
+
+[tool.ruff.lint.per-file-ignores]
+# §9.2: в config.py и conftest.py код обязан идти ДО импорта torch
+# (CUBLAS_WORKSPACE_CONFIG, sys.path) — E402 здесь ожидаем и сознательен.
+"morphogenesis/config.py" = ["E402"]
+"morphogenesis/conftest.py" = ["E402"]
+"morphogenesis/tests/*" = ["E402"]

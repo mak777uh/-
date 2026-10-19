@@ -12,13 +12,43 @@ config.py — ВСЕ гиперпараметры проекта.
 
 """
 
+# === ДЕТЕРМИНИЗМ CUDA (§9.2) — ДО ИМПОРТА TORCH ===
+
+# CUBLAS_WORKSPACE_CONFIG обязан быть установлен до инициализации CUDA/torch;
+# если поставить позже, детерминизм будет неполным (§9.2). Поэтому переменная
+# ставится здесь, а не в utils/determinism.py (config импортируется первым).
+
+DETERMINISTIC_MODE = True
+
+CUBLAS_WORKSPACE_CONFIG = ":4096:8"
+
+if DETERMINISTIC_MODE:
+
+    import os as _os
+
+    # Значение именно принудительно ставится, а не setdefault: §9.2 требует
+    # «:4096:8», и чужая переменная окружения не должна тихо ломать детерминизм.
+    CUBLAS_WORKSPACE_PREVIOUS = _os.environ.get("CUBLAS_WORKSPACE_CONFIG")
+
+    _os.environ["CUBLAS_WORKSPACE_CONFIG"] = CUBLAS_WORKSPACE_CONFIG
+
+    del _os
+
+# Был ли torch уже импортирован к моменту, когда выставили переменную (§9.2).
+# Если False — env выставлен слишком поздно, и CUDA-детерминизм не гарантирован;
+# проверят это utils/determinism.assert_deterministic_ready().
+
+import sys as _sys
+
+CUBLAS_CONFIG_SET_BEFORE_TORCH_IMPORT = "torch" not in _sys.modules
+
+del _sys
+
 import torch
 
+import os
+
 import numpy as np
-
-import random
-
-import math
 
 from datetime import datetime
 
@@ -456,45 +486,76 @@ REPORTS_DIR = "reports"
 
 MEMORY_DIR = "memory"
 
-def set_seed(seed=None):
+# Файлы памяти агента (§15.1–15.6). Пути относительные — как и все пути в config.
+
+MEMORY_MD_PATH = "memory/MEMORY.md"
+
+HYPOTHESES_PATH = "memory/hypotheses.md"
+
+DISCOVERIES_PATH = "memory/discoveries.md"
+
+NEGATIVE_RESULTS_PATH = "memory/negative_results.md"
+
+DECISIONS_LOG_PATH = "memory/decisions_log.jsonl"
+
+CURRENT_STATE_PATH = "memory/current_state.json"
+
+POWER_ANALYSIS_PATH = "memory/power_analysis.json"
+
+# === СТАТИСТИКА (§12.1.11) ===
+
+STATS_MIN_SEEDS = 12
+
+STATS_PILOT_SEEDS = 5
+
+STATS_MAX_SEEDS = 30
+
+STATS_FDR_METHOD = "benjamini-hochberg"
+
+STATS_ALPHA = 0.05
+
+STATS_POWER_TARGET = 0.8
+
+STATS_POWER_ANALYSIS_REQUIRED = True
+
+STATS_EFFECT_SIZE_MIN_INTEREST = 0.10
+
+# Число bootstrap-ресэмплов для доверительных интервалов (utils/stats.py).
+
+STATS_BOOTSTRAP_RESAMPLES = 10000
+
+def set_seed(seed=None, assert_ready=True):
 
     """
 
-    Полный контроль энтропии [Rev.11].
+    Полный контроль энтропии [Rev.11] (§9.2).
 
-    Фиксируем все глобальные ГПСЧ. Для детерминированных операций
+    Делегирует utils.determinism.init_determinism: фиксирует глобальные ГПСЧ,
 
-    в экспериментальном коде должны использоваться отдельные
+    включает torch.use_deterministic_algorithms и cudnn.deterministic,
 
-    torch.Generator(), созданные через create_deterministic_generator.
+    возвращает отчёт о деградациях. Для стохастических операций в
+
+    экспериментальном коде по-прежнему нужны отдельные torch.Generator()
+
+    (create_deterministic_generator) — глобальное состояние не используется.
+
+    assert_ready=True выполняет предзапусковый гейт §23: прогон не стартует, если
+
+    окружение не удовлетворяет §9.2 (поздняя установка CUBLAS_WORKSPACE_CONFIG,
+
+    cudnn.benchmark, warn_only-деградация).
 
     """
 
-    if seed is None:
+    from utils.determinism import assert_deterministic_ready, init_determinism
 
-        seed = SEED
+    report = init_determinism(seed=seed)
 
-    random.seed(seed)
+    if assert_ready:
+        assert_deterministic_ready(report)
 
-    np.random.seed(seed)
-
-    torch.manual_seed(seed)
-
-    if torch.cuda.is_available():
-
-        torch.cuda.manual_seed_all(seed)
-
-        if CUDNN_BENCHMARK:
-
-            torch.backends.cudnn.benchmark = True
-
-            torch.backends.cudnn.deterministic = False
-
-        else:
-
-            torch.backends.cudnn.benchmark = False
-
-            torch.backends.cudnn.deterministic = True
+    return report
 
 def create_deterministic_generator(seed=None):
 
@@ -567,6 +628,24 @@ def get_checkpoint_metadata(seed=None, experiment_id="", iteration=0, best_loss=
         "iteration": iteration,
 
         "best_loss": float(best_loss),
+
+        # §23: артефакт обязан нести окружение прогона, иначе «воспроизводимый»
+
+        # чекпоинт нельзя отличить от чекпоинта с молча выключенным детерминизмом.
+
+        "environment": {
+
+            "torch": torch.__version__,
+
+            "device": DEVICE,
+
+            "cuda": torch.version.cuda,
+
+            "numpy": np.__version__,
+
+            "cublas_workspace_config": os.environ.get("CUBLAS_WORKSPACE_CONFIG"),
+
+        },
 
     }
 
@@ -986,6 +1065,31 @@ def validate():
 
     )
 
+    # Статистика (§12.1.11): без согласованных порогов power analysis даёт
+    # бессмысленный required_seeds, а основной прогон — ложную «воспроизводимость».
+
+    assert 0 < STATS_ALPHA < 1
+
+    assert 0 < STATS_POWER_TARGET < 1
+
+    assert 1 <= STATS_PILOT_SEEDS <= STATS_MIN_SEEDS <= STATS_MAX_SEEDS, (
+
+        f"STATS_* неупорядочены: pilot={STATS_PILOT_SEEDS}, "
+
+        f"min={STATS_MIN_SEEDS}, max={STATS_MAX_SEEDS}"
+
+    )
+
+    assert STATS_FDR_METHOD == "benjamini-hochberg", (
+
+        "Другая поправка не реализована в utils/stats.py"
+
+    )
+
+    assert STATS_EFFECT_SIZE_MIN_INTEREST > 0
+
+    assert STATS_BOOTSTRAP_RESAMPLES >= 1000
+
     # Пути
 
     for path in (
@@ -1008,10 +1112,48 @@ def validate():
 
         GOAL_STATE_PATH,
 
+        MEMORY_MD_PATH,
+
+        HYPOTHESES_PATH,
+
+        DISCOVERIES_PATH,
+
+        NEGATIVE_RESULTS_PATH,
+
+        DECISIONS_LOG_PATH,
+
+        CURRENT_STATE_PATH,
+
+        POWER_ANALYSIS_PATH,
+
     ):
 
         assert isinstance(path, str), f"Путь должен быть строкой: {path}"
 
         assert path == path.strip(), f"Путь содержит лишние пробелы: '{path}'"
+
+    # Файлы памяти (§15) обязаны лежать в MEMORY_DIR — иначе агент пишет знание в корень.
+
+    for path in (
+
+        GOAL_STATE_PATH,
+
+        MEMORY_MD_PATH,
+
+        HYPOTHESES_PATH,
+
+        DISCOVERIES_PATH,
+
+        NEGATIVE_RESULTS_PATH,
+
+        DECISIONS_LOG_PATH,
+
+        CURRENT_STATE_PATH,
+
+        POWER_ANALYSIS_PATH,
+
+    ):
+
+        assert path.startswith(MEMORY_DIR + "/"), f"{path} вне {MEMORY_DIR}/ — нарушает §15.1"
 
     return True

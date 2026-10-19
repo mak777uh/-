@@ -24,6 +24,11 @@ import math
 
 import os
 
+# §9.2: config импортируется раньше torch — он выставляет
+# CUBLAS_WORKSPACE_CONFIG до загрузки CUDA. Порядок не менять (isort/intelliJ
+# «optimize imports» ломают детерминизм, см. docs/spec §9.2).
+import config
+
 import matplotlib
 
 matplotlib.use("Agg")
@@ -38,7 +43,6 @@ import torch.nn.functional as F
 
 from scipy.ndimage import label, center_of_mass, distance_transform_edt
 
-import config
 
 from topology import (
 
@@ -61,6 +65,8 @@ from topology import (
 )
 
 from nca_core import run_steps_no_grad
+
+from utils.determinism import randn
 
 def save_frame(model, state, step, save_dir=config.FRAMES_DIR):
 
@@ -536,13 +542,35 @@ def plot_evaluation(results, save_path=None):
 
     plt.close(fig)
 
-def apply_injury(state, injury_size=16, target_pattern=None):
+def _fallback_injury_rng():
+    """
+    Генератор для apply_injury, когда вызывающая сторона его не передала.
+    Выводится из config.SEED (не из глобального np.random) и loudly предупреждает
+    о деградации — молча подменять энтропию прогона запрещено (§9.2).
+    """
+    from utils.determinism import numpy_generator
+    from utils.logging import warn_once
+
+    warn_once(
+        "apply_injury() вызван без rng: выбор кластера берётся из ГПСЧ config.SEED, "
+        "а не из энтропии прогона (§9.2). Передайте rng=numpy_rng_from(generator)."
+    )
+    return numpy_generator(config.SEED)
+
+
+def apply_injury(state, injury_size=16, target_pattern=None, rng=None):
 
     """
 
     Травма в центр конкретного кластера.
 
     Альфа-канал = DEAD_ALPHA_VALUE, чтобы рана была устойчиво мёртвой.
+
+    rng — локальный numpy.Generator (§9.2). Без него выбор кластера идёт из ГПСЧ,
+
+    выведенного из config.SEED (деградация фиксируется предупреждением), а не из
+
+    глобального состояния numpy.
 
     """
 
@@ -568,7 +596,11 @@ def apply_injury(state, injury_size=16, target_pattern=None):
 
         if n_clusters > 0:
 
-            cluster_id = np.random.randint(1, n_clusters + 1)
+            if rng is None:
+
+                rng = _fallback_injury_rng()
+
+            cluster_id = int(rng.integers(1, n_clusters + 1))
 
             cy, cx = center_of_mass(binary, labeled, cluster_id)
 
@@ -914,9 +946,9 @@ def apply_aging_noise(state, noise_std=None, generator=None):
 
             if generator is not None:
 
-                noise = torch.randn(
+                noise = randn(
 
-                    noisy[:, channel, :, :].shape,
+                    tuple(noisy[:, channel, :, :].shape),
 
                     generator=generator,
 

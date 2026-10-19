@@ -1,0 +1,21 @@
+# Единые концы строк: байт-в-байт воспроизводимость (§9.2) предполагает,
+# что один и тот же commit на Windows и Linux даёт одинаковые исходники.
+* text=auto
+
+*.py text eol=lf
+*.md text eol=lf
+*.json text eol=lf
+*.jsonl text eol=lf
+*.toml text eol=lf
+*.txt text eol=lf
+*.cfg text eol=lf
+
+# Бинарные артефакты (в git не попадают, но защита на будущее)
+*.pt binary
+*.pth binary
+*.ckpt binary
+*.png binary
+*.gif binary
+*.tfevents* binary
+
+*.bat text eol=crlf

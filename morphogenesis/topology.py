@@ -22,13 +22,17 @@ topology.py — Вычисление топологических инвариа
 
 import math
 
+# §9.2: config импортируется раньше torch — он выставляет
+# CUBLAS_WORKSPACE_CONFIG до загрузки CUDA. Порядок не менять (isort/intelliJ
+# «optimize imports» ломают детерминизм, см. docs/spec §9.2).
+import config
+
 import numpy as np
 
 import torch
 
 from scipy.ndimage import label, distance_transform_edt
 
-import config
 
 # === ДВОЙСТВЕННАЯ СВЯЗНОСТЬ ===
 

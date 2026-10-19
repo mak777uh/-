@@ -94,7 +94,8 @@
 │   │   ├── cognitive_loop.py
 │   │   ├── memory_manager.py
 │   │   └── reporter.py
-│   ├── utils/                  # детерминизм, логирование, статистика
+│   ├── conftest.py             # pytest: sys.path и CWD=пакет (относительные пути config)
+│   ├── utils/                  # determinism.py (§9.2), logging.py (журнал, NEG), stats.py (Уилксон, BH-FDR, power analysis)
 │   ├── tests/                  # модульные тесты (pytest)
 │   ├── memory/                 # hypotheses.md, decisions_log.jsonl, goal_state.json
 │   ├── checkpoints/            # сохранённые веса (в git не попадают)
@@ -120,10 +121,17 @@ git clone https://github.com/mak777uh/-.git morphogenesis-repo
 cd morphogenesis-repo
 python -m venv .venv
 # CPU (тесты и диагностика):
-.venv/Scripts/pip install -r requirements.txt
-# GPU RTX 3070 8GB (обучение, §9.1-9.2):
-.venv/Scripts/pip install --index-url https://download.pytorch.org/whl/cu124 --extra-index-url https://pypi.org/simple -r requirements-cuda.txt
+.venv/Scripts/python.exe -m pip install -U pip
+.venv/Scripts/python.exe -m pip install -r requirements.txt
+# GPU RTX 3070 8GB (обучение, §9.1-9.2) — установка из КОРНЯ репозитория:
+.venv/Scripts/python.exe -m pip install --index-url https://download.pytorch.org/whl/cu124 --extra-index-url https://pypi.org/simple -r requirements-cuda.txt
 ```
+
+Форма `python -m pip` вместо `.venv/Scripts/pip`: первый гарантированно
+обращается к интерпретатору этого venv, второй в PowerShell/Git Bash иногда
+уходит в системный Python или не выводит ничего. Если после установки
+`torch.cuda.is_available()` вернул `False` — значит прилетела CPU-сборка, и
+§9.2 проверить нельзя.
 
 Локальный «CI» (из корня репозитория):
 
@@ -131,6 +139,35 @@ python -m venv .venv
 python run_tests.py           # pytest + smoke_test
 python run_tests.py --quick   # только pytest
 ```
+
+### Проверенное окружение (слой 0 пройден)
+
+| Компонент | Значение |
+| --- | --- |
+| Python | 3.13.11 (venv `.venv` в корне репозитория) |
+| torch | 2.6.0+cu124, `torch.cuda.is_available() == True` |
+| GPU | RTX 3070 Laptop, 8 ГБ (пик VRAM на smoke-тесте ~1 МБ) |
+| numpy / scipy / matplotlib / tensorboard | 2.5.4 / 1.18.1 / 3.11.2 / 2.21.0 |
+| Скорость обучения | ~0.2 с/итерация при `BATCH_SIZE=2`, `UNROLL=10` |
+
+Фактические версии зафиксированы в `morphogenesis/memory/decisions_log.jsonl`
+(§0.3): `numpy==1.26.4` из варианта A под Python 3.13 не собирается, поэтому
+`pyproject.toml` описывает диапазоны, а воспроизводимость держится на пинах
+`requirements*.txt` и сидах.
+
+### Детерминизм (§9.2) — три правила, которые нельзя нарушать при правках
+
+1. **`import config` обязано идти раньше `import torch`.** Только config умеет
+   выставить `CUBLAS_WORKSPACE_CONFIG=":4096:8"` до загрузки CUDA; автоформаттер,
+   «оптимизирующий» порядок импортов, молча ломает детерминизм. Проверка —
+   `tests/test_determinism.py::test_entry_modules_import_config_first`.
+2. **Вся стохастика — через локальный `torch.Generator`.** Один CPU-генератор на
+   прогон, значения переносятся на устройство тензора
+   (`utils/determinism.rand/randn/randperm`), поэтому энтропийный поток не зависит
+   от наличия GPU.
+3. **`config.set_seed()` выполняет предзапусковый гейт** `assert_deterministic_ready()`
+   (§23): `cudnn.benchmark`, `warn_only`-деградация или поздно выставленная
+   переменная окружения — прогон не начнётся.
 
 ## Быстрый старт
 
@@ -192,6 +229,7 @@ python -m pytest tests/ -p no:libtmux -v
 
 | Файл | Тестов | Что покрывает |
 | --- | --- | --- |
+| `test_determinism.py` | 13 | §9.2/§23: детерминизм окружения, локальные ГПСЧ, побитовое совпадение двух прогонов одного сида (в т.ч. в отдельном процессе) |
 | `test_action_validator.py` | 11 | валидация действий и бюджета |
 | `test_budget_edge_cases.py` | 6 | граничные случаи АТР-бюджета |
 | `test_death_invariant.py` | 4 | инвариант «мёртвые клетки не оживают» |
@@ -202,7 +240,11 @@ python -m pytest tests/ -p no:libtmux -v
 
 ## Зависимости
 
-Пинованы в `requirements.txt` (CPU-ядро) и `requirements-cuda.txt` (CUDA-сборка torch):
+Файлы `requirements.txt` (ядро) и `requirements-cuda.txt` (CUDA-сборка torch)
+задают диапазоны, работающие на Python 3.12 и 3.13; строгие пины лежат в
+закомментированном «варианте A» и применимы только к Python 3.12 (под 3.13
+`numpy==1.26.4` не собирается). Фактические версии каждого прогона фиксируются в
+`morphogenesis/memory/decisions_log.jsonl` (§0.3).
 
 - `torch` (CPU или `+cu124`), `numpy`, `scipy`, `matplotlib`, `tensorboard`, `pytest`
 - `llama-cpp-python` — НЕ входит в MVP: локальный LLM-бэкенд относится к слою 5 (кора) и подключается только после прохода гейтов слоёв 0–2 (§1.8, §19.6).

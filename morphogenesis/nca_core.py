@@ -26,6 +26,11 @@ nca_core.py — Ядро Нейроклеточного Автомата.
 
 """
 
+# §9.2: config импортируется раньше torch — он выставляет
+# CUBLAS_WORKSPACE_CONFIG до загрузки CUDA. Порядок не менять (isort/intelliJ
+# «optimize imports» ломают детерминизм, см. docs/spec §9.2).
+import config
+
 import torch
 
 import torch.nn as nn
@@ -34,7 +39,24 @@ import torch.nn.functional as F
 
 from torch.utils.checkpoint import checkpoint as grad_checkpoint
 
-import config
+# §9.2: устройство-адаптивные рисования из ЛОКАЛЬНОГО torch.Generator.
+
+# PyTorch привязывает Generator к устройству: из CPU-ГПСЧ нельзя наполнить
+
+# CUDA-тензор (`Expected a 'cuda' device type for generator`). Проект держит
+
+# один CPU-генератор на прогон — энтропийный поток тогда не зависит от наличия
+
+# GPU и прогоны сравнимы между машинами, — а отрисованное переносится на
+
+# устройство тензора (для масок 64×64 это десятки килобайт за шаг).
+
+from utils.determinism import rand as _rand
+
+from utils.determinism import randn as _randn
+
+from utils.determinism import randperm as _randperm
+
 
 class PerceptionLayer(nn.Module):
 
@@ -208,9 +230,9 @@ class NeuralCellularAutomaton(nn.Module):
 
         if self.generator is not None:
 
-            return torch.rand(
+            return _rand(
 
-                template.shape,
+                tuple(template.shape),
 
                 generator=self.generator,
 
@@ -532,7 +554,7 @@ class NeuralCellularAutomaton(nn.Module):
 
         if self.generator is not None:
 
-            idx = torch.randperm(H * W, generator=self.generator, device=x.device)
+            idx = _randperm(H * W, generator=self.generator, device=x.device)
 
         else:
 
@@ -678,7 +700,7 @@ def _guarantee_alive(state, generator=None):
 
     if generator is not None:
 
-        rand_mask = torch.rand(
+        rand_mask = _rand(
 
             (B, H, W),
 
@@ -748,15 +770,9 @@ def init_state(
 
     if generator is not None:
 
-        state = torch.randn(
+        state = _randn(
 
-            batch_size,
-
-            channels,
-
-            grid_size,
-
-            grid_size,
+            (batch_size, channels, grid_size, grid_size),
 
             generator=generator,
 

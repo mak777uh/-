@@ -56,6 +56,17 @@ morphogenesis/logs/*.jsonl
 morphogenesis/memory/current_state.json
 morphogenesis/reports/
 
+# Артефакты, которые возникают в КОРНЕ репозитория, если запустить pytest или
+# прогон с неверного CWD (все пути в config.py относительные). Игнорируем, чтобы
+# случайный мусор не попал в индекс; правильный запуск — из morphogenesis/
+# (см. run_tests.py и morphogenesis/conftest.py).
+/memory/
+/outputs/
+/reports/
+/experiments/
+/checkpoints/
+*.tmp
+
 # Environment
 .env
 .env.local

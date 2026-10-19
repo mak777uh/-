@@ -38,13 +38,17 @@ smoke_test.py — Сухая проверка перед запуском.
 
 import os
 
+# §9.2: config импортируется раньше torch — он выставляет
+# CUBLAS_WORKSPACE_CONFIG до загрузки CUDA. Порядок не менять (isort/intelliJ
+# «optimize imports» ломают детерминизм, см. docs/spec §9.2).
+import config
+
 import numpy as np
 
 import torch
 
 import torch.nn.functional as F
 
-import config
 
 from nca_core import (
 

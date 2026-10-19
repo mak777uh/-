@@ -18,11 +18,15 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
+# §9.2: config импортируется раньше torch — он выставляет
+# CUBLAS_WORKSPACE_CONFIG до загрузки CUDA. Порядок не менять (isort/intelliJ
+# «optimize imports» ломают детерминизм, см. docs/spec §9.2).
+import config
+
 import torch
 
 import numpy as np
 
-import config
 
 from nca_core import (
 
@@ -35,6 +39,8 @@ from nca_core import (
 )
 
 from config import create_deterministic_generator
+
+from utils.determinism import numpy_rng_from
 
 from topology import compute_extended_topology_metrics, get_binary_mask
 
@@ -145,6 +151,12 @@ class CognitiveLoop:
         self.optimizer = optimizer
 
         self.generator = generator
+
+        # numpy-ГПСЧ, выведенный из того же torch.Generator: один источник
+
+        # энтропии на прогон (§9.2), нужен например для выбора кластера при травме.
+
+        self.numpy_rng = numpy_rng_from(generator)
 
         self.history = []
 
@@ -1056,6 +1068,8 @@ class CognitiveLoop:
 
                             target_pattern=self.target,
 
+                            rng=self.numpy_rng,
+
                         )
 
                         b0_after = self._compute_topology(current_state)["b0"]
@@ -1071,6 +1085,8 @@ class CognitiveLoop:
                                 injury_size,
 
                                 target_pattern=self.target,
+
+                                rng=self.numpy_rng,
 
                             )
 

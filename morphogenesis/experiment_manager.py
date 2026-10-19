@@ -36,6 +36,11 @@ import shutil
 
 import time
 
+# §9.2: config импортируется раньше torch — он выставляет
+# CUBLAS_WORKSPACE_CONFIG до загрузки CUDA. Порядок не менять (isort/intelliJ
+# «optimize imports» ломают детерминизм, см. docs/spec §9.2).
+import config
+
 import numpy as np
 
 import torch
@@ -44,7 +49,6 @@ import torch.nn.functional as F
 
 from scipy.stats import wilcoxon
 
-import config
 
 from nca_core import (
 
@@ -61,6 +65,8 @@ from nca_core import (
 )
 
 from config import create_deterministic_generator
+
+from utils.determinism import numpy_generator
 
 from topology import (
 
@@ -868,6 +874,12 @@ class ExperimentManager:
 
         """
 
+        # Локальный ГПСЧ на сид: выбор кластера для травмы не берётся из
+
+        # глобального numpy-состояния (§9.2).
+
+        rng = numpy_generator(seed)
+
         # Сохраняем исходное состояние.
 
         original_stress_enabled = config.STRESS_ENABLED
@@ -894,6 +906,8 @@ class ExperimentManager:
 
                 target_pattern=target,
 
+                rng=rng,
+
             )
 
             b0_after = compute_extended_topology_metrics(
@@ -917,6 +931,8 @@ class ExperimentManager:
                     injury_size=24,
 
                     target_pattern=target,
+
+                    rng=rng,
 
                 )
 

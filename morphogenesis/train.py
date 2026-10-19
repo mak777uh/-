@@ -44,6 +44,11 @@ import tempfile
 
 import time
 
+# §9.2: config импортируется раньше torch — он выставляет
+# CUBLAS_WORKSPACE_CONFIG до загрузки CUDA. Порядок не менять (isort/intelliJ
+# «optimize imports» ломают детерминизм, см. docs/spec §9.2).
+import config
+
 import numpy as np
 
 import torch
@@ -56,7 +61,6 @@ from torch.optim.lr_scheduler import CosineAnnealingLR
 
 from torch.utils.tensorboard import SummaryWriter
 
-import config
 
 import evaluate
 
