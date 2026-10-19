@@ -139,6 +139,51 @@ def _usable_wilcoxon_pairs(paired):
     return {k: v for k, v in paired.items() if v.get("usable")}
 
 
+# Поля, по которым строится парный ряд arm <-> базлайн на одном сиде и горизонте.
+# f1_final — заявленный первичный эндпоинт WP4 (coverage.f1 на последней точке
+# прогона); f1_max — вторичный и заведомо щедрее конца (NEG-21: важно не только
+# сколько, но и на какой итерации достигнут максимум); alive_fraction_min и
+# visible_mse_final — выживание и MSE, по первому из них пары строились и раньше.
+PAIRED_FIELDS = ("f1_final", "f1_max", "alive_fraction_min", "visible_mse_final")
+PRIMARY_PAIRED_FIELD = "f1_final"
+
+
+def _pair_key(arm, steps, field):
+    return f"{arm}_vs_H-A0_s{steps}_{field}"
+
+
+def _is_primary_pair(key):
+    return key.endswith(f"_{PRIMARY_PAIRED_FIELD}")
+
+
+def _build_paired_runs(runs):
+    """Парные Уилксины arm <-> H-A0, отдельно по каждому эндпоинту.
+
+    Раньше ряд строился только по alive_fraction_min, то есть по выживанию, а
+    гейт WP4 требует «Уилксон» там, где в этом же отчёте первичным эндпоинтом
+    назван coverage.f1. Закрывать условие статистикой по другому эндпоинту —
+    значит выбить его молча. Поэтому имя пары теперь несёт эндпоинт
+    (…_f1_final против …_alive_fraction_min), и в гейт попадает только первичный.
+    """
+    by_key = {(r["arm"], r["seed"], r["steps"]): r for r in runs}
+    paired = {}
+    for steps in sorted({r["steps"] for r in runs}):
+        for arm in sorted({r["arm"] for r in runs if r["steps"] == steps}):
+            if arm == "H-A0":
+                continue
+            seeds = sorted({r["seed"] for r in runs if r["steps"] == steps and r["arm"] == arm})
+            for field in PAIRED_FIELDS:
+                a = [by_key[(arm, s, steps)].get(field) for s in seeds]
+                b = [
+                    by_key[("H-A0", s, steps)].get(field)
+                    for s in seeds
+                    if ("H-A0", s, steps) in by_key
+                ]
+                if len(a) == len(b) and all(v is not None for v in a + b):
+                    paired[_pair_key(arm, steps, field)] = _paired_wilcoxon(a, b)
+    return paired
+
+
 def _transition_digest(runs):
     """Что произошло В МОМЕНТ перехода куррикулума (unroll 16 -> 32) в тех
     arm'ах, где он был. Это второй по значимости вывод WP4: коллапс не один
@@ -1126,22 +1171,9 @@ def build_report():
             r["relative_visible_mse_vs_baseline"] = float(r["visible_mse_final"] / base["visible_mse_final"])
 
     # Парные ряды по сидам для Wilcoxon (работает только когда сидов >=5).
-    paired = {}
-    for steps in sorted({r["steps"] for r in runs}):
-        arms = sorted({r["arm"] for r in runs if r["steps"] == steps})
-        for arm in arms:
-            if arm == "H-A0":
-                continue
-            seeds = sorted({r["seed"] for r in runs if r["steps"] == steps and r["arm"] == arm})
-            a = [by_key[(arm, s, steps)]["alive_fraction_min"] for s in seeds]
-            b = [
-                by_key[("H-A0", s, steps)]["alive_fraction_min"]
-                for s in seeds
-                if ("H-A0", s, steps) in by_key
-            ]
-            if len(a) == len(b) and all(v is not None for v in a + b):
-                paired[f"{arm}_vs_H-A0_s{steps}"] = _paired_wilcoxon(a, b)
+    paired = _build_paired_runs(runs)
     usable_pairs = _usable_wilcoxon_pairs(paired)
+    primary_usable_pairs = {k: v for k, v in usable_pairs.items() if _is_primary_pair(k)}
 
     verdicts = {
         "arms_survived": sorted({r["arm"] for r in runs if r["survived_at_relative_threshold"]}),
@@ -1202,15 +1234,24 @@ def build_report():
             # bool(paired) было бы ложным «выполнено»: словарь заполняется и для
             # n=1, где тест сознательно НЕ запускается (мощности нет). Требование
             # гейта — посчитанный тест, поэтому считаются только пары с n>=5.
-            "met": bool(usable_pairs),
+            # Второе уточнение: ряды строятся по нескольким эндпоинтам, а условие
+            # гейта сформулировано по первичному (coverage.f1), поэтому met смотрит
+            # только на него — иначе «Уилксон» закрывался бы статистикой по тому
+            # эндпоинту, который для него удобен.
+            "met": bool(primary_usable_pairs),
+            "primary_endpoint_field": PRIMARY_PAIRED_FIELD,
             "pairs": len(paired),
+            "pairs_by_field": {
+                field: sum(1 for k in paired if k.endswith(f"_{field}")) for field in PAIRED_FIELDS
+            },
             "pairs_with_computed_test": len(usable_pairs),
+            "pairs_with_computed_test_on_primary": len(primary_usable_pairs),
+            "computed_primary_pairs": sorted(primary_usable_pairs),
             "comment": (
                 "парный Уилксон требует >=5 сидов на пару arms (см. utils.stats); "
-                "на сегодня у базлайна 5 сидов, у аблационных плеч — один, поэтому "
-                "посчитанных пар нет. 5-сидовый sweep arms отложен до решения по "
-                "постановке E02: гонять его на конфигурации, где коллапс срабатывает "
-                "у 5 из 5 сидов, — это мерить нулевую дисперсию"
+                "ряды строятся по каждому эндпоинту отдельно и имя пары его несёт, "
+                "в met засчитываются только пары по первичному эндпоинту "
+                f"{PRIMARY_PAIRED_FIELD}"
             ),
         },
         "journal_pairs_13_3": {
@@ -1345,13 +1386,14 @@ def build_report():
         else " Числа по каждому условию лежат в results.json:gate_wp4.checks."
     )
     if "paired_wilcoxon" in unmet:
+        w = gate_wp4_checks["paired_wilcoxon"]
         why += (
-            " Прогон гейта слоя 1 на 5 сидах выполнен и закрыл «5 сидов» для "
-            "базлайн-плеча; парному Уилксону их не хватает: у аблационных плеч один "
-            "сид, а старые логи задним числом сидами не обзаводятся (§7.7). Для него "
-            "нужен 5-сидовый sweep arms — осмысленный только после решения по "
-            "постановке E02, потому что на текущей конфигурации коллапс срабатывает "
-            "у 5 из 5 сидов и дисперсия нулевая."
+            f" По первичному эндпоинту ({w['primary_endpoint_field']}) посчитано пар "
+            f"{w['pairs_with_computed_test_on_primary']} из {w['pairs']} построенных; "
+            f"всего с тестом {w['pairs_with_computed_test']}. Пара существует только "
+            "если на том же сиде и горизонте есть базлайн H-A0 и в обеих записях "
+            "есть значение эндпоинта — 5 сидов на плечо тут не заменяются чужими "
+            "артефактами, старые логи задним числом сидами не обзаводятся (§7.7)."
         )
     results["conclusions"].append(
         "Гейт WP4: "
@@ -1360,6 +1402,12 @@ def build_report():
             if not unmet
             else "НЕ выполнен — " + ", ".join(unmet) + "." + why
         )
+        + " Не путать с научным критерием: WP4 — процессуальный (первичный эндпоинт"
+        " записан, 5 сидов, effect size, Уилксон, пары журнала §13.3), а вопрос «есть"
+        " ли форма» решается гейтом слоя 1 — f1 после автономного roll-out выше"
+        " потолка бесструктурного поля с зазором 0.05. Закрытие WP4 не означает, что"
+        " E02 дала морфогенез, и наоборот: провал WP4 по статистике не есть"
+        " отрицание гипотезы."
     )
     return results
 

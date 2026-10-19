@@ -461,7 +461,97 @@ class TestGateWp4Statistics(unittest.TestCase):
     def test_wilcoxon_met_matches_computed_pairs(self):
         results = self._results_or_skip()
         w = results["gate_wp4"]["checks"]["paired_wilcoxon"]
-        self.assertEqual(w["met"], w["pairs_with_computed_test"] > 0)
+        # met смотрит на первичный эндпоинт, а не на любое посчитанное сравнение:
+        # пары строятся по нескольким эндпоинтам сразу.
+        self.assertEqual(
+            w["met"], w["pairs_with_computed_test_on_primary"] > 0
+        )
+        self.assertEqual(
+            w["pairs_with_computed_test_on_primary"], len(w["computed_primary_pairs"])
+        )
+
+    @staticmethod
+    def _pair_run(arm, seed, steps, **fields):
+        run = {"arm": arm, "seed": seed, "steps": steps}
+        run.update(fields)
+        return run
+
+    def test_paired_runs_are_built_per_endpoint_and_keyed_by_field(self):
+        """Пара обязана называть эндпоинт, по которому посчитана.
+
+        Пока ряд строился только по alive_fraction_min, условие «Уилксон» гейта
+        WP4 закрывалось статистикой по выживанию, хотя первичным эндпоинтом в том
+        же отчёте объявлен coverage.f1. Ключ с именем поля — это единственное, что
+        мешает подменить один эндпоинт другим.
+        """
+        from wp4_report import PAIRED_FIELDS, _build_paired_runs, _is_primary_pair
+
+        seeds = [42, 101, 202, 303, 404]
+        runs = []
+        for i, seed in enumerate(seeds):
+            runs.append(
+                self._pair_run(
+                    "H-A0", seed, 2000,
+                    alive_fraction_min=0.01 + i / 100, f1_final=0.05 + i / 100,
+                    f1_max=0.06, visible_mse_final=0.25,
+                )
+            )
+            runs.append(
+                self._pair_run(
+                    "R-9", seed, 2000,
+                    alive_fraction_min=0.40 + i / 100, f1_final=0.15 + i / 100,
+                    f1_max=0.20, visible_mse_final=0.20,
+                )
+            )
+        paired = _build_paired_runs(runs)
+        self.assertEqual(
+            set(paired), {f"R-9_vs_H-A0_s2000_{field}" for field in PAIRED_FIELDS}
+        )
+        for key, pair in paired.items():
+            self.assertEqual(pair["n_pairs"], 5, key)
+            self.assertTrue(pair["usable"], key)
+        self.assertTrue(_is_primary_pair("R-9_vs_H-A0_s2000_f1_final"))
+        self.assertFalse(_is_primary_pair("R-9_vs_H-A0_s2000_alive_fraction_min"))
+
+    def test_missing_endpoint_value_drops_only_that_endpoint_pair(self):
+        """Старые волны не записывали f1 — их пары по f1 должны отсутствовать, а
+        не превращаться в нули или в молча пропущенное сравнение по выживанию."""
+        from wp4_report import _build_paired_runs
+
+        seeds = [42, 101, 202, 303, 404]
+        runs = []
+        for i, seed in enumerate(seeds):
+            runs.append(
+                self._pair_run(
+                    "H-A0", seed, 400,
+                    alive_fraction_min=0.01 + i / 100, f1_final=None,
+                    f1_max=None, visible_mse_final=0.25,
+                )
+            )
+            runs.append(
+                self._pair_run(
+                    "R-1", seed, 400,
+                    alive_fraction_min=0.40 + i / 100, f1_final=None,
+                    f1_max=None, visible_mse_final=0.20,
+                )
+            )
+        paired = _build_paired_runs(runs)
+        self.assertEqual(
+            set(paired), {"R-1_vs_H-A0_s400_alive_fraction_min", "R-1_vs_H-A0_s400_visible_mse_final"}
+        )
+
+    def test_pair_needs_the_same_seed_on_the_baseline(self):
+        """Arm без ровного ему базлайна на том же сиде и горизонте не даёт пары —
+        иначе сравнение стало бы несравненным по построению."""
+        from wp4_report import _build_paired_runs
+
+        runs = [
+            self._pair_run("H-A0", 42, 400, alive_fraction_min=0.01, f1_final=0.05,
+                           f1_max=0.06, visible_mse_final=0.25),
+            self._pair_run("R-1", 101, 400, alive_fraction_min=0.40, f1_final=0.15,
+                           f1_max=0.20, visible_mse_final=0.20),
+        ]
+        self.assertEqual(_build_paired_runs(runs), {})
 
     @staticmethod
     def _results_or_skip():

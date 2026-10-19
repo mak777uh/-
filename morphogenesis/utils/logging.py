@@ -57,7 +57,7 @@ def _ensure_parent(path):
 def json_dumps(entry):
     """
 
-    Сериализация с защитой от_nan/inf: json.dumps(...) даёт невалидный JSON
+    Сериализация с защитой от nan/inf: json.dumps(...) даёт невалидный JSON
 
     (NaN/Infinity), который потом читается python-ом, но ломает любые внешние
 
