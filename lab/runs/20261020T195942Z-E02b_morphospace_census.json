@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "run_id": "20261020T195942Z-E02b_morphospace_census",
+  "experiment": "E02b_morphospace_census",
+  "experiment_id": "E02b",
+  "arm": "census",
+  "seed": 0,
+  "steps": 2000,
+  "status": "finished",
+  "provenance": "runner",
+  "source": "morphogenesis/logs/journal.jsonl",
+  "started_at": "2026-10-20T19:59:42Z",
+  "finished_at": "2026-10-20T21:30:34Z",
+  "git_commit": "0957533",
+  "git_dirty": true,
+  "command": [
+    "C:/Users/Admin/Documents/Qoder/2026-10-18/82ab86cd/repo/.venv/Scripts/python.exe",
+    "-u",
+    "e02b_morphospace.py",
+    "--steps",
+    "2000",
+    "--seeds",
+    "0-63"
+  ],
+  "cwd": "morphogenesis",
+  "owner": "autonomous-agent",
+  "environment": {
+    "python": "3.13.11",
+    "platform": "Windows-11-10.0.26300-SP0",
+    "torch": "2.6.0+cu124",
+    "numpy": "2.5.4",
+    "device": "NVIDIA GeForce RTX 3070 Laptop GPU, 595.79"
+  },
+  "checkpoint_in": null,
+  "outputs": {
+    "declared": [],
+    "log": "morphogenesis/logs/20261020T195942Z-E02b_morphospace_census.log"
+  },
+  "metrics": {},
+  "stop_reason": "exit_0",
+  "exit_code": 0,
+  "log_path": "morphogenesis/logs/20261020T195942Z-E02b_morphospace_census.log",
+  "notes": "полная перепись 64x2000 + возмущения; гипотезы H1-H4 по замороженному протоколу"
+}
