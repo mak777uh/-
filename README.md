@@ -20,6 +20,7 @@
 - [Долгосрочная гипотеза](#долгосрочная-гипотеза-активный-слой)
 - [Как устроен стенд](#как-устроен-стенд)
 - [Структура репозитория](#структура-репозитория)
+- [Два входа в репозиторий](#два-входа-в-репозиторий)
 - [Как читать репозиторий](#как-читать-репозиторий)
 - [Установка](#установка)
 - [Быстрый старт](#быстрый-старт)
@@ -141,6 +142,7 @@
 ```
 .
 ├── README.md
+├── AGENTS.md                   # контракт для агентов: чтение, запуск, границы
 ├── morphogenesis/
 │   ├── config.py               # все гиперпараметры (единый источник)
 │   ├── nca_core.py             # ядро NCA
@@ -165,12 +167,15 @@
 │   │   └── reporter.py
 │   ├── conftest.py             # pytest: sys.path и CWD=пакет
 │   ├── utils/                  # determinism, logging (журнал, NEG), stats
-│   ├── tests/                  # 225 модульных тестов (pytest)
+│   ├── tests/                  # 230 модульных тестов (pytest)
 │   ├── memory/                 # hypotheses.md, negative_results.md, decisions_log.jsonl, goal_state.json
 │   ├── checkpoints/            # сохранённые веса (в git не попадают)
-│   ├── logs/                   # TensorBoard и JSONL-логи (в git не попадают)
+│   ├── logs/                   # journal.jsonl — в git; TensorBoard и per-run JSONL — нет
 │   ├── outputs/                # кадры и результаты оценки (в git не попадают)
-│   └── experiments/            # E02_pattern/ — артефакты; E02b_morphospace/ — план
+│   └── experiments/            # E02_pattern/ — артефакты; E02b появится после preflight
+├── lab/                        # машинный control plane: registry, state, runs, схемы
+├── scripts/lab.py              # CLI: status, validate, claim, run, checkpoints
+├── .github/workflows/ci.yml    # контракт lab + CPU-тесты
 ├── docs/spec/
 │   ├── MORPHOGENESIS_v5.6_Rev11.md   # АКТИВНАЯ спецификация (единственный источник истины)
 │   └── archived/                     # замороженные ревизии, использовать запрещено (§0.2)
@@ -184,10 +189,33 @@
 └── LICENSE
 ```
 
+## Два входа в репозиторий
+
+Людям нужны отчёты и статьи, агентам — состояние и контракт запуска. Это разные
+срезы одних и тех же фактов:
+
+- **Человеческий вход:** [`reports/`](reports/README.md), [`articles/`](articles/README.md),
+  [`library/`](library/README.md). Здесь интерпретация, контекст и следующие шаги.
+- **Машинный вход:** [`AGENTS.md`](AGENTS.md), [`lab/state.json`](lab/state.json),
+  [`lab/registry.json`](lab/registry.json) и [`lab/runs/`](lab/runs/). Здесь статусы,
+  блокеры, манифесты прогонов, требования к чекпоинтам и протокол замков.
+
+Быстрая проверка состояния из корня:
+
+```bash
+python scripts/lab.py status
+python scripts/lab.py validate
+```
+
+`state.json` генерируется, а не редактируется вручную. При расхождении с
+`registry.json` или `checkpoints.json` прав первичный источник, а снимок
+пересобирается командой `python scripts/lab.py state`.
+
 ## Как читать репозиторий
 
 Три разных жанра, которые не дублируют друг друга:
 
+- [`AGENTS.md`](AGENTS.md) — контракт для агентов: порядок чтения, запуск под замком, обязательный след прогона и запреты. Машинное состояние — в [`lab/`](lab/README.md), а не в отчётах.
 - [`reports/`](reports/README.md) — первичные карточки экспериментов: вопрос, предзарегистрированные гипотезы, дизайн, числа со ссылками на артефакты, интерпретация и следующий шаг. Отрицательный результат публикуется наравне с положительным. Начать стоит с [E02](reports/2026-10-20-e02-pattern.md), [статуса WP4](reports/2026-10-20-wp4-status.md) и [плана E02b](reports/2026-10-20-e02b-plan.md).
 - [`articles/`](articles/README.md) — длинные статьи с контекстом, методами и ограничениями. [001 «Геометрия жизни для цифровой среды»](articles/001-geometriya-zhizni.md) — программа проекта; [002 «Почему кольцо не стало аттрактором»](articles/002-pochemu-kolco-ne-stalo-attraktorom.md) — разбор E02; [003](articles/003-protokol-perepisi-morfoprostranstva.md) — протокол E02b; [004](articles/004-lovushki-izmereniya-v-nca.md) — ловушки измерения.
 - [`library/`](library/README.md) — курированная библиотека источников. Сейчас там [публикации лаборатории Левина](library/levin/README.md) (карта чтения, ссылки, конспекты) и [смежные источники для гипотез](library/hypotheses/README.md): аттракторы, морфопространство, ремонт, агентность, active inference, lifelong learning. Полные тексты чужих статей не перепубликуются; библиотека хранит метаданные, ссылки и наши заметки.
@@ -253,7 +281,8 @@ python run_tests.py --quick   # только pytest
 
 ## Быстрый старт
 
-Все команды выполняются из каталога `morphogenesis/`.
+Команды обучения, диагностики и тестов выполняются из каталога `morphogenesis/`;
+команды машинного контура (`scripts/lab.py`) — из корня репозитория.
 
 Проверка работоспособности (валидация конфига, прямой/обратный шаг, инварианты стресса и alive-маски):
 
@@ -318,7 +347,9 @@ E01–E07 — историческая серия, реализованная в
 python -m pytest tests/ -p no:libtmux -v
 ```
 
-Всего **225** тестов. Основные группы:
+Всего **230** тестов. Локальный прогон — `python run_tests.py --quick` из корня
+или `python -m pytest tests/ -q` из `morphogenesis/`. CI (`.github/workflows/ci.yml`)
+проверяет контракт `lab.py validate --ci` и те же тесты на CPU. Основные группы:
 
 | Файлы | Тестов | Что покрывают |
 | --- | --- | --- |
@@ -330,6 +361,7 @@ python -m pytest tests/ -p no:libtmux -v
 | `test_e08_channel_reservation`, `test_fresh_state`, `test_report_schedule`, `test_stress_ablation` | 23 | резервирование каналов, свежие состояния пула, расписание отчётов, режимы абляции стресса |
 | `test_action_validator`, `test_budget_edge_cases` | 17 | валидация действий и граничные случаи АТР-бюджета |
 | `test_topology`, `test_topo_proxy_gradient` | 17 | топологические метрики и градиент topo-proxy |
+| `test_lab_contract` | 5 | согласованность registry/дескриптора, хеш протокола, статусы finish, гигиена git |
 
 ## Зависимости
 

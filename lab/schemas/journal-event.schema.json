@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://morphogenesis.local/schemas/journal-event.schema.json",
+  "title": "Canonical journal event",
+  "type": "object",
+  "required": ["ts", "event", "experiment", "level"],
+  "properties": {
+    "ts": {"type": "string", "format": "date-time"},
+    "event": {"enum": ["start", "finish", "error", "checkpoint", "run_start", "run_finish"]},
+    "experiment": {"type": "string"},
+    "level": {"enum": ["debug", "info", "warn", "warning", "error"]},
+    "seed": {"type": ["integer", "null"]},
+    "total_steps": {"type": ["integer", "null"]},
+    "iterations_done": {"type": ["integer", "null"]},
+    "stop_reason": {"type": ["string", "null"]},
+    "best_loss": {"type": ["number", "null"]},
+    "wall_time_sec": {"type": ["number", "null"]},
+    "alive_fraction_final": {"type": ["number", "null"]},
+    "emits_run_finish": {"type": "boolean"},
+    "device": {"type": "string"}
+  }
+}

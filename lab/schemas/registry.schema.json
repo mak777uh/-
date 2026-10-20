@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://morphogenesis.local/schemas/registry.schema.json",
+  "title": "Lab registry",
+  "type": "object",
+  "required": ["schema_version", "updated_at", "program", "experiments"],
+  "properties": {
+    "schema_version": {"type": "integer", "minimum": 1},
+    "updated_at": {"type": "string", "format": "date-time"},
+    "program": {
+      "type": "object",
+      "required": ["name", "phase", "status_note", "blockers", "next", "decisions_needed"],
+      "properties": {
+        "name": {"type": "string"},
+        "phase": {"type": "string"},
+        "status_note": {"type": "string"},
+        "blockers": {"type": "array", "items": {"type": "string"}},
+        "next": {"type": "array", "items": {"type": "string"}},
+        "decisions_needed": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "experiments": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "title", "kind", "status"],
+        "properties": {
+          "id": {"type": "string", "pattern": "^[A-Za-z0-9_.-]+$"},
+          "title": {"type": "string"},
+          "kind": {"enum": ["experiment", "diagnostic", "gate", "series"]},
+          "status": {"enum": ["planned", "running", "closed", "blocked", "not_run"]},
+          "outcome": {"enum": ["negative", "positive", "mixed", "inconclusive", null]},
+          "plan": {"type": ["string", "null"]},
+          "report": {"type": ["string", "null"]},
+          "article": {"type": ["string", "null"]},
+          "artifact_root": {"type": ["string", "null"]},
+          "entrypoint": {"type": ["string", "null"]},
+          "checkpoint_families": {"type": "array", "items": {"type": "string"}},
+          "descriptor": {"type": ["string", "null"]},
+          "next": {"type": "string"},
+          "notes": {"type": "string"}
+        }
+      }
+    },
+    "links": {"type": "object", "additionalProperties": {"type": "string"}}
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "id": "E02b_morphospace",
+  "title": "Перепись морфопространства",
+  "status": "planned",
+  "protocol": "reports/2026-10-20-e02b-plan.md",
+  "protocol_sha256": "30c4312f6a34a5d062b3cb1c3ad6a066393036f6acc5e5d6226286a9947866a9",
+  "protocol_frozen_at": "2026-10-20",
+  "protocol_frozen_commit": "24aefe4",
+  "article": "articles/003-protokol-perepisi-morfoprostranstva.md",
+  "design": {
+    "initial_conditions": 64,
+    "steps": 2000,
+    "snapshot_every": 50,
+    "device": "cuda",
+    "training": false,
+    "gradient": false,
+    "seed_range": [0, 63]
+  },
+  "checkpoint_policy": {
+    "canonical_kind": "final",
+    "reason": "wp4_reach_probe.py использует nca_final.pt; best остаётся для аудита, но не подменяет final без решения.",
+    "untrained_control": {
+      "id": "untrained_current_arch",
+      "kind": "runtime",
+      "note": "Свежая инициализация той же архитектуры, без загрузки весов."
+    }
+  },
+  "checkpoint_requirements": [
+    {"family": "WP4_H-A0_s2000_seed42", "file": "nca_final.pt"},
+    {"family": "WP4_H-A0_s2000_seed101", "file": "nca_final.pt"},
+    {"family": "WP4_H-A0_s2000_seed202", "file": "nca_final.pt"},
+    {"family": "WP4_H-A0_s2000_seed303", "file": "nca_final.pt"},
+    {"family": "WP4_H-A0_s2000_seed404", "file": "nca_final.pt"},
+    {"family": "WP4_R-9_s2000_seed42", "file": "nca_final.pt"},
+    {"family": "WP4_R-9_s2000_seed101", "file": "nca_final.pt"},
+    {"family": "WP4_R-9_s2000_seed202", "file": "nca_final.pt"},
+    {"family": "WP4_R-9_s2000_seed303", "file": "nca_final.pt"},
+    {"family": "WP4_R-9_s2000_seed404", "file": "nca_final.pt"},
+    {"family": "WP4_R-11_s2000_seed42", "file": "nca_final.pt"},
+    {"family": "WP4_H-P1_s2000_seed42", "file": "nca_final.pt"}
+  ],
+  "hypotheses": [
+    "H1: среди чекпоинтов есть хотя бы один не-смертельный структурный класс, воспроизводимый в ≥80% из 64 стартов.",
+    "H2: структура R-11 на 2000 шагах транзиентна и переходит в смерть или однородное поле.",
+    "H3: ни один класс не восстанавливается после ампутации 20% живых клеток до того же класса в ≥50% повторов.",
+    "H4: разброс классов между вариантами локального правила больше, чем между сидами внутри варианта."
+  ],
+  "outputs": {
+    "census": "morphogenesis/experiments/E02b_morphospace/census.json",
+    "perturbations": "morphogenesis/experiments/E02b_morphospace/perturbations.json",
+    "figures": "reports/figures/e02b_*.png",
+    "report": "reports/YYYY-MM-DD-e02b-results.md",
+    "runs_root": "lab/runs/"
+  },
+  "launch_preflight": [
+    "Все 12 файлов из checkpoint_requirements существуют и имеют статус local.",
+    "R-9 seed404 final-чекпоинт закрыт журналом finish-строкой.",
+    "Для H-P1 s2000 есть либо файл, либо явная поправка к протоколу; подмена s400 без решения запрещена.",
+    "sha256 канонических файлов заполнен в lab/checkpoints.json.",
+    "Свободно не меньше 2 ГБ диска.",
+    "Пилот 8 сидов × 500 шагов записан в lab/runs/ и не выдаёт себя за проверку гипотез."
+  ],
+  "guards": [
+    "Не обучать и не менять веса.",
+    "Не менять дефолты config.py и не промотировать плечо.",
+    "Все 64 сида входят в знаменатель; «красивые» прогоны не выбираются.",
+    "Гипотезы и критерии не переписываются после запуска.",
+    "Не открывать WP5 и не объявлять «жизнь» или «сознание» по результатам переписи."
+  ],
+  "status_note": "Дескриптор — индекс, а не второй протокол. При расхождении прав reports/2026-10-20-e02b-plan.md."
+}

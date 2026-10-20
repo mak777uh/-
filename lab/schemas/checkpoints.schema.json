@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://morphogenesis.local/schemas/checkpoints.schema.json",
+  "title": "Checkpoint index",
+  "type": "object",
+  "required": ["schema_version", "generated_at", "root", "entries", "requirements"],
+  "properties": {
+    "schema_version": {"type": "integer", "minimum": 1},
+    "generated_at": {"type": "string", "format": "date-time"},
+    "root": {"type": "string"},
+    "entries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["family", "kind", "path", "size_bytes"],
+        "properties": {
+          "family": {"type": "string"},
+          "experiment_id": {"type": ["string", "null"]},
+          "arm": {"type": ["string", "null"]},
+          "seed": {"type": ["integer", "null"]},
+          "steps": {"type": ["integer", "null"]},
+          "kind": {"enum": ["best", "final", "iter", "other"]},
+          "iteration": {"type": ["integer", "null"]},
+          "path": {"type": ["string", "null"]},
+          "size_bytes": {"type": "integer", "minimum": 0},
+          "mtime": {"type": ["string", "null"]},
+          "sha256": {"type": ["string", "null"]},
+          "hash_status": {"enum": ["pending", "complete", "not_required"]},
+          "canonical_for": {"type": "array", "items": {"type": "string"}},
+          "notes": {"type": "string"}
+        }
+      }
+    },
+    "requirements": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["required", "ready", "missing"],
+        "properties": {
+          "required": {"type": "integer", "minimum": 0},
+          "ready": {"type": "integer", "minimum": 0},
+          "missing": {"type": "array", "items": {"type": "string"}},
+          "items": {"type": "array", "items": {"type": "object"}}
+        }
+      }
+    },
+    "virtual": {"type": "array", "items": {"type": "object"}}
+  }
+}

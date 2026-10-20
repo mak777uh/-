@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://morphogenesis.local/schemas/state.schema.json",
+  "title": "Generated lab state",
+  "type": "object",
+  "required": ["schema_version", "generated_at", "phase", "active_runs", "counts", "checkpoints", "disk", "blockers", "next", "decisions_needed"],
+  "properties": {
+    "schema_version": {"type": "integer", "minimum": 1},
+    "generated_at": {"type": "string", "format": "date-time"},
+    "phase": {"type": "string"},
+    "status_note": {"type": "string"},
+    "active_runs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["run_id", "experiment", "status"],
+        "properties": {
+          "run_id": {"type": "string"},
+          "experiment": {"type": "string"},
+          "arm": {"type": ["string", "null"]},
+          "seed": {"type": ["integer", "null"]},
+          "status": {"type": "string"},
+          "started_at": {"type": ["string", "null"]},
+          "owner": {"type": ["string", "null"]}
+        }
+      }
+    },
+    "counts": {"type": "object"},
+    "checkpoints": {"type": "object"},
+    "disk": {"type": "object"},
+    "blockers": {"type": "array", "items": {"type": "string"}},
+    "next": {"type": "array", "items": {"type": "string"}},
+    "decisions_needed": {"type": "array", "items": {"type": "string"}},
+    "sources": {"type": "array", "items": {"type": "string"}}
+  }
+}

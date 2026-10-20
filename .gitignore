@@ -51,6 +51,12 @@ morphogenesis/experiments/*/frame_*.png
 # Логи прогонов
 *.log
 morphogenesis/logs/*.jsonl
+# Канонический журнал лаборатории — единственный файл logs/, который живёт в git.
+# Он append-only, маленький (десятки КБ) и нужен для проверки пар start/finish
+# на свежем клоне. Per-run JSONL и TensorBoard по-прежнему не коммитятся.
+!/morphogenesis/logs/
+morphogenesis/logs/*
+!/morphogenesis/logs/journal.jsonl
 # Преходящий stdout диагностических прогонов (перенаправление `> logs_gate_*.txt`,
 # `> logs_wp4_*.txt`); воспроизводится командами `python gate_layer1.py` и
 # `python wp4_ablations.py`, в git не нужен — машинный результат лежит в
@@ -72,6 +78,10 @@ morphogenesis/logs_wp4_*.txt
 # Преходящее runtime-состояние (не знание агента)
 morphogenesis/memory/current_state.json
 morphogenesis/reports/
+
+# Замки запусков: живут только на машине, которая сейчас пишет эксперимент.
+# Манифесты прогонов (lab/runs/*.json) наоборот коммитятся.
+lab/locks/*.lock
 
 # Артефакты, которые возникают в КОРНЕ репозитория, если запустить pytest или
 # прогон с неверного CWD (все пути в config.py относительные). Игнорируем, чтобы

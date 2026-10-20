@@ -28,6 +28,20 @@
 | `опровергнуто` | Гипотеза проверена и не подтвердилась — это результат. |
 | `заблокировано` | Не хватает решения или ресурса; причина указана. |
 
+## Машинный контур
+
+Таблица ниже — человеческий снимок. Актуальное машинное состояние, активные
+прогоны, блокеры и требования к чекпоинтам лежат в [`../lab/`](../lab/README.md):
+
+```bash
+python scripts/lab.py status     # фаза, активные прогоны, блокеры
+python scripts/lab.py validate   # контракт registry/state/runs/journal
+```
+
+Порядок чтения для агентов и границы запуска — в [`../AGENTS.md`](../AGENTS.md).
+Если отчёт и `lab/state.json` расходятся, прав первичный артефакт или журнал, а
+отчёт помечается уточнением с датой.
+
 ## Отчёты
 
 | Дата | Отчёт | Статус | Главное |
@@ -52,9 +66,12 @@
 ## Где что лежит
 
 - Спецификация: [`../docs/spec/MORPHOGENESIS_v5.6_Rev11.md`](../docs/spec/MORPHOGENESIS_v5.6_Rev11.md)
+- Машинный контур: [`../lab/README.md`](../lab/README.md), [`../lab/state.json`](../lab/state.json)
+- Контракт агентов: [`../AGENTS.md`](../AGENTS.md)
 - Результаты E02: [`../morphogenesis/experiments/E02_pattern/results.json`](../morphogenesis/experiments/E02_pattern/results.json)
 - Журнал отрицательных результатов: [`../morphogenesis/memory/negative_results.md`](../morphogenesis/memory/negative_results.md)
 - Журнал решений: [`../morphogenesis/memory/decisions_log.jsonl`](../morphogenesis/memory/decisions_log.jsonl)
+- Канонический журнал прогонов: [`../morphogenesis/logs/journal.jsonl`](../morphogenesis/logs/journal.jsonl)
 - Зонд reach/hold: [`../morphogenesis/wp4_reach_probe.py`](../morphogenesis/wp4_reach_probe.py)
 - Генератор отчёта: [`../morphogenesis/wp4_report.py`](../morphogenesis/wp4_report.py)
 
