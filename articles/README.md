@@ -62,6 +62,7 @@
 | 002 | [Почему кольцо не стало аттрактором](002-pochemu-kolco-ne-stalo-attraktorom.md) | стабильно, v1.0 | эксперимент E02: гейт 0/5, reach/hold, смерть как ловушка |
 | 003 | [Протокол переписи морфопространства](003-protokol-perepisi-morfoprostranstva.md) | стабильно, v1.0 | E02b: гипотезы, дескрипторы, возмущения, правила решений |
 | 004 | [Ловушки измерения в NCA](004-lovushki-izmereniya-v-nca.md) | стабильно, v1.0 | gated f1, argmax hold, минимальный p, «met» ≠ успех |
+| 005 | [Что перепись нашла в морфопространстве](005-chto-perepis-nashla-v-morfoprostranstve.md) | стабильно, v1.0 | E02b: rich_map, struct_2 и struct_1, ремонт класса vs идентичность |
 
 ## Как написать статью
 
