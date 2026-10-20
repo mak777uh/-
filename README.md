@@ -63,11 +63,11 @@
 | --- | --- | --- |
 | E02: кольцо как цель | **закрыто, отрицательный результат** | [отчёт](reports/2026-10-20-e02-pattern.md), [статья 002](articles/002-pochemu-kolco-ne-stalo-attraktorom.md) |
 | Гейт слоя 1 | **0/5** (коллапс ткани, coverage 0, retention 0) | [`gate_layer1.json`](morphogenesis/experiments/E02_pattern/gate_layer1.json) |
-| WP4: reach/hold + 5 сидов R-9 | **финальный sweep завершается**; гейт WP4 не пройден | [статус](reports/2026-10-20-wp4-status.md) |
+| WP4: reach/hold + 5 сидов R-9 | **sweep закрыт**; гейт WP4 не пройден (`journal_pairs_13_3`) | [статус](reports/2026-10-20-wp4-status.md) |
 | E02b: карта морфопространства | **план, не запущен** | [план](reports/2026-10-20-e02b-plan.md), [протокол](articles/003-protokol-perepisi-morfoprostranstva.md) |
 | WP5: стресс, интероцепция, AE | **не открывается** до решения по E02 и карте E02b | [статус](reports/2026-10-20-wp4-status.md) |
 
-Числа в статусе меняются по мере sweep; источник истины — отчёт, а не эта таблица.
+Числа в статусе меняются по мере работы; источник истины — `lab/state.json` и отчёты, а не эта таблица.
 
 ## Что уже узнали
 

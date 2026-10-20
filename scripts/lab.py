@@ -41,6 +41,7 @@ CHECKPOINTS = LAB / "checkpoints.json"
 DESCRIPTOR = LAB / "experiments" / "E02b_morphospace.json"
 RUNS = LAB / "runs"
 LOCKS = LAB / "locks"
+LOGS_ARCHIVE = LAB / "logs"
 JOURNAL = MORPH / "logs" / "journal.jsonl"
 CHECKPOINT_DIR = MORPH / "checkpoints"
 
@@ -504,6 +505,80 @@ def import_journal() -> dict[str, int]:
         write_json_atomic(target, manifest)
         written += 1
     return {"rows": len(rows), "written": written, "skipped": skipped}
+
+
+# ---------------------------------------------------------------------------
+# Logs archive (GitHub-friendly)
+# ---------------------------------------------------------------------------
+
+
+def archive_logs(dry_run: bool = False) -> dict[str, Any]:
+    """Копирует завершённые per-run JSONL в lab/logs/ и пишет index.json.
+
+    TensorBoard, stdout-логи обёртки и per-run JSONL активных прогонов не
+    архивируются: первые два нечитаемы в git, последние ещё дописываются.
+    """
+    runs_by_experiment: dict[str, dict[str, Any]] = {}
+    for path in sorted(RUNS.glob("*.json")):
+        try:
+            manifest = read_json(path)
+        except (OSError, json.JSONDecodeError):
+            continue
+        experiment = manifest.get("experiment")
+        if not experiment:
+            continue
+        previous = runs_by_experiment.get(experiment)
+        if previous is None or (manifest.get("started_at") or "") >= (
+            previous.get("started_at") or ""
+        ):
+            runs_by_experiment[experiment] = manifest
+
+    files = []
+    copied = 0
+    skipped = 0
+    for source in sorted((MORPH / "logs").glob("*_log.jsonl")):
+        experiment = source.name[: -len("_log.jsonl")]
+        manifest = runs_by_experiment.get(experiment) or {}
+        status = manifest.get("status") or "legacy"
+        if status in {"claimed", "running"}:
+            skipped += 1
+            continue
+        target = LOGS_ARCHIVE / source.name
+        if not dry_run:
+            LOGS_ARCHIVE.mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(source, target)
+            copied += 1
+        files.append(
+            {
+                "path": rel(target),
+                "source": rel(source),
+                "experiment": experiment,
+                "run_id": manifest.get("run_id"),
+                "run_status": status,
+                "size_bytes": source.stat().st_size,
+                "mtime": dt.datetime.fromtimestamp(
+                    source.stat().st_mtime, tz=dt.timezone.utc
+                )
+                .replace(microsecond=0)
+                .isoformat()
+                .replace("+00:00", "Z"),
+                "sha256": sha256_file(source),
+            }
+        )
+
+    payload = {
+        "schema_version": 1,
+        "generated_at": now_utc(),
+        "policy": "Только завершённые per-run JSONL; TensorBoard, stdout обёртки и активные прогоны не архивируются.",
+        "files": files,
+        "total_bytes": sum(item["size_bytes"] for item in files),
+        "copied": copied,
+        "skipped_active": skipped,
+        "dry_run": dry_run,
+    }
+    if not dry_run:
+        write_json_atomic(LOGS_ARCHIVE / "index.json", payload)
+    return payload
 
 
 # ---------------------------------------------------------------------------
@@ -1075,6 +1150,10 @@ def main(argv: list[str] | None = None) -> int:
     p_journal = sub.add_parser("journal-import", help="пересобрать lab/runs из журнала")
     p_journal.add_argument("--json", action="store_true")
 
+    p_logs = sub.add_parser("logs-archive", help="архивировать per-run JSONL в lab/logs")
+    p_logs.add_argument("--dry-run", action="store_true")
+    p_logs.add_argument("--json", action="store_true")
+
     sub.add_parser("state", help="пересобрать state.json")
 
     p_claim = sub.add_parser("claim", help="занять эксперимент")
@@ -1136,6 +1215,19 @@ def main(argv: list[str] | None = None) -> int:
             print(
                 f"journal: строк {result['rows']}; манифестов записано {result['written']}; "
                 f"пропущено {result['skipped']}"
+            )
+        return 0
+    if args.action == "logs-archive":
+        payload = archive_logs(dry_run=args.dry_run)
+        if args.json:
+            print(json.dumps(payload, ensure_ascii=False, indent=2))
+        else:
+            print(
+                f"logs: файлов {len(payload['files'])}; "
+                f"скопировано {payload['copied']}; "
+                f"активных пропущено {payload['skipped_active']}; "
+                f"объём {payload['total_bytes'] / 1024 ** 2:.2f} МБ"
+                + (" (dry-run)" if payload["dry_run"] else "")
             )
         return 0
     if args.action == "state":

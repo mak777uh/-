@@ -29,7 +29,9 @@
 | `state.json` | `scripts/lab.py state` | Сгенерированный снимок: фаза, активные прогоны, блокеры, диск. Не редактировать вручную. |
 | `checkpoints.json` | `scripts/lab.py checkpoints` | Индекс весов: путь, размер, arm/seed/step, требования E02b, статус хеша. |
 | `runs/<run_id>.json` | `scripts/lab.py run` / `journal-import` | Неизменяемый манифест прогона. Один прогон = один файл. |
+| `logs/` | `scripts/lab.py logs-archive` | Тонкий архив завершённых per-run JSONL + `index.json`; TensorBoard и stdout не входят. |
 | `experiments/E02b_morphospace.json` | человек, до запуска | Машиночитаемый дескриптор следующего эксперимента. Протокол остаётся в `reports/`. |
+| `retention.json` | человек/агент | Удалённые промежуточные снапшоты: что, когда и при каком сохранённом `final`. |
 | `schemas/` | человек | JSON Schema для registry/state/run/checkpoints/journal. |
 | `locks/` | `scripts/lab.py claim` | Runtime-замки; в git не попадают. |
 
@@ -96,11 +98,33 @@ python scripts/lab.py claim --experiment E02b_morphospace --owner my-agent
 `wp4_reach_probe.py`. `nca_best.pt` остаётся для аудита, но не подменяет
 `final` в E02b без отдельного решения.
 
+## Логи и диск
+
+На GitHub едут **маленькие текстовые следы**: канонический журнал, манифесты
+прогонов, `lab/logs/*.jsonl` (1–2 МБ) и индекс чекпоинтов. Веса, TensorBoard,
+stdout обёртки и кадры не коммитятся. Поэтому «логи на GitHub» не означают
+«залить всё, что пишет обучение».
+
+Порядок такой:
+
+1. прогон закончился и есть пара start/finish;
+2. `journal-import` закрывает манифест;
+3. `logs-archive` копирует завершённый JSONL и пишет `lab/logs/index.json`;
+4. `state` пересобирает снимок;
+5. коммитятся только JSON/Markdown.
+
+`nca_final.pt` — канонический результат. `nca_best.pt` — аудит-снапшот.
+`nca_iter_*` нужны только для возобновления; после finish при наличии final их
+можно удалить, записав факт в `retention.json`. Это единственная безопасная
+автоматическая экономия диска: удаление final или best меняет научный архив и
+требует решения владельца.
+
 ## Обновление
 
 ```bash
 python scripts/lab.py checkpoints          # пересканировать веса
 python scripts/lab.py journal-import       # обновить runs/ из журнала
+python scripts/lab.py logs-archive         # архив завершённых JSONL для GitHub
 python scripts/lab.py state                # пересобрать state.json
 python scripts/lab.py validate             # проверить контракт
 ```

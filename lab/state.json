@@ -1,63 +1,49 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-10-20T08:49:53Z",
-  "phase": "WP4 close-out",
-  "status_note": "E02 закрыт отрицательно; кольцо остаётся калибровкой. Идёт финальный 5-сидовый sweep R-9; E02b зафиксирован, но не запущен.",
-  "active_runs": [
-    {
-      "run_id": "20261020T083354Z-WP4_R-9_s2000_seed404",
-      "experiment": "WP4_R-9_s2000_seed404",
-      "arm": "R-9",
-      "seed": 404,
-      "status": "running",
-      "started_at": "2026-10-20T08:33:54.099253+00:00",
-      "owner": null
-    }
-  ],
+  "generated_at": "2026-10-20T09:58:36Z",
+  "phase": "WP4 closed (negative) → E02b preflight",
+  "status_note": "E02 закрыт отрицательно; кольцо остаётся калибровкой. 5-сидовый sweep R-9 закрыт, зонд s1000 дал пустые reach/hold, results.json пересобран, итог записан в NEG-29 и decisions_log. Гейт WP4 не пройден из-за journal_pairs_13_3. E02b зафиксирован, но ждёт решения по H-P1 s2000.",
+  "active_runs": [],
   "locks": [],
   "counts": {
     "experiments": {
-      "closed": 2,
-      "running": 1,
+      "closed": 3,
       "planned": 1,
       "not_run": 5
     },
     "runs": {
-      "finished": 30,
-      "aborted": 3,
-      "running": 1
+      "finished": 31,
+      "aborted": 3
     },
     "run_manifests": 34
   },
   "checkpoints": {
     "e02b": {
       "required": 12,
-      "ready": 10,
+      "ready": 11,
       "missing": [
-        "WP4_R-9_s2000_seed404/nca_final.pt",
         "WP4_H-P1_s2000_seed42/nca_final.pt"
       ]
     },
-    "hashes_pending": 10,
-    "files_indexed": 55
+    "hashes_pending": 11,
+    "files_indexed": 47
   },
   "disk": {
     "total_gb": 231.86,
-    "free_gb": 3.19,
-    "used_gb": 228.67,
-    "checkpoints_gb": 28.64
+    "free_gb": 8.4,
+    "used_gb": 223.46,
+    "checkpoints_gb": 24.12
   },
   "blockers": [
-    "Гейт WP4 не пройден: слой 1 — 0/5, финальный sweep R-9 ещё не закрыт.",
-    "E02b не может стартовать: нет канонического H-P1 s2000 (есть только s400), а R-9 seed404 ещё пишет final-чекпоинт.",
+    "Гейт WP4 не пройден: слой 1 — 0/5, а journal_pairs_13_3=false (legacy start-строки и superseded-записи), хотя 5 сидов и Wilcoxon посчитаны.",
+    "E02b не может стартовать: нет канонического H-P1 s2000 (есть только s400); s400 не подменяет s2000 без поправки к протоколу.",
     "WP5 закрыт до решения владельца спеки по рамке E02.",
-    "E02b checkpoint preflight: не хватает WP4_R-9_s2000_seed404/nca_final.pt, WP4_H-P1_s2000_seed42/nca_final.pt"
+    "E02b checkpoint preflight: не хватает WP4_H-P1_s2000_seed42/nca_final.pt"
   ],
   "next": [
-    "Дочитать R-9 seed404, дождаться зонда R-9 s1000 и пересборки results.json.",
-    "Записать итог WP4 в negative_results.md и decisions_log.jsonl, закрыть отчёт.",
     "Решить, чем заменить отсутствующий H-P1 s2000: новым прогоном или явной поправкой к протоколу E02b.",
     "Провести пилот E02b на 8 сидах и только затем полную перепись.",
+    "Держать логи и манифесты в GitHub; веса и TensorBoard локально. Следить за state.disk.free_gb.",
     "После закрытия активных прогонов заполнить sha256 канонических чекпоинтов: python scripts/lab.py checkpoints --hash-canonical"
   ],
   "decisions_needed": [

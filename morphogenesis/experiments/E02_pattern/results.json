@@ -1977,6 +1977,50 @@
       "b1_final": 0.0
     },
     {
+      "arm": "H-A0",
+      "description": "базлайн: supervised_mse, ALPHA_SUPERVISION_WEIGHT=1.0",
+      "overrides": {},
+      "seed": 404,
+      "steps": 2000,
+      "collapse_threshold": 0.076171875,
+      "logged_final_iteration": 2000,
+      "truncated": false,
+      "alive_fraction_min": 0.0,
+      "alive_fraction_final": 0.0,
+      "collapse_iteration": 150,
+      "unroll_at_collapse": 16,
+      "transition_iteration": 200,
+      "unroll_before_transition": 16,
+      "unroll_after_transition": 32,
+      "alive_fraction_before_transition": 0.0679931640625,
+      "grad_norm_at_transition": 0.4988759160041809,
+      "grad_norm_median_before_transition": 1.3014276027679443,
+      "grad_norm_max": 2.046818256378174,
+      "grad_norm_at": 100,
+      "visible_mse_first": 0.2655414342880249,
+      "visible_mse_final": 0.25,
+      "retention_enabled_by_overrides": false,
+      "retention_survival_mode": null,
+      "retention_alive_margin": null,
+      "retention_mse_first": null,
+      "retention_mse_final": null,
+      "retention_survival_final": null,
+      "retention_quiet_final": null,
+      "retention_quiet_weight": null,
+      "retention_quiet_margin": null,
+      "chamfer_first": 0.04167791265754055,
+      "chamfer_final": 0.7663876696316275,
+      "f1_final": 0.0,
+      "f1_max": 0.18002663960964438,
+      "f1_max_iteration": 50,
+      "survived": false,
+      "trajectory_points": 40,
+      "survived_at_relative_threshold": false,
+      "survived_at_absolute_015": false,
+      "b0_final": 0.0,
+      "b1_final": 0.0
+    },
+    {
       "arm": "H-M1",
       "description": "полный контракт (mask on), длинный горизонт, fuse выключен",
       "overrides": {},
@@ -2369,6 +2413,254 @@
       "relative_visible_mse_vs_baseline": 1.096013069152832
     },
     {
+      "arm": "R-9",
+      "description": "R-8 + quiet-пари в roll-out с весом 1.0 (паритет с survival×10 по замеру)",
+      "overrides": {
+        "RETENTION_ENABLED": true,
+        "RETENTION_ROLLOUT_STEPS": 16,
+        "RETENTION_SURVIVAL_MODE": "level",
+        "RETENTION_ALIVE_MARGIN": 0.1,
+        "RETENTION_SURVIVAL_WEIGHT": 10.0,
+        "RETENTION_QUIET_WEIGHT": 1.0,
+        "LOSS_WEIGHTS": {
+          "retention": 1.0,
+          "alive_policy": 2.0
+        },
+        "TRAIN_BPTT_CURRICULUM": [
+          16,
+          16,
+          16
+        ]
+      },
+      "seed": 101,
+      "steps": 2000,
+      "collapse_threshold": 0.076171875,
+      "logged_final_iteration": 2000,
+      "truncated": false,
+      "alive_fraction_min": 0.4805908203125,
+      "alive_fraction_final": 0.863677978515625,
+      "collapse_iteration": null,
+      "unroll_at_collapse": null,
+      "transition_iteration": null,
+      "unroll_before_transition": null,
+      "unroll_after_transition": null,
+      "alive_fraction_before_transition": null,
+      "grad_norm_at_transition": null,
+      "grad_norm_median_before_transition": null,
+      "grad_norm_max": 4.145073413848877,
+      "grad_norm_at": 1300,
+      "visible_mse_first": 0.26284635066986084,
+      "visible_mse_final": 0.23426970839500427,
+      "retention_enabled_by_overrides": true,
+      "retention_survival_mode": "level",
+      "retention_alive_margin": 0.1,
+      "retention_mse_first": 0.2592880129814148,
+      "retention_mse_final": 0.17130406200885773,
+      "retention_survival_final": 0.017378758639097214,
+      "retention_quiet_final": 0.08929172903299332,
+      "retention_quiet_weight": 1.0,
+      "retention_quiet_margin": null,
+      "chamfer_first": 0.04141216307542225,
+      "chamfer_final": 0.04109768863888236,
+      "f1_final": 0.18585590904158988,
+      "f1_max": 0.22498364235801419,
+      "f1_max_iteration": 1300,
+      "survived": true,
+      "trajectory_points": 40,
+      "survived_at_relative_threshold": true,
+      "survived_at_absolute_015": true,
+      "b0_final": 60.5,
+      "b1_final": 29.875,
+      "delta_alive_min_vs_baseline": 0.4805908203125,
+      "relative_visible_mse_vs_baseline": 0.9370788335800171
+    },
+    {
+      "arm": "R-9",
+      "description": "R-8 + quiet-пари в roll-out с весом 1.0 (паритет с survival×10 по замеру)",
+      "overrides": {
+        "RETENTION_ENABLED": true,
+        "RETENTION_ROLLOUT_STEPS": 16,
+        "RETENTION_SURVIVAL_MODE": "level",
+        "RETENTION_ALIVE_MARGIN": 0.1,
+        "RETENTION_SURVIVAL_WEIGHT": 10.0,
+        "RETENTION_QUIET_WEIGHT": 1.0,
+        "LOSS_WEIGHTS": {
+          "retention": 1.0,
+          "alive_policy": 2.0
+        },
+        "TRAIN_BPTT_CURRICULUM": [
+          16,
+          16,
+          16
+        ]
+      },
+      "seed": 202,
+      "steps": 2000,
+      "collapse_threshold": 0.076171875,
+      "logged_final_iteration": 2000,
+      "truncated": false,
+      "alive_fraction_min": 0.3511962890625,
+      "alive_fraction_final": 0.99456787109375,
+      "collapse_iteration": null,
+      "unroll_at_collapse": null,
+      "transition_iteration": null,
+      "unroll_before_transition": null,
+      "unroll_after_transition": null,
+      "alive_fraction_before_transition": null,
+      "grad_norm_at_transition": null,
+      "grad_norm_median_before_transition": null,
+      "grad_norm_max": 5.769704341888428,
+      "grad_norm_at": 1100,
+      "visible_mse_first": 0.26288360357284546,
+      "visible_mse_final": 0.1851438581943512,
+      "retention_enabled_by_overrides": true,
+      "retention_survival_mode": "level",
+      "retention_alive_margin": 0.1,
+      "retention_mse_first": 0.25900039076805115,
+      "retention_mse_final": 0.14747807383537292,
+      "retention_survival_final": 0.001997492043301463,
+      "retention_quiet_final": 0.12218127399682999,
+      "retention_quiet_weight": 1.0,
+      "retention_quiet_margin": null,
+      "chamfer_first": 0.04114773989343801,
+      "chamfer_final": 0.04400756164568187,
+      "f1_final": 0.12017486439286057,
+      "f1_max": 0.21247468948742354,
+      "f1_max_iteration": 700,
+      "survived": true,
+      "trajectory_points": 40,
+      "survived_at_relative_threshold": true,
+      "survived_at_absolute_015": true,
+      "b0_final": 10.25,
+      "b1_final": 0.25,
+      "delta_alive_min_vs_baseline": 0.3511962890625,
+      "relative_visible_mse_vs_baseline": 0.7405754327774048
+    },
+    {
+      "arm": "R-9",
+      "description": "R-8 + quiet-пари в roll-out с весом 1.0 (паритет с survival×10 по замеру)",
+      "overrides": {
+        "RETENTION_ENABLED": true,
+        "RETENTION_ROLLOUT_STEPS": 16,
+        "RETENTION_SURVIVAL_MODE": "level",
+        "RETENTION_ALIVE_MARGIN": 0.1,
+        "RETENTION_SURVIVAL_WEIGHT": 10.0,
+        "RETENTION_QUIET_WEIGHT": 1.0,
+        "LOSS_WEIGHTS": {
+          "retention": 1.0,
+          "alive_policy": 2.0
+        },
+        "TRAIN_BPTT_CURRICULUM": [
+          16,
+          16,
+          16
+        ]
+      },
+      "seed": 303,
+      "steps": 2000,
+      "collapse_threshold": 0.076171875,
+      "logged_final_iteration": 2000,
+      "truncated": false,
+      "alive_fraction_min": 0.306488037109375,
+      "alive_fraction_final": 0.306488037109375,
+      "collapse_iteration": null,
+      "unroll_at_collapse": null,
+      "transition_iteration": null,
+      "unroll_before_transition": null,
+      "unroll_after_transition": null,
+      "alive_fraction_before_transition": null,
+      "grad_norm_at_transition": null,
+      "grad_norm_median_before_transition": null,
+      "grad_norm_max": 8.521909713745117,
+      "grad_norm_at": 1850,
+      "visible_mse_first": 0.2612784206867218,
+      "visible_mse_final": 0.2971169948577881,
+      "retention_enabled_by_overrides": true,
+      "retention_survival_mode": "level",
+      "retention_alive_margin": 0.1,
+      "retention_mse_first": 0.2572503089904785,
+      "retention_mse_final": 0.20496225357055664,
+      "retention_survival_final": 0.020096633583307266,
+      "retention_quiet_final": 0.09082279354333878,
+      "retention_quiet_weight": 1.0,
+      "retention_quiet_margin": null,
+      "chamfer_first": 0.04131223407962707,
+      "chamfer_final": 0.04308696196575887,
+      "f1_final": 0.1680191467784657,
+      "f1_max": 0.22484372049018067,
+      "f1_max_iteration": 700,
+      "survived": true,
+      "trajectory_points": 40,
+      "survived_at_relative_threshold": true,
+      "survived_at_absolute_015": true,
+      "b0_final": 55.625,
+      "b1_final": 44.5,
+      "delta_alive_min_vs_baseline": 0.306488037109375,
+      "relative_visible_mse_vs_baseline": 1.1884679794311523
+    },
+    {
+      "arm": "R-9",
+      "description": "R-8 + quiet-пари в roll-out с весом 1.0 (паритет с survival×10 по замеру)",
+      "overrides": {
+        "RETENTION_ENABLED": true,
+        "RETENTION_ROLLOUT_STEPS": 16,
+        "RETENTION_SURVIVAL_MODE": "level",
+        "RETENTION_ALIVE_MARGIN": 0.1,
+        "RETENTION_SURVIVAL_WEIGHT": 10.0,
+        "RETENTION_QUIET_WEIGHT": 1.0,
+        "LOSS_WEIGHTS": {
+          "retention": 1.0,
+          "alive_policy": 2.0
+        },
+        "TRAIN_BPTT_CURRICULUM": [
+          16,
+          16,
+          16
+        ]
+      },
+      "seed": 404,
+      "steps": 2000,
+      "collapse_threshold": 0.076171875,
+      "logged_final_iteration": 2000,
+      "truncated": false,
+      "alive_fraction_min": 0.217315673828125,
+      "alive_fraction_final": 0.999725341796875,
+      "collapse_iteration": null,
+      "unroll_at_collapse": null,
+      "transition_iteration": null,
+      "unroll_before_transition": null,
+      "unroll_after_transition": null,
+      "alive_fraction_before_transition": null,
+      "grad_norm_at_transition": null,
+      "grad_norm_median_before_transition": null,
+      "grad_norm_max": 7.061155796051025,
+      "grad_norm_at": 1550,
+      "visible_mse_first": 0.26423585414886475,
+      "visible_mse_final": 0.15497362613677979,
+      "retention_enabled_by_overrides": true,
+      "retention_survival_mode": "level",
+      "retention_alive_margin": 0.1,
+      "retention_mse_first": 0.2602495849132538,
+      "retention_mse_final": 0.13774152100086212,
+      "retention_survival_final": 0.001671514706686139,
+      "retention_quiet_final": 0.11691506952047348,
+      "retention_quiet_weight": 1.0,
+      "retention_quiet_margin": null,
+      "chamfer_first": 0.041156350285604215,
+      "chamfer_final": 0.048993053962368034,
+      "f1_final": 0.06716872694506315,
+      "f1_max": 0.2447645320156775,
+      "f1_max_iteration": 1550,
+      "survived": true,
+      "trajectory_points": 40,
+      "survived_at_relative_threshold": true,
+      "survived_at_absolute_015": true,
+      "b0_final": 0.125,
+      "b1_final": 0.0,
+      "delta_alive_min_vs_baseline": 0.217315673828125,
+      "relative_visible_mse_vs_baseline": 0.6198945045471191
+    },
+    {
       "arm": "H-M2",
       "description": "mask выключен, длинный горизонт: учится ли кольцо, когда его не убивают",
       "overrides": {
@@ -2420,961 +2712,965 @@
       "n_pairs": 1,
       "median_a": 0.001434326171875,
       "median_b": 0.001007080078125,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "H-A1_vs_H-A0_s200_visible_mse_final": {
       "n_pairs": 1,
       "median_a": 0.24984900653362274,
       "median_b": 0.24985092878341675,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "H-A2_vs_H-A0_s200_alive_fraction_min": {
       "n_pairs": 1,
       "median_a": 0.001434326171875,
       "median_b": 0.001007080078125,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "H-A2_vs_H-A0_s200_visible_mse_final": {
       "n_pairs": 1,
       "median_a": 0.24984899163246155,
       "median_b": 0.24985092878341675,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "H-A3_vs_H-A0_s200_alive_fraction_min": {
       "n_pairs": 1,
       "median_a": 1.0,
       "median_b": 0.001007080078125,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "H-A3_vs_H-A0_s200_visible_mse_final": {
       "n_pairs": 1,
       "median_a": 0.263265460729599,
       "median_b": 0.24985092878341675,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "H-B_vs_H-A0_s200_alive_fraction_min": {
       "n_pairs": 1,
       "median_a": 0.001434326171875,
       "median_b": 0.001007080078125,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "H-B_vs_H-A0_s200_visible_mse_final": {
       "n_pairs": 1,
       "median_a": 0.24984905123710632,
       "median_b": 0.24985092878341675,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "H-D1_vs_H-A0_s200_alive_fraction_min": {
       "n_pairs": 1,
       "median_a": 0.001678466796875,
       "median_b": 0.001007080078125,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "H-D1_vs_H-A0_s200_visible_mse_final": {
       "n_pairs": 1,
       "median_a": 0.24981427192687988,
       "median_b": 0.24985092878341675,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "H-D2_vs_H-A0_s200_alive_fraction_min": {
       "n_pairs": 1,
       "median_a": 0.349151611328125,
       "median_b": 0.001007080078125,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "H-D2_vs_H-A0_s200_visible_mse_final": {
       "n_pairs": 1,
       "median_a": 0.25004178285598755,
       "median_b": 0.24985092878341675,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "H-A3_vs_H-A0_s400_f1_final": {
       "n_pairs": 1,
       "median_a": 0.0,
       "median_b": 0.0,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "H-A3_vs_H-A0_s400_f1_max": {
       "n_pairs": 1,
       "median_a": 0.18983802819568485,
       "median_b": 0.18606529594958343,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "H-A3_vs_H-A0_s400_alive_fraction_min": {
       "n_pairs": 1,
       "median_a": 0.001007080078125,
       "median_b": 0.001007080078125,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "H-A3_vs_H-A0_s400_visible_mse_final": {
       "n_pairs": 1,
       "median_a": 0.24985092878341675,
       "median_b": 0.24985092878341675,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "H-D2_vs_H-A0_s400_f1_final": {
       "n_pairs": 1,
       "median_a": 0.0,
       "median_b": 0.0,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "H-D2_vs_H-A0_s400_f1_max": {
       "n_pairs": 1,
       "median_a": 0.19186601660699587,
       "median_b": 0.18606529594958343,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "H-D2_vs_H-A0_s400_alive_fraction_min": {
       "n_pairs": 1,
       "median_a": 0.001373291015625,
       "median_b": 0.001007080078125,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "H-D2_vs_H-A0_s400_visible_mse_final": {
       "n_pairs": 1,
       "median_a": 0.2498510479927063,
       "median_b": 0.24985092878341675,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "H-E_vs_H-A0_s400_f1_final": {
       "n_pairs": 1,
       "median_a": 0.0,
       "median_b": 0.0,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "H-E_vs_H-A0_s400_f1_max": {
       "n_pairs": 1,
       "median_a": 0.18609191507646156,
       "median_b": 0.18606529594958343,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "H-E_vs_H-A0_s400_alive_fraction_min": {
       "n_pairs": 1,
       "median_a": 0.001007080078125,
       "median_b": 0.001007080078125,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "H-E_vs_H-A0_s400_visible_mse_final": {
       "n_pairs": 1,
       "median_a": 0.24985092878341675,
       "median_b": 0.24985092878341675,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "H-F_vs_H-A0_s400_f1_final": {
       "n_pairs": 1,
       "median_a": 0.0,
       "median_b": 0.0,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "H-F_vs_H-A0_s400_f1_max": {
       "n_pairs": 1,
       "median_a": 0.18606529594958343,
       "median_b": 0.18606529594958343,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "H-F_vs_H-A0_s400_alive_fraction_min": {
       "n_pairs": 1,
       "median_a": 0.001007080078125,
       "median_b": 0.001007080078125,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "H-F_vs_H-A0_s400_visible_mse_final": {
       "n_pairs": 1,
       "median_a": 0.24985092878341675,
       "median_b": 0.24985092878341675,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "H-G_vs_H-A0_s400_f1_final": {
       "n_pairs": 1,
       "median_a": 0.0,
       "median_b": 0.0,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "H-G_vs_H-A0_s400_f1_max": {
       "n_pairs": 1,
       "median_a": 0.18998100804106896,
       "median_b": 0.18606529594958343,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "H-G_vs_H-A0_s400_alive_fraction_min": {
       "n_pairs": 1,
       "median_a": 0.001007080078125,
       "median_b": 0.001007080078125,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "H-G_vs_H-A0_s400_visible_mse_final": {
       "n_pairs": 1,
       "median_a": 0.24985092878341675,
       "median_b": 0.24985092878341675,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "H-H_vs_H-A0_s400_f1_final": {
       "n_pairs": 1,
       "median_a": 0.0,
       "median_b": 0.0,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "H-H_vs_H-A0_s400_f1_max": {
       "n_pairs": 1,
       "median_a": 0.18985214808094222,
       "median_b": 0.18606529594958343,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "H-H_vs_H-A0_s400_alive_fraction_min": {
       "n_pairs": 1,
       "median_a": 0.001007080078125,
       "median_b": 0.001007080078125,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "H-H_vs_H-A0_s400_visible_mse_final": {
       "n_pairs": 1,
       "median_a": 0.24985092878341675,
       "median_b": 0.24985092878341675,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "H-I1_vs_H-A0_s400_f1_final": {
       "n_pairs": 1,
       "median_a": 0.007363992465561246,
       "median_b": 0.0,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "H-I1_vs_H-A0_s400_f1_max": {
       "n_pairs": 1,
       "median_a": 0.19186601660699587,
       "median_b": 0.18606529594958343,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "H-I1_vs_H-A0_s400_alive_fraction_min": {
       "n_pairs": 1,
       "median_a": 0.068206787109375,
       "median_b": 0.001007080078125,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "H-I1_vs_H-A0_s400_visible_mse_final": {
       "n_pairs": 1,
       "median_a": 0.24376747012138367,
       "median_b": 0.24985092878341675,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "H-I2_vs_H-A0_s400_f1_final": {
       "n_pairs": 1,
       "median_a": 0.1565518123317894,
       "median_b": 0.0,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "H-I2_vs_H-A0_s400_f1_max": {
       "n_pairs": 1,
       "median_a": 0.1929868905062428,
       "median_b": 0.18606529594958343,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "H-I2_vs_H-A0_s400_alive_fraction_min": {
       "n_pairs": 1,
       "median_a": 0.3834228515625,
       "median_b": 0.001007080078125,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "H-I2_vs_H-A0_s400_visible_mse_final": {
       "n_pairs": 1,
       "median_a": 0.25189051032066345,
       "median_b": 0.24985092878341675,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "H-I3_vs_H-A0_s400_f1_final": {
       "n_pairs": 1,
       "median_a": 0.006993823073583802,
       "median_b": 0.0,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "H-I3_vs_H-A0_s400_f1_max": {
       "n_pairs": 1,
       "median_a": 0.18606529594958343,
       "median_b": 0.18606529594958343,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "H-I3_vs_H-A0_s400_alive_fraction_min": {
       "n_pairs": 1,
       "median_a": 0.0635986328125,
       "median_b": 0.001007080078125,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "H-I3_vs_H-A0_s400_visible_mse_final": {
       "n_pairs": 1,
       "median_a": 0.24401752650737762,
       "median_b": 0.24985092878341675,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "H-J1_vs_H-A0_s400_f1_final": {
       "n_pairs": 1,
       "median_a": 0.0,
       "median_b": 0.0,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "H-J1_vs_H-A0_s400_f1_max": {
       "n_pairs": 1,
       "median_a": 0.191851387097898,
       "median_b": 0.18606529594958343,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "H-J1_vs_H-A0_s400_alive_fraction_min": {
       "n_pairs": 1,
       "median_a": 0.001373291015625,
       "median_b": 0.001007080078125,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "H-J1_vs_H-A0_s400_visible_mse_final": {
       "n_pairs": 1,
       "median_a": 0.2498510181903839,
       "median_b": 0.24985092878341675,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "H-K1_vs_H-A0_s400_f1_final": {
       "n_pairs": 1,
       "median_a": 0.0,
       "median_b": 0.0,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "H-K1_vs_H-A0_s400_f1_max": {
       "n_pairs": 1,
       "median_a": 0.17880246459498775,
       "median_b": 0.18606529594958343,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "H-K1_vs_H-A0_s400_alive_fraction_min": {
       "n_pairs": 1,
       "median_a": 0.0013427734375,
       "median_b": 0.001007080078125,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "H-K1_vs_H-A0_s400_visible_mse_final": {
       "n_pairs": 1,
       "median_a": 0.13973264396190643,
       "median_b": 0.24985092878341675,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "H-K2_vs_H-A0_s400_f1_final": {
       "n_pairs": 1,
       "median_a": 0.0035683459358391723,
       "median_b": 0.0,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "H-K2_vs_H-A0_s400_f1_max": {
       "n_pairs": 1,
       "median_a": 0.1877958849351477,
       "median_b": 0.18606529594958343,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "H-K2_vs_H-A0_s400_alive_fraction_min": {
       "n_pairs": 1,
       "median_a": 0.527099609375,
       "median_b": 0.001007080078125,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "H-K2_vs_H-A0_s400_visible_mse_final": {
       "n_pairs": 1,
       "median_a": 0.13931187987327576,
       "median_b": 0.24985092878341675,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "H-P1_vs_H-A0_s400_f1_final": {
       "n_pairs": 1,
       "median_a": 1.0,
       "median_b": 0.0,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "H-P1_vs_H-A0_s400_f1_max": {
       "n_pairs": 1,
       "median_a": 1.0,
       "median_b": 0.18606529594958343,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "H-P1_vs_H-A0_s400_alive_fraction_min": {
       "n_pairs": 1,
       "median_a": 1.0,
       "median_b": 0.001007080078125,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "H-P1_vs_H-A0_s400_visible_mse_final": {
       "n_pairs": 1,
       "median_a": 4.590463504428044e-05,
       "median_b": 0.24985092878341675,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "R-1_vs_H-A0_s400_f1_final": {
       "n_pairs": 1,
       "median_a": 0.0,
       "median_b": 0.0,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "R-1_vs_H-A0_s400_f1_max": {
       "n_pairs": 1,
       "median_a": 0.18433725840672052,
       "median_b": 0.18606529594958343,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "R-1_vs_H-A0_s400_alive_fraction_min": {
       "n_pairs": 1,
       "median_a": 0.0,
       "median_b": 0.001007080078125,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "R-1_vs_H-A0_s400_visible_mse_final": {
       "n_pairs": 1,
       "median_a": 0.24983635544776917,
       "median_b": 0.24985092878341675,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "R-10_vs_H-A0_s400_f1_final": {
       "n_pairs": 1,
       "median_a": 0.07969297371771039,
       "median_b": 0.0,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "R-10_vs_H-A0_s400_f1_max": {
       "n_pairs": 1,
       "median_a": 0.1884887917202156,
       "median_b": 0.18606529594958343,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "R-10_vs_H-A0_s400_alive_fraction_min": {
       "n_pairs": 1,
       "median_a": 0.4365234375,
       "median_b": 0.001007080078125,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "R-10_vs_H-A0_s400_visible_mse_final": {
       "n_pairs": 1,
       "median_a": 0.14775829017162323,
       "median_b": 0.24985092878341675,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "R-11_vs_H-A0_s400_f1_final": {
       "n_pairs": 1,
       "median_a": 0.0015891982450636456,
       "median_b": 0.0,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "R-11_vs_H-A0_s400_f1_max": {
       "n_pairs": 1,
       "median_a": 0.18857043266126436,
       "median_b": 0.18606529594958343,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "R-11_vs_H-A0_s400_alive_fraction_min": {
       "n_pairs": 1,
       "median_a": 0.854095458984375,
       "median_b": 0.001007080078125,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "R-11_vs_H-A0_s400_visible_mse_final": {
       "n_pairs": 1,
       "median_a": 0.1395026445388794,
       "median_b": 0.24985092878341675,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "R-4_vs_H-A0_s400_f1_final": {
       "n_pairs": 1,
       "median_a": 0.0,
       "median_b": 0.0,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "R-4_vs_H-A0_s400_f1_max": {
       "n_pairs": 1,
       "median_a": 0.18431236743200916,
       "median_b": 0.18606529594958343,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "R-4_vs_H-A0_s400_alive_fraction_min": {
       "n_pairs": 1,
       "median_a": 0.0,
       "median_b": 0.001007080078125,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "R-4_vs_H-A0_s400_visible_mse_final": {
       "n_pairs": 1,
       "median_a": 0.24983635544776917,
       "median_b": 0.24985092878341675,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "R-5_vs_H-A0_s400_f1_final": {
       "n_pairs": 1,
       "median_a": 0.0,
       "median_b": 0.0,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "R-5_vs_H-A0_s400_f1_max": {
       "n_pairs": 1,
       "median_a": 0.18857043266126436,
       "median_b": 0.18606529594958343,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "R-5_vs_H-A0_s400_alive_fraction_min": {
       "n_pairs": 1,
       "median_a": 0.001129150390625,
       "median_b": 0.001007080078125,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "R-5_vs_H-A0_s400_visible_mse_final": {
       "n_pairs": 1,
       "median_a": 0.24977660179138184,
       "median_b": 0.24985092878341675,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "R-7_vs_H-A0_s400_f1_final": {
       "n_pairs": 1,
       "median_a": 0.01894988015613748,
       "median_b": 0.0,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "R-7_vs_H-A0_s400_f1_max": {
       "n_pairs": 1,
       "median_a": 0.18857043266126436,
       "median_b": 0.18606529594958343,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "R-7_vs_H-A0_s400_alive_fraction_min": {
       "n_pairs": 1,
       "median_a": 0.81011962890625,
       "median_b": 0.001007080078125,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "R-7_vs_H-A0_s400_visible_mse_final": {
       "n_pairs": 1,
       "median_a": 0.13824540376663208,
       "median_b": 0.24985092878341675,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "R-9_vs_H-A0_s400_f1_final": {
       "n_pairs": 1,
       "median_a": 0.03333659372361272,
       "median_b": 0.0,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "R-9_vs_H-A0_s400_f1_max": {
       "n_pairs": 1,
       "median_a": 0.18857043266126436,
       "median_b": 0.18606529594958343,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "R-9_vs_H-A0_s400_alive_fraction_min": {
       "n_pairs": 1,
       "median_a": 0.59906005859375,
       "median_b": 0.001007080078125,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "R-9_vs_H-A0_s400_visible_mse_final": {
       "n_pairs": 1,
       "median_a": 0.1411287486553192,
       "median_b": 0.24985092878341675,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "H-M1_vs_H-A0_s2000_f1_final": {
       "n_pairs": 1,
       "median_a": 0.0,
       "median_b": 0.0,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "H-M1_vs_H-A0_s2000_f1_max": {
       "n_pairs": 1,
       "median_a": 0.18606529594958343,
       "median_b": 0.18606529594958343,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "H-M1_vs_H-A0_s2000_alive_fraction_min": {
       "n_pairs": 1,
       "median_a": 0.0,
       "median_b": 0.0,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "H-M1_vs_H-A0_s2000_visible_mse_final": {
       "n_pairs": 1,
       "median_a": 0.25,
       "median_b": 0.25,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "H-M2_vs_H-A0_s2000_f1_final": {
       "n_pairs": 1,
       "median_a": 0.0,
       "median_b": 0.0,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "H-M2_vs_H-A0_s2000_f1_max": {
       "n_pairs": 1,
       "median_a": 0.17880246459498775,
       "median_b": 0.18606529594958343,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "H-M2_vs_H-A0_s2000_alive_fraction_min": {
       "n_pairs": 1,
       "median_a": 0.0,
       "median_b": 0.0,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "H-M2_vs_H-A0_s2000_visible_mse_final": {
       "n_pairs": 1,
       "median_a": 0.10595475137233734,
       "median_b": 0.25,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "H-N1_vs_H-A0_s2000_f1_final": {
       "n_pairs": 1,
       "median_a": 0.0,
       "median_b": 0.0,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "H-N1_vs_H-A0_s2000_f1_max": {
       "n_pairs": 1,
       "median_a": 0.1877792615013254,
       "median_b": 0.18606529594958343,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "H-N1_vs_H-A0_s2000_alive_fraction_min": {
       "n_pairs": 1,
       "median_a": 0.52716064453125,
       "median_b": 0.0,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "H-N1_vs_H-A0_s2000_visible_mse_final": {
       "n_pairs": 1,
       "median_a": 0.10537327080965042,
       "median_b": 0.25,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "R-10_vs_H-A0_s2000_f1_final": {
       "n_pairs": 1,
       "median_a": 0.149799604225136,
       "median_b": 0.0,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "R-10_vs_H-A0_s2000_f1_max": {
       "n_pairs": 1,
       "median_a": 0.20097610730836005,
       "median_b": 0.18606529594958343,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "R-10_vs_H-A0_s2000_alive_fraction_min": {
       "n_pairs": 1,
       "median_a": 0.2679443359375,
       "median_b": 0.0,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "R-10_vs_H-A0_s2000_visible_mse_final": {
       "n_pairs": 1,
       "median_a": 0.2700999975204468,
       "median_b": 0.25,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "R-11_vs_H-A0_s2000_f1_final": {
       "n_pairs": 1,
       "median_a": 0.038909460136088314,
       "median_b": 0.0,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "R-11_vs_H-A0_s2000_f1_max": {
       "n_pairs": 1,
       "median_a": 0.18857043266126436,
       "median_b": 0.18606529594958343,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "R-11_vs_H-A0_s2000_alive_fraction_min": {
       "n_pairs": 1,
       "median_a": 0.786041259765625,
       "median_b": 0.0,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "R-11_vs_H-A0_s2000_visible_mse_final": {
       "n_pairs": 1,
       "median_a": 0.19500616192817688,
       "median_b": 0.25,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "R-8_vs_H-A0_s2000_f1_final": {
       "n_pairs": 1,
       "median_a": 0.1933476908139635,
       "median_b": 0.0,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "R-8_vs_H-A0_s2000_f1_max": {
       "n_pairs": 1,
       "median_a": 0.22997998299271719,
       "median_b": 0.18606529594958343,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "R-8_vs_H-A0_s2000_alive_fraction_min": {
       "n_pairs": 1,
       "median_a": 0.45751953125,
       "median_b": 0.0,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "R-8_vs_H-A0_s2000_visible_mse_final": {
       "n_pairs": 1,
       "median_a": 0.29475048184394836,
       "median_b": 0.25,
-      "min_two_sided_p": 0.5,
+      "min_two_sided_p": 1.0,
       "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 1.00000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
     },
     "R-9_vs_H-A0_s2000_f1_final": {
-      "n_pairs": 1,
+      "n_pairs": 5,
       "median_a": 0.14773251001067111,
       "median_b": 0.0,
-      "min_two_sided_p": 0.5,
-      "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "min_two_sided_p": 0.0625,
+      "usable": true,
+      "statistic": 0.0,
+      "p_value": 0.0625
     },
     "R-9_vs_H-A0_s2000_f1_max": {
-      "n_pairs": 1,
-      "median_a": 0.2418759180356253,
-      "median_b": 0.18606529594958343,
-      "min_two_sided_p": 0.5,
-      "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "n_pairs": 5,
+      "median_a": 0.22498364235801419,
+      "median_b": 0.18277841204034945,
+      "min_two_sided_p": 0.0625,
+      "usable": true,
+      "statistic": 0.0,
+      "p_value": 0.0625
     },
     "R-9_vs_H-A0_s2000_alive_fraction_min": {
-      "n_pairs": 1,
+      "n_pairs": 5,
       "median_a": 0.34686279296875,
       "median_b": 0.0,
-      "min_two_sided_p": 0.5,
-      "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "min_two_sided_p": 0.0625,
+      "usable": true,
+      "statistic": 0.0,
+      "p_value": 0.0625
     },
     "R-9_vs_H-A0_s2000_visible_mse_final": {
-      "n_pairs": 1,
-      "median_a": 0.274003267288208,
+      "n_pairs": 5,
+      "median_a": 0.23426970839500427,
       "median_b": 0.25,
-      "min_two_sided_p": 0.5,
-      "usable": false,
-      "note": "n=1: парный Wilcoxon не запускаем, минимально достижимый двусторонний p = 0.50000. Это не «нет эффекта», это отсутствие мощности — см. план WP5 (power analysis)."
+      "min_two_sided_p": 0.0625,
+      "usable": true,
+      "statistic": 5.0,
+      "p_value": 0.625
     }
   },
   "curriculum_transition": {
@@ -3651,6 +3947,21 @@
         "collapse_iteration": 150
       },
       {
+        "arm": "H-A0",
+        "steps": 2000,
+        "seed": 404,
+        "transition_iteration": 200,
+        "unroll": [
+          16,
+          32
+        ],
+        "alive_before": 0.0679931640625,
+        "grad_norm_at_transition": 0.4988759160041809,
+        "grad_norm_median_before": 1.3014276027679443,
+        "collapsed_later": true,
+        "collapse_iteration": 150
+      },
+      {
         "arm": "H-M1",
         "steps": 2000,
         "seed": 42,
@@ -3875,6 +4186,50 @@
       "visible_mse_first": 0.26247718930244446,
       "visible_mse_final": 0.274003267288208,
       "b1_final": 18.625,
+      "learned_the_target": false
+    },
+    {
+      "arm": "R-9",
+      "steps": 2000,
+      "seed": 101,
+      "f1_max": 0.22498364235801419,
+      "f1_final": 0.18585590904158988,
+      "visible_mse_first": 0.26284635066986084,
+      "visible_mse_final": 0.23426970839500427,
+      "b1_final": 29.875,
+      "learned_the_target": false
+    },
+    {
+      "arm": "R-9",
+      "steps": 2000,
+      "seed": 202,
+      "f1_max": 0.21247468948742354,
+      "f1_final": 0.12017486439286057,
+      "visible_mse_first": 0.26288360357284546,
+      "visible_mse_final": 0.1851438581943512,
+      "b1_final": 0.25,
+      "learned_the_target": false
+    },
+    {
+      "arm": "R-9",
+      "steps": 2000,
+      "seed": 303,
+      "f1_max": 0.22484372049018067,
+      "f1_final": 0.1680191467784657,
+      "visible_mse_first": 0.2612784206867218,
+      "visible_mse_final": 0.2971169948577881,
+      "b1_final": 44.5,
+      "learned_the_target": false
+    },
+    {
+      "arm": "R-9",
+      "steps": 2000,
+      "seed": 404,
+      "f1_max": 0.2447645320156775,
+      "f1_final": 0.06716872694506315,
+      "visible_mse_first": 0.26423585414886475,
+      "visible_mse_final": 0.15497362613677979,
+      "b1_final": 0.0,
       "learned_the_target": false
     }
   ],
@@ -4192,6 +4547,102 @@
       "f1_max_iteration": 650,
       "survival_saturated": false,
       "truncated": false
+    },
+    {
+      "arm": "R-9",
+      "seed": 101,
+      "steps": 2000,
+      "survival_mode": "level",
+      "alive_margin": 0.1,
+      "survival_weight": 10.0,
+      "rollout_steps": 16,
+      "flat_curriculum": true,
+      "alive_policy_weight": 2.0,
+      "quiet_weight": 1.0,
+      "quiet_margin": 0.0,
+      "quiet_final": 0.08929172903299332,
+      "background_at_quiet_floor": false,
+      "survived": true,
+      "alive_fraction_min": 0.4805908203125,
+      "collapse_iteration": null,
+      "visible_mse_first": 0.26284635066986084,
+      "visible_mse_final": 0.23426970839500427,
+      "f1_max": 0.22498364235801419,
+      "f1_max_iteration": 1300,
+      "survival_saturated": false,
+      "truncated": false
+    },
+    {
+      "arm": "R-9",
+      "seed": 202,
+      "steps": 2000,
+      "survival_mode": "level",
+      "alive_margin": 0.1,
+      "survival_weight": 10.0,
+      "rollout_steps": 16,
+      "flat_curriculum": true,
+      "alive_policy_weight": 2.0,
+      "quiet_weight": 1.0,
+      "quiet_margin": 0.0,
+      "quiet_final": 0.12218127399682999,
+      "background_at_quiet_floor": false,
+      "survived": true,
+      "alive_fraction_min": 0.3511962890625,
+      "collapse_iteration": null,
+      "visible_mse_first": 0.26288360357284546,
+      "visible_mse_final": 0.1851438581943512,
+      "f1_max": 0.21247468948742354,
+      "f1_max_iteration": 700,
+      "survival_saturated": false,
+      "truncated": false
+    },
+    {
+      "arm": "R-9",
+      "seed": 303,
+      "steps": 2000,
+      "survival_mode": "level",
+      "alive_margin": 0.1,
+      "survival_weight": 10.0,
+      "rollout_steps": 16,
+      "flat_curriculum": true,
+      "alive_policy_weight": 2.0,
+      "quiet_weight": 1.0,
+      "quiet_margin": 0.0,
+      "quiet_final": 0.09082279354333878,
+      "background_at_quiet_floor": false,
+      "survived": true,
+      "alive_fraction_min": 0.306488037109375,
+      "collapse_iteration": null,
+      "visible_mse_first": 0.2612784206867218,
+      "visible_mse_final": 0.2971169948577881,
+      "f1_max": 0.22484372049018067,
+      "f1_max_iteration": 700,
+      "survival_saturated": false,
+      "truncated": false
+    },
+    {
+      "arm": "R-9",
+      "seed": 404,
+      "steps": 2000,
+      "survival_mode": "level",
+      "alive_margin": 0.1,
+      "survival_weight": 10.0,
+      "rollout_steps": 16,
+      "flat_curriculum": true,
+      "alive_policy_weight": 2.0,
+      "quiet_weight": 1.0,
+      "quiet_margin": 0.0,
+      "quiet_final": 0.11691506952047348,
+      "background_at_quiet_floor": false,
+      "survived": true,
+      "alive_fraction_min": 0.217315673828125,
+      "collapse_iteration": null,
+      "visible_mse_first": 0.26423585414886475,
+      "visible_mse_final": 0.15497362613677979,
+      "f1_max": 0.2447645320156775,
+      "f1_max_iteration": 1550,
+      "survival_saturated": false,
+      "truncated": false
     }
   ],
   "threshold_probe": {
@@ -4386,6 +4837,23 @@
             "arm": "H-A0",
             "steps_trained": 2000,
             "seed": 42,
+            "probe": "hold",
+            "decision_point": "last",
+            "start_f1_default": 1.0,
+            "best_f1": 1.0,
+            "best_step": 10,
+            "last_f1": 0.0,
+            "decision_f1": 0.0,
+            "decision_precision": 0.0,
+            "decision_pred_fraction": 0.0,
+            "n_gated_thresholds": 2,
+            "alive_fraction_min": 0.0,
+            "beyond_ceiling": false
+          },
+          {
+            "arm": "H-A0",
+            "steps_trained": 2000,
+            "seed": 42,
             "probe": "reach",
             "decision_point": "best",
             "start_f1_default": 0.1778846153846154,
@@ -4400,8 +4868,8 @@
             "beyond_ceiling": false
           },
           {
-            "arm": "H-A0",
-            "steps_trained": 2000,
+            "arm": "H-I2",
+            "steps_trained": 400,
             "seed": 42,
             "probe": "hold",
             "decision_point": "last",
@@ -4434,7 +4902,7 @@
             "beyond_ceiling": false
           },
           {
-            "arm": "H-I2",
+            "arm": "H-K1",
             "steps_trained": 400,
             "seed": 42,
             "probe": "hold",
@@ -4468,7 +4936,7 @@
             "beyond_ceiling": false
           },
           {
-            "arm": "H-K1",
+            "arm": "H-K2",
             "steps_trained": 400,
             "seed": 42,
             "probe": "hold",
@@ -4481,7 +4949,7 @@
             "decision_precision": 0.0,
             "decision_pred_fraction": 0.0,
             "n_gated_thresholds": 2,
-            "alive_fraction_min": 0.0,
+            "alive_fraction_min": 1.0,
             "beyond_ceiling": false
           },
           {
@@ -4502,8 +4970,8 @@
             "beyond_ceiling": false
           },
           {
-            "arm": "H-K2",
-            "steps_trained": 400,
+            "arm": "H-M1",
+            "steps_trained": 2000,
             "seed": 42,
             "probe": "hold",
             "decision_point": "last",
@@ -4515,7 +4983,7 @@
             "decision_precision": 0.0,
             "decision_pred_fraction": 0.0,
             "n_gated_thresholds": 2,
-            "alive_fraction_min": 1.0,
+            "alive_fraction_min": 0.0,
             "beyond_ceiling": false
           },
           {
@@ -4536,7 +5004,7 @@
             "beyond_ceiling": false
           },
           {
-            "arm": "H-M1",
+            "arm": "H-N1",
             "steps_trained": 2000,
             "seed": 42,
             "probe": "hold",
@@ -4548,8 +5016,8 @@
             "decision_f1": 0.0,
             "decision_precision": 0.0,
             "decision_pred_fraction": 0.0,
-            "n_gated_thresholds": 2,
-            "alive_fraction_min": 0.0,
+            "n_gated_thresholds": 15,
+            "alive_fraction_min": 1.0,
             "beyond_ceiling": false
           },
           {
@@ -4570,21 +5038,21 @@
             "beyond_ceiling": false
           },
           {
-            "arm": "H-N1",
-            "steps_trained": 2000,
+            "arm": "H-P1",
+            "steps_trained": 400,
             "seed": 42,
             "probe": "hold",
             "decision_point": "last",
             "start_f1_default": 1.0,
             "best_f1": 1.0,
             "best_step": 10,
-            "last_f1": 0.0,
-            "decision_f1": 0.0,
-            "decision_precision": 0.0,
-            "decision_pred_fraction": 0.0,
-            "n_gated_thresholds": 15,
-            "alive_fraction_min": 1.0,
-            "beyond_ceiling": false
+            "last_f1": 0.9494949494949495,
+            "decision_f1": 0.9494949494949495,
+            "decision_precision": 1.0,
+            "decision_pred_fraction": 0.1376953125,
+            "n_gated_thresholds": 3,
+            "alive_fraction_min": 0.1376953125,
+            "beyond_ceiling": true
           },
           {
             "arm": "H-P1",
@@ -4604,7 +5072,7 @@
             "beyond_ceiling": false
           },
           {
-            "arm": "H-P1",
+            "arm": "R-1",
             "steps_trained": 400,
             "seed": 42,
             "probe": "hold",
@@ -4612,29 +5080,29 @@
             "start_f1_default": 1.0,
             "best_f1": 1.0,
             "best_step": 10,
-            "last_f1": 0.9494949494949495,
-            "decision_f1": 0.9494949494949495,
-            "decision_precision": 1.0,
-            "decision_pred_fraction": 0.1376953125,
-            "n_gated_thresholds": 3,
-            "alive_fraction_min": 0.1376953125,
-            "beyond_ceiling": true
+            "last_f1": 0.0,
+            "decision_f1": 0.0,
+            "decision_precision": 0.0,
+            "decision_pred_fraction": 0.0,
+            "n_gated_thresholds": 2,
+            "alive_fraction_min": 0.0,
+            "beyond_ceiling": false
           },
           {
-            "arm": "R-10",
-            "steps_trained": 2000,
+            "arm": "R-1",
+            "steps_trained": 400,
             "seed": 42,
             "probe": "reach",
             "decision_point": "best",
             "start_f1_default": 0.1778846153846154,
-            "best_f1": 0.2582781456953642,
-            "best_step": 30,
-            "last_f1": 0.22733812949640284,
-            "decision_f1": 0.2582781456953642,
-            "decision_precision": 0.167621776504298,
-            "decision_pred_fraction": 0.51123046875,
-            "n_gated_thresholds": 33,
-            "alive_fraction_min": 0.44189453125,
+            "best_f1": 0.1606060606060606,
+            "best_step": 10,
+            "last_f1": 0.0,
+            "decision_f1": 0.1606060606060606,
+            "decision_precision": 0.15229885057471265,
+            "decision_pred_fraction": 0.169921875,
+            "n_gated_thresholds": 12,
+            "alive_fraction_min": 0.0,
             "beyond_ceiling": false
           },
           {
@@ -4656,19 +5124,19 @@
           },
           {
             "arm": "R-10",
-            "steps_trained": 400,
+            "steps_trained": 2000,
             "seed": 42,
             "probe": "reach",
             "decision_point": "best",
             "start_f1_default": 0.1778846153846154,
-            "best_f1": 0.27551659361302444,
+            "best_f1": 0.2582781456953642,
             "best_step": 30,
-            "last_f1": 0.26709352847015777,
-            "decision_f1": 0.27551659361302444,
-            "decision_precision": 0.17120622568093385,
-            "decision_pred_fraction": 0.62744140625,
-            "n_gated_thresholds": 57,
-            "alive_fraction_min": 0.362060546875,
+            "last_f1": 0.22733812949640284,
+            "decision_f1": 0.2582781456953642,
+            "decision_precision": 0.167621776504298,
+            "decision_pred_fraction": 0.51123046875,
+            "n_gated_thresholds": 33,
+            "alive_fraction_min": 0.44189453125,
             "beyond_ceiling": false
           },
           {
@@ -4686,6 +5154,40 @@
             "decision_pred_fraction": 0.890869140625,
             "n_gated_thresholds": 45,
             "alive_fraction_min": 0.67529296875,
+            "beyond_ceiling": false
+          },
+          {
+            "arm": "R-10",
+            "steps_trained": 400,
+            "seed": 42,
+            "probe": "reach",
+            "decision_point": "best",
+            "start_f1_default": 0.1778846153846154,
+            "best_f1": 0.27551659361302444,
+            "best_step": 30,
+            "last_f1": 0.26709352847015777,
+            "decision_f1": 0.27551659361302444,
+            "decision_precision": 0.17120622568093385,
+            "decision_pred_fraction": 0.62744140625,
+            "n_gated_thresholds": 57,
+            "alive_fraction_min": 0.362060546875,
+            "beyond_ceiling": false
+          },
+          {
+            "arm": "R-11",
+            "steps_trained": 2000,
+            "seed": 42,
+            "probe": "hold",
+            "decision_point": "last",
+            "start_f1_default": 1.0,
+            "best_f1": 1.0,
+            "best_step": 10,
+            "last_f1": 0.0,
+            "decision_f1": 0.0,
+            "decision_precision": 0.0,
+            "decision_pred_fraction": 0.0,
+            "n_gated_thresholds": 2,
+            "alive_fraction_min": 0.0,
             "beyond_ceiling": false
           },
           {
@@ -4707,19 +5209,19 @@
           },
           {
             "arm": "R-11",
-            "steps_trained": 2000,
+            "steps_trained": 400,
             "seed": 42,
             "probe": "hold",
             "decision_point": "last",
             "start_f1_default": 1.0,
             "best_f1": 1.0,
             "best_step": 10,
-            "last_f1": 0.0,
-            "decision_f1": 0.0,
-            "decision_precision": 0.0,
-            "decision_pred_fraction": 0.0,
-            "n_gated_thresholds": 2,
-            "alive_fraction_min": 0.0,
+            "last_f1": 0.26772019521264234,
+            "decision_f1": 0.26772019521264234,
+            "decision_precision": 0.15656428377276435,
+            "decision_pred_fraction": 0.898193359375,
+            "n_gated_thresholds": 58,
+            "alive_fraction_min": 0.940185546875,
             "beyond_ceiling": false
           },
           {
@@ -4740,41 +5242,7 @@
             "beyond_ceiling": false
           },
           {
-            "arm": "R-11",
-            "steps_trained": 400,
-            "seed": 42,
-            "probe": "hold",
-            "decision_point": "last",
-            "start_f1_default": 1.0,
-            "best_f1": 1.0,
-            "best_step": 10,
-            "last_f1": 0.26772019521264234,
-            "decision_f1": 0.26772019521264234,
-            "decision_precision": 0.15656428377276435,
-            "decision_pred_fraction": 0.898193359375,
-            "n_gated_thresholds": 58,
-            "alive_fraction_min": 0.940185546875,
-            "beyond_ceiling": false
-          },
-          {
-            "arm": "R-1",
-            "steps_trained": 400,
-            "seed": 42,
-            "probe": "reach",
-            "decision_point": "best",
-            "start_f1_default": 0.1778846153846154,
-            "best_f1": 0.1606060606060606,
-            "best_step": 10,
-            "last_f1": 0.0,
-            "decision_f1": 0.1606060606060606,
-            "decision_precision": 0.15229885057471265,
-            "decision_pred_fraction": 0.169921875,
-            "n_gated_thresholds": 12,
-            "alive_fraction_min": 0.0,
-            "beyond_ceiling": false
-          },
-          {
-            "arm": "R-1",
+            "arm": "R-4",
             "steps_trained": 400,
             "seed": 42,
             "probe": "hold",
@@ -4808,7 +5276,7 @@
             "beyond_ceiling": false
           },
           {
-            "arm": "R-4",
+            "arm": "R-5",
             "steps_trained": 400,
             "seed": 42,
             "probe": "hold",
@@ -4842,7 +5310,7 @@
             "beyond_ceiling": false
           },
           {
-            "arm": "R-5",
+            "arm": "R-7",
             "steps_trained": 400,
             "seed": 42,
             "probe": "hold",
@@ -4876,40 +5344,6 @@
             "beyond_ceiling": false
           },
           {
-            "arm": "R-7",
-            "steps_trained": 400,
-            "seed": 42,
-            "probe": "hold",
-            "decision_point": "last",
-            "start_f1_default": 1.0,
-            "best_f1": 1.0,
-            "best_step": 10,
-            "last_f1": 0.0,
-            "decision_f1": 0.0,
-            "decision_precision": 0.0,
-            "decision_pred_fraction": 0.0,
-            "n_gated_thresholds": 2,
-            "alive_fraction_min": 0.0,
-            "beyond_ceiling": false
-          },
-          {
-            "arm": "R-8",
-            "steps_trained": 2000,
-            "seed": 42,
-            "probe": "reach",
-            "decision_point": "best",
-            "start_f1_default": 0.1778846153846154,
-            "best_f1": 0.2545051289159967,
-            "best_step": 10,
-            "last_f1": 0.23448275862068962,
-            "decision_f1": 0.2545051289159967,
-            "decision_precision": 0.1538719409989943,
-            "decision_pred_fraction": 0.728271484375,
-            "n_gated_thresholds": 45,
-            "alive_fraction_min": 0.5595703125,
-            "beyond_ceiling": false
-          },
-          {
             "arm": "R-8",
             "steps_trained": 2000,
             "seed": 42,
@@ -4927,20 +5361,20 @@
             "beyond_ceiling": false
           },
           {
-            "arm": "R-9",
+            "arm": "R-8",
             "steps_trained": 2000,
             "seed": 42,
             "probe": "reach",
             "decision_point": "best",
             "start_f1_default": 0.1778846153846154,
-            "best_f1": 0.26235354049923587,
-            "best_step": 20,
-            "last_f1": 0.2433718558803535,
-            "decision_f1": 0.26235354049923587,
-            "decision_precision": 0.15596608116293156,
-            "decision_pred_fraction": 0.80615234375,
-            "n_gated_thresholds": 50,
-            "alive_fraction_min": 0.56591796875,
+            "best_f1": 0.2545051289159967,
+            "best_step": 10,
+            "last_f1": 0.23448275862068962,
+            "decision_f1": 0.2545051289159967,
+            "decision_precision": 0.1538719409989943,
+            "decision_pred_fraction": 0.728271484375,
+            "n_gated_thresholds": 45,
+            "alive_fraction_min": 0.5595703125,
             "beyond_ceiling": false
           },
           {
@@ -4962,19 +5396,19 @@
           },
           {
             "arm": "R-9",
-            "steps_trained": 400,
+            "steps_trained": 2000,
             "seed": 42,
             "probe": "reach",
             "decision_point": "best",
             "start_f1_default": 0.1778846153846154,
-            "best_f1": 0.26527570789865873,
-            "best_step": 140,
-            "last_f1": 0.26508071367884456,
-            "decision_f1": 0.26527570789865873,
-            "decision_precision": 0.15295850724281856,
-            "decision_pred_fraction": 0.994384765625,
-            "n_gated_thresholds": 6,
-            "alive_fraction_min": 0.583984375,
+            "best_f1": 0.26235354049923587,
+            "best_step": 20,
+            "last_f1": 0.2433718558803535,
+            "decision_f1": 0.26235354049923587,
+            "decision_precision": 0.15596608116293156,
+            "decision_pred_fraction": 0.80615234375,
+            "n_gated_thresholds": 50,
+            "alive_fraction_min": 0.56591796875,
             "beyond_ceiling": false
           },
           {
@@ -4993,12 +5427,29 @@
             "n_gated_thresholds": 4,
             "alive_fraction_min": 0.388427734375,
             "beyond_ceiling": false
+          },
+          {
+            "arm": "R-9",
+            "steps_trained": 400,
+            "seed": 42,
+            "probe": "reach",
+            "decision_point": "best",
+            "start_f1_default": 0.1778846153846154,
+            "best_f1": 0.26527570789865873,
+            "best_step": 140,
+            "last_f1": 0.26508071367884456,
+            "decision_f1": 0.26527570789865873,
+            "decision_precision": 0.15295850724281856,
+            "decision_pred_fraction": 0.994384765625,
+            "n_gated_thresholds": 6,
+            "alive_fraction_min": 0.583984375,
+            "beyond_ceiling": false
           }
         ]
       },
       {
         "rollout_steps": 1000,
-        "device": "cpu",
+        "device": "cpu, cuda",
         "criterion": 0.31440677966101693,
         "structureless_f1_ceiling": 0.26440677966101694,
         "reachable_arms": [
@@ -5008,6 +5459,23 @@
           "H-P1"
         ],
         "runs": [
+          {
+            "arm": "H-A0",
+            "steps_trained": 2000,
+            "seed": 42,
+            "probe": "hold",
+            "decision_point": "last",
+            "start_f1_default": 1.0,
+            "best_f1": 0.028436018957345974,
+            "best_step": 50,
+            "last_f1": 0.0,
+            "decision_f1": 0.0,
+            "decision_precision": 0.0,
+            "decision_pred_fraction": 0.0,
+            "n_gated_thresholds": 2,
+            "alive_fraction_min": 0.0,
+            "beyond_ceiling": false
+          },
           {
             "arm": "H-A0",
             "steps_trained": 2000,
@@ -5026,20 +5494,20 @@
             "beyond_ceiling": false
           },
           {
-            "arm": "H-A0",
-            "steps_trained": 2000,
+            "arm": "H-K2",
+            "steps_trained": 400,
             "seed": 42,
             "probe": "hold",
             "decision_point": "last",
             "start_f1_default": 1.0,
-            "best_f1": 0.028436018957345974,
+            "best_f1": 1.0,
             "best_step": 50,
             "last_f1": 0.0,
             "decision_f1": 0.0,
             "decision_precision": 0.0,
             "decision_pred_fraction": 0.0,
             "n_gated_thresholds": 2,
-            "alive_fraction_min": 0.0,
+            "alive_fraction_min": 1.0,
             "beyond_ceiling": false
           },
           {
@@ -5060,20 +5528,20 @@
             "beyond_ceiling": false
           },
           {
-            "arm": "H-K2",
-            "steps_trained": 400,
+            "arm": "H-N1",
+            "steps_trained": 2000,
             "seed": 42,
             "probe": "hold",
             "decision_point": "last",
             "start_f1_default": 1.0,
-            "best_f1": 1.0,
+            "best_f1": 0.9960095770151637,
             "best_step": 50,
-            "last_f1": 0.0,
-            "decision_f1": 0.0,
-            "decision_precision": 0.0,
-            "decision_pred_fraction": 0.0,
-            "n_gated_thresholds": 2,
-            "alive_fraction_min": 1.0,
+            "last_f1": 0.2974970202622169,
+            "decision_f1": 0.2974970202622169,
+            "decision_precision": 0.17474096891626995,
+            "decision_pred_fraction": 0.871826171875,
+            "n_gated_thresholds": 3,
+            "alive_fraction_min": 0.871826171875,
             "beyond_ceiling": false
           },
           {
@@ -5094,40 +5562,6 @@
             "beyond_ceiling": false
           },
           {
-            "arm": "H-N1",
-            "steps_trained": 2000,
-            "seed": 42,
-            "probe": "hold",
-            "decision_point": "last",
-            "start_f1_default": 1.0,
-            "best_f1": 0.9960095770151637,
-            "best_step": 50,
-            "last_f1": 0.2974970202622169,
-            "decision_f1": 0.2974970202622169,
-            "decision_precision": 0.17474096891626995,
-            "decision_pred_fraction": 0.871826171875,
-            "n_gated_thresholds": 3,
-            "alive_fraction_min": 0.871826171875,
-            "beyond_ceiling": false
-          },
-          {
-            "arm": "H-P1",
-            "steps_trained": 400,
-            "seed": 42,
-            "probe": "reach",
-            "decision_point": "best",
-            "start_f1_default": 0.1778846153846154,
-            "best_f1": 0.07801418439716312,
-            "best_step": 50,
-            "last_f1": 0.02906976744186046,
-            "decision_f1": 0.07801418439716312,
-            "decision_precision": 0.14864864864864866,
-            "decision_pred_fraction": 0.05419921875,
-            "n_gated_thresholds": 6,
-            "alive_fraction_min": 0.015625,
-            "beyond_ceiling": false
-          },
-          {
             "arm": "H-P1",
             "steps_trained": 400,
             "seed": 42,
@@ -5145,20 +5579,20 @@
             "beyond_ceiling": true
           },
           {
-            "arm": "R-10",
-            "steps_trained": 2000,
+            "arm": "H-P1",
+            "steps_trained": 400,
             "seed": 42,
             "probe": "reach",
             "decision_point": "best",
             "start_f1_default": 0.1778846153846154,
-            "best_f1": 0.30073677160080375,
-            "best_step": 950,
-            "last_f1": 0.2927689594356261,
-            "decision_f1": 0.30073677160080375,
-            "decision_precision": 0.19009314140558847,
-            "decision_pred_fraction": 0.57666015625,
-            "n_gated_thresholds": 45,
-            "alive_fraction_min": 0.45751953125,
+            "best_f1": 0.07801418439716312,
+            "best_step": 50,
+            "last_f1": 0.02906976744186046,
+            "decision_f1": 0.07801418439716312,
+            "decision_precision": 0.14864864864864866,
+            "decision_pred_fraction": 0.05419921875,
+            "n_gated_thresholds": 6,
+            "alive_fraction_min": 0.015625,
             "beyond_ceiling": false
           },
           {
@@ -5180,19 +5614,19 @@
           },
           {
             "arm": "R-10",
-            "steps_trained": 400,
+            "steps_trained": 2000,
             "seed": 42,
             "probe": "reach",
             "decision_point": "best",
             "start_f1_default": 0.1778846153846154,
-            "best_f1": 0.27782101167315176,
-            "best_step": 750,
-            "last_f1": 0.2597752808988764,
-            "decision_f1": 0.27782101167315176,
-            "decision_precision": 0.18345323741007194,
-            "decision_pred_fraction": 0.47509765625,
-            "n_gated_thresholds": 57,
-            "alive_fraction_min": 0.92626953125,
+            "best_f1": 0.30073677160080375,
+            "best_step": 950,
+            "last_f1": 0.2927689594356261,
+            "decision_f1": 0.30073677160080375,
+            "decision_precision": 0.19009314140558847,
+            "decision_pred_fraction": 0.57666015625,
+            "n_gated_thresholds": 45,
+            "alive_fraction_min": 0.45751953125,
             "beyond_ceiling": false
           },
           {
@@ -5210,6 +5644,40 @@
             "decision_pred_fraction": 0.9228515625,
             "n_gated_thresholds": 57,
             "alive_fraction_min": 0.659423828125,
+            "beyond_ceiling": false
+          },
+          {
+            "arm": "R-10",
+            "steps_trained": 400,
+            "seed": 42,
+            "probe": "reach",
+            "decision_point": "best",
+            "start_f1_default": 0.1778846153846154,
+            "best_f1": 0.27782101167315176,
+            "best_step": 750,
+            "last_f1": 0.2597752808988764,
+            "decision_f1": 0.27782101167315176,
+            "decision_precision": 0.18345323741007194,
+            "decision_pred_fraction": 0.47509765625,
+            "n_gated_thresholds": 57,
+            "alive_fraction_min": 0.92626953125,
+            "beyond_ceiling": false
+          },
+          {
+            "arm": "R-11",
+            "steps_trained": 2000,
+            "seed": 42,
+            "probe": "hold",
+            "decision_point": "last",
+            "start_f1_default": 1.0,
+            "best_f1": 0.32582048240411227,
+            "best_step": 950,
+            "last_f1": 0.27053571428571427,
+            "decision_f1": 0.27053571428571427,
+            "decision_precision": 0.15715767634854771,
+            "decision_pred_fraction": 0.94140625,
+            "n_gated_thresholds": 19,
+            "alive_fraction_min": 0.011474609375,
             "beyond_ceiling": false
           },
           {
@@ -5231,19 +5699,19 @@
           },
           {
             "arm": "R-11",
-            "steps_trained": 2000,
+            "steps_trained": 400,
             "seed": 42,
             "probe": "hold",
             "decision_point": "last",
             "start_f1_default": 1.0,
-            "best_f1": 0.32582048240411227,
-            "best_step": 950,
-            "last_f1": 0.27053571428571427,
-            "decision_f1": 0.27053571428571427,
-            "decision_precision": 0.15715767634854771,
-            "decision_pred_fraction": 0.94140625,
-            "n_gated_thresholds": 19,
-            "alive_fraction_min": 0.011474609375,
+            "best_f1": 0.8169934640522877,
+            "best_step": 50,
+            "last_f1": 0.2669632925472747,
+            "decision_f1": 0.2669632925472747,
+            "decision_precision": 0.15499870834409712,
+            "decision_pred_fraction": 0.945068359375,
+            "n_gated_thresholds": 58,
+            "alive_fraction_min": 0.93408203125,
             "beyond_ceiling": false
           },
           {
@@ -5264,20 +5732,20 @@
             "beyond_ceiling": false
           },
           {
-            "arm": "R-11",
-            "steps_trained": 400,
+            "arm": "R-8",
+            "steps_trained": 2000,
             "seed": 42,
             "probe": "hold",
             "decision_point": "last",
             "start_f1_default": 1.0,
-            "best_f1": 0.8169934640522877,
+            "best_f1": 0.43488649940262847,
             "best_step": 50,
-            "last_f1": 0.2669632925472747,
-            "decision_f1": 0.2669632925472747,
-            "decision_precision": 0.15499870834409712,
-            "decision_pred_fraction": 0.945068359375,
-            "n_gated_thresholds": 58,
-            "alive_fraction_min": 0.93408203125,
+            "last_f1": 0.24457874155705653,
+            "decision_f1": 0.24457874155705653,
+            "decision_precision": 0.15714938328003655,
+            "decision_pred_fraction": 0.534423828125,
+            "n_gated_thresholds": 3,
+            "alive_fraction_min": 0.5341796875,
             "beyond_ceiling": false
           },
           {
@@ -5298,37 +5766,139 @@
             "beyond_ceiling": false
           },
           {
-            "arm": "R-8",
+            "arm": "R-9",
             "steps_trained": 2000,
-            "seed": 42,
+            "seed": 101,
             "probe": "hold",
             "decision_point": "last",
             "start_f1_default": 1.0,
-            "best_f1": 0.43488649940262847,
+            "best_f1": 0.13180515759312322,
             "best_step": 50,
-            "last_f1": 0.24457874155705653,
-            "decision_f1": 0.24457874155705653,
-            "decision_precision": 0.15714938328003655,
-            "decision_pred_fraction": 0.534423828125,
-            "n_gated_thresholds": 3,
-            "alive_fraction_min": 0.5341796875,
+            "last_f1": 0.0,
+            "decision_f1": 0.0,
+            "decision_precision": 0.0,
+            "decision_pred_fraction": 0.0,
+            "n_gated_thresholds": 2,
+            "alive_fraction_min": 0.0,
             "beyond_ceiling": false
           },
           {
             "arm": "R-9",
             "steps_trained": 2000,
-            "seed": 42,
+            "seed": 101,
             "probe": "reach",
             "decision_point": "best",
-            "start_f1_default": 0.1778846153846154,
-            "best_f1": 0.25161488772685325,
+            "start_f1_default": 0.2140221402214022,
+            "best_f1": 0.27454438565549677,
+            "best_step": 850,
+            "last_f1": 0.26186579378068736,
+            "decision_f1": 0.27454438565549677,
+            "decision_precision": 0.16810655147588194,
+            "decision_pred_fraction": 0.67822265625,
+            "n_gated_thresholds": 51,
+            "alive_fraction_min": 0.54638671875,
+            "beyond_ceiling": false
+          },
+          {
+            "arm": "R-9",
+            "steps_trained": 2000,
+            "seed": 202,
+            "probe": "hold",
+            "decision_point": "last",
+            "start_f1_default": 1.0,
+            "best_f1": 0.29822084157017786,
+            "best_step": 100,
+            "last_f1": 0.0,
+            "decision_f1": 0.0,
+            "decision_precision": 0.0,
+            "decision_pred_fraction": 0.0,
+            "n_gated_thresholds": 2,
+            "alive_fraction_min": 0.643798828125,
+            "beyond_ceiling": false
+          },
+          {
+            "arm": "R-9",
+            "steps_trained": 2000,
+            "seed": 202,
+            "probe": "reach",
+            "decision_point": "best",
+            "start_f1_default": 0.19852941176470587,
+            "best_f1": 0.27620466964729257,
             "best_step": 50,
-            "last_f1": 0.24203821656050953,
-            "decision_f1": 0.25161488772685325,
-            "decision_precision": 0.1556909021697754,
-            "decision_pred_fraction": 0.641357421875,
-            "n_gated_thresholds": 35,
-            "alive_fraction_min": 0.537353515625,
+            "last_f1": 0.0,
+            "decision_f1": 0.27620466964729257,
+            "decision_precision": 0.16343327454438566,
+            "decision_pred_fraction": 0.83056640625,
+            "n_gated_thresholds": 61,
+            "alive_fraction_min": 1.0,
+            "beyond_ceiling": false
+          },
+          {
+            "arm": "R-9",
+            "steps_trained": 2000,
+            "seed": 303,
+            "probe": "hold",
+            "decision_point": "last",
+            "start_f1_default": 1.0,
+            "best_f1": 0.9960095770151637,
+            "best_step": 50,
+            "last_f1": 0.26440677966101694,
+            "decision_f1": 0.26440677966101694,
+            "decision_precision": 0.15234375,
+            "decision_pred_fraction": 1.0,
+            "n_gated_thresholds": 2,
+            "alive_fraction_min": 1.0,
+            "beyond_ceiling": false
+          },
+          {
+            "arm": "R-9",
+            "steps_trained": 2000,
+            "seed": 303,
+            "probe": "reach",
+            "decision_point": "best",
+            "start_f1_default": 0.19444444444444445,
+            "best_f1": 0.26446280991735543,
+            "best_step": 100,
+            "last_f1": 0.26440677966101694,
+            "decision_f1": 0.26446280991735543,
+            "decision_precision": 0.1523809523809524,
+            "decision_pred_fraction": 0.999755859375,
+            "n_gated_thresholds": 3,
+            "alive_fraction_min": 1.0,
+            "beyond_ceiling": false
+          },
+          {
+            "arm": "R-9",
+            "steps_trained": 2000,
+            "seed": 404,
+            "probe": "hold",
+            "decision_point": "last",
+            "start_f1_default": 1.0,
+            "best_f1": 0.9960095770151637,
+            "best_step": 50,
+            "last_f1": 0.0,
+            "decision_f1": 0.0,
+            "decision_precision": 0.0,
+            "decision_pred_fraction": 0.0,
+            "n_gated_thresholds": 2,
+            "alive_fraction_min": 1.0,
+            "beyond_ceiling": false
+          },
+          {
+            "arm": "R-9",
+            "steps_trained": 2000,
+            "seed": 404,
+            "probe": "reach",
+            "decision_point": "best",
+            "start_f1_default": 0.18822100789313906,
+            "best_f1": 0.2637853949329359,
+            "best_step": 50,
+            "last_f1": 0.0,
+            "decision_f1": 0.2637853949329359,
+            "decision_precision": 0.15608465608465608,
+            "decision_pred_fraction": 0.83056640625,
+            "n_gated_thresholds": 58,
+            "alive_fraction_min": 1.0,
             "beyond_ceiling": false
           },
           {
@@ -5340,29 +5910,29 @@
             "start_f1_default": 1.0,
             "best_f1": 0.512141280353201,
             "best_step": 50,
-            "last_f1": 0.23529411764705885,
-            "decision_f1": 0.23529411764705885,
-            "decision_precision": 0.1510464058234759,
-            "decision_pred_fraction": 0.53662109375,
+            "last_f1": 0.23098791755508172,
+            "decision_f1": 0.23098791755508172,
+            "decision_precision": 0.14840182648401826,
+            "decision_pred_fraction": 0.53466796875,
             "n_gated_thresholds": 3,
-            "alive_fraction_min": 0.53564453125,
+            "alive_fraction_min": 0.5341796875,
             "beyond_ceiling": false
           },
           {
             "arm": "R-9",
-            "steps_trained": 400,
+            "steps_trained": 2000,
             "seed": 42,
             "probe": "reach",
             "decision_point": "best",
             "start_f1_default": 0.1778846153846154,
-            "best_f1": 0.26732460845312167,
-            "best_step": 300,
-            "last_f1": 0.26672365890147465,
-            "decision_f1": 0.26732460845312167,
-            "decision_precision": 0.1543225167203369,
-            "decision_pred_fraction": 0.985595703125,
-            "n_gated_thresholds": 10,
-            "alive_fraction_min": 0.985595703125,
+            "best_f1": 0.2521525215252152,
+            "best_step": 50,
+            "last_f1": 0.24203821656050953,
+            "decision_f1": 0.2521525215252152,
+            "decision_precision": 0.15601217656012176,
+            "decision_pred_fraction": 0.6416015625,
+            "n_gated_thresholds": 35,
+            "alive_fraction_min": 0.537353515625,
             "beyond_ceiling": false
           },
           {
@@ -5381,6 +5951,23 @@
             "n_gated_thresholds": 2,
             "alive_fraction_min": 0.0,
             "beyond_ceiling": false
+          },
+          {
+            "arm": "R-9",
+            "steps_trained": 400,
+            "seed": 42,
+            "probe": "reach",
+            "decision_point": "best",
+            "start_f1_default": 0.1778846153846154,
+            "best_f1": 0.2679261485616144,
+            "best_step": 450,
+            "last_f1": 0.26683771648492627,
+            "decision_f1": 0.2679261485616144,
+            "decision_precision": 0.15468517600396628,
+            "decision_pred_fraction": 0.98486328125,
+            "n_gated_thresholds": 13,
+            "alive_fraction_min": 0.98486328125,
+            "beyond_ceiling": false
           }
         ]
       },
@@ -5394,23 +5981,6 @@
         ],
         "holdable_arms": [],
         "runs": [
-          {
-            "arm": "H-P1",
-            "steps_trained": 400,
-            "seed": 42,
-            "probe": "reach",
-            "decision_point": "best",
-            "start_f1_default": 0.1778846153846154,
-            "best_f1": 0.04619565217391305,
-            "best_step": 100,
-            "last_f1": 0.029197080291970802,
-            "decision_f1": 0.04619565217391305,
-            "decision_precision": 0.15178571428571427,
-            "decision_pred_fraction": 0.02734375,
-            "n_gated_thresholds": 4,
-            "alive_fraction_min": 0.014892578125,
-            "beyond_ceiling": false
-          },
           {
             "arm": "H-P1",
             "steps_trained": 400,
@@ -5429,20 +5999,20 @@
             "beyond_ceiling": false
           },
           {
-            "arm": "R-10",
-            "steps_trained": 2000,
+            "arm": "H-P1",
+            "steps_trained": 400,
             "seed": 42,
             "probe": "reach",
             "decision_point": "best",
             "start_f1_default": 0.1778846153846154,
-            "best_f1": 0.30165586753059753,
-            "best_step": 1900,
-            "last_f1": 0.29200790737079924,
-            "decision_f1": 0.30165586753059753,
-            "decision_precision": 0.19452181987000927,
-            "decision_pred_fraction": 0.52587890625,
-            "n_gated_thresholds": 48,
-            "alive_fraction_min": 0.45751953125,
+            "best_f1": 0.04619565217391305,
+            "best_step": 100,
+            "last_f1": 0.029197080291970802,
+            "decision_f1": 0.04619565217391305,
+            "decision_precision": 0.15178571428571427,
+            "decision_pred_fraction": 0.02734375,
+            "n_gated_thresholds": 4,
+            "alive_fraction_min": 0.014892578125,
             "beyond_ceiling": false
           },
           {
@@ -5464,19 +6034,19 @@
           },
           {
             "arm": "R-10",
-            "steps_trained": 400,
+            "steps_trained": 2000,
             "seed": 42,
             "probe": "reach",
             "decision_point": "best",
             "start_f1_default": 0.1778846153846154,
-            "best_f1": 0.2737094837935174,
-            "best_step": 1100,
-            "last_f1": 0.2686980609418283,
-            "decision_f1": 0.2737094837935174,
-            "decision_precision": 0.16097147698390285,
-            "decision_pred_fraction": 0.864501953125,
-            "n_gated_thresholds": 57,
-            "alive_fraction_min": 0.9248046875,
+            "best_f1": 0.30165586753059753,
+            "best_step": 1900,
+            "last_f1": 0.29200790737079924,
+            "decision_f1": 0.30165586753059753,
+            "decision_precision": 0.19452181987000927,
+            "decision_pred_fraction": 0.52587890625,
+            "n_gated_thresholds": 48,
+            "alive_fraction_min": 0.45751953125,
             "beyond_ceiling": false
           },
           {
@@ -5494,6 +6064,40 @@
             "decision_pred_fraction": 0.926513671875,
             "n_gated_thresholds": 57,
             "alive_fraction_min": 0.902587890625,
+            "beyond_ceiling": false
+          },
+          {
+            "arm": "R-10",
+            "steps_trained": 400,
+            "seed": 42,
+            "probe": "reach",
+            "decision_point": "best",
+            "start_f1_default": 0.1778846153846154,
+            "best_f1": 0.2737094837935174,
+            "best_step": 1100,
+            "last_f1": 0.2686980609418283,
+            "decision_f1": 0.2737094837935174,
+            "decision_precision": 0.16097147698390285,
+            "decision_pred_fraction": 0.864501953125,
+            "n_gated_thresholds": 57,
+            "alive_fraction_min": 0.9248046875,
+            "beyond_ceiling": false
+          },
+          {
+            "arm": "R-11",
+            "steps_trained": 2000,
+            "seed": 42,
+            "probe": "hold",
+            "decision_point": "last",
+            "start_f1_default": 1.0,
+            "best_f1": 0.0,
+            "best_step": 100,
+            "last_f1": 0.0,
+            "decision_f1": 0.0,
+            "decision_precision": 0.0,
+            "decision_pred_fraction": 0.0,
+            "n_gated_thresholds": 2,
+            "alive_fraction_min": 0.0,
             "beyond_ceiling": false
           },
           {
@@ -5515,19 +6119,19 @@
           },
           {
             "arm": "R-11",
-            "steps_trained": 2000,
+            "steps_trained": 400,
             "seed": 42,
             "probe": "hold",
             "decision_point": "last",
             "start_f1_default": 1.0,
-            "best_f1": 0.0,
+            "best_f1": 0.3212719298245614,
             "best_step": 100,
-            "last_f1": 0.0,
-            "decision_f1": 0.0,
-            "decision_precision": 0.0,
-            "decision_pred_fraction": 0.0,
-            "n_gated_thresholds": 2,
-            "alive_fraction_min": 0.0,
+            "last_f1": 0.26290035587188615,
+            "decision_f1": 0.26290035587188615,
+            "decision_precision": 0.15263429752066116,
+            "decision_pred_fraction": 0.9453125,
+            "n_gated_thresholds": 58,
+            "alive_fraction_min": 0.934326171875,
             "beyond_ceiling": false
           },
           {
@@ -5546,23 +6150,6 @@
             "n_gated_thresholds": 58,
             "alive_fraction_min": 0.937255859375,
             "beyond_ceiling": false
-          },
-          {
-            "arm": "R-11",
-            "steps_trained": 400,
-            "seed": 42,
-            "probe": "hold",
-            "decision_point": "last",
-            "start_f1_default": 1.0,
-            "best_f1": 0.3212719298245614,
-            "best_step": 100,
-            "last_f1": 0.26290035587188615,
-            "decision_f1": 0.26290035587188615,
-            "decision_precision": 0.15263429752066116,
-            "decision_pred_fraction": 0.9453125,
-            "n_gated_thresholds": 58,
-            "alive_fraction_min": 0.934326171875,
-            "beyond_ceiling": false
           }
         ]
       }
@@ -5573,21 +6160,18 @@
     "journal": {
       "path": "logs\\journal.jsonl",
       "present": true,
-      "starts": 30,
-      "finishes": 28,
+      "starts": 34,
+      "finishes": 33,
       "errors": 0,
       "malformed_lines": 0,
       "unpaired_experiments": [
-        "WP4_H-A0_s2000_seed404",
         "WP4_R-7_s400_seed42"
       ],
-      "supported_starts": 25,
+      "supported_starts": 29,
       "supported_unpaired_experiments": [
-        "WP4_H-A0_s2000_seed404",
         "WP4_R-7_s400_seed42"
       ],
       "supported_unpaired_superseded": [
-        "WP4_H-A0_s2000_seed404",
         "WP4_R-7_s400_seed42"
       ],
       "supported_unpaired_hard": []
@@ -5609,23 +6193,22 @@
       "unpaired_current_spec": []
     },
     "per_run_logs": {
-      "files": 59,
-      "run_starts": 69,
-      "run_finishes": 26,
+      "files": 62,
+      "run_starts": 73,
+      "run_finishes": 31,
       "malformed_lines": 0,
-      "supported_starts": 25,
+      "supported_starts": 29,
       "supported_unpaired": [
         "WP4_H-A0_s2000_seed404",
         "WP4_R-7_s400_seed42",
         "WP4_R-9_s2000_seed101"
       ],
       "supported_unpaired_superseded": [
-        "WP4_R-7_s400_seed42"
-      ],
-      "supported_unpaired_hard": [
         "WP4_H-A0_s2000_seed404",
+        "WP4_R-7_s400_seed42",
         "WP4_R-9_s2000_seed101"
       ],
+      "supported_unpaired_hard": [],
       "legacy_start_rows": 44,
       "paired": [
         "GATE_L1_s800_seed101",
@@ -5636,6 +6219,7 @@
         "WP4_H-A0_s2000_seed101",
         "WP4_H-A0_s2000_seed202",
         "WP4_H-A0_s2000_seed303",
+        "WP4_H-A0_s2000_seed404",
         "WP4_H-A0_s2000_seed42",
         "WP4_PAIRING_s30",
         "WP4_R-10_s2000_seed42",
@@ -5647,6 +6231,10 @@
         "WP4_R-5_s400_seed42",
         "WP4_R-7_s400_seed42",
         "WP4_R-8_s2000_seed42",
+        "WP4_R-9_s2000_seed101",
+        "WP4_R-9_s2000_seed202",
+        "WP4_R-9_s2000_seed303",
+        "WP4_R-9_s2000_seed404",
         "WP4_R-9_s2000_seed42",
         "WP4_R-9_s400_seed42"
       ],
@@ -5669,7 +6257,7 @@
         "WP4_H-A0_s2000_seed101": "max_steps",
         "WP4_H-A0_s2000_seed202": "max_steps",
         "WP4_H-A0_s2000_seed303": "max_steps",
-        "WP4_H-A0_s2000_seed404": null,
+        "WP4_H-A0_s2000_seed404": "max_steps",
         "WP4_H-A0_s2000_seed42": "max_steps",
         "WP4_H-A0_s400_seed42": null,
         "WP4_H-A0_seed42": null,
@@ -5707,7 +6295,10 @@
         "WP4_R-5_s400_seed42": "max_steps",
         "WP4_R-7_s400_seed42": "max_steps",
         "WP4_R-8_s2000_seed42": "max_steps",
-        "WP4_R-9_s2000_seed101": null,
+        "WP4_R-9_s2000_seed101": "max_steps",
+        "WP4_R-9_s2000_seed202": "max_steps",
+        "WP4_R-9_s2000_seed303": "max_steps",
+        "WP4_R-9_s2000_seed404": "max_steps",
         "WP4_R-9_s2000_seed42": "max_steps",
         "WP4_R-9_s400_seed42": "max_steps"
       }
@@ -5719,7 +6310,7 @@
       "atexit_abort_marker": true,
       "run_start_stamp": true
     },
-    "fresh_start_rows": 50,
+    "fresh_start_rows": 58,
     "all_starts_paired": false,
     "legacy_unpaired_records": 1,
     "note": "Условие §13.3 проверяется только на прогонах, отмеченных в run_start полем emits_run_finish: их finish обязан быть, и его отсутствие = нарушение. Прогоны старше этой отметки (весь WP4, прошлые гейты и волны аблаций) finish не писали по построению — дыра NEG-11, которую нельзя закрыть задним числом (§7.7). Каждый свежий прогон пишет run_finish со stop_reason, а оборванный процесс — finish со stop_reason=aborted через atexit, так что «старт без финиша» больше не может выглядеть как завершённый эксперимент."
@@ -5733,7 +6324,8 @@
           42,
           101,
           202,
-          303
+          303,
+          404
         ],
         "seeds_with_visible_mse": [
           42,
@@ -5752,7 +6344,7 @@
       },
       "five_seeds": {
         "met": true,
-        "n_seeds": 4,
+        "n_seeds": 5,
         "n_seeds_including_gate": 5,
         "gate_seeds": [
           42,
@@ -5765,14 +6357,18 @@
       },
       "effect_size_vs_baseline": {
         "met": true,
-        "runs_with_delta": 33,
+        "runs_with_delta": 37,
         "seeds_with_delta": [
-          42
+          42,
+          101,
+          202,
+          303,
+          404
         ],
         "comment": "дельта считается на той же паре (arm, сид, горизонт); сидов в аблациях ровно столько, сколько перечислено — это effect size при n=1 на плечо, а не оценка разброса"
       },
       "paired_wilcoxon": {
-        "met": false,
+        "met": true,
         "primary_endpoint_field": "f1_final",
         "pairs": 120,
         "pairs_by_field": {
@@ -5781,14 +6377,16 @@
           "alive_fraction_min": 33,
           "visible_mse_final": 33
         },
-        "pairs_with_computed_test": 0,
-        "pairs_with_computed_test_on_primary": 0,
-        "computed_primary_pairs": [],
+        "pairs_with_computed_test": 4,
+        "pairs_with_computed_test_on_primary": 1,
+        "computed_primary_pairs": [
+          "R-9_vs_H-A0_s2000_f1_final"
+        ],
         "comment": "парный Уилксон требует >=5 сидов на пару arms (см. utils.stats); ряды строятся по каждому эндпоинту отдельно и имя пары его несёт, в met засчитываются только пары по первичному эндпоинту f1_final"
       },
       "journal_pairs_13_3": {
         "met": false,
-        "fresh_start_rows": 50,
+        "fresh_start_rows": 58,
         "supported_unpaired": [
           "WP4_H-A0_s2000_seed404",
           "WP4_R-7_s400_seed42",
@@ -5835,8 +6433,8 @@
       "R-4",
       "R-5"
     ],
-    "n_runs": 40,
-    "n_seeds": 4,
+    "n_runs": 45,
+    "n_seeds": 5,
     "journal_paired": false
   },
   "conclusions": [
@@ -5845,9 +6443,9 @@
     "Снятие отдельных членов лосса не спасает: умерли H-A1, H-A2, H-A3, H-B, H-E, H-F, H-G, H-H. Состав лосса — не оперативная причина коллапса.",
     "Куррикулум BPTT и длина шага (H-I1: LR=1e-4 БЕЗ прыжка unroll (curriculum [16,16,16]) -> alive_min 0.0682, f1_max 0.1919, переход unroll None (gn None против медианы до него None), выжил=False; H-I2: LR=3e-5 БЕЗ прыжка unroll -> alive_min 0.3834, f1_max 0.1930, переход unroll None (gn None против медианы до него None), выжил=True; H-I3: LR=1e-3 (базлайн) БЕЗ прыжка unroll -> alive_min 0.0636, f1_max 0.1861, переход unroll None (gn None против медианы до него None), выжил=False; H-D1: TRAIN_LR=3e-4 -> alive_min 0.0017, f1_max None, переход unroll 200 (gn 10.8 против медианы до него 1.52), выжил=False; H-D2: TRAIN_LR=1e-4 -> alive_min 0.0014, f1_max 0.1919, переход unroll 200 (gn 21.4 против медианы до него 1.14), выжил=False; H-A0: базлайн: supervised_mse, ALPHA_SUPERVISION_WEIGHT=1.0 -> alive_min 0.0000, f1_max 0.1861, переход unroll 200 (gn 0.5 против медианы до него 1.27), выжил=False).",
     "Выжили только H-I2, H-K2, H-N1, R-10, R-11, R-7, R-8, R-9. Ни один из них не собрал цель при штатном эндпоинте f1@0.5: H-I2 (alive_min 0.3834, f1_max 0.1930, visible_mse 0.2703->0.2519 = не ниже пола константы 0.12914); H-K2 (alive_min 0.5271, f1_max 0.1878, visible_mse 0.2824->0.1393 = не ниже пола константы 0.12914); H-N1 (alive_min 0.5272, f1_max 0.1878, visible_mse 0.2824->0.1054 = ниже пола константы 0.12914); R-10 (alive_min 0.2679, f1_max 0.2010, visible_mse 0.2623->0.2701 = не ниже пола константы 0.12914); R-11 (alive_min 0.7860, f1_max 0.1886, visible_mse 0.2625->0.1950 = не ниже пола константы 0.12914); R-7 (alive_min 0.8101, f1_max 0.1886, visible_mse 0.2625->0.1382 = не ниже пола константы 0.12914); R-8 (alive_min 0.4575, f1_max 0.2300, visible_mse 0.2625->0.2948 = не ниже пола константы 0.12914); R-9 (alive_min 0.3469, f1_max 0.2419, visible_mse 0.2625->0.2740 = не ниже пола константы 0.12914). Пол константного предсказателя p(1-p) — разделительная линия: выше него поле с целью не согласовано вообще, ниже — согласовано хоть как-то (см. скан порогов). У H-I2, H-K2, R-10, R-11, R-7, R-8, R-9 visible_mse остался выше пола — это остановка обучения, а не медленный рост.",
-    "Wave 7+9, удержание как член лосса (§14.2): R-1/s400 (mode=transition, множитель 1.0, K=8, flat-curriculum=False, quiet вес=0.0, alive_policy вес=0.5): выжил=False alive_min=0.0000 f1_max=0.1843@it50 vis 0.2663->0.2498 quiet выкл. штраф не насыщен; R-10/s400 (mode=level, множитель 10.0, K=16, flat-curriculum=True, quiet вес=3.0, alive_policy вес=2.0): выжил=True alive_min=0.4365 f1_max=0.1885@it50 vis 0.2623->0.1478 фон не на полу (живость вне цели есть) штраф не насыщен; R-11/s400 (mode=level, множитель 10.0, K=16, flat-curriculum=True, quiet вес=1.0, alive_policy вес=0.5): выжил=True alive_min=0.8541 f1_max=0.1886@it50 vis 0.2625->0.1395 фон не на полу (живость вне цели есть) штраф не насыщен; R-4/s400 (mode=level, множитель 1.0, K=8, flat-curriculum=False, quiet вес=0.0, alive_policy вес=0.5): выжил=False alive_min=0.0000 f1_max=0.1843@it50 vis 0.2663->0.2498 quiet выкл. штраф насыщен (цель мертва); R-5/s400 (mode=level, множитель 10.0, K=16, flat-curriculum=False, quiet вес=0.0, alive_policy вес=0.5): выжил=False alive_min=0.0011 f1_max=0.1886@it50 vis 0.2625->0.2498 quiet выкл. штраф насыщен (цель мертва); R-7/s400 (mode=level, множитель 10.0, K=16, flat-curriculum=True, quiet вес=0.0, alive_policy вес=0.5): выжил=True alive_min=0.8101 f1_max=0.1886@it50 vis 0.2625->0.1382 quiet выкл. штраф не насыщен; R-9/s400 (mode=level, множитель 10.0, K=16, flat-curriculum=True, quiet вес=1.0, alive_policy вес=2.0): выжил=True alive_min=0.5991 f1_max=0.1886@it50 vis 0.2625->0.1411 фон не на полу (живость вне цели есть) штраф не насыщен; R-10/s2000 (mode=level, множитель 10.0, K=16, flat-curriculum=True, quiet вес=3.0, alive_policy вес=2.0): выжил=True alive_min=0.2679 f1_max=0.2010@it600 vis 0.2623->0.2701 фон не на полу (живость вне цели есть) штраф не насыщен; R-11/s2000 (mode=level, множитель 10.0, K=16, flat-curriculum=True, quiet вес=1.0, alive_policy вес=0.5): выжил=True alive_min=0.7860 f1_max=0.1886@it50 vis 0.2625->0.1950 фон не на полу (живость вне цели есть) штраф не насыщен; R-8/s2000 (mode=level, множитель 10.0, K=16, flat-curriculum=True, quiet вес=0.0, alive_policy вес=2.0): выжил=True alive_min=0.4575 f1_max=0.2300@it1250 vis 0.2625->0.2948 quiet выкл. штраф не насыщен; R-9/s2000 (mode=level, множитель 10.0, K=16, flat-curriculum=True, quiet вес=1.0, alive_policy вес=2.0): выжил=True alive_min=0.3469 f1_max=0.2419@it650 vis 0.2625->0.2740 фон не на полу (живость вне цели есть) штраф не насыщен. Смысл ряда в том, что выживание и форма расцеплены: transition-форма не меняла исхода вообще (NEG-18), level-форма удерживает жизнь (R-7: alive_min 0.810 при пороге 0.0762 — первое выживание на mask-ON постановке), но её f1_max всё равно не превышает потолок поля без структуры 0.2644, то есть кольцо не собирается. Wave 9 добавила вторую половину полосы (quiet = живость ВНЕ цели на том же roll-out): пари по фону из одного целевого кадра не хватало — R-8 с alive_policy весом 2.0 дожил до конца горизонта 2000 (alive_min 0.4575, коллапса нет, штраф не насыщен: survival_final 1.62e-02), но f1_max=0.2300 < 0.2644 при precision ~0.15, то есть остался «живо всё» (NEG-20). Отдельно и неприятно: его финальный visible_mse 0.2948 ХУЖЕ аналитического мёртвого поля 0.25, т.е. выживание куплено ценой первичного эндпоинта — ещё одна причина, почему про wave 7/9 нельзя судить по колонке survived. Отрицательный итог этих волн нельзя читать как «удержание не работает»: оно работает и переводит вопрос из «ткань умирает» в «ткань живая, но бесформенная», а дальше проверяется, закрывает ли вторую половину именно roll-out налог (R-9/R-10/R-11, веса quiet 1.0/3.0/1.0 калиброваны по замеру градиента на чекпоинте R-8), а не ещё один вес. Правило чтения f1_max (NEG-21): у всех плеч с горизонтом 400 argmax f1 приходится на итерацию 50, то есть на самое первое измерение после сброса маски — на таком горизонте f1_max измеряет начальное состояние модели, а не результат обучения, поэтому вывод «формы нет» по 400 итерациям не делается, и волна 9 перезапущена на 2000 (ряд сравнения — R-8, у которого максимум f1=0.2300 достигнут на итерации 1250, то есть сильно после конца экрана: eval-точки идут 0.0813@200 -> 0.0581@400 -> 0.1559@600 -> 0.2252@1200). quiet при этом передаёт давление измеримо: quiet_final 0.3410 при весе 1.0 против 0.1329 при весе 3.0 (R-9/R-10), то есть член работает как написан, и его нулевой эффект на f1 — это результат про форму, а не про сломанный штраф.",
+    "Wave 7+9, удержание как член лосса (§14.2): R-1/s400 (mode=transition, множитель 1.0, K=8, flat-curriculum=False, quiet вес=0.0, alive_policy вес=0.5): выжил=False alive_min=0.0000 f1_max=0.1843@it50 vis 0.2663->0.2498 quiet выкл. штраф не насыщен; R-10/s400 (mode=level, множитель 10.0, K=16, flat-curriculum=True, quiet вес=3.0, alive_policy вес=2.0): выжил=True alive_min=0.4365 f1_max=0.1885@it50 vis 0.2623->0.1478 фон не на полу (живость вне цели есть) штраф не насыщен; R-11/s400 (mode=level, множитель 10.0, K=16, flat-curriculum=True, quiet вес=1.0, alive_policy вес=0.5): выжил=True alive_min=0.8541 f1_max=0.1886@it50 vis 0.2625->0.1395 фон не на полу (живость вне цели есть) штраф не насыщен; R-4/s400 (mode=level, множитель 1.0, K=8, flat-curriculum=False, quiet вес=0.0, alive_policy вес=0.5): выжил=False alive_min=0.0000 f1_max=0.1843@it50 vis 0.2663->0.2498 quiet выкл. штраф насыщен (цель мертва); R-5/s400 (mode=level, множитель 10.0, K=16, flat-curriculum=False, quiet вес=0.0, alive_policy вес=0.5): выжил=False alive_min=0.0011 f1_max=0.1886@it50 vis 0.2625->0.2498 quiet выкл. штраф насыщен (цель мертва); R-7/s400 (mode=level, множитель 10.0, K=16, flat-curriculum=True, quiet вес=0.0, alive_policy вес=0.5): выжил=True alive_min=0.8101 f1_max=0.1886@it50 vis 0.2625->0.1382 quiet выкл. штраф не насыщен; R-9/s400 (mode=level, множитель 10.0, K=16, flat-curriculum=True, quiet вес=1.0, alive_policy вес=2.0): выжил=True alive_min=0.5991 f1_max=0.1886@it50 vis 0.2625->0.1411 фон не на полу (живость вне цели есть) штраф не насыщен; R-10/s2000 (mode=level, множитель 10.0, K=16, flat-curriculum=True, quiet вес=3.0, alive_policy вес=2.0): выжил=True alive_min=0.2679 f1_max=0.2010@it600 vis 0.2623->0.2701 фон не на полу (живость вне цели есть) штраф не насыщен; R-11/s2000 (mode=level, множитель 10.0, K=16, flat-curriculum=True, quiet вес=1.0, alive_policy вес=0.5): выжил=True alive_min=0.7860 f1_max=0.1886@it50 vis 0.2625->0.1950 фон не на полу (живость вне цели есть) штраф не насыщен; R-8/s2000 (mode=level, множитель 10.0, K=16, flat-curriculum=True, quiet вес=0.0, alive_policy вес=2.0): выжил=True alive_min=0.4575 f1_max=0.2300@it1250 vis 0.2625->0.2948 quiet выкл. штраф не насыщен; R-9/s2000 (mode=level, множитель 10.0, K=16, flat-curriculum=True, quiet вес=1.0, alive_policy вес=2.0): выжил=True alive_min=0.3469 f1_max=0.2419@it650 vis 0.2625->0.2740 фон не на полу (живость вне цели есть) штраф не насыщен; R-9/s2000 (mode=level, множитель 10.0, K=16, flat-curriculum=True, quiet вес=1.0, alive_policy вес=2.0): выжил=True alive_min=0.4806 f1_max=0.2250@it1300 vis 0.2628->0.2343 фон не на полу (живость вне цели есть) штраф не насыщен; R-9/s2000 (mode=level, множитель 10.0, K=16, flat-curriculum=True, quiet вес=1.0, alive_policy вес=2.0): выжил=True alive_min=0.3512 f1_max=0.2125@it700 vis 0.2629->0.1851 фон не на полу (живость вне цели есть) штраф не насыщен; R-9/s2000 (mode=level, множитель 10.0, K=16, flat-curriculum=True, quiet вес=1.0, alive_policy вес=2.0): выжил=True alive_min=0.3065 f1_max=0.2248@it700 vis 0.2613->0.2971 фон не на полу (живость вне цели есть) штраф не насыщен; R-9/s2000 (mode=level, множитель 10.0, K=16, flat-curriculum=True, quiet вес=1.0, alive_policy вес=2.0): выжил=True alive_min=0.2173 f1_max=0.2448@it1550 vis 0.2642->0.1550 фон не на полу (живость вне цели есть) штраф не насыщен. Смысл ряда в том, что выживание и форма расцеплены: transition-форма не меняла исхода вообще (NEG-18), level-форма удерживает жизнь (R-7: alive_min 0.810 при пороге 0.0762 — первое выживание на mask-ON постановке), но её f1_max всё равно не превышает потолок поля без структуры 0.2644, то есть кольцо не собирается. Wave 9 добавила вторую половину полосы (quiet = живость ВНЕ цели на том же roll-out): пари по фону из одного целевого кадра не хватало — R-8 с alive_policy весом 2.0 дожил до конца горизонта 2000 (alive_min 0.4575, коллапса нет, штраф не насыщен: survival_final 1.62e-02), но f1_max=0.2300 < 0.2644 при precision ~0.15, то есть остался «живо всё» (NEG-20). Отдельно и неприятно: его финальный visible_mse 0.2948 ХУЖЕ аналитического мёртвого поля 0.25, т.е. выживание куплено ценой первичного эндпоинта — ещё одна причина, почему про wave 7/9 нельзя судить по колонке survived. Отрицательный итог этих волн нельзя читать как «удержание не работает»: оно работает и переводит вопрос из «ткань умирает» в «ткань живая, но бесформенная», а дальше проверяется, закрывает ли вторую половину именно roll-out налог (R-9/R-10/R-11, веса quiet 1.0/3.0/1.0 калиброваны по замеру градиента на чекпоинте R-8), а не ещё один вес. Правило чтения f1_max (NEG-21): у всех плеч с горизонтом 400 argmax f1 приходится на итерацию 50, то есть на самое первое измерение после сброса маски — на таком горизонте f1_max измеряет начальное состояние модели, а не результат обучения, поэтому вывод «формы нет» по 400 итерациям не делается, и волна 9 перезапущена на 2000 (ряд сравнения — R-8, у которого максимум f1=0.2300 достигнут на итерации 1250, то есть сильно после конца экрана: eval-точки идут 0.0813@200 -> 0.0581@400 -> 0.1559@600 -> 0.2252@1200). quiet при этом передаёт давление измеримо: quiet_final 0.3410 при весе 1.0 против 0.1329 при весе 3.0 (R-9/R-10), то есть член работает как написан, и его нулевой эффект на f1 — это результат про форму, а не про сломанный штраф.",
     "Все диагностические прогоны (<=400 итераций) лежат ВНУТРИ линейного warmup (TRAIN_WARMUP_STEPS=500): фактический LR растёт с 0 до TRAIN_LR, косинусная ветка не выполняется. Вывод про LR нельзя переносить на полный прогон без отдельной проверки.",
-    "Журнал §13.3 (гейт WP4 требует пару на каждую start-строку): logs/journal.jsonl есть (start=30, finish=28, error=0); пофайловые логи: run_start=69, run_finish=26. Актуальное поколение (run_start с отметкой emits_run_finish): строк=50, без финиша=['WP4_H-A0_s2000_seed404', 'WP4_R-7_s400_seed42', 'WP4_R-9_s2000_seed101']; прогонов до починки (пары не требуется, но и завершения нет) = 44 строк (§7.7, NEG-11). Журнал менеджера (experiments\\journal.jsonl): Начало=5, Завершено/Ошибка=4; висячих на текущей версии спеке 0, исторических записей без пары (Rev.7, по §7.7 не правится) 1: E02 ← «Начало: парная абляция стресса на 6 сидах».  Требование НЕ выполнено: у прогона(ов) актуального поколения старт без финиша (WP4_H-A0_s2000_seed404, WP4_R-7_s400_seed42, WP4_R-9_s2000_seed101) — это ровно та дыра §13.3, из-за которой оборванный эксперимент выглядел завершённым. Из них 1 — убитые извне попытки, перезапущенные под тем же id и закрытые финишем второй попытки (WP4_R-7_s400_seed42): atexit-маркер «aborted» на жёсткое снятие процесса не распространяется. Настоящих нарушений эмитента (старт без единого финиша): WP4_H-A0_s2000_seed404, WP4_R-9_s2000_seed101.",
+    "Журнал §13.3 (гейт WP4 требует пару на каждую start-строку): logs/journal.jsonl есть (start=34, finish=33, error=0); пофайловые логи: run_start=73, run_finish=31. Актуальное поколение (run_start с отметкой emits_run_finish): строк=58, без финиша=['WP4_H-A0_s2000_seed404', 'WP4_R-7_s400_seed42', 'WP4_R-9_s2000_seed101']; прогонов до починки (пары не требуется, но и завершения нет) = 44 строк (§7.7, NEG-11). Журнал менеджера (experiments\\journal.jsonl): Начало=5, Завершено/Ошибка=4; висячих на текущей версии спеке 0, исторических записей без пары (Rev.7, по §7.7 не правится) 1: E02 ← «Начало: парная абляция стресса на 6 сидах».  Требование НЕ выполнено: у прогона(ов) актуального поколения старт без финиша (WP4_H-A0_s2000_seed404, WP4_R-7_s400_seed42, WP4_R-9_s2000_seed101) — это ровно та дыра §13.3, из-за которой оборванный эксперимент выглядел завершённым. Из них 3 — убитые извне попытки, перезапущенные под тем же id и закрытые финишем второй попытки (WP4_H-A0_s2000_seed404, WP4_R-7_s400_seed42, WP4_R-9_s2000_seed101): atexit-маркер «aborted» на жёсткое снятие процесса не распространяется. Настоящих нарушений эмитента (старт без единого финиша): нет.",
     "ЁМКОСТЬ НЕ ПРИЧЁМ: при пуле, стартующем из цели (TRAIN_POOL_INIT_MODE=\"target\", H-P1, 400 итераций), модель УДЕРЖИВАЕТ кольцо — f1_max 1.0000, f1_final 1.0000, chamfer_final 0.0000, β₀=1.00 β₁=1.00, visible_mse 0.00029->0.00005, alive_min 1.0000. Значит блокёр E02 — требование §14.2 «вырастить форму ИЗ ШУМА за горизонт BPTT», а не архитектура, не состав лосса и не поглощающая смерть сами по себе.",
     "Контроль инструмента: на прогоне с пулом из цели (WP4_H-P1_s400_seed42) скан даёт лучший f1 (gated) 1.0000 при f1@0.5=1.0000 — скан видит заведомо выученное поле.",
     "Скан порогов (вторичный эндпоинт, NEG-10): потолок бесструктурного «всё яркое» = 2p/(1+p) = 0.2644, пол константного MSE = p(1-p) = 0.12914. WP4_H-N1_s2000_seed42: f1@0.5=0.0000, лучший f1 (с условием живости)=0.4747 при пороге 0.173 (R=0.978 P=0.313, без условия 0.4747), после 200 автономных шагов (gated)=0.2783 | WP4_H-K1_s400_seed42: f1@0.5=0.0032, лучший f1 (с условием живости)=0.0064 при пороге 0.025 (R=0.003 P=0.400, без условия 0.2649), после 200 автономных шагов (gated)=0.0000 | WP4_H-K2_s400_seed42: f1@0.5=0.0032, лучший f1 (с условием живости)=0.2644 при пороге 0.000 (R=0.989 P=0.153, без условия 0.2645), после 200 автономных шагов (gated)=0.0000 | WP4_H-M2_s4000_seed42: f1@0.5=0.0000, лучший f1 (с условием живости)=0.0000 при пороге 0.500 (R=0.000 P=0.000, без условия 0.2643), после 200 автономных шагов (gated)=0.0000 | WP4_H-M1_s2000_seed42: f1@0.5=0.0000, лучший f1 (с условием живости)=0.0000 при пороге 0.500 (R=0.000 P=0.000, без условия 0.0000), после 200 автономных шагов (gated)=0.0000 | WP4_H-I2_s400_seed42: f1@0.5=0.1626, лучший f1 (с условием живости)=0.2187 при пороге 0.171 (R=0.365 P=0.156, без условия 0.2678), после 200 автономных шагов (gated)=0.0000.",
@@ -5856,6 +6454,6 @@
     "Зонд «достичь/удержать» (автономная развёртка без обучения, wp4_reach_probe.py; по горизонтам — длина развёртки входит в измерение): 200 шагов: достижимо — ни у кого; удерживается — H-P1; 1000 шагов: достижимо — R-11; удерживается — H-P1; 2000 шагов: достижимо — R-11; удерживается — ни у кого.",
     "Пересечение порога на reach — всегда МАКСИМУМ траектории, а не состояние: R-11 s2000 на 1000 шагах: max 0.3281 @400 -> конец 0.2705; R-11 s2000 на 2000 шагах: max 0.3281 @400 -> конец 0.2881. Это значит «кольцо побывало собранным», а не «динамика его удерживает».",
     "Контроль H-P1 (пул обучения стартует из цели): удержание при старте из цели на 200 шагах 0.9495, на 1000 шагах 0.3959, на 2000 шагах 0.2069 — это прочность неподвижной точки, а не морфогенез: из шума он порог не пересекает ни на одном горизонте.",
-    "Гейт WP4: НЕ выполнен — paired_wilcoxon, journal_pairs_13_3. Числа по каждому условию лежат в results.json:gate_wp4.checks. По первичному эндпоинту (f1_final) посчитано пар 0 из 120 построенных; всего с тестом 0. Пара существует только если на том же сиде и горизонте есть базлайн H-A0 и в обеих записях есть значение эндпоинта — 5 сидов на плечо тут не заменяются чужими артефактами, старые логи задним числом сидами не обзаводятся (§7.7). Не путать с научным критерием: WP4 — процессуальный (первичный эндпоинт записан, 5 сидов, effect size, Уилксон, пары журнала §13.3), а вопрос «есть ли форма» решается гейтом слоя 1 — f1 после автономного roll-out выше потолка бесструктурного поля с зазором 0.05. Закрытие WP4 не означает, что E02 дала морфогенез, и наоборот: провал WP4 по статистике не есть отрицание гипотезы."
+    "Гейт WP4: НЕ выполнен — journal_pairs_13_3. Числа по каждому условию лежат в results.json:gate_wp4.checks. Не путать с научным критерием: WP4 — процессуальный (первичный эндпоинт записан, 5 сидов, effect size, Уилксон, пары журнала §13.3), а вопрос «есть ли форма» решается гейтом слоя 1 — f1 после автономного roll-out выше потолка бесструктурного поля с зазором 0.05. Закрытие WP4 не означает, что E02 дала морфогенез, и наоборот: провал WP4 по статистике не есть отрицание гипотезы."
   ]
 }
