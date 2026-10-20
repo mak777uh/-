@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-10-20T10:39:09Z",
+  "generated_at": "2026-10-20T19:11:12Z",
   "phase": "WP4 closed (negative) → E02b preflight",
   "status_note": "E02 закрыт отрицательно; кольцо остаётся калибровкой. 5-сидовый sweep R-9 закрыт, зонд s1000 дал пустые reach/hold, results.json пересобран, итог записан в NEG-29 и decisions_log. Гейт WP4 не пройден из-за journal_pairs_13_3. E02b зафиксирован, но ждёт решения по H-P1 s2000.",
   "active_runs": [],
@@ -25,13 +25,13 @@
         "WP4_H-P1_s2000_seed42/nca_final.pt"
       ]
     },
-    "hashes_pending": 11,
+    "hashes_pending": 0,
     "files_indexed": 12
   },
   "disk": {
     "total_gb": 231.86,
-    "free_gb": 54.65,
-    "used_gb": 177.21,
+    "free_gb": 39.73,
+    "used_gb": 192.13,
     "checkpoints_gb": 6.03
   },
   "blockers": [
@@ -43,8 +43,7 @@
   "next": [
     "Решить, чем заменить отсутствующий H-P1 s2000: новым прогоном или явной поправкой к протоколу E02b.",
     "Провести пилот E02b на 8 сидах и только затем полную перепись.",
-    "Держать логи и манифесты в GitHub; веса и TensorBoard локально. Следить за state.disk.free_gb.",
-    "После закрытия активных прогонов заполнить sha256 канонических чекпоинтов: python scripts/lab.py checkpoints --hash-canonical"
+    "Держать логи и манифесты в GitHub; веса и TensorBoard локально. Следить за state.disk.free_gb."
   ],
   "decisions_needed": [
     "Остаётся ли кольцо калибровочной мишенью E02 или E02 переопределяется вокруг классов аттракторов из E02b?",
