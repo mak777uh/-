@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-10-20T09:19:24Z",
-  "policy": "Удалены только best-снапшоты вне s2000 при наличии final; final и все s2000 best сохранены.",
-  "freed_bytes": 3236974452,
+  "generated_at": "2026-10-20T10:33:37Z",
+  "policy": "Локально хранятся только canonical final из lab/checkpoints.json (требования активной/следующей серии) и явно объявленный положительный контроль. Best-снапшоты при наличии final и неканонические final закрытых/замещённых плеч удаляются после фиксации метрик, per-run JSONL, манифеста и этой записи в git. Веса в GitHub не отправляются; canonical final удаляется только по решению владельца.",
+  "freed_bytes": 22658821164,
   "files": [
     {
       "path": "morphogenesis/checkpoints/gate_layer1_s800_seed101/nca_best.pt",
@@ -51,16 +51,318 @@
       "mtime": "2026-10-19T17:23:59Z",
       "kept": "nca_final.pt",
       "reason": "best-снапшот вне s2000-серии; final сохранён"
+    },
+    {
+      "path": "morphogenesis/checkpoints/gate_layer1_s800_seed101/nca_final.pt",
+      "family": "gate_layer1_s800_seed101",
+      "kind": "final",
+      "size_bytes": 539495742,
+      "mtime": "2026-10-20T06:24:00Z",
+      "reason": "неканонический final закрытого/замещённого плеча; метрики, журнал и манифест в git"
+    },
+    {
+      "path": "morphogenesis/checkpoints/gate_layer1_s800_seed202/nca_final.pt",
+      "family": "gate_layer1_s800_seed202",
+      "kind": "final",
+      "size_bytes": 539495742,
+      "mtime": "2026-10-20T06:26:33Z",
+      "reason": "неканонический final закрытого/замещённого плеча; метрики, журнал и манифест в git"
+    },
+    {
+      "path": "morphogenesis/checkpoints/gate_layer1_s800_seed303/nca_final.pt",
+      "family": "gate_layer1_s800_seed303",
+      "kind": "final",
+      "size_bytes": 539495742,
+      "mtime": "2026-10-20T06:29:06Z",
+      "reason": "неканонический final закрытого/замещённого плеча; метрики, журнал и манифест в git"
+    },
+    {
+      "path": "morphogenesis/checkpoints/gate_layer1_s800_seed404/nca_final.pt",
+      "family": "gate_layer1_s800_seed404",
+      "kind": "final",
+      "size_bytes": 539495742,
+      "mtime": "2026-10-20T06:31:42Z",
+      "reason": "неканонический final закрытого/замещённого плеча; метрики, журнал и манифест в git"
+    },
+    {
+      "path": "morphogenesis/checkpoints/gate_layer1_s800_seed42/nca_final.pt",
+      "family": "gate_layer1_s800_seed42",
+      "kind": "final",
+      "size_bytes": 539495742,
+      "mtime": "2026-10-20T06:21:42Z",
+      "reason": "неканонический final закрытого/замещённого плеча; метрики, журнал и манифест в git"
+    },
+    {
+      "path": "morphogenesis/checkpoints/nca_final.pt",
+      "family": "checkpoints",
+      "kind": "final",
+      "size_bytes": 539495742,
+      "mtime": "2026-10-19T17:24:05Z",
+      "reason": "корневой артефакт вне семейств; не входит в требования E02b"
+    },
+    {
+      "path": "morphogenesis/checkpoints/WP4_H-A0_s2000_seed101/nca_best.pt",
+      "family": "WP4_H-A0_s2000_seed101",
+      "kind": "best",
+      "size_bytes": 539495742,
+      "mtime": "2026-10-20T00:01:58Z",
+      "reason": "best-снапшот неканонического/закрытого плеча; метрики и журнал уже в git"
+    },
+    {
+      "path": "morphogenesis/checkpoints/WP4_H-A0_s2000_seed202/nca_best.pt",
+      "family": "WP4_H-A0_s2000_seed202",
+      "kind": "best",
+      "size_bytes": 539495742,
+      "mtime": "2026-10-20T00:39:03Z",
+      "reason": "best-снапшот неканонического/закрытого плеча; метрики и журнал уже в git"
+    },
+    {
+      "path": "morphogenesis/checkpoints/WP4_H-A0_s2000_seed303/nca_best.pt",
+      "family": "WP4_H-A0_s2000_seed303",
+      "kind": "best",
+      "size_bytes": 539495742,
+      "mtime": "2026-10-20T00:57:02Z",
+      "reason": "best-снапшот неканонического/закрытого плеча; метрики и журнал уже в git"
+    },
+    {
+      "path": "morphogenesis/checkpoints/WP4_H-A0_s2000_seed404/nca_best.pt",
+      "family": "WP4_H-A0_s2000_seed404",
+      "kind": "best",
+      "size_bytes": 539495742,
+      "mtime": "2026-10-20T06:47:08Z",
+      "reason": "best-снапшот неканонического/закрытого плеча; метрики и журнал уже в git"
+    },
+    {
+      "path": "morphogenesis/checkpoints/WP4_H-A0_s2000_seed42/nca_best.pt",
+      "family": "WP4_H-A0_s2000_seed42",
+      "kind": "best",
+      "size_bytes": 539495742,
+      "mtime": "2026-10-19T23:11:25Z",
+      "reason": "best-снапшот неканонического/закрытого плеча; метрики и журнал уже в git"
+    },
+    {
+      "path": "morphogenesis/checkpoints/WP4_H-I2_s400_seed42/nca_final.pt",
+      "family": "WP4_H-I2_s400_seed42",
+      "kind": "final",
+      "size_bytes": 539495742,
+      "mtime": "2026-10-19T13:55:36Z",
+      "reason": "неканонический final закрытого/замещённого плеча; метрики, журнал и манифест в git"
+    },
+    {
+      "path": "morphogenesis/checkpoints/WP4_H-K1_s400_seed42/nca_final.pt",
+      "family": "WP4_H-K1_s400_seed42",
+      "kind": "final",
+      "size_bytes": 539495742,
+      "mtime": "2026-10-19T14:09:40Z",
+      "reason": "неканонический final закрытого/замещённого плеча; метрики, журнал и манифест в git"
+    },
+    {
+      "path": "morphogenesis/checkpoints/WP4_H-K2_s400_seed42/nca_final.pt",
+      "family": "WP4_H-K2_s400_seed42",
+      "kind": "final",
+      "size_bytes": 539495742,
+      "mtime": "2026-10-19T14:17:02Z",
+      "reason": "неканонический final закрытого/замещённого плеча; метрики, журнал и манифест в git"
+    },
+    {
+      "path": "morphogenesis/checkpoints/WP4_H-M1_s2000_seed42/nca_best.pt",
+      "family": "WP4_H-M1_s2000_seed42",
+      "kind": "best",
+      "size_bytes": 539495742,
+      "mtime": "2026-10-19T16:38:23Z",
+      "reason": "best-снапшот неканонического/закрытого плеча; метрики и журнал уже в git"
+    },
+    {
+      "path": "morphogenesis/checkpoints/WP4_H-M1_s2000_seed42/nca_final.pt",
+      "family": "WP4_H-M1_s2000_seed42",
+      "kind": "final",
+      "size_bytes": 539495742,
+      "mtime": "2026-10-19T16:58:17Z",
+      "reason": "неканонический final закрытого/замещённого плеча; метрики, журнал и манифест в git"
+    },
+    {
+      "path": "morphogenesis/checkpoints/WP4_H-M2_s4000_seed42/nca_best.pt",
+      "family": "WP4_H-M2_s4000_seed42",
+      "kind": "best",
+      "size_bytes": 539495742,
+      "mtime": "2026-10-19T14:31:15Z",
+      "reason": "best-снапшот неканонического/закрытого плеча; метрики и журнал уже в git"
+    },
+    {
+      "path": "morphogenesis/checkpoints/WP4_H-N1_s2000_seed42/nca_best.pt",
+      "family": "WP4_H-N1_s2000_seed42",
+      "kind": "best",
+      "size_bytes": 539495742,
+      "mtime": "2026-10-19T15:25:49Z",
+      "reason": "best-снапшот неканонического/закрытого плеча; метрики и журнал уже в git"
+    },
+    {
+      "path": "morphogenesis/checkpoints/WP4_H-N1_s2000_seed42/nca_final.pt",
+      "family": "WP4_H-N1_s2000_seed42",
+      "kind": "final",
+      "size_bytes": 539495742,
+      "mtime": "2026-10-19T15:26:24Z",
+      "reason": "неканонический final закрытого/замещённого плеча; метрики, журнал и манифест в git"
+    },
+    {
+      "path": "morphogenesis/checkpoints/WP4_R-10_s2000_seed42/nca_best.pt",
+      "family": "WP4_R-10_s2000_seed42",
+      "kind": "best",
+      "size_bytes": 539495742,
+      "mtime": "2026-10-19T22:08:46Z",
+      "reason": "best-снапшот неканонического/закрытого плеча; метрики и журнал уже в git"
+    },
+    {
+      "path": "morphogenesis/checkpoints/WP4_R-10_s2000_seed42/nca_final.pt",
+      "family": "WP4_R-10_s2000_seed42",
+      "kind": "final",
+      "size_bytes": 539495742,
+      "mtime": "2026-10-19T22:17:52Z",
+      "reason": "неканонический final закрытого/замещённого плеча; метрики, журнал и манифест в git"
+    },
+    {
+      "path": "morphogenesis/checkpoints/WP4_R-10_s400_seed42/nca_final.pt",
+      "family": "WP4_R-10_s400_seed42",
+      "kind": "final",
+      "size_bytes": 539495742,
+      "mtime": "2026-10-19T20:04:36Z",
+      "reason": "неканонический final закрытого/замещённого плеча; метрики, журнал и манифест в git"
+    },
+    {
+      "path": "morphogenesis/checkpoints/WP4_R-11_s2000_seed42/nca_best.pt",
+      "family": "WP4_R-11_s2000_seed42",
+      "kind": "best",
+      "size_bytes": 539495742,
+      "mtime": "2026-10-19T22:40:14Z",
+      "reason": "best-снапшот неканонического/закрытого плеча; метрики и журнал уже в git"
+    },
+    {
+      "path": "morphogenesis/checkpoints/WP4_R-11_s400_seed42/nca_final.pt",
+      "family": "WP4_R-11_s400_seed42",
+      "kind": "final",
+      "size_bytes": 539495742,
+      "mtime": "2026-10-19T20:10:16Z",
+      "reason": "неканонический final закрытого/замещённого плеча; метрики, журнал и манифест в git"
+    },
+    {
+      "path": "morphogenesis/checkpoints/WP4_R-1_s400_seed42/nca_final.pt",
+      "family": "WP4_R-1_s400_seed42",
+      "kind": "final",
+      "size_bytes": 539495742,
+      "mtime": "2026-10-19T18:14:10Z",
+      "reason": "неканонический final закрытого/замещённого плеча; метрики, журнал и манифест в git"
+    },
+    {
+      "path": "morphogenesis/checkpoints/WP4_R-4_s400_seed42/nca_final.pt",
+      "family": "WP4_R-4_s400_seed42",
+      "kind": "final",
+      "size_bytes": 539495742,
+      "mtime": "2026-10-19T18:40:11Z",
+      "reason": "неканонический final закрытого/замещённого плеча; метрики, журнал и манифест в git"
+    },
+    {
+      "path": "morphogenesis/checkpoints/WP4_R-5_s400_seed42/nca_final.pt",
+      "family": "WP4_R-5_s400_seed42",
+      "kind": "final",
+      "size_bytes": 539495742,
+      "mtime": "2026-10-19T18:52:49Z",
+      "reason": "неканонический final закрытого/замещённого плеча; метрики, журнал и манифест в git"
+    },
+    {
+      "path": "morphogenesis/checkpoints/WP4_R-7_s400_seed42/nca_final.pt",
+      "family": "WP4_R-7_s400_seed42",
+      "kind": "final",
+      "size_bytes": 539495742,
+      "mtime": "2026-10-19T19:10:10Z",
+      "reason": "неканонический final закрытого/замещённого плеча; метрики, журнал и манифест в git"
+    },
+    {
+      "path": "morphogenesis/checkpoints/WP4_R-8_s2000_seed42/nca_best.pt",
+      "family": "WP4_R-8_s2000_seed42",
+      "kind": "best",
+      "size_bytes": 539495742,
+      "mtime": "2026-10-19T19:28:46Z",
+      "reason": "best-снапшот неканонического/закрытого плеча; метрики и журнал уже в git"
+    },
+    {
+      "path": "morphogenesis/checkpoints/WP4_R-8_s2000_seed42/nca_final.pt",
+      "family": "WP4_R-8_s2000_seed42",
+      "kind": "final",
+      "size_bytes": 539495742,
+      "mtime": "2026-10-19T19:45:29Z",
+      "reason": "неканонический final закрытого/замещённого плеча; метрики, журнал и манифест в git"
+    },
+    {
+      "path": "morphogenesis/checkpoints/WP4_R-9_s2000_seed101/nca_best.pt",
+      "family": "WP4_R-9_s2000_seed101",
+      "kind": "best",
+      "size_bytes": 539495742,
+      "mtime": "2026-10-20T07:22:33Z",
+      "reason": "best-снапшот неканонического/закрытого плеча; метрики и журнал уже в git"
+    },
+    {
+      "path": "morphogenesis/checkpoints/WP4_R-9_s2000_seed202/nca_best.pt",
+      "family": "WP4_R-9_s2000_seed202",
+      "kind": "best",
+      "size_bytes": 539495742,
+      "mtime": "2026-10-20T08:01:50Z",
+      "reason": "best-снапшот неканонического/закрытого плеча; метрики и журнал уже в git"
+    },
+    {
+      "path": "morphogenesis/checkpoints/WP4_R-9_s2000_seed303/nca_best.pt",
+      "family": "WP4_R-9_s2000_seed303",
+      "kind": "best",
+      "size_bytes": 539495742,
+      "mtime": "2026-10-20T08:25:51Z",
+      "reason": "best-снапшот неканонического/закрытого плеча; метрики и журнал уже в git"
+    },
+    {
+      "path": "morphogenesis/checkpoints/WP4_R-9_s2000_seed404/nca_best.pt",
+      "family": "WP4_R-9_s2000_seed404",
+      "kind": "best",
+      "size_bytes": 539495742,
+      "mtime": "2026-10-20T09:05:23Z",
+      "reason": "best-снапшот неканонического/закрытого плеча; метрики и журнал уже в git"
+    },
+    {
+      "path": "morphogenesis/checkpoints/WP4_R-9_s2000_seed42/nca_best.pt",
+      "family": "WP4_R-9_s2000_seed42",
+      "kind": "best",
+      "size_bytes": 539495742,
+      "mtime": "2026-10-19T20:56:48Z",
+      "reason": "best-снапшот неканонического/закрытого плеча; метрики и журнал уже в git"
+    },
+    {
+      "path": "morphogenesis/checkpoints/WP4_R-9_s400_seed42/nca_final.pt",
+      "family": "WP4_R-9_s400_seed42",
+      "kind": "final",
+      "size_bytes": 539495742,
+      "mtime": "2026-10-19T19:58:09Z",
+      "reason": "неканонический final закрытого/замещённого плеча; метрики, журнал и манифест в git"
     }
   ],
   "skipped": [
     {
-      "path": "morphogenesis/checkpoints/E02_seed0_stress1/nca_best.pt",
-      "reason": "нет final рядом; не трогаем"
+      "path": "morphogenesis/checkpoints/WP4_H-P1_s400_seed42/nca_final.pt",
+      "reason": "единственный положительный контроль hold; оставлен до появления H-P1 s2000"
     },
     {
-      "path": "morphogenesis/checkpoints/WP4_H-M2_s4000_seed42/nca_best.pt",
-      "reason": "нет final рядом; не трогаем"
+      "path": "morphogenesis/checkpoints/E02_seed0_stress1/nca_best.pt",
+      "reason": "исторический артефакт 2.2 МБ; места почти не занимает"
     }
-  ]
+  ],
+  "kept_canonical": [
+    "morphogenesis/checkpoints/WP4_H-A0_s2000_seed101/nca_final.pt",
+    "morphogenesis/checkpoints/WP4_H-A0_s2000_seed202/nca_final.pt",
+    "morphogenesis/checkpoints/WP4_H-A0_s2000_seed303/nca_final.pt",
+    "morphogenesis/checkpoints/WP4_H-A0_s2000_seed404/nca_final.pt",
+    "morphogenesis/checkpoints/WP4_H-A0_s2000_seed42/nca_final.pt",
+    "morphogenesis/checkpoints/WP4_R-11_s2000_seed42/nca_final.pt",
+    "morphogenesis/checkpoints/WP4_R-9_s2000_seed101/nca_final.pt",
+    "morphogenesis/checkpoints/WP4_R-9_s2000_seed202/nca_final.pt",
+    "morphogenesis/checkpoints/WP4_R-9_s2000_seed303/nca_final.pt",
+    "morphogenesis/checkpoints/WP4_R-9_s2000_seed404/nca_final.pt",
+    "morphogenesis/checkpoints/WP4_R-9_s2000_seed42/nca_final.pt"
+  ],
+  "errors": []
 }
