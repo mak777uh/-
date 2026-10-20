@@ -1,0 +1,497 @@
+{
+  "schema_version": 1,
+  "experiment": "E02b_morphospace",
+  "kind": "exploratory_patch_identity",
+  "note": "патч index=0; 500 шагов; сравнение с прототипом по бинарной маске",
+  "steps": 500,
+  "sizes": [
+    8,
+    16,
+    32
+  ],
+  "device": "cuda",
+  "rows": [
+    {
+      "class": "struct_1",
+      "size": 8,
+      "center": [
+        41,
+        33
+      ],
+      "patch_top_left": [
+        37,
+        29
+      ],
+      "generator_seed": 70580,
+      "assigned_class": "struct_1",
+      "descriptor": {
+        "alive_fraction": 0.793701171875,
+        "binary_fraction": 0.251953125,
+        "bright_fraction": 0.251953125,
+        "bright_alive_fraction": 0.31744078745001536,
+        "soft_mean": 0.43413662910461426,
+        "soft_std": 0.18932102620601654,
+        "entropy": 0.8482286670230985,
+        "b0": 394,
+        "b1": 6,
+        "chi": 388,
+        "log1p_b0": 5.978885764901122,
+        "log1p_b1": 1.9459101490553132,
+        "alive_b0": 20,
+        "n_pixels": 1032,
+        "bbox_fill": 0.251953125,
+        "largest_component_fraction": 0.008056640625,
+        "centroid_x": 0.4866648209671465,
+        "centroid_y": 0.4890334686846315,
+        "radial_profile": [
+          0.25510204081632654,
+          0.24749163879598662,
+          0.2701612903225806,
+          0.20114942528735633,
+          0.2662921348314607,
+          0.2606060606060606,
+          0.2679324894514768,
+          0.24503311258278146
+        ],
+        "radial_peak_bin": 2,
+        "radial_center_occupancy": 0.25510204081632654,
+        "radial_outer_occupancy": 0.24503311258278146,
+        "radial_var": 0.00044070623873491386,
+        "symmetry_rot_centered": 0.13931190073322053,
+        "symmetry_reflect_centered": 0.16560877091748413,
+        "autocorr_lag1": 0.07670417252817552,
+        "autocorr_lag2": 0.22841772520276446,
+        "autocorr_lag4": 0.08147145980022627,
+        "autocorr_lag8": 0.016906134583274654,
+        "edge_fraction": 0.05329457364341085,
+        "stress_mean": 0.03546615689992905,
+        "stress_max": 0.2270798534154892
+      },
+      "compare": {
+        "iou": 0.15426695842450766,
+        "agreement": 0.62255859375,
+        "final_low": {
+          "min_row": 60,
+          "min_value": 0.078125,
+          "n_low_rows": 0,
+          "low_rows": []
+        },
+        "proto_low": {
+          "min_row": 5,
+          "min_value": 0.09375,
+          "n_low_rows": 0,
+          "low_rows": []
+        },
+        "row_profile_corr": 0.08098446453120207,
+        "final_binary_fraction": 0.251953125,
+        "proto_binary_fraction": 0.26318359375
+      },
+      "final_alive_fraction": 0.793701171875,
+      "figure": "C:\\Users\\Admin\\Documents\\Qoder\\2026-10-18\\82ab86cd\\repo\\reports\\figures\\e02b_patch_identity_struct_1_s8.png",
+      "wall_seconds": 1.6345321999979205
+    },
+    {
+      "class": "struct_1",
+      "size": 16,
+      "center": [
+        41,
+        33
+      ],
+      "patch_top_left": [
+        33,
+        25
+      ],
+      "generator_seed": 70660,
+      "assigned_class": "struct_1",
+      "descriptor": {
+        "alive_fraction": 0.81689453125,
+        "binary_fraction": 0.26513671875,
+        "bright_fraction": 0.26513671875,
+        "bright_alive_fraction": 0.32456664674237895,
+        "soft_mean": 0.4327344298362732,
+        "soft_std": 0.1971524953842163,
+        "entropy": 0.8746619705040851,
+        "b0": 396,
+        "b1": 6,
+        "chi": 390,
+        "log1p_b0": 5.983936280687191,
+        "log1p_b1": 1.9459101490553132,
+        "alive_b0": 24,
+        "n_pixels": 1086,
+        "bbox_fill": 0.26513671875,
+        "largest_component_fraction": 0.00634765625,
+        "centroid_x": 0.48621707737729836,
+        "centroid_y": 0.5059779590166331,
+        "radial_profile": [
+          0.2376237623762376,
+          0.3079470198675497,
+          0.1992110453648915,
+          0.23380281690140844,
+          0.29572836801752467,
+          0.2635342185903984,
+          0.31567328918322296,
+          0.2366412213740458
+        ],
+        "radial_peak_bin": 6,
+        "radial_center_occupancy": 0.2376237623762376,
+        "radial_outer_occupancy": 0.2366412213740458,
+        "radial_var": 0.0015128061447107258,
+        "symmetry_rot_centered": 0.1512513601741023,
+        "symmetry_reflect_centered": 0.19345741680767062,
+        "autocorr_lag1": 0.05365617422797172,
+        "autocorr_lag2": 0.2652119946746392,
+        "autocorr_lag4": 0.06810097823937805,
+        "autocorr_lag8": 0.03244718097505168,
+        "edge_fraction": 0.056169429097605895,
+        "stress_mean": 0.03879952430725098,
+        "stress_max": 0.21932454407215118
+      },
+      "compare": {
+        "iou": 0.15783841626538256,
+        "agreement": 0.61572265625,
+        "final_low": {
+          "min_row": 60,
+          "min_value": 0.109375,
+          "n_low_rows": 0,
+          "low_rows": []
+        },
+        "proto_low": {
+          "min_row": 5,
+          "min_value": 0.09375,
+          "n_low_rows": 0,
+          "low_rows": []
+        },
+        "row_profile_corr": -0.017147655576472555,
+        "final_binary_fraction": 0.26513671875,
+        "proto_binary_fraction": 0.26318359375
+      },
+      "final_alive_fraction": 0.81689453125,
+      "figure": "C:\\Users\\Admin\\Documents\\Qoder\\2026-10-18\\82ab86cd\\repo\\reports\\figures\\e02b_patch_identity_struct_1_s16.png",
+      "wall_seconds": 1.6453573000035249
+    },
+    {
+      "class": "struct_1",
+      "size": 32,
+      "center": [
+        41,
+        33
+      ],
+      "patch_top_left": [
+        25,
+        17
+      ],
+      "generator_seed": 70820,
+      "assigned_class": "struct_1",
+      "descriptor": {
+        "alive_fraction": 0.81103515625,
+        "binary_fraction": 0.2724609375,
+        "bright_fraction": 0.2724609375,
+        "bright_alive_fraction": 0.33594220349187237,
+        "soft_mean": 0.4290504455566406,
+        "soft_std": 0.20815612375736237,
+        "entropy": 0.8853538739342496,
+        "b0": 402,
+        "b1": 5,
+        "chi": 397,
+        "log1p_b0": 5.998936561946683,
+        "log1p_b1": 1.791759469228055,
+        "alive_b0": 22,
+        "n_pixels": 1116,
+        "bbox_fill": 0.2724609375,
+        "largest_component_fraction": 0.0107421875,
+        "centroid_x": 0.4892188655629516,
+        "centroid_y": 0.507552483358935,
+        "radial_profile": [
+          0.28,
+          0.3517915309446254,
+          0.30522088353413657,
+          0.25140449438202245,
+          0.23851203501094093,
+          0.2743091095189355,
+          0.2703296703296703,
+          0.3007518796992481
+        ],
+        "radial_peak_bin": 1,
+        "radial_center_occupancy": 0.28,
+        "radial_outer_occupancy": 0.3007518796992481,
+        "radial_var": 0.0010943804359874125,
+        "symmetry_rot_centered": 0.17365269461077845,
+        "symmetry_reflect_centered": 0.18201754385964913,
+        "autocorr_lag1": 0.06763118698323588,
+        "autocorr_lag2": 0.20857817044953533,
+        "autocorr_lag4": 0.04621178902052715,
+        "autocorr_lag8": 0.016390718274182377,
+        "edge_fraction": 0.07347670250896057,
+        "stress_mean": 0.04657153785228729,
+        "stress_max": 0.24448508024215698
+      },
+      "compare": {
+        "iou": 0.1571729957805907,
+        "agreement": 0.60986328125,
+        "final_low": {
+          "min_row": 12,
+          "min_value": 0.109375,
+          "n_low_rows": 0,
+          "low_rows": []
+        },
+        "proto_low": {
+          "min_row": 5,
+          "min_value": 0.09375,
+          "n_low_rows": 0,
+          "low_rows": []
+        },
+        "row_profile_corr": -0.28123076550291937,
+        "final_binary_fraction": 0.2724609375,
+        "proto_binary_fraction": 0.26318359375
+      },
+      "final_alive_fraction": 0.81103515625,
+      "figure": "C:\\Users\\Admin\\Documents\\Qoder\\2026-10-18\\82ab86cd\\repo\\reports\\figures\\e02b_patch_identity_struct_1_s32.png",
+      "wall_seconds": 1.6030792000237852
+    },
+    {
+      "class": "struct_2",
+      "size": 8,
+      "center": [
+        17,
+        42
+      ],
+      "patch_top_left": [
+        13,
+        38
+      ],
+      "generator_seed": 73580,
+      "assigned_class": "struct_2",
+      "descriptor": {
+        "alive_fraction": 0.565185546875,
+        "binary_fraction": 0.544921875,
+        "bright_fraction": 0.544921875,
+        "bright_alive_fraction": 0.96414686825054,
+        "soft_mean": 0.7557294368743896,
+        "soft_std": 0.2607725262641907,
+        "entropy": 0.3288491016063443,
+        "b0": 1,
+        "b1": 1711,
+        "chi": -1710,
+        "log1p_b0": 0.6931471805599453,
+        "log1p_b1": 7.445417556701687,
+        "alive_b0": 1,
+        "n_pixels": 2232,
+        "bbox_fill": 0.544921875,
+        "largest_component_fraction": 0.544921875,
+        "centroid_x": 0.49771718723331626,
+        "centroid_y": 0.4944458667576947,
+        "radial_profile": [
+          0.5454545454545454,
+          0.5551839464882943,
+          0.5587044534412956,
+          0.5252525252525253,
+          0.5011261261261262,
+          0.5681362725450901,
+          0.5780590717299579,
+          0.5695364238410596
+        ],
+        "radial_peak_bin": 6,
+        "radial_center_occupancy": 0.5454545454545454,
+        "radial_outer_occupancy": 0.5695364238410596,
+        "radial_var": 0.0005777548415920665,
+        "symmetry_rot_centered": 0.39895356442119034,
+        "symmetry_reflect_centered": 0.3898635477582846,
+        "autocorr_lag1": -0.6326310797408513,
+        "autocorr_lag2": 0.7468448686310112,
+        "autocorr_lag4": 0.5737209596109001,
+        "autocorr_lag8": 0.3476282034215408,
+        "edge_fraction": 0.08243727598566308,
+        "stress_mean": 0.007436314597725868,
+        "stress_max": 0.10258432477712631
+      },
+      "compare": {
+        "iou": 0.45316622691292874,
+        "agreement": 0.59521484375,
+        "final_low": {
+          "min_row": 54,
+          "min_value": 0.46875,
+          "n_low_rows": 0,
+          "low_rows": []
+        },
+        "proto_low": {
+          "min_row": 5,
+          "min_value": 0.5,
+          "n_low_rows": 0,
+          "low_rows": []
+        },
+        "row_profile_corr": 0.17081753847132872,
+        "final_binary_fraction": 0.544921875,
+        "proto_binary_fraction": 0.53076171875
+      },
+      "final_alive_fraction": 0.565185546875,
+      "figure": "C:\\Users\\Admin\\Documents\\Qoder\\2026-10-18\\82ab86cd\\repo\\reports\\figures\\e02b_patch_identity_struct_2_s8.png",
+      "wall_seconds": 1.6940194999915548
+    },
+    {
+      "class": "struct_2",
+      "size": 16,
+      "center": [
+        17,
+        42
+      ],
+      "patch_top_left": [
+        9,
+        34
+      ],
+      "generator_seed": 73660,
+      "assigned_class": "struct_2",
+      "descriptor": {
+        "alive_fraction": 0.6435546875,
+        "binary_fraction": 0.55126953125,
+        "bright_fraction": 0.55126953125,
+        "bright_alive_fraction": 0.8566009104704098,
+        "soft_mean": 0.7207678556442261,
+        "soft_std": 0.292757511138916,
+        "entropy": 0.5096771211726662,
+        "b0": 4,
+        "b1": 1440,
+        "chi": -1436,
+        "log1p_b0": 1.6094379124341003,
+        "log1p_b1": 7.273092595999522,
+        "alive_b0": 1,
+        "n_pixels": 2258,
+        "bbox_fill": 0.55126953125,
+        "largest_component_fraction": 0.549560546875,
+        "centroid_x": 0.4882182574830936,
+        "centroid_y": 0.5024603877571105,
+        "radial_profile": [
+          0.5252525252525253,
+          0.5728476821192053,
+          0.5358565737051793,
+          0.4864091559370529,
+          0.5576496674057649,
+          0.5657894736842105,
+          0.5969827586206896,
+          0.6071428571428571
+        ],
+        "radial_peak_bin": 7,
+        "radial_center_occupancy": 0.5252525252525253,
+        "radial_outer_occupancy": 0.6071428571428571,
+        "radial_var": 0.0013589534668083836,
+        "symmetry_rot_centered": 0.39524421593830333,
+        "symmetry_reflect_centered": 0.4166394779771615,
+        "autocorr_lag1": -0.223020136491891,
+        "autocorr_lag2": 0.596983985769765,
+        "autocorr_lag4": 0.44797374583535954,
+        "autocorr_lag8": 0.2680729758973743,
+        "edge_fraction": 0.08503100088573959,
+        "stress_mean": 0.014795660972595215,
+        "stress_max": 0.17739097774028778
+      },
+      "compare": {
+        "iou": 0.32893553223388305,
+        "agreement": 0.45361328125,
+        "final_low": {
+          "min_row": 40,
+          "min_value": 0.453125,
+          "n_low_rows": 0,
+          "low_rows": []
+        },
+        "proto_low": {
+          "min_row": 5,
+          "min_value": 0.5,
+          "n_low_rows": 0,
+          "low_rows": []
+        },
+        "row_profile_corr": 0.038081284546295176,
+        "final_binary_fraction": 0.55126953125,
+        "proto_binary_fraction": 0.53076171875
+      },
+      "final_alive_fraction": 0.6435546875,
+      "figure": "C:\\Users\\Admin\\Documents\\Qoder\\2026-10-18\\82ab86cd\\repo\\reports\\figures\\e02b_patch_identity_struct_2_s16.png",
+      "wall_seconds": 1.4966190999839455
+    },
+    {
+      "class": "struct_2",
+      "size": 32,
+      "center": [
+        17,
+        42
+      ],
+      "patch_top_left": [
+        1,
+        26
+      ],
+      "generator_seed": 73820,
+      "assigned_class": "struct_2",
+      "descriptor": {
+        "alive_fraction": 0.566650390625,
+        "binary_fraction": 0.517822265625,
+        "bright_fraction": 0.517822265625,
+        "bright_alive_fraction": 0.9138302455838001,
+        "soft_mean": 0.7312296628952026,
+        "soft_std": 0.2789320945739746,
+        "entropy": 0.3675626972852015,
+        "b0": 2,
+        "b1": 1731,
+        "chi": -1729,
+        "log1p_b0": 1.0986122886681098,
+        "log1p_b1": 7.4570320891223805,
+        "alive_b0": 1,
+        "n_pixels": 2121,
+        "bbox_fill": 0.517822265625,
+        "largest_component_fraction": 0.517578125,
+        "centroid_x": 0.4973544973544973,
+        "centroid_y": 0.5023311854995023,
+        "radial_profile": [
+          0.5051546391752577,
+          0.5034013605442177,
+          0.5270541082164328,
+          0.5153733528550513,
+          0.5039281705948373,
+          0.5190763052208835,
+          0.524896265560166,
+          0.5844155844155844
+        ],
+        "radial_peak_bin": 7,
+        "radial_center_occupancy": 0.5051546391752577,
+        "radial_outer_occupancy": 0.5844155844155844,
+        "radial_var": 0.0006164629642493834,
+        "symmetry_rot_centered": 0.4109874826147427,
+        "symmetry_reflect_centered": 0.432909604519774,
+        "autocorr_lag1": -0.5110408792636592,
+        "autocorr_lag2": 0.7306161920510649,
+        "autocorr_lag4": 0.6517555663575086,
+        "autocorr_lag8": 0.5785874646015784,
+        "edge_fraction": 0.0876944837340877,
+        "stress_mean": 0.006070475094020367,
+        "stress_max": 0.09495434165000916
+      },
+      "compare": {
+        "iou": 0.19972067039106145,
+        "agreement": 0.300537109375,
+        "final_low": {
+          "min_row": 3,
+          "min_value": 0.453125,
+          "n_low_rows": 0,
+          "low_rows": []
+        },
+        "proto_low": {
+          "min_row": 5,
+          "min_value": 0.5,
+          "n_low_rows": 0,
+          "low_rows": []
+        },
+        "row_profile_corr": 0.27235437181427663,
+        "final_binary_fraction": 0.517822265625,
+        "proto_binary_fraction": 0.53076171875
+      },
+      "final_alive_fraction": 0.566650390625,
+      "figure": "C:\\Users\\Admin\\Documents\\Qoder\\2026-10-18\\82ab86cd\\repo\\reports\\figures\\e02b_patch_identity_struct_2_s32.png",
+      "wall_seconds": 1.5259431999875233
+    }
+  ],
+  "figures": [
+    "C:\\Users\\Admin\\Documents\\Qoder\\2026-10-18\\82ab86cd\\repo\\reports\\figures\\e02b_patch_identity_struct_1_s8.png",
+    "C:\\Users\\Admin\\Documents\\Qoder\\2026-10-18\\82ab86cd\\repo\\reports\\figures\\e02b_patch_identity_struct_1_s16.png",
+    "C:\\Users\\Admin\\Documents\\Qoder\\2026-10-18\\82ab86cd\\repo\\reports\\figures\\e02b_patch_identity_struct_1_s32.png",
+    "C:\\Users\\Admin\\Documents\\Qoder\\2026-10-18\\82ab86cd\\repo\\reports\\figures\\e02b_patch_identity_struct_2_s8.png",
+    "C:\\Users\\Admin\\Documents\\Qoder\\2026-10-18\\82ab86cd\\repo\\reports\\figures\\e02b_patch_identity_struct_2_s16.png",
+    "C:\\Users\\Admin\\Documents\\Qoder\\2026-10-18\\82ab86cd\\repo\\reports\\figures\\e02b_patch_identity_struct_2_s32.png"
+  ]
+}
