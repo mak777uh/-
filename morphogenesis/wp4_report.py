@@ -829,48 +829,90 @@ def _reach_digest(probes):
     Точка решения у двух прогонов разная и берётся из артефакта (decision_point):
     у hold максимум траектории равен 1.0 по построению (старт = цель), поэтому
     решать по нему значило бы измерять начальное состояние (NEG-21/NEG-23).
-    Длина развёртки — часть измерения, поэтому сводка идёт по горизонтам."""
+    Длина развёртки — часть измерения, поэтому сводка идёт по горизонтам.
+
+    Артефактов зонда несколько (разные плечи и разные длины развёртки), и один
+    прогон может попасть в два файла: R-9 s2000 мерился и общим запуском, и
+    отдельным sweep'ом на том же горизонте. Поэтому блоки сливаются по
+    rollout_steps, а прогоны дедуплицируются по (arm, steps_trained, seed, probe):
+    побеждает запись из последнего файла. Иначе один и тот же чекпоинт считался
+    бы дважды, а в отчёте появились бы два «горизонта 1000».
+    """
     if not probes:
         return None
-    horizons = []
+    by_horizon = {}
     for probe in probes:
+        horizon = probe.get("rollout_steps")
         verdict = probe.get("verdict") or {}
-        runs = []
+        bucket = by_horizon.get(horizon)
+        if bucket is None:
+            bucket = {
+                "device": set(),
+                "criterion": set(),
+                "ceiling": set(),
+                "reachable_arms": set(),
+                "holdable_arms": set(),
+                "runs": {},
+            }
+            by_horizon[horizon] = bucket
+        if probe.get("device"):
+            bucket["device"].add(str(probe["device"]))
+        for key, target in (("threshold", "criterion"), ("ceiling", "ceiling")):
+            value = verdict.get(key)
+            if value is not None:
+                bucket[target].add(float(value))
+        bucket["reachable_arms"].update(verdict.get("reachable_arms") or [])
+        bucket["holdable_arms"].update(verdict.get("holdable_arms") or [])
         for rec in probe.get("runs", []):
             dec = rec.get("decision") or {}
             best = rec.get("best") or {}
             last = rec.get("last") or {}
-            runs.append(
-                {
-                    "arm": rec.get("arm"),
-                    "steps_trained": rec.get("steps_trained"),
-                    "seed": rec.get("seed"),
-                    "probe": rec.get("probe"),
-                    "decision_point": rec.get("decision_point"),
-                    "start_f1_default": (rec.get("first") or {}).get("f1_default"),
-                    "best_f1": best.get("f1_gated_best"),
-                    "best_step": best.get("step"),
-                    "last_f1": last.get("f1_gated_best"),
-                    "decision_f1": dec.get("f1_gated_best"),
-                    "decision_precision": dec.get("gated_precision"),
-                    "decision_pred_fraction": dec.get("gated_pred_fraction"),
-                    "n_gated_thresholds": dec.get("n_gated_thresholds"),
-                    "alive_fraction_min": rec.get("alive_fraction_min"),
-                    "beyond_ceiling": rec.get("beyond_ceiling"),
-                }
+            key = (
+                rec.get("arm"),
+                rec.get("steps_trained"),
+                rec.get("seed"),
+                rec.get("probe"),
             )
+            bucket["runs"][key] = {
+                "arm": rec.get("arm"),
+                "steps_trained": rec.get("steps_trained"),
+                "seed": rec.get("seed"),
+                "probe": rec.get("probe"),
+                "decision_point": rec.get("decision_point"),
+                "start_f1_default": (rec.get("first") or {}).get("f1_default"),
+                "best_f1": best.get("f1_gated_best"),
+                "best_step": best.get("step"),
+                "last_f1": last.get("f1_gated_best"),
+                "decision_f1": dec.get("f1_gated_best"),
+                "decision_precision": dec.get("gated_precision"),
+                "decision_pred_fraction": dec.get("gated_pred_fraction"),
+                "n_gated_thresholds": dec.get("n_gated_thresholds"),
+                "alive_fraction_min": rec.get("alive_fraction_min"),
+                "beyond_ceiling": rec.get("beyond_ceiling"),
+            }
+
+    def _one_or_sorted(values):
+        if len(values) == 1:
+            return next(iter(values))
+        return sorted(values)
+
+    horizons = []
+    for horizon in sorted(by_horizon, key=lambda h: h or 0):
+        bucket = by_horizon[horizon]
         horizons.append(
             {
-                "rollout_steps": probe.get("rollout_steps"),
-                "device": probe.get("device"),
-                "criterion": verdict.get("threshold"),
-                "structureless_f1_ceiling": verdict.get("ceiling"),
-                "reachable_arms": verdict.get("reachable_arms"),
-                "holdable_arms": verdict.get("holdable_arms"),
-                "runs": runs,
+                "rollout_steps": horizon,
+                "device": ", ".join(sorted(bucket["device"])) or None,
+                "criterion": _one_or_sorted(bucket["criterion"]),
+                "structureless_f1_ceiling": _one_or_sorted(bucket["ceiling"]),
+                "reachable_arms": sorted(bucket["reachable_arms"]),
+                "holdable_arms": sorted(bucket["holdable_arms"]),
+                "runs": [
+                    bucket["runs"][key]
+                    for key in sorted(bucket["runs"], key=lambda k: tuple(str(x) for x in k))
+                ],
             }
         )
-    horizons.sort(key=lambda h: h["rollout_steps"] or 0)
     return {
         "note": (
             "reach = кольцо достигается из шума (решение по максимуму траектории), "

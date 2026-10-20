@@ -162,6 +162,32 @@ class TestReportDigest(unittest.TestCase):
         )
         self.assertEqual([h["rollout_steps"] for h in digest["horizons"]], [200, 2000])
 
+    def test_same_horizon_blocks_merge_and_dedupe(self):
+        import wp4_report
+
+        # R-9 s2000 мерился и общим прогоном, и отдельным sweep'ом: один и тот же
+        # чекпоинт не должен попасть в сводку дважды, а два блока «1000» —
+        # слипнуться в два горизонта. Побеждает запись из последнего файла.
+        old = self._payload(1000, 0.1, 0.1, 0.1, "reach")
+        new = self._payload(1000, 0.2, 0.2, 0.2, "reach")
+        digest = wp4_report._reach_digest([old, new])
+        self.assertEqual(len(digest["horizons"]), 1)
+        horizon = digest["horizons"][0]
+        self.assertEqual(len(horizon["runs"]), 1)
+        self.assertEqual(horizon["runs"][0]["decision_f1"], 0.2)
+        self.assertEqual(horizon["criterion"], 0.3144)
+
+    def test_same_horizon_keeps_distinct_probes_and_seeds(self):
+        import wp4_report
+
+        reach = self._payload(1000, 0.2, 0.2, 0.2, "reach")
+        hold = self._payload(1000, 0.3, 0.3, 0.3, "hold")
+        other_seed = self._payload(1000, 0.4, 0.4, 0.4, "reach")
+        other_seed["runs"][0]["seed"] = 101
+        digest = wp4_report._reach_digest([reach, hold, other_seed])
+        self.assertEqual(len(digest["horizons"]), 1)
+        self.assertEqual(len(digest["horizons"][0]["runs"]), 3)
+
 
 if __name__ == "__main__":
     unittest.main()
