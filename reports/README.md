@@ -64,7 +64,8 @@ python scripts/lab.py validate   # контракт registry/state/runs/journal
   почему gated f1, argmax hold и «met» нельзя читать буквально.
 - [005: Что перепись нашла в морфопространстве](../articles/005-chto-perepis-nashla-v-morfoprostranstve.md) —
   результаты E02b: `rich_map`, `struct_2` против `struct_1`, ремонт класса vs
-  идентичность; отложенные сиды 64–127, горизонт 6000 шагов.
+  идентичность; отложенные сиды 64–127, горизонт 6000 шагов, устойчивость классов
+  при k=3–8.
 
 Источники и конспекты — в [библиотеке](../library/README.md).
 

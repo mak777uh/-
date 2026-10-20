@@ -1,0 +1,521 @@
+{
+  "schema_version": 1,
+  "experiment": "E02b_morphospace",
+  "kind": "exploratory_cluster_robustness",
+  "note": "диагностика устойчивости Ward-разбиения; не меняет канонические метки и не является новой проверкой H1–H4",
+  "n_runs": 704,
+  "canonical": {
+    "k": 5,
+    "silhouette": 0.8544966397290831,
+    "classes": {
+      "1": "struct_1",
+      "2": "death",
+      "3": "uniform_dark",
+      "4": "uniform_bright",
+      "5": "struct_2"
+    },
+    "sizes": {
+      "struct_1": 67,
+      "death": 320,
+      "uniform_dark": 189,
+      "uniform_bright": 64,
+      "struct_2": 64
+    }
+  },
+  "full_refit": {
+    "ari": 1.0,
+    "jaccard": {
+      "struct_1": 1.0,
+      "death": 1.0,
+      "uniform_dark": 1.0,
+      "uniform_bright": 1.0,
+      "struct_2": 1.0
+    },
+    "label_matches": 704
+  },
+  "k_sweep": [
+    {
+      "k": 2,
+      "silhouette": 0.682950430286128,
+      "sizes": [
+        576,
+        128
+      ],
+      "ari": 0.31186086912502037,
+      "jaccard": {
+        "struct_1": 0.11631944444444445,
+        "death": 0.5555555555555556,
+        "uniform_dark": 0.328125,
+        "uniform_bright": 0.5,
+        "struct_2": 0.5
+      }
+    },
+    {
+      "k": 3,
+      "silhouette": 0.7599209837764657,
+      "sizes": [
+        576,
+        64,
+        64
+      ],
+      "ari": 0.332927882830448,
+      "jaccard": {
+        "struct_1": 0.11631944444444445,
+        "death": 0.5555555555555556,
+        "uniform_dark": 0.328125,
+        "uniform_bright": 1.0,
+        "struct_2": 1.0
+      }
+    },
+    {
+      "k": 4,
+      "silhouette": 0.7772107762319771,
+      "sizes": [
+        509,
+        67,
+        64,
+        64
+      ],
+      "ari": 0.5288653097711437,
+      "jaccard": {
+        "struct_1": 1.0,
+        "death": 0.6286836935166994,
+        "uniform_dark": 0.3713163064833006,
+        "uniform_bright": 1.0,
+        "struct_2": 1.0
+      }
+    },
+    {
+      "k": 5,
+      "silhouette": 0.8544966397290831,
+      "sizes": [
+        320,
+        189,
+        67,
+        64,
+        64
+      ],
+      "ari": 1.0,
+      "jaccard": {
+        "struct_1": 1.0,
+        "death": 1.0,
+        "uniform_dark": 1.0,
+        "uniform_bright": 1.0,
+        "struct_2": 1.0
+      }
+    },
+    {
+      "k": 6,
+      "silhouette": 0.8692414321977607,
+      "sizes": [
+        320,
+        189,
+        64,
+        64,
+        64,
+        3
+      ],
+      "ari": 0.9981626866126255,
+      "jaccard": {
+        "struct_1": 0.9552238805970149,
+        "death": 1.0,
+        "uniform_dark": 1.0,
+        "uniform_bright": 1.0,
+        "struct_2": 1.0
+      }
+    },
+    {
+      "k": 7,
+      "silhouette": 0.9478259709194188,
+      "sizes": [
+        320,
+        128,
+        64,
+        64,
+        64,
+        61,
+        3
+      ],
+      "ari": 0.9211266767050859,
+      "jaccard": {
+        "struct_1": 0.9552238805970149,
+        "death": 1.0,
+        "uniform_dark": 0.6772486772486772,
+        "uniform_bright": 1.0,
+        "struct_2": 1.0
+      }
+    },
+    {
+      "k": 8,
+      "silhouette": 0.9336492914974404,
+      "sizes": [
+        320,
+        128,
+        64,
+        64,
+        61,
+        51,
+        13,
+        3
+      ],
+      "ari": 0.9143698313667464,
+      "jaccard": {
+        "struct_1": 0.7611940298507462,
+        "death": 1.0,
+        "uniform_dark": 0.6772486772486772,
+        "uniform_bright": 1.0,
+        "struct_2": 1.0
+      }
+    },
+    {
+      "k": 9,
+      "silhouette": 0.885595804534589,
+      "sizes": [
+        320,
+        128,
+        64,
+        61,
+        51,
+        39,
+        25,
+        13,
+        3
+      ],
+      "ari": 0.9043697564823,
+      "jaccard": {
+        "struct_1": 0.7611940298507462,
+        "death": 1.0,
+        "uniform_dark": 0.6772486772486772,
+        "uniform_bright": 1.0,
+        "struct_2": 0.609375
+      }
+    },
+    {
+      "k": 10,
+      "silhouette": 0.8702744496507109,
+      "sizes": [
+        320,
+        128,
+        64,
+        61,
+        39,
+        26,
+        25,
+        25,
+        13,
+        3
+      ],
+      "ari": 0.8976606413675949,
+      "jaccard": {
+        "struct_1": 0.3880597014925373,
+        "death": 1.0,
+        "uniform_dark": 0.6772486772486772,
+        "uniform_bright": 1.0,
+        "struct_2": 0.609375
+      }
+    }
+  ],
+  "bootstrap_k5": {
+    "n": 200,
+    "ari_median": 1.0,
+    "ari_p05": 0.5140565950253937,
+    "jaccard_median": {
+      "struct_1": 1.0,
+      "death": 1.0,
+      "uniform_dark": 1.0,
+      "uniform_bright": 1.0,
+      "struct_2": 1.0
+    },
+    "jaccard_p05": {
+      "struct_1": 0.926829268292683,
+      "death": 0.6128830645161291,
+      "uniform_dark": 0.35047412292379215,
+      "uniform_bright": 1.0,
+      "struct_2": 1.0
+    }
+  },
+  "bootstrap_k_selection": {
+    "n": 100,
+    "range": [
+      3,
+      7
+    ],
+    "counts": {
+      "4": 21,
+      "5": 52,
+      "6": 5,
+      "7": 22
+    },
+    "selected_k_median": 5.0,
+    "share_k5": 0.52
+  },
+  "leave_one_feature_out": [
+    {
+      "feature": "alive_fraction",
+      "ari": 0.527091361885773,
+      "jaccard": {
+        "struct_1": 0.9552238805970149,
+        "death": 0.6286836935166994,
+        "uniform_dark": 0.3713163064833006,
+        "uniform_bright": 1.0,
+        "struct_2": 1.0
+      }
+    },
+    {
+      "feature": "binary_fraction",
+      "ari": 1.0,
+      "jaccard": {
+        "struct_1": 1.0,
+        "death": 1.0,
+        "uniform_dark": 1.0,
+        "uniform_bright": 1.0,
+        "struct_2": 1.0
+      }
+    },
+    {
+      "feature": "bright_fraction",
+      "ari": 1.0,
+      "jaccard": {
+        "struct_1": 1.0,
+        "death": 1.0,
+        "uniform_dark": 1.0,
+        "uniform_bright": 1.0,
+        "struct_2": 1.0
+      }
+    },
+    {
+      "feature": "soft_mean",
+      "ari": 0.527091361885773,
+      "jaccard": {
+        "struct_1": 0.9552238805970149,
+        "death": 0.6286836935166994,
+        "uniform_dark": 0.3713163064833006,
+        "uniform_bright": 1.0,
+        "struct_2": 1.0
+      }
+    },
+    {
+      "feature": "entropy",
+      "ari": 1.0,
+      "jaccard": {
+        "struct_1": 1.0,
+        "death": 1.0,
+        "uniform_dark": 1.0,
+        "uniform_bright": 1.0,
+        "struct_2": 1.0
+      }
+    },
+    {
+      "feature": "log1p_b0",
+      "ari": 1.0,
+      "jaccard": {
+        "struct_1": 1.0,
+        "death": 1.0,
+        "uniform_dark": 1.0,
+        "uniform_bright": 1.0,
+        "struct_2": 1.0
+      }
+    },
+    {
+      "feature": "log1p_b1",
+      "ari": 1.0,
+      "jaccard": {
+        "struct_1": 1.0,
+        "death": 1.0,
+        "uniform_dark": 1.0,
+        "uniform_bright": 1.0,
+        "struct_2": 1.0
+      }
+    },
+    {
+      "feature": "chi",
+      "ari": 1.0,
+      "jaccard": {
+        "struct_1": 1.0,
+        "death": 1.0,
+        "uniform_dark": 1.0,
+        "uniform_bright": 1.0,
+        "struct_2": 1.0
+      }
+    },
+    {
+      "feature": "bbox_fill",
+      "ari": 1.0,
+      "jaccard": {
+        "struct_1": 1.0,
+        "death": 1.0,
+        "uniform_dark": 1.0,
+        "uniform_bright": 1.0,
+        "struct_2": 1.0
+      }
+    },
+    {
+      "feature": "largest_component_fraction",
+      "ari": 1.0,
+      "jaccard": {
+        "struct_1": 1.0,
+        "death": 1.0,
+        "uniform_dark": 1.0,
+        "uniform_bright": 1.0,
+        "struct_2": 1.0
+      }
+    },
+    {
+      "feature": "radial_var",
+      "ari": 0.9927523421575211,
+      "jaccard": {
+        "struct_1": 0.9552238805970149,
+        "death": 1.0,
+        "uniform_dark": 0.984375,
+        "uniform_bright": 1.0,
+        "struct_2": 1.0
+      }
+    },
+    {
+      "feature": "radial_peak_bin",
+      "ari": 1.0,
+      "jaccard": {
+        "struct_1": 1.0,
+        "death": 1.0,
+        "uniform_dark": 1.0,
+        "uniform_bright": 1.0,
+        "struct_2": 1.0
+      }
+    },
+    {
+      "feature": "radial_center_occupancy",
+      "ari": 1.0,
+      "jaccard": {
+        "struct_1": 1.0,
+        "death": 1.0,
+        "uniform_dark": 1.0,
+        "uniform_bright": 1.0,
+        "struct_2": 1.0
+      }
+    },
+    {
+      "feature": "symmetry_rot_centered",
+      "ari": 1.0,
+      "jaccard": {
+        "struct_1": 1.0,
+        "death": 1.0,
+        "uniform_dark": 1.0,
+        "uniform_bright": 1.0,
+        "struct_2": 1.0
+      }
+    },
+    {
+      "feature": "symmetry_reflect_centered",
+      "ari": 1.0,
+      "jaccard": {
+        "struct_1": 1.0,
+        "death": 1.0,
+        "uniform_dark": 1.0,
+        "uniform_bright": 1.0,
+        "struct_2": 1.0
+      }
+    },
+    {
+      "feature": "autocorr_lag1",
+      "ari": 1.0,
+      "jaccard": {
+        "struct_1": 1.0,
+        "death": 1.0,
+        "uniform_dark": 1.0,
+        "uniform_bright": 1.0,
+        "struct_2": 1.0
+      }
+    },
+    {
+      "feature": "autocorr_lag4",
+      "ari": 1.0,
+      "jaccard": {
+        "struct_1": 1.0,
+        "death": 1.0,
+        "uniform_dark": 1.0,
+        "uniform_bright": 1.0,
+        "struct_2": 1.0
+      }
+    },
+    {
+      "feature": "edge_fraction",
+      "ari": 1.0,
+      "jaccard": {
+        "struct_1": 1.0,
+        "death": 1.0,
+        "uniform_dark": 1.0,
+        "uniform_bright": 1.0,
+        "struct_2": 1.0
+      }
+    }
+  ],
+  "feature_noise": [
+    {
+      "sigma": 0.01,
+      "n": 50,
+      "ari_median": 1.0,
+      "ari_p05": 1.0,
+      "jaccard_median": {
+        "struct_1": 1.0,
+        "death": 1.0,
+        "uniform_dark": 1.0,
+        "uniform_bright": 1.0,
+        "struct_2": 1.0
+      },
+      "jaccard_p05": {
+        "struct_1": 1.0,
+        "death": 1.0,
+        "uniform_dark": 1.0,
+        "uniform_bright": 1.0,
+        "struct_2": 1.0
+      }
+    },
+    {
+      "sigma": 0.05,
+      "n": 50,
+      "ari_median": 1.0,
+      "ari_p05": 1.0,
+      "jaccard_median": {
+        "struct_1": 1.0,
+        "death": 1.0,
+        "uniform_dark": 1.0,
+        "uniform_bright": 1.0,
+        "struct_2": 1.0
+      },
+      "jaccard_p05": {
+        "struct_1": 1.0,
+        "death": 1.0,
+        "uniform_dark": 1.0,
+        "uniform_bright": 1.0,
+        "struct_2": 1.0
+      }
+    },
+    {
+      "sigma": 0.1,
+      "n": 50,
+      "ari_median": 1.0,
+      "ari_p05": 1.0,
+      "jaccard_median": {
+        "struct_1": 1.0,
+        "death": 1.0,
+        "uniform_dark": 1.0,
+        "uniform_bright": 1.0,
+        "struct_2": 1.0
+      },
+      "jaccard_p05": {
+        "struct_1": 1.0,
+        "death": 1.0,
+        "uniform_dark": 1.0,
+        "uniform_bright": 1.0,
+        "struct_2": 1.0
+      }
+    }
+  ],
+  "summary": {
+    "k5_selected_in_full": true,
+    "struct_2_jaccard_min_over_k": 0.5,
+    "struct_2_bootstrap_jaccard_p05": 1.0,
+    "struct_2_lofo_jaccard_min": 1.0,
+    "struct_2_noise_jaccard_min": 1.0
+  }
+}
