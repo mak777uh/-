@@ -459,16 +459,36 @@ def compute_loss(
     return total_loss, loss_dict
 
 
+# На Windows os.replace падает с PermissionError, если целевой файл в этот
+# момент открыт другим процессом. Для 539-МБ чекпоинтов это регулярно делает
+# Defender: он сканирует только что созданный nca_best.pt и держит его, пока
+# следующий best пытается заменить предыдущий. Без retry длинный прогон
+# умирает не из-за модели, а из-за антивируса (наблюдалось на H-P1 s2000).
+_REPLACE_RETRIES = 20
+_REPLACE_DELAY_S = 0.5
+
+
 def atomic_save(obj, path):
     dir_name = os.path.dirname(path) or "."
     fd, tmp_path = tempfile.mkstemp(dir=dir_name, suffix=".tmp")
     try:
         with os.fdopen(fd, "wb") as f:
             torch.save(obj, f)
-        os.replace(tmp_path, path)
+        for attempt in range(_REPLACE_RETRIES):
+            try:
+                os.replace(tmp_path, path)
+                break
+            except PermissionError:
+                if attempt == _REPLACE_RETRIES - 1:
+                    raise
+                time.sleep(_REPLACE_DELAY_S)
     except BaseException:
-        if os.path.exists(tmp_path):
-            os.remove(tmp_path)
+        # Уборка tmp не должна маскировать исходную ошибку сохранения.
+        try:
+            if os.path.exists(tmp_path):
+                os.remove(tmp_path)
+        except OSError:
+            pass
         raise
 
 
