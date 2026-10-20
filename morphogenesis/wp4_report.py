@@ -1287,6 +1287,7 @@ def build_report():
                 _load("wp4_reach_probe.json"),
                 _load("wp4_reach_probe_s1000.json"),
                 _load("wp4_reach_probe_s2000.json"),
+                _load("wp4_reach_probe_R9_s1000.json"),
             )
             if payload
         ]

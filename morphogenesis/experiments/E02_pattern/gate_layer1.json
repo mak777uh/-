@@ -14,7 +14,8 @@
     "hidden_regularization": 0.05,
     "stress_proxy": 0.1,
     "topo_proxy": 0.1,
-    "attractor_divergence": 0.2
+    "attractor_divergence": 0.2,
+    "retention": 0.0
   },
   "alive_policy_mode": "supervised_mse",
   "alpha_supervision_weight": 1.0,
@@ -27,9 +28,19 @@
   "seeds_passed_chamfer": 0,
   "structureless_f1_ceiling": 0.26440677966101694,
   "seeds_with_structure_beyond_ceiling": 0,
+  "seeds_passed_retention": 0,
+  "retention": {
+    "autonomous_steps": 200,
+    "condition": "лучший gated f1 после автономных шагов > потолок + 0.05",
+    "structureless_f1_ceiling": 0.26440677966101694,
+    "trained_with_rollout_loss": false,
+    "rollout_loss_weight": 0.0,
+    "rollout_loss_steps": 8
+  },
   "runs": [
     {
       "seed": 42,
+      "experiment_id": "GATE_L1_s800_seed42",
       "steps": 800,
       "batch_size": 8,
       "alive_fraction_min": 0.064788818359375,
@@ -54,6 +65,11 @@
         "gain_over_default": 0.0
       },
       "structure_beyond_ceiling": false,
+      "retention_steps": 200,
+      "retention_alive_fraction": 0.0,
+      "retention_f1_gated_best": 0.0,
+      "retention_f1_at_default_threshold": 0.0,
+      "retention_holds": false,
       "chamfer_first": 0.041065448165639215,
       "chamfer_last": 0.07580665404824313,
       "chamfer_final_eval": 0.7663876696316275,
@@ -123,6 +139,7 @@
     },
     {
       "seed": 101,
+      "experiment_id": "GATE_L1_s800_seed101",
       "steps": 800,
       "batch_size": 8,
       "alive_fraction_min": 0.0667724609375,
@@ -147,6 +164,11 @@
         "gain_over_default": 0.0
       },
       "structure_beyond_ceiling": false,
+      "retention_steps": 200,
+      "retention_alive_fraction": 0.0,
+      "retention_f1_gated_best": 0.0,
+      "retention_f1_at_default_threshold": 0.0,
+      "retention_holds": false,
       "chamfer_first": 0.04158002497451864,
       "chamfer_last": 0.07722824292073494,
       "chamfer_final_eval": 0.7663876696316275,
@@ -216,6 +238,7 @@
     },
     {
       "seed": 202,
+      "experiment_id": "GATE_L1_s800_seed202",
       "steps": 800,
       "batch_size": 8,
       "alive_fraction_min": 0.068145751953125,
@@ -240,6 +263,11 @@
         "gain_over_default": 0.006339144215530904
       },
       "structure_beyond_ceiling": false,
+      "retention_steps": 200,
+      "retention_alive_fraction": 0.0,
+      "retention_f1_gated_best": 0.0,
+      "retention_f1_at_default_threshold": 0.0,
+      "retention_holds": false,
       "chamfer_first": 0.04136209813390619,
       "chamfer_last": 0.06672956648133928,
       "chamfer_final_eval": 0.7663876696316275,
@@ -309,6 +337,7 @@
     },
     {
       "seed": 303,
+      "experiment_id": "GATE_L1_s800_seed303",
       "steps": 800,
       "batch_size": 8,
       "alive_fraction_min": 0.066680908203125,
@@ -333,6 +362,11 @@
         "gain_over_default": 0.0031796502384737677
       },
       "structure_beyond_ceiling": false,
+      "retention_steps": 200,
+      "retention_alive_fraction": 0.0,
+      "retention_f1_gated_best": 0.0,
+      "retention_f1_at_default_threshold": 0.0,
+      "retention_holds": false,
       "chamfer_first": 0.04150432138143213,
       "chamfer_last": 0.0788714813237569,
       "chamfer_final_eval": 0.7663876696316275,
@@ -402,6 +436,7 @@
     },
     {
       "seed": 404,
+      "experiment_id": "GATE_L1_s800_seed404",
       "steps": 800,
       "batch_size": 8,
       "alive_fraction_min": 0.0679931640625,
@@ -426,6 +461,11 @@
         "gain_over_default": 0.0
       },
       "structure_beyond_ceiling": false,
+      "retention_steps": 200,
+      "retention_alive_fraction": 0.0,
+      "retention_f1_gated_best": 0.0,
+      "retention_f1_at_default_threshold": 0.0,
+      "retention_holds": false,
       "chamfer_first": 0.04167791265754055,
       "chamfer_last": 0.0719080063999972,
       "chamfer_final_eval": 0.7663876696316275,
