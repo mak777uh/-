@@ -98,16 +98,18 @@ def _arm_summary(run, threshold):
 
 def _paired_wilcoxon(a_values, b_values):
     """
-    Парный сравнение двух серий по сидам. Возвращает dict со статистикой и
-    честной пометкой о мощности: при n<=6 двусторонний p не может быть меньше
-    2^-n, поэтому «значимость» в обычном смысле недоступна априори.
+    Парное сравнение двух серий по сидам. Возвращает dict со статистикой и
+    честной пометкой о мощности: точный двусторонний минимум равен 2^(1-n)
+    (все разности одного знака, W=0), а не 2^-n — у знакового рангового теста
+    два хвоста. При n=5 минимум 0.0625 > 0.05, поэтому «значимость» на пяти
+    сидах недостижима априори, каким бы ни был эффект; n=6 даёт 0.03125.
     """
     n = min(len(a_values), len(b_values))
     out = {
         "n_pairs": int(n),
         "median_a": float(np.median(a_values)) if a_values else None,
         "median_b": float(np.median(b_values)) if b_values else None,
-        "min_two_sided_p": float(2.0 ** (-n)) if n else None,
+        "min_two_sided_p": float(2.0 ** (1 - n)) if n else None,
         "usable": bool(n >= 5),
     }
     if n < 5:

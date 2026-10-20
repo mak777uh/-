@@ -438,6 +438,12 @@ class TestGateWp4Statistics(unittest.TestCase):
         pair = _paired_wilcoxon([0.50, 0.40, 0.30, 0.20, 0.10],
                                 [0.45, 0.35, 0.25, 0.15, 0.05])
         self.assertTrue(pair["usable"])
+        # Двусторонний точный минимум — 2^(1-n), а не 2^-n: на пяти парах это
+        # 0.0625, то есть p<0.05 недостижим в принципе (знаковый ранговый тест,
+        # два хвоста). Число попадает в артефакт и в текст отчёта, поэтому
+        # проверяем его, а не только факт запуска.
+        self.assertAlmostEqual(pair["min_two_sided_p"], 0.0625, places=6)
+        self.assertEqual(_paired_wilcoxon([0.6] * 6, [0.1] * 6)["min_two_sided_p"], 0.03125)
         usable = _usable_wilcoxon_pairs({"H-X_vs_H-A0_s800": pair})
         self.assertEqual(list(usable), ["H-X_vs_H-A0_s800"])
         self.assertTrue("p_value" in usable["H-X_vs_H-A0_s800"]
