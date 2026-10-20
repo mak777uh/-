@@ -379,7 +379,11 @@ cd morphogenesis
 # exploratory-проверки (пишут JSON в experiments/E02b_morphospace)
 cd ..
 .venv/Scripts/python.exe morphogenesis/experiments/E02b_morphospace/scripts/e02b_geometric_lesion.py
+.venv/Scripts/python.exe morphogenesis/experiments/E02b_morphospace/scripts/e02b_patch_identity.py
 .venv/Scripts/python.exe morphogenesis/experiments/E02b_morphospace/scripts/e02b_untrained_recovery.py
+
+# независимая проверка census/perturbations
+.venv/Scripts/python.exe morphogenesis/experiments/E02b_morphospace/scripts/e02b_verify.py
 ```
 
 Основные артефакты: `census.json` (15.5 МБ), `perturbations.json` (1.9 МБ),
@@ -415,5 +419,9 @@ cd ..
   `patch_identity_exploratory.json`, `patch_identity_long_exploratory.json`,
   `geometric_lesion_exploratory.json`, `untrained_recovery_exploratory.json` (2026-10-21).
 - Ссылки проверены 2026-10-21.
+- Независимый `e02b_verify.py` (не доверяет harness-полям) — 0 ошибок, 0 предупреждений.
+- Повторный запуск `e02b_patch_identity.py` и `e02b_geometric_lesion.py` в новом
+  процессе дал семантически идентичные JSON (расхождения только в `wall_seconds`
+  и путях к фигурам).
 - Второй проход на переоценку: autonomous-agent, 2026-10-21; отдельно проверено, что
   статья не называет `rich_map` жизнью и не приписывает `struct_1` обучение.

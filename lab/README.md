@@ -30,7 +30,7 @@
 | `checkpoints.json` | `scripts/lab.py checkpoints` | Индекс весов: путь, размер, arm/seed/step, требования E02b, статус хеша. |
 | `runs/<run_id>.json` | `scripts/lab.py run` / `journal-import` | Неизменяемый манифест прогона. Один прогон = один файл. |
 | `logs/` | `scripts/lab.py logs-archive` | Тонкий архив завершённых per-run JSONL + `index.json`; TensorBoard и stdout не входят. |
-| `experiments/E02b_morphospace.json` | человек, до запуска | Машиночитаемый дескриптор следующего эксперимента. Протокол остаётся в `reports/`. |
+| `experiments/E02b_morphospace.json` | человек, после закрытия | Машиночитаемый дескриптор E02b: `status`, `outcome`, `results`. Протокол и отчёт остаются в `reports/`. |
 | `retention.json` | человек/агент | Удалённые веса: путь, размер, mtime, причина, канонический набор, который остался. |
 | `schemas/` | человек | JSON Schema для registry/state/run/checkpoints/journal. |
 | `locks/` | `scripts/lab.py claim` | Runtime-замки; в git не попадают. |
@@ -67,7 +67,7 @@ stdout-логи по-прежнему игнорируются.
 Перед запуском агент занимает эксперимент:
 
 ```bash
-python scripts/lab.py claim --experiment E02b_morphospace --owner my-agent
+python scripts/lab.py claim --experiment my_experiment --owner my-agent
 ```
 
 Замок лежит в `lab/locks/<experiment>.lock` и содержит `run_id`, host, PID,

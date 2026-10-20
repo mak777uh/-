@@ -61,6 +61,9 @@ python scripts/lab.py validate   # контракт registry/state/runs/journal
   E02b как статья-протокол.
 - [004: Ловушки измерения в NCA](../articles/004-lovushki-izmereniya-v-nca.md) —
   почему gated f1, argmax hold и «met» нельзя читать буквально.
+- [005: Что перепись нашла в морфопространстве](../articles/005-chto-perepis-nashla-v-morfoprostranstve.md) —
+  результаты E02b: `rich_map`, `struct_2` против `struct_1`, ремонт класса vs
+  идентичность.
 
 Источники и конспекты — в [библиотеке](../library/README.md).
 
