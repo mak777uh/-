@@ -815,7 +815,74 @@ def _threshold_digest(probe):
     }
 
 
-def _conclusions(runs, threshold, threshold_probe=None, density=None, journal_integrity=None):
+def _reach_digest(probes):
+    """Компактная сводка зонда «достичь/удержать» (wp4_reach_probe.py).
+
+    Зонд — единственное измерение в полосе, где f1 снимается не с того состояния,
+    в котором модель оказалась по ходу обучения, а с автономной развёртки из двух
+    заведомо разных стартов: шума (reach) и самой цели (hold). Без него «f1=0»
+    неотличимо от «дорастает, но не держится», а H-P1 (пул из цели) читается как
+    морфогенез, хотя это неподвижная точка.
+
+    Точка решения у двух прогонов разная и берётся из артефакта (decision_point):
+    у hold максимум траектории равен 1.0 по построению (старт = цель), поэтому
+    решать по нему значило бы измерять начальное состояние (NEG-21/NEG-23).
+    Длина развёртки — часть измерения, поэтому сводка идёт по горизонтам."""
+    if not probes:
+        return None
+    horizons = []
+    for probe in probes:
+        verdict = probe.get("verdict") or {}
+        runs = []
+        for rec in probe.get("runs", []):
+            dec = rec.get("decision") or {}
+            best = rec.get("best") or {}
+            last = rec.get("last") or {}
+            runs.append(
+                {
+                    "arm": rec.get("arm"),
+                    "steps_trained": rec.get("steps_trained"),
+                    "seed": rec.get("seed"),
+                    "probe": rec.get("probe"),
+                    "decision_point": rec.get("decision_point"),
+                    "start_f1_default": (rec.get("first") or {}).get("f1_default"),
+                    "best_f1": best.get("f1_gated_best"),
+                    "best_step": best.get("step"),
+                    "last_f1": last.get("f1_gated_best"),
+                    "decision_f1": dec.get("f1_gated_best"),
+                    "decision_precision": dec.get("gated_precision"),
+                    "decision_pred_fraction": dec.get("gated_pred_fraction"),
+                    "n_gated_thresholds": dec.get("n_gated_thresholds"),
+                    "alive_fraction_min": rec.get("alive_fraction_min"),
+                    "beyond_ceiling": rec.get("beyond_ceiling"),
+                }
+            )
+        horizons.append(
+            {
+                "rollout_steps": probe.get("rollout_steps"),
+                "device": probe.get("device"),
+                "criterion": verdict.get("threshold"),
+                "structureless_f1_ceiling": verdict.get("ceiling"),
+                "reachable_arms": verdict.get("reachable_arms"),
+                "holdable_arms": verdict.get("holdable_arms"),
+                "runs": runs,
+            }
+        )
+    horizons.sort(key=lambda h: h["rollout_steps"] or 0)
+    return {
+        "note": (
+            "reach = кольцо достигается из шума (решение по максимуму траектории), "
+            "hold = кольцо ещё есть через N шагов после старта из цели (решение по "
+            "последней точке). Пустой reach при непустом hold — неподвижная точка, "
+            "а не морфогенез (§14.2). gated_best — максимум по 60 квантильным порогам "
+            "и по точкам траектории, то есть оптимистично смещённая статистика; "
+            "поэтому рядом лежат precision и pred_fraction лучшей точки."
+        ),
+        "horizons": horizons,
+    }
+
+
+def _conclusions(runs, threshold, threshold_probe=None, density=None, journal_integrity=None, reach=None):
     """Выводы, собранные из измеренных чисел, а не из памяти о прошлом запуске.
 
     Текст прошлой версии был захардкожен и уже начал отставать от данных
@@ -1143,6 +1210,63 @@ def _conclusions(runs, threshold, threshold_probe=None, density=None, journal_in
                     else ""
                 )
             )
+    if reach and reach.get("horizons"):
+        parts = []
+        for h in reach["horizons"]:
+            parts.append(
+                f"{h['rollout_steps']} шагов: достижимо — "
+                + (", ".join(h["reachable_arms"]) if h["reachable_arms"] else "ни у кого")
+                + "; удерживается — "
+                + (", ".join(h["holdable_arms"]) if h["holdable_arms"] else "ни у кого")
+            )
+        lines.append(
+            "Зонд «достичь/удержать» (автономная развёртка без обучения, "
+            "wp4_reach_probe.py; по горизонтам — длина развёртки входит в измерение): "
+            + "; ".join(parts)
+            + "."
+        )
+        # Пересечение порога на reach — это максимум по траектории. Если конец
+        # развёртки ниже, структура не удерживается, и это надо сказать числом,
+        # иначе «достижимо» прочтут как «получилось».
+        transient = []
+        for h in reach["horizons"]:
+            for r in h["runs"]:
+                if r["probe"] == "reach" and r["beyond_ceiling"]:
+                    transient.append(
+                        f"{r['arm']} s{r['steps_trained']} на {h['rollout_steps']} шагах: "
+                        f"max {_fmt(r['best_f1'])} @{r['best_step']} -> конец "
+                        f"{_fmt(r['last_f1'])}"
+                    )
+        if transient:
+            lines.append(
+                "Пересечение порога на reach — всегда МАКСИМУМ траектории, а не состояние: "
+                + "; ".join(transient)
+                + ". Это значит «кольцо побывало собранным», а не «динамика его удерживает»."
+            )
+        # Прочность неподвижной точки у контроля, чей пул обучения стартует из
+        # цели: сколько от кольца остаётся к концу развёртки — и что из шума он
+        # при этом не растёт (иначе это был бы морфогенез, а не фиксированная точка).
+        hold_ctrl = []
+        reach_ctrl = []
+        for h in reach["horizons"]:
+            for r in h["runs"]:
+                if r["arm"] != "H-P1":
+                    continue
+                if r["probe"] == "hold":
+                    hold_ctrl.append(f"на {h['rollout_steps']} шагах {_fmt(r['decision_f1'])}")
+                elif r["beyond_ceiling"]:
+                    reach_ctrl.append(str(h["rollout_steps"]))
+        if hold_ctrl:
+            lines.append(
+                "Контроль H-P1 (пул обучения стартует из цели): удержание при старте из цели "
+                + ", ".join(hold_ctrl)
+                + (" — это прочность неподвижной точки, а не морфогенез: из шума он "
+                   "порог не пересекает ни на одном горизонте"
+                   if not reach_ctrl
+                   else " — а из шума порог пересекает на горизонтах "
+                        + ", ".join(reach_ctrl))
+                + "."
+            )
     return lines
 
 
@@ -1152,6 +1276,21 @@ def build_report():
     delta = _load("delta_profile.json")
     gate = _load("gate_layer1.json")
     thresh = _load("threshold_probe.json")
+    # Зонд «достичь/удержать» пишется по одному артефакту на горизонт развёртки;
+    # отсутствие любого из них — не ошибка (старые снимки), но если есть хоть
+    # один, он обязан попасть в отчёт: это единственное измерение, где f1
+    # снимается не с состояния по ходу обучения.
+    reach = _reach_digest(
+        [
+            payload
+            for payload in (
+                _load("wp4_reach_probe.json"),
+                _load("wp4_reach_probe_s1000.json"),
+                _load("wp4_reach_probe_s2000.json"),
+            )
+            if payload
+        ]
+    )
     journal_integrity = _journal_integrity()
     gate_endpoints = _gate_endpoints(gate)
 
@@ -1368,6 +1507,9 @@ def build_report():
         # Сканирование порога бинаризации: f1@0.5 против лучшего f1 по порогу.
         # Без него вывод «цель не выучена» неотличим от «выучена ниже порога».
         "threshold_probe": _threshold_digest(thresh),
+        # Достижимость против удержания: f1 по ходу обучения не различает эти
+        # два исхода, зонд различает (NEG-23).
+        "reach_probe": reach,
         # Пары start/finish (§13.3) — условие гейта WP4; считаем по фактическим
         # журналам, а не по памяти о том, что должны были писать.
         "journal_integrity": journal_integrity,
@@ -1376,7 +1518,7 @@ def build_report():
         "gate_wp4": gate_wp4,
         "verdict": verdicts,
         "conclusions": _conclusions(
-            runs, threshold, thresh, density, journal_integrity=journal_integrity
+            runs, threshold, thresh, density, journal_integrity=journal_integrity, reach=reach
         ),
     }
     unmet = [k for k, c in gate_wp4_checks.items() if not c["met"]]
