@@ -79,7 +79,17 @@ morphogenesis/reports/
 # (см. run_tests.py и morphogenesis/conftest.py).
 /memory/
 /outputs/
-/reports/
+# В корне reports/ — публичный лабораторный журнал (README, TEMPLATE и
+# датированные карточки экспериментов). Runtime-отчёты когнитивного контура
+# (report_NNNN.md, summary_latest.md, failures_log.md) по-прежнему не попадают
+# в git; при правильном запуске из morphogenesis/ они пишутся в
+# morphogenesis/reports/, который игнорируется выше.
+/reports/*
+!/reports/README.md
+!/reports/TEMPLATE.md
+!/reports/20[0-9][0-9]-[0-1][0-9]-[0-3][0-9]-*.md
+!/reports/figures/
+!/reports/figures/**
 /experiments/
 /checkpoints/
 *.tmp
