@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-10-20T19:11:09Z",
+  "generated_at": "2026-10-20T19:55:50Z",
   "root": "morphogenesis/checkpoints",
   "entries": [
     {
@@ -94,20 +94,22 @@
       "notes": ""
     },
     {
-      "family": "WP4_H-P1_s400_seed42",
+      "family": "WP4_H-P1_s2000_seed42",
       "experiment_id": "WP4",
       "arm": "H-P1",
       "seed": 42,
-      "steps": 400,
+      "steps": 2000,
       "kind": "final",
       "iteration": null,
-      "path": "morphogenesis/checkpoints/WP4_H-P1_s400_seed42/nca_final.pt",
+      "path": "morphogenesis/checkpoints/WP4_H-P1_s2000_seed42/nca_final.pt",
       "size_bytes": 539495742,
-      "mtime": "2026-10-19T15:56:02Z",
-      "sha256": null,
-      "hash_status": "not_required",
-      "canonical_for": [],
-      "notes": "канонический файл не требуется для E02b"
+      "mtime": "2026-10-20T19:52:55Z",
+      "sha256": "dc2c186ae1b0448c55621f354407fb5cb11a0b1038baa281fe5ca516a933bd0f",
+      "hash_status": "complete",
+      "canonical_for": [
+        "E02b_morphospace"
+      ],
+      "notes": ""
     },
     {
       "family": "WP4_R-11_s2000_seed42",
@@ -221,10 +223,8 @@
   "requirements": {
     "E02b_morphospace": {
       "required": 12,
-      "ready": 11,
-      "missing": [
-        "WP4_H-P1_s2000_seed42/nca_final.pt"
-      ],
+      "ready": 12,
+      "missing": [],
       "items": [
         {
           "family": "WP4_H-A0_s2000_seed42",
@@ -295,8 +295,8 @@
         {
           "family": "WP4_H-P1_s2000_seed42",
           "file": "nca_final.pt",
-          "ready": false,
-          "path": null
+          "ready": true,
+          "path": "morphogenesis/checkpoints/WP4_H-P1_s2000_seed42/nca_final.pt"
         }
       ]
     }

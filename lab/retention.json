@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-10-20T10:33:37Z",
+  "generated_at": "2026-10-20T19:55:12Z",
   "policy": "Локально хранятся только canonical final из lab/checkpoints.json (требования активной/следующей серии) и явно объявленный положительный контроль. Best-снапшоты при наличии final и неканонические final закрытых/замещённых плеч удаляются после фиксации метрик, per-run JSONL, манифеста и этой записи в git. Веса в GitHub не отправляются; canonical final удаляется только по решению владельца.",
-  "freed_bytes": 22658821164,
+  "freed_bytes": 24816804132,
   "files": [
     {
       "path": "morphogenesis/checkpoints/gate_layer1_s800_seed101/nca_best.pt",
@@ -339,13 +339,41 @@
       "size_bytes": 539495742,
       "mtime": "2026-10-19T19:58:09Z",
       "reason": "неканонический final закрытого/замещённого плеча; метрики, журнал и манифест в git"
+    },
+    {
+      "path": "morphogenesis/checkpoints/WP4_H-P1_s2000_seed42/nca_best.pt",
+      "family": "WP4_H-P1_s2000_seed42",
+      "kind": "best",
+      "size_bytes": 539495742,
+      "mtime": "2026-10-20T19:21:55Z",
+      "reason": "best-снапшот при наличии final; H-P1 s2000 финишировал"
+    },
+    {
+      "path": "morphogenesis/checkpoints/WP4_H-P1_s2000_seed42/nca_iter_1000.pt",
+      "family": "WP4_H-P1_s2000_seed42",
+      "kind": "iter_1000",
+      "size_bytes": 539495742,
+      "mtime": "2026-10-20T19:31:05Z",
+      "reason": "промежуточный снапшот; final сохранён"
+    },
+    {
+      "path": "morphogenesis/checkpoints/WP4_H-P1_s2000_seed42/nca_iter_2000.pt",
+      "family": "WP4_H-P1_s2000_seed42",
+      "kind": "iter_2000",
+      "size_bytes": 539495742,
+      "mtime": "2026-10-20T19:52:54Z",
+      "reason": "промежуточный снапшот; final сохранён"
+    },
+    {
+      "path": "morphogenesis/checkpoints/WP4_H-P1_s400_seed42/nca_final.pt",
+      "family": "WP4_H-P1_s400_seed42",
+      "kind": "final",
+      "size_bytes": 539495742,
+      "mtime": "2026-10-19T15:56:02Z",
+      "reason": "положительный контроль заменён каноническим H-P1 s2000; метрики и журнал в git"
     }
   ],
   "skipped": [
-    {
-      "path": "morphogenesis/checkpoints/WP4_H-P1_s400_seed42/nca_final.pt",
-      "reason": "единственный положительный контроль hold; оставлен до появления H-P1 s2000"
-    },
     {
       "path": "morphogenesis/checkpoints/E02_seed0_stress1/nca_best.pt",
       "reason": "исторический артефакт 2.2 МБ; места почти не занимает"
@@ -357,6 +385,7 @@
     "morphogenesis/checkpoints/WP4_H-A0_s2000_seed303/nca_final.pt",
     "morphogenesis/checkpoints/WP4_H-A0_s2000_seed404/nca_final.pt",
     "morphogenesis/checkpoints/WP4_H-A0_s2000_seed42/nca_final.pt",
+    "morphogenesis/checkpoints/WP4_H-P1_s2000_seed42/nca_final.pt",
     "morphogenesis/checkpoints/WP4_R-11_s2000_seed42/nca_final.pt",
     "morphogenesis/checkpoints/WP4_R-9_s2000_seed101/nca_final.pt",
     "morphogenesis/checkpoints/WP4_R-9_s2000_seed202/nca_final.pt",
