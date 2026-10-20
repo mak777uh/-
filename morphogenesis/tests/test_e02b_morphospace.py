@@ -133,6 +133,7 @@ class TestClustering(unittest.TestCase):
                     "semantic": "structured",
                     "class_name": "struct_1",
                     "stability_last_quarter": 0.95,
+                    "final": {"alive_fraction": 0.30},
                 }
             )
         for _ in range(10):
@@ -145,12 +146,35 @@ class TestClustering(unittest.TestCase):
                     "semantic": "structured",
                     "class_name": "struct_1",
                     "stability_last_quarter": 1.0,
+                    "final": {"alive_fraction": 0.15},
                 }
             )
         h1 = e02b.evaluate_h1(runs, ["WP4_R-9_s2000_seed42", "WP4_H-P1_s2000_seed42"])
         self.assertEqual(h1["evaluated_runs"], 64)
         self.assertTrue(h1["supported"])
         self.assertFalse(h1["refuted"])
+
+    def test_h1_rejects_class_outside_alive_range(self):
+        # Пункт (б) протокола: 0.05–0.80. Структурный, воспроизводимый и
+        # устойчивый класс на 90% живых клеток не является «жизнью» по H1.
+        runs = [
+            {
+                "family": "WP4_R-9_s2000_seed42",
+                "arm": "R-9",
+                "is_control": False,
+                "cluster": 1,
+                "semantic": "structured",
+                "class_name": "struct_1",
+                "stability_last_quarter": 0.95,
+                "final": {"alive_fraction": 0.90},
+            }
+            for _ in range(64)
+        ]
+        h1 = e02b.evaluate_h1(runs, ["WP4_R-9_s2000_seed42"])
+        self.assertEqual(h1["evaluated_runs"], 64)
+        self.assertFalse(h1["supported"])
+        self.assertEqual(h1["candidates"], [])
+        self.assertFalse(h1["refuted"])  # не смерть и не <50% воспроизводимости
 
     def test_outcome_ignores_controls(self):
         runs = []

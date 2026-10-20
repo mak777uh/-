@@ -999,8 +999,13 @@ def evaluate_h1(runs: Sequence[dict], families: Sequence[str]) -> dict:
                 continue
             frac = len(members) / len(group)
             stable = sum(1 for r in members if r["stability_last_quarter"] >= 0.8) / len(members)
+            # Пункт (б) протокола: класс должен жить в диапазоне 0.05–0.80.
+            # Проверяем медиану по членам: это свойство класса, а не выброса.
+            alive_median = float(
+                np.median([float(r.get("final", {}).get("alive_fraction", 0.0)) for r in members])
+            )
             struct_max[family] = max(struct_max.get(family, 0.0), frac)
-            if frac >= 0.8 and stable >= 0.8:
+            if frac >= 0.8 and stable >= 0.8 and 0.05 <= alive_median <= 0.80:
                 candidates.append(
                     {
                         "family": family,
@@ -1008,6 +1013,7 @@ def evaluate_h1(runs: Sequence[dict], families: Sequence[str]) -> dict:
                         "class_name": members[0]["class_name"],
                         "fraction_of_starts": float(frac),
                         "stable_fraction": float(stable),
+                        "alive_fraction_median": alive_median,
                         "n_starts": len(members),
                     }
                 )
