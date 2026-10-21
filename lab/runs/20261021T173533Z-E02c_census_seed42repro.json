@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "run_id": "20261021T173533Z-E02c_census_seed42repro",
+  "experiment": "E02c_census_seed42repro",
+  "experiment_id": "E02c",
+  "arm": "R-9",
+  "seed": 42,
+  "steps": 2000,
+  "status": "finished",
+  "provenance": "runner",
+  "source": "morphogenesis/logs/journal.jsonl",
+  "started_at": "2026-10-21T17:35:33Z",
+  "finished_at": "2026-10-21T17:56:39Z",
+  "git_commit": "d5e441d",
+  "git_dirty": true,
+  "command": [
+    ".\\.venv\\Scripts\\python.exe",
+    "e02c_census.py",
+    "--families",
+    "E02c_R-9_s2000_seed42",
+    "--out",
+    "experiments/E02c_replication/census_e02c_seed42repro.json",
+    "--summary-out",
+    "experiments/E02c_replication/summary_e02c_seed42repro.json"
+  ],
+  "cwd": "morphogenesis",
+  "owner": "lead",
+  "environment": {
+    "python": "3.13.11",
+    "platform": "Windows-11-10.0.26300-SP0",
+    "torch": "2.6.0+cu124",
+    "numpy": "2.5.4",
+    "device": "NVIDIA GeForce RTX 3070 Laptop GPU, 595.79"
+  },
+  "checkpoint_in": {
+    "path": "morphogenesis/checkpoints/E02c_R-9_s2000_seed42/nca_final.pt",
+    "sha256": null
+  },
+  "outputs": {
+    "declared": [
+      "morphogenesis/experiments/E02c_replication/census_e02c_seed42repro.json"
+    ],
+    "log": "morphogenesis/logs/20261021T173533Z-E02c_census_seed42repro.log"
+  },
+  "metrics": {},
+  "stop_reason": "exit_0",
+  "exit_code": 0,
+  "log_path": "morphogenesis/logs/20261021T173533Z-E02c_census_seed42repro.log",
+  "notes": "перепись повтора seed42: repro + положительный контроль + untrained, отдельные артефакты"
+}

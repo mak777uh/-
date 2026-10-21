@@ -1,17 +1,17 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-21T17:20:00Z",
+  "updated_at": "2026-10-21T18:03:28Z",
   "note": "Очередь пунктов после E02c. Claim берётся до пре-регистрации, а не перед запуском: lab.py item-claim. Статус running означает занятый GPU-лейн и может быть только у одного пункта.",
   "items": [
     {
       "id": "E02c_seed42_repro",
       "title": "Повтор обучения seed42 замороженным кодом: воспроизводится ли struct_2",
       "hypothesis": null,
-      "status": "running",
+      "status": "closed",
       "owner": "lead",
       "claimed_at": "2026-10-21T16:59:40Z",
-      "heartbeat_at": "2026-10-21T17:20:00Z",
-      "closed_at": null,
+      "heartbeat_at": null,
+      "closed_at": "2026-10-21T18:03:28Z",
       "ttl_minutes": 240,
       "cost_gpu_h": 0.7,
       "gated_by": null,
@@ -19,7 +19,8 @@
         "reports/2026-10-21-e02c-seed42-repro-plan.md",
         "lab/runs/20261021T165940Z-E02c_R-9_s2000_seed42.json"
       ],
-      "note": "Прогон идёт; после финиша — перепись семейства E02c_R-9_s2000_seed42. Результат закрывает владелец прогона."
+      "note": "reproduced: веса побитово равны каноническому прогону, struct_2 64/64, устойчивость 58/64; класс воспроизводится из сида, но не из рецепта",
+      "closed_by": "lead"
     },
     {
       "id": "E02c_seed_decomposition",
