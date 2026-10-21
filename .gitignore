@@ -130,6 +130,12 @@ coverage.xml
 # целиком, поэтому в git эти файлы не нужны.
 morphogenesis/experiments/E02b_morphospace/*_rows.jsonl
 
+# Portable inference-пакет E02b (scripts/export_portable.py): собирается
+# локально, содержит lite-веса (.pt) и 15-МБ census. В git едут только скрипты
+# сборки/проверки и kaggle/-ассеты; паттерн `dist/` выше уже покрывает каталог,
+# явное правило — чтобы сборка не попала в индекс при правке секции Python.
+/dist/
+
 # IDE / OS
 .idea/
 .vscode/

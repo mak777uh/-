@@ -1,0 +1,11 @@
+{
+  "title": "Morphogenesis E02b portable inference package",
+  "id": "mak777uh/morphogenesis-e02b-portable",
+  "licenses": [
+    {
+      "name": "MIT"
+    }
+  ],
+  "subtitle": "Lite NCA checkpoints, canonical E02b census and verifier (no training weights)",
+  "description": "Portable inference package for the closed E02b morphospace census of Project Morphogenesis. Contains 12 lite NCA checkpoints (model_state_dict + scalars + metadata, ~0.15 MB each instead of 514.5 MB full files with the training state pool), the canonical census.json (832 rollouts), frozen class centroids, the exact inference sources, and verify_portable.py. Smoke mode reproduces 2 learned models plus the untrained architecture over 16 seeds x 2000 steps and compares classes against the census. No training, no gradient, no new scientific claims: the package reproduces an already closed result. struct_1 is an architectural confound, struct_2 is the learned candidate; results do not imply life, consciousness or intelligence. Full sha256 of the original checkpoints is recorded in portable_manifest.json. License MIT, see LICENSE."
+}
