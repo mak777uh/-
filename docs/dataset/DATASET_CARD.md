@@ -182,9 +182,14 @@ Read these as part of the data, not as a disclaimer at the end.
    depends on the non-canonical prototype, is not.
 10. **`census.json` carries the author's absolute Windows checkpoint paths** (12 in
     `checkpoints[].path`, 12 in `timings[].path`, one `perturbations_path`). The verifier
-    does not read them and they contain no credentials, but a public release should
-    sanitize them and record both the canonical and packaged hashes. The current Kaggle
-    dataset is private/draft.
+    does not read them and they contain no credentials. **Resolved at export time
+    (2026-10-21):** the canonical file is not rewritten; `scripts/export_portable.py`
+    rewrites only path strings inside the repository to relative form (25 strings) and
+    fails the build if any absolute path outside the repository remains. Numbers, class
+    labels and descriptor vectors are untouched. `portable_manifest.json` records both
+    hashes — `datasets.census.sha256` (packaged, sanitized) and
+    `datasets.census.source_sha256` (canonical, `e81678b6…`) — plus
+    `sanitized.absolute_paths_rewritten`. The Kaggle dataset remains private/draft.
 11. **Protocol deviations are part of the record.** Amputation zeroes all 16 channels
     rather than only `alive` and `visible` (stronger than the protocol, making H3
     conservative). The protocol's patch-transplant test was degenerate (bounding box of
