@@ -52,7 +52,7 @@ Each final state gets 18 features: alive fraction, binary and bright density, me
 
 ### 3.5. Perturbations
 
-For each structural class three prototypes were chosen by distance to the centroid. Six perturbations × five repeats gave 180 rollouts: 10% and 20% amputation, noise σ = 0.1, a cut of half the field, a patch transplant into a dead field, and a dead-field control. Runs lasted 500 steps with snapshots every 25; recovery means the final state is assigned to the prototype's class again ([E02b results](../reports/2026-10-20-e02b-results.md), "Возмущения"). Two deviations are recorded, not hidden: amputation zeroes all 16 channels (stronger than the literal protocol), and the protocol transplant was degenerate (bounding box = whole field), so the growth claim rests on exploratory patches (§4.3).
+For each structural class three prototypes were chosen by distance to the centroid. Three prototypes per class × six perturbations × five repeats gave 180 rollouts: 10% and 20% amputation, noise σ = 0.1, a cut of half the field, a patch transplant into a dead field, and a dead-field control. Runs lasted 500 steps with snapshots every 25; recovery means the final state is assigned to the prototype's class again ([E02b results](../reports/2026-10-20-e02b-results.md), "Возмущения"). Two deviations are recorded, not hidden: amputation zeroes all 16 channels (stronger than the literal protocol), and the protocol transplant was degenerate (bounding box = whole field), so the growth claim rests on exploratory patches (§4.3).
 
 ### 3.6. Determinism and compute
 
@@ -104,7 +104,7 @@ Four follow-up probes were run after the census with rules written before each r
 
 ### 4.5. Replication (E02c) — pending
 
-E02c is the publication gate for the central claim. Its protocol is frozen ([E02c plan draft](../reports/2026-10-21-e02c-replication-plan-draft.md), [registry](../lab/registry.json)), but **no results are reported in this draft**. Until it closes, the manuscript cannot distinguish a property of the R-9 recipe from a lucky training seed, and §5.2 remains open.
+E02c is the publication gate for the central claim. Its protocol is frozen ([E02c plan](../reports/2026-10-21-e02c-plan.md), [registry](../lab/registry.json)) and the replication is running; **no results are reported in this draft**. Until it closes, the manuscript cannot distinguish a property of the R-9 recipe from a lucky training seed, and §5.2 remains open.
 
 <!-- TODO: replace this placeholder with E02c numbers, table and verdict after the experiment closes; do not pre-fill estimates. -->
 
@@ -120,13 +120,23 @@ Three of five R-9 models (seeds 202, 303, 404) have exactly one live attractor, 
 
 ### 5.3. Measurement traps
 
-1. **Class is not identity.** Recovery is measured by 18 descriptors; IoU 0.15–0.47 shows the global pattern is not restored. High class recovery can coexist with no memory. 2. **A single maximum is not retention.** Reach and hold use different decision points; hold from the target is 1.0 by construction, and `met = true` means fields exist, not that the hypothesis succeeded ([article 004](../articles/004-lovushki-izmereniya-v-nca.md)). 3. **The instrument can be the bug.** The non-canonical stress-EMA prototype produced plausible but incomparable IoU values; only a provenance audit and a reproducibility check exposed it. Corrupted artefacts are kept, not deleted.
+1. **Class is not identity.** Recovery is measured by 18 descriptors; IoU 0.15–0.47 shows the global pattern is not restored. High class recovery can coexist with no memory.
+2. **A single maximum is not retention.** Reach and hold use different decision points; hold from the target is 1.0 by construction, and `met = true` means fields exist, not that the hypothesis succeeded ([article 004](../articles/004-lovushki-izmereniya-v-nca.md)).
+3. **The instrument can be the bug.** The non-canonical stress-EMA prototype produced plausible but incomparable IoU values; only a provenance audit and a reproducibility check exposed it. Corrupted artefacts are kept, not deleted.
 
 <!-- TODO: explain how a reader reproduces class assignment from census.json and frozen centroids. -->
 
 ## 6. Limitations
 
-- **One training seed for `struct_2`** (R-9 seed42): the census cannot separate "property of the recipe" from "lucky seed". This is the central open question and the E02c gate. - **`struct_1` is an architectural confound**: untrained reaches it 64/64 and repairs 45/45; H-P1 reaches it in 29/64. - **H4 was never run**: whether the rule variant matters more than the seed has no data. - **One architecture**: 64×64×16, fixed channels, one loss family; no claim about NCA in general. - **Exploratory probes are small**: one prototype per model, 12 repeats, 2000 steps; the channel-memory prototype is non-canonical, and the untrained network is bit-identical across repeats, so its 12 repeats are not independent samples. - **Determinism is local**: §9.2 was enforced on one CUDA device; cross-hardware reproducibility was not tested. - **Taxonomy is descriptive**: k = 5 in 52/100 bootstraps, the `death`/`uniform_dark` boundary is least stable, though `struct_2` survives k = 3–8, jackknife and 10% feature noise. - **Journal gap**: four exploratory runs of 2026-10-21 have manifests and stdout but no start/finish pair in the canonical journal; recorded, not backfilled. - **No independent reproduction yet** — required by the publication gate.
+- **One training seed for `struct_2`** (R-9 seed42): the census cannot separate "property of the recipe" from "lucky seed". This is the central open question and the E02c gate.
+- **`struct_1` is an architectural confound**: untrained reaches it 64/64 and repairs 45/45; H-P1 reaches it in 29/64.
+- **H4 was never run**: whether the rule variant matters more than the seed has no data.
+- **One architecture**: 64×64×16, fixed channels, one loss family; no claim about NCA in general.
+- **Exploratory probes are small**: one prototype per model, 12 repeats, 2000 steps; the channel-memory prototype is non-canonical, and the untrained network is bit-identical across repeats, so its 12 repeats are not independent samples.
+- **Determinism is local**: §9.2 was enforced on one CUDA device; cross-hardware reproducibility was not tested.
+- **Taxonomy is descriptive**: k = 5 in 52/100 bootstraps, the `death`/`uniform_dark` boundary is least stable, though `struct_2` survives k = 3–8, jackknife and 10% feature noise.
+- **Journal gap**: five exploratory runs of 2026-10-21 (channel memory, body integrity, transient analysis, geometry of form, H-AB-1 lesion repeat) have manifests and stdout but no start/finish pair in the canonical journal; recorded, not backfilled.
+- **No independent reproduction yet** — required by the publication gate.
 
 <!-- TODO: add a data-availability statement linking census.json, perturbations.json and archived manifests. -->
 
@@ -138,7 +148,10 @@ A frozen NCA trained on a ring does not hold the ring, but one of twelve checkpo
 
 <!-- TODO: replace every placeholder with a verified record (authors, year, title, venue, DOI or stable URL) from library/publications/README.md; do not invent DOIs. -->
 
-- **[Placeholder — NCA]** Mordvintsev et al., *Growing Neural Cellular Automata* (2020). Record and notes: [`library/hypotheses/nca-lineage.md`](../library/hypotheses/nca-lineage.md). - **[Placeholder — Levin]** M. Levin, work on agential materials and morphological memory. Records: [`library/levin/README.md`](../library/levin/README.md). - **[Placeholder — measurement]** Laboratory note on measurement traps in NCA: [article 004](../articles/004-lovushki-izmereniya-v-nca.md). - **Primary sources index:** [`library/publications/README.md`](../library/publications/README.md) (source → hypothesis → experiment, status per row).
+- **[Placeholder — NCA]** Mordvintsev et al., *Growing Neural Cellular Automata* (2020). Record and notes: [`library/hypotheses/nca-lineage.md`](../library/hypotheses/nca-lineage.md).
+- **[Placeholder — Levin]** M. Levin, work on agential materials and morphological memory. Records: [`library/levin/README.md`](../library/levin/README.md).
+- **[Placeholder — measurement]** Laboratory note on measurement traps in NCA: [article 004](../articles/004-lovushki-izmereniya-v-nca.md).
+- **Primary sources index:** [`library/publications/README.md`](../library/publications/README.md) (source → hypothesis → experiment, status per row).
 
 ---
 
