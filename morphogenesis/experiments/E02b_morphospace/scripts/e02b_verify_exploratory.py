@@ -915,6 +915,152 @@ if generic_art:
     else:
         warn(False, "generic: нет census.json для независимого пересчёта")
 
+# ------------------------------------------ геометрия формы: независимый пересчёт
+geom_art = load("geometry_of_form_exploratory.json")
+if geom_art:
+    import numpy as _np
+
+    census_path = EXP / "census.json"
+    if census_path.exists():
+        census = json.load(open(census_path, encoding="utf-8"))
+        gruns = census["runs"]
+
+        def _gvals(rows, axis):
+            return _np.asarray(
+                [float(r["final"].get(axis, 0.0)) for r in rows], dtype=_np.float64
+            )
+
+        def _gprof(rows):
+            return _np.asarray(
+                [r["final"].get("radial_profile") or [] for r in rows], dtype=_np.float64
+            )
+
+        def _separated(a, b):
+            if a.size == 0 or b.size == 0:
+                return False
+            return bool(a.max() < b.min() or b.max() < a.min())
+
+        def _verdict(n):
+            if n >= 3:
+                return "geometrically_distinct"
+            if n >= 1:
+                return "partially_distinct"
+            return "not_distinct"
+
+        _untrained = "untrained_current_arch"
+        _gdefs = {
+            "struct_2": [r for r in gruns if r["class_name"] == "struct_2"],
+            "struct_1": [r for r in gruns if r["class_name"] == "struct_1"],
+            "uniform_dark": [r for r in gruns if r["class_name"] == "uniform_dark"],
+            "struct_1_untrained": [
+                r
+                for r in gruns
+                if r["class_name"] == "struct_1" and r["family"] == _untrained
+            ],
+            "struct_1_learned": [
+                r
+                for r in gruns
+                if r["class_name"] == "struct_1" and not r.get("is_control")
+            ],
+        }
+        _gcontrasts = {
+            "C1_struct2_vs_struct1": ("struct_2", "struct_1"),
+            "C2_struct2_vs_uniform_dark": ("struct_2", "uniform_dark"),
+            "C3_struct1_untrained_vs_learned": (
+                "struct_1_untrained",
+                "struct_1_learned",
+            ),
+            "C4_struct2_vs_struct1_untrained": ("struct_2", "struct_1_untrained"),
+        }
+        _axes_a = geom_art["rules"]["axes_A"]
+        _axes_b = geom_art["rules"]["axes_B"]
+        _axes_strict = geom_art["rules"]["axes_A_strict"]
+        for _cname, (_ga, _gb) in _gcontrasts.items():
+            _ca = geom_art["contrasts"][_cname]
+            _ra, _rb = _gdefs[_ga], _gdefs[_gb]
+            check(
+                _ca["n_a"] == len(_ra) and _ca["n_b"] == len(_rb),
+                f"геометрия {_cname}: размеры групп сходятся",
+            )
+            _sep_a = []
+            for _ax in _axes_a:
+                if _separated(_gvals(_ra, _ax), _gvals(_rb, _ax)):
+                    _sep_a.append(_ax)
+            _sep_b = []
+            for _ax in _axes_b:
+                if _separated(_gvals(_ra, _ax), _gvals(_rb, _ax)):
+                    _sep_b.append(_ax)
+            _pa, _pb = _gprof(_ra), _gprof(_rb)
+            if _pa.size and _pb.size:
+                _ma, _mb = _pa.mean(axis=0), _pb.mean(axis=0)
+                _ok = bool(
+                    (
+                        0.5 * _np.abs(_pa - _ma).sum(axis=1)
+                        < 0.5 * _np.abs(_pa - _mb).sum(axis=1)
+                    ).all()
+                    and (
+                        0.5 * _np.abs(_pb - _mb).sum(axis=1)
+                        < 0.5 * _np.abs(_pb - _ma).sum(axis=1)
+                    ).all()
+                )
+            else:
+                _ok = False
+            if _ok:
+                _sep_b.append("radial_profile")
+            check(
+                sorted(_ca["separated_A"]) == sorted(_sep_a),
+                f"геометрия {_cname}: разделённые оси уровня A сходятся "
+                f"({len(_sep_a)})",
+            )
+            check(
+                sorted(_ca["separated_B"]) == sorted(_sep_b),
+                f"геометрия {_cname}: разделённые оси уровня B сходятся "
+                f"({len(_sep_b)})",
+            )
+            check(
+                _ca["verdict_A"] == _verdict(len(_sep_a)),
+                f"геометрия {_cname}: вердикт A = {_verdict(len(_sep_a))}",
+            )
+            _sep_strict = [
+                _ax for _ax in _axes_strict if _ax in set(_sep_a) | set(_sep_b)
+            ]
+            check(
+                _ca["n_separated_A_strict"] == len(_sep_strict),
+                f"геометрия {_cname}: строгий набор разделён ({len(_sep_strict)})",
+            )
+            check(
+                _ca["verdict_A_strict"] == _verdict(len(_sep_strict)),
+                f"геометрия {_cname}: строгий вердикт = {_verdict(len(_sep_strict))}",
+            )
+        # Ключевые содержательные утверждения, которые должны быть верны.
+        _c4 = geom_art["contrasts"]["C4_struct2_vs_struct1_untrained"]
+        _c3 = geom_art["contrasts"]["C3_struct1_untrained_vs_learned"]
+        check(
+            _c4["verdict_A_strict"] == "geometrically_distinct",
+            "геометрия: struct_2 геометрически отличен от struct_1 необученной сети",
+        )
+        check(
+            _c3["verdict_A_strict"] == "not_distinct",
+            "геометрия: struct_1 выученных и необученной сетей геометрически совпадают",
+        )
+        _gp = geom_art["group_profiles"]
+        check(
+            _gp["struct_2"]["median_alive_b0"] == 1,
+            "геометрия: struct_2 — одно связное тело (alive_b0 = 1)",
+        )
+        check(
+            _gp["struct_1"]["median_alive_b0"] > 10,
+            f"геометрия: struct_1 — россыпь "
+            f"(alive_b0 = {_gp['struct_1']['median_alive_b0']:.0f})",
+        )
+        check(
+            _gp["struct_2"]["median_outer_occupancy"]
+            > _gp["struct_1"]["median_outer_occupancy"],
+            "геометрия: у struct_2 масса плотнее у края, чем у struct_1",
+        )
+    else:
+        warn(False, "геометрия: нет census.json для независимого пересчёта")
+
 print("\n=== СВОДКА ===")
 print("errors", len(errors), "warnings", len(warnings))
 for e in errors:

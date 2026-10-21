@@ -125,6 +125,11 @@ coverage.xml
 .pytest_cache/
 .hypothesis/
 
+# Рабочие построчные файлы ночных повторов E02b: построчная запись нужна для
+# устойчивости к обрыву длинного прогона, но итоговый JSON содержит все строки
+# целиком, поэтому в git эти файлы не нужны.
+morphogenesis/experiments/E02b_morphospace/*_rows.jsonl
+
 # IDE / OS
 .idea/
 .vscode/
