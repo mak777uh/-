@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-21T13:40:00Z",
+  "updated_at": "2026-10-21T14:58:00Z",
   "program": {
     "name": "Morphogenesis",
     "phase": "E02b закрыт: rich_map; H3, H-CH-1, H-BI-1 опровергнуты",
@@ -53,12 +53,30 @@
         "output": "отчёт, новая версия статьи и список следующих гипотез"
       },
       {
+        "stage": "readme",
+        "title": "Обновление README",
+        "where": "README.md",
+        "output": "строка журнала экспериментов: id, статус, вердикт, ссылки"
+      },
+      {
+        "stage": "manuscript",
+        "title": "Вклад в рукопись",
+        "where": "manuscript/",
+        "output": "кусочек paper.md + запись в CHANGELOG.md + строка карты в manuscript/README.md"
+      },
+      {
         "stage": "sources_next",
         "title": "Работа с источниками → новая гипотеза",
         "where": "library/, lab/registry.json",
         "output": "новый виток цикла: источники, гипотеза, проверка"
       }
     ],
+    "publication": {
+      "target": "накопительная рукопись manuscript/paper.md (working paper, издание не выбрано)",
+      "manuscript": "manuscript/README.md",
+      "status": "draft",
+      "gate": "Подача только после закрытия E02c и независимого воспроизведения, по решению владельца; формулировки «жизнь», «сознание», «интеллект» запрещены"
+    },
     "next_hypotheses": [
       {
         "id": "H-E02C-1",
@@ -390,7 +408,7 @@
       "id": "E02c_replication",
       "title": "Репликация тренировочных сидов R-9",
       "kind": "experiment",
-      "status": "planned",
+      "status": "running",
       "outcome": null,
       "plan": "reports/2026-10-21-e02c-plan.md",
       "report": null,
@@ -517,6 +535,7 @@
     "agent_contract": "AGENTS.md",
     "reports": "reports/README.md",
     "articles": "articles/README.md",
+    "manuscript": "manuscript/README.md",
     "library": "library/README.md",
     "spec": "docs/spec/MORPHOGENESIS_v5.6_Rev11.md"
   }

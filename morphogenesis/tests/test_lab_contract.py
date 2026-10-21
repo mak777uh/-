@@ -1,8 +1,9 @@
-"""Контракт машинного контура lab/: реестр, дескриптор, журнал, гигиена git.
+"""Контракт машинного контура lab/: реестр, дескриптор, журнал, README, рукопись.
 
 Эти тесты не запускают обучение и не читают веса: они проверяют, что агент,
-пришедший в репозиторий, получает согласованные метаданные и не наступит на
-отслеживаемые артефакты.
+пришедший в репозиторий, получает согласованные метаданные, что журнал в README
+и карта рукописи не расходятся с реестром, и что он не наступит на отслеживаемые
+артефакты.
 """
 
 from __future__ import annotations
@@ -99,7 +100,7 @@ def test_registry_and_descriptor_are_consistent() -> None:
 def test_scientific_loop_is_declared_and_enforced() -> None:
     """Научный цикл (AGENTS.md §3a) объявлен и проверяем машинно.
 
-    Шесть стадий, очередь гипотез лаборатории и правило «статья закрывается
+    Восемь стадий, очередь гипотез лаборатории и правило «статья закрывается
     следующими гипотезами» — всё это должно быть в реестре, иначе validate
     падает. Тест фиксирует контракт, чтобы правило не размылось.
     """
@@ -107,7 +108,16 @@ def test_scientific_loop_is_declared_and_enforced() -> None:
     program = registry["program"]
 
     stages = [item["stage"] for item in program["loop"]]
-    assert stages == ["sources", "review", "hypothesis", "test", "writeup", "sources_next"]
+    assert stages == [
+        "sources",
+        "review",
+        "hypothesis",
+        "test",
+        "writeup",
+        "readme",
+        "manuscript",
+        "sources_next",
+    ]
     for item in program["loop"]:
         assert item["title"] and item["where"] and item["output"]
 
@@ -125,6 +135,49 @@ def test_scientific_loop_is_declared_and_enforced() -> None:
             assert item.get("next_hypotheses"), (
                 f"{item['id']}: есть статья, но не записаны следующие гипотезы"
             )
+
+
+def test_readme_ledger_matches_registry() -> None:
+    """Журнал экспериментов в README.md покрывает registry (AGENTS.md §6a).
+
+    README — витрина и карта: одна строка на experiment_id, статус по-русски
+    совпадает с машинным статусом. Проверку делает сам lab.py, тест лишь
+    требует, чтобы она проходила на реальном README.
+    """
+    lab = load_lab_module()
+    registry = load_json(REGISTRY)
+    errors, count = lab.check_readme_ledger(registry)
+    assert not errors, "журнал README расходится с registry:\n" + "\n".join(errors)
+    experiments = registry["experiments"]
+    assert count == len(experiments), (
+        f"в журнале README {count} экспериментов, в registry {len(experiments)}"
+    )
+
+
+def test_manuscript_map_covers_closed_experiments() -> None:
+    """Карта рукописи покрывает закрытые эксперименты со статьёй (AGENTS.md §6a).
+
+    Закрытый результат без места в manuscript/ — незакрытый результат; id в
+    карте обязаны существовать в registry, а статус вклада быть одним из
+    внесено / частично / ожидает.
+    """
+    lab = load_lab_module()
+    registry = load_json(REGISTRY)
+    errors, count = lab.check_manuscript_map(registry)
+    assert not errors, "карта рукописи расходится с registry:\n" + "\n".join(errors)
+
+    required = {
+        item["id"]
+        for item in registry["experiments"]
+        if item.get("status") == "closed" and item.get("article")
+    }
+    assert required == {"E02_pattern", "WP4_R9", "E02b_morphospace"}
+    assert count >= len(required), f"в карте рукописи {count} записей, нужно минимум {len(required)}"
+
+    map_text = (ROOT / "manuscript" / "README.md").read_text(encoding="utf-8")
+    map_block = map_text.split("<!-- map:start -->")[1].split("<!-- map:end -->")[0]
+    for exp_id in sorted(required):
+        assert exp_id in map_block, f"{exp_id} не попал в карту рукописи"
 
 
 def test_journal_finish_status_mapping() -> None:

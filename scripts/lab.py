@@ -48,7 +48,34 @@ CHECKPOINT_DIR = MORPH / "checkpoints"
 STATUSES = {"planned", "running", "closed", "blocked", "not_run"}
 KINDS = {"experiment", "diagnostic", "gate", "series"}
 HYPOTHESIS_STATUSES = {"planned", "running", "confirmed", "rejected", "blocked"}
-LOOP_STAGES = ("sources", "review", "hypothesis", "test", "writeup", "sources_next")
+LOOP_STAGES = (
+    "sources",
+    "review",
+    "hypothesis",
+    "test",
+    "writeup",
+    "readme",
+    "manuscript",
+    "sources_next",
+)
+# Русские метки статусов в журнале экспериментов README.md: статус в registry
+# должен читаться человеком тем же словом, что и в журнале.
+STATUS_LABELS = {
+    "closed": "закрыто",
+    "running": "идёт",
+    "planned": "план",
+    "blocked": "заблокировано",
+    "not_run": "не запускался",
+}
+README_LEDGER_START = "<!-- ledger:start -->"
+README_LEDGER_END = "<!-- ledger:end -->"
+MANUSCRIPT_MAP_START = "<!-- map:start -->"
+MANUSCRIPT_MAP_END = "<!-- map:end -->"
+MANUSCRIPT_CONTRIBUTION_STATUSES = {"внесено", "частично", "ожидает"}
+README_FILE = ROOT / "README.md"
+MANUSCRIPT_DIR = ROOT / "manuscript"
+MANUSCRIPT_README = MANUSCRIPT_DIR / "README.md"
+MANUSCRIPT_REQUIRED_FILES = ("README.md", "paper.md", "CHANGELOG.md", "CLAIMS.md")
 RUN_STATUSES = {"claimed", "running", "finished", "failed", "aborted", "superseded"}
 EVENTS = {"start", "finish", "error", "checkpoint", "run_start", "run_finish"}
 LEVELS = {"debug", "info", "warn", "warning", "error"}
@@ -926,7 +953,7 @@ def _check_hypotheses(items: Any, where: str) -> list[str]:
 
 
 def _check_loop(program: dict[str, Any]) -> list[str]:
-    """Проверить, что научный цикл описан: шесть стадий и очередь гипотез."""
+    """Проверить, что научный цикл описан: восемь стадий и очередь гипотез."""
     errors: list[str] = []
     loop = program.get("loop")
     if not isinstance(loop, list) or not loop:
@@ -950,8 +977,262 @@ def _check_loop(program: dict[str, Any]) -> list[str]:
         errors.append(
             "registry.program.loop: нет обязательных стадий цикла: " + ", ".join(missing)
         )
+    ordered = [stage for stage in stages if stage in LOOP_STAGES]
+    if not missing and ordered != list(LOOP_STAGES):
+        errors.append(
+            "registry.program.loop: стадии идут не в том порядке; ожидается "
+            + " → ".join(LOOP_STAGES)
+        )
     errors.extend(_check_hypotheses(program.get("next_hypotheses"), "registry.program.next_hypotheses"))
     return errors
+
+
+def _clean_cell(value: str) -> str:
+    """Снять markdown-обёртку (`code`, *курсив*) с ячейки таблицы."""
+    return value.strip().strip("`*_").strip()
+
+
+def _split_md_row(line: str) -> list[str]:
+    """Разбить строку markdown-таблицы на ячейки."""
+    stripped = line.strip()
+    if stripped.startswith("|"):
+        stripped = stripped[1:]
+    if stripped.endswith("|"):
+        stripped = stripped[:-1]
+    return [cell.strip() for cell in stripped.split("|")]
+
+
+def _is_md_separator(cells: list[str]) -> bool:
+    """Строка-разделитель markdown-таблицы: | --- | :---: | ... |."""
+    if not cells:
+        return False
+    return all(re.fullmatch(r":?-{3,}:?", cell.replace(" ", "")) for cell in cells)
+
+
+def _plural_raz(count: int) -> str:
+    """Русская форма слова «раз» для числа вхождений."""
+    if count % 10 == 1 and count % 100 != 11:
+        return "раз"
+    if count % 10 in (2, 3, 4) and count % 100 not in (12, 13, 14):
+        return "раза"
+    return "раз"
+
+
+def _extract_marked_block(
+    text: str, start: str, end: str, where: str
+) -> tuple[str | None, list[str]]:
+    """Вырезать блок между маркерами, требуя ровно по одному вхождению каждого."""
+    errors: list[str] = []
+    for marker in (start, end):
+        found = text.count(marker)
+        if found == 0:
+            errors.append(f"{where}: нет маркера {marker}")
+        elif found > 1:
+            errors.append(
+                f"{where}: маркер {marker} встречается {found} {_plural_raz(found)}, "
+                "нужен ровно один"
+            )
+    if errors:
+        return None, errors
+    begin = text.index(start) + len(start)
+    stop = text.index(end)
+    if stop < begin:
+        errors.append(f"{where}: маркер {end} стоит раньше {start}")
+        return None, errors
+    return text[begin:stop], errors
+
+
+def _parse_md_table(
+    block: str, where: str, min_columns: int = 2
+) -> tuple[list[list[str]], list[str]]:
+    """Разобрать первую markdown-таблицу в блоке; вернуть строки данных и ошибки."""
+    errors: list[str] = []
+    lines = [line.strip() for line in block.splitlines() if line.strip()]
+    if not lines:
+        return [], [f"{where}: таблица между маркерами пуста"]
+    table = [line for line in lines if line.startswith("|")]
+    if not table:
+        return [], [f"{where}: между маркерами нет markdown-таблицы"]
+    if len(table) < 2:
+        return [], [
+            f"{where}: таблица из одной строки — нет заголовка и разделителя | --- |"
+        ]
+    header = _split_md_row(table[0])
+    if len(header) < min_columns:
+        return [], [
+            f"{where}: в заголовке {len(header)} колонок, нужно минимум {min_columns}"
+        ]
+    if not _is_md_separator(_split_md_row(table[1])):
+        return [], [f"{where}: вторая строка таблицы не разделитель | --- |"]
+    rows: list[list[str]] = []
+    for line in table[2:]:
+        cells = _split_md_row(line)
+        if not cells or all(not cell for cell in cells):
+            continue
+        rows.append(cells)
+    if not rows:
+        return [], [f"{where}: таблица без строк с данными"]
+    return rows, errors
+
+
+def _registry_experiments(registry: dict[str, Any]) -> list[dict[str, Any]]:
+    items = registry.get("experiments")
+    if not isinstance(items, list):
+        return []
+    return [item for item in items if isinstance(item, dict)]
+
+
+def check_readme_ledger(registry: dict[str, Any]) -> tuple[list[str], int]:
+    """Проверить журнал экспериментов в README.md против registry.
+
+    Журнал — таблица между маркерами `<!-- ledger:start -->` / `<!-- ledger:end -->`.
+    Первая ячейка — один или несколько id через запятую, вторая — русская метка
+    статуса. Все эксперименты registry должны встречаться ровно один раз, а метка
+    обязана совпадать с машинным статусом.
+
+    Возвращает (ошибки, число покрытых экспериментов).
+    """
+    where = rel(README_FILE)
+    if not README_FILE.exists():
+        return [
+            f"нет {where}: в нём должен быть журнал экспериментов со ссылками на registry"
+        ], 0
+    text = README_FILE.read_text(encoding="utf-8")
+    block, errors = _extract_marked_block(text, README_LEDGER_START, README_LEDGER_END, where)
+    if block is None:
+        return errors, 0
+    table_where = f"{where} журнал экспериментов"
+    rows, table_errors = _parse_md_table(block, table_where, min_columns=2)
+    errors.extend(table_errors)
+    if not rows:
+        return errors, 0
+
+    experiments = {str(item.get("id")): item for item in _registry_experiments(registry)}
+    covered: dict[str, int] = {}
+    for number, cells in enumerate(rows, start=1):
+        if len(cells) < 2:
+            errors.append(
+                f"{table_where}, строка {number}: {len(cells)} колонок — нужны минимум id и статус"
+            )
+            continue
+        ids = [_clean_cell(part) for part in cells[0].split(",")]
+        ids = [exp_id for exp_id in ids if exp_id]
+        if not ids:
+            errors.append(f"{table_where}, строка {number}: пустой id эксперимента")
+            continue
+        status_label = _clean_cell(cells[1])
+        for exp_id in ids:
+            if exp_id not in experiments:
+                errors.append(
+                    f"{table_where}, строка {number}: неизвестный id={exp_id!r} — "
+                    "его нет в registry.experiments"
+                )
+                continue
+            if exp_id in covered:
+                errors.append(
+                    f"{table_where}, строка {number}: id={exp_id} уже указан "
+                    f"в строке {covered[exp_id]} — эксперимент должен встречаться ровно один раз"
+                )
+                continue
+            covered[exp_id] = number
+            status = str(experiments[exp_id].get("status") or "")
+            expected = STATUS_LABELS.get(status)
+            if expected is None:
+                errors.append(
+                    f"{table_where}[{exp_id}]: в registry неизвестный status={status!r}; "
+                    f"ожидается один из {sorted(STATUS_LABELS)}"
+                )
+            elif status_label.casefold() != expected.casefold():
+                errors.append(
+                    f"{table_where}[{exp_id}]: статус «{status_label}» не совпадает с registry "
+                    f"({status} → «{expected}»)"
+                )
+    missing = [exp_id for exp_id in experiments if exp_id not in covered]
+    if missing:
+        errors.append(
+            f"{table_where}: нет строк для экспериментов из registry: " + ", ".join(missing)
+        )
+    return errors, len(covered)
+
+
+def check_manuscript_map(registry: dict[str, Any]) -> tuple[list[str], int]:
+    """Проверить карту вклада в рукопись: manuscript/README.md против registry.
+
+    Карта — таблица между маркерами `<!-- map:start -->` / `<!-- map:end -->`
+    с колонками `experiment_id | раздел | статус`. Каждый закрытый эксперимент со
+    статьёй обязан иметь строку: результат без места в рукописи считается
+    незакрытым.
+
+    Возвращает (ошибки, число записей карты).
+    """
+    errors: list[str] = []
+    for name in MANUSCRIPT_REQUIRED_FILES:
+        path = MANUSCRIPT_DIR / name
+        if not path.exists():
+            errors.append(f"нет {rel(path)}: рукопись — часть научного цикла, а не приложение")
+    if not MANUSCRIPT_README.exists():
+        return errors, 0
+
+    where = rel(MANUSCRIPT_README)
+    text = MANUSCRIPT_README.read_text(encoding="utf-8")
+    block, marker_errors = _extract_marked_block(text, MANUSCRIPT_MAP_START, MANUSCRIPT_MAP_END, where)
+    errors.extend(marker_errors)
+    if block is None:
+        return errors, 0
+    table_where = f"{where} карта рукописи"
+    rows, table_errors = _parse_md_table(block, table_where, min_columns=3)
+    errors.extend(table_errors)
+    if not rows:
+        return errors, 0
+
+    experiments = {str(item.get("id")): item for item in _registry_experiments(registry)}
+    entries: dict[str, int] = {}
+    for number, cells in enumerate(rows, start=1):
+        if len(cells) < 3:
+            errors.append(
+                f"{table_where}, строка {number}: {len(cells)} колонок — нужны "
+                "experiment_id, раздел рукописи и статус вклада"
+            )
+            continue
+        exp_id = _clean_cell(cells[0])
+        section = _clean_cell(cells[1])
+        contribution = _clean_cell(cells[2])
+        if not exp_id:
+            errors.append(f"{table_where}, строка {number}: пустой experiment_id")
+        elif exp_id not in experiments:
+            errors.append(
+                f"{table_where}, строка {number}: неизвестный id={exp_id!r} — "
+                "его нет в registry.experiments"
+            )
+        elif exp_id in entries:
+            errors.append(
+                f"{table_where}, строка {number}: id={exp_id} уже указан "
+                f"в строке {entries[exp_id]} — запись должна быть одна"
+            )
+        else:
+            entries[exp_id] = number
+        if not section:
+            errors.append(
+                f"{table_where}[{exp_id or '?'}]: пустой раздел рукописи — куда именно входит результат"
+            )
+        if contribution not in MANUSCRIPT_CONTRIBUTION_STATUSES:
+            errors.append(
+                f"{table_where}[{exp_id or '?'}]: недопустимый статус вклада "
+                f"«{contribution}»; допустимо " + " / ".join(sorted(MANUSCRIPT_CONTRIBUTION_STATUSES))
+            )
+
+    required = [
+        exp_id
+        for exp_id, item in experiments.items()
+        if item.get("status") == "closed" and str(item.get("article") or "").strip()
+    ]
+    missing = [exp_id for exp_id in required if exp_id not in entries]
+    if missing:
+        errors.append(
+            f"{table_where}: у закрытых экспериментов со статьёй нет места в рукописи: "
+            + ", ".join(missing)
+        )
+    return errors, len(entries)
 
 
 def validate(ci: bool, strict: bool) -> tuple[list[str], list[str], dict[str, Any]]:
@@ -1027,6 +1308,15 @@ def validate(ci: bool, strict: bool) -> tuple[list[str], list[str], dict[str, An
                     )
                 )
         counts["experiments"] = len(experiments if isinstance(experiments, list) else [])
+
+        # Научный цикл (AGENTS.md §3a, §6a): результат закрывается не только
+        # отчётом и статьёй, но и строкой журнала в README и кусочком рукописи.
+        ledger_errors, ledger_count = check_readme_ledger(registry)
+        errors.extend(ledger_errors)
+        counts["readme_experiments"] = ledger_count
+        manuscript_errors, manuscript_count = check_manuscript_map(registry)
+        errors.extend(manuscript_errors)
+        counts["manuscript_entries"] = manuscript_count
 
     if state:
         for key in (
