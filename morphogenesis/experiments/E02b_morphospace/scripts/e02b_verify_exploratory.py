@@ -353,6 +353,293 @@ if horizon:
         "горизонт: сводка классов сходится",
     )
 
+# ------------------------------------------- повтор матрицы (с повторами)
+rep = load("transition_matrix_rep_exploratory.json")
+if rep:
+    rows = rep["rows"]
+    n_sources = len(rep["source_seeds"])
+    n_noise = len(rep["noise_seeds"])
+    expected_rows = 12 * n_sources * 12 * n_noise
+    check(
+        len(rows) == expected_rows,
+        f"повтор матрицы: {len(rows)} строк (ожидалось {expected_rows})",
+    )
+    keys = {
+        (r["target_family"], r["source_family"], r["source_seed"], r["noise_seed"])
+        for r in rows
+    }
+    check(
+        len(keys) == len(rows),
+        f"повтор матрицы: {len(keys)} уникальных четвёрок из {len(rows)}",
+    )
+    per_pair = Counter((r["target_family"], r["source_family"]) for r in rows)
+    check(
+        len(per_pair) == 144 and set(per_pair.values()) == {n_sources * n_noise},
+        f"повтор матрицы: по {n_sources * n_noise} выборок на каждую из 144 пар",
+    )
+    per_target = Counter(r["target_family"] for r in rows)
+    check(
+        len(per_target) == 12 and len(set(per_target.values())) == 1,
+        f"повтор матрицы: по {list(per_target.values())[0]} строк на каждую модель",
+    )
+    conflicts = [r for r in rows if r["class_alive_conflict"]]
+    check(
+        len(conflicts) == len(rep["summary"]["class_alive_conflicts"]),
+        f"повтор матрицы: конфликт класс/alive = {len(conflicts)}",
+    )
+    for family, summary in rep["targets"].items():
+        group = [r for r in rows if r["target_family"] == family]
+        live_group = [
+            r for r in group
+            if r["source_alive_fraction"] >= LIVE_SOURCE_ALIVE
+            and r["source_state_class"] != "death"
+        ]
+        live_counts = Counter(
+            "death" if r["alive_fraction"] < DEAD_ALIVE else r["final_class"]
+            for r in live_group
+        )
+        distinct = {c for c in live_counts if c in LIVE_CLASSES}
+        if not live_group:
+            verdict = "no_live_source"
+        elif live_counts.get("death", 0) == len(live_group):
+            verdict = "killer"
+        elif len(distinct) == 1:
+            verdict = "single_live_attractor"
+        else:
+            strong = []
+            for c in distinct:
+                frac = live_counts[c] / len(live_group)
+                stable_pair = False
+                for src_family, p in summary["live_pairs"].items():
+                    if (
+                        p["dominant_class"] == c
+                        and (p["pair_stable_fraction"] or 0) >= 0.5
+                    ):
+                        stable_pair = True
+                if frac >= 0.1 and stable_pair:
+                    strong.append(c)
+            verdict = "multi_basin_candidate" if len(strong) >= 2 else "mixed"
+        diag_rows = [r for r in group if r["diagonal"]]
+        diag_ok = [
+            r for r in diag_rows
+            if r["final_class"] == summary["home_class"]
+            and (r["stability_last_quarter"] or 0) >= 0.75
+        ]
+        if not (diag_rows and len(diag_ok) >= 8):
+            verdict = "diagonal_unstable"
+        check(
+            summary["verdict"] == verdict,
+            f"повтор матрицы: вердикт {family} = {verdict}",
+        )
+        check(
+            summary["live_source_final_counts"] == dict(live_counts),
+            f"повтор матрицы: исходы живых источников {family} сходятся",
+        )
+        check(
+            summary["live_source_n"] == len(live_group),
+            f"повтор матрицы: живых выборок {family} = {len(live_group)}",
+        )
+        # пересчёт устойчивости пары из строк
+        for src_family, pair in summary["pairs"].items():
+            sub = [
+                r for r in group
+                if r["source_family"] == src_family
+            ]
+            counts = Counter(
+                "death" if r["alive_fraction"] < DEAD_ALIVE else r["final_class"]
+                for r in sub
+            )
+            dominant, dominant_n = counts.most_common(1)[0]
+            check(
+                pair["dominant_class"] == dominant
+                and pair["dominant_n"] == dominant_n
+                and abs(pair["pair_consistency"] - dominant_n / len(sub)) < 1e-12,
+                f"повтор матрицы: пара {family} <- {src_family} доминирующий "
+                f"{dominant} {dominant_n}/{len(sub)}",
+            )
+    check(
+        not rep["summary"]["multi_basin_candidates"],
+        f"повтор матрицы: кандидатов на мультистабильность нет "
+        f"({rep['summary']['multi_basin_candidates']})",
+    )
+
+# ------------------------------------------ повтор геометрической абляции
+lesion_rep = load("geometric_lesion_rep_exploratory.json")
+if lesion_rep:
+    models = lesion_rep["models"]
+    check(len(models) == 3, f"абляция-повтор: {len(models)} моделей")
+    for entry in models:
+        rows = entry["rows"]
+        check(len(rows) == 72, f"абляция-повтор {entry['family']}: {len(rows)} строк")
+        per_lesion = Counter(r["lesion"] for r in rows)
+        check(
+            len(per_lesion) == 6 and set(per_lesion.values()) == {12},
+            f"абляция-повтор {entry['family']}: по 12 на каждое из 6 повреждений",
+        )
+        for name, stats in entry["by_lesion"].items():
+            group = [r for r in rows if r["lesion"] == name]
+            ious = sorted(r["final"]["iou"] for r in group)
+            mid = len(ious) // 2
+            expect = (
+                float(ious[mid])
+                if len(ious) % 2
+                else 0.5 * (float(ious[mid - 1]) + float(ious[mid]))
+            )
+            check(
+                abs(stats["iou_median"] - expect) < 1e-9,
+                f"абляция-повтор {entry['family']}/{name}: медиана IoU сходится",
+            )
+            retained = sum(
+                1 for r in group
+                if r["final"]["assigned_class"] == entry["prototype_class"]
+                and r["final"]["alive_fraction"] >= DEAD_ALIVE
+            )
+            check(
+                stats["class_retained_n"] == retained,
+                f"абляция-повтор {entry['family']}/{name}: сохранение класса сходится",
+            )
+        for axis_name, axis in entry["axes"].items():
+            left, right = axis_name.split("_vs_")
+            left_iou = {
+                r["repeat"]: r["final"]["iou"] for r in rows if r["lesion"] == left
+            }
+            right_iou = {
+                r["repeat"]: r["final"]["iou"] for r in rows if r["lesion"] == right
+            }
+            diffs = [
+                left_iou[k] - right_iou[k]
+                for k in sorted(set(left_iou) & set(right_iou))
+            ]
+            same_sign = max(sum(1 for d in diffs if d > 0), sum(1 for d in diffs if d < 0))
+            mean_diff = sum(diffs) / len(diffs) if diffs else 0.0
+            established = bool(same_sign >= 11 and abs(mean_diff) >= 0.05)
+            check(
+                axis["asymmetry_established"] == established,
+                f"абляция-повтор {entry['family']}/{axis_name}: "
+                f"асимметрия установлена = {established}",
+            )
+            check(
+                axis["same_sign_n"] == same_sign
+                and abs(axis["mean_diff_left_minus_right"] - mean_diff) < 1e-9,
+                f"абляция-повтор {entry['family']}/{axis_name}: статистика оси сходится",
+            )
+
+# ------------------------------------------- нуклеогенез из живого очага
+frag = load("fragment_nucleogenesis_exploratory.json")
+if frag:
+    models = frag["models"]
+    rows = frag["rows"]
+    check(len(models) == 3, f"очаг: {len(models)} модели")
+    check(
+        len(rows) == 3 * (2 * 5 * 12 + 12) + 2 * 12,
+        f"очаг: {len(rows)} строк (3*(2*5*12+12) + 2*12)",
+    )
+    for entry in models:
+        family = entry["family"]
+        own = [r for r in rows if r["model"] == family and r["role"] == "own"]
+        ctrl = [r for r in rows if r["model"] == family and r["role"] == "control"]
+        check(len(ctrl) == 12, f"очаг {family}: контроль {len(ctrl)} строк")
+        check(
+            all(r["k"] == 0 for r in ctrl),
+            f"очаг {family}: контроль — только k=0",
+        )
+        check(
+            all(r["seed_cells"] == 0 for r in ctrl),
+            f"очаг {family}: в контроле очаг пустой",
+        )
+        ctrl_alive = sum(1 for r in ctrl if r["final_alive"] >= DEAD_ALIVE)
+        check(
+            entry["control"]["alive_count"] == ctrl_alive,
+            f"очаг {family}: контроль живых {ctrl_alive} сходится",
+        )
+        check(
+            entry["control_failed"] == (ctrl_alive >= 11),
+            f"очаг {family}: флаг control_failed корректен",
+        )
+        if ctrl_alive >= 11:
+            warn(
+                False,
+                f"очаг {family}: контроль k=0 дал живых {ctrl_alive}/12 — тест недействителен",
+            )
+        per_cell = Counter((r["mode"], r["k"]) for r in own)
+        check(
+            len(per_cell) == 10 and set(per_cell.values()) == {12},
+            f"очаг {family}: 10 ячеек (2 режима × 5 размеров) по 12 повторов",
+        )
+        for cell in entry["cells"]:
+            group = [
+                r for r in own
+                if r["mode"] == cell["mode"] and r["k"] == cell["k"]
+            ]
+            check(
+                len(group) == 12,
+                f"очаг {family}/{cell['mode']}/k={cell['k']}: {len(group)} повторов",
+            )
+            nuc = [
+                r for r in group
+                if r["final_alive"] >= DEAD_ALIVE
+                and r["final_class"] == entry["prototype_class"]
+                and r["alive_growth_ratio"] >= 0.5
+            ]
+            same = [r for r in nuc if r["iou_vs_prototype"] >= 0.5]
+            check(
+                cell["nucleogenesis_count"] == len(nuc),
+                f"очаг {family}/{cell['mode']}/k={cell['k']}: "
+                f"нуклеогенез {len(nuc)} сходится",
+            )
+            check(
+                cell["same_pattern_count"] == len(same),
+                f"очаг {family}/{cell['mode']}/k={cell['k']}: "
+                f"тот же рисунок {len(same)} сходится",
+            )
+            check(
+                cell["nucleogenesis_established"] == (len(nuc) >= 11),
+                f"очаг {family}/{cell['mode']}/k={cell['k']}: флаг нуклеогенеза корректен",
+            )
+            check(
+                cell["same_pattern_rebuilt"] == (len(same) >= 11),
+                f"очаг {family}/{cell['mode']}/k={cell['k']}: флаг рисунка корректен",
+            )
+            check(
+                cell["class_counts"] == dict(Counter(r["final_class"] for r in group)),
+                f"очаг {family}/{cell['mode']}/k={cell['k']}: счётчики классов сходятся",
+            )
+        # порог по размеру пересчитывается из ячеек
+        for mode in ("scattered", "contiguous"):
+            cands = [
+                c["k"] for c in entry["cells"]
+                if c["mode"] == mode and c["nucleogenesis_established"]
+            ]
+            expect = min(cands) if cands else None
+            check(
+                entry["minimal_seed_size"][mode] == expect,
+                f"очаг {family}/{mode}: минимальный зачаток {expect} сходится",
+            )
+            cands_same = [
+                c["k"] for c in entry["cells"]
+                if c["mode"] == mode and c["same_pattern_rebuilt"]
+            ]
+            expect_same = min(cands_same) if cands_same else None
+            check(
+                entry["minimal_seed_size_same_pattern"][mode] == expect_same,
+                f"очаг {family}/{mode}: минимальный зачаток с рисунком {expect_same} сходится",
+            )
+    cross = frag.get("cross", [])
+    check(len(cross) == 2, f"очаг: перекрёстный блок — {len(cross)} пары")
+    for cb in cross:
+        group = [
+            r for r in rows
+            if r["role"] == f"cross:{cb['source']}" and r["model"] == cb["target"]
+        ]
+        check(
+            len(group) == 12,
+            f"очаг cross {cb['target']}<-{cb['source']}: {len(group)} повторов",
+        )
+        check(
+            cb["class_counts"] == dict(Counter(r["final_class"] for r in group)),
+            f"очаг cross {cb['target']}<-{cb['source']}: счётчики классов сходятся",
+        )
+
 print("\n=== СВОДКА ===")
 print("errors", len(errors), "warnings", len(warnings))
 for e in errors:
