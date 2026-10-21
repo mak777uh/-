@@ -2,11 +2,11 @@
   "schema_version": 1,
   "id": "E02c_replication",
   "title": "Репликация тренировочных сидов R-9",
-  "status": "planned",
-  "outcome": null,
+  "status": "closed",
+  "outcome": "negative",
   "plan": "reports/2026-10-21-e02c-plan.md",
-  "report": null,
-  "article": null,
+  "report": "reports/2026-10-21-e02c-results.md",
+  "article": "articles/006-replikaciya-r9-struct2-ne-vosproizvelsya.md",
   "artifact_root": "morphogenesis/experiments/E02c_replication",
   "entrypoint": "morphogenesis/e02c_replication.py:main",
   "checkpoint_requirements": [
@@ -31,10 +31,26 @@
     "class_assignment": ["frozen_centroids_e02b", "independent_ward"]
   },
   "hypotheses": [
-    "H-R1: >=2/3 новых сидов дают struct_2 в >=52/64 стартов и >=80% устойчивости.",
-    "H-R2: ровно 1/3 новых сидов даёт struct_2.",
-    "H-R3: 0/3 новых сидов дают struct_2; класс привязан к seed42 на горизонте 2000."
+    "H-R1: >=2/3 новых сидов дают struct_2 в >=52/64 стартов и >=80% устойчивости — REJECTED (0/3).",
+    "H-R2: ровно 1/3 новых сидов даёт struct_2 — REJECTED (0/3).",
+    "H-R3: 0/3 новых сидов дают struct_2; класс привязан к seed42 на горизонте 2000 — CONFIRMED."
   ],
+  "results": {
+    "seeds": [142, 242, 342],
+    "struct_2_by_seed": {"142": "0/64", "242": "0/64", "342": "0/64"},
+    "classes": {
+      "142": {"struct_1": 64},
+      "242": {"uniform_dark": 64},
+      "342": {"uniform_dark": 64}
+    },
+    "controls": {
+      "WP4_R-9_s2000_seed42": {"struct_2": 64},
+      "untrained_current_arch": {"struct_1": 64}
+    },
+    "verdict": "H-R3_confirmed_struct2_not_reproduced",
+    "summary": "morphogenesis/experiments/E02c_replication/summary_e02c.json",
+    "census": "morphogenesis/experiments/E02c_replication/census_e02c.json"
+  },
   "outputs": {
     "checkpoints_root": "morphogenesis/checkpoints/E02c_R-9_s2000_seed*",
     "artifacts": "morphogenesis/experiments/E02c_replication/",
@@ -45,7 +61,7 @@
     "Не менять критерии, сиды и overrides после запуска.",
     "Не открывать WP5 и не проверять H4 в этом эксперименте.",
     "Не переписывать закрытые артефакты E02b/E02_pattern.",
-    "Не объявлять struct_2 жизнью/сознанием; максимум — свойство рецепта R-9 с оценённой частотой."
+    "Не объявлять struct_2 жизнью/сознанием; после E02c максимум — single-seed case study с проверенным ограничением, а не свойство рецепта R-9."
   ],
   "notes": "Дескриптор — индекс, а не второй протокол. При расхождении прав reports/2026-10-21-e02c-plan.md."
 }
