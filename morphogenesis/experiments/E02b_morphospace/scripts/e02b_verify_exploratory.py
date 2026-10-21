@@ -1061,6 +1061,113 @@ if geom_art:
     else:
         warn(False, "геометрия: нет census.json для независимого пересчёта")
 
+# ------------------------------------------ прочность тела (E06)
+integrity = load("body_integrity_exploratory.json")
+if integrity:
+    import numpy as _np
+
+    _models = integrity["models"]
+    check(
+        len(_models) == 3,
+        f"прочность: {len(_models)} модели",
+    )
+    _fracs = integrity["fractions"]
+    _repeats = integrity["repeats"]
+    for _entry in _models:
+        _fam = _entry["family"]
+        _rows = _entry["rows"]
+        check(
+            len(_rows) == len(_fracs) * _repeats,
+            f"прочность {_fam}: {len(_rows)} строк "
+            f"(ожидалось {len(_fracs) * _repeats})",
+        )
+        _by = {}
+        for _r in _rows:
+            _by.setdefault(_r["fraction"], []).append(_r)
+        check(
+            sorted(_by) == sorted(_fracs),
+            f"прочность {_fam}: набор долей сходится",
+        )
+        for _f in _fracs:
+            _g = _by.get(_f, [])
+            _bf = _entry["by_fraction"][str(_f)]
+            _surv = [
+                _r
+                for _r in _g
+                if _r["final"]["assigned_class"] == _entry["prototype_class"]
+                and _r["final"]["alive_fraction"] >= DEAD_ALIVE
+            ]
+            check(
+                _bf["n"] == len(_g),
+                f"прочность {_fam}/p={_f}: {len(_g)} повторов",
+            )
+            check(
+                _bf["n_survived"] == len(_surv),
+                f"прочность {_fam}/p={_f}: выжило {len(_surv)} сходится",
+            )
+            check(
+                _bf["median_alive"] == median([_r["final"]["alive_fraction"] for _r in _g]),
+                f"прочность {_fam}/p={_f}: медиана alive сходится",
+            )
+            check(
+                _bf["median_iou"] == median([_r["final"]["iou"] for _r in _g]),
+                f"прочность {_fam}/p={_f}: медиана IoU сходится",
+            )
+            check(
+                _bf["median_alive_b0_survived"]
+                == median([_r["final"]["alive_b0"] for _r in _surv]),
+                f"прочность {_fam}/p={_f}: медиана alive_b0 сходится",
+            )
+            _ma = _bf["median_alive"]
+            _tol = bool(
+                len(_surv) >= 11
+                and _ma is not None
+                and _ma >= 0.5 * _entry["prototype_alive_fraction"]
+            )
+            check(
+                _bf["tolerance_established"] == _tol,
+                f"прочность {_fam}/p={_f}: флаг прочности корректен",
+            )
+        _est = [f for f in _fracs if _entry["by_fraction"][str(f)]["tolerance_established"]]
+        _t = max(_est) if _est else 0.0
+        check(
+            _entry["tolerance"] == _t,
+            f"прочность {_fam}: прочность {_t} сходится",
+        )
+    # Вердикт пересчитывается из прочностей.
+    _tols = {e["family"]: e["tolerance"] for e in _models}
+    _s2 = next(e for e in _models if e["expected_class"] == "struct_2")
+    _others = [e for e in _models if e["expected_class"] != "struct_2"]
+    if all(abs(_tols[e["family"]] - _tols[_s2["family"]]) < 1e-9 for e in _others):
+        _verdict = "tolerance_architectural"
+    elif (
+        all(_tols[_s2["family"]] > _tols[e["family"]] + 1e-9 for e in _others)
+        and int(
+            integrity["summary"]["struct_2_median_alive_b0_at_tolerance"] or 0
+        )
+        == 1
+    ):
+        _verdict = "struct_2_superior"
+    else:
+        _verdict = "mixed"
+    check(
+        integrity["summary"]["verdict"] == _verdict,
+        f"прочность: вердикт {_verdict} сходится",
+    )
+    check(
+        integrity["summary"]["tolerances"] == _tols,
+        "прочность: таблица прочностей сходится",
+    )
+    # Содержательная проверка: при нулевом повреждении поле должно остаться живым.
+    for _entry in _models:
+        _g0 = [_r for _r in _entry["rows"] if _r["fraction"] == 0.0]
+        _alive0 = sum(1 for _r in _g0 if _r["final"]["alive_fraction"] >= DEAD_ALIVE)
+        check(
+            _alive0 == len(_g0),
+            f"прочность {_entry['family']}: контроль p=0 — поле живо "
+            f"в {_alive0}/{len(_g0)}",
+        )
+
 print("\n=== СВОДКА ===")
 print("errors", len(errors), "warnings", len(warnings))
 for e in errors:
