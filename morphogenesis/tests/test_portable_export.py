@@ -62,7 +62,12 @@ REAL_FAMILIES = canonical_families()
 DIST = ROOT / "dist" / "e02b-portable"
 # Манифест не описывает сам себя, а отчёты проверки и __pycache__ появляются
 # после сборки — это след запуска, а не содержимое пакета.
-GENERATED = {"verify_report.json", "verify_census.json", "portable_manifest.json"}
+GENERATED = {
+    "verify_report.json",
+    "verify_report.local.json",
+    "verify_census.json",
+    "portable_manifest.json",
+}
 
 
 def load_exporter():

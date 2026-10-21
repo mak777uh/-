@@ -33,6 +33,7 @@ import numpy as np
 import torch
 
 import e02b_morphospace as e02b
+from utils.logging import Journal
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 EXP_DIR = os.path.join(HERE, "experiments", "E02c_replication")
@@ -169,6 +170,22 @@ def family_stats(runs, family):
     }
 
 
+
+def journal_label(args):
+    """Имя эксперимента для журнала: E02c_census_<вариант>.
+
+    Вариант берётся из имени файла сводки (`summary_e02c_seed42repro.json` ->
+    `e02c_seed42repro`), чтобы частичная перепись не смешивалась с полной.
+    """
+    base = os.path.basename(args.summary_out)
+    stem = base
+    if base.startswith("summary_") and base.endswith(".json"):
+        stem = base[len("summary_"):-len(".json")]
+    elif base.endswith(".json"):
+        stem = base[:-len(".json")]
+    return "E02c_census_" + stem
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("--seeds", default="0-63")
@@ -196,6 +213,41 @@ def main(argv=None):
         f"[e02c] families={[s.family for s in specs]} seeds={len(seeds)} "
         f"steps={args.steps} every={args.every} device={device}"
     )
+    journal = Journal(experiment=journal_label(args))
+    started = time.time()
+    journal.start(
+        seeds=len(seeds),
+        steps=args.steps,
+        every=args.every,
+        families=[s.family for s in specs],
+        device=str(device),
+        emits_run_finish=True,
+        runner="e02c_census.py",
+        out=args.out,
+    )
+    try:
+        result = _census(args, seeds, specs, device)
+    except BaseException as exc:  # start без finish = оборванный прогон (AGENTS §6)
+        journal.error(exc, wall_seconds=round(time.time() - started, 1))
+        raise
+    journal.finish(
+        stop_reason="finished",
+        wall_seconds=round(time.time() - started, 1),
+        n_runs=result["n_runs"],
+        verdict=result["verdict"],
+        families=result["families"],
+        census=result["census"],
+        summary=result["summary"],
+    )
+    return 0
+
+
+def _census(args, seeds, specs, device):
+    """Тело переписи: артефакты, сводка и вердикт — без журнала.
+
+    Журнал пишет обёртка в `main`: пара start/finish обязательна (§6), а
+    перепись может упасть на CUDA/OOM, поэтому error-строка тоже нужна.
+    """
     # E02c — отдельная серия: 3 новых файла + положительный контроль, а не
     # 12 канонических E02b. Поэтому требование «12 файлов» снимаем, но sha256
     # и диск проверяем тем же _preflight.
@@ -272,7 +324,13 @@ def main(argv=None):
             f"(stable {st['struct_2_stable']}), {st['frozen_class_counts']}"
         )
     print(f"[e02c] controls: {controls}")
-    return 0
+    return {
+        "n_runs": len(payload["runs"]),
+        "verdict": verdict,
+        "families": new_families,
+        "census": args.out,
+        "summary": args.summary_out,
+    }
 
 
 if __name__ == "__main__":
