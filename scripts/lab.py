@@ -531,6 +531,32 @@ def import_journal() -> dict[str, int]:
             if existing.get("provenance") != "journal-reconstructed":
                 skipped += 1
                 continue
+        # Тот же прогон мог быть уже записан обёрткой `lab.py run` под run_id,
+        # собранным из времени старта процесса, а не из журнальной start-строки.
+        # Разница — секунды; без этой проверки каждый journal-import плодит
+        # второй «journal-reconstructed» манифест на тот же прогон.
+        duplicate_of_runner = False
+        new_started = parse_ts(manifest.get("started_at"))
+        for path in RUNS.glob("*.json"):
+            if path.name == target.name:
+                continue
+            try:
+                existing = read_json(path)
+            except (OSError, json.JSONDecodeError):
+                continue
+            if existing.get("provenance") != "runner":
+                continue
+            if existing.get("experiment") != manifest.get("experiment"):
+                continue
+            old_started = parse_ts(existing.get("started_at"))
+            if new_started is None or old_started is None:
+                continue
+            if abs((new_started - old_started).total_seconds()) <= 120:
+                duplicate_of_runner = True
+                break
+        if duplicate_of_runner:
+            skipped += 1
+            continue
         write_json_atomic(target, manifest)
         written += 1
     return {"rows": len(rows), "written": written, "skipped": skipped}
