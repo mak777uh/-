@@ -465,6 +465,15 @@ if rep:
 
 # ------------------------------------------ повтор геометрической абляции
 lesion_rep = load("geometric_lesion_rep_exploratory.json")
+if not lesion_rep:
+    lesion_rep = load("geometric_lesion_rep_ema0_exploratory.json")
+    if lesion_rep:
+        warn(
+            False,
+            "абляция-повтор: загружен прогон с обнулённой stress-EMA "
+            "(geometric_lesion_rep_ema0_exploratory.json); исправленный "
+            "прогон с каноническим прототипом не запускался",
+        )
 if lesion_rep:
     models = lesion_rep["models"]
     check(len(models) == 3, f"абляция-повтор: {len(models)} моделей")

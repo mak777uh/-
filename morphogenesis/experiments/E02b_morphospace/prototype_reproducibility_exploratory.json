@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "experiment": "E02b_morphospace",
+  "kind": "exploratory_prototype_reproducibility",
+  "note": "Сравнение двух способов построить прототип R-9 seed42 (сид 35): канонический путь с EMA из чекпоинта и путь из скрипта повтора абляции с обнулённой EMA.",
+  "device": "cuda",
+  "family": "WP4_R-9_s2000_seed42",
+  "prototype_seed": 35,
+  "steps": 2000,
+  "stress_enabled": true,
+  "checkpoint_stress_ema_abs_sum": 0.8642990589141846,
+  "path_a_canonical": {
+    "description": "e02b._prototype_state: EMA восстановлена из чекпоинта, есть проверка run_seed",
+    "run_1": {
+      "binary_sha256": "b7fc4a654bef7922ff439cd4c5c0fab41f7ae1dcbf4c2045711acfc13043fde6",
+      "binary_fraction": 0.53076171875,
+      "alive_fraction": 0.53076171875,
+      "visible_mean": 0.7616451382637024,
+      "binary_cells": 2174
+    },
+    "run_2": {
+      "binary_sha256": "b7fc4a654bef7922ff439cd4c5c0fab41f7ae1dcbf4c2045711acfc13043fde6",
+      "binary_fraction": 0.53076171875,
+      "alive_fraction": 0.53076171875,
+      "visible_mean": 0.7616451382637024,
+      "binary_cells": 2174
+    },
+    "identical_within_process": true
+  },
+  "path_b_lesion_rep_script": {
+    "description": "ветка 'untrained' из e02b_geometric_lesion_rep.py: EMA обнулена, проверки run_seed нет",
+    "run_1": {
+      "binary_sha256": "34823bc2894f30123e33280714580e26c1fcb990a2b33d73a19b99ab28f4aea3",
+      "binary_fraction": 0.537109375,
+      "alive_fraction": 0.537109375,
+      "visible_mean": 0.7647370100021362,
+      "binary_cells": 2200
+    }
+  },
+  "identical_across_paths": false,
+  "binary_cells_differing": 2070,
+  "binary_cells_total": 4096,
+  "verdict": "пути дают разные прототипы: различие объясняется обнулённой stress-EMA в повторе абляции, а не шумом и не GPU",
+  "consequence": "Абсолютные IoU повтора абляции (20261021T110434Z) несопоставимы с таблицей первой абляции (3 повтора): там прототип строился канонически. Внутри своего прогона парные сравнения (знаковый тест) остаются корректными, потому что прототип и EMA одинаковы для всех повторов."
+}

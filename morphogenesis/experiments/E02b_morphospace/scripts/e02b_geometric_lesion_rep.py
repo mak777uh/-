@@ -61,6 +61,13 @@ SIGN_MIN = 11
 MEAN_DIFF_MIN = 0.05
 
 # модель, сид прототипа, ожидаемый класс, признак «обучена»
+#
+# ВНИМАНИЕ: четвёртое поле — это «обучена», и в коде ниже оно читается как
+# `is_trained`. В первой версии скрипта здесь стояло наоборот, и выученные
+# модели собирали прототип неканонической веткой (обнулённая stress-EMA вместо
+# EMA из чекпоинта). Прототипы расходились на 2070 из 4096 клеток, и абсолютные
+# IoU повтора нельзя было сравнивать с первой абляцией. Исправлено 2026-10-21,
+# диагностика — в `prototype_reproducibility_exploratory.json`.
 MODELS = [
     ("WP4_R-9_s2000_seed42", 35, "struct_2", True, 0),
     ("WP4_R-9_s2000_seed101", 5, "struct_1", True, 1),
@@ -127,12 +134,18 @@ def lesion(name, state):
     return out
 
 
-def build_prototype(family, proto_seed, is_untrained):
-    """Прототип: финальное состояние своей модели перед повреждением."""
+def build_prototype(family, proto_seed, is_trained):
+    """Прототип: финальное состояние своей модели перед повреждением.
+
+    Для выученных моделей — канонический путь `e02b._prototype_state`: EMA из
+    чекпоинта восстановлена, развёртка проверена повтором `run_seed`. Для
+    необученного контроля — отдельная ветка с фиксированной инициализацией
+    (seed 42), потому что у него нет чекпоинта.
+    """
     spec = e02b.load_checkpoint_specs(
-        families=[family], include_untrained=not is_untrained
+        families=[family], include_untrained=not is_trained
     )[0]
-    if is_untrained:
+    if not is_trained:
         torch.manual_seed(42)
         if torch.cuda.is_available():
             torch.cuda.manual_seed_all(42)
@@ -175,8 +188,8 @@ result = {
     "models": [],
 }
 
-for family, proto_seed, expected_class, is_untrained, model_idx in MODELS:
-    model, final_state = build_prototype(family, proto_seed, is_untrained)
+for family, proto_seed, expected_class, is_trained, model_idx in MODELS:
+    model, final_state = build_prototype(family, proto_seed, is_trained)
     try:
         proto_desc, proto_cid = classify(final_state)
         proto_class = names.get(proto_cid, "outlier")
@@ -235,7 +248,7 @@ for family, proto_seed, expected_class, is_untrained, model_idx in MODELS:
             "prototype_alive_fraction": float(proto_desc["alive_fraction"]),
             "prototype_binary_fraction": float(proto_desc["binary_fraction"]),
             "prototype_matches_expected": bool(proto_class == expected_class),
-            "is_untrained": bool(is_untrained),
+            "is_trained": bool(is_trained),
             "rows": rows,
         })
     finally:
