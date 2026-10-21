@@ -171,7 +171,7 @@ def test_manuscript_map_covers_closed_experiments() -> None:
         for item in registry["experiments"]
         if item.get("status") == "closed" and item.get("article")
     }
-    assert required == {"E02_pattern", "WP4_R9", "E02b_morphospace"}
+    assert required == {"E02_pattern", "WP4_R9", "E02b_morphospace", "E02c_replication"}
     assert count >= len(required), f"в карте рукописи {count} записей, нужно минимум {len(required)}"
 
     map_text = (ROOT / "manuscript" / "README.md").read_text(encoding="utf-8")

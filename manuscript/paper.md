@@ -1,12 +1,12 @@
 # What Morphologies Does a Neural Cellular Automaton Hold? A Census and a Negative Result
 
-**Status:** DRAFT v0.1 (2026-10-21) — not submitted, not peer-reviewed, do not cite. **Publication gate:** E02c replication plus independent reproduction. Until then no claim about life, consciousness or intelligence; only observable behavioural classes and their boundaries ([AGENTS.md](../AGENTS.md) §3).
+**Status:** DRAFT v0.2 (2026-10-21) — not submitted, not peer-reviewed, do not cite. **Publication gate:** E02c is closed and the portable package passed an independent CPU reproduction; external submission remains a decision of the owner. No claim about life, consciousness or intelligence; only observable behavioural classes and their boundaries ([AGENTS.md](../AGENTS.md) §3).
 
 <!-- TODO: freeze a submission tag and run the independent-reproduction pass before any external submission. -->
 
 ## Abstract
 
-Neural cellular automata are usually trained to grow a prescribed pattern. What morphologies does such a system hold when the target is removed? We census twelve frozen checkpoints (five H-A0, five R-9, one R-11, one H-P1) plus an untrained control: 64 deterministic noise starts per model, 2000 steps, frozen weights, 18 descriptors and Ward clustering at k = 5. Of 704 learned rollouts, 573 (81.4%) end in death or in a uniform field; two structured classes remain. `struct_1` is reproduced by the untrained architecture, so its repair does not require learning. `struct_2` appears only in R-9 seed42, is absent from all controls and from 768 rollouts of other models, and returns to its class after 20% amputation. An earlier ring target had failed: the ring was neither reached from noise nor held. We describe the map as sparse, the repair as class-level rather than bitwise, and make no claim that either class is alive.
+Neural cellular automata are usually trained to grow a prescribed pattern. What morphologies does such a system hold when the target is removed? We census twelve frozen checkpoints (five H-A0, five R-9, one R-11, one H-P1) plus an untrained control: 64 deterministic noise starts per model, 2000 steps, frozen weights, 18 descriptors and Ward clustering at k = 5. Of 704 learned rollouts, 573 (81.4%) end in death or in a uniform field; two structured classes remain. `struct_1` is reproduced by the untrained architecture, so its repair does not require learning. `struct_2` appears only in R-9 seed42, is absent from all controls and from 768 rollouts of other models, and returns to its class after 20% amputation. An earlier ring target had failed: the ring was neither reached from noise nor held. A pre-registered replication then trained R-9 on three new seeds (142/242/342) and repeated the 64-start census: **none** produced `struct_2` (seed142 → `struct_1`, seed242/342 → `uniform_dark`), while the seed42 control reproduced it 64/64. The learned candidate is therefore a single-seed case study on the 2000-step horizon, not a property of the recipe. We describe the map as sparse, the repair as class-level rather than bitwise, and make no claim that either class is alive.
 
 ## 1. Introduction
 
@@ -14,9 +14,7 @@ Can a local learnable rule hold more than the one pattern it was optimised for? 
 
 E02b answered by census rather than training: it froze every canonical checkpoint, started each model from 64 deterministic noise states, ran 2000 steps without gradient, described each final state with 18 descriptors and clustered the results ([E02b results](../reports/2026-10-20-e02b-results.md)). This manuscript assembles that census, the E02 negative result, and four follow-up probes into one cumulative text.
 
-The contribution is deliberately narrow: a sparse census of what twelve frozen checkpoints hold; a description of repair as recovery of a **class** of texture, not of a bitwise pattern; and an explicit account of what the measurements cannot show. The scope is equally narrow: one architecture, one recipe family, one training seed for the only learned candidate, and no claim about adaptation, goals, information or agency.
-
-<!-- TODO: extend the introduction when E02c lands; state the replication question in one sentence. -->
+The contribution is deliberately narrow: a sparse census of what twelve frozen checkpoints hold; a description of repair as recovery of a **class** of texture, not of a bitwise pattern; a pre-registered replication showing that the only learned candidate does **not** survive a change of training seed; and an explicit account of what the measurements cannot show. The scope is equally narrow: one architecture, one recipe family, one training seed for the only learned candidate, and no claim about adaptation, goals, information or agency.
 
 ## 2. Related work
 
@@ -102,11 +100,21 @@ Four follow-up probes were run after the census with rules written before each r
 
 <!-- TODO: merge the probes into one table when figure numbering is fixed; keep their exploratory status visible. -->
 
-### 4.5. Replication (E02c) — pending
+### 4.5. Replication: `struct_2` does not survive a change of training seed
 
-E02c is the publication gate for the central claim. Its protocol is frozen ([E02c plan](../reports/2026-10-21-e02c-plan.md), [registry](../lab/registry.json)) and the replication is running; **no results are reported in this draft**. Until it closes, the manuscript cannot distinguish a property of the R-9 recipe from a lucky training seed, and §5.2 remains open.
+E02c trained the same R-9 recipe on three pre-registered seeds (142/242/342), then repeated the 64-start, 2000-step census with frozen weights; seed42 was the positive control and the untrained architecture the negative control ([E02c results](../reports/2026-10-21-e02c-results.md), [article 006](../articles/006-replikaciya-r9-struct2-ne-vosproizvelsya.md)).
 
-<!-- TODO: replace this placeholder with E02c numbers, table and verdict after the experiment closes; do not pre-fill estimates. -->
+| Family | `struct_2` | Frozen-centroid class | Ward class |
+| --- | ---: | --- | --- |
+| seed142 | **0/64** | `struct_1` 64 | `struct_1` 64 |
+| seed242 | **0/64** | `uniform_dark` 64 | `uniform_dark` 64 |
+| seed342 | **0/64** | `uniform_dark` 64 | `uniform_dark` 64 |
+| control seed42 | 64/64 | `struct_2` 64 | `struct_2` 64 |
+| control untrained | 0/64 | `struct_1` 64 | `struct_1` 64 |
+
+The result is **0/3**: H-R1 and H-R2 are rejected, H-R3 is confirmed, and H-E02C-1 is rejected. The positive control rules out a broken census; the untrained control reproduces the architectural confound. Final training losses of the new seeds (1.119–1.235) overlap seed42 (1.105), and seed342 has the best `best_loss` of all, so the class difference is not a crude under-training artefact. Across the eight R-9 training seeds, `struct_2` is observed in 1/8 (seed42 only), `struct_1` in 2/8 (101, 142), `uniform_dark` in 4/8 and `uniform_bright` in 1/8; this is a descriptive frequency, not a probability estimate (seed42 is the base seed, not a random draw). A 0/3 outcome is compatible with a frequency up to about 63% by the rule of three, so the correct claim is "not reproduced on the 2000-step horizon", not "impossible".
+
+On this horizon, `struct_2` is a single-seed case study. The E02b findings about its geometry, repair, orientation and basin remain properties of that frozen model; they are not promoted to a property of the R-9 recipe.
 
 ## 5. Discussion
 
@@ -128,21 +136,21 @@ Three of five R-9 models (seeds 202, 303, 404) have exactly one live attractor, 
 
 ## 6. Limitations
 
-- **One training seed for `struct_2`** (R-9 seed42): the census cannot separate "property of the recipe" from "lucky seed". This is the central open question and the E02c gate.
+- **`struct_2` is a single-seed case study**: E02c tested three new training seeds and found it in 0/3 (seed142 → `struct_1`, seed242/342 → `uniform_dark`); the seed42 control reproduced it 64/64. A 0/3 result is compatible with a frequency up to about 63%, so the claim is "not reproduced on the 2000-step horizon", not "impossible".
 - **`struct_1` is an architectural confound**: untrained reaches it 64/64 and repairs 45/45; H-P1 reaches it in 29/64.
 - **H4 was never run**: whether the rule variant matters more than the seed has no data.
 - **One architecture**: 64×64×16, fixed channels, one loss family; no claim about NCA in general.
 - **Exploratory probes are small**: one prototype per model, 12 repeats, 2000 steps; the channel-memory prototype is non-canonical, and the untrained network is bit-identical across repeats, so its 12 repeats are not independent samples.
 - **Determinism is local**: §9.2 was enforced on one CUDA device; cross-hardware reproducibility was not tested.
 - **Taxonomy is descriptive**: k = 5 in 52/100 bootstraps, the `death`/`uniform_dark` boundary is least stable, though `struct_2` survives k = 3–8, jackknife and 10% feature noise.
-- **Journal gap**: five exploratory runs of 2026-10-21 (channel memory, body integrity, transient analysis, geometry of form, H-AB-1 lesion repeat) have manifests and stdout but no start/finish pair in the canonical journal; recorded, not backfilled.
-- **No independent reproduction yet** — required by the publication gate.
+- **Journal gap**: six exploratory runs of 2026-10-21 (channel memory, body integrity, transient analysis, geometry of form, H-AB-1 lesion repeat, E02c census) have manifests and stdout but no start/finish pair in the canonical journal; recorded, not backfilled. A second census process aborted after one minute and left only an `aborted` manifest.
+- **Independent reproduction is class-level, not bitwise**: the portable 18-MB package reproduced 48/48 classes of the E02b census on Kaggle CPU; `n_pixels` and other threshold descriptors drifted, and a GPU run was not available (phone verification). This is enough for the class-level claim, not for numerical identity.
 
 <!-- TODO: add a data-availability statement linking census.json, perturbations.json and archived manifests. -->
 
 ## 7. Conclusion
 
-A frozen NCA trained on a ring does not hold the ring, but one of twelve checkpoints holds a structured, self-repairing class of texture that no control reproduces. The map is sparse: four of five learned rollouts end in death or uniformity, and the second structural class is an architectural confound. Repair is real at class level and absent at pattern level; the one learned candidate is found in a single training seed, and its learnedness remains open. The next step is not another reading of the same map but E02c: train the same recipe on new seeds and ask whether the class survives the change of seed. Until that answer exists, the manuscript claims a measured morphology and its boundary — nothing about life.
+A frozen NCA trained on a ring does not hold the ring, but one of twelve checkpoints holds a structured, self-repairing class of texture that no control reproduces. The map is sparse: four of five learned rollouts end in death or uniformity, and the second structural class is an architectural confound. Repair is real at class level and absent at pattern level. The one learned candidate, `struct_2`, does not survive a pre-registered change of training seed: 0/3 new R-9 seeds reproduce it, while the seed42 control does so 64/64. What remains is a measured single-seed morphology and its boundary — a negative replication, not a recipe-level law, and nothing about life.
 
 ## References
 
@@ -155,4 +163,4 @@ A frozen NCA trained on a ring does not hold the ring, but one of twelve checkpo
 
 ---
 
-**Verification:** numbers were checked against [E02](../reports/2026-10-20-e02-pattern.md), [E02b](../reports/2026-10-20-e02b-results.md), [channel memory](../reports/2026-10-21-e02b-channel-memory.md), [body integrity](../reports/2026-10-21-e02b-body-integrity.md) and [asymmetry](../reports/2026-10-21-e02b-asymmetry-canonical.md). E02c remains pending. **Do not cite.**
+**Verification:** numbers were checked against [E02](../reports/2026-10-20-e02-pattern.md), [E02b](../reports/2026-10-20-e02b-results.md), [channel memory](../reports/2026-10-21-e02b-channel-memory.md), [body integrity](../reports/2026-10-21-e02b-body-integrity.md), [asymmetry](../reports/2026-10-21-e02b-asymmetry-canonical.md) and [E02c](../reports/2026-10-21-e02c-results.md). Independent reproduction passed at class level (48/48) on Kaggle CPU. **Do not cite without owner approval.**
