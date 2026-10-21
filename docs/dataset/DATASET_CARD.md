@@ -166,17 +166,26 @@ Read these as part of the data, not as a disclaimer at the end.
    `k=5` in only 52 % of resamples. The stable object is `struct_2`, not the partition.
 7. **Horizon is 2000 steps**, with one 6000-step check on 16 starts of a single
    checkpoint (16/16 stayed `struct_2`). Asymptotic stability is not established.
-8. **One exploratory artifact carries a known tooling bug.** The 12-repeat geometric
-   ablation was first run with the prototype built from a zeroed `stress_ema` (inverted
-   "trained" flag in the model list), which changes the attractor instance: the binary
-   masks differ on 2070 of 4096 cells. Its absolute IoU values are therefore **not**
-   comparable with the earlier 3-repeat ablation; only within-run paired sign tests are
-   valid. The artifact is included with that caveat instead of being deleted. The
-   corrected run never executed.
-9. **Two exploratory runs share the same flag bug** (nucleogenesis, and the ablation
-   repeat). Nucleogenesis *verdicts about wake-up* are robust to it; its "same picture"
-   verdict, which depends on the non-canonical prototype, is not.
-10. **Protocol deviations are part of the record.** Amputation zeroes all 16 channels
+8. **One exploratory artifact carries a known tooling bug, and its corrected rerun now
+   exists.** The 12-repeat geometric ablation was first run with the prototype built from
+   a zeroed `stress_ema` (inverted "trained" flag in the model list), which changes the
+   attractor instance: the binary masks differ on 2070 of 4096 cells. Its absolute IoU
+   values are therefore **not** comparable with the earlier 3-repeat ablation; only
+   within-run paired sign tests are valid. The corrected canonical run (H-AB-1, 216
+   rollouts) was executed on 2026-10-21: left/right Δ = −0.336 (12/12) and top/bottom
+   Δ = +0.184 (12/12), controls < 0.01. The old artifact is kept as history, not as the
+   current result.
+9. **Two other exploratory runs share the same flag bug** (channel memory, nucleogenesis).
+   Channel-memory *comparisons between conditions within the run* are valid, but its
+   absolute IoU is not comparable with canonical runs; the clean rerun is queued.
+   Nucleogenesis *verdicts about wake-up* are robust; its "same picture" verdict, which
+   depends on the non-canonical prototype, is not.
+10. **`census.json` carries the author's absolute Windows checkpoint paths** (12 in
+    `checkpoints[].path`, 12 in `timings[].path`, one `perturbations_path`). The verifier
+    does not read them and they contain no credentials, but a public release should
+    sanitize them and record both the canonical and packaged hashes. The current Kaggle
+    dataset is private/draft.
+11. **Protocol deviations are part of the record.** Amputation zeroes all 16 channels
     rather than only `alive` and `visible` (stronger than the protocol, making H3
     conservative). The protocol's patch-transplant test was degenerate (bounding box of
     both classes is the whole field), so growth claims rest on exploratory patches only.
