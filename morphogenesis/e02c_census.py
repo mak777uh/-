@@ -177,6 +177,15 @@ def main(argv=None):
     ap.add_argument("--device", default="auto")
     ap.add_argument("--families", default="", help="фильтр E02c_* через запятую")
     ap.add_argument("--out", default=DEFAULT_OUT)
+    ap.add_argument(
+        "--summary-out",
+        default=SUMMARY_OUT,
+        help=(
+            "куда писать сводку; по умолчанию общая сводка E02c. Отдельный путь "
+            "нужен для прогонов по одному семейству (например, повтор seed42), "
+            "чтобы не перезаписать артефакт закрытой серии"
+        ),
+    )
     args = ap.parse_args(argv)
 
     seeds = parse_seeds(args.seeds)
@@ -252,10 +261,10 @@ def main(argv=None):
     os.makedirs(EXP_DIR, exist_ok=True)
     with open(args.out, "w", encoding="utf-8") as fh:
         json.dump(payload, fh, ensure_ascii=False, indent=2)
-    with open(SUMMARY_OUT, "w", encoding="utf-8") as fh:
+    with open(args.summary_out, "w", encoding="utf-8") as fh:
         json.dump(summary, fh, ensure_ascii=False, indent=2)
     print(f"[e02c] census: {args.out} ({os.path.getsize(args.out)/1e6:.1f} MB)")
-    print(f"[e02c] summary: {SUMMARY_OUT}")
+    print(f"[e02c] summary: {args.summary_out}")
     print(f"[e02c] verdict: {verdict}; supported={supported}")
     for fam, st in stats.items():
         print(
