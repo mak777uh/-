@@ -41,6 +41,20 @@ inference. Отбирались не «все важные работы», а т
 батарею возмущений. «Future» — что это гипотеза для следующего слоя, не для
 текущего прогона.
 
+### Что из этого уже измерено
+
+| # | Проверка в лаборатории | Артефакт |
+| --- | --- | --- |
+| H1 | 64 старта × 13 семейств (704 выученных + 128 контрольных): пять устойчивых классов, 48/48 чужих пересадок возвращаются в класс R-9 seed42 | `morphogenesis/experiments/E02b_morphospace/census.json` |
+| H2 | PCA-карта дескрипторов: реализованное морфопространство неоднородно, `struct_2` не пересекается с необученной архитектурой | `reports/figures/e02b_morphospace_pca.png` (данные — в `census.json`) |
+| H3 | в основной батарее не подтверждена: 15/15 на класс (30/30) после ампутации 20%, возврат за 25 шагов; exploratory-абляция дала намёк на асимметрию половин, который проверяется повтором с 12 повторами | `morphogenesis/experiments/E02b_morphospace/perturbations.json`, `…/geometric_lesion_exploratory.json` |
+| H4 | необученная архитектура даёт `struct_1` 64/64, H-P1 — 29/64: часть классов — generic, но `struct_2` остаётся выученным | `morphogenesis/experiments/E02b_morphospace/untrained_recovery_exploratory.json` |
+| H5 | матрица пересадок 12×12 (144 пересадки) и её повтор с 9 выборками на пару (1296 пересадок): переключения между классами устойчивы у части моделей | `…/transition_matrix_exploratory.json`, `…/transition_matrix_rep_exploratory.json` |
+
+Источники в таблице — из работ лаборатории в [`levin/`](../levin/README.md);
+расшифровка меток и чисел — в отчёте E02b
+([`reports/2026-10-20-e02b-results.md`](../../reports/2026-10-20-e02b-results.md)).
+
 ## A. Телеология, autopoiesis, агентность
 
 - **[Behavior, Purpose and Teleology](https://doi.org/10.1086/286788)**
