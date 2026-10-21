@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-21T18:20:12Z",
+  "updated_at": "2026-10-21T18:36:04Z",
   "program": {
     "name": "Morphogenesis",
     "phase": "E02c_seed42_repro закрыт: struct_2 воспроизводится из сида, но не из рецепта",
@@ -8,7 +8,7 @@
     "blockers": [
       "Гейт WP4 не пройден: слой 1 — 0/5, а journal_pairs_13_3=false (legacy start-строки и superseded-записи), хотя 5 сидов и Wilcoxon посчитаны.",
       "WP5 закрыт до решения владельца спеки по рамке E02.",
-      "Журнал: 7 exploratory-прогонов 2026-10-21 (channel memory, body integrity, transient analysis, geometry of form, H-AB-1 lesion rep, E02c census, E02c census seed42 repro) имеют манифесты и stdout, но не start/finish в каноническом журнале; задним числом не дописываются (AGENTS §2). Процесс исправлен для переписи: e02c_census.py сам пишет start и finish (или error), поведение закреплено тестом morphogenesis/tests/test_census_journal.py; остальные exploratory-скрипты ждут того же подключения. Дополнительно census имел второй запуск (E02c_census_s2000), оборвавшийся через минуту; остался aborted-манифест без артефакта."
+      "Журнал: 7 exploratory-прогонов 2026-10-21 (channel memory, body integrity, transient analysis, geometry of form, H-AB-1 lesion rep, E02c census, E02c census seed42 repro) имеют манифесты и stdout, но не start/finish в каноническом журнале; задним числом не дописываются (AGENTS §2). Процесс исправлен: обучающие скрипты и e02c_census.py пишут пару сами, exploratory-скрипты E02b запускаются через morphogenesis/run_exploratory.py (start/finish/error), поведение закреплено тестами test_census_journal.py и test_run_exploratory.py. Дополнительно census имел второй запуск (E02c_census_s2000), оборвавшийся через минуту; остался aborted-манифест без артефакта."
     ],
     "next": [
       "E02c_seed42_repro закрыт: обучение детерминировано (веса побитово равны), struct_2 64/64, устойчивость 0.906 — класс воспроизводится из сида, но не из рецепта. Отчёт reports/2026-10-21-e02c-seed42-repro-results.md, статья 007.",
