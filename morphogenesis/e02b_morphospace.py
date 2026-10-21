@@ -1441,6 +1441,72 @@ def _device_from_arg(value: str) -> torch.device:
     return torch.device(value)
 
 
+def load_frozen_projector(path: str) -> dict:
+    """Замороженные центроиды E02b как фиксированный проектор.
+
+    Нужны, чтобы метка снимка не зависела от состава переписи: Ward внутри
+    переписи переименовывает кластеры (кластер 2 может называться и `struct_1`,
+    и `struct_2`), поэтому «устойчивость» по внутреннему разбиению несравнима
+    между прогонами, а по замороженной проекции — сравнима.
+    """
+    with open(path, "r", encoding="utf-8") as fh:
+        payload = json.load(fh)
+    features = list(payload.get("features") or [])
+    if features != list(CLUSTER_FEATURES):
+        raise SystemExit(
+            "порядок признаков в замороженных центроидах не совпадает с CLUSTER_FEATURES"
+        )
+    return {
+        "path": path,
+        "mean": np.asarray(payload["scaler_mean"], dtype=float),
+        "std": np.asarray(payload["scaler_std"], dtype=float),
+        "centroids": np.asarray(payload["centroids_z"], dtype=float),
+        "labels": np.asarray(payload["labels_valid"], dtype=int),
+        "class_names": list(payload["class_names"]),
+    }
+
+
+def frozen_labels_for_trajectory(traj: np.ndarray, projector: dict) -> np.ndarray:
+    """Метки снимков по замороженным центроидам (не по локальному Ward)."""
+    if traj is None or len(traj) == 0:
+        return np.zeros((0,), dtype=int)
+    z = (np.asarray(traj, dtype=float) - projector["mean"]) / projector["std"]
+    delta = z[:, None, :] - projector["centroids"][None, :, :]
+    nearest = np.square(delta).sum(axis=2).argmin(axis=1)
+    return projector["labels"][nearest]
+
+
+def frozen_class_name(label: int, projector: dict) -> str:
+    labels = [int(v) for v in projector["labels"]]
+    names = projector["class_names"]
+    try:
+        return names[labels.index(int(label))]
+    except ValueError:
+        return "outlier"
+
+
+def trajectory_stability(labels: np.ndarray) -> Tuple[float, int | None]:
+    """Доля снимков последней четверти с финальной меткой.
+
+    Возвращает (устойчивость, индекс первого снимка непрерывного финального
+    отрезка) — по индексу вызывающий берёт номер шага из траектории.
+    """
+    n = len(labels)
+    if n == 0:
+        return 0.0, None
+    final = int(labels[-1])
+    q0 = int(np.floor(0.75 * n))
+    tail = labels[q0:]
+    stability = float((tail == final).mean())
+    stable_from = None
+    for j in range(n - 1, -1, -1):
+        if int(labels[j]) == final:
+            stable_from = j
+        else:
+            break
+    return stability, stable_from
+
+
 def run_census(
     specs: Sequence[CheckpointSpec],
     seeds: Sequence[int],
@@ -1448,6 +1514,7 @@ def run_census(
     every: int,
     device: torch.device,
     pilot: bool = False,
+    frozen_projector: dict | None = None,
 ) -> dict:
     started = time.time()
     runs: List[dict] = []
@@ -1459,6 +1526,21 @@ def run_census(
         spec_runs = []
         for seed in seeds:
             run = run_seed(model, spec, seed, steps, every, device)
+            if frozen_projector is not None:
+                labels = frozen_labels_for_trajectory(
+                    run.get("traj_features"), frozen_projector
+                )
+                run["trajectory_frozen_cluster"] = [int(v) for v in labels]
+                run["trajectory_frozen_class"] = [
+                    frozen_class_name(int(v), frozen_projector) for v in labels
+                ]
+                stability, start_index = trajectory_stability(labels)
+                run["stability_frozen_last_quarter"] = stability
+                run["frozen_class_stable_from_step"] = (
+                    int(run["trajectory"][start_index]["step"])
+                    if start_index is not None and run.get("trajectory")
+                    else None
+                )
             spec_runs.append(run)
             runs.append(run)
         elapsed = time.time() - t0

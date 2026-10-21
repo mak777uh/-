@@ -48,7 +48,7 @@ def patched(monkeypatch, tmp_path):
     monkeypatch.setattr(
         e02c_census.e02b,
         "run_census",
-        lambda specs, seeds, steps, every, device, pilot=False: (
+        lambda specs, seeds, steps, every, device, pilot=False, **_kwargs: (
             {"runs": [], "steps": steps, "device": str(device)},
             {},
         ),

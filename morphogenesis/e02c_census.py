@@ -151,6 +151,13 @@ def family_stats(runs, family):
     n = len(rows)
     s2 = [r for r in rows if r.get("frozen_class") == "struct_2" and r["final"]["alive_fraction"] >= DEAD_ALIVE]
     stable = [r for r in s2 if float(r.get("stability_last_quarter") or 0.0) >= STABILITY_MIN]
+    # «Устойчивость» выше считается по Ward, обученному внутри этой переписи,
+    # поэтому она зависит от состава семейств. Замороженная метрика считает
+    # снимки по центроидам E02b и сравнима между переписями.
+    stable_frozen = [
+        r for r in s2
+        if float(r.get("stability_frozen_last_quarter") or 0.0) >= STABILITY_MIN
+    ]
     counts = {}
     for r in rows:
         key = r.get("frozen_class", "outlier")
@@ -162,6 +169,8 @@ def family_stats(runs, family):
         "struct_2_fraction": round(len(s2) / n, 4) if n else 0.0,
         "struct_2_stable": len(stable),
         "struct_2_stable_fraction": round(len(stable) / n, 4) if n else 0.0,
+        "struct_2_stable_frozen": len(stable_frozen),
+        "struct_2_stable_frozen_fraction": round(len(stable_frozen) / n, 4) if n else 0.0,
         "frozen_class_counts": counts,
         "ward_class_counts": {
             c: sum(1 for r in rows if r.get("class_name") == c)
@@ -272,8 +281,15 @@ def _census(args, seeds, specs, device):
         [s for s in specs if s.path], full_protocol=True, allow_missing=True
     )
     started = time.time()
+    frozen_projector = e02b.load_frozen_projector(CENTROIDS)
     payload, clustering = e02b.run_census(
-        specs, seeds, args.steps, args.every, device, pilot=False
+        specs,
+        seeds,
+        args.steps,
+        args.every,
+        device,
+        pilot=False,
+        frozen_projector=frozen_projector,
     )
     payload["experiment"] = "E02c_replication"
     payload["protocol"] = "reports/2026-10-21-e02c-plan.md"
@@ -321,6 +337,16 @@ def _census(args, seeds, specs, device):
             f"перепись покрывает {len(new_families)} семейств(а) из трёх по протоколу: "
             "вердикт H-R1/H-R2/H-R3 не применяется, читать stats"
         ),
+        "stability_metric": {
+            "criterion_basis": "struct_2_stable_fraction (Ward внутри переписи, как в протоколе)",
+            "criterion_basis_relative_to_census": True,
+            "comparable": "struct_2_stable_frozen_fraction (проекция снимков на центроиды E02b)",
+            "note": (
+                "Ward обучается внутри переписи, поэтому имена кластеров и "
+                "«устойчивость» зависят от состава семейств; замороженная "
+                "проекция от состава не зависит и сравнима между переписями"
+            ),
+        },
         "supported_families": supported,
         "criterion": {
             "struct_2_min": STRUCT2_MIN,
@@ -346,7 +372,8 @@ def _census(args, seeds, specs, device):
     for fam, st in stats.items():
         print(
             f"[e02c] {fam}: struct_2 {st['struct_2']}/{st['n']} "
-            f"(stable {st['struct_2_stable']}), {st['frozen_class_counts']}"
+            f"(stable {st['struct_2_stable']} fit-relative, "
+            f"{st['struct_2_stable_frozen']} frozen), {st['frozen_class_counts']}"
         )
     print(f"[e02c] controls: {controls}")
     return {
