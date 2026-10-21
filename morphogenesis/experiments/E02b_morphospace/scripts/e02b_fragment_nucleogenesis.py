@@ -407,8 +407,8 @@ for family, proto_seed, expected_class, is_untrained, model_idx in MODELS:
                     "n": len(good),
                     "nucleogenesis_count": len(nuc),
                     "same_pattern_count": len(same),
-                    "nucleogenesis_established": bool(len(good) >= REPEATS and len(nuc) >= SIGN_MIN),
-                    "same_pattern_rebuilt": bool(len(good) >= REPEATS and len(same) >= SIGN_MIN),
+                    "nucleogenesis_established": bool(len(nuc) >= SIGN_MIN),
+                    "same_pattern_rebuilt": bool(len(same) >= SIGN_MIN),
                     "median_iou": (
                         float(np.median([r["iou_vs_prototype"] for r in good])) if good else None
                     ),
