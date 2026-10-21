@@ -1,7 +1,7 @@
 # 005: Что перепись нашла в морфопространстве
 
 - **Тип:** исследовательская статья
-- **Версия:** v1.6
+- **Версия:** v1.9
 - **Дата:** 2026-10-21
 - **Статус:** стабильно
 - **Автор:** Лаборатория Morphogenesis
@@ -763,6 +763,9 @@ cd ..
 # заморозка центроидов классов — только чтение census.json, секунды
 .venv/Scripts/python.exe morphogenesis/experiments/E02b_morphospace/scripts/e02b_freeze_centroids.py
 
+# аудит канонических чекпоинтов — чтение весов с диска, без GPU
+.venv/Scripts/python.exe morphogenesis/experiments/E02b_morphospace/scripts/e02b_checkpoint_provenance.py
+
 # ночные повторы (долгие: считают на CUDA, часы)
 .venv/Scripts/python.exe morphogenesis/experiments/E02b_morphospace/scripts/e02b_transition_matrix_rep.py
 .venv/Scripts/python.exe morphogenesis/experiments/E02b_morphospace/scripts/e02b_geometric_lesion_rep.py
@@ -835,6 +838,11 @@ cd ..
   заморожены отдельным артефактом (проекция воспроизводит класс census у 832/832),
   шаг проекции для репликации обучения стал исполнимым по файлу. Вывод про один
   тренировочный сид не изменён.
+- **v1.9** (2026-10-21): аудит происхождения 12 канонических чекпоинтов — байт-хеш
+  каждого файла совпал с индексом, метаданные прогонов согласованы с именами
+  семейств, наборы весов попарно различны. Одинаковый финальный лосс у четырёх
+  H-A0 — не дубликат файла, а сходство к одной и той же функции на мёртвом поле.
+  Выводы статьи не изменены.
 
 ## Проверка
 
@@ -847,7 +855,8 @@ cd ..
   `basin_reverse_exploratory.json`, `transition_matrix_exploratory.json`,
   `r11_bistability_exploratory.json`, `transient_class_analysis_exploratory.json`,
   `geometry_of_form_exploratory.json`, `transition_matrix_rep_exploratory.json`,
-  `class_centroids_frozen.json` (2026-10-21).
+  `class_centroids_frozen.json`, `checkpoint_provenance_exploratory.json`
+  (2026-10-21).
 - Ссылки проверены 2026-10-21.
 - Независимый `e02b_verify.py` (не доверяет harness-полям) — 0 ошибок, 0 предупреждений.
 - Независимый `e02b_verify_exploratory.py` (пересчитывает матрицу, бассейны,
@@ -879,6 +888,12 @@ cd ..
 - Замороженные центроиды пересчитаны независимо, чистым питоном: пересборка
   кластеризации совпала с `census.json` по 13 полям, проекция воспроизводит
   класс census у всех 832 прогонов.
+- Происхождение 12 канонических чекпоинтов проверено независимо: байт-хеш каждого
+  файла пересчитан заново и совпал и с `lab/checkpoints.json`, и с артефактом;
+  метаданные каждого прогона согласованы с именем семейства (`seed`, `iteration`,
+  `spec_version`, `target_pattern`, `experiment`); наборы весов попарно различны
+  (12/12), группы одинакового финального лосса пересчитаны из строк (9 групп из
+  12, четыре H-A0 с одинаковым лоссом — при четырёх различных наборах весов).
 - Транзиторные фазы пересчитаны по `census.json`: `struct_2` — 1 семейство,
   0 только транзиторных; `struct_1` — 6 семейств, 4 только транзиторных.
 - Геометрия формы пересчитана по `census.json`: `struct_2` против `struct_1`

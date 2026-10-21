@@ -1254,6 +1254,107 @@ if frozen:
         "центроиды: sha256 census.json совпадает с записанным",
     )
 
+# ------------------------------------------------- происхождение чекпоинтов
+prov = load("checkpoint_provenance_exploratory.json")
+if prov:
+    import hashlib
+    import re
+
+    REPO = HERE.parents[4]
+    rows = prov["checkpoints"]
+    check(
+        len(rows) == 12,
+        f"происхождение: чекпоинтов в артефакте {len(rows)} (ожидалось 12)",
+    )
+    # Хеш весов попарно различный: значит это 12 разных обучений, а не
+    # один файл, скопированный 12 раз.
+    _wh = [r["weights_sha256"] for r in rows]
+    check(
+        len(set(_wh)) == len(_wh),
+        f"происхождение: различных наборов весов {len(set(_wh))}/{len(_wh)}",
+    )
+    # Метаданные проговаривают то же, что и имя семейства.
+    _meta_bad = []
+    for r in rows:
+        m = re.match(r"^WP4_(?P<arm>.+?)_s(?P<steps>\d+)_seed(?P<seed>\d+)$", r["family"])
+        if not m:
+            _meta_bad.append((r["family"], "имя семьи не разобрано"))
+            continue
+        if r["payload_seed"] != int(m.group("seed")):
+            _meta_bad.append((r["family"], f"seed {r['payload_seed']}"))
+        if r["payload_iteration"] != int(m.group("steps")):
+            _meta_bad.append((r["family"], f"iteration {r['payload_iteration']}"))
+        if r["metadata_experiment"] != r["family"]:
+            _meta_bad.append((r["family"], f"experiment {r['metadata_experiment']}"))
+        if r["metadata_spec_version"] != r["payload_spec_version"]:
+            _meta_bad.append((r["family"], "spec_version"))
+    check(
+        not _meta_bad,
+        f"происхождение: метаданные согласованы с именем семейства "
+        f"(расхождений: {len(_meta_bad)})",
+    )
+    if _meta_bad:
+        print("     первые расхождения:", _meta_bad[:5])
+    # Группы одинакового лосса пересчитываются из строк.
+    _groups = {}
+    for r in rows:
+        _groups.setdefault(f"{r['payload_loss']:.17g}", []).append(r["family"])
+    _groups = {k: sorted(v) for k, v in sorted(_groups.items())}
+    _artifact_groups = {k: v["families"] for k, v in prov["loss_groups"].items()}
+    check(
+        _groups == _artifact_groups,
+        f"происхождение: группы одинакового лосса пересчитаны и совпали "
+        f"({len(_groups)} групп)",
+    )
+    # Байт-хеш файлов пересчитывается независимо (hashlib, без torch).
+    _index_path = REPO / "lab" / "checkpoints.json"
+    _index = json.load(open(_index_path, encoding="utf-8")) if _index_path.exists() else {}
+    _index_sha = {
+        e["path"]: e.get("sha256")
+        for e in _index.get("entries", [])
+        if "E02b_morphospace" in (e.get("canonical_for") or [])
+    }
+    _missing = []
+    _bad_hash = []
+    _bad_index = []
+    for r in rows:
+        _path = REPO / r["path"]
+        if not _path.exists():
+            _missing.append(r["path"])
+            continue
+        _h = hashlib.sha256()
+        with _path.open("rb") as _fh:
+            for _chunk in iter(lambda: _fh.read(1 << 20), b""):
+                _h.update(_chunk)
+        if _h.hexdigest() != r["file_sha256"]:
+            _bad_hash.append(r["family"])
+        if _index_sha.get(r["path"]) != r["file_sha256"]:
+            _bad_index.append(r["family"])
+    if _missing:
+        warn(
+            False,
+            f"происхождение: на диске нет {len(_missing)} канонических чекпоинтов — "
+            "проверка байт-хешей пропущена (веса в git не входят)",
+        )
+    else:
+        check(
+            not _bad_hash,
+            f"происхождение: байт-хеш каждого файла пересчитан и совпал "
+            f"(расхождений: {len(_bad_hash)})",
+        )
+        check(
+            not _bad_index,
+            f"происхождение: хеши совпадают с lab/checkpoints.json "
+            f"(расхождений: {len(_bad_index)})",
+        )
+    check(
+        prov["summary"]["file_integrity_ok"] is True
+        and prov["summary"]["metadata_consistent"] is True
+        and prov["summary"]["weights_pairwise_distinct"] is True
+        and not prov["summary"]["issues"],
+        "происхождение: сводка артефакта без замечаний",
+    )
+
 print("\n=== СВОДКА ===")
 print("errors", len(errors), "warnings", len(warnings))
 for e in errors:
