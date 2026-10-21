@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-10-20T19:55:12Z",
+  "generated_at": "2026-10-21T14:58:42Z",
   "policy": "Локально хранятся только canonical final из lab/checkpoints.json (требования активной/следующей серии) и явно объявленный положительный контроль. Best-снапшоты при наличии final и неканонические final закрытых/замещённых плеч удаляются после фиксации метрик, per-run JSONL, манифеста и этой записи в git. Веса в GitHub не отправляются; canonical final удаляется только по решению владельца.",
-  "freed_bytes": 24816804132,
+  "freed_bytes": 26435291358,
   "files": [
     {
       "path": "morphogenesis/checkpoints/gate_layer1_s800_seed101/nca_best.pt",
@@ -371,6 +371,33 @@
       "size_bytes": 539495742,
       "mtime": "2026-10-19T15:56:02Z",
       "reason": "положительный контроль заменён каноническим H-P1 s2000; метрики и журнал в git"
+    },
+    {
+      "path": "morphogenesis/checkpoints/E02c_R-9_s2000_seed142/nca_best.pt",
+      "family": "E02c_R-9_s2000_seed142",
+      "kind": "best",
+      "size_bytes": 539495742,
+      "mtime": "2026-10-21T14:43:00Z",
+      "kept": "morphogenesis/checkpoints/E02c_R-9_s2000_seed142/nca_final.pt",
+      "reason": "E02c seed142 finish достигнут; final и метрики в журнале/манифесте, промежуточные веса — расходник (AGENTS §5a)"
+    },
+    {
+      "path": "morphogenesis/checkpoints/E02c_R-9_s2000_seed142/nca_iter_1000.pt",
+      "family": "E02c_R-9_s2000_seed142",
+      "kind": "iter",
+      "size_bytes": 539495742,
+      "mtime": "2026-10-21T14:37:47Z",
+      "kept": "morphogenesis/checkpoints/E02c_R-9_s2000_seed142/nca_final.pt",
+      "reason": "E02c seed142 finish достигнут; final и метрики в журнале/манифесте, промежуточные веса — расходник (AGENTS §5a)"
+    },
+    {
+      "path": "morphogenesis/checkpoints/E02c_R-9_s2000_seed142/nca_iter_2000.pt",
+      "family": "E02c_R-9_s2000_seed142",
+      "kind": "iter",
+      "size_bytes": 539495742,
+      "mtime": "2026-10-21T14:53:33Z",
+      "kept": "morphogenesis/checkpoints/E02c_R-9_s2000_seed142/nca_final.pt",
+      "reason": "E02c seed142 finish достигнут; final и метрики в журнале/манифесте, промежуточные веса — расходник (AGENTS §5a)"
     }
   ],
   "skipped": [
