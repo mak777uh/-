@@ -640,6 +640,74 @@ if frag:
             f"очаг cross {cb['target']}<-{cb['source']}: счётчики классов сходятся",
         )
 
+# ------------------------------------------ generic-класс: расстояния в z-пространстве
+generic_art = load("generic_class_distance_exploratory.json")
+if generic_art:
+    import numpy as _np
+
+    census_path = EXP / "census.json"
+    if census_path.exists():
+        import sys as _sys
+
+        # EXP = <repo>/morphogenesis/experiments/E02b_morphospace,
+        # EXP.parents[1] = <repo>/morphogenesis — там лежит e02b_morphospace.py
+        _sys.path.insert(0, str(EXP.parents[1]))
+        import e02b_morphospace as e02b  # noqa: E402
+
+        census = json.load(open(census_path, encoding="utf-8"))
+        cl = census["clustering"]
+        _mean = _np.asarray(cl["scaler_mean"])
+        _std = _np.asarray(cl["scaler_std"])
+        _valid = cl["labels_valid"]
+        _names = {int(c): str(n) for c, n in zip(_valid, cl["class_names"], strict=True)}
+
+        def _z(vec):
+            return (_np.asarray(vec, dtype=_np.float64) - _mean) / _std
+
+        _by = {int(c): [] for c in _valid}
+        _ctrl = {}
+        for _r in census["runs"]:
+            _v = _z(e02b.descriptor_vector(_r["final"]))
+            if _r.get("is_control"):
+                _ctrl.setdefault(str(_r.get("family")), []).append(_v)
+                continue
+            _cid = int(_r["cluster"])
+            if _cid in _by:
+                _by[_cid].append(_v)
+        _cent = _np.vstack([_np.asarray(_by[int(c)]).mean(axis=0) for c in _valid])
+        _classes = [_names[int(c)] for c in _valid]
+        _unt = _np.vstack(_ctrl["untrained_current_arch"])
+        for _cname in ("struct_1", "struct_2"):
+            _i = _classes.index(_cname)
+            _own = float(_np.linalg.norm(_unt - _cent[_i], axis=1).mean())
+            _spread = float(
+                _np.linalg.norm(_np.vstack(_by[int(_valid[_i])]) - _cent[_i], axis=1).mean()
+            )
+            _stored = generic_art["classes"][_cname]
+            check(
+                abs(_stored[f"distance_to_untrained_current_arch"] - _own) < 1e-6,
+                f"generic: {_cname} — расстояние от облака необученной сходится ({_own:.3f})",
+            )
+            check(
+                abs(_stored["within_class_spread"] - _spread) < 1e-6,
+                f"generic: {_cname} — внутриклассовый разброс сходится ({_spread:.3f})",
+            )
+            _verdict = "generic" if _own <= 2.0 * _spread else "learned"
+            check(
+                _stored["generic_verdict"]["verdict"] == _verdict,
+                f"generic: {_cname} — вердикт {_verdict}",
+            )
+        check(
+            generic_art["summary"]["generic_structural_classes"] == ["struct_1"],
+            "generic: struct_1 — единственный generic-класс",
+        )
+        check(
+            generic_art["summary"]["learned_structural_classes"] == ["struct_2"],
+            "generic: struct_2 — единственный выученный структурный класс",
+        )
+    else:
+        warn(False, "generic: нет census.json для независимого пересчёта")
+
 print("\n=== СВОДКА ===")
 print("errors", len(errors), "warnings", len(warnings))
 for e in errors:

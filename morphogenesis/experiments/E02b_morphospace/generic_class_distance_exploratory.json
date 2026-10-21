@@ -1,0 +1,171 @@
+{
+  "schema_version": 1,
+  "experiment": "E02b_morphospace",
+  "kind": "exploratory_generic_class_distance",
+  "note": "расстояния в z-пространстве кластеризации census: совпадает ли облако необученной архитектуры с облаком класса; только чтение census.json, без новых развёрток",
+  "space": "z-пространство кластеризации (mean/std census), 18 признаков",
+  "rules": {
+    "generic": "средняя дистанция от облака необученной архитектуры до центроида класса <= 2.0 × внутриклассовый разброс, и этот класс — ближайший к облаку, и запас ко второму классу >= 2.0×",
+    "learned": "иначе: облако необученной архитектуры в этот класс не попадает"
+  },
+  "classes": {
+    "struct_1": {
+      "n": 67,
+      "semantic": "structured",
+      "within_class_spread": 1.947979807302211,
+      "within_class_max": 15.737042392503025,
+      "nearest_other_class": "uniform_dark",
+      "nearest_other_distance": 5.544719441022468,
+      "distance_to_WP4_H-P1_s2000_seed42": 4.609298481452347,
+      "distance_to_untrained_current_arch": 1.9270486589089735,
+      "generic_verdict": {
+        "inside_own_spread": true,
+        "is_untrained_nearest_class": true,
+        "margin_over_own_distance": 2.8785356378106344,
+        "verdict": "generic"
+      }
+    },
+    "death": {
+      "n": 320,
+      "semantic": "death",
+      "within_class_spread": 7.408659328316998e-15,
+      "within_class_max": 7.408659328316997e-15,
+      "nearest_other_class": "uniform_dark",
+      "nearest_other_distance": 2.799013242523783,
+      "distance_to_WP4_H-P1_s2000_seed42": 4.445410402708343,
+      "distance_to_untrained_current_arch": 5.5470782404646695
+    },
+    "uniform_dark": {
+      "n": 189,
+      "semantic": "uniform_dark",
+      "within_class_spread": 1.0933266785816977,
+      "within_class_max": 3.603626104697236,
+      "nearest_other_class": "death",
+      "nearest_other_distance": 2.799013242523783,
+      "distance_to_WP4_H-P1_s2000_seed42": 5.258023717988787,
+      "distance_to_untrained_current_arch": 5.589720433970843
+    },
+    "uniform_bright": {
+      "n": 64,
+      "semantic": "uniform_bright",
+      "within_class_spread": 5.960800659832522e-15,
+      "within_class_max": 5.960800659832523e-15,
+      "nearest_other_class": "struct_2",
+      "nearest_other_distance": 8.462865395844611,
+      "distance_to_WP4_H-P1_s2000_seed42": 9.33308901061239,
+      "distance_to_untrained_current_arch": 8.431874132538283
+    },
+    "struct_2": {
+      "n": 64,
+      "semantic": "structured",
+      "within_class_spread": 0.6431697355793393,
+      "within_class_max": 1.5209473474016206,
+      "nearest_other_class": "uniform_bright",
+      "nearest_other_distance": 8.462865395844611,
+      "distance_to_WP4_H-P1_s2000_seed42": 8.621373870603616,
+      "distance_to_untrained_current_arch": 7.999069461928318,
+      "generic_verdict": {
+        "inside_own_spread": false,
+        "is_untrained_nearest_class": false,
+        "margin_over_own_distance": 0.6934654420574874,
+        "verdict": "learned"
+      }
+    }
+  },
+  "control_groups": {
+    "WP4_H-P1_s2000_seed42": {
+      "n": 64,
+      "within_cloud_spread": 1.4945254323337993,
+      "centroid_to_class_centroid": {
+        "struct_1": 4.351620747527793,
+        "death": 4.277696118119304,
+        "uniform_dark": 5.0897993637004255,
+        "uniform_bright": 9.205529417466007,
+        "struct_2": 8.480604389559618
+      },
+      "mean_point_to_class_centroid": {
+        "death": 4.445410402708343,
+        "struct_1": 4.609298481452347,
+        "uniform_dark": 5.258023717988787,
+        "struct_2": 8.621373870603616,
+        "uniform_bright": 9.33308901061239
+      },
+      "nearest_class": "death",
+      "second_class": "struct_1",
+      "margin_over_second": 0.16388807874400424,
+      "relative_margin": 0.03555597004695704
+    },
+    "untrained_current_arch": {
+      "n": 64,
+      "within_cloud_spread": 1.051301483602452,
+      "centroid_to_class_centroid": {
+        "struct_1": 1.5917495864255313,
+        "death": 5.443159775131941,
+        "uniform_dark": 5.4862560029361145,
+        "uniform_bright": 8.35803116714454,
+        "struct_2": 7.9210342552093005
+      },
+      "mean_point_to_class_centroid": {
+        "struct_1": 1.9270486589089735,
+        "death": 5.5470782404646695,
+        "uniform_dark": 5.589720433970843,
+        "struct_2": 7.999069461928318,
+        "uniform_bright": 8.431874132538283
+      },
+      "nearest_class": "struct_1",
+      "second_class": "death",
+      "margin_over_second": 3.6200295815556958,
+      "relative_margin": 0.6526011396681601
+    }
+  },
+  "pairwise_centroid_distance": {
+    "struct_1": {
+      "struct_1": 0.0,
+      "death": 5.934696233859689,
+      "uniform_dark": 5.544719441022468,
+      "uniform_bright": 8.47604028159825,
+      "struct_2": 8.572655376612655
+    },
+    "death": {
+      "struct_1": 5.934696233859689,
+      "death": 0.0,
+      "uniform_dark": 2.799013242523783,
+      "uniform_bright": 9.177261867513225,
+      "struct_2": 9.141404814349263
+    },
+    "uniform_dark": {
+      "struct_1": 5.544719441022468,
+      "death": 2.799013242523783,
+      "uniform_dark": 0.0,
+      "uniform_bright": 9.382728640295252,
+      "struct_2": 9.392685608116722
+    },
+    "uniform_bright": {
+      "struct_1": 8.47604028159825,
+      "death": 9.177261867513225,
+      "uniform_dark": 9.382728640295252,
+      "uniform_bright": 0.0,
+      "struct_2": 8.462865395844611
+    },
+    "struct_2": {
+      "struct_1": 8.572655376612655,
+      "death": 9.141404814349263,
+      "uniform_dark": 9.392685608116722,
+      "uniform_bright": 8.462865395844611,
+      "struct_2": 0.0
+    }
+  },
+  "summary": {
+    "generic_structural_classes": [
+      "struct_1"
+    ],
+    "learned_structural_classes": [
+      "struct_2"
+    ],
+    "struct_1_distance_to_untrained_cloud": 1.9270486589089735,
+    "struct_2_distance_to_untrained_cloud": 7.999069461928318,
+    "struct_1_within_class_spread": 1.947979807302211,
+    "untrained_cloud_spread": 1.051301483602452,
+    "untrained_margin_over_second_class": 0.6526011396681601
+  }
+}
