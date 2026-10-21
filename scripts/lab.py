@@ -47,6 +47,8 @@ CHECKPOINT_DIR = MORPH / "checkpoints"
 
 STATUSES = {"planned", "running", "closed", "blocked", "not_run"}
 KINDS = {"experiment", "diagnostic", "gate", "series"}
+HYPOTHESIS_STATUSES = {"planned", "running", "confirmed", "rejected", "blocked"}
+LOOP_STAGES = ("sources", "review", "hypothesis", "test", "writeup", "sources_next")
 RUN_STATUSES = {"claimed", "running", "finished", "failed", "aborted", "superseded"}
 EVENTS = {"start", "finish", "error", "checkpoint", "run_start", "run_finish"}
 LEVELS = {"debug", "info", "warn", "warning", "error"}
@@ -895,6 +897,63 @@ def run_command(args: argparse.Namespace) -> int:
 # ---------------------------------------------------------------------------
 
 
+def _check_hypotheses(items: Any, where: str) -> list[str]:
+    """Проверить список гипотез: у каждой есть id, утверждение, критерий и статус."""
+    errors: list[str] = []
+    if not isinstance(items, list) or not items:
+        return [f"{where}: пусто — нужна хотя бы одна гипотеза со способом проверки"]
+    seen: set[str] = set()
+    for item in items:
+        if not isinstance(item, dict):
+            errors.append(f"{where}: элемент не объект")
+            continue
+        hid = str(item.get("id") or "")
+        if not hid:
+            errors.append(f"{where}: гипотеза без id")
+        elif hid in seen:
+            errors.append(f"{where}: повтор id={hid}")
+        else:
+            seen.add(hid)
+        for key in ("statement", "test"):
+            if not str(item.get(key) or "").strip():
+                errors.append(f"{where}[{hid or '?'}]: пустое поле {key}")
+        if item.get("status") not in HYPOTHESIS_STATUSES:
+            errors.append(
+                f"{where}[{hid or '?'}]: недопустимый status={item.get('status')!r}; "
+                f"допустимо {sorted(HYPOTHESIS_STATUSES)}"
+            )
+    return errors
+
+
+def _check_loop(program: dict[str, Any]) -> list[str]:
+    """Проверить, что научный цикл описан: шесть стадий и очередь гипотез."""
+    errors: list[str] = []
+    loop = program.get("loop")
+    if not isinstance(loop, list) or not loop:
+        return ["registry.program.loop отсутствует или пуст: описан цикл научной работы"]
+    stages: list[str] = []
+    for item in loop:
+        if not isinstance(item, dict):
+            errors.append("registry.program.loop: элемент не объект")
+            continue
+        stage = str(item.get("stage") or "")
+        if not stage:
+            errors.append("registry.program.loop: стадия без stage")
+        stages.append(stage)
+        for key in ("title", "where", "output"):
+            if not str(item.get(key) or "").strip():
+                errors.append(f"registry.program.loop[{stage or '?'}]: пустое поле {key}")
+    if len(stages) != len(set(stages)):
+        errors.append("registry.program.loop: стадии повторяются")
+    missing = [stage for stage in LOOP_STAGES if stage not in stages]
+    if missing:
+        errors.append(
+            "registry.program.loop: нет обязательных стадий цикла: " + ", ".join(missing)
+        )
+    errors.extend(_check_hypotheses(program.get("next_hypotheses"), "registry.program.next_hypotheses"))
+    return errors
+
+
 def validate(ci: bool, strict: bool) -> tuple[list[str], list[str], dict[str, Any]]:
     errors: list[str] = []
     warnings: list[str] = []
@@ -935,6 +994,7 @@ def validate(ci: bool, strict: bool) -> tuple[list[str], list[str], dict[str, An
         for key in ("name", "phase", "status_note", "blockers", "next", "decisions_needed"):
             if key not in program:
                 errors.append(f"registry.program.{key} отсутствует")
+        errors.extend(_check_loop(program))
         experiments = registry.get("experiments", [])
         if not isinstance(experiments, list) or not experiments:
             errors.append("registry.experiments пуст или не список")
@@ -958,6 +1018,14 @@ def validate(ci: bool, strict: bool) -> tuple[list[str], list[str], dict[str, An
             root = item.get("artifact_root")
             if root and not (ROOT / root).exists() and item.get("status") not in {"planned", "not_run"}:
                 warnings.append(f"{exp_id}.artifact_root пока нет: {root}")
+            # Научный цикл (AGENTS.md §3a): написанная статья обязана заканчиваться
+            # следующими гипотезами — иначе результат не закрыт.
+            if item.get("article"):
+                errors.extend(
+                    _check_hypotheses(
+                        item.get("next_hypotheses"), f"{exp_id}.next_hypotheses"
+                    )
+                )
         counts["experiments"] = len(experiments if isinstance(experiments, list) else [])
 
     if state:

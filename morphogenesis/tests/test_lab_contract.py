@@ -96,6 +96,37 @@ def test_registry_and_descriptor_are_consistent() -> None:
     assert descriptor["checkpoint_policy"]["canonical_kind"] == "final"
 
 
+def test_scientific_loop_is_declared_and_enforced() -> None:
+    """Научный цикл (AGENTS.md §3a) объявлен и проверяем машинно.
+
+    Шесть стадий, очередь гипотез лаборатории и правило «статья закрывается
+    следующими гипотезами» — всё это должно быть в реестре, иначе validate
+    падает. Тест фиксирует контракт, чтобы правило не размылось.
+    """
+    registry = load_json(REGISTRY)
+    program = registry["program"]
+
+    stages = [item["stage"] for item in program["loop"]]
+    assert stages == ["sources", "review", "hypothesis", "test", "writeup", "sources_next"]
+    for item in program["loop"]:
+        assert item["title"] and item["where"] and item["output"]
+
+    hypotheses = program["next_hypotheses"]
+    assert hypotheses, "очередь следующих гипотез пуста"
+    ids = [item["id"] for item in hypotheses]
+    assert len(ids) == len(set(ids)), "повторяющиеся id гипотез"
+    for item in hypotheses:
+        assert item["statement"].strip(), f"{item['id']}: пустое утверждение"
+        assert item["test"].strip(), f"{item['id']}: нет критерия проверки"
+        assert item["status"] in {"planned", "running", "confirmed", "rejected", "blocked"}
+
+    for item in registry["experiments"]:
+        if item.get("article"):
+            assert item.get("next_hypotheses"), (
+                f"{item['id']}: есть статья, но не записаны следующие гипотезы"
+            )
+
+
 def test_journal_finish_status_mapping() -> None:
     lab = load_lab_module()
     assert lab._status_from_finish({"event": "finish", "stop_reason": "max_steps"}) == "finished"
