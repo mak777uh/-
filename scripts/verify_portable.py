@@ -319,7 +319,13 @@ def run_smoke(device: torch.device, steps: int, seeds: tuple[int, ...], frozen: 
             torch.cuda.empty_cache()
 
     elapsed = time.time() - started
-    checks = [check_lite_checkpoint(family, manifest) for family in SMOKE_FAMILIES]
+    # Целостность проверяем у ВСЕХ lite-файлов пакета, а не только у тех двух,
+    # которые участвуют в rollout: 12 × 152 КБ — дешёво, а публикуемый пакет
+    # не должен выглядеть проверенным там, где проверены только 2 из 12.
+    checks = [
+        check_lite_checkpoint(family, manifest)
+        for family in manifest["package"]["families"]
+    ]
     mismatches = [
         {
             "family": row["family"],
@@ -352,6 +358,7 @@ def run_smoke(device: torch.device, steps: int, seeds: tuple[int, ...], frozen: 
         "steps": int(steps),
         "snapshot_every": CENSUS_EVERY,
         "comparable_to_census": bool(comparable),
+        "numeric_identity_expected": False,
         "checks": checks,
         "checks_ok": bool(checks_ok),
         "runs": rows,
@@ -370,9 +377,12 @@ def run_smoke(device: torch.device, steps: int, seeds: tuple[int, ...], frozen: 
         },
         "notes": [
             "критерий PASS — совпадение классов с census по всем прогонам "
-            "и целостность lite-файлов",
-            "числовое расхождение дескрипторов ~1e-7 ожидается между CPU и CUDA",
-            "на другой GPU классы должны совпасть, побитовость не гарантируется",
+            "и целостность всех lite-файлов пакета",
+            "классы ожидаются совпадающими между CPU и CUDA, но побитовость "
+            "не гарантируется: n_pixels/alive-порог чувствителен к округлению, "
+            "поэтому max_abs_descriptor_diff может быть O(10^2) при 0 mismatch",
+            "числовая идентичность дескрипторов не является критерием; "
+            "сравниваются классы, а расхождение показывается явно",
         ],
     }
 
