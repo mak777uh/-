@@ -234,7 +234,7 @@ result = {
     "target_noise_seeds": TARGET_SEEDS,
     "sources": {
         family: {
-            "expected_class": expected,
+            "expected_class": SOURCES[family],
             "states": [{k: v for k, v in s.items() if k != "state"} for s in states],
         }
         for family, states in source_states.items()
