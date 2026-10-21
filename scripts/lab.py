@@ -42,12 +42,15 @@ DESCRIPTOR = LAB / "experiments" / "E02b_morphospace.json"
 RUNS = LAB / "runs"
 LOCKS = LAB / "locks"
 LOGS_ARCHIVE = LAB / "logs"
+QUEUE = LAB / "queue.json"
 JOURNAL = MORPH / "logs" / "journal.jsonl"
 CHECKPOINT_DIR = MORPH / "checkpoints"
 
 STATUSES = {"planned", "running", "closed", "blocked", "not_run"}
 KINDS = {"experiment", "diagnostic", "gate", "series"}
 HYPOTHESIS_STATUSES = {"planned", "running", "confirmed", "rejected", "blocked"}
+ITEM_STATUSES = {"planned", "claimed", "running", "closed"}
+ITEM_TTL_MINUTES = 240
 LOOP_STAGES = (
     "sources",
     "review",
@@ -819,6 +822,175 @@ def heartbeat(experiment: str, run_id: str | None) -> None:
     print(json.dumps(existing, ensure_ascii=False, indent=2))
 
 
+# --- очередь пунктов: claim на этапе планирования, один GPU-лейн ---------------
+#
+# Замок `lab/locks/*.lock` появляется в момент запуска команды, поэтому два
+# агента успевают одновременно запланировать один и тот же эксперимент и только
+# потом обнаружить столкновение. Очередь решает это на шаг раньше: пункт
+# занимается до пре-регистрации, а статус `running` означает занятый GPU-лейн —
+# такой пункт может быть только один.
+
+
+def load_queue(path: Path | None = None) -> dict[str, Any]:
+    target = path or QUEUE
+    if not target.exists():
+        return {"schema_version": 1, "updated_at": now_utc(), "items": []}
+    return read_json(target)
+
+
+def save_queue(payload: dict[str, Any], path: Path | None = None) -> dict[str, Any]:
+    target = path or QUEUE
+    payload["updated_at"] = now_utc()
+    write_json_atomic(target, payload)
+    return payload
+
+
+def queue_item(payload: dict[str, Any], item_id: str) -> dict[str, Any] | None:
+    for item in payload.get("items", []):
+        if item.get("id") == item_id:
+            return item
+    return None
+
+
+def item_age_minutes(item: dict[str, Any]) -> float:
+    ts = parse_ts(item.get("heartbeat_at") or item.get("claimed_at"))
+    if ts is None:
+        return 10 ** 9
+    return (dt.datetime.now(dt.timezone.utc) - ts).total_seconds() / 60
+
+
+def _item_ttl(item: dict[str, Any]) -> int:
+    return int(item.get("ttl_minutes") or ITEM_TTL_MINUTES)
+
+
+def item_is_live(item: dict[str, Any]) -> bool:
+    """Claim считается живым, пока владелец жив по heartbeat."""
+    return (
+        item.get("status") in {"claimed", "running"}
+        and bool(item.get("owner"))
+        and item_age_minutes(item) <= _item_ttl(item)
+    )
+
+
+def item_claim(
+    item_id: str,
+    owner: str,
+    hypothesis: str | None = None,
+    status: str = "claimed",
+    note: str = "",
+    ttl_minutes: int = ITEM_TTL_MINUTES,
+    force: bool = False,
+    path: Path | None = None,
+) -> dict[str, Any]:
+    payload = load_queue(path)
+    item = queue_item(payload, item_id)
+    if item is None:
+        raise SystemExit(f"Нет такого пункта очереди: {item_id}")
+    if item.get("status") == "closed" and not force:
+        raise SystemExit(f"Пункт {item_id} уже закрыт; повторно не занимается.")
+    if item_is_live(item) and item.get("owner") != owner and not force:
+        raise SystemExit(
+            f"Пункт {item_id} занят: owner={item.get('owner')}, "
+            f"heartbeat {item_age_minutes(item):.0f} мин назад"
+        )
+    if status == "running" and not force:
+        busy = [
+            other
+            for other in payload.get("items", [])
+            if other.get("id") != item_id
+            and other.get("status") == "running"
+            and item_is_live(other)
+        ]
+        if busy:
+            raise SystemExit("GPU-лейн занят: " + ", ".join(str(o.get("id")) for o in busy))
+    item.update(
+        {
+            "status": status,
+            "owner": owner,
+            "claimed_at": item.get("claimed_at") or now_utc(),
+            "heartbeat_at": now_utc(),
+            "ttl_minutes": ttl_minutes,
+        }
+    )
+    if hypothesis:
+        item["hypothesis"] = hypothesis
+    if note:
+        item["note"] = note
+    save_queue(payload, path)
+    return item
+
+
+def item_heartbeat(item_id: str, owner: str | None = None, path: Path | None = None) -> dict[str, Any]:
+    payload = load_queue(path)
+    item = queue_item(payload, item_id)
+    if item is None:
+        raise SystemExit(f"Нет такого пункта очереди: {item_id}")
+    if item.get("status") not in {"claimed", "running"}:
+        raise SystemExit(f"Пункт {item_id} в статусе {item.get('status')!r}; heartbeat не нужен.")
+    if owner and item.get("owner") != owner:
+        raise SystemExit(f"Пункт {item_id} принадлежит {item.get('owner')!r}, а не {owner!r}.")
+    item["heartbeat_at"] = now_utc()
+    save_queue(payload, path)
+    return item
+
+
+def item_release(
+    item_id: str, owner: str | None = None, force: bool = False, path: Path | None = None
+) -> dict[str, Any]:
+    payload = load_queue(path)
+    item = queue_item(payload, item_id)
+    if item is None:
+        raise SystemExit(f"Нет такого пункта очереди: {item_id}")
+    if owner and item.get("owner") and item.get("owner") != owner and not force:
+        raise SystemExit(f"Пункт {item_id} принадлежит {item.get('owner')!r}, а не {owner!r}.")
+    item.update({"status": "planned", "owner": None, "heartbeat_at": None})
+    save_queue(payload, path)
+    return item
+
+
+def item_close(
+    item_id: str, owner: str | None = None, note: str = "", path: Path | None = None
+) -> dict[str, Any]:
+    payload = load_queue(path)
+    item = queue_item(payload, item_id)
+    if item is None:
+        raise SystemExit(f"Нет такого пункта очереди: {item_id}")
+    item.update(
+        {
+            "status": "closed",
+            "closed_at": now_utc(),
+            "closed_by": owner or item.get("owner"),
+            "heartbeat_at": None,
+        }
+    )
+    if note:
+        item["note"] = note
+    save_queue(payload, path)
+    return item
+
+
+def print_queue(as_json: bool) -> int:
+    payload = load_queue()
+    items = payload.get("items", [])
+    if as_json:
+        print(json.dumps(payload, ensure_ascii=False, indent=2))
+        return 0
+    if not items:
+        print("Очередь пуста.")
+        return 0
+    running = [item for item in items if item.get("status") == "running"]
+    lane = f"занят {running[0].get('id')}" if running else "свободен"
+    print(f"GPU-лейн: {lane}")
+    for item in items:
+        owner = item.get("owner") or "—"
+        hypothesis = item.get("hypothesis") or ""
+        age = ""
+        if item.get("status") in {"claimed", "running"}:
+            age = f" heartbeat {item_age_minutes(item):.0f} мин назад"
+        print(f"{str(item.get('status', '?')):8s} {str(item.get('id')):28s} owner={owner:12s} {hypothesis}{age}")
+    return 0
+
+
 def _environment() -> dict[str, Any]:
     env = {
         "python": platform.python_version(),
@@ -948,6 +1120,61 @@ def run_command(args: argparse.Namespace) -> int:
 # ---------------------------------------------------------------------------
 # Validation
 # ---------------------------------------------------------------------------
+
+
+def _check_queue(
+    registry: dict[str, Any], path: Path | None = None
+) -> tuple[list[str], list[str], int]:
+    """Проверить очередь пунктов: ссылки на гипотезы, владельцы, один GPU-лейн."""
+    target = path or QUEUE
+    errors: list[str] = []
+    warnings: list[str] = []
+    if not target.exists():
+        warnings.append(f"нет файла очереди: {rel(target)} — протокол claim не ведётся")
+        return errors, warnings, 0
+    try:
+        payload = read_json(target)
+    except (OSError, json.JSONDecodeError) as exc:
+        return [f"{rel(target)}: {exc}"], warnings, 0
+    items = payload.get("items")
+    if not isinstance(items, list):
+        return [f"{rel(target)}: items должен быть списком"], warnings, 0
+    hypothesis_ids = {
+        item.get("id") for item in (registry.get("program", {}).get("next_hypotheses") or [])
+    }
+    seen: set[str] = set()
+    running: list[str] = []
+    for item in items:
+        item_id = str(item.get("id") or "")
+        if not item_id:
+            errors.append(f"{rel(target)}: пункт без id")
+            continue
+        if item_id in seen:
+            errors.append(f"{rel(target)}: дубликат id пункта {item_id}")
+        seen.add(item_id)
+        status = item.get("status")
+        if status not in ITEM_STATUSES:
+            errors.append(f"{rel(target)}[{item_id}]: недопустимый status={status!r}")
+        if status in {"claimed", "running"}:
+            if not item.get("owner"):
+                errors.append(f"{rel(target)}[{item_id}]: статус {status} без owner")
+            if not item.get("heartbeat_at"):
+                errors.append(f"{rel(target)}[{item_id}]: статус {status} без heartbeat_at")
+            elif item_age_minutes(item) > _item_ttl(item):
+                warnings.append(
+                    f"{rel(target)}[{item_id}]: claim просрочен, "
+                    f"heartbeat {item_age_minutes(item):.0f} мин назад"
+                )
+        if status == "running":
+            running.append(item_id)
+        hypothesis = item.get("hypothesis")
+        if hypothesis and hypothesis not in hypothesis_ids:
+            errors.append(
+                f"{rel(target)}[{item_id}]: гипотеза {hypothesis!r} отсутствует в registry"
+            )
+    if len(running) > 1:
+        errors.append("GPU-лейн: больше одного пункта в статусе running: " + ", ".join(running))
+    return errors, warnings, len(items)
 
 
 def _check_hypotheses(items: Any, where: str) -> list[str]:
@@ -1441,6 +1668,11 @@ def validate(ci: bool, strict: bool) -> tuple[list[str], list[str], dict[str, An
             errors.append(f"в git отслеживаются runtime-логи: {len(bad_logs)} файлов")
         counts["tracked_files"] = len(tracked)
 
+    queue_errors, queue_warnings, queue_count = _check_queue(registry)
+    errors.extend(queue_errors)
+    warnings.extend(queue_warnings)
+    counts["queue_items"] = queue_count
+
     return errors, warnings, counts
 
 
@@ -1555,6 +1787,34 @@ def main(argv: list[str] | None = None) -> int:
     p_heartbeat.add_argument("--experiment", required=True)
     p_heartbeat.add_argument("--run-id")
 
+    p_queue = sub.add_parser("queue", help="показать очередь пунктов и владельцев")
+    p_queue.add_argument("--json", action="store_true")
+
+    p_item_claim = sub.add_parser(
+        "item-claim", help="занять пункт очереди (до пре-регистрации, а не до запуска)"
+    )
+    p_item_claim.add_argument("--id", required=True)
+    p_item_claim.add_argument("--owner", required=True)
+    p_item_claim.add_argument("--hypothesis")
+    p_item_claim.add_argument("--status", choices=["claimed", "running"], default="claimed")
+    p_item_claim.add_argument("--note", default="")
+    p_item_claim.add_argument("--ttl-minutes", type=int, default=ITEM_TTL_MINUTES)
+    p_item_claim.add_argument("--force", action="store_true")
+
+    p_item_heartbeat = sub.add_parser("item-heartbeat", help="обновить heartbeat пункта")
+    p_item_heartbeat.add_argument("--id", required=True)
+    p_item_heartbeat.add_argument("--owner")
+
+    p_item_release = sub.add_parser("item-release", help="освободить пункт обратно в planned")
+    p_item_release.add_argument("--id", required=True)
+    p_item_release.add_argument("--owner")
+    p_item_release.add_argument("--force", action="store_true")
+
+    p_item_close = sub.add_parser("item-close", help="закрыть пункт очереди")
+    p_item_close.add_argument("--id", required=True)
+    p_item_close.add_argument("--owner")
+    p_item_close.add_argument("--note", default="")
+
     p_run = sub.add_parser("run", help="запустить команду под замком и манифестом")
     p_run.add_argument("--experiment", required=True)
     p_run.add_argument("--experiment-id")
@@ -1628,6 +1888,32 @@ def main(argv: list[str] | None = None) -> int:
         return 0
     if args.action == "heartbeat":
         heartbeat(args.experiment, args.run_id)
+        return 0
+    if args.action == "queue":
+        return print_queue(args.json)
+    if args.action == "item-claim":
+        item = item_claim(
+            args.id,
+            args.owner,
+            hypothesis=args.hypothesis,
+            status=args.status,
+            note=args.note,
+            ttl_minutes=args.ttl_minutes,
+            force=args.force,
+        )
+        print(json.dumps(item, ensure_ascii=False, indent=2))
+        return 0
+    if args.action == "item-heartbeat":
+        item = item_heartbeat(args.id, args.owner)
+        print(json.dumps(item, ensure_ascii=False, indent=2))
+        return 0
+    if args.action == "item-release":
+        item = item_release(args.id, args.owner, force=args.force)
+        print(json.dumps(item, ensure_ascii=False, indent=2))
+        return 0
+    if args.action == "item-close":
+        item = item_close(args.id, args.owner, note=args.note)
+        print(json.dumps(item, ensure_ascii=False, indent=2))
         return 0
     if args.action == "run":
         return run_command(args)

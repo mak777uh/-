@@ -123,6 +123,37 @@ python scripts/lab.py claim --experiment my_experiment --owner my-agent
 `morphogenesis/`, складывает stdout в `morphogenesis/logs/<run_id>.log` и
 закрывает манифест.
 
+## Очередь пунктов и GPU-лейн
+
+Замок появляется в момент запуска, поэтому два агента успевают одновременно
+запланировать один и тот же эксперимент и столкнуться уже на железе. Очередь
+решает это на шаг раньше: пункт занимается **до** пре-регистрации, а не перед
+командой.
+
+```bash
+python scripts/lab.py queue                     # кто что взял и чем занят GPU
+python scripts/lab.py item-claim --id E02c_dynamics --owner my-agent --hypothesis H-E02C-2
+python scripts/lab.py item-claim --id E02c_dynamics --owner my-agent --status running
+python scripts/lab.py item-heartbeat --id E02c_dynamics --owner my-agent
+python scripts/lab.py item-release --id E02c_dynamics --owner my-agent
+python scripts/lab.py item-close --id E02c_dynamics --owner my-agent --note "..."
+```
+
+Правила:
+
+- `lab/queue.json` — единственный список того, что делается и кем;
+- `status` ∈ `planned` / `claimed` / `running` / `closed`;
+- `claimed` — «я планирую этот пункт»; чужой живой claim не перебивается
+  (`--force` — только после проверки, что владелец мёртв);
+- `running` — занятый GPU-лейн: такой пункт может быть **только один**;
+- `hypothesis` обязан существовать в `lab/registry.json` → `program.next_hypotheses`;
+- heartbeat обновляется не реже раза в 4 часа (`ttl_minutes`), иначе claim
+  считается просроченным и его можно перехватить;
+- закрывает пункт тот, кто его вёл; второй агент только проверяет артефакты.
+
+`python scripts/lab.py validate` падает, если в очереди два `running` или пункт
+ссылается на несуществующую гипотезу, и предупреждает о просроченном claim.
+
 ## Чекпоинты
 
 Веса не коммитятся. `checkpoints.json` индексирует их для агентов:
