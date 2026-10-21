@@ -1,0 +1,350 @@
+{
+  "schema_version": 1,
+  "experiment": "E02b_morphospace",
+  "kind": "exploratory_transient_class_analysis",
+  "note": "структура карты: какие классы встречаются транзиторно; только чтение census.json, без новых вычислений на GPU",
+  "source": "census.json",
+  "n_runs": 832,
+  "n_families": 13,
+  "rules": {
+    "visited": "класс встречается хотя бы в одном снимке траектории",
+    "transient_only_family": "класс встречается в семействе, но ни один прогон не заканчивается им",
+    "exclusive": "класс встречается ровно в 1 семействе и нигде не только транзиторный",
+    "universal": "класс встречается в >= 3 семействах"
+  },
+  "per_class": {
+    "struct_1": {
+      "families_with_class": 6,
+      "family_list": [
+        "WP4_H-P1_s2000_seed42",
+        "WP4_R-11_s2000_seed42",
+        "WP4_R-9_s2000_seed101",
+        "WP4_R-9_s2000_seed202",
+        "WP4_R-9_s2000_seed404",
+        "untrained_current_arch"
+      ],
+      "transient_only_families": [
+        "WP4_R-9_s2000_seed202",
+        "WP4_R-9_s2000_seed404"
+      ],
+      "n_transient_only_families": 2,
+      "final_counts_by_family": {
+        "WP4_H-P1_s2000_seed42": 29,
+        "WP4_R-11_s2000_seed42": 3,
+        "WP4_R-9_s2000_seed101": 64,
+        "WP4_R-9_s2000_seed202": 0,
+        "WP4_R-9_s2000_seed404": 0,
+        "untrained_current_arch": 64
+      },
+      "total_final_runs": 160,
+      "total_runs_visited": 279,
+      "exclusive": false,
+      "universal": true
+    },
+    "struct_2": {
+      "families_with_class": 1,
+      "family_list": [
+        "WP4_R-9_s2000_seed42"
+      ],
+      "transient_only_families": [],
+      "n_transient_only_families": 0,
+      "final_counts_by_family": {
+        "WP4_R-9_s2000_seed42": 64
+      },
+      "total_final_runs": 64,
+      "total_runs_visited": 64,
+      "exclusive": true,
+      "universal": false
+    },
+    "uniform_dark": {
+      "families_with_class": 3,
+      "family_list": [
+        "WP4_R-11_s2000_seed42",
+        "WP4_R-9_s2000_seed202",
+        "WP4_R-9_s2000_seed404"
+      ],
+      "transient_only_families": [],
+      "n_transient_only_families": 0,
+      "final_counts_by_family": {
+        "WP4_R-11_s2000_seed42": 61,
+        "WP4_R-9_s2000_seed202": 64,
+        "WP4_R-9_s2000_seed404": 64
+      },
+      "total_final_runs": 189,
+      "total_runs_visited": 192,
+      "exclusive": false,
+      "universal": true
+    },
+    "uniform_bright": {
+      "families_with_class": 1,
+      "family_list": [
+        "WP4_R-9_s2000_seed303"
+      ],
+      "transient_only_families": [],
+      "n_transient_only_families": 0,
+      "final_counts_by_family": {
+        "WP4_R-9_s2000_seed303": 64
+      },
+      "total_final_runs": 64,
+      "total_runs_visited": 64,
+      "exclusive": true,
+      "universal": false
+    },
+    "death": {
+      "families_with_class": 6,
+      "family_list": [
+        "WP4_H-A0_s2000_seed101",
+        "WP4_H-A0_s2000_seed202",
+        "WP4_H-A0_s2000_seed303",
+        "WP4_H-A0_s2000_seed404",
+        "WP4_H-A0_s2000_seed42",
+        "WP4_H-P1_s2000_seed42"
+      ],
+      "transient_only_families": [],
+      "n_transient_only_families": 0,
+      "final_counts_by_family": {
+        "WP4_H-A0_s2000_seed101": 64,
+        "WP4_H-A0_s2000_seed202": 64,
+        "WP4_H-A0_s2000_seed303": 64,
+        "WP4_H-A0_s2000_seed404": 64,
+        "WP4_H-A0_s2000_seed42": 64,
+        "WP4_H-P1_s2000_seed42": 35
+      },
+      "total_final_runs": 355,
+      "total_runs_visited": 370,
+      "exclusive": false,
+      "universal": true
+    }
+  },
+  "per_family": {
+    "WP4_H-A0_s2000_seed101": {
+      "n_runs": 64,
+      "is_control": false,
+      "final_classes": {
+        "death": 64
+      },
+      "visited_classes": {
+        "death": 64
+      },
+      "transient_only_classes": {},
+      "snapshot_occurrences": {
+        "death": 2560
+      }
+    },
+    "WP4_H-A0_s2000_seed202": {
+      "n_runs": 64,
+      "is_control": false,
+      "final_classes": {
+        "death": 64
+      },
+      "visited_classes": {
+        "death": 64
+      },
+      "transient_only_classes": {},
+      "snapshot_occurrences": {
+        "death": 2560
+      }
+    },
+    "WP4_H-A0_s2000_seed303": {
+      "n_runs": 64,
+      "is_control": false,
+      "final_classes": {
+        "death": 64
+      },
+      "visited_classes": {
+        "death": 64
+      },
+      "transient_only_classes": {},
+      "snapshot_occurrences": {
+        "death": 2560
+      }
+    },
+    "WP4_H-A0_s2000_seed404": {
+      "n_runs": 64,
+      "is_control": false,
+      "final_classes": {
+        "death": 64
+      },
+      "visited_classes": {
+        "death": 64
+      },
+      "transient_only_classes": {},
+      "snapshot_occurrences": {
+        "death": 2560
+      }
+    },
+    "WP4_H-A0_s2000_seed42": {
+      "n_runs": 64,
+      "is_control": false,
+      "final_classes": {
+        "death": 64
+      },
+      "visited_classes": {
+        "death": 64
+      },
+      "transient_only_classes": {},
+      "snapshot_occurrences": {
+        "death": 2560
+      }
+    },
+    "WP4_H-P1_s2000_seed42": {
+      "n_runs": 64,
+      "is_control": true,
+      "final_classes": {
+        "death": 35,
+        "struct_1": 29
+      },
+      "visited_classes": {
+        "death": 50,
+        "struct_1": 40
+      },
+      "transient_only_classes": {
+        "death": 15,
+        "struct_1": 11
+      },
+      "snapshot_occurrences": {
+        "death": 1442,
+        "struct_1": 1118
+      }
+    },
+    "WP4_R-11_s2000_seed42": {
+      "n_runs": 64,
+      "is_control": false,
+      "final_classes": {
+        "uniform_dark": 61,
+        "struct_1": 3
+      },
+      "visited_classes": {
+        "uniform_dark": 64,
+        "struct_1": 64
+      },
+      "transient_only_classes": {
+        "struct_1": 61,
+        "uniform_dark": 3
+      },
+      "snapshot_occurrences": {
+        "uniform_dark": 2227,
+        "struct_1": 333
+      }
+    },
+    "WP4_R-9_s2000_seed101": {
+      "n_runs": 64,
+      "is_control": false,
+      "final_classes": {
+        "struct_1": 64
+      },
+      "visited_classes": {
+        "struct_1": 64
+      },
+      "transient_only_classes": {},
+      "snapshot_occurrences": {
+        "struct_1": 2560
+      }
+    },
+    "WP4_R-9_s2000_seed202": {
+      "n_runs": 64,
+      "is_control": false,
+      "final_classes": {
+        "uniform_dark": 64
+      },
+      "visited_classes": {
+        "uniform_dark": 64,
+        "struct_1": 26
+      },
+      "transient_only_classes": {
+        "struct_1": 26
+      },
+      "snapshot_occurrences": {
+        "uniform_dark": 2534,
+        "struct_1": 26
+      }
+    },
+    "WP4_R-9_s2000_seed303": {
+      "n_runs": 64,
+      "is_control": false,
+      "final_classes": {
+        "uniform_bright": 64
+      },
+      "visited_classes": {
+        "uniform_bright": 64
+      },
+      "transient_only_classes": {},
+      "snapshot_occurrences": {
+        "uniform_bright": 2560
+      }
+    },
+    "WP4_R-9_s2000_seed404": {
+      "n_runs": 64,
+      "is_control": false,
+      "final_classes": {
+        "uniform_dark": 64
+      },
+      "visited_classes": {
+        "uniform_dark": 64,
+        "struct_1": 21
+      },
+      "transient_only_classes": {
+        "struct_1": 21
+      },
+      "snapshot_occurrences": {
+        "struct_1": 21,
+        "uniform_dark": 2539
+      }
+    },
+    "WP4_R-9_s2000_seed42": {
+      "n_runs": 64,
+      "is_control": false,
+      "final_classes": {
+        "struct_2": 64
+      },
+      "visited_classes": {
+        "struct_2": 64
+      },
+      "transient_only_classes": {},
+      "snapshot_occurrences": {
+        "struct_2": 2560
+      }
+    },
+    "untrained_current_arch": {
+      "n_runs": 64,
+      "is_control": true,
+      "final_classes": {
+        "struct_1": 64
+      },
+      "visited_classes": {
+        "struct_1": 64
+      },
+      "transient_only_classes": {},
+      "snapshot_occurrences": {
+        "struct_1": 2560
+      }
+    }
+  },
+  "summary": {
+    "exclusive_classes": [
+      "struct_2",
+      "uniform_bright"
+    ],
+    "universal_classes": [
+      "struct_1",
+      "uniform_dark",
+      "death"
+    ],
+    "struct_2_families": [
+      "WP4_R-9_s2000_seed42"
+    ],
+    "struct_2_transient_only_families": [],
+    "struct_1_families": [
+      "WP4_H-P1_s2000_seed42",
+      "WP4_R-11_s2000_seed42",
+      "WP4_R-9_s2000_seed101",
+      "WP4_R-9_s2000_seed202",
+      "WP4_R-9_s2000_seed404",
+      "untrained_current_arch"
+    ],
+    "struct_1_transient_only_families": [
+      "WP4_R-9_s2000_seed202",
+      "WP4_R-9_s2000_seed404"
+    ]
+  }
+}

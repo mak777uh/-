@@ -780,6 +780,73 @@ if chan_art:
             "каналы: раскладка каналов верна (visible=0, alive=1)",
         )
 
+# ------------------------------------------ транзиторные классы на карте
+transient_art = load("transient_class_analysis_exploratory.json")
+if transient_art:
+    census_path = EXP / "census.json"
+    if census_path.exists():
+        census = json.load(open(census_path, encoding="utf-8"))
+        cruns = census["runs"]
+        check(
+            transient_art["n_runs"] == len(cruns),
+            f"транзитор: прогонов {transient_art['n_runs']} (перепись {len(cruns)})",
+        )
+        classes = list(transient_art["per_class"].keys())
+        for cls in classes:
+            pc = transient_art["per_class"][cls]
+            with_cls = sorted(
+                {
+                    r["family"]
+                    for r in cruns
+                    if cls in (r.get("trajectory_class") or [])
+                }
+            )
+            check(
+                pc["families_with_class"] == len(with_cls),
+                f"транзитор {cls}: семейств {len(with_cls)} сходится",
+            )
+            check(
+                sorted(pc["family_list"]) == with_cls,
+                f"транзитор {cls}: список семейств сходится",
+            )
+            transient_only = sorted(
+                f
+                for f in with_cls
+                if not any(
+                    r["family"] == f and r["class_name"] == cls for r in cruns
+                )
+            )
+            check(
+                sorted(pc["transient_only_families"]) == transient_only,
+                f"транзитор {cls}: только транзиторные семейства сходятся",
+            )
+            check(
+                pc["exclusive"] == (len(with_cls) == 1 and not transient_only),
+                f"транзитор {cls}: флаг эксклюзивности корректен",
+            )
+        exclusive = transient_art["summary"]["exclusive_classes"]
+        exclusive_structural = [c for c in exclusive if c.startswith("struct_")]
+        check(
+            exclusive_structural == ["struct_2"],
+            f"транзитор: эксклюзивный СТРУКТУРНЫЙ класс — {exclusive_structural} "
+            f"(весь эксклюзивный набор: {exclusive})",
+        )
+        check(
+            "struct_1" not in exclusive and transient_art["per_class"]["struct_1"][
+                "universal"
+            ],
+            "транзитор: struct_1 универсален (общий, не специфичный)",
+        )
+        check(
+            transient_art["summary"]["struct_2_families"]
+            == ["WP4_R-9_s2000_seed42"],
+            "транзитор: struct_2 принадлежит ровно одному семейству",
+        )
+        check(
+            transient_art["summary"]["struct_2_transient_only_families"] == [],
+            "транзитор: struct_2 нигде не встречается только транзиторно",
+        )
+
 # ------------------------------------------ generic-класс: расстояния в z-пространстве
 generic_art = load("generic_class_distance_exploratory.json")
 if generic_art:
