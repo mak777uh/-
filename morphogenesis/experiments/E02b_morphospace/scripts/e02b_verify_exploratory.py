@@ -566,6 +566,11 @@ if frag:
             len(per_cell) == 10 and set(per_cell.values()) == {12},
             f"очаг {family}: 10 ячеек (2 режима × 5 размеров) по 12 повторов",
         )
+        broken = [r for r in own if r.get("error")]
+        check(
+            not broken,
+            f"очаг {family}: очаг собрать не удалось в {len(broken)} строках",
+        )
         for cell in entry["cells"]:
             group = [
                 r for r in own
@@ -605,7 +610,7 @@ if frag:
                 f"очаг {family}/{cell['mode']}/k={cell['k']}: счётчики классов сходятся",
             )
         # порог по размеру пересчитывается из ячеек
-        for mode in ("scattered", "contiguous"):
+        for mode in ("scattered", "compact"):
             cands = [
                 c["k"] for c in entry["cells"]
                 if c["mode"] == mode and c["nucleogenesis_established"]

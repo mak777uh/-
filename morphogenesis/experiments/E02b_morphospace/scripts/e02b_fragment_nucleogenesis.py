@@ -16,7 +16,11 @@
 Здесь — систематическая кривая по размеру зачатка, с повторами, длинным
 горизонтом и тремя моделями (две обученные + архитектурный контроль):
 - размеры зачатка k = 1, 8, 32, 128, 512 живых клеток, два способа выбора
-  (`scattered` — случайные клетки, `contiguous` — связный кусок живой ткани);
+  (`scattered` — случайно разбросанные клетки, `compact` — k ближайших к
+  случайной опорной клетке, то есть пространственно компактный очаг);
+  определение `compact` уточнено до запуска: топологически связного куска
+  живой ткани нужного размера у большинства прототипов не существует
+  (у `struct_2` живая маска — 1745 компонент, крупнейшая 164 клетки);
 - контроль k = 0 (полностью мёртвое поле) — обязателен: если в нём что-то
   прорастает, тест недействителен;
 - 2000 шагов, срезы каждые 50, 12 повторов на каждую ячейку;
@@ -89,7 +93,7 @@ MODELS = [
     ("untrained_current_arch", 0, "struct_1", False, 2),
 ]
 SIZES = [1, 8, 32, 128, 512]
-MODES = ["scattered", "contiguous"]
+MODES = ["scattered", "compact"]
 CONTROL_SIZE = 0
 
 census = json.load(open(CENSUS, encoding="utf-8"))
@@ -165,26 +169,36 @@ def largest_component(mask):
     return labeled == best, int(sizes[best])
 
 
-def contiguous_cells(alive_mask, k, rng):
-    """k связных живых клеток: BFS от случайной клетки по живой маске."""
-    comp, comp_size = largest_component(alive_mask)
-    if comp_size < k:
-        return None, comp_size
-    idx = np.argwhere(comp)
-    start = idx[rng.integers(len(idx))]
-    chosen = {tuple(start)}
-    frontier = [tuple(start)]
-    while frontier and len(chosen) < k:
-        cy, cx = frontier.pop(rng.integers(len(frontier)))
-        for dy, dx in ((1, 0), (-1, 0), (0, 1), (0, -1)):
-            ny, nx = cy + dy, cx + dx
-            if 0 <= ny < comp.shape[0] and 0 <= nx < comp.shape[1]:
-                if comp[ny, nx] and (ny, nx) not in chosen:
-                    chosen.add((ny, nx))
-                    frontier.append((ny, nx))
-                    if len(chosen) >= k:
-                        break
-    return chosen, comp_size
+def _seed_components(mask):
+    """Сколько связных кусков в очаге (4-соседство)."""
+    from scipy import ndimage
+
+    _labeled, n = ndimage.label(mask)
+    return int(n)
+
+
+def compact_cells(alive_mask, k, rng):
+    """k пространственно компактных живых клеток.
+
+    Связный (топологически) кусок живой ткани у большинства прототипов
+    не существует: у `struct_2` (R-9 seed42) живая маска состоит из 1745
+    компонент, самая большая — 164 клетки; у необученной архитектуры —
+    309 компонент, самая большая — 217. Очаг размера 512 в таком случае
+    просто не из чего собрать, и строка молча выпала бы из эксперимента.
+    Поэтому определение уточнено ДО запуска: «компактный» очаг — это k
+    ближайших к случайной опорной клетке живых клеток. Сравнение с
+    `scattered` (k случайно разбросанных живых клеток) сохраняет смысл:
+    различаются только пространственная укладка и связность очага.
+    """
+    idx = np.argwhere(alive_mask)
+    if len(idx) < k:
+        return None, len(idx)
+    anchor = idx[rng.integers(len(idx))]
+    dist = ((idx - anchor) ** 2).sum(axis=1)
+    order = np.argsort(dist, kind="stable")
+    pick = idx[order[:k]]
+    chosen = {(int(cy), int(cx)) for cy, cx in pick}
+    return chosen, len(idx)
 
 
 def make_fragment(state, alive_mask, k, mode, rng):
@@ -195,10 +209,10 @@ def make_fragment(state, alive_mask, k, mode, rng):
     """
     if k == 0:
         return torch.zeros_like(state), np.zeros_like(alive_mask)
-    if mode == "contiguous":
-        cells, comp_size = contiguous_cells(alive_mask, k, rng)
+    if mode == "compact":
+        cells, available = compact_cells(alive_mask, k, rng)
         if cells is None or len(cells) < k:
-            return None, comp_size
+            return None, available
         keep = np.zeros_like(alive_mask)
         for cy, cx in cells:
             keep[cy, cx] = True
@@ -328,6 +342,10 @@ for family, proto_seed, expected_class, is_untrained, model_idx in MODELS:
             "prototype_alive_cells": proto_alive_cells,
             "prototype_alive_fraction": float(proto_alive_mask.mean()),
             "prototype_binary_fraction": float(proto_binary.mean()),
+            "prototype_alive_components": int(_seed_components(proto_alive_mask)),
+            "prototype_largest_alive_component": int(
+                largest_component(proto_alive_mask)[1]
+            ),
             "cells": [],
         }
 
@@ -356,6 +374,19 @@ for family, proto_seed, expected_class, is_untrained, model_idx in MODELS:
                             "repeat": int(rep),
                             "role": "own",
                             "error": "недостаточно живых клеток для очага",
+                            "final_class": "error",
+                            "final_alive": 0.0,
+                            "final_binary": 0.0,
+                            "alive_cells": 0,
+                            "iou_vs_prototype": 0.0,
+                            "alive_growth_ratio": 0.0,
+                            "expansion_factor": 0.0,
+                            "class_alive_conflict": False,
+                            "seed_cells": 0,
+                            "seed_components": 0,
+                            "snap_class": [],
+                            "snap_alive": [],
+                            "snap_binary": [],
                         }
                         rows.append(row)
                         cell_rows.append(row)
@@ -374,6 +405,7 @@ for family, proto_seed, expected_class, is_untrained, model_idx in MODELS:
                         "role": "own",
                         "generator_seed": int(p_seed),
                         "seed_cells": int(keep.sum()),
+                        "seed_components": int(_seed_components(keep)),
                         "seed_alive_fraction": float(keep.mean()),
                         "home_class": proto_class,
                         "alive_growth_ratio": (

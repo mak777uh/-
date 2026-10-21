@@ -33,7 +33,7 @@ if not ART.exists():
 
 art = json.loads(ART.read_text(encoding="utf-8"))
 models = art["models"]
-modes = art.get("modes", ["scattered", "contiguous"])
+modes = art.get("modes", ["scattered", "compact"])
 sign_min = 11
 repeats = art.get("repeats", 12)
 
@@ -44,12 +44,16 @@ labels = {
 }
 styles = {
     "scattered": ("o", "-"),
-    "contiguous": ("s", "--"),
+    "compact": ("s", "--"),
 }
 colors = {
     "WP4_R-9_s2000_seed42": "#b2182b",
     "WP4_R-9_s2000_seed101": "#2166ac",
     "untrained_current_arch": "#666666",
+}
+mode_labels = {
+    "scattered": "разбросанный",
+    "compact": "компактный",
 }
 
 fig, axes = plt.subplots(1, 2, figsize=(12.5, 4.8))
@@ -64,7 +68,7 @@ for entry in models:
         ks = [c["k"] for c in cells]
         marker, ls = styles.get(mode, ("o", "-"))
         color = colors.get(fam, "#333333")
-        label = f"{labels.get(fam, fam)} — {mode}"
+        label = f"{labels.get(fam, fam)} — {mode_labels.get(mode, mode)}"
         axes[0].plot(
             ks,
             [c["nucleogenesis_count"] for c in cells],
