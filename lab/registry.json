@@ -387,6 +387,51 @@
       ]
     },
     {
+      "id": "E02c_replication",
+      "title": "Репликация тренировочных сидов R-9",
+      "kind": "experiment",
+      "status": "planned",
+      "outcome": null,
+      "plan": "reports/2026-10-21-e02c-plan.md",
+      "report": null,
+      "article": null,
+      "artifact_root": "morphogenesis/experiments/E02c_replication",
+      "entrypoint": "morphogenesis/e02c_replication.py:main",
+      "checkpoint_families": [
+        "E02c_R-9_s2000_seed142",
+        "E02c_R-9_s2000_seed242",
+        "E02c_R-9_s2000_seed342"
+      ],
+      "descriptor": "lab/experiments/E02c_replication.json",
+      "next": "Протокол заморожен; запускать по одному сиду под lab.py run, затем перепись с замороженными центроидами и независимым Ward. Решение владельца по E02c: железо разрешено 2026-10-21.",
+      "next_hypotheses": [
+        {
+          "id": "H-R1",
+          "statement": "struct_2 — свойство рецепта R-9: >=2/3 новых сидов дают его в >=52/64 стартов и >=80% устойчивости.",
+          "test": "Три сида 142/242/342, 2000 шагов, перепись 64 старта; критерий: >=2/3.",
+          "status": "planned",
+          "origin": "reports/2026-10-21-e02c-plan.md",
+          "depends_on": []
+        },
+        {
+          "id": "H-R2",
+          "statement": "struct_2 редок, но не уникален: ровно 1/3 новых сидов даёт класс.",
+          "test": "Три сида 142/242/342, 64 старта; критерий: 1/3.",
+          "status": "planned",
+          "origin": "reports/2026-10-21-e02c-plan.md",
+          "depends_on": []
+        },
+        {
+          "id": "H-R3",
+          "statement": "struct_2 привязан к seed42 на горизонте 2000: 0/3 новых сидов дают класс.",
+          "test": "Три сида 142/242/342, 64 старта; критерий: 0/3.",
+          "status": "planned",
+          "origin": "reports/2026-10-21-e02c-plan.md",
+          "depends_on": []
+        }
+      ]
+    },
+    {
       "id": "E03_injury",
       "title": "Парная абляция травмы",
       "kind": "experiment",
