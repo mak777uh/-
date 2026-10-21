@@ -387,6 +387,22 @@ IoU ≈0.80, правой — 0.43, нижней — 0.56, верхней — 0.
 ни у одного контроля и ни у одного другого выученного чекпоинта — это самый сильный
 кандидат на выученную организацию.
 
+Совпадение меток — ещё не совпадение состояний, поэтому утверждение проверено
+расстояниями в z-пространстве кластеризации
+(`generic_class_distance_exploratory.json`):
+
+| Что | Расстояние | Для сравнения |
+| --- | ---: | --- |
+| облако 64 прогонов необученной архитектуры → центроид `struct_1` | **1.93** | собственный разброс класса `struct_1` — 1.95 |
+| то же → центроид `struct_2` | **8.00** | собственный разброс `struct_2` — 0.64 |
+| облако `struct_1` → ближайший другой класс (`death`) | 5.55 | разброс облака необученной — 1.05 |
+
+Необученная архитектура лежит **на** `struct_1` (расстояние совпадает с разбросом
+самого класса) и в 2.9 раза ближе к нему, чем ко второму по близости классу; до
+`struct_2` — в 12 раз дальше, чем её собственный разброс. Формально: из двух
+структурных классов ровно один (`struct_1`) — свойство архитектуры, и ровно один
+(`struct_2`) — выученный.
+
 ### 4.6. Формальный исход
 
 По правилу плана исход — **`rich_map`**: два структурных класса, оба с
@@ -533,6 +549,14 @@ cd ..
 .venv/Scripts/python.exe morphogenesis/experiments/E02b_morphospace/scripts/e02b_basin_reverse.py
 .venv/Scripts/python.exe morphogenesis/experiments/E02b_morphospace/scripts/e02b_transition_matrix.py
 .venv/Scripts/python.exe morphogenesis/experiments/E02b_morphospace/scripts/e02b_r11_bistability.py
+
+# проверка «generic vs learned» — только чтение census.json, секунды
+.venv/Scripts/python.exe morphogenesis/experiments/E02b_morphospace/scripts/e02b_generic_class_distance.py
+
+# ночные повторы (долгие: считают на CUDA, часы)
+.venv/Scripts/python.exe morphogenesis/experiments/E02b_morphospace/scripts/e02b_transition_matrix_rep.py
+.venv/Scripts/python.exe morphogenesis/experiments/E02b_morphospace/scripts/e02b_geometric_lesion_rep.py
+.venv/Scripts/python.exe morphogenesis/experiments/E02b_morphospace/scripts/e02b_fragment_nucleogenesis.py
 
 # независимая проверка census/perturbations
 .venv/Scripts/python.exe morphogenesis/experiments/E02b_morphospace/scripts/e02b_verify.py
