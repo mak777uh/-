@@ -67,6 +67,31 @@ Slug владельца — **Kaggle username**, а не GitHub username: `mak77
 манифесте — оба sha: `datasets.census.sha256` (пакетный) и
 `datasets.census.source_sha256` (канонический `e81678b6…`).
 
+## Второй пакет: воспроизведение обучения (Gate 3)
+
+Инференс-пакет отвечает на вопрос «те же веса на другом стеке дают тот же класс».
+Обучение — другая ось: меняется траектория, из которой выросли веса. Для неё есть
+отдельный пакет:
+
+```bash
+python scripts/export_train_repro.py --out dist/e02c-train-repro
+```
+
+Внутри — код обучения и переписи байт-в-байт, рецепт `ARMS["R-9"]`, замороженные
+центроиды E02b и `reference.json` с эталоном канонического прогона
+(`best_loss` 1.104736089706421, `alive_fraction_final` 0.34686279296875,
+sha256 весов, перепись 64/64). Пакет самодостаточен: `pip install -r
+requirements-train.txt`, дальше две команды из его `README.md`.
+
+Критерий и правила запуска заморожены в
+[`reports/2026-10-21-repro-independent-plan.md`](../reports/2026-10-21-repro-independent-plan.md):
+класс `struct_2 ≥ 52/64` при устойчивости `≥ 0.80`, побитовое совпадение весов
+**не** требуется. Датасет для Kaggle собирается тем же
+`scripts/pack_kaggle_dataset.py --package dist/e02c-train-repro`, но отдельным
+slug — смешивать train-repro и inference-пакет в одном датасете нельзя.
+Smoke проверен локально на CPU: 5 шагов дают чекпоинт и пару `start`/`finish` в
+`logs/journal.jsonl` (полный пакет — 21 файл, 16 МБ, из них 15.5 МБ — `census.json`).
+
 
 ## Границы
 

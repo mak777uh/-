@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-21T18:03:28Z",
+  "updated_at": "2026-10-21T18:33:40Z",
   "note": "Очередь пунктов после E02c. Claim берётся до пре-регистрации, а не перед запуском: lab.py item-claim. Статус running означает занятый GPU-лейн и может быть только у одного пункта.",
   "items": [
     {
@@ -94,8 +94,11 @@
       "ttl_minutes": 240,
       "cost_gpu_h": 0.0,
       "gated_by": "E02c_frequency_pilot",
-      "artifacts": [],
-      "note": "Гейт публикации, не гипотеза. Локальные частоты и облачное воспроизведение не смешиваются: один ансамбль — одно железо."
+      "artifacts": [
+        "reports/2026-10-21-repro-independent-plan.md",
+        "scripts/export_train_repro.py"
+      ],
+      "note": "Протокол заморожен 2026-10-21 (reports/2026-10-21-repro-independent-plan.md). Пакет собирается scripts/export_train_repro.py; smoke на CPU (5 шагов) дал чекпоинт и пару start/finish. Запуск требует решения владельца и GPU-стека; CPU-вариант 3-6 ч."
     },
     {
       "id": "E02d_sweep",
