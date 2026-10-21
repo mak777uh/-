@@ -640,6 +640,141 @@ if frag:
             f"очаг cross {cb['target']}<-{cb['source']}: счётчики классов сходятся",
         )
 
+# ------------------------------------------- память формы: видимое или скрытое
+chan_art = load("channel_memory_exploratory.json")
+if chan_art:
+    models = chan_art["models"]
+    rows = chan_art["rows"]
+    check(len(models) == 3, f"каналы: {len(models)} модели")
+    check(len(rows) == 3 * 4 * 12, f"каналы: {len(rows)} строк (3*4*12)")
+    for entry in models:
+        family = entry["family"]
+        group_all = [r for r in rows if r["model"] == family]
+        per_cond = Counter(r["condition"] for r in group_all)
+        check(
+            len(per_cond) == 4 and set(per_cond.values()) == {12},
+            f"каналы {family}: 4 условия по 12 повторов",
+        )
+        for cell in entry["conditions"]:
+            cond = cell["condition"]
+            group = [r for r in group_all if r["condition"] == cond]
+            check(
+                len(group) == 12,
+                f"каналы {family}/{cond}: {len(group)} повторов",
+            )
+            alive_n = sum(1 for r in group if r["final_alive"] >= DEAD_ALIVE)
+            class_n = sum(
+                1
+                for r in group
+                if r["final_alive"] >= DEAD_ALIVE
+                and r["final_class"] == entry["prototype_class"]
+            )
+            pattern_n = sum(
+                1
+                for r in group
+                if r["final_alive"] >= DEAD_ALIVE
+                and r["final_class"] == entry["prototype_class"]
+                and r["iou_exact"] >= 0.5
+            )
+            phase_n = sum(
+                1
+                for r in group
+                if r["final_alive"] >= DEAD_ALIVE
+                and r["final_class"] == entry["prototype_class"]
+                and r["iou_shifted"] >= 0.5
+            )
+            orient_n = sum(
+                1
+                for r in group
+                if r["final_alive"] >= DEAD_ALIVE
+                and r["final_class"] == entry["prototype_class"]
+                and r["iou_dihedral"] >= 0.5
+            )
+            check(cell["alive_n"] == alive_n, f"каналы {family}/{cond}: живых сходится")
+            check(
+                cell["class_recovered_n"] == class_n,
+                f"каналы {family}/{cond}: класс восстановлен {class_n} сходится",
+            )
+            check(
+                cell["same_pattern_n"] == pattern_n,
+                f"каналы {family}/{cond}: тот же рисунок {pattern_n} сходится",
+            )
+            check(
+                cell["same_phase_n"] == phase_n,
+                f"каналы {family}/{cond}: та же фаза {phase_n} сходится",
+            )
+            check(
+                cell["same_orientation_n"] == orient_n,
+                f"каналы {family}/{cond}: та же ориентация {orient_n} сходится",
+            )
+            check(
+                cell["class_recovered_established"] == (class_n >= 11),
+                f"каналы {family}/{cond}: флаг класса корректен",
+            )
+            check(
+                cell["same_pattern_established"] == (pattern_n >= 11),
+                f"каналы {family}/{cond}: флаг рисунка корректен",
+            )
+            check(
+                cell["same_phase_established"] == (phase_n >= 11),
+                f"каналы {family}/{cond}: флаг фазы корректен",
+            )
+            check(
+                cell["same_orientation_established"] == (orient_n >= 11),
+                f"каналы {family}/{cond}: флаг ориентации корректен",
+            )
+            check(
+                cell["class_counts"] == dict(Counter(r["final_class"] for r in group)),
+                f"каналы {family}/{cond}: счётчики классов сходятся",
+            )
+        by_cond = {c["condition"]: c for c in entry["conditions"]}
+        check(
+            entry["control_ok"] == by_cond["none"]["class_recovered_established"],
+            f"каналы {family}: флаг контроля корректен",
+        )
+        check(
+            entry["visible_zeroed_recovers"]
+            == by_cond["visible_zeroed"]["same_pattern_established"],
+            f"каналы {family}: флаг visible_zeroed корректен",
+        )
+        check(
+            entry["hidden_zeroed_recovers"]
+            == by_cond["hidden_zeroed"]["same_pattern_established"],
+            f"каналы {family}: флаг hidden_zeroed корректен",
+        )
+        check(
+            entry["hidden_shuffled_recovers"]
+            == by_cond["hidden_shuffled"]["same_pattern_established"],
+            f"каналы {family}: флаг hidden_shuffled корректен",
+        )
+        check(
+            entry["memory_in_hidden_channels"]
+            == (
+                by_cond["visible_zeroed"]["same_pattern_established"]
+                and not by_cond["hidden_zeroed"]["same_pattern_established"]
+            ),
+            f"каналы {family}: флаг памяти в скрытых корректен",
+        )
+        check(
+            entry["rederivable_from_visible"]
+            == by_cond["hidden_zeroed"]["same_pattern_established"],
+            f"каналы {family}: флаг выводимости из видимого корректен",
+        )
+        check(
+            entry["hidden_layout_matters"]
+            == (
+                by_cond["none"]["same_pattern_established"]
+                and not by_cond["hidden_shuffled"]["same_pattern_established"]
+            ),
+            f"каналы {family}: флаг укладки скрытого корректен",
+        )
+        # alive-канал не трогаем никогда — иначе тест был бы тривиальным
+        check(
+            chan_art["channels"]["alive"] == 1
+            and chan_art["channels"]["visible"] == 0,
+            "каналы: раскладка каналов верна (visible=0, alive=1)",
+        )
+
 # ------------------------------------------ generic-класс: расстояния в z-пространстве
 generic_art = load("generic_class_distance_exploratory.json")
 if generic_art:
