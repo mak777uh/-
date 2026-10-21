@@ -83,7 +83,7 @@ VIS = config.VISIBLE_CHANNEL
 ALIV = config.ALIVE_CHANNEL
 HIDDEN = [c for c in range(config.N_CHANNELS) if c not in (VIS, ALIV)]
 
-# модель, сид прототипа, ожидаемый класс, обучена ли, индекс для сидов
+# модель, сид прототипа, ожидаемый класс, ОБУЧЕНА ЛИ (True), индекс для сидов
 MODELS = [
     ("WP4_R-9_s2000_seed42", 35, "struct_2", True, 0),
     ("WP4_R-9_s2000_seed101", 5, "struct_1", True, 1),
@@ -158,12 +158,12 @@ def dihedral_iou(a, b):
     return max(iou(m, b) for m in dihedral_masks(a))
 
 
-def build_prototype(family, proto_seed, is_untrained):
+def build_prototype(family, proto_seed, is_trained):
     """Прототип: финальное состояние своей модели (для контроля — untrained)."""
     spec = e02b.load_checkpoint_specs(
-        families=[family], include_untrained=not is_untrained
+        families=[family], include_untrained=not is_trained
     )[0]
-    if is_untrained:
+    if not is_trained:
         torch.manual_seed(42)
         if torch.cuda.is_available():
             torch.cuda.manual_seed_all(42)
@@ -294,8 +294,8 @@ result = {
     "rows": rows,
 }
 
-for family, proto_seed, expected_class, is_untrained, model_idx in MODELS:
-    model, final_state = build_prototype(family, proto_seed, is_untrained)
+for family, proto_seed, expected_class, is_trained, model_idx in MODELS:
+    model, final_state = build_prototype(family, proto_seed, is_trained)
     try:
         _proto_desc, proto_cid = classify(final_state)
         proto_class = names.get(proto_cid, "outlier")
