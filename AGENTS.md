@@ -29,9 +29,11 @@
 2. [`lab/state.json`](lab/state.json) — фаза, активные прогоны, блокеры, диск;
 3. [`lab/registry.json`](lab/registry.json) — карта экспериментов и артефактов;
 4. [`lab/README.md`](lab/README.md) — протокол замков, манифестов и источников;
-5. `lab/runs/<run_id>.json` — паспорт конкретного прогона;
-6. сырые артефакты в `morphogenesis/experiments/`;
-7. [`reports/`](reports/README.md) — человеческая интерпретация, не источник чисел.
+5. [`lab/notices.md`](lab/notices.md) — указания ведущего и договорённости между
+   агентами (обязательно, если в репозитории работает больше одного агента);
+6. `lab/runs/<run_id>.json` — паспорт конкретного прогона;
+7. сырые артефакты в `morphogenesis/experiments/`;
+8. [`reports/`](reports/README.md) — человеческая интерпретация, не источник чисел.
 
 Если `state.json` расходится с `registry.json` или `checkpoints.json`, запусти
 `python scripts/lab.py state` и разберись, а не правь снимок вручную.
