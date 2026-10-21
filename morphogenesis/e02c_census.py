@@ -226,11 +226,11 @@ def main(argv=None):
         if s.arm in ("H-P1", "untrained")
     }
     if len(supported) >= 2:
-        verdict = "H-R1_supported"
+        verdict = "H-R1_confirmed_struct2_is_recipe_property"
     elif len(supported) == 1:
-        verdict = "H-R2_single_seed"
+        verdict = "H-R2_confirmed_struct2_is_rare_but_reproducible"
     else:
-        verdict = "H-R3_not_supported"
+        verdict = "H-R3_confirmed_struct2_not_reproduced"
     summary = {
         "schema_version": 1,
         "experiment": "E02c_replication",
