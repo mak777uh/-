@@ -186,6 +186,23 @@ def journal_label(args):
     return "E02c_census_" + stem
 
 
+def census_verdict(supported, n_families):
+    """Вердикт E02c применим только к полному дизайну из трёх новых семейств.
+
+    При фильтре `--families` (например, повтор одного seed42) «одно
+    подтверждённое семейство из одного» — это не H-R2, а частичная перепись:
+    вердикт не применяется, читать надо `stats`. Иначе артефакт, честный по
+    числам, получает ложную метку гипотезы.
+    """
+    if n_families < 3:
+        return "n/a_partial_census", False
+    if len(supported) >= 2:
+        return "H-R1_confirmed_struct2_is_recipe_property", True
+    if len(supported) == 1:
+        return "H-R2_confirmed_struct2_is_rare_but_reproducible", True
+    return "H-R3_confirmed_struct2_not_reproduced", True
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("--seeds", default="0-63")
@@ -286,12 +303,7 @@ def _census(args, seeds, specs, device):
         for s in specs
         if s.arm in ("H-P1", "untrained")
     }
-    if len(supported) >= 2:
-        verdict = "H-R1_confirmed_struct2_is_recipe_property"
-    elif len(supported) == 1:
-        verdict = "H-R2_confirmed_struct2_is_rare_but_reproducible"
-    else:
-        verdict = "H-R3_confirmed_struct2_not_reproduced"
+    verdict, verdict_applicable = census_verdict(supported, len(new_families))
     summary = {
         "schema_version": 1,
         "experiment": "E02c_replication",
@@ -302,6 +314,13 @@ def _census(args, seeds, specs, device):
         "stats": stats,
         "controls": controls,
         "verdict": verdict,
+        "verdict_applicable": verdict_applicable,
+        "verdict_note": None
+        if verdict_applicable
+        else (
+            f"перепись покрывает {len(new_families)} семейств(а) из трёх по протоколу: "
+            "вердикт H-R1/H-R2/H-R3 не применяется, читать stats"
+        ),
         "supported_families": supported,
         "criterion": {
             "struct_2_min": STRUCT2_MIN,
@@ -317,7 +336,13 @@ def _census(args, seeds, specs, device):
         json.dump(summary, fh, ensure_ascii=False, indent=2)
     print(f"[e02c] census: {args.out} ({os.path.getsize(args.out)/1e6:.1f} MB)")
     print(f"[e02c] summary: {args.summary_out}")
-    print(f"[e02c] verdict: {verdict}; supported={supported}")
+    if verdict_applicable:
+        print(f"[e02c] verdict: {verdict}; supported={supported}")
+    else:
+        print(
+            f"[e02c] verdict: n/a (частичная перепись, семейств {len(new_families)}); "
+            f"supported={supported}"
+        )
     for fam, st in stats.items():
         print(
             f"[e02c] {fam}: struct_2 {st['struct_2']}/{st['n']} "
