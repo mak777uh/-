@@ -1168,6 +1168,92 @@ if integrity:
             f"в {_alive0}/{len(_g0)}",
         )
 
+# ------------------------------------------ замороженные центроиды классов
+frozen = load("class_centroids_frozen.json")
+if frozen:
+    # Проверка НЕ импортирует e02b: считаем проекцию вручную, чистым питоном,
+    # чтобы файл центроидов проверялся сам по себе, а не тем же кодом, который
+    # его создал.
+    _feats = list(frozen["features"])
+    _mean = [float(v) for v in frozen["scaler_mean"]]
+    _std = [float(v) for v in frozen["scaler_std"]]
+    _cent = [[float(v) for v in row] for row in frozen["centroids_z"]]
+    _valid = [int(v) for v in frozen["labels_valid"]]
+    _names = list(frozen["class_names"])
+    check(
+        len(_feats) == 18,
+        f"центроиды: {len(_feats)} признаков (ожидалось 18)",
+    )
+    check(
+        len(_mean) == len(_feats) and len(_std) == len(_feats),
+        "центроиды: размеры скалера совпадают с числом признаков",
+    )
+    check(
+        all(len(row) == len(_feats) for row in _cent),
+        "центроиды: размеры центроидов совпадают с числом признаков",
+    )
+    check(
+        len(_cent) == len(_valid) == len(_names),
+        "центроиды: число центроидов, меток и имён совпадает",
+    )
+    check(
+        len(set(_valid)) == len(_valid),
+        "центроиды: метки уникальны",
+    )
+    # Пересчёт проекции на сырых дескрипторах из census.json: у каждого
+    # прогона должен получиться ровно тот класс, который записан в census.
+    _census_path = EXP / "census.json"
+    if _census_path.exists():
+        _census = json.load(open(_census_path, encoding="utf-8"))
+        _runs = _census["runs"]
+        _name_by_label = {lab: nm for lab, nm in zip(_valid, _names)}
+        _mismatch = []
+        _checked = 0
+        for _run in _runs:
+            _fin = _run["final"]
+            _x = [float(_fin.get(k, 0.0)) for k in _feats]
+            _z = [(_x[i] - _mean[i]) / (_std[i] if _std[i] else 1.0) for i in range(len(_feats))]
+            _best = None
+            _bestd = None
+            for _ci, _row in enumerate(_cent):
+                _d = sum((_z[i] - _row[i]) ** 2 for i in range(len(_feats)))
+                if _bestd is None or _d < _bestd:
+                    _bestd = _d
+                    _best = _ci
+            _got = _name_by_label.get(_valid[_best], "outlier")
+            _checked += 1
+            if _got != _run.get("class_name"):
+                _mismatch.append((_run.get("family"), _run.get("seed"), _got, _run.get("class_name")))
+        check(
+            _checked == len(_runs),
+            f"центроиды: проверено {_checked} прогонов переписи",
+        )
+        check(
+            not _mismatch,
+            f"центроиды: проекция воспроизводит класс census у всех прогонов "
+            f"(расхождений: {len(_mismatch)})",
+        )
+        if _mismatch:
+            print("     первые расхождения:", _mismatch[:5])
+    check(
+        frozen["refit_verification"]["all_fields_match"] is True,
+        "центроиды: пересборка кластеризации совпала с census.json",
+    )
+    check(
+        frozen["k"] == 5 and frozen["sizes"] == [67, 320, 189, 64, 64],
+        f"центроиды: k={frozen['k']}, размеры {frozen['sizes']}",
+    )
+    check(
+        frozen["class_names"] == _census["clustering"]["class_names"],
+        "центроиды: имена классов совпадают с census.json",
+    )
+    _sha = frozen["source_census"]["sha256"]
+    _actual = __import__("hashlib").sha256(_census_path.read_bytes()).hexdigest()
+    check(
+        _sha == _actual,
+        "центроиды: sha256 census.json совпадает с записанным",
+    )
+
 print("\n=== СВОДКА ===")
 print("errors", len(errors), "warnings", len(warnings))
 for e in errors:
