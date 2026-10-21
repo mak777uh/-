@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-10-21T15:28:28Z",
+  "generated_at": "2026-10-21T16:00:47Z",
   "policy": "Локально хранятся только canonical final из lab/checkpoints.json (требования активной/следующей серии) и явно объявленный положительный контроль. Best-снапшоты при наличии final и неканонические final закрытых/замещённых плеч удаляются после фиксации метрик, per-run JSONL, манифеста и этой записи в git. Веса в GitHub не отправляются; canonical final удаляется только по решению владельца.",
-  "freed_bytes": 28053778584,
+  "freed_bytes": 29672265810,
   "files": [
     {
       "path": "morphogenesis/checkpoints/gate_layer1_s800_seed101/nca_best.pt",
@@ -425,6 +425,33 @@
       "mtime": "2026-10-21T15:28:09Z",
       "kept": "morphogenesis/checkpoints/E02c_R-9_s2000_seed242/nca_final.pt",
       "reason": "E02c seed242 finish достигнут; final и метрики в журнале/манифесте, промежуточные веса — расходник (AGENTS §5a)"
+    },
+    {
+      "path": "morphogenesis/checkpoints/E02c_R-9_s2000_seed342/nca_best.pt",
+      "family": "E02c_R-9_s2000_seed342",
+      "kind": "best",
+      "size_bytes": 539495742,
+      "mtime": "2026-10-21T15:59:46Z",
+      "kept": "morphogenesis/checkpoints/E02c_R-9_s2000_seed342/nca_final.pt",
+      "reason": "E02c seed342 finish достигнут; final и метрики в журнале/манифесте, промежуточные веса — расходник (AGENTS §5a)"
+    },
+    {
+      "path": "morphogenesis/checkpoints/E02c_R-9_s2000_seed342/nca_iter_1000.pt",
+      "family": "E02c_R-9_s2000_seed342",
+      "kind": "iter",
+      "size_bytes": 539495742,
+      "mtime": "2026-10-21T15:45:42Z",
+      "kept": "morphogenesis/checkpoints/E02c_R-9_s2000_seed342/nca_final.pt",
+      "reason": "E02c seed342 finish достигнут; final и метрики в журнале/манифесте, промежуточные веса — расходник (AGENTS §5a)"
+    },
+    {
+      "path": "morphogenesis/checkpoints/E02c_R-9_s2000_seed342/nca_iter_2000.pt",
+      "family": "E02c_R-9_s2000_seed342",
+      "kind": "iter",
+      "size_bytes": 539495742,
+      "mtime": "2026-10-21T16:00:29Z",
+      "kept": "morphogenesis/checkpoints/E02c_R-9_s2000_seed342/nca_final.pt",
+      "reason": "E02c seed342 finish достигнут; final и метрики в журнале/манифесте, промежуточные веса — расходник (AGENTS §5a)"
     }
   ],
   "skipped": [
