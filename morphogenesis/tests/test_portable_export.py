@@ -289,6 +289,46 @@ class TestManifestAndIndex:
         assert descriptor["checkpoint_requirements"][0]["family"] == "F1"
 
 
+class TestPathSanitization:
+    """Публикуемый пакет не должен раскрывать домашний каталог автора.
+
+    `census.json` пишется прогоном и хранит абсолютные пути машины. В пакет
+    уезжает та же перепись, но со строками-путями, переписанными в
+    относительные; числа и классы не меняются.
+    """
+
+    def test_rewrites_paths_inside_repo_and_keeps_numbers(self, tmp_path):
+        repo = tmp_path / "repo"
+        payload = {
+            "runs": [
+                {
+                    "family": "F1",
+                    "checkpoint": {"path": str(repo / "morphogenesis" / "checkpoints" / "F1" / "nca_final.pt")},
+                    "descriptors": {"n_pixels": 4096, "alive_fraction": 0.00024},
+                }
+            ],
+            "steps": 2000,
+        }
+        clean, stats = exporter.relativize_paths(payload, repo)
+        assert stats == {"rewritten": 1, "unresolved": 0}
+        assert clean["runs"][0]["checkpoint"]["path"] == "morphogenesis/checkpoints/F1/nca_final.pt"
+        assert clean["runs"][0]["descriptors"] == {"n_pixels": 4096, "alive_fraction": 0.00024}
+        # Исходный объект не мутирует: канонический артефакт остаётся как был.
+        assert payload["runs"][0]["checkpoint"]["path"].startswith(str(repo))
+
+    def test_counts_paths_outside_repo_as_unresolved(self, tmp_path):
+        clean, stats = exporter.relativize_paths(
+            {"path": "C:\\somewhere\\else\\weights.pt", "note": "не путь"},
+            tmp_path / "repo",
+        )
+        assert stats == {"rewritten": 0, "unresolved": 1}
+        assert clean["path"] == "C:\\somewhere\\else\\weights.pt"
+
+    def test_posix_absolute_path_is_unresolved(self, tmp_path):
+        _, stats = exporter.relativize_paths({"path": "/home/user/weights.pt"}, tmp_path / "repo")
+        assert stats["unresolved"] == 1
+
+
 class TestMissingFiles:
     def test_require_files_reports_all_missing(self, tmp_path):
         missing_a = tmp_path / "a.pt"
@@ -444,3 +484,30 @@ class TestBuiltPackage:
             assert sha256(path) == info["sha256"], key
         assert datasets["census"]["n_runs"] == 832
         assert datasets["class_centroids_frozen"]["k"] == 5
+
+    def test_packaged_census_has_no_absolute_paths(self):
+        """Пакет — публикуемый артефакт: домашних путей автора в нём быть не должно."""
+        manifest = json.loads((DIST / "portable_manifest.json").read_text(encoding="utf-8"))
+        info = manifest["datasets"]["census"]
+        census = json.loads((DIST / info["path"]).read_text(encoding="utf-8"))
+        leaks: list[str] = []
+
+        def _walk(node: object) -> None:
+            if isinstance(node, str):
+                if "\\" in node or (len(node) > 2 and node[1] == ":"):
+                    leaks.append(node)
+                elif node.startswith("/"):
+                    leaks.append(node)
+            elif isinstance(node, dict):
+                for value in node.values():
+                    _walk(value)
+            elif isinstance(node, list):
+                for item in node:
+                    _walk(item)
+
+        _walk(census)
+        assert not leaks, f"абсолютные пути в census.json пакета: {leaks[:5]}"
+        sanitized = info["sanitized"]
+        assert sanitized["absolute_paths_unresolved"] == 0
+        assert sanitized["absolute_paths_rewritten"] == 25
+        assert info["source_sha256"] != info["sha256"]

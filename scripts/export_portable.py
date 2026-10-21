@@ -35,6 +35,7 @@ import argparse
 import hashlib
 import json
 import os
+import re
 import shutil
 import subprocess
 import sys
@@ -124,6 +125,46 @@ def write_json(path: Path, payload: dict) -> None:
     with path.open("w", encoding="utf-8", newline="\n") as fh:
         json.dump(payload, fh, ensure_ascii=False, indent=2)
         fh.write("\n")
+
+
+def relativize_paths(payload: object, repo_root: Path) -> tuple[object, int]:
+    """Заменить абсолютные пути внутри артефакта на пути от корня репозитория.
+
+    Зачем: `census.json` записан прогоном на конкретной машине и хранит
+    `C:\\Users\\...\\repo\\morphogenesis\\checkpoints\\...`. Публикуемый пакет не
+    должен раскрывать домашний каталог автора и не должен ломаться у читателя на
+    другой ОС. Числа при этом не трогаются: заменяются только строки-пути,
+    ведущие внутрь репозитория; всё, что не удалось отобразить, остаётся как есть
+    и считается отдельно (`unresolved`).
+
+    Возврат: (новый объект, статистика `{"rewritten": n, "unresolved": m}`).
+    Исходный объект не мутирует — канонический артефакт в репозитории остаётся
+    байт-в-байт.
+    """
+    root = Path(repo_root).resolve()
+    root_posix = root.as_posix().rstrip("/") + "/"
+    root_win = str(root).rstrip("\\") + "\\"
+    stats = {"rewritten": 0, "unresolved": 0}
+
+    def _is_absolute(value: str) -> bool:
+        return value.startswith(root_posix) or value.lower().startswith(root_win.lower())
+
+    def _walk(node: object) -> object:
+        if isinstance(node, str):
+            if _is_absolute(node):
+                tail = node[len(root_win) :] if node.lower().startswith(root_win.lower()) else node[len(root_posix) :]
+                stats["rewritten"] += 1
+                return tail.replace("\\", "/")
+            if re.match(r"^[A-Za-z]:[\\/]", node) or node.startswith("/"):
+                stats["unresolved"] += 1
+            return node
+        if isinstance(node, dict):
+            return {key: _walk(value) for key, value in node.items()}
+        if isinstance(node, list):
+            return [_walk(item) for item in node]
+        return node
+
+    return _walk(payload), stats
 
 
 def git_info(repo_root: Path) -> dict:
@@ -436,6 +477,11 @@ def build_manifest(
             "lite = model_state_dict + скаляры + metadata; optimizer/scheduler/pool/state удалены",
             "forward lite побитово равен полному на CPU (tests/test_portable_export.py)",
             "census.json — каноническая перепись E02b, пакет её не пересчитывает",
+            (
+                "в пакетном census.json строки-пути переписаны в относительные "
+                f"({(datasets.get('census') or {}).get('sanitized', {}).get('absolute_paths_rewritten', 0)} шт.); "
+                "числа не менялись, sha канонического файла — datasets.census.source_sha256"
+            ),
             "пакет не является новым экспериментом и не меняет границы E02b",
         ],
     }
@@ -694,7 +740,17 @@ def export(
         for name in UTILS_FILES:
             shutil.copy2(morph_root / "utils" / name, pkg_morph / "utils" / name)
 
-        shutil.copy2(census_path, pkg_exp / "census.json")
+        # census.json копируется не байт-в-байт: прогон записал абсолютные пути
+        # машины автора. Числа не меняются, меняются только строки-пути; сырой
+        # файл в репозитории остаётся каноническим (его sha — source_sha256).
+        census_public, path_stats = relativize_paths(census, repo_root)
+        if path_stats["unresolved"]:
+            raise PortableExportError(
+                "в census.json остались абсолютные пути вне корня репозитория: "
+                f"{path_stats['unresolved']} — публикуемый пакет не должен их содержать"
+            )
+        write_json(pkg_exp / "census.json", census_public)
+        census_pkg_sha = sha256_file(pkg_exp / "census.json")
         shutil.copy2(centroids_path, pkg_exp / "class_centroids_frozen.json")
         shutil.copy2(ablations_path, staging / "experiments" / "E02_pattern" / "wp4_ablations.json")
 
@@ -714,9 +770,18 @@ def export(
         datasets = {
             "census": {
                 "path": f"morphogenesis/experiments/{EXPERIMENT_ID}/census.json",
-                "sha256": census_sha,
-                "size_bytes": census_path.stat().st_size,
+                "sha256": census_pkg_sha,
+                "source_sha256": census_sha,
+                "size_bytes": (pkg_exp / "census.json").stat().st_size,
                 "n_runs": len(census.get("runs", [])),
+                "sanitized": {
+                    "absolute_paths_rewritten": path_stats["rewritten"],
+                    "absolute_paths_unresolved": path_stats["unresolved"],
+                    "what_changed": (
+                        "только строки-пути внутри репозитория переписаны в "
+                        "относительные; числа, классы и дескрипторы не менялись"
+                    ),
+                },
             },
             "class_centroids_frozen": {
                 "path": f"morphogenesis/experiments/{EXPERIMENT_ID}/class_centroids_frozen.json",
