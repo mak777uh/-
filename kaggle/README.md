@@ -12,7 +12,7 @@ python scripts/export_portable.py --out dist/e02b-portable
 | Файл | Смысл |
 | --- | --- |
 | `dataset-metadata.json` | метаданные датасета `mak777777uh/morphogenesis-e02b-portable` (MIT, lite-чекпоинты + census). |
-| `kernel-metadata.json` | метаданные kernel `mak777777uh/morphogenesis-e02b-portable-verify`: GPU включён, интернет выключен, датасет подключён как source. |
+| `kernel-metadata.json` | метаданные kernel `mak777777uh/morphogenesis-e02b-portable-verify`: **GPU выключен** (проверенный прогон v2 — CPU; GPU-режим не проверялся), интернет выключен, датасет подключён как source. |
 | Статус | dataset (версия 2) и kernel (версия 2) **private** до решения владельца (D4/D5). Санитизация census выполнена; для public остаётся решение владельца и review. |
 | `verify_e02b.ipynb` | notebook: находит датасет, копирует пакет в `/kaggle/working`, запускает `verify_portable.py --mode smoke`, печатает версии и PASS/FAIL. |
 
@@ -56,6 +56,12 @@ Slug владельца — **Kaggle username**, а не GitHub username: `mak77
 | --- | --- | --- |
 | Локально (RTX 3070, CUDA) | `verify_portable.py --mode smoke` на собранном `dist/e02b-portable`, 3 семейства × 16 стартов × 2000 шагов | **PASS**: 48/48 классов, 0 расхождений, 367 с |
 | Kaggle (kernel v2, CPU) | тот же smoke на датасете версии 2, собранном из коммита `b8ed0d0` | **PASS**: 48/48 классов, 0 расхождений, 713 с, sha пакетной переписи `01a68fb0…` |
+| Целостность пакета | `scripts/verify_portable_package.py` на `dist/e02b-portable` (2026-10-22) | **PASS**: 29 записей `files[]` совпали по sha256 и размеру, census `01a68fb0…` ≠ канонический `e81678b6…` (не переписан), абсолютных путей в 16 текстовых файлах нет |
+
+**GPU-режим kernel не проверялся.** В `kernel-metadata.json` стоит
+`enable_gpu: false`, потому что проверенный прогон v2 — CPU; если включать GPU,
+нужен новый прогон и новый PASS, иначе опубликованный kernel будет обещать
+конфигурацию, которой нет в отчёте.
 
 Отчёт Kaggle лежит в `dist/kaggle-report/e02b-portable/verify_report.json`
 (`dist/` в git не едет). Воспроизводится **класс**, а не побитовое совпадение
