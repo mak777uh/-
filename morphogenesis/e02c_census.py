@@ -246,14 +246,21 @@ def journal_label(args):
     return "E02c_census_" + stem
 
 
-def census_verdict(supported, n_families):
+def census_verdict(supported, n_families, design="replication"):
     """Вердикт E02c применим только к полному дизайну из трёх новых семейств.
 
     При фильтре `--families` (например, повтор одного seed42) «одно
     подтверждённое семейство из одного» — это не H-R2, а частичная перепись:
     вердикт не применяется, читать надо `stats`. Иначе артефакт, честный по
     числам, получает ложную метку гипотезы.
+
+    `design="seed_decomposition"` — отдельный случай: четыре клетки
+    «инициализация × данные» проверяют H-E02C-6, а не H-R1/R2/R3. Кодировать их
+    как «struct_2 — свойство рецепта» значит ответить на другой вопрос; вердикт
+    помечается неприменимым, а настоящий считает `scripts/e02c_seed_grid.py`.
     """
+    if design == "seed_decomposition":
+        return "n/a_seed_decomposition", False
     if n_families < 3:
         return "n/a_partial_census", False
     if len(supported) >= 2:
@@ -390,6 +397,13 @@ def _census(args, seeds, specs, device):
     new_families = [s.family for s in specs if s.arm == "R-9"]
     stats = {fam: family_stats(payload["runs"], fam) for fam in new_families}
     supported = [fam for fam, st in stats.items() if st["struct_2"] >= STRUCT2_MIN and st["struct_2_stable_fraction"] >= STABILITY_MIN]
+    # Клетки декомпозиции сида (init/data) проверяют H-E02C-6, а не H-R1/R2/R3:
+    # их вердикт считает scripts/e02c_seed_grid.py по замороженному критерию.
+    design = (
+        "seed_decomposition"
+        if new_families and all("_seeddec_" in fam for fam in new_families)
+        else "replication"
+    )
     controls = {
         s.family: family_stats(payload["runs"], s.family)[
             "frozen_class_counts"
@@ -397,7 +411,9 @@ def _census(args, seeds, specs, device):
         for s in specs
         if s.arm in ("H-P1", "untrained")
     }
-    verdict, verdict_applicable = census_verdict(supported, len(new_families))
+    verdict, verdict_applicable = census_verdict(
+        supported, len(new_families), design=design
+    )
     summary = {
         "schema_version": 1,
         "experiment": "E02c_replication",
@@ -413,13 +429,19 @@ def _census(args, seeds, specs, device):
             if s.arm == "REF"
         },
         "positive_control_present": any(s.arm == "H-P1" for s in specs),
+        "design": design,
         "verdict": verdict,
         "verdict_applicable": verdict_applicable,
         "verdict_note": None
         if verdict_applicable
         else (
-            f"перепись покрывает {len(new_families)} семейств(а) из трёх по протоколу: "
-            "вердикт H-R1/H-R2/H-R3 не применяется, читать stats"
+            "клетки декомпозиции сида: вердикт H-E02C-6 считает "
+            "scripts/e02c_seed_grid.py по замороженному критерию"
+            if design == "seed_decomposition"
+            else (
+                f"перепись покрывает {len(new_families)} семейств(а) из трёх по протоколу: "
+                "вердикт H-R1/H-R2/H-R3 не применяется, читать stats"
+            )
         ),
         "stability_metric": {
             "criterion_basis": "struct_2_stable_fraction (Ward внутри переписи, как в протоколе)",

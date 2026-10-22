@@ -77,3 +77,19 @@ def test_family_stats_separates_fit_relative_and_frozen_stability() -> None:
     assert stats["struct_2"] == 4
     assert stats["struct_2_stable"] == 2  # fit-relative >= 0.80
     assert stats["struct_2_stable_frozen"] == 3  # замороженная >= 0.80
+
+def test_seed_decomposition_design_is_not_labelled_as_replication() -> None:
+    """Четыре клетки init x data проверяют H-E02C-6, а не H-R1/R2/R3."""
+    census = load_census()
+    verdict, applicable = census.census_verdict(
+        ["E02c_seeddec_init42_data202", "E02c_seeddec_init42_data303"],
+        4,
+        design="seed_decomposition",
+    )
+    assert verdict == "n/a_seed_decomposition"
+    assert applicable is False
+    # Тот же набор семейств без явного дизайна — это H-R1, то есть ровно та
+    # ложная метка, которой избегаем.
+    replication_verdict, replication_applicable = census.census_verdict(["a", "b"], 4)
+    assert replication_applicable is True
+    assert replication_verdict.startswith("H-R1")
