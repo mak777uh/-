@@ -138,10 +138,8 @@ def discover_specs(families=None, allow_missing_control=False):
         if not allow_missing_control:
             raise
         print("[e02c] контроль WP4_R-9_s2000_seed42 отсутствует — пропуск (флаг)")
-        missing_control = True
     else:
         specs.append(replace(control, arm="H-P1", note="positive control R-9 seed42"))
-        missing_control = False
 
     specs.append(
         e02b.CheckpointSpec(

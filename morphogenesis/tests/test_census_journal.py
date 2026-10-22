@@ -43,7 +43,9 @@ def patched(monkeypatch, tmp_path):
     (tmp_path / "logs").mkdir(parents=True, exist_ok=True)
 
     spec = fake_spec("E02c_R-9_s2000_seed1")
-    monkeypatch.setattr(e02c_census, "discover_specs", lambda families=None: [spec])
+    monkeypatch.setattr(
+        e02c_census, "discover_specs", lambda families=None, **_kwargs: [spec]
+    )
     monkeypatch.setattr(e02c_census.e02b, "_preflight", lambda *a, **kw: None)
     monkeypatch.setattr(
         e02c_census.e02b,
