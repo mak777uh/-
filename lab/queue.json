@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-22T06:20:15Z",
+  "updated_at": "2026-10-22T06:29:17Z",
   "note": "Очередь пунктов после E02c. Claim берётся до пре-регистрации, а не перед запуском: lab.py item-claim. Статус running означает занятый GPU-лейн и может быть только у одного пункта.",
   "items": [
     {
@@ -32,9 +32,15 @@
       "heartbeat_at": null,
       "closed_at": "2026-10-22T06:20:15Z",
       "ttl_minutes": 240,
-      "cost_gpu_h": 1.0,
+      "cost_gpu_h": 1.8,
       "gated_by": "E02c_seed42_repro",
-      "artifacts": [],
+      "artifacts": [
+        "reports/2026-10-22-e02c-seed-decomposition-plan.md",
+        "reports/2026-10-22-e02c-seed-decomposition-results.md",
+        "articles/009-odin-seed-eto-dva-faktora.md",
+        "lab/runs/20261022T044851Z-E02c_seeddec_A.json",
+        "lab/runs/20261022T055721Z-E02c_seeddec_censusB.json"
+      ],
       "note": "закрыто по §6: A uniform_dark 64/64, B struct_1 64/64, struct_2 0/64 в обоих; фактор не разделён, сильная форма 'нужны оба' не заявляется. Отчёт, статья 009, README, рукопись §4.8, registry — на месте.",
       "closed_by": "analyst"
     },
