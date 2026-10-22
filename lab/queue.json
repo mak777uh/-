@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-22T07:23:55Z",
+  "updated_at": "2026-10-22T08:09:39Z",
   "note": "Очередь пунктов после E02c. Claim берётся до пре-регистрации, а не перед запуском: lab.py item-claim. Статус running означает занятый GPU-лейн и может быть только у одного пункта.",
   "items": [
     {
@@ -148,11 +148,11 @@
       "id": "repro_independent",
       "title": "Независимое воспроизведение переписи на другом стеке (lite-чекпоинты, Kaggle)",
       "hypothesis": null,
-      "status": "planned",
-      "owner": null,
-      "claimed_at": null,
+      "status": "closed",
+      "owner": "lead",
+      "claimed_at": "2026-10-22T08:09:33Z",
       "heartbeat_at": null,
-      "closed_at": null,
+      "closed_at": "2026-10-22T08:09:39Z",
       "ttl_minutes": 240,
       "cost_gpu_h": 0.0,
       "gated_by": "E02c_frequency_pilot",
@@ -163,7 +163,8 @@
         "reports/2026-10-22-colab-reproduction-plan.md",
         "scripts/export_train_repro.py"
       ],
-      "note": "Сценарий A (lite-пакет на T4) готов к запуску: ноутбук colab/verify_e02b_t4.ipynb + colab/README.md. Сценарий B (полные чекпоинты) — по решению владельца. Пакет обучения для независимого прогона — scripts/export_train_repro.py."
+      "note": "H-REPRO-1 отвергнута: на Colab T4 тот же рецепт и сид дали uniform_dark 64/64 вместо struct_2 64/64; untrained-контроль struct_1 64/64; сырые артефакты T4 внешние. Отчёт reports/2026-10-22-colab-t4-repro-results.md, статья 013, рукопись §4.12 (v0.13). Механизм не установлен: H-REPRO-2 (torch 2.6.0+cu124 на T4) и H-REPRO-3 (повтор на T4) записаны как planned; подача требует решения владельца о условном по стеку утверждении.",
+      "closed_by": "lead"
     },
     {
       "id": "E02d_sweep",
