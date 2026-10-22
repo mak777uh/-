@@ -248,13 +248,14 @@ python run_tests.py --quick
 CI ([`.github/workflows/ci.yml`](.github/workflows/ci.yml)) проверяет контракт
 `lab.py validate --ci` (включая журнал README и карту рукописи), **пересчитывает
 канонические артефакты E02b** (`e02b_verify.py`: классы, силуэт, ARI, H1/H3) и
-CPU-тесты. Три проверки текста можно запускать и руками:
+CPU-тесты. Четыре проверки текста можно запускать и руками:
 
 ```bash
 python scripts/check_links.py            # относительные ссылки публичных документов
 python scripts/check_links.py --all      # весь репозиторий
 python scripts/check_section_refs.py     # ссылки «§4.7» внутри рукописи
 python scripts/check_references.py       # каждая ссылка References есть в индексе библиотеки
+python scripts/check_reports_index.py      # каждый отчёт имеет строку в reports/README.md
 python scripts/verify_portable_package.py  # целостность dist/e02b-portable (если собран)
 ```
 
