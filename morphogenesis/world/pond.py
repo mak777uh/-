@@ -4,23 +4,26 @@
 размножения и отбора. Здесь добавляется ровно то, без чего организация не может
 быть процессом:
 
-- **ресурс** `resource` — возобновляемое поле (солнце/питание);
-- **энергия** `energy` — тратится на обновление клетки, при нуле клетка гаснет;
-- **масса** — сколько живых клеток в компоненте (тело);
-- **размножение** — компонент с достаточной массой и энергией отделяет «почку»;
-- **смерть** — при нуле энергии или при превышении возраста.
+- **ресурс** `resource` — возобновляемое поле (свет/питание), с катастрофами;
+- **энергия** `energy` — доход из ресурса, плата за обновление и за ремонт, ноль →
+  смерть;
+- **повреждения** `damage` — накапливаются с шумом, ремонтируются за энергию; при
+  переполнении клетка гибнет. Возраст — только диагностика, не причина смерти;
+- **размножение** — компонент с достаточной массой и энергией выпускает **спору**
+  (1–4 клетки в свободных соседних клетках), а не копию тела: потомок должен
+  вырасти сам, и на это есть давление;
+- **катастрофы** — периодическое падение ресурса, которое вымывает доминирующие
+  линии и освобождает ниши.
 
-Правило обновления состояния сюда не входит: оно передаётся снаружи
-(`rule_fn`), чтобы этот модуль можно было тестировать без GPU и без обучения.
-Среда отвечает только за бюджет: кто тратит, кто получает, кто умирает, кто
-делится.
+Правило обновления состояния сюда не входит: оно передаётся снаружи (`rule_fn`),
+чтобы мир тестировался без GPU и без обучения. Мир отвечает только за бюджет.
 
 Инварианты (проверяются тестами):
-1. энергия не появляется из ниоткуда — только из ресурса, который регенерирует
-   с ограниченной скоростью;
+1. энергия не появляется из ниоткуда — только из ресурса;
 2. мёртвая клетка не тратит и не отдаёт энергию;
-3. почка появляется только если у родителя хватает массы и энергии, и её
-   появление списывает энергию у родителя.
+3. спора не занимает клетку родителя и появляется только при достаточной массе и
+   энергии, причём энергия списывается у родителя;
+4. повреждения накапливаются и убивают без участия возраста.
 """
 from __future__ import annotations
 
@@ -38,28 +41,39 @@ class PondConfig:
     resource_regen: float = 0.02      # сколько ресурса прибывает за шаг на клетку
     update_cost: float = 0.01         # цена одного обновления живой клетки
     baseline_income: float = 0.002    # доход клетки из ресурса за шаг
-    budding_mass: float = 64          # сколько живых клеток нужно для почки
+    budding_mass: float = 64          # сколько живых клеток нужно для споры
     budding_cost: float = 8.0         # энергия, которую платит родитель
-    max_age: int = 4000
-    noise: float = 0.002              # шум в поле ресурса (чтобы среда не была статичной)
+    spore_cells: int = 2              # из скольких клеток стартует потомок
+    damage_max: int = 50              # сколько повреждений выдерживает клетка
+    damage_rate: float = 0.02         # вероятность получить повреждение за шаг
+    repair_cost: float = 0.004        # энергия на предотвращение повреждения
+    repair_rate: float = 0.5          # вероятность ремонта за шаг (если есть чем платить)
+    max_age: int = 100_000            # диагностический предел, не причина смерти
+    noise: float = 0.002              # шум в поле ресурса
+    catastrophe_period: int = 0       # 0 — катастроф выключены
+    catastrophe_duration: int = 50
+    catastrophe_strength: float = 0.9
+    genome_dim: int = 32              # размер генома (для cNCA)
 
 
 @dataclass
 class PondState:
-    """Состояние мира: ресурс, энергия, возраст, маска живого."""
+    """Состояние мира: ресурс, энергия, повреждения, возраст, маска живого."""
 
     resource: torch.Tensor            # (H, W)
     energy: torch.Tensor              # (H, W)
+    damage: torch.Tensor              # (H, W) int64
     age: torch.Tensor                 # (H, W) int64
     alive: torch.Tensor               # (H, W) bool
     step: int = 0
     born: int = 0
     died: int = 0
+    consumed_total: float = 0.0
     history: list[dict] = field(default_factory=list)
 
 
 class Pond:
-    """Среда: ресурс, энергия, смерть, размножение. Без правила обновления."""
+    """Среда: ресурс, энергия, повреждения, смерть, споры, катастрофы."""
 
     def __init__(self, config: PondConfig | None = None, device: str | torch.device = "cpu",
                  seed: int = 0) -> None:
@@ -70,51 +84,85 @@ class Pond:
         self.state = PondState(
             resource=torch.full((n, n), self.cfg.resource_max * 0.5, device=self.device),
             energy=torch.zeros((n, n), device=self.device),
+            damage=torch.zeros((n, n), dtype=torch.int64, device=self.device),
             age=torch.zeros((n, n), dtype=torch.int64, device=self.device),
             alive=torch.zeros((n, n), dtype=torch.bool, device=self.device),
         )
 
-    # ---------- ресурс ----------
+    # ---------- ресурс и катастрофы ----------
+    def in_catastrophe(self) -> bool:
+        cfg = self.cfg
+        if cfg.catastrophe_period <= 0:
+            return False
+        return (self.state.step % cfg.catastrophe_period) < cfg.catastrophe_duration
+
     def regenerate(self) -> None:
-        """Ресурс прибывает с ограниченной скоростью и не превышает максимум."""
+        """Ресурс прибывает с ограниченной скоростью; в катастрофу — падает."""
+        cfg = self.cfg
+        if self.in_catastrophe():
+            self.state.resource = self.state.resource * (1.0 - cfg.catastrophe_strength)
+            return
         noise = torch.randn(
-            (self.cfg.grid, self.cfg.grid), generator=self.gen, device=self.device
-        ) * self.cfg.noise
+            (cfg.grid, cfg.grid), generator=self.gen, device=self.device
+        ) * cfg.noise
         self.state.resource = torch.clamp(
-            self.state.resource + self.cfg.resource_regen + noise, 0.0, self.cfg.resource_max
+            self.state.resource + cfg.resource_regen + noise, 0.0, cfg.resource_max
         )
 
     # ---------- жизнь клеток ----------
     def seed_life(self, mask: torch.Tensor, energy: float = 5.0) -> None:
-        """Поселить жизнь в маске: энергия появляется только вместе с зарядом."""
+        """Поселить жизнь: энергия появляется только вместе с зарядом."""
         mask = mask.to(self.device).bool()
         self.state.alive |= mask
-        self.state.energy = torch.where(mask, torch.full_like(self.state.energy, energy), self.state.energy)
+        self.state.energy = torch.where(
+            mask, torch.full_like(self.state.energy, energy), self.state.energy
+        )
         self.state.age = torch.where(mask, torch.zeros_like(self.state.age), self.state.age)
+        self.state.damage = torch.where(
+            mask, torch.zeros_like(self.state.damage), self.state.damage
+        )
 
     def step_cells(self) -> dict:
-        """Один шаг бюджета: доход из ресурса, плата за обновление, смерть."""
+        """Один шаг бюджета: доход, плата, ремонт, повреждения, смерть."""
+        cfg = self.cfg
         s = self.state
         alive = s.alive
-        # доход: живая клетка забирает из ресурса, но не больше того, что есть
-        income = torch.minimum(s.resource, torch.full_like(s.resource, self.cfg.baseline_income))
-        s.resource = torch.where(alive, s.resource - income, s.resource)
-        s.energy = torch.where(alive, s.energy + income, s.energy)
-        # плата за обновление
-        s.energy = torch.where(alive, s.energy - self.cfg.update_cost, s.energy)
+
+        income = torch.minimum(s.resource, torch.full_like(s.resource, cfg.baseline_income))
+        income = torch.where(alive, income, torch.zeros_like(income))
+        s.resource = s.resource - income
+        s.energy = s.energy + income
+        self.state.consumed_total += float(income.sum())
+
+        spent = cfg.update_cost + cfg.repair_cost
+        s.energy = torch.where(alive, s.energy - spent, s.energy)
+
+        # повреждения: шум попадает с вероятностью damage_rate, ремонт их гасит
+        hits = (torch.rand((cfg.grid, cfg.grid), generator=self.gen, device=self.device)
+                < cfg.damage_rate) & alive
+        s.damage = s.damage + hits.to(s.damage.dtype)
+        repair_roll = torch.rand((cfg.grid, cfg.grid), generator=self.gen, device=self.device)
+        repaired = (
+            alive
+            & (s.damage > 0)
+            & (cfg.repair_cost > 0.0)
+            & (s.energy > spent)
+            & (repair_roll < cfg.repair_rate)
+        )
+        s.damage = torch.where(repaired, s.damage - 1, s.damage)
+
         s.age = torch.where(alive, s.age + 1, s.age)
-        # смерть: нет энергии или пережил максимальный возраст
-        dies = alive & ((s.energy <= 0.0) | (s.age > self.cfg.max_age))
+        dies = alive & ((s.energy <= 0.0) | (s.damage >= cfg.damage_max) | (s.age > cfg.max_age))
         died_now = int(dies.sum())
         s.energy = torch.where(dies, torch.zeros_like(s.energy), s.energy)
         s.alive = alive & ~dies
         s.died += died_now
         s.step += 1
-        return {"died": died_now, "alive": int(s.alive.sum())}
+        return {"died": died_now, "alive": int(s.alive.sum()), "catastrophe": self.in_catastrophe()}
 
     # ---------- размножение ----------
     def find_buds(self) -> list[torch.Tensor]:
-        """Компоненты, у которых достаточно массы и энергии для почки."""
+        """Компоненты, у которых хватает массы и энергии на спору."""
         if not self.state.alive.any():
             return []
         mass, labels = self._components(self.state.alive)
@@ -127,33 +175,53 @@ class Pond:
                 buds.append(mask)
         return buds
 
-    def bud(self, parent_mask: torch.Tensor) -> torch.Tensor:
-        """Отделить почку: списать энергию у родителя, вернуть маску потомка.
+    def bud(self, parent_mask: torch.Tensor) -> torch.Tensor | None:
+        """Выпустить спору: `spore_cells` свободных клеток рядом с родителем.
 
-        Потомок получает энергию от родителя (не из воздуха), поэтому бюджет мира
-        не растёт. Геном копируется снаружи — среда отвечает только за бюджет.
+        Потомок стартует с одной-нескольких клеток в СВОБОДНЫХ соседних клетках
+        (не поверх родителя), и родитель платит энергией. Возвращает маску споры
+        или None, если свободных клеток нет.
         """
+        cfg = self.cfg
         s = self.state
-        idx = parent_mask.nonzero(as_tuple=False)
-        # берём клетку на краю компонента как точку старта почки
-        start = idx[0]
-        y, x = int(start[0]), int(start[1])
+        parent = parent_mask.to(self.device).bool()
+        free = self._free_neighbours(parent)
+        if free.shape[0] == 0:
+            return None
+        take = min(int(cfg.spore_cells), int(free.shape[0]))
+        order = torch.randperm(free.shape[0], generator=self.gen, device=self.device)[:take]
+        spots = free[order]
+
         child = torch.zeros_like(s.alive)
-        child[y, x] = True
-        # списываем у родителя
-        s.energy[parent_mask] -= self.cfg.budding_cost / max(int(parent_mask.sum()), 1)
-        # переносим заряд в потомка (сколько осталось после списания)
-        transfer = min(self.cfg.budding_cost, float(s.energy[parent_mask].sum()))
-        s.energy[child] = max(transfer, 1.0)
+        child[spots[:, 0], spots[:, 1]] = True
+
+        # родитель платит, потомок получает перенос (бюджет не растёт)
+        pay = min(float(cfg.budding_cost), float(s.energy[parent].sum()))
+        s.energy[parent] -= pay / max(int(parent.sum()), 1)
+        s.energy[child] = max(pay * 0.5, 1.0)
         s.alive |= child
         s.age[child] = 0
+        s.damage[child] = 0
         s.born += 1
         return child
+
+    def _free_neighbours(self, mask: torch.Tensor) -> torch.Tensor:
+        """Свободные (не живые) клетки, соседние с маской (4-связность)."""
+        n = self.cfg.grid
+        padded = torch.zeros((n + 2, n + 2), dtype=torch.bool, device=self.device)
+        padded[1:-1, 1:-1] = mask
+        neigh = torch.zeros_like(mask)
+        neigh |= padded[:-2, 1:-1]
+        neigh |= padded[2:, 1:-1]
+        neigh |= padded[1:-1, :-2]
+        neigh |= padded[1:-1, 2:]
+        free = neigh & ~self.state.alive
+        return free.nonzero(as_tuple=False)
 
     # ---------- служебное ----------
     @staticmethod
     def _components(mask: torch.Tensor) -> tuple[dict[int, int], torch.Tensor]:
-        """4-связные компоненты без scipy: итеративное распространение меток."""
+        """4-связные компоненты: итеративное распространение меток (без scipy)."""
         h, w = mask.shape
         labels = torch.zeros((h, w), dtype=torch.int64, device=mask.device)
         current = 0
@@ -181,6 +249,9 @@ class Pond:
             "alive_cells": int(s.alive.sum()),
             "energy_total": float(s.energy.sum()),
             "resource_total": float(s.resource.sum()),
+            "consumed_total": float(s.consumed_total),
+            "damage_mean": float(s.damage[s.alive].float().mean()) if s.alive.any() else 0.0,
             "born": int(s.born),
             "died": int(s.died),
+            "catastrophe": self.in_catastrophe(),
         }
