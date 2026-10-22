@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-22T15:25:00Z",
+  "updated_at": "2026-10-22T15:40:00Z",
   "program": {
     "name": "Morphogenesis",
     "phase": "E02b_clusters3 закрыт: скрытое состояние избыточно, величина асимметрии нестабильна",
@@ -434,8 +434,8 @@
         "id": "H-AB-8",
         "statement": "Разброс величины асимметрии при фиксированной геометрии связан с моментом восстановления живости, а не с конечным состоянием.",
         "test": "Пере-дизайн (reports/2026-10-22-asymmetry-variance-retry-plan.md): 12 пар на c=(40,24), снимки каждые 10 шагов, метрика t_plateau (первый снимок, после которого IoU меняется <= 0.02); критерий: |Spearman(d, dt_plateau)| >= 0.5 при непустой дисперсии dt, inconclusive если dt снова константа.",
-        "status": "planned",
-        "origin": "reports/2026-10-22-asymmetry-variance-results.md — первый прогон вырожден: t_body достигается на первом-втором снимке, dt = +25 у всех 12 пар, дисперсии нет",
+        "status": "rejected",
+        "origin": "reports/2026-10-22-asymmetry-variance-retry-results.md — rho(d, t_plateau) = +0.434 при пороге 0.5, std(dt) = 531.8 (метрика не вырождена); скорость восстановления не объясняет величину",
         "depends_on": [
           "H-AB-7"
         ]
@@ -458,6 +458,26 @@
         "origin": "reports/2026-10-22-lesion-core-results.md — H-CH-9 проверила только 5 пар",
         "depends_on": [
           "H-CH-11"
+        ]
+      },
+      {
+        "id": "H-AB-9",
+        "statement": "Правая половина восстанавливается детерминированно, левая — многовариантно.",
+        "test": "24 шумовых сида на сторону при c=(40,24), финальные IoU и классы; критерий до прогона: std(IoU_right) <= 0.05 и std(IoU_left) >= 3*std(right), struct_2 справа >= 22/24.",
+        "status": "planned",
+        "origin": "reports/2026-10-22-asymmetry-variance-retry-results.md — три набора: правая std 0.010-0.025, левая 0.104-0.203",
+        "depends_on": [
+          "H-AB-8"
+        ]
+      },
+      {
+        "id": "H-AB-10",
+        "statement": "Левые исходы восстановления образуют несколько дискретных классов, а не континуум.",
+        "test": "60 сидов, гистограмма IoU_left по 20 бинам; критерий до прогона: хотя бы два пика с провалом >= 50% между ними.",
+        "status": "planned",
+        "origin": "reports/2026-10-22-asymmetry-variance-retry-results.md — IoU_left 0.11-0.77, IoU_right 0.66-0.74",
+        "depends_on": [
+          "H-AB-9"
         ]
       }
     ]
@@ -1225,6 +1245,44 @@
         "WP4_R-9_s2000_seed42"
       ],
       "next": "Inconclusive: порог тела IoU >= 0.5 достигается на первом-втором снимке, dt = +25 у всех 12 пар, дисперсия нулевая — корреляция d с dt не определена. Токен H-AB-8_refuted в артефакте — след вырожденной метрики, не результат. Побочно: std(d) = 0.208 при той же геометрии, где H-AB-7 дала 0.167, то есть разброс величины реален и не связан с набором сидов. Пере-дизайн: t_plateau, снимки каждые 10 шагов, порог 0.02."
+    },
+    {
+      "id": "E02b_asymmetry_variance_retry",
+      "title": "Источник разброса асимметрии: время выхода на плато (пере-дизайн)",
+      "kind": "experiment",
+      "status": "closed",
+      "outcome": "ab8_refuted_left_side_variance",
+      "plan": "reports/2026-10-22-asymmetry-variance-retry-plan.md",
+      "report": "reports/2026-10-22-asymmetry-variance-retry-results.md",
+      "article": "articles/018-pravaia-polovina-determinirovana.md",
+      "artifact_root": "morphogenesis/experiments/E02b_morphospace",
+      "entrypoint": "morphogenesis/experiments/E02b_morphospace/scripts/e02b_asymmetry_variance_retry.py",
+      "checkpoint_families": [
+        "WP4_R-9_s2000_seed42"
+      ],
+      "next": "H-AB-8 опровергнута на невырожденной метрике: t_plateau 420-1900 шагов, std(dt) = 531.8, rho(d, dt_plateau) = +0.434 < 0.5 — скорость восстановления не объясняет величину асимметрии. Побочно и устойчиво на трёх наборах по 12 сидов при c=(40,24): правая половина стабильна (IoU 0.66-0.74, std 0.010-0.025), левая разбросана (0.11-0.77, std 0.104-0.203), то есть разброс величины — это разброс левой стороны. Первый прогон с порогом тела был вырожден и оформлен отдельно как inconclusive. 178.4 с.",
+      "next_hypotheses": [
+        {
+          "id": "H-AB-9",
+          "statement": "Правая сторона детерминирована, левая многовариантна.",
+          "test": "24 сида на сторону, критерий std(right) <= 0.05, std(left) >= 3x.",
+          "status": "planned",
+          "origin": "reports/2026-10-22-asymmetry-variance-retry-results.md",
+          "depends_on": [
+            "H-AB-8"
+          ]
+        },
+        {
+          "id": "H-AB-10",
+          "statement": "Левые исходы дискретны, а не континуальны.",
+          "test": "60 сидов, гистограмма IoU_left; критерий — два пика с провалом >= 50%.",
+          "status": "planned",
+          "origin": "reports/2026-10-22-asymmetry-variance-retry-results.md",
+          "depends_on": [
+            "H-AB-9"
+          ]
+        }
+      ]
     }
   ],
   "links": {
