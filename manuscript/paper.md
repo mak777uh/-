@@ -1,6 +1,6 @@
 # What Morphologies Does a Neural Cellular Automaton Hold? A Census and a Negative Result
 
-**Status:** DRAFT v0.4 (2026-10-21) — not submitted, not peer-reviewed, do not cite. **Publication gate:** E02c is closed, the seed42 run repeats bitwise and returns the class 64/64 (§4.6), and the portable package passed an independent CPU reproduction of the E02b census; none of these is an independent reproduction of the E02c series, and external submission remains a decision of the owner. No claim about life, consciousness or intelligence; only observable behavioural classes and their boundaries ([AGENTS.md](../AGENTS.md) §3).
+**Status:** DRAFT v0.5 (2026-10-21) — not submitted, not peer-reviewed, do not cite. **Publication gate:** E02c is closed, the seed42 run repeats bitwise and returns the class 64/64 (§4.6), and the portable package passed an independent CPU reproduction of the E02b census; none of these is an independent reproduction of the E02c series, and external submission remains a decision of the owner. No claim about life, consciousness or intelligence; only observable behavioural classes and their boundaries ([AGENTS.md](../AGENTS.md) §3).
 
 <!-- TODO: freeze a submission tag and run the independent-reproduction pass before any external submission. -->
 
@@ -140,7 +140,7 @@ The probes are collected here so that their status travels with their numbers. `
 | Nucleogenesis (H-NU-1) | 5 focus sizes × 2 packings × 12 × 3 models, plus the k = 0 control and a cross-class block; 420 rollouts, 2000 steps | minimal focus 1 cell (`struct_2`, expansion ×2158) and 8 cells (`struct_1` seed101); untrained never wakes; cross-class block dies 12/12 both ways; "same picture" reached only at 128 cells, `scattered` | exploratory; wake-up verdicts robust, "same picture" verdict rests on the non-canonical prototype | [E02b results](../reports/2026-10-20-e02b-results.md), "Нуклеогенез" |
 | Transplants and basins | 12×12 matrix, one state per source = 144 transplants, 2000 steps; repeat with 9 samples per pair = 1296 transplants | 144-run matrix: 6 killers, 5 `single_live_attractor`, 1 `diagonal_unstable` (R-11), 0 multi-basin; the 1296-run repeat finds 0 multi-basin again, `struct_2` 54/54 with death share 0.000 | exploratory; descriptive map, not a proof of a basin | [E02b results](../reports/2026-10-20-e02b-results.md), "Матрица переходов" |
 
-Two of these rows carry a known instrument defect and are labelled as such in their reports: the channel-memory and nucleogenesis prototypes were built with a zeroed stress-EMA from an inverted `is_trained` flag (alive 2200 rather than 2174). The H-AB-1 repeat of 2026-10-21 avoided that path and built its prototypes from the checkpoint EMA (alive 0.530762, 2174 cells). A clean provenance repeat of the channel-memory probe on the canonical prototype is queued and is a condition for using its absolute IoU values.
+Two of these rows carry a known instrument defect and are labelled as such in their reports: the channel-memory and nucleogenesis prototypes were built with a zeroed stress-EMA from an inverted `is_trained` flag (alive 2200 rather than 2174). The H-AB-1 repeat of 2026-10-21 avoided that path and built its prototypes from the checkpoint EMA (alive 0.530762, 2174 cells). A clean provenance repeat of the channel-memory probe on the canonical prototype is queued and is a condition for using its absolute IoU values. A follow-up inference run then closed four of the open probes — hidden-channel subsets, the return of orientation, the minimum channel requirement and the mass-matched asymmetry — and it also exposed an interpretation gate: pattern metrics are only defined where the prototype reproduces its own figure (§4.7).
 
 ### 4.5. Replication: `struct_2` does not survive a change of training seed
 
@@ -169,6 +169,20 @@ The census of the repeat returns `struct_2` in **64/64** starts under the frozen
 Ward clustering does not name classes in this narrow census. Fitted on 192 rollouts of three families it selects k = 2 with silhouette 0.315, and under those conditions the untrained architecture receives the Ward label `struct_2` (64/64) although the frozen projection gives `struct_1`, while start 61 receives different Ward labels in the two families from bitwise identical descriptors. That is an artefact of the clustering, not a physical difference, so the numbers above come from the frozen projection and the Ward split (42/22 for the repeat against 41/23 for the control) is reported descriptively only. Stability is 0.906 against 1.00 in the E02b census for a related reason — the label of the last quarter rides on the same weak split — and the difference is not read as a degradation of the form.
 
 Three boundaries follow. The repeat is **not an independent reproduction**: same machine, same environment, same code, and the publication gate still requires a different stack. It does not make `struct_2` a property of the recipe: E02c's 0/3 stands, and the class is tied to the training seed. And it checks exactly one seed, so "reproducible from this seed" does not become "stable across seeds" (refuted in E02c) or an estimate of the class frequency for the recipe.
+
+### 4.7. What carries the form, and why the left half is worse
+
+Four probes that had stayed open were closed by one inference run on frozen checkpoints (816 rollouts, 96 min CUDA, three models x 12 repeats; [closures results](../reports/2026-10-21-e02b-closures-results.md), [protocol](../reports/2026-10-21-e02b-closures-plan.md)).
+
+**Hidden channels are redundant, not specific (H-CH-2, refuted).** Zeroing any single hidden channel 2-14, or any of six groups, left the `struct_2` pattern intact in 12/12 rollouts for all 20 conditions (mean IoU 0.63-0.86; the untouched control scores 0.864). The untrained architecture behaves the same. A channel that stores the form is not identified; this is consistent with the H-CH-1 reading that the figure is re-derived.
+
+**Orientation returns (H-CH-3, confirmed).** With the visible texture zeroed, the best of the eight D4 transforms is the identity in 12/12 rollouts (mean dihedral IoU 0.799): the figure comes back in the same orientation, not merely in the same class.
+
+**The body itself carries the form (H-CH-4, refuted as stated).** Zeroing visible and hidden channels while keeping the alive channel leaves `struct_2` recovering the pattern 12/12 (IoU 0.77-0.80, class `struct_2` 12/12). The reason is structural: the binary mask is read out of the alive channel, so "keep alive" means "keep the body". The tested dichotomy (visible vs hidden) is therefore incomplete, and the test cannot separate "re-derived" from "never destroyed". For the untrained architecture the same condition ends in `death` 12/12, so a preserved body is not sufficient by itself.
+
+**Asymmetry is structural, not mass (H-AB-2, confirmed).** H-AB-1 compared halves of equal area, but the prototype holds different numbers of live cells on each side, so the gap could have been a mass artefact. Twelve pairs with matched removed mass (removed fraction 0.15-0.486, mismatch 0.0023-0.0046 under a 0.01 tolerance) give `d = IoU_left - IoU_right < 0` in 12/12 pairs, mean -0.225, from -0.02 at the smallest lesion to -0.61 at the largest. The left half recovers worse at equal removed mass.
+
+**An interpretation gate.** The `none` control is a gate, not a formality: for R-9 seed101 (class `struct_1`) the untouched prototype reproduces its class 12/12 but its figure 0/12 (IoU 0.13-0.17, alive 0.76-0.82). Every 0/12 for that model is therefore a baseline failure, not an ablation effect, and its pattern numbers are descriptive only.
 
 ## 5. Discussion
 
@@ -203,11 +217,12 @@ A working example is [`scripts/verify_portable.py`](../scripts/verify_portable.p
 - **`struct_1` is an architectural confound**: untrained reaches it 64/64 and repairs 45/45; H-P1 reaches it in 29/64.
 - **H4 was never run**: whether the rule variant matters more than the seed has no data.
 - **One architecture**: 64×64×16, fixed channels, one loss family; no claim about NCA in general.
+- **Pattern metrics need a baseline gate**: a probe is interpretable only if its `none` control reproduces the prototype's figure; for `struct_1` it does not (0/12), so that model's pattern numbers are descriptive.
 - **Exploratory probes are small**: one prototype per model, 12 repeats, 2000 steps; the channel-memory prototype is non-canonical, and the untrained network is bit-identical across repeats, so its 12 repeats are not independent samples.
 - **Determinism is local**: §9.2 was enforced on one CUDA device; cross-hardware reproducibility was not tested.
 - **The repeat is not independent reproduction**: the seed42 repeat ran on the same machine, environment and code; independent reproduction on a different stack remains a condition of submission, and the Kaggle pass covers the E02b census, not the E02c series.
 - **Taxonomy is descriptive**: k = 5 in 52/100 bootstraps, the `death`/`uniform_dark` boundary is least stable, though `struct_2` survives k = 3–8, jackknife and 10% feature noise.
-- **Journal gap**: seven exploratory runs of 2026-10-21 (channel memory, body integrity, transient analysis, geometry of form, H-AB-1 lesion repeat, E02c census, seed42-repro census) have manifests and stdout but no start/finish pair in the canonical journal; recorded, not backfilled. A second census process aborted after one minute and left only an `aborted` manifest.
+- **Journal gap (process fixed, history visible)**: seven exploratory runs of 2026-10-21 (channel memory, body integrity, transient analysis, geometry of form, H-AB-1 lesion repeat, E02c census, seed42-repro census) have manifests and stdout but no start/finish pair in the canonical journal; recorded, not backfilled. A second census process aborted after one minute and left only an `aborted` manifest.
 - **Independent reproduction is class-level, not bitwise**: the portable 18-MB package reproduced 48/48 classes of the E02b census on Kaggle CPU; `n_pixels` and other threshold descriptors drifted, and a GPU run was not available (phone verification). This is enough for the class-level claim, not for numerical identity.
 
 ## 7. Data and code availability
