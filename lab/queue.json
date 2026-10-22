@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-22T15:45:00Z",
+  "updated_at": "2026-10-22T16:10:00Z",
   "note": "Очередь пунктов после E02c. Claim берётся до пре-регистрации, а не перед запуском: lab.py item-claim. Статус running означает занятый GPU-лейн и может быть только у одного пункта.",
   "items": [
     {
@@ -364,6 +364,23 @@
         "reports/2026-10-22-asymmetry-sides-plan.md"
       ],
       "note": "24 сида на сторону при c=(40,24): критерий std(right) <= 0.05, std(left) >= 3*std(right), struct_2 справа >= 22/24. Скрипт обкатан CPU-дымом."
+    },
+    {
+      "id": "E02b_carrier_pairs",
+      "title": "Достаточна ли любая пара каналов внутри носителя (H-CH-12)",
+      "hypothesis": "H-CH-12",
+      "status": "planned",
+      "owner": null,
+      "claimed_at": null,
+      "heartbeat_at": null,
+      "closed_at": null,
+      "ttl_minutes": 240,
+      "cost_gpu_h": 0.6,
+      "gated_by": null,
+      "artifacts": [
+        "reports/2026-10-22-carrier-pairs-plan.md"
+      ],
+      "note": "Все 28 пар из {2,3,4,10,11,12,13,14} x 12 сидов = 336 развёрток; три пары из H-CH-9 идут контролями согласованности. Критерий до прогона: все пары >= 11/12 при контролях 12/12. Скрипт обкатан CPU-дымом."
     }
   ]
 }
