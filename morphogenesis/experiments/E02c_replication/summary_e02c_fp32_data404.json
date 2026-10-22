@@ -1,0 +1,120 @@
+{
+  "schema_version": 1,
+  "experiment": "E02c_replication",
+  "protocol_sha256": "66b77b5e31b7c231c4bd0775ff2ae297360b33d9f2c95765ef4aedbfd219b2cc",
+  "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31,
+    32,
+    33,
+    34,
+    35,
+    36,
+    37,
+    38,
+    39,
+    40,
+    41,
+    42,
+    43,
+    44,
+    45,
+    46,
+    47,
+    48,
+    49,
+    50,
+    51,
+    52,
+    53,
+    54,
+    55,
+    56,
+    57,
+    58,
+    59,
+    60,
+    61,
+    62,
+    63
+  ],
+  "steps": 2000,
+  "families": [
+    "E02c_seeddec_init42_data404"
+  ],
+  "stats": {
+    "E02c_seeddec_init42_data404": {
+      "family": "E02c_seeddec_init42_data404",
+      "n": 64,
+      "struct_2": 0,
+      "struct_2_fraction": 0.0,
+      "struct_2_stable": 0,
+      "struct_2_stable_fraction": 0.0,
+      "struct_2_stable_frozen": 0,
+      "struct_2_stable_frozen_fraction": 0.0,
+      "frozen_class_counts": {
+        "death": 64
+      },
+      "ward_class_counts": {
+        "death": 64
+      }
+    }
+  },
+  "controls": {
+    "WP4_R-9_s2000_seed42": {
+      "struct_2": 64
+    },
+    "untrained_current_arch": {
+      "struct_1": 64
+    }
+  },
+  "reference_stats": {},
+  "positive_control_present": true,
+  "design": "seed_decomposition",
+  "verdict": "n/a_seed_decomposition",
+  "verdict_applicable": false,
+  "verdict_note": "клетки декомпозиции сида: вердикт H-E02C-6 считает scripts/e02c_seed_grid.py по замороженному критерию",
+  "stability_metric": {
+    "criterion_basis": "struct_2_stable_fraction (Ward внутри переписи, как в протоколе)",
+    "criterion_basis_relative_to_census": true,
+    "comparable": "struct_2_stable_frozen_fraction (проекция снимков на центроиды E02b)",
+    "note": "Ward обучается внутри переписи, поэтому имена кластеров и «устойчивость» зависят от состава семейств; замороженная проекция от состава не зависит и сравнима между переписями"
+  },
+  "supported_families": [],
+  "criterion": {
+    "struct_2_min": 52,
+    "stability_min": 0.8,
+    "n_seeds": 64
+  },
+  "finished_at": "2026-10-22T18:28:37Z"
+}
