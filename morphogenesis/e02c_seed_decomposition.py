@@ -162,6 +162,8 @@ def smoke() -> int:
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description="E02c: декомпозиция тренировочного сида")
     ap.add_argument("--run", choices=sorted(RUNS), help="A (init 42/data 101) или B (init 101/data 42)")
+    ap.add_argument("--init-seed", type=int, help="явная раскладка: сид инициализации весов")
+    ap.add_argument("--data-seed", type=int, help="явная раскладка: сид данных (пул, шум, порядок)")
     ap.add_argument("--steps", type=int, default=2000)
     ap.add_argument("--smoke", action="store_true", help="три проверки без обучения")
     ap.add_argument("--dry-run", action="store_true", help="только применить overrides")
@@ -170,13 +172,19 @@ def main(argv=None) -> int:
     if args.smoke:
         return smoke()
 
-    if not args.run:
-        raise SystemExit("нужен --run A|B или --smoke")
-    layout = RUNS[args.run]
+    if args.run and (args.init_seed is not None or args.data_seed is not None):
+        raise SystemExit("укажи либо --run, либо --init-seed/--data-seed, но не вместе")
+    if args.run:
+        layout = RUNS[args.run]
+    elif args.init_seed is not None and args.data_seed is not None:
+        layout = {"init_seed": int(args.init_seed), "data_seed": int(args.data_seed)}
+    else:
+        raise SystemExit("нужен --run A|B, либо --init-seed и --data-seed, либо --smoke")
+
     experiment_id = f"E02c_seeddec_init{layout['init_seed']}_data{layout['data_seed']}"
     target_dir = os.path.join(config.CHECKPOINT_DIR, experiment_id)
 
-    print(f"[seeddec] run={args.run} init_seed={layout['init_seed']} "
+    print(f"[seeddec] init_seed={layout['init_seed']} "
           f"data_seed={layout['data_seed']} experiment_id={experiment_id}")
     if args.dry_run:
         _, overrides = ARMS["R-9"]
