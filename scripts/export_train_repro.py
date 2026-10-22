@@ -48,6 +48,7 @@ SOURCE_FILES = (
     "e02c_replication.py",
     "e02c_census.py",
     "e02b_morphospace.py",
+    "artifact_lock.py",
 )
 UTILS_FILES = ("__init__.py", "logging.py", "determinism.py", "stats.py")
 DATA_FILES = (

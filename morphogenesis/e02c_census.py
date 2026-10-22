@@ -33,6 +33,7 @@ import numpy as np
 import torch
 
 import e02b_morphospace as e02b
+from artifact_lock import artifact_guard
 from utils.logging import Journal
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -301,7 +302,14 @@ def main(argv=None):
         ),
     )
     args = ap.parse_args(argv)
+    # Замок ключуется артефактами, а не именем эксперимента: 22.10 два прогона
+    # с разными --experiment писали один и тот же --out и потеряли 55 минут GPU.
+    with artifact_guard(args.out, args.summary_out):
+        return _run(args)
 
+
+def _run(args):
+    """Тело запуска без argparse: перепись под замком артефактов."""
     seeds = parse_seeds(args.seeds)
     families = [x.strip() for x in args.families.split(",") if x.strip()]
     specs = discover_specs(
