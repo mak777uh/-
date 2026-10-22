@@ -580,6 +580,8 @@ def train(
     target_pattern=None,
     ae_available=False,
     stop_on_collapse=True,
+    init_seed=None,
+    data_seed=None,
 ):
     print("=" * 60)
     print("PROJECT MORPHOGENESIS: Запуск обучения")
@@ -589,12 +591,19 @@ def train(
 
     if seed is None:
         seed = config.SEED
-    config.set_seed(seed)
+    # Декомпозиция сида (H-E02C-5): по умолчанию оба фактора равны `seed`,
+    # поэтому поведение побитово прежнее. `init_seed` задаёт только глобальный
+    # RNG (инициализацию весов), `data_seed` — только генератор шума, пула и
+    # порядка сэмплов. Разделение нужно, чтобы понять, какой фактор выбирает
+    # класс `struct_2`.
+    init_seed = int(seed) if init_seed is None else int(init_seed)
+    data_seed = int(seed) if data_seed is None else int(data_seed)
+    config.set_seed(init_seed)
     if target_pattern is not None:
         config.set_target_pattern(target_pattern)
 
     # Детерминированный генератор для всех стохастических операций (§9.2).
-    generator = create_deterministic_generator(seed)
+    generator = create_deterministic_generator(data_seed)
 
     for d in [
         config.CHECKPOINT_DIR,
@@ -807,6 +816,8 @@ def train(
         spec_version=config.SPEC_VERSION,
         revision=config.SPEC_REVISION,
         seed=int(seed),
+        init_seed=int(init_seed),
+        data_seed=int(data_seed),
         total_steps=total_steps,
         batch_size=config.TRAIN_BATCH_SIZE,
         pool_init_mode=config.TRAIN_POOL_INIT_MODE,
