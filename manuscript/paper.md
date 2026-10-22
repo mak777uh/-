@@ -1,6 +1,6 @@
 # What Morphologies Does a Neural Cellular Automaton Hold? A Census and a Negative Result
 
-**Status:** DRAFT v0.29 (2026-10-22) — not submitted, not peer-reviewed, do not cite. **Publication gate:** E02c is closed, the seed42 run repeats bitwise and returns the class 64/64 (§4.6), and the portable package passed an independent CPU reproduction of the E02b census; an independent retraining of seed42 on a different stack was attempted and did **not** reproduce the class (§4.12), so the claim is now explicitly stack-conditional and external submission remains a decision of the owner. No claim about life, consciousness or intelligence; only observable behavioural classes and their boundaries ([AGENTS.md](../AGENTS.md) §3).
+**Status:** DRAFT v0.30 (2026-10-22) — not submitted, not peer-reviewed, do not cite. **Publication gate:** E02c is closed, the seed42 run repeats bitwise and returns the class 64/64 (§4.6), and the portable package passed an independent CPU reproduction of the E02b census; an independent retraining of seed42 on a different stack was attempted and did **not** reproduce the class (§4.12), so the claim is now explicitly stack-conditional and external submission remains a decision of the owner. No claim about life, consciousness or intelligence; only observable behavioural classes and their boundaries ([AGENTS.md](../AGENTS.md) §3).
 
 <!-- TODO: owner decision on the stack-conditional claim (and on H-REPRO-2/H-REPRO-3) before any external submission. -->
 
@@ -341,7 +341,7 @@ This changes what a "memory" claim can mean here. It is not that we failed to fi
 
 The negatives in this paper are of two different kinds, and keeping them apart is what makes the result usable. The replication (§4.5) changes the seed inside one environment: `struct_2` appears for seed42 and for none of three new seeds, and that statement is not weakened by anything below. The other-stack run (§4.12) changes the environment at a fixed seed and recipe, and the class changes with it. The proper object of the map is therefore a pair, seed × stack → class, not a function of the seed alone.
 
-Two consequences follow. First, a class label is a property of a trajectory, and a trajectory is computed by a particular arithmetic in a particular order; the archive preserves one such environment, so a label travelling without its stack is under-specified. This is the same lesson as §5.3 in a different costume: the instrument is part of the measurement. Second, a frequency estimated by mixing stacks would measure the mixture, not the recipe — the reason §4.12 narrows every frequency statement to one stack rather than abandoning it.
+Two consequences follow. First, a class label is a property of a trajectory, and a trajectory is computed by a particular arithmetic in a particular order; the archive preserves one such environment, so a label travelling without its stack is under-specified. This is the same lesson as §5.3 in a different costume: the instrument is part of the measurement. The reproducibility literature reaches the same conclusion from the other side, separating non-determinism in the execution environment from variance intrinsic to the method, and insisting that a single run is not evidence about either (Henderson et al., 2018; Sirvent et al., 2025). Second, a frequency estimated by mixing stacks would measure the mixture, not the recipe — the reason §4.12 narrows every frequency statement to one stack rather than abandoning it.
 
 The honest form of the claim is asymmetrical. On its own stack, the run is deterministic to the last bit (§4.6), and the negative replication holds there. Across stacks, the map is contingent, and the mechanism is now partly named: convolution precision during training is a sufficient cause for leaving the basin (§4.12), while two FP32 stacks still disagree on where the trajectory lands. A stronger paper would close that residue as well; this one can name one factor and bound the rest.
 
@@ -355,7 +355,7 @@ The question "does it reproduce?" has three answers in this study, and conflatin
 
 **Stack-level reproduction.** Given the same recipe and seed on other hardware and another framework version, the class does not return, and the weights themselves differ (§4.12). This is a test of the *measurement environment*, and treating it as a test of the claim is a category error in both directions: it neither refutes the basin (the basin was measured on its own stack) nor licenses publishing the frequency as if it were a property of the recipe.
 
-The paper's negative results therefore have different scopes: the recipe-level claim is refuted (0/3 seeds, §4.5), the basin-level claim is supported with a bounded frequency (§4.13), the stack-level claim is refuted for transferability with one cause named and one residue open (§4.12). A replication study that reports only "reproduced / not reproduced" would collapse these three into one bit and lose the only part that generalises.
+The paper's negative results therefore have different scopes: the recipe-level claim is refuted (0/3 seeds, §4.5), the basin-level claim is supported with a bounded frequency (§4.13), the stack-level claim is refuted for transferability with one cause named and one residue open (§4.12). A replication study that reports only "reproduced / not reproduced" would collapse these three into one bit and lose the only part that generalises — the same failure mode that made deep reinforcement learning results hard to compare across seeds and implementations (Henderson et al., 2018), and the same reason reproducibility work on scientific stacks treats the environment as part of the result (Sirvent et al., 2025).
 
 ## 6. Limitations
 
@@ -401,7 +401,7 @@ A frozen NCA trained on a ring does not hold the ring, but one of twelve checkpo
 
 ## References
 
-Every record below was taken from the library index ([`library/publications/README.md`](../library/publications/README.md)) and independently re-checked against the Crossref API on 2026-10-21 (title, container, volume/issue and pages or article number); the DOIs/URLs are reproduced as recorded in the index. Two Levin records carry a publisher URL because the index holds no DOI for them. No work is cited that the text does not use (§2).
+Every record below was taken from the library index ([`library/publications/README.md`](../library/publications/README.md)) and independently re-checked against the Crossref API on 2026-10-21, with the two reproducibility records re-checked on 2026-10-22 (title, container, volume/issue and pages or article number); the DOIs/URLs are reproduced as recorded in the index. Two Levin records carry a publisher URL because the index holds no DOI for them. No work is cited that the text does not use (§2).
 
 - Chan, B. W.-C. (2019). *Lenia: Biology of Artificial Life*. Complex Systems, 28(3), 251–286. https://doi.org/10.25088/ComplexSystems.28.3.251
 - Cvjetko, M., Hartl, B., Levin, M., Moulin-Frier, C., & Oudeyer, P.-Y. (2026). *The Artificial Experimentalist: Discovery and Control of Self-Organizing Phenomena with Autotelic Reinforcement Learning*. ALIFE 2026: Proceedings of the 2026 Artificial Life Conference. https://doi.org/10.1162/isal.a.971
@@ -416,6 +416,8 @@ Every record below was taken from the library index ([`library/publications/READ
 - Sacco, F., Sakthivadivel, D. A. R., & Levin, M. (2026). *Topological constraints on self-organization in locally interacting systems*. Philosophical Transactions of the Royal Society A, 384(2320). https://doi.org/10.1098/rsta.2025.0011
 - Sudhakaran, S., Grbic, D., Li, S., Katona, A., Najarro, E., Glanois, C., & Risi, S. (2021). *Growing 3D Artefacts and Functional Machines with Neural Cellular Automata*. The 2021 Conference on Artificial Life (ALIFE 2021), MIT Press. https://doi.org/10.1162/isal_a_00451
 
+- Henderson, P., Islam, R., Bachman, P., Pineau, J., Precup, D., & Meger, D. (2018). *Deep Reinforcement Learning That Matters*. Proceedings of the AAAI Conference on Artificial Intelligence, 32(1). https://doi.org/10.1609/aaai.v32i1.11694
+- Sirvent, R., Carratalá-Saez, R., Gueroudji, A., Islam, T., Pouchard, L., & Taufer, M. (2025). *Reproducibility for HPC and Distributed Environments: Committees, Nondeterminism, Performance and Workflows*. Proceedings of the 3rd ACM Conference on Reproducibility and Replicability, 29–40. https://doi.org/10.1145/3736731.3746141
 - **Primary sources index:** [`library/publications/README.md`](../library/publications/README.md) (source → hypothesis → experiment, status per row).
 
 ---
