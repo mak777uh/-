@@ -544,9 +544,9 @@ GPU не занимал. Незакоммиченные `lab/state.json`, `morph
 ```bash
 cd morphogenesis
 for cell in init42_data202 init42_data303 init101_data202 init101_data303; do
-  python e02c_census.py --families E02c_seeddec_${cell} \
-    --out ../\$(echo) experiments/E02c_replication/census_e02c_seeddec_${cell}.json \
-    --summary-out experiments/E02c_replication/summary_e02c_seeddec_${cell}.json
+  python e02c_census.py --families "E02c_seeddec_${cell}" \
+    --out "experiments/E02c_replication/census_e02c_seeddec_${cell}.json" \
+    --summary-out "experiments/E02c_replication/summary_e02c_seeddec_${cell}.json"
 done
 ```
 
