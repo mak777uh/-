@@ -1,6 +1,6 @@
 # What Morphologies Does a Neural Cellular Automaton Hold? A Census and a Negative Result
 
-**Status:** DRAFT v0.10 (2026-10-22) — not submitted, not peer-reviewed, do not cite. **Publication gate:** E02c is closed, the seed42 run repeats bitwise and returns the class 64/64 (§4.6), and the portable package passed an independent CPU reproduction of the E02b census; none of these is an independent reproduction of the E02c series, and external submission remains a decision of the owner. No claim about life, consciousness or intelligence; only observable behavioural classes and their boundaries ([AGENTS.md](../AGENTS.md) §3).
+**Status:** DRAFT v0.11 (2026-10-22) — not submitted, not peer-reviewed, do not cite. **Publication gate:** E02c is closed, the seed42 run repeats bitwise and returns the class 64/64 (§4.6), and the portable package passed an independent CPU reproduction of the E02b census; none of these is an independent reproduction of the E02c series, and external submission remains a decision of the owner. No claim about life, consciousness or intelligence; only observable behavioural classes and their boundaries ([AGENTS.md](../AGENTS.md) §3).
 
 <!-- TODO: freeze a submission tag and run the independent-reproduction pass before any external submission. -->
 
@@ -229,7 +229,15 @@ The hidden state carries the form (§4.10); the next question is how much of it 
 
 **Any half of the hidden channels is sufficient (H-CH-8, confirmed).** With the visible channel zeroed and the gate open, keeping only channels 2-7 or only channels 8-14 still returns the body of `struct_2` in 12/12 rollouts (mean IoU 0.784 and 0.805 against a control of 0.864), class `struct_2` 12/12; the untrained architecture loses the body in both conditions (0/12, `uniform_dark`). Together with H-CH-2, which found no single necessary channel, this says the form is stored redundantly across the hidden state rather than in a privileged place.
 
+![Carrier map: fraction of 12 repeats in which the form or the body returned after each ablation, for struct_2 (left) and the untrained control (right)](../reports/figures/e02b_carrier_map.png)
+
+**Figure 2.** Every ablation that breaks the texture, the body or the channel set leaves the `struct_2` form recoverable (12/12 in all eleven conditions), while the untrained control loses it in four of the four tested conditions. The two metrics are labelled: *pattern* means binary IoU with the prototype body at least 0.5, *body* means the mask itself returns. H-CH-6 is not shown for the untrained control because opening the gate does not change a body that is already the alive mask. Built from the committed artifacts by [`scripts/make_carrier_figures.py`](../scripts/make_carrier_figures.py); no new measurements.
+
 **The dose-response is a statistical artefact (H-AB-6, not confirmed).** Eleven dense mass-matched pairs with q = 0.55-0.65 were run against a pre-registered prediction that the largest difference would fall in 0.63 +- 0.05. The observed maximum is 0.551, and all eleven differences are negative, so the direction is stable while the magnitude is not. The decisive observation is methodological: two adjacent targets fell into the same integer cut `c = (40, 24)`, and the difference on two noise seeds was -0.225 and -0.350. A 0.125 spread at identical geometry, with the left-half IoU ranging 0.16-0.61 across neighbouring configurations while the right half stays at 0.66-0.77, means the "curve over q" was tracking variance. The asymmetry's sign is robust; its magnitude needs a variance measurement at fixed geometry (H-AB-7) before any curve is drawn.
+
+![Left/right IoU difference for every mass-matched pair across H-AB-2, H-AB-5 and H-AB-6, against the removed fraction](../reports/figures/e02b_asymmetry_pairs.png)
+
+**Figure 3.** All 35 mass-matched pairs from the three asymmetry experiments are negative, so the direction is robust; the magnitude scatters from -0.02 to -0.63 without forming a curve, and two points at identical geometry (`q = 0.623`, `c = (40, 24)`, green) differ by 0.125. The figure is the visual form of the H-AB-6 verdict and of why no dose-response is claimed. Built from committed artifacts by [`scripts/make_carrier_figures.py`](../scripts/make_carrier_figures.py).
 
 Boundaries: one prototype, one horizon and one machine; the two groups were fixed in advance and no partition search was done; damage beyond q = 0.5 overlaps.
 
