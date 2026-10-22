@@ -159,7 +159,10 @@ seed42. Это проверенное ограничение E02b, а не сб�
 │   ├── checkpoints/            # веса (в git не попадают)
 │   └── logs/                   # journal.jsonl — в git; остальное — нет
 ├── lab/                        # машинный control plane: registry, state, runs
-├── scripts/                    # lab.py, export_portable.py, verify_portable.py
+├── scripts/                    # lab.py, export_portable.py, verify_portable.py,
+│                               # контроль: check_links.py, check_section_refs.py,
+│                               # verify_portable_package.py, retention_sweep.py,
+│                               # сетка H-E02C-6: e02c_seed_grid.py, run_seed_grid_censuses.py
 ├── docs/
 │   ├── spec/                   # активная спецификация; archived/ — только аудит
 │   ├── benchmark/              # BENCHMARK_v0.md (draft, не опубликован)
