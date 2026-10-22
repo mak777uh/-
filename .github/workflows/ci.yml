@@ -1,9 +1,16 @@
 name: lab-contract
 
+# Бесплатный CPU на публичном репозитории — единственная вычислительная машина,
+# доступная нам без телефона, карты и VPN (проверено 22.10.2026). GPU здесь нет,
+# поэтому работа делим так: численные опыты с TF32 — локально, а всё, что должно
+# воспроизводиться «на чужой машине» (контракт, арифметика отчётов, вердикты
+# замороженных критериев, тесты), — здесь, на другой ОС и другом процессоре.
+
 on:
   push:
     branches: ["**"]
   pull_request:
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -13,9 +20,16 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  cpu:
-    runs-on: ubuntu-latest
-    timeout-minutes: 20
+  contract:
+    name: contract-${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        # Лаборатория работает на Windows, а читатель репозитория — чаще на Linux.
+        # Матрица ловит платформенные различия (пути, кодировки, окончания строк).
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
 
@@ -39,12 +53,13 @@ jobs:
         run: python experiments/E02b_morphospace/scripts/e02b_verify.py
 
       # Числа в отчётах и рукописи должны пересчитываться на чужой машине, а не
-      # только там, где считались. Эти два шага берут артефакты из git и
-      # независимо пересчитывают арифметику: классы и устойчивость по сырым
-      # строкам, вердикт сетки — по замороженному критерию.
+      # только там, где считались: берём артефакты из git и пересчитываем
+      # арифметику по сырым строкам.
       - name: E02c numbers re-derivation from raw census rows
         run: python scripts/verify_e02c_numbers.py
 
+      # Вердикт замороженного критерия H-E02C-6 обязан воспроизводиться из
+      # артефактов байт в байт, иначе он не вердикт, а мнение.
       - name: E02c seed grid verdict is reproducible from artifacts
         run: |
           python scripts/e02c_seed_grid.py
@@ -62,3 +77,19 @@ jobs:
         env:
           CUDA_VISIBLE_DEVICES: ""
         run: python -m pytest -q tests
+
+      # Квитанция воспроизведения: маленький JSON, который можно приложить к
+      # статье или показать рецензенту — «на такой-то машине, таким-то питоном и
+      # таким-то torch все проверки прошли, вот хеш коммита».
+      - name: Reproduction receipt
+        if: matrix.os == 'ubuntu-latest'
+        run: python scripts/ci_receipt.py
+
+      - name: Upload reproduction receipt
+        if: matrix.os == 'ubuntu-latest'
+        uses: actions/upload-artifact@v4
+        with:
+          name: reproduction-receipt
+          path: reproduction_receipt.json
+          if-no-files-found: error
+          retention-days: 30
