@@ -1,0 +1,459 @@
+{
+  "schema_version": 1,
+  "experiment": "E02b_morphospace",
+  "kind": "exploratory_lesion_minimal",
+  "protocol": "reports/2026-10-22-lesion-minimal-plan.md",
+  "steps": 2000,
+  "repeats": 12,
+  "device": "cuda",
+  "smoke": false,
+  "ch9": {
+    "family": "WP4_R-9_s2000_seed42",
+    "proto_seed": 35,
+    "proto_class": "struct_2",
+    "proto_body_pixels": 2174,
+    "ch9": {
+      "criterion": "body_returned (IoU >= 0.5) >= 11/12 хотя бы для одного набора размера <= 3",
+      "none_body_returned": 12,
+      "sufficient_sets": [
+        "k1_14",
+        "k2_23",
+        "k2_1112",
+        "k2_1314",
+        "k3_234",
+        "k3_101112",
+        "k3_121314"
+      ],
+      "min_sufficient_size": 1,
+      "min_size_with_any_body": 1,
+      "untrained": {
+        "n": 12,
+        "body_returned": 0,
+        "alive": 12,
+        "classes": {
+          "uniform_dark": 12
+        },
+        "mean_body_iou": 0.0
+      },
+      "verdict": "H-CH-9_confirmed",
+      "conditions": {
+        "none": {
+          "n": 12,
+          "size": 0,
+          "channels": null,
+          "body_returned": 12,
+          "alive": 12,
+          "classes": {
+            "struct_2": 12
+          },
+          "mean_body_iou": 0.8639
+        },
+        "k1_2": {
+          "n": 12,
+          "size": 1,
+          "channels": [
+            2
+          ],
+          "body_returned": 0,
+          "alive": 12,
+          "classes": {
+            "struct_2": 12
+          },
+          "mean_body_iou": 0.1004
+        },
+        "k1_4": {
+          "n": 12,
+          "size": 1,
+          "channels": [
+            4
+          ],
+          "body_returned": 0,
+          "alive": 12,
+          "classes": {
+            "struct_2": 12
+          },
+          "mean_body_iou": 0.1123
+        },
+        "k1_6": {
+          "n": 12,
+          "size": 1,
+          "channels": [
+            6
+          ],
+          "body_returned": 0,
+          "alive": 12,
+          "classes": {
+            "struct_2": 12
+          },
+          "mean_body_iou": 0.2152
+        },
+        "k1_8": {
+          "n": 12,
+          "size": 1,
+          "channels": [
+            8
+          ],
+          "body_returned": 0,
+          "alive": 12,
+          "classes": {
+            "struct_2": 12
+          },
+          "mean_body_iou": 0.0955
+        },
+        "k1_10": {
+          "n": 12,
+          "size": 1,
+          "channels": [
+            10
+          ],
+          "body_returned": 0,
+          "alive": 12,
+          "classes": {
+            "struct_2": 12
+          },
+          "mean_body_iou": 0.0951
+        },
+        "k1_12": {
+          "n": 12,
+          "size": 1,
+          "channels": [
+            12
+          ],
+          "body_returned": 5,
+          "alive": 12,
+          "classes": {
+            "struct_2": 12
+          },
+          "mean_body_iou": 0.4724
+        },
+        "k1_14": {
+          "n": 12,
+          "size": 1,
+          "channels": [
+            14
+          ],
+          "body_returned": 12,
+          "alive": 12,
+          "classes": {
+            "struct_2": 12
+          },
+          "mean_body_iou": 0.7205
+        },
+        "k2_23": {
+          "n": 12,
+          "size": 2,
+          "channels": [
+            2,
+            3
+          ],
+          "body_returned": 12,
+          "alive": 12,
+          "classes": {
+            "struct_2": 12
+          },
+          "mean_body_iou": 0.8465
+        },
+        "k2_56": {
+          "n": 12,
+          "size": 2,
+          "channels": [
+            5,
+            6
+          ],
+          "body_returned": 1,
+          "alive": 12,
+          "classes": {
+            "struct_2": 12
+          },
+          "mean_body_iou": 0.2855
+        },
+        "k2_89": {
+          "n": 12,
+          "size": 2,
+          "channels": [
+            8,
+            9
+          ],
+          "body_returned": 0,
+          "alive": 12,
+          "classes": {
+            "struct_2": 12
+          },
+          "mean_body_iou": 0.0951
+        },
+        "k2_1112": {
+          "n": 12,
+          "size": 2,
+          "channels": [
+            11,
+            12
+          ],
+          "body_returned": 12,
+          "alive": 12,
+          "classes": {
+            "struct_2": 12
+          },
+          "mean_body_iou": 0.8182
+        },
+        "k2_1314": {
+          "n": 12,
+          "size": 2,
+          "channels": [
+            13,
+            14
+          ],
+          "body_returned": 12,
+          "alive": 12,
+          "classes": {
+            "struct_2": 12
+          },
+          "mean_body_iou": 0.7743
+        },
+        "k3_234": {
+          "n": 12,
+          "size": 3,
+          "channels": [
+            2,
+            3,
+            4
+          ],
+          "body_returned": 12,
+          "alive": 12,
+          "classes": {
+            "struct_2": 12
+          },
+          "mean_body_iou": 0.8409
+        },
+        "k3_678": {
+          "n": 12,
+          "size": 3,
+          "channels": [
+            6,
+            7,
+            8
+          ],
+          "body_returned": 0,
+          "alive": 12,
+          "classes": {
+            "struct_2": 12
+          },
+          "mean_body_iou": 0.1275
+        },
+        "k3_101112": {
+          "n": 12,
+          "size": 3,
+          "channels": [
+            10,
+            11,
+            12
+          ],
+          "body_returned": 12,
+          "alive": 12,
+          "classes": {
+            "struct_2": 12
+          },
+          "mean_body_iou": 0.7603
+        },
+        "k3_121314": {
+          "n": 12,
+          "size": 3,
+          "channels": [
+            12,
+            13,
+            14
+          ],
+          "body_returned": 12,
+          "alive": 12,
+          "classes": {
+            "struct_2": 12
+          },
+          "mean_body_iou": 0.8086
+        }
+      }
+    }
+  },
+  "ab7": {
+    "criterion": "std(d) <= 0.05 — геометрия; > 0.1 — шум",
+    "geometries": {
+      "c_40_24": {
+        "geometry": [
+          40,
+          24
+        ],
+        "removed_fraction_left": 0.6228,
+        "removed_fraction_right": 0.6205,
+        "n": 12,
+        "mean_diff": -0.3789,
+        "std_diff": 0.1673,
+        "min_diff": -0.5689,
+        "max_diff": -0.0073,
+        "n_negative": 12,
+        "pairs": [
+          {
+            "rep": 0,
+            "iou_left": 0.1539,
+            "iou_right": 0.7228,
+            "diff": -0.5689
+          },
+          {
+            "rep": 1,
+            "iou_left": 0.495,
+            "iou_right": 0.7266,
+            "diff": -0.2316
+          },
+          {
+            "rep": 2,
+            "iou_left": 0.3986,
+            "iou_right": 0.7439,
+            "diff": -0.3452
+          },
+          {
+            "rep": 3,
+            "iou_left": 0.7199,
+            "iou_right": 0.7272,
+            "diff": -0.0073
+          },
+          {
+            "rep": 4,
+            "iou_left": 0.3438,
+            "iou_right": 0.7301,
+            "diff": -0.3863
+          },
+          {
+            "rep": 5,
+            "iou_left": 0.1748,
+            "iou_right": 0.7026,
+            "diff": -0.5278
+          },
+          {
+            "rep": 6,
+            "iou_left": 0.3075,
+            "iou_right": 0.6735,
+            "diff": -0.366
+          },
+          {
+            "rep": 7,
+            "iou_left": 0.2172,
+            "iou_right": 0.6847,
+            "diff": -0.4676
+          },
+          {
+            "rep": 8,
+            "iou_left": 0.213,
+            "iou_right": 0.7161,
+            "diff": -0.5031
+          },
+          {
+            "rep": 9,
+            "iou_left": 0.2686,
+            "iou_right": 0.7228,
+            "diff": -0.4542
+          },
+          {
+            "rep": 10,
+            "iou_left": 0.556,
+            "iou_right": 0.7313,
+            "diff": -0.1752
+          },
+          {
+            "rep": 11,
+            "iou_left": 0.2179,
+            "iou_right": 0.7311,
+            "diff": -0.5132
+          }
+        ],
+        "verdict": "std_large_noise_curve_forbidden"
+      },
+      "c_38_26": {
+        "geometry": [
+          38,
+          26
+        ],
+        "removed_fraction_left": 0.5925,
+        "removed_fraction_right": 0.5897,
+        "n": 12,
+        "mean_diff": -0.4718,
+        "std_diff": 0.1139,
+        "min_diff": -0.6257,
+        "max_diff": -0.2533,
+        "n_negative": 12,
+        "pairs": [
+          {
+            "rep": 0,
+            "iou_left": 0.1171,
+            "iou_right": 0.7428,
+            "diff": -0.6257
+          },
+          {
+            "rep": 1,
+            "iou_left": 0.2738,
+            "iou_right": 0.7484,
+            "diff": -0.4745
+          },
+          {
+            "rep": 2,
+            "iou_left": 0.3403,
+            "iou_right": 0.7494,
+            "diff": -0.409
+          },
+          {
+            "rep": 3,
+            "iou_left": 0.2373,
+            "iou_right": 0.7395,
+            "diff": -0.5021
+          },
+          {
+            "rep": 4,
+            "iou_left": 0.3165,
+            "iou_right": 0.7571,
+            "diff": -0.4406
+          },
+          {
+            "rep": 5,
+            "iou_left": 0.2207,
+            "iou_right": 0.7313,
+            "diff": -0.5106
+          },
+          {
+            "rep": 6,
+            "iou_left": 0.3488,
+            "iou_right": 0.7279,
+            "diff": -0.3791
+          },
+          {
+            "rep": 7,
+            "iou_left": 0.3238,
+            "iou_right": 0.6589,
+            "diff": -0.3351
+          },
+          {
+            "rep": 8,
+            "iou_left": 0.117,
+            "iou_right": 0.7269,
+            "diff": -0.6099
+          },
+          {
+            "rep": 9,
+            "iou_left": 0.1494,
+            "iou_right": 0.74,
+            "diff": -0.5906
+          },
+          {
+            "rep": 10,
+            "iou_left": 0.4143,
+            "iou_right": 0.6676,
+            "diff": -0.2533
+          },
+          {
+            "rep": 11,
+            "iou_left": 0.1978,
+            "iou_right": 0.7283,
+            "diff": -0.5305
+          }
+        ],
+        "verdict": "std_large_noise_curve_forbidden"
+      }
+    }
+  },
+  "wall_seconds": 1550.4
+}

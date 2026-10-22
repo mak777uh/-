@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-22T12:59:55Z",
+  "updated_at": "2026-10-22T13:35:00Z",
   "program": {
     "name": "Morphogenesis",
     "phase": "E02b_clusters3 закрыт: скрытое состояние избыточно, величина асимметрии нестабильна",
@@ -343,8 +343,8 @@
         "id": "H-CH-9",
         "statement": "Минимальное достаточное число скрытых каналов меньше половины: 1-3 канала при visible=0 и открытом гейте восстанавливают тело.",
         "test": "Оставить 1, 2, 3 скрытых канала (визуально разные наборы), 12 повторов, struct_2; критерий: body_iou >= 0.5 в >= 11/12 для какого-либо набора.",
-        "status": "planned",
-        "origin": "reports/2026-10-22-clusters3-results.md — обе половины избыточны",
+        "status": "confirmed",
+        "origin": "reports/2026-10-22-lesion-minimal-results.md — один канал {14} даёт тело 12/12 (IoU 0.721); {2,3} 12/12 (0.847); {6,7,8} 0/12; untrained 0/12",
         "depends_on": [
           "H-CH-8"
         ]
@@ -353,8 +353,8 @@
         "id": "H-AB-7",
         "statement": "При фиксированной геометрии среза разброс разности по сидам мал: std(d) <= 0.05.",
         "test": "12 повторов на срезе c=(38,26) и 12 на c=(40,24); критерий до прогона: std(d) <= 0.05 — величина объясняется геометрией; > 0.10 — шум.",
-        "status": "planned",
-        "origin": "reports/2026-10-22-clusters3-results.md — 0.125 разброса при одинаковых срезах",
+        "status": "rejected",
+        "origin": "reports/2026-10-22-lesion-minimal-results.md — std(d) 0.167 при c=(40,24) и 0.114 при c=(38,26) против порога 0.05; знак 24/24 отрицателен",
         "depends_on": [
           "H-AB-6"
         ]
@@ -419,6 +419,26 @@
           "H-REPRO-1"
         ],
         "cost_gpu_h": 0.7
+      },
+      {
+        "id": "H-CH-10",
+        "statement": "Информативные каналы (2–4 и 10–14) необходимы для тела, а инертные (5–9) — нет.",
+        "test": "Два условия по 12 повторов: (а) обнулить 2–4 и 10–14, оставить 5–9; (б) наоборот. Критерий до прогона: тело в (а) на >= 8/12 меньше, чем в (б).",
+        "status": "planned",
+        "origin": "reports/2026-10-22-lesion-minimal-results.md — {6,7,8} 0/12 при жизни половины 8–14",
+        "depends_on": [
+          "H-CH-9"
+        ]
+      },
+      {
+        "id": "H-AB-8",
+        "statement": "Разброс величины асимметрии при фиксированной геометрии связан с моментом восстановления живости, а не с конечным состоянием.",
+        "test": "Те же 12 сидов и геометрия, снимки каждые 25 шагов; критерий: корреляция d с шагом первого достижения alive >= 0.5 по модулю >= 0.5.",
+        "status": "planned",
+        "origin": "reports/2026-10-22-lesion-minimal-results.md — std(d) 0.167 при c=(40,24)",
+        "depends_on": [
+          "H-AB-7"
+        ]
       }
     ]
   },
@@ -1072,6 +1092,44 @@
           "origin": "reports/2026-10-22-e02c-seed-grid-results.md — только 101 дал uniform_dark при init=42",
           "depends_on": [
             "H-E02C-6"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "E02b_lesion_minimal",
+      "title": "Минимальный носитель формы и дисперсия асимметрии при фиксированной геометрии",
+      "kind": "experiment",
+      "status": "closed",
+      "outcome": "ch9_confirmed_ab7_rejected",
+      "plan": "reports/2026-10-22-lesion-minimal-plan.md",
+      "report": "reports/2026-10-22-lesion-minimal-results.md",
+      "article": "articles/015-odin-kanal-i-shum-asimmetrii.md",
+      "artifact_root": "morphogenesis/experiments/E02b_morphospace",
+      "entrypoint": "morphogenesis/experiments/E02b_morphospace/scripts/e02b_lesion_minimal.py",
+      "checkpoint_families": [
+        "WP4_R-9_s2000_seed42"
+      ],
+      "next": "H-CH-9 подтверждена: тело struct_2 возвращается из ОДНОГО канала {14} 12/12 (IoU 0.721); достаточны {2,3}, {2,3,4}, {11,12}, {13,14}, {10,11,12}, {12,13,14} (12/12, IoU 0.76–0.85); НЕ достаточны {6,7,8} 0/12, {8,9} 0/12, {5,6} 1/12, {12} 5/12 — избыточность не равномерная: информативны 2–4 и 10–14, каналы 5–9 инертны. Контроли none 12/12, untrained 0/12. H-AB-7 опровергнута: при фиксированной геометрии std(d) = 0.167 (c=40/24) и 0.114 (c=38/26) против порога 0.05 — величина асимметрии шум, знак устойчив 24/24. 264 развёртки, 1550 с.",
+      "next_hypotheses": [
+        {
+          "id": "H-CH-10",
+          "statement": "Информативные каналы необходимы, инертные — нет.",
+          "test": "Два условия по 12 повторов, критерий разницы >= 8/12.",
+          "status": "planned",
+          "origin": "reports/2026-10-22-lesion-minimal-results.md",
+          "depends_on": [
+            "H-CH-9"
+          ]
+        },
+        {
+          "id": "H-AB-8",
+          "statement": "Разброс d связан с моментом восстановления живости.",
+          "test": "Снимки каждые 25 шагов, корреляция |r| >= 0.5.",
+          "status": "planned",
+          "origin": "reports/2026-10-22-lesion-minimal-results.md",
+          "depends_on": [
+            "H-AB-7"
           ]
         }
       ]

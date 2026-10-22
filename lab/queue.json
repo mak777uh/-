@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-22T13:10:15Z",
+  "updated_at": "2026-10-22T13:39:14Z",
   "note": "Очередь пунктов после E02c. Claim берётся до пре-регистрации, а не перед запуском: lab.py item-claim. Статус running означает занятый GPU-лейн и может быть только у одного пункта.",
   "items": [
     {
@@ -185,18 +185,19 @@
       "id": "E02b_lesion_minimal",
       "title": "Минимальный носитель (H-CH-9) и дисперсия асимметрии при фиксированной геометрии (H-AB-7)",
       "hypothesis": "H-CH-9",
-      "status": "running",
+      "status": "closed",
       "owner": "lead",
       "claimed_at": "2026-10-22T13:03:06Z",
-      "heartbeat_at": "2026-10-22T13:03:06Z",
-      "closed_at": null,
+      "heartbeat_at": null,
+      "closed_at": "2026-10-22T13:39:14Z",
       "ttl_minutes": 240,
       "cost_gpu_h": 0.4,
       "gated_by": null,
       "artifacts": [
         "reports/2026-10-22-lesion-minimal-plan.md"
       ],
-      "note": "H-CH-9 (16 наборов <=3 каналов) + H-AB-7 (две геометрии по 12 сидов); протокол заморожен в reports/2026-10-22-lesion-minimal-plan.md"
+      "note": "H-CH-9 подтверждена: один канал {14} даёт тело 12/12; {6,7,8} 0/12 — избыточность не равномерная (информативны 2–4 и 10–14). H-AB-7 опровергнута: std(d) 0.167 и 0.114 при фиксированной геометрии. Отчёт reports/2026-10-22-lesion-minimal-results.md, статья 015.",
+      "closed_by": "lead"
     },
     {
       "id": "E02c_seed_grid",
