@@ -1,6 +1,6 @@
 # What Morphologies Does a Neural Cellular Automaton Hold? A Census and a Negative Result
 
-**Status:** DRAFT v0.6 (2026-10-22) — not submitted, not peer-reviewed, do not cite. **Publication gate:** E02c is closed, the seed42 run repeats bitwise and returns the class 64/64 (§4.6), and the portable package passed an independent CPU reproduction of the E02b census; none of these is an independent reproduction of the E02c series, and external submission remains a decision of the owner. No claim about life, consciousness or intelligence; only observable behavioural classes and their boundaries ([AGENTS.md](../AGENTS.md) §3).
+**Status:** DRAFT v0.7 (2026-10-22) — not submitted, not peer-reviewed, do not cite. **Publication gate:** E02c is closed, the seed42 run repeats bitwise and returns the class 64/64 (§4.6), and the portable package passed an independent CPU reproduction of the E02b census; none of these is an independent reproduction of the E02c series, and external submission remains a decision of the owner. No claim about life, consciousness or intelligence; only observable behavioural classes and their boundaries ([AGENTS.md](../AGENTS.md) §3).
 
 <!-- TODO: freeze a submission tag and run the independent-reproduction pass before any external submission. -->
 
@@ -183,6 +183,23 @@ Four probes that had stayed open were closed by one inference run on frozen chec
 **Asymmetry is structural, not mass (H-AB-2, confirmed).** H-AB-1 compared halves of equal area, but the prototype holds different numbers of live cells on each side, so the gap could have been a mass artefact. Twelve pairs with matched removed mass (removed fraction 0.15-0.486, mismatch 0.0023-0.0046 under a 0.01 tolerance) give `d = IoU_left - IoU_right < 0` in 12/12 pairs, mean -0.225, from -0.02 at the smallest lesion to -0.61 at the largest. The left half recovers worse at equal removed mass.
 
 **An interpretation gate.** The `none` control is a gate, not a formality: for R-9 seed101 (class `struct_1`) the untouched prototype reproduces its class 12/12 but its figure 0/12 (IoU 0.13-0.17, alive 0.76-0.82). Every 0/12 for that model is therefore a baseline failure, not an ablation effect, and its pattern numbers are descriptive only.
+
+### 4.8. One seed is two factors
+
+The word "seed" in this repository has always covered three things at once: the initial weights, the initial field and pool, and the order of training samples with their noise. E02c showed that one of eight training seeds yields `struct_2`; this run asks which part of the seed does the work.
+
+The seed was split into `init_seed` (only the global RNG, hence the initial weights) and `data_seed` (the generator for noise, the pool and the sampling order); with both `None` the behaviour is bitwise the old one, which the pre-run smoke checks by comparing a plain run against an explicit `init_seed = data_seed = 42` ([protocol](../reports/2026-10-22-e02c-seed-decomposition-plan.md)). Two cells were trained with the same R-9 recipe: **A** = init 42 / data 101, **B** = init 101 / data 42, and both were censused with the same 64 starts and frozen centroids ([results](../reports/2026-10-22-e02c-seed-decomposition-results.md)).
+
+| init \ data | 42 | 101 |
+| --- | --- | --- |
+| **42** | `struct_2` 64/64 (anchor, E02b) | `uniform_dark` 64/64 (A) |
+| **101** | `struct_1` 64/64 (B) | `struct_1` 64/64 (anchor, E02b) |
+
+Neither mixed cell contains `struct_2` (0/64 in both; A ends in a nearly full live field with `alive_fraction_final` 0.9998 and `best_loss` 1.0712, B in `struct_1` with 0.9240 and 1.1332). Two asymmetries are visible and are the actual result: with initialisation 101 the data order does not change the class (`struct_1` in both cells), while with initialisation 42 the data order decides between the form and a uniform field.
+
+The registered criterion had three branches (initialisation decides, data decides, both needed). The first two did not occur; the third occurred only in the weak sense that no single factor suffices. Its strong form is **not claimed**: the review raised before launch that one run per cell cannot distinguish "both factors are necessary" from "this combination is unlucky", and the protocol text was not amended before the run, so the honest statement is that *the factor is not separated on this design* ([notices](../lab/notices.md)). Both cells also come with one horizon, one recipe and two anchors trained by an earlier code version, and `struct_1` is the architectural confound, so B reads as "no structure of its own" rather than "a different learned class".
+
+What follows for the program: the class frequency must be counted on the full seed until a second wave separates the factors (H-E02C-6), and the claim "the class is decided by the weight initialisation" is unsupported.
 
 ## 5. Discussion
 
