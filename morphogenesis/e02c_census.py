@@ -87,7 +87,15 @@ def checkpoint_meta(path):
     return int(seed), int(steps)
 
 
-def discover_specs(families=None, allow_missing_control=False):
+def discover_specs(families=None, allow_missing_control=False, include_families=None):
+    """Собрать спеки переписи.
+
+    `families` фильтрует E02c_*-чекпоинты (основная серия). `include_families`
+    добавляет произвольные семейства (например WP4_R-9_s2000_seed101) с arm="REF":
+    они считаются тем же кодом и той же замороженной проекцией, но не участвуют
+    в вердикте H-R1/R2/R3. Это нужно для прогона на чужом железе, где основная
+    серия — это проверка переноса известных сидов, а не репликация.
+    """
     specs = []
     for name in sorted(os.listdir(CHECKPOINT_ROOT)):
         if not name.startswith("E02c_"):
@@ -124,6 +132,19 @@ def discover_specs(families=None, allow_missing_control=False):
                 note="E02c replication" if match else "E02c seed decomposition",
             )
         )
+    reference = []
+    for name in [x.strip() for x in (include_families or []) if x.strip()]:
+        if name.startswith("E02c_"):
+            print(f"[e02c] {name} уже покрыт фильтром --families, пропускаю в include")
+            continue
+        try:
+            spec = e02b.load_checkpoint_specs(families=[name], include_untrained=False)[0]
+        except (IndexError, SystemExit):
+            print(f"[e02c] reference-семейство {name} не найдено — пропуск")
+            continue
+        reference.append(replace(spec, arm="REF", note="reference family (cross-check)"))
+    specs.extend(reference)
+
     if not specs:
         raise SystemExit("[e02c] не найдено ни одного E02c-чекпоинта")
 
@@ -250,6 +271,14 @@ def main(argv=None):
     ap.add_argument("--device", default="auto")
     ap.add_argument("--families", default="", help="фильтр E02c_* через запятую")
     ap.add_argument(
+        "--include-families",
+        default="",
+        help=(
+            "дополнительные семейства (например WP4_R-9_s2000_seed101) через запятую: "
+            "считаются тем же кодом с arm=REF, в вердикт H-R1/R2/R3 не входят"
+        ),
+    )
+    ap.add_argument(
         "--allow-missing-control",
         action="store_true",
         help="не требовать канонический контроль WP4 seed42 (прогон на чужом железе)",
@@ -268,7 +297,11 @@ def main(argv=None):
 
     seeds = parse_seeds(args.seeds)
     families = [x.strip() for x in args.families.split(",") if x.strip()]
-    specs = discover_specs(families or None, allow_missing_control=args.allow_missing_control)
+    specs = discover_specs(
+        families or None,
+        allow_missing_control=args.allow_missing_control,
+        include_families=[x.strip() for x in args.include_families.split(',') if x.strip()],
+    )
     device = e02b._device_from_arg(args.device)
     print(
         f"[e02c] families={[s.family for s in specs]} seeds={len(seeds)} "
@@ -374,6 +407,11 @@ def _census(args, seeds, specs, device):
         "families": new_families,
         "stats": stats,
         "controls": controls,
+        "reference_stats": {
+            s.family: family_stats(payload["runs"], s.family)
+            for s in specs
+            if s.arm == "REF"
+        },
         "positive_control_present": any(s.arm == "H-P1" for s in specs),
         "verdict": verdict,
         "verdict_applicable": verdict_applicable,
