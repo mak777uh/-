@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-22T15:15:10Z",
+  "updated_at": "2026-10-22T15:25:00Z",
   "note": "Очередь пунктов после E02c. Claim берётся до пре-регистрации, а не перед запуском: lab.py item-claim. Статус running означает занятый GPU-лейн и может быть только у одного пункта.",
   "items": [
     {
@@ -329,6 +329,23 @@
       ],
       "note": "Прогон сделан (156.9 с, 12 пар), но измерение вырождено: t_body_left=50 и t_body_right=25 для всех 12 сидов, dt постоянен, корреляции не с чем считаться; token verdict H-AB-8_refuted получен из вырожденной метрики. Честный статус — inconclusive, нужен пере-дизайн (порог 0.8 или снимки каждые 10 шагов). Отчёт и registry — следующий шаг.",
       "closed_by": "lead"
+    },
+    {
+      "id": "E02b_asymmetry_variance_retry",
+      "title": "Источник разброса асимметрии: время выхода на плато (H-AB-8, пере-дизайн)",
+      "hypothesis": "H-AB-8",
+      "status": "planned",
+      "owner": null,
+      "claimed_at": null,
+      "heartbeat_at": null,
+      "closed_at": null,
+      "ttl_minutes": 120,
+      "cost_gpu_h": 0.1,
+      "gated_by": null,
+      "artifacts": [
+        "reports/2026-10-22-asymmetry-variance-retry-plan.md"
+      ],
+      "note": "12 пар на c=(40,24), снимки каждые 10 шагов, метрика t_plateau (первый снимок, после которого IoU меняется <= 0.02). Критерий: |Spearman| >= 0.5 при непустой дисперсии; inconclusive, если dt снова константа."
     }
   ]
 }

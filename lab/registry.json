@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-22T15:15:00Z",
+  "updated_at": "2026-10-22T15:25:00Z",
   "program": {
     "name": "Morphogenesis",
     "phase": "E02b_clusters3 закрыт: скрытое состояние избыточно, величина асимметрии нестабильна",
@@ -433,9 +433,9 @@
       {
         "id": "H-AB-8",
         "statement": "Разброс величины асимметрии при фиксированной геометрии связан с моментом восстановления живости, а не с конечным состоянием.",
-        "test": "Те же 12 сидов и геометрия, снимки каждые 25 шагов; критерий: корреляция d с шагом первого достижения alive >= 0.5 по модулю >= 0.5.",
+        "test": "Пере-дизайн (reports/2026-10-22-asymmetry-variance-retry-plan.md): 12 пар на c=(40,24), снимки каждые 10 шагов, метрика t_plateau (первый снимок, после которого IoU меняется <= 0.02); критерий: |Spearman(d, dt_plateau)| >= 0.5 при непустой дисперсии dt, inconclusive если dt снова константа.",
         "status": "planned",
-        "origin": "reports/2026-10-22-lesion-minimal-results.md — std(d) 0.167 при c=(40,24)",
+        "origin": "reports/2026-10-22-asymmetry-variance-results.md — первый прогон вырожден: t_body достигается на первом-втором снимке, dt = +25 у всех 12 пар, дисперсии нет",
         "depends_on": [
           "H-AB-7"
         ]
@@ -1209,6 +1209,22 @@
           ]
         }
       ]
+    },
+    {
+      "id": "E02b_asymmetry_variance",
+      "title": "Источник разброса асимметрии: прогон с вырожденной метрикой",
+      "kind": "experiment",
+      "status": "closed",
+      "outcome": "inconclusive_degenerate_measurement",
+      "plan": "reports/2026-10-22-asymmetry-variance-plan.md",
+      "report": "reports/2026-10-22-asymmetry-variance-results.md",
+      "article": null,
+      "artifact_root": "morphogenesis/experiments/E02b_morphospace",
+      "entrypoint": "morphogenesis/experiments/E02b_morphospace/scripts/e02b_asymmetry_variance.py",
+      "checkpoint_families": [
+        "WP4_R-9_s2000_seed42"
+      ],
+      "next": "Inconclusive: порог тела IoU >= 0.5 достигается на первом-втором снимке, dt = +25 у всех 12 пар, дисперсия нулевая — корреляция d с dt не определена. Токен H-AB-8_refuted в артефакте — след вырожденной метрики, не результат. Побочно: std(d) = 0.208 при той же геометрии, где H-AB-7 дала 0.167, то есть разброс величины реален и не связан с набором сидов. Пере-дизайн: t_plateau, снимки каждые 10 шагов, порог 0.02."
     }
   ],
   "links": {
