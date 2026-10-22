@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-22T14:32:22Z",
+  "updated_at": "2026-10-22T14:40:00Z",
   "note": "Очередь пунктов после E02c. Claim берётся до пре-регистрации, а не перед запуском: lab.py item-claim. Статус running означает занятый GPU-лейн и может быть только у одного пункта.",
   "items": [
     {
@@ -293,6 +293,23 @@
       ],
       "note": "H-CH-10 подтверждена: informative_only {2,3,4,10-14} тело 12/12 (0.826) против inert_only {5-9} 3/12 (0.395), критерий 9/12 >= 8/12. Отчёт reports/2026-10-22-lesion-necessity-results.md, статья 016.",
       "closed_by": "lead"
+    },
+    {
+      "id": "E02b_lesion_core",
+      "title": "Ядро внутри информативного набора каналов (H-CH-11)",
+      "hypothesis": "H-CH-11",
+      "status": "planned",
+      "owner": null,
+      "claimed_at": null,
+      "heartbeat_at": null,
+      "closed_at": null,
+      "ttl_minutes": 120,
+      "cost_gpu_h": 0.2,
+      "gated_by": null,
+      "artifacts": [
+        "reports/2026-10-22-lesion-core-plan.md"
+      ],
+      "note": "Восемь условий по 12 повторов: контроль {2,3,4,10–14} и по одному удалённому каналу. Критерий до прогона: найдётся канал, без которого тело <= 6/12. Скрипт обкатан CPU-дымом, ждёт освобождения GPU-лейна."
     }
   ]
 }
