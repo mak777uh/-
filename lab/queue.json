@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-22T17:28:53Z",
+  "updated_at": "2026-10-22T19:03:41Z",
   "note": "Очередь пунктов после E02c. Claim берётся до пре-регистрации, а не перед запуском: lab.py item-claim. Статус running означает занятый GPU-лейн и может быть только у одного пункта.",
   "items": [
     {
@@ -370,18 +370,19 @@
       "id": "E02b_carrier_pairs",
       "title": "Достаточна ли любая пара каналов внутри носителя (H-CH-12)",
       "hypothesis": "H-CH-12",
-      "status": "planned",
+      "status": "closed",
       "owner": null,
       "claimed_at": null,
       "heartbeat_at": null,
-      "closed_at": null,
+      "closed_at": "2026-10-22T19:03:40Z",
       "ttl_minutes": 240,
       "cost_gpu_h": 0.6,
       "gated_by": null,
       "artifacts": [
         "reports/2026-10-22-carrier-pairs-plan.md"
       ],
-      "note": "Все 28 пар из {2,3,4,10,11,12,13,14} x 12 сидов = 336 развёрток; три пары из H-CH-9 идут контролями согласованности. Критерий до прогона: все пары >= 11/12 при контролях 12/12. Скрипт обкатан CPU-дымом."
+      "note": "H-CH-12: 28 пар, 11 провалов, якорь 3, немонотонность",
+      "closed_by": "lead"
     },
     {
       "id": "E02b_left_outcomes",
@@ -416,6 +417,24 @@
         "reports/2026-10-22-init-basin-plan.md"
       ],
       "note": "Пре-регистрация готова, критерий зафиксирован: struct_2 >= 52/64 в >= 3 из 6 клеток — бассейн; <= 1 из 6 — совпадение. БЛОКИРОВАНО: новая тренировочная волна (~3 ч 50 мин), нужно решение владельца (AGENTS §3/§7)."
+    },
+    {
+      "id": "E02b_carrier_ch13",
+      "title": "Достаточен ли канал {3} один (H-CH-13)",
+      "hypothesis": "H-CH-13",
+      "status": "closed",
+      "owner": null,
+      "claimed_at": null,
+      "heartbeat_at": null,
+      "closed_at": "2026-10-22T19:03:41Z",
+      "ttl_minutes": 60,
+      "cost_gpu_h": 0.05,
+      "gated_by": null,
+      "artifacts": [
+        "reports/2026-10-22-carrier-ch13-plan.md"
+      ],
+      "note": "H-CH-13: канал {3} один — тело 12/12, IoU 0.839, якорь подтверждён",
+      "closed_by": "lead"
     }
   ]
 }
