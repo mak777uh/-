@@ -1,0 +1,27 @@
+{
+  "schema_version": "1.0",
+  "kind": "ood_threshold",
+  "protocol": "docs/protocol.md §6b",
+  "metric": "z-distance to nearest frozen centroid, per class",
+  "thresholds_by_class": {
+    "uniform_dark": 1.0,
+    "struct_2": 3.2361,
+    "struct_1": 25.9818,
+    "death": 1.0
+  },
+  "calibration": {
+    "rows": 2048,
+    "families": 10,
+    "structural_gap_between_centroids": 5.5447,
+    "cv_stable_max": 0.029,
+    "cv_unstable_min": 0.2892,
+    "cv_threshold": 0.0869,
+    "class_distance_max": {
+      "uniform_dark": 0.7922,
+      "struct_2": 2.9419,
+      "struct_1": 23.6198,
+      "death": 0.0
+    }
+  },
+  "rule": "distance > порога своего класса => novel/ood; отчёт приводит и метку, и расстояние"
+}

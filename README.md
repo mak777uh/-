@@ -55,6 +55,8 @@
 | E02b_carrier_ch13 | закрыто | 22.10 | достаточен ли канал {3} один | **подтверждена:** `{3}` один даёт тело 12/12 (IoU 0.839, `struct_2` 12/12) — якорь, объясняющий все пары с 3; второй достаточный в одиночку канал после `{14}` | [результаты](reports/2026-10-22-carrier-ch13-results.md) · [статья 021](articles/021-nositel-eto-kombinacii.md) · [артефакт](morphogenesis/experiments/E02b_morphospace/carrier_ch13_exploratory.json) |
 | E02b_carrier_ch15 | закрыто | 22.10 | каналы 3 и 14 как двойной якорь | **опровергнута:** шесть каналов без `{3,14}` дают тело 12/12 (IoU 0.831) — 3 и 14 достаточны по отдельности, но совместно не необходимы; у носителя нет якорной пары и малого ядра | [результаты](reports/2026-10-22-carrier-ch15-results.md) · [статья 021](articles/021-nositel-eto-kombinacii.md) · [артефакт](morphogenesis/experiments/E02b_morphospace/carrier_ch15_exploratory.json) |
 | E03_injury, E04_topology, E05_aging, E06_narration, E07_control_ablation | не запускался | — | травма, топология, старение, нарратив, абляция | исторические entrypoint'ы; в текущую программу не входят | [registry](lab/registry.json) |
+| E08_precision_horizon | идёт | 22–23.10 | режим точности и горизонт обучения: когда класс существует | класс — фаза траектории: TF32 даёт `uniform_dark` → `struct_2` → `struct_1` → `death` на 1000/2000/3000/4000 шагах, FP32 — `uniform_dark` → `struct_1` ×3; класс не зависит от длины роллаута | [карта](docs/research-map.md) · [протокол](docs/protocol.md) |
+
 <!-- ledger:end -->
 
 **E02c — не новый вопрос, а проверка предыдущего.** Перепись нашла `struct_2`

@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.0",
+  "kind": "triviality_thresholds",
+  "protocol": "docs/protocol.md §7",
+  "axes": {
+    "distance_from_degenerate": {
+      "metric": "z-distance to nearest of death/uniform_dark/uniform_bright",
+      "threshold": 2.7724,
+      "rule": "класс нетривиален, если расстояние выше порога"
+    },
+    "reproducibility_cv": {
+      "metric": "CV binary_fraction across 64 starts",
+      "threshold": 0.0869,
+      "rule": "класс нетривиален, если CV ниже порога (форма, а не лотерея)"
+    },
+    "topology_vs_random": {
+      "metric": "perimeter / expected random perimeter",
+      "threshold": null,
+      "rule": "заполняется scripts/morphometry.py; до прогона ось не считается пройденной"
+    }
+  },
+  "calibration": {
+    "rows": 2048,
+    "families": 10,
+    "structural_gap_between_centroids": 5.5447,
+    "cv_stable_max": 0.029,
+    "cv_unstable_min": 0.2892,
+    "cv_threshold": 0.0869,
+    "class_distance_max": {
+      "uniform_dark": 0.7922,
+      "struct_2": 2.9419,
+      "struct_1": 23.6198,
+      "death": 0.0
+    }
+  },
+  "rule": "нетривиален только если проходят ВСЕ три оси; отчёт — по каждой оси отдельно"
+}
