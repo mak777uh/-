@@ -1,0 +1,107 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/mak777uh/-/lab/schema/run.schema.json",
+  "title": "Научная карточка прогона (слой B)",
+  "description": "Один прогон — один JSON. Манифест раннера (lab/runs/<run_id>.json) остаётся неизменным, научные поля живут здесь. Поля, которых нет в артефактах, заполняются null, а не оценкой.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "run_id",
+    "experiment_id",
+    "seed",
+    "regime",
+    "steps",
+    "class",
+    "metrics",
+    "preregistered",
+    "created_at"
+  ],
+  "properties": {
+    "run_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9._-]+$",
+      "description": "Имя файла без .json; должно совпадать с lab/runs/<run_id>.json"
+    },
+    "experiment_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Идентификатор эксперимента из lab/registry.json"
+    },
+    "seed": {
+      "type": ["integer", "null"],
+      "description": "Тренировочный сид; null, если артефакт его не сохранил"
+    },
+    "regime": {
+      "type": "string",
+      "enum": ["tf32", "fp32", "fp32_no_tf32_hw", "cpu", "unknown"],
+      "description": "Численный режим обучения: TF32 включён, выключен, железо без TF32 (Turing), CPU, неизвестно"
+    },
+    "steps": {
+      "type": ["integer", "null"],
+      "minimum": 1
+    },
+    "class": {
+      "type": "string",
+      "enum": [
+        "struct_1",
+        "struct_2",
+        "uniform_dark",
+        "uniform_bright",
+        "death",
+        "mixed",
+        "n/a",
+        "unknown"
+      ],
+      "description": "Доминирующий класс переписи; n/a — переписи не было, mixed — ни один класс не набрал порога"
+    },
+    "class_extra": {
+      "type": ["string", "null"],
+      "description": "Нестандартное имя класса, если появится новый"
+    },
+    "metrics": {
+      "type": "object",
+      "description": "Числа из артефактов: best_loss, alive_fraction_final, struct_2, struct_2_stable_frozen и т.п.",
+      "additionalProperties": {
+        "type": ["number", "integer", "null"]
+      }
+    },
+    "preregistered": {
+      "type": "string",
+      "enum": ["true", "false", "unknown"],
+      "description": "unknown для истории: критерий до прогона доказать нечем"
+    },
+    "weights_sha256": {
+      "type": ["string", "null"],
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "env": {
+      "type": ["object", "null"],
+      "additionalProperties": true
+    },
+    "census": {
+      "type": ["string", "null"],
+      "description": "Путь к census_*.json, если перепись была"
+    },
+    "summary": {
+      "type": ["string", "null"],
+      "description": "Путь к summary_*.json, если перепись была"
+    },
+    "report": {
+      "type": ["string", "null"],
+      "description": "Путь к отчёту в reports/"
+    },
+    "created_at": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}",
+      "description": "Время окончания прогона (UTC или с offset)"
+    },
+    "source": {
+      "type": "string",
+      "enum": ["manual", "converted"],
+      "description": "manual — заполнено учёным, converted — собрано скриптом из артефактов"
+    },
+    "notes": {
+      "type": "string"
+    }
+  }
+}

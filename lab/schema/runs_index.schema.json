@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/mak777uh/-/lab/schema/runs_index.schema.json",
+  "title": "Индекс прогонов (слой C): то, что отдаётся наружу",
+  "description": "Собирается scripts/build_runs_index.py из манифестов раннера (слой A) и научных карточек (слой B). Руками не правится: CI пересобирает и падает на расхождении.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "generated_at", "commit", "records"],
+  "properties": {
+    "schema_version": {"type": "integer", "minimum": 1},
+    "generated_at": {"type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}"},
+    "commit": {"type": "string", "pattern": "^[0-9a-f]{7,40}$"},
+    "counts": {
+      "type": "object",
+      "additionalProperties": {"type": "integer", "minimum": 0}
+    },
+    "records": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["run_id", "experiment_id", "regime", "class", "status"],
+        "properties": {
+          "run_id": {"type": "string", "pattern": "^[A-Za-z0-9._-]+$"},
+          "experiment_id": {"type": "string"},
+          "experiment": {"type": ["string", "null"]},
+          "seed": {"type": ["integer", "null"]},
+          "steps": {"type": ["integer", "null"]},
+          "regime": {
+            "type": "string",
+            "enum": ["tf32", "fp32", "fp32_no_tf32_hw", "cpu", "unknown"]
+          },
+          "class": {
+            "type": "string",
+            "enum": [
+              "struct_1",
+              "struct_2",
+              "uniform_dark",
+              "uniform_bright",
+              "death",
+              "mixed",
+              "n/a",
+              "unknown"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "enum": ["running", "finished", "failed", "aborted", "unknown"]
+          },
+          "metrics": {"type": "object", "additionalProperties": true},
+          "weights_sha256": {"type": ["string", "null"]},
+          "preregistered": {"type": "string", "enum": ["true", "false", "unknown"]},
+          "started_at": {"type": ["string", "null"]},
+          "finished_at": {"type": ["string", "null"]},
+          "report": {"type": ["string", "null"]},
+          "source": {"type": "string", "enum": ["manual", "converted", "none"]}
+        }
+      }
+    }
+  }
+}

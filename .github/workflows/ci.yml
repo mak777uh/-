@@ -85,6 +85,19 @@ jobs:
           python scripts/e02c_seed_grid.py
           git diff --exit-code -- morphogenesis/experiments/E02c_replication/seed_grid.json
 
+      - name: Run cards schema validation
+        shell: bash
+        run: |
+          set +e
+          out=$(python scripts/validate_runs.py 2>&1)
+          code=$?
+          printf '%s\n' "$out"
+          if [ $code -ne 0 ]; then
+            msg=$(printf '%s' "$out" | tail -n 4 | tr '\n' ' ' | tr -s ' ')
+            echo "::error title=run-cards::${msg:0:900}"
+            exit $code
+          fi
+
       - name: Text integrity (links and section references)
         shell: bash
         run: |
