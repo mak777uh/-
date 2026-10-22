@@ -144,7 +144,7 @@ def test_damage_accumulates_and_kills_without_age():
 def test_catastrophe_drops_resource():
     pond = Pond(PondConfig(grid=8, resource_regen=0.0, noise=0.0,
                            catastrophe_period=10, catastrophe_duration=2,
-                           catastrophe_strength=0.9))
+                           catastrophe_strength=0.9, catastrophe_mode="drop"))
     pond.state.resource = torch.full((8, 8), 1.0)
     pond.state.step = 0
     pond.regenerate()
@@ -164,3 +164,37 @@ def test_throughput_counter_grows():
     assert pond.state.consumed_total > 0.0
     snap = pond.snapshot()
     assert "consumed_total" in snap and "damage_mean" in snap
+
+
+def test_catastrophe_shift_moves_resource():
+    pond = Pond(PondConfig(grid=8, resource_regen=0.0, noise=0.0,
+                           catastrophe_period=10, catastrophe_duration=2,
+                           catastrophe_mode="shift"))
+    pond.state.resource = torch.full((8, 8), 0.3)
+    pond.state.step = 0
+    pond.regenerate()
+    # левая половина погашена, правая наполнена до максимума
+    assert float(pond.state.resource[:, :4].sum()) == 0.0
+    assert float(pond.state.resource[:, 4:].sum()) == 32.0 * 1.0
+
+
+def test_bud_blocked_when_no_free_neighbours():
+    pond = Pond(PondConfig(grid=8, resource_regen=0.0, baseline_income=0.0,
+                           update_cost=0.0, repair_cost=0.0, damage_rate=0.0,
+                           budding_mass=4, budding_cost=1.0, noise=0.0))
+    # родитель — всё поле, свободных соседей нет
+    parent = torch.ones((8, 8), dtype=torch.bool)
+    pond.seed_life(parent, energy=10.0)
+    energy_before = float(pond.state.energy.sum())
+    child = pond.bud(parent)
+    assert child is None
+    assert int(pond.state.spores_blocked) == 1
+    # родитель ничего не заплатил, потому что потомка не было
+    assert abs(float(pond.state.energy.sum()) - energy_before) < 1e-6
+
+
+def test_repair_cost_controls_lifetime():
+    from world.pond import survival_probe
+    cheap = survival_probe(0.004, steps=600)
+    pricey = survival_probe(0.05, steps=600)
+    assert cheap > pricey, "дешёвый ремонт должен давать большую продолжительность жизни"

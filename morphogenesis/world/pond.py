@@ -46,13 +46,14 @@ class PondConfig:
     spore_cells: int = 2              # из скольких клеток стартует потомок
     damage_max: int = 50              # сколько повреждений выдерживает клетка
     damage_rate: float = 0.02         # вероятность получить повреждение за шаг
-    repair_cost: float = 0.004        # энергия на предотвращение повреждения
+    repair_cost: float = 0.02         # энергия на ремонт (калибровка: 0.02 -> тело живёт ~500 шагов без роста)
     repair_rate: float = 0.5          # вероятность ремонта за шаг (если есть чем платить)
     max_age: int = 100_000            # диагностический предел, не причина смерти
     noise: float = 0.002              # шум в поле ресурса
     catastrophe_period: int = 0       # 0 — катастроф выключены
     catastrophe_duration: int = 50
     catastrophe_strength: float = 0.9
+    catastrophe_mode: str = "shift"   # "shift" — ресурс переезжает, "drop" — падает везде
     genome_dim: int = 32              # размер генома (для cNCA)
 
 
@@ -68,6 +69,7 @@ class PondState:
     step: int = 0
     born: int = 0
     died: int = 0
+    spores_blocked: int = 0
     consumed_total: float = 0.0
     history: list[dict] = field(default_factory=list)
 
@@ -100,7 +102,14 @@ class Pond:
         """Ресурс прибывает с ограниченной скоростью; в катастрофу — падает."""
         cfg = self.cfg
         if self.in_catastrophe():
-            self.state.resource = self.state.resource * (1.0 - cfg.catastrophe_strength)
+            if cfg.catastrophe_mode == "shift":
+                # ресурс не исчезает, а переезжает: левая половина гаснет, правая
+                # наполняется — давление на миграцию, а не на накопление
+                half = cfg.grid // 2
+                self.state.resource[:, :half] = 0.0
+                self.state.resource[:, half:] = cfg.resource_max
+            else:
+                self.state.resource = self.state.resource * (1.0 - cfg.catastrophe_strength)
             return
         noise = torch.randn(
             (cfg.grid, cfg.grid), generator=self.gen, device=self.device
@@ -187,6 +196,9 @@ class Pond:
         parent = parent_mask.to(self.device).bool()
         free = self._free_neighbours(parent)
         if free.shape[0] == 0:
+            # все соседние клетки заняты: потомка нет, родитель копит энергию.
+            # Это создаёт давление на территориальность.
+            s.spores_blocked += 1
             return None
         take = min(int(cfg.spore_cells), int(free.shape[0]))
         order = torch.randperm(free.shape[0], generator=self.gen, device=self.device)[:take]
@@ -253,5 +265,37 @@ class Pond:
             "damage_mean": float(s.damage[s.alive].float().mean()) if s.alive.any() else 0.0,
             "born": int(s.born),
             "died": int(s.died),
+            "spores_blocked": int(s.spores_blocked),
             "catastrophe": self.in_catastrophe(),
         }
+
+
+def survival_probe(repair_cost: float, steps: int = 4000, grid: int = 32,
+                   body: int = 6, income: float = 0.02, update_cost: float = 0.01,
+                   damage_rate: float = 0.05, seed: int = 0) -> int:
+    """Сколько шагов живёт тело при данной цене ремонта (калибровка р- vs К-стратегий).
+
+    Тело не растёт и не делится: это чистая проверка бюджета, нужная до запуска
+    эволюции, чтобы ремонт не был ни бесплатным, ни запретительным.
+    """
+    cfg = PondConfig(
+        grid=grid,
+        resource_regen=0.05,
+        baseline_income=income,
+        update_cost=update_cost,
+        repair_cost=repair_cost,
+        damage_rate=damage_rate,
+        damage_max=50,
+        noise=0.0,
+    )
+    pond = Pond(cfg, seed=seed)
+    mask = torch.zeros((grid, grid), dtype=torch.bool)
+    start = grid // 2 - body // 2
+    mask[start:start + body, start:start + body] = True
+    pond.seed_life(mask, energy=5.0)
+    for step in range(steps):
+        pond.regenerate()
+        pond.step_cells()
+        if not pond.state.alive.any():
+            return step + 1
+    return steps
