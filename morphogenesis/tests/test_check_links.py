@@ -65,6 +65,29 @@ def test_external_and_anchor_only_links_are_skipped(tmp_path):
     assert (checked, broken) == (0, [])
 
 
+def test_git_ignored_target_is_not_a_broken_link(tmp_path, monkeypatch):
+    """Веса и сырые строки в git не едут — ссылка на них не «битая».
+
+    Раньше проверка краснела на чистой машине: локально `nca_final.pt` есть, в
+    клоне его нет. Это ловилось только в CI, потому что у нас файл лежал рядом.
+    """
+    module = load_module()
+    doc = write(tmp_path / "doc.md", "[веса](missing/nca_final.pt)\n")
+    monkeypatch.setattr(module, "_git_ignored", lambda path: True)
+    checked, broken = module.check([doc])
+    assert checked == 1
+    assert broken == []
+
+
+def test_missing_tracked_target_is_still_reported(tmp_path, monkeypatch):
+    module = load_module()
+    doc = write(tmp_path / "doc.md", "[отчёт](missing.md)\n")
+    monkeypatch.setattr(module, "_git_ignored", lambda path: False)
+    checked, broken = module.check([doc])
+    assert checked == 1
+    assert len(broken) == 1
+
+
 def test_code_fences_are_not_scanned(tmp_path):
     module = load_module()
     doc = write(

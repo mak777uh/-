@@ -28,6 +28,7 @@ from __future__ import annotations
 
 import argparse
 import re
+import subprocess
 import sys
 from pathlib import Path
 from urllib.parse import unquote
@@ -105,8 +106,30 @@ def display_path(path: Path) -> str:
         return str(path)
 
 
+def _git_ignored(path: Path) -> bool:
+    """Игнорируется ли путь гитом (то есть в репозиторий он не едет).
+
+    Ссылки на веса (`nca_final.pt`) и на сырые per-run строки (`*.jsonl`) ведут
+    на файлы, которых в git нет по контракту §5/§5a. Локально они существуют, и
+    проверка проходила; на чистой машине (CI) они отсутствуют — это не битая
+    ссылка, а «локальный артефакт, в git не едет». Иначе любой честный прогон
+    проверок на чужой машине краснел бы из-за того, что веса не коммитятся.
+    """
+    try:
+        proc = subprocess.run(
+            ["git", "check-ignore", "-q", str(path)],
+            cwd=REPO,
+            capture_output=True,
+            timeout=30,
+        )
+    except (OSError, subprocess.SubprocessError):
+        return False
+    return proc.returncode == 0
+
+
 def check(paths: list[Path]) -> tuple[int, list[str]]:
     checked, broken = 0, []
+    local_only = 0
     for md in paths:
         text = md.read_text(encoding="utf-8", errors="ignore")
         for lineno, target in links_in(text):
@@ -115,7 +138,12 @@ def check(paths: list[Path]) -> tuple[int, list[str]]:
                 continue
             checked += 1
             if not dest.exists():
+                if _git_ignored(dest):
+                    local_only += 1
+                    continue
                 broken.append(f"{display_path(md)}:{lineno}: нет цели {target!r}")
+    if local_only:
+        print(f"локальных артефактов вне git (ссылки не считаются битыми): {local_only}")
     return checked, broken
 
 

@@ -30,6 +30,13 @@ jobs:
         os: [ubuntu-latest, windows-latest]
     runs-on: ${{ matrix.os }}
     timeout-minutes: 25
+    env:
+      # Windows-раннер по умолчанию работает в cp1252: печать кириллицы падала
+      # в UnicodeEncodeError именно там, хотя локально на cp1251 всё проходило.
+      # UTF-8-режим обязателен на всех платформах, иначе проверки «зелёные у
+      # себя, красные на чужой машине».
+      PYTHONUTF8: "1"
+      PYTHONIOENCODING: "utf-8"
     steps:
       - uses: actions/checkout@v4
 
