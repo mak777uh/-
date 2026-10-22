@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-22T08:09:39Z",
+  "updated_at": "2026-10-22T08:25:00Z",
   "note": "Очередь пунктов после E02c. Claim берётся до пре-регистрации, а не перед запуском: lab.py item-claim. Статус running означает занятый GPU-лейн и может быть только у одного пункта.",
   "items": [
     {
@@ -180,6 +180,23 @@
       "gated_by": "E02c_frequency_pilot",
       "artifacts": [],
       "note": "Не стартует без плана диска и retention (~50 ГБ весов при 15 ГБ свободных)."
+    },
+    {
+      "id": "E02b_lesion_minimal",
+      "title": "Минимальный носитель (H-CH-9) и дисперсия асимметрии при фиксированной геометрии (H-AB-7)",
+      "hypothesis": "H-CH-9",
+      "status": "planned",
+      "owner": null,
+      "claimed_at": null,
+      "heartbeat_at": null,
+      "closed_at": null,
+      "ttl_minutes": 240,
+      "cost_gpu_h": 0.4,
+      "gated_by": null,
+      "artifacts": [
+        "reports/2026-10-22-lesion-minimal-plan.md"
+      ],
+      "note": "Пре-регистрация заморожена до прогона (reports/2026-10-22-lesion-minimal-plan.md): 16 наборов каналов <=3 при visible=0 и открытом гейте (H-CH-9, критерий body >= 11/12 хотя бы для одного набора, untrained <= 1/12) + 12 шумовых сидов на двух геометриях c=(40,24) и c=(38,26) (H-AB-7, std(d) <= 0.05 — геометрия; > 0.10 — шум). Ждёт освобождения GPU-лейна, занятого волной E02c_seeddec_*, затем одним прогоном."
     }
   ]
 }

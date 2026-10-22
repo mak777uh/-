@@ -1,6 +1,6 @@
 # What Morphologies Does a Neural Cellular Automaton Hold? A Census and a Negative Result
 
-**Status:** DRAFT v0.13 (2026-10-22) — not submitted, not peer-reviewed, do not cite. **Publication gate:** E02c is closed, the seed42 run repeats bitwise and returns the class 64/64 (§4.6), and the portable package passed an independent CPU reproduction of the E02b census; an independent retraining of seed42 on a different stack was attempted and did **not** reproduce the class (§4.12), so the claim is now explicitly stack-conditional and external submission remains a decision of the owner. No claim about life, consciousness or intelligence; only observable behavioural classes and their boundaries ([AGENTS.md](../AGENTS.md) §3).
+**Status:** DRAFT v0.14 (2026-10-22) — not submitted, not peer-reviewed, do not cite. **Publication gate:** E02c is closed, the seed42 run repeats bitwise and returns the class 64/64 (§4.6), and the portable package passed an independent CPU reproduction of the E02b census; an independent retraining of seed42 on a different stack was attempted and did **not** reproduce the class (§4.12), so the claim is now explicitly stack-conditional and external submission remains a decision of the owner. No claim about life, consciousness or intelligence; only observable behavioural classes and their boundaries ([AGENTS.md](../AGENTS.md) §3).
 
 <!-- TODO: owner decision on the stack-conditional claim (and on H-REPRO-2/H-REPRO-3) before any external submission. -->
 
@@ -287,6 +287,14 @@ A working example is [`scripts/verify_portable.py`](../scripts/verify_portable.p
 The ablation series that follows the census (§4.7-§4.11) converges on a single structural claim: the form of `struct_2` is not kept in a place one can point at. Zeroing the visible texture and the hidden channels leaves the pattern recoverable; zeroing visible and hidden and keeping only the body leaves the pattern; opening the body everywhere and keeping the texture returns the body; keeping only six or seven hidden channels still returns it. No single channel and no single half of the hidden state is necessary, and the untrained architecture loses the form under the same interventions, so the reserves are learned rather than architectural.
 
 This changes what a "memory" claim can mean here. It is not that we failed to find the store; it is that the measured object behaves like a distributed, mutually redundant encoding: `binary = alive and (visible > 0.5)`, with each factor reconstructible from the others. The right claim is a redundancy statement with measured boundaries, not a location statement. The same caution applies to the asymmetry: its sign is stable across 35 mass-matched pairs, but its magnitude scatters by 0.125 at identical cut geometry, so a curve over the removed fraction is not warranted.
+
+### 5.6. Determinism belongs to a stack, not to a seed
+
+The negatives in this paper are of two different kinds, and keeping them apart is what makes the result usable. The replication (§4.5) changes the seed inside one environment: `struct_2` appears for seed42 and for none of three new seeds, and that statement is not weakened by anything below. The other-stack run (§4.12) changes the environment at a fixed seed and recipe, and the class changes with it. The proper object of the map is therefore a pair, seed × stack → class, not a function of the seed alone.
+
+Two consequences follow. First, a class label is a property of a trajectory, and a trajectory is computed by a particular arithmetic in a particular order; the archive preserves one such environment, so a label travelling without its stack is under-specified. This is the same lesson as §5.3 in a different costume: the instrument is part of the measurement. Second, a frequency estimated by mixing stacks would measure the mixture, not the recipe — the reason §4.12 narrows every frequency statement to one stack rather than abandoning it.
+
+The honest form of the claim is asymmetrical. On its own stack, the run is deterministic to the last bit (§4.6), and the negative replication holds there. Across stacks, the map is contingent, and the mechanism was not identified: initialisation path, kernel arithmetic and framework version were all left entangled, with the framework version not even recorded. A stronger paper would name the cause; this one can only bound the effect and say where it does not transfer.
 
 ## 6. Limitations
 
