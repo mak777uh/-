@@ -164,6 +164,7 @@ seed42. Это проверенное ограничение E02b, а не сб�
 ├── articles/                   # длинные статьи об отдельных экспериментах
 ├── library/                    # источники: publications, levin, hypotheses
 ├── kaggle/                     # ассеты Kaggle dataset/kernel (private)
+├── colab/                      # ноутбук независимой проверки на T4 (сценарий A)
 ├── requirements.txt            # CPU-ядро
 ├── requirements-cuda.txt       # CUDA-сборка torch для RTX 3070
 ├── run_tests.py                # локальный CI: pytest + smoke_test
