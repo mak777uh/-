@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-22T17:55:00Z",
+  "updated_at": "2026-10-22T18:00:00Z",
   "program": {
     "name": "Morphogenesis",
     "phase": "E02b_clusters3 закрыт: скрытое состояние избыточно, величина асимметрии нестабильна",
@@ -488,6 +488,26 @@
         "origin": "reports/2026-10-22-asymmetry-sides-results.md — левая сторона 0.139-0.770",
         "depends_on": [
           "H-AB-9"
+        ]
+      },
+      {
+        "id": "H-REPRO-11",
+        "statement": "struct_2 воспроизводится только в клетке «TF32 × 2000 шагов»; смена точности или горизонта уводит класс.",
+        "test": "2x2 по артефактам: TF32/FP32 x 2000/4000 при seed42, по 64 старта; критерий до прогона: struct_2 >= 52/64 только в одной клетке. Расширение — тот же 2x2 на сиде 101.",
+        "status": "confirmed",
+        "origin": "reports/2026-10-22-precision-horizon-2x2-results.md — TF32@2000 struct_2 64/64; FP32@2000 и FP32@4000 struct_1; TF32@4000 death 64/64",
+        "depends_on": [
+          "H-REPRO-8"
+        ]
+      },
+      {
+        "id": "H-EX-1",
+        "statement": "Уход в death при 4000 шагах — коллапс живости, а не смена морфологии.",
+        "test": "Снимки 2000->4000 в TF32@4000: alive_fraction падает ниже 0.05 у большинства стартов; сравнение с FP32@4000 тем же горизонтом.",
+        "status": "planned",
+        "origin": "reports/2026-10-22-precision-horizon-2x2-results.md — death 64/64 при TF32@4000",
+        "depends_on": [
+          "H-REPRO-11"
         ]
       }
     ]
