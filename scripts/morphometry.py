@@ -117,6 +117,57 @@ def random_mask_baseline(shape: tuple[int, int], density: float, draws: int = 20
     }
 
 
+def expected_random_perimeter(shape: tuple[int, int], density: float) -> float:
+    """Аналитическое ожидание периметра случайной маски на решётке (4-связность).
+
+    Каждое из внутренних рёбер различается с вероятностью 2p(1-p); рёбра на краю
+    поля считаются границей, если клетка живая (вероятность p). Отсюда
+    E[P] = 2*[(h-1)*w + (w-1)*h]*p*(1-p) + 2*(h+w)*p.
+    """
+    h, w = shape
+    internal = 2 * ((h - 1) * w + (w - 1) * h) * density * (1.0 - density)
+    border = 2 * (h + w) * density
+    return float(internal + border)
+
+
+def isoperimetric_ratio(area: float, perimeter: float) -> float:
+    """4*pi*A/P^2: 1 у круга, заметно меньше у изрезанной границы."""
+    if perimeter <= 0:
+        return float("nan")
+    return float(4.0 * np.pi * area / (perimeter ** 2))
+
+
+def local_density(mask: np.ndarray) -> np.ndarray:
+    """Доля живых среди 8 соседей (по всему полю, с обрезкой на краях)."""
+    m = np.asarray(mask).astype(float)
+    padded = np.pad(m, 1, constant_values=0.0)
+    acc = np.zeros_like(m)
+    for dy in (-1, 0, 1):
+        for dx in (-1, 0, 1):
+            if dy == 0 and dx == 0:
+                continue
+            acc += padded[1 + dy : 1 + dy + m.shape[0], 1 + dx : 1 + dx + m.shape[1]]
+    return acc / 8.0
+
+
+def texture_stats(state, mask: np.ndarray) -> dict:
+    """Контраст видимого канала внутри маски и его связь с плотностью соседей."""
+    visible = torch.sigmoid(state[0, config.VISIBLE_CHANNEL]).detach().cpu().numpy()
+    inside = visible[mask]
+    dens = local_density(mask)[mask]
+    if inside.size < 2 or dens.std() == 0:
+        corr = float("nan")
+    else:
+        corr = float(np.corrcoef(inside, dens)[0, 1])
+    return {
+        "visible_mean_inside": float(inside.mean()) if inside.size else float("nan"),
+        "visible_std_inside": float(inside.std()) if inside.size else float("nan"),
+        "visible_min_inside": float(inside.min()) if inside.size else float("nan"),
+        "visible_max_inside": float(inside.max()) if inside.size else float("nan"),
+        "corr_visible_local_density": corr,
+    }
+
+
 def _build_model(checkpoint_dir: str, device: torch.device):
     import e02b_morphospace as e02b  # noqa: PLC0415 - тяжёлый импорт только здесь
 
@@ -153,12 +204,15 @@ def mode_boundary(model, spec, starts: int, rollout_steps: int, device) -> dict:
         area = int(mask.sum())
         perim = mask_perimeter(mask)
         dim = box_counting_dimension(boundary_pixels(mask))
+        tex = texture_stats(final_state, mask)
         rows.append({
             "seed": seed,
             "area": area,
             "density": area / float(mask.size),
             "perimeter": perim,
             "box_dim": dim,
+            "isoperimetric": isoperimetric_ratio(area, perim),
+            **tex,
         })
     densities = [r["density"] for r in rows]
     baseline = random_mask_baseline(
@@ -166,6 +220,8 @@ def mode_boundary(model, spec, starts: int, rollout_steps: int, device) -> dict:
     )
     perims = [r["perimeter"] for r in rows]
     areas = [r["area"] for r in rows]
+    iso = [r["isoperimetric"] for r in rows]
+    exp_perim = expected_random_perimeter((config.GRID_SIZE, config.GRID_SIZE), float(np.mean(densities)))
     return {
         "family": spec.family,
         "mode": "boundary",
@@ -179,11 +235,20 @@ def mode_boundary(model, spec, starts: int, rollout_steps: int, device) -> dict:
             "area_mean": float(np.mean(areas)),
             "area_std": float(np.std(areas)),
             "box_dim_mean": float(np.nanmean([r["box_dim"] for r in rows])),
+            "isoperimetric_mean": float(np.nanmean(iso)),
+            "isoperimetric_std": float(np.nanstd(iso)),
+            "visible_std_inside_mean": float(np.nanmean([r["visible_std_inside"] for r in rows])),
+            "corr_visible_local_density_mean": float(
+                np.nanmean([r["corr_visible_local_density"] for r in rows])
+            ),
             "random_baseline": baseline,
+            "expected_random_perimeter": exp_perim,
             "perimeter_ratio_to_random": float(np.mean(perims) / baseline["perimeter_mean"])
             if baseline["perimeter_mean"] else float("nan"),
+            "perimeter_ratio_to_analytic": float(np.mean(perims) / exp_perim) if exp_perim else float("nan"),
             "perimeter_cv": float(np.std(perims) / np.mean(perims)) if np.mean(perims) else float("nan"),
             "area_cv": float(np.std(areas) / np.mean(areas)) if np.mean(areas) else float("nan"),
+            "isoperimetric_cv": float(np.nanstd(iso) / np.nanmean(iso)) if np.nanmean(iso) else float("nan"),
         },
     }
 

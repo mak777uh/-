@@ -75,3 +75,31 @@ def test_random_baseline_density_changes_perimeter():
     sparse = mm.random_mask_baseline((64, 64), 0.1, draws=10, seed=1)
     dense = mm.random_mask_baseline((64, 64), 0.5, draws=10, seed=1)
     assert dense["perimeter_mean"] > sparse["perimeter_mean"]
+
+
+def test_isoperimetric_ratio_circle_vs_fractal():
+    # квадрат 4x4: площадь 16, периметр 16 -> 4*pi*16/256 = 0.785
+    assert abs(mm.isoperimetric_ratio(16, 16) - 0.7854) < 0.01
+    # изрезанная граница при той же площади даёт меньшее значение
+    assert mm.isoperimetric_ratio(16, 64) < 0.2
+    assert mm.isoperimetric_ratio(0, 0) != mm.isoperimetric_ratio(0, 0)  # nan
+
+
+def test_expected_random_perimeter_matches_simulation():
+    shape = (64, 64)
+    for density in (0.1, 0.5):
+        analytic = mm.expected_random_perimeter(shape, density)
+        simulated = mm.random_mask_baseline(shape, density, draws=40, seed=7)["perimeter_mean"]
+        assert abs(analytic - simulated) / analytic < 0.05
+
+
+def test_local_density_is_fraction_of_alive_neighbours():
+    mask = np.zeros((5, 5), dtype=bool)
+    mask[2, 2] = True
+    dens = mm.local_density(mask)
+    # у самой клетки все 8 соседей мертвы
+    assert dens[2, 2] == 0.0
+    # у соседа сверху ровно один живой сосед из 8
+    assert abs(dens[1, 2] - 1 / 8) < 1e-9
+    # вдали — ноль
+    assert dens[0, 0] == 0.0
