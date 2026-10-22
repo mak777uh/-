@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-22T18:00:00Z",
+  "updated_at": "2026-10-22T18:20:00Z",
   "program": {
     "name": "Morphogenesis",
     "phase": "E02b_clusters3 закрыт: скрытое состояние избыточно, величина асимметрии нестабильна",
@@ -454,8 +454,8 @@
         "id": "H-CH-12",
         "statement": "Внутри информативного набора достаточна любая пара каналов, а не только три проверенные.",
         "test": "21 новая пара из {2,3,4,10-14} × 12 повторов; критерий до прогона: тело >= 11/12 во всех парах.",
-        "status": "planned",
-        "origin": "reports/2026-10-22-lesion-core-results.md — H-CH-9 проверила только 5 пар",
+        "status": "rejected",
+        "origin": "reports/2026-10-22-carrier-pairs-results.md — 11 пар из 28 не возвращают тело; все 6 пар с каналом 3 дают 12/12; {14} один 12/12 (H-CH-9), но {2,14} 0/12 — достаточность немонотонна",
         "depends_on": [
           "H-CH-11"
         ]
@@ -508,6 +508,26 @@
         "origin": "reports/2026-10-22-precision-horizon-2x2-results.md — death 64/64 при TF32@4000",
         "depends_on": [
           "H-REPRO-11"
+        ]
+      },
+      {
+        "id": "H-CH-13",
+        "statement": "Канал {3} один достаточен.",
+        "test": "12 повторов при visible=0, alive=+8, оставлен только канал 3; критерий до прогона: тело >= 11/12.",
+        "status": "planned",
+        "origin": "reports/2026-10-22-carrier-pairs-results.md",
+        "depends_on": [
+          "H-CH-12"
+        ]
+      },
+      {
+        "id": "H-CH-14",
+        "statement": "Добавление одного канала к достаточному набору может разрушить тело.",
+        "test": "Для {14} и {3} добавить каждый из остальных 6 каналов по одному (12 условий); критерий: минимум 3 условия дают тело <= 6/12.",
+        "status": "planned",
+        "origin": "reports/2026-10-22-carrier-pairs-results.md",
+        "depends_on": [
+          "H-CH-12"
         ]
       }
     ]
@@ -1366,6 +1386,44 @@
           "origin": "reports/2026-10-22-carrier-pairs-plan.md",
           "depends_on": [
             "H-CH-11"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "E02b_carrier_pairs",
+      "title": "Все 28 пар каналов внутри информативного набора",
+      "kind": "experiment",
+      "status": "closed",
+      "outcome": "ch12_refuted_carrier_is_combinations",
+      "plan": "reports/2026-10-22-carrier-pairs-plan.md",
+      "report": "reports/2026-10-22-carrier-pairs-results.md",
+      "article": "articles/021-nositel-eto-kombinacii.md",
+      "artifact_root": "morphogenesis/experiments/E02b_morphospace",
+      "entrypoint": "morphogenesis/experiments/E02b_morphospace/scripts/e02b_carrier_pairs.py",
+      "checkpoint_families": [
+        "WP4_R-9_s2000_seed42"
+      ],
+      "next": "H-CH-12 опровергнута: 11 пар из 28 не возвращают тело (девять — 0/12). Все шесть пар с каналом 3 дают 12/12, и {14} один достаточен (H-CH-9), но {2,14} — 0/12: достаточность немонотонна, лишний канал может разрушить сборку. Носитель — набор работающих комбинаций с якорным каналом 3, а не множество каналов. Контроли (три пары из H-CH-9) воспроизвелись 12/12. 336 развёрток, 1968.8 с.",
+      "next_hypotheses": [
+        {
+          "id": "H-CH-13",
+          "statement": "Канал {3} один достаточен.",
+          "test": "12 повторов, только канал 3; критерий тело >= 11/12.",
+          "status": "planned",
+          "origin": "reports/2026-10-22-carrier-pairs-results.md",
+          "depends_on": [
+            "H-CH-12"
+          ]
+        },
+        {
+          "id": "H-CH-14",
+          "statement": "Добавление канала может разрушить тело.",
+          "test": "12 условий ({14}/{3} + один канал); критерий: >= 3 условия дают <= 6/12.",
+          "status": "planned",
+          "origin": "reports/2026-10-22-carrier-pairs-results.md",
+          "depends_on": [
+            "H-CH-12"
           ]
         }
       ]
