@@ -42,6 +42,7 @@ jobs:
         run: |
           python scripts/check_links.py --all
           python scripts/check_section_refs.py
+          python scripts/check_references.py
 
       - name: CPU tests
         working-directory: morphogenesis
