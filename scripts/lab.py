@@ -226,6 +226,47 @@ def sha256_file(path: Path) -> str:
     return digest.hexdigest()
 
 
+WEIGHT_SUFFIXES = (".pt", ".pth", ".ckpt")
+
+
+def weights_hashes(outputs: list[str] | None, mode: str | None) -> dict[str, Any]:
+    """sha256 объявленных весов для НОВЫХ манифестов (контракт v1.1, §6b).
+
+    `mode`:
+    - None/"none" — ничего не писать (поведение старых прогонов);
+    - "auto" — посчитать по тем `--output`, что реально существуют и похожи на
+      веса (`.pt`, `.pth`, `.ckpt`); отсутствующие просто пропускаются;
+    - готовая hex-строка (64 символа) — записать как есть.
+
+    Возвращает {"weights_sha256": <hex|null>, "outputs_sha256": {путь: hex}}.
+    Первый найденный файл становится `weights_sha256` — это то, что просят
+    депозит и заявки; остальные остаются в `outputs_sha256` для трассировки.
+    """
+    result: dict[str, Any] = {"weights_sha256": None, "outputs_sha256": {}}
+    if not mode or mode == "none":
+        return result
+    if mode != "auto":
+        value = mode.strip().lower()
+        if len(value) != 64 or any(ch not in "0123456789abcdef" for ch in value):
+            raise SystemExit(
+                f"--weights-sha256: ожидался 'auto' или 64 hex-символа, получено {mode!r}"
+            )
+        result["weights_sha256"] = value
+        return result
+
+    for item in outputs or []:
+        path = Path(item)
+        if path.suffix.lower() not in WEIGHT_SUFFIXES:
+            continue
+        if not path.is_file():
+            continue
+        digest = sha256_file(path)
+        result["outputs_sha256"][item] = digest
+        if result["weights_sha256"] is None:
+            result["weights_sha256"] = digest
+    return result
+
+
 def run_fields(experiment: str) -> dict[str, Any]:
     match = WP4_RE.match(experiment)
     if match:
@@ -1093,6 +1134,9 @@ def run_command(args: argparse.Namespace) -> int:
         "log_path": rel(log_path),
         "notes": args.note or "",
     }
+    # Контракт v1.1: режим пишется только у новых прогонов и только если задан.
+    if getattr(args, "regime", None):
+        manifest["regime"] = args.regime
     write_json_atomic(manifest_path, manifest)
     print(f"[lab] run_id={run_id}")
     print(f"[lab] manifest={rel(manifest_path)}")
@@ -1117,6 +1161,12 @@ def run_command(args: argparse.Namespace) -> int:
                 log_fh.write(line)
                 log_fh.flush()
             return_code = process.wait()
+        # Контракт v1.1: хеш весов считается после команды (файлы уже есть).
+        hashes = weights_hashes(args.output, args.weights_sha256)
+        if hashes["weights_sha256"]:
+            manifest["weights_sha256"] = hashes["weights_sha256"]
+        if hashes["outputs_sha256"]:
+            manifest["outputs"]["sha256"] = hashes["outputs_sha256"]
         manifest["finished_at"] = now_utc()
         manifest["exit_code"] = return_code
         manifest["status"] = "finished" if return_code == 0 else "failed"
@@ -1858,6 +1908,17 @@ def main(argv: list[str] | None = None) -> int:
     p_run.add_argument("--checkpoint-in")
     p_run.add_argument("--output", action="append")
     p_run.add_argument("--note")
+    p_run.add_argument(
+        "--regime",
+        choices=["tf32", "fp32", "fp32_no_tf32_hw", "cpu", "unknown"],
+        default=None,
+        help="численный режим прогона (контракт v1.1): точность обучения, не железо",
+    )
+    p_run.add_argument(
+        "--weights-sha256",
+        default=None,
+        help="'auto' — посчитать по --output (.pt), или готовый hex; для старых прогонов не пишется",
+    )
     p_run.add_argument("command", nargs=argparse.REMAINDER)
 
     args = parser.parse_args(argv)
