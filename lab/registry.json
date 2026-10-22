@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-22T14:35:00Z",
+  "updated_at": "2026-10-22T15:15:00Z",
   "program": {
     "name": "Morphogenesis",
     "phase": "E02b_clusters3 закрыт: скрытое состояние избыточно, величина асимметрии нестабильна",
@@ -444,10 +444,20 @@
         "id": "H-CH-11",
         "statement": "Внутри информативного набора {2,3,4,10–14} есть канал, без которого тело не собирается.",
         "test": "Удалить по одному каналу из информативного набора (7 условий × 12 повторов), остальные оставить. Критерий до прогона: найдётся канал, при удалении которого тело <= 6/12.",
-        "status": "planned",
-        "origin": "reports/2026-10-22-lesion-necessity-results.md — {5–9} не достаточно, но информативный набор не проверен по одному каналу",
+        "status": "rejected",
+        "origin": "reports/2026-10-22-lesion-core-results.md — все 7 условий с удалением одного канала из {2,3,4,10-14} дают тело 12/12 (IoU 0.808-0.846 при контроле 0.823)",
         "depends_on": [
           "H-CH-10"
+        ]
+      },
+      {
+        "id": "H-CH-12",
+        "statement": "Внутри информативного набора достаточна любая пара каналов, а не только три проверенные.",
+        "test": "21 новая пара из {2,3,4,10-14} × 12 повторов; критерий до прогона: тело >= 11/12 во всех парах.",
+        "status": "planned",
+        "origin": "reports/2026-10-22-lesion-core-results.md — H-CH-9 проверила только 5 пар",
+        "depends_on": [
+          "H-CH-11"
         ]
       }
     ]
@@ -1168,6 +1178,34 @@
           "origin": "reports/2026-10-22-lesion-necessity-results.md",
           "depends_on": [
             "H-CH-10"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "E02b_lesion_core",
+      "title": "Ядро внутри информативного набора: удаление по одному каналу",
+      "kind": "experiment",
+      "status": "closed",
+      "outcome": "ch11_refuted_full_interchangeability_inside_set",
+      "plan": "reports/2026-10-22-lesion-core-plan.md",
+      "report": "reports/2026-10-22-lesion-core-results.md",
+      "article": "articles/017-vnutri-nositelya-polnaia-vzaimozameniaemost.md",
+      "artifact_root": "morphogenesis/experiments/E02b_morphospace",
+      "entrypoint": "morphogenesis/experiments/E02b_morphospace/scripts/e02b_lesion_core.py",
+      "checkpoint_families": [
+        "WP4_R-9_s2000_seed42"
+      ],
+      "next": "H-CH-11 опровергнута: удаление любого одного канала из информативного набора {2,3,4,10,11,12,13,14} не стоит ничего — все 7 условий дают тело 12/12 (IoU 0.808-0.846 при контроле 0.823), класс struct_2 12/12 и alive 12/12. Вместе с H-CH-9 (один канал {14} достаточен) и H-CH-10 (набор необходим целиком) это три уровня одного вопроса: достаточность одного канала, необходимость набора и взаимозаменяемость внутри набора. Ни один отдельный канал внутри набора не необходим. 96 развёрток, 633.9 с.",
+      "next_hypotheses": [
+        {
+          "id": "H-CH-12",
+          "statement": "Внутри набора достаточна любая пара каналов.",
+          "test": "21 новая пара × 12 повторов; критерий тело >= 11/12.",
+          "status": "planned",
+          "origin": "reports/2026-10-22-lesion-core-results.md",
+          "depends_on": [
+            "H-CH-11"
           ]
         }
       ]

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-22T14:45:00Z",
+  "updated_at": "2026-10-22T15:11:21Z",
   "note": "Очередь пунктов после E02c. Claim берётся до пре-регистрации, а не перед запуском: lab.py item-claim. Статус running означает занятый GPU-лейн и может быть только у одного пункта.",
   "items": [
     {
@@ -298,35 +298,36 @@
       "id": "E02b_lesion_core",
       "title": "Ядро внутри информативного набора каналов (H-CH-11)",
       "hypothesis": "H-CH-11",
-      "status": "planned",
-      "owner": null,
-      "claimed_at": null,
+      "status": "closed",
+      "owner": "lead",
+      "claimed_at": "2026-10-22T14:51:28Z",
       "heartbeat_at": null,
-      "closed_at": null,
-      "ttl_minutes": 120,
+      "closed_at": "2026-10-22T15:11:21Z",
+      "ttl_minutes": 240,
       "cost_gpu_h": 0.2,
       "gated_by": null,
       "artifacts": [
         "reports/2026-10-22-lesion-core-plan.md"
       ],
-      "note": "Восемь условий по 12 повторов: контроль {2,3,4,10–14} и по одному удалённому каналу. Критерий до прогона: найдётся канал, без которого тело <= 6/12. Скрипт обкатан CPU-дымом, ждёт освобождения GPU-лейна."
+      "note": "H-CH-11 опровергнута: удаление любого одного канала из информативного набора {2,3,4,10-14} не стоит ничего (все 7 условий тело 12/12, IoU 0.808-0.846 при контроле 0.823). Внутри набора полная взаимозаменяемость по одному каналу, но весь набор необходим (H-CH-10). Отчёт — следующий шаг.",
+      "closed_by": "lead"
     },
     {
       "id": "E02b_asymmetry_variance",
       "title": "Источник разброса величины асимметрии (H-AB-8)",
       "hypothesis": "H-AB-8",
-      "status": "planned",
-      "owner": null,
-      "claimed_at": null,
-      "heartbeat_at": null,
+      "status": "running",
+      "owner": "lead",
+      "claimed_at": "2026-10-22T15:11:21Z",
+      "heartbeat_at": "2026-10-22T15:11:21Z",
       "closed_at": null,
-      "ttl_minutes": 120,
+      "ttl_minutes": 240,
       "cost_gpu_h": 0.1,
       "gated_by": null,
       "artifacts": [
         "reports/2026-10-22-asymmetry-variance-plan.md"
       ],
-      "note": "12 пар на геометрии c=(40,24), снимки каждые 25 шагов: корреляция d с dt (разницей моментов достижения порога тела). Критерий до прогона: |Spearman| >= 0.5. Скрипт обкатан CPU-дымом."
+      "note": "H-AB-8: 12 пар на c=(40,24), снимки каждые 25 шагов, корреляция d с dt; критерий |rho| >= 0.5"
     }
   ]
 }

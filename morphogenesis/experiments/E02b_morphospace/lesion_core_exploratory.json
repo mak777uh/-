@@ -1,0 +1,182 @@
+{
+  "schema_version": 1,
+  "experiment": "E02b_morphospace",
+  "kind": "exploratory_lesion_core",
+  "protocol": "reports/2026-10-22-lesion-core-plan.md",
+  "family": "WP4_R-9_s2000_seed42",
+  "proto_seed": 35,
+  "proto_class": "struct_2",
+  "proto_body_pixels": 2174,
+  "steps": 2000,
+  "repeats": 12,
+  "device": "cuda",
+  "criterion": "есть канал, без которого тело <= 6/12, при контроле 12/12",
+  "conditions": {
+    "core_none_removed": {
+      "n": 12,
+      "channels_kept": [
+        2,
+        3,
+        4,
+        10,
+        11,
+        12,
+        13,
+        14
+      ],
+      "body_returned": 12,
+      "alive": 12,
+      "classes": {
+        "struct_2": 12
+      },
+      "mean_body_iou": 0.8234
+    },
+    "drop_2": {
+      "n": 12,
+      "channels_kept": [
+        3,
+        4,
+        10,
+        11,
+        12,
+        13,
+        14
+      ],
+      "body_returned": 12,
+      "alive": 12,
+      "classes": {
+        "struct_2": 12
+      },
+      "mean_body_iou": 0.8264
+    },
+    "drop_3": {
+      "n": 12,
+      "channels_kept": [
+        2,
+        4,
+        10,
+        11,
+        12,
+        13,
+        14
+      ],
+      "body_returned": 12,
+      "alive": 12,
+      "classes": {
+        "struct_2": 12
+      },
+      "mean_body_iou": 0.8082
+    },
+    "drop_4": {
+      "n": 12,
+      "channels_kept": [
+        2,
+        3,
+        10,
+        11,
+        12,
+        13,
+        14
+      ],
+      "body_returned": 12,
+      "alive": 12,
+      "classes": {
+        "struct_2": 12
+      },
+      "mean_body_iou": 0.8222
+    },
+    "drop_10": {
+      "n": 12,
+      "channels_kept": [
+        2,
+        3,
+        4,
+        11,
+        12,
+        13,
+        14
+      ],
+      "body_returned": 12,
+      "alive": 12,
+      "classes": {
+        "struct_2": 12
+      },
+      "mean_body_iou": 0.8458
+    },
+    "drop_11": {
+      "n": 12,
+      "channels_kept": [
+        2,
+        3,
+        4,
+        10,
+        12,
+        13,
+        14
+      ],
+      "body_returned": 12,
+      "alive": 12,
+      "classes": {
+        "struct_2": 12
+      },
+      "mean_body_iou": 0.8099
+    },
+    "drop_12": {
+      "n": 12,
+      "channels_kept": [
+        2,
+        3,
+        4,
+        10,
+        11,
+        13,
+        14
+      ],
+      "body_returned": 12,
+      "alive": 12,
+      "classes": {
+        "struct_2": 12
+      },
+      "mean_body_iou": 0.8115
+    },
+    "drop_13": {
+      "n": 12,
+      "channels_kept": [
+        2,
+        3,
+        4,
+        10,
+        11,
+        12,
+        14
+      ],
+      "body_returned": 12,
+      "alive": 12,
+      "classes": {
+        "struct_2": 12
+      },
+      "mean_body_iou": 0.8198
+    },
+    "drop_14": {
+      "n": 12,
+      "channels_kept": [
+        2,
+        3,
+        4,
+        10,
+        11,
+        12,
+        13
+      ],
+      "body_returned": 12,
+      "alive": 12,
+      "classes": {
+        "struct_2": 12
+      },
+      "mean_body_iou": 0.834
+    }
+  },
+  "weak_channels": [],
+  "verdict": "H-CH-11_refuted",
+  "wall_seconds": 633.9
+}
