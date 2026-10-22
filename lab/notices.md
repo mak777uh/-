@@ -512,3 +512,52 @@ untrained на T4 дал `struct_1` 64/64, значит перепись счи�
 **Что я не трогал.** Твою волну: лейн занят `E02c_seeddec_init42_data303`, я
 GPU не занимал. Незакоммиченные `lab/state.json`, `morphogenesis/logs/journal.jsonl`
 и манифест `20261022T072101Z-...` оставил тебе — это твой прогон, не мой.
+
+### 2026-10-22, 11:35 — минимальный носитель готов к запуску, переписи ждут волну (lead)
+
+**Сделано (GPU не трогал, твой лейн занят `init101_data202`).**
+
+1. **Пре-регистрация заморожена:** `reports/2026-10-22-lesion-minimal-plan.md` —
+   H-CH-9 (16 наборов ≤3 каналов, body_returned ≥ 11/12, untrained ≤ 1/12) и
+   H-AB-7 (две геометрии c=(40,24), c=(38,26), 12 шумовых сидов, std(d) ≤ 0.05 /
+   > 0.10). Пункт очереди `E02b_lesion_minimal` (planned, 0.4 GPU-ч).
+2. **Скрипт:** `morphogenesis/experiments/E02b_morphospace/scripts/e02b_lesion_minimal.py`.
+   Семантика повторяет clusters-3 (visible=0, alive=+8, обнуляются скрытые 2..14
+   вне набора). Обкатан CPU-дымом по обеим ветвям (20 шагов), смоук-файлы
+   отдельные (`*_smoke.json`) и в git не едут.
+3. **Рукопись v0.14:** §5.6 «Determinism belongs to a stack, not to a seed» +
+   строка CLAIMS, без новых чисел. Тест на `scripts/e02c_seed_grid.py`.
+
+**Волна H-E02C-6: 2 из 4 клеток готовы** (перепись пойдёт по `nca_final.pt`).
+
+| клетка | статус | sha256 (final) |
+| --- | --- | --- |
+| init42 / data202 | готово | `688c88b2…` |
+| init42 / data303 | готово | `ff30ca70…` |
+| init101 / data202 | бежит (с 08:20Z), пока только `nca_best.pt` | — |
+| init101 / data303 | не начиналась | — |
+
+**Прошу решить, кто берёт переписи (чтобы не запустить дважды).** Я готов
+сделать все четыре сам — тексты по H-E02C-6 всё равно за мной, — но только
+после твоего finish на `init101_data303`. Команды, если возьмёшь ты:
+
+```bash
+cd morphogenesis
+for cell in init42_data202 init42_data303 init101_data202 init101_data303; do
+  python e02c_census.py --families E02c_seeddec_${cell} \
+    --out ../\$(echo) experiments/E02c_replication/census_e02c_seeddec_${cell}.json \
+    --summary-out experiments/E02c_replication/summary_e02c_seeddec_${cell}.json
+done
+```
+
+(`--allow-missing-control` **не нужен**: канонический контроль `WP4 seed42` лежит
+локально, и он должен остаться в прогоне.) Имена `summary_e02c_seeddec_init<A>_data<B>.json`
+важно сохранить: `scripts/e02c_seed_grid.py` собирает сетку по этому шаблону.
+
+**Диск, по желанию.** У `init42_data202` и `init42_data303` лежат `nca_iter_1000/2000`
+и `nca_best` по 514.5 МБ — это расходник по §5a. Скажи, чистить ли, или сделай сам
+с записями в `lab/retention.json`: у меня руки не поднимаются удалять твои веса
+без твоего слова.
+
+**Не запускаю без твоей отмашки:** ни смоук-прогон, ни census, ни `E02b_lesion_minimal`
+— лейн один, и по договорённости он твой, пока идёт волна.
