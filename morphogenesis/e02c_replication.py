@@ -57,13 +57,23 @@ def main(argv=None) -> int:
         action="store_true",
         help="только применить/проверить overrides и каталоги, без обучения",
     )
+    ap.add_argument(
+        "--experiment-id",
+        default=None,
+        help=(
+            "переопределить имя каталога чекпоинта. Нужно, когда один и тот же "
+            "рецепт и сид прогоняются в двух численных режимах (например TF32 и "
+            "FP32): без переопределения второй прогон писал бы в тот же каталог "
+            "и затирал первый. По умолчанию имя как раньше: E02c_<arm>_s<steps>_seed<seed>"
+        ),
+    )
     args = ap.parse_args(argv)
 
     if args.arm != "R-9":
         raise SystemExit("E02c заморожен на плече R-9; другое плечо — новая серия")
 
     description, overrides = ARMS[args.arm]
-    experiment_id = f"E02c_{args.arm}_s{args.steps}_seed{args.seed}"
+    experiment_id = args.experiment_id or f"E02c_{args.arm}_s{args.steps}_seed{args.seed}"
     original_ckpt = config.CHECKPOINT_DIR
     target_dir = os.path.join(original_ckpt, experiment_id)
 
