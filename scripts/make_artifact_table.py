@@ -1,0 +1,129 @@
+"""Собрать приложение-таблицу артефактов с хешами (manuscript/SUPPLEMENT.md).
+
+Зачем: §7 рукописи перечисляет артефакты прозой, но при подаче нужен
+машинно-проверяемый список: путь → размер → sha256 → тип. Таблица собирается
+обходом каталогов (а не по памяти), поэтому её нельзя «забыть обновить»: тест
+сверяет файл с тем, что даёт эта функция.
+
+Категории (по имени файла):
+
+- `canonical` — то, на чём держатся числа: `census.json`,
+  `class_centroids_frozen.json`, `perturbations.json`;
+- `derived` — агрегаты и сводки: `summary_*.json`, `seed_grid*.json`,
+  `census_*.json` (переписи отдельных прогонов);
+- `experimental` — exploratory-артефакты `*_exploratory.json`;
+- `figure` — PNG в `reports/figures/`;
+- `index` — `lab/checkpoints.json`, `lab/registry.json`.
+
+Запуск (из корня):
+
+    python scripts/make_artifact_table.py           # напечатать
+    python scripts/make_artifact_table.py --write   # переписать SUPPLEMENT.md
+"""
+from __future__ import annotations
+
+import argparse
+import hashlib
+import re
+import sys
+from pathlib import Path
+
+REPO = Path(__file__).resolve().parents[1]
+OUT = REPO / "manuscript" / "SUPPLEMENT.md"
+START = "<!-- artifacts:start -->"
+END = "<!-- artifacts:end -->"
+
+DIRS = [
+    REPO / "morphogenesis" / "experiments",
+    REPO / "reports" / "figures",
+]
+EXTRA = [REPO / "lab" / "checkpoints.json", REPO / "lab" / "registry.json"]
+
+
+def sha256(path: Path) -> str:
+    h = hashlib.sha256()
+    with open(path, "rb") as fh:
+        for chunk in iter(lambda: fh.read(1024 * 1024), b""):
+            h.update(chunk)
+    return h.hexdigest()
+
+
+def kind_of(path: Path) -> str:
+    name = path.name
+    if path.suffix == ".png":
+        return "figure"
+    if name in ("census.json", "class_centroids_frozen.json", "perturbations.json"):
+        return "canonical"
+    if name in ("checkpoints.json", "registry.json"):
+        return "index"
+    if name.startswith("summary_") or name.startswith("seed_grid"):
+        return "derived"
+    if name.startswith("census_"):
+        return "derived"
+    if name.endswith("_exploratory.json"):
+        return "experimental"
+    return "other"
+
+
+def collect() -> list[Path]:
+    files: list[Path] = []
+    for directory in DIRS:
+        if directory.is_dir():
+            files.extend(p for p in directory.rglob("*") if p.is_file())
+    files.extend(p for p in EXTRA if p.is_file())
+    # строки *_rows.jsonl локальные (в git не едут) — их в таблице нет
+    return sorted(p for p in files if p.suffix in (".json", ".png"))
+
+
+def link(path: Path) -> str:
+    rel = path.relative_to(REPO).as_posix()
+    return f"[`{rel}`](../{rel})"
+
+
+def render(files: list[Path] | None = None) -> str:
+    files = files if files is not None else collect()
+    rows = [
+        "| Артефакт | Тип | Байт | sha256 |",
+        "| --- | --- | ---: | --- |",
+    ]
+    for path in files:
+        rows.append(
+            "| {link} | {kind} | {size} | `{sha}` |".format(
+                link=link(path),
+                kind=kind_of(path),
+                size=path.stat().st_size,
+                sha=sha256(path),
+            )
+        )
+    return START + "\n" + "\n".join(rows) + "\n" + END
+
+
+def replace_block(text: str, table: str) -> str:
+    pattern = re.compile(re.escape(START) + r".*?" + re.escape(END), re.DOTALL)
+    if not pattern.search(text):
+        raise SystemExit(f"в {OUT.name} нет маркеров")
+    return pattern.sub(lambda _m: table, text)
+
+
+def main(argv=None) -> int:
+    ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
+    ap.add_argument("--write", action="store_true", help="переписать manuscript/SUPPLEMENT.md")
+    args = ap.parse_args(argv)
+
+    table = render()
+    if args.write:
+        if not OUT.is_file():
+            raise SystemExit(f"нет {OUT}: сначала создайте файл с маркерами")
+        OUT.write_text(
+            replace_block(OUT.read_text(encoding="utf-8"), table) + "\n",
+            encoding="utf-8",
+            newline="\n",
+        )
+        print(f"обновлено: {OUT}")
+    else:
+        print(table)
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

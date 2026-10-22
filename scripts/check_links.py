@@ -48,6 +48,7 @@ DEFAULT_TARGETS = (
     "manuscript/paper.md",
     "manuscript/CLAIMS.md",
     "manuscript/CHANGELOG.md",
+    "manuscript/SUPPLEMENT.md",
     "reports/README.md",
     "articles/README.md",
     "colab/README.md",
