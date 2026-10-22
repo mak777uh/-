@@ -38,6 +38,18 @@ jobs:
         working-directory: morphogenesis
         run: python experiments/E02b_morphospace/scripts/e02b_verify.py
 
+      # Числа в отчётах и рукописи должны пересчитываться на чужой машине, а не
+      # только там, где считались. Эти два шага берут артефакты из git и
+      # независимо пересчитывают арифметику: классы и устойчивость по сырым
+      # строкам, вердикт сетки — по замороженному критерию.
+      - name: E02c numbers re-derivation from raw census rows
+        run: python scripts/verify_e02c_numbers.py
+
+      - name: E02c seed grid verdict is reproducible from artifacts
+        run: |
+          python scripts/e02c_seed_grid.py
+          git diff --exit-code -- morphogenesis/experiments/E02c_replication/seed_grid.json
+
       - name: Text integrity (links and section references)
         run: |
           python scripts/check_links.py --all
