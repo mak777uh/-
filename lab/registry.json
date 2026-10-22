@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-22T13:35:00Z",
+  "updated_at": "2026-10-22T14:35:00Z",
   "program": {
     "name": "Morphogenesis",
     "phase": "E02b_clusters3 закрыт: скрытое состояние избыточно, величина асимметрии нестабильна",
@@ -424,8 +424,8 @@
         "id": "H-CH-10",
         "statement": "Информативные каналы (2–4 и 10–14) необходимы для тела, а инертные (5–9) — нет.",
         "test": "Два условия по 12 повторов: (а) обнулить 2–4 и 10–14, оставить 5–9; (б) наоборот. Критерий до прогона: тело в (а) на >= 8/12 меньше, чем в (б).",
-        "status": "planned",
-        "origin": "reports/2026-10-22-lesion-minimal-results.md — {6,7,8} 0/12 при жизни половины 8–14",
+        "status": "confirmed",
+        "origin": "reports/2026-10-22-lesion-necessity-results.md — informative_only {2,3,4,10–14} тело 12/12 (IoU 0.826) против inert_only {5–9} 3/12 (0.395); критерий разницы >= 8/12 выполнен (9/12)",
         "depends_on": [
           "H-CH-9"
         ]
@@ -438,6 +438,16 @@
         "origin": "reports/2026-10-22-lesion-minimal-results.md — std(d) 0.167 при c=(40,24)",
         "depends_on": [
           "H-AB-7"
+        ]
+      },
+      {
+        "id": "H-CH-11",
+        "statement": "Внутри информативного набора {2,3,4,10–14} есть канал, без которого тело не собирается.",
+        "test": "Удалить по одному каналу из информативного набора (7 условий × 12 повторов), остальные оставить. Критерий до прогона: найдётся канал, при удалении которого тело <= 6/12.",
+        "status": "planned",
+        "origin": "reports/2026-10-22-lesion-necessity-results.md — {5–9} не достаточно, но информативный набор не проверен по одному каналу",
+        "depends_on": [
+          "H-CH-10"
         ]
       }
     ]
@@ -1130,6 +1140,34 @@
           "origin": "reports/2026-10-22-lesion-minimal-results.md",
           "depends_on": [
             "H-AB-7"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "E02b_lesion_necessity",
+      "title": "Необходимость информативных каналов: подмножество против подмножества",
+      "kind": "experiment",
+      "status": "closed",
+      "outcome": "ch11_confirmed_carrier_is_subset",
+      "plan": "reports/2026-10-22-lesion-necessity-plan.md",
+      "report": "reports/2026-10-22-lesion-necessity-results.md",
+      "article": "articles/016-nositel-eto-podmnozhestvo-kanalov.md",
+      "artifact_root": "morphogenesis/experiments/E02b_morphospace",
+      "entrypoint": "morphogenesis/experiments/E02b_morphospace/scripts/e02b_lesion_necessity.py",
+      "checkpoint_families": [
+        "WP4_R-9_s2000_seed42"
+      ],
+      "next": "H-CH-10 подтверждена: informative_only {2,3,4,10,11,12,13,14} даёт тело 12/12 (IoU 0.826), inert_only {5,6,7,8,9} — 3/12 (0.395) при none 12/12 (0.806); критерий разницы >= 8/12 выполнен (9/12). Класс struct_2 12/12 и alive 12/12 во всех условиях: тело не путается с классом и живостью. Носитель — подмножество {2,3,4} U {10–14}, а не всё скрытое состояние; 36 развёрток, 261.5 с.",
+      "next_hypotheses": [
+        {
+          "id": "H-CH-11",
+          "statement": "Внутри информативного набора есть необходимый канал.",
+          "test": "Удаление по одному каналу из {2,3,4,10–14}; критерий тело <= 6/12.",
+          "status": "planned",
+          "origin": "reports/2026-10-22-lesion-necessity-results.md",
+          "depends_on": [
+            "H-CH-10"
           ]
         }
       ]

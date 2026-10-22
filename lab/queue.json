@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-22T13:55:00Z",
+  "updated_at": "2026-10-22T14:32:22Z",
   "note": "Очередь пунктов после E02c. Claim берётся до пре-регистрации, а не перед запуском: lab.py item-claim. Статус running означает занятый GPU-лейн и может быть только у одного пункта.",
   "items": [
     {
@@ -280,18 +280,19 @@
       "id": "E02b_lesion_necessity",
       "title": "Необходимость информативных каналов (H-CH-10)",
       "hypothesis": "H-CH-10",
-      "status": "planned",
-      "owner": null,
-      "claimed_at": null,
+      "status": "closed",
+      "owner": "lead",
+      "claimed_at": "2026-10-22T14:22:10Z",
       "heartbeat_at": null,
-      "closed_at": null,
-      "ttl_minutes": 120,
+      "closed_at": "2026-10-22T14:32:22Z",
+      "ttl_minutes": 240,
       "cost_gpu_h": 0.1,
       "gated_by": null,
       "artifacts": [
         "reports/2026-10-22-lesion-necessity-plan.md"
       ],
-      "note": "Два взаимно дополнительных условия по 12 повторов: оставить информативные {2,3,4,10–14} против инертных {5–9}; критерий до прогона — body(inert) <= body(informative) − 8/12 при none >= 11/12. Скрипт обкатан CPU-дымом, ждёт освобождения GPU-лейна (E02c_fp32_seed101)."
+      "note": "H-CH-10 подтверждена: informative_only {2,3,4,10-14} тело 12/12 (0.826) против inert_only {5-9} 3/12 (0.395), критерий 9/12 >= 8/12. Отчёт reports/2026-10-22-lesion-necessity-results.md, статья 016.",
+      "closed_by": "lead"
     }
   ]
 }

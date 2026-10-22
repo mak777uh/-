@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "experiment": "E02b_morphospace",
+  "kind": "exploratory_lesion_necessity",
+  "protocol": "reports/2026-10-22-lesion-minimal-plan.md -> reports/2026-10-22-lesion-necessity-plan.md",
+  "family": "WP4_R-9_s2000_seed42",
+  "proto_seed": 35,
+  "proto_class": "struct_2",
+  "proto_body_pixels": 2174,
+  "steps": 2000,
+  "repeats": 12,
+  "device": "cuda",
+  "criterion": "body(inert_only) <= body(informative_only) - 8/12 при none >= 11/12",
+  "conditions": {
+    "none": {
+      "n": 12,
+      "channels_kept": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14
+      ],
+      "body_returned": 12,
+      "alive": 12,
+      "classes": {
+        "struct_2": 12
+      },
+      "mean_body_iou": 0.8056
+    },
+    "informative_only": {
+      "n": 12,
+      "channels_kept": [
+        2,
+        3,
+        4,
+        10,
+        11,
+        12,
+        13,
+        14
+      ],
+      "body_returned": 12,
+      "alive": 12,
+      "classes": {
+        "struct_2": 12
+      },
+      "mean_body_iou": 0.8259
+    },
+    "inert_only": {
+      "n": 12,
+      "channels_kept": [
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "body_returned": 3,
+      "alive": 12,
+      "classes": {
+        "struct_2": 12
+      },
+      "mean_body_iou": 0.3953
+    }
+  },
+  "verdict": "H-CH-10_confirmed",
+  "wall_seconds": 261.5
+}
