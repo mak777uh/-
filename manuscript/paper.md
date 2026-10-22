@@ -1,6 +1,6 @@
 # What Morphologies Does a Neural Cellular Automaton Hold? A Census and a Negative Result
 
-**Status:** DRAFT v0.9 (2026-10-22) — not submitted, not peer-reviewed, do not cite. **Publication gate:** E02c is closed, the seed42 run repeats bitwise and returns the class 64/64 (§4.6), and the portable package passed an independent CPU reproduction of the E02b census; none of these is an independent reproduction of the E02c series, and external submission remains a decision of the owner. No claim about life, consciousness or intelligence; only observable behavioural classes and their boundaries ([AGENTS.md](../AGENTS.md) §3).
+**Status:** DRAFT v0.10 (2026-10-22) — not submitted, not peer-reviewed, do not cite. **Publication gate:** E02c is closed, the seed42 run repeats bitwise and returns the class 64/64 (§4.6), and the portable package passed an independent CPU reproduction of the E02b census; none of these is an independent reproduction of the E02c series, and external submission remains a decision of the owner. No claim about life, consciousness or intelligence; only observable behavioural classes and their boundaries ([AGENTS.md](../AGENTS.md) §3).
 
 <!-- TODO: freeze a submission tag and run the independent-reproduction pass before any external submission. -->
 
@@ -222,6 +222,16 @@ Two pre-registered checks close the carrier question in the opposite direction a
 **The dose-response does not continue (H-AB-5, not confirmed).** Twelve new mass-matched pairs with q = 0.500-0.698 give a negative difference in 12/12 pairs, but the median is -0.354 against a pre-registered prediction of at most -0.60. The magnitude peaks near q = 0.5-0.63 (-0.63) and falls to -0.14 at q = 0.698, where both halves are nearly dead: the difference is a hump, not a monotone function. The earlier monotone reading from q = 0.15-0.49 (rho = -0.71, §4.9) therefore does not extrapolate.
 
 Boundaries: one prototype, one horizon and one machine; damage beyond q = 0.5 overlaps and leaves narrow survivors, which is part of the finding rather than an artefact; the struct_2-versus-untrained contrast rests on one untrained initialisation.
+
+### 4.11. The hidden state is redundant, and the asymmetry magnitude is not a function of damage
+
+The hidden state carries the form (§4.10); the next question is how much of it is needed and how stable the asymmetry's magnitude really is ([protocol](../reports/2026-10-22-clusters3-plan.md), [results](../reports/2026-10-22-clusters3-results.md)).
+
+**Any half of the hidden channels is sufficient (H-CH-8, confirmed).** With the visible channel zeroed and the gate open, keeping only channels 2-7 or only channels 8-14 still returns the body of `struct_2` in 12/12 rollouts (mean IoU 0.784 and 0.805 against a control of 0.864), class `struct_2` 12/12; the untrained architecture loses the body in both conditions (0/12, `uniform_dark`). Together with H-CH-2, which found no single necessary channel, this says the form is stored redundantly across the hidden state rather than in a privileged place.
+
+**The dose-response is a statistical artefact (H-AB-6, not confirmed).** Eleven dense mass-matched pairs with q = 0.55-0.65 were run against a pre-registered prediction that the largest difference would fall in 0.63 +- 0.05. The observed maximum is 0.551, and all eleven differences are negative, so the direction is stable while the magnitude is not. The decisive observation is methodological: two adjacent targets fell into the same integer cut `c = (40, 24)`, and the difference on two noise seeds was -0.225 and -0.350. A 0.125 spread at identical geometry, with the left-half IoU ranging 0.16-0.61 across neighbouring configurations while the right half stays at 0.66-0.77, means the "curve over q" was tracking variance. The asymmetry's sign is robust; its magnitude needs a variance measurement at fixed geometry (H-AB-7) before any curve is drawn.
+
+Boundaries: one prototype, one horizon and one machine; the two groups were fixed in advance and no partition search was done; damage beyond q = 0.5 overlaps.
 
 ## 5. Discussion
 

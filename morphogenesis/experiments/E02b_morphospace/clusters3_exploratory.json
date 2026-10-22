@@ -1,0 +1,274 @@
+{
+  "schema_version": 1,
+  "experiment": "E02b_morphospace",
+  "kind": "exploratory_clusters3",
+  "protocol": "reports/2026-10-22-clusters3-plan.md",
+  "note": "H-CH-8: visible=0 + alive=+8, остаётся одна группа скрытых каналов (2..7 или 8..14); H-AB-6: 11 плотных пар q=0.55..0.65, предсказание max|d| в [0.58, 0.68]",
+  "device": "cuda",
+  "steps": 2000,
+  "repeats": 12,
+  "rules": {
+    "same_pattern": "IoU >= 0.5",
+    "significance": ">= 11 из 12",
+    "mass_tolerance": 0.01,
+    "ab6_prediction": "все d < 0 и max|d| в [0.58, 0.68]"
+  },
+  "models": [
+    {
+      "family": "WP4_R-9_s2000_seed42",
+      "proto_seed": 35,
+      "expected_class": "struct_2",
+      "proto_class": "struct_2",
+      "proto_body_pixels": 2174,
+      "ch8": {
+        "none": {
+          "n": 12,
+          "body_returned": 12,
+          "alive": 12,
+          "classes": {
+            "struct_2": 12
+          },
+          "mean_body_iou": 0.8639
+        },
+        "group_a_only": {
+          "n": 12,
+          "body_returned": 12,
+          "alive": 12,
+          "classes": {
+            "struct_2": 12
+          },
+          "mean_body_iou": 0.7844
+        },
+        "group_b_only": {
+          "n": 12,
+          "body_returned": 12,
+          "alive": 12,
+          "classes": {
+            "struct_2": 12
+          },
+          "mean_body_iou": 0.8047
+        }
+      },
+      "ab6": null
+    },
+    {
+      "family": "untrained_current_arch",
+      "proto_seed": 0,
+      "expected_class": "struct_1",
+      "proto_class": "struct_1",
+      "proto_body_pixels": 1007,
+      "ch8": {
+        "none": {
+          "n": 12,
+          "body_returned": 12,
+          "alive": 12,
+          "classes": {
+            "struct_1": 12
+          },
+          "mean_body_iou": 1.0
+        },
+        "group_a_only": {
+          "n": 12,
+          "body_returned": 0,
+          "alive": 12,
+          "classes": {
+            "uniform_dark": 12
+          },
+          "mean_body_iou": 0.0
+        },
+        "group_b_only": {
+          "n": 12,
+          "body_returned": 0,
+          "alive": 12,
+          "classes": {
+            "uniform_dark": 12
+          },
+          "mean_body_iou": 0.0
+        }
+      },
+      "ab6": null
+    },
+    {
+      "family": "WP4_R-9_s2000_seed42",
+      "section": "H-AB-6",
+      "proto_class": "struct_2",
+      "ab6": {
+        "family": "WP4_R-9_s2000_seed42",
+        "proto_class": "struct_2",
+        "pairs": [
+          {
+            "pair": 0,
+            "target_q": 0.55,
+            "c_left": 35,
+            "c_right": 29,
+            "removed_fraction_left": 0.5469,
+            "removed_fraction_right": 0.5442,
+            "mass_gap": 0.0028,
+            "valid": true,
+            "iou_left": 0.3508,
+            "iou_right": 0.7674,
+            "diff": -0.4166
+          },
+          {
+            "pair": 1,
+            "target_q": 0.56,
+            "c_left": 36,
+            "c_right": 28,
+            "removed_fraction_left": 0.5621,
+            "removed_fraction_right": 0.5593,
+            "mass_gap": 0.0028,
+            "valid": true,
+            "iou_left": 0.6053,
+            "iou_right": 0.7242,
+            "diff": -0.1189
+          },
+          {
+            "pair": 2,
+            "target_q": 0.57,
+            "c_left": 37,
+            "c_right": 27,
+            "removed_fraction_left": 0.5773,
+            "removed_fraction_right": 0.5745,
+            "mass_gap": 0.0028,
+            "valid": true,
+            "iou_left": 0.1823,
+            "iou_right": 0.7091,
+            "diff": -0.5268
+          },
+          {
+            "pair": 3,
+            "target_q": 0.58,
+            "c_left": 37,
+            "c_right": 27,
+            "removed_fraction_left": 0.5773,
+            "removed_fraction_right": 0.5745,
+            "mass_gap": 0.0028,
+            "valid": true,
+            "iou_left": 0.2121,
+            "iou_right": 0.7633,
+            "diff": -0.5512
+          },
+          {
+            "pair": 4,
+            "target_q": 0.59,
+            "c_left": 38,
+            "c_right": 26,
+            "removed_fraction_left": 0.5925,
+            "removed_fraction_right": 0.5897,
+            "mass_gap": 0.0028,
+            "valid": true,
+            "iou_left": 0.2038,
+            "iou_right": 0.7077,
+            "diff": -0.5039
+          },
+          {
+            "pair": 5,
+            "target_q": 0.6,
+            "c_left": 38,
+            "c_right": 26,
+            "removed_fraction_left": 0.5925,
+            "removed_fraction_right": 0.5897,
+            "mass_gap": 0.0028,
+            "valid": true,
+            "iou_left": 0.16,
+            "iou_right": 0.6867,
+            "diff": -0.5267
+          },
+          {
+            "pair": 6,
+            "target_q": 0.61,
+            "c_left": 39,
+            "c_right": 25,
+            "removed_fraction_left": 0.6076,
+            "removed_fraction_right": 0.6049,
+            "mass_gap": 0.0028,
+            "valid": true,
+            "iou_left": 0.2066,
+            "iou_right": 0.7346,
+            "diff": -0.528
+          },
+          {
+            "pair": 7,
+            "target_q": 0.62,
+            "c_left": 40,
+            "c_right": 24,
+            "removed_fraction_left": 0.6228,
+            "removed_fraction_right": 0.6205,
+            "mass_gap": 0.0023,
+            "valid": true,
+            "iou_left": 0.5126,
+            "iou_right": 0.7373,
+            "diff": -0.2247
+          },
+          {
+            "pair": 8,
+            "target_q": 0.63,
+            "c_left": 40,
+            "c_right": 24,
+            "removed_fraction_left": 0.6228,
+            "removed_fraction_right": 0.6205,
+            "mass_gap": 0.0023,
+            "valid": true,
+            "iou_left": 0.312,
+            "iou_right": 0.6616,
+            "diff": -0.3496
+          },
+          {
+            "pair": 9,
+            "target_q": 0.64,
+            "c_left": 41,
+            "c_right": 23,
+            "removed_fraction_left": 0.638,
+            "removed_fraction_right": 0.6357,
+            "mass_gap": 0.0023,
+            "valid": true,
+            "iou_left": 0.3485,
+            "iou_right": 0.7226,
+            "diff": -0.3741
+          },
+          {
+            "pair": 10,
+            "target_q": 0.65,
+            "c_left": 42,
+            "c_right": 22,
+            "removed_fraction_left": 0.6532,
+            "removed_fraction_right": 0.6509,
+            "mass_gap": 0.0023,
+            "valid": true,
+            "iou_left": 0.1961,
+            "iou_right": 0.6834,
+            "diff": -0.4873
+          }
+        ],
+        "n_valid": 11,
+        "diffs": [
+          -0.4166,
+          -0.1189,
+          -0.5268,
+          -0.5512,
+          -0.5039,
+          -0.5267,
+          -0.528,
+          -0.2247,
+          -0.3496,
+          -0.3741,
+          -0.4873
+        ],
+        "max_abs_diff": 0.5512,
+        "all_negative": true,
+        "prediction": "все d < 0 и max|d| в [0.58, 0.68]",
+        "verdict": "not_confirmed"
+      }
+    }
+  ],
+  "verdict_ch8": {
+    "applicable": true,
+    "verdict": "confirmed_single_group_sufficient",
+    "sufficient_groups": [
+      "group_a_2_7",
+      "group_b_8_14"
+    ],
+    "reason": "одна группа скрытых каналов реконструирует тело: group_a_2_7, group_b_8_14"
+  },
+  "finished_at": "2026-10-22T07:20:34Z"
+}
