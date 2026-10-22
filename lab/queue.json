@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-22T11:48:25Z",
+  "updated_at": "2026-10-22T12:39:35Z",
   "note": "Очередь пунктов после E02c. Claim берётся до пре-регистрации, а не перед запуском: lab.py item-claim. Статус running означает занятый GPU-лейн и может быть только у одного пункта.",
   "items": [
     {
@@ -241,19 +241,21 @@
       "id": "E02c_repro_tf32",
       "title": "Сид 42 с выключенным TF32: точность свёрток как на T4",
       "hypothesis": "H-REPRO-4",
-      "status": "running",
+      "status": "closed",
       "owner": "analyst",
       "claimed_at": "2026-10-22T11:48:25Z",
       "heartbeat_at": "2026-10-22T11:48:25Z",
-      "closed_at": null,
+      "closed_at": "2026-10-22T12:39:35Z",
       "ttl_minutes": 240,
       "cost_gpu_h": 0.7,
       "gated_by": null,
       "artifacts": [
-        "reports/2026-10-22-e02c-repro-tf32-plan.md"
+        "reports/2026-10-22-e02c-repro-tf32-plan.md",
+        "reports/2026-10-22-e02c-repro-tf32-results.md",
+        "morphogenesis/experiments/E02c_replication/summary_e02c_fp32_seed42.json"
       ],
-      "note": "MORPH_TF32=0 на том же железе и torch 2.6.0; пишем в checkpoints/E02c_seeddec_init42_data42.",
-      "closed_by": null
+      "note": "H-REPRO-8 подтверждена: TF32=off -> struct_1 64/64, struct_2 0/64; веса разошлись. Точность обучения объясняет исчезновение класса; версия torch для объяснения не нужна.",
+      "closed_by": "analyst"
     }
   ]
 }
