@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "run_id": "20261021T184756Z-E02b_closures",
+  "experiment": "E02b_closures",
+  "experiment_id": "E02b",
+  "arm": null,
+  "seed": null,
+  "steps": null,
+  "status": "finished",
+  "provenance": "runner",
+  "source": "morphogenesis/logs/journal.jsonl",
+  "started_at": "2026-10-21T18:47:56Z",
+  "finished_at": "2026-10-21T20:24:07Z",
+  "git_commit": "1b3564a",
+  "git_dirty": true,
+  "command": [
+    ".\\.venv\\Scripts\\python.exe",
+    "run_exploratory.py",
+    "--script",
+    "experiments/E02b_morphospace/scripts/e02b_closures.py",
+    "--experiment",
+    "E02b_closures"
+  ],
+  "cwd": "morphogenesis",
+  "owner": "lead",
+  "environment": {
+    "python": "3.13.11",
+    "platform": "Windows-11-10.0.26300-SP0",
+    "torch": "2.6.0+cu124",
+    "numpy": "2.5.4",
+    "device": "NVIDIA GeForce RTX 3070 Laptop GPU, 595.79"
+  },
+  "checkpoint_in": null,
+  "outputs": {
+    "declared": [
+      "morphogenesis/experiments/E02b_morphospace/closures_exploratory.json"
+    ],
+    "log": "morphogenesis/logs/20261021T184756Z-E02b_closures.log"
+  },
+  "metrics": {},
+  "stop_reason": "exit_0",
+  "exit_code": 0,
+  "log_path": "morphogenesis/logs/20261021T184756Z-E02b_closures.log",
+  "notes": "H-CH-2 (одиночные каналы 2..14 и 6 групп), H-CH-3 (ориентация), H-CH-4 (all_but_alive_zeroed), H-AB-2 (12 пар с выровненной массой)"
+}

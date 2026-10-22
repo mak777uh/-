@@ -1,0 +1,818 @@
+{
+  "schema_version": 1,
+  "experiment": "E02b_morphospace",
+  "kind": "exploratory_closures",
+  "protocol": "reports/2026-10-21-e02b-closures-plan.md",
+  "note": "H-CH-2 (одиночные каналы 2..14 и 6 групп), H-CH-3 (ориентация при visible_zeroed), H-CH-4 (all_but_alive_zeroed), H-AB-2 (12 пар с выровненной массой); без обучения",
+  "device": "cuda",
+  "steps": 2000,
+  "repeats": 12,
+  "rules": {
+    "same_pattern": "бинарный IoU >= 0.5",
+    "significance": ">= 11 из 12",
+    "alive": "alive_fraction >= 0.05",
+    "prototype": "канонический путь _prototype_state (EMA стресса из чекпоинта)"
+  },
+  "models": [
+    {
+      "family": "WP4_R-9_s2000_seed42",
+      "proto_seed": 35,
+      "expected_class": "struct_2",
+      "proto_class": "struct_2",
+      "proto_alive": 0.5308,
+      "ch2": {
+        "none": {
+          "n": 12,
+          "same_pattern": 12,
+          "alive": 12,
+          "classes": {
+            "struct_2": 12
+          },
+          "mean_iou": 0.864
+        },
+        "single_2": {
+          "n": 12,
+          "same_pattern": 12,
+          "alive": 12,
+          "classes": {
+            "struct_2": 12
+          },
+          "mean_iou": 0.8529
+        },
+        "single_3": {
+          "n": 12,
+          "same_pattern": 12,
+          "alive": 12,
+          "classes": {
+            "struct_2": 12
+          },
+          "mean_iou": 0.8429
+        },
+        "single_4": {
+          "n": 12,
+          "same_pattern": 12,
+          "alive": 12,
+          "classes": {
+            "struct_2": 12
+          },
+          "mean_iou": 0.8105
+        },
+        "single_5": {
+          "n": 12,
+          "same_pattern": 12,
+          "alive": 12,
+          "classes": {
+            "struct_2": 12
+          },
+          "mean_iou": 0.8523
+        },
+        "single_6": {
+          "n": 12,
+          "same_pattern": 12,
+          "alive": 12,
+          "classes": {
+            "struct_2": 12
+          },
+          "mean_iou": 0.8157
+        },
+        "single_7": {
+          "n": 12,
+          "same_pattern": 12,
+          "alive": 12,
+          "classes": {
+            "struct_2": 12
+          },
+          "mean_iou": 0.8639
+        },
+        "single_8": {
+          "n": 12,
+          "same_pattern": 12,
+          "alive": 12,
+          "classes": {
+            "struct_2": 12
+          },
+          "mean_iou": 0.8474
+        },
+        "single_9": {
+          "n": 12,
+          "same_pattern": 12,
+          "alive": 12,
+          "classes": {
+            "struct_2": 12
+          },
+          "mean_iou": 0.8569
+        },
+        "single_10": {
+          "n": 12,
+          "same_pattern": 12,
+          "alive": 12,
+          "classes": {
+            "struct_2": 12
+          },
+          "mean_iou": 0.8639
+        },
+        "single_11": {
+          "n": 12,
+          "same_pattern": 12,
+          "alive": 12,
+          "classes": {
+            "struct_2": 12
+          },
+          "mean_iou": 0.8607
+        },
+        "single_12": {
+          "n": 12,
+          "same_pattern": 12,
+          "alive": 12,
+          "classes": {
+            "struct_2": 12
+          },
+          "mean_iou": 0.8242
+        },
+        "single_13": {
+          "n": 12,
+          "same_pattern": 12,
+          "alive": 12,
+          "classes": {
+            "struct_2": 12
+          },
+          "mean_iou": 0.8297
+        },
+        "single_14": {
+          "n": 12,
+          "same_pattern": 12,
+          "alive": 12,
+          "classes": {
+            "struct_2": 12
+          },
+          "mean_iou": 0.8147
+        },
+        "g_2_7": {
+          "n": 12,
+          "same_pattern": 12,
+          "alive": 12,
+          "classes": {
+            "struct_2": 12
+          },
+          "mean_iou": 0.8053
+        },
+        "g_8_14": {
+          "n": 12,
+          "same_pattern": 12,
+          "alive": 12,
+          "classes": {
+            "struct_2": 12
+          },
+          "mean_iou": 0.6316
+        },
+        "g_2_4": {
+          "n": 12,
+          "same_pattern": 12,
+          "alive": 12,
+          "classes": {
+            "struct_2": 12
+          },
+          "mean_iou": 0.8072
+        },
+        "g_5_7": {
+          "n": 12,
+          "same_pattern": 12,
+          "alive": 12,
+          "classes": {
+            "struct_2": 12
+          },
+          "mean_iou": 0.8025
+        },
+        "g_8_10": {
+          "n": 12,
+          "same_pattern": 12,
+          "alive": 12,
+          "classes": {
+            "struct_2": 12
+          },
+          "mean_iou": 0.8522
+        },
+        "g_11_14": {
+          "n": 12,
+          "same_pattern": 12,
+          "alive": 12,
+          "classes": {
+            "struct_2": 12
+          },
+          "mean_iou": 0.7784
+        }
+      },
+      "ch3": {
+        "n": 12,
+        "identity_orientation": 12,
+        "same_pattern_dihedral": 12,
+        "d4_histogram": {
+          "0": 12
+        },
+        "mean_iou": 0.7994
+      },
+      "ch4": {
+        "n": 12,
+        "same_pattern": 12,
+        "alive": 12,
+        "classes": {
+          "struct_2": 12
+        },
+        "mean_iou": 0.7905
+      },
+      "ab2": {
+        "family": "WP4_R-9_s2000_seed42",
+        "proto_class": "struct_2",
+        "pairs": [
+          {
+            "pair": 0,
+            "target_q": 0.15,
+            "c_left": 9,
+            "c_right": 55,
+            "removed_fraction_left": 0.15,
+            "removed_fraction_right": 0.1458,
+            "mass_gap": 0.0041,
+            "valid": true,
+            "iou_left": 0.8374,
+            "iou_right": 0.8578,
+            "diff": -0.0204
+          },
+          {
+            "pair": 1,
+            "target_q": 0.18,
+            "c_left": 11,
+            "c_right": 53,
+            "removed_fraction_left": 0.1803,
+            "removed_fraction_right": 0.1757,
+            "mass_gap": 0.0046,
+            "valid": true,
+            "iou_left": 0.8301,
+            "iou_right": 0.8551,
+            "diff": -0.025
+          },
+          {
+            "pair": 2,
+            "target_q": 0.21,
+            "c_left": 13,
+            "c_right": 51,
+            "removed_fraction_left": 0.2111,
+            "removed_fraction_right": 0.2084,
+            "mass_gap": 0.0028,
+            "valid": true,
+            "iou_left": 0.7834,
+            "iou_right": 0.8555,
+            "diff": -0.0721
+          },
+          {
+            "pair": 3,
+            "target_q": 0.24,
+            "c_left": 15,
+            "c_right": 49,
+            "removed_fraction_left": 0.242,
+            "removed_fraction_right": 0.2392,
+            "mass_gap": 0.0028,
+            "valid": true,
+            "iou_left": 0.6785,
+            "iou_right": 0.8574,
+            "diff": -0.1789
+          },
+          {
+            "pair": 4,
+            "target_q": 0.27,
+            "c_left": 17,
+            "c_right": 47,
+            "removed_fraction_left": 0.2723,
+            "removed_fraction_right": 0.2695,
+            "mass_gap": 0.0028,
+            "valid": true,
+            "iou_left": 0.5241,
+            "iou_right": 0.8662,
+            "diff": -0.3421
+          },
+          {
+            "pair": 5,
+            "target_q": 0.3,
+            "c_left": 19,
+            "c_right": 45,
+            "removed_fraction_left": 0.3031,
+            "removed_fraction_right": 0.3004,
+            "mass_gap": 0.0028,
+            "valid": true,
+            "iou_left": 0.7014,
+            "iou_right": 0.8611,
+            "diff": -0.1597
+          },
+          {
+            "pair": 6,
+            "target_q": 0.33,
+            "c_left": 21,
+            "c_right": 43,
+            "removed_fraction_left": 0.3339,
+            "removed_fraction_right": 0.3316,
+            "mass_gap": 0.0023,
+            "valid": true,
+            "iou_left": 0.5635,
+            "iou_right": 0.8634,
+            "diff": -0.2999
+          },
+          {
+            "pair": 7,
+            "target_q": 0.36,
+            "c_left": 23,
+            "c_right": 41,
+            "removed_fraction_left": 0.3643,
+            "removed_fraction_right": 0.362,
+            "mass_gap": 0.0023,
+            "valid": true,
+            "iou_left": 0.6301,
+            "iou_right": 0.8611,
+            "diff": -0.231
+          },
+          {
+            "pair": 8,
+            "target_q": 0.39,
+            "c_left": 25,
+            "c_right": 39,
+            "removed_fraction_left": 0.3951,
+            "removed_fraction_right": 0.3924,
+            "mass_gap": 0.0028,
+            "valid": true,
+            "iou_left": 0.6859,
+            "iou_right": 0.8459,
+            "diff": -0.16
+          },
+          {
+            "pair": 9,
+            "target_q": 0.42,
+            "c_left": 27,
+            "c_right": 37,
+            "removed_fraction_left": 0.4255,
+            "removed_fraction_right": 0.4227,
+            "mass_gap": 0.0028,
+            "valid": true,
+            "iou_left": 0.6768,
+            "iou_right": 0.835,
+            "diff": -0.1582
+          },
+          {
+            "pair": 10,
+            "target_q": 0.45,
+            "c_left": 29,
+            "c_right": 35,
+            "removed_fraction_left": 0.4558,
+            "removed_fraction_right": 0.4531,
+            "mass_gap": 0.0028,
+            "valid": true,
+            "iou_left": 0.364,
+            "iou_right": 0.8021,
+            "diff": -0.4381
+          },
+          {
+            "pair": 11,
+            "target_q": 0.48,
+            "c_left": 31,
+            "c_right": 33,
+            "removed_fraction_left": 0.4862,
+            "removed_fraction_right": 0.4834,
+            "mass_gap": 0.0028,
+            "valid": true,
+            "iou_left": 0.1847,
+            "iou_right": 0.7977,
+            "diff": -0.613
+          }
+        ],
+        "n_valid": 12,
+        "sign_counts": {
+          "-1": 12
+        },
+        "dominant_sign": -1,
+        "dominant_count": 12,
+        "sign_consistent": true,
+        "mean_diff": -0.2249,
+        "criterion": "знак разности одинаков в >= 11 из 12 валидных пар",
+        "verdict": "confirmed_structural_asymmetry"
+      }
+    },
+    {
+      "family": "WP4_R-9_s2000_seed101",
+      "proto_seed": 5,
+      "expected_class": "struct_1",
+      "proto_class": "struct_1",
+      "proto_alive": 0.7966,
+      "ch2": {
+        "none": {
+          "n": 12,
+          "same_pattern": 0,
+          "alive": 12,
+          "classes": {
+            "struct_1": 12
+          },
+          "mean_iou": 0.1473
+        },
+        "single_2": {
+          "n": 12,
+          "same_pattern": 0,
+          "alive": 12,
+          "classes": {
+            "struct_1": 12
+          },
+          "mean_iou": 0.1527
+        },
+        "single_3": {
+          "n": 12,
+          "same_pattern": 0,
+          "alive": 12,
+          "classes": {
+            "struct_1": 12
+          },
+          "mean_iou": 0.1531
+        },
+        "single_4": {
+          "n": 12,
+          "same_pattern": 0,
+          "alive": 12,
+          "classes": {
+            "struct_1": 12
+          },
+          "mean_iou": 0.154
+        },
+        "single_5": {
+          "n": 12,
+          "same_pattern": 0,
+          "alive": 12,
+          "classes": {
+            "struct_1": 12
+          },
+          "mean_iou": 0.1509
+        },
+        "single_6": {
+          "n": 12,
+          "same_pattern": 0,
+          "alive": 12,
+          "classes": {
+            "struct_1": 12
+          },
+          "mean_iou": 0.1581
+        },
+        "single_7": {
+          "n": 12,
+          "same_pattern": 0,
+          "alive": 12,
+          "classes": {
+            "struct_1": 12
+          },
+          "mean_iou": 0.1521
+        },
+        "single_8": {
+          "n": 12,
+          "same_pattern": 0,
+          "alive": 12,
+          "classes": {
+            "struct_1": 12
+          },
+          "mean_iou": 0.1585
+        },
+        "single_9": {
+          "n": 12,
+          "same_pattern": 0,
+          "alive": 12,
+          "classes": {
+            "struct_1": 12
+          },
+          "mean_iou": 0.1535
+        },
+        "single_10": {
+          "n": 12,
+          "same_pattern": 0,
+          "alive": 12,
+          "classes": {
+            "struct_1": 12
+          },
+          "mean_iou": 0.1476
+        },
+        "single_11": {
+          "n": 12,
+          "same_pattern": 0,
+          "alive": 12,
+          "classes": {
+            "struct_1": 12
+          },
+          "mean_iou": 0.1548
+        },
+        "single_12": {
+          "n": 12,
+          "same_pattern": 0,
+          "alive": 12,
+          "classes": {
+            "struct_1": 12
+          },
+          "mean_iou": 0.1478
+        },
+        "single_13": {
+          "n": 12,
+          "same_pattern": 0,
+          "alive": 12,
+          "classes": {
+            "struct_1": 12
+          },
+          "mean_iou": 0.1523
+        },
+        "single_14": {
+          "n": 12,
+          "same_pattern": 0,
+          "alive": 12,
+          "classes": {
+            "struct_1": 12
+          },
+          "mean_iou": 0.1607
+        },
+        "g_2_7": {
+          "n": 12,
+          "same_pattern": 0,
+          "alive": 12,
+          "classes": {
+            "struct_1": 12
+          },
+          "mean_iou": 0.1534
+        },
+        "g_8_14": {
+          "n": 12,
+          "same_pattern": 0,
+          "alive": 12,
+          "classes": {
+            "struct_1": 12
+          },
+          "mean_iou": 0.1508
+        },
+        "g_2_4": {
+          "n": 12,
+          "same_pattern": 0,
+          "alive": 12,
+          "classes": {
+            "struct_1": 12
+          },
+          "mean_iou": 0.1571
+        },
+        "g_5_7": {
+          "n": 12,
+          "same_pattern": 0,
+          "alive": 12,
+          "classes": {
+            "struct_1": 12
+          },
+          "mean_iou": 0.1561
+        },
+        "g_8_10": {
+          "n": 12,
+          "same_pattern": 0,
+          "alive": 12,
+          "classes": {
+            "struct_1": 12
+          },
+          "mean_iou": 0.1525
+        },
+        "g_11_14": {
+          "n": 12,
+          "same_pattern": 0,
+          "alive": 12,
+          "classes": {
+            "struct_1": 12
+          },
+          "mean_iou": 0.1543
+        }
+      },
+      "ch3": {
+        "n": 12,
+        "identity_orientation": 0,
+        "same_pattern_dihedral": 0,
+        "d4_histogram": {
+          "3": 2,
+          "0": 4,
+          "5": 1,
+          "6": 1,
+          "2": 2,
+          "1": 2
+        },
+        "mean_iou": 0.166
+      },
+      "ch4": {
+        "n": 12,
+        "same_pattern": 0,
+        "alive": 12,
+        "classes": {
+          "struct_1": 12
+        },
+        "mean_iou": 0.1536
+      },
+      "ab2": null
+    },
+    {
+      "family": "untrained_current_arch",
+      "proto_seed": 0,
+      "expected_class": "struct_1",
+      "proto_class": "struct_1",
+      "proto_alive": 0.4963,
+      "ch2": {
+        "none": {
+          "n": 12,
+          "same_pattern": 12,
+          "alive": 12,
+          "classes": {
+            "struct_1": 12
+          },
+          "mean_iou": 1.0
+        },
+        "single_2": {
+          "n": 12,
+          "same_pattern": 12,
+          "alive": 12,
+          "classes": {
+            "struct_1": 12
+          },
+          "mean_iou": 1.0
+        },
+        "single_3": {
+          "n": 12,
+          "same_pattern": 12,
+          "alive": 12,
+          "classes": {
+            "struct_1": 12
+          },
+          "mean_iou": 1.0
+        },
+        "single_4": {
+          "n": 12,
+          "same_pattern": 12,
+          "alive": 12,
+          "classes": {
+            "struct_1": 12
+          },
+          "mean_iou": 1.0
+        },
+        "single_5": {
+          "n": 12,
+          "same_pattern": 12,
+          "alive": 12,
+          "classes": {
+            "struct_1": 12
+          },
+          "mean_iou": 1.0
+        },
+        "single_6": {
+          "n": 12,
+          "same_pattern": 12,
+          "alive": 12,
+          "classes": {
+            "struct_1": 12
+          },
+          "mean_iou": 1.0
+        },
+        "single_7": {
+          "n": 12,
+          "same_pattern": 12,
+          "alive": 12,
+          "classes": {
+            "struct_1": 12
+          },
+          "mean_iou": 1.0
+        },
+        "single_8": {
+          "n": 12,
+          "same_pattern": 12,
+          "alive": 12,
+          "classes": {
+            "struct_1": 12
+          },
+          "mean_iou": 1.0
+        },
+        "single_9": {
+          "n": 12,
+          "same_pattern": 12,
+          "alive": 12,
+          "classes": {
+            "struct_1": 12
+          },
+          "mean_iou": 1.0
+        },
+        "single_10": {
+          "n": 12,
+          "same_pattern": 12,
+          "alive": 12,
+          "classes": {
+            "struct_1": 12
+          },
+          "mean_iou": 1.0
+        },
+        "single_11": {
+          "n": 12,
+          "same_pattern": 12,
+          "alive": 12,
+          "classes": {
+            "struct_1": 12
+          },
+          "mean_iou": 1.0
+        },
+        "single_12": {
+          "n": 12,
+          "same_pattern": 12,
+          "alive": 12,
+          "classes": {
+            "struct_1": 12
+          },
+          "mean_iou": 1.0
+        },
+        "single_13": {
+          "n": 12,
+          "same_pattern": 12,
+          "alive": 12,
+          "classes": {
+            "struct_1": 12
+          },
+          "mean_iou": 1.0
+        },
+        "single_14": {
+          "n": 12,
+          "same_pattern": 12,
+          "alive": 12,
+          "classes": {
+            "struct_1": 12
+          },
+          "mean_iou": 1.0
+        },
+        "g_2_7": {
+          "n": 12,
+          "same_pattern": 12,
+          "alive": 12,
+          "classes": {
+            "struct_1": 12
+          },
+          "mean_iou": 1.0
+        },
+        "g_8_14": {
+          "n": 12,
+          "same_pattern": 12,
+          "alive": 12,
+          "classes": {
+            "struct_1": 12
+          },
+          "mean_iou": 1.0
+        },
+        "g_2_4": {
+          "n": 12,
+          "same_pattern": 12,
+          "alive": 12,
+          "classes": {
+            "struct_1": 12
+          },
+          "mean_iou": 1.0
+        },
+        "g_5_7": {
+          "n": 12,
+          "same_pattern": 12,
+          "alive": 12,
+          "classes": {
+            "struct_1": 12
+          },
+          "mean_iou": 1.0
+        },
+        "g_8_10": {
+          "n": 12,
+          "same_pattern": 12,
+          "alive": 12,
+          "classes": {
+            "struct_1": 12
+          },
+          "mean_iou": 1.0
+        },
+        "g_11_14": {
+          "n": 12,
+          "same_pattern": 12,
+          "alive": 12,
+          "classes": {
+            "struct_1": 12
+          },
+          "mean_iou": 1.0
+        }
+      },
+      "ch3": {
+        "n": 12,
+        "identity_orientation": 0,
+        "same_pattern_dihedral": 0,
+        "d4_histogram": {
+          "0": 12
+        },
+        "mean_iou": 0.0
+      },
+      "ch4": {
+        "n": 12,
+        "same_pattern": 0,
+        "alive": 12,
+        "classes": {
+          "death": 12
+        },
+        "mean_iou": 0.0
+      },
+      "ab2": null
+    }
+  ]
+}

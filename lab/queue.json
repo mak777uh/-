@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-21T18:33:40Z",
+  "updated_at": "2026-10-21T20:27:23Z",
   "note": "Очередь пунктов после E02c. Claim берётся до пре-регистрации, а не перед запуском: lab.py item-claim. Статус running означает занятый GPU-лейн и может быть только у одного пункта.",
   "items": [
     {
@@ -56,16 +56,17 @@
       "id": "E02b_closures",
       "title": "Дешёвые закрытия: H-AB-2 и H-CH-2/3/4 без новых тренировок",
       "hypothesis": "H-AB-2",
-      "status": "planned",
-      "owner": null,
-      "claimed_at": null,
+      "status": "closed",
+      "owner": "lead",
+      "claimed_at": "2026-10-21T18:40:57Z",
       "heartbeat_at": null,
-      "closed_at": null,
+      "closed_at": "2026-10-21T20:27:23Z",
       "ttl_minutes": 240,
       "cost_gpu_h": 1.5,
       "gated_by": null,
       "artifacts": [],
-      "note": "Группа гипотез: H-AB-2, H-CH-2, H-CH-3, H-CH-4; можно заполнять окна между длинными прогонами."
+      "note": "H-CH-3 и H-AB-2 подтверждены, H-CH-2 и H-CH-4 опровергнуты; alive-канал несёт тело. 816 развёрток, verifier 0 ошибок. Отчёт reports/2026-10-21-e02b-closures-results.md, статья 008.",
+      "closed_by": "lead"
     },
     {
       "id": "E02c_frequency_pilot",
