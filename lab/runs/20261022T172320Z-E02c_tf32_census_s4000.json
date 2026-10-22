@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "run_id": "20261022T172320Z-E02c_tf32_census_s4000",
+  "experiment": "E02c_tf32_census_s4000",
+  "experiment_id": "E02c",
+  "arm": null,
+  "seed": null,
+  "steps": null,
+  "status": "finished",
+  "provenance": "runner",
+  "source": "morphogenesis/logs/journal.jsonl",
+  "started_at": "2026-10-22T17:23:20Z",
+  "finished_at": "2026-10-22T17:42:51Z",
+  "git_commit": "4b7da5a",
+  "git_dirty": true,
+  "command": [
+    "C:\\Users\\Admin\\Documents\\Qoder\\2026-10-18\\82ab86cd\\repo\\.venv\\Scripts\\python.exe",
+    "e02c_census.py",
+    "--seeds",
+    "0-63",
+    "--steps",
+    "2000",
+    "--families",
+    "E02c_R-9_s4000_seed42_tf32",
+    "--out",
+    "experiments/E02c_replication/census_e02c_tf32_s4000.json",
+    "--summary-out",
+    "experiments/E02c_replication/summary_e02c_tf32_s4000.json"
+  ],
+  "cwd": "morphogenesis",
+  "owner": "analyst",
+  "environment": {
+    "python": "3.13.11",
+    "platform": "Windows-11-10.0.26300-SP0",
+    "torch": "2.6.0+cu124",
+    "numpy": "2.5.4",
+    "device": "NVIDIA GeForce RTX 3070 Laptop GPU, 595.79"
+  },
+  "checkpoint_in": null,
+  "outputs": {
+    "declared": [
+      "morphogenesis/experiments/E02c_replication/summary_e02c_tf32_s4000.json"
+    ],
+    "log": "morphogenesis/logs/20261022T172320Z-E02c_tf32_census_s4000.log"
+  },
+  "metrics": {},
+  "stop_reason": "exit_0",
+  "exit_code": 0,
+  "log_path": "morphogenesis/logs/20261022T172320Z-E02c_tf32_census_s4000.log",
+  "notes": "H-REPRO-5 контроль: перепись TF32-модели после 4000 шагов"
+}
