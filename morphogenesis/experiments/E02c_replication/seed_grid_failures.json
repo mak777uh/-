@@ -1,0 +1,113 @@
+{
+  "source": "census_e02c_seeddec_wave2.json",
+  "cells": {
+    "init42_data202": {
+      "n": 64,
+      "dominant_class": "struct_2",
+      "dominant_count": 63,
+      "class_counts": {
+        "struct_2": 63,
+        "struct_1": 1
+      },
+      "failed_starts": [
+        5
+      ],
+      "failed_count": 1
+    },
+    "init42_data303": {
+      "n": 64,
+      "dominant_class": "struct_2",
+      "dominant_count": 60,
+      "class_counts": {
+        "struct_2": 60,
+        "struct_1": 4
+      },
+      "failed_starts": [
+        10,
+        33,
+        56,
+        62
+      ],
+      "failed_count": 4
+    },
+    "init101_data202": {
+      "n": 64,
+      "dominant_class": "death",
+      "dominant_count": 47,
+      "class_counts": {
+        "death": 47,
+        "struct_1": 12,
+        "uniform_dark": 5
+      },
+      "failed_starts": [
+        13,
+        14,
+        20,
+        21,
+        26,
+        33,
+        38,
+        39,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        54,
+        57,
+        60
+      ],
+      "failed_count": 17
+    },
+    "init101_data303": {
+      "n": 64,
+      "dominant_class": "uniform_dark",
+      "dominant_count": 64,
+      "class_counts": {
+        "uniform_dark": 64
+      },
+      "failed_starts": [],
+      "failed_count": 0
+    }
+  },
+  "failed_start_overlap": {
+    "init42_data202_vs_data303": {
+      "a_failed": [
+        5
+      ],
+      "b_failed": [
+        10,
+        33,
+        56,
+        62
+      ],
+      "intersection": [],
+      "n_intersection": 0
+    },
+    "init101_data202_vs_data303": {
+      "a_failed": [
+        13,
+        14,
+        20,
+        21,
+        26,
+        33,
+        38,
+        39,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        54,
+        57,
+        60
+      ],
+      "b_failed": [],
+      "intersection": [],
+      "n_intersection": 0
+    }
+  }
+}

@@ -1,6 +1,6 @@
 # What Morphologies Does a Neural Cellular Automaton Hold? A Census and a Negative Result
 
-**Status:** DRAFT v0.18 (2026-10-22) — not submitted, not peer-reviewed, do not cite. **Publication gate:** E02c is closed, the seed42 run repeats bitwise and returns the class 64/64 (§4.6), and the portable package passed an independent CPU reproduction of the E02b census; an independent retraining of seed42 on a different stack was attempted and did **not** reproduce the class (§4.12), so the claim is now explicitly stack-conditional and external submission remains a decision of the owner. No claim about life, consciousness or intelligence; only observable behavioural classes and their boundaries ([AGENTS.md](../AGENTS.md) §3).
+**Status:** DRAFT v0.19 (2026-10-22) — not submitted, not peer-reviewed, do not cite. **Publication gate:** E02c is closed, the seed42 run repeats bitwise and returns the class 64/64 (§4.6), and the portable package passed an independent CPU reproduction of the E02b census; an independent retraining of seed42 on a different stack was attempted and did **not** reproduce the class (§4.12), so the claim is now explicitly stack-conditional and external submission remains a decision of the owner. No claim about life, consciousness or intelligence; only observable behavioural classes and their boundaries ([AGENTS.md](../AGENTS.md) §3).
 
 <!-- TODO: owner decision on the stack-conditional claim (and on H-REPRO-2/H-REPRO-3) before any external submission. -->
 
@@ -273,6 +273,8 @@ Boundaries: one other stack, one GPU model, one retrained family; the raw Colab 
 **What this does to §4.5 and §4.8.** The 0/3 replication of §4.5 remains correct and is now explained rather than merely reported: the seeds 142/242/342 change the initialisation, which is the factor that decides. The "both factors are needed" reading of §4.8 was an over-generalisation from two cells — (42, 101) and (101, 42) — and is superseded here: initialisation selects the basin, data decides whether the class holds inside it. Article 009 is not rewritten; it stays a correct description of its own design.
 
 **Controls.** The same census included the canonical positive control (`WP4_R-9_s2000_seed42`, `struct_2` 64/64) and the negative control (untrained, `struct_1` 64/64), so the classes above are read by the same instrument that reproduces the canonical result.
+
+**The residual misses belong to the model, not to particular starts.** The two `struct_2` cells lose 1 and 4 starts out of 64; the failing noise seeds are `{5}` and `{10, 33, 56, 62}`, and their intersection is empty — the same holds for the two initialisation-101 cells. If the misses had come from a handful of "hard" noise starts, they would repeat across cells; they do not, so each trained model carries its own few unstable starts while the class itself is stable.
 
 Boundaries: a 2×4 grid is a direction, not a frequency — the data seeds were not drawn at random, so "three of four" is not a probability; one recipe, one horizon, one device, and a class that is itself stack-conditional (§4.12).
 
