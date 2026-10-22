@@ -68,41 +68,52 @@ ANCHOR_VALUES = {
 }
 
 
-def cell_from_summary(path: Path) -> dict:
+def cells_from_summary(path: Path) -> list[dict]:
+    """Клетки из одной сводки: их может быть несколько.
+
+    Перепись четырёх клеток можно прогнать одной волной (один вызов
+    `e02c_census.py` с четырьмя `--families`), и тогда в `stats` лежит четыре
+    семейства. Парсер обязан вернуть все, иначе три клетки молча потеряются
+    ровно перед вердиктом.
+    """
     summary = json.loads(path.read_text(encoding="utf-8"))
     stats = list((summary.get("stats") or {}).values())
     if not stats:
         raise SystemExit(f"{path.name}: нет stats")
-    stat = stats[0]
-    family = str(stat.get("family") or "")
-    match = FAMILY_PATTERN.match(family)
-    if not match:
-        raise SystemExit(
-            f"{path.name}: семейство '{family}' не по шаблону "
-            "E02c_seeddec_init<A>_data<B> — клетку не из чего собрать"
+    cells = []
+    for stat in stats:
+        family = str(stat.get("family") or "")
+        match = FAMILY_PATTERN.match(family)
+        if not match:
+            raise SystemExit(
+                f"{path.name}: семейство '{family}' не по шаблону "
+                "E02c_seeddec_init<A>_data<B> — клетку не из чего собрать"
+            )
+        init, data = int(match.group("init")), int(match.group("data"))
+        # Название класса — самый частый в frozen_class_counts.
+        counts = stat.get("frozen_class_counts") or {}
+        dominant = max(counts.items(), key=lambda kv: kv[1])[0] if counts else "unknown"
+        n = stat.get("n")
+        cells.append(
+            {
+                "init_seed": init,
+                "data_seed": data,
+                "source": path.name,
+                "kind": "measured",
+                "family": family,
+                "n": n,
+                "complete": bool(n == FULL_N),
+                "struct_1": counts.get("struct_1", 0),
+                "struct_2": stat.get("struct_2"),
+                "struct_2_fraction": stat.get("struct_2_fraction"),
+                "struct_2_stable_fraction": stat.get("struct_2_stable_fraction"),
+                "struct_2_stable_frozen_fraction": stat.get("struct_2_stable_frozen_fraction"),
+                "dominant_class": dominant,
+                "class_counts": counts,
+                "finished_at": summary.get("finished_at"),
+            }
         )
-    init, data = int(match.group("init")), int(match.group("data"))
-    # Название класса — самый частый в frozen_class_counts.
-    counts = stat.get("frozen_class_counts") or {}
-    dominant = max(counts.items(), key=lambda kv: kv[1])[0] if counts else "unknown"
-    n = stat.get("n")
-    return {
-        "init_seed": init,
-        "data_seed": data,
-        "source": path.name,
-        "kind": "measured",
-        "family": family,
-        "n": n,
-        "complete": bool(n == FULL_N),
-        "struct_1": counts.get("struct_1", 0),
-        "struct_2": stat.get("struct_2"),
-        "struct_2_fraction": stat.get("struct_2_fraction"),
-        "struct_2_stable_fraction": stat.get("struct_2_stable_fraction"),
-        "struct_2_stable_frozen_fraction": stat.get("struct_2_stable_frozen_fraction"),
-        "dominant_class": dominant,
-        "class_counts": counts,
-        "finished_at": summary.get("finished_at"),
-    }
+    return cells
 
 
 def build_verdict(cells: list[dict]) -> dict:
@@ -177,7 +188,7 @@ def build_verdict(cells: list[dict]) -> dict:
 def main() -> int:
     cells = []
     for path in sorted(EXP.glob("summary_e02c_seeddec_*.json")):
-        cells.append(cell_from_summary(path))
+        cells.extend(cells_from_summary(path))
 
     anchors = []
     for key, value in sorted(ANCHOR_VALUES.items()):

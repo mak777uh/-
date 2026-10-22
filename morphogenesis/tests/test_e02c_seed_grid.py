@@ -229,6 +229,37 @@ def test_no_cells_yields_not_applicable(grid):
     assert verdict["incomplete_cells_excluded"] == []
 
 
+def test_combined_wave_summary_yields_all_cells(grid):
+    """Одна волна на четыре клетки: в stats четыре семейства — берутся все."""
+    module, exp = grid
+    stats = {}
+    for init, data, counts in (
+        (42, 202, {"uniform_dark": 64}),
+        (42, 303, {"struct_1": 64}),
+        (101, 202, {"struct_1": 64}),
+        (101, 303, {"uniform_dark": 64}),
+    ):
+        family = f"E02c_seeddec_init{init}_data{data}"
+        stats[family] = {
+            "family": family,
+            "n": 64,
+            "struct_2": 0,
+            "struct_2_fraction": 0.0,
+            "frozen_class_counts": counts,
+        }
+    (exp / "summary_e02c_seeddec_wave2.json").write_bytes(
+        json.dumps({"stats": stats}).encode("utf-8")
+    )
+
+    assert module.main() == 0
+    payload = read_grid(exp)
+    assert payload["n_measured"] == 4
+    for key in ("init42_data202", "init42_data303", "init101_data202", "init101_data303"):
+        assert payload["cells"][key]["kind"] == "measured"
+        assert payload["cells"][key]["source"] == "summary_e02c_seeddec_wave2.json"
+    assert payload["cells"]["init42_data303"]["dominant_class"] == "struct_1"
+
+
 def test_summary_without_stats_fails_loudly(grid):
     module, exp = grid
     (exp / "summary_e02c_seeddec_init42_data202.json").write_text(
