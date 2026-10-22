@@ -87,7 +87,7 @@ def checkpoint_meta(path):
     return int(seed), int(steps)
 
 
-def discover_specs(families=None):
+def discover_specs(families=None, allow_missing_control=False):
     specs = []
     for name in sorted(os.listdir(CHECKPOINT_ROOT)):
         if not name.startswith("E02c_"):
@@ -128,10 +128,20 @@ def discover_specs(families=None):
         raise SystemExit("[e02c] не найдено ни одного E02c-чекпоинта")
 
     # Положительный контроль: тот же код, но как control (не задаёт кластеры).
-    control = e02b.load_checkpoint_specs(
-        families=["WP4_R-9_s2000_seed42"], include_untrained=False
-    )[0]
-    specs.append(replace(control, arm="H-P1", note="positive control R-9 seed42"))
+    # На чужом железе (Colab) канонического чекпоинта может не быть: тогда его
+    # пропускаем с явной отметкой в сводке, а не притворяемся, что контроль был.
+    try:
+        control = e02b.load_checkpoint_specs(
+            families=["WP4_R-9_s2000_seed42"], include_untrained=False
+        )[0]
+    except (IndexError, SystemExit):
+        if not allow_missing_control:
+            raise
+        print("[e02c] контроль WP4_R-9_s2000_seed42 отсутствует — пропуск (флаг)")
+        missing_control = True
+    else:
+        specs.append(replace(control, arm="H-P1", note="positive control R-9 seed42"))
+        missing_control = False
 
     specs.append(
         e02b.CheckpointSpec(
@@ -241,6 +251,11 @@ def main(argv=None):
     ap.add_argument("--every", type=int, default=50)
     ap.add_argument("--device", default="auto")
     ap.add_argument("--families", default="", help="фильтр E02c_* через запятую")
+    ap.add_argument(
+        "--allow-missing-control",
+        action="store_true",
+        help="не требовать канонический контроль WP4 seed42 (прогон на чужом железе)",
+    )
     ap.add_argument("--out", default=DEFAULT_OUT)
     ap.add_argument(
         "--summary-out",
@@ -255,7 +270,7 @@ def main(argv=None):
 
     seeds = parse_seeds(args.seeds)
     families = [x.strip() for x in args.families.split(",") if x.strip()]
-    specs = discover_specs(families or None)
+    specs = discover_specs(families or None, allow_missing_control=args.allow_missing_control)
     device = e02b._device_from_arg(args.device)
     print(
         f"[e02c] families={[s.family for s in specs]} seeds={len(seeds)} "
@@ -300,7 +315,9 @@ def _census(args, seeds, specs, device):
     # 12 канонических E02b. Поэтому требование «12 файлов» снимаем, но sha256
     # и диск проверяем тем же _preflight.
     e02b._preflight(
-        [s for s in specs if s.path], full_protocol=True, allow_missing=True
+        [s for s in specs if s.path],
+        full_protocol=not args.allow_missing_control,
+        allow_missing=True,
     )
     started = time.time()
     frozen_projector = e02b.load_frozen_projector(CENTROIDS)
@@ -359,6 +376,7 @@ def _census(args, seeds, specs, device):
         "families": new_families,
         "stats": stats,
         "controls": controls,
+        "positive_control_present": any(s.arm == "H-P1" for s in specs),
         "verdict": verdict,
         "verdict_applicable": verdict_applicable,
         "verdict_note": None
