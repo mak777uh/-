@@ -45,8 +45,21 @@ jobs:
           python -m pip install --index-url https://download.pytorch.org/whl/cpu "torch>=2.6,<3"
           python -m pip install -r requirements.txt
 
+      # Логи приватных прогонов мы читать не можем (API отдаёт 403 без токена),
+      # а аннотации check-run читаются публично. Поэтому падение печатается ещё и
+      # как ::error:: с текстом — иначе остаётся только «exit code 1».
       - name: Lab contract
-        run: python scripts/lab.py validate --ci
+        shell: bash
+        run: |
+          set +e
+          out=$(python scripts/lab.py validate --ci 2>&1)
+          code=$?
+          printf '%s\n' "$out"
+          if [ $code -ne 0 ]; then
+            msg=$(printf '%s' "$out" | tail -n 4 | tr '\n' ' ' | tr -s ' ')
+            echo "::error title=lab-contract::${msg:0:900}"
+            exit $code
+          fi
 
       - name: Canonical E02b artifacts re-verify
         working-directory: morphogenesis
@@ -66,11 +79,24 @@ jobs:
           git diff --exit-code -- morphogenesis/experiments/E02c_replication/seed_grid.json
 
       - name: Text integrity (links and section references)
+        shell: bash
         run: |
-          python scripts/check_links.py --all
-          python scripts/check_section_refs.py
-          python scripts/check_references.py
-          python scripts/check_reports_index.py
+          set +e
+          fail=0
+          for cmd in "python scripts/check_links.py --all" \
+                     "python scripts/check_section_refs.py" \
+                     "python scripts/check_references.py" \
+                     "python scripts/check_reports_index.py"; do
+            out=$($cmd 2>&1)
+            code=$?
+            printf '%s\n' "$out"
+            if [ $code -ne 0 ]; then
+              fail=$code
+              msg=$(printf '%s' "$out" | tail -n 3 | tr '\n' ' ' | tr -s ' ')
+              echo "::error title=${cmd%% *}::${msg:0:900}"
+            fi
+          done
+          exit $fail
 
       - name: CPU tests
         working-directory: morphogenesis
