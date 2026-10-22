@@ -72,13 +72,25 @@ def parse_seeds(spec):
     return sorted(set(out))
 
 
+def checkpoint_meta(path):
+    """seed и число шагов из самого чекпоинта.
+
+    Нужно для семейств, имя которых не укладывается в шаблон
+    `E02c_<arm>_s<steps>_seed<seed>`: декомпозиция сида пишет в каталоге
+    `E02c_seeddec_init42_data101`, а перепись ищет семейства по имени.
+    """
+    ck = torch.load(path, map_location="cpu", weights_only=False)
+    seed = ck.get("seed")
+    steps = ck.get("iteration")
+    if seed is None or steps is None:
+        return None
+    return int(seed), int(steps)
+
+
 def discover_specs(families=None):
     specs = []
     for name in sorted(os.listdir(CHECKPOINT_ROOT)):
         if not name.startswith("E02c_"):
-            continue
-        match = FAMILY_RE.match(name)
-        if not match:
             continue
         if families and name not in families:
             continue
@@ -86,20 +98,30 @@ def discover_specs(families=None):
         if not os.path.exists(path):
             print(f"[e02c] пропуск {name}: нет nca_final.pt")
             continue
+        match = FAMILY_RE.match(name)
+        if match:
+            seed = int(match.group("seed"))
+            steps = int(match.group("steps"))
+        else:
+            meta = checkpoint_meta(path)
+            if meta is None:
+                print(f"[e02c] пропуск {name}: имя не по шаблону и в чекпоинте нет seed/iteration")
+                continue
+            seed, steps = meta
         specs.append(
             e02b.CheckpointSpec(
                 id=name,
                 arm="R-9",
                 family=name,
                 path=path,
-                seed=int(match.group("seed")),
-                steps_trained=int(match.group("steps")),
+                seed=seed,
+                steps_trained=steps,
                 sha256=sha256_file(path),
                 alive_mask_enabled=True,
                 overrides={},
                 overrides_source="e02c_plan:ARMS[R-9]",
                 kind="final",
-                note="E02c replication",
+                note="E02c replication" if match else "E02c seed decomposition",
             )
         )
     if not specs:
