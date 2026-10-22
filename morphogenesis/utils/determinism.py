@@ -128,6 +128,27 @@ def init_determinism(seed=None, strict=None):
             "CUDNN_BENCHMARK=True в config — против §9.2; cudnn.benchmark оставлен True"
         )
 
+    # TF32 — разрешённая по умолчанию точность свёрток на Ampere и новее
+    # (torch.backends.cudnn.allow_tf32=True). На Turing (T4) TF32 нет вообще,
+    # поэтому «тот же рецепт» считает свёртки с разной точностью. Переменная
+    # MORPH_TF32=0 выключает TF32, не меняя дефолтов config: нужно для опыта
+    # «точность против класса» (H-REPRO-4). По умолчанию поведение прежнее.
+    tf32_env = os.environ.get("MORPH_TF32")
+    tf32_enabled = True if tf32_env is None else tf32_env.strip() not in {"0", "false", "False", "no"}
+    if tf32_enabled:
+        report["tf32_cudnn"] = bool(torch.backends.cudnn.allow_tf32)
+        report["tf32_matmul"] = bool(torch.backends.cuda.matmul.allow_tf32)
+        report["tf32_forced_off"] = False
+    else:
+        torch.backends.cudnn.allow_tf32 = False
+        torch.backends.cuda.matmul.allow_tf32 = False
+        if hasattr(torch.backends.cuda.matmul, "allow_fp16_reduced_precision_reduction"):
+            torch.backends.cuda.matmul.allow_fp16_reduced_precision_reduction = False
+        report["tf32_cudnn"] = bool(torch.backends.cudnn.allow_tf32)
+        report["tf32_matmul"] = bool(torch.backends.cuda.matmul.allow_tf32)
+        report["tf32_forced_off"] = True
+        report["tf32_env"] = tf32_env
+
     report["cudnn_deterministic"] = bool(torch.backends.cudnn.deterministic)
     report["cudnn_benchmark"] = bool(torch.backends.cudnn.benchmark)
 

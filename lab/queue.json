@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-22T11:17:32Z",
+  "updated_at": "2026-10-22T11:48:25Z",
   "note": "Очередь пунктов после E02c. Claim берётся до пре-регистрации, а не перед запуском: lab.py item-claim. Статус running означает занятый GPU-лейн и может быть только у одного пункта.",
   "items": [
     {
@@ -223,10 +223,10 @@
       "id": "E02c_repro_torch211",
       "title": "Seed42 на torch 2.11.0+cu130 при том же GPU: версия фреймворка или железо",
       "hypothesis": "H-REPRO-2",
-      "status": "running",
-      "owner": "analyst",
-      "claimed_at": "2026-10-22T11:17:32Z",
-      "heartbeat_at": "2026-10-22T11:17:32Z",
+      "status": "planned",
+      "owner": null,
+      "claimed_at": null,
+      "heartbeat_at": null,
       "closed_at": null,
       "ttl_minutes": 240,
       "cost_gpu_h": 0.8,
@@ -234,7 +234,25 @@
       "artifacts": [
         "reports/2026-10-22-e02c-repro-torch211-plan.md"
       ],
-      "note": "Изолированное окружение .venv-torch211 (torch 2.11.0+cu130), init=data=42, каталог checkpoints/E02c_seeddec_init42_data42; канон seed42 не перезаписывается.",
+      "note": "Заблокировано сетью: колесо torch 2.11.0+cu130 (1915 МБ) не скачивается (прокси 10.229.103.243:10809 отдаёт метаданные, но тело стоит на нуле — проверено pip и curl). Альтернатива: обратный опыт на Colab (T4 + torch 2.6.0+cu124).",
+      "closed_by": null
+    },
+    {
+      "id": "E02c_repro_tf32",
+      "title": "Сид 42 с выключенным TF32: точность свёрток как на T4",
+      "hypothesis": "H-REPRO-4",
+      "status": "running",
+      "owner": "analyst",
+      "claimed_at": "2026-10-22T11:48:25Z",
+      "heartbeat_at": "2026-10-22T11:48:25Z",
+      "closed_at": null,
+      "ttl_minutes": 240,
+      "cost_gpu_h": 0.7,
+      "gated_by": null,
+      "artifacts": [
+        "reports/2026-10-22-e02c-repro-tf32-plan.md"
+      ],
+      "note": "MORPH_TF32=0 на том же железе и torch 2.6.0; пишем в checkpoints/E02c_seeddec_init42_data42.",
       "closed_by": null
     }
   ]
