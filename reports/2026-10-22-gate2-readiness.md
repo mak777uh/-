@@ -18,11 +18,12 @@
 | Портативный пакет | собран и проверен | `scripts/verify_portable_package.py`: 29 записей `files[]` по sha256 и размеру, census `01a68fb0…` ≠ канонический `e81678b6…`, абсолютных путей нет — 0 ошибок (2026-10-22) |
 | Карточка датасета | есть, с ограничением про стек | [`docs/dataset/DATASET_CARD.md`](../docs/dataset/DATASET_CARD.md), ограничение 12 |
 | Спецификация бенчмарка v0 | есть, forward-only | [`docs/benchmark/BENCHMARK_v0.md`](../docs/benchmark/BENCHMARK_v0.md) |
-| Рукопись | v0.15 draft, §1–§8 | [`manuscript/paper.md`](../manuscript/paper.md), [`CHANGELOG`](../manuscript/CHANGELOG.md) |
+| Рукопись | v0.18 draft, §1–§8 | [`manuscript/paper.md`](../manuscript/paper.md), [`CHANGELOG`](../manuscript/CHANGELOG.md) |
 | Матрица утверждений | 30+ строк, статусы сведены с отчётами | [`manuscript/CLAIMS.md`](../manuscript/CLAIMS.md) |
-| Журнал и контур | `validate` зелёный: 17 экспериментов, 11 пунктов очереди, 11 записей карты рукописи | `python scripts/lab.py validate` |
-| Ссылки в публичных документах | 0 битых (16 документов, 496 относительных ссылок; по всему репозиторию — 80 файлов, 798 ссылок) | `python scripts/check_links.py` (+ `--all`) |
+| Журнал и контур | `validate` зелёный: 18 экспериментов, 13 пунктов очереди, 12 записей карты рукописи | `python scripts/lab.py validate` |
+| Ссылки в публичных документах | 0 битых (16 документов, 511 относительных ссылок; по всему репозиторию — 87 файлов, 835 ссылок) | `python scripts/check_links.py` (+ `--all`) |
 | Тесты | зелёные (включая 12 на сетку H-E02C-6 и 6 на проверку пакета) | `cd morphogenesis && python -m pytest -q tests` |
+| CI | проверяет контракт, **пересчитывает канонические артефакты E02b** и текст на каждом пуше | [`.github/workflows/ci.yml`](../.github/workflows/ci.yml) |
 
 ## 2. Что блокирует подачу (решения владельца, не агента)
 

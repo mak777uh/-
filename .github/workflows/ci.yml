@@ -34,6 +34,15 @@ jobs:
       - name: Lab contract
         run: python scripts/lab.py validate --ci
 
+      - name: Canonical E02b artifacts re-verify
+        working-directory: morphogenesis
+        run: python experiments/E02b_morphospace/scripts/e02b_verify.py
+
+      - name: Text integrity (links and section references)
+        run: |
+          python scripts/check_links.py --all
+          python scripts/check_section_refs.py
+
       - name: CPU tests
         working-directory: morphogenesis
         env:
