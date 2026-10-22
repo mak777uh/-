@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "run_id": "20261022T123722Z-E02c_repro_fp32_census_tf32on",
+  "experiment": "E02c_repro_fp32_census_tf32on",
+  "experiment_id": "E02c",
+  "arm": null,
+  "seed": null,
+  "steps": null,
+  "status": "finished",
+  "provenance": "runner",
+  "source": "morphogenesis/logs/journal.jsonl",
+  "started_at": "2026-10-22T12:37:22Z",
+  "finished_at": "2026-10-22T12:57:47Z",
+  "git_commit": "d7c9171",
+  "git_dirty": true,
+  "command": [
+    ".\\.venv\\Scripts\\python.exe",
+    "e02c_census.py",
+    "--seeds",
+    "0-63",
+    "--steps",
+    "2000",
+    "--families",
+    "E02c_seeddec_init42_data42",
+    "--out",
+    "experiments/E02c_replication/census_e02c_fp32_seed42_tf32on.json",
+    "--summary-out",
+    "experiments/E02c_replication/summary_e02c_fp32_seed42_tf32on.json"
+  ],
+  "cwd": "morphogenesis",
+  "owner": "analyst",
+  "environment": {
+    "python": "3.13.11",
+    "platform": "Windows-11-10.0.26300-SP0",
+    "torch": "2.6.0+cu124",
+    "numpy": "2.5.4",
+    "device": "NVIDIA GeForce RTX 3070 Laptop GPU, 595.79"
+  },
+  "checkpoint_in": null,
+  "outputs": {
+    "declared": [
+      "morphogenesis/experiments/E02c_replication/summary_e02c_fp32_seed42_tf32on.json"
+    ],
+    "log": "morphogenesis/logs/20261022T123722Z-E02c_repro_fp32_census_tf32on.log"
+  },
+  "metrics": {},
+  "stop_reason": "exit_0",
+  "exit_code": 0,
+  "log_path": "morphogenesis/logs/20261022T123722Z-E02c_repro_fp32_census_tf32on.log",
+  "notes": "Пост-хок контроль к H-REPRO-4: та же FP32-обученная модель, перепись с TF32=on (дефолт), чтобы отделить точность обучения от точности переписи"
+}
