@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-22T11:05:00Z",
+  "updated_at": "2026-10-22T11:17:32Z",
   "note": "Очередь пунктов после E02c. Claim берётся до пре-регистрации, а не перед запуском: lab.py item-claim. Статус running означает занятый GPU-лейн и может быть только у одного пункта.",
   "items": [
     {
@@ -218,6 +218,24 @@
         "morphogenesis/experiments/E02c_replication/census_e02c_seeddec_wave2.json"
       ],
       "note": "Обучение четырёх клеток (42/202, 42/303, 101/202, 101/303) вёл analyst; перепись волны запущена дважды по ошибке, дубль снят, попытка закрыта как aborted (start без finish), перепись перезапущена прогоном E02c_seeddec_census_wave2_run (384 развёртки, 42 мин). Вердикт по замороженному критерию: H-E02C-6 опровергнута — init=101 не фиксирует класс, при init=42 struct_2 даёт 63/64 и 60/64. Claim взят пост-фактум, так как бег шёл в чужой волне; закрытие и тексты — lead."
+    },
+    {
+      "id": "E02c_repro_torch211",
+      "title": "Seed42 на torch 2.11.0+cu130 при том же GPU: версия фреймворка или железо",
+      "hypothesis": "H-REPRO-2",
+      "status": "running",
+      "owner": "analyst",
+      "claimed_at": "2026-10-22T11:17:32Z",
+      "heartbeat_at": "2026-10-22T11:17:32Z",
+      "closed_at": null,
+      "ttl_minutes": 240,
+      "cost_gpu_h": 0.8,
+      "gated_by": null,
+      "artifacts": [
+        "reports/2026-10-22-e02c-repro-torch211-plan.md"
+      ],
+      "note": "Изолированное окружение .venv-torch211 (torch 2.11.0+cu130), init=data=42, каталог checkpoints/E02c_seeddec_init42_data42; канон seed42 не перезаписывается.",
+      "closed_by": null
     }
   ]
 }
