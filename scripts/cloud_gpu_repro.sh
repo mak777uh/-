@@ -41,8 +41,15 @@ cd "$WORK"
 COMMIT="$(git rev-parse --short HEAD)"
 
 echo "=== ставлю зависимости (torch 2.6.0: под него заморожен протокол) ==="
-python3 -m pip install -q --upgrade pip
-python3 -m pip install -q "torch==2.6.0" numpy scipy tensorboard
+python3 -m pip install -q --upgrade pip || true
+# Если облако не даёт поставить 2.6.0 (нет сети до PyPI, свой индекс, pinned
+# образ), не падаем: работаем на том torch, что есть, и честно фиксируем версию в
+# итоговом JSON — тогда сравнение остаётся валидным с оговоркой.
+if ! python3 -m pip install -q "torch==2.6.0" numpy scipy tensorboard; then
+  echo "!!! torch 2.6.0 не встал — использую предустановленный" >&2
+  python3 -m pip install -q numpy scipy tensorboard || true
+fi
+python3 -c "import torch; print('torch', torch.__version__, 'cuda', torch.version.cuda)"
 
 cd "$WORK/morphogenesis"
 
