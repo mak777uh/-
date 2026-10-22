@@ -1,0 +1,134 @@
+{
+  "schema_version": 1,
+  "experiment": "E02b_morphospace",
+  "kind": "exploratory_asymmetry_variance_retry",
+  "protocol": "reports/2026-10-22-asymmetry-variance-retry-plan.md",
+  "family": "WP4_R-9_s2000_seed42",
+  "proto_seed": 35,
+  "geometry": [
+    40,
+    24
+  ],
+  "steps": 2000,
+  "snapshot_every": 10,
+  "plateau_tol": 0.02,
+  "repeats": 12,
+  "criterion": "|Spearman(d, dt_plateau)| >= 0.5 при непустой дисперсии dt",
+  "spearman_d_dt": 0.4336,
+  "std_dt": 531.7631,
+  "mean_dt": 130.8333,
+  "mean_diff": -0.4007,
+  "std_diff": 0.1012,
+  "pairs": [
+    {
+      "rep": 0,
+      "iou_left": 0.429,
+      "iou_right": 0.7306,
+      "diff": -0.3015,
+      "t_plateau_left": 1530,
+      "t_plateau_right": 1250,
+      "dt_plateau": 280
+    },
+    {
+      "rep": 1,
+      "iou_left": 0.4111,
+      "iou_right": 0.68,
+      "diff": -0.2688,
+      "t_plateau_left": 1800,
+      "t_plateau_right": 1410,
+      "dt_plateau": 390
+    },
+    {
+      "rep": 2,
+      "iou_left": 0.3824,
+      "iou_right": 0.7257,
+      "diff": -0.3433,
+      "t_plateau_left": 1470,
+      "t_plateau_right": 1260,
+      "dt_plateau": 210
+    },
+    {
+      "rep": 3,
+      "iou_left": 0.3289,
+      "iou_right": 0.6934,
+      "diff": -0.3645,
+      "t_plateau_left": 1710,
+      "t_plateau_right": 1700,
+      "dt_plateau": 10
+    },
+    {
+      "rep": 4,
+      "iou_left": 0.3705,
+      "iou_right": 0.7329,
+      "diff": -0.3623,
+      "t_plateau_left": 1460,
+      "t_plateau_right": 1230,
+      "dt_plateau": 230
+    },
+    {
+      "rep": 5,
+      "iou_left": 0.4523,
+      "iou_right": 0.7222,
+      "diff": -0.2699,
+      "t_plateau_left": 1900,
+      "t_plateau_right": 1580,
+      "dt_plateau": 320
+    },
+    {
+      "rep": 6,
+      "iou_left": 0.1734,
+      "iou_right": 0.7298,
+      "diff": -0.5564,
+      "t_plateau_left": 760,
+      "t_plateau_right": 1310,
+      "dt_plateau": -550
+    },
+    {
+      "rep": 7,
+      "iou_left": 0.2361,
+      "iou_right": 0.6942,
+      "diff": -0.4581,
+      "t_plateau_left": 840,
+      "t_plateau_right": 1700,
+      "dt_plateau": -860
+    },
+    {
+      "rep": 8,
+      "iou_left": 0.202,
+      "iou_right": 0.7285,
+      "diff": -0.5265,
+      "t_plateau_left": 1670,
+      "t_plateau_right": 1210,
+      "dt_plateau": 460
+    },
+    {
+      "rep": 9,
+      "iou_left": 0.2067,
+      "iou_right": 0.6654,
+      "diff": -0.4587,
+      "t_plateau_left": 1260,
+      "t_plateau_right": 1380,
+      "dt_plateau": -120
+    },
+    {
+      "rep": 10,
+      "iou_left": 0.1405,
+      "iou_right": 0.6628,
+      "diff": -0.5223,
+      "t_plateau_left": 950,
+      "t_plateau_right": 1020,
+      "dt_plateau": -70
+    },
+    {
+      "rep": 11,
+      "iou_left": 0.3348,
+      "iou_right": 0.7104,
+      "diff": -0.3756,
+      "t_plateau_left": 1690,
+      "t_plateau_right": 420,
+      "dt_plateau": 1270
+    }
+  ],
+  "verdict": "H-AB-8_refuted",
+  "wall_seconds": 178.4
+}
