@@ -1,0 +1,12 @@
+{
+  "run_id": "20261022T091916Z-E02c_seeddec_census_wave2",
+  "experiment": "E02c_seeddec_census_wave2",
+  "status": "aborted",
+  "started_at": "2026-10-22T09:19:16Z",
+  "finished_at": "2026-10-22T10:10:00Z",
+  "exit_code": null,
+  "aborted_by": "lead",
+  "abort_reason": "Обёртка запущена дважды одновременно (два lab.py run с одним --out/--summary-out); один ребёнок стоял с 0 с CPU, второй работал. Убит дубль, вместе с ним (разрыв pipe) завершился и рабочий ребёнок. Артефактов не записано: census/summary для wave2 отсутствуют. Журнал сохраняет start без finish (видимая дыра, задним числом не дописывается); перепись перезапущена отдельным прогоном E02c_seeddec_census_wave2_retry.",
+  "artifacts_written": false,
+  "provenance": "runner"
+}

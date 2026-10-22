@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "run_id": "20261022T101317Z-E02c_seeddec_census_wave2_retry",
+  "experiment": "E02c_seeddec_census_wave2_retry",
+  "experiment_id": "E02c",
+  "arm": null,
+  "seed": null,
+  "steps": null,
+  "status": "finished",
+  "provenance": "runner",
+  "source": "morphogenesis/logs/journal.jsonl",
+  "started_at": "2026-10-22T10:13:17Z",
+  "finished_at": "2026-10-22T10:13:20Z",
+  "git_commit": "bc289c8",
+  "git_dirty": true,
+  "command": [
+    ".venv\\Scripts\\python.exe",
+    "-c",
+    "print('placeholder')"
+  ],
+  "cwd": "morphogenesis",
+  "owner": "lead",
+  "environment": {
+    "python": "3.13.11",
+    "platform": "Windows-11-10.0.26300-SP0",
+    "torch": "2.6.0+cu124",
+    "numpy": "2.5.4",
+    "device": "NVIDIA GeForce RTX 3070 Laptop GPU, 595.79"
+  },
+  "checkpoint_in": null,
+  "outputs": {
+    "declared": [],
+    "log": "morphogenesis/logs/20261022T101317Z-E02c_seeddec_census_wave2_retry.log"
+  },
+  "metrics": {},
+  "stop_reason": "exit_0",
+  "exit_code": 0,
+  "log_path": "morphogenesis/logs/20261022T101317Z-E02c_seeddec_census_wave2_retry.log",
+  "notes": "Повтор переписи волны после снятой stale-обёртки: 4 клетки init x data, 64 старта, замороженные центроиды; положительный контроль WP4 seed42 и untrained включены",
+  "note": "Пробный вызов для проверки формы команды lab.py run (команда-заглушка print(placeholder)); перепись не запускалась, артефактов нет. Журнал не затронут: строки пишет сам census/train, а не обёртка."
+}
