@@ -126,7 +126,10 @@ benchmark spec.
 
 - **Replication without training.** Re-run the census protocol on the released lite
   checkpoints and compare per-run class labels against `census.json` through the frozen
-  centroids. No GPU training is involved; the protocol is forward-only.
+  centroids. No GPU training is involved; the protocol is forward-only. This is the mode
+  the dataset is built for: on an independent stack (Kaggle kernel, CPU) the forward-only
+  census reproduced 48/48 classes. **Retraining is a different experiment** — see
+  limitation 12.
 - **Benchmark baseline material.** The published numbers (per-class counts, recovery
   fractions, transplant outcomes) are the v0 baselines of
   `docs/benchmark/BENCHMARK_v0.md`.
@@ -194,6 +197,22 @@ Read these as part of the data, not as a disclaimer at the end.
     rather than only `alive` and `visible` (stronger than the protocol, making H3
     conservative). The protocol's patch-transplant test was degenerate (bounding box of
     both classes is the whole field), so growth claims rest on exploratory patches only.
+12. **Class labels are conditional on the numerical stack — for training, not for
+    forward-only replication.** Two different things were measured, and they must not be
+    merged. (a) *Forward-only* census on released frozen weights is portable: the lite
+    package reproduced 48/48 classes on a Kaggle CPU kernel, and the untrained-architecture
+    control produced `struct_1` 64/64 on Colab T4. (b) *Retraining* the canonical recipe
+    and seed on another stack is not: R-9 seed42 retrained for 2000 steps on Colab T4
+    ended in `uniform_dark` 64/64 instead of `struct_2` 64/64 (`struct_2` 0/64;
+    `best_loss` 1.0969 vs 1.1047; live fraction at finish 0.929 vs 0.347), with the
+    negative control in place. Consequence for this dataset: the labels describe the census
+    computed in the stack recorded in `census.json` → `environment`. Do **not** pool class
+    counts produced by retrained models from different stacks into one frequency, and, if
+    you release retrained weights, report the GPU model, torch/CUDA versions and driver
+    together with the class you observed. Mechanism unresolved (initialisation path,
+    kernel arithmetic or framework version; the Colab torch version was not recorded).
+    Report: `reports/2026-10-22-colab-t4-repro-results.md`; hypothesis `H-REPRO-1`
+    (rejected), `H-REPRO-2`/`H-REPRO-3` planned.
 
 ## Ethics and scope
 
@@ -267,6 +286,13 @@ Method citation for the NCA construction itself (independent of this dataset):
 - **Главные ограничения.** Один тренировочный сид на класс; `struct_1` — архитектурный
   конфаунд (необученная сеть даёт его 64/64 и «ремонтирует» 45/45); H4 не проверялась;
   WP5 не открывался; метка класса — не признак жизни; горизонт 2000 шагов.
+- **Метки условны по численному стеку (для обучения).** Перепись **без обучения** на
+  выпущенных весах переносится (48/48 классов на Kaggle CPU; untrained-контроль на
+  Colab T4 дал `struct_1` 64/64). **Переобучение** того же рецепта и сида на другом
+  стеке — нет: R-9 seed42 на Colab T4 дал `uniform_dark` 64/64 вместо `struct_2` 64/64
+  (`best_loss` 1.0969 против 1.1047). Складывать частоты по разным стекам нельзя; при
+  выкладке переобученных весов указывайте железо и версии torch/CUDA. Механизм не
+  установлен; отчёт `reports/2026-10-22-colab-t4-repro-results.md`.
 - **Честность.** Один exploratory-артефакт собран с ошибкой инструмента (обнулённая
   `stress_ema`) и включён с оговоркой, а не удалён.
 - **Статус.** Не опубликовано и не загружено. Хеши lite-чекпоинтов — `TBD` до экспорта;

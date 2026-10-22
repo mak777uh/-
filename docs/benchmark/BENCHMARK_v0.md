@@ -52,6 +52,8 @@ different benchmark and must label it as such.
 | Liveness threshold for verdicts | `alive_fraction ≥ 0.05` | added after a 1-of-4096 cell field was labelled `struct_2` |
 | Rollout horizon | 2000 steps, snapshot every 50 | protocol |
 | Reference run | `census.json`, SHA-256 `e81678b6…0775` | dataset card |
+| Execution mode | forward-only on the released frozen weights; retraining is **out of scope** for v0 | dataset card, limitation 12 |
+| Reported environment | hardware model, torch and CUDA versions, driver, in the submission metadata | added after retraining the same seed on another stack produced another class (`struct_2` 64/64 → `uniform_dark` 64/64) |
 
 **No refitting.** A submission that re-derives centroids with a different `k`, different
 features or a different scaler is reported separately as "refit" and is **not**
@@ -369,6 +371,12 @@ that behaviour rather than invent a second definition of "class".
   benchmark has no task for it and will not grow one silently.
 - **Generalisation across architectures.** One architecture, twelve checkpoints. A
   different NCA would need its own census and its own frozen definer.
+- **Whether a class label survives retraining on another numerical stack.** v0 is
+  forward-only, so it never asks this; when it was asked outside the benchmark, the answer
+  was no for seed42 on Colab T4 — the same recipe and seed ended in `uniform_dark` 64/64
+  instead of `struct_2` 64/64 (`best_loss` 1.0969 vs 1.1047), while the negative control
+  behaved. v0 cannot score a claim of that kind; it can only require the environment to be
+  reported (`reports/2026-10-22-colab-t4-repro-results.md`).
 
 ## 10. Open questions for v1
 
@@ -381,6 +389,12 @@ that behaviour rather than invent a second definition of "class".
 4. Should the scorer accept a full re-implementation (different framework) directly, or
    require the reference forward pass bundled with the dataset? Current text assumes the
    latter for comparability, which limits what "independent implementation" means.
+5. Must v1 make the numerical environment a mandatory, scored field, with a per-stack
+   class baseline? After the retraining result (same seed, another stack, another class) a
+   benchmark that pools submissions across stacks would be scoring the stack as much as the
+   method. The cheap answer is to require the environment and to treat cross-stack
+   comparisons as their own task; the expensive one is to reproduce one retraining per
+   participating stack.
 
 ## Кратко по-русски
 
@@ -396,7 +410,9 @@ that behaviour rather than invent a second definition of "class".
   центроидами, а не самоотчётом; отклонения заявляются до скоринга.
 - **Чего бенчмарк не измеряет.** Выученность `struct_2` (нужны новые тренировочные
   серии), H4 (не запускалась), стресс/агентность/lifelong (WP5 закрыт), обобщение на
-  другие архитектуры.
+  другие архитектуры, а также переносимость класса при **переобучении** на другом стеке
+  (в v0 прогон только forward; когда спросили вне бенчмарка — класс не перенёсся:
+  `struct_2` 64/64 → `uniform_dark` 64/64 на Colab T4).
 - **Ссылки по линии метода:** Growing NCA (Distill 2020), 3D-NCA (ALIFE 2021),
   HyperNCA (2022), Lenia (2019), Flow-Lenia (2022/2023) — см.
   [`library/publications/README.md`](../../library/publications/README.md). Мотив задачи
