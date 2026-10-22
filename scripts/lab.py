@@ -493,6 +493,16 @@ def _status_from_finish(row: dict[str, Any]) -> str:
     return "finished"
 
 
+def _script_name_from_command(command: Any) -> str | None:
+    """Имя .py-скрипта из командной строки манифеста (последний токен с .py)."""
+    if not isinstance(command, (list, tuple)):
+        return None
+    for token in reversed(command):
+        if isinstance(token, str) and token.endswith(".py"):
+            return token.replace("\\", "/").split("/")[-1]
+    return None
+
+
 def import_journal() -> dict[str, int]:
     rows, errors = read_jsonl(JOURNAL)
     if errors:
@@ -549,12 +559,33 @@ def import_journal() -> dict[str, int]:
                 continue
             if existing.get("provenance") != "runner":
                 continue
-            if existing.get("experiment") != manifest.get("experiment"):
-                continue
             old_started = parse_ts(existing.get("started_at"))
             if new_started is None or old_started is None:
                 continue
-            if abs((new_started - old_started).total_seconds()) <= 120:
+            close_in_time = abs((new_started - old_started).total_seconds()) <= 120
+            same_experiment = existing.get("experiment") == manifest.get("experiment")
+            # Обёртку могли запустить с `--experiment`, отличным от журнального
+            # имени (перепись выводит своё из имени сводки), поэтому имена могут
+            # расходиться при том же скрипте и том же окне запуска.
+            runner_script = _script_name_from_command(existing.get("command"))
+            journal_script = start.get("runner") or start.get("script")
+            if isinstance(journal_script, str):
+                journal_script = journal_script.replace("\\", "/").split("/")[-1]
+            else:
+                journal_script = None
+            same_script = bool(runner_script and journal_script and runner_script == journal_script)
+            # Имена и скрипты могут не совпадать вовсе (обёртку запускают с
+            # `--experiment`, а журнал пишет дочерний процесс), поэтому третий
+            # признак — совпадение окна запуска: старт и финиш рядом. Один
+            # GPU-лейн делает ложное склеивание двух разных прогонов маловероятным.
+            old_finished = parse_ts(existing.get("finished_at"))
+            new_finished = parse_ts(manifest.get("finished_at"))
+            same_window = close_in_time and (
+                old_finished is None
+                or new_finished is None
+                or abs((new_finished - old_finished).total_seconds()) <= 120
+            )
+            if same_window or same_experiment or same_script:
                 duplicate_of_runner = True
                 break
         if duplicate_of_runner:
