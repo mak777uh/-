@@ -1,0 +1,144 @@
+{
+  "schema_version": 1,
+  "experiment": "E02c_seed_decomposition",
+  "kind": "seed_grid",
+  "protocol": "reports/2026-10-22-e02c-seed-grid-plan.md",
+  "note": "2x2-сетка «инициализация весов x порядок данных»; measured — прогоны этой серии (клетка опознаётся по имени семейства внутри сводки), anchor — известные полные сиды из опубликованных отчётов",
+  "inits": [
+    42,
+    101,
+    142,
+    242,
+    342
+  ],
+  "datas": [
+    42,
+    101,
+    142,
+    242,
+    342
+  ],
+  "n_measured": 2,
+  "n_anchor": 5,
+  "cells": {
+    "init42_data42": {
+      "init_seed": 42,
+      "data_seed": 42,
+      "kind": "anchor",
+      "family": null,
+      "n": 64,
+      "struct_2": 64,
+      "struct_2_fraction": 1.0,
+      "dominant_class": "struct_2",
+      "source": "reports/2026-10-20-e02b-results.md (WP4 R-9 seed42: struct_2 64/64)"
+    },
+    "init42_data101": {
+      "init_seed": 42,
+      "data_seed": 101,
+      "source": "summary_e02c_seeddec_A.json",
+      "kind": "measured",
+      "family": "E02c_seeddec_init42_data101",
+      "n": 64,
+      "complete": true,
+      "struct_1": 0,
+      "struct_2": 0,
+      "struct_2_fraction": 0.0,
+      "struct_2_stable_fraction": 0.0,
+      "struct_2_stable_frozen_fraction": 0.0,
+      "dominant_class": "uniform_dark",
+      "class_counts": {
+        "uniform_dark": 64
+      },
+      "finished_at": "2026-10-22T05:31:38Z"
+    },
+    "init101_data42": {
+      "init_seed": 101,
+      "data_seed": 42,
+      "source": "summary_e02c_seeddec_B.json",
+      "kind": "measured",
+      "family": "E02c_seeddec_init101_data42",
+      "n": 64,
+      "complete": true,
+      "struct_1": 64,
+      "struct_2": 0,
+      "struct_2_fraction": 0.0,
+      "struct_2_stable_fraction": 0.0,
+      "struct_2_stable_frozen_fraction": 0.0,
+      "dominant_class": "struct_1",
+      "class_counts": {
+        "struct_1": 64
+      },
+      "finished_at": "2026-10-22T06:15:22Z"
+    },
+    "init101_data101": {
+      "init_seed": 101,
+      "data_seed": 101,
+      "kind": "anchor",
+      "family": null,
+      "n": 64,
+      "struct_2": 0,
+      "struct_2_fraction": 0.0,
+      "dominant_class": "struct_1",
+      "source": "reports/2026-10-20-e02b-results.md (WP4 R-9 seed101: struct_1 64/64)"
+    },
+    "init142_data142": {
+      "init_seed": 142,
+      "data_seed": 142,
+      "kind": "anchor",
+      "family": null,
+      "n": 64,
+      "struct_2": 0,
+      "struct_2_fraction": 0.0,
+      "dominant_class": "struct_1",
+      "source": "reports/2026-10-21-e02c-results.md (E02c seed142: struct_1 64/64)"
+    },
+    "init242_data242": {
+      "init_seed": 242,
+      "data_seed": 242,
+      "kind": "anchor",
+      "family": null,
+      "n": 64,
+      "struct_2": 0,
+      "struct_2_fraction": 0.0,
+      "dominant_class": "uniform_dark",
+      "source": "reports/2026-10-21-e02c-results.md (E02c seed242: uniform_dark 64/64)"
+    },
+    "init342_data342": {
+      "init_seed": 342,
+      "data_seed": 342,
+      "kind": "anchor",
+      "family": null,
+      "n": 64,
+      "struct_2": 0,
+      "struct_2_fraction": 0.0,
+      "dominant_class": "uniform_dark",
+      "source": "reports/2026-10-21-e02c-results.md (E02c seed342: uniform_dark 64/64)"
+    }
+  },
+  "verdict": {
+    "criterion": "(1) все клетки init=101 дают struct_1 >= 52/64; (2) клетки init=42 дают >= 2 доминирующих класса и struct_2 < 52/64 в каждой",
+    "verdict": "n/a_design_incomplete",
+    "failed_conditions": [],
+    "missing_cells": [
+      "init42_data202",
+      "init42_data303",
+      "init101_data202",
+      "init101_data303"
+    ],
+    "cond1_struct1_fixed_at_init101": true,
+    "cond1_cells": [
+      {
+        "cell": "init101_data42",
+        "struct_1": 64,
+        "ok": true
+      }
+    ],
+    "cond2_init42_data_changes_class": false,
+    "init42_dominant_classes": [
+      "uniform_dark"
+    ],
+    "init42_struct2_at_or_above_threshold": [],
+    "incomplete_cells_excluded": [],
+    "struct2_substitute_candidates": []
+  }
+}
