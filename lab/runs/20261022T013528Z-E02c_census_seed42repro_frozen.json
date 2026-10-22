@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "run_id": "20261022T013528Z-E02c_census_seed42repro_frozen",
+  "experiment": "E02c_census_seed42repro_frozen",
+  "experiment_id": "E02c",
+  "arm": null,
+  "seed": null,
+  "steps": null,
+  "status": "finished",
+  "provenance": "runner",
+  "source": "morphogenesis/logs/journal.jsonl",
+  "started_at": "2026-10-22T01:35:28Z",
+  "finished_at": "2026-10-22T01:58:51Z",
+  "git_commit": "68bf739",
+  "git_dirty": true,
+  "command": [
+    "C:\\Users\\Admin\\Documents\\Qoder\\2026-10-18\\82ab86cd\\repo\\.venv\\Scripts\\python.exe",
+    "e02c_census.py",
+    "--seeds",
+    "0-63",
+    "--steps",
+    "2000",
+    "--families",
+    "E02c_R-9_s2000_seed42",
+    "--out",
+    "experiments/E02c_replication/census_e02c_seed42repro_frozen.json",
+    "--summary-out",
+    "experiments/E02c_replication/summary_e02c_seed42repro_frozen.json"
+  ],
+  "cwd": "morphogenesis",
+  "owner": "analyst",
+  "environment": {
+    "python": "3.13.11",
+    "platform": "Windows-11-10.0.26300-SP0",
+    "torch": "2.6.0+cu124",
+    "numpy": "2.5.4",
+    "device": "NVIDIA GeForce RTX 3070 Laptop GPU, 595.79"
+  },
+  "checkpoint_in": null,
+  "outputs": {
+    "declared": [],
+    "log": "morphogenesis/logs/20261022T013528Z-E02c_census_seed42repro_frozen.log"
+  },
+  "metrics": {},
+  "stop_reason": "exit_0",
+  "exit_code": 0,
+  "log_path": "morphogenesis/logs/20261022T013528Z-E02c_census_seed42repro_frozen.log",
+  "notes": ""
+}
