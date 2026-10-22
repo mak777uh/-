@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "experiment": "E02b_morphospace",
+  "kind": "exploratory_asymmetry_sides",
+  "protocol": "reports/2026-10-22-asymmetry-sides-plan.md",
+  "family": "WP4_R-9_s2000_seed42",
+  "proto_seed": 35,
+  "proto_class": "struct_2",
+  "geometry": [
+    40,
+    24
+  ],
+  "steps": 2000,
+  "repeats_per_side": 24,
+  "criterion": "std(right) <= 0.05; std(left) >= 3.0 * std(right); struct_2 справа >= 22/24",
+  "sides": {
+    "left": {
+      "n": 24,
+      "mean_iou": 0.3024,
+      "std_iou": 0.1538,
+      "min_iou": 0.1386,
+      "max_iou": 0.7701,
+      "median_iou": 0.2943,
+      "struct_2": 24,
+      "class_counts": {
+        "struct_2": 24
+      },
+      "alive": 24,
+      "body_returned": 2
+    },
+    "right": {
+      "n": 24,
+      "mean_iou": 0.7029,
+      "std_iou": 0.0356,
+      "min_iou": 0.613,
+      "max_iou": 0.7451,
+      "median_iou": 0.7103,
+      "struct_2": 24,
+      "class_counts": {
+        "struct_2": 24
+      },
+      "alive": 24,
+      "body_returned": 24
+    }
+  },
+  "conditions": {
+    "cond1_right_std": true,
+    "cond2_left_vs_right_std": true,
+    "cond3_right_struct2": true
+  },
+  "failed_conditions": [],
+  "verdict": "H-AB-9_confirmed",
+  "wall_seconds": 289.2
+}

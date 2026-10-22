@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-22T17:00:00Z",
+  "updated_at": "2026-10-22T17:28:53Z",
   "note": "Очередь пунктов после E02c. Claim берётся до пре-регистрации, а не перед запуском: lab.py item-claim. Статус running означает занятый GPU-лейн и может быть только у одного пункта.",
   "items": [
     {
@@ -352,18 +352,19 @@
       "id": "E02b_asymmetry_sides",
       "title": "Правая половина детерминирована, левая — многовариантна (H-AB-9)",
       "hypothesis": "H-AB-9",
-      "status": "planned",
-      "owner": null,
-      "claimed_at": null,
+      "status": "closed",
+      "owner": "lead",
+      "claimed_at": "2026-10-22T17:23:29Z",
       "heartbeat_at": null,
-      "closed_at": null,
-      "ttl_minutes": 120,
+      "closed_at": "2026-10-22T17:28:52Z",
+      "ttl_minutes": 240,
       "cost_gpu_h": 0.15,
       "gated_by": null,
       "artifacts": [
         "reports/2026-10-22-asymmetry-sides-plan.md"
       ],
-      "note": "24 сида на сторону при c=(40,24): критерий std(right) <= 0.05, std(left) >= 3*std(right), struct_2 справа >= 22/24. Скрипт обкатан CPU-дымом."
+      "note": "H-AB-9 подтверждена: правая половина IoU 0.613-0.745 (std 0.036), левая 0.139-0.770 (std 0.154) — разница в 4.3 раза; struct_2 24/24 в обе стороны; все три условия выполнены. 289 с. Отчёт следующим шагом.",
+      "closed_by": "lead"
     },
     {
       "id": "E02b_carrier_pairs",
@@ -386,18 +387,18 @@
       "id": "E02b_left_outcomes",
       "title": "Дискретны ли левые исходы восстановления (H-AB-10)",
       "hypothesis": "H-AB-10",
-      "status": "planned",
-      "owner": null,
-      "claimed_at": null,
-      "heartbeat_at": null,
+      "status": "running",
+      "owner": "lead",
+      "claimed_at": "2026-10-22T17:28:53Z",
+      "heartbeat_at": "2026-10-22T17:28:53Z",
       "closed_at": null,
-      "ttl_minutes": 120,
+      "ttl_minutes": 240,
       "cost_gpu_h": 0.25,
       "gated_by": null,
       "artifacts": [
         "reports/2026-10-22-left-outcomes-plan.md"
       ],
-      "note": "60 сидов слева и 24 справа при c=(40,24); гистограмма body_iou левой стороны по 20 бинам, критерий два пика >= 6 с провалом <= 50% меньшего. Правило пиков проверено тестами до прогона."
+      "note": "H-AB-10: 60 сидов слева, 24 справа; гистограмма body_iou, критерий два пика >=6 с провалом <=50%; правило пиков зафиксировано тестами"
     },
     {
       "id": "E02c_init_basin",

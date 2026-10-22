@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-22T17:00:00Z",
+  "updated_at": "2026-10-22T17:55:00Z",
   "program": {
     "name": "Morphogenesis",
     "phase": "E02b_clusters3 закрыт: скрытое состояние избыточно, величина асимметрии нестабильна",
@@ -464,8 +464,8 @@
         "id": "H-AB-9",
         "statement": "Правая половина восстанавливается детерминированно, левая — многовариантно.",
         "test": "24 шумовых сида на сторону при c=(40,24), финальные IoU и классы; критерий до прогона: std(IoU_right) <= 0.05 и std(IoU_left) >= 3*std(right), struct_2 справа >= 22/24.",
-        "status": "planned",
-        "origin": "reports/2026-10-22-asymmetry-variance-retry-results.md — три набора: правая std 0.010-0.025, левая 0.104-0.203",
+        "status": "confirmed",
+        "origin": "reports/2026-10-22-asymmetry-sides-results.md — 24 сида на сторону: правая IoU 0.613-0.745 (std 0.036), левая 0.139-0.770 (std 0.154), struct_2 24/24 с обеих сторон",
         "depends_on": [
           "H-AB-8"
         ]
@@ -474,8 +474,18 @@
         "id": "H-AB-10",
         "statement": "Левые исходы восстановления образуют несколько дискретных классов, а не континуум.",
         "test": "60 сидов, гистограмма IoU_left по 20 бинам; критерий до прогона: хотя бы два пика с провалом >= 50% между ними.",
+        "status": "rejected",
+        "origin": "reports/2026-10-22-left-outcomes-results.md — 60 сидов слева: IoU 0.127-0.722, std 0.151, распределение одномодальное (провала между пиками нет); правая 0.657-0.746, std 0.023",
+        "depends_on": [
+          "H-AB-9"
+        ]
+      },
+      {
+        "id": "H-AB-11",
+        "statement": "Левые исходы образуют два режима восстановления с границей около IoU 0.45.",
+        "test": "60 сидов слева при c=(40,24); критерий до прогона: доля значений в полосе 0.3-0.6 <= 20%.",
         "status": "planned",
-        "origin": "reports/2026-10-22-asymmetry-variance-retry-results.md — IoU_left 0.11-0.77, IoU_right 0.66-0.74",
+        "origin": "reports/2026-10-22-asymmetry-sides-results.md — левая сторона 0.139-0.770",
         "depends_on": [
           "H-AB-9"
         ]
@@ -1280,6 +1290,62 @@
           "origin": "reports/2026-10-22-asymmetry-variance-retry-results.md",
           "depends_on": [
             "H-AB-9"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "E02b_asymmetry_sides",
+      "title": "Детерминизм сторон: правая восстанавливается воспроизводимо, левая — нет",
+      "kind": "experiment",
+      "status": "closed",
+      "outcome": "ab9_confirmed_right_deterministic_left_not",
+      "plan": "reports/2026-10-22-asymmetry-sides-plan.md",
+      "report": "reports/2026-10-22-asymmetry-sides-results.md",
+      "article": "articles/019-pravaia-vosstanavlivaetsia-vosproizvodimo.md",
+      "artifact_root": "morphogenesis/experiments/E02b_morphospace",
+      "entrypoint": "morphogenesis/experiments/E02b_morphospace/scripts/e02b_asymmetry_sides.py",
+      "checkpoint_families": [
+        "WP4_R-9_s2000_seed42"
+      ],
+      "next": "H-AB-9 подтверждена: при c=(40,24) правая половина даёт IoU 0.613-0.745 (std 0.036), левая 0.139-0.770 (std 0.154) — в 4.3 раза шире; struct_2 24/24 с обеих сторон. Значит разброс величины асимметрии — это разброс левой половины, а не разница сторон; класс при этом не различает степень восстановления. 48 развёрток, 289.2 с.",
+      "next_hypotheses": [
+        {
+          "id": "H-AB-11",
+          "statement": "Разброс левой стороны связан со структурой состояния у границы среза.",
+          "test": "60 сидов при c=(40,24): корреляция IoU_left с alive-долей в полосе ±2 столбца от среза; критерий |r| >= 0.5.",
+          "status": "planned",
+          "origin": "reports/2026-10-22-asymmetry-sides-results.md",
+          "depends_on": [
+            "H-AB-9"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "E02b_left_outcomes",
+      "title": "Форма левых исходов восстановления: континуум или два режима",
+      "kind": "experiment",
+      "status": "closed",
+      "outcome": "ab10_refuted_left_is_continuum",
+      "plan": "reports/2026-10-22-left-outcomes-plan.md",
+      "report": "reports/2026-10-22-left-outcomes-results.md",
+      "article": "articles/020-levaia-storona-kontinuum.md",
+      "artifact_root": "morphogenesis/experiments/E02b_morphospace",
+      "entrypoint": "morphogenesis/experiments/E02b_morphospace/scripts/e02b_left_outcomes.py",
+      "checkpoint_families": [
+        "WP4_R-9_s2000_seed42"
+      ],
+      "next": "H-AB-10 опровергнута: левая сторона даёт IoU 0.127-0.722 (std 0.151) одномодальным распределением с пиком около 0.2 — это континуум степеней восстановления, а не два режима; правая 0.657-0.746 (std 0.023) узким пиком. Класс struct_2 у обеих сторон (60/60 и 24/24), то есть метка не различает степень восстановления. 84 развёртки, 519.9 с.",
+      "next_hypotheses": [
+        {
+          "id": "H-CH-12",
+          "statement": "Внутри информативного набора достаточна любая пара каналов.",
+          "test": "21 новая пара из {2,3,4,10–14} × 12 повторов; критерий: тело >= 11/12 во всех парах.",
+          "status": "planned",
+          "origin": "reports/2026-10-22-carrier-pairs-plan.md",
+          "depends_on": [
+            "H-CH-11"
           ]
         }
       ]
