@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-22T08:25:00Z",
+  "updated_at": "2026-10-22T11:05:00Z",
   "note": "Очередь пунктов после E02c. Claim берётся до пре-регистрации, а не перед запуском: lab.py item-claim. Статус running означает занятый GPU-лейн и может быть только у одного пункта.",
   "items": [
     {
@@ -197,6 +197,27 @@
         "reports/2026-10-22-lesion-minimal-plan.md"
       ],
       "note": "Пре-регистрация заморожена до прогона (reports/2026-10-22-lesion-minimal-plan.md): 16 наборов каналов <=3 при visible=0 и открытом гейте (H-CH-9, критерий body >= 11/12 хотя бы для одного набора, untrained <= 1/12) + 12 шумовых сидов на двух геометриях c=(40,24) и c=(38,26) (H-AB-7, std(d) <= 0.05 — геометрия; > 0.10 — шум). Ждёт освобождения GPU-лейна, занятого волной E02c_seeddec_*, затем одним прогоном."
+    },
+    {
+      "id": "E02c_seed_grid",
+      "title": "Сетка «инициализация × порядок данных»: что держит struct_2 (H-E02C-6)",
+      "hypothesis": "H-E02C-6",
+      "status": "closed",
+      "owner": "lead",
+      "claimed_at": "2026-10-22T10:13:00Z",
+      "heartbeat_at": null,
+      "closed_at": "2026-10-22T11:05:00Z",
+      "ttl_minutes": 240,
+      "cost_gpu_h": 1.1,
+      "gated_by": null,
+      "artifacts": [
+        "reports/2026-10-22-e02c-seed-grid-plan.md",
+        "reports/2026-10-22-e02c-seed-grid-results.md",
+        "morphogenesis/experiments/E02c_replication/seed_grid.json",
+        "morphogenesis/experiments/E02c_replication/summary_e02c_seeddec_wave2.json",
+        "morphogenesis/experiments/E02c_replication/census_e02c_seeddec_wave2.json"
+      ],
+      "note": "Обучение четырёх клеток (42/202, 42/303, 101/202, 101/303) вёл analyst; перепись волны запущена дважды по ошибке, дубль снят, попытка закрыта как aborted (start без finish), перепись перезапущена прогоном E02c_seeddec_census_wave2_run (384 развёртки, 42 мин). Вердикт по замороженному критерию: H-E02C-6 опровергнута — init=101 не фиксирует класс, при init=42 struct_2 даёт 63/64 и 60/64. Claim взят пост-фактум, так как бег шёл в чужой волне; закрытие и тексты — lead."
     }
   ]
 }

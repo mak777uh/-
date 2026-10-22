@@ -15,10 +15,12 @@
     42,
     101,
     142,
+    202,
     242,
+    303,
     342
   ],
-  "n_measured": 2,
+  "n_measured": 6,
   "n_anchor": 5,
   "cells": {
     "init42_data42": {
@@ -51,6 +53,46 @@
       },
       "finished_at": "2026-10-22T05:31:38Z"
     },
+    "init42_data202": {
+      "init_seed": 42,
+      "data_seed": 202,
+      "source": "summary_e02c_seeddec_wave2.json",
+      "kind": "measured",
+      "family": "E02c_seeddec_init42_data202",
+      "n": 64,
+      "complete": true,
+      "struct_1": 1,
+      "struct_2": 63,
+      "struct_2_fraction": 0.9844,
+      "struct_2_stable_fraction": 0.9844,
+      "struct_2_stable_frozen_fraction": 0.9844,
+      "dominant_class": "struct_2",
+      "class_counts": {
+        "struct_2": 63,
+        "struct_1": 1
+      },
+      "finished_at": "2026-10-22T10:57:09Z"
+    },
+    "init42_data303": {
+      "init_seed": 42,
+      "data_seed": 303,
+      "source": "summary_e02c_seeddec_wave2.json",
+      "kind": "measured",
+      "family": "E02c_seeddec_init42_data303",
+      "n": 64,
+      "complete": true,
+      "struct_1": 4,
+      "struct_2": 60,
+      "struct_2_fraction": 0.9375,
+      "struct_2_stable_fraction": 0.9375,
+      "struct_2_stable_frozen_fraction": 0.9375,
+      "dominant_class": "struct_2",
+      "class_counts": {
+        "struct_2": 60,
+        "struct_1": 4
+      },
+      "finished_at": "2026-10-22T10:57:09Z"
+    },
     "init101_data42": {
       "init_seed": 101,
       "data_seed": 42,
@@ -80,6 +122,46 @@
       "struct_2_fraction": 0.0,
       "dominant_class": "struct_1",
       "source": "reports/2026-10-20-e02b-results.md (WP4 R-9 seed101: struct_1 64/64)"
+    },
+    "init101_data202": {
+      "init_seed": 101,
+      "data_seed": 202,
+      "source": "summary_e02c_seeddec_wave2.json",
+      "kind": "measured",
+      "family": "E02c_seeddec_init101_data202",
+      "n": 64,
+      "complete": true,
+      "struct_1": 12,
+      "struct_2": 0,
+      "struct_2_fraction": 0.0,
+      "struct_2_stable_fraction": 0.0,
+      "struct_2_stable_frozen_fraction": 0.0,
+      "dominant_class": "death",
+      "class_counts": {
+        "death": 47,
+        "struct_1": 12,
+        "uniform_dark": 5
+      },
+      "finished_at": "2026-10-22T10:57:09Z"
+    },
+    "init101_data303": {
+      "init_seed": 101,
+      "data_seed": 303,
+      "source": "summary_e02c_seeddec_wave2.json",
+      "kind": "measured",
+      "family": "E02c_seeddec_init101_data303",
+      "n": 64,
+      "complete": true,
+      "struct_1": 0,
+      "struct_2": 0,
+      "struct_2_fraction": 0.0,
+      "struct_2_stable_fraction": 0.0,
+      "struct_2_stable_frozen_fraction": 0.0,
+      "dominant_class": "uniform_dark",
+      "class_counts": {
+        "uniform_dark": 64
+      },
+      "finished_at": "2026-10-22T10:57:09Z"
     },
     "init142_data142": {
       "init_seed": 142,
@@ -117,28 +199,43 @@
   },
   "verdict": {
     "criterion": "(1) все клетки init=101 дают struct_1 >= 52/64; (2) клетки init=42 дают >= 2 доминирующих класса и struct_2 < 52/64 в каждой",
-    "verdict": "n/a_design_incomplete",
-    "failed_conditions": [],
-    "missing_cells": [
-      "init42_data202",
-      "init42_data303",
-      "init101_data202",
-      "init101_data303"
+    "verdict": "H-E02C-6_refuted",
+    "failed_conditions": [
+      "cond1_init101_not_fixed_struct1",
+      "cond2_init42_data_does_not_change_class"
     ],
-    "cond1_struct1_fixed_at_init101": true,
+    "missing_cells": [],
+    "cond1_struct1_fixed_at_init101": false,
     "cond1_cells": [
       {
         "cell": "init101_data42",
         "struct_1": 64,
         "ok": true
+      },
+      {
+        "cell": "init101_data202",
+        "struct_1": 12,
+        "ok": false
+      },
+      {
+        "cell": "init101_data303",
+        "struct_1": 0,
+        "ok": false
       }
     ],
     "cond2_init42_data_changes_class": false,
     "init42_dominant_classes": [
+      "struct_2",
       "uniform_dark"
     ],
-    "init42_struct2_at_or_above_threshold": [],
+    "init42_struct2_at_or_above_threshold": [
+      "init42_data202",
+      "init42_data303"
+    ],
     "incomplete_cells_excluded": [],
-    "struct2_substitute_candidates": []
+    "struct2_substitute_candidates": [
+      "init42_data202",
+      "init42_data303"
+    ]
   }
 }

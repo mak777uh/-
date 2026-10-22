@@ -159,3 +159,5 @@ python scripts/lab.py validate   # контракт registry/state/runs/journal
    карты в [`../manuscript/README.md`](../manuscript/README.md).
 6. Прогнать `python scripts/lab.py validate`.
 7. Коммит: `reports: <тема> (YYYY-MM-DD)`.
+
+| 2026-10-22 | [H-E02C-6: сетка «инициализация × данные»](2026-10-22-e02c-seed-grid-results.md) | закрыто | критерий опровергнут: init=101 не фиксирует класс, при init=42 `struct_2` 63/64 и 60/64 — класс держит бассейн инициализации |

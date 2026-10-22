@@ -135,12 +135,18 @@ def test_wrapped_command_uses_lab_run_and_separator(tmp_path, monkeypatch):
 
 def test_dry_run_does_not_execute_anything(monkeypatch, capsys):
     module = load_module()
+    item = {"init": 42, "data": 202, "family": "E02c_seeddec_init42_data202"}
+    # План подменяем: тест не должен зависеть от того, какие клетки уже посчитаны
+    # в рабочем репозитории (после закрытия волны все шесть готовы).
+    monkeypatch.setattr(
+        module, "build_plan", lambda cells: {"ready": [item], "waiting": [], "complete": []}
+    )
     monkeypatch.setattr(
         module.subprocess,
         "run",
         lambda *a, **kw: (_ for _ in ()).throw(AssertionError("не должно запускать")),
     )
-    assert module.main(["--dry-run"]) == 0
+    assert module.main(["--dry-run", "--only", "init42_data202"]) == 0
     out = capsys.readouterr().out
     assert "DRY" in out and "E02c_seeddec_init42_data202" in out
 
