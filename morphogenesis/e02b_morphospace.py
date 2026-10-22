@@ -1688,6 +1688,11 @@ def run_census(
                 "class_stable_from_step": r.get("class_stable_from_step"),
                 "trajectory_cluster": r.get("trajectory_cluster"),
                 "trajectory_class": r.get("trajectory_class"),
+                # Замороженная разметка снимков: сравнима между переписями,
+                # в отличие от `stability_last_quarter` (Ward внутри переписи).
+                "trajectory_frozen_class": r.get("trajectory_frozen_class"),
+                "stability_frozen_last_quarter": r.get("stability_frozen_last_quarter"),
+                "frozen_class_stable_from_step": r.get("frozen_class_stable_from_step"),
                 "alive_mask_enabled": r["alive_mask_enabled"],
                 "wall_seconds": r["wall_seconds"],
             }

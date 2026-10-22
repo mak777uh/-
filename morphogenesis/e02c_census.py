@@ -292,6 +292,14 @@ def _census(args, seeds, specs, device):
         frozen_projector=frozen_projector,
     )
     payload["experiment"] = "E02c_replication"
+    sample_runs = payload.get("runs") or []
+    if sample_runs and "stability_frozen_last_quarter" not in sample_runs[0]:
+        # Поле считается в run_census, но может потеряться при экспорте в JSON;
+        # молчаливый ноль в сводке выглядел бы как «класс нестабилен».
+        raise SystemExit(
+            "замороженная метрика не попала в артефакт: в runs нет поля "
+            "stability_frozen_last_quarter — проверь экспорт в e02b.run_census"
+        )
     payload["protocol"] = "reports/2026-10-21-e02c-plan.md"
     payload["protocol_sha256"] = (
         "66b77b5e31b7c231c4bd0775ff2ae297360b33d9f2c95765ef4aedbfd219b2cc"

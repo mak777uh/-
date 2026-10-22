@@ -52,3 +52,28 @@ def test_full_design_none_gives_h_r3() -> None:
     verdict, applicable = census.census_verdict([], 3)
     assert applicable is True
     assert verdict.startswith("H-R3")
+
+
+def test_family_stats_separates_fit_relative_and_frozen_stability() -> None:
+    """Две метрики устойчивости считаются отдельно и не подменяют друг друга."""
+    census = load_census()
+
+    def run(stability_fit: float, stability_frozen: float) -> dict:
+        return {
+            "family": "fam",
+            "frozen_class": "struct_2",
+            "final": {"alive_fraction": 0.5},
+            "stability_last_quarter": stability_fit,
+            "stability_frozen_last_quarter": stability_frozen,
+        }
+
+    rows = [
+        run(1.0, 0.9),
+        run(0.9, 0.85),
+        run(0.6, 0.95),
+        run(0.1, 0.2),
+    ]
+    stats = census.family_stats(rows, "fam")
+    assert stats["struct_2"] == 4
+    assert stats["struct_2_stable"] == 2  # fit-relative >= 0.80
+    assert stats["struct_2_stable_frozen"] == 3  # замороженная >= 0.80
