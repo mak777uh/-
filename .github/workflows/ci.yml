@@ -118,6 +118,9 @@ jobs:
           done
           exit $fail
 
+      - name: Manuscript numbers match artifacts
+        run: python scripts/verify_manuscript_numbers.py
+
       - name: CPU tests
         working-directory: morphogenesis
         env:

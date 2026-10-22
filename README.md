@@ -262,6 +262,7 @@ python scripts/check_section_refs.py     # ссылки «§4.7» внутри �
 python scripts/check_references.py       # каждая ссылка References есть в индексе библиотеки
 python scripts/check_reports_index.py      # каждый отчёт имеет строку в reports/README.md
 python scripts/verify_portable_package.py  # целостность dist/e02b-portable (если собран)
+python scripts/verify_manuscript_numbers.py  # числа §4.12–§4.14 против артефактов
 ```
 
 Точное число тестов не дублируется в README: оно живёт в pytest.
