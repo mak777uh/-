@@ -1,6 +1,6 @@
 # What Morphologies Does a Neural Cellular Automaton Hold? A Census and a Negative Result
 
-**Status:** DRAFT v0.7 (2026-10-22) — not submitted, not peer-reviewed, do not cite. **Publication gate:** E02c is closed, the seed42 run repeats bitwise and returns the class 64/64 (§4.6), and the portable package passed an independent CPU reproduction of the E02b census; none of these is an independent reproduction of the E02c series, and external submission remains a decision of the owner. No claim about life, consciousness or intelligence; only observable behavioural classes and their boundaries ([AGENTS.md](../AGENTS.md) §3).
+**Status:** DRAFT v0.8 (2026-10-22) — not submitted, not peer-reviewed, do not cite. **Publication gate:** E02c is closed, the seed42 run repeats bitwise and returns the class 64/64 (§4.6), and the portable package passed an independent CPU reproduction of the E02b census; none of these is an independent reproduction of the E02c series, and external submission remains a decision of the owner. No claim about life, consciousness or intelligence; only observable behavioural classes and their boundaries ([AGENTS.md](../AGENTS.md) §3).
 
 <!-- TODO: freeze a submission tag and run the independent-reproduction pass before any external submission. -->
 
@@ -200,6 +200,18 @@ Neither mixed cell contains `struct_2` (0/64 in both; A ends in a nearly full li
 The registered criterion had three branches (initialisation decides, data decides, both needed). The first two did not occur; the third occurred only in the weak sense that no single factor suffices. Its strong form is **not claimed**: the review raised before launch that one run per cell cannot distinguish "both factors are necessary" from "this combination is unlucky", and the protocol text was not amended before the run, so the honest statement is that *the factor is not separated on this design* ([notices](../lab/notices.md)). Both cells also come with one horizon, one recipe and two anchors trained by an earlier code version, and `struct_1` is the architectural confound, so B reads as "no structure of its own" rather than "a different learned class".
 
 What follows for the program: the class frequency must be counted on the full seed until a second wave separates the factors (H-E02C-6), and the claim "the class is decided by the weight initialisation" is unsupported.
+
+### 4.9. The body and the texture rebuild each other
+
+§4.7 left a gap: with the visible texture and the hidden channels zeroed, the pattern returned, but the `alive` channel is both the body and the update gate, so "the body carries the form" mixed up geometry with permission to update. The mirror experiment opens the gate everywhere (`alive = +8` in every cell, `sigmoid(8) > 0.5`) and leaves the visible and hidden channels untouched: does the original body come back? ([protocol](../reports/2026-10-22-alive-open-plan.md), [results](../reports/2026-10-22-alive-open-results.md)).
+
+It does. In 48 rollouts (two conditions x 12 repeats x `struct_2` and untrained, 2000 steps) the body of `struct_2` returns 12/12 with `body_iou` 0.821 against a control of 0.864, class `struct_2` 12/12; the untrained control returns its body 12/12 with IoU 1.000. The pre-registered criterion is therefore refuted: with the gate open, the body is re-derived from the texture and the hidden channels, so the body's geometry is not a separate memory store.
+
+Together with §4.7 this gives the symmetric statement that replaces "the body carries the form": **the two carriers rebuild each other**. Zero the texture and hidden channels, keep the body, and the pattern returns (H-CH-4, 12/12); open the body everywhere, keep the texture, and the body returns (12/12). In model terms `binary = alive and (visible > 0.5)`, and both factors are recoverable from one another.
+
+An analysis of the twelve mass-matched pairs from §4.7 (no new rollouts) adds a dose-response to the asymmetry: all twelve differences are negative and the Spearman correlation between the difference and the removed fraction is -0.706 (at q < 0.2 the difference is -0.02, at q > 0.4 it reaches -0.44 and -0.61). The correlation threshold is post hoc, so it is reported descriptively and not as a pre-registered test.
+
+Boundaries: one prototype per model, one horizon and one machine; with the gate open `body_iou` and `texture_iou` coincide by construction; the dose-response needs fresh pairs (H-AB-5) before it is a prediction.
 
 ## 5. Discussion
 

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-22T06:29:17Z",
+  "updated_at": "2026-10-22T06:45:57Z",
   "note": "Очередь пунктов после E02c. Claim берётся до пре-регистрации, а не перед запуском: lab.py item-claim. Статус running означает занятый GPU-лейн и может быть только у одного пункта.",
   "items": [
     {
@@ -58,6 +58,24 @@
       "gated_by": "E02c_seed42_repro",
       "artifacts": [],
       "note": "Снимки 500/1000/1500, скрининг 16 стартов на снимок; полная перепись только там, где всплыл struct_2."
+    },
+    {
+      "id": "E02b_alive_open",
+      "title": "Открытый гейт живости: возвращается ли тело",
+      "hypothesis": "H-CH-6",
+      "status": "closed",
+      "owner": "lead",
+      "claimed_at": "2026-10-22T06:33:42Z",
+      "heartbeat_at": null,
+      "closed_at": "2026-10-22T06:45:57Z",
+      "ttl_minutes": 240,
+      "cost_gpu_h": 0.3,
+      "gated_by": null,
+      "artifacts": [
+        "reports/2026-10-22-alive-open-plan.md"
+      ],
+      "note": "H-CH-6 опровергнута: при alive=+8 везде тело возвращается 12/12 (0.821 против 0.864). Вместе с H-CH-4 — тело и текстура взаимно восстановимы. H-AB-4 описательно: ρ=−0.706. Верификатор 0 ошибок.",
+      "closed_by": "lead"
     },
     {
       "id": "E02b_closures",

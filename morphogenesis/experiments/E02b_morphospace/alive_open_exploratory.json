@@ -1,0 +1,92 @@
+{
+  "schema_version": 1,
+  "experiment": "E02b_morphospace",
+  "kind": "exploratory_alive_open",
+  "protocol": "reports/2026-10-22-alive-open-plan.md",
+  "note": "alive_open: канал живости открыт во всех клетках (+8.0), visible и hidden не тронуты; вопрос — вернётся ли тело. Контроль none.",
+  "device": "cuda",
+  "steps": 2000,
+  "repeats": 12,
+  "rules": {
+    "same_pattern": "IoU >= 0.5",
+    "significance": ">= 11 из 12",
+    "alive": "alive_fraction >= 0.05",
+    "criterion": "H-CH-6 подтверждена, если при alive_open body_iou < 0.5 в >= 11/12 у struct_2 и контроль none держит тело (>= 11/12)"
+  },
+  "models": [
+    {
+      "family": "WP4_R-9_s2000_seed42",
+      "proto_seed": 35,
+      "expected_class": "struct_2",
+      "proto_class": "struct_2",
+      "proto_alive_fraction": 0.5308,
+      "proto_body_pixels": 2174,
+      "conditions": {
+        "none": {
+          "n": 12,
+          "body_returned": 12,
+          "texture_returned": 12,
+          "alive": 12,
+          "classes": {
+            "struct_2": 12
+          },
+          "mean_body_iou": 0.8639,
+          "mean_texture_iou": 0.8639,
+          "class_alive_conflicts": 0
+        },
+        "alive_open": {
+          "n": 12,
+          "body_returned": 12,
+          "texture_returned": 12,
+          "alive": 12,
+          "classes": {
+            "struct_2": 12
+          },
+          "mean_body_iou": 0.821,
+          "mean_texture_iou": 0.821,
+          "class_alive_conflicts": 0
+        }
+      }
+    },
+    {
+      "family": "untrained_current_arch",
+      "proto_seed": 0,
+      "expected_class": "struct_1",
+      "proto_class": "struct_1",
+      "proto_alive_fraction": 0.4963,
+      "proto_body_pixels": 1007,
+      "conditions": {
+        "none": {
+          "n": 12,
+          "body_returned": 12,
+          "texture_returned": 12,
+          "alive": 12,
+          "classes": {
+            "struct_1": 12
+          },
+          "mean_body_iou": 1.0,
+          "mean_texture_iou": 1.0,
+          "class_alive_conflicts": 0
+        },
+        "alive_open": {
+          "n": 12,
+          "body_returned": 12,
+          "texture_returned": 12,
+          "alive": 12,
+          "classes": {
+            "struct_1": 12
+          },
+          "mean_body_iou": 1.0,
+          "mean_texture_iou": 1.0,
+          "class_alive_conflicts": 0
+        }
+      }
+    }
+  ],
+  "verdict": {
+    "applicable": true,
+    "verdict": "refuted_body_rederived",
+    "reason": "при alive_open тело возвращается 12/12 — геометрия тела не является отдельной памятью"
+  },
+  "finished_at": "2026-10-22T06:39:10Z"
+}
