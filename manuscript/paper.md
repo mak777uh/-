@@ -1,6 +1,6 @@
 # What Morphologies Does a Neural Cellular Automaton Hold? A Census and a Negative Result
 
-**Status:** DRAFT v0.21 (2026-10-22) — not submitted, not peer-reviewed, do not cite. **Publication gate:** E02c is closed, the seed42 run repeats bitwise and returns the class 64/64 (§4.6), and the portable package passed an independent CPU reproduction of the E02b census; an independent retraining of seed42 on a different stack was attempted and did **not** reproduce the class (§4.12), so the claim is now explicitly stack-conditional and external submission remains a decision of the owner. No claim about life, consciousness or intelligence; only observable behavioural classes and their boundaries ([AGENTS.md](../AGENTS.md) §3).
+**Status:** DRAFT v0.22 (2026-10-22) — not submitted, not peer-reviewed, do not cite. **Publication gate:** E02c is closed, the seed42 run repeats bitwise and returns the class 64/64 (§4.6), and the portable package passed an independent CPU reproduction of the E02b census; an independent retraining of seed42 on a different stack was attempted and did **not** reproduce the class (§4.12), so the claim is now explicitly stack-conditional and external submission remains a decision of the owner. No claim about life, consciousness or intelligence; only observable behavioural classes and their boundaries ([AGENTS.md](../AGENTS.md) §3).
 
 <!-- TODO: owner decision on the stack-conditional claim (and on H-REPRO-2/H-REPRO-3) before any external submission. -->
 
@@ -322,6 +322,18 @@ The negatives in this paper are of two different kinds, and keeping them apart i
 Two consequences follow. First, a class label is a property of a trajectory, and a trajectory is computed by a particular arithmetic in a particular order; the archive preserves one such environment, so a label travelling without its stack is under-specified. This is the same lesson as §5.3 in a different costume: the instrument is part of the measurement. Second, a frequency estimated by mixing stacks would measure the mixture, not the recipe — the reason §4.12 narrows every frequency statement to one stack rather than abandoning it.
 
 The honest form of the claim is asymmetrical. On its own stack, the run is deterministic to the last bit (§4.6), and the negative replication holds there. Across stacks, the map is contingent, and the mechanism was not identified: initialisation path, kernel arithmetic and framework version were all left entangled, with the framework version not even recorded. A stronger paper would name the cause; this one can only bound the effect and say where it does not transfer.
+
+### 5.7. Three kinds of reproducibility, and which one this paper has
+
+The question "does it reproduce?" has three answers in this study, and conflating them is what makes replication results look contradictory. Each kind has its own test and its own verdict.
+
+**Seed-level reproduction.** Given the same recipe, seed and machine, the run repeats: the seven weight tensors matched bitwise and the census returned the class 64/64 (§4.6). This is a test of the run, not of the science, and it passed.
+
+**Basin-level reproduction.** Given the same initialisation and varying the data order, the class returns with three of four orders while a different initialisation never reaches it (§4.13). This is a test of the phenomenon rather than of the run: the class is not an accident of one seed pair, but it is also not a property of the recipe as a whole — it belongs to a region of the initialisation space, and the data order decides whether the trajectory stays in it.
+
+**Stack-level reproduction.** Given the same recipe and seed on other hardware and another framework version, the class does not return, and the weights themselves differ (§4.12). This is a test of the *measurement environment*, and treating it as a test of the claim is a category error in both directions: it neither refutes the basin (the basin was measured on its own stack) nor licenses publishing the frequency as if it were a property of the recipe.
+
+The paper's negative results therefore have different scopes: the recipe-level claim is refuted (0/3 seeds, §4.5), the basin-level claim is supported with a bounded frequency (§4.13), the stack-level claim is refuted for transferability while remaining untested for its cause (§4.12). A replication study that reports only "reproduced / not reproduced" would collapse these three into one bit and lose the only part that generalises.
 
 ## 6. Limitations
 
