@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-22T19:05:00Z",
+  "updated_at": "2026-10-22T19:09:34Z",
   "note": "Очередь пунктов после E02c. Claim берётся до пре-регистрации, а не перед запуском: lab.py item-claim. Статус running означает занятый GPU-лейн и может быть только у одного пункта.",
   "items": [
     {
@@ -440,18 +440,19 @@
       "id": "E02b_carrier_ch15",
       "title": "Каналы 3 и 14 как двойной якорь (H-CH-15)",
       "hypothesis": "H-CH-15",
-      "status": "planned",
+      "status": "closed",
       "owner": null,
       "claimed_at": null,
       "heartbeat_at": null,
-      "closed_at": null,
+      "closed_at": "2026-10-22T19:09:34Z",
       "ttl_minutes": 60,
       "cost_gpu_h": 0.05,
       "gated_by": null,
       "artifacts": [
         "reports/2026-10-22-carrier-ch15-plan.md"
       ],
-      "note": "Шесть каналов без {3,14}, 12 сидов; критерий тело <= 6/12 — двойной якорь; >= 11/12 — опровергнута; 7-10 — неоднозначно."
+      "note": "H-CH-15 опровергнута: шесть каналов без {3,14} дают тело 12/12 (IoU 0.831) — якорной пары нет",
+      "closed_by": "lead"
     }
   ]
 }

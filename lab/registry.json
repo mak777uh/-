@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-22T18:45:00Z",
+  "updated_at": "2026-10-22T19:15:00Z",
   "program": {
     "name": "Morphogenesis",
     "phase": "E02b_clusters3 закрыт: скрытое состояние избыточно, величина асимметрии нестабильна",
@@ -534,10 +534,20 @@
         "id": "H-CH-15",
         "statement": "Каналы 3 и 14 образуют двойной якорь: их одновременное выключение рушит тело, а выключение любого другого одного — нет.",
         "test": "Информативный набор без {3,14} (6 каналов) x 12 повторов; критерий до прогона: тело <= 6/12.",
-        "status": "planned",
-        "origin": "reports/2026-10-22-carrier-ch13-results.md — и {3}, и {14} достаточны в одиночку",
+        "status": "rejected",
+        "origin": "reports/2026-10-22-carrier-ch15-results.md — шесть каналов без {3,14} дают тело 12/12 (IoU 0.831): 3 и 14 достаточны по отдельности, но пара не необходима",
         "depends_on": [
           "H-CH-13"
+        ]
+      },
+      {
+        "id": "H-CH-16",
+        "statement": "Вырожденность количественная: сколько различных малых наборов (2–3 канала) дают тело.",
+        "test": "Полный перебор 56 троек из {2,3,4,10–14} по 12 повторов; критерий до прогона: минимум 10 троек дают тело >= 11/12.",
+        "status": "planned",
+        "origin": "reports/2026-10-22-carrier-ch15-results.md — шесть без якорей работают",
+        "depends_on": [
+          "H-CH-15"
         ]
       }
     ]
@@ -1472,6 +1482,44 @@
           "origin": "reports/2026-10-22-carrier-ch13-results.md",
           "depends_on": [
             "H-CH-13"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "E02b_carrier_ch15",
+      "title": "Каналы 3 и 14 как двойной якорь",
+      "kind": "experiment",
+      "status": "closed",
+      "outcome": "ch15_refuted_no_joint_anchor",
+      "plan": "reports/2026-10-22-carrier-ch15-plan.md",
+      "report": "reports/2026-10-22-carrier-ch15-results.md",
+      "article": "articles/021-nositel-eto-kombinacii.md",
+      "artifact_root": "morphogenesis/experiments/E02b_morphospace",
+      "entrypoint": "morphogenesis/experiments/E02b_morphospace/scripts/e02b_carrier_ch15.py",
+      "checkpoint_families": [
+        "WP4_R-9_s2000_seed42"
+      ],
+      "next": "H-CH-15 опровергнута: шесть каналов без {3,14} дают тело 12/12 (IoU 0.831, struct_2 12/12). Значит 3 и 14 достаточны по отдельности, но совместно не необходимы — «якорной пары» нет. Линия носителей замкнута: набор из восьми необходим как набор (H-CH-10), любое подмножество из семи и даже шесть без двух якорей достаточны (H-CH-11, H-CH-15), но малые наборы ведут себя немонотонно (H-CH-12). 12 развёрток, 77.7 с.",
+      "next_hypotheses": [
+        {
+          "id": "H-CH-14",
+          "statement": "Добавление канала может разрушить тело.",
+          "test": "12 условий ({14}/{3} + один канал); критерий >= 3 условия <= 6/12.",
+          "status": "planned",
+          "origin": "reports/2026-10-22-carrier-pairs-results.md",
+          "depends_on": [
+            "H-CH-12"
+          ]
+        },
+        {
+          "id": "H-CH-16",
+          "statement": "Вырожденность количественная: сколько малых наборов дают тело.",
+          "test": "56 троек x 12 повторов; критерий: минимум 10 троек >= 11/12.",
+          "status": "planned",
+          "origin": "reports/2026-10-22-carrier-ch15-results.md",
+          "depends_on": [
+            "H-CH-15"
           ]
         }
       ]

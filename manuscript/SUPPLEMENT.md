@@ -24,7 +24,7 @@
 | Артефакт | Тип | Байт | sha256 |
 | --- | --- | ---: | --- |
 | [`lab/checkpoints.json`](../lab/checkpoints.json) | index | 9472 | `a502dfaed723376de1bcca1960bd7b53d97c5a2d5da5998cdb54edb6ded2cdbc` |
-| [`lab/registry.json`](../lab/registry.json) | index | 143968 | `24a2101f4abb547b77b9905899c705dadb56475cfd1da2686ffa010b66c1f221` |
+| [`lab/registry.json`](../lab/registry.json) | index | 146956 | `1400654d3043e8ebfaf0f4ed864c129174e45171bd1e3f675afe063704fd2711` |
 | [`morphogenesis/experiments/E01_criticality/frame_000050.png`](../morphogenesis/experiments/E01_criticality/frame_000050.png) | figure | 19729 | `bda8c5610091556a26bc58b18dd0cecdfa8da8d758c1f7fbdd4d2be2ce423a42` |
 | [`morphogenesis/experiments/E01_criticality/lyapunov_scan.json`](../morphogenesis/experiments/E01_criticality/lyapunov_scan.json) | other | 1680 | `0fbb88573d36001ba0bc4634d58223272db6b0456e72df6e261c62aab4ef1016` |
 | [`morphogenesis/experiments/E01_criticality/results.json`](../morphogenesis/experiments/E01_criticality/results.json) | other | 2996 | `a9ca8a26091315512b4a07b15731db9fc9eacfc821748b013d8d39a50a28c322` |
@@ -47,6 +47,7 @@
 | [`morphogenesis/experiments/E02b_morphospace/basin_reverse_exploratory.json`](../morphogenesis/experiments/E02b_morphospace/basin_reverse_exploratory.json) | experimental | 23541 | `15468df51c3c7cbe491183db35036b59b291c705ddda81d558762ac46a52829c` |
 | [`morphogenesis/experiments/E02b_morphospace/body_integrity_exploratory.json`](../morphogenesis/experiments/E02b_morphospace/body_integrity_exploratory.json) | experimental | 363636 | `73c6bfb976a13d46b21cd4d728913129306e4abba7793597801d7e63a5bb4d6b` |
 | [`morphogenesis/experiments/E02b_morphospace/carrier_ch13_exploratory.json`](../morphogenesis/experiments/E02b_morphospace/carrier_ch13_exploratory.json) | experimental | 506 | `2c5017704d49d32f55bf43925554d8d9f9031ce6084736a8a04d96b117c866b0` |
+| [`morphogenesis/experiments/E02b_morphospace/carrier_ch15_exploratory.json`](../morphogenesis/experiments/E02b_morphospace/carrier_ch15_exploratory.json) | experimental | 611 | `e41a177d2ff8e15526f2a530e961f464d87ac6af6e70fafa9f6028a7bfea2b20` |
 | [`morphogenesis/experiments/E02b_morphospace/carrier_pairs_exploratory.json`](../morphogenesis/experiments/E02b_morphospace/carrier_pairs_exploratory.json) | experimental | 7462 | `279ca0c078b8a83b17b560217cbc6c5e3a540036c0830e39914353186312ce4c` |
 | [`morphogenesis/experiments/E02b_morphospace/carriers2_exploratory.json`](../morphogenesis/experiments/E02b_morphospace/carriers2_exploratory.json) | experimental | 7432 | `b413bc0228fd5e41969ef815591d205aa360b64af958da249761e75907e5a9bb` |
 | [`morphogenesis/experiments/E02b_morphospace/census.json`](../morphogenesis/experiments/E02b_morphospace/census.json) | canonical | 15526457 | `e81678b603ddc4def4b3c736a4ca0d9b99b2b0b234f666ef620bcae60cad0775` |
@@ -126,6 +127,7 @@
 | [`reports/figures/e02b_transition_matrix.png`](../reports/figures/e02b_transition_matrix.png) | figure | 152522 | `81f1b4fe50fd819f45411c31fb737a0c232d9c4f993f5233184c8b276779f5b9` |
 | [`reports/figures/e02c_seed_grid.png`](../reports/figures/e02c_seed_grid.png) | figure | 69503 | `a14f0a6eb28fa0675629e539dc863049d97c3a7ef1914c34ebd7348b5c71776f` |
 <!-- artifacts:end -->
+
 
 
 
