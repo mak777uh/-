@@ -49,3 +49,49 @@ Drive; ячейка 5 в ноутбуке включается флагом `RUN
 - Классы сравниваются с локальной переписью; расхождение дескрипторов
   записывается как есть, а не подгоняется.
 - Формулировки о жизни/сознании/интеллекте запрещены (AGENTS §3).
+
+## Карточка прогона: что именно приезжает в git
+
+`verify_report.colab.json` лежит в `dist/` и в git не едет — значит после
+прогона в репозитории не остаётся ни окружения, ни привязки к коммиту кода.
+Для этого есть [`morphogenesis/colab_run_card.py`](../morphogenesis/colab_run_card.py):
+он собирает маленькую карточку (единицы килобайт) и её **можно и нужно**
+коммитить.
+
+Формат каталога:
+
+```
+colab/<YYYY-MM-DD>_<slug>/
+├── run.ipynb          # исполненный ноутбук — рецепт прогона
+└── run_card.json      # окружение, коммит кода, дизайн, результат, sha256
+```
+
+В ноутбуке:
+
+```python
+import sys; sys.path.insert(0, "/content/repo/morphogenesis")
+from colab_run_card import build_card
+card = build_card(
+    summary_path="/content/summary_colab_seed42.json",
+    experiment="E02c_colab_repro_seed42",
+    design={"family": "E02c_R-9_s2000_seed42", "seeds": "0-63", "steps": 2000},
+    repo_dir="/content/repo",
+    repo_url="https://github.com/mak777uh/-",
+    census_path="/content/census_colab_seed42.json",
+    out_path="/content/run_card.json",
+)
+```
+
+В карточке: `gpu`, `torch`, `cuda`, `python`, `repo.commit`, дизайн, `stats`,
+контроли, вердикт, sha256 сводки и census. Этого достаточно, чтобы потом
+воспроизвести прогон и доказать, на каком коде и железе он сделан.
+
+Доставка в git — два пути, оба без весов:
+
+1. **Безопасный:** скачать `run_card.json` (и `.ipynb`) из Colab, положить в
+   локальный `colab/<дата>_<slug>/`, коммит делает агент. Токенов нигде нет.
+2. **Прямой push (опционально):** `GH_TOKEN` в секретах Colab (fine-grained PAT,
+   только `contents:write`), пуш в ветку `colab/<slug>` — агент вливает. Токен в
+   ноутбук и в git не попадает.
+
+Не коммитить: `*.pt`, `census_*.json`, вывод `!pip`, TensorBoard.
