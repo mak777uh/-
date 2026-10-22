@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-22T15:11:21Z",
+  "updated_at": "2026-10-22T15:15:10Z",
   "note": "Очередь пунктов после E02c. Claim берётся до пре-регистрации, а не перед запуском: lab.py item-claim. Статус running означает занятый GPU-лейн и может быть только у одного пункта.",
   "items": [
     {
@@ -316,18 +316,19 @@
       "id": "E02b_asymmetry_variance",
       "title": "Источник разброса величины асимметрии (H-AB-8)",
       "hypothesis": "H-AB-8",
-      "status": "running",
+      "status": "closed",
       "owner": "lead",
       "claimed_at": "2026-10-22T15:11:21Z",
-      "heartbeat_at": "2026-10-22T15:11:21Z",
-      "closed_at": null,
+      "heartbeat_at": null,
+      "closed_at": "2026-10-22T15:15:10Z",
       "ttl_minutes": 240,
       "cost_gpu_h": 0.1,
       "gated_by": null,
       "artifacts": [
         "reports/2026-10-22-asymmetry-variance-plan.md"
       ],
-      "note": "H-AB-8: 12 пар на c=(40,24), снимки каждые 25 шагов, корреляция d с dt; критерий |rho| >= 0.5"
+      "note": "Прогон сделан (156.9 с, 12 пар), но измерение вырождено: t_body_left=50 и t_body_right=25 для всех 12 сидов, dt постоянен, корреляции не с чем считаться; token verdict H-AB-8_refuted получен из вырожденной метрики. Честный статус — inconclusive, нужен пере-дизайн (порог 0.8 или снимки каждые 10 шагов). Отчёт и registry — следующий шаг.",
+      "closed_by": "lead"
     }
   ]
 }
