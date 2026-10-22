@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-22T02:06:31Z",
+  "updated_at": "2026-10-22T06:20:15Z",
   "note": "Очередь пунктов после E02c. Claim берётся до пре-регистрации, а не перед запуском: lab.py item-claim. Статус running означает занятый GPU-лейн и может быть только у одного пункта.",
   "items": [
     {
@@ -26,16 +26,17 @@
       "id": "E02c_seed_decomposition",
       "title": "Декомпозиция сида: инициализация весов против порядка обучающих сэмплов",
       "hypothesis": "H-E02C-5",
-      "status": "claimed",
-      "owner": "lead",
+      "status": "closed",
+      "owner": "analyst",
       "claimed_at": "2026-10-22T02:06:31Z",
-      "heartbeat_at": "2026-10-22T02:06:31Z",
-      "closed_at": null,
+      "heartbeat_at": null,
+      "closed_at": "2026-10-22T06:20:15Z",
       "ttl_minutes": 240,
       "cost_gpu_h": 1.0,
       "gated_by": "E02c_seed42_repro",
       "artifacts": [],
-      "note": "Два прогона: init=42/data!=42 и init!=42/data=42. Требует обёртки с двумя генераторами."
+      "note": "закрыто по §6: A uniform_dark 64/64, B struct_1 64/64, struct_2 0/64 в обоих; фактор не разделён, сильная форма 'нужны оба' не заявляется. Отчёт, статья 009, README, рукопись §4.8, registry — на месте.",
+      "closed_by": "analyst"
     },
     {
       "id": "E02c_dynamics",

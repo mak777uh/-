@@ -654,6 +654,35 @@
           ]
         }
       ]
+    },
+    {
+      "id": "E02c_seed_decomposition",
+      "title": "Декомпозиция сида: инициализация весов против порядка данных",
+      "kind": "experiment",
+      "status": "closed",
+      "outcome": "not_separated_both_factors",
+      "plan": "reports/2026-10-22-e02c-seed-decomposition-plan.md",
+      "report": "reports/2026-10-22-e02c-seed-decomposition-results.md",
+      "article": "articles/009-odin-seed-eto-dva-faktora.md",
+      "artifact_root": "morphogenesis/experiments/E02c_replication",
+      "entrypoint": "morphogenesis/e02c_seed_decomposition.py:main",
+      "checkpoint_families": [
+        "E02c_seeddec_init42_data101",
+        "E02c_seeddec_init101_data42"
+      ],
+      "next": "Закрыто по замороженному протоколу: struct_2 требует совпадения обоих факторов. A (init 42 / data 101) — uniform_dark 64/64; B (init 101 / data 42) — struct_1 64/64; якоря WP4: 42/42 — struct_2 64/64, 101/101 — struct_1 64/64. Порог 52/64 не выполнен ни в A, ни в B. Асимметрии: при init 101 порядок данных класс не меняет (struct_1 в обоих), при init 42 данные решают между struct_2 и uniform_dark. Граница: по одному наблюдению на клетку и два якоря из другого кода — «нужны оба» это гипотеза для второй волны, а не закон. Тексты написаны ведущим (analyst), исполнитель не работал с 05:06.",
+      "next_hypotheses": [
+        {
+          "id": "H-E02C-6",
+          "statement": "Асимметрия факторов воспроизводится: при инициализации 101 порядок данных не меняет класс, при инициализации 42 меняет.",
+          "test": "Вторая волна: по 2–3 прогона на клетку 2×2 (init 42/101 × data несколько сидов), перепись 64 старта; критерий: из 2–3 прогонов в каждой клетке >= 2/3 дают тот же класс.",
+          "status": "planned",
+          "origin": "reports/2026-10-22-e02c-seed-decomposition-results.md — по одному наблюдению на клетку",
+          "depends_on": [
+            "H-E02C-5"
+          ]
+        }
+      ]
     }
   ],
   "links": {

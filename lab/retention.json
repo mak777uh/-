@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-10-21T18:02:36Z",
+  "generated_at": "2026-10-22T06:17:18Z",
   "policy": "Локально хранятся только canonical final из lab/checkpoints.json (требования активной/следующей серии) и явно объявленный положительный контроль. Best-снапшоты при наличии final и неканонические final закрытых/замещённых плеч удаляются после фиксации метрик, per-run JSONL, манифеста и этой записи в git. Веса в GitHub не отправляются; canonical final удаляется только по решению владельца.",
-  "freed_bytes": 31290753036,
+  "freed_bytes": 34527727488,
   "files": [
     {
       "path": "morphogenesis/checkpoints/gate_layer1_s800_seed101/nca_best.pt",
@@ -479,6 +479,60 @@
       "mtime": "2026-10-21T17:34:56Z",
       "kept": "morphogenesis/checkpoints/E02c_R-9_s2000_seed42/nca_final.pt",
       "reason": "E02c seed42 repro finish достигнут; final, веса и метрики зафиксированы, промежуточные веса — расходник (AGENTS §5a)"
+    },
+    {
+      "path": "morphogenesis/checkpoints/E02c_seeddec_init42_data101/nca_best.pt",
+      "family": "E02c_seeddec_init42_data101",
+      "kind": "best",
+      "size_bytes": 539495742,
+      "mtime": "2026-10-22T05:13:22Z",
+      "kept": "morphogenesis/checkpoints/E02c_seeddec_init42_data101/nca_final.pt",
+      "reason": "H-E02C-5 finish достигнут; final и метрики в журнале/манифесте, промежуточные веса — расходник (AGENTS §5a)"
+    },
+    {
+      "path": "morphogenesis/checkpoints/E02c_seeddec_init42_data101/nca_iter_1000.pt",
+      "family": "E02c_seeddec_init42_data101",
+      "kind": "iter",
+      "size_bytes": 539495742,
+      "mtime": "2026-10-22T05:01:31Z",
+      "kept": "morphogenesis/checkpoints/E02c_seeddec_init42_data101/nca_final.pt",
+      "reason": "H-E02C-5 finish достигнут; final и метрики в журнале/манифесте, промежуточные веса — расходник (AGENTS §5a)"
+    },
+    {
+      "path": "morphogenesis/checkpoints/E02c_seeddec_init42_data101/nca_iter_2000.pt",
+      "family": "E02c_seeddec_init42_data101",
+      "kind": "iter",
+      "size_bytes": 539495742,
+      "mtime": "2026-10-22T05:13:27Z",
+      "kept": "morphogenesis/checkpoints/E02c_seeddec_init42_data101/nca_final.pt",
+      "reason": "H-E02C-5 finish достигнут; final и метрики в журнале/манифесте, промежуточные веса — расходник (AGENTS §5a)"
+    },
+    {
+      "path": "morphogenesis/checkpoints/E02c_seeddec_init101_data42/nca_best.pt",
+      "family": "E02c_seeddec_init101_data42",
+      "kind": "best",
+      "size_bytes": 539495742,
+      "mtime": "2026-10-22T05:48:51Z",
+      "kept": "morphogenesis/checkpoints/E02c_seeddec_init101_data42/nca_final.pt",
+      "reason": "H-E02C-5 finish достигнут; final и метрики в журнале/манифесте, промежуточные веса — расходник (AGENTS §5a)"
+    },
+    {
+      "path": "morphogenesis/checkpoints/E02c_seeddec_init101_data42/nca_iter_1000.pt",
+      "family": "E02c_seeddec_init101_data42",
+      "kind": "iter",
+      "size_bytes": 539495742,
+      "mtime": "2026-10-22T05:45:04Z",
+      "kept": "morphogenesis/checkpoints/E02c_seeddec_init101_data42/nca_final.pt",
+      "reason": "H-E02C-5 finish достигнут; final и метрики в журнале/манифесте, промежуточные веса — расходник (AGENTS §5a)"
+    },
+    {
+      "path": "morphogenesis/checkpoints/E02c_seeddec_init101_data42/nca_iter_2000.pt",
+      "family": "E02c_seeddec_init101_data42",
+      "kind": "iter",
+      "size_bytes": 539495742,
+      "mtime": "2026-10-22T05:57:07Z",
+      "kept": "morphogenesis/checkpoints/E02c_seeddec_init101_data42/nca_final.pt",
+      "reason": "H-E02C-5 finish достигнут; final и метрики в журнале/манифесте, промежуточные веса — расходник (AGENTS §5a)"
     }
   ],
   "skipped": [
