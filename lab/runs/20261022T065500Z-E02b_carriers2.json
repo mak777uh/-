@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "run_id": "20261022T065500Z-E02b_carriers2",
+  "experiment": "E02b_carriers2",
+  "experiment_id": "E02b",
+  "arm": null,
+  "seed": null,
+  "steps": null,
+  "status": "finished",
+  "provenance": "runner",
+  "source": "morphogenesis/logs/journal.jsonl",
+  "started_at": "2026-10-22T06:55:01Z",
+  "finished_at": "2026-10-22T07:02:27Z",
+  "git_commit": "dbcd4e0",
+  "git_dirty": true,
+  "command": [
+    ".\\.venv\\Scripts\\python.exe",
+    "run_exploratory.py",
+    "--script",
+    "experiments/E02b_morphospace/scripts/e02b_carriers2.py",
+    "--experiment",
+    "E02b_carriers2"
+  ],
+  "cwd": "morphogenesis",
+  "owner": "lead",
+  "environment": {
+    "python": "3.13.11",
+    "platform": "Windows-11-10.0.26300-SP0",
+    "torch": "2.6.0+cu124",
+    "numpy": "2.5.4",
+    "device": "NVIDIA GeForce RTX 3070 Laptop GPU, 595.79"
+  },
+  "checkpoint_in": null,
+  "outputs": {
+    "declared": [
+      "morphogenesis/experiments/E02b_morphospace/carriers2_exploratory.json"
+    ],
+    "log": "morphogenesis/logs/20261022T065500Z-E02b_carriers2.log"
+  },
+  "metrics": {},
+  "stop_reason": "exit_0",
+  "exit_code": 0,
+  "log_path": "morphogenesis/logs/20261022T065500Z-E02b_carriers2.log",
+  "notes": "H-CH-7 (visible=0 + alive=+8) и H-AB-5 (12 пар q=0.50-0.70, предсказание медианы <= -0.60)"
+}

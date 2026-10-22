@@ -1,6 +1,6 @@
 # What Morphologies Does a Neural Cellular Automaton Hold? A Census and a Negative Result
 
-**Status:** DRAFT v0.8 (2026-10-22) — not submitted, not peer-reviewed, do not cite. **Publication gate:** E02c is closed, the seed42 run repeats bitwise and returns the class 64/64 (§4.6), and the portable package passed an independent CPU reproduction of the E02b census; none of these is an independent reproduction of the E02c series, and external submission remains a decision of the owner. No claim about life, consciousness or intelligence; only observable behavioural classes and their boundaries ([AGENTS.md](../AGENTS.md) §3).
+**Status:** DRAFT v0.9 (2026-10-22) — not submitted, not peer-reviewed, do not cite. **Publication gate:** E02c is closed, the seed42 run repeats bitwise and returns the class 64/64 (§4.6), and the portable package passed an independent CPU reproduction of the E02b census; none of these is an independent reproduction of the E02c series, and external submission remains a decision of the owner. No claim about life, consciousness or intelligence; only observable behavioural classes and their boundaries ([AGENTS.md](../AGENTS.md) §3).
 
 <!-- TODO: freeze a submission tag and run the independent-reproduction pass before any external submission. -->
 
@@ -212,6 +212,16 @@ Together with §4.7 this gives the symmetric statement that replaces "the body c
 An analysis of the twelve mass-matched pairs from §4.7 (no new rollouts) adds a dose-response to the asymmetry: all twelve differences are negative and the Spearman correlation between the difference and the removed fraction is -0.706 (at q < 0.2 the difference is -0.02, at q > 0.4 it reaches -0.44 and -0.61). The correlation threshold is post hoc, so it is reported descriptively and not as a pre-registered test.
 
 Boundaries: one prototype per model, one horizon and one machine; with the gate open `body_iou` and `texture_iou` coincide by construction; the dose-response needs fresh pairs (H-AB-5) before it is a prediction.
+
+### 4.10. The hidden state is the carrier, and the asymmetry has a hump
+
+Two pre-registered checks close the carrier question in the opposite direction and test whether the asymmetry's dose-response extends beyond half the body ([protocol](../reports/2026-10-22-carriers2-plan.md), [results](../reports/2026-10-22-carriers2-results.md)).
+
+**Without the visible channel the form survives (H-CH-7, refuted).** Zeroing the visible channel while opening the update gate everywhere (`alive = +8`) and leaving the hidden channels intact, the body of `struct_2` returns 12/12 with `body_iou` 0.809 against a control of 0.864, class `struct_2` 12/12. The untrained architecture in the same condition loses its body entirely (0/12, `uniform_dark`), so the reserve is learned rather than architectural. With §4.7 and §4.9 this leaves the hidden state as the only carrier that has not been bypassed: hidden channels suffice (here), body and texture rebuild each other (H-CH-4 and H-CH-6), and no single channel stores the form (H-CH-2).
+
+**The dose-response does not continue (H-AB-5, not confirmed).** Twelve new mass-matched pairs with q = 0.500-0.698 give a negative difference in 12/12 pairs, but the median is -0.354 against a pre-registered prediction of at most -0.60. The magnitude peaks near q = 0.5-0.63 (-0.63) and falls to -0.14 at q = 0.698, where both halves are nearly dead: the difference is a hump, not a monotone function. The earlier monotone reading from q = 0.15-0.49 (rho = -0.71, §4.9) therefore does not extrapolate.
+
+Boundaries: one prototype, one horizon and one machine; damage beyond q = 0.5 overlaps and leaves narrow survivors, which is part of the finding rather than an artefact; the struct_2-versus-untrained contrast rests on one untrained initialisation.
 
 ## 5. Discussion
 

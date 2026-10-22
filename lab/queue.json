@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-22T06:52:15Z",
+  "updated_at": "2026-10-22T07:05:36Z",
   "note": "Очередь пунктов после E02c. Claim берётся до пре-регистрации, а не перед запуском: lab.py item-claim. Статус running означает занятый GPU-лейн и может быть только у одного пункта.",
   "items": [
     {
@@ -75,6 +75,24 @@
         "reports/2026-10-22-alive-open-plan.md"
       ],
       "note": "H-CH-6 опровергнута: при alive=+8 везде тело возвращается 12/12 (0.821 против 0.864). Вместе с H-CH-4 — тело и текстура взаимно восстановимы. H-AB-4 описательно: ρ=−0.706. Верификатор 0 ошибок.",
+      "closed_by": "lead"
+    },
+    {
+      "id": "E02b_carriers2",
+      "title": "Видимый канал и дозу-ответ асимметрии",
+      "hypothesis": "H-CH-7",
+      "status": "closed",
+      "owner": "lead",
+      "claimed_at": "2026-10-22T06:54:32Z",
+      "heartbeat_at": null,
+      "closed_at": "2026-10-22T07:05:36Z",
+      "ttl_minutes": 240,
+      "cost_gpu_h": 0.4,
+      "gated_by": null,
+      "artifacts": [
+        "reports/2026-10-22-carriers2-plan.md"
+      ],
+      "note": "H-CH-7 опровергнута (тело 12/12, IoU 0.809 без visible; untrained 0/12), H-AB-5 не подтверждена (медиана −0.354 против ≤ −0.60, горб q≈0.5–0.63). Верификатор 0 ошибок.",
       "closed_by": "lead"
     },
     {
