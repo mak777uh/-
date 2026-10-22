@@ -89,3 +89,32 @@ def test_missing_script_does_not_touch_journal(journal_dir, tmp_path):
     )
     assert code == 2
     assert events(journal_dir) == []
+
+def test_clean_system_exit_zero_is_finish_not_error(journal_dir, tmp_path):
+    """`raise SystemExit(main())` в скрипте — нормальный выход, а не ошибка.
+
+    Этот баг поймал прогон E02b_lesion_minimal: скрипт отработал, записал
+    артефакт и вышел через SystemExit(0), а обёртка записала `error` с
+    `error_type: SystemExit, error: "0"` — успешный прогон выглядел проваленным.
+    """
+    script = tmp_path / "main_like.py"
+    script.write_text(
+        "import sys\n\ndef main():\n    return 0\n\nraise SystemExit(main())\n",
+        encoding="utf-8",
+    )
+    code = run_exploratory.main(["--script", str(script), "--experiment", "E02b_probe_exit0"])
+    assert code == 0
+    rows = events(journal_dir)
+    assert [row["event"] for row in rows] == ["start", "finish"]
+    assert rows[1]["stop_reason"] == "finished"
+
+
+def test_system_exit_nonzero_is_error(journal_dir, tmp_path):
+    """Ненулевой код выхода остаётся ошибкой, а не «успехом с кодом 3»."""
+    script = tmp_path / "exit3.py"
+    script.write_text("raise SystemExit(3)\n", encoding="utf-8")
+    code = run_exploratory.main(["--script", str(script), "--experiment", "E02b_probe_exit3"])
+    assert code == 3
+    rows = events(journal_dir)
+    assert [row["event"] for row in rows] == ["start", "error"]
+    assert rows[1]["error_type"] == "SystemExit"

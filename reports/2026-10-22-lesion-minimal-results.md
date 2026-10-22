@@ -5,7 +5,7 @@
 - **Критерий заморожен до прогона:** [`lesion-minimal-plan.md`](2026-10-22-lesion-minimal-plan.md)
 - **Артефакты:** [`lesion_minimal_exploratory.json`](../morphogenesis/experiments/E02b_morphospace/lesion_minimal_exploratory.json),
   строки `lesion_minimal_rows.jsonl` (локальные); манифест
-  `lab/runs/20261022T130306Z-E02b_lesion_minimal.json`; пара start/finish в журнале
+  `lab/runs/20261022T130306Z-E02b_lesion_minimal.json`; в журнале — `start` и запись об ошибке (см. «След в журнале»)
 - **Код:** `experiments/E02b_morphospace/scripts/e02b_lesion_minimal.py`
   (запуск через `run_exploratory.py`), 264 развёртки, 1550 с
 
@@ -116,5 +116,24 @@ H-AB-6), ни геометрией среза: он остаётся при фи
 - Артефакт: [`lesion_minimal_exploratory.json`](../morphogenesis/experiments/E02b_morphospace/lesion_minimal_exploratory.json)
   (`ch9.verdict = H-CH-9_confirmed`, `ab7.geometries.*.verdict = std_large_noise_curve_forbidden`).
 - Строки: `lesion_minimal_rows.jsonl` (264 записи, локально, в git не едут).
-- Манифест `lab/runs/20261022T130306Z-E02b_lesion_minimal.json`, журнал — пара start/finish 16:03:11 → 16:29:16.
+- Манифест `lab/runs/20261022T130306Z-E02b_lesion_minimal.json` (`status: finished`, `exit_code: 0`), журнал — `start` 16:03:11 и `error` 16:29:03 (см. ниже).
 - Протокол: [`lesion-minimal-plan.md`](2026-10-22-lesion-minimal-plan.md).
+
+## След в журнале: `error` с `SystemExit(0)` — баг обёртки, а не провал прогона
+
+Прогон отработал: артефакт записан (1550.4 с), манифест `finished` / `exit_code: 0`.
+Но в журнале вместо `finish` стоит `error` с `error_type: "SystemExit"` и
+`error: "0"`: `run_exploratory.py` ловил **любой** `SystemExit` как ошибку, а
+скрипт заканчивается `raise SystemExit(main())` — то есть нормальным выходом с
+кодом 0.
+
+Что сделано, по правилам §2:
+
+- журнал **не переписывается**: строка `start` 16:03:11 и строка `error` 16:29:03
+  остаются как есть, это видимая дыра, и она описана здесь;
+- баг исправлен в обёртке: `SystemExit(0)` теперь закрывает прогон как `finish`,
+  ненулевой код — как `error`; добавлены два теста (`test_run_exploratory.py`),
+  один из них воспроизводит форму этого скрипта (`raise SystemExit(main())`);
+- артефакты и вердикты от этого не зависят: `lesion_minimal_exploratory.json`
+  содержит все условия и оба вердикта, а `body`/`std(d)` пересчитываются из
+  `lesion_minimal_rows.jsonl`.

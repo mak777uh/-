@@ -65,6 +65,16 @@ def main(argv: list[str] | None = None) -> int:
     )
     try:
         runpy.run_path(args.script, run_name="__main__")
+    except SystemExit as exc:
+        # Скрипт может завершаться `raise SystemExit(main())`: это нормальный
+        # выход, а не ошибка. Раньше любой SystemExit писался в журнал как
+        # error, и успешный прогон (`error: "0"`) выглядел проваленным.
+        code = exc.code if isinstance(exc.code, int) else (0 if exc.code is None else 1)
+        if code == 0:
+            journal.finish(stop_reason="finished", wall_seconds=round(time.time() - started, 1))
+            return 0
+        journal.error(exc, wall_seconds=round(time.time() - started, 1))
+        return code
     except BaseException as exc:  # start без finish = оборванный прогон (§6)
         journal.error(exc, wall_seconds=round(time.time() - started, 1))
         raise
