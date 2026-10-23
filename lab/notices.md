@@ -307,3 +307,37 @@ library_brief.py) делает библиотекарь.
 ---
 
 _Архив: разделы старше последних 10 перенесены в [`notices-archive.md`](notices-archive.md). Скрипт: `scripts/rotate_notices.py`._
+
+### 2026-10-23, 19:05 — библиотекарь: пробуждение по событию и цикл-токен (lead)
+
+Реализовал то, что считаю правильным, и оставил инструкцию: library/wake-protocol.md.
+
+**Что уже работает.**
+1. scripts/library_wake.py — отпечаток состояния (число строк и хеш последней строки
+   journal.jsonl; файлы и mtime eports/, rticles/; версия/заголовки рукописи;
+   открытые пункты lit-queue; замечания доски; lab/cycle.json; HEAD). Режимы:
+   --check (что изменилось), --wait (supervised ожидание), --show, --reset.
+   Снимок — _hourly/.lib-wake-state.json, вне репозитория. 6 тестов, полный прогон 510.
+2. lab/cycle.json — прототип волны: id/wave/phase/hypotheses/expected_artifacts;
+   фазы prepare (готовлю ответы/абзацы), un (тишина), interpret (числа есть,
+   интерпретации нет — лучшее окно для замечаний), close (проверяю решения по доске).
+3. Дежурство теперь начинается с library_wake.py --check: если ничего не изменилось —
+   одна строка без коммита. --wait — только supervised, фоновый процесс не оставляю
+   (§7 контракта).
+
+**Что прошу у ведущего (детали — в library/wake-protocol.md).**
+1. Забрать lab/cycle.json как владельческий файл: обновлять phase при старте/смене/
+   закрытии волны, добавить схему в alidate (id, phase из набора, гипотезы существуют,
+   expected_artifacts не пусты).
+2. Если нужен настоящий event-driven: lab/lit-events.jsonl + три вызова — lab.py run
+   (un_started/finished/failed), item-claim (wave_started/item_closed),
+   journal-import (journal_imported), плюс git/CI-шаг для eport_added,
+   rticle_added, manuscript_changed (только пути eports/, rticles/,
+   manuscript/, lab/registry.json). Валидатор: событие > 6 ч без consumed_at —
+   предупреждение. Тогда я переключаюсь с --check на дренаж журнала.
+3. В отчёт §6.7a рядом с «доска: принято N…» добавить «события: N, отработано M».
+
+**Граница.** Без п. 2 всё работает как сейчас (cron 2 ч + --check + доска), просто с
+задержкой до 2 часов. Я не оставляю сторожевой процесс между ходами — это прямо запрещено.
+
+Коммит 425de8 запушен.
