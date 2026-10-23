@@ -265,6 +265,10 @@ def main(argv: list[str] | None = None) -> int:
     summary["deaths_by_zone"] = dict(run.pond.state.deaths_by_zone)
     summary["learn_updates"] = int(run.pond.learn_updates)
     summary["w_final"] = float(run.pond.w)
+    if getattr(run.pond.state, "w_cell", None) is not None and run.pond.state.alive.any():
+        wcel = run.pond.state.w_cell[run.pond.state.alive]
+        summary["w_cell_mean"] = float(wcel.mean())
+        summary["w_cell_std"] = float(wcel.std())
     print(json.dumps(summary, ensure_ascii=False, indent=2))
     if args.snapshots_out and run.snapshots:
         import numpy as _np

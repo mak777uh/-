@@ -82,6 +82,7 @@ class PondState:
     membrane: torch.Tensor            # (H, W) float, 0..1
     age: torch.Tensor                 # (H, W) int64
     alive: torch.Tensor               # (H, W) bool
+    w_cell: torch.Tensor | None = None  # (H, W) локальный вес политики (учится)
     step: int = 0
     born: int = 0
     died: int = 0
@@ -114,6 +115,10 @@ class Pond:
             age=torch.zeros((n, n), dtype=torch.int64, device=self.device),
             alive=torch.zeros((n, n), dtype=torch.bool, device=self.device),
         )
+        if self.state.w_cell is None:
+            self.state.w_cell = torch.full(
+                (self.cfg.grid, self.cfg.grid), float(self.cfg.w_rich), device=self.device
+            )
         if self.cfg.init_resource_fill > 0:
             fill = torch.full(
                 (n, n),
@@ -293,8 +298,20 @@ class Pond:
                 survived = bool((s.alive & entry["mask"]).any())
                 if survived:
                     self.w = min(1.0, self.w + cfg.learn_rate * (1.0 - self.w))
+                    if s.w_cell is not None and "parent" in entry:
+                        s.w_cell = torch.where(
+                            entry["parent"],
+                            torch.clamp(s.w_cell + cfg.learn_rate * (1.0 - s.w_cell), 0.0, 1.0),
+                            s.w_cell,
+                        )
                 else:
                     self.w = max(0.0, self.w - cfg.learn_rate * self.w)
+                    if s.w_cell is not None and "parent" in entry:
+                        s.w_cell = torch.where(
+                            entry["parent"],
+                            torch.clamp(s.w_cell - cfg.learn_rate * s.w_cell, 0.0, 1.0),
+                            s.w_cell,
+                        )
                 self.learn_updates += 1
                 self.learn_history.append(float(self.w))
             self._pending = still
@@ -362,7 +379,8 @@ class Pond:
                         continue
                     crowd += padded[1 + ys + dy, 1 + xs + dx]
             crowd = crowd / 8.0
-            score = self.w * res_norm - (1.0 - self.w) * crowd
+            parent_w = float(self.state.w_cell[parent].mean()) if self.state.w_cell is not None else self.w
+            score = parent_w * res_norm - (1.0 - parent_w) * crowd
             order = torch.argsort(score, descending=True)[:take]
         elif cfg.spore_bias == "rich":
             # поведение: потомок идёт в свободную клетку с наибольшим ресурсом
@@ -384,7 +402,17 @@ class Pond:
         s.damage[child] = 0
         s.born += 1
         if cfg.learn_w:
-            self._pending.append({"mask": child.clone(), "born_step": int(s.step), "w": float(self.w)})
+            if s.w_cell is not None:
+                parent_w = float(s.w_cell[parent].mean())
+                s.w_cell = torch.where(
+                    child, torch.full_like(s.w_cell, parent_w), s.w_cell
+                )
+            self._pending.append({
+                "mask": child.clone(),
+                "parent": parent.clone(),
+                "born_step": int(s.step),
+                "w": float(self.w),
+            })
         return child
 
     def _free_neighbours(self, mask: torch.Tensor) -> torch.Tensor:
