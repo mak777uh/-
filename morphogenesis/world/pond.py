@@ -55,6 +55,11 @@ class PondConfig:
     catastrophe_strength: float = 0.9
     catastrophe_mode: str = "shift"   # "shift" — ресурс переезжает, "drop" — падает везде
     genome_dim: int = 32              # размер генома (для cNCA)
+    membrane_gated: bool = False      # обмен гейтируется мембраной (замыкание)
+    membrane_decay: float = 0.05      # распад мембраны за шаг
+    membrane_rebuild: float = 0.10    # скорость восстановления мембраны
+    membrane_rebuild_cost: float = 0.01  # энергия на единицу восстановления
+    membrane_threshold: float = 0.2   # ниже этого порога притока нет
 
 
 @dataclass
@@ -64,6 +69,7 @@ class PondState:
     resource: torch.Tensor            # (H, W)
     energy: torch.Tensor              # (H, W)
     damage: torch.Tensor              # (H, W) int64
+    membrane: torch.Tensor            # (H, W) float, 0..1
     age: torch.Tensor                 # (H, W) int64
     alive: torch.Tensor               # (H, W) bool
     step: int = 0
@@ -87,6 +93,7 @@ class Pond:
             resource=torch.full((n, n), self.cfg.resource_max * 0.5, device=self.device),
             energy=torch.zeros((n, n), device=self.device),
             damage=torch.zeros((n, n), dtype=torch.int64, device=self.device),
+            membrane=torch.zeros((n, n), device=self.device),
             age=torch.zeros((n, n), dtype=torch.int64, device=self.device),
             alive=torch.zeros((n, n), dtype=torch.bool, device=self.device),
         )
@@ -130,6 +137,9 @@ class Pond:
         self.state.damage = torch.where(
             mask, torch.zeros_like(self.state.damage), self.state.damage
         )
+        self.state.membrane = torch.where(
+            mask, torch.ones_like(self.state.membrane), self.state.membrane
+        )
 
     def step_cells(self) -> dict:
         """Один шаг бюджета: доход, плата, ремонт, повреждения, смерть."""
@@ -138,6 +148,10 @@ class Pond:
         alive = s.alive
 
         income = torch.minimum(s.resource, torch.full_like(s.resource, cfg.baseline_income))
+        if cfg.membrane_gated:
+            # обмен возможен только там, где есть мембрана: её производит организм
+            gate = (s.membrane >= cfg.membrane_threshold).to(income.dtype)
+            income = income * gate
         income = torch.where(alive, income, torch.zeros_like(income))
         s.resource = s.resource - income
         s.energy = s.energy + income
@@ -145,6 +159,16 @@ class Pond:
 
         spent = cfg.update_cost + cfg.repair_cost
         s.energy = torch.where(alive, s.energy - spent, s.energy)
+
+        # мембрана: распад и восстановление за энергию — только в режиме замыкания
+        if cfg.membrane_gated:
+          s.membrane = torch.clamp(s.membrane - cfg.membrane_decay, 0.0, 1.0)
+          if cfg.membrane_rebuild > 0.0:
+            need = torch.clamp(1.0 - s.membrane, 0.0, 1.0) * cfg.membrane_rebuild
+            cost = need * cfg.membrane_rebuild_cost
+            afford = (s.energy > cost) & alive
+            s.energy = torch.where(afford, s.energy - cost, s.energy)
+            s.membrane = torch.where(afford, torch.clamp(s.membrane + need, 0.0, 1.0), s.membrane)
 
         # повреждения: шум попадает с вероятностью damage_rate, ремонт их гасит
         hits = (torch.rand((cfg.grid, cfg.grid), generator=self.gen, device=self.device)
@@ -263,6 +287,7 @@ class Pond:
             "resource_total": float(s.resource.sum()),
             "consumed_total": float(s.consumed_total),
             "damage_mean": float(s.damage[s.alive].float().mean()) if s.alive.any() else 0.0,
+            "membrane_mean": float(s.membrane[s.alive].float().mean()) if s.alive.any() else 0.0,
             "born": int(s.born),
             "died": int(s.died),
             "spores_blocked": int(s.spores_blocked),
