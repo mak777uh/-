@@ -67,6 +67,17 @@ def main(argv=None) -> int:
             "и затирал первый. По умолчанию имя как раньше: E02c_<arm>_s<steps>_seed<seed>"
         ),
     )
+    ap.add_argument(
+        "--save-interval",
+        type=int,
+        default=None,
+        help=(
+            "интервал сохранения промежуточных чекпоинтов (nca_iter_*.pt). "
+            "Переопределяет config.TRAIN_SAVE_INTERVAL только на время прогона: "
+            "дефолт не меняется. Нужен для плотного горизонта (окна struct_2 "
+            "шириной около тысячи шагов не видны при интервале 1000)."
+        ),
+    )
     args = ap.parse_args(argv)
 
     if args.arm != "R-9":
@@ -83,6 +94,12 @@ def main(argv=None) -> int:
     print(f"[e02c] checkpoint_dir={target_dir}")
 
     restore = _apply(overrides)
+    original_save_interval = config.TRAIN_SAVE_INTERVAL
+    if args.save_interval is not None:
+        if args.save_interval <= 0:
+            raise SystemExit("--save-interval должен быть положительным")
+        config.TRAIN_SAVE_INTERVAL = int(args.save_interval)
+        print(f"[e02c] save_interval={args.save_interval} (дефолт был {original_save_interval})")
     config.CHECKPOINT_DIR = target_dir
     os.makedirs(target_dir, exist_ok=True)
     try:
@@ -100,6 +117,7 @@ def main(argv=None) -> int:
         )
     finally:
         config.CHECKPOINT_DIR = original_ckpt
+        config.TRAIN_SAVE_INTERVAL = original_save_interval
         restore()
 
     final_path = os.path.join(original_ckpt, experiment_id, "nca_final.pt")
