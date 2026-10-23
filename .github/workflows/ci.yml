@@ -121,6 +121,21 @@ jobs:
       - name: Manuscript numbers match artifacts
         run: python scripts/verify_manuscript_numbers.py
 
+      - name: Formal hypotheses (Lean, if installed)
+        shell: bash
+        run: |
+          set -o pipefail
+          python scripts/lean_check.py --ci 2>&1 | tee lean_out.txt
+          python - <<'PY'
+          import pathlib, sys
+          lines = pathlib.Path('lean_out.txt').read_text(encoding='utf-8').splitlines()
+          tail = lines[-1] if lines else 'no output'
+          print(f'::notice::lean_check: {tail}')
+          ignored = any('skipped' in line for line in lines)
+          if ignored:
+              print('::notice::Lean не установлен на раннере: формальные гипотезы пропущены (не доказаны)')
+          PY
+
       - name: CPU tests
         working-directory: morphogenesis
         env:

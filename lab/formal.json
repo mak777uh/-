@@ -1,0 +1,46 @@
+{
+  "tool": "lean",
+  "ok": true,
+  "files": [
+    {
+      "file": "formal/Budget.lean",
+      "ok": true,
+      "theorems": [
+        "budget_conserved",
+        "run_conserves",
+        "step_resource_le",
+        "step_energy_monotone",
+        "income_nonneg",
+        "no_free_energy"
+      ],
+      "hypotheses": [
+        "F-BUDGET-1",
+        "F-BUDGET-2",
+        "F-BUDGET-3"
+      ],
+      "errors": []
+    },
+    {
+      "file": "formal/Order.lean",
+      "ok": true,
+      "theorems": [
+        "cell_conserved",
+        "update_conserved",
+        "sched_conserved",
+        "order_independent"
+      ],
+      "hypotheses": [
+        "F-ORDER-1",
+        "F-BUDGET-1"
+      ],
+      "errors": []
+    }
+  ],
+  "hypotheses": [
+    "F-BUDGET-1",
+    "F-BUDGET-2",
+    "F-BUDGET-3",
+    "F-ORDER-1"
+  ],
+  "theorems_total": 10
+}

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-23T02:45:00+03:00",
+  "updated_at": "2026-10-23T03:45:00+03:00",
   "program": {
     "name": "Morphogenesis",
     "phase": "E02b_clusters3 закрыт: скрытое состояние избыточно, величина асимметрии нестабильна",
@@ -1632,6 +1632,50 @@
           "claim": "Территориальность важна: линии, оставляющие свободные клетки, размножаются чаще.",
           "test": "корреляция spores_blocked и потомства по линиям",
           "refutation": "корреляции нет — правило блокировки спор не создаёт давления",
+          "status": "planned"
+        }
+      ]
+    },
+    {
+      "id": "E10_formal",
+      "title": "Формальные гипотезы (Lean): инварианты бюджета и порядка",
+      "kind": "experiment",
+      "status": "running",
+      "outcome": "pending",
+      "plan": "docs/formal-method.md",
+      "report": null,
+      "article": null,
+      "artifact_root": "formal",
+      "entrypoint": "python scripts/lean_check.py",
+      "checkpoint_families": [],
+      "next": "Доказано без зависимостей (Lean 4, тактика omega): F-BUDGET-1 (шаг), F-BUDGET-2 (любая последовательность, индукция), F-BUDGET-3 (монотонность энергии), F-ORDER-1 (бюджет не зависит от порядка асинхронных обновлений). Инвентарь — lab/formal.json. Очередь: F-ORDER-2 (N клеток), F-TOPOLOGY-1 (|dchi| <= K за шаг), F-CLOSURE-1 (граница времени жизни без производства мембраны).",
+      "next_hypotheses": [
+        {
+          "id": "F-BUDGET-1",
+          "claim": "Сумма ресурс+энергия сохраняется на шаге.",
+          "test": "theorem budget_conserved в formal/Budget.lean",
+          "refutation": "контрпример: мир и норма притока, где сумма изменилась",
+          "status": "confirmed"
+        },
+        {
+          "id": "F-BUDGET-2",
+          "claim": "Сумма сохраняется на любой последовательности шагов.",
+          "test": "theorem run_conserves (индукция по списку норм)",
+          "refutation": "контрпример-последовательность",
+          "status": "confirmed"
+        },
+        {
+          "id": "F-ORDER-1",
+          "claim": "Бюджет не зависит от порядка асинхронных обновлений.",
+          "test": "theorem order_independent в formal/Order.lean",
+          "refutation": "два порядка, дающие разный суммарный бюджет",
+          "status": "confirmed"
+        },
+        {
+          "id": "F-TOPOLOGY-1",
+          "claim": "|Δχ| за шаг ограничен функцией размера ядра.",
+          "test": "формальная оценка + проверка на данных переписи",
+          "refutation": "шаг, меняющий χ больше оценки",
           "status": "planned"
         }
       ]
