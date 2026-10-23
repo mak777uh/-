@@ -61,6 +61,9 @@ class PondConfig:
     income_mode: str = "cap"           # cap (min(ресурс, доход)) | proportional (доход*ресурс)
     spore_bias: str = "random"         # random | rich | score
     w_rich: float = 0.5                # вес ресурса в score (1-w — вес скученности)
+    learn_w: bool = False              # учить w по судьбе потомства
+    learn_rate: float = 0.1            # шаг обучения
+    learn_delay: int = 10              # через сколько шагов проверять судьбу потомка
     init_resource_fill: float = 0.0     # 0..1: доля потолка, до которой поле заполнено на старте
     membrane_gated: bool = False      # обмен гейтируется мембраной (замыкание)
     membrane_decay: float = 0.05      # распад мембраны за шаг
@@ -98,6 +101,10 @@ class Pond:
         self.gen = torch.Generator(device=self.device).manual_seed(int(seed))
         n = self.cfg.grid
         self._catastrophe_left = 0
+        self.w = float(self.cfg.w_rich)
+        self._pending: list[dict] = []
+        self.learn_updates = 0
+        self.learn_history: list[float] = []
         self._catastrophe_next = self._sample_gap()
         self.state = PondState(
             resource=torch.full((n, n), self.cfg.resource_max * 0.5, device=self.device),
@@ -277,6 +284,21 @@ class Pond:
         s.energy = torch.where(dies, torch.zeros_like(s.energy), s.energy)
         s.alive = alive & ~dies
         s.died += died_now
+        if cfg.learn_w and self._pending:
+            still = []
+            for entry in self._pending:
+                if s.step - entry["born_step"] < cfg.learn_delay:
+                    still.append(entry)
+                    continue
+                survived = bool((s.alive & entry["mask"]).any())
+                if survived:
+                    self.w = min(1.0, self.w + cfg.learn_rate * (1.0 - self.w))
+                else:
+                    self.w = max(0.0, self.w - cfg.learn_rate * self.w)
+                self.learn_updates += 1
+                self.learn_history.append(float(self.w))
+            self._pending = still
+
         s.step += 1
         return {"died": died_now, "alive": int(s.alive.sum()), "catastrophe": self.in_catastrophe()}
 
@@ -325,7 +347,7 @@ class Pond:
                         continue
                     crowd += padded[1 + ys + dy, 1 + xs + dx]
             crowd = crowd / 8.0
-            score = cfg.w_rich * res_norm - (1.0 - cfg.w_rich) * crowd
+            score = self.w * res_norm - (1.0 - self.w) * crowd
             order = torch.argsort(score, descending=True)[:take]
         elif cfg.spore_bias == "rich":
             # поведение: потомок идёт в свободную клетку с наибольшим ресурсом
@@ -346,6 +368,8 @@ class Pond:
         s.age[child] = 0
         s.damage[child] = 0
         s.born += 1
+        if cfg.learn_w:
+            self._pending.append({"mask": child.clone(), "born_step": int(s.step), "w": float(self.w)})
         return child
 
     def _free_neighbours(self, mask: torch.Tensor) -> torch.Tensor:

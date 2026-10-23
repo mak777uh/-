@@ -223,6 +223,9 @@ def main(argv: list[str] | None = None) -> int:
                     help="сохранять снимок состояния каждые N шагов (0 = не сохранять)")
     ap.add_argument("--snapshots-out", default=None, help="куда сохранить снимки (.npz)")
     ap.add_argument("--w-rich", type=float, default=0.5, help="вес ресурса в score (1-w — скученность)")
+    ap.add_argument("--learn-w", action="store_true", help="учить вес политики по судьбе потомства")
+    ap.add_argument("--learn-rate", type=float, default=0.1)
+    ap.add_argument("--learn-delay", type=int, default=10)
     ap.add_argument("--spore-bias", default="random", choices=["random", "rich", "score"],
                     help="куда выпускать спору: случайно или к богатому ресурсу")
     ap.add_argument("--layout", default="uniform",
@@ -243,6 +246,9 @@ def main(argv: list[str] | None = None) -> int:
     world.resource_layout = args.layout
     world.spore_bias = args.spore_bias
     world.w_rich = args.w_rich
+    world.learn_w = args.learn_w
+    world.learn_rate = args.learn_rate
+    world.learn_delay = args.learn_delay
     world.flip_at = args.flip_at
     world.income_mode = args.income_mode
     world.init_resource_fill = args.init_resource_fill
@@ -257,6 +263,8 @@ def main(argv: list[str] | None = None) -> int:
     total = run.clonal_attached + run.clonal_separate
     summary["clonal_fraction"] = (run.clonal_attached / total) if total else None
     summary["deaths_by_zone"] = dict(run.pond.state.deaths_by_zone)
+    summary["learn_updates"] = int(run.pond.learn_updates)
+    summary["w_final"] = float(run.pond.w)
     print(json.dumps(summary, ensure_ascii=False, indent=2))
     if args.snapshots_out and run.snapshots:
         import numpy as _np
