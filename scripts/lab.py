@@ -1594,9 +1594,68 @@ def _check_lit_board() -> tuple[list[str], list[str], int]:
     return errors, warnings, len(items)
 
 
+CYCLE_PHASES = ("prepare", "run", "interpret", "close")
+
+
+def validate_cycle() -> tuple[list[str], list[str], dict]:
+    """Проверить цикл-токен волны: фаза, гипотезы, ожидаемые артефакты."""
+    errors: list[str] = []
+    warnings: list[str] = []
+    path = ROOT / "lab" / "cycle.json"
+    if not path.exists():
+        return errors, warnings, {}
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError as exc:
+        return [f"lab/cycle.json: не JSON ({exc})"], warnings, {}
+    ident = str(data.get("id") or "")
+    if not re.match(r"^W-\d{4}-\d{2}-\d{2}-[a-z0-9-]+$", ident):
+        errors.append(f"lab/cycle.json: id должен быть вида W-YYYY-MM-DD-волна, сейчас {ident!r}")
+    phase = data.get("phase")
+    if phase not in CYCLE_PHASES:
+        errors.append(f"lab/cycle.json: phase={phase!r} не из {CYCLE_PHASES}")
+    hyps = data.get("hypothesis_ids") or []
+    if not hyps:
+        errors.append("lab/cycle.json: пустой hypothesis_ids")
+    known: set[str] = set()
+    try:
+        reg = json.loads((ROOT / "lab" / "registry.json").read_text(encoding="utf-8"))
+        known |= {h["id"] for h in reg.get("program", {}).get("next_hypotheses", [])}
+    except (OSError, json.JSONDecodeError):
+        pass
+    lib_text = ""
+    # гипотеза может быть библиотечным предложением: реестр её ещё не знает, но она
+    # названа в library/ или в документах волны — это допустимо по §3a
+    lib_sources = list((ROOT / "library" / "hypotheses").glob("*.md"))
+    lib_sources += [ROOT / "library" / "board.md"]
+    lib_sources += list((ROOT / "docs").glob("*.md"))
+    for lib in lib_sources:
+        if not lib.exists():
+            continue
+        try:
+            lib_text += lib.read_text(encoding="utf-8", errors="ignore")
+        except OSError:
+            continue
+    for hyp in hyps:
+        if hyp in known:
+            continue
+        if re.search(rf"\b{re.escape(hyp)}\b", lib_text):
+            continue
+        errors.append(f"lab/cycle.json: гипотеза {hyp} не найдена ни в реестре, ни в библиотеке")
+    artifacts = data.get("expected_artifacts") or []
+    if not artifacts or not all(str(a).strip() for a in artifacts):
+        errors.append("lab/cycle.json: expected_artifacts пуст или содержит пустые строки")
+    if not data.get("owner"):
+        warnings.append("lab/cycle.json: не указан owner")
+    return errors, warnings, {"cycle_id": ident, "cycle_phase": phase, "cycle_hypotheses": len(hyps)}
+
+
 def validate(ci: bool, strict: bool) -> tuple[list[str], list[str], dict[str, Any]]:
     errors: list[str] = []
     warnings: list[str] = []
+    cyc_errors, cyc_warnings, cyc_counts = validate_cycle()
+    errors.extend(cyc_errors)
+    warnings.extend(cyc_warnings)
     counts: dict[str, Any] = {}
 
     for path in REQUIRED_LAB_FILES:
