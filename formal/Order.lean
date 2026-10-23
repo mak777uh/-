@@ -42,9 +42,9 @@ theorem update_conserved (cells : Two) (i : Bool) (rate : Int) :
     total (update cells i rate) = total cells := by
   unfold total update
   cases i
-  · simp [Bool.false_eq_true]
+  · simp
     exact cell_conserved (cells false) rate
-  · simp [Bool.true_eq_false]
+  · simp
     have h := cell_conserved (cells true) rate
     omega
 
