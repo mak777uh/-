@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-23T17:30:55Z",
+  "updated_at": "2026-10-23T17:41:36Z",
   "items": [
     {
       "id": "I-001",
@@ -316,6 +316,19 @@
       "why": null,
       "status": "open",
       "created_at": "2026-10-23T17:30:55Z",
+      "applied_at": null
+    },
+    {
+      "id": "I-026",
+      "source": "library/hypotheses/pond-lineage.md P14 (Garivier & Moulines 2011)",
+      "insight": "Вес bandit не двигался в §10p, потому что алгоритм не забывал: в нестационарной среде нужен discount или окно, иначе накопленное среднее перевешивает новую информацию",
+      "action": "param",
+      "ref": "morphogenesis/world/run_pond.py",
+      "change": "добавить в bandit --bandit-discount (0<a<1) и --bandit-window (шаги); в §10p повторить с 5 сидами",
+      "expect": "после смены среды |Δw| ≥ 0.1 и удержание 100 шагов; в контроле без смены вес не двигается",
+      "why": null,
+      "status": "open",
+      "created_at": "2026-10-23T17:41:36Z",
       "applied_at": null
     }
   ]

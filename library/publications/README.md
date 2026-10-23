@@ -257,6 +257,7 @@ H29-пункт «ядро от цели»).
 | G11 | [Herrnstein, 1970, JEAB](https://doi.org/10.1901/jeab.1970.13-243) | закон эффекта как matching: выбор пропорционален подкреплению | H45 | сравнить выученный w с отношением подкреплений | `not_run` | [P11](../hypotheses/pond-lineage.md) |
 | G12 | [Baum, 1974, JEAB](https://doi.org/10.1901/jeab.1974.22-231) | обобщённый matching: bias и undermatching (a < 1) | H45 | фит `log(w/(1-w)) = a·log(r/c) + b` | `not_run` | [P12](../hypotheses/pond-lineage.md) |
 | G13 | [Vaughan, 1981, JEAB](https://doi.org/10.1901/jeab.1981.36-141) | melioration: локальное улучшение даёт субоптимальное равновесие | H45 | локальное правило против глобального отбора | `exploratory` (532 против 601) | [P13](../hypotheses/pond-lineage.md) |
+| G14 | [Garivier & Moulines, 2011, ALT](https://doi.org/10.1007/978-3-642-24412-4_16) | нестационарные бандиты: discounted/sliding-window UCB; без забывания новые данные не перевешивают | H33, H45 | discount/window, 5 сидов: сдвиг веса и удержание | `not_run` | [P14](../hypotheses/pond-lineage.md) |
 
 ## H. ALife: классика, открытая эволюция, рамки, индивидуальность
 
