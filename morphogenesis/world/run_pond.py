@@ -231,8 +231,10 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--learn-w", action="store_true", help="учить вес политики по судьбе потомства")
     ap.add_argument("--learn-rate", type=float, default=0.1)
     ap.add_argument("--learn-delay", type=int, default=10)
-    ap.add_argument("--learn-mode", default="outcome", choices=["outcome", "bandit", "colony"])
+    ap.add_argument("--learn-mode", default="outcome", choices=["outcome", "bandit", "colony", "paired"])
     ap.add_argument("--learn-noise", type=float, default=0.05)
+    ap.add_argument("--learn-pair-noise", type=float, default=0.2,
+                    help="δ парного режима: вторая спора идёт по w' = w ± δ")
     ap.add_argument("--learn-window", type=int, default=30)
     ap.add_argument("--spore-bias", default="random",
                     choices=["random", "rich", "score", "ifd", "matching"],
@@ -242,6 +244,9 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--layout", default="uniform",
                     choices=["uniform", "gradient", "patches"], help="структура ресурса")
     args = ap.parse_args(argv)
+    if args.learn_w and args.learn_mode == "paired" and args.spore_bias != "score":
+        ap.error("--learn-mode paired работает только со --spore-bias score: "
+                 "парный сигнал сравнивает два веса одной политики")
 
     world = PondConfig(grid=args.grid)
     if args.income is not None:
@@ -263,6 +268,7 @@ def main(argv: list[str] | None = None) -> int:
     world.learn_delay = args.learn_delay
     world.learn_mode = args.learn_mode
     world.learn_noise = args.learn_noise
+    world.learn_pair_noise = args.learn_pair_noise
     world.learn_window = getattr(args, "learn_window", 30)
     world.flip_at = args.flip_at
     world.income_mode = args.income_mode
@@ -280,6 +286,7 @@ def main(argv: list[str] | None = None) -> int:
     summary["deaths_by_zone"] = dict(run.pond.state.deaths_by_zone)
     summary["pop_time"] = int(getattr(run, "pop_time", 0))
     summary["learn_updates"] = int(run.pond.learn_updates)
+    summary["learn_useless"] = int(getattr(run.pond, "learn_useless", 0))
     summary["w_final"] = float(run.pond.w)
     if getattr(run.pond.state, "w_cell", None) is not None and run.pond.state.alive.any():
         wcel = run.pond.state.w_cell[run.pond.state.alive]

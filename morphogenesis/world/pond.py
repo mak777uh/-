@@ -110,6 +110,8 @@ class Pond:
         self.w = float(self.cfg.w_rich)
         self._pending: list[dict] = []
         self.learn_updates = 0
+        self.learn_useless = 0   # парные уроки без сигнала (обе споры с одинаковой судьбой)
+        self._pair_trials = 0    # номер парного испытания: чередуем знак w' = w ± δ
         self.learn_history: list[float] = []
         self._colony_alive_prev = 0
         self._colony_dir = 1.0
@@ -302,6 +304,22 @@ class Pond:
                 if s.step - entry["born_step"] < cfg.learn_delay:
                     still.append(entry)
                     continue
+                if entry.get("pair"):
+                    # относительный сигнал: сравниваем две споры одного рождения.
+                    # Если судьба одинаковая (обе живы/обе мертвы) — сигнала нет,
+                    # такой урок не тратится на сдвиг веса (иначе это шум).
+                    alive_a = bool((s.alive & entry["mask_a"]).any())
+                    alive_b = bool((s.alive & entry["mask_b"]).any())
+                    if alive_a != alive_b:
+                        winner = entry["w_a"] if alive_a else entry["w_b"]
+                        self.w = min(1.0, max(0.0, self.w + cfg.learn_rate * (winner - self.w)))
+                        if s.w_cell is not None:
+                            s.w_cell = torch.full_like(s.w_cell, self.w)
+                        self.learn_updates += 1
+                        self.learn_history.append(float(self.w))
+                    else:
+                        self.learn_useless += 1
+                    continue
                 survived = bool((s.alive & entry["mask"]).any())
                 if cfg.learn_mode == "bandit":
                     direction = 1.0 if survived else -1.0
@@ -368,6 +386,22 @@ class Pond:
                 buds.append(mask)
         return buds
 
+    def _score_values(self, free: torch.Tensor) -> tuple[torch.Tensor, torch.Tensor]:
+        """Для свободных клеток: нормированный ресурс и скученность в окрестности 3x3."""
+        s = self.state
+        cfg = self.cfg
+        ys, xs = free[:, 0], free[:, 1]
+        res_norm = s.resource[ys, xs] / max(cfg.resource_max, 1e-9)
+        padded = torch.zeros((cfg.grid + 2, cfg.grid + 2), device=self.device)
+        padded[1:-1, 1:-1] = s.alive.float()
+        crowd = torch.zeros(free.shape[0], device=self.device)
+        for dy in (-1, 0, 1):
+            for dx in (-1, 0, 1):
+                if dy == 0 and dx == 0:
+                    continue
+                crowd += padded[1 + ys + dy, 1 + xs + dx]
+        return res_norm, crowd / 8.0
+
     def bud(self, parent_mask: torch.Tensor) -> torch.Tensor | None:
         """Выпустить спору: `spore_cells` свободных клеток рядом с родителем.
 
@@ -385,7 +419,30 @@ class Pond:
             s.spores_blocked += 1
             return None
         take = min(int(cfg.spore_cells), int(free.shape[0]))
-        if cfg.spore_bias == "ifd":
+        paired = None
+        if cfg.learn_w and cfg.learn_mode == "paired" and cfg.spore_bias == "score":
+            # (1+1)-ES на парных образцах: тот же родитель, тот же шаг, две клетки —
+            # одна по весу w, вторая по w' = w ± δ (знак чередуется). Экология не
+            # меняется: spore_cells=2 и так даёт две клетки за рождение; меняется
+            # только правило выбора для второй из них.
+            w_a = float(self.w)
+            sign = 1.0 if self._pair_trials % 2 == 0 else -1.0
+            self._pair_trials += 1
+            w_b = min(1.0, max(0.0, w_a + sign * float(cfg.learn_pair_noise)))
+            res_norm, crowd = self._score_values(free)
+            score_a = w_a * res_norm - (1.0 - w_a) * crowd
+            score_b = w_b * res_norm - (1.0 - w_b) * crowd
+            idx_a = int(torch.argmax(score_a))
+            if int(free.shape[0]) >= 2 and abs(w_b - w_a) > 1e-9:
+                score_b = score_b.clone()
+                score_b[idx_a] = float("-inf")
+                idx_b = int(torch.argmax(score_b))
+                order = torch.tensor([idx_a, idx_b], device=free.device)
+                paired = {"w_a": w_a, "w_b": w_b}
+            else:
+                # второй клетки нет или δ=0: обычный выбор, урок не записывается
+                order = torch.argsort(score_a, descending=True)[:take]
+        elif cfg.spore_bias == "ifd":
             # идеальное свободное распределение: подушевая отдача в окрестности 3x3
             ys, xs = free[:, 0], free[:, 1]
             padded_res = torch.zeros((cfg.grid + 2, cfg.grid + 2), device=self.device)
@@ -430,17 +487,7 @@ class Pond:
                 )
         elif cfg.spore_bias == "score":
             # торг: ресурс против скученности (доля живых в окрестности 3x3)
-            ys, xs = free[:, 0], free[:, 1]
-            res_norm = s.resource[ys, xs] / max(cfg.resource_max, 1e-9)
-            padded = torch.zeros((cfg.grid + 2, cfg.grid + 2), device=self.device)
-            padded[1:-1, 1:-1] = s.alive.float()
-            crowd = torch.zeros(free.shape[0], device=self.device)
-            for dy in (-1, 0, 1):
-                for dx in (-1, 0, 1):
-                    if dy == 0 and dx == 0:
-                        continue
-                    crowd += padded[1 + ys + dy, 1 + xs + dx]
-            crowd = crowd / 8.0
+            res_norm, crowd = self._score_values(free)
             parent_w = float(self.state.w_cell[parent].mean()) if self.state.w_cell is not None else self.w
             score = parent_w * res_norm - (1.0 - parent_w) * crowd
             order = torch.argsort(score, descending=True)[:take]
@@ -464,6 +511,25 @@ class Pond:
         s.damage[child] = 0
         s.born += 1
         if cfg.learn_w:
+            if cfg.learn_mode == "paired":
+                # урок ставится только когда есть вторая спора с другим весом
+                if paired is not None:
+                    halves = []
+                    for row in spots[:2]:
+                        one = torch.zeros_like(s.alive)
+                        one[int(row[0]), int(row[1])] = True
+                        halves.append(one)
+                    self._pending.append({
+                        "pair": True,
+                        "mask_a": halves[0],
+                        "mask_b": halves[1],
+                        "parent": parent.clone(),
+                        "born_step": int(s.step),
+                        "w_a": paired["w_a"],
+                        "w_b": paired["w_b"],
+                    })
+                    s.w_cell = torch.full_like(s.w_cell, float(self.w))
+                return child
             probe_w = float(self.w)
             if s.w_cell is not None:
                 parent_w = float(s.w_cell[parent].mean())

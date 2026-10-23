@@ -224,9 +224,9 @@ def _matching_pick(seed: int, temp: float, spore_cells: int = 1) -> torch.Tensor
 def test_matching_at_low_temperature_is_argmax():
     """При T -> 0 matching обязан сойтись к жадному выбору (контроль)."""
     for seed in range(6):
-        child = _matching_pick(seed, temp=0.01)
+        child = _matching_pick(seed, temp=1e-4)
         assert int(child.sum()) == 1
-        assert bool(child[6, 4]), "при низкой температуре выбирается клетка с max payoff"
+        assert bool(child[6, 4]), f"при низкой температуре ожидалась клетка с max payoff, взята {child.nonzero().tolist()}"
 
 
 def test_matching_spreads_over_cells_at_default_temperature():
@@ -245,3 +245,69 @@ def test_matching_spores_do_not_overlap_and_are_free():
     assert int(child.sum()) == 2
     # клетки споры различны и не лежат на родителе
     assert not bool((child[5:7, 5:7]).any())
+
+
+# ---------- парный (относительный) сигнал обучения, I-001 ----------
+
+def _paired_pond(**over):
+    cfg = dict(grid=12, resource_regen=0.0, baseline_income=0.0,
+               update_cost=0.0, repair_cost=0.0, damage_rate=0.0,
+               budding_cost=1.0, spore_cells=2, noise=0.0,
+               learn_w=True, learn_mode="paired", spore_bias="score",
+               w_rich=0.5, learn_rate=0.5, learn_pair_noise=0.2, learn_delay=3)
+    cfg.update(over)
+    pond = Pond(PondConfig(**cfg), seed=3)
+    parent = torch.zeros((12, 12), dtype=torch.bool)
+    parent[5:7, 5:7] = True
+    pond.seed_life(parent, energy=10.0)
+    return pond, parent
+
+
+def test_paired_birth_records_two_arms_with_different_weights():
+    pond, parent = _paired_pond()
+    child = pond.bud(parent)
+    assert child is not None and int(child.sum()) == 2
+    entry = pond._pending[-1]
+    assert entry.get("pair") is True
+    # две разные клетки, по одной на плечо
+    assert int(entry["mask_a"].sum()) == 1 and int(entry["mask_b"].sum()) == 1
+    assert not bool((entry["mask_a"] & entry["mask_b"]).any())
+    # первое испытание: w' = w + δ
+    assert entry["w_a"] == 0.5
+    assert entry["w_b"] == 0.7
+
+
+def test_paired_learning_moves_w_to_surviving_arm():
+    pond, parent = _paired_pond()
+    pond.bud(parent)
+    entry = pond._pending[-1]
+    # плечо A погибает, плечо B выживает
+    pond.state.alive[entry["mask_a"]] = False
+    pond.state.step = entry["born_step"] + pond.cfg.learn_delay
+    pond.step_cells()
+    # w тянется к w' с шагом learn_rate
+    assert abs(pond.w - (0.5 + 0.5 * (0.7 - 0.5))) < 1e-6
+    assert pond.learn_updates == 1
+    assert pond.learn_useless == 0
+
+
+def test_paired_learning_ignores_lessons_with_equal_fate():
+    pond, parent = _paired_pond()
+    pond.bud(parent)
+    entry = pond._pending[-1]
+    # обе споры живы -> сигнала нет
+    pond.state.step = entry["born_step"] + pond.cfg.learn_delay
+    before = pond.w
+    pond.step_cells()
+    assert pond.w == before
+    assert pond.learn_updates == 0
+    assert pond.learn_useless == 1
+
+
+def test_paired_control_with_zero_delta_does_not_learn():
+    """δ=0 — контроль: оба плеча одинаковы, уроков быть не должно (w не уезжает)."""
+    pond, parent = _paired_pond(learn_pair_noise=0.0)
+    child = pond.bud(parent)
+    assert child is not None and int(child.sum()) == 2
+    assert pond._pending == []
+    assert pond.w == 0.5
