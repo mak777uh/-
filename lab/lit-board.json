@@ -553,17 +553,21 @@
         "kind": "experiment_change",
         "detail": "три плеча: инвазия A в B и B в A (5 %), контроль «оба типа одинаковы», и отчёт с CI разности и долей побед по сидам; иначе «обучение адаптируется» — переоткрытие частотной зависимости"
       },
-      "status": "new",
+      "status": "accepted",
       "wave": "current",
       "owner": "librarian",
       "created_at": "2026-10-23T23:35:48+03:00",
-      "decided_at": null,
-      "why": null,
+      "decided_at": "2026-10-24",
+      "why": "устарело: числа до фикса наследования; перепроверено в §4c v3",
       "links": {
-        "insights": [],
-        "tasks": [],
-        "reports": []
-      }
+        "insights": [
+          "I-038"
+        ],
+        "reports": [
+          "morphogenesis/experiments/E09_pond/frequency_start_control.json"
+        ]
+      },
+      "decided_by": "lead"
     },
     {
       "id": "B-016",
@@ -588,17 +592,21 @@
         "kind": "text",
         "detail": "в §4b определить «движущийся оптимум» как эндогенный (потребление меняет ресурс), сослаться на P17/P18 и явно отделить от внешнего дрейфа §10p (там выигрыша не было) — это и есть различие, а не деталь"
       },
-      "status": "new",
+      "status": "accepted",
       "wave": "current",
       "owner": "librarian",
       "created_at": "2026-10-23T23:51:25+03:00",
-      "decided_at": null,
-      "why": null,
+      "decided_at": "2026-10-24",
+      "why": "термин «движущийся оптимум» занят (Chevin 2010) — в §4b переименовано в частотно-зависимую среду",
       "links": {
-        "insights": [],
-        "tasks": [],
-        "reports": []
-      }
+        "insights": [
+          "I-038"
+        ],
+        "reports": [
+          "morphogenesis/experiments/E09_pond/frequency_start_control.json"
+        ]
+      },
+      "decided_by": "lead"
     },
     {
       "id": "B-017",
@@ -623,17 +631,21 @@
         "kind": "experiment_change",
         "detail": "в §4b сослаться на voter-модель и добавить проверку времени фиксации на 2–3 размерах колонии (H51); для отслеживания — критерий колебаний доли A, а не отсутствия сходимости"
       },
-      "status": "new",
+      "status": "accepted",
       "wave": "current",
       "owner": "librarian",
       "created_at": "2026-10-24T00:43:51+03:00",
-      "decided_at": null,
-      "why": null,
+      "decided_at": "2026-10-24",
+      "why": "фиксация — voter-динамика; §4c v3 и §5a переписаны",
       "links": {
-        "insights": [],
-        "tasks": [],
-        "reports": []
-      }
+        "insights": [
+          "I-038"
+        ],
+        "reports": [
+          "morphogenesis/experiments/E09_pond/frequency_start_control.json"
+        ]
+      },
+      "decided_by": "lead"
     },
     {
       "id": "B-018",
@@ -658,17 +670,21 @@
         "kind": "text",
         "detail": "в §4b назвать эффект приоритета и сослаться на P20/P15; добавить, что инвазия нейтрального маркера не проверяет среду (H52: одновременная инокуляция 50/50 как контроль)"
       },
-      "status": "new",
+      "status": "accepted",
       "wave": "current",
       "owner": "librarian",
       "created_at": "2026-10-24T00:56:31+03:00",
-      "decided_at": null,
-      "why": null,
+      "decided_at": "2026-10-24",
+      "why": "инвазия нейтрального маркера о среде не говорит (Chesson 2000); §4b уже с этой оговоркой",
       "links": {
-        "insights": [],
-        "tasks": [],
-        "reports": []
-      }
+        "insights": [
+          "I-038"
+        ],
+        "reports": [
+          "morphogenesis/experiments/E09_pond/frequency_start_control.json"
+        ]
+      },
+      "decided_by": "lead"
     },
     {
       "id": "B-019",
@@ -693,17 +709,21 @@
         "kind": "experiment_change",
         "detail": "поставить фиксацию при фиксированном N (рост выключен или N удерживается) на 2–3 размерах; только тогда сравнивать с voter-теорией и писать «порядок»; в §10w добавить ограничение роста"
       },
-      "status": "new",
+      "status": "accepted",
       "wave": "current",
       "owner": "librarian",
       "created_at": "2026-10-24T01:21:32+03:00",
-      "decided_at": null,
-      "why": null,
+      "decided_at": "2026-10-24",
+      "why": "замер сделан на растущей колонии 4→91; добавлена оговорка и пул D-30 (фиксированный N)",
       "links": {
-        "insights": [],
-        "tasks": [],
-        "reports": []
-      }
+        "insights": [
+          "I-038"
+        ],
+        "reports": [
+          "morphogenesis/experiments/E09_pond/frequency_start_control.json"
+        ]
+      },
+      "decided_by": "lead"
     },
     {
       "id": "B-020",
@@ -728,10 +748,49 @@
         "kind": "experiment_change",
         "detail": "план task-13: (а) 5-я среда отложена полностью; (б) назвать ось сходства и добавить контроль «своё семейство/чужое»; (в) метрика — медиана, IQR, доля побед, а не среднее; (г) базовая линия — лучшее фиксированное правило при равном бюджете"
       },
-      "status": "new",
+      "status": "accepted",
       "wave": "current",
       "owner": "librarian",
       "created_at": "2026-10-24T02:03:02+03:00",
+      "decided_at": "2026-10-24",
+      "why": "метаобучение — стандартный термин (Hospedales 2021); task-13 использует его корректно",
+      "links": {
+        "insights": [
+          "I-038"
+        ],
+        "reports": [
+          "morphogenesis/experiments/E09_pond/frequency_start_control.json"
+        ]
+      },
+      "decided_by": "lead"
+    },
+    {
+      "id": "B-021",
+      "type": "risk",
+      "target": {
+        "kind": "section",
+        "id": "manuscript/paper.md#4c",
+        "ref": "§4c: «переключение непредсказуемо» — но это было до контроля старта"
+      },
+      "statement": "Новый контроль (6979037) показывает: прежний вывод §4c «переключение непредсказуемо» описывал артефакт СМЕШАННОГО старта. Фикс начинает с всех-A, переключение — со смеси; значит плечи различались не политикой, а начальным составом, то есть мы измеряли эффект приоритета (Fukami 2015), а не политику. При согласованном старте (все A, переключение при делении) fd=1: random 71313±5701, learn 70956±5409 против фикса 58890±5436 (+21%), fd=0 — минус 9.6%. И провал давал один сид 4, гибнувший одинаково во всех плечах — это common-mode, а не политика. Правило: политики сравнивать при одинаковом начальном составе; общий провал сида — артефакт, а не результат.",
+      "evidence": [
+        {
+          "library": "hypotheses/pond-lineage.md#P20",
+          "note": "Hurlbert 1984: псевдорепликация и смешанные факторы"
+        },
+        {
+          "library": "hypotheses/reproducibility.md#R7",
+          "note": "Hurlbert 1984: псевдорепликация и смешанные факторы"
+        }
+      ],
+      "action": {
+        "kind": "experiment_change",
+        "detail": "в §4c заменить «непредсказуемо» на «артефакт смешанного старта»; добавить контроль старта (frequency_start_control.json); во всех будущих сравнениях политик фиксировать начальный состав и проверять общий провал сида"
+      },
+      "status": "new",
+      "wave": "current",
+      "owner": "librarian",
+      "created_at": "2026-10-24T02:28:07+03:00",
       "decided_at": null,
       "why": null,
       "links": {
@@ -741,5 +800,5 @@
       }
     }
   ],
-  "updated_at": "2026-10-23T23:40:00Z"
+  "updated_at": "2026-10-24T02:40:00Z"
 }
