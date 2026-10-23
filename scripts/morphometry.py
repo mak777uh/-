@@ -444,7 +444,9 @@ def hole_morphology(mask: np.ndarray) -> dict:
     m = np.asarray(mask).astype(bool)
     if not m.any():
         return {"holes": [], "n": 0, "shape_mean": float("nan"), "shape_std": float("nan")}
-    bg, n_bg = ndi.label(~m, structure=np.ones((3, 3)))
+    bg, n_bg = ndi.label(~m, structure=np.array([[0, 1, 0],
+                                                 [1, 1, 1],
+                                                 [0, 1, 0]]))
     edge_labels = set(bg[0, :]) | set(bg[-1, :]) | set(bg[:, 0]) | set(bg[:, -1])
     edge_labels.discard(0)
     holes = []
@@ -475,7 +477,9 @@ def hole_radial_distribution(mask: np.ndarray, bins: int = 8, max_r: int | None 
     m = np.asarray(mask).astype(bool)
     if not m.any():
         return {"bins": [], "g": [], "n": 0}
-    bg, n_bg = ndi.label(~m, structure=np.ones((3, 3)))
+    bg, n_bg = ndi.label(~m, structure=np.array([[0, 1, 0],
+                                                 [1, 1, 1],
+                                                 [0, 1, 0]]))
     edge_labels = set(bg[0, :]) | set(bg[-1, :]) | set(bg[:, 0]) | set(bg[:, -1])
     edge_labels.discard(0)
     centers = np.array(ndi.center_of_mass(~m, bg, [i for i in range(1, n_bg + 1) if i not in edge_labels]))
