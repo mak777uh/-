@@ -116,3 +116,35 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
+
+def block_density_grid(mask, block: int = 8):
+    """Плотность живого в блоках block x block (для временной MI)."""
+    m = np.asarray(mask, dtype=float)
+    h, w = m.shape
+    h2, w2 = (h // block) * block, (w // block) * block
+    return m[:h2, :w2].reshape(h2 // block, block, w2 // block, block).mean(axis=(1, 3))
+
+
+def temporal_individuality(snapshots, block: int = 8, deltas=(1, 2, 4), bins: int = 8):
+    """I(S(t); S(t+dt)) по блочным плотностям, с контролем во времени.
+
+    snapshots: (T, H, W) маски живого. Для каждого dt берём пары (t, t+dt) и считаем
+    MI между векторами блочных плотностей. Контроль — перестановка снимков во
+    времени: если MI на контроле тот же, временной структуры нет.
+    """
+    snap = np.asarray(snapshots)
+    t_count = snap.shape[0]
+    dens = np.array([block_density_grid(s, block).reshape(-1) for s in snap])
+    result = {}
+    for dt in deltas:
+        if t_count <= dt:
+            continue
+        x = dens[: t_count - dt].reshape(-1)
+        y = dens[dt:].reshape(-1)
+        mi = mutual_information(x, y, bins)
+        order = np.random.default_rng(0).permutation(t_count)
+        shuffled = dens[order]
+        xs = shuffled[: t_count - dt].reshape(-1)
+        ys = shuffled[dt:].reshape(-1)
+        result[dt] = {"mi": mi, "control": mutual_information(xs, ys, bins)}
+    return result

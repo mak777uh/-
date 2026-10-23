@@ -57,6 +57,10 @@ class PondRun:
         self.state = torch.zeros((1, c, n, n), device=self.device)
         self.genome = torch.randn((1, k, n, n), generator=self.gen, device=self.device) * 0.1
         self.log: list[dict] = []
+        self.snapshots: list[dict] = []
+        self.snapshot_every: int = 0
+        self.clonal_attached: int = 0
+        self.clonal_separate: int = 0
 
     # ---------- инициализация ----------
     def seed(self, cells: int = 4, energy: float = 8.0) -> None:
@@ -112,7 +116,19 @@ class PondRun:
         newly = alive_now & ~s.alive
         births = int(newly.sum())
         if births:
+            # клональность: приросла ли новая клетка к старому телу или начала свой компонент
+            old_alive = s.alive.clone()
             s.alive = alive_now
+            _, labels = self.pond._components(alive_now)
+            new_idx = newly.nonzero(as_tuple=False)
+            attached = 0
+            for y, x in new_idx.tolist():
+                label = int(labels[y, x])
+                same = old_alive & (labels == label)
+                if bool(same.any()):
+                    attached += 1
+            self.clonal_attached += attached
+            self.clonal_separate += births - attached
             s.energy = torch.where(newly, torch.full_like(s.energy, birth_energy), s.energy)
             s.age = torch.where(newly, torch.zeros_like(s.age), s.age)
             s.damage = torch.where(newly, torch.zeros_like(s.damage), s.damage)
@@ -142,6 +158,13 @@ class PondRun:
             self.state[0][:, child] = self.state[0][:, parent].mean(dim=1, keepdim=True)
             births += 1
         self._apply_alive(self.pond.state.alive)
+
+        if self.snapshot_every and self.pond.state.step % self.snapshot_every == 0:
+            self.snapshots.append({
+                "step": int(self.pond.state.step),
+                "alive": self.pond.state.alive.detach().cpu().numpy().copy(),
+                "energy": self.pond.state.energy.detach().cpu().numpy().copy(),
+            })
 
         snap = self.pond.snapshot()
         snap["births_this_step"] = births
@@ -179,6 +202,9 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--repair-cost", type=float, default=None, help="цена ремонта клетки")
     ap.add_argument("--budding-mass", type=float, default=None, help="масса для споры")
     ap.add_argument("--budding-cost", type=float, default=None, help="энергия на спору")
+    ap.add_argument("--snapshot-every", type=int, default=0,
+                    help="сохранять снимок состояния каждые N шагов (0 = не сохранять)")
+    ap.add_argument("--snapshots-out", default=None, help="куда сохранить снимки (.npz)")
     ap.add_argument("--layout", default="uniform",
                     choices=["uniform", "gradient", "patches"], help="структура ресурса")
     args = ap.parse_args(argv)
@@ -197,9 +223,23 @@ def main(argv: list[str] | None = None) -> int:
     world.resource_layout = args.layout
     run = PondRun(world_cfg=world, seed=args.seed, device=args.device,
                   rule_checkpoint=args.rule_checkpoint)
+    run.snapshot_every = args.snapshot_every
     run.seed(cells=4, energy=8.0)
     summary = run.run(args.steps, log_every=max(1, args.steps // 10))
+    summary["clonal_attached"] = run.clonal_attached
+    summary["clonal_separate"] = run.clonal_separate
+    total = run.clonal_attached + run.clonal_separate
+    summary["clonal_fraction"] = (run.clonal_attached / total) if total else None
     print(json.dumps(summary, ensure_ascii=False, indent=2))
+    if args.snapshots_out and run.snapshots:
+        import numpy as _np
+        _np.savez_compressed(
+            args.snapshots_out,
+            steps=_np.array([s["step"] for s in run.snapshots]),
+            alive=_np.array([s["alive"] for s in run.snapshots]),
+            energy=_np.array([s["energy"] for s in run.snapshots]),
+        )
+        print(f"[pond] снимков сохранено: {len(run.snapshots)} -> {args.snapshots_out}")
     if args.out:
         with open(args.out, "w", encoding="utf-8") as fh:
             json.dump({"summary": summary, "log": run.log}, fh, ensure_ascii=False, indent=2)
