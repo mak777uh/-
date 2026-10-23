@@ -227,15 +227,25 @@ def check(root: pathlib.Path, state_path: pathlib.Path | None = None, update: bo
     return changes
 
 
-def wait(root: pathlib.Path, timeout: float, interval: float, state_path: pathlib.Path | None = None) -> int:
+def wait(root: pathlib.Path, timeout: float, interval: float,
+         state_path: pathlib.Path | None = None, settle: float = 0.0) -> int:
     deadline = time.monotonic() + timeout
     base = load_state(state_path)
     while time.monotonic() < deadline:
         current = fingerprint(root)
         changes = diff(base, current)
         if changes and is_significant(changes):
+            # серия может ещё писать файлы: ждём тишины `settle` секунд,
+            # чтобы проснуться на конце серии, а не на каждом прогоне
+            quiet_since = time.monotonic()
+            while settle > 0 and time.monotonic() - quiet_since < settle:
+                time.sleep(max(1.0, min(interval, settle / 4)))
+                nxt = fingerprint(root)
+                if diff(current, nxt):
+                    current = nxt
+                    quiet_since = time.monotonic()
             save_state(current, state_path)
-            print("changed: " + ", ".join(changes))
+            print("changed: " + ", ".join(diff(base, current)))
             return 0
         if changes:
             # только HEAD: свой или чужой коммит без изменений в интересующих файлах
@@ -256,10 +266,12 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--reset", action="store_true")
     ap.add_argument("--timeout", type=float, default=3600.0)
     ap.add_argument("--interval", type=float, default=30.0)
+    ap.add_argument("--settle", type=float, default=0.0,
+                    help="после изменения ждать тишины N секунд (серия пишет файлы каждые ~70 с)")
     args = ap.parse_args(argv)
 
     if args.wait:
-        return wait(args.root, args.timeout, args.interval, args.state)
+        return wait(args.root, args.timeout, args.interval, args.state, args.settle)
     if args.show:
         print(json.dumps(fingerprint(args.root), ensure_ascii=False, indent=2))
         return 0
