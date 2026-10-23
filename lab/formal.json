@@ -47,14 +47,29 @@
         "F-BUDGET-1"
       ],
       "errors": []
+    },
+    {
+      "file": "formal/Territory.lean",
+      "ok": true,
+      "theorems": [
+        "blocked_bud_is_noop",
+        "blocked_bud_conserves",
+        "bud_conserves",
+        "child_gain_le_parent_loss"
+      ],
+      "hypotheses": [
+        "F-BUDGET-4"
+      ],
+      "errors": []
     }
   ],
   "hypotheses": [
     "F-BUDGET-1",
     "F-BUDGET-2",
     "F-BUDGET-3",
+    "F-BUDGET-4",
     "F-CLOSURE-1",
     "F-ORDER-1"
   ],
-  "theorems_total": 13
+  "theorems_total": 17
 }
