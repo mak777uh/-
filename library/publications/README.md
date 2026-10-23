@@ -277,6 +277,13 @@ H29-пункт «ядро от цели»).
 | G22 | [Andrychowicz et al., 2016, arXiv](https://arxiv.org/abs/1606.04474) | выученный оптимизатор переносится на «похожие по структуре» задачи | H53 | ось сходства названа; контроль «своё/чужое семейство» | `not_run` | [P22](../hypotheses/pond-lineage.md) |
 | G23 | [Kimura, 1968, Nature](https://doi.org/10.1038/217624a0) | нейтральный дрейф фиксирует признак за время порядка N | H51 | время фиксации vs N | `not_run` | [P23](../hypotheses/pond-lineage.md) |
 | G24 | [Blythe & McKane, 2007, J. Stat. Mech.](https://doi.org/10.1088/1742-5468/2007/07/P07018) | voter/Moran/коалесценция: какая модель соответствует локальному копированию | H51 | сравнение предсказаний на двух топологиях | `not_run` | [P24](../hypotheses/pond-lineage.md) |
+| G25 | [Soltoggio et al., 2018, Neural Networks](https://doi.org/10.1016/j.neunet.2018.07.013) | evolved plasticity: L2 формирует L1, ловушки | H53 | абляция «без L1» | `not_run` | [task-14](../task-14.md) |
+| G26 | [Sousa, 1984, Annu. Rev. Ecol. Syst.](https://doi.org/10.1146/annurev.es.15.110184.002033) | режимы нарушений | — | пересчёт «на поколение» | `not_run` | [task-14](../task-14.md) |
+| G27 | [Connell, 1978, Science](https://doi.org/10.1126/science.199.4335.1302) | промежуточное нарушение: разнообразие максимально при среднем уровне | — | свип 0.001–0.1/шаг | `not_run` | [task-14](../task-14.md) |
+| G28 | [Jones et al., 1994, Oikos](https://doi.org/10.2307/3545850) | ecosystem engineers | — | три метрики конструирования | `not_run` | [task-14](../task-14.md) |
+| G29 | [Laland et al., 2016, Evol. Ecol.](https://doi.org/10.1007/s10682-016-9821-z) | введение в niche construction | — | абиотический контроль | `not_run` | [task-14](../task-14.md) |
+| G30 | [Baldwin, 1896, Am. Nat.](https://doi.org/10.1086/276408) | Baldwin effect: обучение направляет отбор | — | три предпосылки пользы обучения | `not_run` | [task-14](../task-14.md) |
+| G31 | [Taylor et al., 2016, Artif. Life](https://doi.org/10.1162/ARTL_a_00210) | открытая эволюция без согласованной операционализации | — | тройной контроль метрик | `not_run` | [task-14](../task-14.md) |
 
 ## H. ALife: классика, открытая эволюция, рамки, индивидуальность
 
