@@ -159,10 +159,31 @@ class PondRun:
             s.energy = torch.where(newly, torch.full_like(s.energy, birth_energy), s.energy)
             s.age = torch.where(newly, torch.zeros_like(s.age), s.age)
             s.damage = torch.where(newly, torch.zeros_like(s.damage), s.damage)
+            if s.cell_type is not None:
+                self._inherit_grown_types(old_alive, newly, labels)
         else:
             s.alive = alive_now
         return births
 
+    def _inherit_grown_types(self, old_alive: torch.Tensor, newly: torch.Tensor,
+                             labels: torch.Tensor) -> None:
+        """Тип A/B для клеток, выросших правилом: наследуется от СВОЕГО тела.
+
+        Не от соседей-большинства: иначе меньшинство (B) постоянно превращается в
+        A при росте рядом, и частотная зависимость не успевает сработать
+        (проверено: доля A уезжала к 0.75 при mixed-старте).
+        """
+        s = self.pond.state
+        ct = s.cell_type
+        new_idx = newly.nonzero(as_tuple=False)
+        comp_type: dict[int, int] = {}
+        for y, x in new_idx.tolist():
+            lab = int(labels[y, x])
+            if lab not in comp_type:
+                body = old_alive & (labels == lab)
+                comp_type[lab] = (int(round(float(ct[body].float().mean()))) if bool(body.any()) else 0)
+        for y, x in new_idx.tolist():
+            ct[y, x] = comp_type[int(labels[y, x])]
     def _accumulate(self, alive_now: int) -> None:
         """Накопить «площадь жизни»: сумма живых по шагам."""
         self.pop_time = getattr(self, "pop_time", 0) + int(alive_now)
@@ -283,6 +304,12 @@ def main(argv: list[str] | None = None) -> int:
                     help="энергия за шаг организма по жизни (0 = выкл, I-023)")
     ap.add_argument("--organism-mobility-every", type=int, default=10,
                     help="раз в сколько шагов организм пробует шаг по жизни")
+    ap.add_argument("--freq-dep", type=float, default=0.0,
+                    help="сила отрицательной частотной зависимости ресурса (0 = выкл, I-030)")
+    ap.add_argument("--type-start", default="a", choices=["a", "mixed"],
+                    help="тип стартовых клеток: все A или смешанный")
+    ap.add_argument("--type-mode", default="fixed", choices=["fixed", "random", "learn"],
+                    help="как наследуется тип A/B: fixed | random | learn")
     ap.add_argument("--layout", default="uniform",
                     choices=["uniform", "gradient", "patches"], help="структура ресурса")
     args = ap.parse_args(argv)
@@ -309,6 +336,9 @@ def main(argv: list[str] | None = None) -> int:
     world.mobility_cost = args.mobility_cost
     world.organism_mobility_cost = args.organism_mobility_cost
     world.organism_mobility_every = args.organism_mobility_every
+    world.freq_dep = args.freq_dep
+    world.type_mode = args.type_mode
+    world.type_start = args.type_start
     world.w_rich = args.w_rich
     world.learn_w = args.learn_w
     world.learn_rate = args.learn_rate
@@ -344,6 +374,12 @@ def main(argv: list[str] | None = None) -> int:
     summary["organism_moves_per_step"] = round(
         float(run.organism_moves_total) / max(int(run.pond.state.step), 1), 3
     )
+    series = getattr(run.pond, "type_share_series", [])
+    if series:
+        summary["a_share_final"] = series[-1]
+        summary["a_share_min"] = round(min(series), 4)
+        summary["a_share_max"] = round(max(series), 4)
+        summary["a_share_series"] = series
     summary["w_final"] = float(run.pond.w)
     if getattr(run.pond.state, "w_cell", None) is not None and run.pond.state.alive.any():
         wcel = run.pond.state.w_cell[run.pond.state.alive]

@@ -75,6 +75,9 @@ class PondConfig:
     mobility_steps: int = 0            # сколько шагов спора может пройти (0 = подвижность выкл)
     organism_mobility_cost: float = 0.0    # цена шага организма по жизни (0 = выкл)
     organism_mobility_every: int = 10      # раз в сколько шагов организм пробует шаг
+    freq_dep: float = 0.0              # сила отрицательной частотной зависимости (0 = выкл)
+    type_mode: str = "fixed"           # fixed | random | learn — как наследуется тип A/B
+    type_start: str = "a"              # a | mixed — тип стартовых клеток
     learn_window: int = 30             # окно оценки для обучения колонии
     init_resource_fill: float = 0.0     # 0..1: доля потолка, до которой поле заполнено на старте
     membrane_gated: bool = False      # обмен гейтируется мембраной (замыкание)
@@ -94,6 +97,8 @@ class PondState:
     membrane: torch.Tensor            # (H, W) float, 0..1
     age: torch.Tensor                 # (H, W) int64
     alive: torch.Tensor               # (H, W) bool
+    resource_b: torch.Tensor | None = None  # (H, W) ресурс второго типа (I-030)
+    cell_type: torch.Tensor | None = None   # (H, W) int64: 0 = A, 1 = B
     w_cell: torch.Tensor | None = None  # (H, W) локальный вес политики (учится)
     step: int = 0
     born: int = 0
@@ -160,6 +165,14 @@ class Pond:
                 fill[n - third : n - third // 2, n - third : n - third // 2] = rich
                 fill[third // 2 : third // 2 + third // 2, n - third : n - third // 2] = rich
             self.state.resource = fill
+
+        # два типа ресурса и частотная зависимость (I-030)
+        if self.cfg.freq_dep > 0.0 or self.cfg.type_mode != "fixed":
+            self.state.resource_b = self.state.resource.clone()
+            self.state.cell_type = torch.zeros((n, n), dtype=torch.int64, device=self.device)
+        self.consumed_a = 0.0
+        self.consumed_b = 0.0
+        self.type_share_series: list[float] = []
 
     # ---------- ресурс и катастрофы ----------
     def _sample_gap(self) -> int:
@@ -251,11 +264,32 @@ class Pond:
         self.state.resource = torch.minimum(
             torch.clamp(self.state.resource + inflow + noise, min=0.0), ceiling
         )
+        # второй тип ресурса: отрицательная частотная зависимость (I-030).
+        # Тип, который едят больше, восстанавливается медленнее; недоедаемый — быстрее.
+        if self.state.resource_b is not None:
+            total = self.consumed_a + self.consumed_b
+            share_a = self.consumed_a / total if total > 1e-9 else 0.5
+            share_b = 1.0 - share_a
+            fd = float(cfg.freq_dep)
+            fa = min(1.0 + fd, max(0.0, 1.0 - fd * (2.0 * share_a - 1.0)))
+            fb = min(1.0 + fd, max(0.0, 1.0 - fd * (2.0 * share_b - 1.0)))
+            noise_b = torch.randn(
+                (cfg.grid, cfg.grid), generator=self.gen, device=self.device
+            ) * cfg.noise
+            self.state.resource_b = torch.minimum(
+                torch.clamp(self.state.resource_b + inflow * fb + noise_b, min=0.0), ceiling
+            )
+            self.state.resource = torch.minimum(
+                torch.clamp(self.state.resource + inflow * (fa - 1.0), min=0.0), ceiling
+            )
 
     # ---------- жизнь клеток ----------
     def seed_life(self, mask: torch.Tensor, energy: float = 5.0) -> None:
         """Поселить жизнь: энергия появляется только вместе с зарядом."""
         mask = mask.to(self.device).bool()
+        if self.state.cell_type is not None and self.cfg.type_start == "mixed":
+            draw = torch.randint(0, 2, (int(mask.sum()),), generator=self.gen_sel)
+            self.state.cell_type[mask] = draw.to(self.device)
         self.state.alive |= mask
         self.state.energy = torch.where(
             mask, torch.full_like(self.state.energy, energy), self.state.energy
@@ -274,19 +308,37 @@ class Pond:
         s = self.state
         alive = s.alive
 
+        # клетка ест ресурс СВОЕГО типа (I-030); без двух типов — единственное поле
+        if s.resource_b is not None and s.cell_type is not None:
+            is_b = s.cell_type == 1
+            own = torch.where(is_b, s.resource_b, s.resource)
+        else:
+            is_b = None
+            own = s.resource
         if cfg.income_mode == "proportional":
             # доход пропорционален доступному ресурсу: бедная зона реально голодает
             income = torch.minimum(
-                s.resource, cfg.baseline_income * s.resource * 4.0
+                own, cfg.baseline_income * own * 4.0
             )
         else:
-            income = torch.minimum(s.resource, torch.full_like(s.resource, cfg.baseline_income))
+            income = torch.minimum(own, torch.full_like(own, cfg.baseline_income))
         if cfg.membrane_gated:
             # обмен возможен только там, где есть мембрана: её производит организм
             gate = (s.membrane >= cfg.membrane_threshold).to(income.dtype)
             income = income * gate
         income = torch.where(alive, income, torch.zeros_like(income))
-        s.resource = s.resource - income
+        if is_b is None:
+            s.resource = s.resource - income
+        else:
+            s.resource = s.resource - torch.where(is_b, torch.zeros_like(income), income)
+            s.resource_b = s.resource_b - torch.where(is_b, income, torch.zeros_like(income))
+            # мгновенное потребление по типам со сглаживанием (EMA): кумулятивный
+            # итог давал медленную обратную связь, и доля уезжала к одному типу
+            eat_a = float(torch.where(is_b, torch.zeros_like(income), income).sum())
+            eat_b = float(torch.where(is_b, income, torch.zeros_like(income)).sum())
+            beta = 0.1
+            self.consumed_a = (1.0 - beta) * self.consumed_a + beta * eat_a
+            self.consumed_b = (1.0 - beta) * self.consumed_b + beta * eat_b
         s.energy = s.energy + income
         self.state.consumed_total += float(income.sum())
 
@@ -401,6 +453,10 @@ class Pond:
             self._colony_alive_prev = alive_now
 
         s.step += 1
+        if s.cell_type is not None and int(s.step) % 5 == 0 and bool(s.alive.any()):
+            self.type_share_series.append(
+                round(float((s.cell_type[s.alive] == 0).float().mean()), 4)
+            )
         return {"died": died_now, "alive": int(s.alive.sum()), "catastrophe": self.in_catastrophe()}
 
     # ---------- подвижность споры при расселении (I-022) ----------
@@ -537,20 +593,48 @@ class Pond:
                 buds.append(mask)
         return buds
 
-    def _perceived_resource(self) -> torch.Tensor:
+    def _perceived_resource(self, field: torch.Tensor | None = None) -> torch.Tensor:
         """Что родитель *видит* как ресурс: истинное поле плюс шум восприятия (σ).
 
         Истинный `state.resource` не меняется: доход и смерть считаются по нему,
         шум живёт только в решении, куда поставить спору (I-012).
         """
+        base = self.state.resource if field is None else field
         sigma = float(self.cfg.sense_noise)
         if sigma <= 0.0:
-            return self.state.resource
+            return base
         n = self.cfg.grid
         noise = torch.randn((n, n), generator=self.gen, device=self.device)
         return torch.clamp(
-            self.state.resource * (1.0 + sigma * noise), min=0.0, max=self.cfg.resource_max
+            base * (1.0 + sigma * noise), min=0.0, max=self.cfg.resource_max
         )
+
+    def _parent_field(self, parent: torch.Tensor) -> torch.Tensor:
+        """Поле ресурса, которое видит родитель: своего типа (I-030)."""
+        s = self.state
+        if s.cell_type is None or s.resource_b is None:
+            return s.resource
+        ptype = int(round(float(s.cell_type[parent].float().mean())))
+        return s.resource_b if ptype == 1 else s.resource
+
+    def _assign_child_type(self, parent: torch.Tensor, child: torch.Tensor) -> None:
+        """Тип потомка: fixed (все A) | random | learn (наследуй, пока не голодно)."""
+        s = self.state
+        if s.cell_type is None:
+            return
+        mode = self.cfg.type_mode
+        if mode == "fixed":
+            t = 0
+        elif mode == "random":
+            t = int(torch.randint(0, 2, (), generator=self.gen_sel))
+        else:
+            ptype = int(round(float(s.cell_type[parent].float().mean())))
+            own = s.resource_b if ptype == 1 else s.resource
+            local = float(own[parent].mean())
+            global_mean = float(own.mean())
+            # родитель в хорошей зоне — передаёт тип; в плохой — переключает
+            t = ptype if local >= global_mean else 1 - ptype
+        s.cell_type[child] = t
 
     def _score_values(self, free: torch.Tensor,
                       resource: torch.Tensor | None = None) -> tuple[torch.Tensor, torch.Tensor]:
@@ -587,7 +671,7 @@ class Pond:
             s.spores_blocked += 1
             return None
         take = min(int(cfg.spore_cells), int(free.shape[0]))
-        perceived = self._perceived_resource()  # шум восприятия (σ=0 -> истинный ресурс)
+        perceived = self._perceived_resource(self._parent_field(parent))  # тип родителя + шум
         paired = None
         if cfg.learn_w and cfg.learn_mode == "paired" and cfg.spore_bias == "score":
             # (1+1)-ES на парных образцах: тот же родитель, тот же шаг, две клетки —
@@ -686,6 +770,7 @@ class Pond:
         s.age[child] = 0
         s.damage[child] = 0
         s.born += 1
+        self._assign_child_type(parent, child)
         if cfg.learn_w:
             if cfg.learn_mode == "paired":
                 # урок ставится только когда есть вторая спора с другим весом
@@ -766,6 +851,9 @@ class Pond:
 
     def snapshot(self) -> dict:
         s = self.state
+        a_share = None
+        if s.cell_type is not None and bool(s.alive.any()):
+            a_share = round(float((s.cell_type[s.alive] == 0).float().mean()), 4)
         return {
             "step": int(s.step),
             "alive_cells": int(s.alive.sum()),
@@ -778,6 +866,7 @@ class Pond:
             "died": int(s.died),
             "spores_blocked": int(s.spores_blocked),
             "catastrophe": self.in_catastrophe(),
+            "a_share": a_share,
         }
 
 

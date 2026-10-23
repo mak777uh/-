@@ -601,3 +601,82 @@ def test_organism_mobility_moves_state_and_genome():
     assert torch.equal(run.genome[0, :, dy, dx], torch.arange(run.genome.shape[1], dtype=run.genome.dtype))
     assert float(run.state[0, :, 3, 3].abs().sum()) == 0.0
     assert int(run.pond.state.alive.sum()) == 2
+
+
+# ---------- частотно-зависимый ресурс, два типа (I-030) ----------
+
+def _two_type_pond(freq_dep: float = 1.0, type_mode: str = "fixed", **over):
+    cfg = dict(grid=8, resource_regen=0.0, baseline_income=0.2, update_cost=0.0,
+               repair_cost=0.0, damage_rate=0.0, noise=0.0, income_mode="proportional",
+               freq_dep=freq_dep, type_mode=type_mode, resource_layout="uniform",
+               init_resource_fill=0.0)
+    cfg.update(over)
+    return Pond(PondConfig(**cfg), seed=3)
+
+
+def test_two_type_income_uses_own_resource():
+    pond = _two_type_pond()
+    mask = torch.zeros((8, 8), dtype=torch.bool)
+    mask[2, 2] = True   # тип A
+    mask[5, 5] = True   # тип B
+    pond.seed_life(mask, energy=5.0)
+    pond.state.cell_type[5, 5] = 1
+    pond.state.resource = torch.zeros((8, 8))       # A-ресурса нет
+    pond.state.resource_b = torch.ones((8, 8))      # B-ресурс есть
+    e_a0 = float(pond.state.energy[2, 2])
+    e_b0 = float(pond.state.energy[5, 5])
+    pond.step_cells()
+    assert abs((float(pond.state.energy[2, 2]) - e_a0)) < 1e-6, "A не должен есть B-ресурс"
+    assert float(pond.state.energy[5, 5]) - e_b0 > 0.5, "B должен получить доход"
+
+
+def test_child_type_fixed():
+    pond = _two_type_pond(type_mode="fixed")
+    parent = torch.zeros((8, 8), dtype=torch.bool); parent[2:4, 2:4] = True
+    pond.seed_life(parent, energy=5.0)
+    pond.state.cell_type[3, 3] = 1   # даже у B-родителя потомок A при fixed
+    child = torch.zeros((8, 8), dtype=torch.bool); child[1, 1] = True
+    pond._assign_child_type(parent, child)
+    assert int(pond.state.cell_type[1, 1]) == 0
+
+
+def test_child_type_learn_follows_local_success():
+    pond = _two_type_pond(type_mode="learn")
+    parent = torch.zeros((8, 8), dtype=torch.bool); parent[2:4, 2:4] = True
+    pond.seed_life(parent, energy=5.0)
+    pond.state.cell_type[parent] = 0
+    child = torch.zeros((8, 8), dtype=torch.bool); child[1, 1] = True
+    # богатая зона: локально больше среднего -> наследует A
+    pond.state.resource = torch.full((8, 8), 0.1)
+    pond.state.resource[parent] = 1.0
+    pond._assign_child_type(parent, child)
+    assert int(pond.state.cell_type[1, 1]) == 0
+    # бедная зона: локально меньше среднего -> переключается на B
+    pond.state.resource = torch.full((8, 8), 1.0)
+    pond.state.resource[parent] = 0.0
+    pond._assign_child_type(parent, child)
+    assert int(pond.state.cell_type[1, 1]) == 1
+
+
+def test_freq_dep_suppresses_overused_type():
+    pond = _two_type_pond(freq_dep=1.0, resource_regen=0.02)
+    pond.state.resource = torch.zeros((8, 8))
+    pond.state.resource_b = torch.zeros((8, 8))
+    pond.consumed_a = 100.0   # A едят сильно
+    pond.consumed_b = 0.0
+    pond.regenerate()
+    a_growth = float(pond.state.resource.sum())
+    b_growth = float(pond.state.resource_b.sum())
+    assert b_growth > a_growth * 10, "недоедаемый тип должен восстанавливаться быстрее"
+
+
+def test_type_share_series_recorded():
+    pond = _two_type_pond(freq_dep=0.5, type_mode="random")
+    mask = torch.zeros((8, 8), dtype=torch.bool)
+    mask[2:4, 2:4] = True
+    pond.seed_life(mask, energy=5.0)
+    for _ in range(6):
+        pond.regenerate()
+        pond.step_cells()
+    assert len(pond.type_share_series) >= 1
+    assert 0.0 <= pond.type_share_series[0] <= 1.0
