@@ -161,6 +161,10 @@ jobs:
       - name: Cycle legs (experiments / reading / hypotheses)
         run: python scripts/cycle_audit.py --days 1
 
+      # Замечания библиотеки не должны гнить: new старше дня валит сборку.
+      - name: Library inbox (no stale board remarks)
+        run: python scripts/library_inbox.py --ci
+
       - name: CPU tests
         working-directory: morphogenesis
         env:
