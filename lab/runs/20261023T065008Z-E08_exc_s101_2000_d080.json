@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "run_id": "20261023T065008Z-E08_exc_s101_2000_d080",
+  "experiment": "E08_exc_s101_2000_d080",
+  "experiment_id": "E08_precision_horizon",
+  "arm": null,
+  "seed": null,
+  "steps": null,
+  "status": "finished",
+  "provenance": "runner",
+  "source": "morphogenesis/logs/journal.jsonl",
+  "started_at": "2026-10-23T06:50:08Z",
+  "finished_at": "2026-10-23T06:51:08Z",
+  "git_commit": "3c6ad08",
+  "git_dirty": true,
+  "command": [
+    "C:\\Users\\Admin\\Documents\\Qoder\\2026-10-18\\82ab86cd\\repo\\.venv\\Scripts\\python.exe",
+    "../scripts/morphometry.py",
+    "--checkpoint",
+    "checkpoints/E02c_R-9_s2000_seed101_tf32",
+    "--mode",
+    "randmask",
+    "--starts",
+    "8",
+    "--density",
+    "0.8",
+    "--out",
+    "experiments/E02c_replication/randmask_s101_2000_d080.json"
+  ],
+  "cwd": "morphogenesis",
+  "owner": "analyst",
+  "environment": {
+    "python": "3.13.11",
+    "platform": "Windows-11-10.0.26300-SP0",
+    "torch": "2.6.0+cu124",
+    "numpy": "2.5.4",
+    "device": "NVIDIA GeForce RTX 3070 Laptop GPU, 595.79"
+  },
+  "checkpoint_in": null,
+  "outputs": {
+    "declared": [
+      "morphogenesis/experiments/E02c_replication/randmask_s101_2000_d080.json"
+    ],
+    "log": "morphogenesis/logs/20261023T065008Z-E08_exc_s101_2000_d080.log"
+  },
+  "metrics": {},
+  "stop_reason": "exit_0",
+  "exit_code": 0,
+  "log_path": "morphogenesis/logs/20261023T065008Z-E08_exc_s101_2000_d080.log",
+  "notes": "исключение seed101@2000: вход плотности 0.8"
+}
