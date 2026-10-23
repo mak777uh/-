@@ -1597,8 +1597,38 @@ def _check_lit_board() -> tuple[list[str], list[str], int]:
 CYCLE_PHASES = ("prepare", "run", "interpret", "close")
 
 
+CYCLE_PHASES = ("prepare", "run", "interpret", "close")
+CYCLE_TYPES = ("research", "review")
+CYCLE_ID_RE = r"^W-\d{4}-\d{2}-\d{2}-[a-z0-9-]+$"
+
+
+def _git_touched_since(
+    start: str, until: str | None = None, paths: tuple[str, ...] = ("library/",)
+) -> list[str] | None:
+    """Файлы под paths, затронутые коммитами после start; None — если git недоступен."""
+    cmd = ["git", "-C", str(ROOT), "log", "--name-only", "--pretty=format:", f"--since={start}"]
+    if until:
+        cmd.append(f"--until={until}")
+    cmd += ["--", *paths]
+    try:
+        out = subprocess.check_output(cmd, text=True, stderr=subprocess.DEVNULL)
+    except (OSError, subprocess.CalledProcessError):
+        return None
+    return sorted({line.strip() for line in out.splitlines() if line.strip()})
+
+
+def _board_items() -> list[dict]:
+    path = ROOT / "lab" / "lit-board.json"
+    if not path.exists():
+        return []
+    try:
+        return json.loads(path.read_text(encoding="utf-8")).get("items", [])
+    except (OSError, json.JSONDecodeError):
+        return []
+
+
 def validate_cycle() -> tuple[list[str], list[str], dict]:
-    """Проверить цикл-токен волны: фаза, гипотезы, ожидаемые артефакты."""
+    """Проверить цикл-токен: тип, фаза, гипотезы, артефакты, выход prepare и решения доски."""
     errors: list[str] = []
     warnings: list[str] = []
     path = ROOT / "lab" / "cycle.json"
@@ -1609,11 +1639,16 @@ def validate_cycle() -> tuple[list[str], list[str], dict]:
     except json.JSONDecodeError as exc:
         return [f"lab/cycle.json: не JSON ({exc})"], warnings, {}
     ident = str(data.get("id") or "")
-    if not re.match(r"^W-\d{4}-\d{2}-\d{2}-[a-z0-9-]+$", ident):
+    if not re.match(CYCLE_ID_RE, ident):
         errors.append(f"lab/cycle.json: id должен быть вида W-YYYY-MM-DD-волна, сейчас {ident!r}")
     phase = data.get("phase")
     if phase not in CYCLE_PHASES:
         errors.append(f"lab/cycle.json: phase={phase!r} не из {CYCLE_PHASES}")
+    ctype = data.get("type")
+    if ctype is None:
+        warnings.append("lab/cycle.json: нет type (research|review) — выход prepare не проверяется")
+    elif ctype not in CYCLE_TYPES:
+        errors.append(f"lab/cycle.json: type={ctype!r} не из {CYCLE_TYPES}")
     hyps = data.get("hypothesis_ids") or []
     if not hyps:
         errors.append("lab/cycle.json: пустой hypothesis_ids")
@@ -1647,6 +1682,73 @@ def validate_cycle() -> tuple[list[str], list[str], dict]:
         errors.append("lab/cycle.json: expected_artifacts пуст или содержит пустые строки")
     if not data.get("owner"):
         warnings.append("lab/cycle.json: не указан owner")
+
+    # выход подготовительной фазы: к run/interpret/close библиотекарь должен был что-то
+    # положить (ответы, синтез, обзор), иначе волна стартует без литературы.
+    started = str(data.get("started_at") or "")
+    waived = str(data.get("prepare_output") or "").startswith("not_needed")
+    if phase in ("run", "interpret", "close") and ctype in CYCLE_TYPES and started and not waived:
+        touched = _git_touched_since(started)
+        if touched is None:
+            warnings.append("lab/cycle.json: git недоступен — выход prepare не проверен")
+        else:
+            ok = any(
+                t == "library/answers.md"
+                or t.startswith("library/synthesis/")
+                or (ctype == "review" and t.startswith("library/review-"))
+                for t in touched
+            )
+            if not ok:
+                wanted = "library/answers.md, library/synthesis/*.md"
+                if ctype == "review":
+                    wanted += ", library/review-*.md"
+                msg = (
+                    f"lab/cycle.json: фаза {phase}, но с начала волны нет выхода prepare ({wanted}); "
+                    "если он не нужен — добавьте prepare_output=not_needed с причиной"
+                )
+                (warnings if phase == "run" else errors).append(msg)
+
+    # нерешённые замечания доски к гипотезам волны
+    if phase in ("interpret", "close") and hyps:
+        hyps_set = {str(h) for h in hyps}
+        open_items = [
+            i
+            for i in _board_items()
+            if i.get("status") == "new"
+            and i.get("wave") == "current"
+            and (
+                (i.get("target") or {}).get("id") in hyps_set
+                or any(h in str((i.get("target") or {}).get("ref", "")) for h in hyps_set)
+            )
+        ]
+        if open_items:
+            msg = (
+                "lab/cycle.json: к гипотезам волны есть нерешённые замечания доски: "
+                + ", ".join(str(i.get("id")) for i in open_items)
+            )
+            (errors if phase == "close" else warnings).append(msg)
+
+    # архив прошлых волн: lab/cycles/*.json (необязателен, но если есть — проверяется)
+    archive = ROOT / "lab" / "cycles"
+    if archive.is_dir():
+        seen = {ident}
+        for item_path in sorted(archive.glob("*.json")):
+            try:
+                archived = json.loads(item_path.read_text(encoding="utf-8"))
+            except (OSError, json.JSONDecodeError) as exc:
+                errors.append(f"{rel(item_path)}: не JSON ({exc})")
+                continue
+            aid = str(archived.get("id") or "")
+            if not re.match(CYCLE_ID_RE, aid):
+                errors.append(f"{rel(item_path)}: id {aid!r} не вида W-YYYY-MM-DD-волна")
+            if aid in seen:
+                errors.append(f"{rel(item_path)}: дубль id {aid}")
+            seen.add(aid)
+            if archived.get("phase") not in CYCLE_PHASES:
+                errors.append(f"{rel(item_path)}: phase={archived.get('phase')!r} не из {CYCLE_PHASES}")
+            if not archived.get("hypothesis_ids"):
+                errors.append(f"{rel(item_path)}: пустой hypothesis_ids")
+
     return errors, warnings, {"cycle_id": ident, "cycle_phase": phase, "cycle_hypotheses": len(hyps)}
 
 
