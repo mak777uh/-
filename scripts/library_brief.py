@@ -74,9 +74,26 @@ def current_numbers() -> list[str]:
     return interesting[-8:]
 
 
+def load_board() -> list[dict]:
+    """Замечания к текущей волне: без них задание отвечает только на заданные вопросы."""
+    path = REPO / "lab" / "lit-board.json"
+    if not path.exists():
+        return []
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return []
+    return [
+        item
+        for item in data.get("items", [])
+        if item.get("status") in {"new", "accepted"} and item.get("wave") == "current"
+    ]
+
+
 def render() -> str:
     queue = load_queue()
     numbers = current_numbers()
+    board = load_board()
 
     lines = [
         "# Задание библиотекарю (сформировано автоматически)",
@@ -128,6 +145,28 @@ def render() -> str:
         "",
     ]
     lines += numbers if numbers else ["- (нет)"]
+
+    lines += [
+        "",
+        "## Доска: замечания к текущей волне",
+        "",
+        "Это не задачи, а утверждения о нашей работе. Если замечание попадает в вашу тему —",
+        "оно важнее нового поиска: решение по нему (`accepted`/`declined`/`deferred`) в",
+        "`lab/lit-board.json`, вид — `library/board.md`.",
+        "",
+    ]
+    if board:
+        for item in board:
+            target = item.get("target") or {}
+            lines.append(
+                f"- **{item['id']}** [{item.get('status')}] `{target.get('kind')}` "
+                f"`{target.get('id')}`: {str(item.get('statement'))[:180]}"
+            )
+            action = item.get("action") or {}
+            if action.get("detail"):
+                lines.append(f"  - действие: {action['detail']}")
+    else:
+        lines.append("- открытых замечаний нет")
 
     lines += [
         "",

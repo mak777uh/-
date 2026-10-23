@@ -1,0 +1,289 @@
+{
+  "schema_version": 1,
+  "items": [
+    {
+      "id": "B-001",
+      "title": "«Класс» — окно на траектории, а не свойство модели",
+      "type": "naming",
+      "target": {
+        "kind": "hypothesis",
+        "id": "H-E02C-2",
+        "ref": "manuscript/paper.md §4.13"
+      },
+      "statement": "Класс меняется по горизонту (1000 uniform_dark, 2000 struct_2, 3000 struct_1, 4000 death); в литературе это немонотонность по времени обучения и отложенный переход, поэтому «модель даёт X» без горизонта не утверждение.",
+      "evidence": [
+        {
+          "library": "hypotheses/reproducibility.md#R8",
+          "note": "double descent: качество немонотонно по горизонту"
+        },
+        {
+          "library": "hypotheses/reproducibility.md#R9",
+          "note": "grokking: отложенный скачок в другой режим"
+        }
+      ],
+      "action": {
+        "kind": "text",
+        "detail": "в §4.13 и отчёте писать «окно», «снимок», «режим», со ссылкой на R8/R9"
+      },
+      "status": "deferred",
+      "wave": "paused",
+      "owner": "librarian",
+      "created_at": "2026-10-23T18:25:00+03:00",
+      "decided_at": "2026-10-23",
+      "why": "линия NCA приостановлена (публикация не приоритет); вернуть при возобновлении рукописи",
+      "links": {
+        "insights": [],
+        "tasks": [],
+        "reports": []
+      }
+    },
+    {
+      "id": "B-002",
+      "title": "«Застревание» — это насыщение, а не деградация",
+      "type": "known_fact",
+      "target": {
+        "kind": "experiment",
+        "id": "pond_P1",
+        "ref": "docs/world-design.md §10j"
+      },
+      "statement": "У Tierra, Avida и Polyworld после адаптации тренд разворачивается: отбор выбирает стабильность, MLE/OOC выходят на плато, пассивный контроль обгоняет driven. Наши 601/594/532 стоят у одного плато.",
+      "evidence": [
+        {
+          "library": "hypotheses/alife-lineage.md#A1",
+          "note": "Tierra: разнообразие как перекомпоновка"
+        },
+        {
+          "library": "hypotheses/alife-lineage.md#A2",
+          "note": "Avida: ступени должны вознаграждаться"
+        },
+        {
+          "library": "hypotheses/alife-lineage.md#A5",
+          "note": "MLE/OOC: плато и пассивный контроль"
+        }
+      ],
+      "action": {
+        "kind": "text",
+        "detail": "писать «насыщение», а не «остановились»; добавить метрику времени возврата"
+      },
+      "status": "accepted",
+      "wave": "current",
+      "owner": "librarian",
+      "created_at": "2026-10-23T18:25:00+03:00",
+      "decided_at": "2026-10-23",
+      "why": "текущая волна: формулировка результата и метрика возврата",
+      "links": {
+        "insights": [
+          "I-015"
+        ],
+        "tasks": [],
+        "reports": [
+          "reports/2026-10-23-window-and-topology.md"
+        ]
+      }
+    },
+    {
+      "id": "B-003",
+      "title": "Мы называем это «избыточностью», в литературе — «вырожденность»",
+      "type": "naming",
+      "target": {
+        "kind": "hypothesis",
+        "id": "H-CH-8",
+        "ref": "manuscript/paper.md §4.10-4.11"
+      },
+      "statement": "«Любая половина скрытых каналов достаточна» и «добавление канала может разрушить тело» — это вырожденность: структурно разные элементы дают тот же выход, функция не закреплена за частью.",
+      "evidence": [
+        {
+          "library": "hypotheses/nca-frontier.md#F14",
+          "note": "Edelman & Gally: degeneracy, не redundancy"
+        }
+      ],
+      "action": {
+        "kind": "text",
+        "detail": "заменить «избыточность/резерв» на «вырожденность» с определением; в H-CH-16 добавить критерий «ядро зависит от цели»"
+      },
+      "status": "deferred",
+      "wave": "paused",
+      "owner": "librarian",
+      "created_at": "2026-10-23T18:25:00+03:00",
+      "decided_at": "2026-10-23",
+      "why": "терминология нужна при возврате к рукописи",
+      "links": {
+        "insights": [],
+        "tasks": [],
+        "reports": []
+      }
+    },
+    {
+      "id": "B-004",
+      "title": "Кривая асимметрии по q — псевдорепликация",
+      "type": "risk",
+      "target": {
+        "kind": "hypothesis",
+        "id": "H-AB-7",
+        "ref": "articles/019-pravaia-vosstanavlivaetsia-vosproizvodimo.md"
+      },
+      "statement": "Два соседних q попадали в один срез c=(40,24), и на двух сидах разность была -0.225 и -0.350; устойчив только знак, величина измеряла шум.",
+      "evidence": [
+        {
+          "library": "hypotheses/reproducibility.md#R7",
+          "note": "Hurlbert: псевдорепликация и независимость повторов"
+        }
+      ],
+      "action": {
+        "kind": "method",
+        "detail": "считать ICC по геометрии, группировать по фактическому срезу, в тексте оставить знак"
+      },
+      "status": "deferred",
+      "wave": "paused",
+      "owner": "librarian",
+      "created_at": "2026-10-23T18:25:00+03:00",
+      "decided_at": "2026-10-23",
+      "why": "псевдорепликация — прошлая линия (статьи 019)",
+      "links": {
+        "insights": [],
+        "tasks": [],
+        "reports": []
+      }
+    },
+    {
+      "id": "B-005",
+      "title": "Сырая MI — предсказуемость, а не индивидуальность",
+      "type": "contradiction",
+      "target": {
+        "kind": "artifact",
+        "id": "scripts/individuality.py",
+        "ref": "H43"
+      },
+      "statement": "У детерминированной системы I(S(t);S(t+1)) максимальна всегда; индивидуальность требует условных вариантов A = I(S(t);S(t+1)|E(t)) и nC, плюс контроль на тривиальность.",
+      "evidence": [
+        {
+          "library": "hypotheses/alife-lineage.md#D1",
+          "note": "Rajpal et al.: A*/A/nC, гауссова оценка MI"
+        }
+      ],
+      "action": {
+        "kind": "param",
+        "detail": "добавить A и nC в scripts/individuality.py; проверить, что цикл даёт высокий A* и низкий A"
+      },
+      "status": "accepted",
+      "wave": "current",
+      "owner": "librarian",
+      "created_at": "2026-10-23T18:25:00+03:00",
+      "decided_at": "2026-10-23",
+      "why": "individuality.py использует сырую MI как «индивидуальность» — ровно названная ошибка",
+      "links": {
+        "insights": [
+          "I-013"
+        ],
+        "tasks": [],
+        "reports": []
+      }
+    },
+    {
+      "id": "B-006",
+      "title": "Претензия к полю — «неровная практика», а не «не публикуют»",
+      "type": "prior_art",
+      "target": {
+        "kind": "section",
+        "id": "manuscript/paper.md#5.7",
+        "ref": "library/audit/publishing-practice.md"
+      },
+      "statement": "В трёх проверенных работах нет untrained-базлайна, но у HyperNCA открыты код и веса; корректная формулировка — неровная практика и отсутствие базлайна.",
+      "evidence": [
+        {
+          "library": "audit/publishing-practice.md",
+          "note": "S1, S2b, S4: поля и цитаты"
+        }
+      ],
+      "action": {
+        "kind": "text",
+        "detail": "уточнить формулировку §5.7 и не обобщать на всё поле; искать контрпример с untrained-базлайном"
+      },
+      "status": "deferred",
+      "wave": "paused",
+      "owner": "librarian",
+      "created_at": "2026-10-23T18:25:00+03:00",
+      "decided_at": "2026-10-23",
+      "why": "претензия к полю живёт в §5.7 рукописи, рукопись на паузе",
+      "links": {
+        "insights": [],
+        "tasks": [],
+        "reports": []
+      }
+    },
+    {
+      "id": "B-007",
+      "title": "«Научился жить» — две метрики, а не одно число",
+      "type": "missing_baseline",
+      "target": {
+        "kind": "experiment",
+        "id": "pond_P1",
+        "ref": "docs/world-design.md §10j"
+      },
+      "statement": "Переход к индивидуальности операционализируется взаимозависимостью (адресное удаление 10 % бьёт сильнее случайного) и долей читеров; обе сравнимы с 601.",
+      "evidence": [
+        {
+          "library": "hypotheses/alife-lineage.md#C3",
+          "note": "West et al.: взаимозависимость и отсутствие конфликта"
+        }
+      ],
+      "action": {
+        "kind": "experiment",
+        "detail": "добавить обе метрики к плечу P1; критерий заранее: падение счёта >= +15 % при адресном удалении, читеров меньше, чем у 601"
+      },
+      "status": "accepted",
+      "wave": "current",
+      "owner": "librarian",
+      "created_at": "2026-10-23T18:25:00+03:00",
+      "decided_at": "2026-10-23",
+      "why": "критерий P1 «научился жить» должен включать взаимозависимость и читеров",
+      "links": {
+        "insights": [
+          "I-016"
+        ],
+        "tasks": [
+          "task-1"
+        ],
+        "reports": []
+      }
+    },
+    {
+      "id": "B-008",
+      "title": "Сравнение одним числом — только первый фильтр",
+      "type": "opportunity",
+      "target": {
+        "kind": "experiment",
+        "id": "pond_policy",
+        "ref": "docs/world-design.md §10m"
+      },
+      "statement": "Quality diversity меняет продукт поиска: coverage и reliability при равном бюджете оценок; архив «ступенек» бьёт жадный подъём.",
+      "evidence": [
+        {
+          "library": "hypotheses/alife-lineage.md#C5",
+          "note": "MAP-Elites: coverage/reliability/precision"
+        },
+        {
+          "library": "hypotheses/alife-lineage.md#B4",
+          "note": "DGM: архив промежуточных вариантов"
+        }
+      ],
+      "action": {
+        "kind": "experiment_change",
+        "detail": "в таблицах политик добавить std и перцентили; coverage >= 60 %, reliability >= 0.7, лучшее >= 601"
+      },
+      "status": "accepted",
+      "wave": "current",
+      "owner": "librarian",
+      "created_at": "2026-10-23T18:25:00+03:00",
+      "decided_at": "2026-10-23",
+      "why": "мы только что перешли на одно число (pop_time) — нужен второй фильтр",
+      "links": {
+        "insights": [
+          "I-014"
+        ],
+        "tasks": [],
+        "reports": []
+      }
+    }
+  ]
+}

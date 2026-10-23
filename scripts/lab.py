@@ -1569,6 +1569,31 @@ def check_manuscript_map(registry: dict[str, Any]) -> tuple[list[str], int]:
     return errors, len(entries)
 
 
+LIT_BOARD = ROOT / "lab" / "lit-board.json"
+
+
+def _check_lit_board() -> tuple[list[str], list[str], int]:
+    """Доска литературы: схема, ссылки на библиотеку и сроки решений (AGENTS §3a.3b, §6.7a)."""
+    if not LIT_BOARD.exists():
+        return [], ["lab/lit-board.json отсутствует"], 0
+    try:
+        data = json.loads(LIT_BOARD.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        return [f"lit-board.json: {exc}"], [], 0
+    items = data.get("items")
+    if not isinstance(items, list):
+        return ["lit-board.json: items должен быть списком"], [], 0
+    try:
+        scripts_dir = str(Path(__file__).resolve().parent)
+        if scripts_dir not in sys.path:
+            sys.path.insert(0, scripts_dir)
+        from lit_board import validate_items
+    except Exception as exc:  # pragma: no cover - защита от сломанного импорта
+        return [f"lit-board.json: схема не проверена ({exc})"], [], len(items)
+    errors, warnings = validate_items(items)
+    return errors, warnings, len(items)
+
+
 def validate(ci: bool, strict: bool) -> tuple[list[str], list[str], dict[str, Any]]:
     errors: list[str] = []
     warnings: list[str] = []
@@ -1651,6 +1676,11 @@ def validate(ci: bool, strict: bool) -> tuple[list[str], list[str], dict[str, An
         manuscript_errors, manuscript_count = check_manuscript_map(registry)
         errors.extend(manuscript_errors)
         counts["manuscript_entries"] = manuscript_count
+
+    board_errors, board_warnings, board_count = _check_lit_board()
+    errors.extend(board_errors)
+    warnings.extend(board_warnings)
+    counts["lit_board_items"] = board_count
 
     if state:
         for key in (
