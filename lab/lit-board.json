@@ -292,6 +292,41 @@
         "reports": []
       },
       "insight_id": "I-014"
+    },
+    {
+      "id": "B-009",
+      "type": "opportunity",
+      "target": {
+        "kind": "experiment",
+        "id": "pond_P1",
+        "ref": "docs/world-design.md §10j-10m"
+      },
+      "statement": "Провал обучения (532 против 601) — известный феномен melioration/matching: локальное улучшение сходится к равновесию, пропорциональному подкреплению, и не является максимизацией. Проверять функциональные формы matching (a<1, bias) до новой серии обучения.",
+      "evidence": [
+        {
+          "library": "hypotheses/pond-lineage.md#P13",
+          "note": "undermatching: a<1 смещает равновесие к середине"
+        },
+        {
+          "library": "hypotheses/pond-lineage.md#P12",
+          "note": "undermatching: a<1 смещает равновесие к середине"
+        }
+      ],
+      "action": {
+        "kind": "experiment_change",
+        "detail": "перед новой серией: фит generalized matching к свипу §10m; сравнить локальное правило, глобальный отбор и фикс на одном бюджете"
+      },
+      "status": "new",
+      "wave": "current",
+      "owner": "librarian",
+      "created_at": "2026-10-23T19:02:05+03:00",
+      "decided_at": null,
+      "why": null,
+      "links": {
+        "insights": [],
+        "tasks": [],
+        "reports": []
+      }
     }
   ],
   "updated_at": "2026-10-23T18:35:00Z"
