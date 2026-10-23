@@ -5,7 +5,12 @@
   - `param`   — новая опция/параметр в коде (какой файл, какое имя);
   - `hypothesis` — гипотеза с критерием в очереди реестра;
   - `task`    — задача исполнителю (id на доске);
+  - `experiment_change` — изменить уже запланированный эксперимент (что и как);
+  - `reprioritize` — переставить очередь/задачи в более оптимальный порядок;
   - `none`    — осознанно не применяем (обязательно `why`).
+
+Для `experiment_change` и `reprioritize` поле `--change` обязательно: что именно
+меняется и почему это оптимальнее. Поле `--expect` — какого эффекта ждём (число/знак).
 
 Команды:
   --add --source P6 --insight "..." --action task --ref task-3
@@ -23,7 +28,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 REG = ROOT / "lab" / "insights.json"
-ACTION_KINDS = ("param", "hypothesis", "task", "none")
+ACTION_KINDS = ("param", "hypothesis", "task", "experiment_change", "reprioritize", "none")
 
 
 def _now() -> str:
@@ -41,17 +46,22 @@ def save(data: dict) -> None:
     REG.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
 
-def add(data: dict, source: str, insight: str, action: str, ref: str, why: str) -> dict:
+def add(data: dict, source: str, insight: str, action: str, ref: str, why: str,
+        change: str = "", expect: str = "") -> dict:
     if action not in ACTION_KINDS:
         raise SystemExit(f"action должен быть одним из {ACTION_KINDS}")
     if action == "none" and not why:
         raise SystemExit("для action=none нужен --why: почему не применяем")
+    if action in ("experiment_change", "reprioritize") and not change:
+        raise SystemExit("для experiment_change/reprioritize нужен --change: что меняется")
     item = {
         "id": f"I-{len(data['items']) + 1:03d}",
         "source": source,
         "insight": insight.strip(),
         "action": action,
         "ref": ref,
+        "change": change or None,
+        "expect": expect or None,
         "why": why or None,
         "status": "open",
         "created_at": _now(),
@@ -69,6 +79,8 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--action", default="task")
     ap.add_argument("--ref", default="")
     ap.add_argument("--why", default="")
+    ap.add_argument("--change", default="", help="что именно меняется (для experiment_change/reprioritize)")
+    ap.add_argument("--expect", default="", help="какого эффекта ждём")
     ap.add_argument("--apply", default=None)
     ap.add_argument("--decline", default=None)
     ap.add_argument("--check", action="store_true")
@@ -77,9 +89,11 @@ def main(argv: list[str] | None = None) -> int:
 
     data = load()
     if args.add:
-        item = add(data, args.source, args.insight, args.action, args.ref, args.why)
+        item = add(data, args.source, args.insight, args.action, args.ref, args.why,
+                   args.change, args.expect)
         save(data)
-        print(f"{item['id']}: {item['insight'][:70]}… -> {item['action']} {item['ref']}")
+        print(f"{item['id']}: {item['insight'][:60]}… -> {item['action']} {item['ref']}"
+              + (f" | {item['change'][:60]}" if item.get("change") else ""))
         return 0
     for key, status in (("apply", "applied"), ("decline", "declined")):
         target = getattr(args, key)
@@ -112,7 +126,8 @@ def main(argv: list[str] | None = None) -> int:
         return 0
     for item in data["items"]:
         mark = {"open": "•", "applied": "✓", "declined": "×"}[item["status"]]
-        print(f"{mark} {item['id']} [{item['action']}] {item['insight'][:70]}")
+        extra = f" | {item['change'][:50]}" if item.get("change") else ""
+        print(f"{mark} {item['id']} [{item['action']}] {item['insight'][:60]}{extra}")
     return 0
 
 
