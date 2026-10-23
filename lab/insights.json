@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-23T14:39:29Z",
+  "updated_at": "2026-10-23T14:49:21Z",
   "items": [
     {
       "id": "I-001",
@@ -69,6 +69,71 @@
       "why": null,
       "status": "open",
       "created_at": "2026-10-23T14:39:29Z",
+      "applied_at": null
+    },
+    {
+      "id": "I-007",
+      "source": "library/hypotheses/alife-lineage.md A2 (Lenski et al. 2003)",
+      "insight": "Инновация появляется только там, где промежуточные функции сами вознаграждаются; режим «только цель» проигрывает заранее",
+      "action": "experiment_change",
+      "ref": "H38; docs/world-design.md",
+      "change": "в план P1 добавить плечо reward-all против target-only при равном бюджете (10 повторов)",
+      "expect": "target-only 0/10 против reward-all >= 3/10 по доле прогонов с >=601 живых",
+      "why": null,
+      "status": "open",
+      "created_at": "2026-10-23T14:49:04Z",
+      "applied_at": null
+    },
+    {
+      "id": "I-008",
+      "source": "library/hypotheses/alife-lineage.md A5 (Williams & Yaeger 2017)",
+      "insight": "После адаптации отбор выбирает стабильность: MLE/OOC выходят на плато, пассивный контроль обгоняет driven. Застревание надо ловить по смене режима I, а не по числу клеток",
+      "action": "task",
+      "ref": "H38; scripts/individuality.py",
+      "change": null,
+      "expect": "плато I у периодики (0.986), не у логистики (1.615), при неподвижном MSPD",
+      "why": null,
+      "status": "open",
+      "created_at": "2026-10-23T14:49:04Z",
+      "applied_at": null
+    },
+    {
+      "id": "I-009",
+      "source": "library/hypotheses/alife-lineage.md D1 (Rajpal et al. 2025)",
+      "insight": "Сырая I(S(t);S(t+1)) измеряет предсказуемость; индивидуальность требует условных вариантов A=I(S(t);S(t+1)|E(t)) и nC",
+      "action": "param",
+      "ref": "scripts/individuality.py",
+      "change": null,
+      "expect": "цикл: A* высокий, A низкий; шум/суррогат: обе низкие",
+      "why": null,
+      "status": "open",
+      "created_at": "2026-10-23T14:49:04Z",
+      "applied_at": null
+    },
+    {
+      "id": "I-010",
+      "source": "library/hypotheses/alife-lineage.md C3 (West et al. 2015)",
+      "insight": "«Научился жить» операционализируется двумя метриками: взаимозависимость (адресное удаление 10 %) и доля читеров",
+      "action": "task",
+      "ref": "H40; pond",
+      "change": null,
+      "expect": "адресное удаление бьёт минимум на 15 % сильнее случайного; доля читеров ниже, чем у 601",
+      "why": null,
+      "status": "open",
+      "created_at": "2026-10-23T14:49:04Z",
+      "applied_at": null
+    },
+    {
+      "id": "I-011",
+      "source": "library/hypotheses/alife-lineage.md B3 (Wang et al. 2019, POET)",
+      "insight": "Застревание снимается сменой задачи, а не мощностью оптимизации: без переноса между средами ни одна предельная среда не решается (p < 2,2e-16), прямая оптимизация при вдвое большем бюджете садится в локальный оптимум",
+      "action": "reprioritize",
+      "ref": "H42; docs/world-design.md; pond",
+      "change": "перед следующей серией обучения поставить плечо «наследуемая среда + перенос» с контролем «перенос выключен»; серию обучения отложить",
+      "expect": "плечо с переносом даёт более длинный бесповторный отрезок MSPD; контроль возвращается к базлайну",
+      "why": null,
+      "status": "open",
+      "created_at": "2026-10-23T14:49:21Z",
       "applied_at": null
     }
   ]
