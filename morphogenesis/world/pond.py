@@ -59,6 +59,7 @@ class PondConfig:
     resource_layout: str = "uniform"  # uniform | gradient | patches
     flip_at: int = 0                  # если > 0: на этом шаге градиент переворачивается
     income_mode: str = "cap"           # cap (min(ресурс, доход)) | proportional (доход*ресурс)
+    spore_bias: str = "random"         # random | rich (выпускать спору к richest свободной клетке)
     init_resource_fill: float = 0.0     # 0..1: доля потолка, до которой поле заполнено на старте
     membrane_gated: bool = False      # обмен гейтируется мембраной (замыкание)
     membrane_decay: float = 0.05      # распад мембраны за шаг
@@ -83,6 +84,7 @@ class PondState:
     spores_blocked: int = 0
     consumed_total: float = 0.0
     history: list[dict] = field(default_factory=list)
+    deaths_by_zone: dict = field(default_factory=lambda: {"poor": 0, "mid": 0, "rich": 0})
 
 
 class Pond:
@@ -264,6 +266,13 @@ class Pond:
         s.age = torch.where(alive, s.age + 1, s.age)
         dies = alive & ((s.energy <= 0.0) | (s.damage >= cfg.damage_max) | (s.age > cfg.max_age))
         died_now = int(dies.sum())
+        # зоны по ресурсу в момент решения: где именно умирают клетки
+        if cfg.resource_max > 0 and died_now:
+            rich = s.resource > cfg.resource_max * 2 / 3
+            poor = s.resource < cfg.resource_max / 3
+            mid = ~rich & ~poor
+            for name, zone in (("poor", poor), ("mid", mid), ("rich", rich)):
+                s.deaths_by_zone[name] += int((dies & zone).sum())
         s.energy = torch.where(dies, torch.zeros_like(s.energy), s.energy)
         s.alive = alive & ~dies
         s.died += died_now
@@ -302,7 +311,12 @@ class Pond:
             s.spores_blocked += 1
             return None
         take = min(int(cfg.spore_cells), int(free.shape[0]))
-        order = torch.randperm(free.shape[0], generator=self.gen, device=self.device)[:take]
+        if cfg.spore_bias == "rich":
+            # поведение: потомок идёт в свободную клетку с наибольшим ресурсом
+            values = s.resource[free[:, 0], free[:, 1]]
+            order = torch.argsort(values, descending=True)[:take]
+        else:
+            order = torch.randperm(free.shape[0], generator=self.gen, device=self.device)[:take]
         spots = free[order]
 
         child = torch.zeros_like(s.alive)

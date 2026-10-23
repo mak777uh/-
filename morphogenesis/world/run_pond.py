@@ -222,6 +222,8 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--snapshot-every", type=int, default=0,
                     help="сохранять снимок состояния каждые N шагов (0 = не сохранять)")
     ap.add_argument("--snapshots-out", default=None, help="куда сохранить снимки (.npz)")
+    ap.add_argument("--spore-bias", default="random", choices=["random", "rich"],
+                    help="куда выпускать спору: случайно или к богатому ресурсу")
     ap.add_argument("--layout", default="uniform",
                     choices=["uniform", "gradient", "patches"], help="структура ресурса")
     args = ap.parse_args(argv)
@@ -238,6 +240,7 @@ def main(argv: list[str] | None = None) -> int:
     if args.budding_cost is not None:
         world.budding_cost = args.budding_cost
     world.resource_layout = args.layout
+    world.spore_bias = args.spore_bias
     world.flip_at = args.flip_at
     world.income_mode = args.income_mode
     world.init_resource_fill = args.init_resource_fill
@@ -251,6 +254,7 @@ def main(argv: list[str] | None = None) -> int:
     summary["clonal_separate"] = run.clonal_separate
     total = run.clonal_attached + run.clonal_separate
     summary["clonal_fraction"] = (run.clonal_attached / total) if total else None
+    summary["deaths_by_zone"] = dict(run.pond.state.deaths_by_zone)
     print(json.dumps(summary, ensure_ascii=False, indent=2))
     if args.snapshots_out and run.snapshots:
         import numpy as _np
