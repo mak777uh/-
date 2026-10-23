@@ -39,6 +39,18 @@ def newest_mtime(paths: list[str]) -> float | None:
     return max(times) if times else None
 
 
+def head_sha() -> str:
+    """Текущий HEAD, чтобы отличать «новый коммит» от «тот же самый»."""
+    try:
+        out = subprocess.run(
+            ["git", "-C", str(ROOT), "rev-parse", "--short", "HEAD"],
+            capture_output=True, text=True, timeout=10,
+        )
+        return out.stdout.strip()
+    except (OSError, subprocess.SubprocessError):
+        return ""
+
+
 def git_recent_commits(minutes: int = 15) -> int:
     try:
         out = subprocess.run(
@@ -84,9 +96,14 @@ def plan() -> dict:
     # что-то произошло с прошлого пробуждения? если нет — это не «только что», а тишина
     state = load_state()
     seen = float(state.get("last_active_mtime", 0))
+    seen_sha = str(state.get("head_sha", ""))
     last_active = last or 0.0
-    fresh = last_active > seen
+    sha = head_sha()
+    fresh_files = last_active > seen
+    fresh_commit = bool(sha) and sha != seen_sha
+    fresh = fresh_files or fresh_commit
     save_state({"last_active_mtime": max(last_active, seen),
+                "head_sha": sha,
                 "last_check_at": time.strftime("%Y-%m-%dT%H:%M:%S%z")})
 
     if fresh and age_min <= 15:
