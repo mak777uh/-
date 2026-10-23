@@ -181,3 +181,57 @@ def group_vs_individual(snapshots, block: int = 8, bins: int = 2) -> dict:
         "delta": mi_block - mi_cell,
         "snapshots": t_count,
     }
+
+def entropy(pairs: np.ndarray, bins: int = 8) -> float:
+    """Энтропия одномерного распределения (в битах) после дискретизации."""
+    idx = discretize(pairs, bins)
+    if idx.size == 0:
+        return 0.0
+    counts = np.bincount(idx, minlength=bins).astype(float)
+    p = counts / counts.sum()
+    p = p[p > 0]
+    return float(-np.sum(p * np.log2(p)))
+
+
+def normalized_individuality(series, bins: int = 8) -> dict:
+    """Нормированная MI и флаг тривиальности.
+
+    nMI = I / min(H_t, H_{t+1}) — «какая доля неопределённости снимается знанием
+    предыдущего состояния». Ровно 1 у детерминированного цикла; у шума ≈ 0.
+    """
+    s = np.asarray(series, dtype=float).reshape(-1)
+    if s.size < 4:
+        return {"nmi": 0.0, "mi": 0.0, "h": 0.0, "trivial": False}
+    x, y = s[:-1], s[1:]
+    mi = mutual_information(x, y, bins)
+    h = min(entropy(x, bins), entropy(y, bins))
+    nmi = float(mi / h) if h > 0 else 0.0
+    per = periodicity(s)
+    # тривиально, если почти вся неопределённость снимается И это повторяющийся цикл
+    trivial = bool(nmi > 0.95 and per > 0.9)
+    return {"nmi": nmi, "mi": mi, "h": h, "trivial": trivial}
+
+
+def temporal_nmi(snapshots, block: int = 8, deltas=(1, 2, 4), bins: int = 8) -> dict:
+    """Нормированная временная MI по снимкам: nMI для каждого dt и контроль."""
+    snap = np.asarray(snapshots)
+    t_count = snap.shape[0]
+    dens = np.array([block_density_grid(s, block).reshape(-1) for s in snap])
+    out = {}
+    for dt in deltas:
+        if t_count <= dt:
+            continue
+        x = dens[: t_count - dt].reshape(-1)
+        y = dens[dt:].reshape(-1)
+        mi = mutual_information(x, y, bins)
+        h = min(entropy(x, bins), entropy(y, bins))
+        order = np.random.default_rng(0).permutation(t_count)
+        shuffled = dens[order]
+        xs = shuffled[: t_count - dt].reshape(-1)
+        ys = shuffled[dt:].reshape(-1)
+        mi_ctrl = mutual_information(xs, ys, bins)
+        out[dt] = {
+            "nmi": float(mi / h) if h > 0 else 0.0,
+            "control_nmi": float(mi_ctrl / h) if h > 0 else 0.0,
+        }
+    return out

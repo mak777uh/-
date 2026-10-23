@@ -29,6 +29,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 REG = ROOT / "lab" / "insights.json"
 ACTION_KINDS = ("param", "hypothesis", "task", "experiment_change", "reprioritize", "none")
+MAX_OPEN = 5  # больше — журнал чтения, а не работа
 
 
 def _now() -> str:
@@ -89,6 +90,12 @@ def main(argv: list[str] | None = None) -> int:
 
     data = load()
     if args.add:
+        open_now = [i for i in data["items"] if i.get("status") == "open"]
+        if len(open_now) >= MAX_OPEN:
+            print(f"ОТКАЗ: открытых инсайтов {len(open_now)} (предел {MAX_OPEN}).")
+            print("Сначала закройте один: --apply ID или --decline ID --why \"...\"")
+            print("Открытые: " + ", ".join(i["id"] for i in open_now))
+            return 1
         item = add(data, args.source, args.insight, args.action, args.ref, args.why,
                    args.change, args.expect)
         save(data)

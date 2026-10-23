@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-23T15:15:05Z",
+  "updated_at": "2026-10-23T18:25:00Z",
   "items": [
     {
       "id": "I-001",
@@ -28,178 +28,178 @@
       "source": "P4 Ashander 2016",
       "insight": "rescue в две фазы: пластичность помогает только пока среда предсказуема; при резком перевороте провал ожидаем",
       "action": "task",
-      "ref": "task-4",
+      "ref": "task-4 | task-4 создана (плавный дрейф)",
       "why": null,
-      "status": "open",
+      "status": "applied",
       "created_at": "2026-10-23T14:28:22Z",
-      "applied_at": null
+      "applied_at": "2026-10-23T18:25:00Z"
     },
     {
       "id": "I-004",
       "source": "multilevel selection",
       "insight": "личная выгода против групповой: отбор на уровне группы требует структуры (клональные группы), иначе обучение вредит",
       "action": "hypothesis",
-      "ref": "H-ALIVE-6",
+      "ref": "H-ALIVE-6 | H-ALIVE-6 внесена в реестр",
       "why": null,
-      "status": "open",
+      "status": "applied",
       "created_at": "2026-10-23T14:28:22Z",
-      "applied_at": null
+      "applied_at": "2026-10-23T18:25:00Z"
     },
     {
       "id": "I-005",
       "source": "результат свипа (учёный, pop_time)",
       "insight": "финальное число живых нестабильно (random s1 дал поздний всплеск), поэтому критерий и порядок надо строить на pop_time",
       "action": "reprioritize",
-      "ref": "task-2/task-3/task-4",
+      "ref": "task-2/task-3/task-4 | порядок задач изменён: matching → парный → sense-noise",
       "change": "сначала matching (дешёвая проверка I-002), затем парный сигнал уже против нового лучшего; P3 мета-обучение не начинать, пока обучение не побьёт фикс хотя бы один раз",
       "expect": "порядок задач сокращает прогоны: 3 сида matching вместо полной серии обучения",
       "why": null,
-      "status": "open",
+      "status": "applied",
       "created_at": "2026-10-23T14:39:29Z",
-      "applied_at": null
+      "applied_at": "2026-10-23T18:25:00Z"
     },
     {
       "id": "I-006",
       "source": "P4 Ashander 2016",
       "insight": "пластичность помогает только при предсказуемом изменении, значит эксперимент с одним резким переворотом не различает 'пластичность плоха' и 'среда непредсказуема'",
       "action": "experiment_change",
-      "ref": "task-4",
+      "ref": "task-4 | task-4 переформулирована на три режима",
       "change": "добавить плавный дрейф градиента (--drift-at/--drift-steps) как второй режим и сравнивать три режима на двух политиках",
       "expect": "при плавном дрейфе обучение должно обгонять фикс; при резком — проигрывать (как сейчас)",
       "why": null,
-      "status": "open",
+      "status": "applied",
       "created_at": "2026-10-23T14:39:29Z",
-      "applied_at": null
+      "applied_at": "2026-10-23T18:25:00Z"
     },
     {
       "id": "I-007",
       "source": "library/hypotheses/alife-lineage.md A2 (Lenski et al. 2003)",
       "insight": "Инновация появляется только там, где промежуточные функции сами вознаграждаются; режим «только цель» проигрывает заранее",
       "action": "experiment_change",
-      "ref": "H38; docs/world-design.md",
+      "ref": "H38; docs/world-design.md | уехало в пул D-16",
       "change": "в план P1 добавить плечо reward-all против target-only при равном бюджете (10 повторов)",
       "expect": "target-only 0/10 против reward-all >= 3/10 по доле прогонов с >=601 живых",
       "why": null,
-      "status": "open",
+      "status": "applied",
       "created_at": "2026-10-23T14:49:04Z",
-      "applied_at": null
+      "applied_at": "2026-10-23T18:25:00Z"
     },
     {
       "id": "I-008",
       "source": "library/hypotheses/alife-lineage.md A5 (Williams & Yaeger 2017)",
       "insight": "После адаптации отбор выбирает стабильность: MLE/OOC выходят на плато, пассивный контроль обгоняет driven. Застревание надо ловить по смене режима I, а не по числу клеток",
       "action": "task",
-      "ref": "H38; scripts/individuality.py",
+      "ref": "H38; scripts/individuality.py | уехало в пул D-17",
       "change": null,
       "expect": "плато I у периодики (0.986), не у логистики (1.615), при неподвижном MSPD",
       "why": null,
-      "status": "open",
+      "status": "applied",
       "created_at": "2026-10-23T14:49:04Z",
-      "applied_at": null
+      "applied_at": "2026-10-23T18:25:00Z"
     },
     {
       "id": "I-009",
       "source": "library/hypotheses/alife-lineage.md D1 (Rajpal et al. 2025)",
       "insight": "Сырая I(S(t);S(t+1)) измеряет предсказуемость; индивидуальность требует условных вариантов A=I(S(t);S(t+1)|E(t)) и nC",
       "action": "param",
-      "ref": "scripts/individuality.py",
+      "ref": "scripts/individuality.py | scripts/individuality.py: добавлена nMI и контроль тривиальности",
       "change": null,
       "expect": "цикл: A* высокий, A низкий; шум/суррогат: обе низкие",
       "why": null,
-      "status": "open",
+      "status": "applied",
       "created_at": "2026-10-23T14:49:04Z",
-      "applied_at": null
+      "applied_at": "2026-10-23T18:25:00Z"
     },
     {
       "id": "I-010",
       "source": "library/hypotheses/alife-lineage.md C3 (West et al. 2015)",
       "insight": "«Научился жить» операционализируется двумя метриками: взаимозависимость (адресное удаление 10 %) и доля читеров",
       "action": "task",
-      "ref": "H40; pond",
+      "ref": "H40; pond | уехало в пул D-18",
       "change": null,
       "expect": "адресное удаление бьёт минимум на 15 % сильнее случайного; доля читеров ниже, чем у 601",
       "why": null,
-      "status": "open",
+      "status": "applied",
       "created_at": "2026-10-23T14:49:04Z",
-      "applied_at": null
+      "applied_at": "2026-10-23T18:25:00Z"
     },
     {
       "id": "I-011",
       "source": "library/hypotheses/alife-lineage.md B3 (Wang et al. 2019, POET)",
       "insight": "Застревание снимается сменой задачи, а не мощностью оптимизации: без переноса между средами ни одна предельная среда не решается (p < 2,2e-16), прямая оптимизация при вдвое большем бюджете садится в локальный оптимум",
       "action": "reprioritize",
-      "ref": "H42; docs/world-design.md; pond",
+      "ref": "H42; docs/world-design.md; pond | уехало в пул D-19",
       "change": "перед следующей серией обучения поставить плечо «наследуемая среда + перенос» с контролем «перенос выключен»; серию обучения отложить",
       "expect": "плечо с переносом даёт более длинный бесповторный отрезок MSPD; контроль возвращается к базлайну",
       "why": null,
-      "status": "open",
+      "status": "applied",
       "created_at": "2026-10-23T14:49:21Z",
-      "applied_at": null
+      "applied_at": "2026-10-23T18:25:00Z"
     },
     {
       "id": "I-012",
       "source": "task-3 результат (matching отвергнут, доза-ответ)",
       "insight": "наивное обучение и matching не работают, потому что payoff известен ДО выбора, а действие необратимо: стохастичность не покупает информации. Значит учиться есть чему только при неполной информации",
       "action": "experiment_change",
-      "ref": "task-5",
+      "ref": "task-5 | task-5 создана (sense-noise)",
       "change": "ввести неопределённость восприятия (--sense-noise): родитель видит ресурс с шумом; тогда проверяем, появляется ли выигрыш у matching/обучения",
       "expect": "если гипотеза верна, при sense-noise=0 выигрыша нет (как сейчас), при 0.3–0.5 matching/обучение обгоняют фикс",
       "why": null,
-      "status": "open",
+      "status": "applied",
       "created_at": "2026-10-23T14:52:17Z",
-      "applied_at": null
+      "applied_at": "2026-10-23T18:25:00Z"
     },
     {
       "id": "I-013",
       "source": "B-005 (Rajpal, сырая MI)",
       "insight": "MI между соседними состояниями — это предсказуемость, а не индивидуальность: нужны нормировка и контроль (A*/A/nC), иначе метрика награждает любой детерминизм",
       "action": "param",
-      "ref": "scripts/individuality.py",
+      "ref": "scripts/individuality.py | scripts/individuality.py: nMI = MI / min(H) + флаг тривиальности",
       "change": null,
       "expect": "нормированная индивидуальность должна различать шум/цикл/структуру, а не только детерминизм",
       "why": null,
-      "status": "open",
+      "status": "applied",
       "created_at": "2026-10-23T15:08:21Z",
-      "applied_at": null
+      "applied_at": "2026-10-23T18:25:00Z"
     },
     {
       "id": "I-014",
       "source": "B-008 (MAP-Elites/DGM критика)",
       "insight": "сравнение одним числом (pop_time) — только первый фильтр; нужен второй (разброс/распределение), иначе политика-победитель может быть артефактом одной траектории",
       "action": "param",
-      "ref": "docs/world-design.md §10m+",
+      "ref": "docs/world-design.md §10m+ | scripts/compare.py: медиана, std, IQR, доля сидов выше базлайна",
       "change": null,
       "expect": "в таблицах политик появятся std и перцентили, решения не на одном числе",
       "why": null,
-      "status": "open",
+      "status": "applied",
       "created_at": "2026-10-23T15:08:21Z",
-      "applied_at": null
+      "applied_at": "2026-10-23T18:25:00Z"
     },
     {
       "id": "I-015",
       "source": "B-002 (Tierra/Avida/Polyworld: насыщение)",
       "insight": "Застревание надо измерять временем возврата конфигурации и сменой режима I, а не числом живых клеток; 601/594/532 стоят у одного плато",
       "action": "experiment_change",
-      "ref": "B-002; pond",
+      "ref": "B-002; pond | уехало в пул D-20",
       "change": "в отчёт по P1 добавить время возврата и контроль на тривиальность I; формулировку «остановились» заменить на «насыщение»",
       "expect": "плато MSPD при неподвижном I на уровне контролей; время возврата в пределах окна",
       "why": null,
-      "status": "open",
+      "status": "applied",
       "created_at": "2026-10-23T15:15:05Z",
-      "applied_at": null
+      "applied_at": "2026-10-23T18:25:00Z"
     },
     {
       "id": "I-016",
       "source": "B-007 (West et al. 2015: индивидуальность)",
       "insight": "Критерий «научился жить» должен включать взаимозависимость и долю читеров, иначе измеряем выживание, а не обучение",
       "action": "task",
-      "ref": "B-007; task-1",
+      "ref": "B-007; task-1 | уехало в пул D-21 (дубль D-18)",
       "change": null,
       "expect": "адресное удаление 10 % бьёт минимум на 15 % сильнее случайного; читеров меньше, чем у 601",
       "why": null,
-      "status": "open",
+      "status": "applied",
       "created_at": "2026-10-23T15:15:05Z",
-      "applied_at": null
+      "applied_at": "2026-10-23T18:25:00Z"
     }
   ]
 }
