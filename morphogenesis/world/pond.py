@@ -57,6 +57,8 @@ class PondConfig:
     catastrophe_rate: float = 0.0     # если > 0: катастрофы пуассоновские (событий на шаг)
     genome_dim: int = 32              # размер генома (для cNCA)
     resource_layout: str = "uniform"  # uniform | gradient | patches
+    flip_at: int = 0                  # если > 0: на этом шаге градиент переворачивается
+    income_mode: str = "cap"           # cap (min(ресурс, доход)) | proportional (доход*ресурс)
     membrane_gated: bool = False      # обмен гейтируется мембраной (замыкание)
     membrane_decay: float = 0.05      # распад мембраны за шаг
     membrane_rebuild: float = 0.10    # скорость восстановления мембраны
@@ -162,7 +164,9 @@ class Pond:
         ceiling = torch.full((cfg.grid, cfg.grid), cfg.resource_max, device=self.device)
         if cfg.resource_layout == "gradient":
             rows = torch.arange(cfg.grid, device=self.device, dtype=torch.float32)
-            ceiling = ceiling * (0.2 + 0.8 * (1.0 - rows / max(cfg.grid - 1, 1)))[:, None]
+            flipped = bool(cfg.flip_at and self.state.step >= cfg.flip_at)
+            position = (1.0 - rows / max(cfg.grid - 1, 1)) if not flipped else (rows / max(cfg.grid - 1, 1))
+            ceiling = ceiling * (0.2 + 0.8 * position)[:, None]
         elif cfg.resource_layout == "patches":
             ceiling = torch.full((cfg.grid, cfg.grid), cfg.resource_max * 0.2, device=self.device)
             third = cfg.grid // 3
@@ -195,7 +199,13 @@ class Pond:
         s = self.state
         alive = s.alive
 
-        income = torch.minimum(s.resource, torch.full_like(s.resource, cfg.baseline_income))
+        if cfg.income_mode == "proportional":
+            # доход пропорционален доступному ресурсу: бедная зона реально голодает
+            income = torch.minimum(
+                s.resource, cfg.baseline_income * s.resource * 4.0
+            )
+        else:
+            income = torch.minimum(s.resource, torch.full_like(s.resource, cfg.baseline_income))
         if cfg.membrane_gated:
             # обмен возможен только там, где есть мембрана: её производит организм
             gate = (s.membrane >= cfg.membrane_threshold).to(income.dtype)

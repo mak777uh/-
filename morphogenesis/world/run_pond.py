@@ -211,6 +211,10 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--repair-cost", type=float, default=None, help="цена ремонта клетки")
     ap.add_argument("--budding-mass", type=float, default=None, help="масса для споры")
     ap.add_argument("--budding-cost", type=float, default=None, help="энергия на спору")
+    ap.add_argument("--income-mode", default="cap", choices=["cap", "proportional"],
+                    help="как считается доход: cap (текущий) или proportional (доход*ресурс)")
+    ap.add_argument("--flip-at", type=int, default=0,
+                    help="перевернуть градиент ресурса на этом шаге (0 = не переворачивать)")
     ap.add_argument("--update-probability", type=float, default=1.0,
                     help="вероятность обновления клетки за шаг (1.0 = детерминированно)")
     ap.add_argument("--snapshot-every", type=int, default=0,
@@ -232,6 +236,8 @@ def main(argv: list[str] | None = None) -> int:
     if args.budding_cost is not None:
         world.budding_cost = args.budding_cost
     world.resource_layout = args.layout
+    world.flip_at = args.flip_at
+    world.income_mode = args.income_mode
     run = PondRun(world_cfg=world, seed=args.seed, device=args.device,
                   rule_checkpoint=args.rule_checkpoint)
     run.snapshot_every = args.snapshot_every
