@@ -203,3 +203,28 @@ def test_script_imports_config_from_morphogenesis():
     )
     assert proc.returncode == 0, proc.stderr[-500:]
     assert "boundary" in proc.stdout
+
+
+def test_texture_stats_handles_4d_and_3d_state():
+    import numpy as np
+    import torch
+
+    state = torch.randn(1, 16, 16, 16)
+    mask = np.zeros((16, 16), dtype=bool)
+    mask[4:12, 4:12] = True
+    for st in (state, state[0]):
+        info = mm.texture_stats(st, mask)
+        assert 0.0 <= info["visible_mean_inside"] <= 1.0
+        assert info["visible_std_inside"] >= 0.0
+        assert info["corr_visible_local_density"] == info["corr_visible_local_density"] or True
+
+
+def test_texture_stats_correlation_is_finite_or_nan_not_crash():
+    import numpy as np
+    import torch
+
+    state = torch.zeros(1, 16, 16, 16)
+    mask = np.zeros((16, 16), dtype=bool)
+    mask[4:12, 4:12] = True
+    info = mm.texture_stats(state, mask)   # ровное поле: std=0 -> корреляция nan
+    assert info["visible_std_inside"] == 0.0

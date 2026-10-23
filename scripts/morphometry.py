@@ -153,10 +153,11 @@ def local_density(mask: np.ndarray) -> np.ndarray:
 
 def texture_stats(state, mask: np.ndarray) -> dict:
     """Контраст видимого канала внутри маски и его связь с плотностью соседей."""
-    visible = torch.sigmoid(state[0, config.VISIBLE_CHANNEL]).detach().cpu().numpy()
-    inside = visible[mask]
-    dens = local_density(mask)[mask]
-    if inside.size < 2 or dens.std() == 0:
+    batch = state[0] if state.dim() == 4 else state
+    visible = torch.sigmoid(batch[config.VISIBLE_CHANNEL]).detach().cpu().numpy()
+    inside = np.asarray(visible)[mask].reshape(-1)
+    dens = local_density(mask)[mask].reshape(-1)
+    if inside.size < 2 or float(np.std(dens)) == 0.0 or float(np.std(inside)) == 0.0:
         corr = float("nan")
     else:
         corr = float(np.corrcoef(inside, dens)[0, 1])
@@ -284,12 +285,18 @@ def mode_randmask(model, spec, starts: int, rollout_steps: int, device) -> dict:
         final_mask = topology.get_binary_mask(final_state)
         inter = np.logical_and(final_mask, ref_mask).sum()
         union = np.logical_or(final_mask, ref_mask).sum()
+        init_topo = components_and_holes(mask)
+        final_topo = components_and_holes(final_mask)
         rows.append({
             "start": i,
             "init_density": density,
             "final_density": float(final_mask.mean()),
             "iou_with_reference": float(inter / union) if union else 0.0,
             "final_perimeter": mask_perimeter(final_mask),
+            "init_b0": init_topo["b0"],
+            "init_b1": init_topo["b1"],
+            "final_b0": final_topo["b0"],
+            "final_b1": final_topo["b1"],
         })
     return {
         "family": spec.family,
@@ -300,7 +307,13 @@ def mode_randmask(model, spec, starts: int, rollout_steps: int, device) -> dict:
         "rows": rows,
         "summary": {
             "reference_perimeter": mask_perimeter(ref_mask),
+            "reference_b0": int(components_and_holes(ref_mask)["b0"]),
+            "reference_b1": int(components_and_holes(ref_mask)["b1"]),
             "final_perimeter_mean": float(np.mean([r["final_perimeter"] for r in rows])),
+            "init_b0_mean": float(np.mean([r["init_b0"] for r in rows])),
+            "final_b0_mean": float(np.mean([r["final_b0"] for r in rows])),
+            "init_b1_mean": float(np.mean([r["init_b1"] for r in rows])),
+            "final_b1_mean": float(np.mean([r["final_b1"] for r in rows])),
             "iou_mean": float(np.mean([r["iou_with_reference"] for r in rows])),
             "density_after_mean": float(np.mean([r["final_density"] for r in rows])),
         },
