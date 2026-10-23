@@ -12,6 +12,9 @@
 
 - [`stuckness.md`](stuckness.md) — «почему системы застревают»: Tierra, Avida, Polyworld,
   открытая эволюция, POET. Готово к §5 (обсуждение).
+- [`learning-vs-environment.md`](learning-vs-environment.md) — «обучение против среды»:
+  matching/melioration, неполная информация, конфликт уровней. Готово к §3–4 рукописи v2
+  (русский, как и рукопись).
 - следующий синтез — по запросу фазы; тема задаётся в `library_brief.py`.
 
 ## Как пользоваться
