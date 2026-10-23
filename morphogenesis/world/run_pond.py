@@ -61,6 +61,7 @@ class PondRun:
         self.snapshot_every: int = 0
         self.clonal_attached: int = 0
         self.clonal_separate: int = 0
+        self.update_probability: float = 1.0
 
     # ---------- инициализация ----------
     def seed(self, cells: int = 4, energy: float = 8.0) -> None:
@@ -138,7 +139,15 @@ class PondRun:
 
     def step(self) -> dict:
         with torch.no_grad():
-            self.state = self.rule(self.state, self.genome)
+            if self.update_probability >= 1.0:
+                self.state = self.rule(self.state, self.genome)
+            else:
+                # абляция: часть клеток пропускает обновление (шум в динамике)
+                new_state = self.rule(self.state, self.genome)
+                keep = torch.rand(
+                    (1, 1, self.world_cfg.grid, self.world_cfg.grid), device=self.device
+                ) < self.update_probability
+                self.state = torch.where(keep, new_state, self.state)
         grown = self._sync_state_to_world()
         self.pond.regenerate()
         cell_stats = self.pond.step_cells()
@@ -202,6 +211,8 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--repair-cost", type=float, default=None, help="цена ремонта клетки")
     ap.add_argument("--budding-mass", type=float, default=None, help="масса для споры")
     ap.add_argument("--budding-cost", type=float, default=None, help="энергия на спору")
+    ap.add_argument("--update-probability", type=float, default=1.0,
+                    help="вероятность обновления клетки за шаг (1.0 = детерминированно)")
     ap.add_argument("--snapshot-every", type=int, default=0,
                     help="сохранять снимок состояния каждые N шагов (0 = не сохранять)")
     ap.add_argument("--snapshots-out", default=None, help="куда сохранить снимки (.npz)")
@@ -224,6 +235,7 @@ def main(argv: list[str] | None = None) -> int:
     run = PondRun(world_cfg=world, seed=args.seed, device=args.device,
                   rule_checkpoint=args.rule_checkpoint)
     run.snapshot_every = args.snapshot_every
+    run.update_probability = args.update_probability
     run.seed(cells=4, energy=8.0)
     summary = run.run(args.steps, log_every=max(1, args.steps // 10))
     summary["clonal_attached"] = run.clonal_attached
