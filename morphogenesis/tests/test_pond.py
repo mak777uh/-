@@ -198,3 +198,50 @@ def test_repair_cost_controls_lifetime():
     cheap = survival_probe(0.004, steps=600)
     pricey = survival_probe(0.05, steps=600)
     assert cheap > pricey, "дешёвый ремонт должен давать большую продолжительность жизни"
+
+
+# ---------- политика matching (I-002: melioration -> matching) ----------
+
+def _matching_pick(seed: int, temp: float, spore_cells: int = 1) -> torch.Tensor:
+    """Один выстрел политики matching на управляемом поле ресурса."""
+    pond = Pond(PondConfig(grid=12, resource_regen=0.0, baseline_income=0.0,
+                           update_cost=0.0, repair_cost=0.0, damage_rate=0.0,
+                           spore_cells=spore_cells, noise=0.0,
+                           spore_bias="matching", matching_temp=temp), seed=seed)
+    parent = torch.zeros((12, 12), dtype=torch.bool)
+    parent[5:7, 5:7] = True
+    pond.seed_life(parent, energy=10.0)
+    pond.state.resource = torch.zeros((12, 12))
+    pond.state.resource[7, 5] = 1.0   # argmax по подушевой отдаче
+    pond.state.resource[5, 7] = 0.5
+    pond.state.resource[4, 5] = 0.2
+    pond.state.resource[5, 4] = 0.05
+    child = pond.bud(parent)
+    assert child is not None
+    return child
+
+
+def test_matching_at_low_temperature_is_argmax():
+    """При T -> 0 matching обязан сойтись к жадному выбору (контроль)."""
+    for seed in range(6):
+        child = _matching_pick(seed, temp=0.01)
+        assert int(child.sum()) == 1
+        assert bool(child[6, 4]), "при низкой температуре выбирается клетка с max payoff"
+
+
+def test_matching_spreads_over_cells_at_default_temperature():
+    """При T=1 потомки распределяются пропорционально, а не все в argmax."""
+    picks = []
+    for seed in range(30):
+        child = _matching_pick(seed, temp=1.0)
+        ys, xs = child.nonzero(as_tuple=True)
+        picks.append((int(ys[0]), int(xs[0])))
+    assert len(set(picks)) > 1, "рулетка должна давать разные клетки"
+    assert any(p != (6, 4) for p in picks), "часть потомков должна уходить не в argmax"
+
+
+def test_matching_spores_do_not_overlap_and_are_free():
+    child = _matching_pick(7, temp=1.0, spore_cells=2)
+    assert int(child.sum()) == 2
+    # клетки споры различны и не лежат на родителе
+    assert not bool((child[5:7, 5:7]).any())

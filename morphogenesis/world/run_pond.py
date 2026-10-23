@@ -234,8 +234,11 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--learn-mode", default="outcome", choices=["outcome", "bandit", "colony"])
     ap.add_argument("--learn-noise", type=float, default=0.05)
     ap.add_argument("--learn-window", type=int, default=30)
-    ap.add_argument("--spore-bias", default="random", choices=["random", "rich", "score", "ifd"],
-                    help="куда выпускать спору: случайно или к богатому ресурсу")
+    ap.add_argument("--spore-bias", default="random",
+                    choices=["random", "rich", "score", "ifd", "matching"],
+                    help="куда выпускать спору: случайно, к богатому, score, IFD или matching")
+    ap.add_argument("--matching-temperature", type=float, default=1.0,
+                    help="температура политики matching: 1 = пропорционально payoff, <1 ближе к argmax")
     ap.add_argument("--layout", default="uniform",
                     choices=["uniform", "gradient", "patches"], help="структура ресурса")
     args = ap.parse_args(argv)
@@ -253,6 +256,7 @@ def main(argv: list[str] | None = None) -> int:
         world.budding_cost = args.budding_cost
     world.resource_layout = args.layout
     world.spore_bias = args.spore_bias
+    world.matching_temp = args.matching_temperature
     world.w_rich = args.w_rich
     world.learn_w = args.learn_w
     world.learn_rate = args.learn_rate

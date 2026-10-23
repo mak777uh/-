@@ -59,13 +59,15 @@ class PondConfig:
     resource_layout: str = "uniform"  # uniform | gradient | patches
     flip_at: int = 0                  # если > 0: на этом шаге градиент переворачивается
     income_mode: str = "cap"           # cap (min(ресурс, доход)) | proportional (доход*ресурс)
-    spore_bias: str = "random"         # random | rich | score | ifd
+    spore_bias: str = "random"         # random | rich | score | ifd | matching
     w_rich: float = 0.5                # вес ресурса в score (1-w — вес скученности)
     learn_w: bool = False              # учить w по судьбе потомства
     learn_rate: float = 0.1            # шаг обучения
     learn_delay: int = 10              # через сколько шагов проверять судьбу потомка
-    learn_mode: str = "outcome"        # outcome | bandit (потомок пробует сдвиг веса)
+    learn_mode: str = "outcome"        # outcome | bandit | colony | paired
     learn_noise: float = 0.05          # разброс пробного веса потомка
+    learn_pair_noise: float = 0.2      # δ в парном режиме: w' = w ± δ
+    matching_temp: float = 1.0         # температура политики matching (1 = без неё)
     learn_window: int = 30             # окно оценки для обучения колонии
     init_resource_fill: float = 0.0     # 0..1: доля потолка, до которой поле заполнено на старте
     membrane_gated: bool = False      # обмен гейтируется мембраной (замыкание)
@@ -398,6 +400,34 @@ class Pond:
                     crowd += padded_alive[1 + ys + dy, 1 + xs + dx]
             payoff = res_local / 9.0 / (1.0 + crowd)
             order = torch.argsort(payoff, descending=True)[:take]
+        elif cfg.spore_bias == "matching":
+            # matching law вместо melioration: поведение распределяется ПРОПОРЦИОНАЛЬНО
+            # подушевой отдаче, а не отдаётся лучшей клетке (argmax). Жадный argmax
+            # локально оптимален и глобально субоптимален (Herrnstein & Vaughan).
+            ys, xs = free[:, 0], free[:, 1]
+            padded_res = torch.zeros((cfg.grid + 2, cfg.grid + 2), device=self.device)
+            padded_res[1:-1, 1:-1] = s.resource
+            padded_alive = torch.zeros((cfg.grid + 2, cfg.grid + 2), device=self.device)
+            padded_alive[1:-1, 1:-1] = s.alive.float()
+            res_local = torch.zeros(free.shape[0], device=self.device)
+            crowd = torch.zeros(free.shape[0], device=self.device)
+            for dy in (-1, 0, 1):
+                for dx in (-1, 0, 1):
+                    res_local += padded_res[1 + ys + dy, 1 + xs + dx]
+                    crowd += padded_alive[1 + ys + dy, 1 + xs + dx]
+            payoff = res_local / 9.0 / (1.0 + crowd)
+            temp = max(float(cfg.matching_temp), 1e-6)
+            # нормируем на максимум, иначе payoff**100 уходит в ноль во float32
+            # и рулетка вырождается в равномерную
+            top = float(payoff.max()) if payoff.numel() else 0.0
+            if top <= 0.0:
+                order = torch.randperm(free.shape[0], generator=self.gen, device=self.device)[:take]
+            else:
+                weights = (payoff / top).clamp_min(0.0) ** (1.0 / temp) + 1e-12
+                # рулетка без возвращения: несколько клеток за одно рождение не совпадают
+                order = torch.multinomial(
+                    weights, num_samples=min(take, int(free.shape[0])), replacement=False
+                )
         elif cfg.spore_bias == "score":
             # торг: ресурс против скученности (доля живых в окрестности 3x3)
             ys, xs = free[:, 0], free[:, 1]
