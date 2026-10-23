@@ -48,6 +48,29 @@
 3. **Ссылки на P11–P13 и C3** в §References: сейчас в рукописи их нет, хотя формулировки
    совпадают.
 
+## Готовый блок References (для вставки в §References)
+
+Метаданные сверены по Crossref 2026-10-23. Порядок — по первому упоминанию.
+
+1. Fretwell, S. D., & Lucas, H. L. (1970). On territorial behavior and other factors
+   influencing habitat distribution in birds. *Acta Biotheoretica*, 19(1), 16–36.
+   https://doi.org/10.1007/BF01601953
+2. Herrnstein, R. J. (1970). On the law of effect. *Journal of the Experimental Analysis of
+   Behavior*, 13(2), 243–266. https://doi.org/10.1901/jeab.1970.13-243
+3. Baum, W. M. (1974). On two types of deviation from the matching law: bias and
+   undermatching. *Journal of the Experimental Analysis of Behavior*, 22(1), 231–242.
+   https://doi.org/10.1901/jeab.1974.22-231
+4. Vaughan, W. (1981). Melioration, matching, and maximization. *Journal of the Experimental
+   Analysis of Behavior*, 36(2), 141–149. https://doi.org/10.1901/jeab.1981.36-141
+5. West, S. A., Fisher, R. M., Gardner, A., & Kiers, E. T. (2015). Major evolutionary
+   transitions in individuality. *PNAS*, 112(33), 10112–10119.
+   https://doi.org/10.1073/pnas.1421402112
+6. Maynard Smith, J., & Szathmáry, E. (1995). *The Major Transitions in Evolution*.
+   W. H. Freeman / Oxford University Press. https://doi.org/10.1093/oso/9780198502944.001.0001
+
+Если в текст идут Bedau 1998 или Dolson et al. 2018 (для §5 про открытость), их данные —
+в [`../hypotheses/alife-lineage.md`](../hypotheses/alife-lineage.md), B5–B6.
+
 ## История
 
 - 2026-10-23 — создано для рукописи v2 «про условия среды» (prepare-фаза волны).
