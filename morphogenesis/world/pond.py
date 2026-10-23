@@ -59,6 +59,7 @@ class PondConfig:
     resource_layout: str = "uniform"  # uniform | gradient | patches
     flip_at: int = 0                  # если > 0: на этом шаге градиент переворачивается
     income_mode: str = "cap"           # cap (min(ресурс, доход)) | proportional (доход*ресурс)
+    init_resource_fill: float = 0.0     # 0..1: доля потолка, до которой поле заполнено на старте
     membrane_gated: bool = False      # обмен гейтируется мембраной (замыкание)
     membrane_decay: float = 0.05      # распад мембраны за шаг
     membrane_rebuild: float = 0.10    # скорость восстановления мембраны
@@ -103,6 +104,24 @@ class Pond:
             age=torch.zeros((n, n), dtype=torch.int64, device=self.device),
             alive=torch.zeros((n, n), dtype=torch.bool, device=self.device),
         )
+        if self.cfg.init_resource_fill > 0:
+            fill = torch.full(
+                (n, n),
+                self.cfg.resource_max * self.cfg.init_resource_fill,
+                device=self.device,
+            )
+            if self.cfg.resource_layout == "gradient":
+                rows = torch.arange(n, device=self.device, dtype=torch.float32)
+                position = 1.0 - rows / max(n - 1, 1)
+                fill = fill * (0.2 + 0.8 * position)[:, None]
+            elif self.cfg.resource_layout == "patches":
+                third = n // 3
+                rich = self.cfg.resource_max * self.cfg.init_resource_fill
+                fill = fill * 0.2
+                fill[third // 2 : third // 2 + third // 2, third // 2 : third // 2 + third // 2] = rich
+                fill[n - third : n - third // 2, n - third : n - third // 2] = rich
+                fill[third // 2 : third // 2 + third // 2, n - third : n - third // 2] = rich
+            self.state.resource = fill
 
     # ---------- ресурс и катастрофы ----------
     def _sample_gap(self) -> int:
