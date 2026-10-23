@@ -509,17 +509,22 @@
         "kind": "experiment_change",
         "detail": "добавить инвазионные плечи (5 % A в B и наоборот, 3 сида) и сравнить наблюдённый a_share с предсказанием из выгод по зонам"
       },
-      "status": "new",
+      "status": "accepted",
       "wave": "current",
       "owner": "librarian",
       "created_at": "2026-10-23T23:23:00+03:00",
-      "decided_at": null,
-      "why": null,
+      "decided_at": "2026-10-23",
+      "why": "критерий сосуществования должен быть инвазионным (Chesson 2000), иначе мы переоткрываем частотную зависимость; проверяемо на существующей серии freq_*",
       "links": {
-        "insights": [],
-        "tasks": [],
-        "reports": []
-      }
+        "insights": [
+          "I-032"
+        ],
+        "tasks": [
+          "task-9"
+        ]
+      },
+      "decided_by": "lead",
+      "decision_note": "критерий меняем: не «оба типа выжили», а положительный рост редкого типа при своей редкости (invasion criterion, Chesson 2000); ожидаемую долю сверяем с soft selection (Levene 1953)"
     },
     {
       "id": "B-015",
@@ -561,5 +566,5 @@
       }
     }
   ],
-  "updated_at": "2026-10-23T22:20:00Z"
+  "updated_at": "2026-10-23T23:40:00Z"
 }

@@ -156,6 +156,11 @@ jobs:
           done
           exit $fail
 
+      # Цикл движется всеми тремя ногами: эксперименты, чтение, гипотезы.
+      # Иначе легко «гнать прогоны» и обновлять гипотезы задним числом.
+      - name: Cycle legs (experiments / reading / hypotheses)
+        run: python scripts/cycle_audit.py --days 1
+
       - name: CPU tests
         working-directory: morphogenesis
         env:
