@@ -182,3 +182,24 @@ def test_hole_radial_distribution_shape():
     assert g["n"] == 6
     assert len(g["g"]) == 6
     assert all(np.isfinite(v) for v in g["g"] if v == v)
+
+
+def test_script_imports_config_from_morphogenesis():
+    """Скрипт запускается из морфогенезиса и не падает на импорте config.
+
+    Регрессия: путь к пакету стенда вычислялся как repo/, а код лежит в
+    repo/morphogenesis — скрипт падал с ModuleNotFoundError только при запуске
+    как отдельный процесс (в тестах путь добавлялся вручную, поэтому баг не ловился).
+    """
+    import subprocess
+    import sys
+    from pathlib import Path
+
+    script = Path(__file__).resolve().parents[2] / "scripts" / "morphometry.py"
+    morph = script.parents[1] / "morphogenesis"
+    proc = subprocess.run(
+        [sys.executable, str(script), "--help"],
+        cwd=str(morph), capture_output=True, text=True,
+    )
+    assert proc.returncode == 0, proc.stderr[-500:]
+    assert "boundary" in proc.stdout

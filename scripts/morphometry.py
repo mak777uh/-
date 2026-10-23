@@ -36,7 +36,8 @@ import numpy as np
 import torch
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-MORPH = os.path.dirname(HERE)
+# скрипт лежит в repo/scripts, а код стенда — в repo/morphogenesis
+MORPH = os.path.join(os.path.dirname(HERE), "morphogenesis")
 if MORPH not in sys.path:
     sys.path.insert(0, MORPH)
 
