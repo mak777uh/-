@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "run_id": "20261023T045054Z-E02c_density_0-35",
+  "experiment": "E02c_density_0,35",
+  "experiment_id": "E08_precision_horizon",
+  "arm": null,
+  "seed": null,
+  "steps": null,
+  "status": "failed",
+  "provenance": "runner",
+  "source": "morphogenesis/logs/journal.jsonl",
+  "started_at": "2026-10-23T04:50:54Z",
+  "finished_at": "2026-10-23T04:51:51Z",
+  "git_commit": "16250bd",
+  "git_dirty": true,
+  "command": [
+    "C:\\Users\\Admin\\Documents\\Qoder\\2026-10-18\\82ab86cd\\repo\\.venv\\Scripts\\python.exe",
+    "../scripts/morphometry.py",
+    "--checkpoint",
+    "checkpoints/E02c_R-9_s2000_seed42_tf32",
+    "--mode",
+    "randmask",
+    "--starts",
+    "8",
+    "--density",
+    "0.35",
+    "--out",
+    "morphogenesis/experiments/E02c_replication/randmask_density_0,35.json"
+  ],
+  "cwd": "morphogenesis",
+  "owner": "analyst",
+  "environment": {
+    "python": "3.13.11",
+    "platform": "Windows-11-10.0.26300-SP0",
+    "torch": "2.6.0+cu124",
+    "numpy": "2.5.4",
+    "device": "NVIDIA GeForce RTX 3070 Laptop GPU, 595.79"
+  },
+  "checkpoint_in": null,
+  "outputs": {
+    "declared": [
+      "morphogenesis/experiments/E02c_replication/randmask_density_0,35.json"
+    ],
+    "log": "morphogenesis/logs/20261023T045054Z-E02c_density_0-35.log"
+  },
+  "metrics": {},
+  "stop_reason": "exit_1",
+  "exit_code": 1,
+  "log_path": "morphogenesis/logs/20261023T045054Z-E02c_density_0-35.log",
+  "notes": "карта бассейна: случайная маска плотности 0.35 на чекпоинте struct_2"
+}
