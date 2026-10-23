@@ -179,6 +179,8 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--repair-cost", type=float, default=None, help="цена ремонта клетки")
     ap.add_argument("--budding-mass", type=float, default=None, help="масса для споры")
     ap.add_argument("--budding-cost", type=float, default=None, help="энергия на спору")
+    ap.add_argument("--layout", default="uniform",
+                    choices=["uniform", "gradient", "patches"], help="структура ресурса")
     args = ap.parse_args(argv)
 
     world = PondConfig(grid=args.grid)
@@ -192,6 +194,7 @@ def main(argv: list[str] | None = None) -> int:
         world.budding_mass = args.budding_mass
     if args.budding_cost is not None:
         world.budding_cost = args.budding_cost
+    world.resource_layout = args.layout
     run = PondRun(world_cfg=world, seed=args.seed, device=args.device,
                   rule_checkpoint=args.rule_checkpoint)
     run.seed(cells=4, energy=8.0)

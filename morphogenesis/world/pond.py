@@ -55,6 +55,7 @@ class PondConfig:
     catastrophe_strength: float = 0.9
     catastrophe_mode: str = "shift"   # "shift" — ресурс переезжает, "drop" — падает везде
     genome_dim: int = 32              # размер генома (для cNCA)
+    resource_layout: str = "uniform"  # uniform | gradient | patches
     membrane_gated: bool = False      # обмен гейтируется мембраной (замыкание)
     membrane_decay: float = 0.05      # распад мембраны за шаг
     membrane_rebuild: float = 0.10    # скорость восстановления мембраны
@@ -121,8 +122,32 @@ class Pond:
         noise = torch.randn(
             (cfg.grid, cfg.grid), generator=self.gen, device=self.device
         ) * cfg.noise
-        self.state.resource = torch.clamp(
-            self.state.resource + cfg.resource_regen + noise, 0.0, cfg.resource_max
+        inflow = torch.full((cfg.grid, cfg.grid), cfg.resource_regen, device=self.device)
+        if cfg.resource_layout == "gradient":
+            # «свет» сверху: верх богат, низ беден
+            rows = torch.arange(cfg.grid, device=self.device, dtype=torch.float32)
+            inflow = inflow * (0.1 + 0.9 * (1.0 - rows / max(cfg.grid - 1, 1)))[:, None]
+        elif cfg.resource_layout == "patches":
+            # три источника, остальное бедно
+            base = torch.full((cfg.grid, cfg.grid), cfg.resource_regen * 0.1, device=self.device)
+            third = cfg.grid // 3
+            base[third // 2 : third // 2 + third // 2, third // 2 : third // 2 + third // 2] = cfg.resource_regen * 4
+            base[cfg.grid - third : cfg.grid - third // 2, cfg.grid - third : cfg.grid - third // 2] = cfg.resource_regen * 4
+            base[third // 2 : third // 2 + third // 2, cfg.grid - third : cfg.grid - third // 2] = cfg.resource_regen * 4
+            inflow = base
+        # потолок зависит от раскладки: иначе ресурс насыщается везде одинаково
+        ceiling = torch.full((cfg.grid, cfg.grid), cfg.resource_max, device=self.device)
+        if cfg.resource_layout == "gradient":
+            rows = torch.arange(cfg.grid, device=self.device, dtype=torch.float32)
+            ceiling = ceiling * (0.2 + 0.8 * (1.0 - rows / max(cfg.grid - 1, 1)))[:, None]
+        elif cfg.resource_layout == "patches":
+            ceiling = torch.full((cfg.grid, cfg.grid), cfg.resource_max * 0.2, device=self.device)
+            third = cfg.grid // 3
+            ceiling[third // 2 : third // 2 + third // 2, third // 2 : third // 2 + third // 2] = cfg.resource_max
+            ceiling[cfg.grid - third : cfg.grid - third // 2, cfg.grid - third : cfg.grid - third // 2] = cfg.resource_max
+            ceiling[third // 2 : third // 2 + third // 2, cfg.grid - third : cfg.grid - third // 2] = cfg.resource_max
+        self.state.resource = torch.minimum(
+            torch.clamp(self.state.resource + inflow + noise, min=0.0), ceiling
         )
 
     # ---------- жизнь клеток ----------
