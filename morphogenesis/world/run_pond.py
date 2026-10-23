@@ -226,7 +226,7 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--learn-w", action="store_true", help="учить вес политики по судьбе потомства")
     ap.add_argument("--learn-rate", type=float, default=0.1)
     ap.add_argument("--learn-delay", type=int, default=10)
-    ap.add_argument("--spore-bias", default="random", choices=["random", "rich", "score"],
+    ap.add_argument("--spore-bias", default="random", choices=["random", "rich", "score", "ifd"],
                     help="куда выпускать спору: случайно или к богатому ресурсу")
     ap.add_argument("--layout", default="uniform",
                     choices=["uniform", "gradient", "patches"], help="структура ресурса")

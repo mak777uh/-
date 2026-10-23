@@ -59,7 +59,7 @@ class PondConfig:
     resource_layout: str = "uniform"  # uniform | gradient | patches
     flip_at: int = 0                  # если > 0: на этом шаге градиент переворачивается
     income_mode: str = "cap"           # cap (min(ресурс, доход)) | proportional (доход*ресурс)
-    spore_bias: str = "random"         # random | rich | score
+    spore_bias: str = "random"         # random | rich | score | ifd
     w_rich: float = 0.5                # вес ресурса в score (1-w — вес скученности)
     learn_w: bool = False              # учить w по судьбе потомства
     learn_rate: float = 0.1            # шаг обучения
@@ -334,7 +334,22 @@ class Pond:
             s.spores_blocked += 1
             return None
         take = min(int(cfg.spore_cells), int(free.shape[0]))
-        if cfg.spore_bias == "score":
+        if cfg.spore_bias == "ifd":
+            # идеальное свободное распределение: подушевая отдача в окрестности 3x3
+            ys, xs = free[:, 0], free[:, 1]
+            padded_res = torch.zeros((cfg.grid + 2, cfg.grid + 2), device=self.device)
+            padded_res[1:-1, 1:-1] = s.resource
+            padded_alive = torch.zeros((cfg.grid + 2, cfg.grid + 2), device=self.device)
+            padded_alive[1:-1, 1:-1] = s.alive.float()
+            res_local = torch.zeros(free.shape[0], device=self.device)
+            crowd = torch.zeros(free.shape[0], device=self.device)
+            for dy in (-1, 0, 1):
+                for dx in (-1, 0, 1):
+                    res_local += padded_res[1 + ys + dy, 1 + xs + dx]
+                    crowd += padded_alive[1 + ys + dy, 1 + xs + dx]
+            payoff = res_local / 9.0 / (1.0 + crowd)
+            order = torch.argsort(payoff, descending=True)[:take]
+        elif cfg.spore_bias == "score":
             # торг: ресурс против скученности (доля живых в окрестности 3x3)
             ys, xs = free[:, 0], free[:, 1]
             res_norm = s.resource[ys, xs] / max(cfg.resource_max, 1e-9)
