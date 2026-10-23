@@ -334,3 +334,73 @@ def main(argv: list[str] | None = None) -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
+
+
+# ---------- топология и корреляции маски (перколяционная проверка) ----------
+
+def components_and_holes(mask: np.ndarray) -> dict:
+    """Число компонент тела, дырок и эйлерова характеристика chi = b0 - b1.
+
+    Дырки считаются по дополнению с учётом края: фон, касающийся края поля, — не
+    дырка, а внешняя область (иначе любая маска имела бы одну лишнюю «дырку»).
+    """
+    from scipy import ndimage as ndi
+
+    m = np.asarray(mask).astype(bool)
+    if not m.any():
+        return {"b0": 0, "b1": 0, "chi": 0, "sizes": [], "hole_sizes": []}
+    body, n_body = ndi.label(m, structure=np.ones((3, 3)))
+    bg, n_bg = ndi.label(~m, structure=np.ones((3, 3)))
+    # фон, касающийся края, — внешний, а не дырка
+    edge_labels = set(bg[0, :]) | set(bg[-1, :]) | set(bg[:, 0]) | set(bg[:, -1])
+    edge_labels.discard(0)
+    holes = int(n_bg - len(edge_labels))
+    sizes = [int((body == i).sum()) for i in range(1, n_body + 1)]
+    hole_sizes = [int((bg == i).sum()) for i in range(1, n_bg + 1) if i not in edge_labels]
+    return {"b0": int(n_body), "b1": holes, "chi": int(n_body - holes),
+            "sizes": sizes, "hole_sizes": hole_sizes}
+
+
+def autocorrelation_length(mask: np.ndarray, max_lag: int | None = None) -> float:
+    """Корреляционная длина ξ: где автокорреляция падает до 1/e.
+
+    Нормированная автокорреляция индикатора: C(r) = <n(x)n(x+r)> - p^2, делённая
+    на дисперсию. Для случайной маски C(r) ~ 0 при r > 0; для кластеризованной
+    спадает с длиной ξ.
+    """
+    m = np.asarray(mask).astype(float)
+    p = float(m.mean())
+    if p <= 0.0 or p >= 1.0:
+        return 0.0
+    var = p * (1.0 - p)
+    n = max_lag or min(m.shape) // 2
+    values = []
+    for r in range(1, n + 1):
+        right = m[:, r:] * m[:, :-r]
+        down = m[r:, :] * m[:-r, :]
+        c = (float(right.mean()) + float(down.mean())) / 2.0
+        values.append((c - p * p) / var)
+    # первый лаг, где корреляция ниже 1/e
+    for r, value in enumerate(values, start=1):
+        if value < 1.0 / np.e:
+            return float(r)
+    return float(n)
+
+
+def hole_size_distribution(hole_sizes: list[int]) -> dict:
+    """Хвост распределения дырок: тяжёлый (перколяция) или лёгкий."""
+    sizes = np.asarray(sorted(hole_sizes), dtype=float)
+    if sizes.size < 5:
+        return {"n": int(sizes.size), "max": int(sizes.max()) if sizes.size else 0,
+                "exponent": float("nan"), "heavy_tail": False}
+    # наклон хвоста в log-log по размерам (обратное ранжирование)
+    ranks = np.arange(1, sizes.size + 1)[::-1]
+    lo, hi = int(0.1 * sizes.size), int(0.9 * sizes.size)
+    if hi - lo < 3:
+        return {"n": int(sizes.size), "max": int(sizes.max()), "exponent": float("nan"),
+                "heavy_tail": False}
+    x = np.log(sizes[lo:hi])
+    y = np.log(ranks[lo:hi])
+    slope = float(np.polyfit(x, y, 1)[0])
+    return {"n": int(sizes.size), "max": int(sizes.max()), "exponent": abs(slope),
+            "heavy_tail": abs(slope) < 2.0}

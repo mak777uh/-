@@ -103,3 +103,47 @@ def test_local_density_is_fraction_of_alive_neighbours():
     assert abs(dens[1, 2] - 1 / 8) < 1e-9
     # вдали — ноль
     assert dens[0, 0] == 0.0
+
+
+def test_components_and_holes_disk_ring_dust():
+    disk = np.zeros((32, 32), dtype=bool)
+    disk[8:24, 8:24] = True
+    c = mm.components_and_holes(disk)
+    assert (c["b0"], c["b1"], c["chi"]) == (1, 0, 1)
+
+    ring = disk.copy()
+    ring[12:20, 12:20] = False
+    c = mm.components_and_holes(ring)
+    assert (c["b0"], c["b1"], c["chi"]) == (1, 1, 0)
+
+    dust = np.zeros((32, 32), dtype=bool)
+    dust[5, 5] = dust[15, 15] = dust[25, 25] = True
+    c = mm.components_and_holes(dust)
+    assert c["b0"] == 3 and c["chi"] == 3
+
+
+def test_random_mask_is_topologically_different_from_clustered():
+    rng = np.random.default_rng(0)
+    random_mask = rng.random((64, 64)) < 0.531
+    c = mm.components_and_holes(random_mask)
+    # случайная маска такой плотности даёт много компонент, а не одну
+    assert c["b0"] > 1
+
+
+def test_autocorrelation_length_random_vs_clustered():
+    rng = np.random.default_rng(1)
+    random_mask = rng.random((64, 64)) < 0.5
+    assert mm.autocorrelation_length(random_mask) <= 2
+
+    clustered = np.zeros((64, 64), dtype=bool)
+    clustered[16:48, 16:48] = True
+    clustered[24:40, 24:40] = False
+    assert mm.autocorrelation_length(clustered) > 4
+
+
+def test_hole_size_distribution_flags_heavy_tail():
+    narrow = mm.hole_size_distribution([1, 1, 1, 2, 1, 1, 1, 2])
+    wide = mm.hole_size_distribution([1, 1, 2, 4, 8, 16, 32, 64, 128, 256])
+    assert narrow["n"] == 8
+    assert wide["max"] == 256
+    assert wide["heavy_tail"] is True or wide["exponent"] < 3.0
