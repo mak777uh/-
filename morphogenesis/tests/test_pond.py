@@ -680,3 +680,15 @@ def test_type_share_series_recorded():
         pond.step_cells()
     assert len(pond.type_share_series) >= 1
     assert 0.0 <= pond.type_share_series[0] <= 1.0
+
+def test_child_type_mixfixed_inherits_without_switching():
+    pond = _two_type_pond(type_mode="mixfixed", type_start="mixed")
+    parent = torch.zeros((8, 8), dtype=torch.bool); parent[2:4, 2:4] = True
+    pond.seed_life(parent, energy=5.0)
+    pond.state.cell_type[parent] = 1
+    child = torch.zeros((8, 8), dtype=torch.bool); child[1, 1] = True
+    # даже в «плохой» зоне mixfixed не переключает — наследует тип родителя
+    pond.state.resource_b = torch.full((8, 8), 0.0)
+    pond.state.resource = torch.full((8, 8), 1.0)
+    pond._assign_child_type(parent, child)
+    assert int(pond.state.cell_type[1, 1]) == 1

@@ -308,7 +308,7 @@ def main(argv: list[str] | None = None) -> int:
                     help="сила отрицательной частотной зависимости ресурса (0 = выкл, I-030)")
     ap.add_argument("--type-start", default="a", choices=["a", "mixed"],
                     help="тип стартовых клеток: все A или смешанный")
-    ap.add_argument("--type-mode", default="fixed", choices=["fixed", "random", "learn"],
+    ap.add_argument("--type-mode", default="fixed", choices=["fixed", "mixfixed", "random", "learn"],
                     help="как наследуется тип A/B: fixed | random | learn")
     ap.add_argument("--layout", default="uniform",
                     choices=["uniform", "gradient", "patches"], help="структура ресурса")

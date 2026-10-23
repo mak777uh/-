@@ -76,7 +76,7 @@ class PondConfig:
     organism_mobility_cost: float = 0.0    # цена шага организма по жизни (0 = выкл)
     organism_mobility_every: int = 10      # раз в сколько шагов организм пробует шаг
     freq_dep: float = 0.0              # сила отрицательной частотной зависимости (0 = выкл)
-    type_mode: str = "fixed"           # fixed | random | learn — как наследуется тип A/B
+    type_mode: str = "fixed"           # fixed | mixfixed | random | learn — тип A/B
     type_start: str = "a"              # a | mixed — тип стартовых клеток
     learn_window: int = 30             # окно оценки для обучения колонии
     init_resource_fill: float = 0.0     # 0..1: доля потолка, до которой поле заполнено на старте
@@ -625,6 +625,11 @@ class Pond:
         mode = self.cfg.type_mode
         if mode == "fixed":
             t = 0
+        elif mode == "mixfixed":
+            # 50/50 на старте, но без переключения: потомок наследует тип родителя.
+            # Контроль: разнообразие БЕЗ переключения (решает ли переключение или
+            # просто присутствие двух типов).
+            t = int(round(float(s.cell_type[parent].float().mean())))
         elif mode == "random":
             t = int(torch.randint(0, 2, (), generator=self.gen_sel))
         else:
