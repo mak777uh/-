@@ -147,3 +147,38 @@ def test_hole_size_distribution_flags_heavy_tail():
     assert narrow["n"] == 8
     assert wide["max"] == 256
     assert wide["heavy_tail"] is True or wide["exponent"] < 3.0
+
+
+def test_hole_morphology_finds_holes_and_compactness():
+    mask = np.zeros((32, 32), dtype=bool)
+    mask[8:24, 8:24] = True
+    solid = mm.hole_morphology(mask)
+    assert solid["n"] == 0
+
+    ring = mask.copy()
+    ring[12:20, 12:20] = False       # квадратная дырка 8x8
+    info = mm.hole_morphology(ring)
+    assert info["n"] == 1
+    # квадратная дырка: A=64, P=32 -> 4*pi*64/1024 ~ 0.785
+    assert 0.6 < info["holes"][0]["compactness"] < 1.0
+
+
+def test_hole_morphology_counts_two_holes():
+    mask = np.zeros((32, 32), dtype=bool)
+    mask[4:28, 4:28] = True
+    mask[8:12, 8:12] = False
+    mask[18:22, 18:22] = False
+    info = mm.hole_morphology(mask)
+    assert info["n"] == 2
+    assert len(info["holes"]) == 2
+
+
+def test_hole_radial_distribution_shape():
+    mask = np.zeros((64, 64), dtype=bool)
+    mask[4:60, 4:60] = True
+    for y, x in ((12, 12), (12, 30), (12, 48), (30, 12), (30, 30), (48, 48)):
+        mask[y:y + 4, x:x + 4] = False
+    g = mm.hole_radial_distribution(mask, bins=6)
+    assert g["n"] == 6
+    assert len(g["g"]) == 6
+    assert all(np.isfinite(v) for v in g["g"] if v == v)

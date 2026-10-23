@@ -404,3 +404,71 @@ def hole_size_distribution(hole_sizes: list[int]) -> dict:
     slope = float(np.polyfit(x, y, 1)[0])
     return {"n": int(sizes.size), "max": int(sizes.max()), "exponent": abs(slope),
             "heavy_tail": abs(slope) < 2.0}
+
+
+def hole_morphology(mask: np.ndarray) -> dict:
+    """Форма полостей: площадь, периметр и компактность каждой дырки.
+
+    Компактность = 4*pi*A/P^2 (у круга → 1, у изрезанной дырки → меньше).
+    Если все дырки компактны — их «вырезало правило»; широкий разброс — случайная
+    пористость. Считаем по дополнению с учётом края (фон на краю — не дырка).
+    """
+    from scipy import ndimage as ndi
+
+    m = np.asarray(mask).astype(bool)
+    if not m.any():
+        return {"holes": [], "n": 0, "shape_mean": float("nan"), "shape_std": float("nan")}
+    bg, n_bg = ndi.label(~m, structure=np.ones((3, 3)))
+    edge_labels = set(bg[0, :]) | set(bg[-1, :]) | set(bg[:, 0]) | set(bg[:, -1])
+    edge_labels.discard(0)
+    holes = []
+    for label in range(1, n_bg + 1):
+        if label in edge_labels:
+            continue
+        hole_mask = bg == label
+        area = int(hole_mask.sum())
+        perim = mask_perimeter(hole_mask)
+        holes.append({
+            "area": area,
+            "perimeter": perim,
+            "compactness": isoperimetric_ratio(area, perim),
+        })
+    shapes = [h["compactness"] for h in holes]
+    return {
+        "holes": holes,
+        "n": len(holes),
+        "shape_mean": float(np.nanmean(shapes)) if shapes else float("nan"),
+        "shape_std": float(np.nanstd(shapes)) if shapes else float("nan"),
+    }
+
+
+def hole_radial_distribution(mask: np.ndarray, bins: int = 8, max_r: int | None = None) -> dict:
+    """g(r) центров дырок: пики — регулярность, ровно около 1 — случайность."""
+    from scipy import ndimage as ndi
+
+    m = np.asarray(mask).astype(bool)
+    if not m.any():
+        return {"bins": [], "g": [], "n": 0}
+    bg, n_bg = ndi.label(~m, structure=np.ones((3, 3)))
+    edge_labels = set(bg[0, :]) | set(bg[-1, :]) | set(bg[:, 0]) | set(bg[:, -1])
+    edge_labels.discard(0)
+    centers = np.array(ndi.center_of_mass(~m, bg, [i for i in range(1, n_bg + 1) if i not in edge_labels]))
+    if len(centers) < 3:
+        return {"bins": [], "g": [], "n": int(len(centers))}
+    from scipy.spatial.distance import pdist
+
+    d = pdist(centers)
+    n = len(centers)
+    max_r = max_r or int(np.percentile(d, 90))
+    hist, edges = np.histogram(d, bins=bins, range=(0, max_r))
+    # ожидание для равномерного распределения центров в поле
+    grid_area = m.size
+    density = n / grid_area
+    expected = []
+    for i in range(bins):
+        r0, r1 = edges[i], edges[i + 1]
+        annulus = np.pi * (r1 ** 2 - r0 ** 2)
+        expected.append(0.5 * n * (n - 1) * density * annulus)
+    g = [(h / e if e > 0 else float("nan")) for h, e in zip(hist, expected)]
+    return {"bins": [float((edges[i] + edges[i + 1]) / 2) for i in range(bins)],
+            "g": [float(x) for x in g], "n": int(n)}
