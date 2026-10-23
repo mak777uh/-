@@ -1,0 +1,86 @@
+"""Сторож библиотекаря: отпечаток состояния и пробуждение по изменению."""
+from __future__ import annotations
+
+import json
+import pathlib
+import sys
+
+REPO = pathlib.Path(__file__).resolve().parents[2]
+if str(REPO / "scripts") not in sys.path:
+    sys.path.insert(0, str(REPO / "scripts"))
+
+import library_wake  # noqa: E402
+
+
+def _tree(tmp_path: pathlib.Path) -> pathlib.Path:
+    (tmp_path / "morphogenesis" / "logs").mkdir(parents=True)
+    (tmp_path / "morphogenesis" / "logs" / "journal.jsonl").write_text(
+        '{"event":"start"}\n', encoding="utf-8"
+    )
+    (tmp_path / "reports").mkdir()
+    (tmp_path / "articles").mkdir()
+    (tmp_path / "manuscript").mkdir()
+    (tmp_path / "manuscript" / "paper.md").write_text("# Paper\n\n**v0.1**\n\n## 1. Intro\n", encoding="utf-8")
+    (tmp_path / "lab").mkdir()
+    (tmp_path / "lab" / "lit-queue.json").write_text(
+        json.dumps({"items": [{"id": "L-001", "status": "new"}]}), encoding="utf-8"
+    )
+    (tmp_path / "lab" / "lit-board.json").write_text(
+        json.dumps({"items": [{"id": "B-001", "status": "accepted", "wave": "current"}]}),
+        encoding="utf-8",
+    )
+    return tmp_path
+
+
+def test_first_check_reports_all_keys_and_second_is_quiet(tmp_path):
+    root = _tree(tmp_path)
+    state = tmp_path / "state.json"
+    first = library_wake.check(root, state)
+    assert "journal" in first and "reports" in first
+    second = library_wake.check(root, state)
+    assert second == []
+
+
+def test_new_journal_line_wakes(tmp_path):
+    root = _tree(tmp_path)
+    state = tmp_path / "state.json"
+    library_wake.check(root, state)
+    journal = root / "morphogenesis" / "logs" / "journal.jsonl"
+    journal.write_text(journal.read_text(encoding="utf-8") + '{"event":"finish"}\n', encoding="utf-8")
+    assert library_wake.check(root, state) == ["journal"]
+
+
+def test_new_report_wakes(tmp_path):
+    root = _tree(tmp_path)
+    state = tmp_path / "state.json"
+    library_wake.check(root, state)
+    (root / "reports" / "2026-10-23-new.md").write_text("# новый отчёт\n", encoding="utf-8")
+    assert "reports" in library_wake.check(root, state)
+
+
+def test_queue_and_board_changes_wake(tmp_path):
+    root = _tree(tmp_path)
+    state = tmp_path / "state.json"
+    library_wake.check(root, state)
+    (root / "lab" / "lit-queue.json").write_text(
+        json.dumps({"items": [{"id": "L-002", "status": "new"}]}), encoding="utf-8"
+    )
+    changes = library_wake.check(root, state)
+    assert "lit_queue" in changes
+
+
+def test_cycle_appears_wakes(tmp_path):
+    root = _tree(tmp_path)
+    state = tmp_path / "state.json"
+    library_wake.check(root, state)
+    (root / "lab" / "cycle.json").write_text(
+        json.dumps({"id": "W-1", "phase": "run"}), encoding="utf-8"
+    )
+    assert "cycle" in library_wake.check(root, state)
+
+
+def test_wait_returns_timeout_without_changes(tmp_path):
+    root = _tree(tmp_path)
+    state = tmp_path / "state.json"
+    library_wake.check(root, state)
+    assert library_wake.wait(root, timeout=0.2, interval=0.05, state_path=state) == 2
