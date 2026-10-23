@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "run_id": "20261022T204057Z-E02c_curve_rollout",
+  "experiment": "E02c_curve_rollout",
+  "experiment_id": "E02c",
+  "arm": null,
+  "seed": null,
+  "steps": null,
+  "status": "finished",
+  "provenance": "runner",
+  "source": "morphogenesis/logs/journal.jsonl",
+  "started_at": "2026-10-22T20:40:58Z",
+  "finished_at": "2026-10-22T22:22:53Z",
+  "git_commit": "041df14",
+  "git_dirty": false,
+  "command": [
+    "C:\\Users\\Admin\\Documents\\Qoder\\2026-10-18\\82ab86cd\\repo\\.venv\\Scripts\\python.exe",
+    "C:\\Users\\Admin\\Documents\\Qoder\\2026-10-18\\82ab86cd\\repo\\scripts\\census_curve.py",
+    "--tag",
+    "tf32traj",
+    "--families",
+    "E02c_R-9_s1000_seed42_tf32,E02c_R-9_s2000_seed42_tf32,E02c_R-9_s3000_seed42_tf32",
+    "--lengths",
+    "500,1000,2000,3000"
+  ],
+  "cwd": "morphogenesis",
+  "owner": "analyst",
+  "environment": {
+    "python": "3.13.11",
+    "platform": "Windows-11-10.0.26300-SP0",
+    "torch": "2.6.0+cu124",
+    "numpy": "2.5.4",
+    "device": "NVIDIA GeForce RTX 3070 Laptop GPU, 595.79"
+  },
+  "checkpoint_in": null,
+  "outputs": {
+    "declared": [
+      "morphogenesis/experiments/E02c_replication/curve_tf32.json"
+    ],
+    "log": "morphogenesis/logs/20261022T204057Z-E02c_curve_rollout.log"
+  },
+  "metrics": {},
+  "stop_reason": "exit_0",
+  "exit_code": 0,
+  "log_path": "morphogenesis/logs/20261022T204057Z-E02c_curve_rollout.log",
+  "notes": "протокол v1.1 §3: класс от длины роллаута (500/1000/2000/3000) для чекпоинтов 1000/2000/3000",
+  "regime": "tf32"
+}

@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "run_id": "20261023T025832Z-E02c_R-9_s4000_seed101_dense",
+  "experiment": "E02c_R-9_s4000_seed101_dense",
+  "experiment_id": "E08_precision_horizon",
+  "arm": null,
+  "seed": 101,
+  "steps": 4000,
+  "status": "failed",
+  "provenance": "runner",
+  "source": "morphogenesis/logs/journal.jsonl",
+  "started_at": "2026-10-23T02:58:32Z",
+  "finished_at": "2026-10-23T03:13:28Z",
+  "git_commit": "7e12695",
+  "git_dirty": true,
+  "command": [
+    "C:\\Users\\Admin\\Documents\\Qoder\\2026-10-18\\82ab86cd\\repo\\.venv\\Scripts\\python.exe",
+    "e02c_replication.py",
+    "--seed",
+    "101",
+    "--steps",
+    "4000",
+    "--experiment-id",
+    "E02c_R-9_s4000_seed101_dense",
+    "--save-interval",
+    "250"
+  ],
+  "cwd": "morphogenesis",
+  "owner": "analyst",
+  "environment": {
+    "python": "3.13.11",
+    "platform": "Windows-11-10.0.26300-SP0",
+    "torch": "2.6.0+cu124",
+    "numpy": "2.5.4",
+    "device": "NVIDIA GeForce RTX 3070 Laptop GPU, 595.79"
+  },
+  "checkpoint_in": null,
+  "outputs": {
+    "declared": [
+      "morphogenesis/checkpoints/E02c_R-9_s4000_seed101_dense/nca_final.pt"
+    ],
+    "log": "morphogenesis/logs/20261023T025832Z-E02c_R-9_s4000_seed101_dense.log"
+  },
+  "metrics": {},
+  "stop_reason": "exception",
+  "exit_code": 1,
+  "log_path": "morphogenesis/logs/20261023T025832Z-E02c_R-9_s4000_seed101_dense.log",
+  "notes": "плотный горизонт (save-interval 250): проверить, не прячется ли окно struct_2 между шагами 1000\nOSError: [Errno 22] Invalid argument",
+  "regime": "tf32"
+}

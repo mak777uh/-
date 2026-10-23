@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-10-22T10:33:45Z",
+  "generated_at": "2026-10-23T01:44:48Z",
   "policy": "Локально хранятся только canonical final из lab/checkpoints.json (требования активной/следующей серии) и явно объявленный положительный контроль. Best-снапшоты при наличии final и неканонические final закрытых/замещённых плеч удаляются после фиксации метрик, per-run JSONL, манифеста и этой записи в git. Веса в GitHub не отправляются; canonical final удаляется только по решению владельца.",
-  "freed_bytes": 41001676392,
+  "freed_bytes": 58265540136,
   "files": [
     {
       "path": "morphogenesis/checkpoints/gate_layer1_s800_seed101/nca_best.pt",
@@ -641,6 +641,294 @@
       "mtime": "2026-10-22T08:20:32Z",
       "kept": "morphogenesis/checkpoints/E02c_seeddec_init42_data303/nca_final.pt",
       "reason": "промежуточный снапшот (nca_iter_*), final на месте"
+    },
+    {
+      "path": "morphogenesis/checkpoints/E02c_R-9_s4000_seed101/nca_best.pt",
+      "family": "E02c_R-9_s4000_seed101",
+      "kind": "best",
+      "size_bytes": 539495742,
+      "mtime": "2026-10-23T00:56:33Z",
+      "kept": "morphogenesis/checkpoints/E02c_R-9_s4000_seed101/nca_final.pt",
+      "reason": "best-снапшот при наличии final; метрики плеча в git"
+    },
+    {
+      "path": "morphogenesis/checkpoints/E02c_R-9_s4000_seed101/nca_iter_1000.pt",
+      "family": "E02c_R-9_s4000_seed101",
+      "kind": "iter",
+      "size_bytes": 539495742,
+      "mtime": "2026-10-23T00:24:12Z",
+      "kept": "morphogenesis/checkpoints/E02c_R-9_s4000_seed101/nca_final.pt",
+      "reason": "промежуточный снапшот (nca_iter_*), final на месте"
+    },
+    {
+      "path": "morphogenesis/checkpoints/E02c_R-9_s4000_seed101/nca_iter_2000.pt",
+      "family": "E02c_R-9_s4000_seed101",
+      "kind": "iter",
+      "size_bytes": 539495742,
+      "mtime": "2026-10-23T00:37:03Z",
+      "kept": "morphogenesis/checkpoints/E02c_R-9_s4000_seed101/nca_final.pt",
+      "reason": "промежуточный снапшот (nca_iter_*), final на месте"
+    },
+    {
+      "path": "morphogenesis/checkpoints/E02c_R-9_s4000_seed101/nca_iter_3000.pt",
+      "family": "E02c_R-9_s4000_seed101",
+      "kind": "iter",
+      "size_bytes": 539495742,
+      "mtime": "2026-10-23T00:49:51Z",
+      "kept": "morphogenesis/checkpoints/E02c_R-9_s4000_seed101/nca_final.pt",
+      "reason": "промежуточный снапшот (nca_iter_*), final на месте"
+    },
+    {
+      "path": "morphogenesis/checkpoints/E02c_R-9_s4000_seed101/nca_iter_4000.pt",
+      "family": "E02c_R-9_s4000_seed101",
+      "kind": "iter",
+      "size_bytes": 539495742,
+      "mtime": "2026-10-23T01:02:37Z",
+      "kept": "morphogenesis/checkpoints/E02c_R-9_s4000_seed101/nca_final.pt",
+      "reason": "промежуточный снапшот (nca_iter_*), final на месте"
+    },
+    {
+      "path": "morphogenesis/checkpoints/E02c_R-9_s4000_seed202/nca_best.pt",
+      "family": "E02c_R-9_s4000_seed202",
+      "kind": "best",
+      "size_bytes": 539495742,
+      "mtime": "2026-10-22T23:27:47Z",
+      "kept": "morphogenesis/checkpoints/E02c_R-9_s4000_seed202/nca_final.pt",
+      "reason": "best-снапшот при наличии final; метрики плеча в git"
+    },
+    {
+      "path": "morphogenesis/checkpoints/E02c_R-9_s4000_seed202/nca_iter_1000.pt",
+      "family": "E02c_R-9_s4000_seed202",
+      "kind": "iter",
+      "size_bytes": 539495742,
+      "mtime": "2026-10-22T22:54:18Z",
+      "kept": "morphogenesis/checkpoints/E02c_R-9_s4000_seed202/nca_final.pt",
+      "reason": "промежуточный снапшот (nca_iter_*), final на месте"
+    },
+    {
+      "path": "morphogenesis/checkpoints/E02c_R-9_s4000_seed202/nca_iter_2000.pt",
+      "family": "E02c_R-9_s4000_seed202",
+      "kind": "iter",
+      "size_bytes": 539495742,
+      "mtime": "2026-10-22T23:06:12Z",
+      "kept": "morphogenesis/checkpoints/E02c_R-9_s4000_seed202/nca_final.pt",
+      "reason": "промежуточный снапшот (nca_iter_*), final на месте"
+    },
+    {
+      "path": "morphogenesis/checkpoints/E02c_R-9_s4000_seed202/nca_iter_3000.pt",
+      "family": "E02c_R-9_s4000_seed202",
+      "kind": "iter",
+      "size_bytes": 539495742,
+      "mtime": "2026-10-22T23:18:32Z",
+      "kept": "morphogenesis/checkpoints/E02c_R-9_s4000_seed202/nca_final.pt",
+      "reason": "промежуточный снапшот (nca_iter_*), final на месте"
+    },
+    {
+      "path": "morphogenesis/checkpoints/E02c_R-9_s4000_seed202/nca_iter_4000.pt",
+      "family": "E02c_R-9_s4000_seed202",
+      "kind": "iter",
+      "size_bytes": 539495742,
+      "mtime": "2026-10-22T23:31:18Z",
+      "kept": "morphogenesis/checkpoints/E02c_R-9_s4000_seed202/nca_final.pt",
+      "reason": "промежуточный снапшот (nca_iter_*), final на месте"
+    },
+    {
+      "path": "morphogenesis/checkpoints/E02c_R-9_s4000_seed42/nca_best.pt",
+      "family": "E02c_R-9_s4000_seed42",
+      "kind": "best",
+      "size_bytes": 539495742,
+      "mtime": "2026-10-22T16:08:33Z",
+      "kept": "morphogenesis/checkpoints/E02c_R-9_s4000_seed42/nca_final.pt",
+      "reason": "best-снапшот при наличии final; метрики плеча в git"
+    },
+    {
+      "path": "morphogenesis/checkpoints/E02c_R-9_s4000_seed42/nca_iter_1000.pt",
+      "family": "E02c_R-9_s4000_seed42",
+      "kind": "iter",
+      "size_bytes": 539495742,
+      "mtime": "2026-10-22T15:30:47Z",
+      "kept": "morphogenesis/checkpoints/E02c_R-9_s4000_seed42/nca_final.pt",
+      "reason": "промежуточный снапшот (nca_iter_*), final на месте"
+    },
+    {
+      "path": "morphogenesis/checkpoints/E02c_R-9_s4000_seed42/nca_iter_2000.pt",
+      "family": "E02c_R-9_s4000_seed42",
+      "kind": "iter",
+      "size_bytes": 539495742,
+      "mtime": "2026-10-22T15:43:43Z",
+      "kept": "morphogenesis/checkpoints/E02c_R-9_s4000_seed42/nca_final.pt",
+      "reason": "промежуточный снапшот (nca_iter_*), final на месте"
+    },
+    {
+      "path": "morphogenesis/checkpoints/E02c_R-9_s4000_seed42/nca_iter_3000.pt",
+      "family": "E02c_R-9_s4000_seed42",
+      "kind": "iter",
+      "size_bytes": 539495742,
+      "mtime": "2026-10-22T15:56:21Z",
+      "kept": "morphogenesis/checkpoints/E02c_R-9_s4000_seed42/nca_final.pt",
+      "reason": "промежуточный снапшот (nca_iter_*), final на месте"
+    },
+    {
+      "path": "morphogenesis/checkpoints/E02c_R-9_s4000_seed42/nca_iter_4000.pt",
+      "family": "E02c_R-9_s4000_seed42",
+      "kind": "iter",
+      "size_bytes": 539495742,
+      "mtime": "2026-10-22T16:09:37Z",
+      "kept": "morphogenesis/checkpoints/E02c_R-9_s4000_seed42/nca_final.pt",
+      "reason": "промежуточный снапшот (nca_iter_*), final на месте"
+    },
+    {
+      "path": "morphogenesis/checkpoints/E02c_R-9_s4000_seed42_tf32/nca_best.pt",
+      "family": "E02c_R-9_s4000_seed42_tf32",
+      "kind": "best",
+      "size_bytes": 539495742,
+      "mtime": "2026-10-22T17:15:15Z",
+      "kept": "morphogenesis/checkpoints/E02c_R-9_s4000_seed42_tf32/nca_final.pt",
+      "reason": "best-снапшот при наличии final; метрики плеча в git"
+    },
+    {
+      "path": "morphogenesis/checkpoints/E02c_R-9_s4000_seed42_tf32/nca_iter_1000.pt",
+      "family": "E02c_R-9_s4000_seed42_tf32",
+      "kind": "iter",
+      "size_bytes": 539495742,
+      "mtime": "2026-10-22T16:43:33Z",
+      "kept": "morphogenesis/checkpoints/E02c_R-9_s4000_seed42_tf32/nca_final.pt",
+      "reason": "промежуточный снапшот (nca_iter_*), final на месте"
+    },
+    {
+      "path": "morphogenesis/checkpoints/E02c_R-9_s4000_seed42_tf32/nca_iter_2000.pt",
+      "family": "E02c_R-9_s4000_seed42_tf32",
+      "kind": "iter",
+      "size_bytes": 539495742,
+      "mtime": "2026-10-22T16:57:03Z",
+      "kept": "morphogenesis/checkpoints/E02c_R-9_s4000_seed42_tf32/nca_final.pt",
+      "reason": "промежуточный снапшот (nca_iter_*), final на месте"
+    },
+    {
+      "path": "morphogenesis/checkpoints/E02c_R-9_s4000_seed42_tf32/nca_iter_3000.pt",
+      "family": "E02c_R-9_s4000_seed42_tf32",
+      "kind": "iter",
+      "size_bytes": 539495742,
+      "mtime": "2026-10-22T17:10:18Z",
+      "kept": "morphogenesis/checkpoints/E02c_R-9_s4000_seed42_tf32/nca_final.pt",
+      "reason": "промежуточный снапшот (nca_iter_*), final на месте"
+    },
+    {
+      "path": "morphogenesis/checkpoints/E02c_R-9_s4000_seed42_tf32/nca_iter_4000.pt",
+      "family": "E02c_R-9_s4000_seed42_tf32",
+      "kind": "iter",
+      "size_bytes": 539495742,
+      "mtime": "2026-10-22T17:23:16Z",
+      "kept": "morphogenesis/checkpoints/E02c_R-9_s4000_seed42_tf32/nca_final.pt",
+      "reason": "промежуточный снапшот (nca_iter_*), final на месте"
+    },
+    {
+      "path": "morphogenesis/checkpoints/E02c_seeddec_init101_data101/nca_best.pt",
+      "family": "E02c_seeddec_init101_data101",
+      "kind": "best",
+      "size_bytes": 539495742,
+      "mtime": "2026-10-22T13:56:45Z",
+      "kept": "morphogenesis/checkpoints/E02c_seeddec_init101_data101/nca_final.pt",
+      "reason": "best-снапшот при наличии final; метрики плеча в git"
+    },
+    {
+      "path": "morphogenesis/checkpoints/E02c_seeddec_init101_data101/nca_iter_1000.pt",
+      "family": "E02c_seeddec_init101_data101",
+      "kind": "iter",
+      "size_bytes": 539495742,
+      "mtime": "2026-10-22T13:43:55Z",
+      "kept": "morphogenesis/checkpoints/E02c_seeddec_init101_data101/nca_final.pt",
+      "reason": "промежуточный снапшот (nca_iter_*), final на месте"
+    },
+    {
+      "path": "morphogenesis/checkpoints/E02c_seeddec_init101_data101/nca_iter_2000.pt",
+      "family": "E02c_seeddec_init101_data101",
+      "kind": "iter",
+      "size_bytes": 539495742,
+      "mtime": "2026-10-22T13:57:10Z",
+      "kept": "morphogenesis/checkpoints/E02c_seeddec_init101_data101/nca_final.pt",
+      "reason": "промежуточный снапшот (nca_iter_*), final на месте"
+    },
+    {
+      "path": "morphogenesis/checkpoints/E02c_seeddec_init202_data202/nca_best.pt",
+      "family": "E02c_seeddec_init202_data202",
+      "kind": "best",
+      "size_bytes": 539495742,
+      "mtime": "2026-10-22T14:34:54Z",
+      "kept": "morphogenesis/checkpoints/E02c_seeddec_init202_data202/nca_final.pt",
+      "reason": "best-снапшот при наличии final; метрики плеча в git"
+    },
+    {
+      "path": "morphogenesis/checkpoints/E02c_seeddec_init202_data202/nca_iter_1000.pt",
+      "family": "E02c_seeddec_init202_data202",
+      "kind": "iter",
+      "size_bytes": 539495742,
+      "mtime": "2026-10-22T14:37:49Z",
+      "kept": "morphogenesis/checkpoints/E02c_seeddec_init202_data202/nca_final.pt",
+      "reason": "промежуточный снапшот (nca_iter_*), final на месте"
+    },
+    {
+      "path": "morphogenesis/checkpoints/E02c_seeddec_init202_data202/nca_iter_2000.pt",
+      "family": "E02c_seeddec_init202_data202",
+      "kind": "iter",
+      "size_bytes": 539495742,
+      "mtime": "2026-10-22T14:51:15Z",
+      "kept": "morphogenesis/checkpoints/E02c_seeddec_init202_data202/nca_final.pt",
+      "reason": "промежуточный снапшот (nca_iter_*), final на месте"
+    },
+    {
+      "path": "morphogenesis/checkpoints/E02c_seeddec_init42_data404/nca_best.pt",
+      "family": "E02c_seeddec_init42_data404",
+      "kind": "best",
+      "size_bytes": 539495742,
+      "mtime": "2026-10-22T18:09:54Z",
+      "kept": "morphogenesis/checkpoints/E02c_seeddec_init42_data404/nca_final.pt",
+      "reason": "best-снапшот при наличии final; метрики плеча в git"
+    },
+    {
+      "path": "morphogenesis/checkpoints/E02c_seeddec_init42_data404/nca_iter_1000.pt",
+      "family": "E02c_seeddec_init42_data404",
+      "kind": "iter",
+      "size_bytes": 539495742,
+      "mtime": "2026-10-22T17:57:09Z",
+      "kept": "morphogenesis/checkpoints/E02c_seeddec_init42_data404/nca_final.pt",
+      "reason": "промежуточный снапшот (nca_iter_*), final на месте"
+    },
+    {
+      "path": "morphogenesis/checkpoints/E02c_seeddec_init42_data404/nca_iter_2000.pt",
+      "family": "E02c_seeddec_init42_data404",
+      "kind": "iter",
+      "size_bytes": 539495742,
+      "mtime": "2026-10-22T18:10:27Z",
+      "kept": "morphogenesis/checkpoints/E02c_seeddec_init42_data404/nca_final.pt",
+      "reason": "промежуточный снапшот (nca_iter_*), final на месте"
+    },
+    {
+      "path": "morphogenesis/checkpoints/E02c_seeddec_init42_data42/nca_best.pt",
+      "family": "E02c_seeddec_init42_data42",
+      "kind": "best",
+      "size_bytes": 539495742,
+      "mtime": "2026-10-22T12:07:56Z",
+      "kept": "morphogenesis/checkpoints/E02c_seeddec_init42_data42/nca_final.pt",
+      "reason": "best-снапшот при наличии final; метрики плеча в git"
+    },
+    {
+      "path": "morphogenesis/checkpoints/E02c_seeddec_init42_data42/nca_iter_1000.pt",
+      "family": "E02c_seeddec_init42_data42",
+      "kind": "iter",
+      "size_bytes": 539495742,
+      "mtime": "2026-10-22T12:02:59Z",
+      "kept": "morphogenesis/checkpoints/E02c_seeddec_init42_data42/nca_final.pt",
+      "reason": "промежуточный снапшот (nca_iter_*), final на месте"
+    },
+    {
+      "path": "morphogenesis/checkpoints/E02c_seeddec_init42_data42/nca_iter_2000.pt",
+      "family": "E02c_seeddec_init42_data42",
+      "kind": "iter",
+      "size_bytes": 539495742,
+      "mtime": "2026-10-22T12:16:52Z",
+      "kept": "morphogenesis/checkpoints/E02c_seeddec_init42_data42/nca_final.pt",
+      "reason": "промежуточный снапшот (nca_iter_*), final на месте"
     }
   ],
   "skipped": [
@@ -690,6 +978,194 @@
     },
     {
       "path": "morphogenesis/checkpoints/E02c_seeddec_init42_data303/nca_final.pt",
+      "reason": "final удаляется только по решению владельца (§5a п.3), нужен --delete-finals"
+    },
+    {
+      "path": "morphogenesis/checkpoints/WP4_H-A0_s2000_seed101/nca_final.pt",
+      "reason": "канонический файл из lab/checkpoints.json"
+    },
+    {
+      "path": "morphogenesis/checkpoints/WP4_H-A0_s2000_seed202/nca_final.pt",
+      "reason": "канонический файл из lab/checkpoints.json"
+    },
+    {
+      "path": "morphogenesis/checkpoints/WP4_H-A0_s2000_seed303/nca_final.pt",
+      "reason": "канонический файл из lab/checkpoints.json"
+    },
+    {
+      "path": "morphogenesis/checkpoints/WP4_H-A0_s2000_seed404/nca_final.pt",
+      "reason": "канонический файл из lab/checkpoints.json"
+    },
+    {
+      "path": "morphogenesis/checkpoints/WP4_H-A0_s2000_seed42/nca_final.pt",
+      "reason": "канонический файл из lab/checkpoints.json"
+    },
+    {
+      "path": "morphogenesis/checkpoints/WP4_H-P1_s2000_seed42/nca_final.pt",
+      "reason": "канонический файл из lab/checkpoints.json"
+    },
+    {
+      "path": "morphogenesis/checkpoints/WP4_R-11_s2000_seed42/nca_final.pt",
+      "reason": "канонический файл из lab/checkpoints.json"
+    },
+    {
+      "path": "morphogenesis/checkpoints/WP4_R-9_s2000_seed101/nca_final.pt",
+      "reason": "канонический файл из lab/checkpoints.json"
+    },
+    {
+      "path": "morphogenesis/checkpoints/WP4_R-9_s2000_seed202/nca_final.pt",
+      "reason": "канонический файл из lab/checkpoints.json"
+    },
+    {
+      "path": "morphogenesis/checkpoints/WP4_R-9_s2000_seed303/nca_final.pt",
+      "reason": "канонический файл из lab/checkpoints.json"
+    },
+    {
+      "path": "morphogenesis/checkpoints/WP4_R-9_s2000_seed404/nca_final.pt",
+      "reason": "канонический файл из lab/checkpoints.json"
+    },
+    {
+      "path": "morphogenesis/checkpoints/WP4_R-9_s2000_seed42/nca_final.pt",
+      "reason": "канонический файл из lab/checkpoints.json"
+    },
+    {
+      "path": "morphogenesis/checkpoints/E02_seed0_stress1/nca_best.pt",
+      "reason": "меньше 50 МБ, места не освободит"
+    },
+    {
+      "path": "morphogenesis/checkpoints/E02c_R-9_s1000_seed101_tf32/nca_final.pt",
+      "reason": "final удаляется только по решению владельца (§5a п.3), нужен --delete-finals"
+    },
+    {
+      "path": "morphogenesis/checkpoints/E02c_R-9_s1000_seed202_tf32/nca_final.pt",
+      "reason": "final удаляется только по решению владельца (§5a п.3), нужен --delete-finals"
+    },
+    {
+      "path": "morphogenesis/checkpoints/E02c_R-9_s1000_seed42_fp32/nca_final.pt",
+      "reason": "final удаляется только по решению владельца (§5a п.3), нужен --delete-finals"
+    },
+    {
+      "path": "morphogenesis/checkpoints/E02c_R-9_s1000_seed42_tf32/nca_final.pt",
+      "reason": "final удаляется только по решению владельца (§5a п.3), нужен --delete-finals"
+    },
+    {
+      "path": "morphogenesis/checkpoints/E02c_R-9_s2000_seed101_tf32/nca_final.pt",
+      "reason": "final удаляется только по решению владельца (§5a п.3), нужен --delete-finals"
+    },
+    {
+      "path": "morphogenesis/checkpoints/E02c_R-9_s2000_seed142/nca_final.pt",
+      "reason": "final удаляется только по решению владельца (§5a п.3), нужен --delete-finals"
+    },
+    {
+      "path": "morphogenesis/checkpoints/E02c_R-9_s2000_seed202_tf32/nca_final.pt",
+      "reason": "final удаляется только по решению владельца (§5a п.3), нужен --delete-finals"
+    },
+    {
+      "path": "morphogenesis/checkpoints/E02c_R-9_s2000_seed242/nca_final.pt",
+      "reason": "final удаляется только по решению владельца (§5a п.3), нужен --delete-finals"
+    },
+    {
+      "path": "morphogenesis/checkpoints/E02c_R-9_s2000_seed342/nca_final.pt",
+      "reason": "final удаляется только по решению владельца (§5a п.3), нужен --delete-finals"
+    },
+    {
+      "path": "morphogenesis/checkpoints/E02c_R-9_s2000_seed42/nca_final.pt",
+      "reason": "final удаляется только по решению владельца (§5a п.3), нужен --delete-finals"
+    },
+    {
+      "path": "morphogenesis/checkpoints/E02c_R-9_s2000_seed42_fp32/nca_final.pt",
+      "reason": "final удаляется только по решению владельца (§5a п.3), нужен --delete-finals"
+    },
+    {
+      "path": "morphogenesis/checkpoints/E02c_R-9_s2000_seed42_tf32/nca_final.pt",
+      "reason": "final удаляется только по решению владельца (§5a п.3), нужен --delete-finals"
+    },
+    {
+      "path": "morphogenesis/checkpoints/E02c_R-9_s3000_seed101_tf32/nca_final.pt",
+      "reason": "final удаляется только по решению владельца (§5a п.3), нужен --delete-finals"
+    },
+    {
+      "path": "morphogenesis/checkpoints/E02c_R-9_s3000_seed202_tf32/nca_final.pt",
+      "reason": "final удаляется только по решению владельца (§5a п.3), нужен --delete-finals"
+    },
+    {
+      "path": "morphogenesis/checkpoints/E02c_R-9_s3000_seed42_fp32/nca_final.pt",
+      "reason": "final удаляется только по решению владельца (§5a п.3), нужен --delete-finals"
+    },
+    {
+      "path": "morphogenesis/checkpoints/E02c_R-9_s3000_seed42_tf32/nca_final.pt",
+      "reason": "final удаляется только по решению владельца (§5a п.3), нужен --delete-finals"
+    },
+    {
+      "path": "morphogenesis/checkpoints/E02c_R-9_s4000_seed101/nca_final.pt",
+      "reason": "final удаляется только по решению владельца (§5a п.3), нужен --delete-finals"
+    },
+    {
+      "path": "morphogenesis/checkpoints/E02c_R-9_s4000_seed101_tf32/nca_final.pt",
+      "reason": "final удаляется только по решению владельца (§5a п.3), нужен --delete-finals"
+    },
+    {
+      "path": "morphogenesis/checkpoints/E02c_R-9_s4000_seed202/nca_final.pt",
+      "reason": "final удаляется только по решению владельца (§5a п.3), нужен --delete-finals"
+    },
+    {
+      "path": "morphogenesis/checkpoints/E02c_R-9_s4000_seed202_tf32/nca_final.pt",
+      "reason": "final удаляется только по решению владельца (§5a п.3), нужен --delete-finals"
+    },
+    {
+      "path": "morphogenesis/checkpoints/E02c_R-9_s4000_seed42/nca_final.pt",
+      "reason": "final удаляется только по решению владельца (§5a п.3), нужен --delete-finals"
+    },
+    {
+      "path": "morphogenesis/checkpoints/E02c_R-9_s4000_seed42_fp32/nca_final.pt",
+      "reason": "final удаляется только по решению владельца (§5a п.3), нужен --delete-finals"
+    },
+    {
+      "path": "morphogenesis/checkpoints/E02c_R-9_s4000_seed42_tf32/nca_final.pt",
+      "reason": "final удаляется только по решению владельца (§5a п.3), нужен --delete-finals"
+    },
+    {
+      "path": "morphogenesis/checkpoints/E02c_randinit_shuffle_seed42/nca_final.pt",
+      "reason": "final удаляется только по решению владельца (§5a п.3), нужен --delete-finals"
+    },
+    {
+      "path": "morphogenesis/checkpoints/E02c_seeddec_init101_data101/nca_final.pt",
+      "reason": "final удаляется только по решению владельца (§5a п.3), нужен --delete-finals"
+    },
+    {
+      "path": "morphogenesis/checkpoints/E02c_seeddec_init101_data202/nca_final.pt",
+      "reason": "final удаляется только по решению владельца (§5a п.3), нужен --delete-finals"
+    },
+    {
+      "path": "morphogenesis/checkpoints/E02c_seeddec_init101_data303/nca_final.pt",
+      "reason": "final удаляется только по решению владельца (§5a п.3), нужен --delete-finals"
+    },
+    {
+      "path": "morphogenesis/checkpoints/E02c_seeddec_init101_data42/nca_final.pt",
+      "reason": "final удаляется только по решению владельца (§5a п.3), нужен --delete-finals"
+    },
+    {
+      "path": "morphogenesis/checkpoints/E02c_seeddec_init202_data202/nca_final.pt",
+      "reason": "final удаляется только по решению владельца (§5a п.3), нужен --delete-finals"
+    },
+    {
+      "path": "morphogenesis/checkpoints/E02c_seeddec_init42_data101/nca_final.pt",
+      "reason": "final удаляется только по решению владельца (§5a п.3), нужен --delete-finals"
+    },
+    {
+      "path": "morphogenesis/checkpoints/E02c_seeddec_init42_data202/nca_final.pt",
+      "reason": "final удаляется только по решению владельца (§5a п.3), нужен --delete-finals"
+    },
+    {
+      "path": "morphogenesis/checkpoints/E02c_seeddec_init42_data303/nca_final.pt",
+      "reason": "final удаляется только по решению владельца (§5a п.3), нужен --delete-finals"
+    },
+    {
+      "path": "morphogenesis/checkpoints/E02c_seeddec_init42_data404/nca_final.pt",
+      "reason": "final удаляется только по решению владельца (§5a п.3), нужен --delete-finals"
+    },
+    {
+      "path": "morphogenesis/checkpoints/E02c_seeddec_init42_data42/nca_final.pt",
       "reason": "final удаляется только по решению владельца (§5a п.3), нужен --delete-finals"
     },
     {
