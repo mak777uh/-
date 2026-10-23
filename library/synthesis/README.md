@@ -12,6 +12,9 @@
 
 - [`stuckness.md`](stuckness.md) — «почему системы застревают»: Tierra, Avida, Polyworld,
   открытая эволюция, POET. Готово к §5 (обсуждение).
+- [`second-substrate-w2.md`](second-substrate-w2.md) — что литература говорит заранее про
+  мир W2 (репликаторы без тела): дизайн, предсказания, критерии, чего W2 не проверит.
+  Подготовка к H-ALIVE-7 и §7.3 рукописи v2.
 - [`learning-vs-environment.md`](learning-vs-environment.md) — «обучение против среды»:
   matching/melioration, неполная информация, конфликт уровней. Готово к §3–4 рукописи v2
   (русский, как и рукопись).
