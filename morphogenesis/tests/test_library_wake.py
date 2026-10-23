@@ -79,6 +79,30 @@ def test_cycle_appears_wakes(tmp_path):
     assert "cycle" in library_wake.check(root, state)
 
 
+def test_closed_run_wakes(tmp_path):
+    root = _tree(tmp_path)
+    state = tmp_path / "state.json"
+    (root / "lab" / "runs").mkdir()
+    library_wake.check(root, state)
+    (root / "lab" / "runs" / "R1.json").write_text(
+        json.dumps({"id": "R1", "status": "finished"}), encoding="utf-8"
+    )
+    assert "runs" in library_wake.check(root, state)
+    # тот же закрытый прогон второй раз не будит
+    assert library_wake.check(root, state) == []
+
+
+def test_running_manifest_does_not_count_as_finished(tmp_path):
+    root = _tree(tmp_path)
+    state = tmp_path / "state.json"
+    (root / "lab" / "runs").mkdir()
+    library_wake.check(root, state)
+    (root / "lab" / "runs" / "R2.json").write_text(
+        json.dumps({"id": "R2", "status": "running"}), encoding="utf-8"
+    )
+    assert "runs" not in library_wake.check(root, state)
+
+
 def test_wait_returns_timeout_without_changes(tmp_path):
     root = _tree(tmp_path)
     state = tmp_path / "state.json"

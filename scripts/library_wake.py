@@ -12,6 +12,7 @@
 
 Что отслеживается (только то, что мне действительно нужно):
   journal      — число строк и хеш последней строки канонического журнала;
+  runs         — закрытые манифесты lab/runs/*.json (finished/failed/aborted): сколько и последний;
   reports      — список файлов и самая поздняя mtime в reports/;
   articles     — то же для articles/;
   manuscript   — версия и число заголовков paper.md (правки разделов);
@@ -76,6 +77,32 @@ def _manuscript(root: pathlib.Path) -> dict:
     return {"version": version, "headings": text.count("\n## ")}
 
 
+FINISHED_STATUSES = ("finished", "failed", "aborted")
+
+
+def _runs(root: pathlib.Path) -> dict:
+    """Закрытые прогоны: сколько манифестов закрыто и какой последний (по mtime)."""
+    runs_dir = root / "lab" / "runs"
+    if not runs_dir.is_dir():
+        return {"closed": 0, "latest": None, "max_mtime": 0.0}
+    closed: list[pathlib.Path] = []
+    for path in runs_dir.glob("*.json"):
+        try:
+            data = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            continue
+        if str(data.get("status")) in FINISHED_STATUSES:
+            closed.append(path)
+    if not closed:
+        return {"closed": 0, "latest": None, "max_mtime": 0.0}
+    latest = max(closed, key=lambda p: p.stat().st_mtime)
+    return {
+        "closed": len(closed),
+        "latest": latest.name,
+        "max_mtime": round(latest.stat().st_mtime, 3),
+    }
+
+
 def _open_lit(root: pathlib.Path) -> list[str]:
     path = root / "lab" / "lit-queue.json"
     if not path.exists():
@@ -125,6 +152,7 @@ def _head(root: pathlib.Path) -> str | None:
 def fingerprint(root: pathlib.Path) -> dict:
     return {
         "journal": _journal(root),
+        "runs": _runs(root),
         "reports": _dir_state(root / "reports"),
         "articles": _dir_state(root / "articles"),
         "manuscript": _manuscript(root),
