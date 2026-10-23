@@ -222,6 +222,10 @@ def main(argv: list[str] | None = None) -> int:
                     help="как считается доход: cap (текущий) или proportional (доход*ресурс)")
     ap.add_argument("--flip-at", type=int, default=0,
                     help="перевернуть градиент ресурса на этом шаге (0 = не переворачивать)")
+    ap.add_argument("--drift-at", type=int, default=0,
+                    help="шаг, с которого градиент переворачивается постепенно (0 = выкл)")
+    ap.add_argument("--drift-steps", type=int, default=0,
+                    help="за сколько шагов плавный дрейф переворачивает верх и низ")
     ap.add_argument("--update-probability", type=float, default=1.0,
                     help="вероятность обновления клетки за шаг (1.0 = детерминированно)")
     ap.add_argument("--snapshot-every", type=int, default=0,
@@ -275,6 +279,8 @@ def main(argv: list[str] | None = None) -> int:
     world.learn_pair_noise = args.learn_pair_noise
     world.learn_window = getattr(args, "learn_window", 30)
     world.flip_at = args.flip_at
+    world.drift_at = args.drift_at
+    world.drift_steps = args.drift_steps
     world.income_mode = args.income_mode
     world.init_resource_fill = args.init_resource_fill
     run = PondRun(world_cfg=world, seed=args.seed, device=args.device,
