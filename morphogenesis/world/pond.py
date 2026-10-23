@@ -59,7 +59,8 @@ class PondConfig:
     resource_layout: str = "uniform"  # uniform | gradient | patches
     flip_at: int = 0                  # если > 0: на этом шаге градиент переворачивается
     income_mode: str = "cap"           # cap (min(ресурс, доход)) | proportional (доход*ресурс)
-    spore_bias: str = "random"         # random | rich (выпускать спору к richest свободной клетке)
+    spore_bias: str = "random"         # random | rich | score
+    w_rich: float = 0.5                # вес ресурса в score (1-w — вес скученности)
     init_resource_fill: float = 0.0     # 0..1: доля потолка, до которой поле заполнено на старте
     membrane_gated: bool = False      # обмен гейтируется мембраной (замыкание)
     membrane_decay: float = 0.05      # распад мембраны за шаг
@@ -311,7 +312,22 @@ class Pond:
             s.spores_blocked += 1
             return None
         take = min(int(cfg.spore_cells), int(free.shape[0]))
-        if cfg.spore_bias == "rich":
+        if cfg.spore_bias == "score":
+            # торг: ресурс против скученности (доля живых в окрестности 3x3)
+            ys, xs = free[:, 0], free[:, 1]
+            res_norm = s.resource[ys, xs] / max(cfg.resource_max, 1e-9)
+            padded = torch.zeros((cfg.grid + 2, cfg.grid + 2), device=self.device)
+            padded[1:-1, 1:-1] = s.alive.float()
+            crowd = torch.zeros(free.shape[0], device=self.device)
+            for dy in (-1, 0, 1):
+                for dx in (-1, 0, 1):
+                    if dy == 0 and dx == 0:
+                        continue
+                    crowd += padded[1 + ys + dy, 1 + xs + dx]
+            crowd = crowd / 8.0
+            score = cfg.w_rich * res_norm - (1.0 - cfg.w_rich) * crowd
+            order = torch.argsort(score, descending=True)[:take]
+        elif cfg.spore_bias == "rich":
             # поведение: потомок идёт в свободную клетку с наибольшим ресурсом
             values = s.resource[free[:, 0], free[:, 1]]
             order = torch.argsort(values, descending=True)[:take]
