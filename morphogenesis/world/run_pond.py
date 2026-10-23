@@ -306,7 +306,13 @@ def main(argv: list[str] | None = None) -> int:
                     help="раз в сколько шагов организм пробует шаг по жизни")
     ap.add_argument("--freq-dep", type=float, default=0.0,
                     help="сила отрицательной частотной зависимости ресурса (0 = выкл, I-030)")
-    ap.add_argument("--type-start", default="a", choices=["a", "mixed"],
+    ap.add_argument("--invade-at", type=int, default=0,
+                    help="шаг инвазии редкого типа (0 = нет)")
+    ap.add_argument("--invade-share", type=float, default=0.05,
+                    help="доля живых клеток, которым подменяют тип при инвазии")
+    ap.add_argument("--invade-type", type=int, default=1, choices=[0, 1],
+                    help="какой тип подсаживаем: 0 = A, 1 = B")
+    ap.add_argument("--type-start", default="a", choices=["a", "b", "mixed"],
                     help="тип стартовых клеток: все A или смешанный")
     ap.add_argument("--type-mode", default="fixed", choices=["fixed", "mixfixed", "random", "learn"],
                     help="как наследуется тип A/B: fixed | random | learn")
@@ -339,6 +345,9 @@ def main(argv: list[str] | None = None) -> int:
     world.freq_dep = args.freq_dep
     world.type_mode = args.type_mode
     world.type_start = args.type_start
+    world.invade_at = args.invade_at
+    world.invade_share = args.invade_share
+    world.invade_type = args.invade_type
     world.w_rich = args.w_rich
     world.learn_w = args.learn_w
     world.learn_rate = args.learn_rate
@@ -380,6 +389,8 @@ def main(argv: list[str] | None = None) -> int:
         summary["a_share_min"] = round(min(series), 4)
         summary["a_share_max"] = round(max(series), 4)
         summary["a_share_series"] = series
+    summary["invade_at"] = int(getattr(run.pond, "invasion_step", 0))
+    summary["invader_share_after"] = getattr(run.pond, "invasion_share_after", None)
     summary["w_final"] = float(run.pond.w)
     if getattr(run.pond.state, "w_cell", None) is not None and run.pond.state.alive.any():
         wcel = run.pond.state.w_cell[run.pond.state.alive]

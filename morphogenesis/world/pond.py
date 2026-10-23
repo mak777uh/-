@@ -77,7 +77,10 @@ class PondConfig:
     organism_mobility_every: int = 10      # раз в сколько шагов организм пробует шаг
     freq_dep: float = 0.0              # сила отрицательной частотной зависимости (0 = выкл)
     type_mode: str = "fixed"           # fixed | mixfixed | random | learn — тип A/B
-    type_start: str = "a"              # a | mixed — тип стартовых клеток
+    type_start: str = "a"              # a | b | mixed — тип стартовых клеток
+    invade_at: int = 0                 # шаг инвазии редкого типа (0 = нет, I-032)
+    invade_share: float = 0.05         # доля живых клеток, которым подменяют тип
+    invade_type: int = 1               # какой тип подсаживаем: 0 = A, 1 = B
     learn_window: int = 30             # окно оценки для обучения колонии
     init_resource_fill: float = 0.0     # 0..1: доля потолка, до которой поле заполнено на старте
     membrane_gated: bool = False      # обмен гейтируется мембраной (замыкание)
@@ -173,6 +176,8 @@ class Pond:
         self.consumed_a = 0.0
         self.consumed_b = 0.0
         self.type_share_series: list[float] = []
+        self.invasion_step = 0
+        self.invasion_share_after = None
 
     # ---------- ресурс и катастрофы ----------
     def _sample_gap(self) -> int:
@@ -192,6 +197,22 @@ class Pond:
         if cfg.catastrophe_period <= 0:
             return False
         return (self.state.step % cfg.catastrophe_period) < cfg.catastrophe_duration
+
+    def _invade(self) -> None:
+        """Подсадить редкий тип: `invade_share` живых клеток получают `invade_type`."""
+        s = self.state
+        ct = s.cell_type
+        if ct is None or not bool(s.alive.any()):
+            return
+        idx = s.alive.nonzero(as_tuple=False)
+        k = max(1, int(round(float(self.cfg.invade_share) * idx.shape[0])))
+        perm = torch.randperm(idx.shape[0], generator=self.gen_sel)[:k].to(self.device)
+        chosen = idx[perm]
+        ct[chosen[:, 0], chosen[:, 1]] = int(self.cfg.invade_type)
+        self.invasion_share_after = round(
+            float((ct[s.alive] == int(self.cfg.invade_type)).float().mean()), 4
+        )
+        self.invasion_step = int(s.step)
 
     def _gradient_position(self) -> torch.Tensor:
         """Положение потолка градиента по строкам: 1.0 = верх (богато), 0.0 = низ.
@@ -287,9 +308,12 @@ class Pond:
     def seed_life(self, mask: torch.Tensor, energy: float = 5.0) -> None:
         """Поселить жизнь: энергия появляется только вместе с зарядом."""
         mask = mask.to(self.device).bool()
-        if self.state.cell_type is not None and self.cfg.type_start == "mixed":
-            draw = torch.randint(0, 2, (int(mask.sum()),), generator=self.gen_sel)
-            self.state.cell_type[mask] = draw.to(self.device)
+        if self.state.cell_type is not None:
+            if self.cfg.type_start == "mixed":
+                draw = torch.randint(0, 2, (int(mask.sum()),), generator=self.gen_sel)
+                self.state.cell_type[mask] = draw.to(self.device)
+            elif self.cfg.type_start == "b":
+                self.state.cell_type[mask] = 1
         self.state.alive |= mask
         self.state.energy = torch.where(
             mask, torch.full_like(self.state.energy, energy), self.state.energy
@@ -453,6 +477,8 @@ class Pond:
             self._colony_alive_prev = alive_now
 
         s.step += 1
+        if s.cell_type is not None and cfg.invade_at and int(s.step) == int(cfg.invade_at):
+            self._invade()
         if s.cell_type is not None and int(s.step) % 5 == 0 and bool(s.alive.any()):
             self.type_share_series.append(
                 round(float((s.cell_type[s.alive] == 0).float().mean()), 4)
@@ -624,7 +650,7 @@ class Pond:
             return
         mode = self.cfg.type_mode
         if mode == "fixed":
-            t = 0
+            t = 0 if self.cfg.type_start != "b" else 1
         elif mode == "mixfixed":
             # 50/50 на старте, но без переключения: потомок наследует тип родителя.
             # Контроль: разнообразие БЕЗ переключения (решает ли переключение или

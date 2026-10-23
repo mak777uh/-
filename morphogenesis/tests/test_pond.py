@@ -692,3 +692,32 @@ def test_child_type_mixfixed_inherits_without_switching():
     pond.state.resource = torch.full((8, 8), 1.0)
     pond._assign_child_type(parent, child)
     assert int(pond.state.cell_type[1, 1]) == 1
+
+def test_invasion_injects_rare_type():
+    pond = _two_type_pond(freq_dep=1.0, type_mode="fixed", type_start="a",
+                          invade_at=2, invade_share=0.5, invade_type=1)
+    mask = torch.zeros((8, 8), dtype=torch.bool)
+    mask[2:4, 2:4] = True
+    pond.seed_life(mask, energy=5.0)
+    assert int(pond.state.cell_type[pond.state.alive].sum()) == 0   # все A
+    for _ in range(2):
+        pond.regenerate()
+        pond.step_cells()
+    alive = int(pond.state.alive.sum())
+    b_share = float((pond.state.cell_type[pond.state.alive] == 1).float().mean())
+    assert b_share > 0.0, "после инвазии редкий тип должен появиться"
+    assert abs(pond.invasion_share_after - b_share) < 1e-6
+    assert alive >= int(round(0.5 * alive))
+    assert pond.invasion_step == 2
+
+
+def test_invasion_off_keeps_single_type():
+    pond = _two_type_pond(freq_dep=1.0, type_mode="fixed", type_start="a")
+    mask = torch.zeros((8, 8), dtype=torch.bool)
+    mask[2:4, 2:4] = True
+    pond.seed_life(mask, energy=5.0)
+    for _ in range(4):
+        pond.regenerate()
+        pond.step_cells()
+    assert int(pond.state.cell_type[pond.state.alive].sum()) == 0
+    assert pond.invasion_share_after is None
