@@ -54,6 +54,7 @@ class PondConfig:
     catastrophe_duration: int = 50
     catastrophe_strength: float = 0.9
     catastrophe_mode: str = "shift"   # "shift" — ресурс переезжает, "drop" — падает везде
+    catastrophe_rate: float = 0.0     # если > 0: катастрофы пуассоновские (событий на шаг)
     genome_dim: int = 32              # размер генома (для cNCA)
     resource_layout: str = "uniform"  # uniform | gradient | patches
     membrane_gated: bool = False      # обмен гейтируется мембраной (замыкание)
@@ -90,6 +91,8 @@ class Pond:
         self.device = torch.device(device)
         self.gen = torch.Generator(device=self.device).manual_seed(int(seed))
         n = self.cfg.grid
+        self._catastrophe_left = 0
+        self._catastrophe_next = self._sample_gap()
         self.state = PondState(
             resource=torch.full((n, n), self.cfg.resource_max * 0.5, device=self.device),
             energy=torch.zeros((n, n), device=self.device),
@@ -100,8 +103,20 @@ class Pond:
         )
 
     # ---------- ресурс и катастрофы ----------
+    def _sample_gap(self) -> int:
+        """Интервал до следующей катастрофы (пуассоновский режим)."""
+        rate = self.cfg.catastrophe_rate
+        if rate <= 0.0:
+            return 10**9
+        import math
+        u = max(float(torch.rand((), generator=self.gen, device=self.device)), 1e-9)
+        return max(1, int(-math.log(u) / rate))
     def in_catastrophe(self) -> bool:
         cfg = self.cfg
+        if cfg.catastrophe_rate > 0.0:
+            # пуассоновский режим: длительность задаётся catastrophe_duration,
+            # начало события — экспоненциальные интервалы
+            return self._catastrophe_left > 0
         if cfg.catastrophe_period <= 0:
             return False
         return (self.state.step % cfg.catastrophe_period) < cfg.catastrophe_duration
@@ -109,6 +124,14 @@ class Pond:
     def regenerate(self) -> None:
         """Ресурс прибывает с ограниченной скоростью; в катастрофу — падает."""
         cfg = self.cfg
+        if cfg.catastrophe_rate > 0.0:
+            if self._catastrophe_left > 0:
+                self._catastrophe_left -= 1
+            else:
+                self._catastrophe_next -= 1
+                if self._catastrophe_next <= 0:
+                    self._catastrophe_left = cfg.catastrophe_duration
+                    self._catastrophe_next = self._sample_gap()
         if self.in_catastrophe():
             if cfg.catastrophe_mode == "shift":
                 # ресурс не исчезает, а переезжает: левая половина гаснет, правая
