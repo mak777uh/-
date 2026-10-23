@@ -103,6 +103,13 @@ def test_running_manifest_does_not_count_as_finished(tmp_path):
     assert "runs" not in library_wake.check(root, state)
 
 
+def test_head_alone_is_not_a_wake_reason():
+    assert library_wake.is_significant([]) is False
+    assert library_wake.is_significant(["head"]) is False
+    assert library_wake.is_significant(["head", "reports"]) is True
+    assert library_wake.is_significant(["runs"]) is True
+
+
 def test_wait_returns_timeout_without_changes(tmp_path):
     root = _tree(tmp_path)
     state = tmp_path / "state.json"

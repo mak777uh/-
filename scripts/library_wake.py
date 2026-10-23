@@ -163,6 +163,14 @@ def fingerprint(root: pathlib.Path) -> dict:
     }
 
 
+SIGNIFICANT_MINUS = {"head"}  # head — запасной признак; только он не повод будить
+
+
+def is_significant(changes: list[str]) -> bool:
+    """Есть ли среди изменений что-то, кроме HEAD (коммит ради коммита — не событие)."""
+    return bool(set(changes) - SIGNIFICANT_MINUS)
+
+
 def diff(old: dict, new: dict) -> list[str]:
     changes: list[str] = []
     for key in new:
@@ -202,10 +210,14 @@ def wait(root: pathlib.Path, timeout: float, interval: float, state_path: pathli
     while time.monotonic() < deadline:
         current = fingerprint(root)
         changes = diff(base, current)
-        if changes:
+        if changes and is_significant(changes):
             save_state(current, state_path)
             print("changed: " + ", ".join(changes))
             return 0
+        if changes:
+            # только HEAD: свой или чужой коммит без изменений в интересующих файлах
+            base = current
+            save_state(current, state_path)
         time.sleep(interval)
     print("timeout: изменений нет")
     return 2
@@ -233,8 +245,10 @@ def main(argv: list[str] | None = None) -> int:
         print("снимок обновлён")
         return 0
     changes = check(args.root, args.state)
-    if changes:
+    if changes and is_significant(changes):
         print("changed: " + ", ".join(changes))
+    elif changes:
+        print("нет значимых изменений (только head)")
     else:
         print("нет изменений")
     return 0
