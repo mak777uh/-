@@ -16,7 +16,10 @@
 
 ## Статус
 
-- **Версия:** v0.39 draft (2026-10-22).
+- **Версия:** v2 v0.1 draft (2026-10-23) — линия среды.
+- **Предыдущая статья закрыта:** v1.0-morphology заморожена 23.10 без изменений,
+  [rchive/paper-v1-morphology.md](archive/paper-v1-morphology.md). Причина: линия
+  остановлена (нет метаболизма в том мире), см. [../docs/substrate-map.md](../docs/substrate-map.md).
 - **Не подана, не рецензирована, цитировать нельзя.**
 - **Гейт публикации:** E02c закрыт (0/3: `struct_2` не воспроизводится на новых
   сидах), повтор сида 42 воспроизводит класс на том же железе (побитово, 64/64),
@@ -97,27 +100,30 @@
 <!-- map:start -->
 | experiment_id | Раздел рукописи | Статус вклада |
 | --- | --- | --- |
-| E02_pattern | §4.1 | внесено |
-| WP4_R9 | §4.1 | внесено |
-| E02b_morphospace | §4.2–4.4 | внесено |
-| E02c_replication | §4.5 | внесено |
-| E02c_seed42_repro | §4.6 | внесено |
-| E02b_closures | §4.7 | внесено |
-| E02c_seed_decomposition | §4.8 | внесено |
-| E02b_alive_open | §4.9 | внесено |
-| E02b_carriers2 | §4.10 | внесено |
-| E02b_clusters3 | §4.11 | внесено |
-| E02c_colab_repro | §4.12 (Abstract, §3.6, §5.6, §6, §7) | внесено |
-| E02c_seed_grid | §4.13 (Abstract, §6, §7) | внесено |
-| E02b_lesion_minimal | §4.14 (Abstract, §6) | внесено |
-| E02b_lesion_necessity | §4.14 (Abstract) | внесено |
-| E02b_lesion_core | §4.14 | внесено |
-| E02b_asymmetry_variance_retry | §4.14 | внесено |
-| E02b_asymmetry_sides | §4.14 | внесено |
-| E02b_left_outcomes | §4.14 | внесено |
-| E02b_carrier_pairs | §4.14 | внесено |
-| E02b_carrier_ch13 | §4.14 | внесено |
-| E02b_carrier_ch15 | §4.14 | внесено |
+| E02_pattern | архив v1 §4.1 | внесено |
+| WP4_R9 | архив v1 §4.1 | внесено |
+| E02b_morphospace | архив v1 §4.2–4.4 | внесено |
+| E02c_replication | архив v1 §4.5 | внесено |
+| E02c_seed42_repro | архив v1 §4.6 | внесено |
+| E02b_closures | архив v1 §4.7 | внесено |
+| E02c_seed_decomposition | архив v1 §4.8 | внесено |
+| E02b_alive_open | архив v1 §4.9 | внесено |
+| E02b_carriers2 | архив v1 §4.10 | внесено |
+| E02b_clusters3 | архив v1 §4.11 | внесено |
+| E02c_colab_repro | архив v1 §4.12 | внесено |
+| E02c_seed_grid | архив v1 §4.13 | внесено |
+| E02b_lesion_minimal | архив v1 §4.14 | внесено |
+| E02b_lesion_necessity | архив v1 §4.14 | внесено |
+| E02b_lesion_core | архив v1 §4.14 | внесено |
+| E02b_asymmetry_variance_retry | архив v1 §4.14 | внесено |
+| E02b_asymmetry_sides | архив v1 §4.14 | внесено |
+| E02b_left_outcomes | архив v1 §4.14 | внесено |
+| E02b_carrier_pairs | архив v1 §4.14 | внесено |
+| E02b_carrier_ch13 | архив v1 §4.14 | внесено |
+| E02b_carrier_ch15 | архив v1 §4.14 | внесено |
+| E08_precision_horizon | архив v1 §4.13 + v2 §5 | частично |
+| E09_pond | v2 §2–§4 | частично |
+| E10_formal | v2 §5 (метод) | частично |
 <!-- map:end -->
 
 Карта проверяется машинно: `python scripts/lab.py validate` требует, чтобы у

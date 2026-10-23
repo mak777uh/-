@@ -36,6 +36,8 @@ from urllib.parse import unquote
 REPO = Path(__file__).resolve().parents[1]
 LINK_RE = re.compile(r"!?\[[^\]]*\]\(\s*([^)\s]+)(?:\s+\"[^\"]*\")?\s*\)")
 SKIP_DIRS = {".git", ".venv", "venv-cuda", "dist", "__pycache__", ".ruff_cache", ".pytest_cache"}
+# замороженные рукописи сохраняются как были: их относительные ссылки не сверяем
+SKIP_PATHS = {"manuscript/archive"}
 EXTERNAL_PREFIXES = ("http://", "https://", "mailto:", "tel:", "ftp://")
 
 # Публичные документы: то, что читает человек снаружи репозитория.
@@ -65,7 +67,12 @@ def iter_markdown(path: Path) -> list[Path]:
         return [path]
     out = []
     for item in path.rglob("*.md"):
-        if SKIP_DIRS & set(item.relative_to(REPO).parts):
+        rel_parts = item.relative_to(REPO).parts
+        if SKIP_DIRS & set(rel_parts):
+            continue
+        if any("/".join(rel_parts[: i + 1]) in SKIP_PATHS for i in range(len(rel_parts) - 1)):
+            continue
+
             continue
         out.append(item)
     return sorted(out)
