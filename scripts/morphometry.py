@@ -255,7 +255,8 @@ def mode_boundary(model, spec, starts: int, rollout_steps: int, device) -> dict:
     }
 
 
-def mode_randmask(model, spec, starts: int, rollout_steps: int, device) -> dict:
+def mode_randmask(model, spec, starts: int, rollout_steps: int, device,
+                  density_override: float | None = None) -> dict:
     """Инициализировать случайной маской плотности эталона и посмотреть исход."""
     import e02b_morphospace as e02b  # noqa: PLC0415
 
@@ -268,6 +269,8 @@ def mode_randmask(model, spec, starts: int, rollout_steps: int, device) -> dict:
     ref_state, _p, _t, _e = e02b.rollout(model, start, rollout_steps, 100)
     ref_mask = topology.get_binary_mask(ref_state)
     density = float(ref_mask.mean())
+    if density_override is not None:
+        density = float(density_override)
 
     rng = np.random.default_rng(1234)
     rows = []
@@ -326,6 +329,8 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--mode", choices=["boundary", "randmask"], default="boundary")
     ap.add_argument("--starts", type=int, default=16)
     ap.add_argument("--rollout-steps", type=int, default=2000)
+    ap.add_argument("--density", type=float, default=None,
+                    help="переопределить плотность случайной маски (карта бассейна)")
     ap.add_argument("--out", default=None)
     args = ap.parse_args(argv)
 
@@ -334,7 +339,8 @@ def main(argv: list[str] | None = None) -> int:
     if args.mode == "boundary":
         payload = mode_boundary(model, spec, args.starts, args.rollout_steps, device)
     else:
-        payload = mode_randmask(model, spec, args.starts, args.rollout_steps, device)
+        payload = mode_randmask(model, spec, args.starts, args.rollout_steps, device,
+                                density_override=args.density)
 
     out = args.out or os.path.join(
         "experiments", "E02c_replication", f"morphometry_{spec.family}_{args.mode}.json"
