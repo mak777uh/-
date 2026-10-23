@@ -112,6 +112,14 @@ def test_experiment_artifact_wakes(tmp_path):
     assert "experiments" in library_wake.check(root, state)
 
 
+def test_series_only_changes():
+    assert library_wake.is_series_only(["polish"]) is True
+    assert library_wake.is_series_only(["polish", "experiments"]) is True
+    assert library_wake.is_series_only(["polish", "manuscript"]) is False
+    assert library_wake.is_series_only(["board"]) is False
+    assert library_wake.is_series_only([]) is False
+
+
 def test_head_alone_is_not_a_wake_reason():
     assert library_wake.is_significant([]) is False
     assert library_wake.is_significant(["head"]) is False

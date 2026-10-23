@@ -189,6 +189,14 @@ def fingerprint(root: pathlib.Path) -> dict:
 SIGNIFICANT_MINUS = {"head"}  # head — запасной признак; только он не повод будить
 
 
+SERIES_KEYS = {"polish", "experiments"}  # прогресс серии; ждём тишины, а не будим сразу
+
+
+def is_series_only(changes: list[str]) -> bool:
+    """Только прогресс серии? Тогда применяем settle; всё остальное будит сразу."""
+    return bool(changes) and set(changes) <= SERIES_KEYS
+
+
 def is_significant(changes: list[str]) -> bool:
     """Есть ли среди изменений что-то, кроме HEAD (коммит ради коммита — не событие)."""
     return bool(set(changes) - SIGNIFICANT_MINUS)
@@ -236,7 +244,12 @@ def wait(root: pathlib.Path, timeout: float, interval: float,
         current = fingerprint(root)
         changes = diff(base, current)
         if changes and is_significant(changes):
-            # серия может ещё писать файлы: ждём тишины `settle` секунд,
+            if not is_series_only(changes):
+                # коммит/рукопись/доска/очередь — будим сразу, серия тут ни при чём
+                save_state(current, state_path)
+                print("changed: " + ", ".join(changes))
+                return 0
+            # только прогресс серии: ждём тишины `settle` секунд,
             # чтобы проснуться на конце серии, а не на каждом прогоне
             quiet_since = time.monotonic()
             settle_started = quiet_since
