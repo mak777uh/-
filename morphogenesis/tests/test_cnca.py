@@ -36,13 +36,18 @@ def test_forward_keeps_shape():
     assert torch.isfinite(out).all()
 
 
-def test_dead_cells_do_not_change():
-    model = CNCA(CNCAConfig())
+def test_dead_field_is_zeroed_when_masking_enabled():
+    """Полностью мёртвое поле остаётся мёртвым: гейт применяется к новому состоянию.
+
+    Раньше тест требовал «мёртвые клетки не меняются», но теперь маска живости
+    применяется после обновления: полностью мёртвое поле обнуляется, а не
+    сохраняет случайный шум (иначе мёртвые каналы «светились» бы).
+    """
+    model = CNCA(CNCAConfig(mask_alive=True))
     state, genome = make_inputs()
     state[:, 1] = -20.0          # все клетки мертвы (sigmoid ~ 0)
-    before = state.clone()
     out = model(state, genome)
-    assert torch.allclose(out, before, atol=1e-6)
+    assert float(out.abs().sum()) == 0.0
 
 
 def test_alive_cells_change_with_default_init():
@@ -89,3 +94,20 @@ def test_default_init_is_nonzero_so_genomes_matter():
     """С нулевым правилом все геномы эквивалентны — проверяем, что этого нет."""
     model = CNCA(CNCAConfig())
     assert float(model.update.weight.abs().sum()) > 0.0
+
+
+def test_birth_is_possible_with_current_gate():
+    """Мёртвые клетки должны уметь рождаться: гейт применяется к новому состоянию.
+
+    Регрессия: раньше update умножался на маску живости, поэтому мёртвая клетка не
+    могла измениться никогда — рост из одной клетки был невозможен (обучение
+    застревало: loss 0.2490, alive_after_200 = 0).
+    """
+    model = CNCA(CNCAConfig())
+    state = torch.full((1, 16, 32, 32), -20.0)
+    state[0, 1, 16, 16] = 10.0
+    genome = torch.zeros((1, 32, 32, 32))
+    for _ in range(20):
+        state = model(state, genome)
+    alive = int((torch.sigmoid(state[0, 1]) > 0.5).sum())
+    assert alive > 1, "из одной клетки должен появляться рост"

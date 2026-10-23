@@ -67,15 +67,19 @@ def main(argv: list[str] | None = None) -> int:
 
     t0 = time.perf_counter()
     for step in range(1, args.steps + 1):
-        state = torch.full((args.batch, cfg.channels, args.grid, args.grid), -20.0, device=device)
-        # одна живая клетка в центре
+        state = torch.full((args.batch, cfg.channels, args.grid, args.grid), -0.5, device=device)
+        # одна живая клетка в центре (alpha чуть выше нуля: sigmoid > 0.5)
         mid = args.grid // 2
-        state[:, cfg.alive_channel, mid, mid] = 10.0
+        state[:, cfg.alive_channel, mid, mid] = 0.5
         genome = torch.zeros((args.batch, cfg.genome_dim, args.grid, args.grid), device=device)
 
         out = rollout(rule, state, genome, args.rollout)
-        alive = torch.sigmoid(out[:, cfg.alive_channel : cfg.alive_channel + 1])
-        loss = torch.nn.functional.mse_loss(alive, target_alive)
+        alpha = out[:, cfg.alive_channel : cfg.alive_channel + 1]
+        # цель по RAW-каналу: +1 внутри фигуры, -1 снаружи (сигмоида насыщается и
+        # даёт нулевой градиент, поэтому учим сам alpha)
+        target_signed = target_alive * 2.0 - 1.0
+        loss = torch.nn.functional.mse_loss(alpha, target_signed)
+        alive = torch.sigmoid(alpha)
         opt.zero_grad()
         loss.backward()
         opt.step()
@@ -88,8 +92,8 @@ def main(argv: list[str] | None = None) -> int:
 
     # проверка критерия v0.1a: растёт ли из одной клетки
     with torch.no_grad():
-        state = torch.full((1, cfg.channels, args.grid, args.grid), -20.0, device=device)
-        state[0, cfg.alive_channel, args.grid // 2, args.grid // 2] = 10.0
+        state = torch.full((1, cfg.channels, args.grid, args.grid), -0.5, device=device)
+        state[0, cfg.alive_channel, args.grid // 2, args.grid // 2] = 0.5
         genome = torch.zeros((1, cfg.genome_dim, args.grid, args.grid), device=device)
         out = rollout(rule, state, genome, 200)
         alive = (torch.sigmoid(out[0, cfg.alive_channel]) > 0.5).sum().item()

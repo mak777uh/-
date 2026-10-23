@@ -36,7 +36,7 @@ class PondRun:
     """Один мир: правило, геном на клетку, бюджет и цикл шагов."""
 
     def __init__(self, world_cfg: PondConfig | None = None, rule_cfg: CNCAConfig | None = None,
-                 seed: int = 0, device: str = "cpu") -> None:
+                 seed: int = 0, device: str = "cpu", rule_checkpoint: str | None = None) -> None:
         self.world_cfg = world_cfg or PondConfig()
         self.rule_cfg = rule_cfg or CNCAConfig(
             channels=self.world_cfg.channels if hasattr(self.world_cfg, "channels") else 16,
@@ -46,6 +46,11 @@ class PondRun:
         self.gen = torch.Generator(device=self.device).manual_seed(int(seed))
         self.pond = Pond(self.world_cfg, device=self.device, seed=seed)
         self.rule = CNCA(self.rule_cfg).to(self.device)
+        if rule_checkpoint:
+            payload = torch.load(rule_checkpoint, map_location=self.device, weights_only=False)
+            state_dict = payload.get("model_state_dict", payload)
+            self.rule.load_state_dict(state_dict)
+            print(f"[pond] правило загружено: {rule_checkpoint}")
         n = self.world_cfg.grid
         c = self.rule_cfg.channels
         k = self.rule_cfg.genome_dim
@@ -67,13 +72,16 @@ class PondRun:
         self._apply_genome(mask, self.genome[0, :, mask])
 
     # ---------- синхронизация ----------
+    ALIVE_VALUE = 0.5      # sigmoid(0.5) > 0.5 — живая клетка
+    DEAD_VALUE = -0.5      # sigmoid(-0.5) < 0.5 — мёртвая
+
     def _apply_alive(self, mask: torch.Tensor) -> None:
-        """Привести канал живости в состоянии к маске мира."""
+        """Привести канал живости в состоянии к маске мира (диапазон обучения)."""
         ch = self.rule_cfg.alive_channel
         with torch.no_grad():
             self.state[0, ch] = torch.where(
-                mask, torch.full_like(self.state[0, ch], 10.0),
-                torch.full_like(self.state[0, ch], -20.0),
+                mask, torch.full_like(self.state[0, ch], self.ALIVE_VALUE),
+                torch.full_like(self.state[0, ch], self.DEAD_VALUE),
             )
 
     def _apply_genome(self, mask: torch.Tensor, values: torch.Tensor | None = None) -> None:
@@ -88,14 +96,34 @@ class PondRun:
         # погашенные клетки теряют видимый сигнал, чтобы не «светиться» мёртвыми
         with torch.no_grad():
             for ch in range(self.rule_cfg.channels):
+                if ch == self.rule_cfg.alive_channel:
+                    continue
+                # мёртвые клетки обнуляются, как в обучении (не -20: это вне диапазона)
                 self.state[0, ch] = torch.where(
-                    alive, self.state[0, ch], torch.full_like(self.state[0, ch], -20.0)
-                ) if ch != self.rule_cfg.alive_channel else self.state[0, ch]
+                    alive, self.state[0, ch], torch.zeros_like(self.state[0, ch])
+                )
 
     # ---------- шаг ----------
+    def _sync_state_to_world(self, birth_energy: float = 0.5) -> int:
+        """Перенести живость из состояния в мир: новые клетки получают стартовый заряд."""
+        s = self.pond.state
+        with torch.no_grad():
+            alive_now = torch.sigmoid(self.state[0, self.rule_cfg.alive_channel]) > 0.5
+        newly = alive_now & ~s.alive
+        births = int(newly.sum())
+        if births:
+            s.alive = alive_now
+            s.energy = torch.where(newly, torch.full_like(s.energy, birth_energy), s.energy)
+            s.age = torch.where(newly, torch.zeros_like(s.age), s.age)
+            s.damage = torch.where(newly, torch.zeros_like(s.damage), s.damage)
+        else:
+            s.alive = alive_now
+        return births
+
     def step(self) -> dict:
         with torch.no_grad():
             self.state = self.rule(self.state, self.genome)
+        grown = self._sync_state_to_world()
         self.pond.regenerate()
         cell_stats = self.pond.step_cells()
         self._flow_energy_to_state()
@@ -117,6 +145,7 @@ class PondRun:
 
         snap = self.pond.snapshot()
         snap["births_this_step"] = births
+        snap["grown_cells"] = grown
         self.log.append(snap)
         return snap
 
@@ -143,10 +172,28 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--seed", type=int, default=0)
     ap.add_argument("--out", default=None)
     ap.add_argument("--device", default="cpu")
+    ap.add_argument("--rule-checkpoint", default=None,
+                    help="обученное базовое правило (v0.1a); без него правило случайное")
+    ap.add_argument("--income", type=float, default=None, help="приток ресурса на клетку за шаг")
+    ap.add_argument("--update-cost", type=float, default=None, help="цена обновления клетки")
+    ap.add_argument("--repair-cost", type=float, default=None, help="цена ремонта клетки")
+    ap.add_argument("--budding-mass", type=float, default=None, help="масса для споры")
+    ap.add_argument("--budding-cost", type=float, default=None, help="энергия на спору")
     args = ap.parse_args(argv)
 
     world = PondConfig(grid=args.grid)
-    run = PondRun(world_cfg=world, seed=args.seed, device=args.device)
+    if args.income is not None:
+        world.baseline_income = args.income
+    if args.update_cost is not None:
+        world.update_cost = args.update_cost
+    if args.repair_cost is not None:
+        world.repair_cost = args.repair_cost
+    if args.budding_mass is not None:
+        world.budding_mass = args.budding_mass
+    if args.budding_cost is not None:
+        world.budding_cost = args.budding_cost
+    run = PondRun(world_cfg=world, seed=args.seed, device=args.device,
+                  rule_checkpoint=args.rule_checkpoint)
     run.seed(cells=4, energy=8.0)
     summary = run.run(args.steps, log_every=max(1, args.steps // 10))
     print(json.dumps(summary, ensure_ascii=False, indent=2))

@@ -39,6 +39,7 @@ class CNCAConfig:
     mutation_sigma: float = 0.05
     kernel: int = 3
     init_scale: float = 0.1           # ненулевая инициализация правила: гены должны иметь эффект
+    mask_alive: bool = False          # гасить неживые клетки внутри правила (в пруду это делает мир)
 
 
 class CNCA(nn.Module):
@@ -76,8 +77,11 @@ class CNCA(nn.Module):
         perception = self.perception(state)
         hidden = F.relu(perception * (1.0 + scale) + bias)
         update = self.update(hidden)
-        gate = self.alive_mask(state)
-        return state + update * gate
+        new_state = state + update
+        if self.cfg.mask_alive:
+            # опционально: гасить неживые клетки (в пруду за это отвечает мир)
+            return new_state * self.alive_mask(new_state)
+        return new_state
 
     @torch.no_grad()
     def mutate(self, genome: torch.Tensor, sigma: float | None = None,

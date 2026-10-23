@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "run_id": "20261023T095746Z-E09_pond_v01b",
+  "experiment": "E09_pond_v01b",
+  "experiment_id": "E09_pond",
+  "arm": null,
+  "seed": null,
+  "steps": null,
+  "status": "finished",
+  "provenance": "runner",
+  "source": "morphogenesis/logs/journal.jsonl",
+  "started_at": "2026-10-23T09:57:46Z",
+  "finished_at": "2026-10-23T09:59:24Z",
+  "git_commit": "7083558",
+  "git_dirty": true,
+  "command": [
+    ".\\.venv\\Scripts\\python.exe",
+    "world/run_pond.py",
+    "--steps",
+    "600",
+    "--grid",
+    "32",
+    "--seed",
+    "1",
+    "--device",
+    "cuda",
+    "--rule-checkpoint",
+    "checkpoints/world_base_rule.pt",
+    "--income",
+    "0.05",
+    "--update-cost",
+    "0.005",
+    "--repair-cost",
+    "0.005",
+    "--budding-mass",
+    "48",
+    "--budding-cost",
+    "1.2",
+    "--out",
+    "experiments/E09_pond/pond_v01b.json"
+  ],
+  "cwd": "morphogenesis",
+  "owner": "analyst",
+  "environment": {
+    "python": "3.13.11",
+    "platform": "Windows-11-10.0.26300-SP0",
+    "torch": "2.6.0+cu124",
+    "numpy": "2.5.4",
+    "device": "NVIDIA GeForce RTX 3070 Laptop GPU, 595.79"
+  },
+  "checkpoint_in": null,
+  "outputs": {
+    "declared": [
+      "morphogenesis/experiments/E09_pond/pond_v01b.json"
+    ],
+    "log": "morphogenesis/logs/20261023T095746Z-E09_pond_v01b.log"
+  },
+  "metrics": {},
+  "stop_reason": "exit_0",
+  "exit_code": 0,
+  "log_path": "morphogenesis/logs/20261023T095746Z-E09_pond_v01b.log",
+  "notes": "v0.1b: первая эволюция с базовым правилом — рост, цена и споры (172 рождения за 600 шагов)"
+}
