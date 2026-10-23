@@ -721,3 +721,52 @@ def test_invasion_off_keeps_single_type():
         pond.step_cells()
     assert int(pond.state.cell_type[pond.state.alive].sum()) == 0
     assert pond.invasion_share_after is None
+
+def _type_run(start: str, fd: float, steps: int = 40, grid: int = 16, seed: int = 1):
+    from world.run_pond import PondRun
+    cfg = PondConfig(grid=grid, resource_layout="gradient", income_mode="proportional",
+                     init_resource_fill=0.9, baseline_income=0.2, update_cost=0.02,
+                     repair_cost=0.02, budding_mass=8, budding_cost=0.2, spore_cells=2,
+                     spore_bias="score", w_rich=0.1, freq_dep=fd, type_mode="mixfixed",
+                     type_start=start, noise=0.002, resource_regen=0.02)
+    run = PondRun(world_cfg=cfg, seed=seed, device="cpu",
+                  rule_checkpoint=str(MORPH / "checkpoints" / "world_base_rule.pt"))
+    run.seed(cells=4, energy=8.0)
+    for _ in range(steps):
+        run.step()
+    s = run.pond.state
+    return float((s.cell_type[s.alive] == 0).float().mean()), int(s.alive.sum())
+
+
+@pytest.mark.skipif(
+    not (MORPH / "checkpoints" / "world_base_rule.pt").is_file(),
+    reason="нет чекпоинта правила",
+)
+def test_pure_a_colony_stays_a():
+    a_share, alive = _type_run("a", fd=1.0, steps=90)
+    assert alive > 10
+    assert a_share == 1.0
+
+
+@pytest.mark.skipif(
+    not (MORPH / "checkpoints" / "world_base_rule.pt").is_file(),
+    reason="нет чекпоинта правила",
+)
+def test_pure_b_colony_stays_b():
+    a_share, alive = _type_run("b", fd=1.0, steps=90)
+    assert alive > 10
+    assert a_share == 0.0
+
+
+@pytest.mark.skipif(
+    not (MORPH / "checkpoints" / "world_base_rule.pt").is_file(),
+    reason="нет чекпоинта правила",
+)
+def test_neutral_mixed_fixates_via_voter_dynamics():
+    """fd=0: тип копируется локально при росте, это боруновский процесс - он
+    фиксирует тип, а не держит 50/50. Фиксируем это как свойство модели."""
+    early, _ = _type_run("mixed", fd=0.0, steps=10)
+    late, alive = _type_run("mixed", fd=0.0, steps=100)
+    assert 0.05 < early < 0.95
+    assert alive > 10
+    assert late < 0.2 or late > 0.8

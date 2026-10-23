@@ -166,24 +166,38 @@ class PondRun:
         return births
 
     def _inherit_grown_types(self, old_alive: torch.Tensor, newly: torch.Tensor,
-                             labels: torch.Tensor) -> None:
-        """Тип A/B для клеток, выросших правилом: наследуется от СВОЕГО тела.
+                             labels: torch.Tensor | None = None) -> None:
+        """Тип A/B для клеток, выросших правилом: по ближайшим соседям (линия).
 
-        Не от соседей-большинства: иначе меньшинство (B) постоянно превращается в
-        A при росте рядом, и частотная зависимость не успевает сработать
-        (проверено: доля A уезжала к 0.75 при mixed-старте).
+        Правило локальное (4-соседство + диагонали, только среди уже типизированных
+        старых клеток), а не по большинству всей компоненты: компонента может быть
+        слипшимся телом из разных линий, и правило большинства превращало
+        меньшинство в большинство при каждом слиянии. Если типизированных соседей
+        нет, берётся тип большинства колонии.
         """
         s = self.pond.state
         ct = s.cell_type
-        new_idx = newly.nonzero(as_tuple=False)
-        comp_type: dict[int, int] = {}
-        for y, x in new_idx.tolist():
-            lab = int(labels[y, x])
-            if lab not in comp_type:
-                body = old_alive & (labels == lab)
-                comp_type[lab] = (int(round(float(ct[body].float().mean()))) if bool(body.any()) else 0)
-        for y, x in new_idx.tolist():
-            ct[y, x] = comp_type[int(labels[y, x])]
+        n = self.world_cfg.grid
+        code = torch.where(old_alive & (ct == 0),
+                           torch.ones_like(ct, dtype=torch.float32),
+                           torch.zeros_like(ct, dtype=torch.float32))
+        code = torch.where(old_alive & (ct == 1), torch.full_like(code, 2.0), code)
+        global_type = 1.0 if float((ct[old_alive] == 1).float().mean()) > 0.5 else 0.0
+        padded = torch.zeros((n + 2, n + 2), device=self.device)
+        padded[1:-1, 1:-1] = code
+        acc = torch.zeros_like(code)
+        cnt = torch.zeros_like(code)
+        for dy in (-1, 0, 1):
+            for dx in (-1, 0, 1):
+                if dy == 0 and dx == 0:
+                    continue
+                nb = padded[1 + dy:1 + dy + n, 1 + dx:1 + dx + n]
+                acc += nb
+                cnt += (nb > 0).to(code.dtype)
+        fallback = torch.full_like(acc, 1.0 + global_type)
+        mean_code = torch.where(cnt > 0, acc / cnt.clamp_min(1), fallback)
+        ct[newly] = (mean_code[newly] > 1.5).to(ct.dtype)
+
     def _accumulate(self, alive_now: int) -> None:
         """Накопить «площадь жизни»: сумма живых по шагам."""
         self.pop_time = getattr(self, "pop_time", 0) + int(alive_now)
