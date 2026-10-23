@@ -111,9 +111,15 @@ def test_main_codes(tmp_path, capsys):
     assert module.main([str(tmp_path / "nope.md")]) == 2
 
 
-def test_repository_manuscript_has_no_orphan_refs():
+def test_repository_manuscripts_have_no_orphan_refs():
+    """Плотная сеть §-ссылок живёт в замороженной статье; в новой их меньше, но нет битых."""
     module = load_module()
-    doc = ROOT / "manuscript" / "paper.md"
-    total, problems = module.check([doc])
-    assert total > 20, f"подозрительно мало ссылок на разделы: {total}"
+    archived = ROOT / "manuscript" / "archive" / "paper-v1-morphology.md"
+    total, problems = module.check([archived])
+    assert total > 20, f"подозрительно мало ссылок на разделы в архиве: {total}"
     assert problems == []
+
+    current = ROOT / "manuscript" / "paper.md"
+    total_v2, problems_v2 = module.check([current])
+    assert total_v2 >= 3, f"в новой рукописи почти нет ссылок на разделы: {total_v2}"
+    assert problems_v2 == []

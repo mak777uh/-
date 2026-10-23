@@ -33,7 +33,9 @@ import sys
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[1]
-PAPER = REPO / "manuscript" / "paper.md"
+PAPER = REPO / "manuscript" / "archive" / "paper-v1-morphology.md"  # заморожена 23.10
+PAPER_V2 = REPO / "manuscript" / "paper.md"
+WORLD_DOC = REPO / "docs" / "world-design.md"
 EXP = REPO / "morphogenesis" / "experiments"
 
 
@@ -176,6 +178,22 @@ def main() -> int:
         if number not in report:
             errors.append(f"§4.12: report-level число {number!r} нет в отчёте T4")
         checked += 1
+
+    # ---------------- v2: линия среды ----------------
+    # Числа новой рукописи прослеживаются до docs/world-design.md (§10h-§10q).
+    paper_v2 = PAPER_V2.read_text(encoding="utf-8")
+    world = WORLD_DOC.read_text(encoding="utf-8")
+    v2_numbers = [
+        "76711", "72948", "70373", "54428", "58032", "64791",  # pop_time
+        "121", "742", "939",                                  # смерти в бедной зоне
+        "45",                                                 # доля решающих уроков
+    ]
+    for number in v2_numbers:
+        if number not in world:
+            errors.append(f"v2: числа {number!r} нет в docs/world-design.md — нет источника")
+        if number not in paper_v2:
+            errors.append(f"v2: числа {number!r} нет в тексте рукописи")
+    checked += len(v2_numbers)
 
     print(f"проверено чисел: {checked}, ошибок: {len(errors)}")
     for item in errors:

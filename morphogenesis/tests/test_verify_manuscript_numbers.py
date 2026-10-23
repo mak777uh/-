@@ -1,4 +1,4 @@
-"""test_verify_manuscript_numbers.py — числа §4.12–§4.14 сверяются с артефактами.
+"""test_verify_manuscript_numbers.py — числа рукописей сверяются с источниками.
 
 Скрипт `scripts/verify_manuscript_numbers.py` замыкает цепочку
 «артефакт → отчёт → текст»: пересчитывает величину из JSON и ищет её в разделе.
@@ -36,8 +36,9 @@ def test_repository_manuscript_numbers_match_artifacts(capsys):
 
 
 def test_wrong_number_in_text_is_caught(tmp_path, monkeypatch, capsys):
+    """Порча числа в замороженной рукописи обязана валить проверку."""
     module = load_module()
-    text = (ROOT / "manuscript" / "paper.md").read_text(encoding="utf-8")
+    text = (ROOT / "manuscript" / "archive" / "paper-v1-morphology.md").read_text(encoding="utf-8")
     assert "0.434" in text
     broken = tmp_path / "paper.md"
     broken.write_text(text.replace("0.434", "0.499", 1), encoding="utf-8")
@@ -45,6 +46,17 @@ def test_wrong_number_in_text_is_caught(tmp_path, monkeypatch, capsys):
     assert module.main() == 1
     out = capsys.readouterr().out
     assert "0.434" in out
+
+
+def test_v2_numbers_come_from_world_doc(tmp_path, monkeypatch, capsys):
+    """Число новой рукописи без источника в docs/world-design.md — ошибка."""
+    module = load_module()
+    world = module.WORLD_DOC.read_text(encoding="utf-8")
+    broken_world = tmp_path / "world-design.md"
+    broken_world.write_text(world.replace("76711", "70000"), encoding="utf-8")
+    monkeypatch.setattr(module, "WORLD_DOC", broken_world)
+    assert module.main() == 1
+    assert "76711" in capsys.readouterr().out
 
 
 def test_missing_section_fails_loudly(tmp_path, monkeypatch):
