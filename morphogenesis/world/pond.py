@@ -71,6 +71,8 @@ class PondConfig:
     learn_pair_noise: float = 0.2      # δ в парном режиме: w' = w ± δ
     matching_temp: float = 1.0         # температура политики matching (1 = без неё)
     sense_noise: float = 0.0           # σ шума восприятия ресурса при выборе клетки
+    mobility_cost: float = 0.0         # цена шага споры при расселении (0 = бесплатно)
+    mobility_steps: int = 0            # сколько шагов спора может пройти (0 = подвижность выкл)
     learn_window: int = 30             # окно оценки для обучения колонии
     init_resource_fill: float = 0.0     # 0..1: доля потолка, до которой поле заполнено на старте
     membrane_gated: bool = False      # обмен гейтируется мембраной (замыкание)
@@ -119,6 +121,8 @@ class Pond:
         self.learn_updates = 0
         self.learn_useless = 0   # парные уроки без сигнала (обе споры с одинаковой судьбой)
         self._pair_trials = 0    # номер парного испытания: чередуем знак w' = w ± δ
+        self.mobility_moves = 0   # сколько шагов сделали споры (диагностика)
+        self.mobility_shift = 0.0  # суммарное смещение спор от клетки выбора (шагов сетки)
         self.learn_history: list[float] = []
         self._colony_alive_prev = 0
         self._colony_dir = 1.0
@@ -396,6 +400,60 @@ class Pond:
         s.step += 1
         return {"died": died_now, "alive": int(s.alive.sum()), "catastrophe": self.in_catastrophe()}
 
+    # ---------- подвижность споры при расселении (I-022) ----------
+    def _walk_spots(self, spots: torch.Tensor,
+                    perceived: torch.Tensor) -> tuple[torch.Tensor, float]:
+        """Спора может пройти до `mobility_steps` шагов по свободным клеткам.
+
+        Это подвижность СТАДИИ РАССЕЛЕНИЯ, а не обратимость выбора организма:
+        решение, куда поставить спору, принимается один раз, но внутри него
+        разрешено несколько шагов к более богатому соседу. Каждый шаг стоит
+        `mobility_cost` (0 = бесплатно), платит его спора из своего заряда.
+        Возвращает новые позиции и сумму, которую спора потратила на ходы.
+        """
+        cfg = self.cfg
+        steps = int(cfg.mobility_steps)
+        if steps <= 0 or spots.numel() == 0:
+            return spots, 0.0
+        s = self.state
+        n = cfg.grid
+        cost = float(cfg.mobility_cost)
+        # столько получит спора при рождении (как в bud: max(pay/2, 1.0))
+        budget = max(float(cfg.budding_cost) * 0.5, 1.0)
+        claimed: set[tuple[int, int]] = set()
+        out: list[tuple[int, int]] = []
+        spent = 0.0
+        moved_total = 0
+        for y, x in spots.tolist():
+            cy, cx = int(y), int(x)
+            start = (cy, cx)
+            for _ in range(steps):
+                if cost > 0.0 and budget <= cost:
+                    break
+                best, best_res = None, float(perceived[cy, cx])
+                for dy, dx in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+                    ny, nx = cy + dy, cx + dx
+                    if not (0 <= ny < n and 0 <= nx < n):
+                        continue
+                    if bool(s.alive[ny, nx]) or (ny, nx) in claimed:
+                        continue
+                    res = float(perceived[ny, nx])
+                    if res > best_res:
+                        best, best_res = (ny, nx), res
+                if best is None:
+                    break
+                cy, cx = best
+                budget -= cost
+                spent += cost
+                moved_total += 1
+            claimed.add((cy, cx))
+            self.mobility_shift += abs(cy - start[0]) + abs(cx - start[1])
+            out.append((cy, cx))
+        if not out:
+            return spots, 0.0
+        self.mobility_moves += moved_total
+        new_spots = torch.tensor(out, device=spots.device, dtype=spots.dtype)
+        return new_spots, spent
     # ---------- размножение ----------
     def find_buds(self) -> list[torch.Tensor]:
         """Компоненты, у которых хватает массы и энергии на спору."""
@@ -547,6 +605,7 @@ class Pond:
         else:
             order = torch.randperm(free.shape[0], generator=self.gen, device=self.device)[:take]
         spots = free[order]
+        spots, mobility_spent = self._walk_spots(spots, perceived)
 
         child = torch.zeros_like(s.alive)
         child[spots[:, 0], spots[:, 1]] = True
@@ -554,7 +613,7 @@ class Pond:
         # родитель платит, потомок получает перенос (бюджет не растёт)
         pay = min(float(cfg.budding_cost), float(s.energy[parent].sum()))
         s.energy[parent] -= pay / max(int(parent.sum()), 1)
-        s.energy[child] = max(pay * 0.5, 1.0)
+        s.energy[child] = max(max(pay * 0.5, 1.0) - mobility_spent, 0.0)
         s.alive |= child
         s.age[child] = 0
         s.damage[child] = 0

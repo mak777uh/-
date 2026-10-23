@@ -471,3 +471,66 @@ def test_matching_pop_time_reproducible_end_to_end():
         return int(run.pop_time), int(run.pond.state.alive.sum())
 
     assert one() == one()
+
+
+# ---------- подвижность споры при расселении (I-022) ----------
+
+def _mobility_pond(steps: int, cost: float = 0.0, **over):
+    cfg = dict(grid=12, resource_regen=0.0, baseline_income=0.0, update_cost=0.0,
+               repair_cost=0.0, damage_rate=0.0, budding_cost=0.2, spore_cells=1,
+               noise=0.0, spore_bias="rich", mobility_steps=steps, mobility_cost=cost)
+    cfg.update(over)
+    pond = Pond(PondConfig(**cfg), seed=7)
+    parent = torch.zeros((12, 12), dtype=torch.bool)
+    parent[5:7, 1:3] = True
+    pond.seed_life(parent, energy=10.0)
+    # ресурс растёт вправо: споре есть куда идти
+    cols = torch.arange(12, dtype=torch.float32)
+    pond.state.resource = (0.05 * (cols + 1)).repeat(12, 1)
+    return pond, parent
+
+
+def test_mobility_off_keeps_chosen_spot():
+    pond, parent = _mobility_pond(steps=0)
+    child = pond.bud(parent)
+    assert int(child.sum()) == 1
+    assert bool(child[5, 3])  # выбранная клетка = argmax по ресурсу, ходов нет
+    assert pond.mobility_moves == 0
+    assert pond.mobility_shift == 0.0
+
+
+def test_free_mobility_walks_toward_richer_cells():
+    pond, parent = _mobility_pond(steps=10, cost=0.0)
+    child = pond.bud(parent)
+    ys, xs = child.nonzero(as_tuple=True)
+    assert int(xs[0]) > 3, "при бесплатной подвижности спора должна уйти вправо"
+    assert int(ys[0]) == 5
+    assert pond.mobility_shift > 0
+    # бесплатно — энергия споры не уменьшилась
+    assert abs(float(pond.state.energy[child]) - 1.0) < 1e-6
+
+
+def test_expensive_mobility_limited_by_budget():
+    # цена 0.2, заряд споры 1.0 -> не больше 5 шагов
+    pond, parent = _mobility_pond(steps=10, cost=0.2)
+    child = pond.bud(parent)
+    ys, xs = child.nonzero(as_tuple=True)
+    assert int(xs[0]) == 3 + 5
+    assert pond.mobility_moves == 5
+    assert abs(float(pond.state.energy[child]) - 0.0) < 1e-6
+
+
+def test_cheap_mobility_pays_but_keeps_energy():
+    pond, parent = _mobility_pond(steps=10, cost=0.05)
+    child = pond.bud(parent)
+    ys, xs = child.nonzero(as_tuple=True)
+    moved = int(xs[0]) - 3
+    assert moved > 5
+    assert abs(float(pond.state.energy[child]) - (1.0 - 0.05 * moved)) < 1e-6
+
+
+def test_mobility_is_reproducible():
+    a = _mobility_pond(steps=6, cost=0.05)[0].bud(_mobility_pond(steps=6, cost=0.05)[1])
+    pond, parent = _mobility_pond(steps=6, cost=0.05)
+    b = pond.bud(parent)
+    assert bool((a == b).all())

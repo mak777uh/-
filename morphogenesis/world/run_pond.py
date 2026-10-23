@@ -248,6 +248,10 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--sense-noise", type=float, default=0.0,
                     help="σ шума восприятия ресурса: родитель видит resource*(1+σ*N(0,1)), "
                          "доход и смерть считаются по истинному ресурсу")
+    ap.add_argument("--mobility-steps", type=int, default=0,
+                    help="сколько шагов спора может пройти при расселении (0 = выкл)")
+    ap.add_argument("--mobility-cost", type=float, default=0.0,
+                    help="энергия за шаг споры (0 = бесплатно)")
     ap.add_argument("--layout", default="uniform",
                     choices=["uniform", "gradient", "patches"], help="структура ресурса")
     args = ap.parse_args(argv)
@@ -270,6 +274,8 @@ def main(argv: list[str] | None = None) -> int:
     world.spore_bias = args.spore_bias
     world.matching_temp = args.matching_temperature
     world.sense_noise = args.sense_noise
+    world.mobility_steps = args.mobility_steps
+    world.mobility_cost = args.mobility_cost
     world.w_rich = args.w_rich
     world.learn_w = args.learn_w
     world.learn_rate = args.learn_rate
@@ -297,6 +303,10 @@ def main(argv: list[str] | None = None) -> int:
     summary["pop_time"] = int(getattr(run, "pop_time", 0))
     summary["learn_updates"] = int(run.pond.learn_updates)
     summary["learn_useless"] = int(getattr(run.pond, "learn_useless", 0))
+    summary["mobility_moves"] = int(getattr(run.pond, "mobility_moves", 0))
+    summary["mobility_mean_shift"] = round(
+        float(getattr(run.pond, "mobility_shift", 0.0)) / max(int(run.pond.state.born), 1), 4
+    )
     summary["w_final"] = float(run.pond.w)
     if getattr(run.pond.state, "w_cell", None) is not None and run.pond.state.alive.any():
         wcel = run.pond.state.w_cell[run.pond.state.alive]
