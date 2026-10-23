@@ -239,9 +239,13 @@
 
 ### B6. Измерять препятствия, а не «степень открытости»
 
-**[An alternate framework for open-ended evolution: measuring obstacles to innovation](https://doi.org/10.15200/winn.152418.86598)** —
+**[What's holding artificial life back from open-ended evolution?](https://doi.org/10.15200/winn.152418.86598)** —
 Dolson E., Vostinar A., Ofria C., *The Winnower*, 2018. `[А]` — препринт-позиция: как
 перестать искать «индекс открытости» и начать измерять препятствия.
+
+`Уточнено 2026-10-23:` в Crossref название — «What's holding artificial life back from
+open-ended evolution?». Прежняя формулировка («An alternate framework…») была нашей
+передачей темы из аннотации, а не заголовком; исправлено при title-сверке.
 
 `Что даёт:` авторы констатируют общий консенсус: эволюционные ALife-системы упускают
 согласованную инновационность, а попытки её измерить упираются в расплывчатость понятия.
