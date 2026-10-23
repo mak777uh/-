@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-23T17:41:36Z",
+  "updated_at": "2026-10-23T17:43:44Z",
   "items": [
     {
       "id": "I-001",
@@ -329,6 +329,32 @@
       "why": null,
       "status": "open",
       "created_at": "2026-10-23T17:41:36Z",
+      "applied_at": null
+    },
+    {
+      "id": "I-027",
+      "source": "library/hypotheses/reproducibility.md R10 (Theiler et al. 1992)",
+      "insight": "Структуру нельзя объявлять, пока статистика не отличается от суррогата с тем же спектром/распределением; «сравнение со шкалой» — не контроль",
+      "action": "experiment_change",
+      "ref": "H47; scripts/mspd.py; scripts/individuality.py",
+      "change": "в протокол добавить обязательный суррогатный контроль (1000 фаз-рандомизированных рядов, KS-тест) для MSPD/индивидуальности/сложности; метрика без p<0.01 в отчёт не идёт",
+      "expect": "метрика различает оригинал и суррогат на всех плечах; иначе она измеряет тривиальные свойства",
+      "why": null,
+      "status": "open",
+      "created_at": "2026-10-23T17:43:43Z",
+      "applied_at": null
+    },
+    {
+      "id": "I-028",
+      "source": "library/hypotheses/reproducibility.md R11 (Gelman & Carlin 2014)",
+      "insight": "Среднее без интервала и доли побед — Type M: на 3 сидах разница 2.7% при std 2200 не различима, даже если «тренд монотонный»",
+      "action": "experiment_change",
+      "ref": "H48; docs/protocol.md",
+      "change": "решения по политикам — только если bootstrap CI разности не пересекает 0 и знак совпал в >=4 из 5 сидов; иначе писать «не различимо» и добавлять сиды",
+      "expect": "ни одно решение не принимается по одному среднему; в таблицах появляются CI и доля побед",
+      "why": null,
+      "status": "open",
+      "created_at": "2026-10-23T17:43:44Z",
       "applied_at": null
     }
   ]
