@@ -254,6 +254,7 @@ def wait(root: pathlib.Path, timeout: float, interval: float,
             quiet_since = time.monotonic()
             settle_started = quiet_since
             while (settle > 0 and time.monotonic() - quiet_since < settle
+                   and time.monotonic() < deadline
                    and (max_settle <= 0 or time.monotonic() - settle_started < max_settle)):
                 time.sleep(max(1.0, min(interval, settle / 4)))
                 nxt = fingerprint(root)
