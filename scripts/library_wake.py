@@ -228,7 +228,8 @@ def check(root: pathlib.Path, state_path: pathlib.Path | None = None, update: bo
 
 
 def wait(root: pathlib.Path, timeout: float, interval: float,
-         state_path: pathlib.Path | None = None, settle: float = 0.0) -> int:
+         state_path: pathlib.Path | None = None, settle: float = 0.0,
+         max_settle: float = 0.0) -> int:
     deadline = time.monotonic() + timeout
     base = load_state(state_path)
     while time.monotonic() < deadline:
@@ -238,7 +239,9 @@ def wait(root: pathlib.Path, timeout: float, interval: float,
             # серия может ещё писать файлы: ждём тишины `settle` секунд,
             # чтобы проснуться на конце серии, а не на каждом прогоне
             quiet_since = time.monotonic()
-            while settle > 0 and time.monotonic() - quiet_since < settle:
+            settle_started = quiet_since
+            while (settle > 0 and time.monotonic() - quiet_since < settle
+                   and (max_settle <= 0 or time.monotonic() - settle_started < max_settle)):
                 time.sleep(max(1.0, min(interval, settle / 4)))
                 nxt = fingerprint(root)
                 if diff(current, nxt):
@@ -268,10 +271,12 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--interval", type=float, default=30.0)
     ap.add_argument("--settle", type=float, default=0.0,
                     help="после изменения ждать тишины N секунд (серия пишет файлы каждые ~70 с)")
+    ap.add_argument("--max-settle", type=float, default=0.0,
+                    help="дольше N секунд не ждать тишины: длинная серия не должна блокировать пробуждение")
     args = ap.parse_args(argv)
 
     if args.wait:
-        return wait(args.root, args.timeout, args.interval, args.state, args.settle)
+        return wait(args.root, args.timeout, args.interval, args.state, args.settle, args.max_settle)
     if args.show:
         print(json.dumps(fingerprint(args.root), ensure_ascii=False, indent=2))
         return 0
