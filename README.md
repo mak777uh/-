@@ -171,8 +171,7 @@ venv. Если `torch.cuda.is_available()` вернул `False`, прилете�
 
 ## Быстрый старт
 
-Команды обучения и диагностики — из `morphogenesis/`; команды `scripts/lab.py` —
-из корня.
+Команды обучения и диагностики — из `morphogenesis/`, `scripts/lab.py` — из корня.
 
 ```bash
 # из morphogenesis/
@@ -217,6 +216,5 @@ CPU-тесты. Проверки текста (ссылки, разделы, Ref
 `reports/`. Полный контракт — [`AGENTS.md` §6a](AGENTS.md), цикл — §3a.
 
 ## Лицензия
-
 MIT (см. [`LICENSE`](LICENSE)).
 

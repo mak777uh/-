@@ -103,3 +103,20 @@ python scripts/check_reports_index.py       # каждый отчёт имеет
 python scripts/verify_portable_package.py   # целостность dist/e02b-portable (если собран)
 python scripts/verify_manuscript_numbers.py # числа §4.12–§4.14 против артефактов
 ```
+
+## Скрипты текущей линии
+
+| Скрипт | Зачем |
+|---|---|
+| [`../scripts/cycle.py`](../scripts/cycle.py) | один экран состояния цикла: инсайты, очередь литературы, доска, пул, замки, диск |
+| [`../scripts/insight.py`](../scripts/insight.py) | инсайт → действие (предел 5 открытых, `--check` ловит забытое) |
+| [`../scripts/lit_check.py`](../scripts/lit_check.py) | триггеры «надо проверить литературу» и очередь запросов |
+| [`../scripts/lit_board.py`](../scripts/lit_board.py) | замечания библиотекаря к текущей работе |
+| [`../scripts/library_brief.py`](../scripts/library_brief.py) | задание библиотекарю из очереди, фазы и последних чисел |
+| [`../scripts/pool.py`](../scripts/pool.py) | пул отложенного с условиями возврата |
+| [`../scripts/compare.py`](../scripts/compare.py) | второй фильтр сравнения: медиана, std, IQR, доля сидов выше базлайна |
+| [`../scripts/mspd.py`](../scripts/mspd.py) | расхождение законов перехода по временным окнам (с pooled-null) |
+| [`../scripts/individuality.py`](../scripts/individuality.py) | нормированная MI и контроль тривиальности |
+| [`../scripts/rhythmicity.py`](../scripts/rhythmicity.py) | доминирующий период и β по ряду активности |
+| [`../scripts/signature_curve.py`](../scripts/signature_curve.py) | подпись чекпоинта (b0, b1, плотность) по сетке горизонтов |
+| [`../scripts/check_scripts.py`](../scripts/check_scripts.py) | какие скрипты никто не вызывает (профилактика мёртвого кода) |
