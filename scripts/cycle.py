@@ -80,6 +80,18 @@ def main() -> int:
     running = [l for l in _load(ROOT / "lab" / "state.json").get("runs", []) if l.get("status") == "running"]
     print(f"\nЗамки: {len(locks)} | прогонов в статусе running: {len(running)}")
 
+    # 5a) простой: свежесть артефактов и манифестов в трёх местах, включая рабочие
+    pond_files = glob.glob(str(ROOT / "morphogenesis" / "experiments" / "E09_pond" / "*.json"))
+    pond_files += glob.glob(str(ROOT.parent / "_hourly" / "polish" / "*.json"))
+    pond_files += glob.glob(str(ROOT / "lab" / "runs" / "*.json"))
+    if pond_files:
+        newest = max(pond_files, key=os.path.getmtime)
+        idle_min = (datetime.now().timestamp() - os.path.getmtime(newest)) / 60
+        flag = "  <-- GPU простаивает" if idle_min > 60 and not locks else ""
+        print(f"Последний артефакт пруда: {idle_min:.0f} мин назад ({os.path.basename(newest)}){flag}")
+    else:
+        print("Артефактов пруда нет")
+
     # 6) диск
     free_gb = shutil.disk_usage(ROOT).free / 1024**3
     flag = " (< 10 ГБ — тяжёлые прогоны нельзя)" if free_gb < 10 else ""

@@ -3,6 +3,23 @@
   "ok": true,
   "files": [
     {
+      "file": "formal/Adapt.lean",
+      "ok": true,
+      "theorems": [
+        "learning_too_slow_dies",
+        "learning_fast_enough_survives",
+        "window_no_longer_than_lifetime",
+        "no_deficit_no_deadline"
+      ],
+      "hypotheses": [
+        "F-ADAPT-1",
+        "F-ADAPT-2",
+        "F-ADAPT-3",
+        "F-ADAPT-4"
+      ],
+      "errors": []
+    },
+    {
       "file": "formal/Budget.lean",
       "ok": true,
       "theorems": [
@@ -85,6 +102,10 @@
     }
   ],
   "hypotheses": [
+    "F-ADAPT-1",
+    "F-ADAPT-2",
+    "F-ADAPT-3",
+    "F-ADAPT-4",
     "F-BUDGET-1",
     "F-BUDGET-2",
     "F-BUDGET-3",
@@ -98,5 +119,5 @@
     "F-SURV-5",
     "F-SURV-6"
   ],
-  "theorems_total": 23
+  "theorems_total": 27
 }
