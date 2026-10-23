@@ -29,7 +29,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 REG = ROOT / "lab" / "insights.json"
 ACTION_KINDS = ("param", "hypothesis", "task", "experiment_change", "reprioritize", "none")
-MAX_OPEN = 5  # больше — журнал чтения, а не работа
+MAX_OPEN = 12  # предел только против свалки; 24-часовое правило в --check остаётся
 
 
 def _now() -> str:
@@ -45,6 +45,11 @@ def load() -> dict:
 def save(data: dict) -> None:
     data["updated_at"] = _now()
     REG.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+
+def can_add(open_items: list[dict], limit: int = MAX_OPEN) -> bool:
+    """Мягкий предел: не блокирует своевременную регистрацию, но не даёт копить свалку."""
+    return len(open_items) < limit
 
 
 def add(data: dict, source: str, insight: str, action: str, ref: str, why: str,
@@ -91,7 +96,7 @@ def main(argv: list[str] | None = None) -> int:
     data = load()
     if args.add:
         open_now = [i for i in data["items"] if i.get("status") == "open"]
-        if len(open_now) >= MAX_OPEN:
+        if not can_add(open_now):
             print(f"ОТКАЗ: открытых инсайтов {len(open_now)} (предел {MAX_OPEN}).")
             print("Сначала закройте один: --apply ID или --decline ID --why \"...\"")
             print("Открытые: " + ", ".join(i["id"] for i in open_now))
