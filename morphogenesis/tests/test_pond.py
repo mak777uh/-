@@ -534,3 +534,70 @@ def test_mobility_is_reproducible():
     pond, parent = _mobility_pond(steps=6, cost=0.05)
     b = pond.bud(parent)
     assert bool((a == b).all())
+
+
+# ---------- обратимость организма (I-023) ----------
+
+def _organism_pond(cost: float = 0.05, **over):
+    cfg = dict(grid=8, resource_regen=0.0, baseline_income=0.0, update_cost=0.0,
+               repair_cost=0.0, damage_rate=0.0, noise=0.0,
+               organism_mobility_cost=cost, organism_mobility_every=10)
+    cfg.update(over)
+    pond = Pond(PondConfig(**cfg), seed=11)
+    mask = torch.zeros((8, 8), dtype=torch.bool)
+    mask[3, 1] = True   # богатая клетка, энергия высокая
+    mask[3, 3] = True   # бедная клетка, энергия ниже средней
+    pond.seed_life(mask, energy=0.0)
+    pond.state.energy[3, 1] = 5.0
+    pond.state.energy[3, 3] = 0.5
+    cols = torch.arange(8, dtype=torch.float32)
+    pond.state.resource = (0.1 * cols).repeat(8, 1)
+    return pond
+
+
+def test_organism_mobility_off_by_default():
+    pond = _organism_pond(cost=0.0)
+    assert pond.find_organism_moves() == []
+
+
+def test_organism_mobility_conserves_cells_and_pays_cost():
+    pond = _organism_pond(cost=0.05)
+    alive_before = int(pond.state.alive.sum())
+    energy_before = float(pond.state.energy.sum())
+    moves = pond.find_organism_moves()
+    assert len(moves) == 1, "уходить должна только голодная клетка"
+    sy, sx, dy, dx = moves[0]
+    assert (sy, sx) == (3, 3)
+    assert dx > sx, "шаг должен быть в сторону большего ресурса"
+    pond.apply_organism_moves(moves)
+    assert int(pond.state.alive.sum()) == alive_before, "число живых сохраняется"
+    assert abs((energy_before - float(pond.state.energy.sum())) - 0.05) < 1e-6
+    assert int(pond.organism_moves) == 1
+
+
+def test_organism_mobility_moves_state_and_genome():
+    from world.run_pond import PondRun
+    cfg = PondConfig(grid=8, resource_regen=0.0, baseline_income=0.0, update_cost=0.0,
+                     repair_cost=0.0, damage_rate=0.0, noise=0.0,
+                     organism_mobility_cost=0.05, organism_mobility_every=10)
+    run = PondRun(world_cfg=cfg, seed=2, device="cpu")
+    mask = torch.zeros((8, 8), dtype=torch.bool)
+    mask[3, 3] = True
+    mask[0, 0] = True   # вторая клетка, чтобы средняя энергия была выше голодной
+    run.pond.seed_life(mask, energy=5.0)
+    run.pond.state.energy[3, 3] = 0.5
+    cols = torch.arange(8, dtype=torch.float32)
+    run.pond.state.resource = (0.1 * cols).repeat(8, 1)
+    run.state[0, :, 3, 3] = torch.arange(run.state.shape[1], dtype=run.state.dtype)
+    run.genome[0, :, 3, 3] = torch.arange(run.genome.shape[1], dtype=run.genome.dtype)
+    run.pond.state.step = 10
+    moved = run._organism_mobility()
+    assert moved == 1
+    pos = run.pond.state.alive.nonzero(as_tuple=True)
+    coords = set(zip(pos[0].tolist(), pos[1].tolist()))
+    assert (0, 0) in coords and (3, 3) not in coords
+    dy, dx = [c for c in coords if c != (0, 0)][0]
+    assert torch.equal(run.state[0, :, dy, dx], torch.arange(run.state.shape[1], dtype=run.state.dtype))
+    assert torch.equal(run.genome[0, :, dy, dx], torch.arange(run.genome.shape[1], dtype=run.genome.dtype))
+    assert float(run.state[0, :, 3, 3].abs().sum()) == 0.0
+    assert int(run.pond.state.alive.sum()) == 2

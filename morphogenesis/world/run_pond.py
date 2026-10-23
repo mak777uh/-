@@ -61,6 +61,7 @@ class PondRun:
         self.snapshot_every: int = 0
         self.clonal_attached: int = 0
         self.clonal_separate: int = 0
+        self.organism_moves_total: int = 0
         self.update_probability: float = 1.0
 
     # ---------- инициализация ----------
@@ -107,6 +108,31 @@ class PondRun:
                 self.state[0, ch] = torch.where(
                     alive, self.state[0, ch], torch.zeros_like(self.state[0, ch])
                 )
+
+    def _organism_mobility(self) -> int:
+        """Шаг организма по жизни: двигаем всё состояние клетки и её геном (I-023).
+
+        Ссылка на канал живости пересчитается из маски мира в `_flow_energy_to_state`,
+        а остальные каналы переносятся как есть, чтобы не терять «тело» организма.
+        """
+        cfg = self.world_cfg
+        every = int(getattr(cfg, "organism_mobility_every", 0) or 0)
+        if every <= 0 or float(getattr(cfg, "organism_mobility_cost", 0.0)) <= 0.0:
+            return 0
+        if int(self.pond.state.step) % every != 0:
+            return 0
+        moves = self.pond.find_organism_moves()
+        if not moves:
+            return 0
+        with torch.no_grad():
+            for sy, sx, dy, dx in moves:
+                self.state[0, :, dy, dx] = self.state[0, :, sy, sx]
+                self.state[0, :, sy, sx] = 0.0
+                self.genome[0, :, dy, dx] = self.genome[0, :, sy, sx]
+                self.genome[0, :, sy, sx] = 0.0
+        self.pond.apply_organism_moves(moves)
+        self.organism_moves_total += len(moves)
+        return len(moves)
 
     # ---------- шаг ----------
     def _sync_state_to_world(self, birth_energy: float = 0.5) -> int:
@@ -155,6 +181,7 @@ class PondRun:
         grown = self._sync_state_to_world()
         self.pond.regenerate()
         cell_stats = self.pond.step_cells()
+        self._organism_mobility()
         self._flow_energy_to_state()
 
         births = 0
@@ -252,6 +279,10 @@ def main(argv: list[str] | None = None) -> int:
                     help="сколько шагов спора может пройти при расселении (0 = выкл)")
     ap.add_argument("--mobility-cost", type=float, default=0.0,
                     help="энергия за шаг споры (0 = бесплатно)")
+    ap.add_argument("--organism-mobility-cost", type=float, default=0.0,
+                    help="энергия за шаг организма по жизни (0 = выкл, I-023)")
+    ap.add_argument("--organism-mobility-every", type=int, default=10,
+                    help="раз в сколько шагов организм пробует шаг по жизни")
     ap.add_argument("--layout", default="uniform",
                     choices=["uniform", "gradient", "patches"], help="структура ресурса")
     args = ap.parse_args(argv)
@@ -276,6 +307,8 @@ def main(argv: list[str] | None = None) -> int:
     world.sense_noise = args.sense_noise
     world.mobility_steps = args.mobility_steps
     world.mobility_cost = args.mobility_cost
+    world.organism_mobility_cost = args.organism_mobility_cost
+    world.organism_mobility_every = args.organism_mobility_every
     world.w_rich = args.w_rich
     world.learn_w = args.learn_w
     world.learn_rate = args.learn_rate
@@ -306,6 +339,10 @@ def main(argv: list[str] | None = None) -> int:
     summary["mobility_moves"] = int(getattr(run.pond, "mobility_moves", 0))
     summary["mobility_mean_shift"] = round(
         float(getattr(run.pond, "mobility_shift", 0.0)) / max(int(run.pond.state.born), 1), 4
+    )
+    summary["organism_moves"] = int(run.organism_moves_total)
+    summary["organism_moves_per_step"] = round(
+        float(run.organism_moves_total) / max(int(run.pond.state.step), 1), 3
     )
     summary["w_final"] = float(run.pond.w)
     if getattr(run.pond.state, "w_cell", None) is not None and run.pond.state.alive.any():

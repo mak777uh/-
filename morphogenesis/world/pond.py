@@ -73,6 +73,8 @@ class PondConfig:
     sense_noise: float = 0.0           # σ шума восприятия ресурса при выборе клетки
     mobility_cost: float = 0.0         # цена шага споры при расселении (0 = бесплатно)
     mobility_steps: int = 0            # сколько шагов спора может пройти (0 = подвижность выкл)
+    organism_mobility_cost: float = 0.0    # цена шага организма по жизни (0 = выкл)
+    organism_mobility_every: int = 10      # раз в сколько шагов организм пробует шаг
     learn_window: int = 30             # окно оценки для обучения колонии
     init_resource_fill: float = 0.0     # 0..1: доля потолка, до которой поле заполнено на старте
     membrane_gated: bool = False      # обмен гейтируется мембраной (замыкание)
@@ -123,6 +125,7 @@ class Pond:
         self._pair_trials = 0    # номер парного испытания: чередуем знак w' = w ± δ
         self.mobility_moves = 0   # сколько шагов сделали споры (диагностика)
         self.mobility_shift = 0.0  # суммарное смещение спор от клетки выбора (шагов сетки)
+        self.organism_moves = 0    # сколько шагов сделали организмы по жизни (I-023)
         self.learn_history: list[float] = []
         self._colony_alive_prev = 0
         self._colony_dir = 1.0
@@ -454,6 +457,71 @@ class Pond:
         self.mobility_moves += moved_total
         new_spots = torch.tensor(out, device=spots.device, dtype=spots.dtype)
         return new_spots, spent
+    # ---------- обратимость организма (I-023) ----------
+    def find_organism_moves(self) -> list[tuple[int, int, int, int]]:
+        """Кто из организмов уходит из плохой клетки: (sy, sx, dy, dx).
+
+        Клетка с энергией ниже средней по колонии может сделать шаг в соседнюю
+        СВОБОДНУЮ клетку, если ресурс там больше, и если она может заплатить
+        `organism_mobility_cost`. Ошибка размещения перестаёт быть смертельной:
+        организм исправляет её во время жизни (в отличие от подвижности споры,
+        где решение только растягивается).
+        """
+        cfg = self.cfg
+        s = self.state
+        if cfg.organism_mobility_cost <= 0.0 or not bool(s.alive.any()):
+            return []
+        mean_energy = float(s.energy[s.alive].mean())
+        poor = s.alive & (s.energy < mean_energy)
+        if not bool(poor.any()):
+            return []
+        n = cfg.grid
+        candidates = poor.nonzero(as_tuple=False)
+        order = torch.randperm(candidates.shape[0], generator=self.gen_sel)
+        taken = torch.zeros_like(s.alive)
+        moves: list[tuple[int, int, int, int]] = []
+        for k in order.tolist():
+            y, x = int(candidates[k, 0]), int(candidates[k, 1])
+            if not bool(s.alive[y, x]) or bool(taken[y, x]):
+                continue
+            if float(s.energy[y, x]) <= cfg.organism_mobility_cost:
+                continue
+            cur = float(s.resource[y, x])
+            best, best_res = None, cur
+            for dy, dx in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+                ny, nx = y + dy, x + dx
+                if not (0 <= ny < n and 0 <= nx < n):
+                    continue
+                if bool(s.alive[ny, nx]) or bool(taken[ny, nx]):
+                    continue
+                res = float(s.resource[ny, nx])
+                if res > best_res:
+                    best, best_res = (ny, nx), res
+            if best is None:
+                continue
+            taken[best[0], best[1]] = True
+            moves.append((y, x, best[0], best[1]))
+        return moves
+
+    def apply_organism_moves(self, moves: list[tuple[int, int, int, int]]) -> None:
+        """Перенести клетку целиком на новую позицию, списав цену шага."""
+        if not moves:
+            return
+        s = self.state
+        cost = float(self.cfg.organism_mobility_cost)
+        for sy, sx, dy, dx in moves:
+            s.alive[dy, dx] = True
+            s.alive[sy, sx] = False
+            s.energy[dy, dx] = s.energy[sy, sx] - cost
+            s.energy[sy, sx] = 0.0
+            s.damage[dy, dx] = s.damage[sy, sx]
+            s.damage[sy, sx] = 0
+            s.age[dy, dx] = s.age[sy, sx]
+            s.age[sy, sx] = 0
+            s.membrane[dy, dx] = s.membrane[sy, sx]
+            s.membrane[sy, sx] = 0.0
+        self.organism_moves += len(moves)
+
     # ---------- размножение ----------
     def find_buds(self) -> list[torch.Tensor]:
         """Компоненты, у которых хватает массы и энергии на спору."""
