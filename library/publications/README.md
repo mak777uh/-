@@ -85,12 +85,13 @@
 > Статусы сверены с `lab/registry.json` → `program.next_hypotheses` на 2026-10-21.
 > При расхождении прав registry, а не эта таблица: здесь индекс, там — контур.
 
-## Библиотечные гипотезы H15–H37 (предложение, не статус реестра)
+## Библиотечные гипотезы H15–H44 (предложение, не статус реестра)
 
 Гипотезы, выросшие из проходов по литературе 2026-10-21…10-23 (разделы
 [`../hypotheses/nca-frontier.md`](../hypotheses/nca-frontier.md),
 [`../hypotheses/reproducibility.md`](../hypotheses/reproducibility.md),
-[`../hypotheses/pond-lineage.md`](../hypotheses/pond-lineage.md) и
+[`../hypotheses/pond-lineage.md`](../hypotheses/pond-lineage.md),
+[`../hypotheses/alife-lineage.md`](../hypotheses/alife-lineage.md) и
 [`../levin/README.md`](../levin/README.md), F). Они **не** заводились в
 `lab/registry.json` → `program.next_hypotheses`: очередь гипотез и смену статусов
 ведёт владелец ([AGENTS.md §3a](../../AGENTS.md)). Здесь — формулировки, источник и
@@ -121,6 +122,13 @@
 | H35 | SOC невозможен без накачки и порога: «ритма нет» — предсказанный результат | Bak, Tang & Wiesenfeld (1987) | плечо с порогом и точечной накачкой, β против шума | `exploratory` (β на уровне шума) |
 | H36 | Окно MSPD короче времени памяти среды (~120–140 шагов) | Akhtyrchenko et al. (2026) | `scripts/mspd.py`, окна 16–200 | `not_run` |
 | H37 | Хвост размеров колоний логнормальный, а не степенной | Clauset et al. (2009) | `powerlaw.Fit`, KS-p, comparison с логнормальным | `not_run` |
+| H38 | Застревание — насыщение, а не деградация: MSPD/I выходят на плато, инноваций нет | Ray (1991); Lenski et al. (2003); Ofria & Wilke (2004) | окна MSPD/I после 500 клеток; target-only против reward-all | `not_run` |
+| H39 | Режим измерим по цене поддержания: немонотонность счёта совпадает с максимумом чувствительности | Langton (1990); Yaeger (1994); Williams & Yaeger (2017) | развёртка 9–11 точек × 10 сидов | `not_run` |
+| H40 | «Научился жить» = взаимозависимость + отсутствие читеров, а не максимум счёта | West et al. (2015); Bull et al. (1995) | адресное удаление 10 %; доля читеров против 601 | `not_run` |
+| H41 | QD-архив при равном бюджете: coverage ≥ 60 %, reliability ≥ 0.7, лучшее ≥ 601 | Mouret & Clune (2015); Lehman & Stanley (2011); POET; DGM | архив против прямого отбора, 10 сидов | `not_run` |
+| H42 | Инновация без неограниченности: новизна есть, возврат внутри окна тоже | Adams et al. (2017, Sci Rep); Adams et al. (2017, Entropy) | доля конфигураций вне контроля + время возврата | `not_run` |
+| H43 | Сырая MI — предсказуемость, а не индивидуальность; нужна тройка A*/A/nC | Rajpal et al. (2025) | A* и A одновременно на наших траекториях | `exploratory` (контроли шум/суррогат/цикл) |
+| H44 | Наследуемая модификация среды: ablation следа снижает счёт ≥ 10 % | Odling-Smee et al. (2013) | две версии среды, обнуление следа, 3 сида | `not_run` |
 
 Правило прежнее: `not_run` и `planned` — заявки, а не результаты; в статьях они идут
 как следующие гипотезы. Проверка любой из них на существующих весах не требует решения
@@ -244,6 +252,33 @@ H29-пункт «ядро от цели»).
 | G8 | [Clauset et al., 2009, SIAM Review](https://doi.org/10.1137/070710111) | протокол power law: xmin, KS-p, сравнение с логнормальным | H37 | `powerlaw.Fit`, 1000 бутстрепов, ≥ 30 снапшотов | `not_run` | [P8](../hypotheses/pond-lineage.md) |
 | G9 | [Bak et al., 1987, PRL](https://doi.org/10.1103/PhysRevLett.59.381) | SOC требует накачки, порога и лавины; иначе 1/f неоткуда | H35 | плечо с порогом и точечной накачкой, β против шума | `exploratory` («ритма нет»: β 3.48/2.88 на уровне шума — ожидаемо) | [P9](../hypotheses/pond-lineage.md) |
 | G10 | [Akhtyrchenko et al., 2026, arXiv](https://arxiv.org/abs/2606.17091) | MSPD: расхождение законов перехода по окнам, с pooled-null | H36 | `scripts/mspd.py`, окна 16–200, контроль 0.0077/0.024 | `not_run` | [P10](../hypotheses/pond-lineage.md) |
+
+## H. ALife: классика, открытая эволюция, рамки, индивидуальность
+
+Источники линии «пруд» из традиции искусственной жизни; развёрнутые заметки —
+[`../hypotheses/alife-lineage.md`](../hypotheses/alife-lineage.md) (блоки A1–D4).
+
+| # | Источник | Что даёт | Гипотеза | Эксперимент | Статус | Разбор |
+| --- | --- | --- | --- | --- | --- | --- |
+| AL1 | [Ray, 1991/1992, ALife II](https://tomray.me/pubs/alife2/Ray1991AnApproachToTheSynthesisOfLife.pdf) | Tierra: разнообразие как перекомпоновка, паразиты и читеры | H38 | MSPD/I по окнам после 500 клеток | `not_run` | [A1](../hypotheses/alife-lineage.md) |
+| AL2 | [Lenski et al., 2003, Nature](https://doi.org/10.1038/nature01568) | сложная функция только там, где вознаграждаются промежуточные | H38 | target-only против reward-all, 10 повторов | `not_run` | [A2](../hypotheses/alife-lineage.md) |
+| AL3 | [Ofria & Wilke, 2004, Artif. Life](https://doi.org/10.1162/106454604773563612) | архитектура платформы задаёт достижимые классы новшеств | H38 | 2×2 цена × обучение | `not_run` | [A3](../hypotheses/alife-lineage.md) |
+| AL4 | [Yaeger, 1994, ALife III](https://shinyverse.org/larryy/Yaeger.ALife3.pdf) | Polyworld: нейросети, Hebb-обучение, экономика энергии | H39 | лог «шагов после обновления политики» | `not_run` | [A4](../hypotheses/alife-lineage.md) |
+| AL5 | [Williams & Yaeger, 2017, Geosciences](https://doi.org/10.3390/geosciences7030049) | после адаптации отбор выбирает стабильность (MLE/OOC выходят на плато) | H39 | 10 пар driven/passive, парный тест | `not_run` | [A5](../hypotheses/alife-lineage.md) |
+| AL6 | [Adams et al., 2017, Sci. Rep.](https://doi.org/10.1038/s41598-017-00810-8) | неограниченность и инновация — два предиката; инновация дешёвая | H42 | конфигурации вне закрытого контроля + возврат | `not_run` | [B1](../hypotheses/alife-lineage.md) |
+| AL7 | [Adams et al., 2017, Entropy](https://doi.org/10.3390/e19090461) | застревание — бедность достижимой части пространства состояний | H42 | граф переходов, энтропия степеней | `not_run` | [B2](../hypotheses/alife-lineage.md) |
+| AL8 | [Wang et al., 2019, POET](https://arxiv.org/abs/1901.01753) | коэволюция сред и решений; без переноса предельные среды не решаются | H41 | три плеча по 5 сидов | `not_run` | [B3](../hypotheses/alife-lineage.md) |
+| AL9 | [Zhang et al., 2025/2026, DGM](https://arxiv.org/abs/2505.22954) | архив «ступенек» бьёт жадный подъём | H41 | архив против только-лучшего, 10 сидов | `not_run` | [B4](../hypotheses/alife-lineage.md) |
+| AL10 | [Langton, 1990, Physica D](https://doi.org/10.1016/0167-2789(90)90064-V) | параметр порядка и переходная полоса | H39 | развёртка 9–11 точек, отклик на возмущение | `not_run` | [C1](../hypotheses/alife-lineage.md) |
+| AL11 | [Odling-Smee et al., 2013, QRB](https://doi.org/10.1086/669266) | нишевое конструирование: изменённая среда как наследуемая | H44 | ablation следа, две версии среды | `not_run` | [C2](../hypotheses/alife-lineage.md) |
+| AL12 | [West et al., 2015, PNAS](https://doi.org/10.1073/pnas.1421402112) | переход к индивидуальности: взаимозависимость + отсутствие конфликта | H40 | адресное удаление 10 %, доля читеров | `not_run` | [C3](../hypotheses/alife-lineage.md) |
+| AL13 | [Bull, Fogarty & Pipe, 1995, ECAL](https://doi.org/10.1007/3-540-59496-5_305) | эндосимбиоз как устойчивое состояние в окне режимов | H40 | развёртка перемешивания, 9 × 10 | `not_run` | [C4](../hypotheses/alife-lineage.md) |
+| AL14 | [Mouret & Clune, 2015, arXiv](https://arxiv.org/abs/1504.04909) | MAP-Elites: coverage, reliability, precision вместо одного числа | H41 | QD-архив при бюджете базлайна | `not_run` | [C5](../hypotheses/alife-lineage.md) |
+| AL15 | [Lehman & Stanley, 2011, Evol. Comput.](https://doi.org/10.1162/EVCO_a_00025) | обманчивая цель; новизна обходит тупики | H41 | две ветки, равный бюджет | `not_run` | [C6](../hypotheses/alife-lineage.md) |
+| AL16 | [Rajpal et al., 2025, Commun. Biol.](https://doi.org/10.1038/s42003-025-08619-2) | индивидуальность A*/A/nC; MI гауссова, не бины | H43 | A* и A одновременно | `exploratory` (наши контроли: шум 0.069/суррогат 0.078) | [D1](../hypotheses/alife-lineage.md) |
+| AL17 | [Hauser & Hughes, 2024, Device](https://doi.org/10.1016/j.device.2024.100439) | обзор морфологической вычислимости (текст недоступен) | H28 | memoryless против полного | `not_run` | [D2](../hypotheses/alife-lineage.md) |
+| AL18 | [Scheiner et al., 2017, Ecol. Evol.](https://doi.org/10.1002/ece3.3429) | ассимиляция маловероятна: фикс выигрывает в стабильной среде | H33 | свип частоты смены режима | `not_run` | [D3](../hypotheses/alife-lineage.md) |
+| AL19 | [Panchanathan & Frankenhuis, 2016, Proc. B](https://doi.org/10.1098/rspb.2015.2439) | оптимален сенситивный период, а не постоянное обучение | H33 | свип длины окна обучения | `not_run` | [D4](../hypotheses/alife-lineage.md) |
 
 ## Что этот индекс не означает
 
