@@ -64,6 +64,9 @@ class PondConfig:
     learn_w: bool = False              # учить w по судьбе потомства
     learn_rate: float = 0.1            # шаг обучения
     learn_delay: int = 10              # через сколько шагов проверять судьбу потомка
+    learn_mode: str = "outcome"        # outcome | bandit (потомок пробует сдвиг веса)
+    learn_noise: float = 0.05          # разброс пробного веса потомка
+    learn_window: int = 30             # окно оценки для обучения колонии
     init_resource_fill: float = 0.0     # 0..1: доля потолка, до которой поле заполнено на старте
     membrane_gated: bool = False      # обмен гейтируется мембраной (замыкание)
     membrane_decay: float = 0.05      # распад мембраны за шаг
@@ -106,6 +109,8 @@ class Pond:
         self._pending: list[dict] = []
         self.learn_updates = 0
         self.learn_history: list[float] = []
+        self._colony_alive_prev = 0
+        self._colony_dir = 1.0
         self._catastrophe_next = self._sample_gap()
         self.state = PondState(
             resource=torch.full((n, n), self.cfg.resource_max * 0.5, device=self.device),
@@ -296,7 +301,18 @@ class Pond:
                     still.append(entry)
                     continue
                 survived = bool((s.alive & entry["mask"]).any())
-                if survived:
+                if cfg.learn_mode == "bandit":
+                    direction = 1.0 if survived else -1.0
+                    if s.w_cell is not None and "parent" in entry:
+                        target = float(entry.get("child_w", self.w))
+                        s.w_cell = torch.where(
+                            entry["parent"],
+                            torch.clamp(s.w_cell + direction * cfg.learn_rate * (target - s.w_cell), 0.0, 1.0),
+                            s.w_cell,
+                        )
+                    if s.w_cell is not None:
+                        self.w = float(s.w_cell.mean())
+                elif survived:
                     self.w = min(1.0, self.w + cfg.learn_rate * (1.0 - self.w))
                     if s.w_cell is not None and "parent" in entry:
                         s.w_cell = torch.where(
@@ -315,6 +331,22 @@ class Pond:
                 self.learn_updates += 1
                 self.learn_history.append(float(self.w))
             self._pending = still
+
+        if cfg.learn_w and cfg.learn_mode == "colony" and s.step and s.step % cfg.learn_window == 0:
+            alive_now = int(s.alive.sum())
+            gained = alive_now - self._colony_alive_prev
+            if gained >= 0:
+                # направление сработало — продолжаем в ту же сторону
+                self.w = min(1.0, max(0.0, self.w + self._colony_dir * cfg.learn_rate))
+            else:
+                # стало хуже — разворачиваемся
+                self._colony_dir = -self._colony_dir
+                self.w = min(1.0, max(0.0, self.w + self._colony_dir * cfg.learn_rate))
+            if s.w_cell is not None:
+                s.w_cell = torch.full_like(s.w_cell, self.w)
+            self.learn_updates += 1
+            self.learn_history.append(float(self.w))
+            self._colony_alive_prev = alive_now
 
         s.step += 1
         return {"died": died_now, "alive": int(s.alive.sum()), "catastrophe": self.in_catastrophe()}
@@ -402,16 +434,24 @@ class Pond:
         s.damage[child] = 0
         s.born += 1
         if cfg.learn_w:
+            probe_w = float(self.w)
             if s.w_cell is not None:
                 parent_w = float(s.w_cell[parent].mean())
+                if cfg.learn_mode == "bandit":
+                    import random as _random
+                    _rng = _random.Random(int(s.step) * 7919 + 13)
+                    probe_w = min(1.0, max(0.0, parent_w + cfg.learn_noise * _rng.gauss(0.0, 1.0)))
+                else:
+                    probe_w = parent_w
                 s.w_cell = torch.where(
-                    child, torch.full_like(s.w_cell, parent_w), s.w_cell
+                    child, torch.full_like(s.w_cell, probe_w), s.w_cell
                 )
             self._pending.append({
                 "mask": child.clone(),
                 "parent": parent.clone(),
                 "born_step": int(s.step),
                 "w": float(self.w),
+                "child_w": float(probe_w),
             })
         return child
 

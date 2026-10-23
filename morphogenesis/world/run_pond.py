@@ -137,6 +137,10 @@ class PondRun:
             s.alive = alive_now
         return births
 
+    def _accumulate(self, alive_now: int) -> None:
+        """Накопить «площадь жизни»: сумма живых по шагам."""
+        self.pop_time = getattr(self, "pop_time", 0) + int(alive_now)
+
     def step(self) -> dict:
         with torch.no_grad():
             if self.update_probability >= 1.0:
@@ -175,6 +179,7 @@ class PondRun:
                 "energy": self.pond.state.energy.detach().cpu().numpy().copy(),
             })
 
+        self._accumulate(int(self.pond.state.alive.sum()))
         snap = self.pond.snapshot()
         snap["births_this_step"] = births
         snap["grown_cells"] = grown
@@ -226,6 +231,9 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--learn-w", action="store_true", help="учить вес политики по судьбе потомства")
     ap.add_argument("--learn-rate", type=float, default=0.1)
     ap.add_argument("--learn-delay", type=int, default=10)
+    ap.add_argument("--learn-mode", default="outcome", choices=["outcome", "bandit", "colony"])
+    ap.add_argument("--learn-noise", type=float, default=0.05)
+    ap.add_argument("--learn-window", type=int, default=30)
     ap.add_argument("--spore-bias", default="random", choices=["random", "rich", "score", "ifd"],
                     help="куда выпускать спору: случайно или к богатому ресурсу")
     ap.add_argument("--layout", default="uniform",
@@ -249,6 +257,9 @@ def main(argv: list[str] | None = None) -> int:
     world.learn_w = args.learn_w
     world.learn_rate = args.learn_rate
     world.learn_delay = args.learn_delay
+    world.learn_mode = args.learn_mode
+    world.learn_noise = args.learn_noise
+    world.learn_window = getattr(args, "learn_window", 30)
     world.flip_at = args.flip_at
     world.income_mode = args.income_mode
     world.init_resource_fill = args.init_resource_fill
@@ -263,6 +274,7 @@ def main(argv: list[str] | None = None) -> int:
     total = run.clonal_attached + run.clonal_separate
     summary["clonal_fraction"] = (run.clonal_attached / total) if total else None
     summary["deaths_by_zone"] = dict(run.pond.state.deaths_by_zone)
+    summary["pop_time"] = int(getattr(run, "pop_time", 0))
     summary["learn_updates"] = int(run.pond.learn_updates)
     summary["w_final"] = float(run.pond.w)
     if getattr(run.pond.state, "w_cell", None) is not None and run.pond.state.alive.any():
