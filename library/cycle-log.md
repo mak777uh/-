@@ -11,7 +11,7 @@
 | --- | --- | --- | --- |
 | `run` | 23.10 15:35 | lead | файлы: answers.md, board.md, hypotheses/README.md, hypotheses/alife-lineage.md, hypotheses/nca-frontier.md, hypotheses/pond-lineage.md; инсайты: I-001, I-002, I-003, I-004, I-005, I-006, I-007, I-008, I-009, I-010, I-011, I-012, I-013, I-014, I-015, I-016 |
 | `interpret` | 23.10 18:55 | lead | файлы: answers.md, board.md, hypotheses/pond-lineage.md; инсайты: I-017 |
-| `prepare` | 23.10 19:22 | lead | файлы: answers.md, board.md, hypotheses/alife-lineage.md, review-life-in-experiments.md, synthesis/README.md, synthesis/learning-vs-environment.md; инсайты: I-018, I-019, I-020, I-021, I-022, I-023, I-024, I-025 |
+| `prepare` | 23.10 19:22 | lead | файлы: answers.md, board.md, hypotheses/alife-lineage.md, hypotheses/pond-lineage.md, review-life-in-experiments.md, synthesis/README.md; инсайты: I-018, I-019, I-020, I-021, I-022, I-023, I-024, I-025, I-026 |
 
 Решения доски, записанные только датой (к фазе не отнесены): B-001→deferred, B-002→accepted, B-003→deferred, B-004→deferred, B-005→accepted, B-006→deferred, B-007→accepted, B-008→accepted.
 
