@@ -148,3 +148,36 @@ def temporal_individuality(snapshots, block: int = 8, deltas=(1, 2, 4), bins: in
         ys = shuffled[dt:].reshape(-1)
         result[dt] = {"mi": mi, "control": mutual_information(xs, ys, bins)}
     return result
+
+def group_vs_individual(snapshots, block: int = 8, bins: int = 2) -> dict:
+    """Группа предсказуемее своих частей? (Rajpal et al., 2025)
+
+    Индивид = клетка: MI между «жива ли клетка сейчас» и «жива ли через шаг».
+    Группа = блок block x block: MI между плотностью блока сейчас и через шаг.
+    Оба значения считаем на одних и тех же снимках, поэтому сравнение честное.
+
+    Оговорка: блок — прокси группы; для строгого теста нужны компоненты с
+    отслеживанием идентичности. Но если даже по блокам группа не предсказуемее,
+    гипотеза о higher-order individuality не поддерживается.
+    """
+    snap = np.asarray(snapshots).astype(float)
+    t_count = snap.shape[0]
+    if t_count < 2:
+        return {"mi_cell": 0.0, "mi_block": 0.0, "delta": 0.0, "snapshots": t_count}
+    # уровень клетки: пары соседних снимков, все клетки
+    cell_x = snap[:-1].reshape(-1)
+    cell_y = snap[1:].reshape(-1)
+    mi_cell = mutual_information(cell_x, cell_y, bins=2)
+    # уровень группы: блочные плотности
+    dens = np.array([block_density_grid(m, block).reshape(-1) for m in snap])
+    block_x = dens[:-1].reshape(-1)
+    block_y = dens[1:].reshape(-1)
+    # ВАЖНО: сравнение только при одинаковом числе бинов, иначе MI несравнима
+    # (у 8 бинов потолок 3 бита, у бинарной клетки 1 бит). По умолчанию — 2 бина.
+    mi_block = mutual_information(block_x, block_y, bins=bins)
+    return {
+        "mi_cell": mi_cell,
+        "mi_block": mi_block,
+        "delta": mi_block - mi_cell,
+        "snapshots": t_count,
+    }
