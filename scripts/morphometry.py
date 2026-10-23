@@ -207,6 +207,7 @@ def mode_boundary(model, spec, starts: int, rollout_steps: int, device) -> dict:
         perim = mask_perimeter(mask)
         dim = box_counting_dimension(boundary_pixels(mask))
         tex = texture_stats(final_state, mask)
+        holes = hole_morphology(mask)
         rows.append({
             "seed": seed,
             "area": area,
@@ -214,6 +215,9 @@ def mode_boundary(model, spec, starts: int, rollout_steps: int, device) -> dict:
             "perimeter": perim,
             "box_dim": dim,
             "isoperimetric": isoperimetric_ratio(area, perim),
+            "holes_n": holes["n"],
+            "hole_compactness_mean": holes["shape_mean"],
+            "hole_compactness_std": holes["shape_std"],
             **tex,
         })
     densities = [r["density"] for r in rows]
@@ -251,6 +255,9 @@ def mode_boundary(model, spec, starts: int, rollout_steps: int, device) -> dict:
             "perimeter_cv": float(np.std(perims) / np.mean(perims)) if np.mean(perims) else float("nan"),
             "area_cv": float(np.std(areas) / np.mean(areas)) if np.mean(areas) else float("nan"),
             "isoperimetric_cv": float(np.nanstd(iso) / np.nanmean(iso)) if np.nanmean(iso) else float("nan"),
+            "holes_n_mean": float(np.mean([r["holes_n"] for r in rows])),
+            "hole_compactness_mean": float(np.nanmean([r["hole_compactness_mean"] for r in rows])),
+            "hole_compactness_std": float(np.nanmean([r["hole_compactness_std"] for r in rows])),
         },
     }
 
