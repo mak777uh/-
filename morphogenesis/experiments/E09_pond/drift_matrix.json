@@ -1,0 +1,207 @@
+{
+ "experiment": "E09_pond / P2 environment change (I-003)",
+ "protocol": "300 шагов, grid 32, income 0.2, update 0.02, repair 0.02, budding-mass 24, budding-cost 0.2, layout gradient, income-mode proportional, init-resource-fill 0.9; режимы: без изменения, --flip-at 150, --drift-at 150 --drift-steps 60",
+ "code_commit": "1b98510",
+ "metric": "pop_time (сумма живых по шагам)",
+ "full_runs": "вне git: _hourly/polish/drift_*.json",
+ "rows": [
+  {
+   "environment": "no-change",
+   "policy": "score w=0.1",
+   "seed": 1,
+   "pop_time": 78786,
+   "alive_final": 614,
+   "born": 413,
+   "died": 1679,
+   "w_final": 0.1,
+   "artifact": "_hourly/polish/drift_none_w01_seed1.json"
+  },
+  {
+   "environment": "no-change",
+   "policy": "score w=0.1",
+   "seed": 2,
+   "pop_time": 75966,
+   "alive_final": 571,
+   "born": 448,
+   "died": 1808,
+   "w_final": 0.1,
+   "artifact": "_hourly/polish/drift_none_w01_seed2.json"
+  },
+  {
+   "environment": "no-change",
+   "policy": "score w=0.1",
+   "seed": 3,
+   "pop_time": 76588,
+   "alive_final": 569,
+   "born": 489,
+   "died": 1734,
+   "w_final": 0.1,
+   "artifact": "_hourly/polish/drift_none_w01_seed3.json"
+  },
+  {
+   "environment": "sharp-flip-150",
+   "policy": "score w=0.1",
+   "seed": 1,
+   "pop_time": 78581,
+   "alive_final": 601,
+   "born": 411,
+   "died": 1813,
+   "w_final": 0.1,
+   "artifact": "_hourly/polish/drift_flip_w01_seed1.json"
+  },
+  {
+   "environment": "sharp-flip-150",
+   "policy": "score w=0.1",
+   "seed": 2,
+   "pop_time": 77945,
+   "alive_final": 613,
+   "born": 481,
+   "died": 1717,
+   "w_final": 0.1,
+   "artifact": "_hourly/polish/drift_flip_w01_seed2.json"
+  },
+  {
+   "environment": "sharp-flip-150",
+   "policy": "score w=0.1",
+   "seed": 3,
+   "pop_time": 73606,
+   "alive_final": 586,
+   "born": 453,
+   "died": 1823,
+   "w_final": 0.1,
+   "artifact": "_hourly/polish/drift_flip_w01_seed3.json"
+  },
+  {
+   "environment": "smooth-drift-150-210",
+   "policy": "score w=0.1",
+   "seed": 1,
+   "pop_time": 79339,
+   "alive_final": 582,
+   "born": 411,
+   "died": 1609,
+   "w_final": 0.1,
+   "artifact": "_hourly/polish/drift_drift_w01_seed1.json"
+  },
+  {
+   "environment": "smooth-drift-150-210",
+   "policy": "score w=0.1",
+   "seed": 2,
+   "pop_time": 73182,
+   "alive_final": 600,
+   "born": 446,
+   "died": 1724,
+   "w_final": 0.1,
+   "artifact": "_hourly/polish/drift_drift_w01_seed2.json"
+  },
+  {
+   "environment": "smooth-drift-150-210",
+   "policy": "score w=0.1",
+   "seed": 3,
+   "pop_time": 75874,
+   "alive_final": 544,
+   "born": 475,
+   "died": 1723,
+   "w_final": 0.1,
+   "artifact": "_hourly/polish/drift_drift_w01_seed3.json"
+  },
+  {
+   "environment": "no-change",
+   "policy": "learn bandit",
+   "seed": 1,
+   "pop_time": 69144,
+   "alive_final": 554,
+   "born": 484,
+   "died": 1325,
+   "w_final": 0.505147,
+   "artifact": "_hourly/polish/drift_none_bandit_seed1.json"
+  },
+  {
+   "environment": "no-change",
+   "policy": "learn bandit",
+   "seed": 2,
+   "pop_time": 61252,
+   "alive_final": 554,
+   "born": 417,
+   "died": 1124,
+   "w_final": 0.518622,
+   "artifact": "_hourly/polish/drift_none_bandit_seed2.json"
+  },
+  {
+   "environment": "no-change",
+   "policy": "learn bandit",
+   "seed": 3,
+   "pop_time": 67606,
+   "alive_final": 517,
+   "born": 456,
+   "died": 1397,
+   "w_final": 0.508386,
+   "artifact": "_hourly/polish/drift_none_bandit_seed3.json"
+  },
+  {
+   "environment": "sharp-flip-150",
+   "policy": "learn bandit",
+   "seed": 1,
+   "pop_time": 71429,
+   "alive_final": 540,
+   "born": 421,
+   "died": 1648,
+   "w_final": 0.510039,
+   "artifact": "_hourly/polish/drift_flip_bandit_seed1.json"
+  },
+  {
+   "environment": "sharp-flip-150",
+   "policy": "learn bandit",
+   "seed": 2,
+   "pop_time": 69941,
+   "alive_final": 589,
+   "born": 455,
+   "died": 1604,
+   "w_final": 0.525248,
+   "artifact": "_hourly/polish/drift_flip_bandit_seed2.json"
+  },
+  {
+   "environment": "sharp-flip-150",
+   "policy": "learn bandit",
+   "seed": 3,
+   "pop_time": 68128,
+   "alive_final": 547,
+   "born": 536,
+   "died": 1679,
+   "w_final": 0.515134,
+   "artifact": "_hourly/polish/drift_flip_bandit_seed3.json"
+  },
+  {
+   "environment": "smooth-drift-150-210",
+   "policy": "learn bandit",
+   "seed": 1,
+   "pop_time": 75332,
+   "alive_final": 583,
+   "born": 471,
+   "died": 1566,
+   "w_final": 0.51551,
+   "artifact": "_hourly/polish/drift_drift_bandit_seed1.json"
+  },
+  {
+   "environment": "smooth-drift-150-210",
+   "policy": "learn bandit",
+   "seed": 2,
+   "pop_time": 69400,
+   "alive_final": 523,
+   "born": 446,
+   "died": 1504,
+   "w_final": 0.518252,
+   "artifact": "_hourly/polish/drift_drift_bandit_seed2.json"
+  },
+  {
+   "environment": "smooth-drift-150-210",
+   "policy": "learn bandit",
+   "seed": 3,
+   "pop_time": 71029,
+   "alive_final": 536,
+   "born": 497,
+   "died": 1597,
+   "w_final": 0.537669,
+   "artifact": "_hourly/polish/drift_drift_bandit_seed3.json"
+  }
+ ]
+}
