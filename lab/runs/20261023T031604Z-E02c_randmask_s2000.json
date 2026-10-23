@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "run_id": "20261023T031604Z-E02c_randmask_s2000",
+  "experiment": "E02c_randmask_s2000",
+  "experiment_id": "E08_precision_horizon",
+  "arm": null,
+  "seed": null,
+  "steps": null,
+  "status": "finished",
+  "provenance": "runner",
+  "source": "morphogenesis/logs/journal.jsonl",
+  "started_at": "2026-10-23T03:16:05Z",
+  "finished_at": "2026-10-23T03:17:06Z",
+  "git_commit": "c8709fa",
+  "git_dirty": true,
+  "command": [
+    "C:\\Users\\Admin\\Documents\\Qoder\\2026-10-18\\82ab86cd\\repo\\.venv\\Scripts\\python.exe",
+    "../scripts/morphometry.py",
+    "--checkpoint",
+    "checkpoints/E02c_R-9_s2000_seed42_tf32",
+    "--mode",
+    "randmask",
+    "--starts",
+    "8"
+  ],
+  "cwd": "morphogenesis",
+  "owner": "analyst",
+  "environment": {
+    "python": "3.13.11",
+    "platform": "Windows-11-10.0.26300-SP0",
+    "torch": "2.6.0+cu124",
+    "numpy": "2.5.4",
+    "device": "NVIDIA GeForce RTX 3070 Laptop GPU, 595.79"
+  },
+  "checkpoint_in": null,
+  "outputs": {
+    "declared": [
+      "morphogenesis/experiments/E02c_replication/morphometry_E02c_R-9_s2000_seed42_tf32_randmask.json"
+    ],
+    "log": "morphogenesis/logs/20261023T031604Z-E02c_randmask_s2000.log"
+  },
+  "metrics": {},
+  "stop_reason": "exit_0",
+  "exit_code": 0,
+  "log_path": "morphogenesis/logs/20261023T031604Z-E02c_randmask_s2000.log",
+  "notes": "случайная маска плотности эталона для губки"
+}

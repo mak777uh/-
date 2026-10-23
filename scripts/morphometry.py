@@ -346,9 +346,6 @@ def main(argv: list[str] | None = None) -> int:
     return 0
 
 
-if __name__ == "__main__":
-    raise SystemExit(main())
-
 
 # ---------- топология и корреляции маски (перколяционная проверка) ----------
 
@@ -363,8 +360,10 @@ def components_and_holes(mask: np.ndarray) -> dict:
     m = np.asarray(mask).astype(bool)
     if not m.any():
         return {"b0": 0, "b1": 0, "chi": 0, "sizes": [], "hole_sizes": []}
-    body, n_body = ndi.label(m, structure=np.ones((3, 3)))
-    bg, n_bg = ndi.label(~m, structure=np.ones((3, 3)))
+    body, n_body = ndi.label(m, structure=np.ones((3, 3)))          # тело: 8-связность
+    bg, n_bg = ndi.label(~m, structure=np.array([[0, 1, 0],          # фон: 4-связность,
+                                                 [1, 1, 1],          # иначе дырки
+                                                 [0, 1, 0]]))        # «протекают» по диагонали
     # фон, касающийся края, — внешний, а не дырка
     edge_labels = set(bg[0, :]) | set(bg[-1, :]) | set(bg[:, 0]) | set(bg[:, -1])
     edge_labels.discard(0)
@@ -486,3 +485,7 @@ def hole_radial_distribution(mask: np.ndarray, bins: int = 8, max_r: int | None 
     g = [(h / e if e > 0 else float("nan")) for h, e in zip(hist, expected)]
     return {"bins": [float((edges[i] + edges[i + 1]) / 2) for i in range(bins)],
             "g": [float(x) for x in g], "n": int(n)}
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

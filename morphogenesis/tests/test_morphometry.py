@@ -228,3 +228,19 @@ def test_texture_stats_correlation_is_finite_or_nan_not_crash():
     mask[4:12, 4:12] = True
     info = mm.texture_stats(state, mask)   # ровное поле: std=0 -> корреляция nan
     assert info["visible_std_inside"] == 0.0
+
+
+def test_hole_connectivity_is_4_connected():
+    """Фон считается 4-связным: дырка не «протекает» через диагональ.
+
+    С 8-связностью для фона b1 сильно занижается (для struct_2 давало 0 вместо
+    ~1844 по переписи). Стандарт цифровой топологии: тело 8, фон 4.
+    """
+    mask = np.zeros((9, 9), dtype=bool)
+    mask[1:8, 1:8] = True
+    mask[4, 4] = False        # обычная дырка
+    mask[1, 1] = False        # угол вырезан: фон связан с внешним по диагонали
+    info = mm.components_and_holes(mask)
+    assert info["b0"] == 1
+    assert info["b1"] == 1, "угол не должен уничтожать дырку при 4-связном фоне"
+    assert info["chi"] == 0
