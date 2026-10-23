@@ -159,6 +159,8 @@
 | [`morphogenesis/experiments/E02c_replication/topology_by_family.json`](../morphogenesis/experiments/E02c_replication/topology_by_family.json) | other | 5913 | `2bd7359434e75de6b146ca5323b517a56f31200f3ec9d4ee8b26fb22034fa695` |
 | [`morphogenesis/experiments/E09_pond/drift_matrix.json`](../morphogenesis/experiments/E09_pond/drift_matrix.json) | other | 5145 | `6c5992d368035531f46a4b717d71e5de42249f01393a2b05cf86c302d41ac135` |
 | [`morphogenesis/experiments/E09_pond/frequency_matrix.json`](../morphogenesis/experiments/E09_pond/frequency_matrix.json) | other | 16849 | `7fb7d01e66c5b179f519a2af29b6fc0f165dfe2d2f748bd073b4143222b1f46c` |
+| [`morphogenesis/experiments/E09_pond/frequency_matrix_v2.json`](../morphogenesis/experiments/E09_pond/frequency_matrix_v2.json) | other | 22059 | `c8df300ffec91f66e16f57acc2a68b00c16f8b28246438ddae78bd3fc72e8a07` |
+| [`morphogenesis/experiments/E09_pond/frequency_start_control.json`](../morphogenesis/experiments/E09_pond/frequency_start_control.json) | other | 5324 | `3ef1f5b89bc66a47f5ec307fd2967f2078713370cf88aee94199d193faf70e4a` |
 | [`morphogenesis/experiments/E09_pond/invasion_matrix.json`](../morphogenesis/experiments/E09_pond/invasion_matrix.json) | other | 4940 | `bbc11cbf70aa19690c7f9dd4963ab9dde889ef717730172537033d6988d42ba6` |
 | [`morphogenesis/experiments/E09_pond/mobility_matrix.json`](../morphogenesis/experiments/E09_pond/mobility_matrix.json) | other | 11526 | `82b186e9af8678ee255ee5a1824690e72e25c209bd87b9f646b7405c0fecfa85` |
 | [`morphogenesis/experiments/E09_pond/organism_mobility_matrix.json`](../morphogenesis/experiments/E09_pond/organism_mobility_matrix.json) | other | 8974 | `7a607e42018b5a1c567a68114fb528e242460f2a252f0e0af1e00f14a78f300a` |
@@ -186,6 +188,7 @@
 | [`reports/figures/e02b_transition_matrix.png`](../reports/figures/e02b_transition_matrix.png) | figure | 152522 | `81f1b4fe50fd819f45411c31fb737a0c232d9c4f993f5233184c8b276779f5b9` |
 | [`reports/figures/e02c_seed_grid.png`](../reports/figures/e02c_seed_grid.png) | figure | 69503 | `a14f0a6eb28fa0675629e539dc863049d97c3a7ef1914c34ebd7348b5c71776f` |
 <!-- artifacts:end -->
+
 
 
 
