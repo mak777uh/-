@@ -103,6 +103,15 @@ def test_running_manifest_does_not_count_as_finished(tmp_path):
     assert "runs" not in library_wake.check(root, state)
 
 
+def test_experiment_artifact_wakes(tmp_path):
+    root = _tree(tmp_path)
+    state = tmp_path / "state.json"
+    (root / "morphogenesis" / "experiments").mkdir(parents=True)
+    library_wake.check(root, state)
+    (root / "morphogenesis" / "experiments" / "x.json").write_text("{}", encoding="utf-8")
+    assert "experiments" in library_wake.check(root, state)
+
+
 def test_head_alone_is_not_a_wake_reason():
     assert library_wake.is_significant([]) is False
     assert library_wake.is_significant(["head"]) is False

@@ -485,6 +485,41 @@
       },
       "review_at": "2026-11-01",
       "decided_by": "lead"
+    },
+    {
+      "id": "B-014",
+      "type": "known_fact",
+      "target": {
+        "kind": "experiment",
+        "id": "freq_series",
+        "ref": "_hourly/polish/freq_*.json; docs/world-design §10s"
+      },
+      "statement": "Серия freq_* (два типа A/B, ресурс с частотной зависимостью) ставит вопрос, известный в экологии: сосуществование типов. Критерий не «оба выжили», а инвазия: редкий тип должен расти при своей редкости (Chesson 2000); равновесие a_share в soft selection предсказуемо из относительных выгод по зонам (Levene 1953). Иначе заявление «новый механизм сосуществования» переоткрывает частотную зависимость.",
+      "evidence": [
+        {
+          "library": "hypotheses/pond-lineage.md#P15",
+          "note": "критерий инвазии: ниши больше различий приспособленности"
+        },
+        {
+          "library": "hypotheses/pond-lineage.md#P16",
+          "note": "критерий инвазии: ниши больше различий приспособленности"
+        }
+      ],
+      "action": {
+        "kind": "experiment_change",
+        "detail": "добавить инвазионные плечи (5 % A в B и наоборот, 3 сида) и сравнить наблюдённый a_share с предсказанием из выгод по зонам"
+      },
+      "status": "new",
+      "wave": "current",
+      "owner": "librarian",
+      "created_at": "2026-10-23T23:23:00+03:00",
+      "decided_at": null,
+      "why": null,
+      "links": {
+        "insights": [],
+        "tasks": [],
+        "reports": []
+      }
     }
   ],
   "updated_at": "2026-10-23T22:20:00Z"

@@ -13,6 +13,8 @@
 Что отслеживается (только то, что мне действительно нужно):
   journal      — число строк и хеш последней строки канонического журнала;
   runs         — закрытые манифесты lab/runs/*.json (finished/failed/aborted): сколько и последний;
+  polish       — артефакты серий в `_hourly/polish` (вне репозитория): сколько, последний, mtime;
+  experiments  — артефакты в `morphogenesis/experiments/**`: сколько и самый свежий mtime;
   reports      — список файлов и самая поздняя mtime в reports/;
   articles     — то же для articles/;
   manuscript   — версия и число заголовков paper.md (правки разделов);
@@ -78,6 +80,25 @@ def _manuscript(root: pathlib.Path) -> dict:
 
 
 FINISHED_STATUSES = ("finished", "failed", "aborted")
+
+
+def _dir_recursive(path: pathlib.Path, pattern: str = "*") -> dict:
+    """Сколько файлов и самый свежий mtime (рекурсивно) — для артефактов экспериментов и серий."""
+    if not path.exists():
+        return {"count": 0, "max_mtime": 0.0, "latest": None}
+    files = [p for p in path.rglob(pattern) if p.is_file()]
+    if not files:
+        return {"count": 0, "max_mtime": 0.0, "latest": None}
+    latest = max(files, key=lambda p: p.stat().st_mtime)
+    return {
+        "count": len(files),
+        "max_mtime": round(latest.stat().st_mtime, 3),
+        "latest": latest.name,
+    }
+
+
+def _polish(root: pathlib.Path) -> dict:
+    return _dir_recursive(root.parent / "_hourly" / "polish", "*.json")
 
 
 def _runs(root: pathlib.Path) -> dict:
@@ -153,6 +174,8 @@ def fingerprint(root: pathlib.Path) -> dict:
     return {
         "journal": _journal(root),
         "runs": _runs(root),
+        "polish": _polish(root),
+        "experiments": _dir_recursive(root / "morphogenesis" / "experiments"),
         "reports": _dir_state(root / "reports"),
         "articles": _dir_state(root / "articles"),
         "manuscript": _manuscript(root),
