@@ -1627,6 +1627,28 @@ def _board_items() -> list[dict]:
         return []
 
 
+MAX_OPEN_INSIGHTS = 5
+
+
+def validate_insight_cap() -> tuple[list[str], list[str], dict]:
+    """Предел открытых инсайтов: иначе механизм превращается в журнал чтения."""
+    errors: list[str] = []
+    path = ROOT / "lab" / "insights.json"
+    if not path.exists():
+        return errors, [], {}
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError as exc:
+        return [f"lab/insights.json: не JSON ({exc})"], [], {}
+    open_items = [i for i in data.get("items", []) if i.get("status") == "open"]
+    if len(open_items) > MAX_OPEN_INSIGHTS:
+        errors.append(
+            f"lab/insights.json: открытых инсайтов {len(open_items)} > {MAX_OPEN_INSIGHTS} — "
+            "закройте лишние (--apply/--decline) или переведите в пул"
+        )
+    return errors, [], {"open_insights": len(open_items)}
+
+
 def validate_cycle() -> tuple[list[str], list[str], dict]:
     """Проверить цикл-токен: тип, фаза, гипотезы, артефакты, выход prepare и решения доски."""
     errors: list[str] = []
@@ -1755,6 +1777,9 @@ def validate_cycle() -> tuple[list[str], list[str], dict]:
 def validate(ci: bool, strict: bool) -> tuple[list[str], list[str], dict[str, Any]]:
     errors: list[str] = []
     warnings: list[str] = []
+    ins_errors, ins_warnings, ins_counts = validate_insight_cap()
+    errors.extend(ins_errors)
+    warnings.extend(ins_warnings)
     cyc_errors, cyc_warnings, cyc_counts = validate_cycle()
     errors.extend(cyc_errors)
     warnings.extend(cyc_warnings)
