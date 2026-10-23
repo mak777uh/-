@@ -58,6 +58,8 @@ class PondConfig:
     genome_dim: int = 32              # размер генома (для cNCA)
     resource_layout: str = "uniform"  # uniform | gradient | patches
     flip_at: int = 0                  # если > 0: на этом шаге градиент переворачивается
+    drift_at: int = 0                  # если > 0: с этого шага градиент дрейфует
+    drift_steps: int = 0               # за сколько шагов дрейф переворачивает верх и низ
     income_mode: str = "cap"           # cap (min(ресурс, доход)) | proportional (доход*ресурс)
     spore_bias: str = "random"         # random | rich | score | ifd | matching
     w_rich: float = 0.5                # вес ресурса в score (1-w — вес скученности)
@@ -106,6 +108,10 @@ class Pond:
         self.cfg = config or PondConfig()
         self.device = torch.device(device)
         self.gen = torch.Generator(device=self.device).manual_seed(int(seed))
+        # выборки в политиках (рулетка matching) идут с CPU-генератора: многоместный
+        # multinomial на CUDA недетерминирован (atomic-суммы), из-за чего один и тот
+        # же сид давал разные траектории (protocol §18a, I-017).
+        self.gen_sel = torch.Generator(device="cpu").manual_seed(int(seed) * 7919 + 13)
         n = self.cfg.grid
         self._catastrophe_left = 0
         self.w = float(self.cfg.w_rich)
@@ -167,6 +173,26 @@ class Pond:
             return False
         return (self.state.step % cfg.catastrophe_period) < cfg.catastrophe_duration
 
+    def _gradient_position(self) -> torch.Tensor:
+        """Положение потолка градиента по строкам: 1.0 = верх (богато), 0.0 = низ.
+
+        Три режима, из которых берётся первый подходящий:
+        - плавный дрейф (`drift_at`, `drift_steps` > 0): линейная перестановка
+          верха и низа за `drift_steps` шагов начиная с `drift_at`;
+        - резкий переворот (`flip_at`): верх и низ меняются местами за один шаг;
+        - без изменений: верх остаётся верхом.
+        """
+        cfg = self.cfg
+        rows = torch.arange(cfg.grid, device=self.device, dtype=torch.float32)
+        up = 1.0 - rows / max(cfg.grid - 1, 1)
+        if cfg.drift_at and cfg.drift_steps and cfg.drift_steps > 0:
+            progress = (float(self.state.step) - float(cfg.drift_at)) / float(cfg.drift_steps)
+            progress = min(1.0, max(0.0, progress))
+            return (1.0 - progress) * up + progress * (1.0 - up)
+        if cfg.flip_at and self.state.step >= cfg.flip_at:
+            return 1.0 - up
+        return up
+
     def regenerate(self) -> None:
         """Ресурс прибывает с ограниченной скоростью; в катастрофу — падает."""
         cfg = self.cfg
@@ -207,9 +233,7 @@ class Pond:
         # потолок зависит от раскладки: иначе ресурс насыщается везде одинаково
         ceiling = torch.full((cfg.grid, cfg.grid), cfg.resource_max, device=self.device)
         if cfg.resource_layout == "gradient":
-            rows = torch.arange(cfg.grid, device=self.device, dtype=torch.float32)
-            flipped = bool(cfg.flip_at and self.state.step >= cfg.flip_at)
-            position = (1.0 - rows / max(cfg.grid - 1, 1)) if not flipped else (rows / max(cfg.grid - 1, 1))
+            position = self._gradient_position()
             ceiling = ceiling * (0.2 + 0.8 * position)[:, None]
         elif cfg.resource_layout == "patches":
             ceiling = torch.full((cfg.grid, cfg.grid), cfg.resource_max * 0.2, device=self.device)
@@ -497,13 +521,19 @@ class Pond:
             # и рулетка вырождается в равномерную
             top = float(payoff.max()) if payoff.numel() else 0.0
             if top <= 0.0:
-                order = torch.randperm(free.shape[0], generator=self.gen, device=self.device)[:take]
+                order = torch.randperm(
+                    free.shape[0], generator=self.gen_sel
+                ).to(free.device)[:take]
             else:
                 weights = (payoff / top).clamp_min(0.0) ** (1.0 / temp) + 1e-12
-                # рулетка без возвращения: несколько клеток за одно рождение не совпадают
+                # рулетка без возвращения: несколько клеток за одно рождение не совпадают.
+                # Считаем на CPU с явным генератором — иначе прогон невоспроизводим.
                 order = torch.multinomial(
-                    weights, num_samples=min(take, int(free.shape[0])), replacement=False
-                )
+                    weights.detach().float().cpu(),
+                    num_samples=min(take, int(free.shape[0])),
+                    replacement=False,
+                    generator=self.gen_sel,
+                ).to(free.device)
         elif cfg.spore_bias == "score":
             # торг: ресурс против скученности (доля живых в окрестности 3x3)
             res_norm, crowd = self._score_values(free, perceived)

@@ -11,6 +11,7 @@ from __future__ import annotations
 import sys
 from pathlib import Path
 
+import pytest
 import torch
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -373,3 +374,100 @@ def test_sense_noise_does_not_change_income():
         return float(pond.state.energy.sum()) - before
 
     assert abs(one_step(0.0) - one_step(5.0)) < 1e-6
+
+
+# ---------- плавный дрейф среды (I-003) ----------
+
+def _up_down(n: int = 8):
+    up = 1.0 - torch.arange(n, dtype=torch.float32) / (n - 1)
+    return up, 1.0 - up
+
+
+def test_drift_moves_gradient_gradually():
+    pond = Pond(PondConfig(grid=8, resource_layout="gradient",
+                           drift_at=10, drift_steps=10))
+    up, down = _up_down()
+    for step, expected in (
+        (0, up), (10, up), (15, 0.5 * (up + down)), (20, down), (25, down),
+    ):
+        pond.state.step = step
+        assert torch.allclose(pond._gradient_position(), expected, atol=1e-6), step
+
+
+def test_flip_is_one_step_and_drift_takes_priority():
+    up, down = _up_down()
+    pond = Pond(PondConfig(grid=8, resource_layout="gradient", flip_at=10))
+    pond.state.step = 9
+    assert torch.allclose(pond._gradient_position(), up)
+    pond.state.step = 10
+    assert torch.allclose(pond._gradient_position(), down)
+
+    # если заданы оба, дрейф (плавный) важнее: на середине — середина, а не низ
+    both = Pond(PondConfig(grid=8, resource_layout="gradient", flip_at=10,
+                           drift_at=10, drift_steps=10))
+    both.state.step = 15
+    assert torch.allclose(both._gradient_position(), 0.5 * (up + down), atol=1e-6)
+
+
+def test_no_drift_keeps_gradient_static():
+    up, _ = _up_down()
+    pond = Pond(PondConfig(grid=8, resource_layout="gradient", flip_at=0))
+    for step in (0, 50, 500):
+        pond.state.step = step
+        assert torch.allclose(pond._gradient_position(), up)
+
+
+# ---------- детерминизм выборки (protocol §18a, I-017) ----------
+
+def _matching_bud_sequence(seed: int, steps: int = 12):
+    pond = Pond(PondConfig(grid=16, resource_regen=0.02, baseline_income=0.2,
+                           update_cost=0.02, repair_cost=0.02, budding_mass=8,
+                           budding_cost=0.2, spore_cells=2, noise=0.0,
+                           resource_layout="gradient", init_resource_fill=0.9,
+                           spore_bias="matching", matching_temp=1.0), seed=seed)
+    parent = torch.zeros((16, 16), dtype=torch.bool)
+    parent[7:9, 7:9] = True
+    pond.seed_life(parent, energy=8.0)
+    picks = []
+    for _ in range(steps):
+        child = pond.bud(parent)
+        if child is not None:
+            picks.append(tuple(map(tuple, child.nonzero().tolist())))
+        pond.regenerate()
+        pond.step_cells()
+    return picks
+
+
+def test_matching_choices_are_reproducible_for_same_seed():
+    a = _matching_bud_sequence(4)
+    b = _matching_bud_sequence(4)
+    assert a and a == b, "рулетка matching обязана повторяться при том же сиде"
+
+
+def test_matching_choices_differ_for_different_seeds():
+    a = _matching_bud_sequence(4)
+    c = _matching_bud_sequence(5)
+    assert a != c
+
+
+@pytest.mark.skipif(
+    not (MORPH / "checkpoints" / "world_base_rule.pt").is_file(),
+    reason="нет чекпоинта правила (локальный артефакт, в git не едет)",
+)
+def test_matching_pop_time_reproducible_end_to_end():
+    """Два прогона тем же сидом дают одинаковые pop_time и живых (регрессия §18a)."""
+    from world.run_pond import PondRun
+    ckpt = str(MORPH / "checkpoints" / "world_base_rule.pt")
+
+    def one():
+        cfg = PondConfig(
+            grid=16, resource_layout="gradient", income_mode="proportional",
+            init_resource_fill=0.9, baseline_income=0.2, update_cost=0.02,
+            repair_cost=0.02, budding_mass=8, budding_cost=0.2, spore_cells=2,
+            spore_bias="matching", matching_temp=1.0, flip_at=20)
+        run = PondRun(world_cfg=cfg, seed=3, device="cpu", rule_checkpoint=ckpt)
+        run.seed(cells=4, energy=8.0)
+        run.run(40, log_every=40)
+        return int(run.pop_time), int(run.pond.state.alive.sum())
+
+    assert one() == one()
