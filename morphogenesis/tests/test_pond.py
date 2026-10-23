@@ -311,3 +311,65 @@ def test_paired_control_with_zero_delta_does_not_learn():
     assert child is not None and int(child.sum()) == 2
     assert pond._pending == []
     assert pond.w == 0.5
+
+# ---------- шум восприятия ресурса (I-012) ----------
+
+def _sense_pick(seed: int, sigma: float, bias: str = "score", w: float = 0.5):
+    pond = Pond(PondConfig(grid=12, resource_regen=0.0, baseline_income=0.0,
+                           update_cost=0.0, repair_cost=0.0, damage_rate=0.0,
+                           spore_cells=1, noise=0.0, spore_bias=bias, w_rich=w,
+                           sense_noise=sigma), seed=seed)
+    parent = torch.zeros((12, 12), dtype=torch.bool)
+    parent[5:7, 5:7] = True
+    pond.seed_life(parent, energy=10.0)
+    pond.state.resource = torch.zeros((12, 12))
+    pond.state.resource[7, 5] = 1.0
+    pond.state.resource[5, 7] = 0.6
+    pond.state.resource[4, 5] = 0.6
+    pond.state.resource[5, 4] = 0.05
+    child = pond.bud(parent)
+    assert child is not None
+    return pond, child
+
+
+def test_sense_noise_zero_is_identical_to_default():
+    _, a = _sense_pick(5, sigma=0.0)
+    _, b = _sense_pick(5, sigma=0.0)
+    assert bool((a == b).all())
+
+
+def test_sense_noise_changes_choice_sometimes():
+    """При большом σ решение перестаёт быть детерминированным argmax."""
+    picks = set()
+    for seed in range(30):
+        _, child = _sense_pick(seed, sigma=5.0)
+        ys, xs = child.nonzero(as_tuple=True)
+        picks.add((int(ys[0]), int(xs[0])))
+    assert len(picks) > 1, "шум восприятия должен иногда менять выбор клетки"
+
+
+def test_sense_noise_does_not_touch_true_resource_or_budget():
+    """Шум — только в решении: истинный ресурс и энергия не меняются от σ."""
+    p0, _ = _sense_pick(2, sigma=0.0)
+    p5, _ = _sense_pick(2, sigma=5.0)
+    # поле ресурса и сумма энергии те же: bud не тратит ресурс, только переносит энергию
+    assert bool((p0.state.resource == p5.state.resource).all())
+    assert abs(float(p0.state.energy.sum()) - float(p5.state.energy.sum())) < 1e-6
+
+
+def test_sense_noise_does_not_change_income():
+    """Доход считается по истинному ресурсу: при одинаковом состоянии он одинаков."""
+    def one_step(sigma):
+        pond = Pond(PondConfig(grid=8, resource_regen=0.0, baseline_income=0.02,
+                               update_cost=0.0, repair_cost=0.0, damage_rate=0.0,
+                               noise=0.0, income_mode="proportional", sense_noise=sigma),
+                    seed=0)
+        mask = torch.zeros((8, 8), dtype=torch.bool)
+        mask[3:5, 3:5] = True
+        pond.seed_life(mask, energy=5.0)
+        pond.state.resource = torch.full((8, 8), 0.7)
+        before = float(pond.state.energy.sum())
+        pond.step_cells()
+        return float(pond.state.energy.sum()) - before
+
+    assert abs(one_step(0.0) - one_step(5.0)) < 1e-6

@@ -241,6 +241,9 @@ def main(argv: list[str] | None = None) -> int:
                     help="куда выпускать спору: случайно, к богатому, score, IFD или matching")
     ap.add_argument("--matching-temperature", type=float, default=1.0,
                     help="температура политики matching: 1 = пропорционально payoff, <1 ближе к argmax")
+    ap.add_argument("--sense-noise", type=float, default=0.0,
+                    help="σ шума восприятия ресурса: родитель видит resource*(1+σ*N(0,1)), "
+                         "доход и смерть считаются по истинному ресурсу")
     ap.add_argument("--layout", default="uniform",
                     choices=["uniform", "gradient", "patches"], help="структура ресурса")
     args = ap.parse_args(argv)
@@ -262,6 +265,7 @@ def main(argv: list[str] | None = None) -> int:
     world.resource_layout = args.layout
     world.spore_bias = args.spore_bias
     world.matching_temp = args.matching_temperature
+    world.sense_noise = args.sense_noise
     world.w_rich = args.w_rich
     world.learn_w = args.learn_w
     world.learn_rate = args.learn_rate

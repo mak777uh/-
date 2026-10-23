@@ -68,6 +68,7 @@ class PondConfig:
     learn_noise: float = 0.05          # разброс пробного веса потомка
     learn_pair_noise: float = 0.2      # δ в парном режиме: w' = w ± δ
     matching_temp: float = 1.0         # температура политики matching (1 = без неё)
+    sense_noise: float = 0.0           # σ шума восприятия ресурса при выборе клетки
     learn_window: int = 30             # окно оценки для обучения колонии
     init_resource_fill: float = 0.0     # 0..1: доля потолка, до которой поле заполнено на старте
     membrane_gated: bool = False      # обмен гейтируется мембраной (замыкание)
@@ -386,12 +387,29 @@ class Pond:
                 buds.append(mask)
         return buds
 
-    def _score_values(self, free: torch.Tensor) -> tuple[torch.Tensor, torch.Tensor]:
+    def _perceived_resource(self) -> torch.Tensor:
+        """Что родитель *видит* как ресурс: истинное поле плюс шум восприятия (σ).
+
+        Истинный `state.resource` не меняется: доход и смерть считаются по нему,
+        шум живёт только в решении, куда поставить спору (I-012).
+        """
+        sigma = float(self.cfg.sense_noise)
+        if sigma <= 0.0:
+            return self.state.resource
+        n = self.cfg.grid
+        noise = torch.randn((n, n), generator=self.gen, device=self.device)
+        return torch.clamp(
+            self.state.resource * (1.0 + sigma * noise), min=0.0, max=self.cfg.resource_max
+        )
+
+    def _score_values(self, free: torch.Tensor,
+                      resource: torch.Tensor | None = None) -> tuple[torch.Tensor, torch.Tensor]:
         """Для свободных клеток: нормированный ресурс и скученность в окрестности 3x3."""
         s = self.state
         cfg = self.cfg
+        field = self._perceived_resource() if resource is None else resource
         ys, xs = free[:, 0], free[:, 1]
-        res_norm = s.resource[ys, xs] / max(cfg.resource_max, 1e-9)
+        res_norm = field[ys, xs] / max(cfg.resource_max, 1e-9)
         padded = torch.zeros((cfg.grid + 2, cfg.grid + 2), device=self.device)
         padded[1:-1, 1:-1] = s.alive.float()
         crowd = torch.zeros(free.shape[0], device=self.device)
@@ -419,6 +437,7 @@ class Pond:
             s.spores_blocked += 1
             return None
         take = min(int(cfg.spore_cells), int(free.shape[0]))
+        perceived = self._perceived_resource()  # шум восприятия (σ=0 -> истинный ресурс)
         paired = None
         if cfg.learn_w and cfg.learn_mode == "paired" and cfg.spore_bias == "score":
             # (1+1)-ES на парных образцах: тот же родитель, тот же шаг, две клетки —
@@ -429,7 +448,7 @@ class Pond:
             sign = 1.0 if self._pair_trials % 2 == 0 else -1.0
             self._pair_trials += 1
             w_b = min(1.0, max(0.0, w_a + sign * float(cfg.learn_pair_noise)))
-            res_norm, crowd = self._score_values(free)
+            res_norm, crowd = self._score_values(free, perceived)
             score_a = w_a * res_norm - (1.0 - w_a) * crowd
             score_b = w_b * res_norm - (1.0 - w_b) * crowd
             idx_a = int(torch.argmax(score_a))
@@ -446,7 +465,7 @@ class Pond:
             # идеальное свободное распределение: подушевая отдача в окрестности 3x3
             ys, xs = free[:, 0], free[:, 1]
             padded_res = torch.zeros((cfg.grid + 2, cfg.grid + 2), device=self.device)
-            padded_res[1:-1, 1:-1] = s.resource
+            padded_res[1:-1, 1:-1] = perceived
             padded_alive = torch.zeros((cfg.grid + 2, cfg.grid + 2), device=self.device)
             padded_alive[1:-1, 1:-1] = s.alive.float()
             res_local = torch.zeros(free.shape[0], device=self.device)
@@ -463,7 +482,7 @@ class Pond:
             # локально оптимален и глобально субоптимален (Herrnstein & Vaughan).
             ys, xs = free[:, 0], free[:, 1]
             padded_res = torch.zeros((cfg.grid + 2, cfg.grid + 2), device=self.device)
-            padded_res[1:-1, 1:-1] = s.resource
+            padded_res[1:-1, 1:-1] = perceived
             padded_alive = torch.zeros((cfg.grid + 2, cfg.grid + 2), device=self.device)
             padded_alive[1:-1, 1:-1] = s.alive.float()
             res_local = torch.zeros(free.shape[0], device=self.device)
@@ -487,13 +506,13 @@ class Pond:
                 )
         elif cfg.spore_bias == "score":
             # торг: ресурс против скученности (доля живых в окрестности 3x3)
-            res_norm, crowd = self._score_values(free)
+            res_norm, crowd = self._score_values(free, perceived)
             parent_w = float(self.state.w_cell[parent].mean()) if self.state.w_cell is not None else self.w
             score = parent_w * res_norm - (1.0 - parent_w) * crowd
             order = torch.argsort(score, descending=True)[:take]
         elif cfg.spore_bias == "rich":
             # поведение: потомок идёт в свободную клетку с наибольшим ресурсом
-            values = s.resource[free[:, 0], free[:, 1]]
+            values = perceived[free[:, 0], free[:, 1]]
             order = torch.argsort(values, descending=True)[:take]
         else:
             order = torch.randperm(free.shape[0], generator=self.gen, device=self.device)[:take]
