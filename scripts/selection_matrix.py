@@ -152,6 +152,35 @@ def analyse(path: Path) -> dict | None:
         "pop_time": summary.get("pop_time"),
         "alive_final": (summary.get("final") or {}).get("alive_cells"),
     }
+    # СЫРЫЕ (ungated) значения: считаются всегда, даже если прогон невалиден по метрике.
+    # §2/§6b: число, названное в §-разделе, обязано быть в артефакте, а не в памяти.
+    raw_manip = [(float(traits[t]), float(invested_map[str(t).lstrip("T")])
+                  / max(1, int(counts_map.get(str(t).lstrip("T"), 0))))
+                 for t in traits
+                 if str(t).lstrip("T") in invested_map
+                 and int(counts_map.get(str(t).lstrip("T"), 0)) > 0
+                 and float(invested_map[str(t).lstrip("T")]) > 0]
+    raw_rho = spearman(raw_manip)
+    raw_ws = [float(spores_map.get(str(t).lstrip("T"), 0))
+              / max(1, int(counts_map.get(str(t).lstrip("T"), 0)))
+              for t in traits if int(counts_map.get(str(t).lstrip("T"), 0)) >= MIN_CELLS]
+    raw_I = None
+    if raw_ws:
+        mean_w = sum(raw_ws) / len(raw_ws)
+        if mean_w > 0:
+            raw_I = round(statistics.pvariance(raw_ws) / (mean_w * mean_w), 4)
+    row["raw"] = {
+        "manipulation_rho": round(raw_rho, 3) if raw_rho is not None else None,
+        "manipulation_n": len(raw_manip),
+        "crow_I": raw_I,
+        "lineages_with_cells": sum(1 for t in traits
+                                   if int(counts_map.get(str(t).lstrip("T"), 0)) >= MIN_CELLS),
+        "lineages_with_cells_and_spores": len(pairs),
+        "spores_total": int(sum(float(v) for v in spores_map.values())) if spores_map else 0,
+        "spores_lineages": len(spores_map) if spores_map else 0,
+        "tags_total": len(traits),
+        "note": "сырые значения считаются без гейта валидности: они описывают, ЧТО есть, а не то, можно ли считать rho",
+    }
     if len(pairs) < MIN_LINEAGES:
         row["valid_metric"] = False
         row["invalid_reason"] = (f"линий с >= {MIN_SPORES} спорами {len(pairs)} < {MIN_LINEAGES} "
