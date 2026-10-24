@@ -22,7 +22,7 @@ import re
 import statistics
 from pathlib import Path
 
-NAME = re.compile(r"v8_(?P<arm>[a-z0-9_]+?)_seed(?P<seed>\d+)\.json$")
+NAME = re.compile(r"(?:v8|mergekeep)_(?P<arm>[a-z0-9_]+?)_seed(?P<seed>\d+)\.json$")
 ARMS = ("into_resident_majority", "into_resident_weighted", "into_gap_majority",
         "into_gap_weighted", "resident_free", "propagule20_gap_weighted")
 
@@ -95,7 +95,9 @@ def analyse(path: Path) -> dict | None:
 
 def by_arm(rows: list[dict]) -> list[dict]:
     out = []
-    for arm in ARMS:
+    present = {r["arm"] for r in rows}
+    arms = [a for a in ARMS if a in present] or sorted(present)
+    for arm in arms:
         group = [r for r in rows if r["arm"] == arm]
         if not group:
             continue
@@ -171,6 +173,7 @@ def main(argv=None) -> int:
         "rows": rows,
         "by_arm": table,
         "criteria": criteria(table),
+        "arms": sorted({r["arm"] for r in rows}),
         "provenance": {
             "code_commits": sorted(code_commits),
             "head_commits": sorted(head_commits),
