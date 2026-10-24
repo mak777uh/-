@@ -4,7 +4,7 @@
 
 | id | вопрос | статус | дата | заметка |
 | --- | --- | --- | --- | --- |
-| Q1 | Does niche construction pay off only above an energy-surplus threshold? | open | — | B2/surplus: гипотеза порога доступности |
+| Q1 | Does niche construction pay off only above an energy-surplus threshold? | searched-1 | 2026-10-24 | P43/P44 (NC3: construction/choice/conformance); запрос через OpenAlex |
 | Q2 | How is differentiable logic gate discretization validated against the discrete model? | searched-1 | 2026-10-24 | P42: Miotti 2025 (DiffLogic CA) |
 | Q3 | How to separate affordance from adaptation operationally in embodied agents? | open | — | три случая affordance в линии |
 | Q4 | Neutral marker fixation times in growing spatial cellular automata | open | — | voter на растущей колонии (B-019/H51) |

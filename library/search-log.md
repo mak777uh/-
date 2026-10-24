@@ -25,6 +25,8 @@
 | 2026-10-24 | differentiable cellular automata reproduce discrete dynamics | 6 | 0 | не подошли; для A-gate хватает Petersen 2022/2024 + PyTorchFire |
 | 2026-10-24 | ecosystem engineering experimental manipulation fitness | 6 | 0 | не подошли (поиск ушёл в «fitness» как спортзал); хватает P39–P41 |
 | 2026-10-24 | arXiv: differentiable logic cellular automata | 1 | 1 | P42 (Miotti 2025) — ключ к A-gate |
+| 2026-10-24 | OpenAlex: niche construction fitness benefit model quantitative | 3 | 2 | P43 (Trappes 2022, NC3), P44 (Constant 2018) |
+| 2026-10-24 | Crossref: "does niche construction pay off..." | 6 | 0 | запрос через «pay off» ушёл в экономику — урок: формулировать научными терминами |
 
 ## Как вести
 
