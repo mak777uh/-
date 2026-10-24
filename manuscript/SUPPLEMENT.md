@@ -240,6 +240,10 @@
 | [`morphogenesis/experiments/E09_pond/colinv4_fd10_AinvB_inherit_n5_seed8.json`](../morphogenesis/experiments/E09_pond/colinv4_fd10_AinvB_inherit_n5_seed8.json) | other | 166550 | `012fbae09ac18568879df62d6b4268dc51f06d996912ce2b2b56de573bf38ecb` |
 | [`morphogenesis/experiments/E09_pond/colinv4_fd10_AinvB_inherit_n5_seed9.json`](../morphogenesis/experiments/E09_pond/colinv4_fd10_AinvB_inherit_n5_seed9.json) | other | 166492 | `c52235e330b1f219404a80c1c5a9332346b9881c01dfe073d4d18f7d764c0688` |
 | [`morphogenesis/experiments/E09_pond/colony_type_matrix.json`](../morphogenesis/experiments/E09_pond/colony_type_matrix.json) | other | 13012 | `c8497ce4b6e5520f1ac26669db9c52a655e9d8bf9ab0eae5adb1362eda2ef5fe` |
+| [`morphogenesis/experiments/E09_pond/diag_ignition_base.json`](../morphogenesis/experiments/E09_pond/diag_ignition_base.json) | other | 128332 | `b18a23673e15e8bb455726c9fc8a886995ffc567db0afc3c6e946b786dddfc7f` |
+| [`morphogenesis/experiments/E09_pond/diag_ignition_gate.json`](../morphogenesis/experiments/E09_pond/diag_ignition_gate.json) | other | 112669 | `d077adf2a67087d6fd806f28173d637579a8718a47ad206ae9bc20825650fc00` |
+| [`morphogenesis/experiments/E09_pond/diag_ignition_nofill.json`](../morphogenesis/experiments/E09_pond/diag_ignition_nofill.json) | other | 126844 | `fd7a22b2d9fea04791a7737f297decc7f0d63e873085693768e3fa5c865f3090` |
+| [`morphogenesis/experiments/E09_pond/diag_ignition_noincome.json`](../morphogenesis/experiments/E09_pond/diag_ignition_noincome.json) | other | 117172 | `edf7d2eb084f907d6bde547d73f1c13080c4f2482ee2276d71cf70a255c4b295` |
 | [`morphogenesis/experiments/E09_pond/drift_matrix.json`](../morphogenesis/experiments/E09_pond/drift_matrix.json) | other | 4939 | `8757b3d3aabc61e1511e63f97a7afda79a2b28089b167c0542a01377477a739e` |
 | [`morphogenesis/experiments/E09_pond/frequency_matrix.json`](../morphogenesis/experiments/E09_pond/frequency_matrix.json) | other | 16139 | `edf3f4fec02d2208867102d1d6d6e5b46b4749f0558061c1eff90a23367f4e3f` |
 | [`morphogenesis/experiments/E09_pond/frequency_matrix_v2.json`](../morphogenesis/experiments/E09_pond/frequency_matrix_v2.json) | other | 21150 | `1dd28d144e5c7af6e065942d4acd595762829370cb92a0e1d41b78b61a1d2c28` |
@@ -382,6 +386,7 @@
 | [`reports/figures/e02b_transition_matrix.png`](../reports/figures/e02b_transition_matrix.png) | figure | 152522 | `81f1b4fe50fd819f45411c31fb737a0c232d9c4f993f5233184c8b276779f5b9` |
 | [`reports/figures/e02c_seed_grid.png`](../reports/figures/e02c_seed_grid.png) | figure | 69503 | `a14f0a6eb28fa0675629e539dc863049d97c3a7ef1914c34ebd7348b5c71776f` |
 <!-- artifacts:end -->
+
 
 
 

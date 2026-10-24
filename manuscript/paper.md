@@ -569,7 +569,7 @@ trait родителя + N(0, 0.01). Признак нигде не читает
 m = 0 проверен бит-в-бит против эталона — значит серия однородна по коду.
 
 **Доказательства.** `morphogenesis/experiments/E09_pond/mutation_matrix.json` (15 строк,
-`aggregate_check` — 0 ошибок), `docs/world-design.md` §10ad.
+`aggregate_check` — 0 ошибок), `docs/world-design.md`, раздел 10ad.
 
 ## 5. Методологические находки
 
