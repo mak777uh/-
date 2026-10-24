@@ -1,13 +1,9 @@
-"""Экологическое наследование: сколько живёт поднятый ресурс после удаления организмов.
+"""Экологическое наследование B2 (исправленная версия).
 
-Зачем (B2): ниша — это изменение среды, которое переживает своего строителя.
-Меряем: (1) избыток ресурса против абиотического контроля в конце прогона;
-(2) время полураспада этого избытка, если организмы убрать и оставить только
-динамику среды.
-
-Запуск:
-    python world/inheritance_probe.py --env uniform --invest-mode learn \
-        --invest-rate 0.02 --seeds 1 2 3 --steps 300 --decay 120
+Сравниваем НЕ с абиотическим полем (организмы потребляют ресурс, и разница всегда
+отрицательна), а с КОНТРОЛЕМ без строительства при том же сиде. Тогда:
+  избыток = поле(строительство) − поле(контроль),
+  полураспад = сколько шагов живёт этот избыток, если организмы убрать.
 """
 from __future__ import annotations
 
@@ -25,7 +21,6 @@ if _MORPH not in sys.path:
 from world.pond import Pond, PondConfig  # noqa: E402
 from world.run_pond import PondRun  # noqa: E402
 
-
 ENVS = {
     "uniform": dict(resource_layout="uniform"),
     "patches": dict(resource_layout="patches"),
@@ -42,40 +37,35 @@ def make_cfg(env: str, invest_rate: float, invest_mode: str) -> PondConfig:
     return PondConfig(**base)
 
 
-def resource_field_after_organisms(cfg: PondConfig, steps: int, seed: int, device: str,
-                                   checkpoint: str) -> torch.Tensor:
+def field_after(cfg: PondConfig, steps: int, seed: int, device: str,
+                checkpoint: str) -> torch.Tensor:
     run = PondRun(world_cfg=cfg, seed=seed, device=device, rule_checkpoint=checkpoint)
     run.seed(cells=4, energy=8.0)
     run.run(steps, log_every=steps)
     return run.pond.state.resource.detach().clone()
 
 
-def abiotic_field(cfg: PondConfig, steps: int, seed: int, device: str) -> torch.Tensor:
-    pond = Pond(cfg, device=device, seed=seed)
-    for _ in range(steps):
-        pond.state.step += 1
-        pond.regenerate()
-    return pond.state.resource.detach().clone()
-
-
-def decay_half_life(field: torch.Tensor, abiotic_end: torch.Tensor, cfg: PondConfig,
-                    seed: int, device: str, steps: int) -> tuple[int | None, list[float]]:
-    """Полураспад избытка ресурса при выключенных организмах."""
-    pond = Pond(cfg, device=device, seed=seed)
-    pond.state.resource = field.clone()
-    pond.state.step = steps
-    excess0 = float((field - abiotic_end).clamp_min(0.0).sum())
-    if excess0 <= 1e-6:
+def decay_half_life(built: torch.Tensor, control: torch.Tensor, cfg: PondConfig,
+                    seed: int, device: str, steps: int, start_step: int) -> tuple:
+    pa = Pond(cfg, device=device, seed=seed)
+    pb = Pond(cfg, device=device, seed=seed)
+    pa.state.resource = built.clone()
+    pb.state.resource = control.clone()
+    pa.state.step = start_step
+    pb.state.step = start_step
+    diff0 = float((pa.state.resource - pb.state.resource).abs().mean())
+    if diff0 <= 1e-9:
         return None, []
     series = []
     half = None
     for k in range(steps):
-        pond.state.step += 1
-        pond.regenerate()
-        # абиотический контроль той же длины: регенерация без организмов
-        cur = float((pond.state.resource - abiotic_end).clamp_min(0.0).sum())
-        series.append(round(cur / excess0, 4))
-        if half is None and cur <= excess0 / 2:
+        pa.state.step += 1
+        pb.state.step += 1
+        pa.regenerate()
+        pb.regenerate()
+        cur = float((pa.state.resource - pb.state.resource).abs().mean()) / diff0
+        series.append(round(cur, 4))
+        if half is None and cur <= 0.5:
             half = k + 1
     return half, series
 
@@ -84,7 +74,7 @@ def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("--env", default="uniform", choices=list(ENVS))
     ap.add_argument("--invest-rate", type=float, default=0.02)
-    ap.add_argument("--invest-mode", default="learn", choices=["fixed", "learn", "none"])
+    ap.add_argument("--invest-mode", default="fixed", choices=["fixed", "surplus"])
     ap.add_argument("--steps", type=int, default=300)
     ap.add_argument("--decay", type=int, default=120)
     ap.add_argument("--seeds", type=int, nargs="+", default=[1, 2, 3])
@@ -95,13 +85,15 @@ def main(argv: list[str] | None = None) -> int:
 
     rows = []
     for seed in args.seeds:
-        cfg = make_cfg(args.env, args.invest_rate, args.invest_mode)
-        with_org = resource_field_after_organisms(cfg, args.steps, seed, args.device, args.checkpoint)
-        abiotic = abiotic_field(cfg, args.steps, seed, args.device)
-        excess = float((with_org - abiotic).clamp_min(0.0).sum())
-        half, series = decay_half_life(with_org, abiotic, cfg, seed, args.device, args.decay)
-        rows.append({"env": args.env, "seed": seed, "invest_mode": args.invest_mode,
-                     "excess_end": round(excess, 3), "half_life_steps": half,
+        cfg_build = make_cfg(args.env, args.invest_rate, args.invest_mode)
+        cfg_ctrl = make_cfg(args.env, 0.0, "none")
+        built = field_after(cfg_build, args.steps, seed, args.device, args.checkpoint)
+        control = field_after(cfg_ctrl, args.steps, seed, args.device, args.checkpoint)
+        diff = float((built - control).abs().mean())
+        half, series = decay_half_life(built, control, cfg_build, seed, args.device,
+                                       args.decay, args.steps)
+        rows.append({"env": args.env, "seed": seed, "mode": args.invest_mode,
+                     "excess_mean_abs": round(diff, 6), "half_life_steps": half,
                      "decay": series[:20]})
     payload = {"env": args.env, "invest_mode": args.invest_mode,
                "invest_rate": args.invest_rate, "rows": rows}

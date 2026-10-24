@@ -466,10 +466,29 @@ def main(argv: list[str] | None = None) -> int:
                   rule_checkpoint=args.rule_checkpoint)
     run.snapshot_every = args.snapshot_every
     run.update_probability = args.update_probability
-    if not args.abiotic:
-        run.seed(cells=4, energy=8.0)
-    else:
-        run.run.__self__ if False else None
+    if args.abiotic:
+        # контроль «среда без организмов»: гоняем только бюджет среды, без правила
+        # (иначе обученное правило самопроизвольно зажигает клетки из нулевого поля)
+        from world.pond import Pond
+        pond = Pond(world, device=args.device, seed=args.seed)
+        for _ in range(args.steps):
+            pond.state.step += 1
+            pond.regenerate()
+        summary = {
+            "steps": args.steps,
+            "abiotic": True,
+            "resource_mean": round(float(pond.state.resource.mean()), 5),
+            "resource_max_field": round(float(pond.state.resource.max()), 5),
+            "resource_total": round(float(pond.state.resource.sum()), 3),
+            "final": {"alive_cells": 0, "born": 0, "died": 0},
+            "pop_time": 0,
+        }
+        print(json.dumps(summary, ensure_ascii=False, indent=2))
+        if args.out:
+            with open(args.out, "w", encoding="utf-8") as fh:
+                json.dump({"summary": summary, "log": []}, fh, ensure_ascii=False, indent=2)
+        return 0
+    run.seed(cells=4, energy=8.0)
     summary = run.run(args.steps, log_every=max(1, args.steps // 10))
     summary["clonal_attached"] = run.clonal_attached
     summary["clonal_separate"] = run.clonal_separate
@@ -488,6 +507,7 @@ def main(argv: list[str] | None = None) -> int:
     summary["plastic_updates"] = int(getattr(run.pond, "plastic_updates", 0))
     summary["invested_energy"] = round(float(getattr(run.pond, "invested_energy", 0.0)), 3)
     summary["invest_updates"] = int(getattr(run.pond, "invest_updates", 0))
+    summary["thr_series"] = getattr(run.pond, "thr_series", [])[:20]
     im, inc = getattr(run.pond, "invest_map", None), getattr(run.pond, "income_map", None)
     if im is not None and inc is not None:
         m = im > 1e-6

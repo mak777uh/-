@@ -153,6 +153,7 @@ class Pond:
         self.invest_map: torch.Tensor | None = None
         self.thr_e: torch.Tensor | None = None
         self.invest_updates = 0
+        self.thr_series: list[float] = []
         self.income_map: torch.Tensor | None = None
         self.thr: torch.Tensor | None = None
         self.learn_history: list[float] = []
@@ -427,6 +428,8 @@ class Pond:
             s.resource = torch.minimum(s.resource + gain, torch.full_like(s.resource, cfg.resource_max))
             self.invested_energy += float(spend.sum())
             self.invest_updates += int((spend > 1e-9).sum())
+            if int(s.step) % 20 == 0 and bool(alive.any()):
+                self.thr_series.append(round(float(self.thr_e[alive].mean()), 4))
 
         # мембрана: распад и восстановление за энергию — только в режиме замыкания
         if cfg.membrane_gated:
