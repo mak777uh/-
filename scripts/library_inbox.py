@@ -61,6 +61,40 @@ def changed_since(sha: str) -> list[str]:
     return [line for line in out.splitlines() if line.startswith(WATCHED)]
 
 
+READABLE = (
+    "library/answers.md",
+    "library/lit-questions.md",
+    "library/search-log.md",
+    "library/synthesis/",
+    "library/hypotheses/",
+)
+
+
+def new_sections(sha: str) -> list[str]:
+    """Заголовки, добавленные в читаемые файлы библиотеки после отметки."""
+    if not sha:
+        return []
+    try:
+        out = subprocess.run(
+            ["git", "-C", str(ROOT), "diff", f"{sha}..HEAD", "--no-color", "--"]
+            + [p for p in ("library",)],
+            capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=60,
+        )
+    except (OSError, subprocess.SubprocessError):
+        return []
+    sections: list[str] = []
+    current_file = ""
+    for line in out.stdout.splitlines():
+        if line.startswith("+++ b/"):
+            current_file = line[6:]
+            continue
+        if line.startswith("+#") and any(current_file.startswith(p) for p in READABLE):
+            title = line[1:].strip()
+            if title and title not in sections:
+                sections.append(title)
+    return sections
+
+
 def board_new() -> list[dict]:
     path = ROOT / "lab" / "lit-board.json"
     try:
@@ -96,6 +130,7 @@ def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("--ack", action="store_true", help="отметить прочитанным до HEAD")
     ap.add_argument("--ci", action="store_true", help="код 1, если есть new старше 1 дня")
+    ap.add_argument("--force", action="store_true", help="отметить прочитанным без проверки разделов")
     args = ap.parse_args(argv)
 
     state = load_state()
@@ -103,12 +138,21 @@ def main(argv: list[str] | None = None) -> int:
     head = git("rev-parse", "--short", "HEAD")
 
     files = changed_since(seen)
+    readable = [f for f in files if any(f.startswith(p) for p in READABLE)]
     print(f"библиотека прочитана до: {seen or '—'} | сейчас: {head}")
-    print(f"изменённых файлов библиотеки после отметки: {len(files)}")
+    print(f"изменённых файлов библиотеки после отметки: {len(files)} "
+          f"(читаемых: {len(readable)})")
     for name in files[:12]:
         print(f"  · {name}")
     if len(files) > 12:
         print(f"  · … ещё {len(files) - 12}")
+
+    sections = new_sections(seen)
+    print(f"\nнепрочитанных новых разделов: {len(sections)}")
+    for title in sections[:20]:
+        print(f"  → {title}")
+    if len(sections) > 20:
+        print(f"  → … ещё {len(sections) - 20}")
 
     news = board_new()
     print(f"\nзамечаний доски со статусом new: {len(news)}")
@@ -134,6 +178,10 @@ def main(argv: list[str] | None = None) -> int:
         print(f"  · {item.get('id')}: {(item.get('insight') or '')[:70]}")
 
     if args.ack:
+        if sections and not args.force:
+            print(f"\nОТКАЗ: {len(sections)} новых разделов не отмечены как прочитанные. "
+                  "Прочитайте их и передайте --force, если уверены.")
+            return 1
         state["read_sha"] = head
         state["read_at"] = datetime.now(timezone.utc).isoformat(timespec="seconds")
         STATE.parent.mkdir(exist_ok=True)
