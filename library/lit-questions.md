@@ -11,7 +11,7 @@
 | Q5 | Differential mortality versus disturbance in removing priority effects | searched-1 | 2026-10-24 | P47 Song 2020 (структура возмущения), P48 Laloux 2026 (response diversity) |
 | Q6 | Measuring ecological inheritance half-life after organism removal | searched-1 | 2026-10-24 | P49 Harris & Byers 2026 (legacy vs live), P50 Grove 2015 (persistence after removal) |
 | Q7 | How are negative results reported in artificial life venues and formats? | searched-1 | 2026-10-24 | отдельного ALife-трека нет; форматы: ALIFE/ArtLife, ReScience C, registered reports, workshops (audit/publishing-practice.md) |
-| Q8 | Generalist versus specialist performance across heterogeneous environments | open | — | L0-генералист (B-025/H56) |
+| Q8 | Generalist versus specialist performance across heterogeneous environments | searched-1 | 2026-10-24 | P51 Hughes 2023 (генералист/специалист: 2 vs 4 среды); mapping NC3 исправлен (L2 = choice) |
 | Q9 | Experiments separating "plasticity does not pay" from "plasticity assimilated" | open | — | Baldwin/ассимиляция (Baldwin 1896; Crispo 2007) |
 | Q10 | Two-pool resource switching versus frequency dependence: distinguishing experiments | open | — | switching vs fd (H54) |
 

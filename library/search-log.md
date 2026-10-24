@@ -37,6 +37,7 @@
 | 2026-10-24 | measuring ecological inheritance half-life | 6 | 0 | запрос ушёл в физику/радиоэкологию; лучше через legacy effects |
 | 2026-10-24 | negative results publication bias across disciplines | 6 | 2 | audit/publishing-practice.md (Mlinarić 2017, Ioannidis 2023) |
 | 2026-10-24 | OpenAlex: negative results artificial life publication | 3 | 0 | отдельного ALife-трека не нашлось — зафиксировано как вывод |
+| 2026-10-24 | generalist versus specialist heterogeneous environments | 6 | 1 | P51 (Hughes 2023, камуфляж 2 vs 4 фона) |
 
 ## Как вести
 
