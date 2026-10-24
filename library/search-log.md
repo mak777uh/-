@@ -59,6 +59,8 @@
 | 2026-10-24 | robustness and evolvability a paradox resolved | 3 | 1 | P62 (Wagner 2007) |
 | 2026-10-24 | performance and robustness trade-offs | 6 | 1 | P63 (Trivellin 2023, дрожжи) |
 | 2026-10-24 | preregistration computational experiments | 2 | 1 | Nosek 2018 PNAS; Registered Reports — published DOI (уточнение) |
+| 2026-10-24 | interval estimation binomial proportion small sample | 1 | 1 | P64 (Brown, Cai & DasGupta 2001) |
+| 2026-10-24 | tag-based inheritance in cellular automata | 6 | 0 | ушло в шифрование/QC; реализуем сами по P59 |
 
 ## Как вести
 
