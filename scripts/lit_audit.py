@@ -86,7 +86,9 @@ def fetch(doi: str) -> tuple[dict | None, str | None]:
 def title_of(payload: dict, doi: str) -> str:
     if doi.startswith("10.48550/"):
         attrs = (payload.get("data") or {}).get("attributes") or {}
-        return " ".join(attrs.get("titles") or [])
+        titles = attrs.get("titles") or []
+        parts = [t.get("title", "") if isinstance(t, dict) else str(t) for t in titles]
+        return " ".join(p for p in parts if p)
     msg = payload.get("message") or {}
     parts = list(msg.get("title") or []) + list(msg.get("subtitle") or [])
     return " ".join(parts)
@@ -114,7 +116,7 @@ def main(argv: list[str] | None = None) -> int:
         link_title = ""
         for path in found[doi]:
             text = io.open(path, encoding="utf-8", errors="ignore").read()
-            url = re.escape("https://doi.org/" + doi)
+            url = re.escape("https://doi.org/" + doi) + r"(?=[)\s]|$)"
             # сначала жирный заголовок (наш формат **[Title](url)**), иначе — обычная ссылка,
             # но не подпись-цитата вида «Автор, 2020, Журнал»
             m = re.search(r"\*\*\[([^\]]+)\]\(" + url, text)
@@ -122,7 +124,9 @@ def main(argv: list[str] | None = None) -> int:
                 m = re.search(r"\[([^\]]+)\]\(" + url, text)
             if m:
                 candidate = m.group(1)
-                if re.search(r"(19|20)\d{2}", candidate) or "et al" in candidate or candidate.count(",") >= 1:
+                if (re.search(r"(19|20)\d{2}", candidate) or "et al" in candidate
+                        or candidate.count(",") >= 1 or re.match(r"^(10\.|DOI|с\.)", candidate)
+                        or candidate in {"Оригинал", "Источник", "PDF", "текст", "статья"}):
                     continue
                 link_title = candidate
                 break
