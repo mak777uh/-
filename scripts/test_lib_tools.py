@@ -340,6 +340,7 @@ def test_lit_pressure(tmp: Path) -> None:
     res2 = run("scripts/lit_pressure.py", "--threshold", "99", "--json", str(out2))
     data2 = json.loads(out2.read_text(encoding="utf-8"))
     check("lit_pressure: при высоком пороге слот не нужен", data2["need"] is False, str(data2)[:200])
+    check("lit_pressure: сигнал заданий учтён", "assignments_open" in data, str(data)[:200])
     check("lit_pressure: код возврата отражает вердикт",
           (res.returncode == 1) == data["need"] and (res2.returncode == 0) == (not data2["need"]),
           f"{res.returncode}/{res2.returncode}")

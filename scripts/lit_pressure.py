@@ -77,6 +77,43 @@ def open_lit_items() -> list[str]:
     return [i["id"] for i in items if i.get("kind") == "lit" and i.get("status") != "done"]
 
 
+def unanswered_assignments(hours: int = 24) -> int:
+    """Задания библиотекарю (из notices), после которых я ещё ничего не написал.
+
+    Прокси «не отвечено»: блок с адресатом «библиотекарю» и словами про литературу, после которого
+    нет ни одного моего блока. Если мой блок идёт следом — считаем, что задание отработано.
+    """
+    path = REPO / "lab" / "notices.md"
+    if not path.exists():
+        return 0
+    keywords = ("задани", "найти", "найди", "проверь", "проверить", "литератур", "doi",
+                "источник", "прецедент", "канон", "обзор")
+    cutoff = datetime.now() - timedelta(hours=hours)
+    blocks, current, is_mine, is_task = [], None, False, False
+    for line in path.read_text(encoding="utf-8").splitlines():
+        head = re.match(r"^###\s+(\d{4}-\d{2}-\d{2}),\s*(\d{2}:\d{2})\s*—\s*(.+)$", line)
+        if head:
+            if current is not None:
+                blocks.append({"when": current, "mine": is_mine, "task": is_task})
+            try:
+                when = datetime.strptime(f"{head.group(1)} {head.group(2)}", "%Y-%m-%d %H:%M")
+            except ValueError:
+                when = datetime.now()
+            addressee = head.group(3).lower()
+            current = when
+            is_mine = "библиотекарь →" in addressee or addressee.startswith("библиотекарь")
+            is_task = ("библиотекар" in addressee and not is_mine
+                       and any(k in addressee for k in keywords)) or False
+        elif current is not None and any(k in line.lower() for k in keywords):
+            if not is_mine:
+                is_task = True
+    if current is not None:
+        blocks.append({"when": current, "mine": is_mine, "task": is_task})
+    blocks = [b for b in blocks if b["when"] >= cutoff]
+    last_mine = max((i for i, b in enumerate(blocks) if b["mine"]), default=-1)
+    return sum(1 for i, b in enumerate(blocks) if b["task"] and not b["mine"] and i > last_mine)
+
+
 def answers_without_source(hours: int = 48) -> int:
     if not ANSWERS.exists():
         return 0
@@ -117,7 +154,8 @@ def main(argv=None) -> int:
     mini = pending_mini_reviews()
     lit_items = open_lit_items()
     dry_answers = answers_without_source()
-    pressure = len(open_q) + mini + len(lit_items) + dry_answers
+    assignments = unanswered_assignments()
+    pressure = len(open_q) + mini + len(lit_items) + dry_answers + assignments
     age = last_lit_slot_hours()
 
     need = pressure >= args.threshold or (pressure >= 1 and age is not None and age >= 24)
@@ -127,6 +165,7 @@ def main(argv=None) -> int:
     print(f"  открытые lit-пункты очереди: {len(lit_items)} {lit_items[:6]}")
     print(f"  (контекст) пунктов доски new, ждут решения ведущего: {len(new_items)}")
     print(f"  ответы без источника: {dry_answers}")
+    print(f"  неотработанные задания по литературе: {assignments}")
     print(f"  часов с последнего литслота: {'—' if age is None else round(age, 1)}")
     print("ВЕРДИКТ:", "литературный слот нужен" if need else "слот не нужен — идём по очереди")
     if args.json:
@@ -134,6 +173,7 @@ def main(argv=None) -> int:
             "pressure": pressure, "threshold": args.threshold, "need": need,
             "board_new": new_items, "questions_open": open_q, "mini_reviews_pending": mini,
             "lit_items_open": lit_items, "answers_without_source": dry_answers,
+            "assignments_open": assignments,
             "hours_since_lit": age}, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     return 1 if need else 0
 
