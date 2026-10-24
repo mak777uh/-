@@ -358,6 +358,15 @@ def main(argv: list[str] | None = None) -> int:
                     help="энергия за шаг организма по жизни (0 = выкл, I-023)")
     ap.add_argument("--plastic-eta", type=float, default=0.0,
                     help="L2: скорость обновления предсказания ресурса (0 = выкл)")
+    ap.add_argument("--invest-rate", type=float, default=0.0,
+                    help="B2: энергия на подъём ресурса в своей клетке (0 = выкл)")
+    ap.add_argument("--invest-efficiency", type=float, default=2.0)
+    ap.add_argument("--invest-mode", default="fixed", choices=["fixed", "learn", "surplus", "none"])
+    ap.add_argument("--invest-threshold", type=float, default=0.3)
+    ap.add_argument("--invest-placebo", action="store_true",
+                    help="контроль: тратить энергию без подъёма ресурса")
+    ap.add_argument("--abiotic", action="store_true",
+                    help="контроль: без организмов (только среда)")
     ap.add_argument("--plastic-gate", default="pred", choices=["pred", "random"])
     ap.add_argument("--plastic-prob", type=float, default=0.5)
     ap.add_argument("--plastic-nomove", action="store_true")
@@ -410,6 +419,11 @@ def main(argv: list[str] | None = None) -> int:
     world.plastic_gate = args.plastic_gate
     world.plastic_prob = args.plastic_prob
     world.plastic_nomove = args.plastic_nomove
+    world.invest_rate = args.invest_rate
+    world.invest_efficiency = args.invest_efficiency
+    world.invest_mode = args.invest_mode
+    world.invest_threshold = args.invest_threshold
+    world.invest_placebo = args.invest_placebo
     world.freq_dep = args.freq_dep
     world.type_mode = args.type_mode
     world.type_start = args.type_start
@@ -437,7 +451,10 @@ def main(argv: list[str] | None = None) -> int:
                   rule_checkpoint=args.rule_checkpoint)
     run.snapshot_every = args.snapshot_every
     run.update_probability = args.update_probability
-    run.seed(cells=4, energy=8.0)
+    if not args.abiotic:
+        run.seed(cells=4, energy=8.0)
+    else:
+        run.run.__self__ if False else None
     summary = run.run(args.steps, log_every=max(1, args.steps // 10))
     summary["clonal_attached"] = run.clonal_attached
     summary["clonal_separate"] = run.clonal_separate
@@ -454,6 +471,24 @@ def main(argv: list[str] | None = None) -> int:
     summary["organism_moves"] = int(run.organism_moves_total)
     summary["plastic_moves"] = int(run.plastic_moves_total)
     summary["plastic_updates"] = int(getattr(run.pond, "plastic_updates", 0))
+    summary["invested_energy"] = round(float(getattr(run.pond, "invested_energy", 0.0)), 3)
+    summary["invest_updates"] = int(getattr(run.pond, "invest_updates", 0))
+    im, inc = getattr(run.pond, "invest_map", None), getattr(run.pond, "income_map", None)
+    if im is not None and inc is not None:
+        m = im > 1e-6
+        if bool(m.any()):
+            x = im[m].float()
+            y = inc[m].float()
+            xc, yc = x - x.mean(), y - y.mean()
+            denom = float((xc.pow(2).sum() * yc.pow(2).sum()) ** 0.5)
+            summary["feedback_r"] = round(float((xc * yc).sum()) / denom, 4) if denom > 1e-9 else None
+            summary["invested_cells"] = int(m.sum())
+    summary["resource_mean"] = round(float(run.pond.state.resource.mean()), 5)
+    if getattr(run.pond.state, "alive", None) is not None and bool(run.pond.state.alive.any()):
+        a = run.pond.state.alive
+        summary["resource_alive_mean"] = round(float(run.pond.state.resource[a].mean()), 5)
+        summary["resource_empty_mean"] = round(
+            float(run.pond.state.resource[~a].mean()) if bool((~a).any()) else 0.0, 5)
     if getattr(run.pond.state, "pred", None) is not None and run.pond.state.alive.any():
         summary["pred_mean_alive"] = round(
             float(run.pond.state.pred[run.pond.state.alive].mean()), 4

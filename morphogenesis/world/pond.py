@@ -80,6 +80,12 @@ class PondConfig:
     plastic_gate: str = "pred"         # pred | random: чем гейтится шаг
     plastic_prob: float = 0.5          # доля клеток за шаг при gate=random
     plastic_nomove: bool = False       # ablation: предсказание без перемещений
+    invest_rate: float = 0.0           # B2: энергия на подъём ресурса в своей клетке
+    invest_efficiency: float = 2.0     # B2: сколько ресурса даёт единица энергии
+    invest_mode: str = "fixed"         # fixed | learn | none
+    invest_threshold: float = 0.3      # порог ресурса для режима learn
+    invest_eta: float = 0.02           # скорость адаптации порога у клетки
+    invest_placebo: bool = False       # контроль: тратить энергию, но НЕ поднимать ресурс
     freq_dep: float = 0.0              # сила отрицательной частотной зависимости (0 = выкл)
     type_mode: str = "fixed"           # fixed | mixfixed | random | learn — тип A/B
     type_start: str = "a"              # a | b | mixed — тип стартовых клеток
@@ -143,6 +149,12 @@ class Pond:
         self.organism_moves = 0    # сколько шагов сделали организмы по жизни (I-023)
         self.plastic_shift = 0.0   # L2: сдвиг предсказания после переключения среды
         self.plastic_updates = 0
+        self.invested_energy = 0.0
+        self.invest_map: torch.Tensor | None = None
+        self.thr_e: torch.Tensor | None = None
+        self.invest_updates = 0
+        self.income_map: torch.Tensor | None = None
+        self.thr: torch.Tensor | None = None
         self.learn_history: list[float] = []
         self._colony_alive_prev = 0
         self._colony_dir = 1.0
@@ -383,6 +395,38 @@ class Pond:
 
         spent = cfg.update_cost + cfg.repair_cost
         s.energy = torch.where(alive, s.energy - spent, s.energy)
+
+        # B2: ниша — клетка поднимает ресурс в СВОЕЙ клетке за энергию
+        if cfg.invest_rate > 0.0:
+            if self.thr is None:
+                self.thr = s.resource.clone()
+            self.thr = self.thr + cfg.invest_eta * (s.resource - self.thr)
+            if self.thr_e is None:
+                self.thr_e = s.energy.clone()
+            self.thr_e = self.thr_e + cfg.invest_eta * (s.energy - self.thr_e)
+            if cfg.invest_mode == "surplus":
+                # кандидат в обучение: инвестировать только при излишке энергии
+                want = alive & (s.energy > self.thr_e)
+            elif cfg.invest_mode == "fixed":
+                want = alive
+            elif cfg.invest_mode == "learn":
+                want = alive & (s.resource < self.thr * 0.8)
+            else:
+                want = torch.zeros_like(alive)
+            spend = torch.where(want, torch.clamp(s.energy, 0.0, cfg.invest_rate),
+                                torch.zeros_like(s.energy))
+            s.energy = s.energy - spend
+            if self.invest_map is None or self.invest_map.shape != spend.shape:
+                self.invest_map = torch.zeros_like(spend)
+                self.income_map = torch.zeros_like(spend)
+            self.invest_map = self.invest_map + spend
+            self.income_map = self.income_map + income
+            gain = spend * cfg.invest_efficiency
+            if cfg.invest_placebo:
+                gain = torch.zeros_like(gain)
+            s.resource = torch.minimum(s.resource + gain, torch.full_like(s.resource, cfg.resource_max))
+            self.invested_energy += float(spend.sum())
+            self.invest_updates += int((spend > 1e-9).sum())
 
         # мембрана: распад и восстановление за энергию — только в режиме замыкания
         if cfg.membrane_gated:
