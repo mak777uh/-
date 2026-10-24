@@ -45,6 +45,8 @@
 | 2026-10-24 | prey switching frequency dependent selection (OpenAlex) | 3 | 0 | эмпирика по биоконтролю, не про различение механизмов |
 | 2026-10-24 | niche conformance phenotype environment match | 6 | 1 | P54 (Riyahi 2024, зебра-финч) |
 | 2026-10-24 | how is niche conformance operationalized in minimal models | 6 | 0 | запрос ушёл в «operationalized» вообще; переформулировать на «niche conformance» |
+| 2026-10-24 | niche construction individual-based model resource modification (OpenAlex) | 3 | 1 | P55 (Han 2006, полиморфизм через строительство) |
+| 2026-10-24 | in-silico construction benefit placebo control | 6 | 0 | placebo-контроля в моделях строительства не нашлось — зафиксировано как наш методический вклад |
 
 ## Как вести
 
