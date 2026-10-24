@@ -243,6 +243,16 @@
 | [`morphogenesis/experiments/E09_pond/frequency_matrix.json`](../morphogenesis/experiments/E09_pond/frequency_matrix.json) | other | 16139 | `edf3f4fec02d2208867102d1d6d6e5b46b4749f0558061c1eff90a23367f4e3f` |
 | [`morphogenesis/experiments/E09_pond/frequency_matrix_v2.json`](../morphogenesis/experiments/E09_pond/frequency_matrix_v2.json) | other | 21150 | `1dd28d144e5c7af6e065942d4acd595762829370cb92a0e1d41b78b61a1d2c28` |
 | [`morphogenesis/experiments/E09_pond/frequency_start_control.json`](../morphogenesis/experiments/E09_pond/frequency_start_control.json) | other | 5116 | `695b70a367873122d7818f72ce11a4b140fe5820927c5fa487cbe15783db2509` |
+| [`morphogenesis/experiments/E09_pond/generation_matrix.json`](../morphogenesis/experiments/E09_pond/generation_matrix.json) | other | 5395 | `979905f4ef5948ee2bb366df4304a9d3bab392dc005a62855c94d6834918d733` |
+| [`morphogenesis/experiments/E09_pond/genprobe_gradflip_fixed_seed1.json`](../morphogenesis/experiments/E09_pond/genprobe_gradflip_fixed_seed1.json) | other | 166248 | `4332cbf28f616fd9a787324265ba12c1ee6a692b5f8766b1f2cba13aaf21522b` |
+| [`morphogenesis/experiments/E09_pond/genprobe_gradflip_fixed_seed2.json`](../morphogenesis/experiments/E09_pond/genprobe_gradflip_fixed_seed2.json) | other | 166809 | `62a42401e58d28f81451663bd7cb41c38e1daab2a542afb6ebbd355f49769244` |
+| [`morphogenesis/experiments/E09_pond/genprobe_gradflip_fixed_seed3.json`](../morphogenesis/experiments/E09_pond/genprobe_gradflip_fixed_seed3.json) | other | 166373 | `b2369ace72c1c8802b4a59836010075c14547f5a4694b4599bde62904a50a09c` |
+| [`morphogenesis/experiments/E09_pond/genprobe_patches_fixed_seed1.json`](../morphogenesis/experiments/E09_pond/genprobe_patches_fixed_seed1.json) | other | 148518 | `aa8b5802025697e5830e5a565a9403d7913bda1f22996884a662e7354cbc45aa` |
+| [`morphogenesis/experiments/E09_pond/genprobe_patches_fixed_seed2.json`](../morphogenesis/experiments/E09_pond/genprobe_patches_fixed_seed2.json) | other | 166554 | `b1bba692ea109bd58893cc079fe93baa83adc4d05091e86c12482202097b31fc` |
+| [`morphogenesis/experiments/E09_pond/genprobe_patches_fixed_seed3.json`](../morphogenesis/experiments/E09_pond/genprobe_patches_fixed_seed3.json) | other | 166601 | `1cdd19757875dc2f96013741597c4be46322a282db78ce00536013f41ce11d9d` |
+| [`morphogenesis/experiments/E09_pond/genprobe_uniform_fixed_seed1.json`](../morphogenesis/experiments/E09_pond/genprobe_uniform_fixed_seed1.json) | other | 166101 | `374c196bd2e6418d4cb2842a3f2baf419b1d8e329c60ce05e5d0057615380dc4` |
+| [`morphogenesis/experiments/E09_pond/genprobe_uniform_fixed_seed2.json`](../morphogenesis/experiments/E09_pond/genprobe_uniform_fixed_seed2.json) | other | 166639 | `16bfd2960b7f63ea0a45d9b3d14b41abc3afa9572ed00230af0bc26816d16796` |
+| [`morphogenesis/experiments/E09_pond/genprobe_uniform_fixed_seed3.json`](../morphogenesis/experiments/E09_pond/genprobe_uniform_fixed_seed3.json) | other | 166227 | `3876ffbfa5fe5a28a177966e5a5cdd6827551f973d043f120db17ea71f466e29` |
 | [`morphogenesis/experiments/E09_pond/inherit2_gradflip_fixed.json`](../morphogenesis/experiments/E09_pond/inherit2_gradflip_fixed.json) | other | 1564 | `7afabe8f08591035e95c5d57244e52ee7f4a9b4d4ec5dbd931800df4afb2f798` |
 | [`morphogenesis/experiments/E09_pond/inherit2_patches_fixed.json`](../morphogenesis/experiments/E09_pond/inherit2_patches_fixed.json) | other | 1562 | `0da84ca1f69206c8da5a6721c8604202226904ddf92156b6c6b38d96d118638a` |
 | [`morphogenesis/experiments/E09_pond/inherit2_uniform_fixed.json`](../morphogenesis/experiments/E09_pond/inherit2_uniform_fixed.json) | other | 1566 | `24d8e5a2da7b7cf772655a83594c1c34553f05d3a478b92f779c20b2bc388295` |
@@ -294,6 +304,7 @@
 | [`reports/figures/e02b_transition_matrix.png`](../reports/figures/e02b_transition_matrix.png) | figure | 152522 | `81f1b4fe50fd819f45411c31fb737a0c232d9c4f993f5233184c8b276779f5b9` |
 | [`reports/figures/e02c_seed_grid.png`](../reports/figures/e02c_seed_grid.png) | figure | 69503 | `a14f0a6eb28fa0675629e539dc863049d97c3a7ef1914c34ebd7348b5c71776f` |
 <!-- artifacts:end -->
+
 
 
 

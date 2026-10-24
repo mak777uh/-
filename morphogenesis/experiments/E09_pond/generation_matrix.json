@@ -1,0 +1,202 @@
+{
+  "kind": "generation_runs",
+  "experiment": "E09_pond_generation_on_inherit2",
+  "metric": "длина поколения (медиана среднего возраста клеток колонии в момент почкования)",
+  "note": "конфигурация = world/inheritance_probe.py, то есть та же, где измерен полураспад inherit2_*; НЕ совпадает с b2_*_fixed",
+  "config_probe": {
+    "grid": 32,
+    "income_mode": "proportional",
+    "init_resource_fill": 0.9,
+    "baseline_income": 0.2,
+    "update_cost": 0.02,
+    "repair_cost": 0.02,
+    "budding_mass": 24,
+    "budding_cost": 0.2,
+    "invest_rate": 0.02,
+    "invest_mode": "fixed",
+    "spore_bias": "random (default)",
+    "w_rich": "0.5 (default)",
+    "organism_mobility_cost": "0.0 (default: выключена)"
+  },
+  "config_b2_arm": {
+    "grid": 32,
+    "income_mode": "proportional",
+    "init_resource_fill": 0.9,
+    "baseline_income": 0.2,
+    "update_cost": 0.02,
+    "repair_cost": 0.02,
+    "budding_mass": 24,
+    "budding_cost": 0.2,
+    "invest_rate": 0.02,
+    "invest_mode": "fixed",
+    "spore_bias": "score",
+    "w_rich": 0.1,
+    "organism_mobility_cost": 0.05
+  },
+  "config_differs_in": [
+    "spore_bias",
+    "w_rich",
+    "organism_mobility_cost"
+  ],
+  "config_verdict": "поколение и полураспад можно сравнивать только внутри конфигурации пробы; ссылка на b2_*_fixed была бы межконфигурационной",
+  "rows": [
+    {
+      "artifact": "genprobe_gradflip_fixed_seed1.json",
+      "env": "gradflip",
+      "seed": 1,
+      "generation_length": 19.0,
+      "generation_length_oldest": 84.0,
+      "generation_divisions": 706,
+      "half_life_steps": 41.0,
+      "ratio_half_life_per_generation": 2.16,
+      "pop_time": 50065,
+      "alive_final": 532
+    },
+    {
+      "artifact": "genprobe_gradflip_fixed_seed2.json",
+      "env": "gradflip",
+      "seed": 2,
+      "generation_length": 20.0,
+      "generation_length_oldest": 110.0,
+      "generation_divisions": 818,
+      "half_life_steps": 36.0,
+      "ratio_half_life_per_generation": 1.8,
+      "pop_time": 64212,
+      "alive_final": 579
+    },
+    {
+      "artifact": "genprobe_gradflip_fixed_seed3.json",
+      "env": "gradflip",
+      "seed": 3,
+      "generation_length": 20.0,
+      "generation_length_oldest": 97.0,
+      "generation_divisions": 608,
+      "half_life_steps": 37.0,
+      "ratio_half_life_per_generation": 1.85,
+      "pop_time": 46259,
+      "alive_final": 548
+    },
+    {
+      "artifact": "genprobe_patches_fixed_seed1.json",
+      "env": "patches",
+      "seed": 1,
+      "generation_length": null,
+      "generation_length_oldest": null,
+      "generation_divisions": 0,
+      "half_life_steps": 24.0,
+      "ratio_half_life_per_generation": null,
+      "pop_time": 1024,
+      "alive_final": 0
+    },
+    {
+      "artifact": "genprobe_patches_fixed_seed2.json",
+      "env": "patches",
+      "seed": 2,
+      "generation_length": 14.0,
+      "generation_length_oldest": 82.0,
+      "generation_divisions": 642,
+      "half_life_steps": 33.0,
+      "ratio_half_life_per_generation": 2.36,
+      "pop_time": 49254,
+      "alive_final": 542
+    },
+    {
+      "artifact": "genprobe_patches_fixed_seed3.json",
+      "env": "patches",
+      "seed": 3,
+      "generation_length": 13.0,
+      "generation_length_oldest": 65.0,
+      "generation_divisions": 610,
+      "half_life_steps": 20.0,
+      "ratio_half_life_per_generation": 1.54,
+      "pop_time": 37728,
+      "alive_final": 439
+    },
+    {
+      "artifact": "genprobe_uniform_fixed_seed1.json",
+      "env": "uniform",
+      "seed": 1,
+      "generation_length": 23.0,
+      "generation_length_oldest": 144.0,
+      "generation_divisions": 492,
+      "half_life_steps": 31.0,
+      "ratio_half_life_per_generation": 1.35,
+      "pop_time": 51811,
+      "alive_final": 563
+    },
+    {
+      "artifact": "genprobe_uniform_fixed_seed2.json",
+      "env": "uniform",
+      "seed": 2,
+      "generation_length": 22.0,
+      "generation_length_oldest": 94.5,
+      "generation_divisions": 672,
+      "half_life_steps": 34.0,
+      "ratio_half_life_per_generation": 1.55,
+      "pop_time": 66175,
+      "alive_final": 622
+    },
+    {
+      "artifact": "genprobe_uniform_fixed_seed3.json",
+      "env": "uniform",
+      "seed": 3,
+      "generation_length": 22.0,
+      "generation_length_oldest": 142.0,
+      "generation_divisions": 540,
+      "half_life_steps": 33.0,
+      "ratio_half_life_per_generation": 1.5,
+      "pop_time": 51420,
+      "alive_final": 574
+    }
+  ],
+  "by_env": [
+    {
+      "env": "gradflip",
+      "n": 3,
+      "generation_range": [
+        19.0,
+        20.0
+      ],
+      "half_life_range": [
+        36.0,
+        41.0
+      ],
+      "ratio_range": [
+        1.8,
+        2.16
+      ]
+    },
+    {
+      "env": "patches",
+      "n": 3,
+      "generation_range": [
+        13.0,
+        14.0
+      ],
+      "half_life_range": [
+        20.0,
+        33.0
+      ],
+      "ratio_range": [
+        1.54,
+        2.36
+      ]
+    },
+    {
+      "env": "uniform",
+      "n": 3,
+      "generation_range": [
+        22.0,
+        23.0
+      ],
+      "half_life_range": [
+        31.0,
+        34.0
+      ],
+      "ratio_range": [
+        1.35,
+        1.55
+      ]
+    }
+  ]
+}

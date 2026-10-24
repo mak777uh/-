@@ -143,6 +143,27 @@ def check_invasion(rows: list[dict]) -> list[str]:
     return errors
 
 
+def check_generation(rows: list[dict]) -> list[str]:
+    """Проверки агрегата поколения: поколение, полураспад и отношение согласованы."""
+    errors: list[str] = []
+    for i, row in enumerate(rows):
+        gen = row.get("generation_length")
+        half = row.get("half_life_steps")
+        ratio = row.get("ratio_half_life_per_generation")
+        divisions = row.get("generation_divisions")
+        if gen is None and divisions not in (0, None) and divisions >= 20:
+            errors.append(f"[{i}]: generation_length=None при {divisions} делениях")
+        if gen is not None and gen <= 0:
+            errors.append(f"[{i}]: generation_length должен быть положительным ({gen})")
+        if half is not None and half <= 0:
+            errors.append(f"[{i}]: half_life_steps должен быть положительным ({half})")
+        if gen and half and ratio is not None:
+            expected = float(half) / float(gen)
+            if abs(float(ratio) - expected) > 0.01:
+                errors.append(f"[{i}]: отношение {ratio} != half/gen {expected:.2f}")
+    return errors
+
+
 def check_invader_dose(rows: list[dict]) -> list[str]:
     """Проверки агрегата дозы инокулята (серия D): рост, выживание, невалидность."""
     errors: list[str] = []
@@ -198,6 +219,8 @@ def check_file(path: Path, strict: bool = False) -> tuple[list[str], list[str]]:
         return errors, warns  # не агрегат
     if payload.get("kind") == "invasion_runs":
         return [f"{path.name}{e}" for e in check_invasion(rows)], warns
+    if payload.get("kind") == "generation_runs":
+        return [f"{path.name}{e}" for e in check_generation(rows)], warns
     if payload.get("kind") == "invader_dose_runs":
         return [f"{path.name}{e}" for e in check_invader_dose(rows)], warns
     if payload.get("kind") == "probe_summary":
