@@ -49,6 +49,7 @@ def classify(name: str, summary: dict) -> dict:
     elif alive is not None and alive < 100 and not emptied:
         invalid = f"alive_final {alive} < 100 (резидент не устоялся)"
     return {"artifact": name, "placement": placement, "merge": merge,
+            "invader_cells": (summary.get("config") or {}).get("invader_cells"),
             "empty_field": emptied, "invader_share_final": invader_share,
             "survived": None if invader_share is None else invader_share > 0,
             "invalid": invalid, "injection_share": inject, "alive_final": alive}
@@ -68,7 +69,8 @@ def main(argv=None) -> int:
 
     groups: dict[tuple, list] = defaultdict(list)
     for row in rows:
-        key = ("empty" if row["empty_field"] else row["placement"], row["merge"])
+        key = ("empty" if row["empty_field"] else row["placement"], row["merge"],
+               row.get("invader_cells"))
         groups[key].append(row)
 
     print(f"артефактов: {len(rows)} | групп: {len(groups)}")
@@ -79,7 +81,7 @@ def main(argv=None) -> int:
         k = sum(1 for r in valid if r["survived"])
         n = len(valid)
         ci = wilson(k, n)
-        label = f"{key[0]} / {key[1]}"
+        label = f"{key[0]} / {key[1]} / n{key[2] if key[2] is not None else '?'}"
         print(f"{label:22} {len(items):>3} {n:>6} {k:>7} {(k / n if n else 0):>6.2f}  {ci}")
         verdicts[label] = (k, n, ci)
 
@@ -93,8 +95,7 @@ def main(argv=None) -> int:
     def ge(label, x):
         k, n = rate(label); return n > 0 and k >= x
 
-    planned = {"random / majority", "random / mass_weighted", "gap / majority",
-               "gap / mass_weighted"}
+    planned = {k for k in verdicts if k.startswith(("random /", "gap /")) and "empty" not in k}
     complete = {label for label, (_, n, _) in verdicts.items() if n >= 10}
     if not planned <= complete:
         missing = ", ".join(sorted(planned - complete))

@@ -1977,6 +1977,37 @@
         "tasks": [],
         "reports": []
       }
+    },
+    {
+      "id": "B-056",
+      "type": "contradiction",
+      "target": {
+        "kind": "experiment",
+        "id": "v8_invasion",
+        "ref": "v8_*.json (55 артефактов); library/reviews/v8-verdict.md"
+      },
+      "statement": "V8 завершён: все плечи 0/10 (random/majority, random/mass_weighted, gap/majority, gap/mass_weighted, propagule dose 20), но ворота постановки провалены — resident_free 0/5 (план требовал 10 прогонов). По пре-регистрации это НЕ вывод о размещении/слиянии: 5-клеточный зародыш не растёт даже на пустом поле без резидента. Значит вопрос 'что убивает редкую линию' в этом исполнении не задан; сначала надо проверить рост зародыша (дозы 1/5/20 на пустом поле, механика --start-cells уже есть). Отклонение: resident_free 5 прогонов вместо 10 (интервал 0-0.43 не различает 'не растёт' и 'растёт редко').",
+      "evidence": [
+        {
+          "library": "reviews/v8-verdict.md#сверка",
+          "note": "семантика: invade-type 1 = B инвайдер, доля = 1 - a_share_final"
+        }
+      ],
+      "action": {
+        "kind": "experiment",
+        "detail": "resident_free с дозами 1/5/20 по 10 сидов на пустом поле; критерий — растёт ли зародыш до >5% массы"
+      },
+      "status": "new",
+      "wave": "current",
+      "owner": "librarian",
+      "created_at": "2026-10-24T21:53:30+03:00",
+      "decided_at": null,
+      "why": null,
+      "links": {
+        "insights": [],
+        "tasks": [],
+        "reports": []
+      }
     }
   ],
   "updated_at": "2026-10-24T13:40:00Z"
