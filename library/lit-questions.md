@@ -23,6 +23,12 @@
 | Q17 | How to measure robustness vs performance trade-offs in ALife? | searched-1 | 2026-10-24 | P62 Wagner 2007 (robustness vs evolvability), P63 Trivellin 2023 (две оси: performance/robustness) |
 | Q18 | What counts as a pre-registered ALife experiment? | searched-1 | 2026-10-24 | Nosek 2018 PNAS (preregistration revolution); Registered Reports — Nosek & Lakens 2014 (исправлен DOI); стандарта ALife нет |
 
+| Q19 | How are tag-based inheritance and cell lineage implemented in cellular automata? | open | — | task-11: конкретная реализация |
+| Q20 | How to measure habitat selection quality (niche choice) in spatial models? | open | — | mobile/L2: метрика качества выбора |
+| Q21 | What is the ReScience C submission format for replication studies? | open | — | путь C: реплей отрицательного результата |
+| Q22 | How many seeds are needed to estimate a collapse fraction? | open | — | B2: 1/3 коллапсов — какая точность? |
+| Q23 | Which alternative substrates are used for cross-substrate ALife tests? | open | — | W2: выбор второго субстрата |
+
 ## Как пополнять
 
 - Вопрос формулируем на английском (научные термины), в таблицу можно по-русски.
