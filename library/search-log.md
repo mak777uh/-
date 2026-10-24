@@ -38,6 +38,9 @@
 | 2026-10-24 | negative results publication bias across disciplines | 6 | 2 | audit/publishing-practice.md (Mlinarić 2017, Ioannidis 2023) |
 | 2026-10-24 | OpenAlex: negative results artificial life publication | 3 | 0 | отдельного ALife-трека не нашлось — зафиксировано как вывод |
 | 2026-10-24 | generalist versus specialist heterogeneous environments | 6 | 1 | P51 (Hughes 2023, камуфляж 2 vs 4 фона) |
+| 2026-10-24 | genetic assimilation phenotypic plasticity experimental evolution | 6 | 1 | P52 (Fragata 2015) |
+| 2026-10-24 | evolution of reversible plasticity stable environments | 6 | 1 | P53 (Walasek 2025) |
+| 2026-10-24 | plasticity does not pay vs plasticity assimilated | 6 | 0 | запрос про «plasticity» ушёл в материаловедение; переформулировать научными терминами |
 
 ## Как вести
 

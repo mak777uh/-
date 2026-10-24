@@ -12,7 +12,7 @@
 | Q6 | Measuring ecological inheritance half-life after organism removal | searched-1 | 2026-10-24 | P49 Harris & Byers 2026 (legacy vs live), P50 Grove 2015 (persistence after removal) |
 | Q7 | How are negative results reported in artificial life venues and formats? | searched-1 | 2026-10-24 | отдельного ALife-трека нет; форматы: ALIFE/ArtLife, ReScience C, registered reports, workshops (audit/publishing-practice.md) |
 | Q8 | Generalist versus specialist performance across heterogeneous environments | searched-1 | 2026-10-24 | P51 Hughes 2023 (генералист/специалист: 2 vs 4 среды); mapping NC3 исправлен (L2 = choice) |
-| Q9 | Experiments separating "plasticity does not pay" from "plasticity assimilated" | open | — | Baldwin/ассимиляция (Baldwin 1896; Crispo 2007) |
+| Q9 | Experiments separating "plasticity does not pay" from "plasticity assimilated" | searched-1 | 2026-10-24 | P52 Fragata 2015 (пластичность сохраняется в стабильной среде), P53 Walasek 2025 (обратимая пластичность в стабильной среде) |
 | Q10 | Two-pool resource switching versus frequency dependence: distinguishing experiments | open | — | switching vs fd (H54) |
 
 ## Как пополнять
