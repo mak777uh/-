@@ -20,6 +20,8 @@
 | 2026-10-24 | Baldwin effect genetic assimilation | 6 | 5 | fork-answer Q6 (Baldwin, Waddington, Crispo, Scheiner & Levis, Paenke) |
 | 2026-10-24 | action space shaping novelty search | 6 | 5 | fork-answer Q7 (Lehman & Stanley, Kanervisto, Bongard, Taylor) |
 | 2026-10-24 | power analysis registered reports | 6 | 4 | fork-answer Q8–Q9 (Gelman & Carlin, Button, Simmons, Nosek & Lakens) |
+| 2026-10-24 | niche construction experimental test fitness benefit | 6 | 2 | P39 (Rohner 2024), P41 (Majer 2024) |
+| 2026-10-24 | termite-inspired robot construction | — | 1 | P40 (Werfel 2014, Science) |
 
 ## Как вести
 
