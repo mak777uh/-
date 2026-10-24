@@ -882,6 +882,60 @@ def release(experiment: str, run_id: str | None) -> None:
     print(f"Замок снят: {rel(path)}")
 
 
+def _pid_alive(pid: int) -> bool | None:
+    """Жив ли процесс с таким pid (None — проверить нельзя: другая ОС/нет прав).
+
+    На Windows `os.kill(pid, 0)` небезопасен (любой сигнал, кроме CTRL_*, вызывает
+    TerminateProcess), поэтому там используется `tasklist`.
+    """
+    if not isinstance(pid, int) or pid <= 0:
+        return None
+    if os.name == "nt":
+        try:
+            out = subprocess.check_output(
+                ["tasklist", "/FI", f"PID eq {pid}", "/NH"],
+                stderr=subprocess.DEVNULL, text=True, timeout=10)
+        except (OSError, subprocess.SubprocessError):
+            return None
+        return str(pid) in out
+    try:
+        os.kill(pid, 0)
+        return True
+    except OSError:
+        return False
+
+
+def lock_clean(dry_run: bool = False) -> int:
+    """Снять замки, чей процесс уже мёртв.
+
+    Зачем: инцидент 25.10 — убитый хостом прогон оставил замок с TTL 480 минут, и серия
+    не стартовала ни одним прогоном, а выглядела как «10 падений подряд». `lab.py run`
+    снимает замок в `finally`, но убийство процесса обёртки этого не выполняет.
+    """
+    LOCKS.mkdir(parents=True, exist_ok=True)
+    paths = sorted(LOCKS.glob("*.lock"))
+    dead = 0
+    for path in paths:
+        payload = _read_lock(path) or {}
+        pid = payload.get("pid")
+        host = payload.get("host")
+        alive = None
+        if host == socket.gethostname():
+            alive = _pid_alive(pid) if isinstance(pid, int) else None
+        if alive is False:
+            dead += 1
+            if dry_run:
+                print(f"мёртвый замок: {rel(path)} (pid {pid})")
+            else:
+                path.unlink(missing_ok=True)
+                print(f"замок снят: {rel(path)} (pid {pid} мёртв)")
+        elif alive is None and payload:
+            print(f"не проверить: {rel(path)} (host {host!r}, pid {pid!r})")
+    print(f"замков: {len(paths)}, мёртвых: {dead}"
+          + (" (dry-run, ничего не удалено)" if dry_run else ""))
+    return 0
+
+
 def heartbeat(experiment: str, run_id: str | None) -> None:
     path = _lock_path(experiment)
     existing = _read_lock(path)
@@ -2087,6 +2141,10 @@ def main(argv: list[str] | None = None) -> int:
     p_queue = sub.add_parser("queue", help="показать очередь пунктов и владельцев")
     p_queue.add_argument("--json", action="store_true")
 
+    p_lock_clean = sub.add_parser(
+        "lock-clean", help="снять замки, чей процесс уже мёртв (не трогает живые)")
+    p_lock_clean.add_argument("--dry-run", action="store_true",
+                              help="только показать, ничего не удалять")
     p_item_claim = sub.add_parser(
         "item-claim", help="занять пункт очереди (до пре-регистрации, а не до запуска)"
     )
@@ -2199,6 +2257,8 @@ def main(argv: list[str] | None = None) -> int:
         return 0
     if args.action == "queue":
         return print_queue(args.json)
+    if args.action == "lock-clean":
+        return lock_clean(dry_run=bool(getattr(args, "dry_run", False)))
     if args.action == "item-claim":
         item = item_claim(
             args.id,
