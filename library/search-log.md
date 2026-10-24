@@ -35,6 +35,8 @@
 | 2026-10-24 | differential mortality versus disturbance removing priority | 6 | 0 | запрос ушёл в медицину («mortality»); переформулировать через response diversity |
 | 2026-10-24 | legacy effects ecosystem engineering persistence after removal | 6 | 2 | P49 (Harris & Byers 2026), P50 (Grove 2015) |
 | 2026-10-24 | measuring ecological inheritance half-life | 6 | 0 | запрос ушёл в физику/радиоэкологию; лучше через legacy effects |
+| 2026-10-24 | negative results publication bias across disciplines | 6 | 2 | audit/publishing-practice.md (Mlinarić 2017, Ioannidis 2023) |
+| 2026-10-24 | OpenAlex: negative results artificial life publication | 3 | 0 | отдельного ALife-трека не нашлось — зафиксировано как вывод |
 
 ## Как вести
 
