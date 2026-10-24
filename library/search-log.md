@@ -70,6 +70,7 @@
 | 2026-10-24 | mutation rate digital organisms critical error threshold | 6 | 2 | E3 (Comas 2005), E4 (Musso 2012) — порог свой, за ним новизна = деградация |
 | 2026-10-24 | niche construction increases resource availability experimental test | 6 | 0 | прямого аналога нет; эмпирика без cost-matched контроля |
 | 2026-10-24 | stigmergy environment modification artificial life | 6 | 1 | E5 (Johnson & Wilke 2004): ресурсная конкуренция цифровых организмов |
+| 2026-10-24 | minimum viable propagule size establishment Allee effect | 8 | 1 | P75 (Fertakos & Bradley 2024): давление пропагул — укоренение, не инвазивность |
 
 ## Как вести
 
