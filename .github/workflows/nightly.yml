@@ -43,6 +43,11 @@ jobs:
       - name: Library inbox (no stale remarks)
         run: python scripts/library_inbox.py --ci
 
+      # DOI в библиотеке — машинная связь с внешним миром; битая ссылка глазами не видна.
+      # Нужна сеть, поэтому nightly, а не каждый PR.
+      - name: Library DOI audit
+        run: python scripts/lit_audit.py --limit 40
+
       - name: Pond canary (CPU)
         run: python scripts/ci_canary_pond.py
 
