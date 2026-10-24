@@ -16,6 +16,7 @@
 from __future__ import annotations
 
 import argparse
+import random
 import json
 import os
 import sys
@@ -243,7 +244,9 @@ class PondRun:
                 # абляция: часть клеток пропускает обновление (шум в динамике)
                 new_state = self.rule(self.state, self.genome)
                 keep = torch.rand(
-                    (1, 1, self.world_cfg.grid, self.world_cfg.grid), device=self.device
+                    (1, 1, self.world_cfg.grid, self.world_cfg.grid),
+                    generator=self.gen,
+                    device=self.device,
                 ) < self.update_probability
                 self.state = torch.where(keep, new_state, self.state)
         grown = self._sync_state_to_world()
@@ -447,6 +450,18 @@ def main(argv: list[str] | None = None) -> int:
     world.drift_steps = args.drift_steps
     world.income_mode = args.income_mode
     world.init_resource_fill = args.init_resource_fill
+    # Воспроизводимость: сеем глобальные ГПСЧ сидом прогона. Без этого часть
+    # случайности (например, глобальный torch-ГПСЧ в служебных операциях) шла мимо
+    # `self.gen`, и один и тот же сид давал разные pop_time (проверено 24.10).
+    torch.manual_seed(int(args.seed))
+    random.seed(int(args.seed))
+    try:
+        import numpy as _np
+
+        _np.random.seed(int(args.seed))
+    except ImportError:
+        pass
+
     run = PondRun(world_cfg=world, seed=args.seed, device=args.device,
                   rule_checkpoint=args.rule_checkpoint)
     run.snapshot_every = args.snapshot_every
