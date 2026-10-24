@@ -64,6 +64,8 @@
 | 2026-10-24 | matching habitat choice directed gene flow | 6 | 2 | P65 (Edelaar 2008), P66 (Camacho & Hendry 2020) |
 | 2026-10-24 | how to measure habitat selection quality in spatial models | 6 | 0 | ушло в городское планирование; лучше через matching habitat choice |
 | 2026-10-24 | альтернативные субстраты для кросс-субстратных тестов | 0 | 0 | Q23 закрыт без поиска: нет кросс-субстратного теста, пока не пройдены ворота A-B |
+| 2026-10-24 | sham/placebo control niche construction energy | 6 | 0 | ушло в медицину и строительство |
+| 2026-10-24 | organisms as physical ecosystem engineers | 6 | 1 | P72 (Jones 1997): инженерия = физическое изменение состояния, трофика — нет |
 
 ## Как вести
 
