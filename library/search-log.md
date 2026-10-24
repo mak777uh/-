@@ -22,6 +22,8 @@
 | 2026-10-24 | power analysis registered reports | 6 | 4 | fork-answer Q8–Q9 (Gelman & Carlin, Button, Simmons, Nosek & Lakens) |
 | 2026-10-24 | niche construction experimental test fitness benefit | 6 | 2 | P39 (Rohner 2024), P41 (Majer 2024) |
 | 2026-10-24 | termite-inspired robot construction | — | 1 | P40 (Werfel 2014, Science) |
+| 2026-10-24 | differentiable cellular automata reproduce discrete dynamics | 6 | 0 | не подошли; для A-gate хватает Petersen 2022/2024 + PyTorchFire |
+| 2026-10-24 | ecosystem engineering experimental manipulation fitness | 6 | 0 | не подошли (поиск ушёл в «fitness» как спортзал); хватает P39–P41 |
 
 ## Как вести
 
