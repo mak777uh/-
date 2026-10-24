@@ -1,0 +1,197 @@
+{
+  "kind": "kill_keep_runs",
+  "experiment": "E09_pond_kill_keep",
+  "metric": "pop_time фазы 2 (парно по сидам), ресурс при пересеве",
+  "note": "собрано scripts/kill_keep_matrix.py; критерии из reports/2026-10-24-kill-keep-plan.md",
+  "rows": [
+    {
+      "artifact": "morphogenesis/experiments/E09_pond/killkeep_clean_seed1.json",
+      "arm": "clean",
+      "seed": 1,
+      "resource_mean_at_reseed": 1.0,
+      "alive_phase1": 668,
+      "pop_time_phase2": 41375,
+      "alive_final": 15,
+      "max_alive_phase2": 683,
+      "generation_length": 7.0,
+      "invalid_reason": null
+    },
+    {
+      "artifact": "morphogenesis/experiments/E09_pond/killkeep_clean_seed2.json",
+      "arm": "clean",
+      "seed": 2,
+      "resource_mean_at_reseed": 1.0,
+      "alive_phase1": 678,
+      "pop_time_phase2": 51311,
+      "alive_final": 334,
+      "max_alive_phase2": 723,
+      "generation_length": 6.0,
+      "invalid_reason": null
+    },
+    {
+      "artifact": "morphogenesis/experiments/E09_pond/killkeep_clean_seed3.json",
+      "arm": "clean",
+      "seed": 3,
+      "resource_mean_at_reseed": 1.0,
+      "alive_phase1": 476,
+      "pop_time_phase2": 41022,
+      "alive_final": 5,
+      "max_alive_phase2": 667,
+      "generation_length": 8.0,
+      "invalid_reason": null
+    },
+    {
+      "artifact": "morphogenesis/experiments/E09_pond/killkeep_clean_seed4.json",
+      "arm": "clean",
+      "seed": 4,
+      "resource_mean_at_reseed": 1.0,
+      "alive_phase1": 666,
+      "pop_time_phase2": 43828,
+      "alive_final": 35,
+      "max_alive_phase2": 698,
+      "generation_length": 6.0,
+      "invalid_reason": null
+    },
+    {
+      "artifact": "morphogenesis/experiments/E09_pond/killkeep_clean_seed5.json",
+      "arm": "clean",
+      "seed": 5,
+      "resource_mean_at_reseed": 1.0,
+      "alive_phase1": 639,
+      "pop_time_phase2": 50905,
+      "alive_final": 533,
+      "max_alive_phase2": 683,
+      "generation_length": 6.0,
+      "invalid_reason": null
+    },
+    {
+      "artifact": "morphogenesis/experiments/E09_pond/killkeep_keep_seed1.json",
+      "arm": "keep",
+      "seed": 1,
+      "resource_mean_at_reseed": 0.1753,
+      "alive_phase1": 668,
+      "pop_time_phase2": 41375,
+      "alive_final": 15,
+      "max_alive_phase2": 683,
+      "generation_length": 7.0,
+      "invalid_reason": null
+    },
+    {
+      "artifact": "morphogenesis/experiments/E09_pond/killkeep_keep_seed2.json",
+      "arm": "keep",
+      "seed": 2,
+      "resource_mean_at_reseed": 0.151,
+      "alive_phase1": 678,
+      "pop_time_phase2": 51311,
+      "alive_final": 334,
+      "max_alive_phase2": 723,
+      "generation_length": 6.0,
+      "invalid_reason": null
+    },
+    {
+      "artifact": "morphogenesis/experiments/E09_pond/killkeep_keep_seed3.json",
+      "arm": "keep",
+      "seed": 3,
+      "resource_mean_at_reseed": 0.4226,
+      "alive_phase1": 476,
+      "pop_time_phase2": 41022,
+      "alive_final": 5,
+      "max_alive_phase2": 667,
+      "generation_length": 8.0,
+      "invalid_reason": null
+    },
+    {
+      "artifact": "morphogenesis/experiments/E09_pond/killkeep_keep_seed4.json",
+      "arm": "keep",
+      "seed": 4,
+      "resource_mean_at_reseed": 0.1767,
+      "alive_phase1": 666,
+      "pop_time_phase2": 43828,
+      "alive_final": 35,
+      "max_alive_phase2": 698,
+      "generation_length": 6.0,
+      "invalid_reason": null
+    },
+    {
+      "artifact": "morphogenesis/experiments/E09_pond/killkeep_keep_seed5.json",
+      "arm": "keep",
+      "seed": 5,
+      "resource_mean_at_reseed": 0.1586,
+      "alive_phase1": 639,
+      "pop_time_phase2": 50905,
+      "alive_final": 533,
+      "max_alive_phase2": 683,
+      "generation_length": 6.0,
+      "invalid_reason": null
+    }
+  ],
+  "pairs": [
+    {
+      "seed": 1,
+      "pop_time_keep": 41375,
+      "pop_time_clean": 41375,
+      "pop_time_diff": 0,
+      "alive_keep": 15,
+      "alive_clean": 15,
+      "resource_keep": 0.1753,
+      "resource_clean": 1.0,
+      "resource_ok": true,
+      "invalid_reason": null
+    },
+    {
+      "seed": 2,
+      "pop_time_keep": 51311,
+      "pop_time_clean": 51311,
+      "pop_time_diff": 0,
+      "alive_keep": 334,
+      "alive_clean": 334,
+      "resource_keep": 0.151,
+      "resource_clean": 1.0,
+      "resource_ok": true,
+      "invalid_reason": null
+    },
+    {
+      "seed": 3,
+      "pop_time_keep": 41022,
+      "pop_time_clean": 41022,
+      "pop_time_diff": 0,
+      "alive_keep": 5,
+      "alive_clean": 5,
+      "resource_keep": 0.4226,
+      "resource_clean": 1.0,
+      "resource_ok": true,
+      "invalid_reason": null
+    },
+    {
+      "seed": 4,
+      "pop_time_keep": 43828,
+      "pop_time_clean": 43828,
+      "pop_time_diff": 0,
+      "alive_keep": 35,
+      "alive_clean": 35,
+      "resource_keep": 0.1767,
+      "resource_clean": 1.0,
+      "resource_ok": true,
+      "invalid_reason": null
+    },
+    {
+      "seed": 5,
+      "pop_time_keep": 50905,
+      "pop_time_clean": 50905,
+      "pop_time_diff": 0,
+      "alive_keep": 533,
+      "alive_clean": 533,
+      "resource_keep": 0.1586,
+      "resource_clean": 1.0,
+      "resource_ok": true,
+      "invalid_reason": null
+    }
+  ],
+  "criteria": {
+    "positive_in_4_of_5": false,
+    "median_diff_positive": false,
+    "resource_lower_in_keep": true,
+    "c_sufficient": false,
+    "note": "C достаточно: разница pop_time > 0 в >= 4/5 сидов, медиана > 0, и поле keep действительно ниже по ресурсу"
+  }
+}
