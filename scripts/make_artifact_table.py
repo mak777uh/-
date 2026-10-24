@@ -40,11 +40,27 @@ DIRS = [
 EXTRA = [REPO / "lab" / "checkpoints.json", REPO / "lab" / "registry.json"]
 
 
+TEXT_SUFFIXES = {".json"}  # см. .gitattributes: `*.json text eol=lf`
+
+
+def normalized_bytes(path: Path) -> bytes:
+    """Байты артефакта в канонической форме git: CRLF → LF для текстовых файлов.
+
+    `.gitattributes` объявляет `*.json text eol=lf`, поэтому в свежем клоне рабочая
+    копия приходит с LF, а на Windows-машине без нормализации — с CRLF. Хеш и размер
+    считаются по нормализованным байтам, иначе таблица расходится между платформами
+    (проверено на чистом клоне: тест падал на каждом CRLF-артефакте). Бинарные
+    артефакты (.png) не нормализуются никогда.
+    """
+    data = path.read_bytes()
+    if path.suffix in TEXT_SUFFIXES:
+        return data.replace(b"\r\n", b"\n")
+    return data
+
+
 def sha256(path: Path) -> str:
     h = hashlib.sha256()
-    with open(path, "rb") as fh:
-        for chunk in iter(lambda: fh.read(1024 * 1024), b""):
-            h.update(chunk)
+    h.update(normalized_bytes(path))
     return h.hexdigest()
 
 
@@ -91,7 +107,7 @@ def render(files: list[Path] | None = None) -> str:
             "| {link} | {kind} | {size} | `{sha}` |".format(
                 link=link(path),
                 kind=kind_of(path),
-                size=path.stat().st_size,
+                size=len(normalized_bytes(path)),
                 sha=sha256(path),
             )
         )
