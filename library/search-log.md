@@ -13,6 +13,13 @@
 | 2026-10-24 | neutral theory microbial community drift | 8 | 1 | P33 (Morrow) |
 | 2026-10-24 | meta-learning generalization new tasks | 8 | 0 | не подошли (частные приложения) |
 | 2026-10-24 | resource pulses consumers dynamics | 8 | 1 | P27 (Ostfeld & Keesing) |
+| 2026-10-24 | differentiable logic cellular automata / soft CA | 6 | 4 | fork-answer Q1–Q2 (Petersen 2022/2024, Mordvintsev 2022) |
+| 2026-10-24 | niche construction minimal models metrics | 6 | 5 | fork-answer Q3 (Laland, Jones, Post & Palkovacs, stigmergy, Schielke) |
+| 2026-10-24 | morphological computation action | 6 | 5 | fork-answer Q4 (Müller & Hoffmann, Bongard, Miłkowski, DeWitt & Scheiner, Sims) |
+| 2026-10-24 | value of information / static optimum | 8 | 5 | fork-answer Q5 (Howard 1966, Kaelbling 1998, Via 1993, Tufto 2015, DeWitt 1998) |
+| 2026-10-24 | Baldwin effect genetic assimilation | 6 | 5 | fork-answer Q6 (Baldwin, Waddington, Crispo, Scheiner & Levis, Paenke) |
+| 2026-10-24 | action space shaping novelty search | 6 | 5 | fork-answer Q7 (Lehman & Stanley, Kanervisto, Bongard, Taylor) |
+| 2026-10-24 | power analysis registered reports | 6 | 4 | fork-answer Q8–Q9 (Gelman & Carlin, Button, Simmons, Nosek & Lakens) |
 
 ## Как вести
 
