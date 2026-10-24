@@ -196,6 +196,15 @@ def test_notices(tmp: Path) -> None:
     check("notices: старый запрос помечен", "старше 24 ч: 1" in out and "B-999" in out, out)
     check("notices: код возврата 1 при просрочке", res.returncode == 1, str(res.returncode))
     check("notices: упоминание B-### не закрывает запрос", "closed(доска)" not in out, out)
+    notices2 = tmp / "notices2.md"
+    notices2.write_text("""### 2026-10-24, 10:00 — ведущий → **библиотекарю**
+- ЗАПРОС: зафиксировать шкалу fd
+
+### 2026-10-24, 11:00 — библиотекарь → **ведущему**
+ЗАКРЫТО: зафиксировать шкалу fd — сделано планом colinv4
+""", encoding="utf-8")
+    res2 = run("scripts/notices_status.py", "--notices", str(notices2))
+    check("notices: ЗАКРЫТО по фрагменту", "открытых: 0" in res2.stdout, res2.stdout)
 
 
 def test_trait_metrics(tmp: Path) -> None:

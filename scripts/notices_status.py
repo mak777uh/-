@@ -60,6 +60,12 @@ def parse() -> list[dict]:
         if block and REQUEST.match(line):
             text = REQUEST.match(line).group(1).strip()
             requests.append({**block, "text": text, "tags": TAG.findall(text)})
+        elif line.strip().upper().startswith("ЗАКРЫТО") and requests:
+            # «ЗАКРЫТО: <фрагмент>» закрывает запросы, в тексте которых есть фрагмент
+            fragment = line.split(":", 1)[-1].split("：", 1)[-1].strip().lower()
+            for req in requests:
+                if fragment and fragment[:40] in req["text"].lower():
+                    answered_after[req["text"]] = True
         elif line.strip().upper().startswith("ОТВЕТ") and requests:
             # ОТВЕТ закрывает запросы по ссылке (B-###/W<n>/Q<n>), иначе — последний запрос
             tags = TAG.findall(line)
