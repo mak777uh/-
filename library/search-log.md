@@ -68,6 +68,8 @@
 | 2026-10-24 | organisms as physical ecosystem engineers | 6 | 1 | P72 (Jones 1997): инженерия = физическое изменение состояния, трофика — нет |
 | 2026-10-24 | invasion fitness establishment probability rare type spatial | 6 | 2 | P73 (Duncan 2014), P74 (Lehmann 2016) — три уровня критерия инвазии |
 | 2026-10-24 | mutation rate digital organisms critical error threshold | 6 | 2 | E3 (Comas 2005), E4 (Musso 2012) — порог свой, за ним новизна = деградация |
+| 2026-10-24 | niche construction increases resource availability experimental test | 6 | 0 | прямого аналога нет; эмпирика без cost-matched контроля |
+| 2026-10-24 | stigmergy environment modification artificial life | 6 | 1 | E5 (Johnson & Wilke 2004): ресурсная конкуренция цифровых организмов |
 
 ## Как вести
 
