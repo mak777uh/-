@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-24T20:30:00+03:00",
+  "updated_at": "2026-10-24T22:10:00+03:00",
   "note": "Очередь пунктов после E02c. Claim берётся до пре-регистрации, а не перед запуском: lab.py item-claim. Статус running означает занятый GPU-лейн и может быть только у одного пункта.",
   "items": [
     {
@@ -634,6 +634,106 @@
         "morphogenesis/experiments/E09_pond/ecm_matrix.json"
       ],
       "note": "пре-регистрация пишется после финиша V8 (world/ заморожен); запуск — только после «ок» владельца: смена физики среды. Плечи: control (смерть = пустота) против ECM (смерть = препятствие); метрики β1 + Boundary Rugosity + классы; 5 сидов"
+    },
+    {
+      "status": "planned",
+      "owner": null,
+      "claimed_at": null,
+      "heartbeat_at": null,
+      "closed_at": null,
+      "ttl_minutes": 240,
+      "id": "V10_propagule",
+      "title": "Минимальный живой пропагул: пустое поле, N клеток",
+      "hypothesis": "H-ALIVE-23",
+      "cost_gpu_h": 1.5,
+      "gated_by": "V8_placement_merge",
+      "artifacts": [
+        "morphogenesis/experiments/E09_pond/founding_matrix.json"
+      ],
+      "note": "включает перезапуск resident_free с --start-cells; N ∈ {1,2,5,10,20} x 10 сидов; критерий alive_final>N и pop_time>0"
+    },
+    {
+      "status": "planned",
+      "owner": null,
+      "claimed_at": null,
+      "heartbeat_at": null,
+      "closed_at": null,
+      "ttl_minutes": 240,
+      "id": "V11_selection_E",
+      "title": "Условие E: признак читается миром",
+      "hypothesis": "H-ALIVE-24",
+      "cost_gpu_h": 2.0,
+      "gated_by": "V10_propagule",
+      "artifacts": [
+        "reports/2026-10-24-selection-plan.md"
+      ],
+      "note": "смена постановки: признак влияет на один параметр; запуск после «ок» владельца"
+    },
+    {
+      "status": "planned",
+      "owner": null,
+      "claimed_at": null,
+      "heartbeat_at": null,
+      "closed_at": null,
+      "ttl_minutes": 240,
+      "id": "V12_c_sufficiency",
+      "title": "Достаточность наследования среды: kill-and-keep",
+      "hypothesis": "H-ALIVE-25",
+      "cost_gpu_h": 1.0,
+      "gated_by": "V10_propagule",
+      "artifacts": [
+        "reports/2026-10-24-killkeep-plan.md"
+      ],
+      "note": "закрывает условие C: выгода следующей когорты, а не только след"
+    },
+    {
+      "status": "planned",
+      "owner": null,
+      "claimed_at": null,
+      "heartbeat_at": null,
+      "closed_at": null,
+      "ttl_minutes": 240,
+      "id": "V13_radial_gradient",
+      "title": "Радиальный градиент: нарушение симметрии средой",
+      "hypothesis": "H-ALIVE-26",
+      "cost_gpu_h": 0.7,
+      "gated_by": null,
+      "artifacts": [
+        "morphogenesis/experiments/E09_pond/radial_matrix.json"
+      ],
+      "note": "требует патча логгера (карта alive) для beta1/Rugosity; 30-40 мин GPU"
+    },
+    {
+      "status": "planned",
+      "owner": null,
+      "claimed_at": null,
+      "heartbeat_at": null,
+      "closed_at": null,
+      "ttl_minutes": 240,
+      "id": "V14_live_signal",
+      "title": "D-45: живой сигнал мира против суррогата и задержки",
+      "hypothesis": "H-ALIVE-27",
+      "cost_gpu_h": 2.0,
+      "gated_by": "V10_propagule",
+      "artifacts": [
+        "reports/2026-10-24-live-signal-plan.md"
+      ],
+      "note": "источники проверены: микрофон (rms 0.0208), RTT 95-166 мс, NOAA 1/мин; патч логгера нужен для метрик; 3 сессии"
+    },
+    {
+      "status": "planned",
+      "owner": null,
+      "claimed_at": null,
+      "heartbeat_at": null,
+      "closed_at": null,
+      "ttl_minutes": 240,
+      "id": "V15_logger_maps",
+      "title": "Патч логгера: карта alive 32x32 + метка класса",
+      "hypothesis": null,
+      "cost_gpu_h": 0.0,
+      "gated_by": null,
+      "artifacts": [],
+      "note": "разблокирует beta1/Rugosity для ECM, D-39, D-44, D-45; аддитивное поле, старые артефакты не переписываются"
     }
   ]
 }
