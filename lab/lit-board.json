@@ -1337,6 +1337,37 @@
         ]
       },
       "decided_by": "lead"
+    },
+    {
+      "id": "B-036",
+      "type": "risk",
+      "target": {
+        "kind": "section",
+        "id": "section5_a_gate",
+        "ref": "519c56c A-gate closed as result (soft_pond)"
+      },
+      "statement": "Закрытие A корректно как результат для fidelity-гейта (soft_pond не воспроизводит hard; P42 со straight-through даёт forward=hard, поэтому сравнение «мягкое≈жёсткое» вырождается). Но из этого не следует, что вопрос «полезны ли градиенты» закрыт: его можно проверить без почкования — сравнить правило, обученное градиентом через straight-through с дискретизацией, против жёсткого базлайна при равном бюджете (те же сиды, то же число обновлений). Если градиентное правило не хуже, вопрос остаётся открытым и требует D-35 (модель с почкованием). Формулировка в §2/§5: «A закрыт как текущий путь», а не «A невозможен».",
+      "evidence": [
+        {
+          "library": "hypotheses/pond-lineage.md#P42",
+          "note": "DiffLogic: straight-through forward = hard; fidelity тавтологична, но перенос обучения — нет"
+        }
+      ],
+      "action": {
+        "kind": "text",
+        "detail": "в §5: развести fidelity (закрыт) и gradient utility (не проверен); предложить тест gradient-trained vs hard baseline без почкования"
+      },
+      "status": "new",
+      "wave": "current",
+      "owner": "librarian",
+      "created_at": "2026-10-24T13:26:47+03:00",
+      "decided_at": null,
+      "why": null,
+      "links": {
+        "insights": [],
+        "tasks": [],
+        "reports": []
+      }
     }
   ],
   "updated_at": "2026-10-24T13:25:00Z"
