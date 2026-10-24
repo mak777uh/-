@@ -96,6 +96,8 @@ class PondConfig:
     invade_type: int = 1               # какой тип подсаживаем: 0 = A, 1 = B
     invade_min_cells: int = 30         # ждать, пока колония не вырастет до N клеток
     invader_cells: int = 1             # доза основателя: сколько клеток ставит инъекция (colony)
+    mutation_rate: float = 0.0         # 0..1: новый tag (метка линии) при рождении (условие B)
+    mutation_trait_sigma: float = 0.01  # сдвиг признака линии при мутации (масштаб признака ~1)
     learn_window: int = 30             # окно оценки для обучения колонии
     init_resource_fill: float = 0.0     # 0..1: доля потолка, до которой поле заполнено на старте
     membrane_gated: bool = False      # обмен гейтируется мембраной (замыкание)
@@ -117,6 +119,8 @@ class PondState:
     alive: torch.Tensor               # (H, W) bool
     resource_b: torch.Tensor | None = None  # (H, W) ресурс второго типа (I-030)
     cell_type: torch.Tensor | None = None   # (H, W) int64: 0 = A, 1 = B
+    tag: torch.Tensor | None = None         # (H, W) int64: метка линии (наследуемая)
+    tag_trait: torch.Tensor | None = None   # (H, W) float: признак линии (наследуемый)
     pred: torch.Tensor | None = None    # (H, W) L2: предсказание локального ресурса
     w_cell: torch.Tensor | None = None  # (H, W) локальный вес политики (учится)
     step: int = 0
@@ -217,6 +221,23 @@ class Pond:
         # родитель здесь компонента, и одно число её «возраст» не описывает.
         self.division_parent_ages: list[int] = []
         self.division_oldest_ages: list[int] = []
+        # метки линий (условие B): tag наследуется, мутация даёт НОВЫЙ tag с признаком
+        # tag_trait = признак родителя + шум. Пул A/B и вся динамика от метки не зависят,
+        # поэтому m=0 — бит-в-бит прежнее, а новизна (новые метки) измерима при m>0.
+        self.state.tag = torch.zeros((n, n), dtype=torch.int64, device=self.device)
+        self.state.tag_trait = torch.zeros((n, n), device=self.device)
+        self.next_tag = 1
+        self.mutation_events = 0
+        self.tag_born_at: dict[int, int] = {0: 0}
+        self.generation_depth: dict[int, int] = {0: 0}   # сколько делений от основателя
+        self.lineage_offspring: dict[int, int] = {0: 0}     # спор, произведённых линией (tag)
+        self.tag_trait_of: dict[int, float] = {0: 0.0}
+        self.births_by_type: dict[str, int] = {}
+        self.deaths_by_type: dict[str, int] = {}
+        self.type_counts_series: list[dict] = []
+        self._logged_births: dict[str, int] = {}
+        self._logged_deaths: dict[str, int] = {}
+        self._logged_mutations = 0
 
     # ---------- ресурс и катастрофы ----------
     def _sample_gap(self) -> int:
@@ -565,6 +586,11 @@ class Pond:
         s.age = torch.where(alive, s.age + 1, s.age)
         dies = alive & ((s.energy <= 0.0) | (s.damage >= cfg.damage_max) | (s.age > cfg.max_age))
         died_now = int(dies.sum())
+        if s.tag is not None and died_now and bool(dies.any()):
+            uniq, counts = torch.unique(s.tag[dies], return_counts=True)
+            for val, cnt in zip(uniq.tolist(), counts.tolist()):
+                key = f"T{int(val)}"
+                self.deaths_by_type[key] = self.deaths_by_type.get(key, 0) + int(cnt)
         # зоны по ресурсу в момент решения: где именно умирают клетки
         if cfg.resource_max > 0 and died_now:
             rich = s.resource > cfg.resource_max * 2 / 3
@@ -1066,6 +1092,7 @@ class Pond:
             self.division_parent_ages.extend([parent_age] * n_children)
             self.division_oldest_ages.extend([parent_age_oldest] * n_children)
         self._assign_child_type(parent, child)
+        self.register_births(child, parent)
         if cfg.learn_w:
             if cfg.learn_mode == "paired":
                 # урок ставится только когда есть вторая спора с другим весом
@@ -1144,11 +1171,109 @@ class Pond:
         sizes = {i: int((labels == i).sum()) for i in range(1, current + 1)}
         return sizes, labels
 
+    def register_births(self, newly: torch.Tensor, parent_mask: torch.Tensor,
+                        labels: torch.Tensor | None = None) -> int:
+        """Записать рождения: метка линии потомка, родословная, мутации и счётчики.
+
+        `tag` — наследуемая единица (метка линии), `tag_trait` — её числовой признак,
+        `generation_depth` — сколько делений от основателя, `lineage_offspring` — сколько
+        потомков приписано линии (единица отбора «линия», без переделки движка).
+
+        Потомок наследует tag и trait родителя, а с вероятностью `mutation_rate`
+        получает **новый** tag с `tag_trait` = признак родителя + шум
+        (`mutation_trait_sigma`). Так новизна измерима: по спецификации
+        (`library/metrics-spec.md`) это «типы, появившиеся и прожившие ≥ 50 шагов», а
+        флип A↔B новых типов не создаёт.
+
+        `labels` (компоненты) необязательны, но важны для честной родословной: тогда
+        потомок приписывается линии большинства СВОЕЙ колонии, а не всей карты.
+
+        Экологический тип A/B не трогается. При `m = 0` ни одного вызова RNG не
+        добавляется, поэтому прежние прогоны воспроизводятся бит-в-бит.
+        """
+        s = self.state
+        if s.tag is None or not bool(newly.any()):
+            return 0
+
+        def base_of(mask: torch.Tensor) -> tuple[int, float]:
+            if not bool(mask.any()):
+                return 0, 0.0
+            vals = s.tag[mask]
+            uniq, counts = torch.unique(vals, return_counts=True)
+            tag = int(uniq[int(torch.argmax(counts))])
+            same = mask & (s.tag == tag)
+            trait = float(s.tag_trait[same].mean()) if bool(same.any()) else 0.0
+            return tag, trait
+
+        if labels is None:
+            base_tag, base_trait = base_of(parent_mask)
+            s.tag[newly] = base_tag
+            s.tag_trait[newly] = base_trait
+            self.lineage_offspring[base_tag] = self.lineage_offspring.get(base_tag, 0) + int(newly.sum())
+            base_depth = int(self.generation_depth.get(base_tag, 0))
+        else:
+            base_depth = 0
+            for y, x in newly.nonzero(as_tuple=False).tolist():
+                body = parent_mask & (labels == int(labels[y, x]))
+                tag, trait = base_of(body)
+                s.tag[y, x] = tag
+                s.tag_trait[y, x] = trait
+                self.lineage_offspring[tag] = self.lineage_offspring.get(tag, 0) + 1
+                base_depth = max(base_depth, int(self.generation_depth.get(tag, 0)))
+
+        mutated = 0
+        m = float(self.cfg.mutation_rate)
+        if m > 0.0:
+            roll = torch.rand(newly.shape, generator=self.gen_sel, device=self.device)
+            flip = newly & (roll < m)
+            mutated = int(flip.sum())
+            if mutated:
+                sigma = float(getattr(self.cfg, "mutation_trait_sigma", 0.0))
+                noise = torch.randn(flip.shape, generator=self.gen_sel, device=self.device) * sigma
+                for y, x in flip.nonzero(as_tuple=False).tolist():
+                    parent_tag = int(s.tag[y, x])
+                    parent_trait = float(s.tag_trait[y, x])
+                    tag = self.next_tag
+                    self.next_tag += 1
+                    s.tag[y, x] = tag
+                    s.tag_trait[y, x] = parent_trait + float(noise[y, x])
+                    self.tag_born_at[tag] = int(s.step)
+                    self.tag_trait_of[tag] = parent_trait + float(noise[y, x])
+                    self.generation_depth[tag] = int(self.generation_depth.get(parent_tag, 0)) + 1
+                    self.lineage_offspring[tag] = 0
+                self.mutation_events += mutated
+        uniq, counts = torch.unique(s.tag[newly], return_counts=True)
+        for val, cnt in zip(uniq.tolist(), counts.tolist()):
+            key = f"T{int(val)}"
+            self.births_by_type[key] = self.births_by_type.get(key, 0) + int(cnt)
+        return mutated
+
     def snapshot(self) -> dict:
         s = self.state
         a_share = None
         if s.cell_type is not None and bool(s.alive.any()):
             a_share = round(float((s.cell_type[s.alive] == 0).float().mean()), 4)
+        metrics: dict = {}
+        if s.tag is not None and bool(s.alive.any()):
+            uniq, counts = torch.unique(s.tag[s.alive], return_counts=True)
+            births_step = {
+                k: v - self._logged_births.get(k, 0) for k, v in self.births_by_type.items()
+            }
+            deaths_step = {
+                k: v - self._logged_deaths.get(k, 0) for k, v in self.deaths_by_type.items()
+            }
+            self._logged_births = dict(self.births_by_type)
+            self._logged_deaths = dict(self.deaths_by_type)
+            mutated = self.mutation_events - self._logged_mutations
+            self._logged_mutations = self.mutation_events
+            # в лог — только скаляры: поштучные счётчики по меткам кладутся в summary
+            # каждые 5 шагов (`type_counts_series`), иначе артефакт пухнет вдвое
+            metrics = {
+                "types_alive": int(uniq.numel()),
+                "births_step": int(sum(births_step.values())),
+                "deaths_step": int(sum(deaths_step.values())),
+                "mutation_events": int(mutated),
+            }
         return {
             "step": int(s.step),
             "alive_cells": int(s.alive.sum()),
@@ -1162,6 +1287,7 @@ class Pond:
             "spores_blocked": int(s.spores_blocked),
             "catastrophe": self.in_catastrophe(),
             "a_share": a_share,
+            **metrics,
         }
 
 

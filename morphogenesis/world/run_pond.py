@@ -56,11 +56,50 @@ def config_block(cfg) -> dict:
         "invade_type": getattr(cfg, "invade_type", None),
         "invade_min_cells": getattr(cfg, "invade_min_cells", None),
         "invader_cells": getattr(cfg, "invader_cells", 1),
+        "mutation_rate": getattr(cfg, "mutation_rate", 0.0),
+        "mutation_trait_sigma": getattr(cfg, "mutation_trait_sigma", 0.0),
         "layout": getattr(cfg, "resource_layout", None),
         "income": getattr(cfg, "baseline_income", None),
         "update_cost": getattr(cfg, "update_cost", None),
         "repair_cost": getattr(cfg, "repair_cost", None),
     }
+
+
+def tag_metrics_block(pond) -> dict:
+    """Метрики условия B по МЕТКАМ ЛИНИЙ (tag), а не по экологическому типу A/B.
+
+    Формат согласован с библиотекарем (`library/conditions-B-criteria.md`):
+    `type_counts_series` — список {"step": N, "counts": {tag: клеток}} каждые 5 шагов,
+    а не каждый шаг (артефакт иначе пухнет вдвое); `type_counts` — итог на конец;
+    `type_traits` — {tag: признак} для меток, у которых были рождения (без признака
+    дифференциальное воспроизводство не считается — это «нет данных», а не «нет отбора»).
+    """
+    import torch as _torch  # локально: модуль должен импортироваться и без тяжёлых путей
+    s = pond.state
+    block = {
+        "type_counts": {},
+        "types_alive": 0,
+        "births_by_type": dict(getattr(pond, "births_by_type", {})),
+        "deaths_by_type": dict(getattr(pond, "deaths_by_type", {})),
+        "mutation_events": int(getattr(pond, "mutation_events", 0)),
+        "type_counts_series": list(getattr(pond, "type_counts_series", [])),
+        "type_traits": {},
+        "lineage_generation": dict(getattr(pond, "generation_depth", {})),
+        "lineage_fitness": dict(getattr(pond, "lineage_offspring", {})),
+        "tag_source": "tag: наследуемая метка линии; type A/B — экологический пул",
+    }
+    if s.tag is None or not bool(s.alive.any()):
+        return block
+    uniq, counts = _torch.unique(s.tag[s.alive], return_counts=True)
+    finals = {f"T{int(u)}": int(c) for u, c in zip(uniq.tolist(), counts.tolist())}
+    block["type_counts"] = finals
+    block["types_alive"] = len(finals)
+    traits = getattr(pond, "tag_trait_of", {})
+    for key in block["births_by_type"]:
+        tag_id = int(key[1:]) if key.startswith("T") else None
+        if tag_id is not None and tag_id in traits:
+            block["type_traits"][key] = round(float(traits[tag_id]), 6)
+    return block
 
 
 def generation_block(parent_ages: list[int], oldest_ages: list[int] | None = None) -> dict:
@@ -242,6 +281,7 @@ class PondRun:
             s.damage = torch.where(newly, torch.zeros_like(s.damage), s.damage)
             if s.cell_type is not None:
                 self._inherit_grown_types(old_alive, newly, labels)
+                self.pond.register_births(newly, old_alive, labels)
         else:
             s.alive = alive_now
         return births
@@ -331,6 +371,15 @@ class PondRun:
             births += 1
         if int(self.pond.state.step) % 5 == 0:
             self.pond.enforce_colony_types()
+            # серия меток линий для метрик условия B: каждые 5 шагов, а не каждый
+            tag_t = self.pond.state.tag
+            if tag_t is not None and bool(self.pond.state.alive.any()):
+                uniq, counts = torch.unique(tag_t[self.pond.state.alive], return_counts=True)
+                self.pond.type_counts_series.append({
+                    "step": int(self.pond.state.step),
+                    "counts": {f"T{int(u)}": int(c)
+                               for u, c in zip(uniq.tolist(), counts.tolist())},
+                })
         self._apply_alive(self.pond.state.alive)
 
         if self.snapshot_every and self.pond.state.step % self.snapshot_every == 0:
@@ -453,6 +502,10 @@ def build_parser() -> argparse.ArgumentParser:
                     help="доля живых клеток, которым подменяют тип при инвазии")
     ap.add_argument("--invade-min-cells", type=int, default=30,
                     help="инъекция валидна только если живых >= N (дефолт = PondConfig)")
+    ap.add_argument("--mutation-rate", type=float, default=0.0,
+                    help="вероятность НОВОЙ метки линии (tag) при рождении; 0 = мутаций нет")
+    ap.add_argument("--mutation-trait-sigma", type=float, default=0.01,
+                    help="сдвиг признака линии при мутации (масштаб признака ~1)")
     ap.add_argument("--invader-cells", type=int, default=1,
                     help="доза основателя при --type-level colony: сколько клеток ставит "
                          "инъекция (связное 4-пятно; 1 = как в серии 24.10)")
@@ -517,6 +570,8 @@ def main(argv: list[str] | None = None) -> int:
     world.invade_type = args.invade_type
     world.invade_min_cells = args.invade_min_cells
     world.invader_cells = args.invader_cells
+    world.mutation_rate = args.mutation_rate
+    world.mutation_trait_sigma = args.mutation_trait_sigma
     world.w_rich = args.w_rich
     world.learn_w = args.learn_w
     world.learn_rate = args.learn_rate
@@ -630,6 +685,7 @@ def main(argv: list[str] | None = None) -> int:
     summary["config"] = config_block(run.world_cfg)
     summary.update(generation_block(getattr(run.pond, "division_parent_ages", []),
                                     getattr(run.pond, "division_oldest_ages", [])))
+    summary.update(tag_metrics_block(run.pond))
     summary["design"] = 3
     summary["injection_invalid"] = bool(getattr(run.pond, "injection_invalid", False))
     summary["w_final"] = float(run.pond.w)

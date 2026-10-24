@@ -143,6 +143,34 @@ def check_invasion(rows: list[dict]) -> list[str]:
     return errors
 
 
+def check_invader_dose(rows: list[dict]) -> list[str]:
+    """Проверки агрегата дозы инокулята (серия D): рост, выживание, невалидность."""
+    errors: list[str] = []
+    for i, row in enumerate(rows):
+        dose = row.get("dose")
+        if not isinstance(dose, int) or dose <= 0:
+            errors.append(f"[{i}]: dose должно быть положительным целым ({dose})")
+        start = row.get("invader_share_start")
+        end = row.get("invader_share_end")
+        if start is None or end is None:
+            errors.append(f"[{i}]: нет invader_share_start/end")
+            continue
+        if not (0.0 <= float(start) <= 1.0) or not (0.0 <= float(end) <= 1.0):
+            errors.append(f"[{i}]: доля вне [0,1] (start {start}, end {end})")
+        growth = row.get("growth")
+        if start and growth is not None:
+            expected = float(end) / float(start)
+            if abs(float(growth) - expected) > 1e-6:
+                errors.append(f"[{i}]: growth {growth} != end/start {expected:.4f}")
+        if row.get("survived") != bool(float(end) > 0.0):
+            errors.append(f"[{i}]: survived={row.get('survived')} не согласовано с end={end}")
+        if float(start) > 0.05 and not row.get("invalid_reason"):
+            errors.append(f"[{i}]: доля подсадки {float(start):.4f} > 0.05 без invalid_reason")
+        if row.get("invalid_reason") and float(start) <= 0.05:
+            errors.append(f"[{i}]: invalid_reason при доле подсадки {float(start):.4f} <= 0.05")
+    return errors
+
+
 def check_probe(rows: list[dict]) -> list[str]:
     """Проверки сводки зонда: положительный полураспад и невозрастающий decay."""
     errors: list[str] = []
@@ -170,6 +198,8 @@ def check_file(path: Path, strict: bool = False) -> tuple[list[str], list[str]]:
         return errors, warns  # не агрегат
     if payload.get("kind") == "invasion_runs":
         return [f"{path.name}{e}" for e in check_invasion(rows)], warns
+    if payload.get("kind") == "invader_dose_runs":
+        return [f"{path.name}{e}" for e in check_invader_dose(rows)], warns
     if payload.get("kind") == "probe_summary":
         return [f"{path.name}{e}" for e in check_probe(rows)], warns
     if payload.get("kind") == "aggregate_medians":

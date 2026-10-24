@@ -856,6 +856,121 @@ def test_bud_records_parent_age_at_division():
     assert ages[0] == parent_age_before, "записан возраст родителя на момент деления"
 
 
+def _mutation_pond(rate: float, **over):
+    cfg = dict(grid=8, resource_regen=0.0, baseline_income=0.2, update_cost=0.0,
+               repair_cost=0.0, damage_rate=0.0, noise=0.0, income_mode="proportional",
+               freq_dep=0.0, type_mode="mixfixed", resource_layout="uniform",
+               init_resource_fill=0.0, mutation_rate=rate)
+    cfg.update(over)
+    return Pond(PondConfig(**cfg), seed=3)
+
+
+def test_mutation_zero_creates_no_new_tags():
+    """m=0 — прежнее поведение: одна метка линии, ни одной мутации."""
+    pond = _mutation_pond(0.0)
+    mask = torch.zeros((8, 8), dtype=torch.bool)
+    mask[2:4, 2:4] = True
+    pond.seed_life(mask, energy=5.0)
+    for _ in range(2):
+        pond.regenerate()
+        pond.step_cells()
+    newly = pond.bud(pond.state.alive)
+    assert newly is not None
+    assert pond.mutation_events == 0
+    tags = torch.unique(pond.state.tag[pond.state.alive])
+    assert int(tags.max()) == 0, "новых меток при m=0 быть не должно"
+    assert pond.births_by_type, "рождения считаются и без мутации"
+
+
+def test_mutation_one_gives_every_child_a_new_tag():
+    """m=1 — каждый потомок получает новую метку линии (и признак от родителя)."""
+    pond = _mutation_pond(1.0)
+    mask = torch.zeros((8, 8), dtype=torch.bool)
+    mask[2:4, 2:4] = True
+    pond.seed_life(mask, energy=5.0)
+    for _ in range(2):
+        pond.regenerate()
+        pond.step_cells()
+    child = pond.bud(pond.state.alive)
+    assert child is not None
+    n_children = int(child.sum())
+    assert pond.mutation_events == n_children >= 1
+    child_tags = torch.unique(pond.state.tag[child])
+    assert int(child_tags.min()) >= 1, "у потомков новые метки"
+    assert int(pond.state.tag.min()) == 0, "предковая метка остаётся у родителя"
+
+
+def test_mutation_trait_inherits_with_noise():
+    """Признак линии наследуется; при мутации сдвигается на шум заданного масштаба."""
+    pond = _mutation_pond(1.0, mutation_trait_sigma=0.5)
+    mask = torch.zeros((8, 8), dtype=torch.bool)
+    mask[2:4, 2:4] = True
+    pond.seed_life(mask, energy=5.0)
+    for _ in range(2):
+        pond.regenerate()
+        pond.step_cells()
+    child = pond.bud(pond.state.alive)
+    assert child is not None
+    traits = pond.state.tag_trait[child].tolist()
+    assert any(abs(t) > 0.0 for t in traits), "признак потомка сдвинут шумом"
+    assert abs(sum(traits) / len(traits)) < 2.0, "сдвиг в масштабе sigma, а не в разы"
+
+
+def test_tag_series_and_counts():
+    """Серия по меткам: шаги каждые 5, счётчики в сумме равны живым."""
+    pond = _mutation_pond(0.05)
+    mask = torch.zeros((8, 8), dtype=torch.bool)
+    mask[2:4, 2:4] = True
+    pond.seed_life(mask, energy=5.0)
+    for _ in range(5):
+        pond.regenerate()
+        pond.step_cells()
+    snap = pond.snapshot()
+    assert "types_alive" in snap and "mutation_events" in snap
+    assert snap["types_alive"] >= 1
+    counts = {}
+    for key, value in snap.get("type_counts", {}).items():
+        counts[key] = value
+    if counts:
+        assert sum(counts.values()) == int(pond.state.alive.sum())
+
+
+def test_lineage_depth_and_fitness_without_mutation():
+    """Родословная: при m=0 глубина 0, а фитнес линии равен числу рождений."""
+    pond = _mutation_pond(0.0)
+    mask = torch.zeros((8, 8), dtype=torch.bool)
+    mask[2:4, 2:4] = True
+    pond.seed_life(mask, energy=5.0)
+    for _ in range(2):
+        pond.regenerate()
+        pond.step_cells()
+    child = pond.bud(pond.state.alive)
+    assert child is not None
+    assert pond.generation_depth.get(0) == 0, "основатель — нулевая глубина"
+    births_total = sum(pond.births_by_type.values())
+    assert sum(pond.lineage_offspring.values()) == births_total, \
+        "каждое рождение приписано ровно одной линии"
+
+
+def test_mutation_creates_lineage_of_depth_one():
+    """Мутация создаёт линию первого поколения от основателя."""
+    pond = _mutation_pond(1.0)
+    mask = torch.zeros((8, 8), dtype=torch.bool)
+    mask[2:4, 2:4] = True
+    pond.seed_life(mask, energy=5.0)
+    for _ in range(2):
+        pond.regenerate()
+        pond.step_cells()
+    child = pond.bud(pond.state.alive)
+    assert child is not None
+    new_tags = [t for t in pond.generation_depth if t != 0]
+    assert new_tags, "мутация должна создать новые линии"
+    assert all(pond.generation_depth[t] == 1 for t in new_tags), \
+        "мутант — поколение 1 от основателя"
+    assert all(pond.lineage_offspring.get(t, 0) == 0 for t in new_tags), \
+        "у новой линии пока нет своих рождений"
+
+
 def _type_run(start: str, fd: float, steps: int = 40, grid: int = 16, seed: int = 1):
     from world.run_pond import PondRun
     cfg = PondConfig(grid=grid, resource_layout="gradient", income_mode="proportional",
