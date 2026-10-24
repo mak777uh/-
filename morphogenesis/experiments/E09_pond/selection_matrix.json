@@ -1,0 +1,113 @@
+{
+  "kind": "selection_runs",
+  "experiment": "E09_pond_selection",
+  "metric": "фитнес линии = число спор; rho = Spearman(trait, spores); beta_lin/beta_quad — градиент отбора Lande & Arnold",
+  "note": "собрано scripts/selection_matrix.py; критерии из reports/2026-10-24-selection-plan.md",
+  "rows": [
+    {
+      "artifact": "morphogenesis/experiments/E09_pond/sel_eps00_seed1.json",
+      "eps": 0.0,
+      "seed": 1,
+      "fitness_source": "lineage_spores",
+      "lineages_with_min_spores": 1,
+      "valid_metric": false,
+      "invalid_reason": "линий с >= 1 спорами 1 < 10 (мало точек: rho и градиент не считаются)",
+      "rho": null,
+      "beta_lin": null,
+      "beta_quad": null,
+      "manipulation_rho": null,
+      "manipulation_ok": null,
+      "crow_I": null,
+      "pop_time": 285633,
+      "alive_final": 647
+    },
+    {
+      "artifact": "morphogenesis/experiments/E09_pond/sel_eps00_seed2.json",
+      "eps": 0.0,
+      "seed": 2,
+      "fitness_source": "lineage_spores",
+      "lineages_with_min_spores": 1,
+      "valid_metric": false,
+      "invalid_reason": "линий с >= 1 спорами 1 < 10 (мало точек: rho и градиент не считаются)",
+      "rho": null,
+      "beta_lin": null,
+      "beta_quad": null,
+      "manipulation_rho": null,
+      "manipulation_ok": null,
+      "crow_I": null,
+      "pop_time": 299972,
+      "alive_final": 676
+    },
+    {
+      "artifact": "morphogenesis/experiments/E09_pond/sel_eps00_seed3.json",
+      "eps": 0.0,
+      "seed": 3,
+      "fitness_source": "lineage_spores",
+      "lineages_with_min_spores": 1,
+      "valid_metric": false,
+      "invalid_reason": "линий с >= 1 спорами 1 < 10 (мало точек: rho и градиент не считаются)",
+      "rho": null,
+      "beta_lin": null,
+      "beta_quad": null,
+      "manipulation_rho": null,
+      "manipulation_ok": null,
+      "crow_I": null,
+      "pop_time": 289214,
+      "alive_final": 660
+    },
+    {
+      "artifact": "morphogenesis/experiments/E09_pond/sel_eps200_seed1.json",
+      "eps": 2.0,
+      "seed": 1,
+      "fitness_source": "lineage_spores",
+      "lineages_with_min_spores": 1,
+      "valid_metric": false,
+      "invalid_reason": "линий с >= 1 спорами 1 < 10 (мало точек: rho и градиент не считаются)",
+      "rho": null,
+      "beta_lin": null,
+      "beta_quad": null,
+      "manipulation_rho": null,
+      "manipulation_ok": null,
+      "crow_I": null,
+      "pop_time": 286457,
+      "alive_final": 646
+    }
+  ],
+  "by_eps": [
+    {
+      "eps": 0.0,
+      "runs": 3,
+      "valid_n": 0,
+      "invalid_n": 3,
+      "rho_median": null,
+      "rho_range": null,
+      "rho_ge_0.3_k": 0,
+      "beta_lin_median": null,
+      "beta_quad_median": null,
+      "sign_agreement_k": 0,
+      "manipulation_ok_k": 0,
+      "crow_I_median": null
+    },
+    {
+      "eps": 2.0,
+      "runs": 1,
+      "valid_n": 0,
+      "invalid_n": 1,
+      "rho_median": null,
+      "rho_range": null,
+      "rho_ge_0.3_k": 0,
+      "beta_lin_median": null,
+      "beta_quad_median": null,
+      "sign_agreement_k": 0,
+      "manipulation_ok_k": 0,
+      "crow_I_median": null
+    }
+  ],
+  "criteria": {
+    "manipulation_ok": false,
+    "opportunity_for_selection": false,
+    "e_confirmed": false,
+    "control_neutral": true,
+    "note": "три уровня: (1) мир прочитал признак — |rho(trait, invested)| >= 0.2 в >= 7/10; (2) есть из чего выбирать — медиана индекса Кроу I > 0; (3) есть отклик — медиана rho(trait, споры/клетку) >= 0.3, rho >= 0.3 в >= 7/10 и знак beta_lin совпадает с rho в >= 7/10"
+  }
+}
