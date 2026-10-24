@@ -1,0 +1,105 @@
+{
+  "items": [
+    {
+      "id": "W1",
+      "kind": "review",
+      "title": "Встречный тест C2: равный бюджет mobile vs fixed (affordance, не обучение)",
+      "target": "claims-evidence C2",
+      "action": "сформулировать проверку: одинаковое число действий/энергии у mobile и fixed; если разница исчезает — affordance не отделён",
+      "impact": 5,
+      "effort": 2,
+      "blocked_by": [],
+      "status": "open"
+    },
+    {
+      "id": "W2",
+      "kind": "metric",
+      "title": "trait_metrics.py: разнообразие, поток новизны, Спирмен по существующим артефактам",
+      "target": "scripts/trait_metrics.py",
+      "action": "посчитать что можно из b2/colinv3 (доли типов), остальное — заготовка под новые поля",
+      "impact": 5,
+      "effort": 3,
+      "blocked_by": [],
+      "status": "open"
+    },
+    {
+      "id": "W3",
+      "kind": "condition",
+      "title": "Досье условия A (информация): якорь, метрика, тест опровержения",
+      "target": "conditions.md#A",
+      "action": "записать: при полной информации выигрыш ≤ порога; при частичной ≥ порога; что мерить",
+      "impact": 4,
+      "effort": 2,
+      "blocked_by": [],
+      "status": "open"
+    },
+    {
+      "id": "W4",
+      "kind": "condition",
+      "title": "Досье условия B (изменчивость): мутация типа, rate m, критерий новизны",
+      "target": "conditions.md#B",
+      "action": "специфицировать m, ожидаемую новизну, критерий (novelty>0 при m>0 и =0 при m=0)",
+      "impact": 4,
+      "effort": 2,
+      "blocked_by": [],
+      "status": "open"
+    },
+    {
+      "id": "W5",
+      "kind": "claim",
+      "title": "C5: длина поколения из артефакта, а не из прежней оценки",
+      "target": "claims-evidence C5",
+      "action": "найти/попросить поле generation_length; пересчитать отношение",
+      "impact": 3,
+      "effort": 2,
+      "blocked_by": [],
+      "status": "open"
+    },
+    {
+      "id": "W6",
+      "kind": "claim",
+      "title": "C3: интервал для доли коллапсов patches (n=10)",
+      "target": "claims-evidence C3",
+      "action": "Wilson/Clopper-Pearson после серии n=10; записать критерий неравенства",
+      "impact": 4,
+      "effort": 2,
+      "blocked_by": [],
+      "status": "open"
+    },
+    {
+      "id": "W7",
+      "kind": "claim",
+      "title": "C6: развёртка инокулята 1/2/5/10 — протокол и критерий",
+      "target": "claims-evidence C6",
+      "action": "описать дизайн, число прогонов, как считать кривую выживания",
+      "impact": 4,
+      "effort": 2,
+      "blocked_by": [],
+      "status": "open"
+    },
+    {
+      "id": "W8",
+      "kind": "lit",
+      "title": "Метрики OEE: одна работа на метрику (разнообразие/новизна/отбор)",
+      "target": "alife-lineage.md",
+      "action": "найти 2-3 источника с абстрактами: как измеряют новизну и дифференциальное воспроизводство",
+      "impact": 3,
+      "effort": 2,
+      "blocked_by": [],
+      "status": "open"
+    },
+    {
+      "id": "W9",
+      "kind": "hygiene",
+      "title": "Свернуть ритм: 3 проверки/день, убрать дублирование отчётов",
+      "target": "self-audit.md",
+      "action": "обновить расписание и правило «один факт в одном месте»",
+      "impact": 3,
+      "effort": 1,
+      "blocked_by": [],
+      "status": "done",
+      "done_at": "2026-10-24 15:03",
+      "result": "Плейбук цикла написан; ритм: крон */30 + событийный сторож; правило «один факт — одна запись»"
+    }
+  ]
+}
