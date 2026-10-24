@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-24T13:40:00+03:00",
+  "updated_at": "2026-10-24T15:35:00+03:00",
   "note": "Очередь пунктов после E02c. Claim берётся до пре-регистрации, а не перед запуском: lab.py item-claim. Статус running означает занятый GPU-лейн и может быть только у одного пункта.",
   "items": [
     {
@@ -510,18 +510,21 @@
       "id": "V4_colony_type_invasion",
       "title": "Тип на колонии: проходит ли инвазия редкой колонии",
       "hypothesis": "H-ALIVE-10",
-      "status": "planned",
-      "owner": null,
+      "status": "closed",
+      "owner": "lead",
       "claimed_at": null,
       "heartbeat_at": null,
-      "closed_at": null,
+      "closed_at": "2026-10-24T15:35:00+03:00",
       "ttl_minutes": 240,
       "cost_gpu_h": 1.5,
       "gated_by": null,
       "artifacts": [
-        "docs/plan-verification-2026-10-24.md"
+        "morphogenesis/experiments/E09_pond/colony_type_matrix.json",
+        "docs/world-design.md §10ab",
+        "manuscript/paper.md §4b.1"
       ],
-      "note": "из плана проверок 24.10"
+      "note": "закрыто 24.10: дизайн 3, 24 прогона; под наследованием финал 0.0000 12/12 при fd=0 и fd=1 (рост 0.00), random-плечо невалидно 8/24; H-ALIVE-10 отвергнута; судьба основателя не отделена — развёртка по инокуляту вынесена в V6",
+      "closed_by": "lead"
     },
     {
       "id": "V5_fixation_fixed_N",
@@ -556,6 +559,23 @@
         "docs/plan-verification-2026-10-24.md"
       ],
       "note": "P49-P50: наследие должно переживать удаление организма, иначе это разовое удобство"
+    },
+    {
+      "id": "V6_invader_dose",
+      "title": "Запас по основателю: развёртка по размеру инокулята (B-037/H73)",
+      "hypothesis": "H-ALIVE-19",
+      "status": "planned",
+      "owner": null,
+      "claimed_at": null,
+      "heartbeat_at": null,
+      "closed_at": null,
+      "ttl_minutes": 240,
+      "cost_gpu_h": 2.0,
+      "gated_by": null,
+      "artifacts": [
+        "reports/2026-10-24-invader-dose-plan.md"
+      ],
+      "note": "смена постановки: запуск только после «ок» владельца; пре-регистрация и параметр --invader-cells готовит учёный (task-2)"
     }
   ]
 }
