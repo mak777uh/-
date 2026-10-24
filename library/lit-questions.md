@@ -13,7 +13,12 @@
 | Q7 | How are negative results reported in artificial life venues and formats? | searched-1 | 2026-10-24 | отдельного ALife-трека нет; форматы: ALIFE/ArtLife, ReScience C, registered reports, workshops (audit/publishing-practice.md) |
 | Q8 | Generalist versus specialist performance across heterogeneous environments | searched-1 | 2026-10-24 | P51 Hughes 2023 (генералист/специалист: 2 vs 4 среды); mapping NC3 исправлен (L2 = choice) |
 | Q9 | Experiments separating "plasticity does not pay" from "plasticity assimilated" | searched-1 | 2026-10-24 | P52 Fragata 2015 (пластичность сохраняется в стабильной среде), P53 Walasek 2025 (обратимая пластичность в стабильной среде) |
-| Q10 | Two-pool resource switching versus frequency dependence: distinguishing experiments | open | — | switching vs fd (H54) |
+| Q10 | Two-pool resource switching versus frequency dependence: distinguishing experiments | searched-0 | 2026-10-24 | различающий эксперимент конструируем сами: компоненты уже есть (P25/P26 switching, P15/P16 fd); свежих работ именно про two-pool vs fd не нашлось |
+
+| Q11 | How is niche conformance operationalized in minimal models? | open | — | B1: мембрана vs захват — первое плечо conformance |
+| Q12 | What minimal in-silico experiments show construction benefit with a placebo control? | open | — | B2: после placebo нашли механизм; нужен обзор моделей |
+| Q13 | How to detect bistability and bimodality in small-sample ALife runs? | open | — | режим смерти/бимодальность (B-029/B-033) |
+| Q14 | How do ALife papers justify generalisation across substrates? | open | — | перенос W1→W2 (H-ALIVE-7) |
 
 ## Как пополнять
 
