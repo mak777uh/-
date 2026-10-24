@@ -55,10 +55,12 @@ proportional`, `--invade-at 200`, `--invade-min-cells 30`, `--type-level colony`
 **Что пишется в summary (кроме уже существующего):** `invader_cells` (запрошенная
 доза), `invader_cells_actual` (сколько реально поставлено), `config` (блок
 параметров: `freq_dep` + расшифровка шкалы, `type_mode`, `type_level`, `type_inherit`,
-`invade_*`, `invader_cells`, `layout`, `income`, `update_cost`, `repair_cost`) — чтобы
-артефакт читался без sweep-скрипта вне git; `generation_length` (медиана «родитель →
-деление» в шагах по всем почкованиям, `null` при < 20 делениях),
-`generation_divisions` (сколько делений вошло) и `generation_source` (канал:
+`invade_*`, `invader_cells`, `mutation_rate`, `layout`, `income`, `update_cost`,
+`repair_cost`) — чтобы артефакт читался без sweep-скрипта вне git; `generation_length`
+(медиана **среднего возраста клеток колонии в момент почкования**; в этой модели
+делится компонента, а не клетка), `generation_length_oldest` (медиана возраста самой
+старой клетки в компоненте на моменте деления), `generation_divisions` (сколько
+почкований вошло; при < 20 делений оба поля `null`) и `generation_source` (канал:
 почкование — у роста правила родителя нет).
 
 **Дефолты и явные значения.** `--invader-cells` по умолчанию **1**, и при 1

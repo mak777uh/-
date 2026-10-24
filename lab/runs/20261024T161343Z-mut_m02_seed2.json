@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "run_id": "20261024T161343Z-mut_m02_seed2",
+  "experiment": "mut_m02_seed2",
+  "experiment_id": "E09_pond",
+  "arm": "mutation_m02",
+  "seed": 2,
+  "steps": 300,
+  "status": "failed",
+  "provenance": "runner",
+  "source": "morphogenesis/logs/journal.jsonl",
+  "started_at": "2026-10-24T16:13:43Z",
+  "finished_at": "2026-10-24T16:13:53Z",
+  "git_commit": "754a8c8",
+  "git_dirty": true,
+  "command": [
+    "C:\\Users\\Admin\\Documents\\Qoder\\2026-10-18\\82ab86cd\\repo\\.venv\\Scripts\\python.exe",
+    "run_exploratory.py",
+    "--script",
+    "../../_hourly/colinv4_driver.py",
+    "--experiment",
+    "mut_m02_seed2",
+    "--device",
+    "cuda"
+  ],
+  "cwd": "morphogenesis",
+  "owner": "scientist",
+  "environment": {
+    "python": "3.13.11",
+    "platform": "Windows-11-10.0.26300-SP0",
+    "torch": "2.6.0+cu124",
+    "numpy": "2.5.4",
+    "device": "NVIDIA GeForce RTX 3070 Laptop GPU, 595.79"
+  },
+  "checkpoint_in": null,
+  "outputs": {
+    "declared": [],
+    "log": "morphogenesis/logs/20261024T161343Z-mut_m02_seed2.log"
+  },
+  "metrics": {},
+  "stop_reason": "exit_1",
+  "exit_code": 1,
+  "log_path": "morphogenesis/logs/20261024T161343Z-mut_m02_seed2.log",
+  "notes": "серия B: mutation_rate=0.2, freq_dep 0.0, type_level cell"
+}
