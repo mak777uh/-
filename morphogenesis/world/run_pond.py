@@ -108,7 +108,7 @@ def config_block(cfg) -> dict:
         "invade_placement": getattr(cfg, "invade_placement", "random"),
         "merge_rule": getattr(cfg, "merge_rule", "majority"),
         "invade_on_empty": bool(getattr(cfg, "invade_on_empty", False)),
-        "start_cells": int(getattr(cfg, "_start_cells", 4)),
+        "start_cells": int(getattr(cfg, "start_cells", 4)),
         "mutation_rate": getattr(cfg, "mutation_rate", 0.0),
         "mutation_trait_sigma": getattr(cfg, "mutation_trait_sigma", 0.0),
         "layout": getattr(cfg, "resource_layout", None),

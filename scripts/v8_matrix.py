@@ -47,12 +47,14 @@ def invader_series(log: list[dict]) -> list[float]:
     return out
 
 
-def analyse(path: Path) -> dict:
+def analyse(path: Path) -> dict | None:
+    match = NAME.search(path.name)
+    if not match:
+        return None                      # агрегат и прочие v8_*.json — не прогоны
     data = json.loads(path.read_text(encoding="utf-8"))
     summary = data.get("summary") or {}
     log = data.get("log") or []
-    match = NAME.search(path.name)
-    arm = match.group("arm") if match else None
+    arm = match.group("arm")
     config = summary.get("config") or {}
     end = summary.get("a_share_final")
     end = 1.0 - float(end) if end is not None else None
@@ -66,7 +68,7 @@ def analyse(path: Path) -> dict:
     elif not invalid_reason and start is not None and start > 0.05:
         invalid_reason = f"injection_share {start:.4f} > 0.05"
     return {
-        "artifact": path.name,
+        "artifact": f"morphogenesis/experiments/E09_pond/{path.name}",
         "arm": arm,
         "seed": int(match.group("seed")) if match else None,
         "placement": config.get("invade_placement"),
@@ -157,7 +159,7 @@ def main(argv=None) -> int:
     args = ap.parse_args(argv)
 
     files = sorted(glob.glob(str(Path(args.src) / args.glob)))
-    rows = [analyse(Path(f)) for f in files]
+    rows = [row for row in (analyse(Path(f)) for f in files) if row is not None]
     table = by_arm(rows)
     code_commits = {r["git_code_commit"] for r in rows if r["git_code_commit"]}
     head_commits = {r["git_commit"] for r in rows if r["git_commit"]}

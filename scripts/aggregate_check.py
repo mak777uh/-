@@ -143,6 +143,21 @@ def check_invasion(rows: list[dict]) -> list[str]:
     return errors
 
 
+def check_v8(rows: list[dict]) -> list[str]:
+    """Проверки агрегата V8: выживание согласовано с долей, плечо заполнено."""
+    errors: list[str] = []
+    for i, row in enumerate(rows):
+        if not row.get("arm"):
+            errors.append(f"[{i}]: нет arm")
+        end = row.get("invader_share_end")
+        if row.get("survived") != bool(end is not None and float(end) > 0.0):
+            errors.append(f"[{i}]: survived={row.get('survived')} не согласовано с end={end}")
+        start = row.get("invader_share_start")
+        if start is not None and float(start) > 0.05 and not row.get("invalid_reason"):
+            errors.append(f"[{i}]: доля подсадки {float(start):.4f} > 0.05 без invalid_reason")
+    return errors
+
+
 def check_provenance(rows: list[dict], warns: list[str],
                      provenance: dict | None = None) -> list[str]:
     """Однородность провенанса: одинаковый КОД и то же правило весов.
@@ -282,6 +297,9 @@ def check_file(path: Path, strict: bool = False) -> tuple[list[str], list[str]]:
         return errors, warns  # не агрегат
     if payload.get("kind") == "invasion_runs":
         return [f"{path.name}{e}" for e in check_invasion(rows)], warns
+    if payload.get("kind") == "v8_placement_merge":
+        errors = check_v8(rows) + check_provenance(rows, warns, payload.get("provenance"))
+        return [f"{path.name}{e}" for e in errors], warns
     if payload.get("kind") == "mutation_runs":
         errors = check_mutation(rows, payload) + check_provenance(
             rows, warns, payload.get("provenance"))
