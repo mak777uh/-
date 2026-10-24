@@ -45,12 +45,12 @@ def test_agrees_with_library_on_valid_fixture():
     for key in ("valid", "shannon_median", "shannon_first", "shannon_last",
                 "types_total", "spearman_trait_births"):
         assert a.get(key) == b.get(key), f"{key}: production {a.get(key)} != library {b.get(key)}"
-    # Одно осознанное расхождение: библиотека считает новизной и ПРЕДКОВУЮ метку,
-    # поэтому при m=0 у неё novelty = 1, и контроль «при m=0 новизна строго 0»
-    # (criteria §3 п.4) не выполняется. Здесь предковая метка исключена.
+    # Новизна тоже обязана совпадать: предковая метка (живёт с первого шага) — не
+    # новизна, иначе при m=0 novelty = 1 и контроль «новизна строго 0» ломается
+    # (criteria §3 п.4). Библиотека этот баг исправила; тест держит согласие.
     assert a["novelty_ancestral_excluded"], "в fixture есть предковая метка"
-    assert b["novelty_flux"] == a["novelty_flux"] + len(a["novelty_ancestral_excluded"]), \
-        "расхождение по новизне должно быть ровно в предковых метках"
+    assert a["novelty_flux"] == b["novelty_flux"], \
+        f"новизна: production {a['novelty_flux']} != library {b['novelty_flux']}"
 
 
 def test_missing_fields_are_invalid_not_zero():

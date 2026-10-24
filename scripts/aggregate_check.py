@@ -143,6 +143,24 @@ def check_invasion(rows: list[dict]) -> list[str]:
     return errors
 
 
+def check_provenance(rows: list[dict], warns: list[str]) -> list[str]:
+    """Однородность провенанса: разные коммиты в одной серии = смешанный код.
+
+    Серия D была перезапущена после правки `pond.py` посреди прогонов; чтобы это
+    ловилось машинно, каждый артефакт несёт `config.git_commit` (снимок на старте).
+    Разные коммиты — ошибка; `git_dirty = true` — предупреждение (в дереве могли быть
+    несохранённые артефакты предыдущих прогонов самой серии).
+    """
+    commits = {row.get("git_commit") for row in rows if row.get("git_commit")}
+    errors: list[str] = []
+    if len(commits) > 1:
+        errors.append(f"серия из смешанного кода: коммиты {sorted(commits)}")
+    dirty = sum(1 for row in rows if row.get("git_dirty") is True)
+    if dirty:
+        warns.append(f"прогонов с несохранёнными файлами: {dirty}/{len(rows)}")
+    return errors
+
+
 def check_mutation(rows: list[dict], payload: dict | None = None) -> list[str]:
     """Проверки агрегата условия B: нулевая новизна при m=0 и согласованность полей."""
     errors: list[str] = []
@@ -242,11 +260,14 @@ def check_file(path: Path, strict: bool = False) -> tuple[list[str], list[str]]:
     if payload.get("kind") == "invasion_runs":
         return [f"{path.name}{e}" for e in check_invasion(rows)], warns
     if payload.get("kind") == "mutation_runs":
-        return [f"{path.name}{e}" for e in check_mutation(rows, payload)], warns
+        errors = check_mutation(rows, payload) + check_provenance(rows, warns)
+        return [f"{path.name}{e}" for e in errors], warns
     if payload.get("kind") == "generation_runs":
-        return [f"{path.name}{e}" for e in check_generation(rows)], warns
+        errors = check_generation(rows) + check_provenance(rows, warns)
+        return [f"{path.name}{e}" for e in errors], warns
     if payload.get("kind") == "invader_dose_runs":
-        return [f"{path.name}{e}" for e in check_invader_dose(rows)], warns
+        errors = check_invader_dose(rows) + check_provenance(rows, warns)
+        return [f"{path.name}{e}" for e in errors], warns
     if payload.get("kind") == "probe_summary":
         return [f"{path.name}{e}" for e in check_probe(rows)], warns
     if payload.get("kind") == "aggregate_medians":

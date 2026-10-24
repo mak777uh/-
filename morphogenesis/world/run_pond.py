@@ -20,8 +20,10 @@ import random
 import json
 import os
 import statistics
+import subprocess
 import sys
 import time
+from pathlib import Path
 
 import torch
 
@@ -32,6 +34,31 @@ if _MORPH not in sys.path:
 
 from world.cnca import CNCA, CNCAConfig
 from world.pond import Pond, PondConfig
+
+
+def git_provenance() -> dict:
+    """Провенанс кода на СТАРТЕ прогона: хеш коммита и был ли рабочий каталог грязным.
+
+    Зачем: за сутки два инцидента «смешанное состояние кода» (правка `pond.py` посреди
+    серии D; CUDA-генератор в серии B). Раньше чистота серии проверялась вручную
+    повторным прогоном на якоре. С этими полями агрегат проверяет однородность
+    механически: разные `git_commit` в одной серии — ошибка (данные получены разным
+    кодом), а `git_dirty = true` — предупреждение (в дереве были несохранённые файлы,
+    в том числе артефакты предыдущих прогонов серии).
+
+    `None` — git недоступен (например, прогон из архива): это не ошибка, а «нет данных».
+    """
+    root = Path(__file__).resolve().parents[2]
+    try:
+        commit = subprocess.check_output(
+            ["git", "-C", str(root), "rev-parse", "--short", "HEAD"],
+            stderr=subprocess.DEVNULL, text=True).strip()
+        status = subprocess.check_output(
+            ["git", "-C", str(root), "status", "--porcelain"],
+            stderr=subprocess.DEVNULL, text=True)
+        return {"git_commit": commit or None, "git_dirty": bool(status.strip())}
+    except (OSError, subprocess.CalledProcessError):
+        return {"git_commit": None, "git_dirty": None}
 
 
 def config_block(cfg) -> dict:
@@ -56,6 +83,9 @@ def config_block(cfg) -> dict:
         "invade_type": getattr(cfg, "invade_type", None),
         "invade_min_cells": getattr(cfg, "invade_min_cells", None),
         "invader_cells": getattr(cfg, "invader_cells", 1),
+        "invade_placement": getattr(cfg, "invade_placement", "random"),
+        "merge_rule": getattr(cfg, "merge_rule", "majority"),
+        "invade_on_empty": bool(getattr(cfg, "invade_on_empty", False)),
         "mutation_rate": getattr(cfg, "mutation_rate", 0.0),
         "mutation_trait_sigma": getattr(cfg, "mutation_trait_sigma", 0.0),
         "layout": getattr(cfg, "resource_layout", None),
@@ -506,6 +536,14 @@ def build_parser() -> argparse.ArgumentParser:
                     help="вероятность НОВОЙ метки линии (tag) при рождении; 0 = мутаций нет")
     ap.add_argument("--mutation-trait-sigma", type=float, default=0.01,
                     help="сдвиг признака линии при мутации (масштаб признака ~1)")
+    ap.add_argument("--invade-placement", default="random", choices=["random", "gap"],
+                    help="куда садится инокулят: random (как §10ab) или gap — в самую "
+                         "далёкую от резидента свободную клетку (V8)")
+    ap.add_argument("--merge-rule", default="majority", choices=["majority", "mass_weighted"],
+                    help="правило слияния компонент: детерминированное большинство (как §10ab) "
+                         "или лотерея с вероятностью, пропорциональной массе (V8)")
+    ap.add_argument("--invade-on-empty", action="store_true",
+                    help="разрешить подсадку без резидента (плечо resident_free)")
     ap.add_argument("--invader-cells", type=int, default=1,
                     help="доза основателя при --type-level colony: сколько клеток ставит "
                          "инъекция (связное 4-пятно; 1 = как в серии 24.10)")
@@ -531,6 +569,7 @@ def main(argv: list[str] | None = None) -> int:
         ap.error("--learn-mode paired работает только со --spore-bias score: "
                  "парный сигнал сравнивает два веса одной политики")
 
+    code_provenance = git_provenance()   # снимается на старте, до записи артефакта
     world = PondConfig(grid=args.grid)
     if args.income is not None:
         world.baseline_income = args.income
@@ -570,6 +609,9 @@ def main(argv: list[str] | None = None) -> int:
     world.invade_type = args.invade_type
     world.invade_min_cells = args.invade_min_cells
     world.invader_cells = args.invader_cells
+    world.invade_placement = args.invade_placement
+    world.merge_rule = args.merge_rule
+    world.invade_on_empty = bool(args.invade_on_empty)
     world.mutation_rate = args.mutation_rate
     world.mutation_trait_sigma = args.mutation_trait_sigma
     world.w_rich = args.w_rich
@@ -682,7 +724,7 @@ def main(argv: list[str] | None = None) -> int:
     summary["injection_share_actual"] = getattr(run.pond, "injection_share_actual", None)
     summary["invader_cells"] = int(getattr(run.pond, "invader_cells_requested", 0))
     summary["invader_cells_actual"] = int(getattr(run.pond, "invader_cells_actual", 0))
-    summary["config"] = config_block(run.world_cfg)
+    summary["config"] = {**config_block(run.world_cfg), **code_provenance}
     summary.update(generation_block(getattr(run.pond, "division_parent_ages", []),
                                     getattr(run.pond, "division_oldest_ages", [])))
     summary.update(tag_metrics_block(run.pond))

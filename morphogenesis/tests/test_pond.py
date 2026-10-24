@@ -994,6 +994,72 @@ def test_mutation_works_on_cuda_generator():
     assert int(pond.state.tag[4, 4]) >= 1
 
 
+def _v8_pond(**over):
+    cfg = dict(grid=8, resource_regen=0.0, baseline_income=0.2, update_cost=0.0,
+               repair_cost=0.0, damage_rate=0.0, noise=0.0, income_mode="proportional",
+               freq_dep=0.0, type_mode="mixfixed", resource_layout="uniform",
+               init_resource_fill=0.0, type_level="colony", invade_at=2, invade_type=1,
+               invade_min_cells=1, invader_cells=1)
+    cfg.update(over)
+    return _two_type_pond(**cfg)
+
+
+def test_merge_rule_majority_keeps_majority():
+    """Дефолтное правило: тип компоненты — большинство (как в §10ab)."""
+    pond = _v8_pond(merge_rule="majority")
+    mask = torch.zeros((8, 8), dtype=torch.bool)
+    mask[2:4, 2:4] = True
+    pond.seed_life(mask, energy=5.0)
+    pond.state.cell_type[2, 2] = 1          # 1 из 4 — меньшинство
+    pond.enforce_colony_types()
+    assert int(pond.state.cell_type[2:4, 2:4].min()) == 0, "меньшинство переписано большинством"
+
+
+def test_merge_rule_mass_weighted_gives_minority_a_chance():
+    """Стохастическое слияние: меньшинство выигрывает с вероятностью своей доли массы."""
+    wins = 0
+    trials = 200
+    for seed in range(trials):
+        pond = _v8_pond(merge_rule="mass_weighted")
+        pond.gen_sel = torch.Generator(device="cpu").manual_seed(seed * 31 + 7)
+        mask = torch.zeros((8, 8), dtype=torch.bool)
+        mask[2:4, 2:4] = True
+        pond.seed_life(mask, energy=5.0)
+        pond.state.cell_type[2, 2] = 1      # 1 из 4 = 25% массы
+        pond.enforce_colony_types()
+        if int(pond.state.cell_type[2, 2]) == 1:
+            wins += 1
+    assert 20 <= wins <= 80, f"доля побед меньшинства {wins}/200 при 25% массы — вне 10–40%"
+
+
+def test_gap_placement_puts_invader_far_from_resident():
+    """Плечо into_gap: инокулят садится в клетку, максимально далёкую от резидента."""
+    pond = _v8_pond(invade_placement="gap", invader_cells=1)
+    mask = torch.zeros((8, 8), dtype=torch.bool)
+    mask[0, 0] = True                       # резидент в углу
+    pond.seed_life(mask, energy=5.0)
+    pond.regenerate()
+    pond.step_cells()                        # шаг 1 — инвазии нет
+    pond.regenerate()
+    pond.step_cells()                        # шаг 2 — инвазия
+    invader = pond.state.cell_type == 1
+    assert bool(invader.any()), "инокулят должен появиться"
+    ys, xs = invader.nonzero(as_tuple=True)
+    dist = max(abs(int(y)) + abs(int(x)) for y, x in zip(ys.tolist(), xs.tolist()))
+    assert dist >= 6, f"пятно село близко к резиденту (расстояние {dist})"
+
+
+def test_invade_on_empty_founds_colony():
+    """Плечо resident_free: на пустом поле инокулят основывает колонию сам."""
+    pond = _v8_pond(invade_on_empty=True, invader_cells=3)
+    pond.regenerate()
+    pond.step_cells()
+    pond.regenerate()
+    pond.step_cells()
+    assert int(pond.state.alive.sum()) >= 3, "колония-основатель должна существовать"
+    assert int(pond.state.cell_type.sum()) >= 3, "все клетки основателя — инвайдер"
+
+
 def _type_run(start: str, fd: float, steps: int = 40, grid: int = 16, seed: int = 1):
     from world.run_pond import PondRun
     cfg = PondConfig(grid=grid, resource_layout="gradient", income_mode="proportional",

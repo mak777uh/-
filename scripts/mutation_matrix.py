@@ -52,7 +52,9 @@ def analyse(path: Path) -> dict:
     generation = summary.get("lineage_generation") or {}
     fitness = summary.get("lineage_fitness") or {}
     return {
-        "artifact": path.name,
+        "artifact": path.name,        "git_commit": (summary.get("config") or {}).get("git_commit"),
+        "git_dirty": (summary.get("config") or {}).get("git_dirty"),
+
         "dose": dose,
         "seed": int(match.group("seed")) if match else None,
         "valid": metrics.get("valid"),

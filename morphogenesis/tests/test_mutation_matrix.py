@@ -76,8 +76,8 @@ def test_verdict_requires_monotone_novelty_and_population(tmp_path):
     rows.append(module.analyse(artifact(tmp_path, "m0", 1, tags_series=zero, mutations=0,
                                         pop=80000, alive=500, mutation_rate=0.0)))
     for tag, rate, pop in (("m001", 0.01, 78000), ("m005", 0.05, 76000)):
-        series = [{"T0": 50}, {"T0": 40, "T1": 10}, {"T0": 30, "T1": 20}] + \
-                 [{"T0": 25 + i, "T1": 25}] * 17
+        series = [{"T0": 50}, {"T0": 40, "T1": 10}, {"T0": 30, "T1": 20}]
+        series += [{"T0": 25, "T1": 25}] * 17
         rows.append(module.analyse(artifact(tmp_path, tag, 1, tags_series=series,
                                             mutations=40, pop=pop, alive=500,
                                             mutation_rate=rate)))

@@ -75,7 +75,9 @@ def main(argv=None) -> int:
         gen = summary.get("generation_length")
         half = halves.get(env, {}).get(seed)
         rows.append({
-            "artifact": Path(path).name,
+            "artifact": Path(path).name,        "git_commit": (summary.get("config") or {}).get("git_commit"),
+        "git_dirty": (summary.get("config") or {}).get("git_dirty"),
+
             "env": env,
             "seed": seed,
             "generation_length": gen,

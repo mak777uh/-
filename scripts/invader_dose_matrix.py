@@ -73,7 +73,9 @@ def analyse(path: Path) -> dict:
         invalid_reason = (f"injection_share {start:.4f} > 0.05 — подсадка не редкая "
                           f"(доза {dose} в маленькой колонии)")
     return {
-        "artifact": path.name,
+        "artifact": path.name,        "git_commit": (summary.get("config") or {}).get("git_commit"),
+        "git_dirty": (summary.get("config") or {}).get("git_dirty"),
+
         "dose": dose,
         "seed": seed,
         "direction": direction,

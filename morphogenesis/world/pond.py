@@ -98,6 +98,9 @@ class PondConfig:
     invader_cells: int = 1             # доза основателя: сколько клеток ставит инъекция (colony)
     mutation_rate: float = 0.0         # 0..1: новый tag (метка линии) при рождении (условие B)
     mutation_trait_sigma: float = 0.01  # сдвиг признака линии при мутации (масштаб признака ~1)
+    invade_placement: str = "random"   # random | gap: куда садится инокулят (V8)
+    merge_rule: str = "majority"       # majority | mass_weighted: правило слияния компонент (V8)
+    invade_on_empty: bool = False      # разрешить подсадку без резидента (плечо resident_free)
     learn_window: int = 30             # окно оценки для обучения колонии
     init_resource_fill: float = 0.0     # 0..1: доля потолка, до которой поле заполнено на старте
     membrane_gated: bool = False      # обмен гейтируется мембраной (замыкание)
@@ -262,7 +265,13 @@ class Pond:
         """Подсадить редкий тип; при маленькой колонии ждём следующего шага."""
         s = self.state
         ct = s.cell_type
-        if ct is None or not bool(s.alive.any()):
+        if ct is None:
+            return
+        if not bool(s.alive.any()):
+            # плечо resident_free: поле без резидента, инокулят основывает колонию
+            if getattr(self.cfg, "invade_on_empty", False) and \
+                    getattr(self.cfg, "type_level", "cell") == "colony":
+                self._place_invader_colony()
             return
         cells_now = int(s.alive.sum())
         resident_share = float((ct[s.alive] == int(self.cfg.invade_type)).float().mean())
@@ -283,17 +292,9 @@ class Pond:
             # Доза > 1 ставится СВЯЗНЫМ 4-пятном: при типе на компоненте N независимых
             # клеток дали бы N колоний по одной клетке, то есть дозу 1, и параметр
             # ничего бы не измерял (B-037/H73 — эффект основателя).
-            free = (~s.alive).nonzero(as_tuple=False)
-            if free.shape[0] == 0:
+            spot = self._invader_spot()
+            if spot is None:
                 return
-            pick = free[int(torch.randint(0, free.shape[0], (), generator=self.gen_sel))]
-            y, x = int(pick[0]), int(pick[1])
-            spot = torch.zeros_like(s.alive)
-            spot[y, x] = True
-            self.invader_cells_requested = int(max(1, getattr(self.cfg, "invader_cells", 1)))
-            if self.invader_cells_requested > 1:
-                spot = self._grow_invader_blob(spot, s.alive, self.invader_cells_requested)
-            self.invader_cells_actual = int(spot.sum())
             s.alive |= spot
             s.energy = torch.where(spot, torch.full_like(s.energy, 8.0), s.energy)
             s.age = torch.where(spot, torch.zeros_like(s.age), s.age)
@@ -325,6 +326,84 @@ class Pond:
         # подсаженных клеток в summary полезно
         self.invader_cells_requested = 0
         self.invader_cells_actual = int(k)
+
+    def _farthest_free_cell(self, alive: torch.Tensor) -> tuple[int, int] | None:
+        """Свободная клетка, максимально далёкая от живых (4-расстояние).
+
+        Плечо `into_gap` (V8): при случайной точке инокулят почти всегда ложится вплотную
+        к резиденту и переписывается правилом большинства на шаге подсадки (§10ac);
+        здесь пятно получает фору по расстоянию. Считается волной от живых клеток —
+        сетка 32x32, дороже одной инвазии это не делает.
+        """
+        s = self.state
+        n = int(alive.shape[0])
+        free = ~alive
+        if not bool(free.any()):
+            return None
+        if not bool(alive.any()):
+            ys, xs = free.nonzero(as_tuple=True)
+            pick = int(torch.randint(0, ys.numel(), (), generator=self.gen_sel))
+            return int(ys[pick]), int(xs[pick])
+        dist = torch.zeros((n, n), dtype=torch.int64, device=self.device)
+        reached = alive.clone()
+        frontier = alive.clone()
+        d = 0
+        while bool(frontier.any()) and d < n * 2:
+            d += 1
+            grow = torch.zeros_like(frontier)
+            grow[1:, :] |= frontier[:-1, :]
+            grow[:-1, :] |= frontier[1:, :]
+            grow[:, 1:] |= frontier[:, :-1]
+            grow[:, :-1] |= frontier[:, 1:]
+            frontier = grow & ~reached & free
+            dist[frontier] = d
+            reached |= frontier
+        far = free & (dist == dist[free].max()) if bool(free.any()) else None
+        if far is None or not bool(far.any()):
+            return None
+        ys, xs = far.nonzero(as_tuple=True)
+        pick = int(torch.randint(0, ys.numel(), (), generator=self.gen_sel))
+        return int(ys[pick]), int(xs[pick])
+
+    def _invader_spot(self) -> torch.Tensor | None:
+        """Где ставить инокулят: точка по `invade_placement` + связное пятно `invader_cells`."""
+        s = self.state
+        self.invader_cells_requested = int(max(1, getattr(self.cfg, "invader_cells", 1)))
+        placement = getattr(self.cfg, "invade_placement", "random")
+        if placement == "gap":
+            cell = self._farthest_free_cell(s.alive)
+        else:
+            free = (~s.alive).nonzero(as_tuple=False)
+            cell = None
+            if free.shape[0] > 0:
+                pick = free[int(torch.randint(0, free.shape[0], (), generator=self.gen_sel))]
+                cell = (int(pick[0]), int(pick[1]))
+        if cell is None:
+            return None
+        y, x = cell
+        spot = torch.zeros_like(s.alive)
+        spot[y, x] = True
+        if self.invader_cells_requested > 1:
+            spot = self._grow_invader_blob(spot, s.alive, self.invader_cells_requested)
+        self.invader_cells_actual = int(spot.sum())
+        return spot
+
+    def _place_invader_colony(self) -> None:
+        """Основывать колонию на пустом поле (плечо `resident_free`)."""
+        s = self.state
+        spot = self._invader_spot()
+        if spot is None:
+            return
+        s.alive |= spot
+        s.energy = torch.where(spot, torch.full_like(s.energy, 8.0), s.energy)
+        s.age = torch.where(spot, torch.zeros_like(s.age), s.age)
+        s.damage = torch.where(spot, torch.zeros_like(s.damage), s.damage)
+        s.cell_type[spot] = int(self.cfg.invade_type)
+        self.invasion_share_after = 1.0
+        self.invasion_step = int(s.step)
+        self.colony_cells_at_invasion = int(s.alive.sum())
+        self.injection_share_actual = 1.0
+        self.injection_invalid = True   # это не инвазия в колонию, а основание своей
 
     def _grow_invader_blob(self, spot: torch.Tensor, alive: torch.Tensor,
                            want: int) -> torch.Tensor:
@@ -748,12 +827,20 @@ class Pond:
         if getattr(self.cfg, "type_level", "cell") != "colony":
             return
         mass, labels = self._components(s.alive)
+        rule = getattr(self.cfg, "merge_rule", "majority")
         for lab in mass:
             m = labels == lab
             vals = s.cell_type[m]
             if int(vals.min()) == int(vals.max()):
                 continue
-            t = int(round(float(vals.float().mean())))
+            if rule == "mass_weighted":
+                # V8: тип компоненты — лотерея с вероятностью, пропорциональной массе.
+                # Меньшинство сохраняет шанс, равный своей доле (3% массы — 3% шанс).
+                p1 = float(vals.float().mean())
+                u = float(torch.rand((), generator=self.gen_sel))
+                t = 1 if u < p1 else 0
+            else:
+                t = int(round(float(vals.float().mean())))
             s.cell_type[m] = t
 
     # ---------- обратимость организма (I-023) ----------
