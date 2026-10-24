@@ -66,6 +66,41 @@ def _dir_state(path: pathlib.Path) -> dict:
     }
 
 
+def _notices_to_me(root: pathlib.Path) -> dict:
+    """Просьбы, адресованные библиотекарю: блоки notices с «библиотекарю» и их `ЗАПРОС:`."""
+    path = root / "lab" / "notices.md"
+    if not path.exists():
+        return {"blocks": 0, "requests": 0, "digest": None}
+    import hashlib
+    import re
+    blocks = 0
+    requests: list[str] = []
+    current_for_me = False
+    for line in path.read_text(encoding="utf-8", errors="replace").splitlines():
+        if line.startswith("### "):
+            current_for_me = "библиотекар" in line.lower()
+            if current_for_me:
+                blocks += 1
+            continue
+        if current_for_me:
+            match = re.match(r"^\s*(?:[-*•·]\s*)?ЗАПРОС[:：]\s*(.+)$", line, re.I)
+            if match:
+                requests.append(re.sub(r"\s+", " ", match.group(1)).strip())
+    digest = hashlib.sha1("\n".join(requests).encode("utf-8")).hexdigest()[:12] if requests else None
+    return {"blocks": blocks, "requests": len(requests), "digest": digest}
+
+
+def _lead_queue(root: pathlib.Path) -> dict:
+    """Очередь задач ведущего (lab/queue.json) — его просьбы ко мне приходят и туда."""
+    path = root / "lab" / "queue.json"
+    if not path.exists():
+        return {"exists": False, "size": 0, "digest": None}
+    import hashlib
+    data = path.read_bytes()
+    return {"exists": True, "size": len(data),
+            "digest": hashlib.sha1(data).hexdigest()[:12]}
+
+
 def _manuscript(root: pathlib.Path) -> dict:
     path = root / "manuscript" / "paper.md"
     if not path.exists():
@@ -183,6 +218,8 @@ def fingerprint(root: pathlib.Path) -> dict:
         "lit_queue": _open_lit(root),
         "board": _board(root),
         "cycle": _cycle(root),
+        "notices_to_me": _notices_to_me(root),
+        "lead_queue": _lead_queue(root),
         "head": _head(root),
     }
 

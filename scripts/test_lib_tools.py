@@ -215,6 +215,29 @@ def test_trait_metrics(tmp: Path) -> None:
           str(missing))
 
 
+def test_wake_notices(tmp: Path) -> None:
+    root = tmp / "wake_root"
+    (root / "lab").mkdir(parents=True)
+    notices = root / "lab" / "notices.md"
+    notices.write_text("### 2026-10-24, 10:00 — ведущий → **библиотекарю**\n"
+                       "- ЗАПРОС: проверить агрегат\n", encoding="utf-8")
+    (root / "lab" / "queue.json").write_text(json.dumps({"items": []}), encoding="utf-8")
+    res = run("scripts/library_wake.py", "--root", str(root), "--show")
+    data = json.loads(res.stdout)
+    check("wake: просьба библиотекарю видна в отпечатке",
+          data["notices_to_me"]["requests"] == 1, res.stdout[:200])
+    check("wake: очередь ведущего в отпечатке", data["lead_queue"]["exists"] is True, res.stdout[:200])
+
+    notices.write_text("### 2026-10-24, 10:00 — ведущий → **библиотекарю**\n"
+                       "- ЗАПРОС: проверить агрегат\n"
+                       "- ЗАПРОС: собрать интервалы\n", encoding="utf-8")
+    res2 = run("scripts/library_wake.py", "--root", str(root), "--show")
+    data2 = json.loads(res2.stdout)
+    check("wake: новый запрос меняет digest",
+          data2["notices_to_me"]["digest"] != data["notices_to_me"]["digest"], "digest не изменился")
+    check("wake: счётчик запросов растёт", data2["notices_to_me"]["requests"] == 2, res2.stdout[:200])
+
+
 def main() -> int:
     with tempfile.TemporaryDirectory() as tdir:
         tmp = Path(tdir)
@@ -228,6 +251,8 @@ def main() -> int:
         test_notices(tmp)
         print("== trait_metrics ==")
         test_trait_metrics(tmp)
+        print("== wake notices ==")
+        test_wake_notices(tmp)
     print(f"\nпровалено: {len(FAILED)}")
     return 1 if FAILED else 0
 
