@@ -29,6 +29,8 @@
 | 2026-10-24 | Crossref: "does niche construction pay off..." | 6 | 0 | запрос через «pay off» ушёл в экономику — урок: формулировать научными терминами |
 | 2026-10-24 | affordance perception versus learned behavior distinction | 6 | 0 | про восприятие у людей/роботов, не про операциональное различение; хватает P43 (NC3) |
 | 2026-10-24 | operational definition of affordance in autonomous agents | 6 | 0 | прикладные (AD, CRM), не то |
+| 2026-10-24 | neutral marker fixation growing spatial CA | 6 | 1 | P46 (Ferretti 2023) — время фиксации ∝ энтропии |
+| 2026-10-24 | gene surfing fixation expanding population | 6 | 1 | P45 (Hallatschek & Nelson 2008) — surfing у фронта |
 
 ## Как вести
 

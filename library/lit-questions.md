@@ -7,7 +7,7 @@
 | Q1 | Does niche construction pay off only above an energy-surplus threshold? | searched-1 | 2026-10-24 | P43/P44 (NC3: construction/choice/conformance); запрос через OpenAlex |
 | Q2 | How is differentiable logic gate discretization validated against the discrete model? | searched-1 | 2026-10-24 | P42: Miotti 2025 (DiffLogic CA) |
 | Q3 | How to separate affordance from adaptation operationally in embodied agents? | searched-0 | 2026-10-24 | литература про восприятие аффордансов (Ferretti 2021; Roessling & Fajen 2020) и роботов; операционального различения affordance/adaptation для нашей задачи нет — покрыто NC3 (P43) и action-space shaping |
-| Q4 | Neutral marker fixation times in growing spatial cellular automata | open | — | voter на растущей колонии (B-019/H51) |
+| Q4 | Neutral marker fixation times in growing spatial cellular automata | searched-1 | 2026-10-24 | P45 Hallatschek 2008 (gene surfing), P46 Ferretti 2023 (время фиксации ∝ энтропии) |
 | Q5 | Differential mortality versus disturbance in removing priority effects | open | — | cat/catdrop: что снимает приоритет (B-023) |
 | Q6 | Measuring ecological inheritance half-life after organism removal | open | — | три метрики нишевого конструирования |
 | Q7 | How are negative results reported in artificial life venues and formats? | open | — | C-путь развилки |

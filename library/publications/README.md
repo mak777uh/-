@@ -85,7 +85,7 @@
 > Статусы сверены с `lab/registry.json` → `program.next_hypotheses` на 2026-10-21.
 > При расхождении прав registry, а не эта таблица: здесь индекс, там — контур.
 
-## Библиотечные гипотезы H15–H60 (предложение, не статус реестра)
+## Библиотечные гипотезы H15–H61 (предложение, не статус реестра)
 
 Гипотезы, выросшие из проходов по литературе 2026-10-21…10-23 (разделы
 [`../hypotheses/nca-frontier.md`](../hypotheses/nca-frontier.md),
@@ -145,6 +145,7 @@
 | H58 | Цель роста — несогласованный суррогат; обучение на ней даёт мёртвые правила и интерференцию с базой | Jin (2005); Parisi et al. (2019) | сравнение цели роста и цели пруда; замер базы до/после | `supported` (прокси-M) |
 | H59 | Строительство окупается, если снижает цену следующих действий; эффект растёт во времени — мерить траекторию, а не финал | Rohner et al. (2024); Werfel et al. (2014); Majer et al. (2024) | траектории цены/дохода/feedback gain | `not_run` |
 | H60 | Плечи mobile/fixed/L2 — три разных механизма NC3 (choice/construction/conformance); выводы между ними не переносятся | Trappes et al. (2022); Constant et al. (2018) | указать механизм для каждого плеча; feedback_r vs цена шага | `supported` (эффекты разные) |
+| H61 | Фиксация в растущей колонии — gene surfing: зависит от фронта/позиции, а не только от N; при фиксированном N ближе к WF | Hallatschek & Nelson (2008); Ferretti & Ribeca (2023) | 2 геометрии × 2 позиции инвайдера; энтропия vs время | `not_run` |
 
 Правило прежнее: `not_run` и `planned` — заявки, а не результаты; в статьях они идут
 как следующие гипотезы. Проверка любой из них на существующих весах не требует решения
@@ -304,6 +305,8 @@ H29-пункт «ядро от цели»).
 | G42 | [Miotti et al., 2025, arXiv](https://arxiv.org/abs/2506.04912) | DiffLogic CA: дифференцируемые логические вентили, дискретно на инференсе | A-gate | DLGN-дискретизация vs sigmoid(T→0) | `not_run` | [P42](../hypotheses/pond-lineage.md) |
 | G43 | [Trappes et al., 2022, BioScience](https://doi.org/10.1093/biosci/biac023) | NC3: строительство ≠ выбор ≠ конформность | H60 | плечи mobile/fixed/L2 как три механизма | `supported` (структура эксперимента) | [P43](../hypotheses/pond-lineage.md) |
 | G44 | [Constant et al., 2018, J. R. Soc. Interface](https://doi.org/10.1098/rsif.2017.0685) | вариационный взгляд на строительство | H60 | feedback_r vs цена шага | `not_run` | [P44](../hypotheses/pond-lineage.md) |
+| G45 | [Hallatschek & Nelson, 2008, Theor. Popul. Biol.](https://doi.org/10.1016/j.tpb.2007.08.008) | gene surfing: фиксация зависит от фронта роста | H61 | позиция инвайдера у фронта vs в центре | `not_run` | [P45](../hypotheses/pond-lineage.md) |
+| G46 | [Ferretti & Ribeca, 2023, Genes](https://doi.org/10.3390/genes14091751) | время фиксации ∝ начальной энтропии (WF) | H61 | энтропия vs время фиксации | `not_run` | [P46](../hypotheses/pond-lineage.md) |
 | G25 | [Soltoggio et al., 2018, Neural Networks](https://doi.org/10.1016/j.neunet.2018.07.013) | evolved plasticity: L2 формирует L1, ловушки | H53 | абляция «без L1» | `not_run` | [task-14](../task-14.md) |
 | G26 | [Sousa, 1984, Annu. Rev. Ecol. Syst.](https://doi.org/10.1146/annurev.es.15.110184.002033) | режимы нарушений | — | пересчёт «на поколение» | `not_run` | [task-14](../task-14.md) |
 | G27 | [Connell, 1978, Science](https://doi.org/10.1126/science.199.4335.1302) | промежуточное нарушение: разнообразие максимально при среднем уровне | — | свип 0.001–0.1/шаг | `not_run` | [task-14](../task-14.md) |
