@@ -2256,6 +2256,37 @@
         "tasks": [],
         "reports": []
       }
+    },
+    {
+      "id": "B-065",
+      "type": "risk",
+      "target": {
+        "kind": "artifact",
+        "id": "kill_keep_matrix_format",
+        "ref": "scripts/kill_keep_matrix.py; killkeep2_*.json"
+      },
+      "statement": "kill_keep_matrix.py читает поля из summary (summary.pop_time_phase2 и т.п.), а артефакты v2 плоские (arm, seed, pop_time_phase2 на верхнем уровне). На killkeep2_* скрипт печатает заголовок и пустую таблицу, а критерий resource_lower_in_keep становится false — то есть официальная сводка молчит именно на той серии, которую надо оценить. Нужно: читать верхний уровень (или признать оба формата), иначе вердикт v2 придётся считать вручную.",
+      "evidence": [
+        {
+          "library": "conditions.md#условие-c",
+          "note": "v2 артефакты плоские, v1 были тоже плоские; проверено на killkeep2_*"
+        }
+      ],
+      "action": {
+        "kind": "method",
+        "detail": "чтение summary or top-level; тест на killkeep2_keep_seed1"
+      },
+      "status": "new",
+      "wave": "current",
+      "owner": "librarian",
+      "created_at": "2026-10-25T01:21:10+03:00",
+      "decided_at": null,
+      "why": null,
+      "links": {
+        "insights": [],
+        "tasks": [],
+        "reports": []
+      }
     }
   ],
   "updated_at": "2026-10-24T13:40:00Z"
