@@ -12,6 +12,9 @@
 
 - [`stuckness.md`](stuckness.md) — «почему системы застревают»: Tierra, Avida, Polyworld,
   открытая эволюция, POET. Готово к §5 (обсуждение).
+- [`construction-vs-affordance.md`](construction-vs-affordance.md) — готовые абзацы и таблица
+  утверждений для §4e–§4f: три случая affordance, строительство как первый механизм, чего
+  нельзя писать (включая `learn` с `learn_updates` = 0).
 - [`preflight-next-run.md`](preflight-next-run.md) — чек-лист «что литература требует
   проверить до запуска»: 11 требований из инсайтов и замечаний доски, с тем, как они
   выглядят в отчёте.
