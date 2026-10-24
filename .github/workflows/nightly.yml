@@ -1,0 +1,61 @@
+name: nightly-lab
+
+# Ночной прогон на бесплатном CPU GitHub: полный набор проверок и канарейка мира.
+# Нужен, чтобы расхождения на чужой машине находились не при следующем релизе,
+# а на следующий день.
+
+on:
+  schedule:
+    - cron: "0 0 * * *"   # 03:00 MSK
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  nightly:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      PYTHONUTF8: "1"
+      PYTHONIOENCODING: "utf-8"
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: pip
+          cache-dependency-path: requirements.txt
+
+      - name: Install CPU dependencies
+        run: |
+          python -m pip install -U pip
+          python -m pip install --index-url https://download.pytorch.org/whl/cpu "torch>=2.6,<3"
+          python -m pip install -r requirements.txt
+
+      - name: Lab contract
+        run: python scripts/lab.py validate --ci
+
+      - name: Aggregates vs artifacts
+        run: python scripts/aggregate_check.py --strict
+
+      - name: Library inbox (no stale remarks)
+        run: python scripts/library_inbox.py --ci
+
+      - name: Pond canary (CPU)
+        run: python scripts/ci_canary_pond.py
+
+      - name: CPU tests
+        working-directory: morphogenesis
+        env:
+          CUDA_VISIBLE_DEVICES: ""
+        run: python -m pytest -q tests
+
+      - name: Upload canary receipt
+        uses: actions/upload-artifact@v4
+        with:
+          name: nightly-canary
+          path: _ci_canary.json
+          if-no-files-found: error
+          retention-days: 14

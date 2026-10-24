@@ -179,6 +179,25 @@ jobs:
       # Квитанция воспроизведения: маленький JSON, который можно приложить к
       # статье или показать рецензенту — «на такой-то машине, таким-то питоном и
       # таким-то torch все проверки прошли, вот хеш коммита».
+      # Канарейка мира на чужой машине: короткий прогон пруда на CPU, проверка
+      # детерминизма по сиду и согласованности счётчиков. GPU на раннере нет,
+      # поэтому это именно проверка переносимости, а не научный результат.
+      - name: Pond canary (CPU)
+        if: matrix.os == 'ubuntu-latest'
+        shell: bash
+        run: |
+          set -o pipefail
+          python scripts/ci_canary_pond.py 2>&1 | tee canary_out.txt
+
+      - name: Upload canary receipt
+        if: matrix.os == 'ubuntu-latest'
+        uses: actions/upload-artifact@v4
+        with:
+          name: pond-canary
+          path: _ci_canary.json
+          if-no-files-found: error
+          retention-days: 14
+
       - name: Reproduction receipt
         if: matrix.os == 'ubuntu-latest'
         run: python scripts/ci_receipt.py
