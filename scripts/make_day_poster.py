@@ -231,6 +231,6 @@ fig.text(0.05, 0.006,
          "4) И только потом — энергетика среды и повторный вопрос сосуществования.",
          fontsize=12.2, color=INK, va="top", ha="left")
 
-out = r"reports/day-2026-10-25.png"
+out = r"reports/figures/day-2026-10-25.png"
 fig.savefig(out, facecolor=fig.get_facecolor(), dpi=100)
 print("saved:", out)
