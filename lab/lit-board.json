@@ -2039,6 +2039,99 @@
         "tasks": [],
         "reports": []
       }
+    },
+    {
+      "id": "B-058",
+      "type": "missing_baseline",
+      "target": {
+        "kind": "metric",
+        "id": "condition_E_spearman",
+        "ref": "reports/2026-10-24-selection-plan.md; library/reviews/e-selection-feasibility.md"
+      },
+      "statement": "Критерий условия E (Spearman tag_trait vs lineage_fitness по линиям с >=5 потомками) НЕ вычислим на текущих полях: lineage_fitness считается в клетках/делениях, а не в спорах, поэтому во всех 15 артефактах серии B линий с >=5 потомками всего 1-2 (при m=0.05: 1-2 из 242-379; при m=0.2: 1-2 из 990-1356). Spearman по 1-2 точкам не определён => серия sel по этому критерию была бы невалидной по построению. Правка до запуска: считать фитнес линии числом спор/почкований (как и записано в §10ad); либо считать rho по всем линиям и сообщать n.",
+      "evidence": [
+        {
+          "library": "reviews/e-selection-feasibility.md#3",
+          "note": "проверено на 15 артефактах mut_*"
+        }
+      ],
+      "action": {
+        "kind": "baseline",
+        "detail": "lineage_fitness := число почкований линии; пересчитать rho на новой метрике"
+      },
+      "status": "new",
+      "wave": "current",
+      "owner": "librarian",
+      "created_at": "2026-10-24T22:36:13+03:00",
+      "decided_at": null,
+      "why": null,
+      "links": {
+        "insights": [],
+        "tasks": [],
+        "reports": []
+      }
+    },
+    {
+      "id": "B-059",
+      "type": "missing_baseline",
+      "target": {
+        "kind": "metric",
+        "id": "condition_E_quadratic",
+        "ref": "Lande & Arnold 1983 (10.1111/j.1558-5646.1983.tb00236.x)"
+      },
+      "statement": "Направленный rho не ловит стабилизирующий отбор: признак модулирует порог инвестирования с ценой и выгодой, значит у системы почти наверняка есть внутренний оптимум; тогда отбор есть, а Spearman(trait, fitness) по построению около нуля. Нужен квадратичный критерий (Lande & Arnold 1983): fitness ~ trait + trait^2, ожидаемый отрицательный квадратичный коэффициент при оптимуме; и/или сдвиг распределения признака между поколениями. Без этого 'E не срабатывает' смешивает 'нет отбора' и 'отбор стабилизирующий'.",
+      "evidence": [
+        {
+          "library": "reviews/e-selection-feasibility.md#4",
+          "note": "DOI сверен в Crossref"
+        }
+      ],
+      "action": {
+        "kind": "method",
+        "detail": "в пре-регистрации E: вторичный критерий — квадратичный член + сдвиг распределения"
+      },
+      "status": "new",
+      "wave": "current",
+      "owner": "librarian",
+      "created_at": "2026-10-24T22:36:13+03:00",
+      "decided_at": null,
+      "why": null,
+      "links": {
+        "insights": [],
+        "tasks": [],
+        "reports": []
+      }
+    },
+    {
+      "id": "B-060",
+      "type": "risk",
+      "target": {
+        "kind": "artifact",
+        "id": "sel_provenance_fields",
+        "ref": "mut_*.json summary"
+      },
+      "statement": "Серия mut_* не пишет в summary mutation_rate (m есть только в конфиге запуска), а серия sel должна сравнивать eps=0 и eps=0.1 при фиксированном m — без m в summary нельзя проверить, что m одинаков между плечами. Просьба: писать mutation_rate, trait_effect (eps), trait_mutation_sd в config summary.",
+      "evidence": [
+        {
+          "library": "reviews/e-selection-feasibility.md#5",
+          "note": "проверено на 15 артефактах"
+        }
+      ],
+      "action": {
+        "kind": "method",
+        "detail": "config: mutation_rate, trait_effect, trait_mutation_sd"
+      },
+      "status": "new",
+      "wave": "current",
+      "owner": "librarian",
+      "created_at": "2026-10-24T22:36:13+03:00",
+      "decided_at": null,
+      "why": null,
+      "links": {
+        "insights": [],
+        "tasks": [],
+        "reports": []
+      }
     }
   ],
   "updated_at": "2026-10-24T13:40:00Z"
