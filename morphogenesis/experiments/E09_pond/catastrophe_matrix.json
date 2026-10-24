@@ -1,12 +1,13 @@
 {
  "experiment": "E09_pond / catastrophes vs priority effect (task-12)",
  "protocol": "как invasion_matrix.json: 300 шагов, flip-at 150, freq-dep 1.0, type-mode mixfixed, инвазия 5% на шаге 200; катастрофы пуассоновские, duration 50; catastrophe_rate 0 / 0.01 / 0.05",
- "code_commit": "4d2c204",
+ "code_commit": "79ec0f0",
  "metric": "рост доли редкого типа + выживание резидента (alive_final > 100)",
  "full_runs": "вне git: _hourly/polish/cat_*.json",
  "rows": [
   {
    "catastrophe_rate": 0.0,
+   "catastrophe_mode": "shift",
    "generation_step": null,
    "direction": "invade-A-into-B-resident",
    "seed": 1,
@@ -20,6 +21,7 @@
   },
   {
    "catastrophe_rate": 0.0,
+   "catastrophe_mode": "shift",
    "generation_step": null,
    "direction": "invade-A-into-B-resident",
    "seed": 2,
@@ -33,6 +35,7 @@
   },
   {
    "catastrophe_rate": 0.0,
+   "catastrophe_mode": "shift",
    "generation_step": null,
    "direction": "invade-A-into-B-resident",
    "seed": 3,
@@ -46,6 +49,7 @@
   },
   {
    "catastrophe_rate": 0.0,
+   "catastrophe_mode": "shift",
    "generation_step": null,
    "direction": "invade-B-into-A-resident",
    "seed": 1,
@@ -59,6 +63,7 @@
   },
   {
    "catastrophe_rate": 0.0,
+   "catastrophe_mode": "shift",
    "generation_step": null,
    "direction": "invade-B-into-A-resident",
    "seed": 2,
@@ -72,6 +77,7 @@
   },
   {
    "catastrophe_rate": 0.0,
+   "catastrophe_mode": "shift",
    "generation_step": null,
    "direction": "invade-B-into-A-resident",
    "seed": 3,
@@ -85,6 +91,7 @@
   },
   {
    "catastrophe_rate": 0.001,
+   "catastrophe_mode": "shift",
    "generation_step": null,
    "direction": "invade-A-into-B-resident",
    "seed": 1,
@@ -98,6 +105,7 @@
   },
   {
    "catastrophe_rate": 0.001,
+   "catastrophe_mode": "shift",
    "generation_step": null,
    "direction": "invade-A-into-B-resident",
    "seed": 2,
@@ -111,6 +119,7 @@
   },
   {
    "catastrophe_rate": 0.001,
+   "catastrophe_mode": "shift",
    "generation_step": null,
    "direction": "invade-A-into-B-resident",
    "seed": 3,
@@ -124,6 +133,7 @@
   },
   {
    "catastrophe_rate": 0.001,
+   "catastrophe_mode": "shift",
    "generation_step": null,
    "direction": "invade-B-into-A-resident",
    "seed": 1,
@@ -137,6 +147,7 @@
   },
   {
    "catastrophe_rate": 0.001,
+   "catastrophe_mode": "shift",
    "generation_step": null,
    "direction": "invade-B-into-A-resident",
    "seed": 2,
@@ -150,6 +161,7 @@
   },
   {
    "catastrophe_rate": 0.001,
+   "catastrophe_mode": "shift",
    "generation_step": null,
    "direction": "invade-B-into-A-resident",
    "seed": 3,
@@ -163,6 +175,7 @@
   },
   {
    "catastrophe_rate": 0.003,
+   "catastrophe_mode": "shift",
    "generation_step": null,
    "direction": "invade-A-into-B-resident",
    "seed": 1,
@@ -176,6 +189,7 @@
   },
   {
    "catastrophe_rate": 0.003,
+   "catastrophe_mode": "shift",
    "generation_step": null,
    "direction": "invade-A-into-B-resident",
    "seed": 2,
@@ -189,6 +203,7 @@
   },
   {
    "catastrophe_rate": 0.003,
+   "catastrophe_mode": "shift",
    "generation_step": null,
    "direction": "invade-A-into-B-resident",
    "seed": 3,
@@ -202,6 +217,7 @@
   },
   {
    "catastrophe_rate": 0.003,
+   "catastrophe_mode": "shift",
    "generation_step": null,
    "direction": "invade-B-into-A-resident",
    "seed": 1,
@@ -215,6 +231,7 @@
   },
   {
    "catastrophe_rate": 0.003,
+   "catastrophe_mode": "shift",
    "generation_step": null,
    "direction": "invade-B-into-A-resident",
    "seed": 2,
@@ -228,6 +245,7 @@
   },
   {
    "catastrophe_rate": 0.003,
+   "catastrophe_mode": "shift",
    "generation_step": null,
    "direction": "invade-B-into-A-resident",
    "seed": 3,
@@ -241,6 +259,7 @@
   },
   {
    "catastrophe_rate": 0.01,
+   "catastrophe_mode": "shift",
    "generation_step": null,
    "direction": "invade-A-into-B-resident",
    "seed": 1,
@@ -254,6 +273,7 @@
   },
   {
    "catastrophe_rate": 0.01,
+   "catastrophe_mode": "shift",
    "generation_step": null,
    "direction": "invade-A-into-B-resident",
    "seed": 2,
@@ -267,6 +287,7 @@
   },
   {
    "catastrophe_rate": 0.01,
+   "catastrophe_mode": "shift",
    "generation_step": null,
    "direction": "invade-A-into-B-resident",
    "seed": 3,
@@ -280,6 +301,7 @@
   },
   {
    "catastrophe_rate": 0.01,
+   "catastrophe_mode": "shift",
    "generation_step": null,
    "direction": "invade-B-into-A-resident",
    "seed": 1,
@@ -293,6 +315,7 @@
   },
   {
    "catastrophe_rate": 0.01,
+   "catastrophe_mode": "shift",
    "generation_step": null,
    "direction": "invade-B-into-A-resident",
    "seed": 2,
@@ -306,6 +329,7 @@
   },
   {
    "catastrophe_rate": 0.01,
+   "catastrophe_mode": "shift",
    "generation_step": null,
    "direction": "invade-B-into-A-resident",
    "seed": 3,
@@ -319,6 +343,7 @@
   },
   {
    "catastrophe_rate": 0.03,
+   "catastrophe_mode": "shift",
    "generation_step": null,
    "direction": "invade-A-into-B-resident",
    "seed": 1,
@@ -332,6 +357,7 @@
   },
   {
    "catastrophe_rate": 0.03,
+   "catastrophe_mode": "shift",
    "generation_step": null,
    "direction": "invade-A-into-B-resident",
    "seed": 2,
@@ -345,6 +371,7 @@
   },
   {
    "catastrophe_rate": 0.03,
+   "catastrophe_mode": "shift",
    "generation_step": null,
    "direction": "invade-A-into-B-resident",
    "seed": 3,
@@ -358,6 +385,7 @@
   },
   {
    "catastrophe_rate": 0.03,
+   "catastrophe_mode": "shift",
    "generation_step": null,
    "direction": "invade-B-into-A-resident",
    "seed": 1,
@@ -371,6 +399,7 @@
   },
   {
    "catastrophe_rate": 0.03,
+   "catastrophe_mode": "shift",
    "generation_step": null,
    "direction": "invade-B-into-A-resident",
    "seed": 2,
@@ -384,6 +413,7 @@
   },
   {
    "catastrophe_rate": 0.03,
+   "catastrophe_mode": "shift",
    "generation_step": null,
    "direction": "invade-B-into-A-resident",
    "seed": 3,
@@ -397,6 +427,7 @@
   },
   {
    "catastrophe_rate": 0.1,
+   "catastrophe_mode": "shift",
    "generation_step": null,
    "direction": "invade-A-into-B-resident",
    "seed": 1,
@@ -410,6 +441,7 @@
   },
   {
    "catastrophe_rate": 0.1,
+   "catastrophe_mode": "shift",
    "generation_step": null,
    "direction": "invade-A-into-B-resident",
    "seed": 2,
@@ -423,6 +455,7 @@
   },
   {
    "catastrophe_rate": 0.1,
+   "catastrophe_mode": "shift",
    "generation_step": null,
    "direction": "invade-A-into-B-resident",
    "seed": 3,
@@ -436,6 +469,7 @@
   },
   {
    "catastrophe_rate": 0.1,
+   "catastrophe_mode": "shift",
    "generation_step": null,
    "direction": "invade-B-into-A-resident",
    "seed": 1,
@@ -449,6 +483,7 @@
   },
   {
    "catastrophe_rate": 0.1,
+   "catastrophe_mode": "shift",
    "generation_step": null,
    "direction": "invade-B-into-A-resident",
    "seed": 2,
@@ -462,6 +497,7 @@
   },
   {
    "catastrophe_rate": 0.1,
+   "catastrophe_mode": "shift",
    "generation_step": null,
    "direction": "invade-B-into-A-resident",
    "seed": 3,
@@ -472,6 +508,258 @@
    "invader_share_final": 0.0065,
    "invader_growth": -0.043,
    "artifact": "_hourly/polish/cat_c01_AinvB_seed3.json"
+  },
+  {
+   "catastrophe_rate": 0.01,
+   "catastrophe_mode": "drop",
+   "direction": "invade-A-into-B-resident",
+   "seed": 1,
+   "pop_time": 62926,
+   "alive_final": 347,
+   "invader_share_after": 0.0505,
+   "a_share_start": 0.0,
+   "a_share_final": 0.0029,
+   "invader_share_final": 0.0029,
+   "invader_growth": -0.0476,
+   "artifact": "_hourly/polish/catdrop_d001_BinvA_seed1.json"
+  },
+  {
+   "catastrophe_rate": 0.01,
+   "catastrophe_mode": "drop",
+   "direction": "invade-A-into-B-resident",
+   "seed": 2,
+   "pop_time": 69762,
+   "alive_final": 310,
+   "invader_share_after": 0.0498,
+   "a_share_start": 0.0,
+   "a_share_final": 0.0065,
+   "invader_share_final": 0.0065,
+   "invader_growth": -0.0433,
+   "artifact": "_hourly/polish/catdrop_d001_BinvA_seed2.json"
+  },
+  {
+   "catastrophe_rate": 0.01,
+   "catastrophe_mode": "drop",
+   "direction": "invade-A-into-B-resident",
+   "seed": 3,
+   "pop_time": 50715,
+   "alive_final": 98,
+   "invader_share_after": 0.0503,
+   "a_share_start": 0.0,
+   "a_share_final": 0.0,
+   "invader_share_final": 0.0,
+   "invader_growth": -0.0503,
+   "artifact": "_hourly/polish/catdrop_d001_BinvA_seed3.json"
+  },
+  {
+   "catastrophe_rate": 0.01,
+   "catastrophe_mode": "drop",
+   "direction": "invade-B-into-A-resident",
+   "seed": 1,
+   "pop_time": 53716,
+   "alive_final": 112,
+   "invader_share_after": 0.0497,
+   "a_share_start": 1.0,
+   "a_share_final": 1.0,
+   "invader_share_final": 0.0,
+   "invader_growth": -0.0497,
+   "artifact": "_hourly/polish/catdrop_d001_AinvB_seed1.json"
+  },
+  {
+   "catastrophe_rate": 0.01,
+   "catastrophe_mode": "drop",
+   "direction": "invade-B-into-A-resident",
+   "seed": 2,
+   "pop_time": 51580,
+   "alive_final": 158,
+   "invader_share_after": 0.0488,
+   "a_share_start": 1.0,
+   "a_share_final": 1.0,
+   "invader_share_final": 0.0,
+   "invader_growth": -0.0488,
+   "artifact": "_hourly/polish/catdrop_d001_AinvB_seed2.json"
+  },
+  {
+   "catastrophe_rate": 0.01,
+   "catastrophe_mode": "drop",
+   "direction": "invade-B-into-A-resident",
+   "seed": 3,
+   "pop_time": 42395,
+   "alive_final": 98,
+   "invader_share_after": 0.0492,
+   "a_share_start": 1.0,
+   "a_share_final": 1.0,
+   "invader_share_final": 0.0,
+   "invader_growth": -0.0492,
+   "artifact": "_hourly/polish/catdrop_d001_AinvB_seed3.json"
+  },
+  {
+   "catastrophe_rate": 0.03,
+   "catastrophe_mode": "drop",
+   "direction": "invade-A-into-B-resident",
+   "seed": 1,
+   "pop_time": 55470,
+   "alive_final": 240,
+   "invader_share_after": 0.0501,
+   "a_share_start": 0.0,
+   "a_share_final": 0.0,
+   "invader_share_final": 0.0,
+   "invader_growth": -0.0501,
+   "artifact": "_hourly/polish/catdrop_d003_BinvA_seed1.json"
+  },
+  {
+   "catastrophe_rate": 0.03,
+   "catastrophe_mode": "drop",
+   "direction": "invade-A-into-B-resident",
+   "seed": 2,
+   "pop_time": 65095,
+   "alive_final": 281,
+   "invader_share_after": 0.0506,
+   "a_share_start": 0.0,
+   "a_share_final": 0.0,
+   "invader_share_final": 0.0,
+   "invader_growth": -0.0506,
+   "artifact": "_hourly/polish/catdrop_d003_BinvA_seed2.json"
+  },
+  {
+   "catastrophe_rate": 0.03,
+   "catastrophe_mode": "drop",
+   "direction": "invade-A-into-B-resident",
+   "seed": 3,
+   "pop_time": 52571,
+   "alive_final": 377,
+   "invader_share_after": 0.0494,
+   "a_share_start": 0.0,
+   "a_share_final": 0.0,
+   "invader_share_final": 0.0,
+   "invader_growth": -0.0494,
+   "artifact": "_hourly/polish/catdrop_d003_BinvA_seed3.json"
+  },
+  {
+   "catastrophe_rate": 0.03,
+   "catastrophe_mode": "drop",
+   "direction": "invade-B-into-A-resident",
+   "seed": 1,
+   "pop_time": 46452,
+   "alive_final": 112,
+   "invader_share_after": 0.0503,
+   "a_share_start": 1.0,
+   "a_share_final": 1.0,
+   "invader_share_final": 0.0,
+   "invader_growth": -0.0503,
+   "artifact": "_hourly/polish/catdrop_d003_AinvB_seed1.json"
+  },
+  {
+   "catastrophe_rate": 0.03,
+   "catastrophe_mode": "drop",
+   "direction": "invade-B-into-A-resident",
+   "seed": 2,
+   "pop_time": 53533,
+   "alive_final": 90,
+   "invader_share_after": 0.0493,
+   "a_share_start": 1.0,
+   "a_share_final": 1.0,
+   "invader_share_final": 0.0,
+   "invader_growth": -0.0493,
+   "artifact": "_hourly/polish/catdrop_d003_AinvB_seed2.json"
+  },
+  {
+   "catastrophe_rate": 0.03,
+   "catastrophe_mode": "drop",
+   "direction": "invade-B-into-A-resident",
+   "seed": 3,
+   "pop_time": 46168,
+   "alive_final": 160,
+   "invader_share_after": 0.0517,
+   "a_share_start": 1.0,
+   "a_share_final": 1.0,
+   "invader_share_final": 0.0,
+   "invader_growth": -0.0517,
+   "artifact": "_hourly/polish/catdrop_d003_AinvB_seed3.json"
+  },
+  {
+   "catastrophe_rate": 0.1,
+   "catastrophe_mode": "drop",
+   "direction": "invade-A-into-B-resident",
+   "seed": 1,
+   "pop_time": 60556,
+   "alive_final": 282,
+   "invader_share_after": 0.0501,
+   "a_share_start": 0.0,
+   "a_share_final": 0.0,
+   "invader_share_final": 0.0,
+   "invader_growth": -0.0501,
+   "artifact": "_hourly/polish/catdrop_d01_BinvA_seed1.json"
+  },
+  {
+   "catastrophe_rate": 0.1,
+   "catastrophe_mode": "drop",
+   "direction": "invade-A-into-B-resident",
+   "seed": 2,
+   "pop_time": 1888,
+   "alive_final": 0,
+   "invader_share_after": 0.5,
+   "a_share_start": 0.0,
+   "a_share_final": 0.5,
+   "invader_share_final": 0.5,
+   "invader_growth": 0.0,
+   "artifact": "_hourly/polish/catdrop_d01_BinvA_seed2.json"
+  },
+  {
+   "catastrophe_rate": 0.1,
+   "catastrophe_mode": "drop",
+   "direction": "invade-A-into-B-resident",
+   "seed": 3,
+   "pop_time": 56129,
+   "alive_final": 407,
+   "invader_share_after": 0.051,
+   "a_share_start": 0.0,
+   "a_share_final": 0.0,
+   "invader_share_final": 0.0,
+   "invader_growth": -0.051,
+   "artifact": "_hourly/polish/catdrop_d01_BinvA_seed3.json"
+  },
+  {
+   "catastrophe_rate": 0.1,
+   "catastrophe_mode": "drop",
+   "direction": "invade-B-into-A-resident",
+   "seed": 1,
+   "pop_time": 40943,
+   "alive_final": 74,
+   "invader_share_after": 0.0496,
+   "a_share_start": 1.0,
+   "a_share_final": 1.0,
+   "invader_share_final": 0.0,
+   "invader_growth": -0.0496,
+   "artifact": "_hourly/polish/catdrop_d01_AinvB_seed1.json"
+  },
+  {
+   "catastrophe_rate": 0.1,
+   "catastrophe_mode": "drop",
+   "direction": "invade-B-into-A-resident",
+   "seed": 2,
+   "pop_time": 53594,
+   "alive_final": 217,
+   "invader_share_after": 0.0504,
+   "a_share_start": 1.0,
+   "a_share_final": 1.0,
+   "invader_share_final": 0.0,
+   "invader_growth": -0.0504,
+   "artifact": "_hourly/polish/catdrop_d01_AinvB_seed2.json"
+  },
+  {
+   "catastrophe_rate": 0.1,
+   "catastrophe_mode": "drop",
+   "direction": "invade-B-into-A-resident",
+   "seed": 3,
+   "pop_time": 30548,
+   "alive_final": 11,
+   "invader_share_after": 0.049,
+   "a_share_start": 1.0,
+   "a_share_final": 1.0,
+   "invader_share_final": 0.0,
+   "invader_growth": -0.049,
+   "artifact": "_hourly/polish/catdrop_d01_AinvB_seed3.json"
   }
  ]
 }
