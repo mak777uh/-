@@ -235,6 +235,22 @@ SIGNIFICANT_MINUS = {"head", "board", "cycle", "lit_queue"}
 SERIES_KEYS = {"polish", "experiments", "journal", "runs"}
 
 
+def _pid_alive(pid: int) -> bool:
+    """Жив ли процесс по pid (кроссплатформенно, без psutil)."""
+    if pid <= 0:
+        return False
+    try:
+        if os.name == "nt":
+            out = subprocess.run(["tasklist", "/FI", f"PID eq {pid}", "/NH"],
+                                 capture_output=True, text=True, encoding="utf-8",
+                                 errors="replace", timeout=15).stdout
+            return str(pid) in out
+        os.kill(pid, 0)
+        return True
+    except Exception:
+        return False
+
+
 def is_series_only(changes: list[str]) -> bool:
     """Только прогресс серии? Тогда применяем settle; всё остальное будит сразу."""
     return bool(changes) and set(changes) <= SERIES_KEYS
@@ -353,9 +369,22 @@ def main(argv: list[str] | None = None) -> int:
         if getattr(args, "force", False) and lock.exists():
             lock.unlink()
             fresh = 1e9
-        if lock.exists() and fresh < ttl:
-            print(f"сторож уже работает (файл-замок обновлялся {fresh:.0f} с назад) — второй не запускаю")
-            return 3
+        pid_alive = False
+        if lock.exists():
+            try:
+                pid_alive = _pid_alive(int(lock.read_text(encoding="utf-8").strip() or "0"))
+            except ValueError:
+                pid_alive = False
+        if lock.exists() and pid_alive:
+            print(f"сторож уже работает (pid {lock.read_text(encoding='utf-8').strip()}, "
+                  f"замок обновлялся {fresh:.0f} с назад) — второй не запускаю")
+            return 0
+        if lock.exists() and not pid_alive and fresh < ttl:
+            print("замок от мёртвого процесса — снимаю и запускаюсь")
+            try:
+                lock.unlink()
+            except OSError:
+                pass
         lock.write_text(str(os.getpid()), encoding="utf-8")
         try:
             return wait(args.root, args.timeout, args.interval, args.state,

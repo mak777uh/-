@@ -300,25 +300,33 @@ def test_wake_series_keys(tmp: Path) -> None:
 
 
 def test_wake_lock(tmp: Path) -> None:
+    import os
     root = tmp / "lock_root"
     (root / "lab").mkdir(parents=True)
     (root / "library").mkdir(parents=True)
     (root / "lab" / "notices.md").write_text("# пусто\n", encoding="utf-8")
     lock = root / "library" / ".wake.pid"
-    lock.write_text("99999", encoding="utf-8")
-    res = run("scripts/library_wake.py", "--root", str(root), "--state", str(tmp / "st.json"),
-              "--wait", "--timeout", "3", "--interval", "1")
-    check("wake lock: свежий замок блокирует", "уже работает" in res.stdout, res.stdout)
-    import os, time
-    old = time.time() - 600
-    os.utime(lock, (old, old))
-    res2 = run("scripts/library_wake.py", "--root", str(root), "--state", str(tmp / "st.json"),
-               "--wait", "--timeout", "5", "--interval", "1")
-    check("wake lock: устаревший замок снимается сам", "уже работает" not in res2.stdout, res2.stdout)
-    lock.write_text("99999", encoding="utf-8")
-    res3 = run("scripts/library_wake.py", "--root", str(root), "--state", str(tmp / "st.json"),
-               "--wait", "--timeout", "5", "--interval", "1", "--force")
-    check("wake lock: --force снимает свежий замок", "уже работает" not in res3.stdout, res3.stdout)
+    state = str(tmp / "st.json")
+
+    def run_wait(*extra) -> subprocess.CompletedProcess:
+        return run("scripts/library_wake.py", "--root", str(root), "--state", state,
+                   "--wait", "--timeout", "5", "--interval", "1", *extra)
+
+    # 1) живой pid в замке => отказ, и это не ошибка (код 0)
+    lock.write_text(str(os.getpid()), encoding="utf-8")
+    res = run_wait()
+    check("wake lock: живой pid блокирует запуск", "уже работает" in res.stdout, res.stdout)
+    check("wake lock: отказ не считается ошибкой", res.returncode == 0, str(res.returncode))
+
+    # 2) мёртвый pid => замок снимается, сторож стартует
+    lock.write_text("999999", encoding="utf-8")
+    res2 = run_wait()
+    check("wake lock: замок мёртвого pid снимается", "мёртвого процесса" in res2.stdout, res2.stdout)
+
+    # 3) --force снимает даже живой замок
+    lock.write_text(str(os.getpid()), encoding="utf-8")
+    res3 = run_wait("--force")
+    check("wake lock: --force снимает живой замок", "уже работает" not in res3.stdout, res3.stdout)
     check("wake lock: замок снят после выхода", not lock.exists(), "замок остался")
 
 
