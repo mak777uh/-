@@ -80,6 +80,8 @@ def main(argv=None) -> int:
     ap.add_argument("--phase1", type=int, default=200)
     ap.add_argument("--phase2", type=int, default=100)
     ap.add_argument("--cells", type=int, default=5)
+    ap.add_argument("--propagule-energy", type=float, default=8.0,
+                    help="стартовый заряд пересеянных клеток (v2 = 1.0: автономия ~25 шагов)")
     ap.add_argument("--device", default="cuda")
     ap.add_argument("--checkpoint", default="checkpoints/world_base_rule.pt")
     ap.add_argument("--out", default=None)
@@ -117,7 +119,8 @@ def main(argv=None) -> int:
         if placed >= args.cells:
             break
     pond.state.alive |= spot
-    pond.state.energy = torch.where(spot, torch.full_like(pond.state.energy, 8.0),
+    pond.state.energy = torch.where(spot, torch.full_like(pond.state.energy,
+                                                          float(args.propagule_energy)),
                                     pond.state.energy)
     pond.state.age = torch.where(spot, torch.zeros_like(pond.state.age), pond.state.age)
     pond.state.damage = torch.where(spot, torch.zeros_like(pond.state.damage),
@@ -145,6 +148,7 @@ def main(argv=None) -> int:
         "phase1_steps": args.phase1,
         "phase2_steps": args.phase2,
         "cells": args.cells,
+        "propagule_energy": args.propagule_energy,
         "alive_phase1": alive_phase1,
         "resource_mean_after_phase1": round(resource_after_phase1, 4),
         "resource_mean_at_reseed": round(resource_at_reseed, 4),
@@ -154,6 +158,8 @@ def main(argv=None) -> int:
         "max_alive_phase2": max_alive,
         "generation_length": gen,
         "generation_divisions": divisions,
+        "sensitivity_note": (f"фаза 2 = {args.phase2}, energy = {args.propagule_energy}, "
+                             f"автономия ≈ {round(args.propagule_energy / 0.04)} шагов"),
     }
     text = json.dumps(payload, ensure_ascii=False, indent=2)
     print(text)
