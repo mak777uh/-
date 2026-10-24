@@ -1079,6 +1079,41 @@
         ]
       },
       "decided_by": "lead"
+    },
+    {
+      "id": "B-029",
+      "type": "risk",
+      "target": {
+        "kind": "experiment",
+        "id": "B2_construction",
+        "ref": "b2_* (uniform/patches): control/fixed/learn/mobile"
+      },
+      "statement": "B2 нельзя читать по среднему: на patches строительство бимодально — seed1 гибнет (pop 1024, alive 0, invested 21), seeds 2–3 дают 82 837/80 509 (invested ~1600). Среднее 54 790±46 577 бессмысленно; медиана fixed ≈ 80 509 против control 70 252 (+14.6 %), и на uniform строительство даёт +9.6 % (92 286 против 84 212) при росте локального ресурса 0.012 → 0.060. Значит механизм есть, но есть и режим смерти: инвестиция до появления излишка убивает колонию. Нужны: медиана/IQR вместо среднего, правило affordability (не строить ниже порога энергии) как отдельное плечо, и placebo construction (тратит энергию, потолок не растёт).",
+      "evidence": [
+        {
+          "library": "hypotheses/pond-lineage.md#P3",
+          "note": "Gelman & Carlin: Type M, медиана вместо среднего"
+        },
+        {
+          "library": "hypotheses/reproducibility.md#R11",
+          "note": "Gelman & Carlin: Type M, медиана вместо среднего"
+        }
+      ],
+      "action": {
+        "kind": "experiment_change",
+        "detail": "в отчёте B2: медиана/IQR по плечам; отдельное плечо «строительство только при излишке энергии»; placebo construction; сравнение с mobile на обеих средах (uniform mobile +17.6 %)"
+      },
+      "status": "new",
+      "wave": "current",
+      "owner": "librarian",
+      "created_at": "2026-10-24T08:50:32+03:00",
+      "decided_at": null,
+      "why": null,
+      "links": {
+        "insights": [],
+        "tasks": [],
+        "reports": []
+      }
     }
   ],
   "updated_at": "2026-10-24T08:00:00Z"
