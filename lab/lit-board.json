@@ -2132,6 +2132,68 @@
         "tasks": [],
         "reports": []
       }
+    },
+    {
+      "id": "B-061",
+      "type": "risk",
+      "target": {
+        "kind": "metric",
+        "id": "selection_tag_keys",
+        "ref": "scripts/selection_matrix.py (8bdd5f6); mut_*.json"
+      },
+      "statement": "Блокер запуска sel: ключи меток несовпадают. В артефактах type_traits ключуется T0,T1,..., а lineage_fitness/lineage_spores — 0,1,2,...; пересечение 0 из 291. selection_matrix.py делает spores_map.get(tag) с tag из type_traits, поэтому пар не будет никогда => valid_metric=false на каждом прогоне, и условие E снова окажется 'невалидным', а не 'отбор не найден'. Исправление: писать ключи в одном формате либо нормализовать префикс T в скрипте до расчёта.",
+      "evidence": [
+        {
+          "library": "reviews/e-selection-feasibility.md#дополнение",
+          "note": "проверено на mut_m005_seed1: 0 общих ключей"
+        }
+      ],
+      "action": {
+        "kind": "method",
+        "detail": "нормализация ключа (T<id> -> <id>) или единый формат в логгере; тест на артефакте с обоими полями"
+      },
+      "status": "new",
+      "wave": "current",
+      "owner": "librarian",
+      "created_at": "2026-10-24T23:31:51+03:00",
+      "decided_at": null,
+      "why": null,
+      "links": {
+        "insights": [],
+        "tasks": [],
+        "reports": []
+      }
+    },
+    {
+      "id": "B-062",
+      "type": "risk",
+      "target": {
+        "kind": "metric",
+        "id": "selection_cells_fallback",
+        "ref": "scripts/selection_matrix.py L112-118"
+      },
+      "statement": "Для главной метрики условия E недопустим молчаливый фолбэк с lineage_spores на lineage_fitness (клетки): rho по клеткам — это не дифференциальное воспроизводство. Сейчас при отсутствии lineage_spores скрипт берёт клетки и помечает это только в поле fitness_source. Нужно: при fitness_source != 'lineage_spores' ставить valid_metric=false с причиной 'нет lineage_spores', а не считать rho.",
+      "evidence": [
+        {
+          "library": "reviews/e-selection-feasibility.md#дополнение",
+          "note": "B-058 просил именно споры"
+        }
+      ],
+      "action": {
+        "kind": "method",
+        "detail": "в analyse(): if not isinstance(spores_map, dict): return row с valid_metric=False"
+      },
+      "status": "new",
+      "wave": "current",
+      "owner": "librarian",
+      "created_at": "2026-10-24T23:31:51+03:00",
+      "decided_at": null,
+      "why": null,
+      "links": {
+        "insights": [],
+        "tasks": [],
+        "reports": []
+      }
     }
   ],
   "updated_at": "2026-10-24T13:40:00Z"
