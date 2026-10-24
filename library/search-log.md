@@ -27,6 +27,8 @@
 | 2026-10-24 | arXiv: differentiable logic cellular automata | 1 | 1 | P42 (Miotti 2025) — ключ к A-gate |
 | 2026-10-24 | OpenAlex: niche construction fitness benefit model quantitative | 3 | 2 | P43 (Trappes 2022, NC3), P44 (Constant 2018) |
 | 2026-10-24 | Crossref: "does niche construction pay off..." | 6 | 0 | запрос через «pay off» ушёл в экономику — урок: формулировать научными терминами |
+| 2026-10-24 | affordance perception versus learned behavior distinction | 6 | 0 | про восприятие у людей/роботов, не про операциональное различение; хватает P43 (NC3) |
+| 2026-10-24 | operational definition of affordance in autonomous agents | 6 | 0 | прикладные (AD, CRM), не то |
 
 ## Как вести
 
