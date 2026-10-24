@@ -1227,6 +1227,41 @@
         "tasks": [],
         "reports": []
       }
+    },
+    {
+      "id": "B-033",
+      "type": "contradiction",
+      "target": {
+        "kind": "experiment",
+        "id": "B2_construction",
+        "ref": "b2b_patches_surplus n=3: корректировка вывода по n=1"
+      },
+      "statement": "Корректировка моего же вывода по n=1: surplus на patches НЕ даёт выигрыша по pop_time — медиана 73 219 (80 415/73 219/36 341) против control 70 252, то есть +4.2 %, ниже порога 4.7 %. Но он убирает гибель: alive_final 633/624/638 у всех трёх (у construction один сид гибнет, у placebo гибнут все). Значит на patches B2 — механизм устойчивости, а не производительности: «surplus убирает гибель колоний, ценой среднего pop_time»; формулировку «surplus спасает и улучшает» писать нельзя.",
+      "evidence": [
+        {
+          "library": "hypotheses/pond-lineage.md#P41",
+          "note": "порог различимости и медиана"
+        },
+        {
+          "library": "hypotheses/reproducibility.md#R11",
+          "note": "порог различимости и медиана"
+        }
+      ],
+      "action": {
+        "kind": "text",
+        "detail": "в §4f: patches-таблица control/construction/surplus/placebo + строка «robustness vs performance»; вывод про surplus ограничить «нет гибели», не «выше медиана»"
+      },
+      "status": "new",
+      "wave": "current",
+      "owner": "librarian",
+      "created_at": "2026-10-24T12:16:59+03:00",
+      "decided_at": null,
+      "why": null,
+      "links": {
+        "insights": [],
+        "tasks": [],
+        "reports": []
+      }
     }
   ],
   "updated_at": "2026-10-24T12:05:00Z"
