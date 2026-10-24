@@ -2225,6 +2225,37 @@
         "tasks": [],
         "reports": []
       }
+    },
+    {
+      "id": "B-064",
+      "type": "contradiction",
+      "target": {
+        "kind": "experiment",
+        "id": "killkeep_v2",
+        "ref": "killkeep2_*.json (v2); pond.py:41,43,63"
+      },
+      "statement": "v2 снова не чувствителен, и причина другая: income_mode='cap' даёт доход min(ресурс, baseline_income=0.002), поэтому при поле 0.151-0.423 и при 1.0 клетка получает одинаковые 0.002/шаг; resource_regen=0.02/шаг на клетку в 10 раз больше базового дохода, поэтому истощение не держится. Факт: 4/4 полных пары сидов дают ТОЧНОЕ совпадение pop_time фазы 2 (40903/40903, 41653/41653, 42593/42593, 44115/44115) и одинаковый max_alive_phase2. Значит манипуляция полем не входит в динамику. Для v3: --income-mode proportional и/или resource_regen <= baseline_income; сначала положительный контроль (resource_max 0.002 против 1.0) — если различия нет, поле не влияет и kill-and-keep не поставить без смены экономики.",
+      "evidence": [
+        {
+          "library": "conditions.md#условие-c",
+          "note": "v2: фаза 2 = 300, заряд 1.0 — не помогло"
+        }
+      ],
+      "action": {
+        "kind": "experiment",
+        "detail": "положительный контроль поля + proportional income / низкий regen, затем повторить keep/clean"
+      },
+      "status": "new",
+      "wave": "current",
+      "owner": "librarian",
+      "created_at": "2026-10-25T01:19:00+03:00",
+      "decided_at": null,
+      "why": null,
+      "links": {
+        "insights": [],
+        "tasks": [],
+        "reports": []
+      }
     }
   ],
   "updated_at": "2026-10-24T13:40:00Z"
