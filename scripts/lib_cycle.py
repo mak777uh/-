@@ -162,6 +162,7 @@ def cmd_add(args) -> int:
         "action": args.action or "", "impact": args.impact, "effort": args.effort,
         "blocked_by": [b.strip() for b in (args.blocked_by or "").split(",") if b.strip()],
         "status": "open",
+        "created_at": datetime.now(timezone.utc).astimezone().strftime("%Y-%m-%d %H:%M"),
     })
     save(data)
     print("добавлено")
