@@ -25,7 +25,6 @@
 | --- | --- | ---: | --- |
 | [`lab/checkpoints.json`](../lab/checkpoints.json) | index | 9472 | `a502dfaed723376de1bcca1960bd7b53d97c5a2d5da5998cdb54edb6ded2cdbc` |
 | [`lab/registry.json`](../lab/registry.json) | index | 170554 | `8b359b1397d9bc78c838e8aabb613dd37f99fb894a741bc03a552c63fc2b5d2f` |
-| [`morphogenesis/experiments/E01_criticality/frame_000050.png`](../morphogenesis/experiments/E01_criticality/frame_000050.png) | figure | 19729 | `bda8c5610091556a26bc58b18dd0cecdfa8da8d758c1f7fbdd4d2be2ce423a42` |
 | [`morphogenesis/experiments/E01_criticality/lyapunov_scan.json`](../morphogenesis/experiments/E01_criticality/lyapunov_scan.json) | other | 1610 | `7db6283ea34a67927c31515e6aceb7f02c42e1124ea35d4800207dbaa51ead18` |
 | [`morphogenesis/experiments/E01_criticality/results.json`](../morphogenesis/experiments/E01_criticality/results.json) | other | 2885 | `a00a7272b24bcc22828abaf281f939d97518b8c59dadbd6fe0158a00a623ef22` |
 | [`morphogenesis/experiments/E02_pattern/collapse_probe.json`](../morphogenesis/experiments/E02_pattern/collapse_probe.json) | other | 22589 | `1574a6711fe997dbc59dd602f03123b02cb2a83cddc2d031b7d9f7d2ad424b6e` |
@@ -231,6 +230,7 @@
 | [`reports/figures/e02b_transition_matrix.png`](../reports/figures/e02b_transition_matrix.png) | figure | 152522 | `81f1b4fe50fd819f45411c31fb737a0c232d9c4f993f5233184c8b276779f5b9` |
 | [`reports/figures/e02c_seed_grid.png`](../reports/figures/e02c_seed_grid.png) | figure | 69503 | `a14f0a6eb28fa0675629e539dc863049d97c3a7ef1914c34ebd7348b5c71776f` |
 <!-- artifacts:end -->
+
 
 
 

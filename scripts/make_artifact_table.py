@@ -25,6 +25,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import re
+import subprocess
 import sys
 from pathlib import Path
 
@@ -81,6 +82,21 @@ def kind_of(path: Path) -> str:
     return "other"
 
 
+def git_tracked() -> set[str] | None:
+    """Пути, которые реально есть в git (posix, относительно корня). None — git недоступен.
+
+    Таблица обязана совпадать со свежим клоном: локальные кадры и прочие файлы, которые
+    по §5a в git не едут, в неё попадать не должны.
+    """
+    try:
+        out = subprocess.run(
+            ["git", "ls-files", "-z"], cwd=REPO, capture_output=True, check=True
+        )
+    except (OSError, subprocess.CalledProcessError):
+        return None
+    return {p for p in out.stdout.decode("utf-8", "replace").split("\0") if p}
+
+
 def collect() -> list[Path]:
     files: list[Path] = []
     for directory in DIRS:
@@ -88,7 +104,11 @@ def collect() -> list[Path]:
             files.extend(p for p in directory.rglob("*") if p.is_file())
     files.extend(p for p in EXTRA if p.is_file())
     # строки *_rows.jsonl локальные (в git не едут) — их в таблице нет
-    return sorted(p for p in files if p.suffix in (".json", ".png"))
+    files = [p for p in files if p.suffix in (".json", ".png")]
+    tracked = git_tracked()
+    if tracked is not None:
+        files = [p for p in files if p.relative_to(REPO).as_posix() in tracked]
+    return sorted(files)
 
 
 def link(path: Path) -> str:
