@@ -47,6 +47,8 @@
 | 2026-10-24 | how is niche conformance operationalized in minimal models | 6 | 0 | запрос ушёл в «operationalized» вообще; переформулировать на «niche conformance» |
 | 2026-10-24 | niche construction individual-based model resource modification (OpenAlex) | 3 | 1 | P55 (Han 2006, полиморфизм через строительство) |
 | 2026-10-24 | in-silico construction benefit placebo control | 6 | 0 | placebo-контроля в моделях строительства не нашлось — зафиксировано как наш методический вклад |
+| 2026-10-24 | dip test of unimodality | 6 | 1 | P56 (Hartigan & Hartigan 1985) |
+| 2026-10-24 | bimodality detection ecological data small sample | 6 | 0 | ушло в прикладные small-sample ML; для теста мод хватает P56/P57 |
 
 ## Как вести
 
