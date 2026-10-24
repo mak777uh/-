@@ -117,9 +117,13 @@ def criteria(table: list[dict]) -> dict:
         return (by.get(n) or {}).get(key)
 
     res = {
-        "supports_founding": bool((get(20, "survival") or 0) >= 0.8
-                                  and (get(20, "grew_share") or 0) >= 0.8
-                                  and (get(1, "survival") or 0) <= 0.2),
+        # порог МЕЖДУ 1 и 20: при 20 основание идёт, при 1 — нет
+        "threshold_between_1_and_20": bool((get(20, "survival") or 0) >= 0.8
+                                           and (get(20, "grew_share") or 0) >= 0.8
+                                           and (get(1, "survival") or 0) <= 0.2),
+        # основание работает и при ОДНОЙ клетке — порога в проверенном диапазоне нет
+        "founding_from_one_cell": bool((get(1, "survival") or 0) >= 0.8
+                                       and (get(1, "grew_share") or 0) >= 0.8),
         "no_founding_up_to_20": bool((get(20, "survival") or 0) <= 0.4),
         "threshold_above_20": None,
         "monotone_survival": None,
@@ -127,8 +131,20 @@ def criteria(table: list[dict]) -> dict:
     survivals = [item["survival"] for item in table if item["survival"] is not None]
     if len(survivals) >= 3:
         res["monotone_survival"] = all(b >= a - 1e-9 for a, b in zip(survivals, survivals[1:]))
-        if res["monotone_survival"] and not res["supports_founding"]:
+        # «порог выше 20» заявляем ТОЛЬКО если основание при 20 не идёт
+        if res["monotone_survival"] and not res["threshold_between_1_and_20"] \
+                and (get(20, "survival") or 0) < 0.8:
             res["threshold_above_20"] = True
+    if res["founding_from_one_cell"]:
+        res["verdict"] = ("основание идёт из ОДНОЙ клетки (10/10): порога в проверенном "
+                          "диапазоне N = 1..20 нет; размер основателя влияет на размер "
+                          "колонии, но не на сам факт основания")
+    elif res["threshold_between_1_and_20"]:
+        res["verdict"] = "порог основания лежит между 1 и 20 клетками"
+    elif res["no_founding_up_to_20"]:
+        res["verdict"] = "основание из <= 20 клеток не поддерживается"
+    else:
+        res["verdict"] = "промежуточно: ни порога, ни полного отказа заявить нельзя"
     return res
 
 
