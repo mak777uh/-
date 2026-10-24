@@ -1,0 +1,22 @@
+# Вопросы литературы (очередь обязательного шага)
+
+Каждый проход дежурства берёт первый `open` и ищет по нему. Статусы: `open`, `searched-0`, `searched-1`, `done`.
+
+| id | вопрос | статус | дата | заметка |
+| --- | --- | --- | --- | --- |
+| Q1 | Does niche construction pay off only above an energy-surplus threshold? | open | — | B2/surplus: гипотеза порога доступности |
+| Q2 | How is differentiable logic gate discretization validated against the discrete model? | searched-1 | 2026-10-24 | P42: Miotti 2025 (DiffLogic CA) |
+| Q3 | How to separate affordance from adaptation operationally in embodied agents? | open | — | три случая affordance в линии |
+| Q4 | Neutral marker fixation times in growing spatial cellular automata | open | — | voter на растущей колонии (B-019/H51) |
+| Q5 | Differential mortality versus disturbance in removing priority effects | open | — | cat/catdrop: что снимает приоритет (B-023) |
+| Q6 | Measuring ecological inheritance half-life after organism removal | open | — | три метрики нишевого конструирования |
+| Q7 | How are negative results reported in artificial life venues and formats? | open | — | C-путь развилки |
+| Q8 | Generalist versus specialist performance across heterogeneous environments | open | — | L0-генералист (B-025/H56) |
+| Q9 | Experiments separating "plasticity does not pay" from "plasticity assimilated" | open | — | Baldwin/ассимиляция (Baldwin 1896; Crispo 2007) |
+| Q10 | Two-pool resource switching versus frequency dependence: distinguishing experiments | open | — | switching vs fd (H54) |
+
+## Как пополнять
+
+- Вопрос формулируем на английском (научные термины), в таблицу можно по-русски.
+- Один вопрос = 1–2 запроса; если ничего не подошло — `searched-0` с пояснением.
+- Взяли работу — заводим запись в `hypotheses/` и `searched-1` со ссылкой на P-номер.
