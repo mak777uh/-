@@ -19,6 +19,7 @@ import argparse
 import random
 import json
 import os
+import math
 import statistics
 import subprocess
 import sys
@@ -56,9 +57,30 @@ def git_provenance() -> dict:
         status = subprocess.check_output(
             ["git", "-C", str(root), "status", "--porcelain"],
             stderr=subprocess.DEVNULL, text=True)
-        return {"git_commit": commit or None, "git_dirty": bool(status.strip())}
+        # идентичность КОДА, а не HEAD: последний коммит, тронувший мир или config.py
+        code_commit = subprocess.check_output(
+            ["git", "-C", str(root), "log", "-1", "--format=%h", "--",
+             "morphogenesis/world", "morphogenesis/config.py"],
+            stderr=subprocess.DEVNULL, text=True).strip()
+        return {"git_commit": commit or None, "git_dirty": bool(status.strip()),
+                "git_code_commit": code_commit or None}
     except (OSError, subprocess.CalledProcessError):
-        return {"git_commit": None, "git_dirty": None}
+        return {"git_commit": None, "git_dirty": None, "git_code_commit": None}
+
+
+def file_sha256(path: str | None) -> str | None:
+    """sha256 файла весов: код может быть тем же, а правило другим — тогда мир другой."""
+    if not path:
+        return None
+    try:
+        import hashlib
+        h = hashlib.sha256()
+        with open(path, "rb") as fh:
+            for chunk in iter(lambda: fh.read(1024 * 1024), b""):
+                h.update(chunk)
+        return h.hexdigest()
+    except OSError:
+        return None
 
 
 def config_block(cfg) -> dict:
@@ -86,6 +108,7 @@ def config_block(cfg) -> dict:
         "invade_placement": getattr(cfg, "invade_placement", "random"),
         "merge_rule": getattr(cfg, "merge_rule", "majority"),
         "invade_on_empty": bool(getattr(cfg, "invade_on_empty", False)),
+        "start_cells": int(getattr(cfg, "_start_cells", 4)),
         "mutation_rate": getattr(cfg, "mutation_rate", 0.0),
         "mutation_trait_sigma": getattr(cfg, "mutation_trait_sigma", 0.0),
         "layout": getattr(cfg, "resource_layout", None),
@@ -197,13 +220,28 @@ class PondRun:
 
     # ---------- инициализация ----------
     def seed(self, cells: int = 4, energy: float = 8.0) -> None:
-        """Поселить несколько клеток в центре: им даётся заряд и геном."""
+        """Поселить `cells` клеток в центре: им даётся заряд и геном.
+
+        `cells = 0` — **пустое поле**: мир стартует без жизни (плечо `resident_free`:
+        проверяем, основывает ли колонию сам инокулят). `cells = 4` — исторический
+        старт блоком 2x2, он остаётся бит-в-бит для всех старых серий.
+        """
         n = self.world_cfg.grid
         mid = n // 2
         mask = torch.zeros((n, n), dtype=torch.bool, device=self.device)
-        mask[mid - 1 : mid + 1, mid - 1 : mid + 1] = True
-        if cells > 4:
+        cells = int(cells)
+        if cells <= 0:
+            return
+        if cells == 4:
             mask[mid - 1 : mid + 1, mid - 1 : mid + 1] = True
+        else:
+            # центрированный квадрат, ровно `cells` клеток в порядке строк
+            side = max(1, math.isqrt(cells - 1) + 1)
+            top = mid - side // 2
+            left = mid - side // 2
+            coords = [(top + i // side, left + i % side) for i in range(cells)]
+            for y, x in coords:
+                mask[y % n, x % n] = True
         self.pond.seed_life(mask, energy=energy)
         self._apply_alive(mask.to(self.device))
         self._apply_genome(mask, self.genome[0, :, mask])
@@ -536,6 +574,8 @@ def build_parser() -> argparse.ArgumentParser:
                     help="вероятность НОВОЙ метки линии (tag) при рождении; 0 = мутаций нет")
     ap.add_argument("--mutation-trait-sigma", type=float, default=0.01,
                     help="сдвиг признака линии при мутации (масштаб признака ~1)")
+    ap.add_argument("--start-cells", type=int, default=4,
+                    help="сколько клеток засеять на старте (0 = пустое поле, плечо resident_free)")
     ap.add_argument("--invade-placement", default="random", choices=["random", "gap"],
                     help="куда садится инокулят: random (как §10ab) или gap — в самую "
                          "далёкую от резидента свободную клетку (V8)")
@@ -570,6 +610,7 @@ def main(argv: list[str] | None = None) -> int:
                  "парный сигнал сравнивает два веса одной политики")
 
     code_provenance = git_provenance()   # снимается на старте, до записи артефакта
+    code_provenance["rule_sha256"] = file_sha256(args.rule_checkpoint)
     world = PondConfig(grid=args.grid)
     if args.income is not None:
         world.baseline_income = args.income
@@ -612,6 +653,7 @@ def main(argv: list[str] | None = None) -> int:
     world.invade_placement = args.invade_placement
     world.merge_rule = args.merge_rule
     world.invade_on_empty = bool(args.invade_on_empty)
+    world.start_cells = int(args.start_cells)
     world.mutation_rate = args.mutation_rate
     world.mutation_trait_sigma = args.mutation_trait_sigma
     world.w_rich = args.w_rich
@@ -668,7 +710,7 @@ def main(argv: list[str] | None = None) -> int:
             with open(args.out, "w", encoding="utf-8") as fh:
                 json.dump({"summary": summary, "log": []}, fh, ensure_ascii=False, indent=2)
         return 0
-    run.seed(cells=4, energy=8.0)
+    run.seed(cells=int(args.start_cells), energy=8.0)
     summary = run.run(args.steps, log_every=max(1, args.steps // 10))
     summary["clonal_attached"] = run.clonal_attached
     summary["clonal_separate"] = run.clonal_separate

@@ -143,18 +143,41 @@ def check_invasion(rows: list[dict]) -> list[str]:
     return errors
 
 
-def check_provenance(rows: list[dict], warns: list[str]) -> list[str]:
-    """Однородность провенанса: разные коммиты в одной серии = смешанный код.
+def check_provenance(rows: list[dict], warns: list[str],
+                     provenance: dict | None = None) -> list[str]:
+    """Однородность провенанса: одинаковый КОД и то же правило весов.
 
-    Серия D была перезапущена после правки `pond.py` посреди прогонов; чтобы это
-    ловилось машинно, каждый артефакт несёт `config.git_commit` (снимок на старте).
-    Разные коммиты — ошибка; `git_dirty = true` — предупреждение (в дереве могли быть
-    несохранённые артефакты предыдущих прогонов самой серии).
+    Серия D была перезапущена после правки `pond.py` посреди прогонов; чтобы это ловилось
+    машинно, каждый артефакт несёт `config.git_code_commit` (последний коммит, тронувший
+    `morphogenesis/world/` или `config.py`) и `config.rule_sha256` (хеш файла правила).
+
+    Правила: разные `rule_sha256` — ошибка всегда (другие веса = другой мир); разные
+    `git_code_commit` — ошибка, ЕСЛИ агрегат не объявил исключение в
+    `provenance.code_changes` И не приложил прошедшую проверку-якорь
+    (`provenance.anchor_check.matched = true`: один сид старого плеча повторён новым
+    кодом бит-в-бит). Разный `git_commit` (HEAD) — только предупреждение: HEAD мог
+    сдвинуться коммитами документов, пока серия шла.
     """
-    commits = {row.get("git_commit") for row in rows if row.get("git_commit")}
     errors: list[str] = []
-    if len(commits) > 1:
-        errors.append(f"серия из смешанного кода: коммиты {sorted(commits)}")
+    rules = {row.get("rule_sha256") for row in rows if row.get("rule_sha256")}
+    if len(rules) > 1:
+        errors.append(f"серия из разных правил (rule_sha256): {sorted(rules)}")
+    code = {row.get("git_code_commit") for row in rows if row.get("git_code_commit")}
+    if len(code) > 1:
+        declared = (provenance or {}).get("code_changes") or []
+        anchor = (provenance or {}).get("anchor_check") or {}
+        if not declared:
+            errors.append(f"серия из смешанного кода: коммиты {sorted(code)} "
+                          "(исключение не объявлено)")
+        elif not anchor.get("matched"):
+            errors.append(f"код менялся между плечами ({sorted(code)}), но проверка-якорь "
+                          "не приложена или не совпала")
+        else:
+            warns.append(f"код менялся между плечами ({sorted(code)}) — объявлено, "
+                         f"якорь {anchor.get('run')} совпал")
+    heads = {row.get("git_commit") for row in rows if row.get("git_commit")}
+    if len(heads) > 1:
+        warns.append(f"HEAD сдвинулся на документах ({len(heads)} коммитов), код тот же")
     dirty = sum(1 for row in rows if row.get("git_dirty") is True)
     if dirty:
         warns.append(f"прогонов с несохранёнными файлами: {dirty}/{len(rows)}")
@@ -260,13 +283,14 @@ def check_file(path: Path, strict: bool = False) -> tuple[list[str], list[str]]:
     if payload.get("kind") == "invasion_runs":
         return [f"{path.name}{e}" for e in check_invasion(rows)], warns
     if payload.get("kind") == "mutation_runs":
-        errors = check_mutation(rows, payload) + check_provenance(rows, warns)
+        errors = check_mutation(rows, payload) + check_provenance(
+            rows, warns, payload.get("provenance"))
         return [f"{path.name}{e}" for e in errors], warns
     if payload.get("kind") == "generation_runs":
-        errors = check_generation(rows) + check_provenance(rows, warns)
+        errors = check_generation(rows) + check_provenance(rows, warns, payload.get("provenance"))
         return [f"{path.name}{e}" for e in errors], warns
     if payload.get("kind") == "invader_dose_runs":
-        errors = check_invader_dose(rows) + check_provenance(rows, warns)
+        errors = check_invader_dose(rows) + check_provenance(rows, warns, payload.get("provenance"))
         return [f"{path.name}{e}" for e in errors], warns
     if payload.get("kind") == "probe_summary":
         return [f"{path.name}{e}" for e in check_probe(rows)], warns
