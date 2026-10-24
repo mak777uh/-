@@ -107,6 +107,7 @@ def config_block(cfg) -> dict:
         "invader_cells": getattr(cfg, "invader_cells", 1),
         "invade_placement": getattr(cfg, "invade_placement", "random"),
         "merge_rule": getattr(cfg, "merge_rule", "majority"),
+        "trait_effect": getattr(cfg, "trait_effect", 0.0),
         "invade_on_empty": bool(getattr(cfg, "invade_on_empty", False)),
         "start_cells": int(getattr(cfg, "start_cells", 4)),
         "ignition_gate": bool(getattr(cfg, "ignition_gate", False)),
@@ -140,6 +141,9 @@ def tag_metrics_block(pond) -> dict:
         "type_traits": {},
         "lineage_generation": dict(getattr(pond, "generation_depth", {})),
         "lineage_fitness": dict(getattr(pond, "lineage_offspring", {})),
+        "lineage_spores": dict(getattr(pond, "lineage_spores", {})),
+        "lineage_invested": {str(k): round(float(v), 4)
+                             for k, v in getattr(pond, "lineage_invested", {}).items()},
         "tag_source": "tag: наследуемая метка линии; type A/B — экологический пул",
     }
     if s.tag is None or not bool(s.alive.any()):
@@ -629,9 +633,13 @@ def build_parser() -> argparse.ArgumentParser:
     ap.add_argument("--invade-placement", default="random", choices=["random", "gap"],
                     help="куда садится инокулят: random (как §10ab) или gap — в самую "
                          "далёкую от резидента свободную клетку (V8)")
-    ap.add_argument("--merge-rule", default="majority", choices=["majority", "mass_weighted"],
-                    help="правило слияния компонент: детерминированное большинство (как §10ab) "
-                         "или лотерея с вероятностью, пропорциональной массе (V8)")
+    ap.add_argument("--trait-effect", type=float, default=0.0,
+                    help="eps: насколько tag_trait меняет интенсивность инвестирования "
+                         "(0 = признак не читается, условие E)")
+    ap.add_argument("--merge-rule", default="majority",
+                    choices=["majority", "mass_weighted", "keep"],
+                    help="правило слияния компонент: большинство (как §10ab), лотерея по массе "
+                         "(V8) или keep — никто не переписывается (H-ALIVE-28)")
     ap.add_argument("--invade-on-empty", action="store_true",
                     help="разрешить подсадку без резидента (плечо resident_free)")
     ap.add_argument("--invader-cells", type=int, default=1,
@@ -702,6 +710,7 @@ def main(argv: list[str] | None = None) -> int:
     world.invader_cells = args.invader_cells
     world.invade_placement = args.invade_placement
     world.merge_rule = args.merge_rule
+    world.trait_effect = args.trait_effect
     world.invade_on_empty = bool(args.invade_on_empty)
     world.start_cells = int(args.start_cells)
     world.ignition_gate = bool(args.ignition_gate)

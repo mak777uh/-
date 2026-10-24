@@ -1097,6 +1097,51 @@ def test_final_alive_map_matches_world():
     assert sum(r.count("1") for r in rows) == int(pond.state.alive.sum())
 
 
+def test_merge_rule_keep_preserves_minority():
+    """H-ALIVE-28: при merge=keep никто не переписывается — тип остаётся на клетке."""
+    pond = _v8_pond(merge_rule="keep")
+    mask = torch.zeros((8, 8), dtype=torch.bool)
+    mask[2:4, 2:4] = True
+    pond.seed_life(mask, energy=5.0)
+    pond.state.cell_type[2, 2] = 1
+    pond.enforce_colony_types()
+    assert int(pond.state.cell_type[2, 2]) == 1, "меньшинство сохранило тип"
+    assert int(pond.state.cell_type[2:4, 2:4].sum()) == 1
+
+
+def test_lineage_spores_count_only_budding():
+    """Фитнес линии для условия E — споры (почкование), а не клетки роста правила."""
+    pond = _mutation_pond(0.0)
+    mask = torch.zeros((8, 8), dtype=torch.bool)
+    mask[2:4, 2:4] = True
+    pond.seed_life(mask, energy=5.0)
+    for _ in range(2):
+        pond.regenerate()
+        pond.step_cells()
+    child = pond.bud(pond.state.alive)
+    assert child is not None
+    spores = sum(pond.lineage_spores.values())
+    assert spores == int(child.sum()), "каждая спора засчитана линии родителя"
+    assert spores <= sum(pond.lineage_offspring.values()), \
+        "спор не может быть больше, чем всех потомков (клетки роста тоже считаются)"
+
+
+def test_trait_effect_default_off_and_invested_counted():
+    """eps по умолчанию 0 (признак не читается), но вложенная энергия по линиям считается."""
+    from world.run_pond import build_parser
+    ap = build_parser()
+    assert ap.get_default("trait_effect") == 0.0
+    assert ap.get_default("merge_rule") == "majority"
+    pond = _mutation_pond(0.05, invest_rate=0.02, invest_mode="fixed", trait_effect=0.5)
+    mask = torch.zeros((8, 8), dtype=torch.bool)
+    mask[2:4, 2:4] = True
+    pond.seed_life(mask, energy=8.0)
+    for _ in range(6):
+        pond.regenerate()
+        pond.step_cells()
+    assert pond.lineage_invested, "хотя бы одна линия должна быть в словаре вложений"
+
+
 def _type_run(start: str, fd: float, steps: int = 40, grid: int = 16, seed: int = 1):
     from world.run_pond import PondRun
     cfg = PondConfig(grid=grid, resource_layout="gradient", income_mode="proportional",

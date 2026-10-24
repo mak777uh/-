@@ -98,6 +98,7 @@ class PondConfig:
     invader_cells: int = 1             # доза основателя: сколько клеток ставит инъекция (colony)
     mutation_rate: float = 0.0         # 0..1: новый tag (метка линии) при рождении (условие B)
     ignition_gate: bool = False        # запретить правилу зажигать без живого 4-соседа (пропагул)
+    trait_effect: float = 0.0          # eps: насколько tag_trait меняет интенсивность инвестирования (E)
     mutation_trait_sigma: float = 0.01  # сдвиг признака линии при мутации (масштаб признака ~1)
     invade_placement: str = "random"   # random | gap: куда садится инокулят (V8)
     merge_rule: str = "majority"       # majority | mass_weighted: правило слияния компонент (V8)
@@ -234,7 +235,9 @@ class Pond:
         self.mutation_events = 0
         self.tag_born_at: dict[int, int] = {0: 0}
         self.generation_depth: dict[int, int] = {0: 0}   # сколько делений от основателя
-        self.lineage_offspring: dict[int, int] = {0: 0}     # спор, произведённых линией (tag)
+        self.lineage_offspring: dict[int, int] = {0: 0}     # потомков, приписанных линии (tag)
+        self.lineage_spores: dict[int, int] = {0: 0}        # СПОР линии (единица размножения, условие E)
+        self.lineage_invested: dict[int, float] = {0: 0.0}  # вложенная линией энергия (манипуляционная проверка)
         self.tag_trait_of: dict[int, float] = {0: 0.0}
         self.births_by_type: dict[str, int] = {}
         self.deaths_by_type: dict[str, int] = {}
@@ -622,8 +625,25 @@ class Pond:
                 want = alive & (s.resource < self.thr * 0.8)
             else:
                 want = torch.zeros_like(alive)
-            spend = torch.where(want, torch.clamp(s.energy, 0.0, cfg.invest_rate),
+            rate = torch.full_like(s.energy, float(cfg.invest_rate))
+            eps = float(getattr(cfg, "trait_effect", 0.0))
+            if eps != 0.0 and s.tag_trait is not None:
+                # E: признак линии читается миром — интенсивность инвестирования масштабируется
+                # (выше признак → больше поднимает потолок, но и больше тратит: trade-off)
+                mean_trait = float(s.tag_trait[alive].mean()) if bool(alive.any()) else 0.0
+                factor = torch.clamp(1.0 + eps * (s.tag_trait - mean_trait), 0.5, 2.0)
+                rate = rate * factor
+            spend = torch.where(want, torch.minimum(s.energy.clamp_min(0.0), rate),
                                 torch.zeros_like(s.energy))
+            if s.tag is not None and float(spend.sum()) > 0.0:
+                # манипуляционная проверка: сколько вложила каждая линия
+                uniq, inverse = torch.unique(s.tag, return_inverse=True)
+                sums = torch.zeros(uniq.numel(), device=self.device, dtype=spend.dtype)
+                sums.index_add_(0, inverse.view(-1), spend.view(-1))
+                for tag_val, total in zip(uniq.tolist(), sums.tolist()):
+                    if total > 0.0:
+                        self.lineage_invested[int(tag_val)] = (
+                            self.lineage_invested.get(int(tag_val), 0.0) + float(total))
             s.energy = s.energy - spend
             if self.invest_map is None or self.invest_map.shape != spend.shape:
                 self.invest_map = torch.zeros_like(spend)
@@ -829,6 +849,10 @@ class Pond:
             return
         mass, labels = self._components(s.alive)
         rule = getattr(self.cfg, "merge_rule", "majority")
+        if rule == "keep":
+            # H-ALIVE-28: при слиянии клетки СОХРАНЯЮТ свой тип; тип снова живёт на клетке
+            # (третья семантика типа после cell-voter и colony-majority)
+            return
         for lab in mass:
             m = labels == lab
             vals = s.cell_type[m]
@@ -1180,7 +1204,7 @@ class Pond:
             self.division_parent_ages.extend([parent_age] * n_children)
             self.division_oldest_ages.extend([parent_age_oldest] * n_children)
         self._assign_child_type(parent, child)
-        self.register_births(child, parent)
+        self.register_births(child, parent, is_spore=True)
         if cfg.learn_w:
             if cfg.learn_mode == "paired":
                 # урок ставится только когда есть вторая спора с другим весом
@@ -1260,7 +1284,7 @@ class Pond:
         return sizes, labels
 
     def register_births(self, newly: torch.Tensor, parent_mask: torch.Tensor,
-                        labels: torch.Tensor | None = None) -> int:
+                        labels: torch.Tensor | None = None, is_spore: bool = False) -> int:
         """Записать рождения: метка линии потомка, родословная, мутации и счётчики.
 
         `tag` — наследуемая единица (метка линии), `tag_trait` — её числовой признак,
@@ -1303,6 +1327,8 @@ class Pond:
             s.tag[newly] = base_tag
             s.tag_trait[newly] = base_trait
             self.lineage_offspring[base_tag] = self.lineage_offspring.get(base_tag, 0) + int(newly.sum())
+            if is_spore:
+                self.lineage_spores[base_tag] = self.lineage_spores.get(base_tag, 0) + int(newly.sum())
             base_depth = int(self.generation_depth.get(base_tag, 0))
         else:
             base_depth = 0
