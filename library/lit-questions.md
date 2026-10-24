@@ -24,7 +24,7 @@
 | Q18 | What counts as a pre-registered ALife experiment? | searched-1 | 2026-10-24 | Nosek 2018 PNAS (preregistration revolution); Registered Reports — Nosek & Lakens 2014 (исправлен DOI); стандарта ALife нет |
 | Q19 | How are tag-based inheritance and cell lineage implemented in cellular automata? | searched-0 | 2026-10-24 | реализация tag/линии в CA: в литературе про шифрование/QC, не про наследование; реализуем сами по P59 (маркер при делении) |
 | Q20 | How to measure habitat selection quality (niche choice) in spatial models? | searched-1 | 2026-10-24 | P65 Edelaar 2008 (matching habitat choice), P66 Camacho 2020 (не для всех) |
-| Q21 | What is the ReScience C submission format for replication studies? | open | — | путь C: реплей отрицательного результата |
+| Q21 | What is the ReScience C submission format for replication studies? | searched-1 | 2026-10-24 | руководство ReScience C (write/) + Rougier 2017: [Re]-только, рецензенты запускают код, negative results допустимы с контактом авторов |
 | Q22 | How many seeds are needed to estimate a collapse fraction? | searched-1 | 2026-10-24 | P64 Brown 2001: интервалы для доли; 1/3 при n=3 => 0.01-0.91 |
 | Q23 | Which alternative substrates are used for cross-substrate ALife tests? | open | — | W2: выбор второго субстрата |
 
@@ -33,9 +33,3 @@
 - Вопрос формулируем на английском (научные термины), в таблицу можно по-русски.
 - Один вопрос = 1–2 запроса; если ничего не подошло — `searched-0` с пояснением.
 - Взяли работу — заводим запись в `hypotheses/` и `searched-1` со ссылкой на P-номер.
-
-## Q24. Зависит ли выживание редкой линии от размера инокулята (эффект основателя)?
-Статус: searched-1 (24.10.2026). Источники: P67 (Otwinowski & Krug 2014 — линейный рост
-клонов в пространстве, усиленная интерференция), P68 (Rosas et al. 2005 — распределение
-максимальной численности нефиксировавшихся линий, два режима). Следствие: H73 — мерить долю
-выживших и медиану максимума при инъекции 1/2/5/10 клеток.
