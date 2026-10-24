@@ -8,7 +8,7 @@
 (`accepted` / `declined` / `deferred`) ставит ведущий; `deferred` означает «линия
 приостановлена, вернуть при её возобновлении».
 
-Открытых в текущей волне: **24**; отложенных: **4**;
+Открытых в текущей волне: **25**; отложенных: **4**;
 закрытых/отклонённых: **0**.
 
 ## Текущая волна
@@ -273,6 +273,14 @@
 - **Утверждение:** Surplus (инвестировать только при энергии выше EMA) — рабочая формулировка B2: медиана 90 199 (90 199/96 541/87 748) против 89 527 у construction и 72 742 у placebo; invested 1 342–1 438 (меньше, чем construction ~1 500); invest_updates 67–72 тыс. (политика реально действует, в отличие от старого learn с 0); feedback_r = 0.94–0.95. То есть порог доступности не вредит и снижает трату; на patches он должен снять режим смерти (ждём серию).
 - **Доказательство:** [`library/hypotheses/pond-lineage.md#P39`](../library/hypotheses/pond-lineage.md#P39), [`library/hypotheses/pond-lineage.md#P40`](../library/hypotheses/pond-lineage.md#P40)
 - **Действие:** `text` — в §4f: surplus как основная формулировка (порог доступности), construction как верхняя граница траты; проверить patches surplus; feedback_r как метрика обратной связи
+
+### B-032. На patches трата энергии без подъёма потолка убивает все колонии: placebo 1 154 
+
+- **Тип:** `known_fact`; **статус:** `new`; **волна:** `current`
+- **Цель:** `experiment` `B2_construction`, b2b patches: placebo vs surplus (режим смерти)
+- **Утверждение:** На patches трата энергии без подъёма потолка убивает все колонии: placebo 1 154 / 1 202 / 1 165 (медиана 1 165, invested 24, ресурс 0.000), а construction — 1 из 3 (IQR 1 024–82 837). Surplus (строить только при излишке) на patches выжил: 80 415 при invested 1 223 и ресурсе 0.035, то есть медиана не ниже construction (80 509) без провалов (пока n=1). Значит порог доступности — не косметика, а необходимое условие: на patches ранняя инвестиция летальна, и только surplus делает строительство работоспособным.
+- **Доказательство:** [`library/hypotheses/pond-lineage.md#P40`](../library/hypotheses/pond-lineage.md#P40), [`library/hypotheses/pond-lineage.md#P39`](../library/hypotheses/pond-lineage.md#P39)
+- **Действие:** `text` — в §4f: patches-таблица placebo/construction/surplus; формулировка «порог доступности необходим»; дождаться surplus n=3
 
 ## Отложено (линия на паузе)
 
