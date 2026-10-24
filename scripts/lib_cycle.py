@@ -108,6 +108,17 @@ def cmd_status(args) -> int:
         if age_h > 24:
             print(f"\n== устаревание ==\n  {name}: не менялся {age_h:.1f} ч — фаза/состояние могут быть ложью")
 
+    print("\n== литдавление ==")
+    try:
+        out = subprocess.run(["python", "scripts/lit_pressure.py"], cwd=REPO, capture_output=True,
+                             text=True, encoding="utf-8", errors="replace", timeout=60)
+        for line in [ln for ln in out.stdout.strip().splitlines() if ln.strip()][:6]:
+            print(line)
+        if out.returncode != 0:
+            print("  → этот цикл: литературный слот вперёд обычного пункта")
+    except Exception as exc:
+        print(f"lit_pressure недоступен: {exc}")
+
     print("\n== запросы к учёному/ведущему ==")
     try:
         out = subprocess.run(["python", "scripts/notices_status.py"], cwd=REPO, capture_output=True,

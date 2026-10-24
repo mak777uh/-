@@ -322,6 +322,21 @@ def test_wake_lock(tmp: Path) -> None:
     check("wake lock: замок снят после выхода", not lock.exists(), "замок остался")
 
 
+def test_lit_pressure(tmp: Path) -> None:
+    out = tmp / "lp.json"
+    res = run("scripts/lit_pressure.py", "--threshold", "1", "--json", str(out))
+    data = json.loads(out.read_text(encoding="utf-8"))
+    check("lit_pressure: считает давление и решает", "pressure" in data and "need" in data, str(data)[:200])
+    check("lit_pressure: при пороге 1 слот нужен (долг есть)", data["need"] is True, str(data)[:200])
+    out2 = tmp / "lp2.json"
+    res2 = run("scripts/lit_pressure.py", "--threshold", "99", "--json", str(out2))
+    data2 = json.loads(out2.read_text(encoding="utf-8"))
+    check("lit_pressure: при высоком пороге слот не нужен", data2["need"] is False, str(data2)[:200])
+    check("lit_pressure: код возврата отражает вердикт",
+          (res.returncode == 1) == data["need"] and (res2.returncode == 0) == (not data2["need"]),
+          f"{res.returncode}/{res2.returncode}")
+
+
 def main() -> int:
     with tempfile.TemporaryDirectory() as tdir:
         tmp = Path(tdir)
@@ -345,6 +360,8 @@ def main() -> int:
         test_wake_series_keys(tmp)
         print("== wake lock ==")
         test_wake_lock(tmp)
+        print("== lit pressure ==")
+        test_lit_pressure(tmp)
     print(f"\nпровалено: {len(FAILED)}")
     return 1 if FAILED else 0
 
