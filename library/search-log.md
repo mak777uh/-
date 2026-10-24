@@ -58,6 +58,7 @@
 | 2026-10-24 | minimal criteria unit of selection digital systems | — | 0 | прямого ответа в цифровых системах нет; критерий собран из P59–P61 |
 | 2026-10-24 | robustness and evolvability a paradox resolved | 3 | 1 | P62 (Wagner 2007) |
 | 2026-10-24 | performance and robustness trade-offs | 6 | 1 | P63 (Trivellin 2023, дрожжи) |
+| 2026-10-24 | preregistration computational experiments | 2 | 1 | Nosek 2018 PNAS; Registered Reports — published DOI (уточнение) |
 
 ## Как вести
 

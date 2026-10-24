@@ -21,7 +21,7 @@
 | Q15 | How is lineage inheritance implemented in digital organisms (tags, genomes)? | searched-1 | 2026-10-24 | P59 Riolo 2001 (tags), P60 Papale 2025 (единица отбора и линия) |
 | Q16 | What are minimal criteria for a unit of selection in digital systems? | searched-1 | 2026-10-24 | P60 Papale 2025 (линия), P61 Marín 2023 (три типа единиц); P59 tag |
 | Q17 | How to measure robustness vs performance trade-offs in ALife? | searched-1 | 2026-10-24 | P62 Wagner 2007 (robustness vs evolvability), P63 Trivellin 2023 (две оси: performance/robustness) |
-| Q18 | What counts as a pre-registered ALife experiment? | open | — | наш §3a и registered reports |
+| Q18 | What counts as a pre-registered ALife experiment? | searched-1 | 2026-10-24 | Nosek 2018 PNAS (preregistration revolution); Registered Reports — Nosek & Lakens 2014 (исправлен DOI); стандарта ALife нет |
 
 ## Как пополнять
 
