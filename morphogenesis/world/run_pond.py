@@ -297,6 +297,8 @@ def main(argv: list[str] | None = None) -> int:
                     help="как считается доход: cap (текущий) или proportional (доход*ресурс)")
     ap.add_argument("--catastrophe-rate", type=float, default=0.0,
                     help="пуассоновские катастрофы: событий на шаг (0 = выкл)")
+    ap.add_argument("--catastrophe-mode", default="shift", choices=["shift", "drop"],
+                    help="shift: ресурс переезжает (сброс в половине поля), drop: ресурс падает везде")
     ap.add_argument("--catastrophe-duration", type=int, default=50,
                     help="длительность катастрофы в шагах")
     ap.add_argument("--flip-at", type=int, default=0,
@@ -392,6 +394,7 @@ def main(argv: list[str] | None = None) -> int:
     world.learn_window = getattr(args, "learn_window", 30)
     world.catastrophe_rate = args.catastrophe_rate
     world.catastrophe_duration = args.catastrophe_duration
+    world.catastrophe_mode = args.catastrophe_mode
     world.flip_at = args.flip_at
     world.drift_at = args.drift_at
     world.drift_steps = args.drift_steps

@@ -770,3 +770,20 @@ def test_neutral_mixed_fixates_via_voter_dynamics():
     assert 0.05 < early < 0.95
     assert alive > 10
     assert late < 0.2 or late > 0.8
+
+def test_invasion_does_not_touch_energy_age_damage():
+    pond = _two_type_pond(freq_dep=1.0, type_mode="mixfixed", type_start="a",
+                          invade_at=2, invade_share=0.5, invade_type=1)
+    mask = torch.zeros((8, 8), dtype=torch.bool)
+    mask[2:4, 2:4] = True
+    pond.seed_life(mask, energy=5.0)
+    for _ in range(2):
+        pond.regenerate()
+        pond.step_cells()
+    e = pond.state.energy.clone()
+    a = pond.state.age.clone()
+    d = pond.state.damage.clone()
+    pond._invade()
+    assert torch.equal(pond.state.energy, e), "инвазия не должна менять энергию"
+    assert torch.equal(pond.state.age, a), "инвазия не должна менять возраст"
+    assert torch.equal(pond.state.damage, d), "инвазия не должна менять повреждения"
