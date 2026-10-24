@@ -97,6 +97,17 @@ def main(argv=None) -> int:
             if (rec.get("at") or "").startswith(day):
                 transitions_today += 1
 
+    stale_requests = 0
+    try:
+        tmp_ns = REPO / "_ns_tmp.json"
+        subprocess.run([sys.executable, "scripts/notices_status.py", "--json", str(tmp_ns)],
+                       cwd=REPO, capture_output=True, text=True, encoding="utf-8")
+        if tmp_ns.exists():
+            stale_requests = len(json.loads(tmp_ns.read_text(encoding="utf-8")).get("stale", []))
+            tmp_ns.unlink()
+    except Exception:
+        stale_requests = 0
+
     audit = subprocess.run([sys.executable, "scripts/claim_audit.py"], cwd=REPO,
                            capture_output=True, text=True, encoding="utf-8")
     audit_ok = audit.returncode == 0
@@ -123,6 +134,7 @@ def main(argv=None) -> int:
         "items_blocked": len(blocked),
         "items_without_created_at": len(no_date),
         "transitions_seen": transitions_today,
+        "stale_requests": stale_requests,
         "claim_audit_ok": audit_ok,
         "tests_ok": tests_ok,
     }
@@ -153,6 +165,10 @@ def main(argv=None) -> int:
         proposals.append(("сократить очередь",
                           f"{len(open_items)} открытых пунктов — она перестаёт быть приоритетной",
                           "оставить 10 самых дешёвых и важных, остальные отложить"))
+    if stale_requests:
+        proposals.append(("эскалировать просроченные запросы",
+                          f"{stale_requests} запросов старше суток",
+                          "вынести в чат первым блоком и, если решение за ведущим, — на доску"))
     if transitions_today and len(closed_today) == 0:
         proposals.append(("переходы есть, а мини-обзоры не закрывались",
                           f"переходов за день: {transitions_today}",
@@ -169,6 +185,7 @@ def main(argv=None) -> int:
                        ("notices_added", "новых notices"), ("items_closed", "закрыто пунктов"),
                        ("items_closed_with_note", "из них с заметкой"), ("items_open", "открыто пунктов"),
                        ("items_blocked", "заблокировано"), ("transitions_seen", "записей сканера"),
+                       ("stale_requests", "просроченных запросов"),
                        ("claim_audit_ok", "claim_audit зелёный"), ("tests_ok", "тесты зелёные")):
         lines.append(f"| {label} | {data[key]} |")
 

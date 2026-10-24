@@ -95,6 +95,18 @@ def cmd_status(args) -> int:
             print(f"  {line[:100]}")
         print("  → сначала мини-обзор (library/reviews/_mini-template.md), потом пункт")
 
+    print("\n== запросы к учёному/ведущему ==")
+    try:
+        out = subprocess.run(["python", "scripts/notices_status.py"], cwd=REPO, capture_output=True,
+                             text=True, encoding="utf-8", errors="replace", timeout=60)
+        lines = [ln for ln in out.stdout.strip().splitlines() if ln.strip()]
+        for ln in lines[:4]:
+            print(ln)
+        if out.returncode != 0:
+            print("  ПРОСРОЧЕННЫЕ запросы — эскалировать в чат (решение ведущего)")
+    except Exception as exc:
+        print(f"notices_status недоступен: {exc}")
+
     print("\n== пакеты доказательств ==")
     try:
         out = subprocess.run(["python", "scripts/claim_audit.py"], cwd=REPO, capture_output=True,

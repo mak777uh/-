@@ -170,6 +170,26 @@ def test_lib_cycle(tmp: Path) -> None:
     check("lib_cycle: журнал заполняется", log.exists() and "X2" in log.read_text(encoding="utf-8"))
 
 
+def test_notices(tmp: Path) -> None:
+    notices = tmp / "notices.md"
+    notices.write_text("""### 2026-10-24, 10:00 — библиотекарь → **учёному**
+- ЗАПРОС: пересобрать агрегат fd10 (B-035)
+- ЗАПРОС: серия с мутацией типа (W13)
+
+### 2026-10-24, 11:00 — библиотекарь → **ведущему**
+ОТВЕТ: агрегат пересобран.
+
+### 2026-10-20, 09:00 — библиотекарь → **учёному**
+- ЗАПРОС: старый запрос без ответа (B-999)
+""", encoding="utf-8")
+    res = run("scripts/notices_status.py", "--notices", str(notices), "--max-hours", "24")
+    out = res.stdout
+    check("notices: запросы найдены", "запросов: 3" in out, out)
+    check("notices: ОТВЕТ закрывает запрос", "answered" in out, out)
+    check("notices: старый запрос помечен", "старше 24 ч: 1" in out and "B-999" in out, out)
+    check("notices: код возврата 1 при просрочке", res.returncode == 1, str(res.returncode))
+
+
 def main() -> int:
     with tempfile.TemporaryDirectory() as tdir:
         tmp = Path(tdir)
@@ -179,6 +199,8 @@ def main() -> int:
         test_result_scan(tmp)
         print("== lib_cycle ==")
         test_lib_cycle(tmp)
+        print("== notices ==")
+        test_notices(tmp)
     print(f"\nпровалено: {len(FAILED)}")
     return 1 if FAILED else 0
 
