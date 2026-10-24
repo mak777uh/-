@@ -238,6 +238,23 @@ def test_wake_notices(tmp: Path) -> None:
     check("wake: счётчик запросов растёт", data2["notices_to_me"]["requests"] == 2, res2.stdout[:200])
 
 
+def test_series_provenance(tmp: Path) -> None:
+    src = tmp / "series"
+    src.mkdir()
+    good = {"config": {"git_commit": "abc123def456", "dirty": False}}
+    (src / "s1.json").write_text(json.dumps(good), encoding="utf-8")
+    (src / "s2.json").write_text(json.dumps(good), encoding="utf-8")
+    res = run("library/tools/series_provenance.py", "--src", str(src))
+    check("provenance: один коммит = ок", res.returncode == 0, res.stdout)
+    (src / "s3.json").write_text(json.dumps({"config": {"git_commit": "999999", "dirty": False}}),
+                                 encoding="utf-8")
+    res = run("library/tools/series_provenance.py", "--src", str(src))
+    check("provenance: два коммита = провал", res.returncode == 1 and "невалидна" in res.stdout, res.stdout)
+    (src / "s4.json").write_text(json.dumps({"config": {"dirty": True}}), encoding="utf-8")
+    res = run("library/tools/series_provenance.py", "--src", str(src))
+    check("provenance: без провенанса ловится", "БЕЗ ПРОВЕНАНСА" in res.stdout, res.stdout)
+
+
 def main() -> int:
     with tempfile.TemporaryDirectory() as tdir:
         tmp = Path(tdir)
@@ -253,6 +270,8 @@ def main() -> int:
         test_trait_metrics(tmp)
         print("== wake notices ==")
         test_wake_notices(tmp)
+        print("== provenance ==")
+        test_series_provenance(tmp)
     print(f"\nпровалено: {len(FAILED)}")
     return 1 if FAILED else 0
 
