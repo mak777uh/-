@@ -2287,6 +2287,37 @@
         "tasks": [],
         "reports": []
       }
+    },
+    {
+      "id": "B-066",
+      "type": "missing_baseline",
+      "target": {
+        "kind": "experiment",
+        "id": "killkeep_v3_income",
+        "ref": "scripts/kill_keep_probe.py:41-44; pond.py:581-584; killkeep2_*.json"
+      },
+      "statement": "Причина нечувствительности v2 установлена числом: проба задаёт income_mode=proportional, baseline_income=0.2, формула income = min(own, 4*b*own) = 0.8*own => keep (own 0.151-0.423) получает 0.12-0.34/шаг, clean (own 1.0) - 0.8/шаг, цена 0.04. Доход в 3-20 раз выше цены В ОБОИХ плечах, поэтому манипуляция полем не пересекает цену и не влияет на судьбу клетки. Для v3 нужен baseline_income ~0.02, чтобы цена легла МЕЖДУ доходами плеч: 4*0.02*0.15 = 0.012 < 0.04 < 4*0.02*1.0 = 0.08. Тогда keep голодает, clean живёт. Положительный контроль: b=0.2 против b=0.02 на одном сиде — различие обязано появиться.",
+      "evidence": [
+        {
+          "library": "conditions.md#условие-c",
+          "note": "моя первая диагностика (cap/0.002) была неверной: смотрел дефолты, а не конфиг пробы"
+        }
+      ],
+      "action": {
+        "kind": "experiment",
+        "detail": "v3: baseline_income=0.02 (и/или cost между доходами плеч) + контроль b=0.2 vs 0.02"
+      },
+      "status": "new",
+      "wave": "current",
+      "owner": "librarian",
+      "created_at": "2026-10-25T01:27:32+03:00",
+      "decided_at": null,
+      "why": null,
+      "links": {
+        "insights": [],
+        "tasks": [],
+        "reports": []
+      }
     }
   ],
   "updated_at": "2026-10-24T13:40:00Z"
