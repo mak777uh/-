@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-24T16:20:00+03:00",
+  "updated_at": "2026-10-24T18:00:00+03:00",
   "note": "Очередь пунктов после E02c. Claim берётся до пре-регистрации, а не перед запуском: lab.py item-claim. Статус running означает занятый GPU-лейн и может быть только у одного пункта.",
   "items": [
     {
@@ -564,18 +564,21 @@
       "id": "V6_invader_dose",
       "title": "Запас по основателю: развёртка по размеру инокулята (B-037/H73)",
       "hypothesis": "H-ALIVE-19",
-      "status": "planned",
-      "owner": null,
-      "claimed_at": null,
+      "status": "closed",
+      "owner": "scientist",
+      "claimed_at": "2026-10-24T13:16:02Z",
       "heartbeat_at": null,
-      "closed_at": null,
+      "closed_at": "2026-10-24T18:00:00+03:00",
       "ttl_minutes": 240,
       "cost_gpu_h": 2.0,
       "gated_by": null,
       "artifacts": [
-        "reports/2026-10-24-invader-dose-plan.md"
+        "morphogenesis/experiments/E09_pond/invader_dose_matrix.json",
+        "docs/world-design.md §10ac",
+        "morphogenesis/experiments/E09_pond/quarantine/README.md"
       ],
-      "note": "одобрено владельцем 24.10 16:05; пре-регистрация reports/2026-10-24-invader-dose-plan.md; 1/2/5/10/20 клеток x 10 прогонов, ~2 ч GPU"
+      "note": "закрыто 24.10: 50 прогонов, 0 выживших при фактических дозах 1-20, 0 невалидных; 80% пятен исчезают в шаге подсадки, отдельная компонента 20% (по 2 на дозу) — в них тоже 0; дизайн не отвечает на вопрос, H-ALIVE-19 -> blocked; продолжение в V8 (H-ALIVE-21)",
+      "closed_by": "lead"
     },
     {
       "id": "V7_mutation_rate",
@@ -594,6 +597,23 @@
         "reports/2026-10-24-mutation-plan.md"
       ],
       "note": "одобрено владельцем 24.10 16:05; сначала код (--mutation-rate, 5 полей метрик, generation_length), потом прогон m in {0, 0.001, 0.01, 0.05} x 5 сидов"
+    },
+    {
+      "id": "V8_placement_merge",
+      "title": "Размещение и правило слияния: когда редкая линия выживает",
+      "hypothesis": "H-ALIVE-21",
+      "status": "planned",
+      "owner": null,
+      "claimed_at": null,
+      "heartbeat_at": null,
+      "closed_at": null,
+      "ttl_minutes": 240,
+      "cost_gpu_h": 3.0,
+      "gated_by": null,
+      "artifacts": [
+        "reports/2026-10-24-placement-merge-plan.md"
+      ],
+      "note": "смена постановки: дозы 5/10/20 x размещение (случайная точка / свободная область) x правило слияния (большинство / первый занявший) x 10 прогонов; запуск только после «ок» владельца"
     }
   ]
 }
