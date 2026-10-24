@@ -23,7 +23,7 @@ import re
 import statistics
 from pathlib import Path
 
-NAME = re.compile(r"killkeep_(?P<arm>keep|clean)_seed(?P<seed>\d+)\.json$")
+NAME = re.compile(r"killkeep2?_(?P<arm>keep|clean)_seed(?P<seed>\d+)\.json$")
 
 
 def analyse(path: Path) -> dict | None:
@@ -36,8 +36,17 @@ def analyse(path: Path) -> dict | None:
         invalid.append(f"колония фазы 1 не выросла (alive {data.get('alive_phase1')})")
     if (data.get("alive_after_reseed") or 0) != int(data.get("cells") or 0):
         invalid.append(f"пересев неполный (alive_after_reseed {data.get('alive_after_reseed')})")
+    alive_final = data.get("alive_final")
+    max_alive = data.get("max_alive_phase2")
+    cells = int(data.get("cells") or 0)
     return {
         "artifact": f"morphogenesis/experiments/E09_pond/{path.name}",
+        # ОПИСАТЕЛЬНОЕ поле (не критерий): жила ли колония в конце фазы 2 и росла ли выше
+        # стартовых клеток. Нужно, потому что pop_time при заряде 1.0 может мерить время
+        # смерти, а не выгоду (замечание библиотекаря, §10ah).
+        "reached_growth": bool(max_alive is not None and alive_final is not None
+                               and int(alive_final) > 0 and int(max_alive) > cells),
+        "sensitivity_note": data.get("sensitivity_note"),
         "arm": match.group("arm"),
         "seed": int(match.group("seed")),
         "resource_mean_at_reseed": data.get("resource_mean_at_reseed"),
@@ -53,7 +62,7 @@ def analyse(path: Path) -> dict | None:
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("--src", default="morphogenesis/experiments/E09_pond")
-    ap.add_argument("--glob", default="killkeep_*.json")
+    ap.add_argument("--glob", default="killkeep2_*.json")
     ap.add_argument("--out", default=None)
     args = ap.parse_args(argv)
 
