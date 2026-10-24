@@ -55,6 +55,12 @@ def test_claim_audit(tmp: Path) -> None:
     check("claim_audit: C2 artifact", "C2: artifact" in res.stdout, res.stdout)
     check("claim_audit: C3 anchor", "C3: anchor" in res.stdout, res.stdout)
     check("claim_audit: C4 gap", "C4: gap" in res.stdout, res.stdout)
+    multi = tmp / "claims_multi.md"
+    multi.write_text(CLAIMS_TABLE.format(good_artifact="library/conditions.md",
+                                         good_anchor="P43, P44").replace("{good_anchor}", "P43, P44"),
+                     encoding="utf-8")
+    res = run("scripts/claim_audit.py", "--table", str(multi))
+    check("claim_audit: несколько якорей через запятую", "C1: ok" in res.stdout, res.stdout)
     res2 = run("scripts/claim_audit.py", "--table", str(table), "--strict")
     check("claim_audit --strict: C5 interval", "C5: interval" in res2.stdout, res2.stdout)
 

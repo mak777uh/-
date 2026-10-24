@@ -54,7 +54,9 @@ def main(argv: list[str] | None = None) -> int:
         if artifact and artifact not in EMPTY:
             row["artifact_ok"] = bool(glob.glob(str(REPO / artifact)))
         if anchor and anchor not in EMPTY:
-            row["anchor_ok"] = bool(re.search(rf"\| {re.escape(anchor)} \|", text))
+            tokens = re.findall(r"[A-Z]\d+", anchor)
+            row["anchor_ok"] = bool(tokens) and all(
+                re.search(rf"\| {re.escape(t)} \|", text) for t in tokens)
         if args.strict and effect and effect not in EMPTY:
             if not any(t in effect for t in ("интервал", "±", "Wilson", "Clopper", "%")):
                 row["problems"].append("interval")
