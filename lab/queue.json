@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-24T15:35:00+03:00",
+  "updated_at": "2026-10-24T16:20:00+03:00",
   "note": "Очередь пунктов после E02c. Claim берётся до пре-регистрации, а не перед запуском: lab.py item-claim. Статус running означает занятый GPU-лейн и может быть только у одного пункта.",
   "items": [
     {
@@ -575,7 +575,25 @@
       "artifacts": [
         "reports/2026-10-24-invader-dose-plan.md"
       ],
-      "note": "смена постановки: запуск только после «ок» владельца; пре-регистрация и параметр --invader-cells готовит учёный (task-2)"
+      "note": "одобрено владельцем 24.10 16:05; пре-регистрация reports/2026-10-24-invader-dose-plan.md; 1/2/5/10/20 клеток x 10 прогонов, ~2 ч GPU"
+    },
+    {
+      "id": "V7_mutation_rate",
+      "title": "Изменчивость: мутация типа и метрики разнообразия (условие B)",
+      "hypothesis": "H-ALIVE-20",
+      "status": "planned",
+      "owner": null,
+      "claimed_at": null,
+      "heartbeat_at": null,
+      "closed_at": null,
+      "ttl_minutes": 240,
+      "cost_gpu_h": 1.5,
+      "gated_by": null,
+      "artifacts": [
+        "morphogenesis/experiments/E09_pond/mutation_matrix.json",
+        "reports/2026-10-24-mutation-plan.md"
+      ],
+      "note": "одобрено владельцем 24.10 16:05; сначала код (--mutation-rate, 5 полей метрик, generation_length), потом прогон m in {0, 0.001, 0.01, 0.05} x 5 сидов"
     }
   ]
 }
