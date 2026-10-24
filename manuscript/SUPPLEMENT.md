@@ -393,7 +393,7 @@
 | [`morphogenesis/experiments/E09_pond/sel_eps00_seed2.json`](../morphogenesis/experiments/E09_pond/sel_eps00_seed2.json) | other | 468098 | `4d1da28190f00667b6251d50e6ead3525f16f5a80c47877afc97b2378176831c` |
 | [`morphogenesis/experiments/E09_pond/sel_eps00_seed3.json`](../morphogenesis/experiments/E09_pond/sel_eps00_seed3.json) | other | 477211 | `eb4a8736b0f62fa85bda0a6ddb5fdaf78c66de21c4ee0efa9b65d14c75d6220e` |
 | [`morphogenesis/experiments/E09_pond/sel_eps200_seed1.json`](../morphogenesis/experiments/E09_pond/sel_eps200_seed1.json) | other | 478401 | `a72616e445067f3816732e565d134335d35c202955291e70af941214bdcd199a` |
-| [`morphogenesis/experiments/E09_pond/selection_matrix.json`](../morphogenesis/experiments/E09_pond/selection_matrix.json) | other | 3850 | `bfeb93f5cf17bc4d5c89c2c584c1d43747df8df264cf7a2461f6d9579d81b4d0` |
+| [`morphogenesis/experiments/E09_pond/selection_matrix.json`](../morphogenesis/experiments/E09_pond/selection_matrix.json) | other | 5756 | `3c1cda812eb30bfcca7f7ccdcbd4933484d18cab7c96a8fb8cf0cdd3e5a3e62d` |
 | [`morphogenesis/experiments/E09_pond/sense_noise_matrix.json`](../morphogenesis/experiments/E09_pond/sense_noise_matrix.json) | other | 13884 | `7a234b6805c321e61c54ba3fea23d15433923b0ae0297c0d8f9af726f96b5e0f` |
 | [`morphogenesis/experiments/E09_pond/v8_into_gap_majority_seed1.json`](../morphogenesis/experiments/E09_pond/v8_into_gap_majority_seed1.json) | other | 167506 | `082cde4bffe7d7d3393b83a9bfafea75f5c60cf432abe8f5fd78c44607897429` |
 | [`morphogenesis/experiments/E09_pond/v8_into_gap_majority_seed10.json`](../morphogenesis/experiments/E09_pond/v8_into_gap_majority_seed10.json) | other | 166994 | `cc509ada43a2ff80c3295bf05122b888624fd35b10386d620c06837574190905` |
@@ -465,6 +465,7 @@
 | [`reports/figures/e02b_transition_matrix.png`](../reports/figures/e02b_transition_matrix.png) | figure | 152522 | `81f1b4fe50fd819f45411c31fb737a0c232d9c4f993f5233184c8b276779f5b9` |
 | [`reports/figures/e02c_seed_grid.png`](../reports/figures/e02c_seed_grid.png) | figure | 69503 | `a14f0a6eb28fa0675629e539dc863049d97c3a7ef1914c34ebd7348b5c71776f` |
 <!-- artifacts:end -->
+
 
 
 
