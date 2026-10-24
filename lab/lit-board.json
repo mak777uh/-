@@ -1822,6 +1822,161 @@
         "tasks": [],
         "reports": []
       }
+    },
+    {
+      "id": "B-051",
+      "type": "risk",
+      "target": {
+        "kind": "experiment",
+        "id": "live-signal-validity",
+        "ref": "library/review-live-signals.md#1"
+      },
+      "statement": "Прецедентов 'живой внешний сигнал как драйвер среды CA/ALife' не найдено: ближайшее — сонификация (система → человек: Vickers 2017 10.1016/j.displa.2016.05.002; Hinterberger 2005 10.1109/mmul.2005.36). Значит правила валидности задаём сами ДО прогона: (а) окно и параметры фиксируются заранее; (б) 'живой vs суррогат' подаётся как тест фазовой структуры в пределах окна, а не как тест на нелинейность — классические суррогаты неприменимы к нестационарным рядам (Mallika 2021, 10.1103/PhysRevE.104.054217); (в) обязательный replay-контроль (записанный сигнал, латентность 0) и time-shift копия; (г) запрет отбора окон по результату.",
+      "evidence": [
+        {
+          "library": "review-live-signals.md#1",
+          "note": "Mallika 2021: classical surrogate tests not suitable for nonstationary series"
+        }
+      ],
+      "action": {
+        "kind": "experiment",
+        "detail": "в пре-регистрации: источник, частота, окно, суррогат (IAAFT/фазовая), replay, time-shift, критерий"
+      },
+      "status": "new",
+      "wave": "current",
+      "owner": "librarian",
+      "created_at": "2026-10-24T21:36:16+03:00",
+      "decided_at": null,
+      "why": null,
+      "links": {
+        "insights": [],
+        "tasks": [],
+        "reports": []
+      }
+    },
+    {
+      "id": "B-052",
+      "type": "opportunity",
+      "target": {
+        "kind": "metric",
+        "id": "live-source-catalog",
+        "ref": "library/review-live-signals.md#2"
+      },
+      "statement": "Из списка источников для 3–5 Гц на 90 с годятся только три: RTT-джиттер (10 Гц, 1–200 мс), микрофон (44 кГц, локальный звук комнаты) и температура/частота CPU-GPU (1–10 Гц, но это коррелят нагрузки, нужен контроль постоянной нагрузки). Сейсмика IRIS/Raspberry Shake — с оговоркой (клиент, латентность, пропуски). Не годятся: потери пакетов и USGS (событийные, обычно 0 на 90 с), NTP и Open-Meteo и NOAA SWPC (минуты–часы), random.org/ANU (отбеливают поток — это энтропия, не коррелят мира).",
+      "evidence": [
+        {
+          "library": "review-live-signals.md#2",
+          "note": "для каждого источника указан темп/латентность/лицензия/живой-кэш"
+        }
+      ],
+      "action": {
+        "kind": "method",
+        "detail": "источник выбирается из трёх годных; для температуры — контроль постоянной нагрузки"
+      },
+      "status": "new",
+      "wave": "current",
+      "owner": "librarian",
+      "created_at": "2026-10-24T21:36:16+03:00",
+      "decided_at": null,
+      "why": null,
+      "links": {
+        "insights": [],
+        "tasks": [],
+        "reports": []
+      }
+    },
+    {
+      "id": "B-053",
+      "type": "risk",
+      "target": {
+        "kind": "metric",
+        "id": "surrogate-online",
+        "ref": "library/review-live-signals.md#3"
+      },
+      "statement": "Канон суррогатов: Theiler 1992 (10.1016/0167-2789(92)90102-S) и IAAFT Schreiber & Schmitz 1996 (10.1103/PhysRevLett.77.635) — для нашего случая IAAFT предпочтительнее простой фазовой рандомизации, т.к. сохраняет и спектр, и распределение амплитуд. Онлайн/скользящего суррогата в каноне нет: найденный 'fast surrogate test' (Gan 2012, 10.1016/j.solener.2012.04.021) без абстракта — не проверено. Значит скользящее окно → FFT → рандомизация фаз → IFFT — наш вариант, и в тексте его надо называть вариантом, а не стандартом.",
+      "evidence": [
+        {
+          "library": "review-live-signals.md#3",
+          "note": "проверено: Theiler, Schreiber&Schmitz; Gan — не проверено (нет абстракта)"
+        }
+      ],
+      "action": {
+        "kind": "method",
+        "detail": "в пре-регистрации указать: IAAFT-вариант в скользящем окне, длина окна, overlap"
+      },
+      "status": "new",
+      "wave": "current",
+      "owner": "librarian",
+      "created_at": "2026-10-24T21:36:16+03:00",
+      "decided_at": null,
+      "why": null,
+      "links": {
+        "insights": [],
+        "tasks": [],
+        "reports": []
+      }
+    },
+    {
+      "id": "B-054",
+      "type": "risk",
+      "target": {
+        "kind": "metric",
+        "id": "live-signal-expectations",
+        "ref": "library/review-live-signals.md#4"
+      },
+      "statement": "Ожидания при замороженном правиле: физика реакции (Hänggi, Talkner & Borkovec 1990, 10.1103/RevModPhys.62.251) даёт зависимость скорости выхода из ямы от амплитуды И времени корреляции шума (k ~ exp(-dU/D)), возможное noise-enhanced stability и резонанс при совпадении медленной периодичности с временем релаксации. НЕ ожидать и не объявлять ограничением архитектуры: антиципацию (нужна модель будущего), bet-hedging (нужна наследуемая дисперсия стратегии), апоптоз (нужен сигнальный путь), обучение (пять отрицательных результатов), 'рост интеллекта' (вне контракта).",
+      "evidence": [
+        {
+          "library": "review-live-signals.md#4",
+          "note": "Kramers 1940 DOI Crossref не отдаёт — ссылаемся на обзор 1990"
+        }
+      ],
+      "action": {
+        "kind": "text",
+        "detail": "в пре-регистрации: список 'чего не ожидаем' — чтобы результат не приписали архитектуре"
+      },
+      "status": "new",
+      "wave": "current",
+      "owner": "librarian",
+      "created_at": "2026-10-24T21:36:35+03:00",
+      "decided_at": null,
+      "why": null,
+      "links": {
+        "insights": [],
+        "tasks": [],
+        "reports": []
+      }
+    },
+    {
+      "id": "B-055",
+      "type": "known_fact",
+      "target": {
+        "kind": "experiment",
+        "id": "live-signal-design",
+        "ref": "library/review-live-signals.md; B-051"
+      },
+      "statement": "Дизайн сравнения, следующий из литературы: (1) живой сигнал; (2) его онлайн-суррогат (IAAFT в скользящем окне, та же амплитуда/спектр, другая фаза); (3) replay — записанная копия того же сигнала с латентностью 0; (4) time-shift — та же запись, сдвинутая на T. Replay отделяет 'живость' от 'спектра', time-shift — стационарность. Без replay любое различие приписывается 'жизни' произвольно; с ним — проверяется.",
+      "evidence": [
+        {
+          "library": "review-live-signals.md#3",
+          "note": "Mallika 2021: нестационарность => суррогат в пределах окна"
+        }
+      ],
+      "action": {
+        "kind": "experiment",
+        "detail": "четыре плеча по 10 сидов; критерий — различие replay vs live и surge vs surrogate с Wilson-интервалами"
+      },
+      "status": "new",
+      "wave": "current",
+      "owner": "librarian",
+      "created_at": "2026-10-24T21:36:35+03:00",
+      "decided_at": null,
+      "why": null,
+      "links": {
+        "insights": [],
+        "tasks": [],
+        "reports": []
+      }
     }
   ],
   "updated_at": "2026-10-24T13:40:00Z"
