@@ -26,7 +26,7 @@
 | Q20 | How to measure habitat selection quality (niche choice) in spatial models? | searched-1 | 2026-10-24 | P65 Edelaar 2008 (matching habitat choice), P66 Camacho 2020 (не для всех) |
 | Q21 | What is the ReScience C submission format for replication studies? | searched-1 | 2026-10-24 | руководство ReScience C (write/) + Rougier 2017: [Re]-только, рецензенты запускают код, negative results допустимы с контактом авторов |
 | Q22 | How many seeds are needed to estimate a collapse fraction? | searched-1 | 2026-10-24 | P64 Brown 2001: интервалы для доли; 1/3 при n=3 => 0.01-0.91 |
-| Q23 | Which alternative substrates are used for cross-substrate ALife tests? | open | — | W2: выбор второго субстрата |
+| Q23 | Which alternative substrates are used for cross-substrate ALife tests? | searched-0 | 2026-10-24 | альтернативные субстраты: пока не нужны — нет §7-плана и нет кросс-субстратного теста; вернуться, когда условия A-B заработают |
 
 ## Как пополнять
 
