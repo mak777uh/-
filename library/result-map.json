@@ -1,0 +1,71 @@
+{
+  "claims": [
+    {
+      "id": "C1",
+      "title": "в мире с полной информацией учиться нечему",
+      "globs": [
+        "morphogenesis/experiments/E09_pond/frequency_matrix_v2.json",
+        "docs/world-design.md"
+      ],
+      "question": "как измеряют выигрыш обучения при неполной информации (шум/задержка)?"
+    },
+    {
+      "id": "C2",
+      "title": "выигрыш даёт affordance, а не обучение",
+      "globs": [
+        "morphogenesis/experiments/E09_pond/b2_matrix.json"
+      ],
+      "question": "как отделяют affordance от «больше действий» при равном бюджете (йокед-контроль)?"
+    },
+    {
+      "id": "C3",
+      "title": "строительство: механизм — подъём потолка",
+      "globs": [
+        "morphogenesis/experiments/E09_pond/b2_matrix.json"
+      ],
+      "question": "как ставят placebo-контроль в нишевом строительстве?"
+    },
+    {
+      "id": "C4",
+      "title": "адаптивный порог: механизм есть, выгоды нет",
+      "globs": [
+        "morphogenesis/experiments/E09_pond/b2d_*adapt*.json"
+      ],
+      "question": "как проверяют пользу обучения против жёсткого базлайна при равном бюджете?"
+    },
+    {
+      "id": "C5",
+      "title": "наследие короткое",
+      "globs": [
+        "morphogenesis/experiments/E09_pond/inherit*.json"
+      ],
+      "question": "как меряют экологическое наследие и нормируют его на поколение?"
+    },
+    {
+      "id": "C6",
+      "title": "редкая линия под наследованием исчезает",
+      "globs": [
+        "morphogenesis/experiments/E09_pond/colinv3_*.json",
+        "morphogenesis/experiments/E09_pond/colony_type_matrix.json"
+      ],
+      "question": "какие критерии инвазии/фиксации считаются достаточными в пространственных моделях?"
+    }
+  ],
+  "arms": [
+    "control",
+    "fixed",
+    "fixed2",
+    "mobile",
+    "both",
+    "surplus",
+    "placebo",
+    "learn",
+    "random",
+    "inherit"
+  ],
+  "rules": {
+    "C6_min_start": 0.05,
+    "C5_generation": 165,
+    "C3_placebo_vs_control": 1.0
+  }
+}
