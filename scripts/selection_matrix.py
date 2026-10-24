@@ -36,7 +36,8 @@ import statistics
 from pathlib import Path
 
 NAME = re.compile(r"sel_eps(?P<eps>\d+)_seed(?P<seed>\d+)\.json$")
-MIN_SPORES = 3
+MIN_SPORES = 1        # >= 1 спора на линию
+MIN_CELLS = 5         # >= 5 живых клеток у линии (иначе шум размера)
 MIN_LINEAGES = 10
 MANIP_RHO = 0.2
 MANIP_SHARE = 0.10
@@ -111,6 +112,7 @@ def analyse(path: Path) -> dict | None:
     traits = summary.get("type_traits") or {}
     spores_map = summary.get("lineage_spores")
     cells_map = summary.get("lineage_fitness") or {}
+    counts_map = {str(k).lstrip("T"): v for k, v in (summary.get("type_counts") or {}).items()}
     invested_map = summary.get("lineage_invested") or {}
     fitness_source = "lineage_spores"
     if not isinstance(spores_map, dict):
@@ -120,12 +122,19 @@ def analyse(path: Path) -> dict | None:
     traits_used: list[float] = []
     spores_used: list[float] = []
     for tag, trait in traits.items():
-        spores = spores_map.get(tag)
-        if spores is None or float(spores) < MIN_SPORES:
+        key = str(tag).lstrip("T")
+        spores = spores_map.get(key, spores_map.get(tag))
+        cells = counts_map.get(key)
+        if spores is None or cells is None:
             continue
-        pairs.append((float(trait), float(spores)))
+        # фитнес линии = споры НА ЖИВУЮ КЛЕТКУ (нормировка на размер: иначе отбирается
+        # размер линии, а не признак); порог данных — >= 1 спора и >= 5 клеток
+        if float(spores) < MIN_SPORES or float(cells) < MIN_CELLS:
+            continue
+        w = float(spores) / float(cells)
+        pairs.append((float(trait), w))
         traits_used.append(float(trait))
-        spores_used.append(float(spores))
+        spores_used.append(w)
     row: dict = {
         "artifact": f"morphogenesis/experiments/E09_pond/{path.name}",
         "eps": eps,
@@ -139,6 +148,7 @@ def analyse(path: Path) -> dict | None:
         "beta_quad": None,
         "manipulation_rho": None,
         "manipulation_ok": None,
+        "crow_I": None,
         "pop_time": summary.get("pop_time"),
         "alive_final": (summary.get("final") or {}).get("alive_cells"),
     }
@@ -148,6 +158,10 @@ def analyse(path: Path) -> dict | None:
                                  "(мало точек: rho и градиент не считаются)")
         return row
     row["rho"] = round(spearman(pairs), 3) if spearman(pairs) is not None else None
+    mean_w = sum(spores_used) / len(spores_used)
+    var_w = statistics.pvariance(spores_used)
+    # opportunity for selection (Crow): отбор не может работать при нулевом разбросе
+    row["crow_I"] = round(var_w / (mean_w * mean_w), 4) if mean_w > 0 else None
     beta_lin, beta_quad = selection_gradient(traits_used, spores_used)
     row["beta_lin"] = beta_lin
     row["beta_quad"] = beta_quad
@@ -184,6 +198,9 @@ def by_eps(rows: list[dict]) -> list[dict]:
             "beta_quad_median": round(statistics.median(quads), 4) if quads else None,
             "sign_agreement_k": agree,
             "manipulation_ok_k": sum(1 for r in usable if r["manipulation_ok"]),
+            "crow_I_median": (round(statistics.median([r["crow_I"] for r in usable
+                                                       if r["crow_I"] is not None]), 4)
+                              if any(r["crow_I"] is not None for r in usable) else None),
         })
     return out
 
@@ -194,13 +211,16 @@ def criteria(table: list[dict]) -> dict:
     control = by.get(0.0) or {}
     res = {
         "manipulation_ok": bool((test.get("manipulation_ok_k") or 0) >= 7),
+        "opportunity_for_selection": bool((test.get("crow_I_median") or 0) > 0),
         "e_confirmed": bool((test.get("rho_median") or 0) >= 0.3
                             and (test.get("rho_ge_0.3_k") or 0) >= 7
                             and (test.get("sign_agreement_k") or 0) >= 7
                             and (test.get("manipulation_ok_k") or 0) >= 7),
         "control_neutral": bool(abs(control.get("rho_median") or 0) < 0.3),
-        "note": ("E срабатывает: медиана rho >= 0.3, rho >= 0.3 в >= 7/10 сидов, знак "
-                 "beta_lin совпадает с rho в >= 7/10, манипуляционная проверка >= 7/10"),
+        "note": ("три уровня: (1) мир прочитал признак — |rho(trait, invested)| >= 0.2 в >= 7/10; "
+                 "(2) есть из чего выбирать — медиана индекса Кроу I > 0; "
+                 "(3) есть отклик — медиана rho(trait, споры/клетку) >= 0.3, rho >= 0.3 в >= 7/10 "
+                 "и знак beta_lin совпадает с rho в >= 7/10"),
     }
     return res
 
