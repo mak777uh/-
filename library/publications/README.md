@@ -300,6 +300,7 @@ H29-пункт «ядро от цели»).
 | G39 | [Rohner et al., 2024, J. Exp. Biol.](https://doi.org/10.1242/jeb.245976) | пластичность и строительство усиливают друг друга | H59 | траектория цены/дохода, feedback gain | `not_run` | [P39](../hypotheses/pond-lineage.md) |
 | G40 | [Werfel et al., 2014, Science](https://doi.org/10.1126/science.1245842) | строительство без плана: структура улучшается по шагам | H59 | наклон траекторий fixed vs control | `not_run` | [P40](../hypotheses/pond-lineage.md) |
 | G41 | [Majer et al., 2024, Ecol. Lett.](https://doi.org/10.1111/ele.14428) | нишевые различия зависят от времени | H59 | серии по шагам, а не срез | `not_run` | [P41](../hypotheses/pond-lineage.md) |
+| G42 | [Miotti et al., 2025, arXiv](https://arxiv.org/abs/2506.04912) | DiffLogic CA: дифференцируемые логические вентили, дискретно на инференсе | A-gate | DLGN-дискретизация vs sigmoid(T→0) | `not_run` | [P42](../hypotheses/pond-lineage.md) |
 | G25 | [Soltoggio et al., 2018, Neural Networks](https://doi.org/10.1016/j.neunet.2018.07.013) | evolved plasticity: L2 формирует L1, ловушки | H53 | абляция «без L1» | `not_run` | [task-14](../task-14.md) |
 | G26 | [Sousa, 1984, Annu. Rev. Ecol. Syst.](https://doi.org/10.1146/annurev.es.15.110184.002033) | режимы нарушений | — | пересчёт «на поколение» | `not_run` | [task-14](../task-14.md) |
 | G27 | [Connell, 1978, Science](https://doi.org/10.1126/science.199.4335.1302) | промежуточное нарушение: разнообразие максимально при среднем уровне | — | свип 0.001–0.1/шаг | `not_run` | [task-14](../task-14.md) |
