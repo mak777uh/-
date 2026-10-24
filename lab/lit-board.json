@@ -2442,6 +2442,37 @@
         "tasks": [],
         "reports": []
       }
+    },
+    {
+      "id": "B-071",
+      "type": "contradiction",
+      "target": {
+        "kind": "metric",
+        "id": "manipulation_check_rho",
+        "ref": "manuscript v3.13 §10ai; sel_*_seed*.json"
+      },
+      "statement": "Отрицательный контроль E (манипуляция): в рукописи rho(trait, invested) = -0.098/-0.099/0.048 при eps=0 и 0.264 при eps=2.0. Мой пересчёт на тех же артефактах (type_traits vs lineage_invested, ключи lstrip('T'), только invested>0, n=890/761/825/861 пар) даёт 0.016/0.012/0.004 и 0.139. Качественно совпадает (eps=0 около нуля, eps=2.0 заметно больше), количественно — нет, для eps=2.0 разница почти двукратная. Контроль цитируется как ключевой, поэтому нужно указать точную формулу/фильтр (или приложить скрипт), иначе число не воспроизводится по репозиторию.",
+      "evidence": [
+        {
+          "library": "answers.md#48",
+          "note": "мой расчёт: lstrip T, только invested>0"
+        }
+      ],
+      "action": {
+        "kind": "method",
+        "detail": "указать формулу/фильтр контроля; сверка один к одному на 4 артефактах"
+      },
+      "status": "new",
+      "wave": "current",
+      "owner": "librarian",
+      "created_at": "2026-10-25T02:26:26+03:00",
+      "decided_at": null,
+      "why": null,
+      "links": {
+        "insights": [],
+        "tasks": [],
+        "reports": []
+      }
     }
   ],
   "updated_at": "2026-10-24T13:40:00Z"
