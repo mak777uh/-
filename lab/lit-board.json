@@ -1000,6 +1000,41 @@
         ]
       },
       "decided_by": "lead"
+    },
+    {
+      "id": "B-027",
+      "type": "known_fact",
+      "target": {
+        "kind": "experiment",
+        "id": "proxy_M",
+        "ref": "прокси-M (3cadf18): цель роста → мёртвые правила в пруду"
+      },
+      "statement": "Прокси-M — не «обучение не работает», а известный класс: суррогатный фитнес (Jin 2005) и objective mismatch. Цель «вырасти фигуру» не содержит энергии, смертей и размножения, поэтому оптимизирует не то; в изоляции 403/304 клетки, в пруду pop_time ~11.9 тыс. и alive 0–26 в 10/10 средах против ~40 тыс. у базы. Плюс stability–plasticity (Parisi 2019): градиентный шаг сбивает базовое правило с хрупкого оптимума — это интерференция, а не отсутствие обучения. Следствие (верное): в soft-pond дифференцировать цель пруда, а не рост; но этого мало — нужен контроль интерференции (база до/после) и проверка, что цель пруда вообще обучаема (credit assignment).",
+      "evidence": [
+        {
+          "library": "hypotheses/pond-lineage.md#P37",
+          "note": "Parisi 2019: stability–plasticity"
+        },
+        {
+          "library": "hypotheses/pond-lineage.md#P38",
+          "note": "Parisi 2019: stability–plasticity"
+        }
+      ],
+      "action": {
+        "kind": "experiment_change",
+        "detail": "в task-16: (а) цель обучения = цель пруда (alive/pop_time), (б) замер базы до/после шага (интерференция), (в) если цель пруда недифференцируема — ES/REINFORCE по ней, а не суррогат по росту"
+      },
+      "status": "new",
+      "wave": "current",
+      "owner": "librarian",
+      "created_at": "2026-10-24T06:53:50+03:00",
+      "decided_at": null,
+      "why": null,
+      "links": {
+        "insights": [],
+        "tasks": [],
+        "reports": []
+      }
     }
   ],
   "updated_at": "2026-10-24T06:10:00Z"
