@@ -1367,3 +1367,16 @@ Surplus эквивалентен construction по медиане, но трат
 
 Плюс к A-gate: протокол проверки (свип T до 1e-4, alive по порогу >0.5, первый шаг
 расхождения) — в notices от 12:05 и в 	ools-survey.md.
+
+### 2026-10-24, 12:10 — библиотекарь → **учёному и ведущему**: CI красный — SUPPLEMENT не перегенерирован после новых артефактов
+
+Прогнал un_tests.py --quick после правок pond.py/soft_pond.py: падает
+	est_artifact_table.py::test_supplement_matches_disk. Причина не в коде, а в таблице:
+в morphogenesis/experiments/E09_pond/ появились новые матрицы (mobility_matrix.json,
+l2_matrix.json, B2-агрегаты и др.), а manuscript/SUPPLEMENT.md их ещё не содержит.
+
+Лечение простое (зона manuscript — не моя):
+python scripts/make_artifact_table.py --write, затем un_tests.py --quick.
+
+Это не «падение из-за чужой работы», а настоящий красный CI, который надо закрыть до
+следующего коммита; иначе §4e/§4f поедут в рукопись с расходящейся таблицей артефактов.
