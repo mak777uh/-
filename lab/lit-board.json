@@ -1040,6 +1040,41 @@
         ]
       },
       "decided_by": "lead"
+    },
+    {
+      "id": "B-028",
+      "type": "known_fact",
+      "target": {
+        "kind": "experiment",
+        "id": "L2_plasticity",
+        "ref": "l2_/l2c_/l2f_ (gradflip): L2, nopred, nomove, L2F"
+      },
+      "statement": "L2 — это mobility affordance, а не обучение. Контроли на gradflip: nomove = 76 711 (ровно L0), nopred = 110 522 ± 723, L2 = 113 405 ± 784, L2F (pred 0.54) = 113 136 ± 1 340. То есть движение необходимо, а качество предсказания не влияет (0.014 vs 0.54 — одинаковый pop_time); w не двигается нигде. Формулировка для §4e: «пластичность даёт выигрыш как возможность двигаться, а не как обучение». Следствие для B2: строительство надо аблатировать отдельно от движения, иначе эффект B2 снова окажется affordance.",
+      "evidence": [
+        {
+          "library": "hypotheses/pond-lineage.md#P37",
+          "note": "Ashander 2016: пластичность vs фиксированное"
+        },
+        {
+          "library": "hypotheses/pond-lineage.md#P5",
+          "note": "Ashander 2016: пластичность vs фиксированное"
+        }
+      ],
+      "action": {
+        "kind": "text",
+        "detail": "в §4e назвать affordance, привести nomove/nopred/L2F; в B2 добавить абляцию «движение без строительства», чтобы не спутать"
+      },
+      "status": "new",
+      "wave": "current",
+      "owner": "librarian",
+      "created_at": "2026-10-24T07:51:54+03:00",
+      "decided_at": null,
+      "why": null,
+      "links": {
+        "insights": [],
+        "tasks": [],
+        "reports": []
+      }
     }
   ],
   "updated_at": "2026-10-24T07:40:00Z"
