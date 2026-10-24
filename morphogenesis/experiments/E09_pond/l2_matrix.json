@@ -1,0 +1,309 @@
+{
+ "experiment": "E09_pond / L2 within-life plasticity + ablations (task-13 L2)",
+ "protocol": "300 шагов, grid 32, income 0.2, proportional; у клетки предсказание ресурса, обновляемое локально (plastic_eta 0.1); шаг к более богатому соседу при ресурсе ниже предсказания, цена 0.05; абляции: замороженное предсказание, случайный гейт, предсказание без шагов",
+ "code_commit": "b297ef9",
+ "metric": "pop_time; живые; число шагов-перемещений",
+ "full_runs": "вне git: _hourly/polish/l2*_*.json",
+ "rows": [
+  {
+   "environment": "gradient+flip150",
+   "arm": "L0",
+   "seed": 1,
+   "pop_time": 78581,
+   "alive_final": 601,
+   "plastic_moves": 0,
+   "pred_mean_alive": null,
+   "artifact": "_hourly/polish/l2_gradflip_L0_seed1.json"
+  },
+  {
+   "environment": "gradient+flip150",
+   "arm": "L0",
+   "seed": 2,
+   "pop_time": 77945,
+   "alive_final": 613,
+   "plastic_moves": 0,
+   "pred_mean_alive": null,
+   "artifact": "_hourly/polish/l2_gradflip_L0_seed2.json"
+  },
+  {
+   "environment": "gradient+flip150",
+   "arm": "L0",
+   "seed": 3,
+   "pop_time": 73606,
+   "alive_final": 586,
+   "plastic_moves": 0,
+   "pred_mean_alive": null,
+   "artifact": "_hourly/polish/l2_gradflip_L0_seed3.json"
+  },
+  {
+   "environment": "gradient+flip150",
+   "arm": "L2",
+   "seed": 1,
+   "pop_time": 112999,
+   "alive_final": 631,
+   "plastic_moves": 70590,
+   "pred_mean_alive": 0.0132,
+   "artifact": "_hourly/polish/l2_gradflip_L2_seed1.json"
+  },
+  {
+   "environment": "gradient+flip150",
+   "arm": "L2",
+   "seed": 2,
+   "pop_time": 112907,
+   "alive_final": 620,
+   "plastic_moves": 69424,
+   "pred_mean_alive": 0.0141,
+   "artifact": "_hourly/polish/l2_gradflip_L2_seed2.json"
+  },
+  {
+   "environment": "gradient+flip150",
+   "arm": "L2",
+   "seed": 3,
+   "pop_time": 114308,
+   "alive_final": 618,
+   "plastic_moves": 70359,
+   "pred_mean_alive": 0.0148,
+   "artifact": "_hourly/polish/l2_gradflip_L2_seed3.json"
+  },
+  {
+   "environment": "gradient+flip150",
+   "arm": "L2-frozen-pred",
+   "seed": 1,
+   "pop_time": 112845,
+   "alive_final": 613,
+   "plastic_moves": 69982,
+   "pred_mean_alive": 0.5394,
+   "artifact": "_hourly/polish/l2f_gradflip_seed1.json"
+  },
+  {
+   "environment": "gradient+flip150",
+   "arm": "L2-frozen-pred",
+   "seed": 2,
+   "pop_time": 111965,
+   "alive_final": 597,
+   "plastic_moves": 70062,
+   "pred_mean_alive": 0.5439,
+   "artifact": "_hourly/polish/l2f_gradflip_seed2.json"
+  },
+  {
+   "environment": "gradient+flip150",
+   "arm": "L2-frozen-pred",
+   "seed": 3,
+   "pop_time": 114597,
+   "alive_final": 620,
+   "plastic_moves": 70579,
+   "pred_mean_alive": 0.5463,
+   "artifact": "_hourly/polish/l2f_gradflip_seed3.json"
+  },
+  {
+   "environment": "gradient+flip150",
+   "arm": "L2-nopred",
+   "seed": 1,
+   "pop_time": 110027,
+   "alive_final": 617,
+   "plastic_moves": 40840,
+   "pred_mean_alive": 0.016,
+   "artifact": "_hourly/polish/l2c_gradflip_nopred_seed1.json"
+  },
+  {
+   "environment": "gradient+flip150",
+   "arm": "L2-nopred",
+   "seed": 2,
+   "pop_time": 111351,
+   "alive_final": 610,
+   "plastic_moves": 41388,
+   "pred_mean_alive": 0.0154,
+   "artifact": "_hourly/polish/l2c_gradflip_nopred_seed2.json"
+  },
+  {
+   "environment": "gradient+flip150",
+   "arm": "L2-nopred",
+   "seed": 3,
+   "pop_time": 110187,
+   "alive_final": 643,
+   "plastic_moves": 40573,
+   "pred_mean_alive": 0.015,
+   "artifact": "_hourly/polish/l2c_gradflip_nopred_seed3.json"
+  },
+  {
+   "environment": "gradient+flip150",
+   "arm": "L2-nomove",
+   "seed": 1,
+   "pop_time": 78581,
+   "alive_final": 601,
+   "plastic_moves": 0,
+   "pred_mean_alive": 0.0239,
+   "artifact": "_hourly/polish/l2c_gradflip_nomove_seed1.json"
+  },
+  {
+   "environment": "gradient+flip150",
+   "arm": "L2-nomove",
+   "seed": 2,
+   "pop_time": 77945,
+   "alive_final": 613,
+   "plastic_moves": 0,
+   "pred_mean_alive": 0.0265,
+   "artifact": "_hourly/polish/l2c_gradflip_nomove_seed2.json"
+  },
+  {
+   "environment": "gradient+flip150",
+   "arm": "L2-nomove",
+   "seed": 3,
+   "pop_time": 73606,
+   "alive_final": 586,
+   "plastic_moves": 0,
+   "pred_mean_alive": 0.0374,
+   "artifact": "_hourly/polish/l2c_gradflip_nomove_seed3.json"
+  },
+  {
+   "environment": "patches",
+   "arm": "L0",
+   "seed": 1,
+   "pop_time": 70252,
+   "alive_final": 613,
+   "plastic_moves": 0,
+   "pred_mean_alive": null,
+   "artifact": "_hourly/polish/l2_patches_L0_seed1.json"
+  },
+  {
+   "environment": "patches",
+   "arm": "L0",
+   "seed": 2,
+   "pop_time": 77445,
+   "alive_final": 635,
+   "plastic_moves": 0,
+   "pred_mean_alive": null,
+   "artifact": "_hourly/polish/l2_patches_L0_seed2.json"
+  },
+  {
+   "environment": "patches",
+   "arm": "L0",
+   "seed": 3,
+   "pop_time": 63814,
+   "alive_final": 635,
+   "plastic_moves": 0,
+   "pred_mean_alive": null,
+   "artifact": "_hourly/polish/l2_patches_L0_seed3.json"
+  },
+  {
+   "environment": "patches",
+   "arm": "L2",
+   "seed": 1,
+   "pop_time": 106727,
+   "alive_final": 577,
+   "plastic_moves": 61881,
+   "pred_mean_alive": 0.0115,
+   "artifact": "_hourly/polish/l2_patches_L2_seed1.json"
+  },
+  {
+   "environment": "patches",
+   "arm": "L2",
+   "seed": 2,
+   "pop_time": 103618,
+   "alive_final": 611,
+   "plastic_moves": 59891,
+   "pred_mean_alive": 0.012,
+   "artifact": "_hourly/polish/l2_patches_L2_seed2.json"
+  },
+  {
+   "environment": "patches",
+   "arm": "L2",
+   "seed": 3,
+   "pop_time": 102548,
+   "alive_final": 608,
+   "plastic_moves": 58344,
+   "pred_mean_alive": 0.0137,
+   "artifact": "_hourly/polish/l2_patches_L2_seed3.json"
+  },
+  {
+   "environment": "patches",
+   "arm": "L2-frozen-pred",
+   "seed": 1,
+   "pop_time": 107384,
+   "alive_final": 611,
+   "plastic_moves": 62480,
+   "pred_mean_alive": 0.2436,
+   "artifact": "_hourly/polish/l2f_patches_seed1.json"
+  },
+  {
+   "environment": "patches",
+   "arm": "L2-frozen-pred",
+   "seed": 2,
+   "pop_time": 105130,
+   "alive_final": 626,
+   "plastic_moves": 60876,
+   "pred_mean_alive": 0.2467,
+   "artifact": "_hourly/polish/l2f_patches_seed2.json"
+  },
+  {
+   "environment": "patches",
+   "arm": "L2-frozen-pred",
+   "seed": 3,
+   "pop_time": 105696,
+   "alive_final": 612,
+   "plastic_moves": 60223,
+   "pred_mean_alive": 0.2471,
+   "artifact": "_hourly/polish/l2f_patches_seed3.json"
+  },
+  {
+   "environment": "patches",
+   "arm": "L2-nopred",
+   "seed": 1,
+   "pop_time": 108817,
+   "alive_final": 595,
+   "plastic_moves": 38261,
+   "pred_mean_alive": 0.0128,
+   "artifact": "_hourly/polish/l2c_patches_nopred_seed1.json"
+  },
+  {
+   "environment": "patches",
+   "arm": "L2-nopred",
+   "seed": 2,
+   "pop_time": 103876,
+   "alive_final": 584,
+   "plastic_moves": 36761,
+   "pred_mean_alive": 0.0128,
+   "artifact": "_hourly/polish/l2c_patches_nopred_seed2.json"
+  },
+  {
+   "environment": "patches",
+   "arm": "L2-nopred",
+   "seed": 3,
+   "pop_time": 104846,
+   "alive_final": 605,
+   "plastic_moves": 37136,
+   "pred_mean_alive": 0.0132,
+   "artifact": "_hourly/polish/l2c_patches_nopred_seed3.json"
+  },
+  {
+   "environment": "patches",
+   "arm": "L2-nomove",
+   "seed": 1,
+   "pop_time": 70252,
+   "alive_final": 613,
+   "plastic_moves": 0,
+   "pred_mean_alive": 0.0137,
+   "artifact": "_hourly/polish/l2c_patches_nomove_seed1.json"
+  },
+  {
+   "environment": "patches",
+   "arm": "L2-nomove",
+   "seed": 2,
+   "pop_time": 77445,
+   "alive_final": 635,
+   "plastic_moves": 0,
+   "pred_mean_alive": 0.011,
+   "artifact": "_hourly/polish/l2c_patches_nomove_seed2.json"
+  },
+  {
+   "environment": "patches",
+   "arm": "L2-nomove",
+   "seed": 3,
+   "pop_time": 63814,
+   "alive_final": 635,
+   "plastic_moves": 0,
+   "pred_mean_alive": 0.0253,
+   "artifact": "_hourly/polish/l2c_patches_nomove_seed3.json"
+  }
+ ]
+}

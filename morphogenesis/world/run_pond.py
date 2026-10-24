@@ -62,6 +62,7 @@ class PondRun:
         self.clonal_attached: int = 0
         self.clonal_separate: int = 0
         self.organism_moves_total: int = 0
+        self.plastic_moves_total: int = 0
         self.update_probability: float = 1.0
 
     # ---------- инициализация ----------
@@ -132,6 +133,25 @@ class PondRun:
                 self.genome[0, :, sy, sx] = 0.0
         self.pond.apply_organism_moves(moves)
         self.organism_moves_total += len(moves)
+        return len(moves)
+
+    def _plastic_mobility(self) -> int:
+        """L2: шаг клетки по ошибке предсказания ресурса (двигаем состояние и геном)."""
+        cfg = self.world_cfg
+        if float(getattr(cfg, "plastic_eta", 0.0)) <= 0.0:
+            return 0
+        self.pond.update_plasticity()
+        moves = self.pond.plastic_moves()
+        if not moves:
+            return 0
+        with torch.no_grad():
+            for sy, sx, dy, dx in moves:
+                self.state[0, :, dy, dx] = self.state[0, :, sy, sx]
+                self.state[0, :, sy, sx] = 0.0
+                self.genome[0, :, dy, dx] = self.genome[0, :, sy, sx]
+                self.genome[0, :, sy, sx] = 0.0
+        self.pond.apply_organism_moves(moves, cost=float(cfg.plastic_move_cost))
+        self.plastic_moves_total += len(moves)
         return len(moves)
 
     # ---------- шаг ----------
@@ -230,6 +250,7 @@ class PondRun:
         self.pond.regenerate()
         cell_stats = self.pond.step_cells()
         self._organism_mobility()
+        self._plastic_mobility()
         self._flow_energy_to_state()
 
         births = 0
@@ -335,6 +356,13 @@ def main(argv: list[str] | None = None) -> int:
                     help="энергия за шаг споры (0 = бесплатно)")
     ap.add_argument("--organism-mobility-cost", type=float, default=0.0,
                     help="энергия за шаг организма по жизни (0 = выкл, I-023)")
+    ap.add_argument("--plastic-eta", type=float, default=0.0,
+                    help="L2: скорость обновления предсказания ресурса (0 = выкл)")
+    ap.add_argument("--plastic-gate", default="pred", choices=["pred", "random"])
+    ap.add_argument("--plastic-prob", type=float, default=0.5)
+    ap.add_argument("--plastic-nomove", action="store_true")
+    ap.add_argument("--plastic-move-cost", type=float, default=0.05,
+                    help="L2: цена шага по ошибке предсказания")
     ap.add_argument("--organism-mobility-every", type=int, default=10,
                     help="раз в сколько шагов организм пробует шаг по жизни")
     ap.add_argument("--freq-dep", type=float, default=0.0,
@@ -377,6 +405,11 @@ def main(argv: list[str] | None = None) -> int:
     world.mobility_cost = args.mobility_cost
     world.organism_mobility_cost = args.organism_mobility_cost
     world.organism_mobility_every = args.organism_mobility_every
+    world.plastic_eta = args.plastic_eta
+    world.plastic_move_cost = args.plastic_move_cost
+    world.plastic_gate = args.plastic_gate
+    world.plastic_prob = args.plastic_prob
+    world.plastic_nomove = args.plastic_nomove
     world.freq_dep = args.freq_dep
     world.type_mode = args.type_mode
     world.type_start = args.type_start
@@ -419,6 +452,12 @@ def main(argv: list[str] | None = None) -> int:
         float(getattr(run.pond, "mobility_shift", 0.0)) / max(int(run.pond.state.born), 1), 4
     )
     summary["organism_moves"] = int(run.organism_moves_total)
+    summary["plastic_moves"] = int(run.plastic_moves_total)
+    summary["plastic_updates"] = int(getattr(run.pond, "plastic_updates", 0))
+    if getattr(run.pond.state, "pred", None) is not None and run.pond.state.alive.any():
+        summary["pred_mean_alive"] = round(
+            float(run.pond.state.pred[run.pond.state.alive].mean()), 4
+        )
     summary["organism_moves_per_step"] = round(
         float(run.organism_moves_total) / max(int(run.pond.state.step), 1), 3
     )

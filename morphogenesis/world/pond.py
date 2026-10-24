@@ -75,6 +75,11 @@ class PondConfig:
     mobility_steps: int = 0            # сколько шагов спора может пройти (0 = подвижность выкл)
     organism_mobility_cost: float = 0.0    # цена шага организма по жизни (0 = выкл)
     organism_mobility_every: int = 10      # раз в сколько шагов организм пробует шаг
+    plastic_eta: float = 0.0           # L2: скорость обновления предсказания ресурса
+    plastic_move_cost: float = 0.05    # L2: цена шага по ошибке предсказания
+    plastic_gate: str = "pred"         # pred | random: чем гейтится шаг
+    plastic_prob: float = 0.5          # доля клеток за шаг при gate=random
+    plastic_nomove: bool = False       # ablation: предсказание без перемещений
     freq_dep: float = 0.0              # сила отрицательной частотной зависимости (0 = выкл)
     type_mode: str = "fixed"           # fixed | mixfixed | random | learn — тип A/B
     type_start: str = "a"              # a | b | mixed — тип стартовых клеток
@@ -103,6 +108,7 @@ class PondState:
     alive: torch.Tensor               # (H, W) bool
     resource_b: torch.Tensor | None = None  # (H, W) ресурс второго типа (I-030)
     cell_type: torch.Tensor | None = None   # (H, W) int64: 0 = A, 1 = B
+    pred: torch.Tensor | None = None    # (H, W) L2: предсказание локального ресурса
     w_cell: torch.Tensor | None = None  # (H, W) локальный вес политики (учится)
     step: int = 0
     born: int = 0
@@ -135,6 +141,8 @@ class Pond:
         self.mobility_moves = 0   # сколько шагов сделали споры (диагностика)
         self.mobility_shift = 0.0  # суммарное смещение спор от клетки выбора (шагов сетки)
         self.organism_moves = 0    # сколько шагов сделали организмы по жизни (I-023)
+        self.plastic_shift = 0.0   # L2: сдвиг предсказания после переключения среды
+        self.plastic_updates = 0
         self.learn_history: list[float] = []
         self._colony_alive_prev = 0
         self._colony_dir = 1.0
@@ -171,6 +179,8 @@ class Pond:
             self.state.resource = fill
 
         # два типа ресурса и частотная зависимость (I-030)
+        if self.cfg.plastic_eta > 0.0:
+            self.state.pred = self.state.resource.clone()
         if self.cfg.freq_dep > 0.0 or self.cfg.type_mode != "fixed":
             self.state.resource_b = self.state.resource.clone()
             self.state.cell_type = torch.zeros((n, n), dtype=torch.int64, device=self.device)
@@ -590,12 +600,13 @@ class Pond:
             moves.append((y, x, best[0], best[1]))
         return moves
 
-    def apply_organism_moves(self, moves: list[tuple[int, int, int, int]]) -> None:
+    def apply_organism_moves(self, moves: list[tuple[int, int, int, int]],
+                             cost: float | None = None) -> None:
         """Перенести клетку целиком на новую позицию, списав цену шага."""
         if not moves:
             return
         s = self.state
-        cost = float(self.cfg.organism_mobility_cost)
+        cost = float(self.cfg.organism_mobility_cost) if cost is None else float(cost)
         for sy, sx, dy, dx in moves:
             s.alive[dy, dx] = True
             s.alive[sy, sx] = False
@@ -608,6 +619,64 @@ class Pond:
             s.membrane[dy, dx] = s.membrane[sy, sx]
             s.membrane[sy, sx] = 0.0
         self.organism_moves += len(moves)
+
+    # ---------- L2: пластичность в течение жизни ----------
+    def update_plasticity(self) -> None:
+        """Локальное правило без градиента: предсказание ресурса по ошибке.
+
+        У каждой клетки есть предсказание `pred` локального ресурса; оно
+        подтягивается к фактическому ресурсу с шагом `plastic_eta`. Это не
+        обучение веса политики (там сигнал не работал, §10n), а адаптация
+        внутреннего состояния клетки, одинаковая во всех средах.
+        """
+        cfg = self.cfg
+        s = self.state
+        if cfg.plastic_eta <= 0.0 or s.pred is None:
+            return
+        s.pred = s.pred + cfg.plastic_eta * (s.resource - s.pred)
+        self.plastic_updates += 1
+
+    def plastic_moves(self) -> list[tuple[int, int, int, int]]:
+        """Клетки, у которых ресурс ХУЖЕ предсказания, пробуют шаг к соседу."""
+        cfg = self.cfg
+        s = self.state
+        if cfg.plastic_eta <= 0.0 or s.pred is None or not bool(s.alive.any()):
+            return []
+        if cfg.plastic_nomove:
+            return []
+        if cfg.plastic_gate == "random":
+            roll = torch.rand((cfg.grid, cfg.grid), generator=self.gen_sel).to(self.device)
+            poor = s.alive & (roll < float(cfg.plastic_prob))
+        else:
+            err = s.resource - s.pred
+            poor = s.alive & (err < 0.0)
+        poor = poor & (s.energy > cfg.plastic_move_cost)
+        if not bool(poor.any()):
+            return []
+        n = cfg.grid
+        candidates = poor.nonzero(as_tuple=False)
+        order = torch.randperm(candidates.shape[0], generator=self.gen_sel)
+        taken = torch.zeros_like(s.alive)
+        moves: list[tuple[int, int, int, int]] = []
+        for k in order.tolist():
+            y, x = int(candidates[k, 0]), int(candidates[k, 1])
+            if not bool(s.alive[y, x]) or bool(taken[y, x]):
+                continue
+            best, best_res = None, float(s.resource[y, x])
+            for dy, dx in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+                ny, nx = y + dy, x + dx
+                if not (0 <= ny < n and 0 <= nx < n):
+                    continue
+                if bool(s.alive[ny, nx]) or bool(taken[ny, nx]):
+                    continue
+                res = float(s.resource[ny, nx])
+                if res > best_res:
+                    best, best_res = (ny, nx), res
+            if best is None:
+                continue
+            taken[best[0], best[1]] = True
+            moves.append((y, x, best[0], best[1]))
+        return moves
 
     # ---------- размножение ----------
     def find_buds(self) -> list[torch.Tensor]:
