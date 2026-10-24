@@ -1157,6 +1157,41 @@
         ]
       },
       "decided_by": "lead"
+    },
+    {
+      "id": "B-031",
+      "type": "known_fact",
+      "target": {
+        "kind": "experiment",
+        "id": "B2_construction",
+        "ref": "b2b_uniform_surplus (3 сида): строить только при излишке"
+      },
+      "statement": "Surplus (инвестировать только при энергии выше EMA) — рабочая формулировка B2: медиана 90 199 (90 199/96 541/87 748) против 89 527 у construction и 72 742 у placebo; invested 1 342–1 438 (меньше, чем construction ~1 500); invest_updates 67–72 тыс. (политика реально действует, в отличие от старого learn с 0); feedback_r = 0.94–0.95. То есть порог доступности не вредит и снижает трату; на patches он должен снять режим смерти (ждём серию).",
+      "evidence": [
+        {
+          "library": "hypotheses/pond-lineage.md#P39",
+          "note": "Werfel 2014: строительство по шагам"
+        },
+        {
+          "library": "hypotheses/pond-lineage.md#P40",
+          "note": "Werfel 2014: строительство по шагам"
+        }
+      ],
+      "action": {
+        "kind": "text",
+        "detail": "в §4f: surplus как основная формулировка (порог доступности), construction как верхняя граница траты; проверить patches surplus; feedback_r как метрика обратной связи"
+      },
+      "status": "new",
+      "wave": "current",
+      "owner": "librarian",
+      "created_at": "2026-10-24T12:05:17+03:00",
+      "decided_at": null,
+      "why": null,
+      "links": {
+        "insights": [],
+        "tasks": [],
+        "reports": []
+      }
     }
   ],
   "updated_at": "2026-10-24T12:05:00Z"
