@@ -2318,6 +2318,99 @@
         "tasks": [],
         "reports": []
       }
+    },
+    {
+      "id": "B-067",
+      "type": "opportunity",
+      "target": {
+        "kind": "metric",
+        "id": "wilson_handmade",
+        "ref": "scripts/v8_matrix.py:27; founding_matrix.py:32; invader_dose_matrix.py:33; library/tools/v8_matrix.py:30"
+      },
+      "statement": "Уилсон считается руками в четырёх файлах, и от него зависят все 'доля выживших' в V8/D/B. Предлагаю statsmodels (BSD-3, чистый Python): proportion_confint закрывает гэп и служит независимым референсом. Проверка: сверка wilson(k,n) на 20 парах (совпадение до 1e-6), затем замена функцию-обёрткой. Риск: нет.",
+      "evidence": [
+        {
+          "library": "tools-inventory.md#топ-3",
+          "note": "pypi: statsmodels 0.15.0, py>=3.10, лицензия BSD (в метаданных пусто — проверить LICENSE)"
+        }
+      ],
+      "action": {
+        "kind": "method",
+        "detail": "обёртка wilson() -> proportion_confint(method='wilson'); тест на 20 парах"
+      },
+      "status": "new",
+      "wave": "current",
+      "owner": "librarian",
+      "created_at": "2026-10-25T01:32:43+03:00",
+      "decided_at": null,
+      "why": null,
+      "links": {
+        "insights": [],
+        "tasks": [],
+        "reports": []
+      }
+    },
+    {
+      "id": "B-068",
+      "type": "opportunity",
+      "target": {
+        "kind": "metric",
+        "id": "mi_handmade",
+        "ref": "scripts/individuality.py:39"
+      },
+      "statement": "Наша MI — гистограммная с фиксированным bins=8, то есть смещённая оценка, а на ней стоят выводы H-AB/LIT-009 (отложено, но вернётся). Предлагаю pyinform (MIT, чистый Python) как независимый референс: сравнить на синтетике (гауссова копула с известной MI) и на наших рядах. Риск: нет.",
+      "evidence": [
+        {
+          "library": "tools-inventory.md#топ-3",
+          "note": "pypi: pyinform 0.2.0, MIT"
+        }
+      ],
+      "action": {
+        "kind": "method",
+        "detail": "сверка на синтетике с известной MI, потом на 10 наших парах"
+      },
+      "status": "new",
+      "wave": "current",
+      "owner": "librarian",
+      "created_at": "2026-10-25T01:32:45+03:00",
+      "decided_at": null,
+      "why": null,
+      "links": {
+        "insights": [],
+        "tasks": [],
+        "reports": []
+      }
+    },
+    {
+      "id": "B-069",
+      "type": "opportunity",
+      "target": {
+        "kind": "metric",
+        "id": "betti1_handmade",
+        "ref": "scripts/map_metrics.py:68"
+      },
+      "statement": "β1 считается вручную (betti1 на 32×32 с 4-/8-связностью), а от него зависят IDH-реанализ и любые утверждения о 'числе классов/дыр'. Предлагаю gudhi (кубический комплекс — ровно наш случай) как dev/CI-референс: на 10 картах сравнить β0/β1; ripser (MIT) — альтернатива, но для бинарных карт требует своей фильтрации. Риск: gudhi GPL-3 — не в рантайм, только dev/CI.",
+      "evidence": [
+        {
+          "library": "tools-inventory.md#топ-3",
+          "note": "pypi: gudhi 3.13.0, ripser 0.6.15 (MIT)"
+        }
+      ],
+      "action": {
+        "kind": "method",
+        "detail": "gudhi CubicalComplex на 10 картах; сравнить β0/β1 с betti1()"
+      },
+      "status": "new",
+      "wave": "current",
+      "owner": "librarian",
+      "created_at": "2026-10-25T01:32:47+03:00",
+      "decided_at": null,
+      "why": null,
+      "links": {
+        "insights": [],
+        "tasks": [],
+        "reports": []
+      }
     }
   ],
   "updated_at": "2026-10-24T13:40:00Z"
