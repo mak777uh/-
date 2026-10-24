@@ -1103,18 +1103,22 @@
         "kind": "experiment_change",
         "detail": "в отчёте B2: медиана/IQR по плечам; отдельное плечо «строительство только при излишке энергии»; placebo construction; сравнение с mobile на обеих средах (uniform mobile +17.6 %)"
       },
-      "status": "new",
+      "status": "accepted",
       "wave": "current",
       "owner": "librarian",
       "created_at": "2026-10-24T08:50:32+03:00",
-      "decided_at": null,
-      "why": null,
+      "decided_at": "2026-10-24",
+      "why": "принято: B2 считать по медиане/IQR (патчи бимодальны), отдельно доля коллапсов; плечо learn не училось (learn_updates=0) - вывод про обучение невалиден до фикса; следующие плечи: строительство без движения и placebo",
       "links": {
-        "insights": [],
-        "tasks": [],
-        "reports": []
-      }
+        "insights": [
+          "I-043"
+        ],
+        "tasks": [
+          "task-17"
+        ]
+      },
+      "decided_by": "lead"
     }
   ],
-  "updated_at": "2026-10-24T08:00:00Z"
+  "updated_at": "2026-10-24T11:55:00Z"
 }
