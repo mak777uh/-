@@ -33,6 +33,8 @@
 | 2026-10-24 | gene surfing fixation expanding population | 6 | 1 | P45 (Hallatschek & Nelson 2008) — surfing у фронта |
 | 2026-10-24 | priority effects coexistence storage effect differential response | 6 | 2 | P47 (Song 2020), P48 (Laloux 2026) |
 | 2026-10-24 | differential mortality versus disturbance removing priority | 6 | 0 | запрос ушёл в медицину («mortality»); переформулировать через response diversity |
+| 2026-10-24 | legacy effects ecosystem engineering persistence after removal | 6 | 2 | P49 (Harris & Byers 2026), P50 (Grove 2015) |
+| 2026-10-24 | measuring ecological inheritance half-life | 6 | 0 | запрос ушёл в физику/радиоэкологию; лучше через legacy effects |
 
 ## Как вести
 
