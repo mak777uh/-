@@ -62,7 +62,8 @@ def parse() -> list[dict]:
             requests.append({**block, "text": text, "tags": TAG.findall(text)})
         elif line.strip().upper().startswith("ЗАКРЫТО") and requests:
             # «ЗАКРЫТО: <фрагмент>» закрывает запросы, в тексте которых есть фрагмент
-            fragment = line.split(":", 1)[-1].split("：", 1)[-1].strip().lower()
+            fragment = line.split(":", 1)[-1].split("：", 1)[-1]
+            fragment = fragment.split("—")[0].split(" - ")[0].strip().lower()
             for req in requests:
                 if fragment and fragment[:40] in req["text"].lower():
                     answered_after[req["text"]] = True
