@@ -51,6 +51,9 @@
 | 2026-10-24 | bimodality detection ecological data small sample | 6 | 0 | ушло в прикладные small-sample ML; для теста мод хватает P56/P57 |
 | 2026-10-24 | substrate independence artificial life multiple realizability (OpenAlex) | 3 | 0 | философия сознания, не про перенос субстратов |
 | 2026-10-24 | substrate independence ALife review | 6 | 1 | P58 (Aguilar 2014, обзор ALife) |
+| 2026-10-24 | tag-based cooperation evolution without reciprocity | 4 | 1 | P59 (Riolo 2001, Nature) |
+| 2026-10-24 | lineage selection units of selection evolution | 4 | 1 | P60 (Papale 2025, единица отбора и линия) |
+| 2026-10-24 | lineage inheritance digital organisms tags genomes | 6 | 0 | запрос ушёл в биологию/право; переформулировать через tags/lineage selection |
 
 ## Как вести
 

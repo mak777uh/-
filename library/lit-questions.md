@@ -18,8 +18,7 @@
 | Q12 | What minimal in-silico experiments show construction benefit with a placebo control? | searched-1 | 2026-10-24 | P55 Han 2006: строительство держит полиморфизм при наследовании+пространстве; placebo-контроля в моделях нет — наш вклад |
 | Q13 | How to detect bistability and bimodality in small-sample ALife runs? | searched-1 | 2026-10-24 | P56 Hartigan 1985 (dip test), P57 Silverman 1981 (kernel modes); при 3–5 сидах тест не применять |
 | Q14 | How do ALife papers justify generalisation across substrates? | searched-1 | 2026-10-24 | P58 Aguilar 2014: ALife как общая биология, но кросс-субстратных тестов мало — W2 закрывает пробел |
-
-| Q15 | How is lineage inheritance implemented in digital organisms (tags, genomes)? | open | — | task-11: тип на уровне линии |
+| Q15 | How is lineage inheritance implemented in digital organisms (tags, genomes)? | searched-1 | 2026-10-24 | P59 Riolo 2001 (tags), P60 Papale 2025 (единица отбора и линия) |
 | Q16 | What are minimal criteria for a unit of selection in digital systems? | open | — | I-020: деление/смерть как условие отбора |
 | Q17 | How to measure robustness vs performance trade-offs in ALife? | open | — | B2: 1/3 коллапсов vs медиана |
 | Q18 | What counts as a pre-registered ALife experiment? | open | — | наш §3a и registered reports |
