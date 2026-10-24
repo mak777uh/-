@@ -65,46 +65,64 @@ def load(path: Path, default):
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("--init", action="store_true")
+    ap.add_argument("--src", default=None, help="каталог артефактов (для тестов)")
+    ap.add_argument("--map", dest="map_path", default=None, help="карта утверждений (для тестов)")
+    ap.add_argument("--state", default=None)
+    ap.add_argument("--inbox", default=None)
+    ap.add_argument("--queue", default=None)
+    ap.add_argument("--no-queue", action="store_true", help="не ставить задачи (тесты)")
     ap.add_argument("--json", action="store_true")
     args = ap.parse_args(argv)
 
-    cfg = load(MAP, {"claims": [], "arms": []})
-    state = load(STATE, {"files": {}, "arms": {}, "baseline": {}})
+    cfg = load(Path(args.map_path) if args.map_path else MAP, {"claims": [], "arms": []})
+    state_path = Path(args.state) if args.state else STATE
+    inbox_path = Path(args.inbox) if args.inbox else INBOX
+    queue_script = Path(args.queue) if args.queue else QUEUE
+    src_root = Path(args.src) if args.src else REPO
+    state = load(state_path, {"files": {}, "arms": {}})
+    had_state = bool(state["files"])
     now = datetime.now(timezone.utc).astimezone().strftime("%Y-%m-%d %H:%M")
 
     records, transitions = [], []
     for claim in cfg.get("claims", []):
         for pattern in claim.get("globs", []):
-            for raw in sorted(glob.glob(str(REPO / pattern))):
+            for raw in sorted(glob.glob(str(src_root / pattern))):
                 path = Path(raw)
-                key = str(path.relative_to(REPO)).replace("\\", "/")
+                try:
+                    key = str(path.relative_to(src_root)).replace("\\", "/")
+                except ValueError:
+                    key = path.name
                 dg = digest(path)
-                prev = state["files"].get(key, {})
+                skey = f"{claim['id']}:{key}"
+                prev = state["files"].get(skey, {})
                 if prev.get("sha") == dg:
                     continue
                 data = load(path, {}) if path.suffix == ".json" else {}
                 nums: dict = {}
                 numbers(data, nums)
-                record = {"at": now, "claim": claim["id"], "file": key,
+                record = {"at": now, "claim": claim["id"], "file": key, "key": skey,
                           "new": not prev, "changed": sorted(
                               k for k in nums if prev.get("nums", {}).get(k) != nums[k])}
-                state["files"][key] = {"sha": dg, "nums": nums}
+                state["files"][skey] = {"sha": dg, "nums": nums}
                 if not args.init:
                     records.append(record)
                 noise = ("colinv", "b2", "b2d", "inherit", "seed", "fd", "uniform",
                          "patches", "gradflip", "matrix", "json", "BinvA", "AinvB", "v2",
                          "v01b", "pond", "ab", "p09", "p10")
-                tokens = [t for t in path.stem.replace("-", "_").split("_")
-                          if t and not t.isdigit() and not any(n in t for n in noise)]
+                tokens = [] if path.suffix != ".json" else [
+                    t for t in path.stem.replace("-", "_").split("_")
+                    if len(t) >= 4 and not t.isdigit() and not any(n in t for n in noise)]
                 known = state.setdefault("arms", {}).setdefault(claim["id"], [])
+                claim_known = had_state
                 for token in tokens:
-                    if token not in known:
-                        known.append(token)
-                        if not args.init:
-                            transitions.append({"kind": "new_mode", "claim": claim["id"],
-                                                "detail": f"новый режим/плечо «{token}» в {key}",
-                                                "question": claim["question"]})
-                if claim["id"] == "C6" and not args.init:
+                    if len(token) < 4 or token in known:
+                        continue
+                    known.append(token)
+                    if not args.init and claim_known:
+                        transitions.append({"kind": "new_mode", "claim": claim["id"],
+                                            "detail": f"новый режим/плечо «{token}» в {key}",
+                                            "question": claim["question"]})
+                if claim["id"] == "C6" and not args.init and had_state:
                     start = nums.get("injection_share_actual")
                     end = nums.get("a_share_final")
                     if isinstance(start, (int, float)) and isinstance(end, (int, float)):
@@ -113,7 +131,7 @@ def main(argv=None) -> int:
                                                 "detail": f"редкий инвайдер зафиксировался: "
                                                           f"start={start:.4f} end={end:.2f} в {key}",
                                                 "question": claim["question"]})
-                if claim["id"] == "C5" and not args.init:
+                if claim["id"] == "C5" and not args.init and had_state:
                     hl = nums.get("half_life_steps")
                     gen = cfg.get("rules", {}).get("C5_generation", 165)
                     if isinstance(hl, (int, float)) and gen and hl / gen >= 0.5:
@@ -122,35 +140,52 @@ def main(argv=None) -> int:
                                                       f"в {key}",
                                             "question": claim["question"]})
                 if isinstance(nums.get("invalid_reason"), str) and nums["invalid_reason"]:
-                    if prev.get("nums", {}).get("invalid_reason") != nums["invalid_reason"]:
+                    if prev.get("nums", {}).get("invalid_reason") != nums["invalid_reason"] \
+                            and had_state:
                         transitions.append({"kind": "invalid", "claim": claim["id"],
                                             "detail": f"{key}: {nums['invalid_reason'][:80]}",
                                             "question": claim["question"]})
 
+    live = {f"{c['id']}:{str(Path(r).resolve().relative_to(src_root.resolve())).replace(chr(92), '/')}"
+            for c in cfg.get("claims", []) for g in c.get("globs", [])
+            for r in glob.glob(str(src_root / g))}
+    removed = [k for k in state["files"] if ":" in k and k not in live]
+    for skey in removed:
+        state["files"].pop(skey, None)
+        if not args.init:
+            claim_id, _, fname = skey.partition(":")
+            transitions.append({"kind": "removed", "claim": claim_id,
+                                "detail": f"артефакт исчез: {fname}",
+                                "question": "что делать с утверждением, чей артефакт пропал?"})
+
     if args.init:
-        STATE.write_text(json.dumps(state, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        state_path.write_text(json.dumps(state, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
         print(f"снимок запомнен: файлов {len(state['files'])}")
         return 0
 
     if records:
-        with INBOX.open("a", encoding="utf-8") as fh:
+        with inbox_path.open("a", encoding="utf-8") as fh:
             for rec in records:
                 fh.write(json.dumps(rec, ensure_ascii=False) + "\n")
 
-    queue = load(REPO / "library" / "work-queue.json", {"items": []})
+    queue_path = (Path(args.queue_dir) if getattr(args, "queue_dir", None)
+                  else REPO / "library" / "work-queue.json")
+    queue = load(queue_path, {"items": []})
     have = {item.get("title", "") for item in queue["items"]}
     added = 0
     for tr in transitions:
         title = f"мини-обзор: {tr['kind']} — {tr['detail'][:60]}"
         if any(title[:45] in h for h in have):
             continue
-        subprocess.run(["python", str(QUEUE), "add", "review", title, "--impact", "5",
+        if args.no_queue:
+            continue
+        subprocess.run(["python", str(queue_script), "add", "review", title, "--impact", "5",
                         "--effort", "2", "--target", f"library/reviews/auto-{tr['claim'].lower()}.md",
                         "--action", f"вопрос к литературе: {tr['question']}"],
                        cwd=REPO, capture_output=True, text=True, encoding="utf-8")
         added += 1
 
-    STATE.write_text(json.dumps(state, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    state_path.write_text(json.dumps(state, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     summary = {"at": now, "new_or_changed": len(records), "transitions": transitions,
                "queue_items_added": added}
     if args.json:

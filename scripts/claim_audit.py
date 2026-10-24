@@ -30,15 +30,18 @@ def hypotheses_text() -> str:
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("--json", default=None)
+    ap.add_argument("--table", default=None, help="путь к таблице (для тестов)")
+    ap.add_argument("--strict", action="store_true", help="требовать интервал в колонке эффекта")
     args = ap.parse_args(argv)
 
-    if not TABLE.exists():
-        print(f"нет файла: {TABLE}")
+    table = Path(args.table) if args.table else TABLE
+    if not table.exists():
+        print(f"нет файла: {table}")
         return 1
     text = hypotheses_text()
     rows = []
     problems = 0
-    for line in TABLE.read_text(encoding="utf-8").splitlines():
+    for line in table.read_text(encoding="utf-8").splitlines():
         if not line.strip().startswith("|"):
             continue
         cells = [c.strip() for c in line.strip().strip("|").split("|")]
@@ -46,16 +49,22 @@ def main(argv: list[str] | None = None) -> int:
             continue
         cid, claim, artifact, control, effect, boundary, anchor, counter, gap = cells[:9]
         row = {"claim": cid, "title": claim, "artifact": artifact, "anchor": anchor,
-               "gap": gap, "artifact_ok": None, "anchor_ok": None, "gap_ok": gap.lower() not in EMPTY}
+               "gap": gap, "artifact_ok": None, "anchor_ok": None,
+               "gap_ok": gap.lower() not in EMPTY, "problems": []}
         if artifact and artifact not in EMPTY:
             row["artifact_ok"] = bool(glob.glob(str(REPO / artifact)))
         if anchor and anchor not in EMPTY:
             row["anchor_ok"] = bool(re.search(rf"\| {re.escape(anchor)} \|", text))
-        missing = [k for k in ("artifact_ok", "anchor_ok") if row[k] is False]
+        if args.strict and effect and effect not in EMPTY:
+            if not any(t in effect for t in ("интервал", "±", "Wilson", "Clopper", "%")):
+                row["problems"].append("interval")
+        if artifact and artifact not in EMPTY and row["artifact_ok"] is False:
+            row["problems"].append("artifact")
+        if anchor and anchor not in EMPTY and row["anchor_ok"] is False:
+            row["problems"].append("anchor")
         if not row["gap_ok"]:
-            missing.append("gap")
-        row["problems"] = missing
-        problems += len(missing)
+            row["problems"].append("gap")
+        problems += len(row["problems"])
         rows.append(row)
 
     print(f"пакетов: {len(rows)} | проблем: {problems}")

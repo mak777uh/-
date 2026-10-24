@@ -1,0 +1,187 @@
+#!/usr/bin/env python
+"""Регрессионные тесты инструментов библиотеки.
+
+Проверяют три вещи: claim_audit ловит дефекты пакета, result_scan ловит переходы
+по данным (включая пересекающиеся glob и исчезнувшие артефакты), lib_cycle
+соблюдает приоритет/блокеры/запреты. Всё работает в temp-каталоге.
+
+Запуск: python scripts/test_lib_tools.py
+"""
+from __future__ import annotations
+
+import json
+import subprocess
+import sys
+import tempfile
+from pathlib import Path
+
+REPO = Path(__file__).resolve().parents[1]
+PY = sys.executable
+FAILED: list[str] = []
+
+
+def run(*args, cwd=REPO) -> subprocess.CompletedProcess:
+    return subprocess.run([PY, *args], cwd=cwd, capture_output=True, text=True,
+                          encoding="utf-8", errors="replace")
+
+
+def check(name: str, condition: bool, detail: str = "") -> None:
+    if condition:
+        print(f"  ok   {name}")
+    else:
+        print(f"  FAIL {name} {detail}")
+        FAILED.append(name)
+
+
+CLAIMS_TABLE = """# тест
+
+| # | Утверждение | Артефакт | Контроль | Эффект | Граница | Якорь | Встречный тест | Пробел |
+|---|---|---|---|---|---|---|---|---|
+| C1 | хороший | {good_artifact} | контроль | 10 ± 2 | W1 | {good_anchor} | тест | пробел есть |
+| C2 | плохой артефакт | morphogenesis/__нет__.json | контроль | 10 ± 2 | W1 | {good_anchor} | тест | пробел |
+| C3 | плохой якорь | {good_artifact} | контроль | 10 ± 2 | W1 | P999 | тест | пробел |
+| C4 | пустой пробел | {good_artifact} | контроль | 10 ± 2 | W1 | {good_anchor} | тест | нет |
+| C5 | без интервала | {good_artifact} | контроль | 10 | W1 | {good_anchor} | тест | пробел |
+"""
+
+
+def test_claim_audit(tmp: Path) -> None:
+    table = tmp / "claims.md"
+    table.write_text(CLAIMS_TABLE.format(
+        good_artifact="library/conditions.md", good_anchor="P43"), encoding="utf-8")
+    res = run("scripts/claim_audit.py", "--table", str(table))
+    check("claim_audit: ловит артефакт/якорь/пробел", res.returncode == 1, res.stdout[-200:])
+    check("claim_audit: C1 чистый", "C1: ok" in res.stdout, res.stdout)
+    check("claim_audit: C2 artifact", "C2: artifact" in res.stdout, res.stdout)
+    check("claim_audit: C3 anchor", "C3: anchor" in res.stdout, res.stdout)
+    check("claim_audit: C4 gap", "C4: gap" in res.stdout, res.stdout)
+    res2 = run("scripts/claim_audit.py", "--table", str(table), "--strict")
+    check("claim_audit --strict: C5 interval", "C5: interval" in res2.stdout, res2.stdout)
+
+
+def scan(tmp: Path, src: Path, cfg: Path, state: Path) -> str:
+    res = run("scripts/result_scan.py", "--src", str(src), "--map", str(cfg),
+              "--state", str(state), "--inbox", str(tmp / "inbox.jsonl"), "--no-queue")
+    if res.returncode != 0:
+        return "ОШИБКА: " + (res.stderr or res.stdout)[-300:]
+    return res.stdout
+
+
+def write_cfg(path: Path) -> None:
+    cfg = {"claims": [
+        {"id": "C6", "title": "инвазия", "question": "критерии инвазии?",
+         "globs": ["colinv3_*.json"]},
+        {"id": "C2", "title": "affordance", "question": "affordance?",
+         "globs": ["shared_*.json"]},
+        {"id": "C3", "title": "placebo", "question": "placebo?",
+         "globs": ["shared_*.json"]}],
+        "arms": ["inherit", "random"],
+        "rules": {"C6_min_start": 0.05, "C5_generation": 165}}
+    path.write_text(json.dumps(cfg, ensure_ascii=False), encoding="utf-8")
+
+
+def test_result_scan(tmp: Path) -> None:
+    src = tmp / "art"
+    src.mkdir()
+    cfg = tmp / "map.json"
+    write_cfg(cfg)
+    state = tmp / "state.json"
+
+    shared = src / "shared_a.json"
+    shared.write_text(json.dumps({"median": 1}), encoding="utf-8")
+    inv = src / "colinv3_fd0_BinvA_inherit_seed1.json"
+    inv.write_text(json.dumps({"summary": {"injection_share_actual": 0.002,
+                                          "a_share_final": 0.0}}), encoding="utf-8")
+    out = scan(tmp, src, cfg, state)
+    check("scan: первый прогон без сюрпризов", "переходов: 0" in out, out)
+
+    # 1) изменение чисел -> запись changed, без перехода
+    inv.write_text(json.dumps({"summary": {"injection_share_actual": 0.002,
+                                          "a_share_final": 0.8}}), encoding="utf-8")
+    out = scan(tmp, src, cfg, state)
+    check("scan: verdict по фиксации редкого инвайдера", "verdict" in out and "0.0020" in out, out)
+    inbox = (tmp / "inbox.jsonl").read_text(encoding="utf-8").splitlines()
+    check("scan: запись в inbox", len(inbox) >= 1 and "changed" in inbox[-1], inbox[-1] if inbox else "")
+
+    # 2) новый режим в имени файла
+    newmode = src / "colinv3_fd0_BinvA_immune_seed1.json"
+    newmode.write_text(json.dumps({"summary": {"injection_share_actual": 0.3,
+                                              "a_share_final": 0.1}}), encoding="utf-8")
+    out = scan(tmp, src, cfg, state)
+    check("scan: новый режим пойман", "new_mode" in out and "immune" in out, out)
+
+    # 3) невалидный прогон
+    inv2 = src / "colinv3_fd0_BinvA_random_seed2.json"
+    inv2.write_text(json.dumps({"summary": {"injection_share_actual": 0.4,
+                                           "a_share_final": 0.1,
+                                           "invalid_reason": "переворот компонента"}}),
+                    encoding="utf-8")
+    out = scan(tmp, src, cfg, state)
+    check("scan: невалидный поймал", "invalid" in out, out)
+
+    # 4) пересекающиеся glob: один файл — два утверждения
+    shared.write_text(json.dumps({"median": 2}), encoding="utf-8")
+    out = scan(tmp, src, cfg, state)
+    inbox_lines = (tmp / "inbox.jsonl").read_text(encoding="utf-8").splitlines()
+    recs = [json.loads(line) for line in inbox_lines]
+    claims = {r["claim"] for r in recs if r.get("file", "").endswith("shared_a.json")}
+    check("scan: пересекающиеся glob дают оба утверждения", {"C2", "C3"} <= claims, str(claims))
+
+    # 5) markdown не должен давать new_mode
+    md = src / "notes_design_doc.md"
+    md.write_text("# заголовок\n", encoding="utf-8")
+    out_md = scan(tmp, src, cfg, state)
+    check("scan: markdown не даёт new_mode", "new_mode" not in out_md.split("notes_design_doc")[0][-200:], out_md)
+
+    # 6) исчезнувший артефакт
+    newmode.unlink()
+    out = scan(tmp, src, cfg, state)
+    check("scan: исчезнувший артефакт пойман", "removed" in out, out)
+
+
+def test_lib_cycle(tmp: Path) -> None:
+    q = tmp / "queue.json"
+    log = tmp / "log.md"
+    st = tmp / "state.json"
+    opts = ["--queue-path", str(q), "--log-path", str(log), "--state-path", str(st)]
+
+    def call(*args) -> subprocess.CompletedProcess:
+        return run("scripts/lib_cycle.py", *opts, *args)
+
+    check("lib_cycle: impact вне 1..5 отклонён",
+          call("add", "review", "плохой", "--id", "X1", "--impact", "9").returncode == 2)
+    check("lib_cycle: добавление работает",
+          call("add", "review", "низкий", "--id", "X1", "--impact", "2", "--effort", "2").returncode == 0)
+    check("lib_cycle: дубль id отклонён",
+          call("add", "review", "снова", "--id", "X1", "--impact", "3").returncode == 2)
+    check("lib_cycle: второе добавление",
+          call("add", "claim", "высокий", "--id", "X2", "--impact", "5", "--effort", "1").returncode == 0)
+    check("lib_cycle: третье с блокером",
+          call("add", "lit", "заблокированный", "--id", "X3", "--impact", "5", "--effort", "1",
+               "--blocked-by", "X2").returncode == 0)
+
+    out = call("next").stdout
+    check("lib_cycle: next выбирает максимальный impact/effort", '"X2"' in out, out)
+
+    check("lib_cycle: done без заметки отклонён", call("done", "X2").returncode == 2)
+    check("lib_cycle: done с заметкой", call("done", "X2", "--note", "сделано").returncode == 0)
+    out2 = call("next").stdout
+    check("lib_cycle: после закрытия блокер снят", '"X3"' in out2, out2)
+    check("lib_cycle: журнал заполняется", log.exists() and "X2" in log.read_text(encoding="utf-8"))
+
+
+def main() -> int:
+    with tempfile.TemporaryDirectory() as tdir:
+        tmp = Path(tdir)
+        print("== claim_audit ==")
+        test_claim_audit(tmp)
+        print("== result_scan ==")
+        test_result_scan(tmp)
+        print("== lib_cycle ==")
+        test_lib_cycle(tmp)
+    print(f"\nпровалено: {len(FAILED)}")
+    return 1 if FAILED else 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

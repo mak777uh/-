@@ -27,14 +27,22 @@ STATE = REPO / "library" / ".cycle-state.json"
 KINDS = ("condition", "claim", "metric", "review", "lit", "hygiene")
 
 
+PATHS = {"queue": QUEUE, "log": LOG, "state": STATE}
+
+
+def qpath(key: str) -> Path:
+    return PATHS.get(key, QUEUE)
+
+
 def load() -> dict:
-    if QUEUE.exists():
-        return json.loads(QUEUE.read_text(encoding="utf-8"))
+    path = qpath("queue")
+    if path.exists():
+        return json.loads(path.read_text(encoding="utf-8"))
     return {"items": []}
 
 
 def save(data: dict) -> None:
-    QUEUE.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    qpath("queue").write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
 
 def git(*args: str) -> str:
@@ -46,13 +54,13 @@ def git(*args: str) -> str:
 
 
 def state() -> dict:
-    if STATE.exists():
-        return json.loads(STATE.read_text(encoding="utf-8"))
+    if qpath("state").exists():
+        return json.loads(qpath("state").read_text(encoding="utf-8"))
     return {"last_commit": ""}
 
 
 def save_state(data: dict) -> None:
-    STATE.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    qpath("state").write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
 
 def next_item(data: dict) -> dict | None:
@@ -91,7 +99,7 @@ def cmd_status(args) -> int:
     try:
         out = subprocess.run(["python", "scripts/claim_audit.py"], cwd=REPO, capture_output=True,
                              text=True, encoding="utf-8", errors="replace", timeout=60).stdout
-        print("\n".join(out.strip().splitlines()[:8]))
+        print("\n".join(out.strip().splitlines()[:12]))
     except Exception as exc:
         print(f"claim_audit недоступен: {exc}")
     data = load()
@@ -121,15 +129,19 @@ def cmd_done(args) -> int:
     if not item:
         print(f"нет пункта {args.id}")
         return 1
+    if not (args.note or "").strip():
+        print("нужна заметка: --note \"что сделано и где артефакт\"")
+        return 2
     item["status"] = "done"
     item["done_at"] = datetime.now(timezone.utc).astimezone().strftime("%Y-%m-%d %H:%M")
     item["result"] = args.note or ""
     save(data)
-    LOG.parent.mkdir(parents=True, exist_ok=True)
-    if not LOG.exists():
-        LOG.write_text("# Журнал циклов\n\n| Когда | Пункт | Вид | Результат |\n|---|---|---|---|\n",
+    log = qpath("log")
+    log.parent.mkdir(parents=True, exist_ok=True)
+    if not log.exists():
+        log.write_text("# Журнал циклов\n\n| Когда | Пункт | Вид | Результат |\n|---|---|---|---|\n",
                        encoding="utf-8")
-    with LOG.open("a", encoding="utf-8") as fh:
+    with log.open("a", encoding="utf-8") as fh:
         fh.write(f"| {item['done_at']} | {item['id']} | {item['kind']} | {(args.note or '').replace('|', '/')} |\n")
     save_state({**state(), "last_commit": git("rev-parse", "HEAD")})
     print(f"{item['id']} закрыт")
@@ -137,7 +149,13 @@ def cmd_done(args) -> int:
 
 
 def cmd_add(args) -> int:
+    if not 1 <= args.impact <= 5 or not 1 <= args.effort <= 5:
+        print("impact и effort — от 1 до 5")
+        return 2
     data = load()
+    if args.id and any(i["id"] == args.id for i in data["items"]):
+        print(f"пункт {args.id} уже есть")
+        return 2
     data["items"].append({
         "id": args.id or f"W{len(data['items']) + 1}",
         "kind": args.kind, "title": args.title, "target": args.target or "",
@@ -170,7 +188,16 @@ def main(argv=None) -> int:
     p.add_argument("--impact", type=int, default=3); p.add_argument("--effort", type=int, default=3)
     p.add_argument("--blocked-by"); p.set_defaults(func=cmd_add)
     sub.add_parser("list").set_defaults(func=cmd_list)
+    ap.add_argument("--queue-path", default=None, help="файл очереди (тесты)")
+    ap.add_argument("--log-path", default=None, help="файл журнала (тесты)")
+    ap.add_argument("--state-path", default=None, help="файл состояния (тесты)")
     args = ap.parse_args(argv)
+    if args.queue_path:
+        PATHS["queue"] = Path(args.queue_path)
+    if args.log_path:
+        PATHS["log"] = Path(args.log_path)
+    if args.state_path:
+        PATHS["state"] = Path(args.state_path)
     return args.func(args)
 
 
