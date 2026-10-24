@@ -269,6 +269,8 @@ class PondRun:
             self.genome[0][:, child] = child_genome
             self.state[0][:, child] = self.state[0][:, parent].mean(dim=1, keepdim=True)
             births += 1
+        if int(self.pond.state.step) % 5 == 0:
+            self.pond.enforce_colony_types()
         self._apply_alive(self.pond.state.alive)
 
         if self.snapshot_every and self.pond.state.step % self.snapshot_every == 0:
@@ -383,8 +385,12 @@ def main(argv: list[str] | None = None) -> int:
                     help="шаг инвазии редкого типа (0 = нет)")
     ap.add_argument("--invade-share", type=float, default=0.05,
                     help="доля живых клеток, которым подменяют тип при инвазии")
+    ap.add_argument("--invade-min-cells", type=int, default=50,
+                    help="инъекция валидна только если живых >= N")
     ap.add_argument("--invade-type", type=int, default=1, choices=[0, 1],
                     help="какой тип подсаживаем: 0 = A, 1 = B")
+    ap.add_argument("--type-level", default="cell", choices=["cell", "colony"],
+                    help="тип у клетки или у всей колонии-компоненты (task-11)")
     ap.add_argument("--type-inherit", default="neighbours", choices=["neighbours", "parent"],
                     help="как наследуется тип при росте: voter-соседи или линия (компонента)")
     ap.add_argument("--type-start", default="a", choices=["a", "b", "mixed"],
@@ -431,9 +437,11 @@ def main(argv: list[str] | None = None) -> int:
     world.type_mode = args.type_mode
     world.type_start = args.type_start
     world.type_inherit = args.type_inherit
+    world.type_level = args.type_level
     world.invade_at = args.invade_at
     world.invade_share = args.invade_share
     world.invade_type = args.invade_type
+    world.invade_min_cells = args.invade_min_cells
     world.w_rich = args.w_rich
     world.learn_w = args.learn_w
     world.learn_rate = args.learn_rate
@@ -538,7 +546,12 @@ def main(argv: list[str] | None = None) -> int:
         summary["a_share_max"] = round(max(series), 4)
         summary["a_share_series"] = series
     summary["invade_at"] = int(getattr(run.pond, "invasion_step", 0))
+    summary["type_level"] = getattr(run.world_cfg, "type_level", "cell")
     summary["invader_share_after"] = getattr(run.pond, "invasion_share_after", None)
+    summary["colony_cells_at_invasion"] = int(getattr(run.pond, "colony_cells_at_invasion", 0))
+    summary["injection_share_actual"] = getattr(run.pond, "injection_share_actual", None)
+    summary["design"] = 3
+    summary["injection_invalid"] = bool(getattr(run.pond, "injection_invalid", False))
     summary["w_final"] = float(run.pond.w)
     if getattr(run.pond.state, "w_cell", None) is not None and run.pond.state.alive.any():
         wcel = run.pond.state.w_cell[run.pond.state.alive]

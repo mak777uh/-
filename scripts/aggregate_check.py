@@ -137,8 +137,8 @@ def check_invasion(rows: list[dict]) -> list[str]:
             expected = end / start
             if abs(growth - expected) > 1e-6:
                 errors.append(f"[{i}]: growth {growth} != end/start {expected:.4f}")
-        if start > 0.2 and not row.get("invalid_reason"):
-            errors.append(f"[{i}]: доля подсадки {start:.3f} > 0.2 без invalid_reason "
+        if start > 0.05 and not row.get("invalid_reason"):
+            errors.append(f"[{i}]: доля подсадки {start:.3f} > 0.05 без invalid_reason "
                           "(похоже на переворот компонента)")
     return errors
 

@@ -695,7 +695,7 @@ def test_child_type_mixfixed_inherits_without_switching():
 
 def test_invasion_injects_rare_type():
     pond = _two_type_pond(freq_dep=1.0, type_mode="fixed", type_start="a",
-                          invade_at=2, invade_share=0.5, invade_type=1)
+                          invade_at=2, invade_share=0.5, invade_type=1, invade_min_cells=1)
     mask = torch.zeros((8, 8), dtype=torch.bool)
     mask[2:4, 2:4] = True
     pond.seed_life(mask, energy=5.0)
@@ -773,7 +773,7 @@ def test_neutral_mixed_fixates_via_voter_dynamics():
 
 def test_invasion_does_not_touch_energy_age_damage():
     pond = _two_type_pond(freq_dep=1.0, type_mode="mixfixed", type_start="a",
-                          invade_at=2, invade_share=0.5, invade_type=1)
+                          invade_at=2, invade_share=0.5, invade_type=1, invade_min_cells=1)
     mask = torch.zeros((8, 8), dtype=torch.bool)
     mask[2:4, 2:4] = True
     pond.seed_life(mask, energy=5.0)

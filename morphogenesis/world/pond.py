@@ -90,9 +90,11 @@ class PondConfig:
     type_mode: str = "fixed"           # fixed | mixfixed | random | learn — тип A/B
     type_start: str = "a"              # a | b | mixed — тип стартовых клеток
     type_inherit: str = "neighbours"   # neighbours (voter) | parent (клональные пятна)
+    type_level: str = "cell"           # cell | colony: тип у клетки или у всей колонии
     invade_at: int = 0                 # шаг инвазии редкого типа (0 = нет, I-032)
     invade_share: float = 0.05         # доля живых клеток, которым подменяют тип
     invade_type: int = 1               # какой тип подсаживаем: 0 = A, 1 = B
+    invade_min_cells: int = 30         # ждать, пока колония не вырастет до N клеток
     learn_window: int = 30             # окно оценки для обучения колонии
     init_resource_fill: float = 0.0     # 0..1: доля потолка, до которой поле заполнено на старте
     membrane_gated: bool = False      # обмен гейтируется мембраной (замыкание)
@@ -202,6 +204,9 @@ class Pond:
         self.type_share_series: list[float] = []
         self.invasion_step = 0
         self.invasion_share_after = None
+        self.colony_cells_at_invasion = 0
+        self.injection_invalid = False
+        self.injection_share_actual = None
 
     # ---------- ресурс и катастрофы ----------
     def _sample_gap(self) -> int:
@@ -223,10 +228,48 @@ class Pond:
         return (self.state.step % cfg.catastrophe_period) < cfg.catastrophe_duration
 
     def _invade(self) -> None:
-        """Подсадить редкий тип: `invade_share` живых клеток получают `invade_type`."""
+        """Подсадить редкий тип; при маленькой колонии ждём следующего шага."""
         s = self.state
         ct = s.cell_type
         if ct is None or not bool(s.alive.any()):
+            return
+        cells_now = int(s.alive.sum())
+        resident_share = float((ct[s.alive] == int(self.cfg.invade_type)).float().mean())
+        if resident_share >= 0.25:
+            # «редкий» тип уже не редок: это не инвазия, а смена метки у большинства
+            self.injection_invalid = True
+            self.colony_cells_at_invasion = cells_now
+            self.injection_share_actual = round(resident_share, 4)
+            return
+        if cells_now < int(self.cfg.invade_min_cells):
+            # ещё рано: при крошечной колонии доля одной подсаженной клетки нестабильна
+            return
+        if (getattr(self.cfg, "type_level", "cell") == "colony"
+                and getattr(self.cfg, "type_mode", "") != "random"):
+            # инвазия = НОВАЯ редкая колония: 1 клетка в случайной свободной точке,
+            # иначе в одной слипшейся колонии «редкой» колонии просто нет
+            # (в серии 24.10 это 1 клетка при колонии 382-700 -> доля 0.14-0.25%)
+            free = (~s.alive).nonzero(as_tuple=False)
+            if free.shape[0] == 0:
+                return
+            pick = free[int(torch.randint(0, free.shape[0], (), generator=self.gen_sel))]
+            y, x = int(pick[0]), int(pick[1])
+            spot = torch.zeros_like(s.alive)
+            spot[y, x] = True
+            s.alive |= spot
+            s.energy = torch.where(spot, torch.full_like(s.energy, 8.0), s.energy)
+            s.age = torch.where(spot, torch.zeros_like(s.age), s.age)
+            s.damage = torch.where(spot, torch.zeros_like(s.damage), s.damage)
+            s.cell_type[spot] = int(self.cfg.invade_type)
+            self.invasion_share_after = round(
+                float((s.cell_type[s.alive] == int(self.cfg.invade_type)).float().mean()), 4
+            )
+            self.invasion_step = int(s.step)
+            self.colony_cells_at_invasion = int(s.alive.sum())
+            self.injection_share_actual = round(
+                float((s.cell_type[s.alive] == int(self.cfg.invade_type)).float().mean()), 4
+            )
+            self.injection_invalid = bool(self.injection_share_actual > 0.25)
             return
         idx = s.alive.nonzero(as_tuple=False)
         k = max(1, int(round(float(self.cfg.invade_share) * idx.shape[0])))
@@ -237,6 +280,9 @@ class Pond:
             float((ct[s.alive] == int(self.cfg.invade_type)).float().mean()), 4
         )
         self.invasion_step = int(s.step)
+        self.colony_cells_at_invasion = int(s.alive.sum())
+        self.injection_share_actual = self.invasion_share_after
+        self.injection_invalid = bool(self.injection_share_actual > 0.25)
 
     def _gradient_position(self) -> torch.Tensor:
         """Положение потолка градиента по строкам: 1.0 = верх (богато), 0.0 = низ.
@@ -601,6 +647,28 @@ class Pond:
         self.mobility_moves += moved_total
         new_spots = torch.tensor(out, device=spots.device, dtype=spots.dtype)
         return new_spots, spent
+    def enforce_colony_types(self) -> None:
+        """Тип у всей колонии-компоненты один (task-11): voter-смешивания нет.
+
+        При слиянии двух компонент побеждает тип той, чьих клеток больше (тип
+        компоненты = округлённое среднее; при ровно 50/50 округление даёт A).
+        Рост внутри компоненты тип не меняет, потому что после шага все клетки
+        компоненты приводятся к одному типу.
+        """
+        s = self.state
+        if s.cell_type is None or not bool(s.alive.any()):
+            return
+        if getattr(self.cfg, "type_level", "cell") != "colony":
+            return
+        mass, labels = self._components(s.alive)
+        for lab in mass:
+            m = labels == lab
+            vals = s.cell_type[m]
+            if int(vals.min()) == int(vals.max()):
+                continue
+            t = int(round(float(vals.float().mean())))
+            s.cell_type[m] = t
+
     # ---------- обратимость организма (I-023) ----------
     def find_organism_moves(self) -> list[tuple[int, int, int, int]]:
         """Кто из организмов уходит из плохой клетки: (sy, sx, dy, dx).

@@ -8,7 +8,8 @@
   * считает рост `end / start` (инвазионный критерий: >1 — редкий растёт);
   * помечает прогон невалидным, если фактическая доля подсадки не близка к ожидаемой
     (переворот компонента — та самая ошибка дизайна 2);
-  * пишет агрегат с `kind: aggregate_medians`, чтобы его проверял `aggregate_check`.
+  * пишет агрегат с `kind: invasion_runs`, чтобы его проверял `aggregate_check`
+    (проверки `check_invasion`: рост = end/start, невалидные помечены).
 
 Запуск:
     python scripts/colony_matrix.py --src ../_hourly/polish --out morphogenesis/experiments/E09_pond/colony_type_matrix.json
@@ -29,6 +30,10 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--src", default=str(Path(__file__).resolve().parents[2] / "_hourly" / "polish"))
     ap.add_argument("--out", default=None)
     ap.add_argument("--design", default="3")
+    ap.add_argument("--provenance-note", default=None,
+                    help="оговорка о происхождении артефактов серии (пишется в агрегат верхним полем)")
+    ap.add_argument("--invalid-extra", default=None,
+                    help="вторая причина для строк с долей подсадки > 0.05 (дописывается к первой)")
     args = ap.parse_args(argv)
 
     src = Path(args.src)
@@ -50,8 +55,10 @@ def main(argv: list[str] | None = None) -> int:
             end = 1.0 - end
         growth = (end / start) if (start and end is not None and start > 0) else None
         invalid_reason = summary.get("invalid_reason")
-        if not invalid_reason and start is not None and start > 0.2:
-            invalid_reason = f"injection_share {start:.3f} — переворот компонента, не инвазия"
+        if not invalid_reason and start is not None and start > 0.05:
+            invalid_reason = f"injection_share {start:.3f} > 0.05 — не редкая подсадка (переворот или крупная инъекция)"
+        if args.invalid_extra and invalid_reason and start is not None and start > 0.05:
+            invalid_reason = f"{invalid_reason}; {args.invalid_extra}"
         rows.append({
             "design": summary.get("design", args.design),
             "fd": fd,
@@ -76,6 +83,8 @@ def main(argv: list[str] | None = None) -> int:
         "note": "собрано scripts/colony_matrix.py из артефактов дизайна 3",
         "rows": rows,
     }
+    if args.provenance_note:
+        payload["provenance_note"] = args.provenance_note
     if args.out:
         Path(args.out).write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
         print(f"записано: {args.out} | строк {len(rows)}")
