@@ -76,6 +76,17 @@ def cmd_status(args) -> int:
     print("== события ==")
     log = git("log", "--oneline", f"{since}..HEAD") if since else git("log", "--oneline", "-5")
     print(log or "нет новых коммитов")
+    recent = git("log", "--format=%s", "-8")
+    marks = ("плеч", "arm", "дизайн", "design", "рамк", "переимен", "смен", "новая серия")
+    own = ("library:", "notices:", "cycle:", "board:")
+    hits = [line for line in recent.splitlines()
+            if any(m in line.lower() for m in marks) and not line.startswith(own)]
+    if hits:
+        print("\n== ПЕРЕХОД? ==")
+        for line in hits[:3]:
+            print(f"  {line[:100]}")
+        print("  → сначала мини-обзор (library/reviews/_mini-template.md), потом пункт")
+
     print("\n== пакеты доказательств ==")
     try:
         out = subprocess.run(["python", "scripts/claim_audit.py"], cwd=REPO, capture_output=True,
