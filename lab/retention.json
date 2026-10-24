@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-10-23T01:44:48Z",
+  "generated_at": "2026-10-24T05:12:57Z",
   "policy": "Локально хранятся только canonical final из lab/checkpoints.json (требования активной/следующей серии) и явно объявленный положительный контроль. Best-снапшоты при наличии final и неканонические final закрытых/замещённых плеч удаляются после фиксации метрик, per-run JSONL, манифеста и этой записи в git. Веса в GitHub не отправляются; canonical final удаляется только по решению владельца.",
-  "freed_bytes": 58265540136,
+  "freed_bytes": 58265585448,
   "files": [
     {
       "path": "morphogenesis/checkpoints/gate_layer1_s800_seed101/nca_best.pt",
@@ -929,6 +929,20 @@
       "mtime": "2026-10-22T12:16:52Z",
       "kept": "morphogenesis/checkpoints/E02c_seeddec_init42_data42/nca_final.pt",
       "reason": "промежуточный снапшот (nca_iter_*), final на месте"
+    },
+    {
+      "path": "morphogenesis/checkpoints/world_rule_random_proxy.pt",
+      "family": "proxy_meta_negative",
+      "size_bytes": 22656,
+      "mtime": "2026-10-24T03:46:32Z",
+      "kept": "нет (отрицательный результат: правила «растут, но не живут»)"
+    },
+    {
+      "path": "morphogenesis/checkpoints/world_rule_square_proxy.pt",
+      "family": "proxy_meta_negative",
+      "size_bytes": 22656,
+      "mtime": "2026-10-24T03:46:46Z",
+      "kept": "нет (отрицательный результат: правила «растут, но не живут»)"
     }
   ],
   "skipped": [
