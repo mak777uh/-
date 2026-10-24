@@ -71,6 +71,8 @@
 | 2026-10-24 | niche construction increases resource availability experimental test | 6 | 0 | прямого аналога нет; эмпирика без cost-matched контроля |
 | 2026-10-24 | stigmergy environment modification artificial life | 6 | 1 | E5 (Johnson & Wilke 2004): ресурсная конкуренция цифровых организмов |
 | 2026-10-24 | minimum viable propagule size establishment Allee effect | 8 | 1 | P75 (Fertakos & Bradley 2024): давление пропагул — укоренение, не инвазивность |
+| 2026-10-24 | ecological inheritance niche construction persistence experiment | 6 | 1 | P77 (Serôdio 2023); Parsons 2026 не взят — нет абстракта |
+| 2026-10-24 | higher-order interactions synergy measurement ecology null model | 6 | 1 | P76 (Fox 2023): HOI контекстно-зависимы |
 
 ## Как вести
 
