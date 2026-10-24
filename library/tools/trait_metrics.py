@@ -112,10 +112,14 @@ def analyse(path: Path) -> dict:
             if value and value > 0:
                 first_seen.setdefault(key, idx)
                 last_seen[key] = idx
+    # предковые метки (присутствуют в первом срезе) новизной не являются:
+    # иначе при m=0 инструмент даёт novelty>0 и не ловит ошибку логгера (критерий B, п.3)
+    ancestral = {k for k, v in (series[0] or {}).items() if v and v > 0}
     novelty = [key for key, start in first_seen.items()
-               if last_seen[key] - start >= NOVELTY_WINDOW]
+               if key not in ancestral and last_seen[key] - start >= NOVELTY_WINDOW]
     res["types_total"] = len(first_seen)
     res["novelty_flux"] = len(novelty)
+    res["novelty_ancestral_excluded"] = sorted(ancestral)
     res["novelty_window"] = NOVELTY_WINDOW
 
     births = births_from(data)

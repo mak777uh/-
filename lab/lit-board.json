@@ -1605,6 +1605,161 @@
         "tasks": [],
         "reports": []
       }
+    },
+    {
+      "id": "B-044",
+      "type": "known_fact",
+      "target": {
+        "kind": "experiment",
+        "id": "LIT-001_async",
+        "ref": "Fatès 2013 (10.1007/978-3-642-40867-0_2); §10f"
+      },
+      "statement": "LIT-001 (асинхронность обновлений). Понятие: Asynchronous Cellular Automata; в CA асинхронное расписание меняет классы поведения (Fatès 2013), асинхронность может стабилизировать (Bersini & Detours 1994). У нас параметр уже есть: update_probability (run_pond.py L166/341/350). Измерено: §10f A/B p=0.9 против 1.0 — 555/562 живых, рождения 7/7, клональность 0.878, эффекта на выживание нет. Минимальный тест, который ещё не сделан: восстановление после ампутации (recovered_fraction, recovery_time) при p=1.0/0.9/0.8. Вердикт библиотеки: взять как развёртку параметра, не как новую архитектуру.",
+      "evidence": [
+        {
+          "library": "review-free-selforganization.md#2",
+          "note": "DOI модели для Fatès был неверным (проверено Crossref)"
+        }
+      ],
+      "action": {
+        "kind": "experiment",
+        "detail": "ампутация 50% массы на шаге 150; метрики recovery_time и recovered_fraction; 3 сида"
+      },
+      "status": "new",
+      "wave": "current",
+      "owner": "librarian",
+      "created_at": "2026-10-24T19:12:03+03:00",
+      "decided_at": null,
+      "why": null,
+      "links": {
+        "insights": [],
+        "tasks": [],
+        "reports": []
+      }
+    },
+    {
+      "id": "B-045",
+      "type": "known_fact",
+      "target": {
+        "kind": "experiment",
+        "id": "LIT-002_killkeep",
+        "ref": "Odling-Smee et al. 2003 (книга); Silver & Di Paolo 2006 (10.1016/j.tpb.2006.08.003); inherit2_*.json"
+      },
+      "statement": "LIT-002 (смерть с сохранением среды). Понятие: niche construction и ecological inheritance; пространственные эффекты благоприятствуют наследованию (Silver & Di Paolo 2006). У нас: полураспад избытка 20–41 шаг (inherit2_*), то есть среда переживает организмы. Не сделано: прямой тест kill-and-keep — посадить новую спору в изменённую среду и в чистую, сравнить pop_time/рост. Вердикт: взять, это отдельный baseline (B-039).",
+      "evidence": [
+        {
+          "library": "review-free-selforganization.md#7",
+          "note": "DOI модели для Silver & Di Paolo был 404; найден верный"
+        }
+      ],
+      "action": {
+        "kind": "baseline",
+        "detail": "два поля (после строителей / чистое), 1 спора, 3 сида"
+      },
+      "status": "new",
+      "wave": "current",
+      "owner": "librarian",
+      "created_at": "2026-10-24T19:12:04+03:00",
+      "decided_at": null,
+      "why": null,
+      "links": {
+        "insights": [],
+        "tasks": [],
+        "reports": []
+      }
+    },
+    {
+      "id": "B-046",
+      "type": "known_fact",
+      "target": {
+        "kind": "metric",
+        "id": "LIT-003_closure",
+        "ref": "Montévil & Mossio 2015 (10.1016/j.jtbi.2015.02.029); Kauffman 1993"
+      },
+      "statement": "LIT-003 (целостность / замкнутость ограничений). Понятие: constraint closure; синергия на системном уровне измеряется отклонением от аддитивности, но на выбранной шкале и с учётом того, что наши условия — параметры с уровнями. Критерий модели «Metric(All) > Σ Metric(Isolated)» наивен: pop_time аддитивен не на линейной шкале. Вердикт: взять с поправкой (лог pop_time, параметрическая сетка 2^k), см. B-041.",
+      "evidence": [
+        {
+          "library": "review-free-selforganization.md#2",
+          "note": "Kauffman 1993 DOI проверен"
+        }
+      ],
+      "action": {
+        "kind": "method",
+        "detail": "факторный дизайн по {B,D}; синергия = log M(all) − Σ log M(single) с интервалом по сидам"
+      },
+      "status": "new",
+      "wave": "current",
+      "owner": "librarian",
+      "created_at": "2026-10-24T19:12:04+03:00",
+      "decided_at": null,
+      "why": null,
+      "links": {
+        "insights": [],
+        "tasks": [],
+        "reports": []
+      }
+    },
+    {
+      "id": "B-047",
+      "type": "known_fact",
+      "target": {
+        "kind": "metric",
+        "id": "LIT-004_epsilon",
+        "ref": "Crutchfield & Young 1989 (10.1103/PhysRevLett.63.105); Rabadán & Blumberg 2019 (10.1017/9781316671665)"
+      },
+      "statement": "LIT-004 (наблюдение без категорий: ε-machines, TDA). Понятие: статистическая сложность (минимальная предсказывающая модель) и топологические инварианты. Риск, который модель сама ставит как high, подтверждаем: на исторических логах это переобучение; нужен hold-out и заранее выбранная метрика. Объём: у нас сотни траекторий по 300–2000 шагов — для TDA мало для устойчивых инвариантов. Вердикт: отложить до инфраструктуры (hold-out + PyInform/JIDT).",
+      "evidence": [
+        {
+          "library": "review-free-selforganization.md#2",
+          "note": "Crutchfield & Young: термин «иллюзия наблюдателя» отсутствует — paraphrase"
+        }
+      ],
+      "action": {
+        "kind": "method",
+        "detail": "сначала hold-out протокол и одна метрика; exploratory"
+      },
+      "status": "new",
+      "wave": "current",
+      "owner": "librarian",
+      "created_at": "2026-10-24T19:12:04+03:00",
+      "decided_at": null,
+      "why": null,
+      "links": {
+        "insights": [],
+        "tasks": [],
+        "reports": []
+      }
+    },
+    {
+      "id": "B-048",
+      "type": "known_fact",
+      "target": {
+        "kind": "section",
+        "id": "METH-001_teleonomy",
+        "ref": "Pittendrigh 1958 (глава); §3a"
+      },
+      "statement": "METH-001 (режим EDA / телеономия против телеологии). Понятие: телеономия — «направленность без цели»; у нас это уже процедура: exploratory-прогоны разрешены, утверждения — только с пре-регистрацией (§3a). Правка не нужна по существу; предлагается только помечать exploratory-артефакты в шапке, чтобы их нельзя было процитировать как подтверждение.",
+      "evidence": [
+        {
+          "library": "review-free-selforganization.md#2",
+          "note": "Pittendrigh — глава сборника, DOI нет"
+        }
+      ],
+      "action": {
+        "kind": "method",
+        "detail": "в summary exploratory-прогонов писать exploratory: true; в пре-регистрации — false"
+      },
+      "status": "new",
+      "wave": "current",
+      "owner": "librarian",
+      "created_at": "2026-10-24T19:12:04+03:00",
+      "decided_at": null,
+      "why": null,
+      "links": {
+        "insights": [],
+        "tasks": [],
+        "reports": []
+      }
     }
   ],
   "updated_at": "2026-10-24T13:40:00Z"

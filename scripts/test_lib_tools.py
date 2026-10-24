@@ -210,6 +210,21 @@ def test_trait_metrics(tmp: Path) -> None:
     check("trait_metrics: новизна посчитана", (valid.get("novelty_flux") or 0) >= 1, str(valid))
     check("trait_metrics: Спирмен посчитан", valid.get("spearman_trait_births") is not None, str(valid))
     missing = by_name.get("missing_fields.json", {})
+    m0 = by_name.get("m0_control.json", {})
+    check("trait_metrics: при m=0 новизна строго 0", m0.get("novelty_flux") == 0, str(m0))
+    check("trait_metrics: предковая метка исключена",
+          m0.get("novelty_ancestral_excluded") == ["A"] and m0.get("types_total") == 1, str(m0))
+    ref_out = tmp / "ref_metrics.json"
+    ref = run("scripts/trait_metrics.py", "--src", "library/tools/fixtures",
+              "--glob", "*.json", "--json", str(ref_out))
+    if ref.returncode == 0 and ref_out.exists():
+        ref_data = json.loads(ref_out.read_text(encoding="utf-8"))
+        ref_by = {r["artifact"]: r for r in (ref_data.get("results") or ref_data.get("rows") or [])}
+        agree = all(
+            abs((by_name.get(n, {}).get("shannon_median") or 0) - (ref_by.get(n, {}).get("shannon_median") or 0)) < 1e-9
+            and by_name.get(n, {}).get("novelty_flux") == ref_by.get(n, {}).get("novelty_flux")
+            for n in ("valid_mut.json", "m0_control.json") if n in ref_by)
+        check("trait_metrics: согласие с референсом учёного", agree, str(ref_by))
     check("trait_metrics: отсутствие полей = invalid, не ноль",
           missing.get("valid") is False and "type_counts_series" in (missing.get("invalid_reason") or ""),
           str(missing))
