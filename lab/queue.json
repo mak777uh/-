@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-24T02:55:00+03:00",
+  "updated_at": "2026-10-24T13:40:00+03:00",
   "note": "Очередь пунктов после E02c. Claim берётся до пре-регистрации, а не перед запуском: lab.py item-claim. Статус running означает занятый GPU-лейн и может быть только у одного пункта.",
   "items": [
     {
@@ -539,6 +539,23 @@
         "docs/plan-verification-2026-10-24.md"
       ],
       "note": "из плана проверок 24.10"
+    },
+    {
+      "id": "B2b_half_life",
+      "title": "Полураспад наследия B2: сколько живёт поднятый ресурс после удаления организмов",
+      "hypothesis": "H-ALIVE-16",
+      "status": "planned",
+      "owner": null,
+      "claimed_at": null,
+      "heartbeat_at": null,
+      "closed_at": null,
+      "ttl_minutes": 240,
+      "cost_gpu_h": 0.5,
+      "gated_by": "B2_niche",
+      "artifacts": [
+        "docs/plan-verification-2026-10-24.md"
+      ],
+      "note": "P49-P50: наследие должно переживать удаление организма, иначе это разовое удобство"
     }
   ]
 }
