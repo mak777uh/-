@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-24T19:45:00+03:00",
+  "updated_at": "2026-10-24T20:30:00+03:00",
   "note": "Очередь пунктов после E02c. Claim берётся до пре-регистрации, а не перед запуском: lab.py item-claim. Статус running означает занятый GPU-лейн и может быть только у одного пункта.",
   "items": [
     {
@@ -604,10 +604,10 @@
       "id": "V8_placement_merge",
       "title": "Размещение и правило слияния: когда редкая линия выживает",
       "hypothesis": "H-ALIVE-21",
-      "status": "planned",
-      "owner": null,
-      "claimed_at": null,
-      "heartbeat_at": null,
+      "status": "running",
+      "owner": "scientist",
+      "claimed_at": "2026-10-24T16:52:29Z",
+      "heartbeat_at": "2026-10-24T16:52:29Z",
       "closed_at": null,
       "ttl_minutes": 240,
       "cost_gpu_h": 3.0,
@@ -615,7 +615,25 @@
       "artifacts": [
         "reports/2026-10-24-placement-merge-plan.md"
       ],
-      "note": "смена постановки: дозы 5/10/20 x размещение (случайная точка / свободная область) x правило слияния (большинство / первый занявший) x 10 прогонов; запуск только после «ок» владельца"
+      "note": "V8: плечи into_resident/into_gap/resident_free/propagule x merge majority/mass_weighted, 60 прогонов (~88 мин), пре-регистрация reports/2026-10-24-invasion-placement-plan.md"
+    },
+    {
+      "id": "V9_ecm",
+      "title": "ECM: постоянная пространственная память против затухающей",
+      "hypothesis": "H-ALIVE-22",
+      "status": "planned",
+      "owner": null,
+      "claimed_at": null,
+      "heartbeat_at": null,
+      "closed_at": null,
+      "ttl_minutes": 240,
+      "cost_gpu_h": 1.5,
+      "gated_by": "V8_placement_merge",
+      "artifacts": [
+        "reports/2026-10-24-ecm-plan.md",
+        "morphogenesis/experiments/E09_pond/ecm_matrix.json"
+      ],
+      "note": "пре-регистрация пишется после финиша V8 (world/ заморожен); запуск — только после «ок» владельца: смена физики среды. Плечи: control (смерть = пустота) против ECM (смерть = препятствие); метрики β1 + Boundary Rugosity + классы; 5 сидов"
     }
   ]
 }
