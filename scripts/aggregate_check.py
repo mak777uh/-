@@ -100,6 +100,45 @@ def check_row(row: dict, strict: bool) -> tuple[list[str], list[str]]:
     return errors, warns
 
 
+def check_medians(rows: list[dict]) -> list[str]:
+    """Внутренние проверки для агрегатов-медиан (одна строка = несколько прогонов)."""
+    errors: list[str] = []
+    for i, row in enumerate(rows):
+        n = row.get("n")
+        median = row.get("median")
+        if not isinstance(n, int) or n <= 0:
+            errors.append(f"[{i}]: n должно быть положительным ({n})")
+            continue
+        if median is None:
+            errors.append(f"[{i}]: нет median")
+            continue
+        lo, hi = row.get("min"), row.get("max")
+        if isinstance(lo, (int, float)) and isinstance(hi, (int, float)) and not (lo <= median <= hi):
+            errors.append(f"[{i}]: median {median} вне [{lo}, {hi}]")
+        collapses = row.get("collapses")
+        if isinstance(collapses, int) and collapses > n:
+            errors.append(f"[{i}]: collapses {collapses} > n {n}")
+    return errors
+
+
+def check_probe(rows: list[dict]) -> list[str]:
+    """Проверки сводки зонда: положительный полураспад и невозрастающий decay."""
+    errors: list[str] = []
+    for i, row in enumerate(rows):
+        half = row.get("half_life_steps")
+        if not isinstance(half, (int, float)) or half <= 0:
+            errors.append(f"[{i}]: half_life_steps должно быть положительным ({half})")
+        decay = row.get("decay") or []
+        if len(decay) < 3:
+            errors.append(f"[{i}]: decay короче 3 точек")
+            continue
+        for a, b in zip(decay, decay[1:]):
+            if isinstance(a, (int, float)) and isinstance(b, (int, float)) and b > a + 1e-6:
+                errors.append(f"[{i}]: decay растёт ({a} → {b}) — метрика сломана")
+                break
+    return errors
+
+
 def check_file(path: Path, strict: bool = False) -> tuple[list[str], list[str]]:
     errors: list[str] = []
     warns: list[str] = []
@@ -107,6 +146,10 @@ def check_file(path: Path, strict: bool = False) -> tuple[list[str], list[str]]:
     rows = payload.get("rows")
     if not rows:
         return errors, warns  # не агрегат
+    if payload.get("kind") == "probe_summary":
+        return [f"{path.name}{e}" for e in check_probe(rows)], warns
+    if payload.get("kind") == "aggregate_medians":
+        return [f"{path.name}{e}" for e in check_medians(rows)], warns
     for i, row in enumerate(rows):
         errs, ws = check_row(row, strict)
         errors += [f"{path.name}[{i}]: {e}" for e in errs]
