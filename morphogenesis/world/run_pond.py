@@ -167,22 +167,35 @@ class PondRun:
 
     def _inherit_grown_types(self, old_alive: torch.Tensor, newly: torch.Tensor,
                              labels: torch.Tensor | None = None) -> None:
-        """Тип A/B для клеток, выросших правилом: по ближайшим соседям (линия).
+        """Тип A/B для клеток, выросших правилом (два режима, I-033/task-10).
 
-        Правило локальное (4-соседство + диагонали, только среди уже типизированных
-        старых клеток), а не по большинству всей компоненты: компонента может быть
-        слипшимся телом из разных линий, и правило большинства превращало
-        меньшинство в большинство при каждом слиянии. Если типизированных соседей
-        нет, берётся тип большинства колонии.
+        `neighbours` — клетка копирует тип ближайших типизированных соседей: это
+        voter-процесс, смесь фиксируется за ~100 шагов.
+        `parent` — тип идёт по линии: новая клетка наследует тип СВОЕГО тела
+        (компоненты), поэтому образуются клональные пятна и voter-смешивания нет.
+        Для нового тела без старой части падаем на ближайших соседей, затем на
+        тип большинства колонии.
         """
         s = self.pond.state
         ct = s.cell_type
         n = self.world_cfg.grid
+        global_type = 1.0 if float((ct[old_alive] == 1).float().mean()) > 0.5 else 0.0
+        mode = getattr(self.world_cfg, "type_inherit", "neighbours")
+        if mode == "parent" and labels is not None:
+            body_type: dict[int, float] = {}
+            for lab in set(labels[newly].tolist()):
+                body = old_alive & (labels == lab)
+                body_type[int(lab)] = float(ct[body].float().mean()) if bool(body.any()) else -1.0
+            fallback = 1.0 + global_type
+            for y, x in newly.nonzero(as_tuple=False).tolist():
+                code = body_type.get(int(labels[y, x]), -1.0)
+                ct[y, x] = int(round(code)) if code >= 0.0 else int(fallback - 1.0)
+            return
+        # neighbours: локальное копирование (voter)
         code = torch.where(old_alive & (ct == 0),
                            torch.ones_like(ct, dtype=torch.float32),
                            torch.zeros_like(ct, dtype=torch.float32))
         code = torch.where(old_alive & (ct == 1), torch.full_like(code, 2.0), code)
-        global_type = 1.0 if float((ct[old_alive] == 1).float().mean()) > 0.5 else 0.0
         padded = torch.zeros((n + 2, n + 2), device=self.device)
         padded[1:-1, 1:-1] = code
         acc = torch.zeros_like(code)
@@ -282,6 +295,10 @@ def main(argv: list[str] | None = None) -> int:
                     help="доля потолка, до которой поле заполнено ресурсом на старте")
     ap.add_argument("--income-mode", default="cap", choices=["cap", "proportional"],
                     help="как считается доход: cap (текущий) или proportional (доход*ресурс)")
+    ap.add_argument("--catastrophe-rate", type=float, default=0.0,
+                    help="пуассоновские катастрофы: событий на шаг (0 = выкл)")
+    ap.add_argument("--catastrophe-duration", type=int, default=50,
+                    help="длительность катастрофы в шагах")
     ap.add_argument("--flip-at", type=int, default=0,
                     help="перевернуть градиент ресурса на этом шаге (0 = не переворачивать)")
     ap.add_argument("--drift-at", type=int, default=0,
@@ -326,6 +343,8 @@ def main(argv: list[str] | None = None) -> int:
                     help="доля живых клеток, которым подменяют тип при инвазии")
     ap.add_argument("--invade-type", type=int, default=1, choices=[0, 1],
                     help="какой тип подсаживаем: 0 = A, 1 = B")
+    ap.add_argument("--type-inherit", default="neighbours", choices=["neighbours", "parent"],
+                    help="как наследуется тип при росте: voter-соседи или линия (компонента)")
     ap.add_argument("--type-start", default="a", choices=["a", "b", "mixed"],
                     help="тип стартовых клеток: все A или смешанный")
     ap.add_argument("--type-mode", default="fixed", choices=["fixed", "mixfixed", "random", "learn"],
@@ -359,6 +378,7 @@ def main(argv: list[str] | None = None) -> int:
     world.freq_dep = args.freq_dep
     world.type_mode = args.type_mode
     world.type_start = args.type_start
+    world.type_inherit = args.type_inherit
     world.invade_at = args.invade_at
     world.invade_share = args.invade_share
     world.invade_type = args.invade_type
@@ -370,6 +390,8 @@ def main(argv: list[str] | None = None) -> int:
     world.learn_noise = args.learn_noise
     world.learn_pair_noise = args.learn_pair_noise
     world.learn_window = getattr(args, "learn_window", 30)
+    world.catastrophe_rate = args.catastrophe_rate
+    world.catastrophe_duration = args.catastrophe_duration
     world.flip_at = args.flip_at
     world.drift_at = args.drift_at
     world.drift_steps = args.drift_steps

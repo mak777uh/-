@@ -78,6 +78,7 @@ class PondConfig:
     freq_dep: float = 0.0              # сила отрицательной частотной зависимости (0 = выкл)
     type_mode: str = "fixed"           # fixed | mixfixed | random | learn — тип A/B
     type_start: str = "a"              # a | b | mixed — тип стартовых клеток
+    type_inherit: str = "neighbours"   # neighbours (voter) | parent (клональные пятна)
     invade_at: int = 0                 # шаг инвазии редкого типа (0 = нет, I-032)
     invade_share: float = 0.05         # доля живых клеток, которым подменяют тип
     invade_type: int = 1               # какой тип подсаживаем: 0 = A, 1 = B
@@ -252,6 +253,10 @@ class Pond:
                 half = cfg.grid // 2
                 self.state.resource[:, :half] = 0.0
                 self.state.resource[:, half:] = cfg.resource_max
+                # второй тип ресурса переезжает так же (task-12)
+                if self.state.resource_b is not None:
+                    self.state.resource_b[:, :half] = 0.0
+                    self.state.resource_b[:, half:] = cfg.resource_max
             else:
                 self.state.resource = self.state.resource * (1.0 - cfg.catastrophe_strength)
             return
