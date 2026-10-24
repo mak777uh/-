@@ -109,6 +109,7 @@ def config_block(cfg) -> dict:
         "merge_rule": getattr(cfg, "merge_rule", "majority"),
         "invade_on_empty": bool(getattr(cfg, "invade_on_empty", False)),
         "start_cells": int(getattr(cfg, "start_cells", 4)),
+        "ignition_gate": bool(getattr(cfg, "ignition_gate", False)),
         "mutation_rate": getattr(cfg, "mutation_rate", 0.0),
         "mutation_trait_sigma": getattr(cfg, "mutation_trait_sigma", 0.0),
         "layout": getattr(cfg, "resource_layout", None),
@@ -152,6 +153,27 @@ def tag_metrics_block(pond) -> dict:
         tag_id = int(key[1:]) if key.startswith("T") else None
         if tag_id is not None and tag_id in traits:
             block["type_traits"][key] = round(float(traits[tag_id]), 6)
+    return block
+
+
+def final_map_block(pond) -> dict:
+    """Финальная карта живого (патч логгера под IDH/TDA, §10x.1).
+
+    Без карты разнообразие ПАТТЕРНОВ не считается (IDH, Betti, Rugosity): в `log` были
+    только скаляры. Формат компактный: `final_alive_map` — строки по 32 символа «0/1»
+    через «/», то есть 32×32 бит на прогон (~1 КБ текстом). Старые артефакты не
+    переписываются: поле появляется у новых прогонов.
+    """
+    s = pond.state
+    block: dict = {"final_alive_map": None, "alive_map_shape": None,
+                   "map_source": "final_alive_map: строки «0/1» через «/», финальный шаг"}
+    if not bool(s.alive.any()) and int(s.alive.sum()) == 0:
+        block["final_alive_map"] = "/".join(["0" * int(s.alive.shape[1])] * int(s.alive.shape[0]))
+        block["alive_map_shape"] = list(s.alive.shape)
+        return block
+    rows = ["".join("1" if bool(v) else "0" for v in row) for row in s.alive]
+    block["final_alive_map"] = "/".join(rows)
+    block["alive_map_shape"] = list(s.alive.shape)
     return block
 
 
@@ -278,6 +300,26 @@ class PondRun:
                     alive, self.state[0, ch], torch.zeros_like(self.state[0, ch])
                 )
 
+    def _gate_ignition(self, alive_now: torch.Tensor) -> torch.Tensor:
+        """Оставить только клетки, приросшие к уже живому (4-соседство).
+
+        Пустое поле остаётся пустым: без этого правила «жизнь из ничего» не отличить от
+        основания колонии. Уже живые клетки не гасятся — гейт касается только новых.
+        """
+        s = self.pond.state
+        if not bool(alive_now.any()):
+            return alive_now
+        if not bool(s.alive.any()):
+            # поле пустое: зажигать нечему, кроме того, что уже посажено снаружи (seed/bud)
+            return alive_now & s.alive
+        n = int(alive_now.shape[0])
+        grow = torch.zeros_like(s.alive)
+        grow[1:, :] |= s.alive[:-1, :]
+        grow[:-1, :] |= s.alive[1:, :]
+        grow[:, 1:] |= s.alive[:, :-1]
+        grow[:, :-1] |= s.alive[:, 1:]
+        return s.alive | (alive_now & grow)
+
     def _organism_mobility(self) -> int:
         """Шаг организма по жизни: двигаем всё состояние клетки и её геном (I-023).
 
@@ -328,6 +370,11 @@ class PondRun:
         s = self.pond.state
         with torch.no_grad():
             alive_now = torch.sigmoid(self.state[0, self.rule_cfg.alive_channel]) > 0.5
+        if bool(getattr(self.world_cfg, "ignition_gate", False)):
+            # гейт зажигания: правило не имеет права зажечь клетку, у которой нет живого
+            # 4-соседа. Иначе обученное правило из пустого поля зажигает ВСЁ (1024 из 1024
+            # на шаге 1, см. §10ae) и вопрос «основывает ли колонию N клеток» не задаётся.
+            alive_now = self._gate_ignition(alive_now)
         newly = alive_now & ~s.alive
         births = int(newly.sum())
         if births:
@@ -574,6 +621,9 @@ def build_parser() -> argparse.ArgumentParser:
                     help="вероятность НОВОЙ метки линии (tag) при рождении; 0 = мутаций нет")
     ap.add_argument("--mutation-trait-sigma", type=float, default=0.01,
                     help="сдвиг признака линии при мутации (масштаб признака ~1)")
+    ap.add_argument("--ignition-gate", action="store_true",
+                    help="запретить правилу зажигать клетку без живого 4-соседа "
+                         "(пустое поле остаётся пустым, плечо пропагула)")
     ap.add_argument("--start-cells", type=int, default=4,
                     help="сколько клеток засеять на старте (0 = пустое поле, плечо resident_free)")
     ap.add_argument("--invade-placement", default="random", choices=["random", "gap"],
@@ -654,6 +704,7 @@ def main(argv: list[str] | None = None) -> int:
     world.merge_rule = args.merge_rule
     world.invade_on_empty = bool(args.invade_on_empty)
     world.start_cells = int(args.start_cells)
+    world.ignition_gate = bool(args.ignition_gate)
     world.mutation_rate = args.mutation_rate
     world.mutation_trait_sigma = args.mutation_trait_sigma
     world.w_rich = args.w_rich
@@ -770,6 +821,7 @@ def main(argv: list[str] | None = None) -> int:
     summary.update(generation_block(getattr(run.pond, "division_parent_ages", []),
                                     getattr(run.pond, "division_oldest_ages", [])))
     summary.update(tag_metrics_block(run.pond))
+    summary.update(final_map_block(run.pond))
     summary["design"] = 3
     summary["injection_invalid"] = bool(getattr(run.pond, "injection_invalid", False))
     summary["w_final"] = float(run.pond.w)

@@ -1060,6 +1060,43 @@ def test_invade_on_empty_founds_colony():
     assert int(pond.state.cell_type.sum()) >= 3, "все клетки основателя — инвайдер"
 
 
+def test_ignition_gate_keeps_empty_field_empty():
+    """Гейт зажигания: без живого соседа правило не зажигает — пустое поле остаётся пустым.
+
+    Без гейта обученное правило из нулевого поля зажигает весь мир (1024 из 1024 на шаге 1,
+    §10ae), и вопрос «основывает ли колонию N клеток» не задаётся.
+    """
+    from world.run_pond import PondRun
+    cfg = PondConfig(grid=8, resource_layout="uniform", income_mode="proportional",
+                     init_resource_fill=0.9, baseline_income=0.2, update_cost=0.02,
+                     repair_cost=0.02, budding_mass=8, spore_bias="score", w_rich=0.1,
+                     ignition_gate=True)
+    run = PondRun(world_cfg=cfg, seed=1, device="cpu")
+    pond = run.pond
+    # имитируем «правило зажгло всё поле»: гейт должен погасить всё, кроме уже живого
+    alive_now = torch.ones((8, 8), dtype=torch.bool)
+    gated = run._gate_ignition(alive_now)
+    assert int(gated.sum()) == 0, "на пустом поле гейт не даёт зажечь ни одной клетки"
+    # и с живой клеткой: зажигаются только её 4-соседи
+    pond.state.alive[3, 3] = True
+    gated = run._gate_ignition(alive_now)
+    assert int(gated.sum()) == 5, "живая клетка + её 4 соседа"
+
+
+def test_final_alive_map_matches_world():
+    """Карта финального живого: размер и число единиц совпадают с миром."""
+    from world.run_pond import final_map_block
+    pond = _two_type_pond(freq_dep=0.0, type_mode="mixfixed")
+    mask = torch.zeros((8, 8), dtype=torch.bool)
+    mask[2:4, 2:4] = True
+    pond.seed_life(mask, energy=5.0)
+    block = final_map_block(pond)
+    rows = block["final_alive_map"].split("/")
+    assert block["alive_map_shape"] == [8, 8]
+    assert len(rows) == 8 and all(len(r) == 8 for r in rows)
+    assert sum(r.count("1") for r in rows) == int(pond.state.alive.sum())
+
+
 def _type_run(start: str, fd: float, steps: int = 40, grid: int = 16, seed: int = 1):
     from world.run_pond import PondRun
     cfg = PondConfig(grid=grid, resource_layout="gradient", income_mode="proportional",

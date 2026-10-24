@@ -97,6 +97,7 @@ class PondConfig:
     invade_min_cells: int = 30         # ждать, пока колония не вырастет до N клеток
     invader_cells: int = 1             # доза основателя: сколько клеток ставит инъекция (colony)
     mutation_rate: float = 0.0         # 0..1: новый tag (метка линии) при рождении (условие B)
+    ignition_gate: bool = False        # запретить правилу зажигать без живого 4-соседа (пропагул)
     mutation_trait_sigma: float = 0.01  # сдвиг признака линии при мутации (масштаб признака ~1)
     invade_placement: str = "random"   # random | gap: куда садится инокулят (V8)
     merge_rule: str = "majority"       # majority | mass_weighted: правило слияния компонент (V8)
