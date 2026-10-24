@@ -165,6 +165,11 @@ jobs:
       - name: Library inbox (no stale board remarks)
         run: python scripts/library_inbox.py --ci
 
+      # Агрегаты обязаны совпадать с первичными артефактами: две ошибки склейки
+      # за сутки — системный риск, а не невнимательность.
+      - name: Aggregate-vs-artifact check
+        run: python scripts/aggregate_check.py --strict
+
       - name: CPU tests
         working-directory: morphogenesis
         env:
