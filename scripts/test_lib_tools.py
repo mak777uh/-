@@ -194,6 +194,7 @@ def test_notices(tmp: Path) -> None:
     check("notices: ОТВЕТ закрывает запрос", "answered" in out, out)
     check("notices: старый запрос помечен", "старше 24 ч: 1" in out and "B-999" in out, out)
     check("notices: код возврата 1 при просрочке", res.returncode == 1, str(res.returncode))
+    check("notices: упоминание B-### не закрывает запрос", "closed(доска)" not in out, out)
 
 
 def main() -> int:

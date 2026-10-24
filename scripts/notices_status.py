@@ -91,8 +91,7 @@ def main(argv=None) -> int:
         if req["text"] in answered:
             state = "answered"
         for tag in req["tags"]:
-            if tag.startswith("B-") and status_board.get(tag) in ("accepted", "declined"):
-                state = "closed(доска)"
+            # доска НЕ закрывает запрос: B-### часто упомянут как контекст, а не как условие
             if tag.startswith("W") and tag in done_queue:
                 state = "closed(очередь)"
         row = {**req, "age_hours": round(age_h, 1), "state": state}
