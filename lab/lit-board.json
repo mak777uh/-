@@ -1419,6 +1419,192 @@
         "tasks": [],
         "reports": []
       }
+    },
+    {
+      "id": "B-038",
+      "type": "opportunity",
+      "target": {
+        "kind": "experiment",
+        "id": "update_probability",
+        "ref": "§10f; run_pond.py L166,341,350"
+      },
+      "statement": "Асинхронность уже реализована (update_probability), но эффект на выживание нулевой: p=0.9 против 1.0 — 555/562 живых, клональность 0.878, рождения 7/7. Меморандум подаёт это как новую архитектуру — это развёртка параметра. Чтобы проверить принцип честно, метрика должна быть не выживание, а ВОССТАНОВЛЕНИЕ после ампутации (доля массы, вернувшаяся за N шагов) при p = 1.0 / 0.9 / 0.8.",
+      "evidence": [
+        {
+          "library": "review-free-selforganization.md#2",
+          "note": "Fatès 2013: асинхронность меняет классы поведения CA; у нас на выживании не видно"
+        }
+      ],
+      "action": {
+        "kind": "experiment",
+        "detail": "A/B: p=1.0/0.9/0.8, ампутация 50% массы на шаге 150, метрика recovery_time и recovered_fraction; 3 сида"
+      },
+      "status": "new",
+      "wave": "current",
+      "owner": "librarian",
+      "created_at": "2026-10-24T18:52:23+03:00",
+      "decided_at": null,
+      "why": null,
+      "links": {
+        "insights": [],
+        "tasks": [],
+        "reports": []
+      }
+    },
+    {
+      "id": "B-039",
+      "type": "missing_baseline",
+      "target": {
+        "kind": "experiment",
+        "id": "inherit2",
+        "ref": "inherit2_*.json; §10ab"
+      },
+      "statement": "Kill-and-keep: наш полураспад наследия 20–41 шаг измерен после удаления организмов, но прямого теста 'новая спора в изменённую среду против чистой' не было. Меморандум прав, что это отдельный эксперимент: он проверяет, даёт ли наследие среды преимущество НОВОМУ организму, а не только сохраняет избыток. Без него утверждение 'экологическое наследование' опирается только на полураспад.",
+      "evidence": [
+        {
+          "library": "review-free-selforganization.md#7",
+          "note": "Odling-Smee 2003; Silver & Di Paolo 2006: пространственные эффекты благоприятствуют наследованию"
+        }
+      ],
+      "action": {
+        "kind": "baseline",
+        "detail": "два поля: (а) после гибели строителей, (б) чистое поле; посадить 1 спору, 3 сида, сравнить pop_time и рост"
+      },
+      "status": "new",
+      "wave": "current",
+      "owner": "librarian",
+      "created_at": "2026-10-24T18:52:23+03:00",
+      "decided_at": null,
+      "why": null,
+      "links": {
+        "insights": [],
+        "tasks": [],
+        "reports": []
+      }
+    },
+    {
+      "id": "B-040",
+      "type": "missing_baseline",
+      "target": {
+        "kind": "metric",
+        "id": "catastrophe_matrix",
+        "ref": "54 комбинации, duty 0.5–5%"
+      },
+      "statement": "Реанализ катастроф: меморандум утверждает, что мы тестировали 'экстремальное возмущение', но у нас 54 комбинации с duty cycle 0.5–5% и периодами 10–200 — это промежуточные режимы (IDH). И мерили мы долю инвайдера, а не разнообразие классов. Новая часть — реанализ существующих артефактов на число классов/разнообразие, без новых прогонов.",
+      "evidence": [
+        {
+          "library": "review-free-selforganization.md#7",
+          "note": "Connell 1978: разнообразие максимально при промежуточном нарушении"
+        }
+      ],
+      "action": {
+        "kind": "method",
+        "detail": "пересчитать catastrophe_matrix на разнообразие классов паттернов (число классов, Shannon по классам) по duty cycle"
+      },
+      "status": "new",
+      "wave": "current",
+      "owner": "librarian",
+      "created_at": "2026-10-24T18:52:23+03:00",
+      "decided_at": null,
+      "why": null,
+      "links": {
+        "insights": [],
+        "tasks": [],
+        "reports": []
+      }
+    },
+    {
+      "id": "B-041",
+      "type": "risk",
+      "target": {
+        "kind": "metric",
+        "id": "LIT-003_synergy",
+        "ref": "review-free-selforganization.md#2 (принцип 4)"
+      },
+      "statement": "Критерий синергии 'Metric(All) > Σ Metric(Isolated)' из меморандума наивен в двух местах: (1) pop_time аддитивен не на линейной шкале — нужен логарифм; (2) наши условия A–E — параметры с уровнями, а не бинарные выключатели, поэтому 'All' и 'Σ Isolated' не определены без сетки. Канон для синергии на системном уровне — отклонение от аддитивности на выбранной шкале (эпистаз/высшего порядка взаимодействия).",
+      "evidence": [
+        {
+          "library": "review-free-selforganization.md#2",
+          "note": "Bairey et al. 2016: взаимодействия высшего порядка меняют выводы о сосуществовании"
+        }
+      ],
+      "action": {
+        "kind": "method",
+        "detail": "факторный 2^k по {B,D} с уровнями; метрика — log pop_time; синергия = log M(all) - Σ log M(single) с интервалом по сидам"
+      },
+      "status": "new",
+      "wave": "current",
+      "owner": "librarian",
+      "created_at": "2026-10-24T18:52:40+03:00",
+      "decided_at": null,
+      "why": null,
+      "links": {
+        "insights": [],
+        "tasks": [],
+        "reports": []
+      }
+    },
+    {
+      "id": "B-042",
+      "type": "risk",
+      "target": {
+        "kind": "section",
+        "id": "section5a",
+        "ref": "manuscript §5a; review-free-selforganization.md#1"
+      },
+      "statement": "Атрибуция 'иллюзия наблюдателя' Крютчфилду не подтверждается: работа Crutchfield & Young 1989 (PRL 63:105) называется 'Inferring statistical complexity' и такого термина не содержит. В §5a это должно идти как paraphrase, а не как цитата; канонической статьи про наблюдателя в ALife мы не нашли (ближайшие — Pattee о измерении, Di Paolo 'модель ≠ организм').",
+      "evidence": [
+        {
+          "library": "review-free-selforganization.md#4",
+          "note": "проверено по Crossref 24.10"
+        }
+      ],
+      "action": {
+        "kind": "text",
+        "detail": "в §5a: либо найти источник на 'наблюдателя в ALife', либо писать 'парафраз, канонической ссылки нет'"
+      },
+      "status": "new",
+      "wave": "current",
+      "owner": "librarian",
+      "created_at": "2026-10-24T18:52:40+03:00",
+      "decided_at": null,
+      "why": null,
+      "links": {
+        "insights": [],
+        "tasks": [],
+        "reports": []
+      }
+    },
+    {
+      "id": "B-043",
+      "type": "risk",
+      "target": {
+        "kind": "artifact",
+        "id": "external-citations",
+        "ref": "_hourly/dialog-external-2026-10-24.md"
+      },
+      "statement": "Сверка DOI внешней модели: 5 из 16 ссылок неверны (Fatès 2004 → другая работа, верная 10.1007/978-3-642-40867-0_2; Silver & Di Paolo → 404, верная 10.1016/j.tpb.2006.08.003; Lizier 2012 → квантовая работа, верная 10.1016/j.ins.2012.04.016; Doherty arXiv 2405.10971 → другая работа, верная Dohare 2024 10.1038/s41586-024-07711-7; Rabadan & Blumberg → 10.1017/9781316671665), плюс неверный год Bersini (1994, не 1995). Правило R14 подтверждается: цитата модели — не источник, каждый DOI проверяется до внесения в library/.",
+      "evidence": [
+        {
+          "library": "review-free-selforganization.md#1",
+          "note": "Crossref+DataCite, 24.10.2026"
+        }
+      ],
+      "action": {
+        "kind": "method",
+        "detail": "все внешние ссылки проходят ту же проверку, что и наши; непроверенное помечается 'не проверено', а не вставляется как факт"
+      },
+      "status": "new",
+      "wave": "current",
+      "owner": "librarian",
+      "created_at": "2026-10-24T18:52:41+03:00",
+      "decided_at": null,
+      "why": null,
+      "links": {
+        "insights": [],
+        "tasks": [],
+        "reports": []
+      }
     }
   ],
   "updated_at": "2026-10-24T13:40:00Z"
