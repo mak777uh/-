@@ -279,6 +279,17 @@ def test_series_provenance(tmp: Path) -> None:
     check("provenance: без провенанса ловится", "БЕЗ ПРОВЕНАНСА" in res.stdout, res.stdout)
 
 
+def test_v8_matrix(tmp: Path) -> None:
+    res = run("library/tools/v8_matrix.py", "--src", "library/tools/fixtures/v8")
+    check("v8: неполные плечи — вердикт не выносится",
+          "плечи неполные" in res.stdout and "вердикт не выносится" in res.stdout, res.stdout[-300:])
+    out = tmp / "v8.json"
+    res = run("library/tools/v8_matrix.py", "--src", "library/tools/fixtures/v8", "--json", str(out))
+    data = json.loads(out.read_text(encoding="utf-8"))
+    check("v8: семантика инвайдера = 1 - a_share",
+          any(r["invader_share_final"] == 1.0 for r in data["rows"]), str(data["rows"][:1]))
+
+
 def main() -> int:
     with tempfile.TemporaryDirectory() as tdir:
         tmp = Path(tdir)
@@ -296,6 +307,8 @@ def main() -> int:
         test_wake_notices(tmp)
         print("== provenance ==")
         test_series_provenance(tmp)
+        print("== v8 ==")
+        test_v8_matrix(tmp)
     print(f"\nпровалено: {len(FAILED)}")
     return 1 if FAILED else 0
 
