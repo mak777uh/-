@@ -19,6 +19,7 @@ import argparse
 import random
 import json
 import os
+import statistics
 import sys
 import time
 
@@ -31,6 +32,65 @@ if _MORPH not in sys.path:
 
 from world.cnca import CNCA, CNCAConfig
 from world.pond import Pond, PondConfig
+
+
+def config_block(cfg) -> dict:
+    """Конфигурация прогона в `summary["config"]`.
+
+    Зачем: артефакт должен читаться сам, без sweep-скрипта вне git. До этого
+    `freq_dep` не попадал в `summary` вообще, и плечо восстанавливалось только из
+    командной строки, которой в артефакте нет.
+
+    `invade_at` здесь — **запрошенный** шаг инвазии; фактический шаг лежит в
+    `summary["invade_at"]` (он сдвигается, если колония ещё меньше `invade_min_cells`).
+    """
+    return {
+        "freq_dep": getattr(cfg, "freq_dep", None),
+        "freq_dep_range": "0..1 (непрерывный множитель: 0 — обратной связи нет, "
+                          "1 — максимальная; метки fd0/fd05/fd10 = 0.0/0.5/1.0)",
+        "type_mode": getattr(cfg, "type_mode", None),
+        "type_level": getattr(cfg, "type_level", None),
+        "type_inherit": getattr(cfg, "type_inherit", None),
+        "invade_at": getattr(cfg, "invade_at", 0),
+        "invade_share": getattr(cfg, "invade_share", None),
+        "invade_type": getattr(cfg, "invade_type", None),
+        "invade_min_cells": getattr(cfg, "invade_min_cells", None),
+        "invader_cells": getattr(cfg, "invader_cells", 1),
+        "layout": getattr(cfg, "resource_layout", None),
+        "income": getattr(cfg, "baseline_income", None),
+        "update_cost": getattr(cfg, "update_cost", None),
+        "repair_cost": getattr(cfg, "repair_cost", None),
+    }
+
+
+def generation_block(parent_ages: list[int], oldest_ages: list[int] | None = None) -> dict:
+    """Длина поколения в шагах по почкованиям: медиана и «средняя», и «самая старая».
+
+    В этой модели делится **компонента**, а не отдельная клетка (`find_buds` отдаёт
+    маску всей колонии), поэтому «время от рождения клетки до её деления» одного
+    числа не даёт. Пишем два: `generation_length` — медиана среднего возраста клеток
+    колонии в момент деления, `generation_length_oldest` — медиана возраста самой
+    старой клетки (верхняя оценка возраста линии). Оба — описательные; критерии
+    гипотез на них не опираются.
+
+    Меньше 20 делений — `null`, а не оценка: медиана по 3 событиям ничего не значит
+    (H71/P64 — при малых n число без интервала не публикуется). Считается только
+    почкование: клетки, выросшие по правилу, родителя не имеют.
+    """
+    ages = [int(a) for a in parent_ages]
+    oldest = [int(a) for a in (oldest_ages or [])]
+    block = {
+        "generation_length": None,
+        "generation_length_oldest": None,
+        "generation_divisions": len(ages),
+        "generation_source": "budding: возраст клеток колонии (средний и самой старой) "
+                             "на шаге деления; делится компонента, а не клетка",
+    }
+    if len(ages) >= 20:
+        block["generation_length"] = round(float(statistics.median(ages)), 1)
+    if len(oldest) >= 20:
+        block["generation_length_oldest"] = round(float(statistics.median(oldest)), 1)
+    return block
 
 
 class PondRun:
@@ -303,7 +363,13 @@ class PondRun:
         return {"steps": steps, "wall_seconds": round(elapsed, 2), "final": self.log[-1] if self.log else {}}
 
 
-def main(argv: list[str] | None = None) -> int:
+def build_parser() -> argparse.ArgumentParser:
+    """Собрать CLI. Отдельно от `main`, чтобы дефолты можно было проверить тестом.
+
+    Дефолт CLI обязан совпадать с дефолтом `PondConfig` (тест
+    `test_cli_defaults_match_pond_config`): расхождение делает прогон, запущенный
+    без флага, не тем прогоном, который описан в отчёте.
+    """
     ap = argparse.ArgumentParser(description="запуск эволюции в «пруду»")
     ap.add_argument("--steps", type=int, default=500)
     ap.add_argument("--grid", type=int, default=32)
@@ -385,8 +451,11 @@ def main(argv: list[str] | None = None) -> int:
                     help="шаг инвазии редкого типа (0 = нет)")
     ap.add_argument("--invade-share", type=float, default=0.05,
                     help="доля живых клеток, которым подменяют тип при инвазии")
-    ap.add_argument("--invade-min-cells", type=int, default=50,
-                    help="инъекция валидна только если живых >= N")
+    ap.add_argument("--invade-min-cells", type=int, default=30,
+                    help="инъекция валидна только если живых >= N (дефолт = PondConfig)")
+    ap.add_argument("--invader-cells", type=int, default=1,
+                    help="доза основателя при --type-level colony: сколько клеток ставит "
+                         "инъекция (связное 4-пятно; 1 = как в серии 24.10)")
     ap.add_argument("--invade-type", type=int, default=1, choices=[0, 1],
                     help="какой тип подсаживаем: 0 = A, 1 = B")
     ap.add_argument("--type-level", default="cell", choices=["cell", "colony"],
@@ -399,6 +468,11 @@ def main(argv: list[str] | None = None) -> int:
                     help="как наследуется тип A/B: fixed | random | learn")
     ap.add_argument("--layout", default="uniform",
                     choices=["uniform", "gradient", "patches"], help="структура ресурса")
+    return ap
+
+
+def main(argv: list[str] | None = None) -> int:
+    ap = build_parser()
     args = ap.parse_args(argv)
     if args.learn_w and args.learn_mode == "paired" and args.spore_bias != "score":
         ap.error("--learn-mode paired работает только со --spore-bias score: "
@@ -442,6 +516,7 @@ def main(argv: list[str] | None = None) -> int:
     world.invade_share = args.invade_share
     world.invade_type = args.invade_type
     world.invade_min_cells = args.invade_min_cells
+    world.invader_cells = args.invader_cells
     world.w_rich = args.w_rich
     world.learn_w = args.learn_w
     world.learn_rate = args.learn_rate
@@ -550,6 +625,11 @@ def main(argv: list[str] | None = None) -> int:
     summary["invader_share_after"] = getattr(run.pond, "invasion_share_after", None)
     summary["colony_cells_at_invasion"] = int(getattr(run.pond, "colony_cells_at_invasion", 0))
     summary["injection_share_actual"] = getattr(run.pond, "injection_share_actual", None)
+    summary["invader_cells"] = int(getattr(run.pond, "invader_cells_requested", 0))
+    summary["invader_cells_actual"] = int(getattr(run.pond, "invader_cells_actual", 0))
+    summary["config"] = config_block(run.world_cfg)
+    summary.update(generation_block(getattr(run.pond, "division_parent_ages", []),
+                                    getattr(run.pond, "division_oldest_ages", [])))
     summary["design"] = 3
     summary["injection_invalid"] = bool(getattr(run.pond, "injection_invalid", False))
     summary["w_final"] = float(run.pond.w)

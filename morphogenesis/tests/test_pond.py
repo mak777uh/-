@@ -722,6 +722,140 @@ def test_invasion_off_keeps_single_type():
     assert int(pond.state.cell_type[pond.state.alive].sum()) == 0
     assert pond.invasion_share_after is None
 
+
+def _colony_invasion_pond(**over):
+    """Пруд с типом на колонии: инвазия — новая редкая колония (дизайн 3)."""
+    cfg = dict(freq_dep=0.0, type_mode="mixfixed", type_start="a", type_level="colony",
+               invade_at=2, invade_type=1, invade_min_cells=1, resource_layout="uniform")
+    cfg.update(over)
+    return _two_type_pond(**cfg)
+
+
+def test_invader_cells_one_places_single_cell():
+    """Доза 1 — ровно то, что делала серия 24.10: одна клетка, одна новая колония."""
+    pond = _colony_invasion_pond(invader_cells=1)
+    mask = torch.zeros((8, 8), dtype=torch.bool)
+    mask[2:4, 2:4] = True
+    pond.seed_life(mask, energy=5.0)
+    before = int(pond.state.alive.sum())
+    for _ in range(2):
+        pond.regenerate()
+        pond.step_cells()
+    after = int(pond.state.alive.sum())
+    # подсажена одна клетка (плюс, возможно, родившиеся за шаг — их считаем отдельно)
+    assert pond.invader_cells_requested == 1
+    assert pond.invader_cells_actual == 1
+    share = float((pond.state.cell_type[pond.state.alive] == 1).float().mean())
+    assert abs(pond.injection_share_actual - share) < 1e-3
+    assert after >= before + 1, "клетка инокулята должна быть живой"
+    assert pond.injection_share_actual < 0.5
+
+
+def test_invader_cells_five_places_connected_blob():
+    """Доза 5 — пять клеток ОДНОЙ 4-компонентой (иначе это пять колоний по одной)."""
+    pond = _colony_invasion_pond(invader_cells=5)
+    mask = torch.zeros((8, 8), dtype=torch.bool)
+    mask[2:4, 2:4] = True
+    pond.seed_life(mask, energy=5.0)
+    for _ in range(2):
+        pond.regenerate()
+        pond.step_cells()
+    assert pond.invader_cells_requested == 5
+    assert pond.invader_cells_actual == 5
+    sizes, labels = Pond._components(pond.state.alive)
+    invader = pond.state.cell_type == 1
+    assert int(pond.state.cell_type[invader].numel()) >= 5
+    # все клетки инокулята лежат в одной компоненте
+    labs = {int(labels[y, x]) for y, x in invader.nonzero(as_tuple=False).tolist()}
+    assert len(labs) == 1, f"инокулят распался на {len(labs)} компонент"
+    assert sizes[list(labs)[0]] >= 5
+
+
+def test_invader_cells_capped_by_free_space():
+    """Свободных клеток меньше дозы — ставится сколько влезает, факт в summary-поле."""
+    pond = _colony_invasion_pond(invader_cells=10)
+    mask = torch.ones((8, 8), dtype=torch.bool)
+    mask[0, 0] = False
+    mask[0, 1] = False
+    pond.seed_life(mask, energy=5.0)
+    for _ in range(2):
+        pond.regenerate()
+        pond.step_cells()
+    assert pond.invader_cells_requested == 10
+    assert 1 <= pond.invader_cells_actual < 10, "пятно не может быть больше свободного места"
+
+
+def test_config_block_records_run_parameters():
+    """`summary["config"]` несёт параметры, которых раньше в артефакте не было."""
+    from world.run_pond import config_block
+    cfg = PondConfig(grid=8, freq_dep=1.0, type_mode="mixfixed", type_level="colony",
+                     invade_at=200, invade_share=0.05, invade_type=1,
+                     invade_min_cells=30, invader_cells=5)
+    block = config_block(cfg)
+    assert block["freq_dep"] == 1.0
+    assert block["type_level"] == "colony"
+    assert block["type_mode"] == "mixfixed"
+    assert block["invader_cells"] == 5
+    assert block["invade_at"] == 200
+    assert block["layout"] == cfg.resource_layout
+    assert block["income"] == cfg.baseline_income
+    assert block["update_cost"] == cfg.update_cost
+    assert block["repair_cost"] == cfg.repair_cost
+
+
+def test_cli_defaults_match_pond_config():
+    """Дефолт CLI обязан совпадать с `PondConfig`: иначе прогон без флага — не тот прогон.
+
+    Инцидент 24.10: `--invade-min-cells` имел дефолт 50 при `PondConfig` 30, и
+    серия, запущенная без явного флага, шла бы по другой постановке.
+    """
+    from world.run_pond import build_parser
+    ap = build_parser()
+    cfg = PondConfig()
+    pairs = {
+        "invade_at": cfg.invade_at,
+        "invade_share": cfg.invade_share,
+        "invade_type": cfg.invade_type,
+        "invade_min_cells": cfg.invade_min_cells,
+        "invader_cells": cfg.invader_cells,
+        "type_level": cfg.type_level,
+        "type_mode": cfg.type_mode,
+        "type_inherit": cfg.type_inherit,
+        "freq_dep": cfg.freq_dep,
+        "layout": cfg.resource_layout,
+    }
+    for flag, want in pairs.items():
+        got = ap.get_default(flag)
+        assert got == want, f"--{flag.replace('_', '-')}: CLI {got!r} != PondConfig {want!r}"
+
+
+def test_generation_block_needs_twenty_divisions():
+    """Длина поколения — медиана по делениям; меньше 20 делений — null, а не оценка."""
+    from world.run_pond import generation_block
+    assert generation_block([])["generation_length"] is None
+    assert generation_block(list(range(1, 20)))["generation_length"] is None
+    block = generation_block(list(range(1, 21)))
+    assert block["generation_length"] == 10.5
+    assert block["generation_divisions"] == 20
+
+
+def test_bud_records_parent_age_at_division():
+    """Почкование пишет возраст родителя: поколение измерено, а не оценено косвенно."""
+    pond = _two_type_pond(freq_dep=0.0, type_mode="fixed", type_start="a")
+    mask = torch.zeros((8, 8), dtype=torch.bool)
+    mask[2:4, 2:4] = True
+    pond.seed_life(mask, energy=5.0)
+    for _ in range(2):
+        pond.regenerate()
+        pond.step_cells()
+    parent_age_before = int(round(float(pond.state.age[pond.state.alive].float().mean())))
+    child = pond.bud(pond.state.alive)
+    assert child is not None and int(child.sum()) > 0, "почкование должно дать потомков"
+    ages = pond.division_parent_ages
+    assert len(ages) == int(child.sum()), "по одной записи на каждого потомка"
+    assert ages[0] == parent_age_before, "записан возраст родителя на момент деления"
+
+
 def _type_run(start: str, fd: float, steps: int = 40, grid: int = 16, seed: int = 1):
     from world.run_pond import PondRun
     cfg = PondConfig(grid=grid, resource_layout="gradient", income_mode="proportional",

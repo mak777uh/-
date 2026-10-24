@@ -95,6 +95,7 @@ class PondConfig:
     invade_share: float = 0.05         # доля живых клеток, которым подменяют тип
     invade_type: int = 1               # какой тип подсаживаем: 0 = A, 1 = B
     invade_min_cells: int = 30         # ждать, пока колония не вырастет до N клеток
+    invader_cells: int = 1             # доза основателя: сколько клеток ставит инъекция (colony)
     learn_window: int = 30             # окно оценки для обучения колонии
     init_resource_fill: float = 0.0     # 0..1: доля потолка, до которой поле заполнено на старте
     membrane_gated: bool = False      # обмен гейтируется мембраной (замыкание)
@@ -207,6 +208,15 @@ class Pond:
         self.colony_cells_at_invasion = 0
         self.injection_invalid = False
         self.injection_share_actual = None
+        self.invader_cells_requested = 0   # запрошенная доза основателя (0 = не применимо)
+        self.invader_cells_actual = 0      # сколько клеток реально подсажено (0 = нет инвазии)
+        # время «родитель → деление» по каждому почкованию (в шагах): возраст родителя
+        # на момент деления. Нужно, чтобы поколение было ИЗМЕРЕНО, а не оценено косвенно
+        # (полураспад наследия 20–41 шаг сравнивается с поколением 125–206 в шагах).
+        # Два списка: средний возраст клеток колонии и возраст самой старой клетки —
+        # родитель здесь компонента, и одно число её «возраст» не описывает.
+        self.division_parent_ages: list[int] = []
+        self.division_oldest_ages: list[int] = []
 
     # ---------- ресурс и катастрофы ----------
     def _sample_gap(self) -> int:
@@ -246,9 +256,12 @@ class Pond:
             return
         if (getattr(self.cfg, "type_level", "cell") == "colony"
                 and getattr(self.cfg, "type_mode", "") != "random"):
-            # инвазия = НОВАЯ редкая колония: 1 клетка в случайной свободной точке,
-            # иначе в одной слипшейся колонии «редкой» колонии просто нет
-            # (в серии 24.10 это 1 клетка при колонии 382-700 -> доля 0.14-0.25%)
+            # инвазия = НОВАЯ редкая колония: `invader_cells` клеток в случайной свободной
+            # точке, иначе в одной слипшейся колонии «редкой» колонии просто нет
+            # (в серии 24.10 это 1 клетка при колонии 382-700 -> доля 0.14-0.25%).
+            # Доза > 1 ставится СВЯЗНЫМ 4-пятном: при типе на компоненте N независимых
+            # клеток дали бы N колоний по одной клетке, то есть дозу 1, и параметр
+            # ничего бы не измерял (B-037/H73 — эффект основателя).
             free = (~s.alive).nonzero(as_tuple=False)
             if free.shape[0] == 0:
                 return
@@ -256,6 +269,10 @@ class Pond:
             y, x = int(pick[0]), int(pick[1])
             spot = torch.zeros_like(s.alive)
             spot[y, x] = True
+            self.invader_cells_requested = int(max(1, getattr(self.cfg, "invader_cells", 1)))
+            if self.invader_cells_requested > 1:
+                spot = self._grow_invader_blob(spot, s.alive, self.invader_cells_requested)
+            self.invader_cells_actual = int(spot.sum())
             s.alive |= spot
             s.energy = torch.where(spot, torch.full_like(s.energy, 8.0), s.energy)
             s.age = torch.where(spot, torch.zeros_like(s.age), s.age)
@@ -283,6 +300,50 @@ class Pond:
         self.colony_cells_at_invasion = int(s.alive.sum())
         self.injection_share_actual = self.invasion_share_after
         self.injection_invalid = bool(self.injection_share_actual > 0.25)
+        # подсадка по доле клеток: доза основателя здесь не применима, но число
+        # подсаженных клеток в summary полезно
+        self.invader_cells_requested = 0
+        self.invader_cells_actual = int(k)
+
+    def _grow_invader_blob(self, spot: torch.Tensor, alive: torch.Tensor,
+                           want: int) -> torch.Tensor:
+        """Дорастить инокулят до `want` клеток, оставаясь одной 4-компонентой.
+
+        Фронт — свободные 4-соседи уже занятых клеток инокулята; следующая клетка
+        выбирается случайно (`gen_sel`), поэтому форма пятна случайна, но связность
+        гарантирует, что это одна колония (иначе при типе на компоненте N клеток
+        распались бы на N колоний по одной клетке). Если свободных клеток меньше,
+        пятно получается меньше `want` — фактический размер пишется в
+        `invader_cells_actual`.
+        """
+        n = int(alive.shape[0])
+        frontier: list[tuple[int, int]] = []
+        queued: set[tuple[int, int]] = set()
+
+        def push_neighbours(y: int, x: int) -> None:
+            for dy, dx in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+                ny, nx = y + dy, x + dx
+                if not (0 <= ny < n and 0 <= nx < n) or (ny, nx) in queued:
+                    continue
+                if bool(spot[ny, nx]) or bool(alive[ny, nx]):
+                    continue
+                queued.add((ny, nx))
+                frontier.append((ny, nx))
+
+        ys, xs = spot.nonzero(as_tuple=True)
+        for y, x in zip(ys.tolist(), xs.tolist()):
+            push_neighbours(int(y), int(x))
+        total = int(spot.sum())
+        while total < want and frontier:
+            k = int(torch.randint(0, len(frontier), (), generator=self.gen_sel))
+            y, x = frontier[k]
+            frontier[k] = frontier[-1]
+            frontier.pop()
+            queued.discard((y, x))
+            spot[y, x] = True
+            total += 1
+            push_neighbours(y, x)
+        return spot
 
     def _gradient_position(self) -> torch.Tensor:
         """Положение потолка градиента по строкам: 1.0 = верх (богато), 0.0 = низ.
@@ -884,6 +945,16 @@ class Pond:
         cfg = self.cfg
         s = self.state
         parent = parent_mask.to(self.device).bool()
+        # поколение: возраст родителя снимается В НАЧАЛЕ деления, потому что перенос
+        # внутри bud (подвижность споры) обнуляет возраст у перемещённых клеток и
+        # исказил бы метрику. Учитывается только почкование: у роста правила родителя нет.
+        # Родитель здесь — ВСЯ компонента (find_buds отдаёт маску колонии), поэтому
+        # пара «средний / самый старый возраст» честнее одного числа: делится
+        # компонента, а не отдельная клетка.
+        parent_age = (int(round(float(s.age[parent].float().mean())))
+                      if bool(parent.any()) else None)
+        parent_age_oldest = (int(s.age[parent].max())
+                             if bool(parent.any()) else None)
         free = self._free_neighbours(parent)
         if free.shape[0] == 0:
             # все соседние клетки заняты: потомка нет, родитель копит энергию.
@@ -990,6 +1061,10 @@ class Pond:
         s.age[child] = 0
         s.damage[child] = 0
         s.born += 1
+        if parent_age is not None:
+            n_children = int(spots.shape[0])
+            self.division_parent_ages.extend([parent_age] * n_children)
+            self.division_oldest_ages.extend([parent_age_oldest] * n_children)
         self._assign_child_type(parent, child)
         if cfg.learn_w:
             if cfg.learn_mode == "paired":
