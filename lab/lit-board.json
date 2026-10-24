@@ -1024,18 +1024,23 @@
         "kind": "experiment_change",
         "detail": "в task-16: (а) цель обучения = цель пруда (alive/pop_time), (б) замер базы до/после шага (интерференция), (в) если цель пруда недифференцируема — ES/REINFORCE по ней, а не суррогат по росту"
       },
-      "status": "new",
+      "status": "accepted",
       "wave": "current",
       "owner": "librarian",
       "created_at": "2026-10-24T06:53:50+03:00",
-      "decided_at": null,
-      "why": null,
+      "decided_at": "2026-10-24",
+      "why": "принято: прокси-M - известный класс (суррогатный фитнес, objective mismatch, stability-plasticity). В task-16 внесены: цель пруда вместо роста, замер интерференции базы до/после шага, ES/REINFORCE если цель недифференцируема. То же правило применяю к L2: сначала контроли подвижности, потом вывод",
       "links": {
-        "insights": [],
-        "tasks": [],
-        "reports": []
-      }
+        "insights": [
+          "I-042"
+        ],
+        "tasks": [
+          "task-16",
+          "task-17"
+        ]
+      },
+      "decided_by": "lead"
     }
   ],
-  "updated_at": "2026-10-24T06:10:00Z"
+  "updated_at": "2026-10-24T07:40:00Z"
 }
