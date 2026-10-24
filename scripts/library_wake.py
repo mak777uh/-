@@ -28,6 +28,7 @@
 from __future__ import annotations
 
 import argparse
+import os
 import hashlib
 import json
 import pathlib
@@ -268,6 +269,12 @@ def wait(root: pathlib.Path, timeout: float, interval: float,
             # только HEAD: свой или чужой коммит без изменений в интересующих файлах
             base = current
             save_state(current, state_path)
+        lock = ROOT / "library" / ".wake.pid"
+        try:
+            if lock.exists():
+                lock.touch()
+        except OSError:
+            pass
         time.sleep(interval)
     print("timeout: изменений нет")
     return 2
@@ -290,7 +297,27 @@ def main(argv: list[str] | None = None) -> int:
     args = ap.parse_args(argv)
 
     if args.wait:
-        return wait(args.root, args.timeout, args.interval, args.state, args.settle, args.max_settle)
+        lock = args.root / "library" / ".wake.pid"
+        lock.parent.mkdir(parents=True, exist_ok=True)
+        fresh = 0.0
+        if lock.exists():
+            try:
+                fresh = time.time() - lock.stat().st_mtime
+            except OSError:
+                fresh = 0.0
+        if lock.exists() and fresh < 3600:
+            print(f"сторож уже работает (файл-замок обновлялся {fresh:.0f} с назад) — второй не запускаю")
+            return 3
+        lock.write_text(str(os.getpid()), encoding="utf-8")
+        try:
+            return wait(args.root, args.timeout, args.interval, args.state,
+                        args.settle, args.max_settle)
+        finally:
+            try:
+                if lock.exists() and lock.read_text(encoding="utf-8").strip() == str(os.getpid()):
+                    lock.unlink()
+            except OSError:
+                pass
     if args.show:
         print(json.dumps(fingerprint(args.root), ensure_ascii=False, indent=2))
         return 0

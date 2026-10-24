@@ -17,6 +17,7 @@ from __future__ import annotations
 import argparse
 import json
 import subprocess
+import time
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -94,6 +95,18 @@ def cmd_status(args) -> int:
         for line in hits[:3]:
             print(f"  {line[:100]}")
         print("  → сначала мини-обзор (library/reviews/_mini-template.md), потом пункт")
+
+    for name in ("lab/cycle.json", "lab/state.json"):
+        path = REPO / name
+        if not path.exists():
+            print(f"\n== устаревание ==\n  {name} отсутствует")
+            continue
+        try:
+            age_h = (time.time() - path.stat().st_mtime) / 3600
+        except OSError:
+            continue
+        if age_h > 24:
+            print(f"\n== устаревание ==\n  {name}: не менялся {age_h:.1f} ч — фаза/состояние могут быть ложью")
 
     print("\n== запросы к учёному/ведущему ==")
     try:
