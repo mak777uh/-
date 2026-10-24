@@ -299,6 +299,29 @@ def test_wake_series_keys(tmp: Path) -> None:
           res.stdout.strip() == "True True False True", res.stdout + res.stderr)
 
 
+def test_wake_lock(tmp: Path) -> None:
+    root = tmp / "lock_root"
+    (root / "lab").mkdir(parents=True)
+    (root / "library").mkdir(parents=True)
+    (root / "lab" / "notices.md").write_text("# пусто\n", encoding="utf-8")
+    lock = root / "library" / ".wake.pid"
+    lock.write_text("99999", encoding="utf-8")
+    res = run("scripts/library_wake.py", "--root", str(root), "--state", str(tmp / "st.json"),
+              "--wait", "--timeout", "3", "--interval", "1")
+    check("wake lock: свежий замок блокирует", "уже работает" in res.stdout, res.stdout)
+    import os, time
+    old = time.time() - 600
+    os.utime(lock, (old, old))
+    res2 = run("scripts/library_wake.py", "--root", str(root), "--state", str(tmp / "st.json"),
+               "--wait", "--timeout", "5", "--interval", "1")
+    check("wake lock: устаревший замок снимается сам", "уже работает" not in res2.stdout, res2.stdout)
+    lock.write_text("99999", encoding="utf-8")
+    res3 = run("scripts/library_wake.py", "--root", str(root), "--state", str(tmp / "st.json"),
+               "--wait", "--timeout", "5", "--interval", "1", "--force")
+    check("wake lock: --force снимает свежий замок", "уже работает" not in res3.stdout, res3.stdout)
+    check("wake lock: замок снят после выхода", not lock.exists(), "замок остался")
+
+
 def main() -> int:
     with tempfile.TemporaryDirectory() as tdir:
         tmp = Path(tdir)
@@ -320,6 +343,8 @@ def main() -> int:
         test_v8_matrix(tmp)
         print("== wake series keys ==")
         test_wake_series_keys(tmp)
+        print("== wake lock ==")
+        test_wake_lock(tmp)
     print(f"\nпровалено: {len(FAILED)}")
     return 1 if FAILED else 0
 

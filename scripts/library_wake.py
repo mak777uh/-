@@ -334,6 +334,8 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--interval", type=float, default=30.0)
     ap.add_argument("--settle", type=float, default=0.0,
                     help="после изменения ждать тишины N секунд (серия пишет файлы каждые ~70 с)")
+    ap.add_argument("--force", action="store_true",
+                    help="снять чужой/устаревший файл-замок сторожа и запуститься")
     ap.add_argument("--max-settle", type=float, default=0.0,
                     help="дольше N секунд не ждать тишины: длинная серия не должна блокировать пробуждение")
     args = ap.parse_args(argv)
@@ -347,7 +349,11 @@ def main(argv: list[str] | None = None) -> int:
                 fresh = time.time() - lock.stat().st_mtime
             except OSError:
                 fresh = 0.0
-        if lock.exists() and fresh < 3600:
+        ttl = 300.0  # 5 мин: замок обновляется каждые `interval` (15 с), значит 300 с — уже труп
+        if getattr(args, "force", False) and lock.exists():
+            lock.unlink()
+            fresh = 1e9
+        if lock.exists() and fresh < ttl:
             print(f"сторож уже работает (файл-замок обновлялся {fresh:.0f} с назад) — второй не запускаю")
             return 3
         lock.write_text(str(os.getpid()), encoding="utf-8")
