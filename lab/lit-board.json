@@ -1301,6 +1301,41 @@
         ]
       },
       "decided_by": "lead"
+    },
+    {
+      "id": "B-035",
+      "type": "naming",
+      "target": {
+        "kind": "experiment",
+        "id": "B2_construction",
+        "ref": "b2d_*_adapt_* vs b2b_*_surplus_*"
+      },
+      "statement": "Плечи adaptive и surplus — одни и те же прогоны: по 8 пересекающимся файлам (uniform/patches/gradflip × сиды) совпадают pop_time, invested_energy, resource_alive_mean и invest_updates до последней цифры (90199/96541/87748; 80415/73219/36341; 86100/94467). В §4f одна и та же серия описана дважды: как surplus (+0.75% к fixed, «рабочая формулировка») и как adaptive («механизм есть, выгоды нет»). Надо решить до дальнейшего текста: это одно плечо с двумя названиями (тогда одна таблица и одно имя, а surplus/adaptive — синонимы в коде) или разные реализации (тогда нужен отдельный прогон с отличающимися артефактами). Пока риск: рецензент увидит две таблицы с одинаковыми числами.",
+      "evidence": [
+        {
+          "library": "hypotheses/pond-lineage.md#P54",
+          "note": "surplus описан как рабочая формулировка"
+        },
+        {
+          "library": "answers.md#28",
+          "note": "surplus описан как рабочая формулировка"
+        }
+      ],
+      "action": {
+        "kind": "text",
+        "detail": "в §4f: либо объединить параграфы в один (adaptive=surplus), либо пометить, что surplus — реализация адаптивного порога, и не подавать как два независимых результата"
+      },
+      "status": "new",
+      "wave": "current",
+      "owner": "librarian",
+      "created_at": "2026-10-24T13:20:54+03:00",
+      "decided_at": null,
+      "why": null,
+      "links": {
+        "insights": [],
+        "tasks": [],
+        "reports": []
+      }
     }
   ],
   "updated_at": "2026-10-24T13:15:00Z"
