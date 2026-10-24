@@ -971,6 +971,29 @@ def test_mutation_creates_lineage_of_depth_one():
         "у новой линии пока нет своих рождений"
 
 
+@pytest.mark.skipif(not torch.cuda.is_available(), reason="нет CUDA")
+def test_mutation_works_on_cuda_generator():
+    """Мутация на CUDA: `gen_sel` — CPU-генератор, розыгрыш тянется на CPU.
+
+    Инцидент 24.10 (серия B): `torch.rand(..., generator=cpu_gen, device='cuda')` давал
+    `RuntimeError: Expected a 'cuda' device type for generator` — 12 прогонов упали за
+    секунды, а CPU-тесты этого не видели.
+    """
+    cfg = PondConfig(grid=8, resource_regen=0.0, baseline_income=0.2, update_cost=0.0,
+                     repair_cost=0.0, damage_rate=0.0, noise=0.0, income_mode="proportional",
+                     freq_dep=0.0, type_mode="mixfixed", resource_layout="uniform",
+                     init_resource_fill=0.0, mutation_rate=1.0)
+    pond = Pond(cfg, device="cuda", seed=3)
+    mask = torch.zeros((8, 8), dtype=torch.bool)
+    mask[2:4, 2:4] = True
+    pond.seed_life(mask, energy=5.0)
+    child = torch.zeros((8, 8), dtype=torch.bool)
+    child[4, 4] = True
+    pond.register_births(child, mask)
+    assert pond.mutation_events == 1, "мутация должна сработать без ошибки генератора"
+    assert int(pond.state.tag[4, 4]) >= 1
+
+
 def _type_run(start: str, fd: float, steps: int = 40, grid: int = 16, seed: int = 1):
     from world.run_pond import PondRun
     cfg = PondConfig(grid=grid, resource_layout="gradient", income_mode="proportional",

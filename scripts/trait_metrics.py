@@ -147,6 +147,10 @@ def analyse(path: Path) -> dict:
     res["shannon_median"] = round(sorted(hs)[len(hs) // 2], 4)
     res["shannon_first"] = round(hs[0], 4)
     res["shannon_last"] = round(hs[-1], 4)
+    # медиана за вторую половину серии — описательное уточнение «окна» (спецификация
+    # говорит «медиана H за окно и тренд»); критерий при этом остаётся за всей серией
+    tail = hs[len(hs) // 2:]
+    res["shannon_second_half_median"] = round(sorted(tail)[len(tail) // 2], 4) if tail else None
 
     first_seen: dict[str, int] = {}
     last_seen: dict[str, int] = {}

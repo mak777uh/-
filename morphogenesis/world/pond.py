@@ -1192,6 +1192,11 @@ class Pond:
         добавляется, поэтому прежние прогоны воспроизводятся бит-в-бит.
         """
         s = self.state
+        # защита от CPU-масок (как в bud()): маски приходят из разных слоёв
+        newly = newly.to(self.device).bool()
+        parent_mask = parent_mask.to(self.device).bool()
+        if labels is not None:
+            labels = labels.to(self.device)
         if s.tag is None or not bool(newly.any()):
             return 0
 
@@ -1224,12 +1229,15 @@ class Pond:
         mutated = 0
         m = float(self.cfg.mutation_rate)
         if m > 0.0:
-            roll = torch.rand(newly.shape, generator=self.gen_sel, device=self.device)
+            # `gen_sel` — CPU-генератор (как и при выборе спор: многоместные выборки на
+            # CUDA недетерминированы). Поэтому тянем на CPU и переносим на устройство,
+            # иначе на cuda: RuntimeError: Expected a 'cuda' device type for generator.
+            roll = torch.rand(tuple(newly.shape), generator=self.gen_sel).to(self.device)
             flip = newly & (roll < m)
             mutated = int(flip.sum())
             if mutated:
                 sigma = float(getattr(self.cfg, "mutation_trait_sigma", 0.0))
-                noise = torch.randn(flip.shape, generator=self.gen_sel, device=self.device) * sigma
+                noise = torch.randn(tuple(flip.shape), generator=self.gen_sel).to(self.device) * sigma
                 for y, x in flip.nonzero(as_tuple=False).tolist():
                     parent_tag = int(s.tag[y, x])
                     parent_trait = float(s.tag_trait[y, x])

@@ -143,6 +143,28 @@ def check_invasion(rows: list[dict]) -> list[str]:
     return errors
 
 
+def check_mutation(rows: list[dict], payload: dict | None = None) -> list[str]:
+    """Проверки агрегата условия B: нулевая новизна при m=0 и согласованность полей."""
+    errors: list[str] = []
+    for i, row in enumerate(rows):
+        dose = row.get("dose")
+        if dose is None:
+            errors.append(f"[{i}]: нет dose")
+            continue
+        novelty = row.get("novelty_flux")
+        if novelty is not None and novelty < 0:
+            errors.append(f"[{i}]: novelty_flux < 0 ({novelty})")
+        if dose == 0.0:
+            if row.get("mutation_events") not in (0, None):
+                errors.append(f"[{i}]: при m=0 mutation_events={row.get('mutation_events')} != 0")
+            if novelty not in (0, None):
+                errors.append(f"[{i}]: при m=0 novelty_flux={novelty} != 0 "
+                              "(метрика новизны ловит артефакт)")
+        if row.get("valid") is False and not row.get("invalid_reason"):
+            errors.append(f"[{i}]: valid=false без invalid_reason")
+    return errors
+
+
 def check_generation(rows: list[dict]) -> list[str]:
     """Проверки агрегата поколения: поколение, полураспад и отношение согласованы."""
     errors: list[str] = []
@@ -219,6 +241,8 @@ def check_file(path: Path, strict: bool = False) -> tuple[list[str], list[str]]:
         return errors, warns  # не агрегат
     if payload.get("kind") == "invasion_runs":
         return [f"{path.name}{e}" for e in check_invasion(rows)], warns
+    if payload.get("kind") == "mutation_runs":
+        return [f"{path.name}{e}" for e in check_mutation(rows, payload)], warns
     if payload.get("kind") == "generation_runs":
         return [f"{path.name}{e}" for e in check_generation(rows)], warns
     if payload.get("kind") == "invader_dose_runs":
