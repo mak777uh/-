@@ -56,6 +56,8 @@
 | 2026-10-24 | lineage inheritance digital organisms tags genomes | 6 | 0 | запрос ушёл в биологию/право; переформулировать через tags/lineage selection |
 | 2026-10-24 | lineage selection units of selection evolution | 4 | 1 | P61 (Marín 2023) — дополняет P60 |
 | 2026-10-24 | minimal criteria unit of selection digital systems | — | 0 | прямого ответа в цифровых системах нет; критерий собран из P59–P61 |
+| 2026-10-24 | robustness and evolvability a paradox resolved | 3 | 1 | P62 (Wagner 2007) |
+| 2026-10-24 | performance and robustness trade-offs | 6 | 1 | P63 (Trivellin 2023, дрожжи) |
 
 ## Как вести
 

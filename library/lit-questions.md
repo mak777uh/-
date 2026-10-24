@@ -20,7 +20,7 @@
 | Q14 | How do ALife papers justify generalisation across substrates? | searched-1 | 2026-10-24 | P58 Aguilar 2014: ALife как общая биология, но кросс-субстратных тестов мало — W2 закрывает пробел |
 | Q15 | How is lineage inheritance implemented in digital organisms (tags, genomes)? | searched-1 | 2026-10-24 | P59 Riolo 2001 (tags), P60 Papale 2025 (единица отбора и линия) |
 | Q16 | What are minimal criteria for a unit of selection in digital systems? | searched-1 | 2026-10-24 | P60 Papale 2025 (линия), P61 Marín 2023 (три типа единиц); P59 tag |
-| Q17 | How to measure robustness vs performance trade-offs in ALife? | open | — | B2: 1/3 коллапсов vs медиана |
+| Q17 | How to measure robustness vs performance trade-offs in ALife? | searched-1 | 2026-10-24 | P62 Wagner 2007 (robustness vs evolvability), P63 Trivellin 2023 (две оси: performance/robustness) |
 | Q18 | What counts as a pre-registered ALife experiment? | open | — | наш §3a и registered reports |
 
 ## Как пополнять
