@@ -31,3 +31,4 @@
 | 2026-10-24 15:24 | W1 | review | C2: бюджеты несравнимы (mobile 3941 ход/0 энергии, fixed 0 ходов/1780) — встречный тест mobile_yoked + лог стоимости хода; записано в claims-evidence C2 и notices |
 | 2026-10-24 15:41 | W10 | lit | P72 Jones 1997: инженерия = физическое изменение состояния; placebo (та же трата, без подъёма) — правильный контроль, и он хуже контроля → H78, C3 уточнён |
 | 2026-10-24 16:02 | M1 | review | P73 Duncan 2014 + P74 Lehmann 2016: три уровня критерия (invasion fitness / вероятность укоренения / фиксация); H79, C6 переформулирован, review в library/reviews/m1-invasion-criteria.md |
+| 2026-10-24 16:14 | W2 | metric | library/tools/trait_metrics.py: Shannon, новизна (окно 50), Спирмен; на фикстурах 2/2 корректно, отсутствие полей = invalid; критерии B в library/conditions-B-criteria.md |

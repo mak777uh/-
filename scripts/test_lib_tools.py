@@ -197,6 +197,23 @@ def test_notices(tmp: Path) -> None:
     check("notices: упоминание B-### не закрывает запрос", "closed(доска)" not in out, out)
 
 
+def test_trait_metrics(tmp: Path) -> None:
+    out = tmp / "metrics.json"
+    res = run("library/tools/trait_metrics.py", "--src", "library/tools/fixtures",
+              "--glob", "*.json", "--json", str(out))
+    check("trait_metrics: код 0", res.returncode == 0, res.stdout + res.stderr)
+    data = json.loads(out.read_text(encoding="utf-8"))
+    by_name = {r["artifact"]: r for r in data["results"]}
+    valid = by_name.get("valid_mut.json", {})
+    check("trait_metrics: Shannon посчитан", (valid.get("shannon_median") or 0) > 0.1, str(valid))
+    check("trait_metrics: новизна посчитана", (valid.get("novelty_flux") or 0) >= 1, str(valid))
+    check("trait_metrics: Спирмен посчитан", valid.get("spearman_trait_births") is not None, str(valid))
+    missing = by_name.get("missing_fields.json", {})
+    check("trait_metrics: отсутствие полей = invalid, не ноль",
+          missing.get("valid") is False and "type_counts_series" in (missing.get("invalid_reason") or ""),
+          str(missing))
+
+
 def main() -> int:
     with tempfile.TemporaryDirectory() as tdir:
         tmp = Path(tdir)
@@ -208,6 +225,8 @@ def main() -> int:
         test_lib_cycle(tmp)
         print("== notices ==")
         test_notices(tmp)
+        print("== trait_metrics ==")
+        test_trait_metrics(tmp)
     print(f"\nпровалено: {len(FAILED)}")
     return 1 if FAILED else 0
 
