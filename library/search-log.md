@@ -54,6 +54,8 @@
 | 2026-10-24 | tag-based cooperation evolution without reciprocity | 4 | 1 | P59 (Riolo 2001, Nature) |
 | 2026-10-24 | lineage selection units of selection evolution | 4 | 1 | P60 (Papale 2025, единица отбора и линия) |
 | 2026-10-24 | lineage inheritance digital organisms tags genomes | 6 | 0 | запрос ушёл в биологию/право; переформулировать через tags/lineage selection |
+| 2026-10-24 | lineage selection units of selection evolution | 4 | 1 | P61 (Marín 2023) — дополняет P60 |
+| 2026-10-24 | minimal criteria unit of selection digital systems | — | 0 | прямого ответа в цифровых системах нет; критерий собран из P59–P61 |
 
 ## Как вести
 
