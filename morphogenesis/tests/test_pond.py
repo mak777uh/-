@@ -1142,6 +1142,35 @@ def test_trait_effect_default_off_and_invested_counted():
     assert pond.lineage_invested, "хотя бы одна линия должна быть в словаре вложений"
 
 
+def test_ignition_gate_invariant_over_run():
+    """F-IGNITE-1, питоновский аналог: на КАЖДОМ шаге новая живая клетка имела живого
+    4-соседа на предыдущем шаге.
+
+    Контроль «без гейта» — измерен отдельно (diag_ignition_base.json): из пустого поля
+    правило зажигает 1024 клетки на шаге 1, `grown_cells` 1023. Здесь проверяется
+    инвариант с гейтом: `newAlive ⊆ dilate4(alive_prev)`.
+    """
+    from world.run_pond import PondRun
+    cfg = PondConfig(grid=16, resource_layout="gradient", income_mode="proportional",
+                     init_resource_fill=0.9, baseline_income=0.2, update_cost=0.02,
+                     repair_cost=0.02, budding_mass=8, spore_bias="score", w_rich=0.1,
+                     freq_dep=0.0, noise=0.002, resource_regen=0.02, ignition_gate=True)
+    run = PondRun(world_cfg=cfg, seed=1, device="cpu")
+    run.seed(cells=4, energy=8.0)
+    for step in range(12):
+        prev = run.pond.state.alive.clone()
+        run.step()
+        now = run.pond.state.alive
+        grow = torch.zeros_like(prev)
+        grow[1:, :] |= prev[:-1, :]
+        grow[:-1, :] |= prev[1:, :]
+        grow[:, 1:] |= prev[:, :-1]
+        grow[:, :-1] |= prev[:, 1:]
+        newly = now & ~prev
+        bad = newly & ~grow
+        assert int(bad.sum()) == 0, f"шаг {step}: {int(bad.sum())} новых клеток без живого соседа"
+
+
 def _type_run(start: str, fd: float, steps: int = 40, grid: int = 16, seed: int = 1):
     from world.run_pond import PondRun
     cfg = PondConfig(grid=grid, resource_layout="gradient", income_mode="proportional",
