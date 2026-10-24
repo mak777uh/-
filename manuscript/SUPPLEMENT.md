@@ -295,7 +295,7 @@
 | [`morphogenesis/experiments/E09_pond/found_n5_seed7.json`](../morphogenesis/experiments/E09_pond/found_n5_seed7.json) | other | 161931 | `57404d6db93f8f4f3f2e17124a9b24e5d42568d390f29a0c4de76aac7d15df82` |
 | [`morphogenesis/experiments/E09_pond/found_n5_seed8.json`](../morphogenesis/experiments/E09_pond/found_n5_seed8.json) | other | 162764 | `29bd393faff6c0198d75c4c4aac6b3cd42aef4624aed55af1380ad1e47aeec31` |
 | [`morphogenesis/experiments/E09_pond/found_n5_seed9.json`](../morphogenesis/experiments/E09_pond/found_n5_seed9.json) | other | 162656 | `07d18cc51a2164d3e1f311f0a51e838db55bd9664b988693b707d287710de799` |
-| [`morphogenesis/experiments/E09_pond/founding_maps.json`](../morphogenesis/experiments/E09_pond/founding_maps.json) | other | 11820 | `c6438a9d2ab4acf89ea578792fb95c855aaf6e7e117262a0037c1b84a8c55656` |
+| [`morphogenesis/experiments/E09_pond/founding_maps.json`](../morphogenesis/experiments/E09_pond/founding_maps.json) | other | 13570 | `e7db4369162b9718713856e6f2ad4b5401659250584db4afc73fbc9b0b109472` |
 | [`morphogenesis/experiments/E09_pond/founding_matrix.json`](../morphogenesis/experiments/E09_pond/founding_matrix.json) | other | 28098 | `90eada7ae4fbc7a94a35176ed611279431edad027609eb8ddb2e64dc28d6c29a` |
 | [`morphogenesis/experiments/E09_pond/frequency_matrix.json`](../morphogenesis/experiments/E09_pond/frequency_matrix.json) | other | 16139 | `edf3f4fec02d2208867102d1d6d6e5b46b4749f0558061c1eff90a23367f4e3f` |
 | [`morphogenesis/experiments/E09_pond/frequency_matrix_v2.json`](../morphogenesis/experiments/E09_pond/frequency_matrix_v2.json) | other | 21150 | `1dd28d144e5c7af6e065942d4acd595762829370cb92a0e1d41b78b61a1d2c28` |
@@ -449,6 +449,7 @@
 | [`reports/figures/e02b_transition_matrix.png`](../reports/figures/e02b_transition_matrix.png) | figure | 152522 | `81f1b4fe50fd819f45411c31fb737a0c232d9c4f993f5233184c8b276779f5b9` |
 | [`reports/figures/e02c_seed_grid.png`](../reports/figures/e02c_seed_grid.png) | figure | 69503 | `a14f0a6eb28fa0675629e539dc863049d97c3a7ef1914c34ebd7348b5c71776f` |
 <!-- artifacts:end -->
+
 
 
 

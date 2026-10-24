@@ -120,7 +120,7 @@ def analyse(path: Path) -> dict | None:
     per = perimeter(grid)
     compact = 2.0 * math.sqrt(math.pi * alive) if alive else None
     return {
-        "artifact": path.name,
+        "artifact": f"morphogenesis/experiments/E09_pond/{path.name}",
         "alive": alive,
         "density": round(alive / area, 4) if area else None,
         "beta0": len(comps),

@@ -79,7 +79,9 @@ def check_row(row: dict, strict: bool) -> tuple[list[str], list[str]]:
         (errors if strict else warns).append(f"артефакт не найден: {rel}")
         return errors, warns
 
-    summary = json.loads(art.read_text(encoding="utf-8"))["summary"]
+    # артефакт может быть плоским (проба kill-and-keep пишет JSON без обёртки summary)
+    payload = json.loads(art.read_text(encoding="utf-8"))
+    summary = payload.get("summary", payload)
     pairs = {
         "pop_time": summary.get("pop_time"),
         "alive_final": (summary.get("final") or {}).get("alive_cells"),

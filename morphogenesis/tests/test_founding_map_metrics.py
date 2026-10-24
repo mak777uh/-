@@ -74,7 +74,8 @@ def test_criteria_supports_and_threshold(tmp_path):
                                                          alive1=alive1, alive_final=final)))
     table = module.by_n(rows)
     crit = module.criteria(table)
-    assert crit["supports_founding"] is True, "при N=20 выживание и рост 10/10, при N=1 — 0/10"
+    assert crit["threshold_between_1_and_20"] is True, "при N=20 выживание и рост 10/10, при N=1 — 0/10"
+    assert crit["founding_from_one_cell"] is False
     assert crit["no_founding_up_to_20"] is False
 
 
