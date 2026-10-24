@@ -85,7 +85,7 @@
 > Статусы сверены с `lab/registry.json` → `program.next_hypotheses` на 2026-10-21.
 > При расхождении прав registry, а не эта таблица: здесь индекс, там — контур.
 
-## Библиотечные гипотезы H15–H71 (предложение, не статус реестра)
+## Библиотечные гипотезы H15–H72 (предложение, не статус реестра)
 
 Гипотезы, выросшие из проходов по литературе 2026-10-21…10-23 (разделы
 [`../hypotheses/nca-frontier.md`](../hypotheses/nca-frontier.md),
@@ -156,6 +156,7 @@
 | H69 | Производительность и устойчивость — две оси; на patches ранжирование плеч по ним различается, значит это trade-off, а не «лучше в среднем» | Wagner (2007); Trivellin et al. (2023) | доля выживших vs медиана при выживших | `supported` (construction vs surplus) |
 | H70 | Пре-регистрация = план с критерием, закоммиченный до запуска (хеш коммита в notes); отдельного ALife-стандарта нет | Nosek et al. (2018) | хеш коммита в карточке; без него `preregistered` = unknown | `supported` (§6b) |
 | H71 | Доля коллапсов при n=3 не описывает риск: 95% интервал для 1/3 ≈ 0.01–0.91 (Clopper–Pearson); нужно n≈14–21 или интервал в отчёте | Brown et al. (2001) | patches n=10 + Wilson; сравнение интервалов | `supported` |
+| H72 | Качество niche choice = индекс соответствия (ресурс выбранной клетки минус пул); выигрыш mobility коррелирует с индексом | Edelaar et al. (2008); Camacho & Hendry (2020) | медиана индекса > 0; корреляция с pop_time | `not_run` |
 
 Правило прежнее: `not_run` и `planned` — заявки, а не результаты; в статьях они идут
 как следующие гипотезы. Проверка любой из них на существующих весах не требует решения
@@ -335,6 +336,8 @@ H29-пункт «ядро от цели»).
 | G62 | [Wagner, 2007, Proc. B](https://doi.org/10.1098/rspb.2007.1137) | устойчивость и эволюционируемость — разные оси | H69 | две метрики отдельно | `supported` (patches: median vs коллапсы) | [P62](../hypotheses/pond-lineage.md) |
 | G63 | [Trivellin et al., 2023, Life Sci. Alliance](https://doi.org/10.26508/lsa.202302215) | performance и robustness как две оси анализа | H69 | доля выживших vs медиана | `not_run` | [P63](../hypotheses/pond-lineage.md) |
 | G64 | [Brown et al., 2001, Stat. Sci.](https://doi.org/10.1214/ss/1009213286) | интервалы для доли при малых n | H71 | доля + 95% интервал; n≈14–21 | `supported` (1/3 при n=3 бесполезно) | [P64](../hypotheses/pond-lineage.md) |
+| G65 | [Edelaar et al., 2008, Evolution](https://doi.org/10.1111/j.1558-5646.2008.00459.x) | matching habitat choice: качество = соответствие | H72 | индекс соответствия по шагам | `not_run` | [P65](../hypotheses/pond-lineage.md) |
+| G66 | [Camacho & Hendry, 2020, Oikos](https://doi.org/10.1111/oik.06932) | matching choice «не для всех» | H72 | env-зависимость mobile (2/3 сред) | `supported` (mobile сильнее не везде) | [P66](../hypotheses/pond-lineage.md) |
 | G25 | [Soltoggio et al., 2018, Neural Networks](https://doi.org/10.1016/j.neunet.2018.07.013) | evolved plasticity: L2 формирует L1, ловушки | H53 | абляция «без L1» | `not_run` | [task-14](../task-14.md) |
 | G26 | [Sousa, 1984, Annu. Rev. Ecol. Syst.](https://doi.org/10.1146/annurev.es.15.110184.002033) | режимы нарушений | — | пересчёт «на поколение» | `not_run` | [task-14](../task-14.md) |
 | G27 | [Connell, 1978, Science](https://doi.org/10.1126/science.199.4335.1302) | промежуточное нарушение: разнообразие максимально при среднем уровне | — | свип 0.001–0.1/шаг | `not_run` | [task-14](../task-14.md) |

@@ -61,6 +61,8 @@
 | 2026-10-24 | preregistration computational experiments | 2 | 1 | Nosek 2018 PNAS; Registered Reports — published DOI (уточнение) |
 | 2026-10-24 | interval estimation binomial proportion small sample | 1 | 1 | P64 (Brown, Cai & DasGupta 2001) |
 | 2026-10-24 | tag-based inheritance in cellular automata | 6 | 0 | ушло в шифрование/QC; реализуем сами по P59 |
+| 2026-10-24 | matching habitat choice directed gene flow | 6 | 2 | P65 (Edelaar 2008), P66 (Camacho & Hendry 2020) |
+| 2026-10-24 | how to measure habitat selection quality in spatial models | 6 | 0 | ушло в городское планирование; лучше через matching habitat choice |
 
 ## Как вести
 
