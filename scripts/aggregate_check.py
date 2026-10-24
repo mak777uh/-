@@ -121,6 +121,28 @@ def check_medians(rows: list[dict]) -> list[str]:
     return errors
 
 
+def check_invasion(rows: list[dict]) -> list[str]:
+    """Проверки агрегата инвазии: рост согласован с долями, невалидные помечены."""
+    errors: list[str] = []
+    for i, row in enumerate(rows):
+        start = row.get("invader_share_start")
+        end = row.get("invader_share_end")
+        growth = row.get("growth")
+        if start is None or end is None:
+            errors.append(f"[{i}]: нет invader_share_start/end")
+            continue
+        if start < 0 or start > 1 or end < 0 or end > 1:
+            errors.append(f"[{i}]: доля вне [0,1] (start {start}, end {end})")
+        if start > 0 and growth is not None:
+            expected = end / start
+            if abs(growth - expected) > 1e-6:
+                errors.append(f"[{i}]: growth {growth} != end/start {expected:.4f}")
+        if start > 0.2 and not row.get("invalid_reason"):
+            errors.append(f"[{i}]: доля подсадки {start:.3f} > 0.2 без invalid_reason "
+                          "(похоже на переворот компонента)")
+    return errors
+
+
 def check_probe(rows: list[dict]) -> list[str]:
     """Проверки сводки зонда: положительный полураспад и невозрастающий decay."""
     errors: list[str] = []
@@ -146,6 +168,8 @@ def check_file(path: Path, strict: bool = False) -> tuple[list[str], list[str]]:
     rows = payload.get("rows")
     if not rows:
         return errors, warns  # не агрегат
+    if payload.get("kind") == "invasion_runs":
+        return [f"{path.name}{e}" for e in check_invasion(rows)], warns
     if payload.get("kind") == "probe_summary":
         return [f"{path.name}{e}" for e in check_probe(rows)], warns
     if payload.get("kind") == "aggregate_medians":

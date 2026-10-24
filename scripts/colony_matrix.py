@@ -63,12 +63,13 @@ def main(argv: list[str] | None = None) -> int:
             "invader_share_start": start,
             "invader_share_end": end,
             "growth": growth,
+            "fixated": bool(end is not None and end > 0.5),
             "invalid_reason": invalid_reason,
             "artifact": str(path.name),
         })
 
     payload = {
-        "kind": "aggregate_medians",
+        "kind": "invasion_runs",
         "experiment": "E09_pond_colony_type",
         "design": args.design,
         "metric": "invader growth = end/start",
