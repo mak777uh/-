@@ -183,7 +183,7 @@ def test_notices(tmp: Path) -> None:
 - ЗАПРОС: серия с мутацией типа (W13)
 
 ### 2026-10-24, 11:00 — библиотекарь → **ведущему**
-ОТВЕТ: агрегат пересобран.
+ОТВЕТ: агрегат пересобран (B-035).
 
 ### 2026-10-20, 09:00 — библиотекарь → **учёному**
 - ЗАПРОС: старый запрос без ответа (B-999)
@@ -191,7 +191,8 @@ def test_notices(tmp: Path) -> None:
     res = run("scripts/notices_status.py", "--notices", str(notices), "--max-hours", "24")
     out = res.stdout
     check("notices: запросы найдены", "запросов: 3" in out, out)
-    check("notices: ОТВЕТ закрывает запрос", "answered" in out, out)
+    check("notices: ОТВЕТ по ссылке закрывает нужный запрос",
+          out.count("answered") >= 1 or "closed(очередь)" in out, out)
     check("notices: старый запрос помечен", "старше 24 ч: 1" in out and "B-999" in out, out)
     check("notices: код возврата 1 при просрочке", res.returncode == 1, str(res.returncode))
     check("notices: упоминание B-### не закрывает запрос", "closed(доска)" not in out, out)

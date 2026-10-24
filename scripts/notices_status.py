@@ -61,7 +61,11 @@ def parse() -> list[dict]:
             text = REQUEST.match(line).group(1).strip()
             requests.append({**block, "text": text, "tags": TAG.findall(text)})
         elif line.strip().upper().startswith("ОТВЕТ") and requests:
-            answered_after[requests[-1]["text"]] = True
+            # ОТВЕТ закрывает запросы по ссылке (B-###/W<n>/Q<n>), иначе — последний запрос
+            tags = TAG.findall(line)
+            matched = [r for r in requests if tags and set(r["tags"]) & set(tags)]
+            for req in (matched or [requests[-1]]):
+                answered_after[req["text"]] = True
     return requests, answered_after
 
 
