@@ -49,6 +49,8 @@
 | 2026-10-24 | in-silico construction benefit placebo control | 6 | 0 | placebo-контроля в моделях строительства не нашлось — зафиксировано как наш методический вклад |
 | 2026-10-24 | dip test of unimodality | 6 | 1 | P56 (Hartigan & Hartigan 1985) |
 | 2026-10-24 | bimodality detection ecological data small sample | 6 | 0 | ушло в прикладные small-sample ML; для теста мод хватает P56/P57 |
+| 2026-10-24 | substrate independence artificial life multiple realizability (OpenAlex) | 3 | 0 | философия сознания, не про перенос субстратов |
+| 2026-10-24 | substrate independence ALife review | 6 | 1 | P58 (Aguilar 2014, обзор ALife) |
 
 ## Как вести
 
