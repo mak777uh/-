@@ -290,6 +290,15 @@ def test_v8_matrix(tmp: Path) -> None:
           any(r["invader_share_final"] == 1.0 for r in data["rows"]), str(data["rows"][:1]))
 
 
+def test_wake_series_keys(tmp: Path) -> None:
+    res = run("-c", "import sys; sys.path.insert(0,'scripts'); "
+                   "from library_wake import is_series_only, is_significant; "
+                   "print(is_series_only(['journal']), is_series_only(['journal','runs']), "
+                   "is_series_only(['journal','manuscript']), is_significant(['notices_to_me']))")
+    check("wake: journal/runs — прогресс серии (settle), рукопись — сразу",
+          res.stdout.strip() == "True True False True", res.stdout + res.stderr)
+
+
 def main() -> int:
     with tempfile.TemporaryDirectory() as tdir:
         tmp = Path(tdir)
@@ -309,6 +318,8 @@ def main() -> int:
         test_series_provenance(tmp)
         print("== v8 ==")
         test_v8_matrix(tmp)
+        print("== wake series keys ==")
+        test_wake_series_keys(tmp)
     print(f"\nпровалено: {len(FAILED)}")
     return 1 if FAILED else 0
 

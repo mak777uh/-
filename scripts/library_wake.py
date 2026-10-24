@@ -229,7 +229,10 @@ def fingerprint(root: pathlib.Path) -> dict:
 SIGNIFICANT_MINUS = {"head", "board", "cycle", "lit_queue"}
 
 
-SERIES_KEYS = {"polish", "experiments"}  # прогресс серии; ждём тишины, а не будим сразу
+# Прогресс серии: во время прогона меняются journal и runs (манифесты), а артефакты
+# появляются в polish/experiments только в конце. Без journal/runs сторож будил на каждом
+# прогоне (24.10: пробуждения каждые ~2 мин при серии V8).
+SERIES_KEYS = {"polish", "experiments", "journal", "runs"}
 
 
 def is_series_only(changes: list[str]) -> bool:
