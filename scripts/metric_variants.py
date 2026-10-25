@@ -145,6 +145,10 @@ def analyse(path: Path, i_null) -> list[dict]:
                 pairs_cs = [(traits[t], float(csteps[t])) for t in lineages
                             if t in csteps and t in traits]
                 rho_cs = spearman(pairs_cs) if len(pairs_cs) >= 3 else None
+                # ОТКЛИК (R): rho(признак, w) — здесь w И ЕСТЬ определение метрики,
+                # поэтому знак может зависеть от варианта; это не то же, что «цена» (C).
+                pairs_w = [(traits[t], wi) for t, wi in zip(lineages, w) if t in traits]
+                rho_w = spearman(pairs_w) if len(pairs_w) >= 3 else None
                 rho_part = None
                 part = [t for t in lineages if t in csteps and t in ept and t in traits]
                 if len(part) >= 4:
@@ -163,6 +167,7 @@ def analyse(path: Path, i_null) -> list[dict]:
                     "I_null_95": round(i_null_95, 4),
                     "S": round(i_obs / i_null_95, 2) if i_null_95 > 0 else None,
                     "rho_trait_cell_steps": round(rho_cs, 3) if rho_cs is not None else None,
+                    "rho_trait_w": round(rho_w, 3) if rho_w is not None else None,
                     "rho_partial": round(rho_part, 3) if rho_part is not None else None,
                 })
     return rows
@@ -190,6 +195,12 @@ def summarise(rows: list[dict]) -> list[dict]:
             "rho_partial_negative_k": sum(1 for v in part if v < 0),
             "rho_partial_n": len(part),
             "rho_cell_steps_median": round(statistics.median(simple), 3) if simple else None,
+            "rho_trait_w_median": (round(statistics.median(
+                [r["rho_trait_w"] for r in cell if r["rho_trait_w"] is not None]), 3)
+                if any(r["rho_trait_w"] is not None for r in cell) else None),
+            "rho_trait_w_positive_k": sum(
+                1 for r in cell if (r["rho_trait_w"] or 0) > 0),
+            "rho_trait_w_n": sum(1 for r in cell if r["rho_trait_w"] is not None),
         })
     return out
 
@@ -200,11 +211,16 @@ def criteria(table: list[dict]) -> dict:
     s_ok = bool(with_s) and all(t["S_gt1_k"] >= 9 or t["S_gt1_k"] == t["S_gt1_n"]
                                 for t in with_s)
     signs = {1 if (t["rho_partial_median"] or 0) < 0 else 0 for t in with_c}
+    w_signs = {1 if (t["rho_trait_w_median"] or 0) > 0 else 0
+               for t in table if t["rho_trait_w_n"] >= 3}
     return {
         "variants": len(table),
         "S_above_null_in_all_variants": s_ok,
         "C_sign_same_in_all_variants": len(signs) == 1,
         "C_sign": ("negative" if signs == {1} else "positive" if signs == {0}
+                   else "depends_on_metric"),
+        "R_sign_same_in_all_variants": len(w_signs) == 1,
+        "R_sign": ("positive" if w_signs == {1} else "negative" if w_signs == {0}
                    else "depends_on_metric"),
         "note": ("S инвариантна, если I_obs > I_null(95 %) во всех вариантах; C инвариантна, если "
                  "медианный rho_partial отрицателен во всех вариантах; расхождение публикуется как "
