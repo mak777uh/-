@@ -411,6 +411,59 @@
       "explained_by": {
         "n": "то же по построению"
       }
+    },
+    "rho_trait_cell_steps": {
+      "definition": "Спирмен по линиям с данными между наследуемым признаком линии и числом клетко-шагов (интеграл живых клеток по времени)",
+      "fields": [
+        "summary.type_traits",
+        "summary.lineage_cell_steps",
+        "summary.type_counts"
+      ],
+      "denominator": "lineages_with_data",
+      "units": "коэффициент"
+    },
+    "rho_trait_energy_per_cell_time": {
+      "definition": "Спирмен по линиям с данными между признаком и energy_per_cell_time = (1/|S|)·Σ_{s∈S} mean энергия живых клеток линии в момент s, где S — сэмплы каждые 10 шагов, |S| = T_active (усреднение по равномерной сетке времени, НЕ по клетко-шагам)",
+      "fields": [
+        "summary.type_traits",
+        "summary.lineage_energy_mean_sum",
+        "summary.lineage_energy_samples",
+        "summary.type_counts"
+      ],
+      "denominator": "lineages_with_data",
+      "units": "коэффициент"
+    },
+    "rho_partial_energy": {
+      "definition": "частная корреляция: Спирмен по остаткам линейных регрессий признака и клетко-шагов на energy_per_cell_time (контроль на энергию)",
+      "fields": [
+        "summary.type_traits",
+        "summary.lineage_cell_steps",
+        "summary.lineage_energy_mean_sum",
+        "summary.lineage_energy_samples"
+      ],
+      "denominator": "lineages_with_data",
+      "units": "коэффициент"
+    },
+    "energy_per_cell_time": {
+      "definition": "средняя энергия клетки линии по равномерной сетке времени: (1/|S|)·Σ_{s∈S} mean(energy живых клеток линии в момент s), S — каждые 10 шагов с ≥1 живой клеткой; |S| = T_active. Знаменатель — число сэмплов, а не клетко-шаги (убирает смещение §10ar)",
+      "fields": [
+        "summary.lineage_energy_mean_sum",
+        "summary.lineage_energy_samples"
+      ],
+      "denominator": "samples",
+      "units": "энергия"
+    },
+    "rho_trait_invest_intensity_median": {
+      "definition": "медиана по прогонам rho(признак, вложение/клетко-шаг); величина монотонна по построению (≈ invest_rate·(1+eps·(trait−mean))) — проверка реализации механизма, а не экологии",
+      "fields": [
+        "summary.type_traits",
+        "summary.lineage_invested",
+        "summary.lineage_cell_steps"
+      ],
+      "denominator": "runs",
+      "units": "коэффициент",
+      "derived_by_construction": true,
+      "formula": "rho(trait, lineage_invested[t]/lineage_cell_steps[t]); ожидаемое значение ≈ invest_rate·(1+eps·(trait−mean)) — знак предопределён"
     }
   },
   "verdicts": {

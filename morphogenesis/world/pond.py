@@ -250,6 +250,11 @@ class Pond:
         # Нужно, чтобы отделить «цену признака» от «бедности линии»: вложение клетки =
         # rate(признак)·энергия, поэтому без энергии цена неотличима от бедности (§10aq).
         self.lineage_energy_steps: dict[int, float] = {0: 0.0}
+        # energy_per_cell_time (H-ALIVE-34): сумма средних энергий линии по РАВНОМЕРНОЙ сетке
+        # времени (каждые 10 шагов) и число сэмплов. Знаменатель — сэмплы, а не клетко-шаги,
+        # иначе малоклеточные линии механически получают завышенное среднее (§10ar).
+        self.lineage_energy_mean_sum: dict[int, float] = {0: 0.0}
+        self.lineage_energy_samples: dict[int, int] = {0: 0}
         self.tag_trait_of: dict[int, float] = {0: 0.0}
         self.births_by_type: dict[str, int] = {}
         self.deaths_by_type: dict[str, int] = {}
@@ -634,6 +639,17 @@ class Pond:
                     self.lineage_cell_steps.get(int(tag_val), 0) + int(c))
                 self.lineage_energy_steps[int(tag_val)] = (
                     self.lineage_energy_steps.get(int(tag_val), 0.0) + float(e))
+            # сэмпл «средняя энергия клетки линии» на равномерной сетке (каждые 10 шагов)
+            if int(s.step) % 10 == 0:
+                emean = torch.zeros(uniq_a.numel(), device=self.device, dtype=torch.float32)
+                emean.index_add_(0, inv_a.view(-1), s.energy[alive].float().view(-1))
+                cnt_f = cnt.float().clamp_min(1.0)
+                emean = emean / cnt_f
+                for tag_val, m in zip(uniq_a.tolist(), emean.tolist()):
+                    self.lineage_energy_mean_sum[int(tag_val)] = (
+                        self.lineage_energy_mean_sum.get(int(tag_val), 0.0) + float(m))
+                    self.lineage_energy_samples[int(tag_val)] = (
+                        self.lineage_energy_samples.get(int(tag_val), 0) + 1)
 
         # B2: ниша — клетка поднимает ресурс в СВОЕЙ клетке за энергию
         if cfg.invest_rate > 0.0:
