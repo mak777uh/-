@@ -2,7 +2,7 @@
   "schema_version": 1,
   "generated_at": "2026-10-24T05:12:57Z",
   "policy": "Локально хранятся только canonical final из lab/checkpoints.json (требования активной/следующей серии) и явно объявленный положительный контроль. Best-снапшоты при наличии final и неканонические final закрытых/замещённых плеч удаляются после фиксации метрик, per-run JSONL, манифеста и этой записи в git. Веса в GitHub не отправляются; canonical final удаляется только по решению владельца.",
-  "freed_bytes": 58265585448,
+  "freed_bytes": 68518217142,
   "files": [
     {
       "path": "morphogenesis/checkpoints/gate_layer1_s800_seed101/nca_best.pt",
@@ -1457,5 +1457,168 @@
     "removed_files": 19,
     "freed_gb": 9.55,
     "note": "чистка под порог 10 ГБ перед серией task-6"
-  }
+  },
+  "entries": [
+    {
+      "path": "morphogenesis/checkpoints/E02c_R-9_s3000_seed42_tf32/nca_final.pt",
+      "family": "weights_noncanonical",
+      "bytes": 539495742,
+      "mtime": "2026-10-22T20:10:18",
+      "reason": "закрытое плечо E02c/E02: метрики, census-строки, summary и манифесты уже в git (§5a п.3); канон — 13 файлов E02b",
+      "date": "2026-10-25"
+    },
+    {
+      "path": "morphogenesis/checkpoints/E02c_R-9_s3000_seed42_fp32/nca_final.pt",
+      "family": "weights_noncanonical",
+      "bytes": 539495742,
+      "mtime": "2026-10-22T18:56:21",
+      "reason": "закрытое плечо E02c/E02: метрики, census-строки, summary и манифесты уже в git (§5a п.3); канон — 13 файлов E02b",
+      "date": "2026-10-25"
+    },
+    {
+      "path": "morphogenesis/checkpoints/E02c_R-9_s3000_seed202_tf32/nca_final.pt",
+      "family": "weights_noncanonical",
+      "bytes": 539495742,
+      "mtime": "2026-10-23T02:18:32",
+      "reason": "закрытое плечо E02c/E02: метрики, census-строки, summary и манифесты уже в git (§5a п.3); канон — 13 файлов E02b",
+      "date": "2026-10-25"
+    },
+    {
+      "path": "morphogenesis/checkpoints/E02c_R-9_s3000_seed101_tf32/nca_final.pt",
+      "family": "weights_noncanonical",
+      "bytes": 539495742,
+      "mtime": "2026-10-23T03:49:51",
+      "reason": "закрытое плечо E02c/E02: метрики, census-строки, summary и манифесты уже в git (§5a п.3); канон — 13 файлов E02b",
+      "date": "2026-10-25"
+    },
+    {
+      "path": "morphogenesis/checkpoints/E02c_R-9_s2000_seed42_tf32/nca_final.pt",
+      "family": "weights_noncanonical",
+      "bytes": 539495742,
+      "mtime": "2026-10-22T19:57:03",
+      "reason": "закрытое плечо E02c/E02: метрики, census-строки, summary и манифесты уже в git (§5a п.3); канон — 13 файлов E02b",
+      "date": "2026-10-25"
+    },
+    {
+      "path": "morphogenesis/checkpoints/E02c_R-9_s2000_seed42_fp32/nca_final.pt",
+      "family": "weights_noncanonical",
+      "bytes": 539495742,
+      "mtime": "2026-10-22T18:43:43",
+      "reason": "закрытое плечо E02c/E02: метрики, census-строки, summary и манифесты уже в git (§5a п.3); канон — 13 файлов E02b",
+      "date": "2026-10-25"
+    },
+    {
+      "path": "morphogenesis/checkpoints/E02c_R-9_s2000_seed42/nca_final.pt",
+      "family": "weights_noncanonical",
+      "bytes": 539495742,
+      "mtime": "2026-10-21T20:34:57",
+      "reason": "закрытое плечо E02c/E02: метрики, census-строки, summary и манифесты уже в git (§5a п.3); канон — 13 файлов E02b",
+      "date": "2026-10-25"
+    },
+    {
+      "path": "morphogenesis/checkpoints/E02c_R-9_s2000_seed342/nca_final.pt",
+      "family": "weights_noncanonical",
+      "bytes": 539495742,
+      "mtime": "2026-10-21T19:00:29",
+      "reason": "закрытое плечо E02c/E02: метрики, census-строки, summary и манифесты уже в git (§5a п.3); канон — 13 файлов E02b",
+      "date": "2026-10-25"
+    },
+    {
+      "path": "morphogenesis/checkpoints/E02c_R-9_s2000_seed242/nca_final.pt",
+      "family": "weights_noncanonical",
+      "bytes": 539495742,
+      "mtime": "2026-10-21T18:28:10",
+      "reason": "закрытое плечо E02c/E02: метрики, census-строки, summary и манифесты уже в git (§5a п.3); канон — 13 файлов E02b",
+      "date": "2026-10-25"
+    },
+    {
+      "path": "morphogenesis/checkpoints/E02c_R-9_s2000_seed202_tf32/nca_final.pt",
+      "family": "weights_noncanonical",
+      "bytes": 539495742,
+      "mtime": "2026-10-23T02:06:12",
+      "reason": "закрытое плечо E02c/E02: метрики, census-строки, summary и манифесты уже в git (§5a п.3); канон — 13 файлов E02b",
+      "date": "2026-10-25"
+    },
+    {
+      "path": "morphogenesis/checkpoints/E02c_R-9_s2000_seed142/nca_final.pt",
+      "family": "weights_noncanonical",
+      "bytes": 539495742,
+      "mtime": "2026-10-21T17:53:35",
+      "reason": "закрытое плечо E02c/E02: метрики, census-строки, summary и манифесты уже в git (§5a п.3); канон — 13 файлов E02b",
+      "date": "2026-10-25"
+    },
+    {
+      "path": "morphogenesis/checkpoints/E02c_R-9_s2000_seed101_tf32/nca_final.pt",
+      "family": "weights_noncanonical",
+      "bytes": 539495742,
+      "mtime": "2026-10-23T03:37:03",
+      "reason": "закрытое плечо E02c/E02: метрики, census-строки, summary и манифесты уже в git (§5a п.3); канон — 13 файлов E02b",
+      "date": "2026-10-25"
+    },
+    {
+      "path": "morphogenesis/checkpoints/E02c_R-9_s1750_seed101_tf32/nca_final.pt",
+      "family": "weights_noncanonical",
+      "bytes": 539495742,
+      "mtime": "2026-10-23T06:20:20",
+      "reason": "закрытое плечо E02c/E02: метрики, census-строки, summary и манифесты уже в git (§5a п.3); канон — 13 файлов E02b",
+      "date": "2026-10-25"
+    },
+    {
+      "path": "morphogenesis/checkpoints/E02c_R-9_s1500_seed101_tf32/nca_final.pt",
+      "family": "weights_noncanonical",
+      "bytes": 539495742,
+      "mtime": "2026-10-23T06:17:17",
+      "reason": "закрытое плечо E02c/E02: метрики, census-строки, summary и манифесты уже в git (§5a п.3); канон — 13 файлов E02b",
+      "date": "2026-10-25"
+    },
+    {
+      "path": "morphogenesis/checkpoints/E02c_R-9_s1250_seed101_tf32/nca_final.pt",
+      "family": "weights_noncanonical",
+      "bytes": 539495742,
+      "mtime": "2026-10-23T06:14:04",
+      "reason": "закрытое плечо E02c/E02: метрики, census-строки, summary и манифесты уже в git (§5a п.3); канон — 13 файлов E02b",
+      "date": "2026-10-25"
+    },
+    {
+      "path": "morphogenesis/checkpoints/E02c_R-9_s1000_seed42_tf32/nca_final.pt",
+      "family": "weights_noncanonical",
+      "bytes": 539495742,
+      "mtime": "2026-10-22T19:43:33",
+      "reason": "закрытое плечо E02c/E02: метрики, census-строки, summary и манифесты уже в git (§5a п.3); канон — 13 файлов E02b",
+      "date": "2026-10-25"
+    },
+    {
+      "path": "morphogenesis/checkpoints/E02c_R-9_s1000_seed42_fp32/nca_final.pt",
+      "family": "weights_noncanonical",
+      "bytes": 539495742,
+      "mtime": "2026-10-22T18:30:47",
+      "reason": "закрытое плечо E02c/E02: метрики, census-строки, summary и манифесты уже в git (§5a п.3); канон — 13 файлов E02b",
+      "date": "2026-10-25"
+    },
+    {
+      "path": "morphogenesis/checkpoints/E02c_R-9_s1000_seed202_tf32/nca_final.pt",
+      "family": "weights_noncanonical",
+      "bytes": 539495742,
+      "mtime": "2026-10-23T01:54:18",
+      "reason": "закрытое плечо E02c/E02: метрики, census-строки, summary и манифесты уже в git (§5a п.3); канон — 13 файлов E02b",
+      "date": "2026-10-25"
+    },
+    {
+      "path": "morphogenesis/checkpoints/E02c_R-9_s1000_seed101_tf32/nca_final.pt",
+      "family": "weights_noncanonical",
+      "bytes": 539495742,
+      "mtime": "2026-10-23T03:24:12",
+      "reason": "закрытое плечо E02c/E02: метрики, census-строки, summary и манифесты уже в git (§5a п.3); канон — 13 файлов E02b",
+      "date": "2026-10-25"
+    },
+    {
+      "path": "morphogenesis/checkpoints/E02_seed0_stress1/nca_best.pt",
+      "family": "weights_noncanonical",
+      "bytes": 2212596,
+      "mtime": "2026-10-18T13:41:07",
+      "reason": "закрытое плечо E02c/E02: метрики, census-строки, summary и манифесты уже в git (§5a п.3); канон — 13 файлов E02b",
+      "date": "2026-10-25"
+    }
+  ],
+  "updated_at": "2026-10-25T07:05:00+03:00"
 }
