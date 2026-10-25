@@ -90,6 +90,14 @@ CHECKS: list[dict] = [
         "template": "{v}",
         "note": "запас I_obs / I_null(95 %)",
     },
+    {
+        "section": "4i",
+        "aggregate": f"{POND}/w2bud3_matrix.json",
+        "values": {"v": "by_arm{arm=cell}.rho_trait_cell_steps_median"},
+        "template": "{v}",
+        "note": "цена признака: rho(tag_trait, lineage_cell_steps) по линиям с данными "
+                "(отрицательный = высокий признак даёт меньше клетко-шагов)",
+    },
     # --- §4h: размещение и слияние (V8) ------------------------------------------------
     {
         "section": "4h",

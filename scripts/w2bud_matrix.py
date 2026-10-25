@@ -194,6 +194,18 @@ def analyse(path: Path) -> dict | None:
                          for t in invested if t in csteps and csteps[t] > 0}
     # (в) текущая (накопленное/клетку) — для сравнения
     inv_per_cell = {t: invested[t] / cells[t] for t in invested if t in cells and cells[t] > 0}
+    # ЦЕНА признака: линии с высоким признаком имеют меньше клетко-шагов.
+    # Это НЕ отбор: отбор требует сравнения цены и выгоды в w = споры/клетки.
+    trait_cell_steps = [(traits[t], csteps[t]) for t in cells
+                        if t in csteps and csteps[t] > 0 and t in traits]
+    rho_trait_cell_steps = (round(spearman(trait_cell_steps), 3)
+                            if len(trait_cell_steps) >= 3 else None)
+    # Контроль «цена или бедность»: если высокий признак просто беден энергией, он должен
+    # инвестировать МЕНЬШЕ на клетко-шаг. Если больше — это цена (тратит), а не бедность.
+    rho_trait_invest_intensity = (round(spearman(
+        [(traits[t], inv_per_cell_step[t]) for t in cells
+         if t in inv_per_cell_step and t in traits]), 3)
+        if sum(1 for t in cells if t in inv_per_cell_step and t in traits) >= 3 else None)
     manip_updates = manip_rho_of(upd_per_cell)
     manip_per_step = manip_rho_of(inv_per_cell_step)
     manip_rho = manip_rho_of(inv_per_cell)
@@ -217,6 +229,8 @@ def analyse(path: Path) -> dict | None:
         "manipulation_rho_per_step": round(manip_per_step, 3) if manip_per_step is not None else None,
         "cell_steps_total": int(sum(csteps.values())) if csteps else None,
         "manipulation_n": len(inv_per_cell),
+        "rho_trait_cell_steps": rho_trait_cell_steps,
+        "rho_trait_invest_intensity": rho_trait_invest_intensity,
         "I_null_95": i_null_95,
         "I_obs": i_obs,
         "I_ratio": i_ratio,
@@ -282,6 +296,16 @@ def by_arm(rows: list[dict]) -> list[dict]:
                                                         if r["I_ratio"] is not None]), 2)
                                if any(r["I_ratio"] is not None for r in group) else None),
             "I_above_null_k_all": sum(1 for r in group if r["I_above_null"]),
+            "rho_trait_cell_steps_median": (
+                round(statistics.median([r["rho_trait_cell_steps"] for r in group
+                                         if r["rho_trait_cell_steps"] is not None]), 3)
+                if any(r["rho_trait_cell_steps"] is not None for r in group) else None),
+            "rho_trait_cell_steps_negative_k": sum(
+                1 for r in group if (r["rho_trait_cell_steps"] or 0) < 0),
+            "rho_trait_invest_intensity_median": (
+                round(statistics.median([r["rho_trait_invest_intensity"] for r in group
+                                         if r["rho_trait_invest_intensity"] is not None]), 3)
+                if any(r["rho_trait_invest_intensity"] is not None for r in group) else None),
         })
     return out
 
