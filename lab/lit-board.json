@@ -2597,6 +2597,37 @@
         "tasks": [],
         "reports": []
       }
+    },
+    {
+      "id": "B-076",
+      "type": "risk",
+      "target": {
+        "kind": "experiment",
+        "id": "freq_dep_dominance",
+        "ref": "pond.py:528-548; v8_*/mergekeep_* config freq_dep=1.0"
+      },
+      "statement": "freq_dep = 1 при доминировании A обнуляет приток ресурса A: чистый приток = inflow*fa, fa = clamp(1 - fd*(2*share_a-1)); при share_a=1 -> fa=0 (0% притока), при 0.99 -> 2%, при 0.95 -> 10%. Все серии инвазии (V8, merge=keep, §10ai, §10ak) шли с freq_dep=1.0 и type_mode mixfixed, то есть доминирующий A не получал притока вообще — инвазия проверялась в голодном субстрате, а не в мире с конкуренцией за общий ресурс. Это не отменяет 'инвайдер не удерживается', но интерпретация 'свойство мира' не отделена от настройки. Варианты: (1) оговорка в тексте; (2) контроль 4 плеч V8 при fd=0 (10 сидов); (3) fd=0 как новая база для серий инвазии.",
+      "evidence": [
+        {
+          "library": "answers.md#55",
+          "note": "проверено: config freq_dep=1.0 в v8_*, mergekeep_*; формула pond.py:528-548"
+        }
+      ],
+      "action": {
+        "kind": "param",
+        "detail": "fd=0 контроль на 4 плечах V8 или оговорка в §4h"
+      },
+      "status": "new",
+      "wave": "current",
+      "owner": "librarian",
+      "created_at": "2026-10-25T07:02:49+03:00",
+      "decided_at": null,
+      "why": null,
+      "links": {
+        "insights": [],
+        "tasks": [],
+        "reports": []
+      }
     }
   ],
   "updated_at": "2026-10-24T13:40:00Z"
