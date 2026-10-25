@@ -1,0 +1,81 @@
+{
+  "reviews": [
+    {
+      "file": "lab\\reviews\\2026-10-25-i-unit-selection.md",
+      "claim": "Клеточное почкование делает линию единицей отбора: I_obs > I_null(95 %) в 10/10 сидов с запасом 8.22x",
+      "section": "4i",
+      "verdict": "держится с оговоркой",
+      "date": "2026-10-25",
+      "checked_numbers": [
+        "I_obs_median = 0.4284",
+        "I_null_95_median = 0.0621",
+        "I_ratio_median = 8.22 (медиана отношений, НЕ отношение медиан = 6.90)",
+        "I_above_null_k_all = 10/10 (9/10 при экспозиции lineage_cell_steps)",
+        "I_ratio_median = 12.19 при согласованной дисперсии статистики и нуля",
+        "I_ratio_median = 4.44 при экспозиции lineage_cell_steps",
+        "W1: lineages_with_data = 1 во всех 10 прогонах -> I = 0 по построению"
+      ]
+    },
+    {
+      "file": "lab\\reviews\\2026-10-25-i-trait-price.md",
+      "claim": "У наследуемого признака есть цена: медиана rho_trait_cell_steps = -0.6 (8/10), частная корреляция при контроле на энергию = -0.700 (5 из 6)",
+      "section": "4i",
+      "verdict": "держится с оговоркой",
+      "date": "2026-10-25",
+      "checked_numbers": [
+        "rho_trait_cell_steps median = -0.6, отрицательных 8 из 9 посчитанных (в тексте 8/10)",
+        "rho_partial_energy median = -0.700, n=6: [-0.7, 0.771, -0.7, -1.0, -0.5, -0.8]",
+        "rho_partial_energy_negative_k = 5 из всех 10 сидов (пре-регистрация требует >=7/10)",
+        "lineages_with_data median = 4 (< порога 5) -> invalid_by_data = true",
+        "порог >=3 клеток: median rho_trait_cell_steps = -0.429, rho_partial = -0.521 (пост-хок)"
+      ]
+    },
+    {
+      "file": "lab\\reviews\\2026-10-25-invasion-0of10.md",
+      "claim": "Инвазия редкой линии не удаётся: 0/10 во всех плечах размещения и слияния, 2/10 при merge=keep, в majority инвайдер не появляется в наблюдаемом состоянии",
+      "section": "4h",
+      "verdict": "держится с оговоркой",
+      "date": "2026-10-25",
+      "checked_numbers": [
+        "survived_k = 0/10 в 4 плечах V8, 0/10 majority, 2/10 keep",
+        "separate_component = 2/10 (в резидента), 6/10 (в gap), 5/10 (доза 20)",
+        "alive_median = 444 / 475.5 / 461",
+        "Wilson: 0/10 -> [0.00, 0.278]; 2/10 -> [0.057, 0.51]",
+        "keep: invader_share_end = 0.0018 и 0.0030",
+        "строк лога с a_share<1: медиана 7.5 (gap) и 16.5 (keep); в тексте 10 и 18 = верхние медианы",
+        "invade_at = 200 во всех 90 прогонах (50 V8 + 20 keep + 20 режим гибели)",
+        "v8_matrix.criteria.resident_free_control_ok = false"
+      ]
+    },
+    {
+      "file": "lab\\reviews\\2026-10-25-posthoc-confirmed.md",
+      "claim": "Строки CLAIMS со статусом подтверждено не опираются на порог, метрику или набор линий, изменённые после данных",
+      "section": "CLAIMS (L48, L49, L51, L52, L54)",
+      "verdict": "не держится",
+      "date": "2026-10-25",
+      "checked_numbers": [
+        "L54: критерий I_obs > I_null(95 %) введён 15:33 после артефактов v2 09:23 и i_null.py 12:48",
+        "L54: строка цитирует I > 0 в 9/10 по w2bud_matrix.json (trait_effect = 2.0), текст — v3 10/10 (trait_effect = 4.0)",
+        "L48: две ветви пре-регистрации сработали; resident_free_control_ok = false",
+        "L52: 8/10 подтверждено; медиана 18 строк -> 16.5",
+        "paper.md:744-745 ссылается на несуществующее поле founding_matrix.aggregate_check",
+        "L49: N=1 alive_final 520-665, медиана 585.5, основание 10/10 — расхождений нет"
+      ]
+    },
+    {
+      "file": "lab\\reviews\\2026-10-25-founding-one-cell.md",
+      "claim": "В мире с гейтом зажигания основание колонии не является барьером: одна клетка даёт колонию 520-665 (50/50), порога в N=1..20 нет",
+      "section": "4h",
+      "verdict": "держится с оговоркой",
+      "date": "2026-10-25",
+      "checked_numbers": [
+        "N=1 alive_final 520-665, медиана 585.5",
+        "медианы по дозам 585.5 / 599.5 / 601.0 / 645.0 / 687.0",
+        "разница медиан N=20 и N=1 = +17.3%",
+        "основание 50/50, invalid_runs = 0, ignition_gate = true во всех 50",
+        "доля населения при N=20 = 2.7-3.9%",
+        "founding_matrix.aggregate_check отсутствует (поле не существует)"
+      ]
+    }
+  ]
+}

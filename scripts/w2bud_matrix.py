@@ -59,7 +59,11 @@ METRIC = {
     "tags_ge2": "#{t : type_counts[t] >= 2}",
     "lineage_with_data": "type_counts[t] >= 5 AND lineage_spores[t] >= 1",
     "w": "lineage_spores[t] / type_counts[t] (споры на живую клетку)",
-    "crow_I": "Var(w) / mean(w)^2 по линиям с данными; при < 2 линиях I = 0 по построению",
+    "crow_I": "Var(w) / mean(w)^2 по линиям с данными, ВЫБОРОЧНАЯ дисперсия (ddof = 1) — тот же "
+              "функционал, что в нуль-модели i_null.py; при < 2 линиях I = 0 по построению",
+    "I_ratio": "I_obs / I_null_95 по КАЖДОМУ прогону; медиана по плечу — I_ratio_median",
+    "I_ratio_of_medians": "median(I_obs) / median(I_null_95) по плечу — ДРУГАЯ величина: "
+                          "не равна I_ratio_median (отношение медиан ≠ медиана отношений)",
     "rate_definition": "rate = sum(lineage_spores[t]) / sum(type_counts[t]) по линиям с данными "
                        "(суммарные споры на суммарные живые клетки). Альтернативное определение "
                        "mean(spores/cells) по линиям даёт I_null(95%) ≈ 0.0215 вместо 0.0621 "
@@ -141,12 +145,19 @@ def gradient(traits: list[float], w: list[float]) -> tuple[float | None, float |
 
 
 def crow(values: list[float]) -> float | None:
+    """I = Var(w)/mean(w)^2 — ВЫБОРОЧНАЯ дисперсия (ddof = 1).
+
+    ВАЖНО (25.10, рецензент): нуль-модель `library/tools/i_null.py` считает дисперсию как
+    `sum(...)/(n-1)`, а здесь стояла `pvariance` (÷n). Статистика и её нуль считались разными
+    функционалами, поэтому отношение было смещено вниз (≈ на n/(n-1) — 20–25 % при n = 5–6).
+    Теперь один ddof на оба: сравнивать можно.
+    """
     if len(values) < 2:
         return 0.0            # одна линия -> разброса нет по построению
     mean = statistics.mean(values)
     if mean <= 0:
         return None
-    return round(statistics.pvariance(values) / (mean * mean), 4)
+    return round(statistics.variance(values) / (mean * mean), 4)
 
 
 def analyse(path: Path) -> dict | None:
@@ -343,6 +354,13 @@ def by_arm(rows: list[dict]) -> list[dict]:
             "I_null_95_median": (round(statistics.median([r["I_null_95"] for r in group
                                                           if r["I_null_95"] is not None]), 4)
                                  if any(r["I_null_95"] is not None for r in group) else None),
+            "I_ratio_of_medians": (
+                round((statistics.median([r["I_obs"] for r in group
+                                          if r["I_obs"] is not None])
+                       / statistics.median([r["I_null_95"] for r in group
+                                            if r["I_null_95"] is not None])), 2)
+                if (any(r["I_obs"] is not None for r in group)
+                    and any(r["I_null_95"] is not None for r in group)) else None),
             "I_ratio_median": (round(statistics.median([r["I_ratio"] for r in group
                                                         if r["I_ratio"] is not None]), 2)
                                if any(r["I_ratio"] is not None for r in group) else None),

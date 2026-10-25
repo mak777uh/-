@@ -73,13 +73,13 @@
       "units": "прогоны"
     },
     "I_obs_median": {
-      "definition": "медиана I_obs по прогонам с посчитанным I",
+      "definition": "медиана по сидам наблюдённого I Кроу; ВЫБОРОЧНАЯ дисперсия (ddof = 1), тот же функционал, что в нуль-модели",
       "fields": [
         "summary.type_counts",
         "summary.lineage_spores"
       ],
-      "denominator": "runs_with_I",
-      "units": "безразмерная"
+      "denominator": "runs",
+      "units": "коэффициент"
     },
     "I_null_95_median": {
       "definition": "медиана 95-го процентиля нуль-модели X_i ~ Poisson(rate * cells_i), rate = sum(spores)/sum(cells) по линиям с данными, 2000 розыгрышей",
@@ -91,12 +91,11 @@
       "units": "безразмерная"
     },
     "I_ratio_median": {
-      "definition": "медиана I_obs / I_null_95: во сколько раз структура выше демографического шума",
+      "definition": "медиана по сидам величины I_ratio (медиана ОТНОШЕНИЙ) — не равна I_ratio_of_medians",
       "fields": [
-        "I_obs",
-        "I_null_95"
+        "I_ratio"
       ],
-      "denominator": "runs_with_I",
+      "denominator": "runs",
       "units": "кратность"
     },
     "I_above_null_k_all": {
@@ -511,6 +510,58 @@
       ],
       "denominator": "runs",
       "units": "строки"
+    },
+    "I_ratio": {
+      "definition": "I_obs / I_null(95 %) по каждому прогону",
+      "fields": [
+        "I_obs",
+        "I_null_95"
+      ],
+      "denominator": "runs",
+      "units": "кратность"
+    },
+    "I_ratio_of_medians": {
+      "definition": "median(I_obs) / median(I_null_95) по плечу (ОТНОШЕНИЕ МЕДИАН). Отличается от I_ratio_median: 25.10 на v4s 9.04 против 12.16",
+      "fields": [
+        "I_obs_median",
+        "I_null_95_median"
+      ],
+      "formula": "median(I_obs)/median(I_null_95)",
+      "denominator": "runs",
+      "units": "кратность"
+    },
+    "S_median": {
+      "definition": "в metric_variants: медиана I_obs/I_null(95 %) по сидам для данного варианта (w, порог линий, нуль-модель); нуль-модель указана в поле null_model варианта",
+      "fields": [
+        "I_obs",
+        "I_null_95"
+      ],
+      "denominator": "runs",
+      "units": "кратность"
+    },
+    "rho_partial_energy_negative_k": {
+      "definition": "число сидов, где rho_partial(признак, cell_steps | энергия) отрицательна",
+      "fields": [
+        "rho_partial_energy"
+      ],
+      "denominator": "runs",
+      "units": "прогоны"
+    },
+    "rho_partial_energy_positive_k": {
+      "definition": "число сидов, где rho_partial положительна",
+      "fields": [
+        "rho_partial_energy"
+      ],
+      "denominator": "runs",
+      "units": "прогоны"
+    },
+    "rho_partial_energy_n": {
+      "definition": "число сидов, где rho_partial вычислима (>=4 линий с энергией)",
+      "fields": [
+        "rho_partial_energy"
+      ],
+      "denominator": "runs",
+      "units": "прогоны"
     }
   },
   "verdicts": {
@@ -611,6 +662,18 @@
     "verdict": {
       "kind": "label",
       "meaning": "итоговый вердикт серии как строка"
+    },
+    "price_confirmed": {
+      "definition": "цена подтверждена: медиана rho_partial <= -0.3 И отрицательна в >=7/10 сидов",
+      "type": "boolean"
+    },
+    "benefit_confirmed": {
+      "definition": "выгода подтверждена: медиана rho_partial >= +0.3 И положительна в >=7/10 сидов",
+      "type": "boolean"
+    },
+    "invalid_by_data": {
+      "definition": "серия невалидна по данным: медиана линий с данными < 5",
+      "type": "boolean"
     }
   },
   "undeclared_ok": {

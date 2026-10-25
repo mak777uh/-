@@ -35,7 +35,11 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 NAME = re.compile(r"w2bud[0-9]?s?_(?:pilot_)?(?P<arm>colony|cell)_seed(?P<seed>\d+)\.json$")
 
-W_VARIANTS = ("spores_per_cell", "raw_spores", "discrete")
+# 25.10: объединение двух наборов вариантов (мой и рецензентский) в ОДИН агрегат.
+# Рецензент брал `floor_spores_per_cell` (целая часть), я — `discrete` (0/1 по медиане);
+# это разные варианты, поэтому включены ОБА. Объединение может только ужесточить критерий
+# («все варианты дают один знак»), поэтому оно консервативно и не является поиском удобного варианта.
+W_VARIANTS = ("spores_per_cell", "raw_spores", "floor_spores_per_cell", "discrete")
 THRESHOLDS = ("cells>=5", "cells>=3", "all_with_spores")
 NULL_MODELS = ("sum_over_sum", "mean_of_ratios")
 
@@ -96,7 +100,7 @@ def crow(w):
     m = statistics.mean(w)
     if m <= 0:
         return None
-    return statistics.pvariance(w) / (m * m)
+    return statistics.variance(w) / (m * m)   # ddof=1: как в нуль-модели i_null.py
 
 
 def analyse(path: Path, i_null) -> list[dict]:
@@ -130,6 +134,8 @@ def analyse(path: Path, i_null) -> list[dict]:
                 w = [spores[t] / cells[t] for t in lineages]
             elif w_var == "raw_spores":
                 w = [float(spores[t]) for t in lineages]
+            elif w_var == "floor_spores_per_cell":
+                w = [float(math.floor(spores[t] / cells[t])) for t in lineages]
             else:
                 w = [1.0 if spores[t] / cells[t] >= med_ratio else 0.0 for t in lineages]
             i_obs = crow(w)
@@ -245,6 +251,10 @@ def main(argv=None) -> int:
         "source": args.src,
         "axes": {"w": list(W_VARIANTS), "threshold": list(THRESHOLDS),
                  "null_model": list(NULL_MODELS)},
+        "note": ("4 определения w x 3 порога линий x 2 нуль-модели = 24 варианта. Набор w — "
+                 "объединение моего (`discrete`) и рецензентского (`floor_spores_per_cell`): это "
+                 "разные варианты, а не дубли; объединение может только ужесточить критерий "
+                 "«все варианты дают один знак»"),
         "rows": rows,
         "by_variant": table,
         "criteria": criteria(table),

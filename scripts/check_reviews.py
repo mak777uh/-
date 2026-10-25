@@ -32,7 +32,7 @@ ARTIFACT_HINTS = ("morphogenesis/experiments", "scripts/", "reports/", "library/
 
 def parse_review(path: Path) -> dict:
     text = path.read_text(encoding="utf-8")
-    out = {"file": str(path.relative_to(ROOT)), "title": "", "verdict": "", "checked": "",
+    out = {"file": path.relative_to(ROOT).as_posix(), "title": "", "verdict": "", "checked": "",
            "killer": "", "section": "", "date": ""}
     m = re.search(r"^#\s*Проверка:\s*(.+)$", text, re.M)
     if m:
@@ -99,7 +99,7 @@ def main() -> int:
             problems.append(f"index.json не читается: {exc}")
             data = {}
         if index_ok:
-            listed = {e.get("file") for e in data.get("reviews", [])}
+            listed = {str(e.get("file") or "").replace("\\", "/") for e in data.get("reviews", [])}
             missing = sorted(set(parsed) - listed)
             extra = sorted(listed - set(parsed))
             if missing:
