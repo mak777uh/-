@@ -64,11 +64,11 @@ LOOP_STAGES = (
 # Русские метки статусов в журнале экспериментов README.md: статус в registry
 # должен читаться человеком тем же словом, что и в журнале.
 STATUS_LABELS = {
-    "closed": "закрыто",
-    "running": "идёт",
-    "planned": "план",
-    "blocked": "заблокировано",
-    "not_run": "не запускался",
+    "closed": ("закрыто", "closed"),
+    "running": ("идёт", "running"),
+    "planned": ("план", "planned"),
+    "blocked": ("заблокировано", "blocked"),
+    "not_run": ("не запускался", "not run", "not started"),
 }
 README_LEDGER_START = "<!-- ledger:start -->"
 README_LEDGER_END = "<!-- ledger:end -->"
@@ -1530,10 +1530,10 @@ def check_readme_ledger(registry: dict[str, Any]) -> tuple[list[str], int]:
                     f"{table_where}[{exp_id}]: в registry неизвестный status={status!r}; "
                     f"ожидается один из {sorted(STATUS_LABELS)}"
                 )
-            elif status_label.casefold() != expected.casefold():
+            elif status_label.casefold() not in {e.casefold() for e in expected}:
                 errors.append(
                     f"{table_where}[{exp_id}]: статус «{status_label}» не совпадает с registry "
-                    f"({status} → «{expected}»)"
+                    f"({status} → {expected})"
                 )
     missing = [exp_id for exp_id in experiments if exp_id not in covered]
     if missing:
