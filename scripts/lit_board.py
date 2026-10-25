@@ -157,6 +157,40 @@ def validate_items(items: list[dict]) -> tuple[list[str], list[str]]:
                         f"{where}: принято {age_acc:.0f} дн назад (> {ACCEPTED_WARN_DAYS}) — пора либо закрыть, "
                         f"либо отложить с условием"
                     )
+        if status == "done":
+            # «закрыто» допускается только ссылкой на артефакт, который существует СЕЙЧАС:
+            # файл в репозитории или id пункта очереди. Иначе «сделано» — это утверждение,
+            # а не факт (25.10 так были закрыты четыре замечания без выполнения).
+            links = item.get("links") or {}
+            targets: list[str] = []
+            for key in ("reports", "tasks", "insights"):
+                vals = links.get(key) or []
+                targets.extend(vals if isinstance(vals, list) else [vals])
+            ok_link = False
+            for tgt in targets:
+                tgt = str(tgt)
+                if (ROOT / tgt).exists():
+                    ok_link = True
+                    break
+                for state_name in ("lab/queue.json", "lab/insights.json", "lab/pool.json"):
+                    state_path = ROOT / state_name
+                    if not state_path.exists():
+                        continue
+                    try:
+                        data = json.loads(state_path.read_text(encoding="utf-8"))
+                    except Exception:
+                        continue
+                    ids = {i.get("id") for i in (data.get("items") or [])}
+                    if tgt in ids:
+                        ok_link = True
+                        break
+                if ok_link:
+                    break
+            if not ok_link:
+                errors.append(
+                    f"{where}: done без ссылки на существующий артефакт "
+                    f"(проверено: {targets or 'ссылок нет'}) — «сделано» требует файла или id пункта"
+                )
         if status == "new":
             age = _days_since(str(item.get("created_at") or ""))
             current = str(item.get("wave") or "current") == "current"
