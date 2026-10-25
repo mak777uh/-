@@ -762,6 +762,30 @@
       "artifacts": [],
       "note": "разблокирует beta1/Rugosity для ECM, D-39, D-44, D-45; аддитивное поле, старые артефакты не переписываются",
       "impact": 3
+    },
+    {
+      "id": "W2bud_v4_energy_price",
+      "title": "Цена признака при контроле на время: energy_per_cell_time вместо energy_per_cell_step",
+      "hypothesis": "Простая отрицательная связь признака с клетко-шагами сохранится при контроле на энергию, взвешенную по ВРЕМЕНИ, а не по клетко-шагам",
+      "status": "planned",
+      "owner": null,
+      "claimed_at": null,
+      "heartbeat_at": null,
+      "closed_at": null,
+      "ttl_minutes": 240,
+      "cost_gpu_h": 1.0,
+      "impact": 5,
+      "gated_by": [],
+      "unblocks": [
+        "V11_selection_E"
+      ],
+      "prereg": "reports/2026-10-25-w2bud-v4-energy-plan.md",
+      "launch": {
+        "command": "pwsh -NoProfile -ExecutionPolicy Bypass -File _hourly/run_w2bud4_sweep.ps1",
+        "outdir": "morphogenesis/experiments/E09_pond/w2bud4s"
+      },
+      "artifacts": [],
+      "note": "первый настоящий пункт конвейера: пока пре-регистрации и свипа нет, конвейер его не берёт"
     }
   ]
 }
