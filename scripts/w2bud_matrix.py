@@ -73,6 +73,22 @@ METRIC = {
 }
 
 
+# Величины, монотонные ПО ПОСТРОЕНИЮ: их знак предопределён формулой, поэтому они не являются
+# свидетельством о мире — только проверкой реализации механизма (правило AGENTS §3c, 25.10).
+# Третий случай за сутки: кандидат (б) per_cell_step, invest_updates ≡ current, интенсивность.
+DERIVED_BY_CONSTRUCTION = {
+    "manipulation_rho_per_step":
+        "invested/cell_steps ≈ invest_rate·(1 + eps·(trait − mean)) — монотонно по построению; "
+        "проверяет реализацию механизма, НЕ экологию и НЕ отсутствие конфаундера",
+    "rho_trait_invest_intensity":
+        "та же величина, что manipulation_rho_per_step (вложение на клетко-шаг) — тавтологична "
+        "как контроль на энергию: вложение = rate(признак)·энергия",
+    "manipulation_rho_updates":
+        "≡ manipulation_rho при invest_mode=fixed: каждая инвестирующая клетка вкладывает "
+        "одинаковую долю, поэтому события и сумма ранжируют линии одинаково",
+}
+
+
 def spearman(pairs: list[tuple[float, float]]) -> float | None:
     n = len(pairs)
     if n < 3:
@@ -231,6 +247,7 @@ def analyse(path: Path) -> dict | None:
         "manipulation_n": len(inv_per_cell),
         "rho_trait_cell_steps": rho_trait_cell_steps,
         "rho_trait_invest_intensity": rho_trait_invest_intensity,
+        "derived_by_construction": {k: True for k in DERIVED_BY_CONSTRUCTION},
         "I_null_95": i_null_95,
         "I_obs": i_obs,
         "I_ratio": i_ratio,
@@ -347,6 +364,7 @@ def main(argv=None) -> int:
         "kind": "w2bud_runs",
         "world": "W2-bud (клеточное почкование); числа НЕ сопоставимы с W1 напрямую",
         "metric": METRIC,
+        "derived_by_construction": DERIVED_BY_CONSTRUCTION,
         "rows": rows,
         "by_arm": table,
         "criteria": criteria(table),
