@@ -2566,6 +2566,37 @@
         "tasks": [],
         "reports": []
       }
+    },
+    {
+      "id": "B-075",
+      "type": "contradiction",
+      "target": {
+        "kind": "experiment",
+        "id": "richfield_chemostat",
+        "ref": "rich_pilot_normal.json / rich_pilot_rich.json; pond.py:504-528,581-598; §10am"
+      },
+      "statement": "Вывод 'мир хемостат' из пилота H-ALIVE-29 не сходится с уравнением модели. Артефакты: normal (regen 0.02) свободное поле 0.0067, колония 449; rich (regen 0.15) свободное поле 0.0069, колония 618. Приток при 0.15 = 0.15*1024 = 153.6/шаг, потребление income = 0.8*own на живую клетку = 618*0.8*0.007 ~ 3.5/шаг, то есть приток в 44 раза больше — поле должно было за ~7 шагов дойти до потолка resource_max=1.0. Даже normal (приток 20.5 против 2.5) не даёт 0.0067. Варианты: (1) regen не доходит до regenerate (world.resource_regen пишется в объект, а не cfg); (2) есть второй сток ~150/шаг (репарация/диффузия/деление); (3) диффузия делит ресурс и free-маска не отражает доступность; (4) метрика считается не там. Нужен лог resource.mean/alive/free + income.sum по шагам (1 прогон, 100 шагов).",
+      "evidence": [
+        {
+          "library": "answers.md#54",
+          "note": "остановку серии не оспариваю — только объяснение"
+        }
+      ],
+      "action": {
+        "kind": "method",
+        "detail": "лог ресурса по шагам; проверить путь флага до regenerate()"
+      },
+      "status": "new",
+      "wave": "current",
+      "owner": "librarian",
+      "created_at": "2026-10-25T06:44:35+03:00",
+      "decided_at": null,
+      "why": null,
+      "links": {
+        "insights": [],
+        "tasks": [],
+        "reports": []
+      }
     }
   ],
   "updated_at": "2026-10-24T13:40:00Z"
