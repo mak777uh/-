@@ -1408,17 +1408,18 @@
         "kind": "experiment_change",
         "detail": "в colony_matrix: параметр --invader-cells 1/2/5/10/20; 10 прогонов на точку; отчёт: доля выживших + медиана max-доли"
       },
-      "status": "new",
+      "status": "accepted",
       "wave": "current",
       "owner": "librarian",
       "created_at": "2026-10-24T14:18:37+03:00",
-      "decided_at": null,
-      "why": null,
+      "decided_at": "2026-10-25",
+      "why": "принято как ограничение: подсадка 1 клетки при колонии 424–700 (доля 0.0014–0.0024) не различает «линия не справилась» и «механизм не тот». В §4h/§10an добавлена строка о неоднозначности; различающий тест — подсадка сгустка (≥2% массы) отдельным плечом.",
       "links": {
         "insights": [],
         "tasks": [],
         "reports": []
-      }
+      },
+      "decided_by": "lead"
     },
     {
       "id": "B-038",
@@ -2648,18 +2649,19 @@
         "kind": "method",
         "detail": "--min-seeds, complete-гейт, k из фактических сидов, epsilon для I=0"
       },
-      "status": "new",
+      "status": "accepted",
       "wave": "current",
       "owner": "librarian",
       "created_at": "2026-10-25T07:53:36+03:00",
-      "decided_at": null,
-      "why": null,
+      "decided_at": "2026-10-25",
+      "why": "принято: агрегатор W2-bud не выносит вердикт при неполном наборе сидов — добавляем флаг --min-seeds и поле complete; вердикт только при complete=true. Это защита от вывода по 2–3 прогонам, из-за которой мы уже откатывали результаты.",
       "links": {
         "insights": [],
         "tasks": [],
         "reports": []
-      }
+      },
+      "decided_by": "lead"
     }
   ],
-  "updated_at": "2026-10-24T13:40:00Z"
+  "updated_at": "2026-10-25T05:10:00Z"
 }
