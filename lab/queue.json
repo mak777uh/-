@@ -768,11 +768,11 @@
       "id": "W2bud_v4_energy_price",
       "title": "Цена признака при контроле на время: energy_per_cell_time вместо energy_per_cell_step",
       "hypothesis": "H-ALIVE-34",
-      "status": "planned",
+      "status": "closed",
       "owner": null,
       "claimed_at": null,
       "heartbeat_at": null,
-      "closed_at": null,
+      "closed_at": "2026-10-25T17:59:36Z",
       "ttl_minutes": 240,
       "cost_gpu_h": 1.0,
       "impact": 5,
@@ -786,17 +786,18 @@
         "outdir": "morphogenesis/experiments/E09_pond/w2bud4s"
       },
       "artifacts": [],
-      "note": "первый настоящий пункт конвейера: пока пре-регистрации и свипа нет, конвейер его не берёт"
+      "note": "первый настоящий пункт конвейера: пока пре-регистрации и свипа нет, конвейер его не берёт | закрыто ведущим 2026-10-25: принято: §10as — цена признака направление устойчиво, вердикт не вынесен (серия невалидна по данным при пороге >=5); энергия по времени, не по клетко-шагам",
+      "closed_by": "lead"
     },
     {
       "id": "V1b_invader_death_mode",
       "title": "Режим гибели инвайдера: рывком (keep) или постепенно (majority), крупный пропагул",
       "hypothesis": "H-ALIVE-35",
-      "status": "running",
+      "status": "closed",
       "owner": "lead",
       "claimed_at": "2026-10-25T16:24:23Z",
-      "heartbeat_at": "2026-10-25T16:26:52Z",
-      "closed_at": null,
+      "heartbeat_at": null,
+      "closed_at": "2026-10-25T17:59:36Z",
       "ttl_minutes": 240,
       "cost_gpu_h": 0.7,
       "impact": 5,
@@ -810,7 +811,8 @@
         "outdir": "morphogenesis/experiments/E09_pond/invdeath"
       },
       "artifacts": [],
-      "note": "2 плеча x 10 сидов, --invader-cells 20, логгер invader_cells_series; якорь обязателен | запущено конвейером (preflight чист: pwsh, замков нет, 31.3 ГБ, пре-регистрация 939b862)"
+      "note": "2 плеча x 10 сидов, --invader-cells 20, логгер invader_cells_series; якорь обязателен | запущено конвейером (preflight чист: pwsh, замков нет, 31.3 ГБ, пре-регистрация 939b862) | закрыто ведущим 2026-10-25: серия принята: §10at — невалидна по постановке (6/10 неполных подсадок в каждом плече), вердикт по режиму не выносится; числа по конечной доле в силе",
+      "closed_by": "lead"
     },
     {
       "id": "W2bud_d2_buds_per_component",
@@ -840,11 +842,11 @@
       "id": "V1d_phase_sweep",
       "title": "Фазовая развёртка majority: сколько шагов живёт инвайдер до переписывания",
       "hypothesis": "H-ALIVE-38",
-      "status": "planned",
+      "status": "closed",
       "owner": null,
       "claimed_at": null,
       "heartbeat_at": null,
-      "closed_at": null,
+      "closed_at": "2026-10-25T17:59:36Z",
       "ttl_minutes": 240,
       "cost_gpu_h": 0.75,
       "impact": 5,
@@ -858,7 +860,8 @@
         "outdir": "morphogenesis/experiments/E09_pond/phase"
       },
       "artifacts": [],
-      "note": "majority, invade_at 201/202/203 x 10 сидов; критерий: time_to_rewrite <= 5 в >=9/10 каждой фазы => режим гибели в majority неопределим по построению (период enforce_colony_types = 5); иначе пул D-48 (enforce_every=1)"
+      "note": "majority, invade_at 201/202/203 x 10 сидов; критерий: time_to_rewrite <= 5 в >=9/10 каждой фазы => режим гибели в majority неопределим по построению (период enforce_colony_types = 5); иначе пул D-48 (enforce_every=1) | закрыто ведущим 2026-10-25: принято: §10at.2 — период объясняет типичный случай (медианы 4/3/2), но не хвост (9 и 24 шага); верхняя граница = время до слияния",
+      "closed_by": "lead"
     },
     {
       "id": "W2bud_replication",
