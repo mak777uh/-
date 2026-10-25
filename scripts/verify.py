@@ -25,7 +25,8 @@ STEP_BUDGET_S = 300.0
 
 def run(name: str, cmd: list[str], cwd: Path | None = None) -> tuple[bool, float, str]:
     t0 = time.perf_counter()
-    proc = subprocess.run(cmd, cwd=str(cwd or ROOT), capture_output=True, text=True)
+    proc = subprocess.run(cmd, cwd=str(cwd or ROOT), capture_output=True,
+                          text=True, encoding="utf-8", errors="replace")
     dt = time.perf_counter() - t0
     ok = proc.returncode == 0
     tail = (proc.stdout or proc.stderr or "").strip().split("\n")[-3:]
