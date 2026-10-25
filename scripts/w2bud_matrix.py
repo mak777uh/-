@@ -49,7 +49,7 @@ def _load_i_null():
     spec.loader.exec_module(module)
     return module
 
-NAME = re.compile(r"w2bud[0-9]?_(?P<arm>colony|cell)_seed(?P<seed>\d+)\.json$")
+NAME = re.compile(r"w2bud[0-9]?s?_(?P<arm>colony|cell)_seed(?P<seed>\d+)\.json$")
 MIN_CELLS = 5
 MIN_LINEAGES = 5
 
@@ -225,6 +225,35 @@ def analyse(path: Path) -> dict | None:
         [(traits[t], inv_per_cell_step[t]) for t in lineages
          if t in inv_per_cell_step and t in traits]), 3)
         if sum(1 for t in lineages if t in inv_per_cell_step and t in traits) >= 3 else None)
+    # energy_per_cell_time (H-ALIVE-34): средняя энергия клетки по равномерной сетке времени.
+    emean_sum = {str(k): float(v) for k, v in (summary.get("lineage_energy_mean_sum") or {}).items()}
+    esamples = {str(k): int(v) for k, v in (summary.get("lineage_energy_samples") or {}).items()}
+    ept = {t: emean_sum[t] / esamples[t] for t in emean_sum
+           if esamples.get(t, 0) > 0}
+    rho_trait_ept = (round(spearman([(traits[t], ept[t]) for t in lineages
+                                     if t in ept and t in traits]), 3)
+                     if sum(1 for t in lineages if t in ept and t in traits) >= 3 else None)
+    # частная корреляция rho(признак, cell_steps | energy_per_cell_time)
+    rho_partial = None
+    part = [t for t in lineages if t in csteps and t in ept and t in traits
+            and csteps[t] > 0]
+    if len(part) >= 4:
+        x = [traits[t] for t in part]
+        y = [float(csteps[t]) for t in part]
+        z = [ept[t] for t in part]
+
+        def _resid(a: list[float], b: list[float]) -> list[float]:
+            n = len(a)
+            mb = sum(b) / n
+            ma = sum(a) / n
+            sbb = sum((v - mb) ** 2 for v in b)
+            if sbb <= 0:
+                return [v - ma for v in a]
+            beta = sum((u - ma) * (v - mb) for u, v in zip(a, b)) / sbb
+            return [u - ma - beta * (v - mb) for u, v in zip(a, b)]
+
+        ra, ry = _resid(x, z), _resid(y, z)
+        rho_partial = round(spearman(list(zip(ra, ry))), 3)
     manip_updates = manip_rho_of(upd_per_cell)
     manip_per_step = manip_rho_of(inv_per_cell_step)
     manip_rho = manip_rho_of(inv_per_cell)
@@ -249,6 +278,8 @@ def analyse(path: Path) -> dict | None:
         "cell_steps_total": int(sum(csteps.values())) if csteps else None,
         "manipulation_n": len(inv_per_cell),
         "rho_trait_cell_steps": rho_trait_cell_steps,
+        "rho_trait_energy_per_cell_time": rho_trait_ept,
+        "rho_partial_energy": rho_partial,
         "rho_trait_invest_intensity": rho_trait_invest_intensity,
         "derived_by_construction": {k: True for k in DERIVED_BY_CONSTRUCTION},
         "I_null_95": i_null_95,
@@ -322,6 +353,20 @@ def by_arm(rows: list[dict]) -> list[dict]:
                 if any(r["rho_trait_cell_steps"] is not None for r in group) else None),
             "rho_trait_cell_steps_negative_k": sum(
                 1 for r in group if (r["rho_trait_cell_steps"] or 0) < 0),
+            "rho_trait_energy_per_cell_time_median": (
+                round(statistics.median([r["rho_trait_energy_per_cell_time"] for r in group
+                                         if r["rho_trait_energy_per_cell_time"] is not None]), 3)
+                if any(r["rho_trait_energy_per_cell_time"] is not None for r in group) else None),
+            "rho_partial_energy_median": (
+                round(statistics.median([r["rho_partial_energy"] for r in group
+                                         if r["rho_partial_energy"] is not None]), 3)
+                if any(r["rho_partial_energy"] is not None for r in group) else None),
+            "rho_partial_energy_negative_k": sum(
+                1 for r in group if (r["rho_partial_energy"] or 0) < 0),
+            "rho_partial_energy_positive_k": sum(
+                1 for r in group if (r["rho_partial_energy"] or 0) > 0),
+            "rho_partial_energy_n": sum(
+                1 for r in group if r["rho_partial_energy"] is not None),
             "rho_trait_invest_intensity_median": (
                 round(statistics.median([r["rho_trait_invest_intensity"] for r in group
                                          if r["rho_trait_invest_intensity"] is not None]), 3)
@@ -340,6 +385,11 @@ def criteria(table: list[dict]) -> dict:
         "I_positive_all_7_of_10": bool((cell.get("crow_I_positive_k_all") or 0) >= 7),
         "I_positive_valid_7_of_10": bool((cell.get("crow_I_positive_k_valid") or 0) >= 7),
         "w1_control_I_zero_all": bool((colony.get("crow_I_positive_k_all") or 0) == 0),
+        "price_confirmed": bool((cell.get("rho_partial_energy_median") or 0) <= -0.3
+                                and (cell.get("rho_partial_energy_negative_k") or 0) >= 7),
+        "benefit_confirmed": bool((cell.get("rho_partial_energy_median") or 0) >= 0.3
+                                  and (cell.get("rho_partial_energy_positive_k") or 0) >= 7),
+        "invalid_by_data": bool((cell.get("lineages_median") or 0) < 5),
         "manipulation_gate_7_of_10": bool((cell.get("manipulation_ok_k") or 0) >= 7),
         "manipulation_gate_7_of_10_updates": bool(
             (cell.get("manipulation_ok_k_updates") or 0) >= 7),
