@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-25T21:05:00",
+  "updated_at": "2026-10-25T22:55:00",
   "note": "Очередь пунктов после E02c. Claim берётся до пре-регистрации, а не перед запуском: lab.py item-claim. Статус running означает занятый GPU-лейн и может быть только у одного пункта. | 25.10: добавлено поле impact (1-5) — приоритет конвейера = impact/max(cost_gpu_h,0.1); для запуска пункту нужны prereg (закоммиченный план) и launch.command+outdir.",
   "items": [
     {
@@ -1001,6 +1001,28 @@
       "launch": null,
       "artifacts": [],
       "note": "B-067/068/069: Уилсон считается в 4 файлах руками, MI гистограммная с bins=8 (смещена), beta1 вручную; нужен один модуль + тесты + строка об ограничении в методах"
+    },
+    {
+      "id": "V1e_invasion_patches",
+      "title": "Инвазия на раскладке patches (20 клеток, 2 плеча x 10 сидов)",
+      "hypothesis": "H-ALIVE-43",
+      "status": "planned",
+      "owner": null,
+      "claimed_at": null,
+      "heartbeat_at": null,
+      "closed_at": null,
+      "ttl_minutes": 240,
+      "cost_gpu_h": 0.85,
+      "impact": 5,
+      "gated_by": [],
+      "unblocks": [],
+      "prereg": "reports/2026-10-25-invasion-patches-plan.md",
+      "launch": {
+        "command": "pwsh -NoProfile -ExecutionPolicy Bypass -File _hourly/run_invasion_patches_sweep.ps1",
+        "outdir": "morphogenesis/experiments/E09_pond/placement_patches"
+      },
+      "artifacts": [],
+      "note": "снимает вопрос «а на другой раскладке?»: результат V1c (keep 7/10 против majority 0/10) получен на одной раскладке uniform"
     }
   ]
 }

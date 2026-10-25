@@ -822,6 +822,13 @@
         "depends_on": [
           "H-ALIVE-39"
         ]
+      },
+      {
+        "id": "H-ALIVE-43",
+        "statement": "Результат V1c (keep 7/10 против majority 0/10 при 20 клетках) сохраняется на раскладке patches: постановка годна и направление то же.",
+        "test": "20 прогонов: 2 плеча x 10 сидов, layout patches, invade_at 201, require-placement 15",
+        "refutation": "если keep <= 1/10 или majority >= 5/10 — результат специфичен для uniform",
+        "status": "planned"
       }
     ]
   },
