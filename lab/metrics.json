@@ -1,0 +1,464 @@
+{
+  "note": "Реестр величин лаборатории (слой 1 плана 25.10). Правило: каждая величина, которую агрегат выдаёт в by_arm/by_n, обязана быть объявлена здесь — с определением, полями и знаменателем; каждый флаг в criteria обязан быть boolean и объявлен в verdicts. Проверка: python scripts/metrics_registry.py --check (в CI). Смысл: «определение не задокументировано» и «знаменатель подменён» становятся машинными ошибками, а не сюрпризами в рукописи.",
+  "rules": {
+    "denominator_suffix": {
+      "enabled": true,
+      "why": "имя величины обязано говорить, по какому множеству она считается (§3c AGENTS.md)",
+      "suffixes": {
+        "_all": "all",
+        "_valid": "valid"
+      }
+    },
+    "derived_by_construction": {
+      "enabled": true,
+      "why": "величина, равная своей формуле реализации, не является свидетельством; у неё обязана быть записана formula",
+      "require_formula": true
+    },
+    "criteria_are_verdicts": {
+      "enabled": true,
+      "why": "criteria — это вердикты (bool), а не измерения; безымянный вердикт нельзя проверить и нельзя цитировать"
+    }
+  },
+  "metrics": {
+    "tags_ge2_median": {
+      "definition": "медиана по прогонам числа наследуемых меток с ≥2 живыми клетками",
+      "fields": [
+        "summary.type_counts"
+      ],
+      "denominator": "runs",
+      "units": "метки"
+    },
+    "tags_ge5_median": {
+      "definition": "медиана по прогонам числа меток с ≥5 живыми клетками",
+      "fields": [
+        "summary.type_counts"
+      ],
+      "denominator": "runs",
+      "units": "метки"
+    },
+    "lineages_median": {
+      "definition": "медиана по прогонам числа линий с данными: клеток ≥5 И спор ≥1",
+      "fields": [
+        "summary.type_counts",
+        "summary.lineage_spores"
+      ],
+      "denominator": "runs",
+      "units": "линии"
+    },
+    "crow_I_median_all": {
+      "definition": "медиана I = Var(w)/mean(w)^2 по ВСЕМ прогонам плеча, w = споры / живые клетки линии; при <2 линиях с данными I = 0",
+      "fields": [
+        "summary.type_counts",
+        "summary.lineage_spores"
+      ],
+      "denominator": "all",
+      "units": "безразмерная"
+    },
+    "crow_I_positive_k_all": {
+      "definition": "число прогонов с I > 0 по ВСЕМ прогонам плеча",
+      "fields": [
+        "summary.type_counts",
+        "summary.lineage_spores"
+      ],
+      "denominator": "all",
+      "units": "прогоны"
+    },
+    "crow_I_positive_k_valid": {
+      "definition": "число прогонов с I > 0 только по валидным прогонам (≥5 линий с данными)",
+      "fields": [
+        "summary.type_counts",
+        "summary.lineage_spores"
+      ],
+      "denominator": "valid",
+      "units": "прогоны"
+    },
+    "I_obs_median": {
+      "definition": "медиана I_obs по прогонам с посчитанным I",
+      "fields": [
+        "summary.type_counts",
+        "summary.lineage_spores"
+      ],
+      "denominator": "runs_with_I",
+      "units": "безразмерная"
+    },
+    "I_null_95_median": {
+      "definition": "медиана 95-го процентиля нуль-модели X_i ~ Poisson(rate * cells_i), rate = sum(spores)/sum(cells) по линиям с данными, 2000 розыгрышей",
+      "fields": [
+        "summary.type_counts",
+        "summary.lineage_spores"
+      ],
+      "denominator": "runs_with_I",
+      "units": "безразмерная"
+    },
+    "I_ratio_median": {
+      "definition": "медиана I_obs / I_null_95: во сколько раз структура выше демографического шума",
+      "fields": [
+        "I_obs",
+        "I_null_95"
+      ],
+      "denominator": "runs_with_I",
+      "units": "кратность"
+    },
+    "I_above_null_k_all": {
+      "definition": "число прогонов, где I_obs > I_null_95, по ВСЕМ прогонам плеча",
+      "fields": [
+        "I_obs",
+        "I_null_95"
+      ],
+      "denominator": "all",
+      "units": "прогоны"
+    },
+    "rho_median": {
+      "definition": "медиана Spearman rho(признак линии, w) по валидным прогонам",
+      "fields": [
+        "summary.type_traits",
+        "summary.type_counts",
+        "summary.lineage_spores"
+      ],
+      "denominator": "valid",
+      "units": "rho"
+    },
+    "rho_ge_0.3_k": {
+      "definition": "число валидных прогонов с rho ≥ 0.3",
+      "fields": [
+        "summary.type_traits",
+        "summary.type_counts",
+        "summary.lineage_spores"
+      ],
+      "denominator": "valid",
+      "units": "прогоны"
+    },
+    "sign_agreement_k": {
+      "definition": "число валидных прогонов, где знак rho совпал со знаком beta_lin",
+      "fields": [
+        "summary.type_traits",
+        "summary.type_counts",
+        "summary.lineage_spores"
+      ],
+      "denominator": "valid",
+      "units": "прогоны"
+    },
+    "manipulation_ok_k": {
+      "definition": "число валидных прогонов, где |rho(признак, вложение на клетку)| ≥ 0.2 (гейт манипуляции, версия current)",
+      "fields": [
+        "summary.type_traits",
+        "summary.lineage_invested"
+      ],
+      "denominator": "valid",
+      "units": "прогоны"
+    },
+    "manipulation_ok_k_per_step": {
+      "definition": "число валидных прогонов, где |rho(признак, вложение / клетко-шаги)| ≥ 0.2",
+      "fields": [
+        "summary.type_traits",
+        "summary.lineage_invested",
+        "summary.lineage_cell_steps"
+      ],
+      "denominator": "valid",
+      "units": "прогоны",
+      "derived_by_construction": true,
+      "formula": "invested/cell_steps ≈ invest_rate * (1 + eps * (trait - mean)) — монотонно по признаку по построению"
+    },
+    "manipulation_ok_k_updates": {
+      "definition": "число валидных прогонов, где |rho(признак, число инвестиций)| ≥ 0.2",
+      "fields": [
+        "summary.type_traits",
+        "summary.lineage_invest_updates"
+      ],
+      "denominator": "valid",
+      "units": "прогоны",
+      "derived_by_construction": true,
+      "formula": "при invest_mode = fixed число инвестиций ранжирует линии так же, как сумма вложения (совпадает с current)"
+    },
+    "rho_trait_cell_steps_negative_k": {
+      "definition": "число прогонов, где Spearman rho(признак, клетко-шаги) < 0",
+      "fields": [
+        "summary.type_traits",
+        "summary.lineage_cell_steps"
+      ],
+      "denominator": "all",
+      "units": "прогоны"
+    },
+    "rho_trait_cell_steps_median": {
+      "definition": "медиана Spearman rho(признак линии, клетко-шаги линии) по линиям с данными",
+      "fields": [
+        "summary.type_traits",
+        "summary.lineage_cell_steps",
+        "summary.type_counts"
+      ],
+      "denominator": "runs",
+      "units": "rho"
+    },
+    "rho_trait_invest_intensity": {
+      "definition": "Spearman rho(признак, вложение / клетко-шаги) — та же величина, что manipulation_ok_k_per_step по сути",
+      "fields": [
+        "summary.type_traits",
+        "summary.lineage_invested",
+        "summary.lineage_cell_steps"
+      ],
+      "denominator": "valid",
+      "units": "rho",
+      "derived_by_construction": true,
+      "formula": "та же формула; как контроль на энергию тавтологична"
+    },
+    "runs": {
+      "definition": "число прогонов в группе (знаменатель для долей)",
+      "fields": [
+        "artifact"
+      ],
+      "denominator": "none",
+      "units": "прогоны"
+    },
+    "valid_n": {
+      "definition": "число валидных прогонов группы",
+      "fields": [
+        "artifact"
+      ],
+      "denominator": "none",
+      "units": "прогоны"
+    },
+    "n": {
+      "definition": "число прогонов в плече (унаследованное имя V8; НЕ число валидных)",
+      "fields": [
+        "artifact"
+      ],
+      "denominator": "none",
+      "units": "прогоны"
+    },
+    "survived_k": {
+      "definition": "число валидных прогонов, где инвайдер сохранил хоть одну клетку: survived = (1 - a_share_final) > 0",
+      "fields": [
+        "summary.a_share_final"
+      ],
+      "denominator": "valid",
+      "units": "прогоны"
+    },
+    "separate_k": {
+      "definition": "число валидных прогонов, где инвайдер хоть раз образовывал отдельную компоненту: max(1 - a_share по логу) > 0",
+      "fields": [
+        "log.a_share"
+      ],
+      "denominator": "valid",
+      "units": "прогоны"
+    },
+    "survival": {
+      "definition": "доля выживания = survived_k / valid_n",
+      "fields": [
+        "survived_k",
+        "valid_n"
+      ],
+      "denominator": "valid",
+      "units": "доля"
+    },
+    "survival_wilson_lo": {
+      "definition": "нижняя граница 95 % интервала Уилсона для доли выживания",
+      "fields": [
+        "survived_k",
+        "valid_n"
+      ],
+      "denominator": "valid",
+      "units": "доля"
+    },
+    "survival_wilson_hi": {
+      "definition": "верхняя граница 95 % интервала Уилсона для доли выживания",
+      "fields": [
+        "survived_k",
+        "valid_n"
+      ],
+      "denominator": "valid",
+      "units": "доля"
+    },
+    "alive_median": {
+      "definition": "медиана живых клеток колонии в конце прогона",
+      "fields": [
+        "summary.final"
+      ],
+      "denominator": "valid",
+      "units": "клетки"
+    },
+    "median_max_share": {
+      "definition": "медиана по прогонам максимальной доли инвайдера за прогон",
+      "fields": [
+        "log.a_share"
+      ],
+      "denominator": "valid",
+      "units": "доля"
+    },
+    "fixations": {
+      "definition": "число прогонов, где инвайдер фиксировался (доля 1.0 к концу)",
+      "fields": [
+        "summary.a_share_final"
+      ],
+      "denominator": "valid",
+      "units": "прогоны"
+    },
+    "dose": {
+      "definition": "доза инокулята: сколько клеток высажено в начале (не число прогонов)",
+      "fields": [
+        "config.init_cells"
+      ],
+      "denominator": "none",
+      "units": "клетки"
+    },
+    "valid_runs": {
+      "definition": "число валидных прогонов при данной дозе",
+      "fields": [
+        "artifact"
+      ],
+      "denominator": "none",
+      "units": "прогоны"
+    },
+    "invalid_runs": {
+      "definition": "число невалидных прогонов при данной дозе",
+      "fields": [
+        "artifact"
+      ],
+      "denominator": "none",
+      "units": "прогоны"
+    },
+    "grew_k": {
+      "definition": "число валидных прогонов, где колония выросла: alive_final > dose И alive_final > alive_step1",
+      "fields": [
+        "summary.final"
+      ],
+      "denominator": "valid",
+      "units": "прогоны"
+    },
+    "alive_final_median": {
+      "definition": "медиана живых клеток в конце прогона при данной дозе",
+      "fields": [
+        "summary.final"
+      ],
+      "denominator": "valid",
+      "units": "клетки"
+    },
+    "max_alive_median": {
+      "definition": "медиана максимального числа живых клеток за прогон при данной дозе",
+      "fields": [
+        "log.alive"
+      ],
+      "denominator": "valid",
+      "units": "клетки"
+    },
+    "pop_time_median": {
+      "definition": "медиана шага, на котором популяция достигла предела (pop_time)",
+      "fields": [
+        "summary.pop_time"
+      ],
+      "denominator": "valid",
+      "units": "шаги"
+    },
+    "grew_share": {
+      "definition": "доля валидных прогонов, где колония выросла (alive_final > dose И > alive_step1)",
+      "fields": [
+        "summary.final"
+      ],
+      "denominator": "valid",
+      "units": "доля"
+    }
+  },
+  "verdicts": {
+    "I_positive_all_7_of_10": {
+      "kind": "bool",
+      "meaning": "структурный критерий пре-регистрации: I > 0 в ≥7/10 ВСЕХ сидов"
+    },
+    "I_positive_valid_7_of_10": {
+      "kind": "bool",
+      "meaning": "то же только по валидным сидам (не критерий пре-регистрации, вспомогательный)"
+    },
+    "I_above_null": {
+      "kind": "bool",
+      "meaning": "медиана I_obs > медианы I_null(95 %)"
+    },
+    "I_above_null_7_of_10": {
+      "kind": "bool",
+      "meaning": "I_obs > I_null(95 %) в ≥7/10 сидов"
+    },
+    "w1_control_I_zero_all": {
+      "kind": "bool",
+      "meaning": "контроль W1: I = 0 во всех сидах колониального почкования"
+    },
+    "manipulation_gate_7_of_10": {
+      "kind": "bool",
+      "meaning": "гейт манипуляции (версия current) пройден в ≥7/10 сидов"
+    },
+    "manipulation_gate_7_of_10_per_step": {
+      "kind": "bool",
+      "meaning": "гейт манипуляции (вложение/клетко-шаг) пройден в ≥7/10 сидов"
+    },
+    "manipulation_gate_7_of_10_updates": {
+      "kind": "bool",
+      "meaning": "гейт манипуляции (число инвестиций) пройден в ≥7/10 сидов"
+    },
+    "rho_median_ge_03": {
+      "kind": "bool",
+      "meaning": "медиана rho ≥ 0.3 (порог отклика)"
+    },
+    "rho_ge_03_in_7_of_10_valid": {
+      "kind": "bool",
+      "meaning": "rho ≥ 0.3 в ≥7/10 валидных сидов"
+    },
+    "sign_agreement_7_of_10_valid": {
+      "kind": "bool",
+      "meaning": "знак rho совпал с beta_lin в ≥7/10 валидных сидов"
+    },
+    "placement_works": {
+      "kind": "bool",
+      "meaning": "размещение даёт выживание (критерий V8)"
+    },
+    "merge_works": {
+      "kind": "bool",
+      "meaning": "объединение даёт выживание (общий критерий V8)"
+    },
+    "merge_works_resident": {
+      "kind": "bool",
+      "meaning": "слияние даёт выживание при подсадке в резидента"
+    },
+    "merge_works_gap": {
+      "kind": "bool",
+      "meaning": "слияние даёт выживание при подсадке в свободную область"
+    },
+    "resident_free_control_ok": {
+      "kind": "bool",
+      "meaning": "контроль: резидент без инвайдера жив"
+    },
+    "propagule_survival": {
+      "kind": "number",
+      "nullable": true,
+      "meaning": "доля выживания пропагула при дозе 20 (число или null, если плечо не гонялось)"
+    },
+    "all_arms_low": {
+      "kind": "bool",
+      "meaning": "во всех плечах выживание низкое"
+    },
+    "threshold_between_1_and_20": {
+      "kind": "bool",
+      "meaning": "порог основания лежит между 1 и 20 клетками (опровергнут)"
+    },
+    "founding_from_one_cell": {
+      "kind": "bool",
+      "meaning": "основание из одной клетки возможно"
+    },
+    "no_founding_up_to_20": {
+      "kind": "bool",
+      "meaning": "до 20 клеток основание невозможно (опровергнуто)"
+    },
+    "monotone_survival": {
+      "kind": "bool",
+      "meaning": "выживание монотонно растёт с дозой"
+    },
+    "threshold_above_20": {
+      "kind": "label",
+      "nullable": true,
+      "meaning": "текстовая метка исхода порога основания (null, если гипотеза не проверялась)"
+    },
+    "verdict": {
+      "kind": "label",
+      "meaning": "итоговый вердикт серии как строка"
+    }
+  },
+  "undeclared_ok": {
+    "note": "Переходный список: величины, которые агрегаты уже выдают, но которые ещё не объявлены. Должен сокращаться, а не расти; проверка падает, если в нём остались исчезнувшие величины.",
+    "by_aggregate": {}
+  }
+}

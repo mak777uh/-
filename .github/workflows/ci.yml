@@ -83,6 +83,15 @@ jobs:
         shell: bash
         run: |
           set +e
+      - name: Реестр величин (определения и знаменатели)
+        run: |
+          out=$(python scripts/metrics_registry.py --check 2>&1) || {
+            echo "$out"
+            echo "::error::величина без определения, с подменённым знаменателем или без пометки derived_by_construction"
+            exit 1
+          }
+          echo "$out" | tail -3
+
       - name: Агрегаты свежие (пересборка совпадает с git)
         run: |
           out=$(python scripts/check_aggregates_fresh.py 2>&1) || {
