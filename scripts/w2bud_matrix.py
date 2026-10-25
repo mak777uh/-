@@ -36,7 +36,7 @@ import re
 import statistics
 from pathlib import Path
 
-NAME = re.compile(r"w2bud_(?P<arm>colony|cell)_seed(?P<seed>\d+)\.json$")
+NAME = re.compile(r"w2bud2?_(?P<arm>colony|cell)_seed(?P<seed>\d+)\.json$")
 MIN_CELLS = 5
 MIN_LINEAGES = 5
 
@@ -147,7 +147,7 @@ def analyse(path: Path) -> dict | None:
     manip_rho = spearman(manip) if len(manip) >= 3 else None
     sizes = sorted(cells.values(), reverse=True)
     return {
-        "artifact": f"morphogenesis/experiments/E09_pond/w2bud/{path.name}",
+        "artifact": str(path).replace("\\", "/"),
         "arm": match.group("arm"),
         "seed": int(match.group("seed")),
         "alive_final": (summary.get("final") or {}).get("alive_cells"),
