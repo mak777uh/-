@@ -1,183 +1,227 @@
 # Project Morphogenesis
 
-A research bench for **morphogenesis in neural cellular automata (NCA)** — and, more recently, for a
-narrower and harder question: **which conditions let a reproducing lineage persist in a digital
-environment at all**.
+Научный стенд, где мы ищем **условия, при которых организация поддерживает себя
+и эволюционирует**, а не конкретную форму. Живое здесь понимается как процесс:
+поддержание границы стоит энергии, ошибка приводит к смерти, удача передаётся
+потомству. Поэтому центр работы — **среда и её параметры**, а не узор.
 
-The repository is not a demo. Every number in the manuscript is traceable to a run artifact, every
-claim carries an explicit evidence type, and every experiment is pre-registered before it is run.
-Negative results are published on equal terms, and the list of things we have *ruled out* is kept as
-a first-class document ([`docs/eliminations.md`](docs/eliminations.md)).
+> **Фокус на 23.10:** линия морфологии (`struct_2` и классы форм) **остановлена**.
+> Она дала три переносимых урока — класс есть фаза траектории, у модели есть
+> измеримая подпись, форма держится на цене поддержания, — и на этом закрыта.
+> Почему это не потеря: в том мире не было метаболизма, поэтому проверять
+> «жизнь» там было нечем. Историю и результаты не переписываем:
+> [`docs/path.md`](docs/path.md), [`reports/2026-10-23-window-and-topology.md`](reports/2026-10-23-window-and-topology.md).
+> Текущая программа — [`docs/plan-alive.md`](docs/plan-alive.md).
 
-**Language note.** The scientific record (manuscript, reports, world design, articles) is written in
-Russian. This README is the English entry point for reviewers and collaborators; the machine-checked
-experiment ledger below is bilingual by design.
+Проект прошёл пять поворотов, и все сохранены как путь: **цель** (кольцо не стало
+аттрактором) → **карта** (перепись того, что система порождает сама) → **репликация**
+(класс не воспроизводится на новых сидах) → **фаза** (класс зависит от горизонта
+обучения) → **среда** (ищем не форму, а условия её поддержания). Описание пути,
+включая ошибки и уроки — [`docs/path.md`](docs/path.md).
 
----
+Из этого следует нынешнее направление: если класс — фаза, то искать надо не форму,
+а **условия, в которых организация поддерживается**. Поэтому строится среда, где
+поддержание стоит энергии, есть повреждения, размножение и отбор через дефицит, а
+у агента есть шанс научиться жить лучше: [`docs/world-design.md`](docs/world-design.md),
+[`docs/plan-alive.md`](docs/plan-alive.md).
 
-## 1. Research question
+> **Статус:** working paper / laboratory notebook, не рецензировано. Внешняя
+> публикация (arXiv, датасет, benchmark) закрыта гейтом: сначала репликация
+> обучения R-9 (E02c) и независимое воспроизведение, потом заявления. Репозиторий
+> публичен как журнал, а не как опубликованная статья. Будущая статья собирается
+> постепенно в [`manuscript/`](manuscript/README.md).
 
-We ask what a *minimal* digital world can support. The concrete object is a 32×32 pond with cells
-that carry energy, age, damage and a membrane; resources regenerate locally; a frozen NCA rule
-decides growth, division and death. Nothing is trained during a run.
+**Обновлено:** 2026-10-23. Источник истины — [`lab/registry.json`](lab/registry.json),
+канонический журнал [`morphogenesis/logs/journal.jsonl`](morphogenesis/logs/journal.jsonl)
+и сырые артефакты. [`lab/state.json`](lab/state.json) — пересобираемый снимок, а не
+ручная правка. Правила измерения — [`docs/protocol.md`](docs/protocol.md) (v1.2),
+где мы сейчас — [`docs/research-map.md`](docs/research-map.md).
 
-The question we are working on now is not "can we produce life-like images". It is:
+## Журнал экспериментов
 
-> **Under which environmental and organisational conditions does a lineage persist, coexist, and
-> become subject to selection?**
-
-That question is decomposed into a ladder of conditions — information, heritable variability,
-environmental inheritance, coexistence, selection — each with its own minimal viable demonstration
-and stop rule.
-
-## 2. What is established
-
-Short statements, each backed by artifacts listed in the ledger and in `manuscript/CLAIMS.md`.
-
-**The learned rule is not conservative.** Started on an empty field, the frozen rule lights up all
-1024 cells on step 1 (1023 grown cells), independent of initial resource and income: the live channel
-has a positive bias. This is machine-checked as an invariant together with an *ignition gate* option,
-and the gate is proven to keep an empty field empty at every step (Lean, `formal/Ignition.lean`,
-4 theorems; Python analogue in the test suite).
-
-**Founding is not the barrier.** In the gated world a colony is founded from a **single cell in
-50/50 runs** (N = 1…20 cells × 10 seeds): median final population 586 (N=1) to 687 (N=20). Founder
-size affects colony size (~17%), not the fact of founding.
-
-**Invasion does not work.** A rare lineage injected into a resident colony dies in **0/10** runs in
-all placement arms (into the resident / into a gap), with either merge rule, and at dose 20. Letting
-minority types survive merging (`merge=keep`) gives **2/10**, and the survivors hold only
-**0.18–0.30%** of the population — a trace, not coexistence.
-
-**Four candidate mechanisms were eliminated by measurement**, not by argument: founder size (dose 20
-→ 0/10; one patch reached 36% of the population and still died); merge overwriting (2/10 without it);
-lineage bookkeeping (a corrected logger changed nothing: 2 lineages with ≥2 cells vs 18–23 under
-neutral drift); resource shortage at the injection point (14/15 runs land on a depleted spot, and the
-single run that landed on a full one, 0.9811, also died).
-
-**Heritable variability works; selection is not yet measurable.** Heritable tag novelty appears from
-mutation rate m ≥ 0.05 (10/10 seeds; novelty 14.7 per run; population unaffected — variation is free).
-Environmental memory survives 1.3–2.4 generations, satisfying the *necessary* condition of
-environmental inheritance; its *sufficiency* (does the next cohort benefit?) is **not** established —
-two versions of that test were structurally insensitive and are reported as such. Selection itself is
-blocked by architecture: reproduction in this world is colony-level budding, so a cell-level tag is
-not a unit of reproduction and has no path to offspring.
-
-## 3. What is ruled out
-
-The registry of eliminated hypotheses is kept with artifact references and "what would revive it":
-[`docs/eliminations.md`](docs/eliminations.md). Examples: the ring as an attractor (E02), asynchronous
-updates, perceptual noise, five rule-learning schemes, smooth environmental drift, the dose-response
-test at random placement, the "trivial radial bubble" reading of `struct_2`, plus the four mechanisms
-above.
-
-## 4. How the numbers can be trusted
-
-1. **Pre-registration.** Every experiment has a plan with criteria committed *before* the run
-   (`reports/*-plan.md`), including the branch structure of possible outcomes.
-2. **Sensitivity arithmetic before launch.** Any A/B experiment must show the arithmetic that creates
-   the difference (for energy experiments: break-even `own* = spent/(4·b)` and where the field sits
-   relative to it). Two early series were insensitive *by construction*; both are reported as "the
-   test did not reach the effect", never as "there is no effect".
-3. **Seed anchors.** Each code change is validated by re-running a pinned reference run and comparing
-   **bit-for-bit**. A diagnostic probe that consumed the RNG once shifted the world; the anchor caught
-   it within 90 seconds.
-4. **Artifact chain.** Raw run artifacts → aggregates → `manuscript/SUPPLEMENT.md` with `sha256` of
-   every artifact → CI re-derives manuscript numbers from artifacts. Manifests (`lab/runs/*.json`)
-   record command, commit, seed and environment for every run.
-5. **Typed claims.** `manuscript/CLAIMS.md` records for each claim the evidence kind
-   (`proof` / `test` / `statistics` / `observation` / `judgment`), its assumptions, what remains to be
-   established, and the strongest wording the manuscript may use. A linter enforces the schema and
-   that cited artifacts exist.
-6. **Formal invariants.** Budget conservation, closure and the ignition gate are formalised in Lean
-   (`formal/`: 17 hypotheses, 31 theorems), each with a Python analogue; `skipped` in CI is never
-   reported as `proven`.
-7. **CI.** Contract validation, README/manuscript consistency, claim lint, artifact hashes, section
-   references and a portability canary run on every push; a nightly job re-derives aggregates.
-
-## 5. Repository map
-
-| path | what lives there |
-|---|---|
-| `morphogenesis/` | experiment code, tests, per-run artifacts (`experiments/`), canonical journal |
-| `manuscript/` | the accumulating paper: `paper.md`, `CLAIMS.md`, `CHANGELOG.md`, `SUPPLEMENT.md` |
-| `docs/` | world design (`world-design.md` §10 pond line), decision log, eliminations, formal method |
-| `reports/` | pre-registrations, experiment cards, figures |
-| `articles/` | one self-contained story per closed result (in Russian) |
-| `library/` | literature notes with DOIs, methods and "code/data" blocks |
-| `lab/` | machine contour: state, registry, queue, locks, run manifests, `STATUS.md` |
-| `formal/` | Lean hypotheses (**F-ID**) with "what would refute it" in each file header |
-| `scripts/` | `lab.py` (contract), `claims_lint.py`, `verify.py`, aggregators, artifact hashing |
-
-## 6. Verifying this repository
-
-```bash
-python scripts/lab.py validate    # contract: registry ↔ README ledger ↔ manuscript map
-python scripts/claims_lint.py     # evidence type, assumptions, artifact existence
-make verify                       # everything above + section refs + Lean without sorry/admit
-cd morphogenesis && python -m pytest -q tests    # 612 tests
-```
-
-No GPU is required for any of the above; GPU runs are only needed to produce new artifacts.
-
-## 7. Scope and limits
-
-- **No claim about life, consciousness or intelligence.** The allowed formulation is a class of
-  observed behaviour and its boundaries. This is a contract rule, not modesty.
-- **Small n.** Most experiments use 5–10 seeds per arm; results are reported as counts with Wilson
-  intervals and ranges, not as p-values. A single run is labelled `observation` and cannot carry a
-  strong wording.
-- **Frozen rule.** The agent does not learn during a run; adaptation claims are limited to
-  environment-facing mechanisms.
-- **Modified worlds are named.** The ignition-gate series is a *different modification* of the world
-  and is never compared numerically with the ungated series.
-
-## 8. Experiment ledger (machine-checked)
-
-Statuses and ids are validated against `lab/registry.json` by `python scripts/lab.py validate`.
+Одна строка на эксперимент; детали, числа и протоколы — в отчётах и статьях.
+Правила ведения — [`AGENTS.md` §6a](AGENTS.md).
 
 <!-- ledger:start -->
-| id | status | period | question | outcome | evidence |
+| id | Статус | Период | Вопрос | Итог | Доказательства |
 | --- | --- | --- | --- | --- | --- |
-| E01_criticality | closed | 18.10 | criticality and the primordial soup | historical series, outside the current program | [results](morphogenesis/experiments/E01_criticality/results.json) |
-| E02_pattern | closed | 20.10 | the ring as a target | **negative:** the ring is not an attractor; layer-1 gate 0/5; reaching and holding are different regimes | [report](reports/2026-10-20-e02-pattern.md) · [article](articles/002-pochemu-kolco-ne-stalo-attraktorom.md) |
-| WP4_R9 | closed | 20.10 | 5 R-9 seeds, reach/hold probe | sweep closed, WP4 gate not passed; Wilcoxon on 5 pairs gives p ≥ 0.0625 | [status](reports/2026-10-20-wp4-status.md) |
-| E02b_morphospace | closed | 20–21.10 | census of the morphospace | **rich map:** 832 rollouts, 573/704 death/uniformity; `struct_2` learned candidate, `struct_1` architectural confound | [results](reports/2026-10-20-e02b-results.md) · [article](articles/005-chto-perepis-nashla-v-morfoprostranstve.md) |
-| E02c_replication | closed | 21.10 | replication of R-9 on seeds 142/242/342 | **negative:** 0/3 new seeds give `struct_2`; seed142 → `struct_1`, 242/342 → `uniform_dark`; control seed42 → `struct_2` 64/64 | [results](reports/2026-10-21-e02c-results.md) · [article](articles/006-replikaciya-r9-struct2-ne-vosproizvelsya.md) |
-| E02c_seed42_repro | closed | 21.10 | retrain seed 42 with frozen code | **reproduced:** weights bitwise equal; census `struct_2` 64/64 (stability 58/64) — class reproducible from the seed, not from the recipe | [results](reports/2026-10-21-e02c-seed42-repro-results.md) · [article](articles/007-struct2-vosproizvoditsya-iz-sida-no-ne-iz-recepta.md) |
-| E02b_closures | closed | 21.10 | channels, body, asymmetry (inference only) | **mixed:** orientation returns 12/12; asymmetry −0.225 at matched mass; hidden-channel redundancy refuted | [results](reports/2026-10-21-e02b-closures-results.md) · [article](articles/008-izbytochnost-kanalov-telo-i-strukturnaya-asimmetriya.md) |
-| E02c_seed_decomposition | closed | 22.10 | seed = init vs data order | **not separable:** init42/data101 → `uniform_dark` 64/64; init101/data42 → `struct_1` 64/64; `struct_2` zero in both | [results](reports/2026-10-22-e02c-seed-decomposition-results.md) · [article](articles/009-odin-seed-eto-dva-faktora.md) |
-| E02b_alive_open | closed | 22.10 | open liveness gate | **refuted:** body returns 12/12 (IoU 0.821 vs 0.864); carriers are mutual; asymmetry grows with damage (ρ = −0.71) | [results](reports/2026-10-22-alive-open-results.md) · [article](articles/010-telo-i-tekstura-vosstanavlivayut-drug-druga.md) |
-| E02b_carriers2 | closed | 22.10 | carrier of form and asymmetry dose-response | **mixed:** without the visible channel the body still returns 12/12 (IoU 0.809); sign −1 12/12 but median −0.354 vs predicted ≤ −0.60 | [results](reports/2026-10-22-carriers2-results.md) · [article](articles/011-formu-neset-skrytoe-sostoyanie.md) |
-| E02b_clusters3 | closed | 22.10 | clustering of hidden channels | **mixed:** any half of the hidden channels carries the body (H-CH-8 confirmed) | [results](reports/2026-10-22-clusters3-results.md) · [article](articles/012-izbytochnost-i-nestabilnaya-asimmetriya.md) |
-| E02c_colab_repro | closed | 22.10 | reproduction on a different stack (T4) | **not reproduced:** T4 gives `uniform_dark` 64/64 instead of `struct_2` | [results](reports/2026-10-22-colab-t4-repro-results.md) · [article](articles/013-odin-sid-raznye-steki-raznye-klassy.md) |
-| E02c_seed_grid | closed | 22.10 | does initialisation 42 hold structure | **refuted in favour of the class:** initialisation 42 holds the structure across data orders | [results](reports/2026-10-22-e02c-seed-grid-results.md) · [article](articles/014-inicializaciya-42-derzhit-strukturu.md) |
-| E02b_lesion_minimal | closed | 22.10 | minimal lesion | **mixed:** body returns from a single channel plus noise (H-CH-9) | [results](reports/2026-10-22-lesion-minimal-results.md) · [article](articles/015-odin-kanal-i-shum-asimmetrii.md) |
-| E02b_lesion_necessity | closed | 22.10 | necessity of the carrier set | **confirmed:** the `informative_only` set {2,3,4,10–14} is sufficient | [results](reports/2026-10-22-lesion-necessity-results.md) · [article](articles/016-nositel-eto-podmnozhestvo-kanalov.md) |
-| E02b_lesion_core | closed | 22.10 | core within the carrier set | **refuted:** removing any single channel of the set changes nothing — full mutual replaceability | [results](reports/2026-10-22-lesion-core-results.md) · [article](articles/017-vnutri-nositelya-polnaia-vzaimozameniaemost.md) |
-| E02b_asymmetry_variance | closed | 22.10 | variance of asymmetry onset | **inconclusive:** the body threshold is reached on the first snapshot | [results](reports/2026-10-22-asymmetry-variance-results.md) |
-| E02b_asymmetry_variance_retry | closed | 22.10 | retry with plateau time | **refuted:** ρ(d, t_plateau) = +0.434 against threshold 0.5 | [results](reports/2026-10-22-asymmetry-variance-retry-results.md) · [article](articles/018-pravaia-polovina-determinirovana.md) |
-| E02b_asymmetry_sides | closed | 22.10 | left vs right half | **confirmed:** the right half reproduces (IoU 0.613–0.745) | [results](reports/2026-10-22-asymmetry-sides-results.md) · [article](articles/019-pravaia-vosstanavlivaetsia-vosproizvodimo.md) |
-| E02b_left_outcomes | closed | 22.10 | left half outcomes | **refuted:** the left side is a continuum, not a class | [results](reports/2026-10-22-left-outcomes-results.md) · [article](articles/020-levaia-storona-kontinuum.md) |
-| E02b_carrier_pairs | closed | 22.10 | carrier pairs | **refuted:** 11 of 28 pairs do not give a body | [results](reports/2026-10-22-carrier-pairs-results.md) · [article](articles/021-nositel-eto-kombinacii.md) |
-| E02b_carrier_ch13 | closed | 22.10 | single channel {3} | **confirmed:** {3} alone gives a body 12/12 (IoU 0.839) | [results](reports/2026-10-22-carrier-ch13-results.md) · [article](articles/021-nositel-eto-kombinacii.md) |
-| E02b_carrier_ch15 | closed | 22.10 | six channels without {3,14} | **refuted:** they still give a body 12/12 | [results](reports/2026-10-22-carrier-ch15-results.md) · [article](articles/021-nositel-eto-kombinacii.md) |
-| E03_injury, E04_topology, E05_aging, E06_narration, E07_control_ablation | not started | — | historical entry points | outside the current program | [registry](lab/registry.json) |
-| E08_precision_horizon | running | 23.10– | class as a phase of the trajectory | TF32 gives `uniform_dark` → `struct_2` along the trajectory; the horizon must be stated with any class claim | [research map](docs/research-map.md) · [protocol](docs/protocol.md) |
-| E09_pond | running | 23.10– | conditions for a lineage in the pond world | learning does not pay off (5 schemes, all negative); heritable novelty from m ≥ 0.05; founding from 1 cell 50/50 in the gated world; invasion 0/10, 2/10 with `merge=keep`; four mechanisms eliminated | [world design](docs/world-design.md) · [manuscript](manuscript/paper.md) · [article](articles/022-obuchenie-ne-okupaetsya-poka-cel-statichna.md) |
-| E10_formal | running | 24.10– | formal invariants of the world | 17 hypotheses / 31 theorems in Lean without `sorry`: ignition gate, budget and closure invariants | [formal method](docs/formal-method.md) · [inventory](lab/formal.json) |
+| E01_criticality | закрыто | 18.10 | критичность и «первичный бульон» | историческая серия; в текущую программу не входит | [results.json](morphogenesis/experiments/E01_criticality/results.json) |
+| E02_pattern | закрыто | 20.10 | кольцо как цель | **отрицательно:** кольцо не аттрактор; гейт слоя 1 — 0/5; достижение и удержание — разные режимы | [отчёт](reports/2026-10-20-e02-pattern.md) · [статья 002](articles/002-pochemu-kolco-ne-stalo-attraktorom.md) |
+| WP4_R9 | закрыто | 20.10 | 5 сидов R-9, зонд reach/hold | sweep закрыт, гейт WP4 не пройден (`journal_pairs_13_3`); Wilcoxon на 5 парах даёт p ≥ 0.0625 | [статус](reports/2026-10-20-wp4-status.md) |
+| E02b_morphospace | закрыто | 20–21.10 | перепись морфопространства | **rich_map:** 832 развёртки, 573/704 — смерть/однородность; `struct_2` — выученный кандидат, `struct_1` — архитектурный конфаунд; H1/H2/H-GE-1/H-NU-1/H-AB-1/H-AB-3 поддержаны, H3/H-CH-1/H-BI-1 опровергнуты; H4 не проверялась | [результаты](reports/2026-10-20-e02b-results.md) · [статья 005](articles/005-chto-perepis-nashla-v-morfoprostranstve.md) |
+| E02c_replication | закрыто | 21.10 | репликация R-9 на сидах 142/242/342 | **отрицательно:** 0/3 новых сидов дают `struct_2`; seed142 → `struct_1`, seed242/342 → `uniform_dark`; контроль seed42 — `struct_2` 64/64; H-E02C-1 отвергнута, H-R3 подтверждён | [результаты](reports/2026-10-21-e02c-results.md) · [статья 006](articles/006-replikaciya-r9-struct2-ne-vosproizvelsya.md) · [summary](morphogenesis/experiments/E02c_replication/summary_e02c.json) |
+| E02c_seed42_repro | закрыто | 21.10 | повтор обучения сида 42 замороженным кодом | **reproduced:** веса побитово равны каноническому прогону, перепись повтора — `struct_2` 64/64 (устойчивость 58/64); класс воспроизводится из сида, но не из рецепта (E02c 0/3 в силе) | [результаты](reports/2026-10-21-e02c-seed42-repro-results.md) · [статья 007](articles/007-struct2-vosproizvoditsya-iz-sida-no-ne-iz-recepta.md) · [summary](morphogenesis/experiments/E02c_replication/summary_e02c_seed42repro.json) |
+| E02b_closures | закрыто | 21.10 | каналы, тело, асимметрия (inference-only) | **смешанный:** H-CH-3 и H-AB-2 подтверждены (ориентация возвращается 12/12; асимметрия лево/право −0.225 при выровненной массе), H-CH-2 и H-CH-4 опровергнуты (избыточность скрытых каналов; alive-канал сам несёт тело) | [результаты](reports/2026-10-21-e02b-closures-results.md) · [статья 008](articles/008-izbytochnost-kanalov-telo-i-strukturnaya-asimmetriya.md) · [артефакт](morphogenesis/experiments/E02b_morphospace/closures_exploratory.json) |
+| E02c_seed_decomposition | закрыто | 22.10 | декомпозиция сида: инициализация весов против порядка данных | **не разделено:** нужны оба фактора — A (init 42 / data 101) дал `uniform_dark` 64/64, B (init 101 / data 42) — `struct_1` 64/64; `struct_2` ноль в обоих, порог 52/64 не выполнен | [результаты](reports/2026-10-22-e02c-seed-decomposition-results.md) · [статья 009](articles/009-odin-seed-eto-dva-faktora.md) |
+| E02b_alive_open | закрыто | 22.10 | открытый гейт живости (inference-only) | **refuted:** тело возвращается 12/12 (IoU 0.821 против 0.864) — текстура восстанавливает тело; вместе с H-CH-4 носители взаимны; асимметрия растёт с повреждением (ρ = −0.71) | [результаты](reports/2026-10-22-alive-open-results.md) · [статья 010](articles/010-telo-i-tekstura-vosstanavlivayut-drug-druga.md) · [артефакт](morphogenesis/experiments/E02b_morphospace/alive_open_exploratory.json) |
+| E02b_carriers2 | закрыто | 22.10 | носитель формы и дозу-ответ асимметрии (inference-only) | **смешанный:** H-CH-7 опровергнута (без visible тело возвращается 12/12, IoU 0.809; untrained теряет тело), H-AB-5 не подтверждена (знак −1 12/12, но медиана −0.354 против предсказанных ≤ −0.60 — горб около q≈0.5–0.63) | [результаты](reports/2026-10-22-carriers2-results.md) · [статья 011](articles/011-formu-neset-skrytoe-sostoyanie.md) · [артефакт](morphogenesis/experiments/E02b_morphospace/carriers2_exploratory.json) |
+| E02b_clusters3 | закрыто | 22.10 | избыточность скрытых каналов и кривая асимметрии | **смешанный:** H-CH-8 подтверждена (любая половина скрытых каналов восстанавливает тело 12/12, IoU 0.784/0.805; untrained 0/12), H-AB-6 не подтверждена (max|d| 0.551 против 0.63±0.05; при одинаковых срезах разброс 0.125 — величина не функция q) | [результаты](reports/2026-10-22-clusters3-results.md) · [статья 012](articles/012-izbytochnost-i-nestabilnaya-asimmetriya.md) · [артефакт](morphogenesis/experiments/E02b_morphospace/clusters3_exploratory.json) |
+| E02c_colab_repro | закрыто | 22.10 | независимое воспроизведение: обучение seed42 на другом стеке (Colab T4) | **не воспроизведено:** T4 дал `uniform_dark` 64/64 вместо `struct_2` 64/64 (untrained-контроль на месте — `struct_1` 64/64); сработала ветка плана «классы расходятся», карта «сид → класс» условна по стеку; механизм не установлен, сырые артефакты внешние | [результаты](reports/2026-10-22-colab-t4-repro-results.md) · [статья 013](articles/013-odin-sid-raznye-steki-raznye-klassy.md) · [план](reports/2026-10-22-colab-reproduction-plan.md) |
+| E02c_seed_grid | закрыто | 22.10 | сетка «инициализация × порядок данных»: что держит `struct_2` | **опровергнута (в пользу класса):** H-E02C-6 не подтвердилась — init=101 не фиксирует `struct_1` (`death` 47/64 и `uniform_dark` 64/64), а при init=42 `struct_2` даёт 63/64 и 60/64 с разными данными; класс держит бассейн инициализации 42, данные решают удержание, ломает только data=101 | [результаты](reports/2026-10-22-e02c-seed-grid-results.md) · [статья 014](articles/014-inicializaciya-42-derzhit-strukturu.md) · [сетка](morphogenesis/experiments/E02c_replication/seed_grid.json) |
+| E02b_lesion_minimal | закрыто | 22.10 | минимальный носитель и дисперсия асимметрии при фиксированном срезе | **смешанный:** H-CH-9 подтверждена — тело возвращается из **одного** канала `{14}` 12/12 (IoU 0.721), но `{6,7,8}` 0/12: избыточность не равномерная (информативны 2–4 и 10–14); H-AB-7 опровергнута — `std(d)` 0.167 и 0.114 при фиксированной геометрии, знак 24/24 | [результаты](reports/2026-10-22-lesion-minimal-results.md) · [статья 015](articles/015-odin-kanal-i-shum-asimmetrii.md) · [артефакт](morphogenesis/experiments/E02b_morphospace/lesion_minimal_exploratory.json) |
+| E02b_lesion_necessity | закрыто | 22.10 | необходимость информативных каналов | **H-CH-10 подтверждена:** `informative_only` {2,3,4,10–14} даёт тело 12/12 (IoU 0.826), `inert_only` {5–9} — 3/12 (0.395) при контроле 12/12; критерий разницы ≥ 8/12 выполнен (9/12) | [результаты](reports/2026-10-22-lesion-necessity-results.md) · [статья 016](articles/016-nositel-eto-podmnozhestvo-kanalov.md) · [артефакт](morphogenesis/experiments/E02b_morphospace/lesion_necessity_exploratory.json) |
+| E02b_lesion_core | закрыто | 22.10 | ядро внутри информативного набора каналов | **опровергнута:** удаление любого одного канала из {2,3,4,10–14} не стоит ничего — все 7 условий тело 12/12 (IoU 0.808–0.846 при контроле 0.823); ни один канал внутри набора не необходим, необходим весь набор (H-CH-10) | [результаты](reports/2026-10-22-lesion-core-results.md) · [статья 017](articles/017-vnutri-nositelya-polnaia-vzaimozameniaemost.md) · [артефакт](morphogenesis/experiments/E02b_morphospace/lesion_core_exploratory.json) |
+| E02b_asymmetry_variance | закрыто | 22.10 | источник разброса величины асимметрии | **inconclusive:** порог тела достигается на первом снимке, `dt` = +25 у всех 12 пар — измерение вырождено; побочно `std(d)` = 0.208 (у H-AB-7 — 0.167), разброс реален | [результаты](reports/2026-10-22-asymmetry-variance-results.md) · [пере-дизайн](reports/2026-10-22-asymmetry-variance-retry-plan.md) · [артефакт](morphogenesis/experiments/E02b_morphospace/asymmetry_variance_exploratory.json) |
+| E02b_asymmetry_variance_retry | закрыто | 22.10 | откуда разброс величины асимметрии (пере-дизайн) | **опровергнута:** ρ(d, t_plateau) = +0.434 при пороге 0.5, `std(dt)` 531.8 — скорость не объясняет величину; побочно на трёх наборах: правая сторона стабильна (`std` 0.010–0.025), левая — нет (0.104–0.203) | [результаты](reports/2026-10-22-asymmetry-variance-retry-results.md) · [статья 018](articles/018-pravaia-polovina-determinirovana.md) · [артефакт](morphogenesis/experiments/E02b_morphospace/asymmetry_variance_retry_exploratory.json) |
+| E02b_asymmetry_sides | закрыто | 22.10 | детерминизм сторон при срезе половины | **H-AB-9 подтверждена:** правая половина IoU 0.613–0.745 (`std` 0.036), левая 0.139–0.770 (`std` 0.154) — в 4.3 раза шире; `struct_2` 24/24 в обе стороны, разброс величины — левая половина | [результаты](reports/2026-10-22-asymmetry-sides-results.md) · [статья 019](articles/019-pravaia-vosstanavlivaetsia-vosproizvodimo.md) · [артефакт](morphogenesis/experiments/E02b_morphospace/asymmetry_sides_exploratory.json) |
+| E02b_left_outcomes | закрыто | 22.10 | форма левых исходов восстановления | **H-AB-10 опровергнута:** левая сторона — континуум (IoU 0.127–0.722, `std` 0.151, пик ≈ 0.2), правая — узкий пик (0.657–0.746, `std` 0.023); класс `struct_2` у обеих, метка не видит степени восстановления | [результаты](reports/2026-10-22-left-outcomes-results.md) · [статья 020](articles/020-levaia-storona-kontinuum.md) · [артефакт](morphogenesis/experiments/E02b_morphospace/left_outcomes_exploratory.json) |
+| E02b_carrier_pairs | закрыто | 22.10 | достаточна ли любая пара каналов внутри носителя | **H-CH-12 опровергнута:** 11 пар из 28 не дают тело (9 — 0/12), все 6 пар с каналом 3 — 12/12; `{14}` один достаточен, а `{2,14}` — 0/12, то есть достаточность немонотонна | [результаты](reports/2026-10-22-carrier-pairs-results.md) · [статья 021](articles/021-nositel-eto-kombinacii.md) · [артефакт](morphogenesis/experiments/E02b_morphospace/carrier_pairs_exploratory.json) |
+| E02b_carrier_ch13 | закрыто | 22.10 | достаточен ли канал {3} один | **подтверждена:** `{3}` один даёт тело 12/12 (IoU 0.839, `struct_2` 12/12) — якорь, объясняющий все пары с 3; второй достаточный в одиночку канал после `{14}` | [результаты](reports/2026-10-22-carrier-ch13-results.md) · [статья 021](articles/021-nositel-eto-kombinacii.md) · [артефакт](morphogenesis/experiments/E02b_morphospace/carrier_ch13_exploratory.json) |
+| E02b_carrier_ch15 | закрыто | 22.10 | каналы 3 и 14 как двойной якорь | **опровергнута:** шесть каналов без `{3,14}` дают тело 12/12 (IoU 0.831) — 3 и 14 достаточны по отдельности, но совместно не необходимы; у носителя нет якорной пары и малого ядра | [результаты](reports/2026-10-22-carrier-ch15-results.md) · [статья 021](articles/021-nositel-eto-kombinacii.md) · [артефакт](morphogenesis/experiments/E02b_morphospace/carrier_ch15_exploratory.json) |
+| E03_injury, E04_topology, E05_aging, E06_narration, E07_control_ablation | не запускался | — | травма, топология, старение, нарратив, абляция | исторические entrypoint'ы; в текущую программу не входят | [registry](lab/registry.json) |
+| E08_precision_horizon | идёт | 22–23.10 | режим точности и горизонт обучения: когда класс существует | класс — фаза траектории: TF32 даёт `uniform_dark` → `struct_2` → `struct_1` → `death` на 1000/2000/3000/4000 шагах, FP32 — `uniform_dark` → `struct_1` ×3; класс не зависит от длины роллаута | [карта](docs/research-map.md) · [протокол](docs/protocol.md) |
+| E09_pond | идёт | 24.10 | среда с ценой, ресурсами двух типов и строительством: условия поддержания организации | цена ошибки пространственная; обучение не окупается ни в одной проверенной форме; выигрывают affordance-механизмы: movement (+17–28%), construction (+6.7–15.6%), вместе супераддитивны; наследие переживает поколение (полураспад 20–41 шага = 1.3–2.4 поколения; выгода для следующей когорты не проверена); switching метки +21% только при частотной зависимости; линия вместо метки (тип у колонии) инвазию не даёт — редкая колония исчезает, оговорка §4b закрыта для инокулята 1 клетки; изменчивость: метка линии даёт устойчивую новизну с m=0.05 (население не меняется), наследие переживает поколение; размещение и правило слияния редкую линию не спасают (0/10 везде), правило не консервативно — нужен гейт зажигания | [дизайн](docs/world-design.md) · [рукопись](manuscript/paper.md) · [статья 022](articles/022-obuchenie-ne-okupaetsya-poka-cel-statichna.md) |
+| E10_formal | идёт | 23.10 | формальные гипотезы (Lean): инварианты бюджета и порядка обновлений | доказано 10 теорем без зависимостей: сохранение бюджета на любой последовательности шагов и независимость от порядка асинхронных обновлений (F-BUDGET-1..3, F-ORDER-1) | [метод](docs/formal-method.md) · [инвентарь](lab/formal.json) |
+
 <!-- ledger:end -->
 
-## 9. Current status and how to follow the work
+**E02c — не новый вопрос, а проверка предыдущего.** Перепись нашла `struct_2`
+на одном тренировочном сиде; репликация на сидах 142/242/342 проверяла, свойство
+ли это рецепта R-9. Ответ отрицательный: **0/3** новых сидов дают `struct_2`
+(seed142 → `struct_1`, seed242/342 → `uniform_dark`), контроль seed42 — 64/64.
+H-E02C-1 отвергнута, H-R3 подтверждён: на горизонте 2000 `struct_2` привязан к
+seed42. Это проверенное ограничение E02b, а не сбой переписи; H4 не открывается.
 
-- Live status of the laboratory (what runs, what waits for a decision, what we deliberately do not
-  do): [`lab/STATUS.md`](lab/STATUS.md).
-- Decisions with reasons, including rejected proposals: [`docs/decision-log.md`](docs/decision-log.md).
-- What has been eliminated and what would revive it: [`docs/eliminations.md`](docs/eliminations.md).
+## Что это значит
 
-## 10. Citing and contacting
+- **Кольцо — калибровка, не жизнь:** из шума не собирается, из цели распадается.
+- **Морфопространство разрежено, но не пусто:** два класса воспроизводятся 64/64,
+  но 81% финальных состояний — смерть или однородность; выученный кандидат только
+  `struct_2`.
+- **Ремонт — на уровне класса, а не побитовый;** у формы нет «памяти в скрытых
+  каналах», прочность тела — порог, а не доза.
+- **Нет двух устойчивых живых форм одновременно** ни у одной из 12 моделей.
+- **Мы не утверждаем жизнь, сознание или интеллект** — только наблюдаемый класс
+  поведения и его границы.
 
-The manuscript is a living document (`manuscript/paper.md`, versioned in `manuscript/CHANGELOG.md`);
-it is not submitted anywhere, and no external publication is made without the owner's explicit
-approval. For any number, cite the artifact path from the ledger or from `manuscript/SUPPLEMENT.md` —
-every figure there carries a `sha256` of its source file.
+## Рукопись
+
+[`manuscript/`](manuscript/README.md) — отдельное место для будущей научной
+статьи. Она не переписывает статьи об отдельных экспериментах: `articles/` —
+связный текст об одном эксперименте, `manuscript/paper.md` — накопительный
+черновик публикации (v0.1, не подан).
+
+Правило круга: **эксперимент → отчёт → статья → строка в README → кусочек в
+рукопись → новая гипотеза.** Каждый закрытый результат обязан оставить в
+рукописи абзац или подраздел, запись в [`CHANGELOG.md`](manuscript/CHANGELOG.md)
+и строку в карте [`README.md`](manuscript/README.md); утверждения сверяются с
+доказательствами в [`CLAIMS.md`](manuscript/CLAIMS.md). Проверка —
+`python scripts/lab.py validate`.
+
+## Что мы ищем
+
+Вдохновение — работы Майкла Левина; мы не воспроизводим его эксперименты и не
+переносим выводы на цифровую среду автоматически.
+
+| Свойство | Что значит | Как проверяем |
+| --- | --- | --- |
+| Самоподдержание | состояние остаётся в жизнеспособной области без внешнего драйва | автономная развёртка без обучения и градиента |
+| Ремонт | после повреждения система возвращается в тот же класс | ампутация, разрез, шум; возврат за 500 шагов |
+| Адаптация | поведение меняется под возмущением, идентичность сохраняется | батарея возмущений, переключение классов |
+| Граница и цель | система отличает себя от среды и держит setpoint | alive-маска, стресс-канал, гомеостаз |
+| Цена поддержания | форма держится, только если её поддержание дешевле притока энергии | среда «пруд»: энергия, ремонт, смерть при нуле |
+| Открытость | разнообразие не упирается в потолок, появляются новые стратегии | критерии §9 в [`docs/world-design.md`](docs/world-design.md), зафиксированы заранее |
+
+Это чек-лист экспериментов, а не определение жизни. Утверждения разделены на три
+уровня: **данные** (числа, артефакты, сиды — источник в `morphogenesis/experiments/`
+и журнале), **гипотезы** (формулируются до запуска и могут быть опровергнуты) и
+**метафора** (язык Левина задаёт вопросы, но не является доказательством).
+
+## Как устроен стенд
+
+Ядро — `nca_core.py` (perception-layer, стресс, alive-маска из состояния до апдейта,
+морфогены); `topology.py` и `topo_proxy.py` — инварианты и симметричный Chamfer;
+`train.py` — truncated BPTT, пул состояний, NaN/OOM-гарды, атомарные чекпоинты.
+Перепись и репликация — `e02b_morphospace.py`, `e02c_replication.py`; `cognition/` —
+инструмент наблюдения, а не научный вопрос.
+
+Детерминизм (порядок импортов, локальные генераторы, предзапусковый гейт) — в
+[`AGENTS.md`](AGENTS.md); единственный источник истины по механике —
+[`docs/spec/MORPHOGENESIS_v5.6_Rev11.md`](docs/spec/MORPHOGENESIS_v5.6_Rev11.md).
+
+## Структура репозитория
+
+Коротко: `morphogenesis/` — стенд и артефакты, `lab/` — машинный контур, `docs/` —
+контракт и спецификации, `reports/` и `articles/` — тексты, `library/` — источники.
+Полное дерево — [`docs/README.md`](docs/README.md#структура-репозитория).
+
+## Два входа
+
+- **Человеческий:** [`reports/`](reports/README.md) — карточки экспериментов;
+  [`articles/`](articles/README.md) — длинные тексты; [`library/`](library/README.md)
+  — индекс публикаций, родословная NCA, конспекты; [`manuscript/`](manuscript/README.md)
+  — будущая публикация.
+- **Машинный:** [`AGENTS.md`](AGENTS.md), [`lab/registry.json`](lab/registry.json),
+  [`lab/state.json`](lab/state.json), [`lab/runs/`](lab/runs/).
+
+При расхождении README и registry/журнала прав registry/журнал/артефакт; README
+исправляется, а не подгоняется.
+
+## Установка
+
+Нужен Python 3.11+ (проверено на 3.13.11); для обучения — CUDA-сборка torch.
+
+```bash
+git clone https://github.com/mak777uh/-.git morphogenesis-repo
+cd morphogenesis-repo
+python -m venv .venv
+.venv/Scripts/python.exe -m pip install -U pip
+# CPU (тесты и диагностика):
+.venv/Scripts/python.exe -m pip install -r requirements.txt
+# GPU RTX 3070 8GB (обучение):
+.venv/Scripts/python.exe -m pip install --index-url https://download.pytorch.org/whl/cu124 --extra-index-url https://pypi.org/simple -r requirements-cuda.txt
+```
+
+`python -m pip` вместо `.venv/Scripts/pip` — чтобы гарантированно попасть в этот
+venv. Если `torch.cuda.is_available()` вернул `False`, прилетела CPU-сборка:
+детерминизм §9.2 на ней не проверить.
+
+## Быстрый старт
+
+Команды обучения и диагностики — из `morphogenesis/`, `scripts/lab.py` — из корня.
+
+```bash
+# из morphogenesis/
+python smoke_test.py                  # конфиг, шаг, инварианты стресса
+python train.py --experiment E02 --seed 42
+python wp4_reach_probe.py --arms R-9 --all-seeds --steps 1000 --every 50
+```
+
+Длинные прогоны — только через обёртку, чтобы остался манифест и замок:
+
+```bash
+# из корня
+python scripts/lab.py run \
+  --experiment E02c_R-9_s2000_seed242 --experiment-id E02c --arm R-9 --seed 242 \
+  --steps 2000 --owner my-agent -- \
+  python e02c_replication.py --seed 242 --steps 2000
+python scripts/lab.py status
+python scripts/lab.py validate
+```
+
+## Тесты и CI
+
+```bash
+# из morphogenesis/
+python -m pytest tests/ -q
+# из корня
+python run_tests.py --quick
+```
+
+CI ([`.github/workflows/ci.yml`](.github/workflows/ci.yml)) проверяет контракт
+`lab.py validate --ci` (включая журнал README и карту рукописи), **пересчитывает
+канонические артефакты E02b** (`e02b_verify.py`: классы, силуэт, ARI, H1/H3) и
+CPU-тесты. Проверки текста (ссылки, разделы, References, индекс отчётов, портативный
+пакет, числа рукописи) запускаются по одной команде — список и назначение в
+[`docs/README.md`](docs/README.md#проверки-текста). Точное число тестов не
+дублируется: оно живёт в pytest.
+
+## Правила журнала
+
+Число имеет источник; критерии не переписываются после запуска; finish-строки не
+дописываются задним числом. README — карта, а не журнал: история остаётся в git и
+`reports/`. Полный контракт — [`AGENTS.md` §6a](AGENTS.md), цикл — §3a.
+
+## Лицензия
+MIT (см. [`LICENSE`](LICENSE)).
+
