@@ -26,6 +26,7 @@ from __future__ import annotations
 import argparse
 import glob
 import hashlib
+import inspect
 import json
 import math
 import statistics as st
@@ -309,6 +310,9 @@ def run_task(task: dict) -> Path:
         "question": task.get("question", ""),
         "spec": task.get("spec") or {},
         "result": result,
+        # Хеш именно той функции, которая считала: иначе любая правка скрипта
+        # «переписывает» провенанс всех старых результатов (замечание библиотекаря 26.10).
+        "task_fn_sha256": hashlib.sha256(inspect.getsource(TASKS[kind]).encode()).hexdigest()[:16],
         "script_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest()[:16],
     }
     out.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n")
