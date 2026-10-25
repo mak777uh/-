@@ -146,6 +146,10 @@ def tag_metrics_block(pond) -> dict:
         "lineage_spores": dict(getattr(pond, "lineage_spores", {})),
         "lineage_invested": {str(k): round(float(v), 4)
                              for k, v in getattr(pond, "lineage_invested", {}).items()},
+        "lineage_invest_updates": {str(k): int(v)
+                                   for k, v in getattr(pond, "lineage_invest_updates", {}).items()},
+        "lineage_cell_steps": {str(k): int(v)
+                               for k, v in getattr(pond, "lineage_cell_steps", {}).items()},
         "tag_source": "tag: наследуемая метка линии; type A/B — экологический пул",
     }
     if s.tag is None or not bool(s.alive.any()):

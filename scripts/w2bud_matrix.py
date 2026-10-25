@@ -30,11 +30,24 @@ from __future__ import annotations
 
 import argparse
 import glob
+import importlib.util
 import json
 import math
 import re
 import statistics
 from pathlib import Path
+
+_ROOT = Path(__file__).resolve().parents[1]
+
+
+def _load_i_null():
+    """Нуль-модель I Кроу (библиотекарь, Waples & Reed 2023): I > 0 ожидаемо при
+    демографическом шуме, поэтому критерий — I_obs > I_null(95 %), а не I > 0."""
+    path = _ROOT / "library" / "tools" / "i_null.py"
+    spec = importlib.util.spec_from_file_location("i_null_tool", path)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
 
 NAME = re.compile(r"w2bud2?_(?P<arm>colony|cell)_seed(?P<seed>\d+)\.json$")
 MIN_CELLS = 5
@@ -141,10 +154,44 @@ def analyse(path: Path) -> dict | None:
         }
 
     final = lineage_stats(cells, MIN_CELLS)
+
+    # --- нуль-модель для I: шум только в счёте потомков при фиксированных размерах линий ---
+    lineages = [t for t in cells if cells[t] >= MIN_CELLS and spores.get(t, 0) >= 1]
+    cells_list = [cells[t] for t in lineages]
+    spores_sum = sum(spores[t] for t in lineages)
+    rate = (spores_sum / sum(cells_list)) if cells_list and sum(cells_list) else 0.0
+    i_null_95 = None
+    if len(cells_list) >= 2 and rate > 0:
+        null = _load_i_null().simulate_conditional(cells_list, rate, 2000, 7)
+        if null:
+            i_null_95 = round(_load_i_null().percentile(null, 0.95), 4)
+    i_obs = final["crow_I"]
+    i_ratio = (round(i_obs / i_null_95, 2)
+               if i_obs is not None and i_null_95 else None)
+    i_above_null = bool(i_obs is not None and i_null_95 is not None and i_obs > i_null_95)
     cumulative = lineage_stats(cum, MIN_CELLS)
-    manip = [(traits[t], invested[t] / cells[t]) for t in cells
-             if t in invested and cells[t] > 0 and invested[t] > 0]
-    manip_rho = spearman(manip) if len(manip) >= 3 else None
+    steps = int(summary.get("steps") or 600) or 600
+    upd = {str(k): int(v) for k, v in (summary.get("lineage_invest_updates") or {}).items()}
+    csteps = {str(k): int(v) for k, v in (summary.get("lineage_cell_steps") or {}).items()}
+
+    def manip_rho_of(field: dict[str, float]) -> float | None:
+        pairs = [(traits[t], field[t]) for t in cells
+                 if t in field and cells[t] > 0 and field[t] > 0]
+        return spearman(pairs) if len(pairs) >= 3 else None
+
+    # (а) энергонезависимая: сколько РАЗ клетки линии инвестировали, на клетку
+    upd_per_cell = {t: upd[t] / cells[t] for t in upd if t in cells and cells[t] > 0}
+    # (б) накопленное вложение на КЛЕТКО-ШАГ линии (интеграл живых клеток по времени):
+    #     это убирает смешение «накопленное за прогон / клетки в конце».
+    #     Вариант «/(клетки*steps)» для Spearman эквивалентен (общий множитель) — проверено,
+    #     поэтому он не годится как исправление (§10ap).
+    inv_per_cell_step = {t: invested[t] / csteps[t]
+                         for t in invested if t in csteps and csteps[t] > 0}
+    # (в) текущая (накопленное/клетку) — для сравнения
+    inv_per_cell = {t: invested[t] / cells[t] for t in invested if t in cells and cells[t] > 0}
+    manip_updates = manip_rho_of(upd_per_cell)
+    manip_per_step = manip_rho_of(inv_per_cell_step)
+    manip_rho = manip_rho_of(inv_per_cell)
     sizes = sorted(cells.values(), reverse=True)
     return {
         "artifact": str(path).replace("\\", "/"),
@@ -161,7 +208,14 @@ def analyse(path: Path) -> dict | None:
         "beta_lin": final["beta_lin"],
         "beta_quad": final["beta_quad"],
         "manipulation_rho": round(manip_rho, 3) if manip_rho is not None else None,
-        "manipulation_n": len(manip),
+        "manipulation_rho_updates": round(manip_updates, 3) if manip_updates is not None else None,
+        "manipulation_rho_per_step": round(manip_per_step, 3) if manip_per_step is not None else None,
+        "cell_steps_total": int(sum(csteps.values())) if csteps else None,
+        "manipulation_n": len(inv_per_cell),
+        "I_null_95": i_null_95,
+        "I_obs": i_obs,
+        "I_ratio": i_ratio,
+        "I_above_null": i_above_null,
         "spores_total": int(sum(spores.values())) if spores else 0,
         "spores_lineages": len(spores),
         "cumulative": cumulative,
@@ -207,6 +261,22 @@ def by_arm(rows: list[dict]) -> list[dict]:
             "rho_ge_0.3_k": sum(1 for v in rhos if v >= 0.3),
             "sign_agreement_k": agree,
             "manipulation_ok_k": manip_ok,
+            "manipulation_ok_k_updates": sum(
+                1 for r in group if r["manipulation_rho_updates"] is not None
+                and abs(r["manipulation_rho_updates"]) >= 0.2),
+            "manipulation_ok_k_per_step": sum(
+                1 for r in group if r["manipulation_rho_per_step"] is not None
+                and abs(r["manipulation_rho_per_step"]) >= 0.2),
+            "I_obs_median": (round(statistics.median([r["I_obs"] for r in group
+                                                      if r["I_obs"] is not None]), 4)
+                             if any(r["I_obs"] is not None for r in group) else None),
+            "I_null_95_median": (round(statistics.median([r["I_null_95"] for r in group
+                                                          if r["I_null_95"] is not None]), 4)
+                                 if any(r["I_null_95"] is not None for r in group) else None),
+            "I_ratio_median": (round(statistics.median([r["I_ratio"] for r in group
+                                                        if r["I_ratio"] is not None]), 2)
+                               if any(r["I_ratio"] is not None for r in group) else None),
+            "I_above_null_k_all": sum(1 for r in group if r["I_above_null"]),
         })
     return out
 
@@ -216,10 +286,16 @@ def criteria(table: list[dict]) -> dict:
     cell = by.get("cell") or {}
     colony = by.get("colony") or {}
     return {
+        "I_above_null": bool((cell.get("I_obs_median") or 0) > (cell.get("I_null_95_median") or 0)),
+        "I_above_null_7_of_10": bool((cell.get("I_above_null_k_all") or 0) >= 7),
         "I_positive_all_7_of_10": bool((cell.get("crow_I_positive_k_all") or 0) >= 7),
         "I_positive_valid_7_of_10": bool((cell.get("crow_I_positive_k_valid") or 0) >= 7),
         "w1_control_I_zero_all": bool((colony.get("crow_I_positive_k_all") or 0) == 0),
         "manipulation_gate_7_of_10": bool((cell.get("manipulation_ok_k") or 0) >= 7),
+        "manipulation_gate_7_of_10_updates": bool(
+            (cell.get("manipulation_ok_k_updates") or 0) >= 7),
+        "manipulation_gate_7_of_10_per_step": bool(
+            (cell.get("manipulation_ok_k_per_step") or 0) >= 7),
         "rho_median_ge_03": bool((cell.get("rho_median") or 0) >= 0.3),
         "rho_ge_03_in_7_of_10_valid": bool((cell.get("rho_ge_0.3_k") or 0) >= 7),
         "sign_agreement_7_of_10_valid": bool((cell.get("sign_agreement_k") or 0) >= 7),

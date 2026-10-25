@@ -239,6 +239,13 @@ class Pond:
         self.lineage_offspring: dict[int, int] = {0: 0}     # потомков, приписанных линии (tag)
         self.lineage_spores: dict[int, int] = {0: 0}        # СПОР линии (единица размножения, условие E)
         self.lineage_invested: dict[int, float] = {0: 0.0}  # вложенная линией энергия (манипуляционная проверка)
+        # сколько РАЗ клетки линии инвестировали (не зависит от энергии): чистая проверка
+        # «мир читает признак» — вложение/клетку смешивало накопленное с текущим (§10ap)
+        self.lineage_invest_updates: dict[int, int] = {0: 0}
+        # клетко-шаги линии: интеграл живых клеток по времени. Нужен, чтобы нормировать
+        # НАКОПЛЕННОЕ вложение (оно копится весь прогон) на время жизни линии, а не на
+        # число клеток в конце (§10ap: накопленное/текущее — сравнение разного).
+        self.lineage_cell_steps: dict[int, int] = {0: 0}
         self.tag_trait_of: dict[int, float] = {0: 0.0}
         self.births_by_type: dict[str, int] = {}
         self.deaths_by_type: dict[str, int] = {}
@@ -612,6 +619,13 @@ class Pond:
 
         spent = cfg.update_cost + cfg.repair_cost
         s.energy = torch.where(alive, s.energy - spent, s.energy)
+        if s.tag is not None and bool(alive.any()):
+            uniq_a, inv_a = torch.unique(s.tag[alive], return_inverse=True)
+            cnt = torch.zeros(uniq_a.numel(), device=self.device, dtype=torch.long)
+            cnt.index_add_(0, inv_a.view(-1), torch.ones_like(inv_a, dtype=torch.long).view(-1))
+            for tag_val, c in zip(uniq_a.tolist(), cnt.tolist()):
+                self.lineage_cell_steps[int(tag_val)] = (
+                    self.lineage_cell_steps.get(int(tag_val), 0) + int(c))
 
         # B2: ниша — клетка поднимает ресурс в СВОЕЙ клетке за энергию
         if cfg.invest_rate > 0.0:
@@ -649,6 +663,13 @@ class Pond:
                     if total > 0.0:
                         self.lineage_invested[int(tag_val)] = (
                             self.lineage_invested.get(int(tag_val), 0.0) + float(total))
+                # число инвестиционных событий по линиям (энергонезависимая проверка)
+                events = torch.zeros(uniq.numel(), device=self.device, dtype=torch.long)
+                events.index_add_(0, inverse.view(-1), (spend > 1e-9).long().view(-1))
+                for tag_val, cnt in zip(uniq.tolist(), events.tolist()):
+                    if cnt > 0:
+                        self.lineage_invest_updates[int(tag_val)] = (
+                            self.lineage_invest_updates.get(int(tag_val), 0) + int(cnt))
             s.energy = s.energy - spend
             if self.invest_map is None or self.invest_map.shape != spend.shape:
                 self.invest_map = torch.zeros_like(spend)
