@@ -171,11 +171,20 @@ def resource_zones(pond) -> dict:
     alive = s.alive
     res = s.resource
     empty = ~alive
-    return {
+    block = {
         "resource_mean": round(float(res.mean()), 4),
         "resource_alive_mean": round(float(res[alive].mean()), 4) if bool(alive.any()) else None,
         "resource_empty_mean": round(float(res[empty].mean()), 4) if bool(empty.any()) else None,
     }
+    rb = getattr(s, "resource_b", None)
+    if rb is not None:
+        # пул B: в freq_dep-мире он получает inflow*fb, и при доминировании A это до 2x
+        block["resource_b_mean"] = round(float(rb.mean()), 4)
+        block["resource_b_alive_mean"] = round(float(rb[alive].mean()), 4) if bool(alive.any()) else None
+        is_b = s.cell_type == 1 if s.cell_type is not None else None
+        if is_b is not None and bool((is_b & alive).any()):
+            block["resource_b_under_b_cells"] = round(float(rb[is_b & alive].mean()), 4)
+    return block
 
 
 def invasion_resource_block(pond, log: list[dict]) -> dict:
@@ -197,6 +206,11 @@ def invasion_resource_block(pond, log: list[dict]) -> dict:
     }
     if log and "resource_mean" in log[-1]:
         block["resource_mean_at_invasion"] = log[-1]["resource_mean"]
+    rb = getattr(s, "resource_b", None)
+    if rb is not None:
+        block["resource_b_at_invasion_spot"] = round(float(rb[y, x]), 4)
+        block["resource_b_colony_mean"] = (round(float(rb[alive].mean()), 4)
+                                           if bool(alive.any()) else None)
     return block
 
 
