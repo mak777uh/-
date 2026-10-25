@@ -364,6 +364,17 @@ def test_w2bud_gate(tmp: Path) -> None:
           res2.stdout[:200])
 
 
+def test_i_null(tmp: Path) -> None:
+    res = run("library/tools/i_null.py", "--lines", "6", "--mean-spores", "60",
+              "--cells", "5,7,6,8,9,6", "--obs-I", "0.5", "--draws", "300")
+    check("i_null: условная нуль-модель считает и сравнивает",
+          "I_null" in res.stdout and "I_obs" in res.stdout, res.stdout + res.stderr)
+    check("i_null: большое I объявлено выше нуля", "ВЫШЕ нуля" in res.stdout, res.stdout)
+    res2 = run("library/tools/i_null.py", "--lines", "6", "--mean-spores", "60",
+               "--cells", "5,7,6,8,9,6", "--obs-I", "0.0001", "--draws", "300")
+    check("i_null: малое I — в пределах нуля", "в пределах нуля" in res2.stdout, res2.stdout)
+
+
 def main() -> int:
     with tempfile.TemporaryDirectory() as tdir:
         tmp = Path(tdir)
@@ -391,6 +402,8 @@ def main() -> int:
         test_lit_pressure(tmp)
         print("== w2bud gate ==")
         test_w2bud_gate(tmp)
+        print("== i_null ==")
+        test_i_null(tmp)
     print(f"\nпровалено: {len(FAILED)}")
     return 1 if FAILED else 0
 
