@@ -160,6 +160,42 @@ def tag_metrics_block(pond) -> dict:
     return block
 
 
+def resource_zones(pond) -> dict:
+    """Ресурс по зонам в финале: всё поле / под живыми / под мёртвыми.
+
+    Нужно, чтобы отличать «клетке не хватает ресурса» от «механику съедает» (§10ai):
+    без этих чисел вопрос о конкуренции за ресурс не решается.
+    """
+    s = pond.state
+    alive = s.alive
+    res = s.resource
+    empty = ~alive
+    return {
+        "resource_mean": round(float(res.mean()), 4),
+        "resource_alive_mean": round(float(res[alive].mean()), 4) if bool(alive.any()) else None,
+        "resource_empty_mean": round(float(res[empty].mean()), 4) if bool(empty.any()) else None,
+    }
+
+
+def invasion_resource_block(pond, log: list[dict]) -> dict:
+    """Ресурс в трёх зонах на шаге инвазии: точка подсадки, колония, свободное поле."""
+    spot = getattr(pond, "_last_invasion_spot", None)
+    if spot is None:
+        return {}
+    s = pond.state
+    alive = s.alive
+    y, x = int(spot[0]), int(spot[1])
+    free = ~alive
+    block = {
+        "resource_at_invasion_spot": round(float(s.resource[y, x]), 4),
+        "resource_colony_mean": round(float(s.resource[alive].mean()), 4) if bool(alive.any()) else None,
+        "resource_free_mean": round(float(s.resource[free].mean()), 4) if bool(free.any()) else None,
+    }
+    if log and "resource_mean" in log[-1]:
+        block["resource_mean_at_invasion"] = log[-1]["resource_mean"]
+    return block
+
+
 def final_map_block(pond) -> dict:
     """Финальная карта живого (патч логгера под IDH/TDA, §10x.1).
 
@@ -777,6 +813,11 @@ def main(argv: list[str] | None = None) -> int:
     total = run.clonal_attached + run.clonal_separate
     summary["clonal_fraction"] = (run.clonal_attached / total) if total else None
     summary["deaths_by_zone"] = dict(run.pond.state.deaths_by_zone)
+    # ресурс по зонам в финале и на шаге инвазии (§10ai: отличить «не хватает ресурса»
+    # от «механика съедает»)
+    summary["resource_zones_final"] = resource_zones(run.pond)
+    summary.update({("final_" + k): v for k, v in resource_zones(run.pond).items()})
+    summary.update(invasion_resource_block(run.pond, run.log))
     summary["pop_time"] = int(getattr(run, "pop_time", 0))
     summary["learn_updates"] = int(run.pond.learn_updates)
     summary["learn_useless"] = int(getattr(run.pond, "learn_useless", 0))

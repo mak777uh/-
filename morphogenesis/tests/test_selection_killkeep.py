@@ -29,6 +29,8 @@ def selection_artifact(tmp: Path, eps: int, seed: int, *, traits: dict, spores: 
     path = tmp / f"sel_eps{eps:02d}_seed{seed}.json"
     summary = {
         "type_traits": traits,
+        # фитнес = споры на ЖИВУЮ клетку: нужны размеры линий (>= MIN_CELLS)
+        "type_counts": {tag: 10 for tag in traits},
         "lineage_spores": spores,
         "lineage_fitness": spores,
         "lineage_invested": invested or {},

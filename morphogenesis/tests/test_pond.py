@@ -1171,6 +1171,45 @@ def test_ignition_gate_invariant_over_run():
         assert int(bad.sum()) == 0, f"шаг {step}: {int(bad.sum())} новых клеток без живого соседа"
 
 
+def test_grown_cells_inherit_ancestor_tag():
+    """Логгер родословной: клетка роста наследует метку ПРЕДКА (соседа), а не большинства тела.
+
+    §10ag.2: при атрибуции большинству все клетки роста доставались предковой линии, и
+    мутантные метки оставались одиночками (1-2 метки с >=2 клетками против 18-23 у
+    нейтральной модели). Здесь проверяется, что метка выросшей клетки совпадает с меткой
+    живого 4-соседа, а не с большинством всей компоненты.
+    """
+    pond = _mutation_pond(0.0)
+    mask = torch.zeros((8, 8), dtype=torch.bool)
+    mask[2:6, 2:6] = True
+    pond.seed_life(mask, energy=5.0)
+    # телу из 4 клеток даём смешанные метки: три предка (tag 0) и один «мутант» (tag 7)
+    pond.state.tag[2:6, 2:6] = 0
+    pond.state.tag[5, 5] = 7
+    # одна новая клетка у «мутанта» — она обязана получить метку 7, а не 0
+    newly = torch.zeros((8, 8), dtype=torch.bool)
+    newly[6, 5] = True
+    # как в PondRun: передаём метки компонент, чтобы работала ветка «по предку»
+    _, labels = pond._components(pond.state.alive)
+    pond.register_births(newly, pond.state.alive, labels)
+    assert int(pond.state.tag[6, 5]) == 7, "метка выросшей клетки = метка соседа-предка"
+    assert int(pond.state.tag[7, 0]) == 0 and int(pond.state.tag[0, 0]) == 0
+
+
+def test_resource_zones_present_in_summary():
+    """§10ai: ресурс по зонам обязан быть в артефакте, иначе вопрос о конкуренции не решается."""
+    from world.run_pond import resource_zones
+    pond = _mutation_pond(0.0)
+    mask = torch.zeros((8, 8), dtype=torch.bool)
+    mask[2:4, 2:4] = True
+    pond.seed_life(mask, energy=5.0)
+    pond.state.resource[2:4, 2:4] = 0.0
+    zones = resource_zones(pond)
+    assert set(zones) == {"resource_mean", "resource_alive_mean", "resource_empty_mean"}
+    assert zones["resource_alive_mean"] == 0.0, "под живыми клетками ресурс выеден"
+    assert zones["resource_empty_mean"] > zones["resource_alive_mean"]
+
+
 def _type_run(start: str, fd: float, steps: int = 40, grid: int = 16, seed: int = 1):
     from world.run_pond import PondRun
     cfg = PondConfig(grid=grid, resource_layout="gradient", income_mode="proportional",

@@ -285,6 +285,10 @@ class Pond:
             self.colony_cells_at_invasion = cells_now
             self.injection_share_actual = round(resident_share, 4)
             return
+        # запомнить точку подсадки ДО изменений: нужна для ресурса в трёх зонах (§10ai)
+        spot = self._invader_spot() if getattr(self.cfg, "type_level", "cell") == "colony" else None
+        if spot is not None:
+            self._last_invasion_spot = spot
         if cells_now < int(self.cfg.invade_min_cells):
             # ещё рано: при крошечной колонии доля одной подсаженной клетки нестабильна
             return
@@ -1312,6 +1316,29 @@ class Pond:
         if s.tag is None or not bool(newly.any()):
             return 0
 
+        def ancestor_of(y: int, x: int) -> tuple[int, float] | None:
+            """Метка ПРЕДКА: клетка, выросшая по правилу, наследует метку того живого
+            4-соседа, из которого выросла (большинство среди соседей-родителей).
+
+            Прежнее правило брало большинство по всему телу компоненты, из-за чего все
+            клетки роста доставались предковой линии, а мутантные оставались одиночками
+            (§10ag.2: 1-2 метки с >=2 клетками против 18-23 у нейтральной модели).
+            Это только бухгалтерия: мир от меток не зависит (m = 0 -> поведение бит-в-бит).
+            """
+            n = int(parent_mask.shape[0])
+            cand: list[int] = []
+            for dy, dx in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+                ny, nx = y + dy, x + dx
+                if 0 <= ny < n and 0 <= nx < n and bool(parent_mask[ny, nx]):
+                    cand.append(int(s.tag[ny, nx]))
+            if not cand:
+                return None
+            uniq, counts = torch.unique(torch.tensor(cand, device=self.device), return_counts=True)
+            tag = int(uniq[int(torch.argmax(counts))])
+            same = parent_mask & (s.tag == tag)
+            trait = float(s.tag_trait[same].mean()) if bool(same.any()) else 0.0
+            return tag, trait
+
         def base_of(mask: torch.Tensor) -> tuple[int, float]:
             if not bool(mask.any()):
                 return 0, 0.0
@@ -1333,8 +1360,13 @@ class Pond:
         else:
             base_depth = 0
             for y, x in newly.nonzero(as_tuple=False).tolist():
-                body = parent_mask & (labels == int(labels[y, x]))
-                tag, trait = base_of(body)
+                anc = ancestor_of(y, x)
+                if anc is not None:
+                    tag, trait = anc
+                else:
+                    # новое тело без живого соседа (зажигание/спора) — прежний путь
+                    body = parent_mask & (labels == int(labels[y, x]))
+                    tag, trait = base_of(body)
                 s.tag[y, x] = tag
                 s.tag_trait[y, x] = trait
                 self.lineage_offspring[tag] = self.lineage_offspring.get(tag, 0) + 1
