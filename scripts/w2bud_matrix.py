@@ -49,7 +49,7 @@ def _load_i_null():
     spec.loader.exec_module(module)
     return module
 
-NAME = re.compile(r"w2bud2?_(?P<arm>colony|cell)_seed(?P<seed>\d+)\.json$")
+NAME = re.compile(r"w2bud[0-9]?_(?P<arm>colony|cell)_seed(?P<seed>\d+)\.json$")
 MIN_CELLS = 5
 MIN_LINEAGES = 5
 
@@ -60,6 +60,11 @@ METRIC = {
     "lineage_with_data": "type_counts[t] >= 5 AND lineage_spores[t] >= 1",
     "w": "lineage_spores[t] / type_counts[t] (споры на живую клетку)",
     "crow_I": "Var(w) / mean(w)^2 по линиям с данными; при < 2 линиях I = 0 по построению",
+    "rate_definition": "rate = sum(lineage_spores[t]) / sum(type_counts[t]) по линиям с данными "
+                       "(суммарные споры на суммарные живые клетки). Альтернативное определение "
+                       "mean(spores/cells) по линиям даёт I_null(95%) ≈ 0.0215 вместо 0.0621 "
+                       "(запас 20x вместо 8.2x) — вывод не зависит от выбора, но берём "
+                       "консервативное (больший null)",
     "rho": "Spearman(type_traits[t], w(t)) по линиям с данными (нужно >= 3)",
     "beta": "регрессия w/mean(w) на стандартизованный признак: w = 1 + b_lin*z + (b_quad/2)(z^2-1)",
     "manipulation_rho": "Spearman(type_traits[t], lineage_invested[t] / type_counts[t])",
