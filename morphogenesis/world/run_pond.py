@@ -184,7 +184,10 @@ def invasion_resource_block(pond, log: list[dict]) -> dict:
         return {}
     s = pond.state
     alive = s.alive
-    y, x = int(spot[0]), int(spot[1])
+    coords = torch.as_tensor(spot, dtype=torch.long).flatten()
+    if int(coords.numel()) < 2:
+        return {}
+    y, x = int(coords[0]), int(coords[1])
     free = ~alive
     block = {
         "resource_at_invasion_spot": round(float(s.resource[y, x]), 4),
