@@ -2867,6 +2867,37 @@
           "docs/world-design.md"
         ]
       }
+    },
+    {
+      "id": "B-082",
+      "type": "contradiction",
+      "target": {
+        "kind": "artifact",
+        "id": "patch_keep_10_vs_7",
+        "ref": "manuscript/paper.md (v3.35, §4h patches); placement_matrix.json"
+      },
+      "statement": "В рукописи §4h patches стоит 'keep — 10/10 выживших', а агрегат placement_matrix.json даёт survived_k = 7/10 (final_cells > 0: 2,9,14,0,13,12,7,0,1,0). Причина смешения: a_share_final < 1 даёт 10/10 (появление/след), final_cells > 0 даёт 7/10 (жива к концу) — два определения под словом 'выжил'. Плюс через абзац идёт сравнение '10/10 с 7/10', которое сравнивает присутствие с выживанием. Предложение: 'выжил' = final_cells > 0 (7/10 на patches и uniform), появление отдельной строкой (10/10, след 0.2-2.4%); убрать сравнение 10/10 с 7/10; добавить в verify_sections_numbers проверку patches-строки через placement_matrix by_arm keep survived_k.",
+      "evidence": [
+        {
+          "library": "answers.md#71",
+          "note": "проверено по агрегату и артефактам"
+        }
+      ],
+      "action": {
+        "kind": "text",
+        "detail": "единое определение 'выжил' + гейт на patches-число"
+      },
+      "status": "new",
+      "wave": "current",
+      "owner": "librarian",
+      "created_at": "2026-10-25T23:42:41+03:00",
+      "decided_at": null,
+      "why": null,
+      "links": {
+        "insights": [],
+        "tasks": [],
+        "reports": []
+      }
     }
   ],
   "updated_at": "2026-10-25T05:15:00Z"
