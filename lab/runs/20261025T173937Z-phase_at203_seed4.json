@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "run_id": "20261025T173937Z-phase_at203_seed4",
+  "experiment": "phase_at203_seed4",
+  "experiment_id": "E09_pond",
+  "arm": "phase_at203",
+  "seed": 4,
+  "steps": 300,
+  "status": "finished",
+  "provenance": "runner",
+  "source": "morphogenesis/logs/journal.jsonl",
+  "started_at": "2026-10-25T17:39:37Z",
+  "finished_at": "2026-10-25T17:41:07Z",
+  "git_commit": "16e25df",
+  "git_dirty": true,
+  "command": [
+    "C:\\Users\\Admin\\Documents\\Qoder\\2026-10-18\\82ab86cd\\repo\\.venv\\Scripts\\python.exe",
+    "run_exploratory.py",
+    "--script",
+    "../../_hourly/colinv4_driver.py",
+    "--experiment",
+    "phase_at203_seed4",
+    "--device",
+    "cuda"
+  ],
+  "cwd": "morphogenesis",
+  "owner": "scientist",
+  "environment": {
+    "python": "3.13.11",
+    "platform": "Windows-11-10.0.26300-SP0",
+    "torch": "2.6.0+cu124",
+    "numpy": "2.5.4",
+    "device": "NVIDIA GeForce RTX 3070 Laptop GPU, 595.79"
+  },
+  "checkpoint_in": null,
+  "outputs": {
+    "declared": [],
+    "log": "morphogenesis/logs/20261025T173937Z-phase_at203_seed4.log"
+  },
+  "metrics": {},
+  "stop_reason": "exit_0",
+  "exit_code": 0,
+  "log_path": "morphogenesis/logs/20261025T173937Z-phase_at203_seed4.log",
+  "notes": "H-ALIVE-38: phase sweep, invade_at=203"
+}
