@@ -50,6 +50,9 @@ STALE_WARN_DAYS = 7
 STALE_ERR_DAYS = 14
 CURRENT_WAVE_WARN_DAYS = 2
 CURRENT_WAVE_ERR_DAYS = 5
+# «принято» без закрытия — тихая ловушка: замечание выглядит решённым, а работа не сделана.
+ACCEPTED_WARN_DAYS = 3
+ACCEPTED_ERR_DAYS = 6
 ID_RE = re.compile(r"^B-\d{3}$")
 
 
@@ -141,6 +144,19 @@ def validate_items(items: list[dict]) -> tuple[list[str], list[str]]:
             has_link = any(links.get(k) for k in ("insights", "tasks", "reports"))
             if not has_link:
                 errors.append(f"{where}: accepted требует ссылки на инсайт/задачу/отчёт")
+            # «принято» — не «сделано»: без этого замечания копятся как кладбище
+            age_acc = _days_since(str(item.get("decided_at") or item.get("created_at") or ""))
+            if age_acc is not None:
+                if age_acc > ACCEPTED_ERR_DAYS:
+                    errors.append(
+                        f"{where}: принято {age_acc:.0f} дн назад (> {ACCEPTED_ERR_DAYS}) и не закрыто — "
+                        f"выполните действие или переведите в deferred с условием возврата"
+                    )
+                elif age_acc > ACCEPTED_WARN_DAYS:
+                    warnings.append(
+                        f"{where}: принято {age_acc:.0f} дн назад (> {ACCEPTED_WARN_DAYS}) — пора либо закрыть, "
+                        f"либо отложить с условием"
+                    )
         if status == "new":
             age = _days_since(str(item.get("created_at") or ""))
             current = str(item.get("wave") or "current") == "current"
