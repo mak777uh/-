@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "run_id": "20261025T162557Z-invdeath_majority_seed1",
+  "experiment": "invdeath_majority_seed1",
+  "experiment_id": "E09_pond",
+  "arm": "invdeath_majority",
+  "seed": 1,
+  "steps": 300,
+  "status": "running",
+  "provenance": "runner",
+  "source": "morphogenesis/logs/journal.jsonl",
+  "started_at": "2026-10-25T16:25:57Z",
+  "finished_at": null,
+  "git_commit": "939b862",
+  "git_dirty": true,
+  "command": [
+    "C:\\Users\\Admin\\Documents\\Qoder\\2026-10-18\\82ab86cd\\repo\\.venv\\Scripts\\python.exe",
+    "run_exploratory.py",
+    "--script",
+    "../../_hourly/colinv4_driver.py",
+    "--experiment",
+    "invdeath_majority_seed1",
+    "--device",
+    "cuda"
+  ],
+  "cwd": "morphogenesis",
+  "owner": "scientist",
+  "environment": {
+    "python": "3.13.11",
+    "platform": "Windows-11-10.0.26300-SP0",
+    "torch": "2.6.0+cu124",
+    "numpy": "2.5.4",
+    "device": "NVIDIA GeForce RTX 3070 Laptop GPU, 595.79"
+  },
+  "checkpoint_in": null,
+  "outputs": {
+    "declared": [],
+    "log": "morphogenesis/logs/20261025T162557Z-invdeath_majority_seed1.log"
+  },
+  "metrics": {},
+  "stop_reason": null,
+  "exit_code": null,
+  "log_path": "morphogenesis/logs/20261025T162557Z-invdeath_majority_seed1.log",
+  "notes": "H-ALIVE-35: death mode, merge=majority"
+}

@@ -465,7 +465,7 @@
       "id": "V1_mechanism_two_pools",
       "title": "Механизм +21%: два пула или градиент (fd=1, uniform + один пул)",
       "hypothesis": "H-ALIVE-12",
-      "status": "planned",
+      "status": "closed",
       "owner": null,
       "claimed_at": null,
       "heartbeat_at": null,
@@ -476,11 +476,12 @@
       "artifacts": [
         "docs/plan-verification-2026-10-24.md"
       ],
-      "note": "из плана проверок 24.10",
+      "note": "закрыт ранее: механизм выполнен 24.10 — §10u.2 (fd=1, layout uniform, 5 сидов: random−фикс +10.7 % 5/5, learn−фикс +11.3 % 5/5; механизм — истощение двух пулов, градиент усиливает, но не создаёт). Повторять не нужно.",
       "impact": 5,
       "unblocks": [
         "V11_selection_E"
-      ]
+      ],
+      "closed_by": "lead"
     },
     {
       "id": "V2_catastrophe_priority",
@@ -786,6 +787,30 @@
       },
       "artifacts": [],
       "note": "первый настоящий пункт конвейера: пока пре-регистрации и свипа нет, конвейер его не берёт"
+    },
+    {
+      "id": "V1b_invader_death_mode",
+      "title": "Режим гибели инвайдера: рывком (keep) или постепенно (majority), крупный пропагул",
+      "hypothesis": "H-ALIVE-35",
+      "status": "running",
+      "owner": "lead",
+      "claimed_at": "2026-10-25T16:24:23Z",
+      "heartbeat_at": null,
+      "closed_at": null,
+      "ttl_minutes": 240,
+      "cost_gpu_h": 0.7,
+      "impact": 5,
+      "gated_by": [],
+      "unblocks": [
+        "V11_selection_E"
+      ],
+      "prereg": "reports/2026-10-25-invader-death-mode-plan.md",
+      "launch": {
+        "command": "pwsh -NoProfile -ExecutionPolicy Bypass -File _hourly/run_invdeath_sweep.ps1",
+        "outdir": "morphogenesis/experiments/E09_pond/invdeath"
+      },
+      "artifacts": [],
+      "note": "2 плеча x 10 сидов, --invader-cells 20, логгер invader_cells_series; якорь обязателен | запущено конвейером (preflight чист: pwsh, замков нет, 31.3 ГБ, пре-регистрация 939b862)"
     }
   ]
 }

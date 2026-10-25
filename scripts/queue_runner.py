@@ -145,7 +145,7 @@ def run_once(data: dict, dry_run: bool, confirmed: bool) -> int:
     pre = subprocess.run(
         [sys.executable, str(ROOT / "scripts" / "preflight.py"),
          "--prereg", str(item["prereg"]), "--outdir", str(launch["outdir"])],
-        cwd=str(ROOT), capture_output=True, text=True,
+        cwd=str(ROOT), capture_output=True, text=True, encoding="utf-8", errors="replace",
     )
     print(pre.stdout.strip())
     if pre.returncode != 0:
