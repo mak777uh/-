@@ -83,6 +83,14 @@ jobs:
         shell: bash
         run: |
           set +e
+      - name: Агрегаты свежие (пересборка совпадает с git)
+        run: |
+          out=$(python scripts/check_aggregates_fresh.py 2>&1) || {
+            echo "$out"
+            echo "::error::агрегат в git устарел — пересоберите по подсказке выше"
+            exit 1
+          }
+          echo "$out"
           out=$(python scripts/verify_sections_numbers.py 2>&1)
           code=$?
           printf '%s\n' "$out"
