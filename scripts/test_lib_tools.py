@@ -346,6 +346,24 @@ def test_lit_pressure(tmp: Path) -> None:
           f"{res.returncode}/{res2.returncode}")
 
 
+def test_w2bud_gate(tmp: Path) -> None:
+    src = tmp / "w2t"
+    src.mkdir(parents=True, exist_ok=True)
+    for arm in ("cell", "colony"):
+        for seed in (1, 2, 3):
+            (src / f"w2bud_{arm}_seed{seed}.json").write_text("{}", encoding="utf-8")
+    res = run("library/tools/w2bud_gate.py", "--src", str(src))
+    check("w2bud gate: неполная серия — вердикт не выносится",
+          "не выносится" in res.stdout, res.stdout + res.stderr)
+    check("w2bud gate: код 2 на неполной серии", res.returncode == 2, str(res.returncode))
+    for arm in ("cell", "colony"):
+        for seed in range(4, 11):
+            (src / f"w2bud_{arm}_seed{seed}.json").write_text("{}", encoding="utf-8")
+    res2 = run("library/tools/w2bud_gate.py", "--src", str(src))
+    check("w2bud gate: полная серия — идёт в агрегатор", "вердикт не выносится" not in res2.stdout,
+          res2.stdout[:200])
+
+
 def main() -> int:
     with tempfile.TemporaryDirectory() as tdir:
         tmp = Path(tdir)
@@ -371,6 +389,8 @@ def main() -> int:
         test_wake_lock(tmp)
         print("== lit pressure ==")
         test_lit_pressure(tmp)
+        print("== w2bud gate ==")
+        test_w2bud_gate(tmp)
     print(f"\nпровалено: {len(FAILED)}")
     return 1 if FAILED else 0
 
