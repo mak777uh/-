@@ -2774,6 +2774,37 @@
           "docs/world-design.md"
         ]
       }
+    },
+    {
+      "id": "B-081",
+      "type": "risk",
+      "target": {
+        "kind": "experiment",
+        "id": "invasion_step_confound",
+        "ref": "run_pond.py:558 (step % 5 == 0); v8_*/mergekeep_* invade_at=200"
+      },
+      "statement": "Все 78 run-level артефактов V8/mergekeep/richfield имеют invade_at=200, кратное 5, а enforce_colony_types() вызывается при step % 5 == 0 => в majority-прогонах enforce срабатывает в ТОМ ЖЕ шаге и стирает 5-клеточный инвайдер до записи (у 3 из 5 проверенных a_share=1.0 во всех 300 строках). Значит '0/10 в majority' — одношаговое стирание правилом, а не конкуренция. При этом merge=keep выходит из enforce до работы (return при rule=='keep'), поэтому сравнение 2/10 vs 0/10 смешивает два разных механизма. Правка постановки: подсадка на шаг, не кратный 5 (например 201) — инвайдер получает 4 шага до enforce, и majority становится сравним с keep. Плюс step % 5 в коде — литерал, хотя §10at.1 называет его параметром мира.",
+      "evidence": [
+        {
+          "library": "answers.md#67",
+          "note": "лог пишется каждый шаг (300 строк), поэтому 'нет в a_share' = стёрт до записи"
+        }
+      ],
+      "action": {
+        "kind": "experiment",
+        "detail": "V1c: invade_at=201 (не кратно 5) или enforce_interval конфигом"
+      },
+      "status": "new",
+      "wave": "current",
+      "owner": "librarian",
+      "created_at": "2026-10-25T20:11:38+03:00",
+      "decided_at": null,
+      "why": null,
+      "links": {
+        "insights": [],
+        "tasks": [],
+        "reports": []
+      }
     }
   ],
   "updated_at": "2026-10-25T05:15:00Z"
