@@ -10,6 +10,11 @@ name: analysis-farm
 on:
   schedule:
     - cron: "0 */3 * * *"   # каждые 3 часа
+  push:
+    paths:                  # любое пополнение очереди сразу запускает ферму
+      - "lab/analysis-queue.json"
+      - "scripts/analysis_task.py"
+      - ".github/workflows/analysis.yml"
   workflow_dispatch:
 
 permissions:
