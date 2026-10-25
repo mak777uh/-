@@ -173,6 +173,30 @@ jobs:
       - name: Aggregate-vs-artifact check
         run: python scripts/aggregate_check.py --strict
 
+      # Живая серия W2-bud: агрегат должен воспроизводиться из закоммиченных артефактов.
+      # Ловит случай, когда агрегат правили руками или артефакты подменили после сборки.
+      - name: W2-bud aggregate reproducible from artifacts
+        if: matrix.os == 'ubuntu-latest'
+        shell: bash
+        run: |
+          set -o pipefail
+          python scripts/w2bud_matrix.py --out /tmp/w2bud_ci.json
+          python - <<'PY'
+          import json, pathlib, sys
+          fresh = json.loads(pathlib.Path('/tmp/w2bud_ci.json').read_text(encoding='utf-8'))
+          committed = json.loads(pathlib.Path('morphogenesis/experiments/E09_pond/w2bud_matrix.json').read_text(encoding='utf-8'))
+          def norm(payload):
+              rows = payload.get('rows') or []
+              return sorted((r.get('arm'), r.get('n'), r.get('n_valid'), r.get('labels_ge2'), r.get('lines'))
+                            for r in rows)
+          if norm(fresh) != norm(committed):
+              print('агрегат W2-bud расходится с артефактами:')
+              print(' свежий:', norm(fresh))
+              print(' в git: ', norm(committed))
+              sys.exit(1)
+          print('W2-bud агрегат совпадает с артефактами')
+          PY
+
       - name: CPU tests
         working-directory: morphogenesis
         env:
