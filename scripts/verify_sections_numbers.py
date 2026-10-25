@@ -65,10 +65,30 @@ CHECKS: list[dict] = [
     {
         "section": "4i",
         "aggregate": f"{POND}/w2bud_matrix.json",
-        "values": {"k": "by_arm{arm=colony}.crow_I_positive_k_all",
-                   "n": "by_arm{arm=colony}.runs"},
-        "template": "{k}/{n}",
+        "values": {"v": "by_arm{arm=colony}.crow_I_median_all"},
+        "template": "I = {v}",
         "note": "контроль W1: I = 0 во всех сидах",
+    },
+    {
+        "section": "4i",
+        "aggregate": f"{POND}/w2bud2_matrix.json",
+        "values": {"v": "by_arm{arm=cell}.I_obs_median"},
+        "template": "{v}",
+        "note": "I_obs в W2-bud (медиана по 10 сидам) — критерий через нуль-модель",
+    },
+    {
+        "section": "4i",
+        "aggregate": f"{POND}/w2bud2_matrix.json",
+        "values": {"v": "by_arm{arm=cell}.I_null_95_median"},
+        "template": "{v}",
+        "note": "I_null(95 %) — нуль-модель случайных потомков при наблюдаемых размерах линий",
+    },
+    {
+        "section": "4i",
+        "aggregate": f"{POND}/w2bud2_matrix.json",
+        "values": {"v": "by_arm{arm=cell}.I_ratio_median"},
+        "template": "{v}",
+        "note": "запас I_obs / I_null(95 %)",
     },
     # --- §4h: размещение и слияние (V8) ------------------------------------------------
     {
@@ -135,9 +155,13 @@ def variants(value) -> list[str]:
     if isinstance(value, int):
         return [str(value)]
     if isinstance(value, float):
+        # ВАЖНО: никаких "{:.0f}" — «0» встречается в любом тексте и даёт ложный проход
+        # (поймано 25.10: гейт «проходил» на 0.4284, потому что в разделе была цифра 0).
         out = [str(value)]
-        for fmt in ("{:.1f}", "{:.2f}", "{:.3f}", "{:.0f}"):
+        for fmt in ("{:.1f}", "{:.2f}", "{:.3f}"):
             out.append(fmt.format(value))
+        if float(value) == int(value):
+            out.append(str(int(value)))      # «I = 0» вместо «I = 0.0»
         return list(dict.fromkeys(out))
     return [str(value)]
 
@@ -197,7 +221,12 @@ def main(argv=None) -> int:
         if isinstance(values.get("v"), float):
             forms = [check["template"].format(**{**values, "v": f})
                      for f in variants(values["v"])]
-        if not any(f in body for f in forms):
+
+        def _present(form: str) -> bool:
+            """Число должно стоять отдельно: не быть частью другого числа."""
+            return re.search(rf"(?<![\d.,]){re.escape(form)}(?![\d])", body) is not None
+
+        if not any(_present(f) for f in forms):
             problems.append(
                 f"§{check['section']}: в тексте нет «{expected}» (из {check['aggregate']}, "
                 f"ключи {check['values']}) — {check['note']}"
