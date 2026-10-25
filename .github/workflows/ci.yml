@@ -185,10 +185,11 @@ jobs:
           import json, pathlib, sys
           fresh = json.loads(pathlib.Path('/tmp/w2bud_ci.json').read_text(encoding='utf-8'))
           committed = json.loads(pathlib.Path('morphogenesis/experiments/E09_pond/w2bud_matrix.json').read_text(encoding='utf-8'))
+          FIELDS = ('artifact', 'arm', 'seed', 'tags', 'tags_ge2', 'lineages_with_data',
+                    'crow_I', 'rho', 'manipulation_rho', 'pop_time', 'alive_final')
           def norm(payload):
               rows = payload.get('rows') or []
-              return sorted((r.get('arm'), r.get('n'), r.get('n_valid'), r.get('labels_ge2'), r.get('lines'))
-                            for r in rows)
+              return sorted(tuple(r.get(f) for f in FIELDS) for r in rows)
           if norm(fresh) != norm(committed):
               print('агрегат W2-bud расходится с артефактами:')
               print(' свежий:', norm(fresh))
