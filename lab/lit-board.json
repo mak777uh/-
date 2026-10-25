@@ -1796,19 +1796,20 @@
         "kind": "method",
         "detail": "зафиксировать H (300/2000), возмущения (drop 0.5-5%, ампутация 50%), порог (Wilson, неперекрытие); затем сетка параметров мира"
       },
-      "status": "done",
+      "status": "accepted",
       "wave": "current",
       "owner": "librarian",
       "created_at": "2026-10-24T19:59:28+03:00",
       "decided_at": "2026-10-25",
-      "why": "закрыто: принято в работу: viability kernel (Aubin 2011) — формальное основание для «оптимальных условий»; внесён в docs/optimality.md как теоретическая опора",
+      "why": "viability kernel — внесён в docs/optimality.md; численный расчёт ядра остаётся открытой задачей",
       "links": {
         "insights": [],
         "tasks": [],
         "reports": [
           "docs/optimality.md"
         ]
-      }
+      },
+      "note": " | переоткрыто 2026-10-25: закрытие было преждевременным — действие не выполнено"
     },
     {
       "id": "B-050",
@@ -2380,19 +2381,22 @@
         "kind": "method",
         "detail": "обёртка wilson() -> proportion_confint(method='wilson'); тест на 20 парах"
       },
-      "status": "done",
+      "status": "accepted",
       "wave": "current",
       "owner": "librarian",
       "created_at": "2026-10-25T01:32:43+03:00",
       "decided_at": "2026-10-25",
-      "why": "закрыто: принято: Уилсон считается в 4 файлах руками — завести общий модуль и тест; задача в очереди (conditions_measure)",
+      "why": "общий модуль Уилсона ещё не заведён (4 файла считают руками) — задача metrics_library_common в очереди",
       "links": {
         "insights": [],
-        "tasks": [],
+        "tasks": [
+          "metrics_library_common"
+        ],
         "reports": [
           "docs/optimality.md"
         ]
-      }
+      },
+      "note": " | переоткрыто 2026-10-25: закрытие было преждевременным — действие не выполнено"
     },
     {
       "id": "B-068",
@@ -2413,19 +2417,22 @@
         "kind": "method",
         "detail": "сверка на синтетике с известной MI, потом на 10 наших парах"
       },
-      "status": "done",
+      "status": "accepted",
       "wave": "current",
       "owner": "librarian",
       "created_at": "2026-10-25T01:32:45+03:00",
       "decided_at": "2026-10-25",
-      "why": "закрыто: принято: MI гистограммная (bins=8) смещена — внести как ограничение в методы, при заявлении MI указывать смещение",
+      "why": "смещение MI (bins=8) ещё не описано в методах — входит в metrics_library_common",
       "links": {
         "insights": [],
-        "tasks": [],
+        "tasks": [
+          "metrics_library_common"
+        ],
         "reports": [
           "docs/optimality.md"
         ]
-      }
+      },
+      "note": " | переоткрыто 2026-10-25: закрытие было преждевременным — действие не выполнено"
     },
     {
       "id": "B-069",
@@ -2446,19 +2453,22 @@
         "kind": "method",
         "detail": "gudhi CubicalComplex на 10 картах; сравнить β0/β1 с betti1()"
       },
-      "status": "done",
+      "status": "accepted",
       "wave": "current",
       "owner": "librarian",
       "created_at": "2026-10-25T01:32:47+03:00",
       "decided_at": "2026-10-25",
-      "why": "закрыто: принято: beta1 считается вручную — внести как ограничение и общий модуль вместе с Уилсоном",
+      "why": "beta1 вручную — входит в metrics_library_common",
       "links": {
         "insights": [],
-        "tasks": [],
+        "tasks": [
+          "metrics_library_common"
+        ],
         "reports": [
           "docs/optimality.md"
         ]
-      }
+      },
+      "note": " | переоткрыто 2026-10-25: закрытие было преждевременным — действие не выполнено"
     },
     {
       "id": "B-070",

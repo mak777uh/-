@@ -980,6 +980,27 @@
       "launch": null,
       "artifacts": [],
       "note": "20 прогонов W2-bud; порог линии >=3 клетки и >=1 спора фиксируется в пре-регистрации до запуска; критерий: медиана rho_partial <= -0.3 и отрицательна в >=7/10 сидов; нужен именно потому, что при >=3 это был post-hoc анализ"
+    },
+    {
+      "id": "metrics_library_common",
+      "title": "Общий модуль метрик: Уилсон, MI, beta1 — один код, один тест, без ручных повторов",
+      "hypothesis": "H-ALIVE-40",
+      "status": "planned",
+      "owner": null,
+      "claimed_at": null,
+      "heartbeat_at": null,
+      "closed_at": null,
+      "ttl_minutes": 120,
+      "cost_gpu_h": 0.0,
+      "impact": 3,
+      "gated_by": [],
+      "unblocks": [
+        "conditions_measure"
+      ],
+      "prereg": null,
+      "launch": null,
+      "artifacts": [],
+      "note": "B-067/068/069: Уилсон считается в 4 файлах руками, MI гистограммная с bins=8 (смещена), beta1 вручную; нужен один модуль + тесты + строка об ограничении в методах"
     }
   ]
 }
