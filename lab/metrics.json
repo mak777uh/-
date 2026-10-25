@@ -562,6 +562,22 @@
       ],
       "denominator": "runs",
       "units": "прогоны"
+    },
+    "placement_attempts_used": {
+      "definition": "сколько перерисовок точки подсадки понадобилось, чтобы пятно встало целиком (при require_placement > 0)",
+      "fields": [
+        "summary.placement_attempts_used"
+      ],
+      "denominator": "runs",
+      "units": "попытки"
+    },
+    "rejected_by_placement": {
+      "definition": "подсадка отклонена: после placement_attempts перерисовок пятно не встало; такой прогон не считается ни выживанием, ни гибелью",
+      "fields": [
+        "summary.rejected_by_placement"
+      ],
+      "denominator": "runs",
+      "units": "флаг"
     }
   },
   "verdicts": {

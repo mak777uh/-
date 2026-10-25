@@ -109,6 +109,7 @@ def config_block(cfg) -> dict:
         "merge_rule": getattr(cfg, "merge_rule", "majority"),
         "trait_effect": getattr(cfg, "trait_effect", 0.0),
         "budding_unit": getattr(cfg, "budding_unit", "colony"),
+        "require_placement": getattr(cfg, "require_placement", 0),
         "invade_on_empty": bool(getattr(cfg, "invade_on_empty", False)),
         "start_cells": int(getattr(cfg, "start_cells", 4)),
         "ignition_gate": bool(getattr(cfg, "ignition_gate", False)),
@@ -703,6 +704,10 @@ def build_parser() -> argparse.ArgumentParser:
     ap.add_argument("--invade-placement", default="random", choices=["random", "gap"],
                     help="куда садится инокулят: random (как §10ab) или gap — в самую "
                          "далёкую от резидента свободную клетку (V8)")
+    ap.add_argument("--require-placement", type=int, default=0,
+                    help="гарантировать столько клеток инокулята (0 = старая ветка бит-в-бит)")
+    ap.add_argument("--placement-attempts", type=int, default=5,
+                    help="сколько раз перерисовывать точку подсадки, если пятно не встало")
     ap.add_argument("--budding-unit", default="colony", choices=["colony", "cell"],
                     help="кто почкуется: colony (W1, по умолчанию) или cell (W2-bud)")
     ap.add_argument("--trait-effect", type=float, default=0.0,
@@ -784,6 +789,8 @@ def main(argv: list[str] | None = None) -> int:
     world.merge_rule = args.merge_rule
     world.trait_effect = args.trait_effect
     world.budding_unit = args.budding_unit
+    world.require_placement = args.require_placement
+    world.placement_attempts = args.placement_attempts
     world.invade_on_empty = bool(args.invade_on_empty)
     world.start_cells = int(args.start_cells)
     world.ignition_gate = bool(args.ignition_gate)
@@ -905,6 +912,14 @@ def main(argv: list[str] | None = None) -> int:
     summary["injection_share_actual"] = getattr(run.pond, "injection_share_actual", None)
     summary["invader_cells"] = int(getattr(run.pond, "invader_cells_requested", 0))
     summary["invader_cells_actual"] = int(getattr(run.pond, "invader_cells_actual", 0))
+    # V1c: диагностика подсадки (None в старой ветке)
+    summary["free_cells_at_injection"] = getattr(run.pond, "free_cells_at_injection", None)
+    summary["max_free_component_at_injection"] = getattr(
+        run.pond, "max_free_component_at_injection", None)
+    summary["placement_attempts_used"] = getattr(run.pond, "placement_attempts_used", None)
+    summary["rejected_by_placement"] = bool(getattr(run.pond, "rejected_by_placement", False))
+    summary["invader_cells_state_after_injection"] = getattr(
+        run.pond, "invader_cells_state_after_injection", None)
     summary["config"] = {**config_block(run.world_cfg), **code_provenance}
     summary.update(generation_block(getattr(run.pond, "division_parent_ages", []),
                                     getattr(run.pond, "division_oldest_ages", [])))

@@ -100,6 +100,8 @@ class PondConfig:
     ignition_gate: bool = False        # запретить правилу зажигать без живого 4-соседа (пропагул)
     trait_effect: float = 0.0          # eps: насколько tag_trait меняет интенсивность инвестирования (E)
     budding_unit: str = "colony"       # colony (W1) | cell (W2-bud): кто почкуется — колония или клетка
+    require_placement: int = 0         # 0 = старая ветка бит-в-бит; >0 = гарантировать столько клеток
+    placement_attempts: int = 5        # сколько раз перерисовывать точку, если пятно не встало
     mutation_trait_sigma: float = 0.01  # сдвиг признака линии при мутации (масштаб признака ~1)
     invade_placement: str = "random"   # random | gap: куда садится инокулят (V8)
     merge_rule: str = "majority"       # majority | mass_weighted: правило слияния компонент (V8)
@@ -246,6 +248,11 @@ class Pond:
         # НАКОПЛЕННОЕ вложение (оно копится весь прогон) на время жизни линии, а не на
         # число клеток в конце (§10ap: накопленное/текущее — сравнение разного).
         self.lineage_cell_steps: dict[int, int] = {0: 0}
+        # V1c: диагностика подсадки (заполняется только при require_placement > 0)
+        self.free_cells_at_injection: int | None = None
+        self.max_free_component_at_injection: int | None = None
+        self.placement_attempts_used: int | None = None
+        self.rejected_by_placement: bool = False
         # ЭНЕРГО-ШАГИ линии (H-ALIVE-33): суммарная энергия живых клеток по шагам.
         # Нужно, чтобы отделить «цену признака» от «бедности линии»: вложение клетки =
         # rate(признак)·энергия, поэтому без энергии цена неотличима от бедности (§10aq).
@@ -333,6 +340,10 @@ class Pond:
             self.injection_share_actual = round(
                 float((s.cell_type[s.alive] == int(self.cfg.invade_type)).float().mean()), 4
             )
+            # V1c: сколько клеток инвайдера реально в СОСТОЯНИИ сразу после подсадки
+            self.invader_cells_state_after_injection = int(
+                ((s.cell_type == int(self.cfg.invade_type)) & s.alive).sum()
+            )
             self.injection_invalid = bool(self.injection_share_actual > 0.25)
             return
         idx = s.alive.nonzero(as_tuple=False)
@@ -390,10 +401,57 @@ class Pond:
         pick = int(torch.randint(0, ys.numel(), (), generator=self.gen_sel))
         return int(ys[pick]), int(xs[pick])
 
+    def _free_component_stats(self) -> tuple[int, int, torch.Tensor, dict[int, int]]:
+        """Свободное место при инъекции: (свободно всего, максимальная свободная компонента)."""
+        s = self.state
+        free = ~s.alive
+        free_total = int(free.sum())
+        sizes, labels = self._components(free)
+        max_comp = max(sizes.values()) if sizes else 0
+        return free_total, int(max_comp), labels, sizes
+
+    def _invader_spot_guaranteed(self) -> torch.Tensor | None:
+        """Подсадка с гарантией размера (V1c): точка только там, где свободная компонента
+        вмещает `require_placement` клеток; до `placement_attempts` перерисовок RNG.
+
+        Старая ветка (`require_placement = 0`) не затрагивается — она остаётся бит-в-бит.
+        """
+        s = self.state
+        want = int(max(1, getattr(self.cfg, "invader_cells", 1)))
+        need = int(getattr(self.cfg, "require_placement", 0))
+        attempts = int(getattr(self.cfg, "placement_attempts", 5))
+        free_total, max_comp, labels, sizes = self._free_component_stats()
+        self.free_cells_at_injection = free_total
+        self.max_free_component_at_injection = max_comp
+        eligible = [cid for cid, size in sizes.items() if size >= max(need, want)]
+        self.placement_attempts_used = 0
+        if not eligible:
+            self.rejected_by_placement = True
+            self.invader_cells_actual = 0
+            return None
+        for attempt in range(1, attempts + 1):
+            self.placement_attempts_used = attempt
+            cid = eligible[int(torch.randint(0, len(eligible), (), generator=self.gen_sel))]
+            cells = (labels == cid).nonzero(as_tuple=False)
+            pick = cells[int(torch.randint(0, cells.shape[0], (), generator=self.gen_sel))]
+            spot = torch.zeros_like(s.alive)
+            spot[int(pick[0]), int(pick[1])] = True
+            if want > 1:
+                spot = self._grow_invader_blob(spot, s.alive, want)
+            if int(spot.sum()) >= need:
+                self.invader_cells_actual = int(spot.sum())
+                self.rejected_by_placement = False
+                return spot
+        self.rejected_by_placement = True
+        self.invader_cells_actual = 0
+        return None
+
     def _invader_spot(self) -> torch.Tensor | None:
         """Где ставить инокулят: точка по `invade_placement` + связное пятно `invader_cells`."""
         s = self.state
         self.invader_cells_requested = int(max(1, getattr(self.cfg, "invader_cells", 1)))
+        if int(getattr(self.cfg, "require_placement", 0)) > 0:
+            return self._invader_spot_guaranteed()
         placement = getattr(self.cfg, "invade_placement", "random")
         if placement == "gap":
             cell = self._farthest_free_cell(s.alive)
