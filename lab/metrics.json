@@ -466,6 +466,22 @@
       "units": "коэффициент",
       "derived_by_construction": true,
       "formula": "rho(trait, lineage_invested[t]/lineage_cell_steps[t]); ожидаемое значение ≈ invest_rate·(1+eps·(trait−mean)) — знак предопределён"
+    },
+    "free_cells_at_injection": {
+      "definition": "число свободных клеток поля в момент подсадки инвайдера: 1024 − colony_cells_at_invasion",
+      "fields": [
+        "summary.colony_cells_at_invasion"
+      ],
+      "denominator": "grid_cells",
+      "units": "клетки"
+    },
+    "max_free_component_at_injection": {
+      "definition": "размер максимальной СВОБОДНОЙ связной компоненты в момент подсадки: показывает, поместится ли пятно инвайдера локально",
+      "fields": [
+        "summary.max_free_component_at_injection"
+      ],
+      "denominator": "grid_cells",
+      "units": "клетки"
     }
   },
   "verdicts": {
