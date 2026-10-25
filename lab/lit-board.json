@@ -2535,6 +2535,37 @@
         "tasks": [],
         "reports": []
       }
+    },
+    {
+      "id": "B-074",
+      "type": "risk",
+      "target": {
+        "kind": "artifact",
+        "id": "claim_57_missing_artifact",
+        "ref": "manuscript/CLAIMS.md строка 57; §4d"
+      },
+      "statement": "claims_lint: 6 предупреждений 'статистика без артефакта'. Пять закрываются существующими файлами: стр.47 -> generation_matrix.json, стр.52 -> v8_matrix/mergekeep_matrix/v8res_*, стр.62/63/65 -> colinv3_*. Одна настоящая дыра: стр.57 (§4d, обучение по цели роста: 403/304 изоляция, pop_time 11885) — артефактов orc_*/pass_*/M-S нет ни в experiments/, ни в _hourly/, ни в _hourly/polish/. Нужно: восстановить артефакты, либо сменить основание на 'наблюдение' и убрать точные числа, либо снять утверждение.",
+      "evidence": [
+        {
+          "library": "answers.md#51",
+          "note": "проверено поиском по всем трём каталогам"
+        }
+      ],
+      "action": {
+        "kind": "method",
+        "detail": "восстановить orc_*/pass_* либо переформулировать без чисел"
+      },
+      "status": "new",
+      "wave": "current",
+      "owner": "librarian",
+      "created_at": "2026-10-25T05:42:31+03:00",
+      "decided_at": null,
+      "why": null,
+      "links": {
+        "insights": [],
+        "tasks": [],
+        "reports": []
+      }
     }
   ],
   "updated_at": "2026-10-24T13:40:00Z"
