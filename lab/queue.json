@@ -958,6 +958,25 @@
       "launch": null,
       "artifacts": [],
       "note": "death_return: при смерти клетки доля энергии возвращается в локальный ресурс; при death_return=0 мир бит-в-бит прежний (якорь 66679/459); три теста в docs/optimality.md и §3c"
+    },
+    {
+      "id": "W2bud_threshold3",
+      "title": "W2-bud с порогом линии >=3 клетки, зафиксированным ДО данных: вердикт по цене признака",
+      "hypothesis": "H-ALIVE-42",
+      "status": "planned",
+      "owner": null,
+      "claimed_at": null,
+      "heartbeat_at": null,
+      "closed_at": null,
+      "ttl_minutes": 240,
+      "cost_gpu_h": 1.0,
+      "impact": 4,
+      "gated_by": [],
+      "unblocks": [],
+      "prereg": "reports/2026-10-25-w2bud-threshold3-plan.md",
+      "launch": null,
+      "artifacts": [],
+      "note": "20 прогонов W2-bud; порог линии >=3 клетки и >=1 спора фиксируется в пре-регистрации до запуска; критерий: медиана rho_partial <= -0.3 и отрицательна в >=7/10 сидов; нужен именно потому, что при >=3 это был post-hoc анализ"
     }
   ]
 }
