@@ -235,7 +235,7 @@ def main(argv=None) -> int:
     ap.add_argument("--out", default=None)
     args = ap.parse_args(argv)
 
-    files = sorted(glob.glob(str(Path(args.src) / "w2bud_*.json")))
+    files = sorted(glob.glob(str(Path(args.src) / "w2bud*.json")))
     rows = [row for row in (analyse(Path(f)) for f in files) if row is not None]
     table = by_arm(rows)
     payload = {
