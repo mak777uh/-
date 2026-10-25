@@ -546,7 +546,7 @@
 | [`morphogenesis/experiments/E09_pond/w2bud2/w2bud2_colony_seed7.json`](../morphogenesis/experiments/E09_pond/w2bud2/w2bud2_colony_seed7.json) | other | 478843 | `e4498e88999ce51b3353c166d00f7e64a4b0530b44c1e70a6074421b5c1e7b34` |
 | [`morphogenesis/experiments/E09_pond/w2bud2/w2bud2_colony_seed8.json`](../morphogenesis/experiments/E09_pond/w2bud2/w2bud2_colony_seed8.json) | other | 471019 | `89ace0f2f4b167f53ffab59cb35f9d00a08970c054d894bd9d29235e2c6cce36` |
 | [`morphogenesis/experiments/E09_pond/w2bud2/w2bud2_colony_seed9.json`](../morphogenesis/experiments/E09_pond/w2bud2/w2bud2_colony_seed9.json) | other | 476790 | `3b08fde526aa6cf8983155f0bc4ed1d87e0d60cc7deda6b8a303b8ed07ae29ec` |
-| [`morphogenesis/experiments/E09_pond/w2bud2_matrix.json`](../morphogenesis/experiments/E09_pond/w2bud2_matrix.json) | other | 19144 | `05f097af56c8fe97d8e1ae86c8ed072d454793eff52cab4b2382b5ec7fa1c37e` |
+| [`morphogenesis/experiments/E09_pond/w2bud2_matrix.json`](../morphogenesis/experiments/E09_pond/w2bud2_matrix.json) | other | 23940 | `68fb8902819d3c456ccb48333ecaf0df56ce44601e4643f5445cf3e30397fc6a` |
 | [`morphogenesis/experiments/E09_pond/w2bud_matrix.json`](../morphogenesis/experiments/E09_pond/w2bud_matrix.json) | other | 19150 | `9a9c773a4a21b1df914cccfa617176509d1c41a10cdc0cf74a182e631fb558ef` |
 | [`reports/figures/day-2026-10-25-simple.png`](../reports/figures/day-2026-10-25-simple.png) | figure | 237542 | `38e50662a0dd58d6d943bd38cc3166b7fa798ad8dadb5287b55796431f830021` |
 | [`reports/figures/day-2026-10-25.png`](../reports/figures/day-2026-10-25.png) | figure | 334254 | `9bd43d551def60017ae79a746f5542163499e693f97d6e3bd021bad69d0dd8a4` |
@@ -569,6 +569,7 @@
 | [`reports/figures/e02b_transition_matrix.png`](../reports/figures/e02b_transition_matrix.png) | figure | 152522 | `81f1b4fe50fd819f45411c31fb737a0c232d9c4f993f5233184c8b276779f5b9` |
 | [`reports/figures/e02c_seed_grid.png`](../reports/figures/e02c_seed_grid.png) | figure | 69503 | `a14f0a6eb28fa0675629e539dc863049d97c3a7ef1914c34ebd7348b5c71776f` |
 <!-- artifacts:end -->
+
 
 
 
