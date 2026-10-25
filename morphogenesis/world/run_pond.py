@@ -114,6 +114,7 @@ def config_block(cfg) -> dict:
         "mutation_rate": getattr(cfg, "mutation_rate", 0.0),
         "mutation_trait_sigma": getattr(cfg, "mutation_trait_sigma", 0.0),
         "layout": getattr(cfg, "resource_layout", None),
+        "resource_regen": float(getattr(cfg, "resource_regen", 0.02)),
         "income": getattr(cfg, "baseline_income", None),
         "update_cost": getattr(cfg, "update_cost", None),
         "repair_cost": getattr(cfg, "repair_cost", None),
@@ -590,6 +591,9 @@ def build_parser() -> argparse.ArgumentParser:
     ap.add_argument("--repair-cost", type=float, default=None, help="цена ремонта клетки")
     ap.add_argument("--budding-mass", type=float, default=None, help="масса для споры")
     ap.add_argument("--budding-cost", type=float, default=None, help="энергия на спору")
+    ap.add_argument("--resource-regen", type=float, default=0.02,
+                    help="приток ресурса на клетку за шаг (равновесие поля: regen*N = "
+                         "потребление); H-ALIVE-29 меняет только это, не доход и не цену")
     ap.add_argument("--init-resource-fill", type=float, default=0.0,
                     help="доля потолка, до которой поле заполнено ресурсом на старте")
     ap.add_argument("--income-mode", default="cap", choices=["cap", "proportional"],
@@ -771,6 +775,7 @@ def main(argv: list[str] | None = None) -> int:
     world.drift_steps = args.drift_steps
     world.income_mode = args.income_mode
     world.init_resource_fill = args.init_resource_fill
+    world.resource_regen = args.resource_regen
     # Воспроизводимость: сеем глобальные ГПСЧ сидом прогона. Без этого часть
     # случайности (например, глобальный torch-ГПСЧ в служебных операциях) шла мимо
     # `self.gen`, и один и тот же сид давал разные pop_time (проверено 24.10).

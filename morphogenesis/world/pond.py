@@ -285,10 +285,6 @@ class Pond:
             self.colony_cells_at_invasion = cells_now
             self.injection_share_actual = round(resident_share, 4)
             return
-        # запомнить точку подсадки ДО изменений: нужна для ресурса в трёх зонах (§10ai)
-        spot = self._invader_spot() if getattr(self.cfg, "type_level", "cell") == "colony" else None
-        if spot is not None:
-            self._last_invasion_spot = spot
         if cells_now < int(self.cfg.invade_min_cells):
             # ещё рано: при крошечной колонии доля одной подсаженной клетки нестабильна
             return
@@ -303,6 +299,10 @@ class Pond:
             spot = self._invader_spot()
             if spot is None:
                 return
+            # запомнить ФАКТИЧЕСКУЮ точку подсадки для ресурса в трёх зонах (§10ak):
+            # именно этот вызов, а не отдельный — иначе лишний вызов _invader_spot()
+            # сдвигает ГПСЧ и старый якорь перестаёт совпадать бит-в-бит
+            self._last_invasion_spot = spot
             s.alive |= spot
             s.energy = torch.where(spot, torch.full_like(s.energy, 8.0), s.energy)
             s.age = torch.where(spot, torch.zeros_like(s.age), s.age)
