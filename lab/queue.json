@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-24T22:10:00+03:00",
+  "updated_at": "2026-10-24T21:50:43Z",
   "note": "Очередь пунктов после E02c. Claim берётся до пре-регистрации, а не перед запуском: lab.py item-claim. Статус running означает занятый GPU-лейн и может быть только у одного пункта.",
   "items": [
     {
@@ -604,18 +604,19 @@
       "id": "V8_placement_merge",
       "title": "Размещение и правило слияния: когда редкая линия выживает",
       "hypothesis": "H-ALIVE-21",
-      "status": "running",
+      "status": "closed",
       "owner": "scientist",
       "claimed_at": "2026-10-24T16:52:29Z",
-      "heartbeat_at": "2026-10-24T16:52:29Z",
-      "closed_at": null,
+      "heartbeat_at": null,
+      "closed_at": "2026-10-24T19:13:37Z",
       "ttl_minutes": 240,
       "cost_gpu_h": 3.0,
       "gated_by": null,
       "artifacts": [
         "reports/2026-10-24-placement-merge-plan.md"
       ],
-      "note": "V8: плечи into_resident/into_gap/resident_free/propagule x merge majority/mass_weighted, 60 прогонов (~88 мин), пре-регистрация reports/2026-10-24-invasion-placement-plan.md"
+      "note": "закрыто 24.10: 50 валидных прогонов, выживание 0/10 во всех плечах; размещение удваивает долю отдельной компоненты (6/10 vs 2/10), исход не меняет; mass_weighted не меняет ничего; доза 20 в gap 0/10 (max_share до 0.36). resident_free невалиден (10 'не то плечо' + 6 'зажигание' в quarantine). §10ae",
+      "closed_by": "scientist"
     },
     {
       "id": "V9_ecm",
@@ -636,11 +637,11 @@
       "note": "пре-регистрация пишется после финиша V8 (world/ заморожен); запуск — только после «ок» владельца: смена физики среды. Плечи: control (смерть = пустота) против ECM (смерть = препятствие); метрики β1 + Boundary Rugosity + классы; 5 сидов"
     },
     {
-      "status": "planned",
-      "owner": null,
-      "claimed_at": null,
+      "status": "closed",
+      "owner": "scientist",
+      "claimed_at": "2026-10-24T19:13:47Z",
       "heartbeat_at": null,
-      "closed_at": null,
+      "closed_at": "2026-10-24T21:50:43Z",
       "ttl_minutes": 240,
       "id": "V10_propagule",
       "title": "Минимальный живой пропагул: пустое поле, N клеток",
@@ -650,7 +651,8 @@
       "artifacts": [
         "morphogenesis/experiments/E09_pond/founding_matrix.json"
       ],
-      "note": "включает перезапуск resident_free с --start-cells; N ∈ {1,2,5,10,20} x 10 сидов; критерий alive_final>N и pop_time>0"
+      "note": "закрыто 25.10: 50 прогонов, основание идёт из ОДНОЙ клетки 10/10 на всех дозах; порога в N=1..20 нет; §10af. Якорь с гейтом даёт расхождение с V8 (pop_time 91623 vs 66679) — мир модифицирован, сравнение только внутри серии",
+      "closed_by": "scientist"
     },
     {
       "status": "planned",

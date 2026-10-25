@@ -118,6 +118,9 @@ jobs:
           done
           exit $fail
 
+      - name: Claims matrix (evidence kinds, assumptions, artifact links)
+        run: python scripts/claims_lint.py
+
       - name: Manuscript numbers match artifacts
         run: python scripts/verify_manuscript_numbers.py
 

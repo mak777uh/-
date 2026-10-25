@@ -127,8 +127,16 @@ def test_head_alone_is_not_a_wake_reason():
     assert library_wake.is_significant(["runs"]) is True
 
 
-def test_wait_returns_timeout_without_changes(tmp_path):
+def test_wait_returns_timeout_without_changes(tmp_path, capsys):
+    """Истёкший таймаут — не ошибка: код возврата 0, признак — строка в stdout.
+
+    До 25.10 тест ждал 2, хотя wait() намеренно возвращает 0 («ночной прогон без
+    изменений не должен выглядеть падением»). Тест не успели обновить вместе с
+    кодом — поймано полным прогоном 605 тестов.
+    """
     root = _tree(tmp_path)
     state = tmp_path / "state.json"
     library_wake.check(root, state)
-    assert library_wake.wait(root, timeout=0.2, interval=0.05, state_path=state) == 2
+    code = library_wake.wait(root, timeout=0.2, interval=0.05, state_path=state)
+    assert code == 0
+    assert "timeout" in capsys.readouterr().out

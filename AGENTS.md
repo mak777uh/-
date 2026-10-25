@@ -29,8 +29,10 @@
 2. [`lab/state.json`](lab/state.json) — фаза, активные прогоны, блокеры, диск;
 3. [`lab/registry.json`](lab/registry.json) — карта экспериментов и артефактов;
 4. [`lab/README.md`](lab/README.md) — протокол замков, манифестов и источников;
-5. [`lab/notices.md`](lab/notices.md) — указания ведущего и договорённости между
-   агентами (обязательно, если в репозитории работает больше одного агента);
+5. [`lab/STATUS.md`](lab/STATUS.md) — что сейчас в работе, что ждёт решения владельца, чего
+   сознательно не делаем (канонический поток внимания); `lab/notices.md` — указания ведущего и
+   договорённости между агентами; [`docs/eliminations.md`](docs/eliminations.md) — реестр
+   опровергнутого (не проверять заново);
 6. `lab/runs/<run_id>.json` — паспорт конкретного прогона;
 7. сырые артефакты в `morphogenesis/experiments/`;
 8. [`reports/`](reports/README.md) — человеческая интерпретация, не источник чисел.
@@ -397,6 +399,9 @@ python scripts/lab.py state
    запись в [`manuscript/CHANGELOG.md`](manuscript/CHANGELOG.md), строка карты
    в [`manuscript/README.md`](manuscript/README.md), при необходимости —
    утверждение в [`manuscript/CLAIMS.md`](manuscript/CLAIMS.md);
+8a. `python scripts/claims_lint.py` — утверждение с новым числом обязано иметь тип основания
+   (`доказательство` / `тест` / `статистика` / `наблюдение` / `суждение`), допущения и «что
+   остаётся обосновать»; опровергнутый механизм — строкой в [`docs/eliminations.md`](docs/eliminations.md);
 9. `python scripts/lab.py state && python scripts/lab.py validate`;
 10. коммит и push без force.
 
@@ -591,6 +596,10 @@ python scripts/convert_runs.py           # история → карточки (
 
 # библиотека: что прочитано, что не использовано
 python scripts/library_digest.py
+
+# матрица утверждений и единый гейт
+python scripts/claims_lint.py        # тип основания, допущения, ссылки на артефакты
+make verify                          # всё сразу: контракт + claims + ссылки + Lean без sorry
 
 # локальный CI
 python run_tests.py --quick
