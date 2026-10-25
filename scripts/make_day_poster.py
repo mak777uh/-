@@ -1,7 +1,6 @@
-"""Постер «сутки лаборатории» — визуализация хода исследования для владельца.
+"""Постер «сутки лаборатории» для владельца (версия 2, после ночных серий).
 
-Все числа взяты из артефактов линии E09_pond и рукописи (§10ab–§10ag, §4h, §5).
-Верстка: сетка с фиксированными координатами, без наложений.
+Все числа — из артефактов линии E09_pond и разделов 10ab–10al мира/рукописи.
 """
 from __future__ import annotations
 
@@ -24,20 +23,17 @@ BLUE = "#2f5d8a"
 FIG_W, FIG_H = 19.0, 28.0
 
 
-def section(fig, y_header, text):
-    fig.text(0.05, y_header, text, fontsize=19, weight="bold", color=BLUE,
-             va="top", ha="left")
+def section(fig, y, text):
+    fig.text(0.05, y, text, fontsize=19, weight="bold", color=BLUE, va="top", ha="left")
     fig.patches.append(
-        Rectangle((0.05, y_header - 0.0105), 0.90, 0.0014,
-                  transform=fig.transFigure, facecolor=BLUE, edgecolor="none",
-                  alpha=0.35, zorder=1)
+        Rectangle((0.05, y - 0.0105), 0.90, 0.0014, transform=fig.transFigure,
+                  facecolor=BLUE, edgecolor="none", alpha=0.35, zorder=1)
     )
 
 
 def card(fig, x, y, w, h, *, title, lines, big, verdict, colour):
     fig.patches.append(
-        FancyBboxPatch((x, y), w, h,
-                       boxstyle="round,pad=0.003,rounding_size=0.010",
+        FancyBboxPatch((x, y), w, h, boxstyle="round,pad=0.003,rounding_size=0.010",
                        transform=fig.transFigure, facecolor=WHITE,
                        edgecolor="#d9dee3", linewidth=1.2, zorder=2)
     )
@@ -46,37 +42,32 @@ def card(fig, x, y, w, h, *, title, lines, big, verdict, colour):
                   facecolor=colour, edgecolor="none", zorder=3)
     )
     ty = y + h - 0.014
-    fig.text(x + 0.014, ty, title, fontsize=14.5, weight="bold", color=INK,
-             va="top", ha="left")
-    ty -= 0.0245
+    fig.text(x + 0.014, ty, title, fontsize=14.0, weight="bold", color=INK, va="top", ha="left")
+    ty -= 0.024
     for ln in lines:
-        fig.text(x + 0.014, ty, ln, fontsize=11.6, color=MUTED, va="top", ha="left")
-        ty -= 0.0142
+        fig.text(x + 0.014, ty, ln, fontsize=11.4, color=MUTED, va="top", ha="left")
+        ty -= 0.014
     ty -= 0.004
-    fig.text(x + 0.014, ty, big, fontsize=15.5, weight="bold", color=colour,
-             va="top", ha="left")
-    ty -= 0.0235
-    fig.text(x + 0.014, ty, verdict, fontsize=11.2, color=colour, va="top",
-             ha="left", style="italic")
+    fig.text(x + 0.014, ty, big, fontsize=15.0, weight="bold", color=colour, va="top", ha="left")
+    ty -= 0.023
+    fig.text(x + 0.014, ty, verdict, fontsize=11.0, color=colour, va="top", ha="left", style="italic")
 
 
 fig = plt.figure(figsize=(FIG_W, FIG_H), dpi=100)
 fig.patch.set_facecolor(LIGHT)
 
 # ---------------------------------------------------------------- шапка
-fig.patches.append(
-    Rectangle((0, 0.948), 1, 0.052, transform=fig.transFigure,
-              facecolor=INK, edgecolor="none", zorder=1)
-)
-fig.text(0.05, 0.977, "Лаборатория: что мы делали за сутки", fontsize=29,
-         weight="bold", color=WHITE, va="center", ha="left")
+fig.patches.append(Rectangle((0, 0.948), 1, 0.052, transform=fig.transFigure,
+                             facecolor=INK, edgecolor="none", zorder=1))
+fig.text(0.05, 0.977, "Лаборатория: сутки 24–25 октября", fontsize=29, weight="bold",
+         color=WHITE, va="center", ha="left")
 fig.text(0.05, 0.960,
-         "24–25 октября 2026 · цифровой пруд W1 (32×32, замороженное правило NCA) · все числа — из артефактов",
+         "цифровой пруд W1 (32×32, замороженное правило NCA) · все числа — из артефактов, ни одного «примерно»",
          fontsize=13, color="#c9d1d9", va="center", ha="left")
-fig.text(0.95, 0.977, "6 серий · 601 тест", fontsize=12.5, color="#c9d1d9",
+fig.text(0.95, 0.977, "≈150 прогонов · 605 тестов", fontsize=12.5, color="#c9d1d9",
          va="center", ha="right")
-fig.text(0.95, 0.960, "31 теорема · 0 выдуманных чисел", fontsize=12.5,
-         color="#c9d1d9", va="center", ha="right")
+fig.text(0.95, 0.960, "31 теорема · 8 агрегатов", fontsize=12.5, color="#c9d1d9",
+         va="center", ha="right")
 
 # ---------------------------------------------------------------- 1. серии
 section(fig, 0.935, "1 · Шесть серий: что проверяли и что вышло")
@@ -110,12 +101,12 @@ card(fig, col1, rows[1], cw, ch,
      colour=RED)
 
 card(fig, col2, rows[1], cw, ch,
-     title="Доза и слияние (D + V8)",
-     lines=["Дозы 1–20 клеток, два правила слияния;",
-            "в одном прогоне пятно доросло до 36% популяции."],
-     big="0 из 50 и 0 из 10",
-     verdict="размер основателя не решает; слияние при 1% массы невидимо",
-     colour=RED)
+     title="Слияние «без переписывания»",
+     lines=["Клетки сохраняют тип при слиянии — меньшинство",
+            "не переписывается. Якорь сошёлся бит-в-бит."],
+     big="2 из 10 против 0 из 10",
+     verdict="«направление есть, мощность мала»: держатся на 0.2–0.3 %",
+     colour=AMBER)
 
 card(fig, col1, rows[2], cw, ch,
      title="Изменчивость метки (условие B)",
@@ -126,111 +117,97 @@ card(fig, col1, rows[2], cw, ch,
      colour=GREEN)
 
 card(fig, col2, rows[2], cw, ch,
-     title="Отбор по признаку (условие E)",
-     lines=["Признак начал влиять на мир (вложение энергии).",
-            "Остановили на 4-м прогоне по правилу валидности."],
-     big="споры произвела 1 линия из 44",
-     verdict="мерить отбор нечем: размножение — колония, а не клетка",
+     title="Родословная и отбор (условие E)",
+     lines=["Логгер исправлен: клетка наследует метку предка.",
+            "Пилот: меток с ≥2 клетками — 2 из 47."],
+     big="2 метки против 18–23 у дрейфа",
+     verdict="бухгалтерия не причина: мутанты рождаются, но не основываются",
      colour=RED)
 
-# ---------------------------------------------------------------- 2. выводы
-section(fig, 0.535, "2 · Три вещи, которые мы поняли — и они меняют план")
+# ---------------------------------------------------------------- 2. исключения
+section(fig, 0.535, "2 · Что мы за сутки исключили — и что осталось")
 
-box_w, box_h = 0.2833, 0.198
-box_y = 0.288
-boxes = [
-    ("«Основание — не барьер»",
-     ["Одна клетка на свободном поле даёт колонию",
-      "в 500–700 клеток, в 50 прогонах из 50.",
-      "Значит нули во вторжениях — не про размер",
-      "основателя, а про соседа.",
-      "",
-      "Дальше вопрос не «может ли линия",
-      "основаться», а «почему её съедает",
-      "резидент»."], GREEN),
-    ("«Отбору не из чего выбирать»",
-     ["Размножение в пруду — почкование колонии,",
-      "а не клетки. Спора уходит от крупных клеток,",
-      "поэтому новая метка рождается, но не",
-      "размножается: 1 линия из 44 против 18–23",
-      "у нейтрального дрейфа.",
-      "",
-      "Сначала нужно понять, КТО здесь индивид,",
-      "и только потом мерить отбор."], RED),
-    ("«Правило не консервативно»",
-     ["Из полностью мёртвого поля правило",
-      "зажигает все 1024 клетки на первом шаге —",
-      "и это не зависит ни от ресурса, ни от",
-      "дохода. Канал живости смещён положительно.",
-      "",
-      "Отсюда гейт (клетка без живого соседа",
-      "не зажигается) и теорема: пустое поле",
-      "остаётся пустым."], AMBER),
+ew, eh = 0.172, 0.150
+ey = 0.352
+items = [
+    ("Размер основания", ["доза 20 клеток —", "0/10; пятно доросло", "до 36 % и погибло"], RED),
+    ("Правило слияния", ["без переписывания —", "2/10, доля", "всего 0.2–0.3 %"], RED),
+    ("Бухгалтерия меток", ["логгер починен —", "2 метки с ≥2 клетками", "против 18–23 у дрейфа"], RED),
+    ("Ресурс в точке", ["в точку подсадки —", "ресурс 0.9811,", "линия всё равно гибнет"], RED),
 ]
-for x, (head, body, colour) in zip([0.05, 0.3583, 0.6667], boxes):
+exs = [0.05, 0.245, 0.440, 0.635]
+for x, (head, body, colour) in zip(exs, items):
     fig.patches.append(
-        FancyBboxPatch((x, box_y), box_w, box_h,
-                       boxstyle="round,pad=0.003,rounding_size=0.010",
-                       transform=fig.transFigure, facecolor=WHITE,
-                       edgecolor="#d9dee3", linewidth=1.2, zorder=2)
+        FancyBboxPatch((x, ey), ew, eh, boxstyle="round,pad=0.003,rounding_size=0.010",
+                       transform=fig.transFigure, facecolor="#fbf3f3",
+                       edgecolor="#e3c9c9", linewidth=1.2, zorder=2)
     )
-    fig.patches.append(
-        Rectangle((x, box_y + box_h - 0.007), box_w, 0.007,
-                  transform=fig.transFigure, facecolor=colour,
-                  edgecolor="none", zorder=3)
-    )
-    fig.text(x + 0.013, box_y + box_h - 0.017, head, fontsize=14.5,
-             weight="bold", color=colour, va="top", ha="left")
-    ty = box_y + box_h - 0.038
+    fig.text(x + 0.010, ey + eh - 0.010, "✗", fontsize=19, color=colour, va="top",
+             ha="left", weight="bold")
+    fig.text(x + 0.036, ey + eh - 0.017, head, fontsize=12.0, weight="bold",
+             color=INK, va="top", ha="left")
+    ty = ey + eh - 0.052
     for ln in body:
-        fig.text(x + 0.013, ty, ln, fontsize=11.3, color=INK, va="top", ha="left")
-        ty -= 0.0155
+        fig.text(x + 0.010, ty, ln, fontsize=9.8, color=MUTED, va="top", ha="left")
+        ty -= 0.0135
+
+sx, sw = 0.828, 0.122
+fig.patches.append(
+    FancyBboxPatch((sx, ey), sw, eh, boxstyle="round,pad=0.003,rounding_size=0.010",
+                   transform=fig.transFigure, facecolor="#fff8e6",
+                   edgecolor=AMBER, linewidth=2.0, zorder=2)
+)
+fig.text(sx + 0.010, ey + eh - 0.010, "?", fontsize=19, color=AMBER, va="top",
+         ha="left", weight="bold")
+fig.text(sx + 0.010, ey + eh - 0.042, "Основание\nпропагула\nрядом с\nколонией",
+         fontsize=11.2, weight="bold", color=AMBER, va="top", ha="left", linespacing=1.25)
+fig.text(sx + 0.010, ey + 0.010, "1 клетка даёт\nколонию 50/50 —\nтолько на пустом поле",
+         fontsize=9.0, color=INK, va="bottom", ha="left", linespacing=1.3)
+
+fig.text(0.05, ey - 0.016,
+         "Четыре объяснения проверены и отброшены числом. Осталось одно, и оно согласуется со всеми: "
+         "редкая линия не может основаться там, где место занято.",
+         fontsize=11.6, color=INK, va="top", ha="left", style="italic")
 
 # ---------------------------------------------------------------- 3. лестница
-section(fig, 0.275, "3 · Лестница условий: где мы стоим")
+section(fig, 0.312, "3 · Лестница условий: где мы стоим")
 
 ladder = [
     ("A. Информация", "есть: клетка видит ресурс и соседей", GREEN, "готово"),
     ("B. Изменчивость", "наследуемая новизна при m ≥ 0.05, бесплатно", GREEN, "готово"),
     ("C. Память среды", "наследие живёт 1.3–2.4 поколения · выгода не проверена", AMBER, "наполовину"),
-    ("D. Сосуществование", "инвазия 0/50 и 0/10 — линия не удерживается", RED, "не вышло"),
+    ("D. Сосуществование", "0/10 при любом размещении, 2/10 без переписывания", RED, "не вышло"),
     ("E. Отбор", "нечем измерять: единица размножения — колония", GRAY, "заблокировано"),
 ]
-ly = 0.232
+ly = 0.269
 for name, status, colour, tag in ladder:
     fig.patches.append(
-        FancyBboxPatch((0.05, ly), 0.90, 0.024,
-                       boxstyle="round,pad=0.0015,rounding_size=0.006",
-                       transform=fig.transFigure, facecolor=WHITE,
-                       edgecolor="#e3e7ea", linewidth=1.0, zorder=2)
+        FancyBboxPatch((0.05, ly), 0.90, 0.024, boxstyle="round,pad=0.0015,rounding_size=0.006",
+                       transform=fig.transFigure, facecolor=WHITE, edgecolor="#e3e7ea",
+                       linewidth=1.0, zorder=2)
     )
     fig.patches.append(
         Rectangle((0.05, ly), 0.0045, 0.024, transform=fig.transFigure,
                   facecolor=colour, edgecolor="none", zorder=3)
     )
-    fig.text(0.061, ly + 0.012, name, fontsize=12.8, weight="bold", color=INK,
-             va="center", ha="left")
-    fig.text(0.235, ly + 0.012, status, fontsize=11.6, color=MUTED,
-             va="center", ha="left")
-    fig.text(0.943, ly + 0.012, tag, fontsize=11.2, weight="bold", color=colour,
-             va="center", ha="right")
+    fig.text(0.061, ly + 0.012, name, fontsize=12.6, weight="bold", color=INK, va="center", ha="left")
+    fig.text(0.235, ly + 0.012, status, fontsize=11.4, color=MUTED, va="center", ha="left")
+    fig.text(0.943, ly + 0.012, tag, fontsize=11.0, weight="bold", color=colour, va="center", ha="right")
     ly -= 0.0315
 
 # ---------------------------------------------------------------- 4. дальше
-section(fig, 0.062, "4 · Куда движемся")
-fig.text(0.05, 0.048,
-         "1) Логгер родословной: метка должна наследоваться при росте — без этого отбор не измерить.",
-         fontsize=12.2, color=INK, va="top", ha="left")
-fig.text(0.05, 0.034,
-         "2) Пилот на 1–2 сидах: станет ли меток с ≥2 клетками 15–25 (как у нейтрального дрейфа).",
-         fontsize=12.2, color=INK, va="top", ha="left")
-fig.text(0.05, 0.020,
-         "3) Слияние «без переписывания»: проверить, съедает ли линию правило слияния.",
-         fontsize=12.2, color=INK, va="top", ha="left")
-fig.text(0.05, 0.006,
-         "4) И только потом — энергетика среды и повторный вопрос сосуществования.",
-         fontsize=12.2, color=INK, va="top", ha="left")
+section(fig, 0.098, "4 · Куда движемся")
+steps = [
+    "1) Проверить оставшегося подозреваемого: ресурсные зоны на 2–3 сидах (сейчас один сид — это направление, а не доказательство).",
+    "2) Вернуть чувствительность проверке наследования среды: порог двигать ценой шага (own* = 0.30), а не доходом — доход управляет и выеденностью.",
+    "3) Ответить на вопрос «кто здесь индивид»: пока единица размножения — колония, отбор по клеточной метке измерить нечем.",
+    "4) И только после этого — новая формулировка условия E и новая пре-регистрация, а не ещё одна серия «на удачу».",
+]
+ty = 0.080
+for s in steps:
+    fig.text(0.05, ty, s, fontsize=11.6, color=INK, va="top", ha="left")
+    ty -= 0.0185
 
-out = r"reports/figures/day-2026-10-25.png"
+out = "reports/figures/day-2026-10-25.png"
 fig.savefig(out, facecolor=fig.get_facecolor(), dpi=100)
 print("saved:", out)
