@@ -126,6 +126,20 @@ CHECKS: list[dict] = [
     },
     {
         "section": "4h",
+        "aggregate": f"{POND}/placement_patches_matrix.json",
+        "values": {"k": "by_arm{arm=keep}.survived_k", "n": "by_arm{arm=keep}.runs"},
+        "template": "{k}/{n}",
+        "note": "patches: выживание при сохранении типа на фоне полной подсадки",
+    },
+    {
+        "section": "4h",
+        "aggregate": f"{POND}/placement_matrix.json",
+        "values": {"k": "by_arm{arm=keep}.survived_k", "n": "by_arm{arm=keep}.runs"},
+        "template": "{k}/{n}",
+        "note": "uniform: выживание при сохранении типа на фоне полной подсадки",
+    },
+    {
+        "section": "4h",
         "aggregate": f"{POND}/merge_keep_matrix.json",
         "values": {"k": "by_arm{arm=keep}.survived_k",
                    "n": "by_arm{arm=keep}.valid_n"},
