@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "run_id": "20261025T001616Z-killkeep3_keep_seed1",
+  "experiment": "killkeep3_keep_seed1",
+  "experiment_id": "E09_pond",
+  "arm": "killkeep3_keep",
+  "seed": 1,
+  "steps": 400,
+  "status": "finished",
+  "provenance": "runner",
+  "source": "morphogenesis/logs/journal.jsonl",
+  "started_at": "2026-10-25T00:16:16Z",
+  "finished_at": "2026-10-25T00:18:00Z",
+  "git_commit": "a99f310",
+  "git_dirty": true,
+  "command": [
+    "C:\\Users\\Admin\\Documents\\Qoder\\2026-10-18\\82ab86cd\\repo\\.venv\\Scripts\\python.exe",
+    "run_exploratory.py",
+    "--script",
+    "../../_hourly/killkeep_driver.py",
+    "--experiment",
+    "killkeep3_keep_seed1",
+    "--device",
+    "cuda"
+  ],
+  "cwd": "morphogenesis",
+  "owner": "scientist",
+  "environment": {
+    "python": "3.13.11",
+    "platform": "Windows-11-10.0.26300-SP0",
+    "torch": "2.6.0+cu124",
+    "numpy": "2.5.4",
+    "device": "NVIDIA GeForce RTX 3070 Laptop GPU, 595.79"
+  },
+  "checkpoint_in": null,
+  "outputs": {
+    "declared": [],
+    "log": "morphogenesis/logs/20261025T001616Z-killkeep3_keep_seed1.log"
+  },
+  "metrics": {},
+  "stop_reason": "exit_0",
+  "exit_code": 0,
+  "log_path": "morphogenesis/logs/20261025T001616Z-killkeep3_keep_seed1.log",
+  "notes": "C v3: b=0.06, own*=0.167, phase2=200"
+}
