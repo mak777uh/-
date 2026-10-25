@@ -27,7 +27,7 @@ import re
 import statistics
 from pathlib import Path
 
-NAME = re.compile(r"placement_(?P<arm>keep|majority)_seed(?P<seed>\d+)\.json$")
+NAME = re.compile(r"placement_(?:patches_)?(?P<arm>keep|majority)_seed(?P<seed>\d+)\.json$")
 
 
 def analyse(path: Path) -> dict | None:
