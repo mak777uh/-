@@ -1213,6 +1213,30 @@ def test_resource_zones_present_in_summary():
     assert zones["resource_empty_mean"] > zones["resource_alive_mean"]
 
 
+def test_budding_unit_cell_picks_single_parent():
+    """W2-bud: при budding_unit=cell почкуется ОДНА клетка тела, при colony — вся компонента."""
+    pond = _mutation_pond(0.0)
+    mask = torch.zeros((8, 8), dtype=torch.bool)
+    mask[2:5, 2:5] = True
+    pond.seed_life(mask, energy=5.0)
+    # по умолчанию (W1) — родитель это вся компонента
+    pond.cfg.budding_unit = "colony"
+    assert int(pond.budding_parent(mask).sum()) == int(mask.sum())
+    # W2-bud — ровно одна клетка, и она внутри тела
+    pond.cfg.budding_unit = "cell"
+    parent = pond.budding_parent(mask)
+    assert int(parent.sum()) == 1, "почкуется одна клетка, а не тело"
+    assert bool((parent & mask).any()), "выбранная клетка принадлежит телу"
+
+
+def test_budding_unit_default_is_colony():
+    """Дефолт обязан быть colony: иначе прошлые серии перестанут быть бит-в-бит."""
+    from world.run_pond import build_parser
+    from world.pond import PondConfig
+    assert build_parser().get_default("budding_unit") == "colony"
+    assert PondConfig().budding_unit == "colony"
+
+
 def _type_run(start: str, fd: float, steps: int = 40, grid: int = 16, seed: int = 1):
     from world.run_pond import PondRun
     cfg = PondConfig(grid=grid, resource_layout="gradient", income_mode="proportional",

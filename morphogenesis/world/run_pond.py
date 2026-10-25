@@ -108,6 +108,7 @@ def config_block(cfg) -> dict:
         "invade_placement": getattr(cfg, "invade_placement", "random"),
         "merge_rule": getattr(cfg, "merge_rule", "majority"),
         "trait_effect": getattr(cfg, "trait_effect", 0.0),
+        "budding_unit": getattr(cfg, "budding_unit", "colony"),
         "invade_on_empty": bool(getattr(cfg, "invade_on_empty", False)),
         "start_cells": int(getattr(cfg, "start_cells", 4)),
         "ignition_gate": bool(getattr(cfg, "ignition_gate", False)),
@@ -530,7 +531,9 @@ class PondRun:
         self._flow_energy_to_state()
 
         births = 0
-        for parent in self.pond.find_buds():
+        for body in self.pond.find_buds():
+            # W2-bud: почкуется ОДНА клетка тела (по умолчанию — вся компонента, W1)
+            parent = self.pond.budding_parent(body)
             child = self.pond.bud(parent)
             if child is None:
                 continue
@@ -690,6 +693,8 @@ def build_parser() -> argparse.ArgumentParser:
     ap.add_argument("--invade-placement", default="random", choices=["random", "gap"],
                     help="куда садится инокулят: random (как §10ab) или gap — в самую "
                          "далёкую от резидента свободную клетку (V8)")
+    ap.add_argument("--budding-unit", default="colony", choices=["colony", "cell"],
+                    help="кто почкуется: colony (W1, по умолчанию) или cell (W2-bud)")
     ap.add_argument("--trait-effect", type=float, default=0.0,
                     help="eps: насколько tag_trait меняет интенсивность инвестирования "
                          "(0 = признак не читается, условие E)")
@@ -768,6 +773,7 @@ def main(argv: list[str] | None = None) -> int:
     world.invade_placement = args.invade_placement
     world.merge_rule = args.merge_rule
     world.trait_effect = args.trait_effect
+    world.budding_unit = args.budding_unit
     world.invade_on_empty = bool(args.invade_on_empty)
     world.start_cells = int(args.start_cells)
     world.ignition_gate = bool(args.ignition_gate)

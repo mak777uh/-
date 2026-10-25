@@ -99,6 +99,7 @@ class PondConfig:
     mutation_rate: float = 0.0         # 0..1: новый tag (метка линии) при рождении (условие B)
     ignition_gate: bool = False        # запретить правилу зажигать без живого 4-соседа (пропагул)
     trait_effect: float = 0.0          # eps: насколько tag_trait меняет интенсивность инвестирования (E)
+    budding_unit: str = "colony"       # colony (W1) | cell (W2-bud): кто почкуется — колония или клетка
     mutation_trait_sigma: float = 0.01  # сдвиг признака линии при мутации (масштаб признака ~1)
     invade_placement: str = "random"   # random | gap: куда садится инокулят (V8)
     merge_rule: str = "majority"       # majority | mass_weighted: правило слияния компонент (V8)
@@ -1076,6 +1077,38 @@ class Pond:
                     continue
                 crowd += padded[1 + ys + dy, 1 + xs + dx]
         return res_norm, crowd / 8.0
+
+    def budding_parent(self, parent_mask: torch.Tensor) -> torch.Tensor:
+        """Кто почкуется: вся компонента (W1) или ОДНА клетка (W2-bud).
+
+        W2-bud: единица размножения — клетка, а не колония. Родитель выбирается тем же
+        критерием, что и спора (`spore_bias`): по `score` — самая «богатая» клетка тела
+        (ресурс минус теснота), иначе — случайная живая клетка тела. Это единственное
+        изменение мира: спора и её метка принадлежат клетке, а не компоненте.
+        """
+        if getattr(self.cfg, "budding_unit", "colony") != "cell":
+            return parent_mask
+        s = self.state
+        body = parent_mask & s.alive
+        if not bool(body.any()):
+            return parent_mask
+        idx = body.nonzero(as_tuple=False)
+        if self.cfg.spore_bias == "score":
+            own = s.resource
+            crowd = torch.zeros_like(own)
+            crowd[1:, :] += body[:-1, :].float()
+            crowd[:-1, :] += body[1:, :].float()
+            crowd[:, 1:] += body[:, :-1].float()
+            crowd[:, :-1] += body[:, 1:].float()
+            score = own - 0.1 * crowd
+            vals = score[idx[:, 0], idx[:, 1]]
+            pick = idx[int(torch.argmax(vals))]
+        else:
+            draw = int(torch.randint(0, idx.shape[0], (1,), generator=self.gen_sel))
+            pick = idx[draw]
+        single = torch.zeros_like(body)
+        single[int(pick[0]), int(pick[1])] = True
+        return single
 
     def bud(self, parent_mask: torch.Tensor) -> torch.Tensor | None:
         """Выпустить спору: `spore_cells` свободных клеток рядом с родителем.
