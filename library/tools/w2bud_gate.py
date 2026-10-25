@@ -22,12 +22,12 @@ from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[2]
 ARMS = ("cell", "colony")
-NAME = re.compile(r"w2bud_(?P<arm>cell|colony)_seed(?P<seed>\d+)\.json$")
+NAME = re.compile(r"w2bud2?_(?P<arm>cell|colony)_seed(?P<seed>\d+)\.json$")
 
 
 def counts(src: Path) -> dict[str, int]:
     out = {arm: 0 for arm in ARMS}
-    for path in glob.glob(str(src / "w2bud_*.json")):
+    for path in glob.glob(str(src / "w2bud*_*.json")):
         match = NAME.search(Path(path).name)
         if match:
             out[match.group("arm")] += 1
