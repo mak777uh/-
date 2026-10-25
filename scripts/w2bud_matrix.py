@@ -1,16 +1,25 @@
 #!/usr/bin/env python
 """w2bud_matrix.py — агрегат W2-bud (клеточное почкование) против W1 (колониальное).
 
-Зачем: §10ag показал, что в W1 единица изменчивости (метка) ≠ единица размножения
-(почкование колонии): все споры у одной линии, `I = Var(w)/mean(w)² = 0`, отбор по
-клеточному признаку неизмерим. W2-bud делает единицей размножения клетку.
+ОПРЕДЕЛЕНИЯ (формулы, а не слова) — введены 25.10 после расхождения трёх пересчётов:
 
-Критерий (пре-регистрация `reports/2026-10-25-w2bud-plan.md`, поправка от 25.10 — ДО серии):
+| величина | формула | поле артефакта |
+|---|---|---|
+| живые клетки линии `t` | `cells(t) = type_counts["T<t>"]` | `summary.type_counts` |
+| меток с ≥2 клетками | `#{t : cells(t) ≥ 2}` | `type_counts` |
+| линия с данными | `cells(t) ≥ 5` **И** `lineage_spores[t] ≥ 1` | `type_counts` + `lineage_spores` |
+| фитнес линии | `w(t) = lineage_spores[t] / cells(t)` — споры на ЖИВУЮ клетку | оба поля |
+| возможность отбора | `I = Var(w) / mean(w)²` по линиям с данными | производное |
+| ρ | `Spearman(tag_trait[t], w(t))` по линиям с данными (нужно ≥3) | `type_traits` |
 
-* первичный: `I = Var(w)/mean(w)² > 0` (структурный результат);
-* `ρ` считается по каждому сиду на доступных линиях (≥ 5 линий с ≥ 1 спорой и ≥ 5 клетками);
-* вердикт по 10 сидам: медиана `ρ ≥ 0.3` **и** `ρ ≥ 0.3` в ≥ 7/10 сидов **и** согласие знака с
-  `β_lin` в ≥ 7/10 сидов **и** манипуляция `|ρ(trait, вложение/клетку)| ≥ 0.2` в ≥ 7/10.
+**Почему `type_counts`, а не `lineage_fitness`.** Проверено на всех 20 артефактах:
+`sum(type_counts) == final.alive_cells` (20/20), а `sum(lineage_fitness)` = 15623–18255 при
+`born` 697–1959, то есть `lineage_fitness` — **накопленный счётчик рождений** (включая
+повторные «зажигания» клеток, которые правило снова объявляет живыми после гибели по энергии),
+а **не** число клеток. Как размер линии он не годится: у предковой линии там 13 087–18 000.
+
+`cumulative_*`-поля считаются по `lineage_fitness` и печатаются **только для сверки**: они
+воспроизводят альтернативный пересчёт и показывают, что это другая величина.
 
 Запуск (из корня):
 
@@ -30,6 +39,20 @@ from pathlib import Path
 NAME = re.compile(r"w2bud_(?P<arm>colony|cell)_seed(?P<seed>\d+)\.json$")
 MIN_CELLS = 5
 MIN_LINEAGES = 5
+
+METRIC = {
+    "cells_field": "summary.type_counts[\"T<tag>\"] — ЖИВЫЕ клетки линии на конец прогона "
+                   "(проверено: sum(type_counts) == final.alive_cells на 20/20 артефактах)",
+    "tags_ge2": "#{t : type_counts[t] >= 2}",
+    "lineage_with_data": "type_counts[t] >= 5 AND lineage_spores[t] >= 1",
+    "w": "lineage_spores[t] / type_counts[t] (споры на живую клетку)",
+    "crow_I": "Var(w) / mean(w)^2 по линиям с данными; при < 2 линиях I = 0 по построению",
+    "rho": "Spearman(type_traits[t], w(t)) по линиям с данными (нужно >= 3)",
+    "beta": "регрессия w/mean(w) на стандартизованный признак: w = 1 + b_lin*z + (b_quad/2)(z^2-1)",
+    "manipulation_rho": "Spearman(type_traits[t], lineage_invested[t] / type_counts[t])",
+    "cumulative_*": "то же по lineage_fitness — НЕ клетки, а накопленный счётчик рождений "
+                    "(включает повторные зажигания); только для сверки, в критерии не входит",
+}
 
 
 def spearman(pairs: list[tuple[float, float]]) -> float | None:
@@ -83,51 +106,71 @@ def gradient(traits: list[float], w: list[float]) -> tuple[float | None, float |
             round((s11 * t2 - s12 * t1) / det, 4))
 
 
+def crow(values: list[float]) -> float | None:
+    if len(values) < 2:
+        return 0.0            # одна линия -> разброса нет по построению
+    mean = statistics.mean(values)
+    if mean <= 0:
+        return None
+    return round(statistics.pvariance(values) / (mean * mean), 4)
+
+
 def analyse(path: Path) -> dict | None:
     match = NAME.search(path.name)
     if not match:
         return None
-    data = json.loads(path.read_text(encoding="utf-8"))
-    summary = data.get("summary") or {}
+    summary = json.loads(path.read_text(encoding="utf-8")).get("summary") or {}
     traits = {str(k).lstrip("T"): float(v) for k, v in (summary.get("type_traits") or {}).items()}
-    counts = {str(k).lstrip("T"): int(v) for k, v in (summary.get("type_counts") or {}).items()}
+    cells = {str(k).lstrip("T"): int(v) for k, v in (summary.get("type_counts") or {}).items()}
+    cum = {str(k): int(v) for k, v in (summary.get("lineage_fitness") or {}).items()}
     spores = {str(k): int(v) for k, v in (summary.get("lineage_spores") or {}).items()}
     invested = {str(k): float(v) for k, v in (summary.get("lineage_invested") or {}).items()}
 
-    sizes = sorted(counts.values(), reverse=True)
-    lineages = [t for t in counts if counts[t] >= MIN_CELLS and spores.get(t, 0) >= 1]
-    w = [spores[t] / counts[t] for t in lineages]
-    pairs = [(traits[t], spores[t] / counts[t]) for t in lineages if t in traits]
-    rho = spearman(pairs) if len(pairs) >= 3 else None
-    beta_lin, beta_quad = gradient([p[0] for p in pairs], [p[1] for p in pairs])
-    mean_w = statistics.mean(w) if w else 0.0
-    crow_i = (round(statistics.pvariance(w) / (mean_w * mean_w), 4)
-              if w and mean_w > 0 else None)
-    manip = [(traits[t], invested[t] / counts[t]) for t in counts
-             if t in invested and counts[t] > 0 and invested[t] > 0]
+    def lineage_stats(size_field: dict[str, int], min_cells: int) -> dict:
+        lineages = [t for t in size_field if size_field[t] >= min_cells and spores.get(t, 0) >= 1]
+        w = [spores[t] / size_field[t] for t in lineages]
+        pairs = [(traits[t], spores[t] / size_field[t]) for t in lineages if t in traits]
+        rho = spearman(pairs) if len(pairs) >= 3 else None
+        b_lin, b_quad = gradient([p[0] for p in pairs], [p[1] for p in pairs])
+        return {
+            "lineages": len(lineages),
+            "crow_I": crow(w),
+            "rho": round(rho, 3) if rho is not None else None,
+            "beta_lin": b_lin,
+            "beta_quad": b_quad,
+        }
+
+    final = lineage_stats(cells, MIN_CELLS)
+    cumulative = lineage_stats(cum, MIN_CELLS)
+    manip = [(traits[t], invested[t] / cells[t]) for t in cells
+             if t in invested and cells[t] > 0 and invested[t] > 0]
     manip_rho = spearman(manip) if len(manip) >= 3 else None
+    sizes = sorted(cells.values(), reverse=True)
     return {
         "artifact": f"morphogenesis/experiments/E09_pond/w2bud/{path.name}",
         "arm": match.group("arm"),
         "seed": int(match.group("seed")),
-        "tags": len(sizes),
+        "alive_final": (summary.get("final") or {}).get("alive_cells"),
+        "tags_total": len(cells),
         "tags_ge2": sum(1 for s in sizes if s >= 2),
         "tags_ge5": sum(1 for s in sizes if s >= 5),
-        "lineages_with_data": len(lineages),
-        "crow_I": crow_i,
-        "rho": round(rho, 3) if rho is not None else None,
-        "beta_lin": beta_lin,
-        "beta_quad": beta_quad,
+        "top1_share": round(sizes[0] / sum(sizes), 4) if sizes and sum(sizes) else None,
+        "lineages_with_data": final["lineages"],
+        "crow_I": final["crow_I"],
+        "rho": final["rho"],
+        "beta_lin": final["beta_lin"],
+        "beta_quad": final["beta_quad"],
         "manipulation_rho": round(manip_rho, 3) if manip_rho is not None else None,
         "manipulation_n": len(manip),
         "spores_total": int(sum(spores.values())) if spores else 0,
         "spores_lineages": len(spores),
-        "alive_final": (summary.get("final") or {}).get("alive_cells"),
-        "pop_time": summary.get("pop_time"),
+        "cumulative": cumulative,
+        "cumulative_fitness_sum": int(sum(cum.values())) if cum else 0,
+        "born": (summary.get("final") or {}).get("born"),
+        "valid": final["lineages"] >= MIN_LINEAGES,
+        "invalid_reason": (None if final["lineages"] >= MIN_LINEAGES
+                           else f"линий с данными {final['lineages']} < {MIN_LINEAGES}"),
         "budding_unit": (summary.get("config") or {}).get("budding_unit"),
-        "valid": len(lineages) >= MIN_LINEAGES,
-        "invalid_reason": (None if len(lineages) >= MIN_LINEAGES
-                           else f"линий с данными {len(lineages)} < {MIN_LINEAGES}"),
     }
 
 
@@ -137,30 +180,33 @@ def by_arm(rows: list[dict]) -> list[dict]:
         group = [r for r in rows if r["arm"] == arm]
         if not group:
             continue
-        usable = [r for r in group if r["valid"]]
-        rhos = [r["rho"] for r in usable if r["rho"] is not None]
-        betas = [r["beta_lin"] for r in usable if r["beta_lin"] is not None]
-        agree = sum(1 for r in usable
+        valid = [r for r in group if r["valid"]]
+        rhos = [r["rho"] for r in valid if r["rho"] is not None]
+        betas = [r["beta_lin"] for r in valid if r["beta_lin"] is not None]
+        agree = sum(1 for r in valid
                     if r["rho"] is not None and r["beta_lin"] is not None
                     and (r["rho"] > 0) == (r["beta_lin"] > 0))
-        manip = sum(1 for r in usable
-                    if r["manipulation_rho"] is not None and abs(r["manipulation_rho"]) >= 0.2)
+        manip_ok = sum(1 for r in group
+                       if r["manipulation_rho"] is not None
+                       and abs(r["manipulation_rho"]) >= 0.2)
         out.append({
             "arm": arm,
             "runs": len(group),
-            "valid_n": len(usable),
-            "tags_ge2_median": (round(statistics.median([r["tags_ge2"] for r in group]), 1)
-                                if group else None),
-            "lineages_median": (round(statistics.median([r["lineages_with_data"] for r in group]), 1)
-                                if group else None),
-            "crow_I_median": (round(statistics.median([r["crow_I"] for r in usable
-                                                       if r["crow_I"] is not None]), 4)
-                              if any(r["crow_I"] is not None for r in usable) else None),
-            "crow_I_positive_k": sum(1 for r in usable if (r["crow_I"] or 0) > 0),
+            "valid_n": len(valid),
+            # ВАЖНО: I > 0 считается по ВСЕМ прогонам (структурный критерий пре-регистрации),
+            # а не только по валидным — иначе знаменатель подменяется.
+            "crow_I_positive_k_all": sum(1 for r in group if (r["crow_I"] or 0) > 0),
+            "crow_I_positive_k_valid": sum(1 for r in valid if (r["crow_I"] or 0) > 0),
+            "crow_I_median_all": (round(statistics.median([r["crow_I"] for r in group
+                                                           if r["crow_I"] is not None]), 4)
+                                  if any(r["crow_I"] is not None for r in group) else None),
+            "tags_ge2_median": round(statistics.median([r["tags_ge2"] for r in group]), 1),
+            "tags_ge5_median": round(statistics.median([r["tags_ge5"] for r in group]), 1),
+            "lineages_median": round(statistics.median([r["lineages_with_data"] for r in group]), 1),
             "rho_median": round(statistics.median(rhos), 3) if rhos else None,
             "rho_ge_0.3_k": sum(1 for v in rhos if v >= 0.3),
             "sign_agreement_k": agree,
-            "manipulation_ok_k": manip,
+            "manipulation_ok_k": manip_ok,
         })
     return out
 
@@ -170,15 +216,16 @@ def criteria(table: list[dict]) -> dict:
     cell = by.get("cell") or {}
     colony = by.get("colony") or {}
     return {
-        "I_positive_in_w2bud": bool((cell.get("crow_I_positive_k") or 0) >= 7),
+        "I_positive_all_7_of_10": bool((cell.get("crow_I_positive_k_all") or 0) >= 7),
+        "I_positive_valid_7_of_10": bool((cell.get("crow_I_positive_k_valid") or 0) >= 7),
+        "w1_control_I_zero_all": bool((colony.get("crow_I_positive_k_all") or 0) == 0),
+        "manipulation_gate_7_of_10": bool((cell.get("manipulation_ok_k") or 0) >= 7),
         "rho_median_ge_03": bool((cell.get("rho_median") or 0) >= 0.3),
-        "rho_ge_03_in_7_of_10": bool((cell.get("rho_ge_0.3_k") or 0) >= 7),
-        "sign_agreement_7_of_10": bool((cell.get("sign_agreement_k") or 0) >= 7),
-        "manipulation_ok_7_of_10": bool((cell.get("manipulation_ok_k") or 0) >= 7),
-        "w1_control_I_zero": bool((colony.get("crow_I_median") or 0) == 0),
-        "note": ("успех W2-bud: I>0 в >=7/10 сидов, медиана rho >= 0.3, rho >= 0.3 в >=7/10, "
-                 "согласие знака с beta_lin в >=7/10, манипуляция >=0.2 в >=7/10; "
-                 "контроль W1: I = 0"),
+        "rho_ge_03_in_7_of_10_valid": bool((cell.get("rho_ge_0.3_k") or 0) >= 7),
+        "sign_agreement_7_of_10_valid": bool((cell.get("sign_agreement_k") or 0) >= 7),
+        "note": ("структурный критерий пре-регистрации — I > 0 в >=7/10 ВСЕХ сидов; "
+                 "критерий отклика (rho) — только по валидным сидам (>=5 линий с данными) "
+                 "и только при пройденном гейте манипуляции (>=0.2 в >=7/10)"),
     }
 
 
@@ -194,8 +241,7 @@ def main(argv=None) -> int:
     payload = {
         "kind": "w2bud_runs",
         "world": "W2-bud (клеточное почкование); числа НЕ сопоставимы с W1 напрямую",
-        "metric": "w = споры/клетки линии; I = Var(w)/mean(w)^2; rho(trait, w); beta_lin/quad",
-        "note": "собрано scripts/w2bud_matrix.py; критерий из reports/2026-10-25-w2bud-plan.md",
+        "metric": METRIC,
         "rows": rows,
         "by_arm": table,
         "criteria": criteria(table),
@@ -204,12 +250,21 @@ def main(argv=None) -> int:
         Path(args.out).write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n",
                                   encoding="utf-8")
         print(f"записано: {args.out} | прогонов {len(rows)}")
-    print(f"{'плечо':>8} {'n':>3} {'вал':>4} {'>=2 клеток':>11} {'линий':>6} {'I мед.':>8} "
-          f"{'I>0':>4} {'rho мед.':>9} {'rho>=.3':>8} {'знак':>5} {'манип':>6}")
+    print(f"{'плечо':>7} {'сид':>3} {'меток':>5} {'>=2':>4} {'>=5':>4} {'линий':>5} {'I':>7} "
+          f"{'rho':>6} {'манип':>6} {'cum линий':>9} {'cum I':>7}")
+    for r in sorted(rows, key=lambda x: (x["arm"], x["seed"])):
+        print(f"{r['arm']:>7} {r['seed']:>3} {r['tags_total']:>5} {r['tags_ge2']:>4} "
+              f"{r['tags_ge5']:>4} {r['lineages_with_data']:>5} {str(r['crow_I']):>7} "
+              f"{str(r['rho']):>6} {str(r['manipulation_rho']):>6} "
+              f"{r['cumulative']['lineages']:>9} {str(r['cumulative']['crow_I']):>7}")
+    print()
+    print(f"{'плечо':>7} {'n':>3} {'вал':>4} {'I>0 всех':>9} {'I>0 вал':>8} {'медиана I':>10} "
+          f"{'>=2 мед':>8} {'линий мед':>10} {'rho мед':>8} {'манип':>6}")
     for item in table:
-        print(f"{item['arm']:>8} {item['runs']:>3} {item['valid_n']:>4} {item['tags_ge2_median']:>11} "
-              f"{item['lineages_median']:>6} {str(item['crow_I_median']):>8} {item['crow_I_positive_k']:>4} "
-              f"{str(item['rho_median']):>9} {item['rho_ge_0.3_k']:>8} {item['sign_agreement_k']:>5} "
+        print(f"{item['arm']:>7} {item['runs']:>3} {item['valid_n']:>4} "
+              f"{item['crow_I_positive_k_all']:>9} {item['crow_I_positive_k_valid']:>8} "
+              f"{str(item['crow_I_median_all']):>10} {item['tags_ge2_median']:>8} "
+              f"{item['lineages_median']:>10} {str(item['rho_median']):>8} "
               f"{item['manipulation_ok_k']:>6}")
     print("критерии:", json.dumps(payload["criteria"], ensure_ascii=False))
     return 0
