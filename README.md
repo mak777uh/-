@@ -1,5 +1,7 @@
 # Project Morphogenesis
 
+Обновлено: 2026-10-25
+
 A research bench for **morphogenesis in neural cellular automata (NCA)** — and, more recently, for a
 narrower and harder question: **which conditions let a reproducing lineage persist in a digital
 environment at all**.
@@ -164,7 +166,7 @@ Statuses and ids are validated against `lab/registry.json` by `python scripts/la
 | E02b_carrier_ch15 | closed | 22.10 | six channels without {3,14} | **refuted:** they still give a body 12/12 | [results](reports/2026-10-22-carrier-ch15-results.md) · [article](articles/021-nositel-eto-kombinacii.md) |
 | E03_injury, E04_topology, E05_aging, E06_narration, E07_control_ablation | not started | — | historical entry points | outside the current program | [registry](lab/registry.json) |
 | E08_precision_horizon | running | 23.10– | class as a phase of the trajectory | TF32 gives `uniform_dark` → `struct_2` along the trajectory; the horizon must be stated with any class claim | [research map](docs/research-map.md) · [protocol](docs/protocol.md) |
-| E09_pond | running | 23.10– | conditions for a lineage in the pond world | learning does not pay off (5 schemes, all negative); heritable novelty from m ≥ 0.05; founding from 1 cell 50/50 in the gated world; invasion 0/10, 2/10 with `merge=keep`; four mechanisms eliminated | [world design](docs/world-design.md) · [manuscript](manuscript/paper.md) · [article](articles/022-obuchenie-ne-okupaetsya-poka-cel-statichna.md) |
+| E09_pond | running | 23.10– | conditions for a lineage in the pond world | a lineage becomes a unit of selection only with cell-level budding (`I_obs` above the null model 10/10, 8.2×; W1 `I = 0`); the trait has a growth cost (median ρ = −0.6, 8/10) but the verdict is withheld — the series is invalid by data; «invasion fails» re-read: under `majority` the rule overwrites the invader within its 5-step period (all 90 runs were injected at step 200, a multiple of 5), so the mode of death is only measurable under `keep`; resource shortage and four other mechanisms eliminated | [world design](docs/world-design.md) · [manuscript](manuscript/paper.md) · [article](articles/022-obuchenie-ne-okupaetsya-poka-cel-statichna.md) · [daily picture](reports/figures/day-2026-10-25-objects.png) |
 | E10_formal | running | 24.10– | formal invariants of the world | 17 hypotheses / 31 theorems in Lean without `sorry`: ignition gate, budget and closure invariants | [formal method](docs/formal-method.md) · [inventory](lab/formal.json) |
 <!-- ledger:end -->
 
