@@ -482,6 +482,35 @@
       ],
       "denominator": "grid_cells",
       "units": "клетки"
+    },
+    "invader_cells_state_after_injection": {
+      "definition": "число клеток типа инвайдера в состоянии СРАЗУ после подсадки (до первого enforce_colony_types): invader_share_after × colony_cells_at_invasion; восстанавливается из артефакта, отдельный логгер не нужен",
+      "fields": [
+        "summary.invader_share_after",
+        "summary.colony_cells_at_invasion"
+      ],
+      "formula": "round(invader_share_after * colony_cells_at_invasion)",
+      "denominator": "runs",
+      "units": "клетки"
+    },
+    "time_to_rewrite": {
+      "definition": "число шагов от подсадки до первого шага, где клеток инвайдера в состоянии ноль (null, если выжил): t_first_zero − invasion_step",
+      "fields": [
+        "log.a_share",
+        "log.alive_cells",
+        "summary.invade_at"
+      ],
+      "denominator": "runs",
+      "units": "шаги"
+    },
+    "steps_visible": {
+      "definition": "число строк лога, где inv_t = round((1 − a_share)·alive_cells) >= 1 после подсадки",
+      "fields": [
+        "log.a_share",
+        "log.alive_cells"
+      ],
+      "denominator": "runs",
+      "units": "строки"
     }
   },
   "verdicts": {
