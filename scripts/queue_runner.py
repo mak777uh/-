@@ -173,15 +173,64 @@ def run_once(data: dict, dry_run: bool, confirmed: bool) -> int:
     return 0
 
 
+
+
+def audit(data: dict) -> int:
+    """Статусы очереди обязаны совпадать с реальностью.
+
+    Зачем: 25.10 три серии были закрыты, а в очереди висели как `planned`/`running`;
+    нашлось глазами, а не машиной. Проверки:
+      * `running` без живого замка — ошибка (серия не идёт);
+      * `running` с heartbeat старше ttl — ошибка;
+      * `planned`/`running`, у которых в каталоге появления уже есть артефакты —
+        предупреждение «вероятно, серия выполнена, статус не обновлён».
+    """
+    problems: list[str] = []
+    warnings: list[str] = []
+    locks = set(live_locks())
+    for item in data.get("items", []):
+        status = item.get("status")
+        iid = item.get("id")
+        if status == "running":
+            exp_name = item.get("experiment") or iid
+            has_lock = any(lock.startswith(f"{exp_name}.lock") for lock in locks)
+            if not has_lock:
+                problems.append(f"{iid}: running, но живого замка нет — статус устарел или серия упала")
+        if status in ("planned", "running"):
+            launch = item.get("launch") or {}
+            outdir = launch.get("outdir") if isinstance(launch, dict) else None
+            if outdir:
+                path = (ROOT / outdir) if not Path(outdir).is_absolute() else Path(outdir)
+                if path.exists():
+                    done = len(list(path.glob("*.json")))
+                    if done:
+                        warnings.append(
+                            f"{iid}: статус {status}, но в {outdir} уже {done} артефактов — "
+                            f"вероятно, серия выполнена"
+                        )
+    print(f"[queue-audit] прожито: {len(data.get('items', []))} пунктов, замков: {len(locks)}")
+    for w in warnings:
+        print(f"[queue-audit] ВНИМАНИЕ: {w}")
+    for p_ in problems:
+        print(f"[queue-audit] ОШИБКА: {p_}")
+    if problems:
+        return 1
+    print("[queue-audit] OK — расхождений статуса с замками нет")
+    return 0
+
+
 def main(argv: list[str]) -> int:
     ap = argparse.ArgumentParser(description="очередь экспериментов как конвейер")
     ap.add_argument("--plan", action="store_true", help="показать порядок и готовность")
     ap.add_argument("--once", action="store_true", help="выполнить голову очереди")
+    ap.add_argument("--audit", action="store_true", help="сверить статусы с замками и артефактами")
     ap.add_argument("--dry-run", action="store_true", help="только показать команду")
     ap.add_argument("--yes", action="store_true", help="подтвердить фактический запуск")
     ap.add_argument("--file", default=None, help="путь к очереди (для тестов)")
     args = ap.parse_args(argv)
     data = load_queue(Path(args.file) if args.file else None)
+    if args.audit:
+        return audit(data)
     if args.once:
         return run_once(data, args.dry_run, args.yes)
     return plan(data)

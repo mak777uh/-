@@ -83,6 +83,15 @@ jobs:
         shell: bash
         run: |
           set +e
+      - name: Статусы очереди совпадают с реальностью
+        run: |
+          out=$(python scripts/queue_runner.py --audit 2>&1) || {
+            echo "$out"
+            echo "::error::статус пункта очереди расходится с замками/артефактами"
+            exit 1
+          }
+          echo "$out"
+
       - name: Витрина не отстаёт от результатов
         run: |
           out=$(python scripts/check_readme_fresh.py 2>&1) || {
