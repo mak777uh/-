@@ -93,10 +93,12 @@ def by_n(rows: list[dict]) -> list[dict]:
         maxes = [r["max_alive"] for r in valid if r["max_alive"] is not None]
         pops = [r["pop_time"] for r in valid if r["pop_time"] is not None]
         out.append({
-            "n": n,
+            # `dose` — сколько клеток в инокуляте; `runs`/`valid_runs` — знаменатели.
+            # Раньше поле называлось `n` и читалось как «число прогонов» (25.10).
+            "dose": n,
             "runs": len(group),
-            "valid_n": len(valid),
-            "invalid_n": len(group) - len(valid),
+            "valid_runs": len(valid),
+            "invalid_runs": len(group) - len(valid),
             "survived_k": survived,
             "survival": round(survived / len(valid), 3) if valid else None,
             "survival_wilson_lo": lo,
@@ -111,7 +113,7 @@ def by_n(rows: list[dict]) -> list[dict]:
 
 
 def criteria(table: list[dict]) -> dict:
-    by = {item["n"]: item for item in table}
+    by = {item["dose"]: item for item in table}
 
     def get(n: int, key: str):
         return (by.get(n) or {}).get(key)
@@ -176,9 +178,10 @@ def main(argv=None) -> int:
         Path(args.out).write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n",
                                   encoding="utf-8")
         print(f"записано: {args.out} | прогонов {len(rows)}")
-    print(f"{'N':>4} {'n':>3} {'вал':>4} {'выжило':>7} {'доля':>6} {'grew':>6} {'alive_final':>12} {'max':>6} {'pop_time':>9}")
+    print(f"{'доза':>4} {'прогонов':>8} {'вал':>4} {'выжило':>7} {'доля':>6} {'grew':>6} "
+          f"{'alive_final':>12} {'max':>6} {'pop_time':>9}")
     for item in table:
-        print(f"{item['n']:>4} {item['runs']:>3} {item['valid_n']:>4} {item['survived_k']:>7} "
+        print(f"{item['dose']:>4} {item['runs']:>8} {item['valid_runs']:>4} {item['survived_k']:>7} "
               f"{str(item['survival']):>6} {str(item['grew_k']):>6} "
               f"{str(item['alive_final_median']):>12} {str(item['max_alive_median']):>6} "
               f"{str(item['pop_time_median']):>9}")
