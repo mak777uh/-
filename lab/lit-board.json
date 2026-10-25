@@ -2628,6 +2628,37 @@
         "tasks": [],
         "reports": []
       }
+    },
+    {
+      "id": "B-077",
+      "type": "risk",
+      "target": {
+        "kind": "metric",
+        "id": "w2bud_no_completeness_gate",
+        "ref": "scripts/w2bud_matrix.py; reports/2026-10-25-w2bud-plan.md"
+      },
+      "statement": "Агрегатор W2-bud не имеет гейта полноты: при неполной серии (например 4 сида из 10) он печатает I_positive_in_w2bud=false и rho_ge_03_in_7_of_10=false, что читается как отрицательный результат, хотя серия не добрана. Нужно: --min-seeds 10, complete = по каждому плечу runs >= min_seeds; если не complete -> 'ВЕРДИКТ: серия неполная — вердикт не выносится' (код 2); в criteria писать k из фактического числа сидов. Плюс w1_control_I_zero сравнивать с <=1e-9, а не ==0. Это тот же класс, что мой bug в v8_matrix (исправлен гейтом).",
+      "evidence": [
+        {
+          "library": "answers.md#57",
+          "note": "правка до запуска серии"
+        }
+      ],
+      "action": {
+        "kind": "method",
+        "detail": "--min-seeds, complete-гейт, k из фактических сидов, epsilon для I=0"
+      },
+      "status": "new",
+      "wave": "current",
+      "owner": "librarian",
+      "created_at": "2026-10-25T07:53:36+03:00",
+      "decided_at": null,
+      "why": null,
+      "links": {
+        "insights": [],
+        "tasks": [],
+        "reports": []
+      }
     }
   ],
   "updated_at": "2026-10-24T13:40:00Z"
