@@ -23,7 +23,7 @@ import re
 import statistics
 from pathlib import Path
 
-NAME = re.compile(r"killkeep2?_(?P<arm>keep|clean)_seed(?P<seed>\d+)\.json$")
+NAME = re.compile(r"killkeep[23]?_(?P<arm>keep|clean)_seed(?P<seed>\d+)\.json$")
 
 
 def analyse(path: Path) -> dict | None:

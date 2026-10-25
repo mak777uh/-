@@ -37,10 +37,15 @@ from world.run_pond import PondRun  # noqa: E402
 
 
 def make_cfg(args) -> PondConfig:
-    """Конфигурация §10ab.1 + строительство ниши (иначе наследия не будет)."""
+    """Конфигурация §10ab.1 + строительство ниши (иначе наследия не будет).
+
+    `--income` управляет точкой безубыточности `own* = spent/(4·b)`: по умолчанию 0.2
+    (`own*` = 0.05), для v3 нужно 0.06 (`own*` = 0.167), чтобы наследие 0.15–0.42
+    пересекало порог (§10ah.2, AGENTS §3c).
+    """
     return PondConfig(
         grid=32, income_mode="proportional", init_resource_fill=0.9,
-        baseline_income=0.2, update_cost=0.02, repair_cost=0.02,
+        baseline_income=float(getattr(args, "income", 0.2)), update_cost=0.02, repair_cost=0.02,
         budding_mass=24, budding_cost=0.2, resource_layout="uniform",
         spore_bias="score", w_rich=0.1, freq_dep=1.0, type_mode="mixfixed",
         type_level="colony", type_start="a", invest_rate=0.02, invest_mode="fixed",
@@ -80,6 +85,8 @@ def main(argv=None) -> int:
     ap.add_argument("--phase1", type=int, default=200)
     ap.add_argument("--phase2", type=int, default=100)
     ap.add_argument("--cells", type=int, default=5)
+    ap.add_argument("--income", type=float, default=0.2,
+                    help="baseline_income: точка безубыточности own* = spent/(4*b)")
     ap.add_argument("--propagule-energy", type=float, default=8.0,
                     help="стартовый заряд пересеянных клеток (v2 = 1.0: автономия ~25 шагов)")
     ap.add_argument("--device", default="cuda")

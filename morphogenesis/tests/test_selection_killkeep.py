@@ -76,6 +76,23 @@ def test_selection_rho_and_manipulation(tmp_path):
     assert row["manipulation_ok"] is True, "признак связан с вложенной энергией линии"
 
 
+def test_killkeep_probe_income_flag_sets_threshold():
+    """§3c: `--income` задаёт точку безубыточности own* = spent/(4·b) — это параметр
+    чувствительности, и он обязан быть в пробе, а не в голове оператора."""
+    module = load("kill_keep_probe.py", "kk_probe_under_test")
+    import argparse
+    # дефолт — как в §10ah (b = 0.2 -> own* = 0.05)
+    ns = argparse.Namespace(income=0.2)
+    cfg = module.make_cfg(ns)
+    assert cfg.baseline_income == 0.2
+    spent = cfg.update_cost + cfg.repair_cost
+    assert abs(spent / (4 * cfg.baseline_income) - 0.05) < 1e-9, "own* = 0.05 при b = 0.2"
+    # v3: b = 0.06 -> own* = 0.1667, наследие 0.15-0.42 пересекает порог
+    cfg3 = module.make_cfg(argparse.Namespace(income=0.06))
+    own_star = spent / (4 * cfg3.baseline_income)
+    assert abs(own_star - 0.1667) < 1e-3, f"own* = {own_star}"
+
+
 def test_kill_keep_pairs_and_criterion(tmp_path):
     module = load("kill_keep_matrix.py", "kk_under_test")
     for seed in range(1, 6):
