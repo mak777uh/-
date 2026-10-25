@@ -99,6 +99,14 @@ CHECKS: list[dict] = [
                 "(отрицательный = высокий признак даёт меньше клетко-шагов)",
         "pending": "агрегат появится, когда закроется серия W2-bud v3",
     },
+    {
+        "section": "4i",
+        "aggregate": f"{POND}/w2bud4s_matrix.json",
+        "values": {"v": "by_arm{arm=cell}.rho_partial_energy_median"},
+        "template": "{v}",
+        "note": "частная корреляция rho(признак, cell_steps | energy_per_cell_time); "
+                "df = n_линий - 3 (при 5-6 линиях df = 2-3)",
+    },
     # --- §4h: размещение и слияние (V8) ------------------------------------------------
     {
         "section": "4h",
@@ -239,9 +247,16 @@ def main(argv=None) -> int:
             forms = [check["template"].format(**{**values, "v": f})
                      for f in variants(values["v"])]
 
+        def _norm(text: str) -> str:
+            """Типографские минусы и пробелы -> ASCII: рукопись пишет «−0.700» (U+2212),
+            а агрегат — «-0.7» (дефис). Без нормализации гейт ложно краснеет."""
+            return (text.replace("\u2212", "-").replace("\u2013", "-")
+                        .replace("\u2014", "-").replace("\u00a0", " "))
+
         def _present(form: str) -> bool:
             """Число должно стоять отдельно: не быть частью другого числа."""
-            return re.search(rf"(?<![\d.,]){re.escape(form)}(?![\d])", body) is not None
+            return re.search(rf"(?<![\d.,]){re.escape(_norm(form))}(?![\d])",
+                             _norm(body)) is not None
 
         if not any(_present(f) for f in forms):
             problems.append(
