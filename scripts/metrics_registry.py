@@ -174,17 +174,94 @@ def todo() -> int:
     return 0
 
 
+
+def _spearman(x: list[float], y: list[float]) -> float:
+    n = len(x)
+    if n < 3:
+        return float("nan")
+
+    def rank(v):
+        order = sorted(range(n), key=lambda i: v[i])
+        r = [0.0] * n
+        i = 0
+        while i < n:
+            j = i
+            while j + 1 < n and v[order[j + 1]] == v[order[i]]:
+                j += 1
+            avg = (i + j) / 2 + 1
+            for k in range(i, j + 1):
+                r[order[k]] = avg
+            i = j + 1
+        return r
+
+    rx, ry = rank(x), rank(y)
+    mx, my = sum(rx) / n, sum(ry) / n
+    num = sum((a - mx) * (b - my) for a, b in zip(rx, ry))
+    den = (sum((a - mx) ** 2 for a in rx) * sum((b - my) ** 2 for b in ry)) ** 0.5
+    return num / den if den else float("nan")
+
+
+def correlations() -> int:
+    """Ищет пары величин, которые в данных совпадают идеально.
+
+    Зачем (слой 2): 25.10 три раза подряд «контроль» оказывался той же величиной,
+    что и проверяемое, только под другим именем (`per_cell_step`, `updates`,
+    интенсивность). Такая пара обязана быть помечена `derived_by_construction`;
+    если не помечена — это сигнал на разбор, а не автоматический провал.
+    """
+    reg = load_registry()
+    metrics = reg["metrics"]
+    flagged = {k for k, v in metrics.items() if v.get("derived_by_construction")}
+    aliased = {k: v.get("same_as") for k, v in metrics.items() if v.get("same_as")}
+    explained: dict[str, dict[str, str]] = {
+        k: v.get("explained_by", {}) for k, v in metrics.items() if v.get("explained_by")
+    }
+    suspects = 0
+    for agg_name in SOURCES:
+        path = POND / agg_name
+        if not path.exists():
+            continue
+        rows = json.loads(path.read_text(encoding="utf-8")).get("rows", []) or []
+        numeric = {}
+        for row in rows:
+            for k, v in row.items():
+                if isinstance(v, (int, float)) and not isinstance(v, bool):
+                    numeric.setdefault(k, []).append(float(v))
+        keys = [k for k, series in numeric.items() if len(series) >= 5]
+        common = [k for k in keys if any(k2 == k for k2 in [k])]
+        for i, a in enumerate(keys):
+            for b in keys[i + 1:]:
+                sa, sb = numeric[a], numeric[b]
+                if len(sa) != len(sb):
+                    continue
+                rho = _spearman(sa, sb)
+                if rho == rho and abs(rho) >= 0.999:
+                    both_flagged = ((a in flagged and b in flagged)
+                                    or aliased.get(a) == b or aliased.get(b) == a)
+                    if explained.get(a, {}).get(b) or explained.get(b, {}).get(a):
+                        continue
+                    if not both_flagged:
+                        suspects += 1
+                        print(f"[corr] {agg_name}: {a} ~ {b} (rho = {rho:.3f}) — "
+                              f"похоже на одну и ту же величину; проверьте derived_by_construction")
+    print(f"[corr] подозрительных пар: {suspects}")
+    return 0
+
+
 def main(argv: list[str]) -> int:
     ap = argparse.ArgumentParser(description="реестр величин и их определений")
     ap.add_argument("--check", action="store_true", help="проверить (по умолчанию)")
     ap.add_argument("--list", action="store_true", help="таблица величин")
     ap.add_argument("--todo", action="store_true", help="что осталось объявить")
+    ap.add_argument("--correlations", action="store_true", help="пары величин, совпадающих идеально")
     ap.add_argument("--registry", default=None, help="путь к реестру (по умолчанию lab/metrics.json)")
     args = ap.parse_args(argv)
     if args.list:
         return list_metrics()
     if args.todo:
         return todo()
+    if args.correlations:
+        return correlations()
     return check(Path(args.registry) if args.registry else None)
 
 

@@ -1,5 +1,5 @@
 {
-  "note": "Реестр величин лаборатории (слой 1 плана 25.10). Правило: каждая величина, которую агрегат выдаёт в by_arm/by_n, обязана быть объявлена здесь — с определением, полями и знаменателем; каждый флаг в criteria обязан быть boolean и объявлен в verdicts. Проверка: python scripts/metrics_registry.py --check (в CI). Смысл: «определение не задокументировано» и «знаменатель подменён» становятся машинными ошибками, а не сюрпризами в рукописи.",
+  "note": "Реестр величин лаборатории (слой 1 плана 25.10). Правило: каждая величина, которую агрегат выдаёт в by_arm/by_n, обязана быть объявлена здесь — с определением, полями и знаменателем; каждый флаг в criteria обязан быть boolean и объявлен в verdicts. Проверка: python scripts/metrics_registry.py --check (в CI). Смысл: «определение не задокументировано» и «знаменатель подменён» становятся машинными ошибками, а не сюрпризами в рукописи. Поле same_as означает «то же самое под другим именем» — такие пары не считаются независимыми свидетельствами. Поле explained_by документирует пары, которые совпадают по причине, а не случайно; --correlations считает такие пары объяснёнными.",
   "rules": {
     "denominator_suffix": {
       "enabled": true,
@@ -223,7 +223,10 @@
         "artifact"
       ],
       "denominator": "none",
-      "units": "прогоны"
+      "units": "прогоны",
+      "explained_by": {
+        "alive_step1": "доза инокулята по построению равна числу живых после первого шага"
+      }
     },
     "survived_k": {
       "definition": "число валидных прогонов, где инвайдер сохранил хоть одну клетку: survived = (1 - a_share_final) > 0",
@@ -355,6 +358,59 @@
       ],
       "denominator": "valid",
       "units": "доля"
+    },
+    "I_obs": {
+      "definition": "наблюдаемая возможность отбора в прогоне: Var(w)/mean(w)^2 по линиям с данными",
+      "fields": [
+        "summary.type_counts",
+        "summary.lineage_spores"
+      ],
+      "denominator": "lines_with_data",
+      "units": "безразмерная"
+    },
+    "crow_I": {
+      "definition": "то же, что I_obs (дубль имени в строке агрегата)",
+      "fields": [
+        "summary.type_counts",
+        "summary.lineage_spores"
+      ],
+      "denominator": "lines_with_data",
+      "units": "безразмерная",
+      "same_as": "I_obs"
+    },
+    "tags_ge5": {
+      "definition": "число меток с ≥5 живыми клетками в прогоне",
+      "fields": [
+        "summary.type_counts"
+      ],
+      "denominator": "none",
+      "units": "метки",
+      "explained_by": {
+        "lineages_with_data": "в этих прогонах у каждой метки с ≥5 клетками есть хотя бы одна спора, поэтому числа совпадают; определения различаются клаузой spores ≥ 1"
+      }
+    },
+    "lineages_with_data": {
+      "definition": "число линий с данными в прогоне: клеток ≥5 И спор ≥1",
+      "fields": [
+        "summary.type_counts",
+        "summary.lineage_spores"
+      ],
+      "denominator": "none",
+      "units": "линии",
+      "explained_by": {
+        "tags_ge5": "то же совпадение с другой стороны"
+      }
+    },
+    "alive_step1": {
+      "definition": "живых клеток после первого шага (для основания равно дозе)",
+      "fields": [
+        "log.alive"
+      ],
+      "denominator": "none",
+      "units": "клетки",
+      "explained_by": {
+        "n": "то же по построению"
+      }
     }
   },
   "verdicts": {
