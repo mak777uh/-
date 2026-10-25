@@ -75,6 +75,23 @@ jobs:
       # Числа в отчётах и рукописи должны пересчитываться на чужой машине, а не
       # только там, где считались: берём артефакты из git и пересчитываем
       # арифметику по сырым строкам.
+      # 25.10: три пересчёта одного результата (W2-bud) дали три числа — определения не
+      # были задокументированы, а агрегатор считал критерий по подмножеству. Этот шаг
+      # сверяет числа разделов рукописи с агрегатами: значение пересчитывается из JSON и
+      # обязано встречаться в тексте раздела.
+      - name: Manuscript section numbers re-derived from aggregates
+        shell: bash
+        run: |
+          set +e
+          out=$(python scripts/verify_sections_numbers.py 2>&1)
+          code=$?
+          printf '%s\n' "$out"
+          if [ $code -ne 0 ]; then
+            msg=$(printf '%s' "$out" | tail -n 4 | tr '\n' ' ' | tr -s ' ')
+            echo "::error title=section-numbers::${msg:0:900}"
+            exit $code
+          fi
+
       - name: E02c numbers re-derivation from raw census rows
         run: python scripts/verify_e02c_numbers.py
 
