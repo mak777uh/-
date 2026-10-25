@@ -164,6 +164,7 @@ def run_once(data: dict, dry_run: bool, confirmed: bool) -> int:
         print("[queue] СТОП: команда упала, пункт помечен blocked")
         return 1
     item["status"] = STATUS_AWAITING
+    item["heartbeat_at"] = None
     item["closed_at"] = None
     item.setdefault("note", "")
     item["note"] = (item["note"] + " | конвейер: серия выполнена, ждёт приёмки ведущего").strip(" |")
