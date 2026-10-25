@@ -1205,7 +1205,10 @@ def test_resource_zones_present_in_summary():
     pond.seed_life(mask, energy=5.0)
     pond.state.resource[2:4, 2:4] = 0.0
     zones = resource_zones(pond)
-    assert set(zones) == {"resource_mean", "resource_alive_mean", "resource_empty_mean"}
+    # базовые три зоны обязательны; пул B добавляется, когда в мире два ресурса (§10ai)
+    assert {"resource_mean", "resource_alive_mean", "resource_empty_mean"} <= set(zones)
+    assert set(zones) - {"resource_mean", "resource_alive_mean", "resource_empty_mean"} <= {
+        "resource_b_mean", "resource_b_alive_mean", "resource_b_under_b_cells"}
     assert zones["resource_alive_mean"] == 0.0, "под живыми клетками ресурс выеден"
     assert zones["resource_empty_mean"] > zones["resource_alive_mean"]
 
