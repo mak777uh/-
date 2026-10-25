@@ -53,6 +53,7 @@ def main() -> int:
         ("матрица утверждений (claims_lint)", [PY, "scripts/claims_lint.py"], None),
         ("ссылки на разделы рукописи", [PY, "scripts/check_section_refs.py"], None),
         ("витрина не отстаёт от результатов", [PY, "scripts/check_readme_fresh.py"], None),
+        ("ревью оформлены как проверки", [PY, "scripts/check_reviews.py"], None),
     ]
     failures = 0
     print("=" * 72)

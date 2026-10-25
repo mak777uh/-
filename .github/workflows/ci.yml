@@ -83,6 +83,15 @@ jobs:
         shell: bash
         run: |
           set +e
+      - name: Ревью оформлены как проверки
+        run: |
+          out=$(python scripts/check_reviews.py 2>&1) || {
+            echo "$out"
+            echo "::error::ревью без пересчёта или без индекса — это мнение, а не проверка"
+            exit 1
+          }
+          echo "$out"
+
       - name: Статусы очереди совпадают с реальностью
         run: |
           out=$(python scripts/queue_runner.py --audit 2>&1) || {
