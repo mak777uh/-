@@ -1,0 +1,116 @@
+{
+  "note": "Очередь CPU-задач для GitHub Actions. Пишет ведущий; ферма только исполняет и не придумывает анализы.",
+  "tasks": [
+    {
+      "id": "ci_p_invasion_keep_uniform",
+      "kind": "proportion",
+      "status": "pending",
+      "question": "Интервал для доли выживших при инвазии: keep, uniform, 20 клеток",
+      "spec": {
+        "k": 7,
+        "n": 10,
+        "bootstrap": 20000
+      }
+    },
+    {
+      "id": "ci_p_invasion_keep_patches",
+      "kind": "proportion",
+      "status": "pending",
+      "question": "Интервал для доли выживших при инвазии: keep, patches, 20 клеток",
+      "spec": {
+        "k": 10,
+        "n": 10,
+        "bootstrap": 20000
+      }
+    },
+    {
+      "id": "ci_p_invasion_majority",
+      "kind": "proportion",
+      "status": "pending",
+      "question": "Интервал для нулевой доли: majority, оба layout (0/10)",
+      "spec": {
+        "k": 0,
+        "n": 10,
+        "bootstrap": 20000
+      }
+    },
+    {
+      "id": "ci_p_invasion_dose5",
+      "kind": "proportion",
+      "status": "pending",
+      "question": "Интервал для дозы 5 (mergekeep keep): 2/10",
+      "spec": {
+        "k": 2,
+        "n": 10,
+        "bootstrap": 20000
+      }
+    },
+    {
+      "id": "ci_p_selection_replication",
+      "kind": "proportion",
+      "status": "pending",
+      "question": "Интервал для I > null на новых сидах: 9/10 (uniform)",
+      "spec": {
+        "k": 9,
+        "n": 10,
+        "bootstrap": 20000
+      }
+    },
+    {
+      "id": "whale_w2bud3",
+      "kind": "rho_drop_whale",
+      "status": "pending",
+      "question": "Не держится ли связь признака с приспособленностью на одной крупнейшей линии",
+      "spec": {
+        "glob": "w2bud3/w2bud3_cell_seed*.json",
+        "min_cells": 5
+      }
+    },
+    {
+      "id": "recompute_i_w2bud3",
+      "kind": "recompute_i",
+      "status": "pending",
+      "question": "Независимый пересчёт I_obs, I_null(95 %), медиан и числа сидов выше нуля",
+      "spec": {
+        "glob": "w2bud3/w2bud3_cell_seed*.json",
+        "min_cells": 5,
+        "draws": 2000
+      }
+    },
+    {
+      "id": "recompute_i_w2budd2",
+      "kind": "recompute_i",
+      "status": "pending",
+      "question": "То же для мира W2-bud-d2 (N=3 бутона на компоненту)",
+      "spec": {
+        "glob": "w2budd2/w2budd2_cell_seed*.json",
+        "min_cells": 5,
+        "draws": 2000
+      }
+    },
+    {
+      "id": "power_lines_price",
+      "kind": "power_lines",
+      "status": "pending",
+      "question": "Сколько линий нужно, чтобы цена признака стала измеримой (df = n - 3 >= 4)",
+      "spec": {
+        "betas": [
+          0.001,
+          0.002,
+          0.005
+        ],
+        "ns": [
+          4,
+          5,
+          6,
+          7,
+          8,
+          10,
+          12
+        ],
+        "eps": 4.0,
+        "reps": 400
+      }
+    }
+  ]
+}

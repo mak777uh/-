@@ -1,0 +1,129 @@
+name: analysis-farm
+
+# Ферма CPU-задач. Зачем: у нас есть класс работы без GPU — интервалы, перестановки,
+# независимый пересчёт, расчёт мощности, — который иначе не делается никогда.
+# Публичный репозиторий: минуты стандартных раннеров не списываются, 20 задач параллельно.
+#
+# Принципиальная граница: очередь задач (lab/analysis-queue.json) пишет ведущий,
+# ферма ТОЛЬКО исполняет. Машина, которая сама придумывает анализы, найдёт «эффект» где угодно.
+
+on:
+  schedule:
+    - cron: "0 */3 * * *"   # каждые 3 часа
+  workflow_dispatch:
+
+permissions:
+  contents: write            # чтобы коммитить результаты обратно
+
+concurrency:
+  group: analysis-farm
+  cancel-in-progress: false
+
+jobs:
+  plan:
+    name: план
+    runs-on: ubuntu-latest
+    outputs:
+      tasks: ${{ steps.q.outputs.tasks }}
+      count: ${{ steps.q.outputs.count }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Прочитать очередь
+        id: q
+        run: |
+          python - <<'PY' >> "$GITHUB_OUTPUT"
+          import json
+          q = json.load(open("lab/analysis-queue.json", encoding="utf-8"))
+          ids = [t["id"] for t in q["tasks"] if t.get("status") == "pending"][:6]
+          print(f"tasks={json.dumps(ids)}")
+          print(f"count={len(ids)}")
+          PY
+      - name: Что в очереди
+        run: |
+          echo "pending: ${{ steps.q.outputs.tasks }}"
+          python scripts/analysis_task.py --list
+
+  run:
+    name: задача ${{ matrix.task }}
+    needs: plan
+    if: needs.plan.outputs.count != '0'
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    strategy:
+      fail-fast: false
+      matrix:
+        task: ${{ fromJson(needs.plan.outputs.tasks) }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Зависимости
+        run: pip install --quiet numpy
+      - name: Проверить задачу (dry)
+        run: python scripts/analysis_task.py --run "${{ matrix.task }}" --dry
+      - name: Считать
+        run: python scripts/analysis_task.py --run "${{ matrix.task }}"
+      - name: Утверждение не должно противоречить результату
+        run: |
+          python - <<'PY'
+          import json, glob, sys
+          # Если задача возвращает вердикт — он не должен быть «недостаточно данных»
+          bad = 0
+          for f in glob.glob("morphogenesis/experiments/E09_pond/analysis/*.json"):
+              d = json.load(open(f, encoding="utf-8"))
+              v = (d.get("result") or {}).get("verdict", "")
+              if "недостаточно данных" in v:
+                  print(f"::warning::{f}: {v}")
+                  bad += 1
+          print(f"задач с пустым вердиктом: {bad}")
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: result-${{ matrix.task }}
+          path: morphogenesis/experiments/E09_pond/analysis/${{ matrix.task }}.json
+
+  commit:
+    name: сохранить результаты
+    needs: [plan, run]
+    if: needs.run.result == 'success'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: result-*
+          merge-multiple: true
+          path: morphogenesis/experiments/E09_pond/analysis
+      - name: Отметить задачи выполненными и закоммитить
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          out = Path("morphogenesis/experiments/E09_pond/analysis")
+          done = {p.stem for p in out.glob("*.json")}
+          qp = Path("lab/analysis-queue.json")
+          q = json.loads(qp.read_text(encoding="utf-8"))
+          n = 0
+          for t in q["tasks"]:
+              if t["id"] in done and t.get("status") == "pending":
+                  t["status"] = "done"
+                  t["done_at"] = "${{ github.run_id }}"
+                  n += 1
+          qp.write_text(json.dumps(q, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n")
+          print(f"отмечено выполненными: {n}")
+          PY
+          git config user.name "analysis-farm"
+          git config user.email "actions@users.noreply.github.com"
+          git add lab/analysis-queue.json morphogenesis/experiments/E09_pond/analysis
+          if git diff --cached --quiet; then
+            echo "нечего коммитить"
+          else
+            git commit -m "analysis-farm: результаты $(date -u +%H:%MZ) [skip ci]"
+            git push
+          fi
