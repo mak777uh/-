@@ -100,6 +100,8 @@ class PondConfig:
     ignition_gate: bool = False        # запретить правилу зажигать без живого 4-соседа (пропагул)
     trait_effect: float = 0.0          # eps: насколько tag_trait меняет интенсивность инвестирования (E)
     budding_unit: str = "colony"       # colony (W1) | cell (W2-bud): кто почкуется — колония или клетка
+    buds_per_component: int = 1        # W2-bud-d2: до N бутонов на компоненту (1 = W2-bud бит-в-бит)
+    one_bud_per_lineage: bool = False  # не больше одного бутона на линию в компоненте
     require_placement: int = 0         # 0 = старая ветка бит-в-бит; >0 = гарантировать столько клеток
     placement_attempts: int = 5        # сколько раз перерисовывать точку, если пятно не встало
     mutation_trait_sigma: float = 0.01  # сдвиг признака линии при мутации (масштаб признака ~1)
@@ -1212,6 +1214,50 @@ class Pond:
         single = torch.zeros_like(body)
         single[int(pick[0]), int(pick[1])] = True
         return single
+
+    def budding_parents(self, body: torch.Tensor) -> list[torch.Tensor]:
+        """Список родителей от одной компоненты: W2-bud-d2 (до N бутонов).
+
+        При `buds_per_component = 1` возвращается ровно один родитель — тем же вызовом, что раньше,
+        поэтому старый мир остаётся бит-в-бит. При N > 1 берутся до N разных клеток компоненты по
+        тому же `score` (ресурс минус теснота); `one_bud_per_lineage` запрещает два бутона одной
+        линии, чтобы N не усиливал предка, а давал шанс мутанту.
+        """
+        n_buds = int(getattr(self.cfg, "buds_per_component", 1))
+        if getattr(self.cfg, "budding_unit", "colony") != "cell" or n_buds <= 1:
+            return [self.budding_parent(body)]
+        s = self.state
+        alive_body = body & s.alive
+        if not bool(alive_body.any()):
+            return [self.budding_parent(body)]
+        idx = alive_body.nonzero(as_tuple=False)
+        if self.cfg.spore_bias == "score":
+            own = s.resource
+            crowd = torch.zeros_like(own)
+            crowd[1:, :] += alive_body[:-1, :].float()
+            crowd[:-1, :] += alive_body[1:, :].float()
+            crowd[:, 1:] += alive_body[:, :-1].float()
+            crowd[:, :-1] += alive_body[:, 1:].float()
+            score = own - 0.1 * crowd
+            vals = score[idx[:, 0], idx[:, 1]]
+            order = torch.argsort(vals, descending=True)
+        else:
+            order = torch.randperm(idx.shape[0], generator=self.gen_sel)
+        parents: list[torch.Tensor] = []
+        used_tags: set[int] = set()
+        for pos in order.tolist():
+            if len(parents) >= n_buds:
+                break
+            y, x = int(idx[pos][0]), int(idx[pos][1])
+            if getattr(self.cfg, "one_bud_per_lineage", False) and s.tag is not None:
+                tag_val = int(s.tag[y, x])
+                if tag_val in used_tags:
+                    continue
+                used_tags.add(tag_val)
+            single = torch.zeros_like(alive_body)
+            single[y, x] = True
+            parents.append(single)
+        return parents or [self.budding_parent(body)]
 
     def bud(self, parent_mask: torch.Tensor) -> torch.Tensor | None:
         """Выпустить спору: `spore_cells` свободных клеток рядом с родителем.

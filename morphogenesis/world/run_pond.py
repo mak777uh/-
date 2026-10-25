@@ -110,6 +110,8 @@ def config_block(cfg) -> dict:
         "trait_effect": getattr(cfg, "trait_effect", 0.0),
         "budding_unit": getattr(cfg, "budding_unit", "colony"),
         "require_placement": getattr(cfg, "require_placement", 0),
+        "buds_per_component": getattr(cfg, "buds_per_component", 1),
+        "one_bud_per_lineage": bool(getattr(cfg, "one_bud_per_lineage", False)),
         "invade_on_empty": bool(getattr(cfg, "invade_on_empty", False)),
         "start_cells": int(getattr(cfg, "start_cells", 4)),
         "ignition_gate": bool(getattr(cfg, "ignition_gate", False)),
@@ -543,19 +545,28 @@ class PondRun:
 
         births = 0
         for body in self.pond.find_buds():
-            # W2-bud: почкуется ОДНА клетка тела (по умолчанию — вся компонента, W1)
-            parent = self.pond.budding_parent(body)
-            child = self.pond.bud(parent)
-            if child is None:
-                continue
-            # геном: берём медиану родителя и мутируем
-            parent_genome = self.genome[0][:, parent].mean(dim=1, keepdim=True)
-            child_genome = self.rule.mutate(
-                parent_genome.unsqueeze(0).unsqueeze(-1).unsqueeze(-1), generator=self.gen
-            ).reshape(-1, 1)
-            self.genome[0][:, child] = child_genome
-            self.state[0][:, child] = self.state[0][:, parent].mean(dim=1, keepdim=True)
-            births += 1
+            # W2-bud: почкуется ОДНА клетка тела; W2-bud-d2: до N клеток на компоненту
+            for parent in self.pond.budding_parents(body):
+                child = self.pond.bud(parent)
+                if child is None:
+                    continue
+                # геном: медиана родителя и мутация. Считаем по явным координатам, а не
+                # маской: родитель может быть ОДНОЙ клеткой, и тогда `[:, mask]` даёт
+                # [C, 1], а `mean(dim=1, keepdim=True)` — лишнюю ось (падение 26.10).
+                p_idx = parent.nonzero(as_tuple=False)
+                c_idx = child.nonzero(as_tuple=False)
+                if p_idx.shape[0] == 0 or c_idx.shape[0] == 0:
+                    continue
+                parent_genome = self.genome[0][:, p_idx[:, 0], p_idx[:, 1]].mean(
+                    dim=-1, keepdim=True)
+                child_genome = self.rule.mutate(
+                    parent_genome.unsqueeze(0).unsqueeze(-1).unsqueeze(-1), generator=self.gen
+                ).reshape(-1, 1)
+                self.genome[0][:, c_idx[:, 0], c_idx[:, 1]] = child_genome
+                state_mean = self.state[0][:, p_idx[:, 0], p_idx[:, 1]].mean(
+                    dim=-1, keepdim=True)
+                self.state[0][:, c_idx[:, 0], c_idx[:, 1]] = state_mean
+                births += 1
         if int(self.pond.state.step) % 5 == 0:
             self.pond.enforce_colony_types()
             # серия меток линий для метрик условия B: каждые 5 шагов, а не каждый
@@ -704,6 +715,10 @@ def build_parser() -> argparse.ArgumentParser:
     ap.add_argument("--invade-placement", default="random", choices=["random", "gap"],
                     help="куда садится инокулят: random (как §10ab) или gap — в самую "
                          "далёкую от резидента свободную клетку (V8)")
+    ap.add_argument("--buds-per-component", type=int, default=1,
+                    help="W2-bud-d2: до N бутонов на компоненту (1 = W2-bud бит-в-бит)")
+    ap.add_argument("--one-bud-per-lineage", action="store_true",
+                    help="не больше одного бутона на линию в компоненте")
     ap.add_argument("--require-placement", type=int, default=0,
                     help="гарантировать столько клеток инокулята (0 = старая ветка бит-в-бит)")
     ap.add_argument("--placement-attempts", type=int, default=5,
@@ -789,6 +804,8 @@ def main(argv: list[str] | None = None) -> int:
     world.merge_rule = args.merge_rule
     world.trait_effect = args.trait_effect
     world.budding_unit = args.budding_unit
+    world.buds_per_component = args.buds_per_component
+    world.one_bud_per_lineage = bool(args.one_bud_per_lineage)
     world.require_placement = args.require_placement
     world.placement_attempts = args.placement_attempts
     world.invade_on_empty = bool(args.invade_on_empty)
