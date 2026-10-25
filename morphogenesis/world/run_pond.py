@@ -150,6 +150,8 @@ def tag_metrics_block(pond) -> dict:
                                    for k, v in getattr(pond, "lineage_invest_updates", {}).items()},
         "lineage_cell_steps": {str(k): int(v)
                                for k, v in getattr(pond, "lineage_cell_steps", {}).items()},
+        "lineage_energy_steps": {str(k): round(float(v), 3)
+                                 for k, v in getattr(pond, "lineage_energy_steps", {}).items()},
         "tag_source": "tag: наследуемая метка линии; type A/B — экологический пул",
     }
     if s.tag is None or not bool(s.alive.any()):

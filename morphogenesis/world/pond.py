@@ -246,6 +246,10 @@ class Pond:
         # НАКОПЛЕННОЕ вложение (оно копится весь прогон) на время жизни линии, а не на
         # число клеток в конце (§10ap: накопленное/текущее — сравнение разного).
         self.lineage_cell_steps: dict[int, int] = {0: 0}
+        # ЭНЕРГО-ШАГИ линии (H-ALIVE-33): суммарная энергия живых клеток по шагам.
+        # Нужно, чтобы отделить «цену признака» от «бедности линии»: вложение клетки =
+        # rate(признак)·энергия, поэтому без энергии цена неотличима от бедности (§10aq).
+        self.lineage_energy_steps: dict[int, float] = {0: 0.0}
         self.tag_trait_of: dict[int, float] = {0: 0.0}
         self.births_by_type: dict[str, int] = {}
         self.deaths_by_type: dict[str, int] = {}
@@ -623,9 +627,13 @@ class Pond:
             uniq_a, inv_a = torch.unique(s.tag[alive], return_inverse=True)
             cnt = torch.zeros(uniq_a.numel(), device=self.device, dtype=torch.long)
             cnt.index_add_(0, inv_a.view(-1), torch.ones_like(inv_a, dtype=torch.long).view(-1))
-            for tag_val, c in zip(uniq_a.tolist(), cnt.tolist()):
+            esum = torch.zeros(uniq_a.numel(), device=self.device, dtype=torch.float32)
+            esum.index_add_(0, inv_a.view(-1), s.energy[alive].float().view(-1))
+            for tag_val, c, e in zip(uniq_a.tolist(), cnt.tolist(), esum.tolist()):
                 self.lineage_cell_steps[int(tag_val)] = (
                     self.lineage_cell_steps.get(int(tag_val), 0) + int(c))
+                self.lineage_energy_steps[int(tag_val)] = (
+                    self.lineage_energy_steps.get(int(tag_val), 0.0) + float(e))
 
         # B2: ниша — клетка поднимает ресурс в СВОЕЙ клетке за энергию
         if cfg.invest_rate > 0.0:
