@@ -335,7 +335,9 @@ def wait(root: pathlib.Path, timeout: float, interval: float,
             pass
         time.sleep(interval)
     print("timeout: изменений нет")
-    return 2
+    # 0, а не 2: истёкший таймаут — не ошибка. Иначе каждый ночной прогон
+    # выглядит в журнале как упавшая задача (exit 1 у обёртки).
+    return 0
 
 
 def main(argv: list[str] | None = None) -> int:
