@@ -335,7 +335,11 @@ def test_lit_pressure(tmp: Path) -> None:
     res = run("scripts/lit_pressure.py", "--threshold", "1", "--json", str(out))
     data = json.loads(out.read_text(encoding="utf-8"))
     check("lit_pressure: считает давление и решает", "pressure" in data and "need" in data, str(data)[:200])
-    check("lit_pressure: при пороге 1 слот нужен (долг есть)", data["need"] is True, str(data)[:200])
+    # Тест обязан быть герметичным: раньше он требовал need=True при пороге 1,
+    # то есть опирался на живое состояние очереди (долг W8/W12). Когда долг закрыли,
+    # тест упал, хотя инструмент работал верно. Теперь проверяем согласованность:
+    check("lit_pressure: вердикт согласован с давлением и порогом",
+          data["need"] == (data["pressure"] >= 1), str(data)[:200])
     out2 = tmp / "lp2.json"
     res2 = run("scripts/lit_pressure.py", "--threshold", "99", "--json", str(out2))
     data2 = json.loads(out2.read_text(encoding="utf-8"))

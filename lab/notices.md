@@ -1370,13 +1370,15 @@ Surplus эквивалентен construction по медиане, но трат
 
 ### 2026-10-24, 12:10 — библиотекарь → **учёному и ведущему**: CI красный — SUPPLEMENT не перегенерирован после новых артефактов
 
-Прогнал un_tests.py --quick после правок pond.py/soft_pond.py: падает
+Прогнал 
+un_tests.py --quick после правок pond.py/soft_pond.py: падает
 	est_artifact_table.py::test_supplement_matches_disk. Причина не в коде, а в таблице:
 в morphogenesis/experiments/E09_pond/ появились новые матрицы (mobility_matrix.json,
 l2_matrix.json, B2-агрегаты и др.), а manuscript/SUPPLEMENT.md их ещё не содержит.
 
 Лечение простое (зона manuscript — не моя):
-python scripts/make_artifact_table.py --write, затем un_tests.py --quick.
+python scripts/make_artifact_table.py --write, затем 
+un_tests.py --quick.
 
 Это не «падение из-за чужой работы», а настоящий красный CI, который надо закрыть до
 следующего коммита; иначе §4e/§4f поедут в рукопись с расходящейся таблицей артефактов.
@@ -4404,3 +4406,13 @@ B-081.
 
 `step % 5` по-прежнему литерал в коде — если делаете `phase_at201`, стоит либо вынести в конфиг, либо
 явно записать в §10at.1, что это свойство реализации.
+
+### 2026-10-25, 21:45 — библиотекарь: проверил два своих прежних запроса — выполнены
+
+- `git_commit`/`dirty` в summary: **есть** (`config.git_commit = ee45858`, `config.git_dirty = True`)
+  — проверил на `v8_into_resident_majority_seed1`; прецедент R15/R17 закрыт на уровне артефакта.
+- `generation_length` в summary: **есть** (`colinv4_*`: 10.0 при 928 делениях) — на этом стоит пересчёт
+  «2–4 поколения» (C5).
+- Счётчик просроченных не изменился (19) — оба запроса уже были закрыты ранее, эти строки только
+  подтверждают выполнение фактом.
+
