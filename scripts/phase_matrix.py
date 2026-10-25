@@ -91,6 +91,35 @@ def by_phase(rows: list[dict]) -> list[dict]:
     return out
 
 
+def stratified(rows: list[dict]) -> list[dict]:
+    """Раздельно по полной и обрезанной подсадке — ДО подсчёта распределения.
+
+    Иначе 24 шага, полученные на пятне из 2 клеток, попадут в одну строку с 24 шагами на пятне
+    из 20: это разные явления (обрезанное пятно умирает по геометрии, полное — по слиянию).
+    """
+    out = []
+    for at in sorted({r["invade_at_requested"] for r in rows}):
+        for label, group in (("full", [r for r in rows if r["invade_at_requested"] == at
+                                       and r["valid"]]),
+                             ("truncated", [r for r in rows if r["invade_at_requested"] == at
+                                            and not r["valid"]])):
+            if not group:
+                continue
+            tt = [r["time_to_rewrite"] for r in group if r["time_to_rewrite"] is not None]
+            out.append({
+                "invade_at": at,
+                "placement": label,
+                "runs": len(group),
+                "state_after_median": round(statistics.median(
+                    [r["state_after_injection"] for r in group]), 1),
+                "steps_visible_median": round(statistics.median(
+                    [r["steps_visible"] for r in group]), 1),
+                "time_to_rewrite_values": tt,
+                "time_to_rewrite_median": round(statistics.median(tt), 1) if tt else None,
+            })
+    return out
+
+
 def criteria(table: list[dict]) -> dict:
     ok = [item for item in table
           if (item["time_to_rewrite_le5_k"] or 0) >= 9 and (item["valid_runs"] or 0) >= 9]
@@ -127,6 +156,7 @@ def main(argv=None) -> int:
         },
         "rows": rows,
         "by_phase": table,
+        "by_phase_stratified": stratified(rows),
         "criteria": criteria(table),
     }
     if args.out:
