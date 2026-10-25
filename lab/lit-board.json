@@ -2001,16 +2001,18 @@
         "kind": "experiment",
         "detail": "resident_free с дозами 1/5/20 по 10 сидов на пустом поле; критерий — растёт ли зародыш до >5% массы"
       },
-      "status": "new",
+      "status": "done",
       "wave": "current",
       "owner": "librarian",
       "created_at": "2026-10-24T21:53:30+03:00",
-      "decided_at": null,
-      "why": null,
+      "decided_at": "2026-10-25",
+      "why": "закрыто: принято: контроль resident_free провален, это ограничивает чтение V8 — оговорка в §4h",
       "links": {
         "insights": [],
         "tasks": [],
-        "reports": []
+        "reports": [
+          "manuscript/paper.md"
+        ]
       }
     },
     {
@@ -2249,16 +2251,18 @@
         "kind": "experiment",
         "detail": "положительный контроль поля + proportional income / низкий regen, затем повторить keep/clean"
       },
-      "status": "new",
+      "status": "done",
       "wave": "current",
       "owner": "librarian",
       "created_at": "2026-10-25T01:19:00+03:00",
-      "decided_at": null,
-      "why": null,
+      "decided_at": "2026-10-25",
+      "why": "закрыто: принято: причина нечувствительности найдена (income_mode=cap), серия остановлена",
       "links": {
         "insights": [],
         "tasks": [],
-        "reports": []
+        "reports": [
+          "docs/eliminations.md"
+        ]
       }
     },
     {
@@ -2466,16 +2470,18 @@
         "kind": "method",
         "detail": "указать формулу/фильтр контроля; сверка один к одному на 4 артефактах"
       },
-      "status": "new",
+      "status": "done",
       "wave": "current",
       "owner": "librarian",
       "created_at": "2026-10-25T02:26:26+03:00",
-      "decided_at": null,
-      "why": null,
+      "decided_at": "2026-10-25",
+      "why": "закрыто: принято: формула контроля зафиксирована в реестре, сверка проведена",
       "links": {
         "insights": [],
         "tasks": [],
-        "reports": []
+        "reports": [
+          "lab/metrics.json"
+        ]
       }
     },
     {
@@ -2590,16 +2596,18 @@
         "kind": "method",
         "detail": "лог ресурса по шагам; проверить путь флага до regenerate()"
       },
-      "status": "new",
+      "status": "done",
       "wave": "current",
       "owner": "librarian",
       "created_at": "2026-10-25T06:44:35+03:00",
-      "decided_at": null,
-      "why": null,
+      "decided_at": "2026-10-25",
+      "why": "закрыто: принято: «хемостат» снят, причина — freq_dep гасит приток A (fa=0)",
       "links": {
         "insights": [],
         "tasks": [],
-        "reports": []
+        "reports": [
+          "docs/world-design.md"
+        ]
       }
     },
     {
@@ -2687,16 +2695,18 @@
         "kind": "method",
         "detail": "сверка построчно на w2bud_cell_seed1; зафиксировать единое определение w и фильтр линий"
       },
-      "status": "new",
+      "status": "done",
       "wave": "current",
       "owner": "librarian",
       "created_at": "2026-10-25T09:07:26+03:00",
-      "decided_at": null,
-      "why": null,
+      "decided_at": "2026-10-25",
+      "why": "закрыто: принято: определения зафиксированы, расхождение объяснено подменой знаменателя _all/_valid",
       "links": {
         "insights": [],
         "tasks": [],
-        "reports": []
+        "reports": [
+          "lab/metrics.json"
+        ]
       }
     },
     {
@@ -2718,16 +2728,18 @@
         "kind": "method",
         "detail": "добавить lineage_trait_birth / lineage_invested_recent в summary; пересчитать гейт"
       },
-      "status": "new",
+      "status": "done",
       "wave": "current",
       "owner": "librarian",
       "created_at": "2026-10-25T10:51:46+03:00",
-      "decided_at": null,
-      "why": null,
+      "decided_at": "2026-10-25",
+      "why": "закрыто: принято: три кандидата гейта проверены, per_cell_step монотонен по построению; энергия не логируется",
       "links": {
         "insights": [],
         "tasks": [],
-        "reports": []
+        "reports": [
+          "reports/2026-10-25-w2bud-energy-logger-plan.md"
+        ]
       }
     },
     {
@@ -2749,16 +2761,18 @@
         "kind": "method",
         "detail": "добавить расчёт I_null в selection_matrix/w2bud_matrix; переформулировать критерий"
       },
-      "status": "new",
+      "status": "done",
       "wave": "current",
       "owner": "librarian",
       "created_at": "2026-10-25T12:05:26+03:00",
-      "decided_at": null,
-      "why": null,
+      "decided_at": "2026-10-25",
+      "why": "закрыто: принято: критерий заменён на I_obs > I_null(95%), запас 8.22x в 10/10 сидов",
       "links": {
         "insights": [],
         "tasks": [],
-        "reports": []
+        "reports": [
+          "docs/world-design.md"
+        ]
       }
     }
   ],

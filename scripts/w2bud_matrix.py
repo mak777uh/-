@@ -212,16 +212,19 @@ def analyse(path: Path) -> dict | None:
     inv_per_cell = {t: invested[t] / cells[t] for t in invested if t in cells and cells[t] > 0}
     # ЦЕНА признака: линии с высоким признаком имеют меньше клетко-шагов.
     # Это НЕ отбор: отбор требует сравнения цены и выгоды в w = споры/клетки.
-    trait_cell_steps = [(traits[t], csteps[t]) for t in cells
+    # ВАЖНО: только линии с данными (>=5 клеток и >=1 спора) — то же множество, что для w.
+    # Было `for t in cells` (все 30-50 меток, включая одиночек) — числа не совпадали с
+    # пересчётом по определению (поймано 25.10: агрегатор дал +0.314 там, где по определению -0.486).
+    trait_cell_steps = [(traits[t], csteps[t]) for t in lineages
                         if t in csteps and csteps[t] > 0 and t in traits]
     rho_trait_cell_steps = (round(spearman(trait_cell_steps), 3)
                             if len(trait_cell_steps) >= 3 else None)
     # Контроль «цена или бедность»: если высокий признак просто беден энергией, он должен
     # инвестировать МЕНЬШЕ на клетко-шаг. Если больше — это цена (тратит), а не бедность.
     rho_trait_invest_intensity = (round(spearman(
-        [(traits[t], inv_per_cell_step[t]) for t in cells
+        [(traits[t], inv_per_cell_step[t]) for t in lineages
          if t in inv_per_cell_step and t in traits]), 3)
-        if sum(1 for t in cells if t in inv_per_cell_step and t in traits) >= 3 else None)
+        if sum(1 for t in lineages if t in inv_per_cell_step and t in traits) >= 3 else None)
     manip_updates = manip_rho_of(upd_per_cell)
     manip_per_step = manip_rho_of(inv_per_cell_step)
     manip_rho = manip_rho_of(inv_per_cell)

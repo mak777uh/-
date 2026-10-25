@@ -42,8 +42,14 @@ WAVES = {"current", "paused"}
 TARGET_KINDS = {"hypothesis", "experiment", "report", "section", "artifact", "metric"}
 ACTION_KINDS = {"text", "method", "param", "experiment", "experiment_change", "baseline", "none"}
 DECIDED = {"accepted", "declined", "deferred", "done"}
+# Пороги устаревания зависят от волны: замечание к ТЕКУЩЕЙ волне бессмысленно, если
+# волна уже сменилась. 25.10 доска выросла до 42 неразобранных замечаний за день — и
+# проверка молчала, потому что пороги были 7/14 дней. Для текущей волны: 2 дня — сигнал,
+# 5 дней — ошибка CI. Для отложенной волны пороги мягче.
 STALE_WARN_DAYS = 7
 STALE_ERR_DAYS = 14
+CURRENT_WAVE_WARN_DAYS = 2
+CURRENT_WAVE_ERR_DAYS = 5
 ID_RE = re.compile(r"^B-\d{3}$")
 
 
@@ -137,15 +143,18 @@ def validate_items(items: list[dict]) -> tuple[list[str], list[str]]:
                 errors.append(f"{where}: accepted требует ссылки на инсайт/задачу/отчёт")
         if status == "new":
             age = _days_since(str(item.get("created_at") or ""))
+            current = str(item.get("wave") or "current") == "current"
+            warn_days = CURRENT_WAVE_WARN_DAYS if current else STALE_WARN_DAYS
+            err_days = CURRENT_WAVE_ERR_DAYS if current else STALE_ERR_DAYS
             if age is None:
                 warnings.append(f"{where}: created_at не читается")
-            elif age > STALE_ERR_DAYS:
+            elif age > err_days:
                 errors.append(
-                    f"{where}: замечание открыто {age:.0f} дн (> {STALE_ERR_DAYS}) без решения"
+                    f"{where}: замечание открыто {age:.0f} дн (> {err_days}) без решения"
                 )
-            elif age > STALE_WARN_DAYS:
+            elif age > warn_days:
                 warnings.append(
-                    f"{where}: замечание открыто {age:.0f} дн (> {STALE_WARN_DAYS}) без решения"
+                    f"{where}: замечание открыто {age:.0f} дн (> {warn_days}) без решения"
                 )
     return errors, warnings
 
