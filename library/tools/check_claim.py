@@ -52,6 +52,27 @@ def close(a, b) -> bool:
     return abs(fa - fb) / abs(fb) <= 1e-6
 
 
+def homogeneity_note(artifact: Path) -> str | None:
+    """Провенанс серии: помечена ли она как снятая разным кодом (lab/homogeneity.json)."""
+    reg = REPO / "lab" / "homogeneity.json"
+    if not reg.exists():
+        return None
+    try:
+        data = json.loads(reg.read_text(encoding="utf-8"))
+    except Exception:
+        return None
+    rel = str(artifact.parent.relative_to(REPO)).replace("\\", "/")
+    for status, items in data.items():
+        if not isinstance(items, dict) or status in ("note",):
+            continue
+        for path, reason in items.items():
+            path = str(path).replace("\\", "/")
+            if rel == path or rel.endswith("/" + path) or path in rel:
+                if status in ("archived_invalid", "invalid"):
+                    return f"серия {path} помечена {status}: {str(reason)[:140]}"
+    return None
+
+
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description="Проверка находки до публикации")
     ap.add_argument("--artifact", required=True)
@@ -96,6 +117,10 @@ def main(argv=None) -> int:
                 problems.append(f"поле {leaf!r} не упомянуто в {doc} — определение не задокументировано")
         if args.artifact and Path(args.artifact).name not in text:
             problems.append(f"артефакт {Path(args.artifact).name} не упомянут в {doc}")
+
+    note = homogeneity_note(path)
+    if note:
+        problems.append(note + " — числа этой серии не публикуются")
 
     if problems:
         for pr in problems:

@@ -422,6 +422,19 @@ def test_check_claim(tmp: Path) -> None:
           missing.stdout + missing.stderr)
 
 
+def test_check_claim_homogeneity(tmp: Path) -> None:
+    """check_claim обязан ругаться на серию, помеченную archived_invalid."""
+    import json as _json
+    art = REPO / "morphogenesis/experiments/E09_pond/w1niche/w1niche5_legacy_seed4.json"
+    reg = REPO / "lab/homogeneity.json"
+    if not art.exists() or not reg.exists():
+        return
+    res = run("library/tools/check_claim.py", "--artifact",
+              str(art.relative_to(REPO)), "--field", "summary.prepared_cells_total")
+    check("check_claim: отозванная серия помечается", res.returncode == 1 and "archived_invalid" in res.stdout,
+          res.stdout[:300])
+
+
 def main() -> int:
     with tempfile.TemporaryDirectory() as tdir:
         tmp = Path(tdir)
@@ -457,6 +470,8 @@ def main() -> int:
         test_topic_lit(tmp)
         print("== check claim ==")
         test_check_claim(tmp)
+        print("== check claim homogeneity ==")
+        test_check_claim_homogeneity(tmp)
     print(f"\nпровалено: {len(FAILED)}")
     return 1 if FAILED else 0
 
