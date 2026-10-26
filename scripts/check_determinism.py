@@ -7,7 +7,7 @@
 конфиг и сид дважды дают один и тот же `summary`.
 
 Правило сравнения (записано в AGENTS §4):
-  * игнорируется `wall_seconds` (время) и `config.git_commit` (метаданные коммита);
+  * игнорируется `wall_seconds` (время), `config.git_commit` и `config.git_code_commit` (метаданные коммита);
   * допускается расхождение **в одном** поле, если оно укладывается в
     `max(--abs-tol, --rel-tol × |значение|)`: абсолютный допуск 1e-4 сам по себе
     неверен для сумм порядка 1e4 (там округление float даёт 1e-3), поэтому
@@ -26,7 +26,7 @@ import sys
 from pathlib import Path
 
 IGNORE_KEYS = {"wall_seconds"}
-IGNORE_PREFIXES = ("config.git_commit",)
+IGNORE_PREFIXES = ("config.git_commit", "config.git_code_commit")   # метаданные коммита, не физика
 
 
 def flatten(node, prefix=""):
