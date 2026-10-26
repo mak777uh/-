@@ -182,7 +182,7 @@ Statuses and ids are validated against `lab/registry.json` by `python scripts/la
 **Deposits.** The code, reports and journal are archived with a DOI
 ([10.5281/zenodo.23571610](https://doi.org/10.5281/zenodo.23571610); concept DOI
 [10.5281/zenodo.23571609](https://doi.org/10.5281/zenodo.23571609)). The canonical weights are
-a separate dataset record (`TODO_WEIGHTS_DOI`, 12 files, 6.47 GB) — see [`docs/deposit.md`](docs/deposit.md)
+a separate dataset record (`10.5281/zenodo.23654174`, 12 checkpoints + service files, 6.03 GB) — see [`docs/deposit.md`](docs/deposit.md)
 for what is inside each record and how to verify the checksums. Citation metadata is in
 [`CITATION.cff`](CITATION.cff).
 

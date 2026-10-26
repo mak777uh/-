@@ -7,7 +7,8 @@
 |---|---|---|---|---|
 | **Код, отчёты, журнал** (v1.0) | [10.5281/zenodo.23571610](https://doi.org/10.5281/zenodo.23571610) | 22.10.2026 | 10.3 МБ | код, `reports/`, журнал, реестр, CI, окружение |
 | concept DOI кода | [10.5281/zenodo.23571609](https://doi.org/10.5281/zenodo.23571609) | — | — | всегда указывает на последнюю версию записи с кодом |
-| **Канонические веса** (v1.1) | **в подготовке** (`TODO_WEIGHTS_DOI`) | — | 6.47 ГБ | 12 файлов `nca_final.pt` + `CHECKSUMS.sha256` + инвентарь |
+| **Канонические веса** (v1.1) | [10.5281/zenodo.23654174](https://doi.org/10.5281/zenodo.23654174) | 26.10.2026 | 6.03 ГБ | 12 файлов `nca_final.pt`, `world_base_rule.pt`, `CHECKSUMS.sha256`, `CHECKPOINTS.md`, `README_ZENODO.md`, `manifest.json`, `CITATION.cff` |
+| concept DOI весов | [10.5281/zenodo.23654173](https://doi.org/10.5281/zenodo.23654173) | — | — | всегда указывает на последнюю версию записи с весами |
 
 ## Почему веса отдельно
 
@@ -31,6 +32,6 @@
 python scripts/zenodo_link.py --weights-doi 10.5281/zenodo.XXXXXXXX --concept-doi 10.5281/zenodo.YYYYYYYY
 ```
 
-Команда заменяет `TODO_WEIGHTS_DOI` в `CITATION.cff`, `README.md`, `lab/checkpoints.json` и
+Команда заменяет `10.5281/zenodo.23654174` в `CITATION.cff`, `README.md`, `lab/checkpoints.json` и
 `docs/checkpoints-v1.1.json`, а затем печатает, где ещё остались заглушки. Отдельно проверяется,
 что ни одного `TODO_` не осталось.
