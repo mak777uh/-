@@ -129,6 +129,16 @@ def main() -> int:
         if still:
             warnings.append(f"{r['file']}: ревью {age} дн., утверждение до сих пор «подтверждено» — перепроверьте")
 
+    if problems:
+        # Причина падения должна быть видна в логе CI, а не только код возврата
+        print("[reviews] ДИАГНОСТИКА: ROOT=", ROOT)
+        print("[reviews] ДИАГНОСТИКА: файлы =", sorted(parsed))
+        if INDEX.exists():
+            try:
+                print("[reviews] ДИАГНОСТИКА: индекс =",
+                      [str(e.get("file")) for e in json.loads(INDEX.read_text(encoding="utf-8")).get("reviews", [])])
+            except Exception as exc:
+                print("[reviews] ДИАГНОСТИКА: индекс не читается:", exc)
     print(f"[reviews] файлов: {len(parsed)}; вердикты: "
           f"{', '.join(sorted({r['verdict'] for r in parsed.values()})) or '—'}")
     for w in warnings:
