@@ -9,6 +9,10 @@
 Индикатор, который мы смотрели раньше (`git_dirty`), этого не показывает: он про незакоммиченные файлы
 рабочей копии, а не про код, которым снят артефакт. Правильный индикатор — `config.git_code_commit`.
 
+**`git_dirty` как индикатор не годится** (проверено 26.10): он считается по всей рабочей копии, а в ней
+одновременно работают несколько агентов и постоянно меняется журнал, поэтому `dirty = true` почти всегда
+(144 из 295 артефактов пруда). Поэтому в этом гейте он не используется — только `git_code_commit`.
+
 Правило: **все артефакты одной серии обязаны нести один `git_code_commit`** (или явное исключение в
 `lab/homogeneity-exemptions.json` с причиной). Иначе серия `invalid_by_data` по гомогенности, и её числа
 не публикуются.
@@ -57,6 +61,7 @@ def scan() -> dict[str, dict]:
         if not isinstance(payload, dict):
             continue
         commit = code_commit(payload)
+
         family = path.parent.relative_to(EXPERIMENTS).as_posix()
         entry = series.setdefault(family, {"files": 0, "commits": collections.Counter()})
         entry["files"] += 1
