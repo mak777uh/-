@@ -162,7 +162,9 @@ jobs:
             out=$($cmd 2>&1)
             code=$?
             printf '%s\n' "$out"
-            if [ $code -ne 0 ]; then
+            # код 2 у check_references означает «нет блока References — проверять нечего»,
+            # это не падение (контракт самого скрипта, проверяется тестом).
+            if [ $code -ne 0 ] && [ $code -ne 2 ]; then
               fail=$code
               msg=$(printf '%s' "$out" | tail -n 3 | tr '\n' ' ' | tr -s ' ')
               echo "::error title=${cmd%% *}::${msg:0:900}"

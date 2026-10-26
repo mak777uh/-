@@ -65,10 +65,9 @@ def check(paper: Path, index: Path) -> tuple[int, list[str]]:
     paper_text = paper.read_text(encoding="utf-8")
     block = references_block(paper_text)
     if block is None:
-        # «нечего проверять» — не ошибка: иначе CI-цикл (for cmd in ...; exit $fail)
-        # считает это падением.
-        print(f"{paper}: нет блока '## References' — проверять нечего")
-        return 0, []
+        # Контракт: отсутствие блока References — ошибка конфигурации (код 2),
+        # а не «всё хорошо». Терпимость к коду 2 настраивается в CI-шаге, не здесь.
+        raise SystemExit(f"{paper}: нет блока '## References' — проверять нечего")
     cited = urls_in(block)
     known = urls_in(index.read_text(encoding="utf-8"))
     missing = sorted(cited - known)
