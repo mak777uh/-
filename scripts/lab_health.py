@@ -132,10 +132,23 @@ def section_ci_file() -> tuple[list[str], list[str], str]:
             except Exception:
                 pass
             msg = f"CI «{name}» упал: " + ("; ".join(steps) if steps else "шаг не определён")
-            (bad if age_h <= 2 else warn).append(msg + ("" if age_h <= 2 else f" (запись {age_h:.1f} ч назад — вероятно, устарела, перезапишите статус)"))
+            # Главный признак устаревания — не время, а КОММИТ: если прогон был на другом
+            # коммите, он проверял другой код. Красный на HEAD блокирует, на старом — нет.
+            head = (run.get("head") or "")[:8]
+            cur = git(["rev-parse", "--short=8", "HEAD"]).strip()
+            stale = bool(head) and bool(cur) and head != cur
+            if stale:
+                warn.append(msg + f" (прогон на {head}, HEAD {cur} — проверялся другой код)")
+            elif age_h > STALE_HOURS:
+                warn.append(msg + f" (запись {age_h:.1f} ч назад — устарела)")
+            else:
+                bad.append(msg)
         elif concl in ("cancelled", "timed_out"):
             warn.append(f"CI «{name}»: {concl}")
     return bad, warn, "; ".join(parts) if parts else "нет записей"
+
+
+STALE_HOURS = 2.0  # прогон старше 2 ч не считается живым блокером
 
 
 def section_github() -> tuple[list[str], list[str], str]:
@@ -172,7 +185,15 @@ def section_github() -> tuple[list[str], list[str], str]:
             age = created
         lines.append(f"{name}: {concl} ({age})")
         if concl == "failure":
-            bad.append(f"CI «{name}» упал ({age}): {run_.get('html_url')}")
+            # Устаревший прогон (например ночной на коммите, который давно исправлен) —
+            # предупреждение, а не блокер: иначе красный держится сутками после починки.
+            stale = False
+            try:
+                stale = age_h > STALE_HOURS
+            except NameError:
+                stale = False
+            msg = f"CI «{name}» упал ({age}): {run_.get('html_url')}"
+            (warn if stale else bad).append(msg + (" — устарело, следующий прогон покажет" if stale else ""))
         elif concl in ("cancelled", "timed_out", "action_required"):
             warn.append(f"CI «{name}»: {concl} ({age})")
     return bad, warn, "; ".join(lines) if lines else "запусков не найдено"
