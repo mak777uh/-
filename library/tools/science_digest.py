@@ -82,7 +82,8 @@ def aggregate_summary(path: Path) -> dict:
             if name:
                 out[name] = {k: arm.get(k) for k in
                              ("runs", "survived_k", "valid_n", "crow_I_median", "rho_median",
-                              "placement_ok_k", "rejected_k")
+                              "placement_ok_k", "rejected_k", "lineages_median",
+                              "top1_share_median", "pair_degenerate_k")
                              if k in arm}
     if "criteria" in data and isinstance(data["criteria"], dict):
         out["__criteria__"] = {k: v for k, v in data["criteria"].items()
@@ -193,10 +194,21 @@ def recommendations(aggs: dict, board: dict, pressure: int, day: str) -> list[di
             valid = s.get("valid_n")
             runs = s.get("runs")
             if isinstance(valid, int) and isinstance(runs, int) and runs and valid / runs < 0.5:
-                add(f"power:{name}:{arm}",
-                    f"добрать линии/сиды для {name}/{arm}: валидных {valid}/{runs}",
-                    f"valid_n={valid} из runs={runs} (порог 0.5)", "1 серия",
-                    "valid_n/runs >= 0.5")
+                # различаем «мало данных» и «по построению одна линия»: во втором случае
+                # добирать сиды бессмысленно — конструкция не оценивается (правило §3c-бис)
+                by_design = (valid == 0 and s.get("lineages_median") is not None
+                             and float(s.get("lineages_median") or 0) < 2.0)
+                if by_design:
+                    add(f"bydesign:{name}:{arm}",
+                        f"{name}/{arm}: конструкция с одной линией по построению — помечать "
+                        f"«не оценивается», не «нужно больше сидов»",
+                        f"valid_n=0, lineages_median={s.get('lineages_median')}",
+                        "1 правка текста", "в тексте стоит «not evaluable», а не «0/10»")
+                else:
+                    add(f"power:{name}:{arm}",
+                        f"добрать линии/сиды для {name}/{arm}: валидных {valid}/{runs}",
+                        f"valid_n={valid} из runs={runs} (порог 0.5)", "1 серия",
+                        "valid_n/runs >= 0.5")
     if pressure >= 3:
         add("lit:pressure", f"запустить литературный слот: давление {pressure}",
             f"lit_pressure = {pressure} (порог 3)", "15 мин", "слот отработал, давление < 3")
