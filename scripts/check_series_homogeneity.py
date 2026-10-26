@@ -61,11 +61,22 @@ def scan() -> dict[str, dict]:
         if not isinstance(payload, dict):
             continue
         commit = code_commit(payload)
+        dirty = None
+        for container in (payload.get("summary") or {}, payload):
+            source = container.get("config") if isinstance(container, dict) else None
+            for candidate in (source, container):
+                if isinstance(candidate, dict) and isinstance(candidate.get("git_dirty"), bool):
+                    dirty = candidate["git_dirty"]
+                    break
+            if dirty is not None:
+                break
 
         family = path.parent.relative_to(EXPERIMENTS).as_posix()
-        entry = series.setdefault(family, {"files": 0, "commits": collections.Counter()})
+        entry = series.setdefault(family, {"files": 0, "commits": collections.Counter(), "dirty": set()})
         entry["files"] += 1
         entry["commits"][commit or "unknown"] += 1
+        if dirty is not None:
+            entry["dirty"].add(dirty)
     return series
 
 
@@ -83,8 +94,14 @@ def main(argv: list[str] | None = None) -> int:
                 registry[family] = {"kind": key, "reason": reason}
 
     series = scan()
+    for family, entry in sorted(series.items()):
+        # «все грязные» = снято с одного незакоммиченного состояния (допустимо, если нейтральность проверена).
+        # «разные значения внутри серии» = дерево менялось по ходу серии — это красный флаг.
+        if len(entry.get("dirty") or ()) > 1:
+            mixed_dirty.append(f"{family}: внутри серии разные git_dirty ({entry['dirty']}) — дерево менялось по ходу")
     problems: list[str] = []
     warned: list[str] = []
+    mixed_dirty: list[str] = []
     mixed = 0
     for family, entry in sorted(series.items()):
         real = {c: n for c, n in entry["commits"].items() if c != "unknown"}
@@ -109,6 +126,8 @@ def main(argv: list[str] | None = None) -> int:
             continue
         problems.append(f"{family}: {entry['files']} файлов на {len(real)} коммитах кода ({detail}) — не в реестре")
 
+    for note in mixed_dirty:
+        print(f"[homogeneity] предупреждение: {note}")
     for note in warned:
         print(f"[homogeneity] предупреждение: {note}")
     if problems:
