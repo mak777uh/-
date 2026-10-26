@@ -56,7 +56,7 @@ class World:
     def __init__(self, k: int = 1, units: int = 60, seed: int = 1, steps: int = 400,
                  split_threshold: float = 4.0, split_cost: float = 0.5,
                  upkeep: float = 0.30, supply_per_replicator: float = 0.30,
-                 target_replicators: int = 600,
+                 target_replicators: int = 600, lineage_cap: int = 0,
                  mutation_sigma: float = 0.05, trait_effect: float = 1.0,
                  max_units: int = 4000) -> None:
         self.rng = random.Random(seed)
@@ -70,6 +70,11 @@ class World:
         # с низким теряют. Это и есть отбор, и он одинаково доступен при любом k.
         self.supply = supply_per_replicator
         self.target = target_replicators
+        # H-ALIVE-51: ограничение роста линии (0 = без ограничения). Если линия уже на пределе,
+        # деление не происходит — рост ограничен сверху, и различие по k может проявиться в СКОРОСТИ.
+        self.lineage_cap = lineage_cap
+        self.capped_steps = 0
+        self.cap_blocked = 0
         self.sigma = mutation_sigma
         self.trait_effect = trait_effect
         self.max_units = max_units
@@ -109,8 +114,14 @@ class World:
                 self.above_threshold_steps += 1
         # 4) деление: энергия НА РЕПЛИКАТОР выше порога
         born: list[Unit] = []
+        counts: dict[int, int] = {}
+        for u in self.units:
+            counts[u.tag] = counts.get(u.tag, 0) + 1
         for unit in self.units:
             if unit.energy / len(unit.members) < self.e_star:
+                continue
+            if self.lineage_cap > 0 and counts.get(unit.tag, 0) >= self.lineage_cap:
+                self.cap_blocked += 1
                 continue
             if len(self.units) + len(born) >= self.max_units:
                 break
@@ -127,6 +138,7 @@ class World:
                 child_members.append(Replicator(trait, half))
             born.append(Unit(unit.tag, child_members))
             self.divisions_by_tag[unit.tag] = self.divisions_by_tag.get(unit.tag, 0) + 1
+            counts[unit.tag] = counts.get(unit.tag, 0) + 1
         self.units.extend(born)
 
     def run(self) -> dict:
@@ -161,6 +173,14 @@ class World:
             "tags_total": len(tags),
             "share_above_threshold": round(self.above_threshold_steps / self.unit_steps_total, 4)
             if self.unit_steps_total else None,
+            "lineage_cap": self.lineage_cap,
+            "cap_blocked": self.cap_blocked,
+            "share_capped": round(
+                sum(1 for t in self.divisions_by_tag
+                    if self.divisions_by_tag[t] > 0 and self.exposure_by_tag.get(t, 0) > 0
+                    and self.lineage_cap > 0
+                    and sum(1 for u in self.units if u.tag == t) >= self.lineage_cap)
+                / max(1, len([t for t in self.divisions_by_tag if self.divisions_by_tag[t] > 0])), 4),
             "share_units_divided": round(
                 sum(1 for t in self.divisions_by_tag if self.divisions_by_tag[t] > 0)
                 / max(1, len(self.divisions_by_tag)), 4),
@@ -218,11 +238,12 @@ def main(argv=None) -> int:
     ap.add_argument("--steps", type=int, default=400)
     ap.add_argument("--units", type=int, default=60)
     ap.add_argument("--split-threshold", type=float, default=4.0)
+    ap.add_argument("--lineage-cap", type=int, default=0)
     ap.add_argument("--out", default=None)
     args = ap.parse_args(argv)
 
     world = World(k=args.k, units=args.units, seed=args.seed, steps=args.steps,
-                  split_threshold=args.split_threshold)
+                  split_threshold=args.split_threshold, lineage_cap=args.lineage_cap)
     summary = world.run()
     w = [summary["w_by_lineage"][t] for t in summary["w_by_lineage"]]
     exposures = [world.exposure_by_tag[int(t)] for t in summary["w_by_lineage"]]
