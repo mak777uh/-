@@ -100,6 +100,7 @@ class PondConfig:
     ignition_gate: bool = False        # запретить правилу зажигать без живого 4-соседа (пропагул)
     trait_effect: float = 0.0          # eps: насколько tag_trait меняет интенсивность инвестирования (E)
     budding_unit: str = "colony"       # colony (W1) | cell (W2-bud): кто почкуется — колония или клетка
+    niche_free_min: int = 0           # H-ALIVE-52: фильтр «свободная компонента >= N» (0 = без фильтра)
     pair_mode: str = "same_tag"        # H-ALIVE-49: same_tag (пара одной метки) | any_tag (любой сосед)
     death_return: float = 0.0          # W1-niche: доля взятого за жизнь ресурса, возвращаемая при смерти
     death_return_mode: str = "legacy"  # legacy (туда, где умерла) | prepared (в случайные СВОБОДНЫЕ) | depleted
@@ -1631,6 +1632,7 @@ class Pond:
             self.niche_log.append({
                 "step": int(s.step), "y": int(ty), "x": int(tx), "n4": lvl,
                 "tag": tag_val, "amount": float(amount), "hit_same": False, "hit_any": False,
+                "free_comp": self._free_component_size(int(ty), int(tx)),
             })
             if lvl >= 0:
                 slot = self.niche_levels.setdefault(lvl, [0, 0])
@@ -1639,6 +1641,28 @@ class Pond:
                 same = int(((tags == tag_val) & s.alive).sum())
                 free_n = int((~s.alive).sum())
                 self.niche_expected += (same / free_n) if free_n > 0 else 0.0
+
+    def _free_component_size(self, y: int, x: int) -> int:
+        """H-ALIVE-52: размер 4-связной компоненты МЁРТВЫХ клеток, содержащей (y, x)."""
+        s = self.state
+        n = self.cfg.grid
+        if not (0 <= y < n and 0 <= x < n):
+            return 0
+        if bool(s.alive[y, x]):
+            return 0
+        seen = torch.zeros_like(s.alive, dtype=torch.bool)
+        stack = [(y, x)]
+        seen[y, x] = True
+        size = 0
+        while stack:
+            cy, cx = stack.pop()
+            size += 1
+            for dy, dx in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+                ny, nx = cy + dy, cx + dx
+                if 0 <= ny < n and 0 <= nx < n and not bool(seen[ny, nx]) and not bool(s.alive[ny, nx]):
+                    seen[ny, nx] = True
+                    stack.append((ny, nx))
+        return size
 
     def _niche_update(self) -> None:
         """W1-niche: занял ли кто-то подготовленную клетку — и потомок ли это той же линии."""

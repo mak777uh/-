@@ -112,6 +112,7 @@ def config_block(cfg) -> dict:
 
         "require_placement": getattr(cfg, "require_placement", 0),
         "buds_per_component": getattr(cfg, "buds_per_component", 1),
+        "niche_free_min": getattr(cfg, "niche_free_min", 0),
         "pair_mode": getattr(cfg, "pair_mode", "same_tag"),
         "death_return": getattr(cfg, "death_return", 0.0),
         "death_return_mode": getattr(cfg, "death_return_mode", "legacy"),
@@ -721,6 +722,8 @@ def build_parser() -> argparse.ArgumentParser:
     ap.add_argument("--invade-placement", default="random", choices=["random", "gap"],
                     help="куда садится инокулят: random (как §10ab) или gap — в самую "
                          "далёкую от резидента свободную клетку (V8)")
+    ap.add_argument("--niche-free-min", type=int, default=0,
+                    help="H-ALIVE-52: учитывать подготовленные клетки только в свободной компоненте >= N")
     ap.add_argument("--pair-mode", default="same_tag", choices=["same_tag", "any_tag"],
                     help="H-ALIVE-49: пара одной метки (по умолчанию) или с любым соседом")
     ap.add_argument("--death-return", type=float, default=0.0,
@@ -818,6 +821,7 @@ def main(argv: list[str] | None = None) -> int:
     world.merge_rule = args.merge_rule
     world.trait_effect = args.trait_effect
     world.budding_unit = args.budding_unit
+    world.niche_free_min = args.niche_free_min
     world.pair_mode = args.pair_mode
     world.death_return = args.death_return
     world.death_return_mode = args.death_return_mode
@@ -959,7 +963,22 @@ def main(argv: list[str] | None = None) -> int:
         summary["offspring_in_prepared_k"] = int(run.pond.niche_hit_same)
         summary["prepared_occupied_any_k"] = int(run.pond.niche_hit_any)
         summary["prepared_expected_hits"] = round(float(run.pond.niche_expected), 3)
-        if getattr(run.pond, "niche_levels", None):
+        # H-ALIVE-52: та же статистика, но только по подготовленным клеткам в свободной компоненте >= N
+    free_min = int(getattr(run.pond.cfg, "niche_free_min", 0) or 0)
+    if free_min > 0:
+        entries = run.pond.niche_log
+        kept = [e for e in entries if int(e.get("free_comp") or 0) >= free_min]
+        summary["niche_free_min"] = free_min
+        summary["prepared_cells_filtered"] = len(kept)
+        summary["prepared_cells_total_all"] = len(entries)
+        summary["same_share_filtered"] = (round(sum(1 for e in kept if e["hit_same"]) / len(kept), 4)
+                                          if kept else None)
+        summary["any_share_filtered"] = (round(sum(1 for e in kept if e["hit_any"]) / len(kept), 4)
+                                         if kept else None)
+        comps = sorted(int(e.get("free_comp") or 0) for e in entries)
+        summary["free_comp_median"] = comps[len(comps) // 2] if comps else None
+        summary["free_comp_q90"] = comps[int(0.9 * (len(comps) - 1))] if comps else None
+    if getattr(run.pond, "niche_levels", None):
             summary["niche_levels"] = {str(k): v for k, v in sorted(run.pond.niche_levels.items())}
     if getattr(run.pond.cfg, "budding_unit", "") == "pair":
         summary["pair_degenerate_k"] = int(getattr(run.pond, "pair_degenerate", 0))
