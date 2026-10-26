@@ -607,12 +607,17 @@ class PondRun:
             self.step()
             if len(self.log) % log_every == 0:
                 last = self.log[-1]
-                print(
-                    f"шаг {last['step']:5d} | живых {last['alive_cells']:5d} | "
-                    f"родилось {last['born']:3d} | умерло {last['died']:4d} | "
-                    f"спор заблокировано {last['spores_blocked']:3d}",
-                    flush=True,
-                )
+                # 26.10: print не должен убивать прогон. На Windows запись в закрытый
+                # пайп даёт OSError [Errno 22] и падение на первом же шаге логирования.
+                try:
+                    print(
+                        f"шаг {last['step']:5d} | живых {last['alive_cells']:5d} | "
+                        f"родилось {last['born']:3d} | умерло {last['died']:4d} | "
+                        f"спор заблокировано {last['spores_blocked']:3d}",
+                        flush=True,
+                    )
+                except OSError:
+                    pass
         elapsed = time.perf_counter() - t0
         return {"steps": steps, "wall_seconds": round(elapsed, 2), "final": self.log[-1] if self.log else {}}
 
