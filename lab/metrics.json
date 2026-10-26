@@ -433,17 +433,16 @@
       "units": "коэффициент"
     },
     "rho_partial_energy": {
-      "definition": "частная корреляция: Спирмен по остаткам линейных регрессий признака и клетко-шагов на energy_per_cell_time (контроль на энергию)",
+      "definition": "СТАНДАРТНАЯ частная корреляция Спирмена: ранги всех трёх величин -> остатки рангов (линейная регрессия по рангам) -> Пирсон на остатках. Эквивалентно (r_xy - r_xz*r_yz)/sqrt((1-r_xz^2)(1-r_yz^2)) на рангах; так в ppcor::pcor.test(method='spearman')",
       "fields": [
         "summary.type_traits",
         "summary.lineage_cell_steps",
         "summary.lineage_energy_mean_sum",
         "summary.lineage_energy_samples"
       ],
-      "denominator": "lineages_with_data",
-      "units": "коэффициент",
-      "formula": "Spearman(resid(trait ~ ept), resid(cell_steps ~ ept)), OLS-остатки; df = n_lines - 3",
-      "df": "n_lines - 3 (при 5-6 линиях df = 2-3; публикуется направление, не коэффициент)"
+      "denominator": "прогоны, где >=4 линий с данными (клеток >=5 и спор >=1)",
+      "df": "n - 3",
+      "units": "коэффициент"
     },
     "energy_per_cell_time": {
       "definition": "средняя энергия клетки линии по равномерной сетке времени: (1/|S|)·Σ_{s∈S} mean(energy живых клеток линии в момент s), S — каждые 10 шагов с ≥1 живой клеткой; |S| = T_active. Знаменатель — число сэмплов, а не клетко-шаги (убирает смещение §10ar)",
@@ -578,6 +577,17 @@
       ],
       "denominator": "runs",
       "units": "флаг"
+    },
+    "rho_partial_energy_hybrid": {
+      "definition": "прежняя реализация: остатки СЫРЫХ значений по z, затем Спирмен по остаткам. Не равна ни частной корреляции Спирмена, ни частной Пирсона; оставлена для сверки и НЕ публикуется",
+      "fields": [
+        "summary.type_traits",
+        "summary.lineage_cell_steps",
+        "summary.lineage_energy_mean_sum"
+      ],
+      "denominator": "то же",
+      "df": "n - 3",
+      "units": "коэффициент"
     }
   },
   "verdicts": {

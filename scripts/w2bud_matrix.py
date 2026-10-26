@@ -249,6 +249,7 @@ def analyse(path: Path) -> dict | None:
                      if sum(1 for t in lineages if t in ept and t in traits) >= 3 else None)
     # частная корреляция rho(признак, cell_steps | energy_per_cell_time)
     rho_partial = None
+    rho_partial_hybrid = None
     part = [t for t in lineages if t in csteps and t in ept and t in traits
             and csteps[t] > 0]
     if len(part) >= 4:
@@ -266,8 +267,35 @@ def analyse(path: Path) -> dict | None:
             beta = sum((u - ma) * (v - mb) for u, v in zip(a, b)) / sbb
             return [u - ma - beta * (v - mb) for u, v in zip(a, b)]
 
-        ra, ry = _resid(x, z), _resid(y, z)
-        rho_partial = round(spearman(list(zip(ra, ry))), 3)
+        # СТАНДАРТ: частная корреляция Спирмена = частная корреляция РАНГОВ:
+        # ранги всех трёх -> остатки рангов -> Пирсон. Прежняя реализация исключала z из
+        # СЫРЫХ значений и потом ранжировала остатки — гибрид (26.10, найдено ведущим).
+        def _rank(vals: list[float]) -> list[float]:
+            n_ = len(vals)
+            order = sorted(range(n_), key=lambda i: vals[i])
+            out = [0.0] * n_
+            i = 0
+            while i < n_:
+                j = i
+                while j + 1 < n_ and vals[order[j + 1]] == vals[order[i]]:
+                    j += 1
+                for k in range(i, j + 1):
+                    out[order[k]] = (i + j) / 2 + 1
+                i = j + 1
+            return out
+
+        def _pearson(a: list[float], b: list[float]) -> float | None:
+            n_ = len(a)
+            ma, mb = sum(a) / n_, sum(b) / n_
+            num = sum((u - ma) * (v - mb) for u, v in zip(a, b))
+            den = (sum((u - ma) ** 2 for u in a) * sum((v - mb) ** 2 for v in b)) ** 0.5
+            return num / den if den else None
+
+        rx, ry, rz = _rank(x), _rank(y), _rank(z)
+        _std = _pearson(_resid(rx, rz), _resid(ry, rz))
+        rho_partial = round(_std, 3) if _std is not None else None
+        ra, ry_raw = _resid(x, z), _resid(y, z)
+        rho_partial_hybrid = round(spearman(list(zip(ra, ry_raw))), 3)
     manip_updates = manip_rho_of(upd_per_cell)
     manip_per_step = manip_rho_of(inv_per_cell_step)
     manip_rho = manip_rho_of(inv_per_cell)
@@ -294,6 +322,7 @@ def analyse(path: Path) -> dict | None:
         "rho_trait_cell_steps": rho_trait_cell_steps,
         "rho_trait_energy_per_cell_time": rho_trait_ept,
         "rho_partial_energy": rho_partial,
+        "rho_partial_energy_hybrid": rho_partial_hybrid,
         "rho_trait_invest_intensity": rho_trait_invest_intensity,
         "derived_by_construction": {k: True for k in DERIVED_BY_CONSTRUCTION},
         "I_null_95": i_null_95,

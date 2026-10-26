@@ -1,6 +1,6 @@
 {
   "kind": "w2bud_runs",
-  "world": "W2-bud-d2 (до N бутонов на компоненту); числа НЕ сопоставимы с W1 и W2-bud",
+  "world": "W2-bud (клеточное почкование); числа НЕ сопоставимы с W1 напрямую",
   "metric": {
     "cells_field": "summary.type_counts[\"T<tag>\"] — ЖИВЫЕ клетки линии на конец прогона (проверено: sum(type_counts) == final.alive_cells на 20/20 артефактах)",
     "tags_ge2": "#{t : type_counts[t] >= 2}",
@@ -42,7 +42,8 @@
       "manipulation_n": 38,
       "rho_trait_cell_steps": -0.7,
       "rho_trait_energy_per_cell_time": -0.9,
-      "rho_partial_energy": 0.7,
+      "rho_partial_energy": 0.579,
+      "rho_partial_energy_hybrid": 0.7,
       "rho_trait_invest_intensity": 1.0,
       "derived_by_construction": {
         "manipulation_rho_per_step": true,
@@ -89,7 +90,8 @@
       "manipulation_n": 41,
       "rho_trait_cell_steps": -0.429,
       "rho_trait_energy_per_cell_time": -0.357,
-      "rho_partial_energy": -0.071,
+      "rho_partial_energy": -0.255,
+      "rho_partial_energy_hybrid": -0.071,
       "rho_trait_invest_intensity": 1.0,
       "derived_by_construction": {
         "manipulation_rho_per_step": true,
@@ -136,7 +138,8 @@
       "manipulation_n": 35,
       "rho_trait_cell_steps": -0.117,
       "rho_trait_energy_per_cell_time": 0.2,
-      "rho_partial_energy": -0.617,
+      "rho_partial_energy": -0.225,
+      "rho_partial_energy_hybrid": -0.617,
       "rho_trait_invest_intensity": 0.967,
       "derived_by_construction": {
         "manipulation_rho_per_step": true,
@@ -183,7 +186,8 @@
       "manipulation_n": 30,
       "rho_trait_cell_steps": -0.1,
       "rho_trait_energy_per_cell_time": -0.1,
-      "rho_partial_energy": -0.3,
+      "rho_partial_energy": -0.042,
+      "rho_partial_energy_hybrid": -0.3,
       "rho_trait_invest_intensity": 1.0,
       "derived_by_construction": {
         "manipulation_rho_per_step": true,
@@ -230,7 +234,8 @@
       "manipulation_n": 41,
       "rho_trait_cell_steps": 0.238,
       "rho_trait_energy_per_cell_time": 0.452,
-      "rho_partial_energy": -0.714,
+      "rho_partial_energy": -0.213,
+      "rho_partial_energy_hybrid": -0.714,
       "rho_trait_invest_intensity": 0.929,
       "derived_by_construction": {
         "manipulation_rho_per_step": true,
@@ -277,7 +282,8 @@
       "manipulation_n": 27,
       "rho_trait_cell_steps": -0.1,
       "rho_trait_energy_per_cell_time": -0.1,
-      "rho_partial_energy": -0.3,
+      "rho_partial_energy": -0.042,
+      "rho_partial_energy_hybrid": -0.3,
       "rho_trait_invest_intensity": 1.0,
       "derived_by_construction": {
         "manipulation_rho_per_step": true,
@@ -324,7 +330,8 @@
       "manipulation_n": 38,
       "rho_trait_cell_steps": 0.086,
       "rho_trait_energy_per_cell_time": 0.029,
-      "rho_partial_energy": -0.714,
+      "rho_partial_energy": 0.176,
+      "rho_partial_energy_hybrid": -0.714,
       "rho_trait_invest_intensity": 0.886,
       "derived_by_construction": {
         "manipulation_rho_per_step": true,
@@ -371,7 +378,8 @@
       "manipulation_n": 36,
       "rho_trait_cell_steps": -0.607,
       "rho_trait_energy_per_cell_time": 0.0,
-      "rho_partial_energy": -0.929,
+      "rho_partial_energy": -0.719,
+      "rho_partial_energy_hybrid": -0.929,
       "rho_trait_invest_intensity": 0.964,
       "derived_by_construction": {
         "manipulation_rho_per_step": true,
@@ -418,7 +426,8 @@
       "manipulation_n": 45,
       "rho_trait_cell_steps": -0.464,
       "rho_trait_energy_per_cell_time": -0.179,
-      "rho_partial_energy": -0.5,
+      "rho_partial_energy": -0.532,
+      "rho_partial_energy_hybrid": -0.5,
       "rho_trait_invest_intensity": 0.964,
       "derived_by_construction": {
         "manipulation_rho_per_step": true,
@@ -465,7 +474,8 @@
       "manipulation_n": 40,
       "rho_trait_cell_steps": -0.2,
       "rho_trait_energy_per_cell_time": 0.0,
-      "rho_partial_energy": -1.0,
+      "rho_partial_energy": -0.333,
+      "rho_partial_energy_hybrid": -1.0,
       "rho_trait_invest_intensity": 0.7,
       "derived_by_construction": {
         "manipulation_rho_per_step": true,
@@ -517,9 +527,9 @@
       "rho_trait_cell_steps_median": -0.159,
       "rho_trait_cell_steps_negative_k": 8,
       "rho_trait_energy_per_cell_time_median": -0.05,
-      "rho_partial_energy_median": -0.558,
-      "rho_partial_energy_negative_k": 9,
-      "rho_partial_energy_positive_k": 1,
+      "rho_partial_energy_median": -0.219,
+      "rho_partial_energy_negative_k": 8,
+      "rho_partial_energy_positive_k": 2,
       "rho_partial_energy_n": 10,
       "rho_trait_invest_intensity_median": 0.966
     }
@@ -530,7 +540,7 @@
     "I_positive_all_7_of_10": true,
     "I_positive_valid_7_of_10": true,
     "w1_control_I_zero_all": true,
-    "price_confirmed": true,
+    "price_confirmed": false,
     "benefit_confirmed": false,
     "invalid_by_data": false,
     "manipulation_gate_7_of_10": true,

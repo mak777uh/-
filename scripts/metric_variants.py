@@ -78,10 +78,27 @@ def spearman(pairs):
     return num / den if den else None
 
 
+def _ranks(vals):
+    n = len(vals)
+    order = sorted(range(n), key=lambda i: vals[i])
+    out = [0.0] * n
+    i = 0
+    while i < n:
+        j = i
+        while j + 1 < n and vals[order[j + 1]] == vals[order[i]]:
+            j += 1
+        for k in range(i, j + 1):
+            out[order[k]] = (i + j) / 2 + 1
+        i = j + 1
+    return out
+
+
 def partial(x, y, z):
+    """СТАНДАРТНАЯ частная корреляция Спирмена: ранги -> остатки рангов -> Пирсон."""
     n = len(x)
     if n < 4:
         return None
+    x, y, z = _ranks(x), _ranks(y), _ranks(z)
 
     def resid(a, b):
         ma, mb = sum(a) / n, sum(b) / n
@@ -91,7 +108,11 @@ def partial(x, y, z):
         beta = sum((u - ma) * (v - mb) for u, v in zip(a, b)) / sbb
         return [u - ma - beta * (v - mb) for u, v in zip(a, b)]
 
-    return spearman(list(zip(resid(x, z), resid(y, z))))
+    ra, rb = resid(x, z), resid(y, z)
+    ma, mb = sum(ra) / n, sum(rb) / n
+    num = sum((u - ma) * (v - mb) for u, v in zip(ra, rb))
+    den = (sum((u - ma) ** 2 for u in ra) * sum((v - mb) ** 2 for v in rb)) ** 0.5
+    return num / den if den else None
 
 
 def crow(w):

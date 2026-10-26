@@ -1,6 +1,6 @@
 {
   "kind": "w2bud_runs",
-  "world": "W2-bud-d2 (репликация, N=3)",
+  "world": "W2-bud (клеточное почкование); числа НЕ сопоставимы с W1 напрямую",
   "metric": {
     "cells_field": "summary.type_counts[\"T<tag>\"] — ЖИВЫЕ клетки линии на конец прогона (проверено: sum(type_counts) == final.alive_cells на 20/20 артефактах)",
     "tags_ge2": "#{t : type_counts[t] >= 2}",
@@ -42,7 +42,8 @@
       "manipulation_n": 44,
       "rho_trait_cell_steps": -0.8,
       "rho_trait_energy_per_cell_time": -0.2,
-      "rho_partial_energy": -0.4,
+      "rho_partial_energy": -0.802,
+      "rho_partial_energy_hybrid": -0.4,
       "rho_trait_invest_intensity": 1.0,
       "derived_by_construction": {
         "manipulation_rho_per_step": true,
@@ -89,7 +90,8 @@
       "manipulation_n": 41,
       "rho_trait_cell_steps": -0.6,
       "rho_trait_energy_per_cell_time": 0.143,
-      "rho_partial_energy": -0.657,
+      "rho_partial_energy": -0.648,
+      "rho_partial_energy_hybrid": -0.657,
       "rho_trait_invest_intensity": 1.0,
       "derived_by_construction": {
         "manipulation_rho_per_step": true,
@@ -137,6 +139,7 @@
       "rho_trait_cell_steps": 0.2,
       "rho_trait_energy_per_cell_time": -1.0,
       "rho_partial_energy": null,
+      "rho_partial_energy_hybrid": null,
       "rho_trait_invest_intensity": 1.0,
       "derived_by_construction": {
         "manipulation_rho_per_step": true,
@@ -184,6 +187,7 @@
       "rho_trait_cell_steps": null,
       "rho_trait_energy_per_cell_time": null,
       "rho_partial_energy": null,
+      "rho_partial_energy_hybrid": null,
       "rho_trait_invest_intensity": null,
       "derived_by_construction": {
         "manipulation_rho_per_step": true,
@@ -230,7 +234,8 @@
       "manipulation_n": 46,
       "rho_trait_cell_steps": 0.2,
       "rho_trait_energy_per_cell_time": 0.4,
-      "rho_partial_energy": -0.4,
+      "rho_partial_energy": -0.218,
+      "rho_partial_energy_hybrid": -0.4,
       "rho_trait_invest_intensity": 0.8,
       "derived_by_construction": {
         "manipulation_rho_per_step": true,
@@ -278,6 +283,7 @@
       "rho_trait_cell_steps": -0.5,
       "rho_trait_energy_per_cell_time": -0.5,
       "rho_partial_energy": null,
+      "rho_partial_energy_hybrid": null,
       "rho_trait_invest_intensity": 1.0,
       "derived_by_construction": {
         "manipulation_rho_per_step": true,
@@ -324,7 +330,8 @@
       "manipulation_n": 47,
       "rho_trait_cell_steps": -0.9,
       "rho_trait_energy_per_cell_time": -0.4,
-      "rho_partial_energy": -0.9,
+      "rho_partial_energy": -0.947,
+      "rho_partial_energy_hybrid": -0.9,
       "rho_trait_invest_intensity": 1.0,
       "derived_by_construction": {
         "manipulation_rho_per_step": true,
@@ -371,7 +378,8 @@
       "manipulation_n": 49,
       "rho_trait_cell_steps": 0.0,
       "rho_trait_energy_per_cell_time": 0.143,
-      "rho_partial_energy": -0.75,
+      "rho_partial_energy": -0.286,
+      "rho_partial_energy_hybrid": -0.75,
       "rho_trait_invest_intensity": 0.857,
       "derived_by_construction": {
         "manipulation_rho_per_step": true,
@@ -418,7 +426,8 @@
       "manipulation_n": 51,
       "rho_trait_cell_steps": -0.69,
       "rho_trait_energy_per_cell_time": -0.071,
-      "rho_partial_energy": -0.762,
+      "rho_partial_energy": -0.732,
+      "rho_partial_energy_hybrid": -0.762,
       "rho_trait_invest_intensity": 0.976,
       "derived_by_construction": {
         "manipulation_rho_per_step": true,
@@ -466,6 +475,7 @@
       "rho_trait_cell_steps": null,
       "rho_trait_energy_per_cell_time": null,
       "rho_partial_energy": null,
+      "rho_partial_energy_hybrid": null,
       "rho_trait_invest_intensity": null,
       "derived_by_construction": {
         "manipulation_rho_per_step": true,
@@ -517,7 +527,7 @@
       "rho_trait_cell_steps_median": -0.55,
       "rho_trait_cell_steps_negative_k": 5,
       "rho_trait_energy_per_cell_time_median": -0.136,
-      "rho_partial_energy_median": -0.704,
+      "rho_partial_energy_median": -0.69,
       "rho_partial_energy_negative_k": 6,
       "rho_partial_energy_positive_k": 0,
       "rho_partial_energy_n": 6,
