@@ -325,7 +325,10 @@ def run_task(task: dict) -> Path:
         # (рабочая копия Windows — CRLF, блоб в git — LF), поэтому один и тот же код
         # давал разные хеши, и связать результат с коммитом было нельзя без догадки.
         # Теперь пишем то, что не зависит от платформы: коммит и признак «файл грязный».
-        "git_commit": _git(["rev-parse", "--short", "HEAD"]),
+        # провенанс по КОММИТУ СКРИПТА, а не по HEAD: HEAD меняется восемь раз в сутки
+        # от чужих правок и создаёт шум, ничего не говоря о коде (замечание библиотекаря 26.10)
+        "script_commit": _git(["log", "-1", "--format=%h", "--", "scripts/analysis_task.py"]),
+        "repo_commit": _git(["rev-parse", "--short", "HEAD"]),
         "script_dirty": bool(_git(["status", "--porcelain", "scripts/analysis_task.py"])),
         # Хеш именно той функции, которая считала: иначе любая правка скрипта
         # «переписывает» провенанс всех старых результатов (замечание библиотекаря 26.10).
@@ -343,6 +346,7 @@ def main(argv: list[str]) -> int:
     ap.add_argument("--run", metavar="ID", help="выполнить задачу")
     ap.add_argument("--limit", type=int, default=0, help="сколько pending печатать")
     ap.add_argument("--dry", action="store_true", help="не писать результат")
+    ap.add_argument("--allow-dirty", action="store_true", help="разрешить публикацию при изменённом скрипте")
     ap.add_argument("--mark-done", action="store_true", help="пометить выполненной (по умолчанию да)")
     args = ap.parse_args(argv)
 
@@ -378,6 +382,11 @@ def main(argv: list[str]) -> int:
         print(f"[analysis] задача {args.run}: kind={kind}, spec={json.dumps(task.get('spec') or {}, ensure_ascii=False)[:120]}")
         return 0 if kind in TASKS else 1
 
+    dirty = bool(_git(["status", "--porcelain", "scripts/analysis_task.py"]))
+    if dirty and not args.allow_dirty:
+        print("[analysis] ОТКАЗ: скрипт изменён в рабочей копии, провенанс невалиден. "
+              "Закоммитьте scripts/analysis_task.py или запустите с --allow-dirty (результат будет помечен).")
+        return 1
     out = run_task(task)
     if args.mark_done:
         task["status"] = "done"
