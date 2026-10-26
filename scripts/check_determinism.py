@@ -26,6 +26,11 @@ import sys
 from pathlib import Path
 
 IGNORE_KEYS = {"wall_seconds"}
+# Три категории полей с хешами (26.10, после ложного срабатывания на git_code_commit):
+#   1) хеши КОММИТОВ (config.git_commit, config.git_code_commit) — всегда различны между прогонами
+#      разных версий кода и НЕ являются расхождением => игнорируются;
+#   2) rule_sha256 — хеш файла правила; ДОЛЖЕН совпадать, если правило не менялось => сравнивается строго;
+#   3) script_sha256_eol_dependent — зависит от CRLF/LF => сравнивается с оговоркой, не провал.
 IGNORE_PREFIXES = ("config.git_commit", "config.git_code_commit")   # метаданные коммита, не физика
 
 
