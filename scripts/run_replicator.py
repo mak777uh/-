@@ -27,6 +27,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+EXPOSURE_GATE = 50          # репликатор-шагов; см. пре-регистрацию (гейт экспозиции)
 
 
 @dataclass
@@ -54,7 +55,8 @@ class World:
 
     def __init__(self, k: int = 1, units: int = 60, seed: int = 1, steps: int = 400,
                  split_threshold: float = 4.0, split_cost: float = 0.5,
-                 upkeep: float = 0.30, resource_inflow: float = 40.0,
+                 upkeep: float = 0.30, supply_per_replicator: float = 0.30,
+                 target_replicators: int = 600,
                  mutation_sigma: float = 0.05, trait_effect: float = 1.0,
                  max_units: int = 4000) -> None:
         self.rng = random.Random(seed)
@@ -63,7 +65,11 @@ class World:
         self.e_star = split_threshold        # порог НА РЕПЛИКАТОР
         self.split_cost = split_cost
         self.upkeep = upkeep
-        self.inflow = resource_inflow
+        # хемостат: подача на репликатор зависит от плотности (N_target), но НЕ от k.
+        # при N = target: доход = upkeep*(1+0.1*trait) => единицы с высоким признаком накапливают,
+        # с низким теряют. Это и есть отбор, и он одинаково доступен при любом k.
+        self.supply = supply_per_replicator
+        self.target = target_replicators
         self.sigma = mutation_sigma
         self.trait_effect = trait_effect
         self.max_units = max_units
@@ -82,19 +88,13 @@ class World:
 
     # ---------- шаг ----------
     def step(self) -> None:
-        self.pool += self.inflow
-        # 1) потребление: спрос зависит от признака, делим пул пропорционально спросу
-        demand = []
+        # 1) потребление: подача НА РЕПЛИКАТОР (хемостат), признак даёт множитель
+        n_rep = sum(len(u.members) for u in self.units) or 1
+        dilution = min(1.0, self.target / n_rep)
         for unit in self.units:
-            trait = unit.mean_trait
-            demand.append(len(unit.members) * max(0.0, 1.0 + self.trait_effect * 0.1 * trait))
-        total = sum(demand) or 1.0
-        give = min(self.pool, total)
-        self.pool -= give
-        for unit, d in zip(self.units, demand):
-            per = (give * d / total) / len(unit.members)
             for m in unit.members:
-                m.energy += per
+                m.energy += (self.supply * dilution
+                             * max(0.0, 1.0 + self.trait_effect * 0.1 * m.trait))
         # 2) трата
         for unit in self.units:
             for m in unit.members:
@@ -138,8 +138,10 @@ class World:
 
     # ---------- статистика ----------
     def summary(self) -> dict:
+        # гейт экспозиции (аналог «>=5 клеток» в W2-bud): линия входит в I, только если
+        # её экспозиция >= EXPOSURE_GATE репликатор-шагов
         tags = [t for t in self.divisions_by_tag
-                if self.exposure_by_tag.get(t, 0.0) > 0]
+                if self.exposure_by_tag.get(t, 0.0) >= EXPOSURE_GATE]
         w = []
         for t in tags:
             exp = self.exposure_by_tag[t]
@@ -151,11 +153,17 @@ class World:
             "k": self.k,
             "steps": self.steps,
             "units_final": live,
+            "replicators_target": self.target,
             "replicators_final": sum(len(u.members) for u in self.units),
             "lineages_with_data": len(lineages),
+            "lineages_after_gate": len(tags),
+            "exposure_gate": EXPOSURE_GATE,
             "tags_total": len(tags),
             "share_above_threshold": round(self.above_threshold_steps / self.unit_steps_total, 4)
             if self.unit_steps_total else None,
+            "share_units_divided": round(
+                sum(1 for t in self.divisions_by_tag if self.divisions_by_tag[t] > 0)
+                / max(1, len(self.divisions_by_tag)), 4),
             "divisions_total": sum(self.divisions_by_tag.values()),
             "exposure_total": round(sum(self.exposure_by_tag.values()), 3),
             "mean_trait_final": round(statistics.mean([u.mean_trait for u in self.units]), 4)
