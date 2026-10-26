@@ -16,46 +16,50 @@
     {
       "id": "ci_p_invasion_keep_patches",
       "kind": "proportion",
-      "status": "pending",
+      "status": "done",
       "question": "Интервал для доли выживших при инвазии: keep, patches, 20 клеток",
       "spec": {
         "k": 10,
         "n": 10,
         "bootstrap": 20000
-      }
+      },
+      "done_at": "40249579052"
     },
     {
       "id": "ci_p_invasion_majority",
       "kind": "proportion",
-      "status": "pending",
+      "status": "done",
       "question": "Интервал для нулевой доли: majority, оба layout (0/10)",
       "spec": {
         "k": 0,
         "n": 10,
         "bootstrap": 20000
-      }
+      },
+      "done_at": "40249579052"
     },
     {
       "id": "ci_p_invasion_dose5",
       "kind": "proportion",
-      "status": "pending",
+      "status": "done",
       "question": "Интервал для дозы 5 (mergekeep keep): 2/10",
       "spec": {
         "k": 2,
         "n": 10,
         "bootstrap": 20000
-      }
+      },
+      "done_at": "40249579052"
     },
     {
       "id": "ci_p_selection_replication",
       "kind": "proportion",
-      "status": "pending",
+      "status": "done",
       "question": "Интервал для I > null на новых сидах: 9/10 (uniform)",
       "spec": {
         "k": 9,
         "n": 10,
         "bootstrap": 20000
-      }
+      },
+      "done_at": "40249579052"
     },
     {
       "id": "whale_w2bud3",
@@ -71,24 +75,26 @@
     {
       "id": "recompute_i_w2bud3",
       "kind": "recompute_i",
-      "status": "pending",
+      "status": "done",
       "question": "Независимый пересчёт I_obs, I_null(95 %), медиан и числа сидов выше нуля",
       "spec": {
         "glob": "w2bud3/w2bud3_cell_seed*.json",
         "min_cells": 5,
         "draws": 2000
-      }
+      },
+      "done_at": "40249579052"
     },
     {
       "id": "recompute_i_w2budd2",
       "kind": "recompute_i",
-      "status": "pending",
+      "status": "done",
       "question": "То же для мира W2-bud-d2 (N=3 бутона на компоненту)",
       "spec": {
         "glob": "w2budd2/w2budd2_cell_seed*.json",
         "min_cells": 5,
         "draws": 2000
-      }
+      },
+      "done_at": "40249579052"
     },
     {
       "id": "power_lines_price",

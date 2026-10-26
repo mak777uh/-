@@ -1,0 +1,30 @@
+{
+  "kind": "proportion",
+  "task": "ci_p_selection_replication",
+  "question": "Интервал для I > null на новых сидах: 9/10 (uniform)",
+  "spec": {
+    "k": 9,
+    "n": 10,
+    "bootstrap": 20000
+  },
+  "result": {
+    "k": 9,
+    "n": 10,
+    "p": 0.9,
+    "wilson95": [
+      0.5958,
+      0.9821
+    ],
+    "bootstrap95": [
+      0.7,
+      1.0
+    ],
+    "bootstrap_draws": 20000,
+    "note": ""
+  },
+  "script_commit": "b0e96d0",
+  "repo_commit": "b0e96d0",
+  "script_dirty": false,
+  "task_fn_sha256": "4794f11c3a69078f",
+  "script_sha256_eol_dependent": "2e8412ccf86274b1"
+}

@@ -1,0 +1,30 @@
+{
+  "kind": "proportion",
+  "task": "ci_p_invasion_keep_patches",
+  "question": "Интервал для доли выживших при инвазии: keep, patches, 20 клеток",
+  "spec": {
+    "k": 10,
+    "n": 10,
+    "bootstrap": 20000
+  },
+  "result": {
+    "k": 10,
+    "n": 10,
+    "p": 1.0,
+    "wilson95": [
+      0.7225,
+      1.0
+    ],
+    "bootstrap95": [
+      1.0,
+      1.0
+    ],
+    "bootstrap_draws": 20000,
+    "note": "граница диапазона: bootstrap вырожден, использовать Уилсона"
+  },
+  "script_commit": "b0e96d0",
+  "repo_commit": "b0e96d0",
+  "script_dirty": false,
+  "task_fn_sha256": "4794f11c3a69078f",
+  "script_sha256_eol_dependent": "2e8412ccf86274b1"
+}
