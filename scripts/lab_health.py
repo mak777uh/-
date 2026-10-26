@@ -45,6 +45,8 @@ GATES = [
     ("реестр величин", ["scripts/metrics_registry.py", "--check"], True, False),
     ("агрегаты свежие", ["scripts/check_aggregates_fresh.py"], True, True),
     ("агрегаты не пустые", ["scripts/check_empty_aggregates.py"], True, False),
+    # пока агрегатор метрики не исправлен — предупреждение, а не блокер
+    ("реализация метрик = определение", ["scripts/check_metric_definitions.py"], False, True),
     ("схема карточек", ["scripts/validate_runs.py"], True, False),
     ("ревью", ["scripts/check_reviews.py"], True, False),
     ("замечания библиотеки", ["scripts/library_inbox.py", "--ci"], True, False),
