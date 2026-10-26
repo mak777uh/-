@@ -48,7 +48,7 @@ SELF_CONTAINED = {
 }
 
 
-def check_row(row: dict, strict: bool, self_contained: bool = False) -> tuple[list[str], list[str]]:
+def check_row(row: dict, strict: bool, self_contained: bool = False, external_declared: bool = False) -> tuple[list[str], list[str]]:
     """Возвращает (ошибки, предупреждения) для одной строки."""
     errors: list[str] = []
     warns: list[str] = []
@@ -82,9 +82,21 @@ def check_row(row: dict, strict: bool, self_contained: bool = False) -> tuple[li
         if strict:
             errors.append("нет поля artifact")
         return errors, warns
+    # ВАЖНО: никакого поиска в ROOT.parent. Раньше был фолбэк `ROOT.parent / rel`,
+    # и проверка «проходила» только потому, что на машине ведущего рядом с репозиторием
+    # лежит `_hourly/` с результатами старых проб. В CI этого каталога нет — и тот же
+    # агрегат давал 425 ошибок. Проверка не должна зависеть от раскладки чужих каталогов.
+    # Пути в старых агрегатах бывают с обратными слэшами (Windows) — нормализуем перед проверкой,
+    # иначе `_hourly\polish\...` не распознаётся как внешний и падает в «не найден».
+    rel_norm = str(rel).replace("\\", "/")
+    external = rel_norm.startswith(("_hourly/", "../", "/")) or (len(rel_norm) > 1 and rel_norm[1] == ":")
+    if external:
+        declared = bool(external_declared)
+        (warns if declared else errors).append(
+            f"артефакт вне репозитория: {rel}"
+            + ("" if declared else " — объявите `provenance_external` в агрегате или положите артефакт в git"))
+        return errors, warns
     art = ROOT / rel
-    if not art.is_file():
-        art = ROOT.parent / rel
     if not art.is_file():
         (errors if strict else warns).append(f"артефакт не найден: {rel}")
         return errors, warns
@@ -327,8 +339,10 @@ def check_file(path: Path, strict: bool = False) -> tuple[list[str], list[str]]:
     if payload.get("kind") == "aggregate_medians":
         return [f"{path.name}{e}" for e in check_medians(rows)], warns
     self_contained = payload.get("kind") in SELF_CONTAINED
+    external_declared = bool(payload.get("provenance_external"))
     for i, row in enumerate(rows):
-        errs, ws = check_row(row, strict, self_contained=self_contained)
+        errs, ws = check_row(row, strict, self_contained=self_contained,
+                             external_declared=external_declared)
         errors += [f"{path.name}[{i}]: {e}" for e in errs]
         warns += [f"{path.name}[{i}]: {w}" for w in ws]
     return errors, warns
