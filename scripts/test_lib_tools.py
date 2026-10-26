@@ -390,6 +390,19 @@ def test_science_digest(tmp: Path) -> None:
     check("science_digest: код 0", res.returncode == 0, str(res.returncode))
 
 
+def test_topic_lit(tmp: Path) -> None:
+    res = run("library/tools/topic_lit.py", "--dry", "--per-topic", "1")
+    check("topic_lit: строит сводку по темам", "# Литература под тему" in res.stdout,
+          res.stdout[:300] + res.stderr[:200])
+    check("topic_lit: есть раздел «к чему обязывает»", "К чему обязывает" in res.stdout,
+          res.stdout[:300])
+    check("topic_lit: есть черновик комментария главному",
+          "Комментарий главному" in res.stdout, res.stdout[:300])
+    check("topic_lit: не тащит peer-review артефакты",
+          ".sa0" not in res.stdout and "Reviewer #" not in res.stdout, res.stdout[:400])
+    check("topic_lit: код 0", res.returncode == 0, str(res.returncode))
+
+
 def main() -> int:
     with tempfile.TemporaryDirectory() as tdir:
         tmp = Path(tdir)
@@ -421,6 +434,8 @@ def main() -> int:
         test_i_null(tmp)
         print("== science digest ==")
         test_science_digest(tmp)
+        print("== topic lit ==")
+        test_topic_lit(tmp)
     print(f"\nпровалено: {len(FAILED)}")
     return 1 if FAILED else 0
 

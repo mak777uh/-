@@ -10,8 +10,7 @@
 
 ## Наследие среды: полураспад и нормировка на поколение  `legacy-half-life` (current)
 где у нас: `library/conditions.md#условие-c`, `library/reviews/legacy-prior-art.md`
-- **Reviewers 2025**,  — «Sterelny, Cultural Evolution, Niche Construction, and Ecological Inheritance»  
-  DOI `10.59350/dwyxw-9q594`; статья; релевантность 4; абстракт: Correspondence from Richard Moore and Claudio Tennie on Kim Sterenly’s ‘Cultural Evolution, Niche Construction, and Ecological Inheritance’…
+- не нашлось работ выше порога: отброшены артефакты, препринты дублей, нет абстракта, не прошёл доменный фильтр или релевантность < порога
 **К чему обязывает:** Проверить единицы (шаги против поколений) и не выдаётся ли «переживание поколения» за выгоду для следующей когорты.
 
 ## Возможность отбора: I Кроу и нуль-модели  `selection-opportunity` (current)

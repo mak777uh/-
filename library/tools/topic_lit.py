@@ -60,7 +60,10 @@ def norm_title(t: str) -> str:
 
 def known_dois() -> set[str]:
     dois: set[str] = set()
+    skip = ("topic-digest-", "science-review-")
     for path in LIB.rglob("*.md"):
+        if path.name.startswith(skip):
+            continue  # сводки не источники
         try:
             text = path.read_text(encoding="utf-8", errors="replace")
         except Exception:
@@ -162,6 +165,7 @@ def main(argv: list[str] | None = None) -> int:
     lines = [f"# Литература под тему — {args.date}", "",
              "Темы: " + ", ".join(f"{t['ru']} ({t['status']})" for t in topics), ""]
     written = 0
+    picked_all: list[dict] = []
     for topic in topics:
         lines.append(f"## {topic['ru']}  `{topic['id']}` ({topic['status']})")
         if topic.get("links"):
@@ -190,16 +194,16 @@ def main(argv: list[str] | None = None) -> int:
                 if cand["doi"].startswith("10.1101/") or cand["doi"].startswith("10.20944/"):
                     penalty += 1
                     cand["preprint"] = True
-                if re.search(r"correspondence|comment on|reply to|response to",
-                             (cand.get("title") or "").lower()):
-                    penalty += 3
-                    cand["comment_piece"] = True
+                head = ((abs_ or "")[:220] + " " + (cand.get("title") or "")).lower()
+                if re.search(r"correspondence|comment on|reply to|response to|erratum", head):
+                    continue  # не исследовательская работа — как источник не годится
                 score = base - penalty
                 if score < int(topic.get("min_score", 3)):
                     continue
                 cand["abstract"] = abs_[:600]
                 cand["score"] = score
                 picked.append(cand)
+                picked_all.append(cand)
                 if len(picked) >= args.per_topic:
                     break
             if len(picked) >= args.per_topic:
@@ -226,7 +230,10 @@ def main(argv: list[str] | None = None) -> int:
         return 0
     out = LIB / f"topic-digest-{args.date}.md"
     out.write_text(text, encoding="utf-8", newline="\n")
-    state["seen"] = sorted(seen | {c for c in have if c})[-400:]
+    # храним только УЖЕ ПРЕДЛОЖЕННЫЕ работы; библиотечные DOI восстанавливаются сканом,
+    # иначе state навсегда блокирует поиск (замечание себе: дедуп ≠ «всё видел»)
+    proposed = {c["doi"] for c in picked_all}
+    state["seen"] = sorted(seen | proposed)[-400:]
     STATE.write_text(json.dumps(state, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(f"темы: {len(topics)} | новых работ: {written} -> {out.relative_to(REPO)}")
     return 0
