@@ -218,12 +218,56 @@ def section_resources() -> tuple[list[str], list[str], str]:
     return bad, warn, f"диск: {free_gb:.1f} ГБ свободно; замков: {len(locks)}"
 
 
+
+
+def _write_ci_status() -> None:
+    """Записать статус последних запусков через публичный API.
+
+    Почему здесь, а не отдельным workflow: коммит статуса из Actions гоняется с основным
+    потоком пушей (20+ коммитов в час) и стабильно падает на non-fast-forward. Наш цикл
+    запускается раз в 15 минут и пишет файл спокойно, без гонки.
+    """
+    bad, warn, text = section_github()
+    repo = None
+    m = re.search(r"github\.com[:/]([^/]+)/([^/.]+?)(?:\.git)?$", git(["remote", "get-url", "origin"]))
+    if m:
+        repo = f"{m.group(1)}/{m.group(2)}"
+    runs = {}
+    try:
+        req = urllib.request.Request(
+            f"https://api.github.com/repos/{repo}/actions/runs?per_page=40",
+            headers={"Accept": "application/vnd.github+json", "User-Agent": "lab-health"})
+        with urllib.request.urlopen(req, timeout=30) as resp:
+            data = json.loads(resp.read().decode())
+        for run in data.get("workflow_runs", []):
+            name = run.get("name") or "?"
+            if name in runs:
+                continue
+            runs[name] = {
+                "conclusion": run.get("conclusion") or run.get("status"),
+                "url": run.get("html_url"),
+                "head": (run.get("head_sha") or "")[:8],
+                "at": run.get("created_at"),
+            }
+    except Exception as exc:
+        print(f"[health] статус CI не записан: {str(exc)[:80]}")
+        return
+    out = ROOT / "reports" / "ci-status.json"
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(json.dumps({"updated": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+                               "source": "lab_health --write-ci-status (публичный API)",
+                               "runs": runs}, ensure_ascii=False, indent=2) + "\n",
+                   encoding="utf-8", newline="\n")
+    print(f"[health] статус CI записан: {out.relative_to(ROOT)} ({len(runs)} workflow)")
+
 def main(argv: list[str]) -> int:
     ap = argparse.ArgumentParser(description="здоровье лаборатории одной командой")
     ap.add_argument("--full", action="store_true", help="включая тяжёлые гейты")
     ap.add_argument("--github", action="store_true", help="проверить запуски CI (публичный API)")
     ap.add_argument("--ci", action="store_true", help="режим CI: без сети, только гейты")
     ap.add_argument("--quiet", action="store_true", help="только проблемы")
+    ap.add_argument("--write-ci-status", action="store_true",
+                    help="записать статус CI в reports/ci-status.json (нужен сетевой доступ)")
     args = ap.parse_args(argv)
 
     blockers: list[str] = []
@@ -235,6 +279,8 @@ def main(argv: list[str]) -> int:
         gh_bad, gh_warn, gh_text = section_ci_file()
         blockers += gh_bad; warnings += gh_warn
         lines.append(f"CI (по reports/ci-status.json): {gh_text}")
+        if args.write_ci_status:
+            _write_ci_status()
         if args.github:  # живой API: свежее файла, но нужен при молчащем workflow
             api_bad, api_warn, api_text = section_github()
             if api_bad or api_warn:
