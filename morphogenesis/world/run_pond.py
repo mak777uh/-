@@ -18,6 +18,16 @@ from __future__ import annotations
 import argparse
 import random
 import json
+import sys as _sys
+
+
+def _safe_print(*pargs, **pkwargs):
+    """26.10: печать не должна убивать прогон — запись в закрытый пайп на Windows даёт
+    OSError [Errno 22], и раньше это падало ПОСЛЕ расчёта, но ДО записи артефакта."""
+    try:
+        print(*pargs, **pkwargs)
+    except OSError:
+        pass
 import os
 import math
 import statistics
@@ -302,7 +312,7 @@ class PondRun:
             payload = torch.load(rule_checkpoint, map_location=self.device, weights_only=False)
             state_dict = payload.get("model_state_dict", payload)
             self.rule.load_state_dict(state_dict)
-            print(f"[pond] правило загружено: {rule_checkpoint}")
+            _safe_print(f"[pond] правило загружено: {rule_checkpoint}")
         n = self.world_cfg.grid
         c = self.rule_cfg.channels
         k = self.rule_cfg.genome_dim
@@ -889,10 +899,10 @@ def main(argv: list[str] | None = None) -> int:
             "final": {"alive_cells": 0, "born": 0, "died": 0},
             "pop_time": 0,
         }
-        print(json.dumps(summary, ensure_ascii=False, indent=2))
         if args.out:
             with open(args.out, "w", encoding="utf-8") as fh:
                 json.dump({"summary": summary, "log": []}, fh, ensure_ascii=False, indent=2)
+        _safe_print(json.dumps(summary, ensure_ascii=False, indent=2))
         return 0
     run.seed(cells=int(args.start_cells), energy=8.0)
     summary = run.run(args.steps, log_every=max(1, args.steps // 10))
@@ -1006,7 +1016,10 @@ def main(argv: list[str] | None = None) -> int:
         wcel = run.pond.state.w_cell[run.pond.state.alive]
         summary["w_cell_mean"] = float(wcel.mean())
         summary["w_cell_std"] = float(wcel.std())
-    print(json.dumps(summary, ensure_ascii=False, indent=2))
+    if args.out:
+        with open(args.out, "w", encoding="utf-8") as fh:
+            json.dump({"summary": summary, "log": run.log}, fh, ensure_ascii=False, indent=2)
+    _safe_print(json.dumps(summary, ensure_ascii=False, indent=2))
     if args.snapshots_out and run.snapshots:
         import numpy as _np
         _np.savez_compressed(
@@ -1015,10 +1028,7 @@ def main(argv: list[str] | None = None) -> int:
             alive=_np.array([s["alive"] for s in run.snapshots]),
             energy=_np.array([s["energy"] for s in run.snapshots]),
         )
-        print(f"[pond] снимков сохранено: {len(run.snapshots)} -> {args.snapshots_out}")
-    if args.out:
-        with open(args.out, "w", encoding="utf-8") as fh:
-            json.dump({"summary": summary, "log": run.log}, fh, ensure_ascii=False, indent=2)
+        _safe_print(f"[pond] снимков сохранено: {len(run.snapshots)} -> {args.snapshots_out}")
     return 0
 
 
