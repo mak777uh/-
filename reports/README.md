@@ -247,3 +247,4 @@ python scripts/lab.py validate   # контракт registry/state/runs/journal
 | [`health.md`](health.md) | здоровье контура: гейты, CI, очереди, серии, ресурсы | `scripts/lab_health.py` |
 | [`farm-latest.md`](farm-latest.md) | последние результаты CPU-фермы на GitHub Actions | `scripts/farm_reader.py` |
 | [`ci-status.json`](ci-status.json) | статус прогонов CI и имена упавших шагов | workflow `ci-status.yml` |
+| 2026-10-26 | [H-ALIVE-44 / W2-bud-d2: репликация](2026-10-26-w2budd2-replication-plan.md) | план | внутрисидово механизм воспроизведён: `N=3` даёт больше линий в **8/10** сидов (4.0 против 2.5), `I_ratio` 50.12 против 14.23, `I > null` 10/10 в обоих плечах; **количественный вердикт по цене не воспроизведён** (`valid_n` 4/10 < 8/10) — вердикт был свойством сидов разработки; качественно знак отрицателен во всех 24 вариантах метрики на обоих плечах |
