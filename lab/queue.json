@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-26T16:35:00",
+  "updated_at": "2026-10-26T17:20:00",
   "note": "Очередь пунктов после E02c. Claim берётся до пре-регистрации, а не перед запуском: lab.py item-claim. Статус running означает занятый GPU-лейн и может быть только у одного пункта. | 25.10: добавлено поле impact (1-5) — приоритет конвейера = impact/max(cost_gpu_h,0.1); для запуска пункту нужны prereg (закоммиченный план) и launch.command+outdir.",
   "items": [
     {
@@ -1143,11 +1143,11 @@
       "id": "W2bud_pair_any_tag",
       "title": "pair_any_tag: механизм пары — родство внутри единицы, а не размер",
       "hypothesis": "H-ALIVE-49",
-      "status": "planned",
-      "owner": null,
+      "status": "closed",
+      "owner": "scientist",
       "claimed_at": null,
       "heartbeat_at": null,
-      "closed_at": null,
+      "closed_at": "2026-10-26T17:20:00",
       "ttl_minutes": 240,
       "cost_gpu_h": 0.45,
       "impact": 5,
@@ -1160,8 +1160,12 @@
         "command": "pwsh -NoProfile -ExecutionPolicy Bypass -File _hourly/run_pairany_sweep.ps1",
         "outdir": "morphogenesis/experiments/E09_pond/w2bud_pairany"
       },
-      "artifacts": [],
-      "note": "после агрегата pair (10 сидов): предсказание I > null в >=7/10, линии >=4, дегенерация <30; если 0 — дело в размере (порог = одна клетка)"
+      "artifacts": [
+        "morphogenesis/experiments/E09_pond/w2bud_pairany_matrix.json",
+        "docs/world-design.md"
+      ],
+      "note": "после агрегата pair (10 сидов): предсказание I > null в >=7/10, линии >=4, дегенерация <30; если 0 — дело в размере (порог = одна клетка) ЗАКРЫТО 26.10: гипотеза родства ОПРОВЕРГНУТА — вырожденных пар 0 против 71-112, меток 16-51, но линий с данными 1, I_obs > null 1/10, valid_n = 0 (не оценивается); решает размер единицы, топ-1 0.925. §10ba; eliminations.",
+      "closed_by": "scientist"
     }
   ]
 }
