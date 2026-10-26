@@ -87,10 +87,13 @@ jobs:
         run: |
           git config user.name "ci-status"
           git config user.email "actions@users.noreply.github.com"
+          # main за это время уезжает: статус пишется ДО rebase и падал на non-fast-forward
+          git fetch origin main
+          git rebase origin/main || { echo "rebase не удался — оставляю статус в артефакте"; exit 0; }
           git add reports/ci-status.json
           if git diff --cached --quiet; then
             echo "статус не изменился"
           else
             git commit -m "ci-status: ${{ github.event.workflow_run.name }} → ${{ github.event.workflow_run.conclusion }} [skip ci]"
-            git push
+            git push && echo "статус записан"
           fi
