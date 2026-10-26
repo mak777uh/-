@@ -344,7 +344,7 @@ def analyse(path: Path) -> dict | None:
 
 def by_arm(rows: list[dict]) -> list[dict]:
     out = []
-    for arm in ("colony", "cell"):
+    for arm in ("colony", "cell", "pair"):   # 26.10: pair — третья единица размножения
         group = [r for r in rows if r["arm"] == arm]
         if not group:
             continue
