@@ -179,6 +179,8 @@ Statuses and ids are validated against `lab/registry.json` by `python scripts/la
 
 ## 10. Citing and contacting
 
+**Preprint.** A standalone preprint summarising this stage is archived at [10.5281/zenodo.23669738](https://doi.org/10.5281/zenodo.23669738) (concept DOI [10.5281/zenodo.23669737](https://doi.org/10.5281/zenodo.23669737); 14 pages, four figures, LaTeX source included; not peer reviewed).
+
 **Deposits.** The code, reports and journal are archived with a DOI
 ([10.5281/zenodo.23571610](https://doi.org/10.5281/zenodo.23571610); concept DOI
 [10.5281/zenodo.23571609](https://doi.org/10.5281/zenodo.23571609)). The canonical weights are

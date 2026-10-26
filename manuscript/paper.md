@@ -1098,6 +1098,12 @@ Waples & Reed 2023), поэтому исходный критерий `I > 0` б
 
 ## 8. Data and code
 
+**Препринт этапа:** [10.5281/zenodo.23669738](https://doi.org/10.5281/zenodo.23669738)
+(concept DOI [10.5281/zenodo.23669737](https://doi.org/10.5281/zenodo.23669737)) — 14 страниц,
+четыре фигуры, LaTeX-исходник в записи; **не рецензирован**. Это отдельный текст-сводка,
+а рукопись ниже — накопительная версия.
+
+
 Артефакты серии — `morphogenesis/experiments/E09_pond/` и `_hourly/polish/` (локально);
 реестр — `lab/registry.json`, запуски — `lab/runs/`. Код среды —
 `morphogenesis/world/`.
