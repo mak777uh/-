@@ -49,7 +49,10 @@ def _load_i_null():
     spec.loader.exec_module(module)
     return module
 
-NAME = re.compile(r"w2bud[a-z0-9]*_(?P<arm>colony|cell)_seed(?P<seed>\d+)\.json$")
+# Имена артефактов бывают составные: w2budd2_rep_n3_cell_seed101.json.
+# Старый шаблон [a-z0-9]* не пропускал подчёркивания, и такие файлы МОЛЧА
+# выпадали из агрегата: получался пустой агрегат с «invalid_by_data» (26.10).
+NAME = re.compile(r"w2bud[\w]*_(?P<arm>colony|cell)_seed(?P<seed>\d+)\.json$")
 MIN_CELLS = 5
 MIN_LINEAGES = 5
 
