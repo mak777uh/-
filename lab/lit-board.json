@@ -2932,6 +2932,37 @@
         "tasks": [],
         "reports": []
       }
+    },
+    {
+      "id": "B-084",
+      "type": "contradiction",
+      "target": {
+        "kind": "artifact",
+        "id": "article025_s6_stale",
+        "ref": "articles/025-chto-nuzhno-organizacii.md:148; docs/world-design.md:4170"
+      },
+      "statement": "Статья 025 §6 (L148) утверждает 'остаток исчез (1 сид из 3)' со значениями 0.862 против 0.841. Серия на 10 сидах (5ab192e, docs §10ay) даёт: legacy > adjacency_exact в 5 из 9 пригодных сидов, медиана разницы +0.014 (legacy 0.860, exact 0.847), знаковый тест p=0.38; порог пре-регистрации >=7/10 не достигнут => вердикт 'специфики точки смерти нет' НЕ заявляется. Предложение: заменить строку на 'остаток упал с +0.12 до +0.014, но вердикт не выносится (5/9, p=0.38)'. Дополнительно: указать у каждой строки §6 число сидов и назвать определение доли (offspring_in_prepared_k/prepared_cells_total).",
+      "evidence": [
+        {
+          "library": "answers.md#79",
+          "note": "внешний документ; 'остаток исчез' звучит как факт, а это 'тест не дотянулся'"
+        }
+      ],
+      "action": {
+        "kind": "text",
+        "detail": "заменить формулировку и добавить подписи"
+      },
+      "status": "new",
+      "wave": "current",
+      "owner": "librarian",
+      "created_at": "2026-10-26T15:42:35+03:00",
+      "decided_at": null,
+      "why": null,
+      "links": {
+        "insights": [],
+        "tasks": [],
+        "reports": []
+      }
     }
   ],
   "updated_at": "2026-10-25T05:15:00Z"
