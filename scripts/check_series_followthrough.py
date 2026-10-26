@@ -45,6 +45,23 @@ def _exempt() -> dict:
 
 EXEMPT = _exempt()
 
+# Серия, которая ЕЩЁ ИДЁТ, — не «забытая». Признаки: живой замок с её именем или
+# свежий артефакт (< RUNNING_MIN). Иначе гейт краснеет на каждой идущей серии и
+# превращается в фон, который перестают читать (26.10).
+RUNNING_MIN = 20
+LOCK_DIR = ROOT / "lab" / "locks"
+
+
+def _is_running(dirname: str, newest_mtime: float) -> bool:
+    """Серия идёт, если её последний артефакт свежий.
+
+    Замки не используем: имена замков содержат имена серий как подстроки
+    (`w2budd2_rep_n3_...` содержит `w2budd2`), и проверка по подстроке ложно
+    помечала давно закрытые серии идущими. Свежесть артефакта — однозначный признак.
+    """
+    import time
+    return (time.time() - newest_mtime) < RUNNING_MIN * 60
+
 
 def aggregates_for(dirname: str) -> list[Path]:
     """Агрегаты, которые покрывают эту серию.
@@ -91,7 +108,7 @@ def main(argv: list[str]) -> int:
         print(f"[followthrough] нет каталога {POND.relative_to(ROOT)}")
         return 0
 
-    problems, ok = [], []
+    problems, ok, running = [], [], []
     for d in sorted(p for p in POND.iterdir() if p.is_dir()):
         if d.name in SKIP_DIRS or d.name.startswith("_"):
             continue
@@ -99,6 +116,10 @@ def main(argv: list[str]) -> int:
         if not arts:
             continue
         newest_art = max(arts, key=lambda f: f.stat().st_mtime)
+        if _is_running(d.name, newest_art.stat().st_mtime):
+            ok.append(d.name)
+            running.append(d.name)
+            continue
         if d.name in EXEMPT:
             ok.append(d.name)
             continue
@@ -119,10 +140,13 @@ def main(argv: list[str]) -> int:
         else:
             ok.append(d.name)
 
+    if running and not args.json:
+        print(f"[followthrough] идёт прямо сейчас (не считается проблемой): {', '.join(running)}")
     if args.json:
         print(json.dumps({"problems": problems, "ok": ok}, ensure_ascii=False, indent=2))
     else:
-        print(f"[followthrough] серий с артефактами: {len(ok) + len(problems)}; в порядке: {len(ok)}")
+        print(f"[followthrough] серий с артефактами: {len(ok) + len(problems)}; "
+              f"в порядке: {len(ok) - len(running)}; идёт: {len(running)}")
         for p in problems:
             print(f"[followthrough] ВНИМАНИЕ: {p['series']} — {p['reason']} ({p['artifacts']} артефактов); {p['hint']}")
 

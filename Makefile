@@ -17,3 +17,8 @@ contract:
 
 repro:
 	$(PY) run_tests.py --quick
+
+# здоровье лаборатории одной командой: гейты + CI + очереди + серии + ресурсы
+health:
+	python scripts/lab_health.py --full --github
+

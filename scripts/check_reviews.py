@@ -99,9 +99,13 @@ def main() -> int:
             problems.append(f"index.json не читается: {exc}")
             data = {}
         if index_ok:
-            listed = {str(e.get("file") or "").replace("\\", "/") for e in data.get("reviews", [])}
-            missing = sorted(set(parsed) - listed)
-            extra = sorted(listed - set(parsed))
+            # сравниваем ПО ИМЕНИ файла: путь с обратными слэшами (Windows) или прямыми
+            # (Linux) — это не содержание, и гейт не должен от этого падать (падение в CI 26.10)
+            listed = {str(e.get("file") or "").replace("\\", "/").rsplit("/", 1)[-1]
+                      for e in data.get("reviews", [])}
+            parsed_names = {k.rsplit("/", 1)[-1] for k in parsed}
+            missing = sorted(parsed_names - listed)
+            extra = sorted(listed - parsed_names)
             if missing:
                 problems.append(f"index.json не содержит: {', '.join(missing)}")
             if extra:

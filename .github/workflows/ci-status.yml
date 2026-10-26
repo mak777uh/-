@@ -1,0 +1,96 @@
+name: ci-status
+
+# Зачем: `lab-contract` был красным ~24 часа, и никто этого не видел, потому что
+# статус живёт только в веб-интерфейсе GitHub. Здесь каждый завершённый прогон
+# записывает себя в репозиторий: `reports/ci-status.json`. Тогда «красное» приходит
+# в git как событие, а не как страница, которую никто не открывает.
+#
+# Правило 26.10: то, что не приходит событием, обязано приходить таймером или коммитом.
+
+on:
+  workflow_run:
+    workflows: ["lab-contract", "analysis-farm"]
+    types: [completed]
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  record:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 1
+
+      - name: Записать статус прогона
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RUN_ID: ${{ github.event.workflow_run.id }}
+          RUN_NAME: ${{ github.event.workflow_run.name }}
+          RUN_CONCLUSION: ${{ github.event.workflow_run.conclusion }}
+          RUN_URL: ${{ github.event.workflow_run.html_url }}
+          RUN_HEAD: ${{ github.event.workflow_run.head_sha }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import json, os, urllib.request
+          from datetime import datetime, timezone
+          from pathlib import Path
+
+          repo = os.environ["REPO"]; rid = os.environ["RUN_ID"]
+          out_path = Path("reports/ci-status.json")
+          data = {"updated": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"), "runs": {}}
+          if out_path.exists():
+              try:
+                  data = json.loads(out_path.read_text(encoding="utf-8"))
+              except Exception:
+                  pass
+
+          failed_steps = []
+          try:
+              req = urllib.request.Request(
+                  f"https://api.github.com/repos/{repo}/actions/runs/{rid}/jobs?per_page=50",
+                  headers={"Authorization": f"Bearer {os.environ['GH_TOKEN']}",
+                           "Accept": "application/vnd.github+json",
+                           "User-Agent": "ci-status"})
+              with urllib.request.urlopen(req, timeout=30) as resp:
+                  jobs = json.loads(resp.read().decode()).get("jobs", [])
+              for job in jobs:
+                  if job.get("conclusion") == "failure":
+                      for step in job.get("steps", []):
+                          if step.get("conclusion") == "failure":
+                              failed_steps.append(f"{job['name']} → {step['name']}")
+          except Exception as exc:
+              failed_steps.append(f"не удалось получить шаги: {str(exc)[:80]}")
+
+          data["runs"][os.environ["RUN_NAME"]] = {
+              "conclusion": os.environ["RUN_CONCLUSION"],
+              "url": os.environ["RUN_URL"],
+              "head": os.environ["RUN_HEAD"][:8],
+              "run_id": rid,
+              "at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+              "failed_steps": failed_steps,
+          }
+          out_path.parent.mkdir(parents=True, exist_ok=True)
+          out_path.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n",
+                              encoding="utf-8", newline="\n")
+          print(f"{os.environ['RUN_NAME']}: {os.environ['RUN_CONCLUSION']}; упавших шагов: {len(failed_steps)}")
+          for s in failed_steps:
+              print("  ✗", s)
+          PY
+
+      - name: Закоммитить статус
+        run: |
+          git config user.name "ci-status"
+          git config user.email "actions@users.noreply.github.com"
+          git add reports/ci-status.json
+          if git diff --cached --quiet; then
+            echo "статус не изменился"
+          else
+            git commit -m "ci-status: ${{ github.event.workflow_run.name }} → ${{ github.event.workflow_run.conclusion }} [skip ci]"
+            git push
+          fi
