@@ -51,6 +51,11 @@ jobs:
       - name: Pond canary (CPU)
         run: python scripts/ci_canary_pond.py
 
+      # Каждый артефакт прогона обязан входить в агрегат. Трижды за сутки
+      # шаблон имени в агрегаторе молча выбрасывал живые прогоны.
+      - name: Покрытие артефактов агрегатами
+        run: python scripts/check_aggregate_coverage.py --strict
+
       - name: CPU tests
         working-directory: morphogenesis
         env:
