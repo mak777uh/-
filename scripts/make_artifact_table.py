@@ -209,12 +209,33 @@ def replace_block(text: str, table: str) -> str:
     return pattern.sub(lambda _m: table, text)
 
 
+def _extract_block(text: str) -> str:
+    """Достать блок между маркерами START и END (без самих маркеров)."""
+    start = text.index(START) + len(START)
+    end = text.index(END)
+    return text[start:end].strip("\n")
+
+
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("--write", action="store_true", help="переписать manuscript/SUPPLEMENT.md")
+    ap.add_argument("--check", action="store_true",
+                    help="только проверить, что таблица в SUPPLEMENT.md актуальна (код 1, если отстала)")
     args = ap.parse_args(argv)
 
     table = render()
+    if args.check:
+        if not OUT.is_file():
+            print(f"[artifact-table] нет {OUT}")
+            return 1
+        current = _extract_block(OUT.read_text(encoding="utf-8"))
+        expected = _extract_block(table)
+        if current == expected:
+            print("[artifact-table] OK — таблица актуальна")
+            return 0
+        print("[artifact-table] ОШИБКА: таблица отстала от данных — "
+              "пересоберите: python scripts/make_artifact_table.py --write")
+        return 1
     if args.write:
         if not OUT.is_file():
             raise SystemExit(f"нет {OUT}: сначала создайте файл с маркерами")

@@ -228,6 +228,9 @@ jobs:
       - name: Агрегаты не пустые при живых данных
         run: python scripts/check_empty_aggregates.py --strict
 
+      - name: Таблица артефактов актуальна
+        run: python scripts/make_artifact_table.py --check
+
       - name: Aggregate-vs-artifact check
         run: python scripts/aggregate_check.py --strict
 
