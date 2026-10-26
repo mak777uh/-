@@ -106,6 +106,30 @@ def main(argv: list[str]) -> int:
             observed = sorted({v for f in fields if f in numbers for v in numbers[f]})[:6]
             problems.append(f"расхождение: {label} — в тексте {expected}, в агрегатах {observed}")
 
+    # 1б. знаменатели: если у плеча в агрегате invalid_by_data или valid_n == 0,
+    # «N/10» в тексте без явного valid_n читается как результат, а это неверно (AGENTS §3c).
+    invalid_arms: list[str] = []
+    for path in POND.rglob("*_matrix.json"):
+        try:
+            data = json.loads(path.read_text(encoding="utf-8"))
+        except Exception:
+            continue
+        if not (data.get("criteria") or {}).get("invalid_by_data"):
+            continue
+        for arm in data.get("by_arm") or []:
+            name = str(arm.get("arm"))
+            if name in {"cell", "pair", "colony"} and (arm.get("valid_n") or 0) == 0:
+                invalid_arms.append(f"{path.name}:{name}")
+    if invalid_arms:
+        ratio_mentions = len(re.findall(r"\b\d{1,2}\s*/\s*10\b", text))
+        has_valid = "valid_n" in text or "valid runs" in text
+        if not has_valid:
+            problems.append(
+                f"в агрегатах есть плечи без валидных прогонов ({len(invalid_arms)} шт.), "
+                f"в тексте {ratio_mentions} долей вида N/10, но нет ни одного 'valid_n'/'valid runs' — "
+                f"знаменатель не указан")
+        print(f"[draft-numbers] знаменатели: плеч с valid_n = 0 — {len(set(invalid_arms))}")
+
     # 2. запрещённые формулировки
     NEGATIONS = ("not ", "no ", "cannot", "neither", "never", "does not", "do not")
     for pattern, why in FORBIDDEN:
