@@ -216,6 +216,9 @@ jobs:
 
       # Агрегаты обязаны совпадать с первичными артефактами: две ошибки склейки
       # за сутки — системный риск, а не невнимательность.
+      - name: Агрегаты не пустые при живых данных
+        run: python scripts/check_empty_aggregates.py --strict
+
       - name: Aggregate-vs-artifact check
         run: python scripts/aggregate_check.py --strict
 
