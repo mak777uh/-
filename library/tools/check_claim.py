@@ -61,7 +61,10 @@ def homogeneity_note(artifact: Path) -> str | None:
         data = json.loads(reg.read_text(encoding="utf-8"))
     except Exception:
         return None
-    rel = str(artifact.parent.relative_to(REPO)).replace("\\", "/")
+    try:
+        rel = str(artifact.parent.relative_to(REPO)).replace("\\", "/")
+    except ValueError:
+        return None  # артефакт вне репозитория — реестр не применим
     for status, items in data.items():
         if not isinstance(items, dict) or status in ("note",):
             continue
