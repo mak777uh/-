@@ -89,9 +89,11 @@ jobs:
           path: morphogenesis/experiments/E09_pond/analysis/${{ matrix.task }}.json
 
   commit:
-    name: сохранить результаты
+    name: сохранить результаты и статус
     needs: [plan, run]
-    if: needs.run.result == 'success'
+    # always(): падение фермы обязано оставлять след в репозитории, а не только
+    # в веб-интерфейсе GitHub. Иначе «нет результатов» неотличимо от «не запускалась».
+    if: always() && needs.plan.outputs.count != '0'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -105,6 +107,36 @@ jobs:
           pattern: result-*
           merge-multiple: true
           path: morphogenesis/experiments/E09_pond/analysis
+      - name: Записать статус прогона
+        env:
+          RUN_ID: ${{ github.run_id }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          RUN_RESULT: ${{ needs.run.result }}
+          PLAN: ${{ needs.plan.outputs.tasks }}
+        run: |
+          python - <<'PY'
+          import json, os, datetime as dt
+          from pathlib import Path
+          out = Path("morphogenesis/experiments/E09_pond/analysis/farm-status.json")
+          out.parent.mkdir(parents=True, exist_ok=True)
+          prev = []
+          if out.exists():
+              try:
+                  prev = json.loads(out.read_text(encoding="utf-8")).get("runs", [])
+              except Exception:
+                  prev = []
+          prev.append({
+              "run_id": os.environ.get("RUN_ID", ""),
+              "url": os.environ.get("RUN_URL", ""),
+              "result": os.environ.get("RUN_RESULT", ""),
+              "planned": json.loads(os.environ.get("PLAN") or "[]"),
+              "at": dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+          })
+          out.write_text(json.dumps({"runs": prev[-30:]}, ensure_ascii=False, indent=2) + "\n",
+                         encoding="utf-8", newline="\n")
+          print(f"статусов в истории: {len(prev[-30:])}, последний: {prev[-1]['result']}")
+          PY
+
       - name: Отметить задачи выполненными и закоммитить
         run: |
           python - <<'PY'

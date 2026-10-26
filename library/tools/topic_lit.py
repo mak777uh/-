@@ -41,6 +41,23 @@ def http_json(url: str, timeout: int = 45):
         return None
 
 
+def library_text() -> str:
+    parts: list[str] = []
+    skip = ("topic-digest-", "science-review-")
+    for path in LIB.rglob("*.md"):
+        if path.name.startswith(skip):
+            continue  # собственные сводки не считаются «источниками в библиотеке»
+        try:
+            parts.append(path.read_text(encoding="utf-8", errors="replace"))
+        except Exception:
+            continue
+    return re.sub(r"\s+", " ", " ".join(parts)).lower()
+
+
+def norm_title(t: str) -> str:
+    return re.sub(r"[^a-z0-9 ]+", " ", (t or "").lower()).strip()
+
+
 def known_dois() -> set[str]:
     dois: set[str] = set()
     for path in LIB.rglob("*.md"):
@@ -88,6 +105,15 @@ def crossref(query: str, rows: int = 6) -> list[dict]:
     return out
 
 
+def passes_must(topic: dict, cand: dict, abs_text: str) -> bool:
+    """Доменный фильтр: хотя бы один обязательный термин в заголовке или абстракте."""
+    must = [m.lower() for m in topic.get("must", [])]
+    if not must:
+        return True
+    blob = ((cand.get("title") or "") + " " + (abs_text or "")).lower()
+    return any(m in blob for m in must)
+
+
 def relevance(topic: dict, cand: dict, abs_text: str) -> int:
     """Счёт: термин в заголовке весит 2, в абстракте — 1. Порог задаётся в теме (terms)."""
     terms = [t.lower() for t in topic.get("terms", [])]
@@ -132,6 +158,7 @@ def main(argv: list[str] | None = None) -> int:
     state = json.loads(STATE.read_text(encoding="utf-8")) if STATE.exists() else {"seen": []}
     seen = set(state.get("seen", []))
 
+    blob = library_text()
     lines = [f"# Литература под тему — {args.date}", "",
              "Темы: " + ", ".join(f"{t['ru']} ({t['status']})" for t in topics), ""]
     written = 0
@@ -153,20 +180,37 @@ def main(argv: list[str] | None = None) -> int:
                 abs_ = abstract(cand["doi"])
                 if not abs_:
                     continue
-                if relevance(topic, cand, abs_) < int(topic.get("min_score", 3)):
+                title_norm = norm_title(cand.get("title", ""))
+                if len(title_norm) >= 40 and title_norm[:60] in blob:
+                    continue  # эта работа уже в библиотеке (по названию)
+                if not passes_must(topic, cand, abs_):
+                    continue
+                base = relevance(topic, cand, abs_)
+                penalty = 0
+                if cand["doi"].startswith("10.1101/") or cand["doi"].startswith("10.20944/"):
+                    penalty += 1
+                    cand["preprint"] = True
+                if re.search(r"correspondence|comment on|reply to|response to",
+                             (cand.get("title") or "").lower()):
+                    penalty += 3
+                    cand["comment_piece"] = True
+                score = base - penalty
+                if score < int(topic.get("min_score", 3)):
                     continue
                 cand["abstract"] = abs_[:600]
-                cand["score"] = relevance(topic, cand, abs_)
+                cand["score"] = score
                 picked.append(cand)
                 if len(picked) >= args.per_topic:
                     break
             if len(picked) >= args.per_topic:
                 break
         if not picked:
-            lines.append("- новых работ с абстрактом по запросам не нашлось (проверить запрос/год)")
+            lines.append("- не нашлось работ выше порога: отброшены артефакты, препринты дублей, "
+                         "нет абстракта, не прошёл доменный фильтр или релевантность < порога")
         for c in picked:
             lines.append(f"- **{c['authors']} {c['year']}**, {c['journal']} — «{c['title'][:100]}»  ")
-            lines.append(f"  DOI `{c['doi']}`; релевантность {c.get('score', '?')}; "
+            kind = "препринт" if c.get("preprint") else "статья"
+            lines.append(f"  DOI `{c['doi']}`; {kind}; релевантность {c.get('score', '?')}; "
                          f"абстракт: {c['abstract'][:300]}…")
             have.add(c["doi"])
             written += 1
