@@ -2,7 +2,7 @@
   "schema_version": 1,
   "generated_at": "2026-10-24T05:12:57Z",
   "policy": "Локально хранятся только canonical final из lab/checkpoints.json (требования активной/следующей серии) и явно объявленный положительный контроль. Best-снапшоты при наличии final и неканонические final закрытых/замещённых плеч удаляются после фиксации метрик, per-run JSONL, манифеста и этой записи в git. Веса в GitHub не отправляются; canonical final удаляется только по решению владельца.",
-  "freed_bytes": 68518217142,
+  "freed_bytes": 68518866071,
   "files": [
     {
       "path": "morphogenesis/checkpoints/gate_layer1_s800_seed101/nca_best.pt",
@@ -1618,6 +1618,854 @@
       "mtime": "2026-10-18T13:41:07",
       "reason": "закрытое плечо E02c/E02: метрики, census-строки, summary и манифесты уже в git (§5a п.3); канон — 13 файлов E02b",
       "date": "2026-10-25"
+    },
+    {
+      "path": "morphogenesis/logs/20261020T191433Z-WP4_H-P1_s2000_seed42.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 11129,
+      "mtime": "2026-10-20T19:52:56Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
+    },
+    {
+      "path": "morphogenesis/logs/20261020T195635Z-E02b_morphospace_pilot.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 2689,
+      "mtime": "2026-10-20T19:59:19Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
+    },
+    {
+      "path": "morphogenesis/logs/20261020T195942Z-E02b_morphospace_census.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 3087,
+      "mtime": "2026-10-20T21:30:32Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
+    },
+    {
+      "path": "morphogenesis/logs/20261021T084548Z-E02b_morphospace.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 138877,
+      "mtime": "2026-10-21T11:03:45Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
+    },
+    {
+      "path": "morphogenesis/logs/20261021T110434Z-E02b_morphospace.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 22364,
+      "mtime": "2026-10-21T11:26:48Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
+    },
+    {
+      "path": "morphogenesis/logs/20261021T112714Z-E02b_morphospace.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 33766,
+      "mtime": "2026-10-21T12:10:08Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
+    },
+    {
+      "path": "morphogenesis/logs/20261021T121036Z-E02b_morphospace.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 3515,
+      "mtime": "2026-10-21T12:25:55Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
+    },
+    {
+      "path": "morphogenesis/logs/20261021T122641Z-E02b_morphospace.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 975,
+      "mtime": "2026-10-21T12:26:42Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
+    },
+    {
+      "path": "morphogenesis/logs/20261021T122717Z-E02b_morphospace.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 1979,
+      "mtime": "2026-10-21T12:27:18Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
+    },
+    {
+      "path": "morphogenesis/logs/20261021T122759Z-E02b_morphospace.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 26176,
+      "mtime": "2026-10-21T12:52:35Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
+    },
+    {
+      "path": "morphogenesis/logs/20261021T135521Z-E02b_geometric_lesion_rep.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 22363,
+      "mtime": "2026-10-21T14:22:01Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
+    },
+    {
+      "path": "morphogenesis/logs/20261021T142215Z-E02c_R-9_s2000_seed142.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 13579,
+      "mtime": "2026-10-21T14:53:38Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
+    },
+    {
+      "path": "morphogenesis/logs/20261021T145849Z-E02c_R-9_s2000_seed242.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 13589,
+      "mtime": "2026-10-21T15:28:13Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
+    },
+    {
+      "path": "morphogenesis/logs/20261021T152835Z-E02c_R-9_s2000_seed342.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 13579,
+      "mtime": "2026-10-21T16:00:31Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
+    },
+    {
+      "path": "morphogenesis/logs/20261021T160057Z-E02c_census.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 1755,
+      "mtime": "2026-10-21T16:38:49Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
+    },
+    {
+      "path": "morphogenesis/logs/20261021T165940Z-E02c_R-9_s2000_seed42.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 13588,
+      "mtime": "2026-10-21T17:34:59Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
+    },
+    {
+      "path": "morphogenesis/logs/20261021T173533Z-E02c_census_seed42repro.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 1116,
+      "mtime": "2026-10-21T17:56:38Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
+    },
+    {
+      "path": "morphogenesis/logs/20261021T184756Z-E02b_closures.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 6449,
+      "mtime": "2026-10-21T20:24:06Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
+    },
+    {
+      "path": "morphogenesis/logs/20261022T011352Z-E02c_census_seed42repro_frozen.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 1222,
+      "mtime": "2026-10-22T01:33:11Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
+    },
+    {
+      "path": "morphogenesis/logs/20261022T013528Z-E02c_census_seed42repro_frozen.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 1223,
+      "mtime": "2026-10-22T01:58:50Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
+    },
+    {
+      "path": "morphogenesis/logs/20261022T044851Z-E02c_seeddec_A.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 13080,
+      "mtime": "2026-10-22T05:13:29Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
+    },
+    {
+      "path": "morphogenesis/logs/20261022T051429Z-E02c_seeddec_censusA.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 1201,
+      "mtime": "2026-10-22T05:31:38Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
+    },
+    {
+      "path": "morphogenesis/logs/20261022T053201Z-E02c_seeddec_B.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 13104,
+      "mtime": "2026-10-22T05:57:10Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
+    },
+    {
+      "path": "morphogenesis/logs/20261022T055721Z-E02c_seeddec_censusB.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 1197,
+      "mtime": "2026-10-22T06:15:22Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
+    },
+    {
+      "path": "morphogenesis/logs/20261022T063417Z-E02b_alive_open.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 1627,
+      "mtime": "2026-10-22T06:39:10Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
+    },
+    {
+      "path": "morphogenesis/logs/20261022T065500Z-E02b_carriers2.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 2356,
+      "mtime": "2026-10-22T07:02:27Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
+    },
+    {
+      "path": "morphogenesis/logs/20261022T071026Z-E02b_clusters3.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 2485,
+      "mtime": "2026-10-22T07:20:34Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
+    },
+    {
+      "path": "morphogenesis/logs/20261022T072101Z-E02c_seeddec_init42_data202.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 13095,
+      "mtime": "2026-10-22T07:49:57Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
+    },
+    {
+      "path": "morphogenesis/logs/20261022T074959Z-E02c_seeddec_init42_data303.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 13075,
+      "mtime": "2026-10-22T08:20:35Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
+    },
+    {
+      "path": "morphogenesis/logs/20261022T082037Z-E02c_seeddec_init101_data202.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 13091,
+      "mtime": "2026-10-22T08:49:10Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
+    },
+    {
+      "path": "morphogenesis/logs/20261022T084911Z-E02c_seeddec_init101_data303.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 13094,
+      "mtime": "2026-10-22T09:19:07Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
+    },
+    {
+      "path": "morphogenesis/logs/20261022T101317Z-E02c_seeddec_census_wave2_retry.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 12,
+      "mtime": "2026-10-22T10:13:20Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
+    },
+    {
+      "path": "morphogenesis/logs/20261022T101344Z-E02c_seeddec_census_wave2_run.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 2306,
+      "mtime": "2026-10-22T10:57:10Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
+    },
+    {
+      "path": "morphogenesis/logs/20261022T114842Z-E02c_repro_fp32_seed42.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 13095,
+      "mtime": "2026-10-22T12:16:54Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
+    },
+    {
+      "path": "morphogenesis/logs/20261022T121656Z-E02c_repro_fp32_census.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 1198,
+      "mtime": "2026-10-22T12:36:50Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
+    },
+    {
+      "path": "morphogenesis/logs/20261022T123722Z-E02c_repro_fp32_census_tf32on.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 1212,
+      "mtime": "2026-10-22T12:57:46Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
+    },
+    {
+      "path": "morphogenesis/logs/20261022T130306Z-E02b_lesion_minimal.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 3037,
+      "mtime": "2026-10-22T13:29:03Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
+    },
+    {
+      "path": "morphogenesis/logs/20261022T132904Z-E02c_fp32_seed101.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 13083,
+      "mtime": "2026-10-22T13:57:12Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
+    },
+    {
+      "path": "morphogenesis/logs/20261022T135713Z-E02c_fp32_census_seed101.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 1413,
+      "mtime": "2026-10-22T14:21:59Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
+    },
+    {
+      "path": "morphogenesis/logs/20261022T142200Z-E02c_fp32_seed202.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 13087,
+      "mtime": "2026-10-22T14:51:18Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
+    },
+    {
+      "path": "morphogenesis/logs/20261022T142229Z-E02b_lesion_necessity.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 744,
+      "mtime": "2026-10-22T14:26:58Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
+    },
+    {
+      "path": "morphogenesis/logs/20261022T145119Z-E02c_fp32_census_seed202.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 1413,
+      "mtime": "2026-10-22T15:16:42Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
+    },
+    {
+      "path": "morphogenesis/logs/20261022T145134Z-E02b_lesion_core.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 1346,
+      "mtime": "2026-10-22T15:02:14Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
+    },
+    {
+      "path": "morphogenesis/logs/20261022T151121Z-E02b_asymmetry_variance.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 1242,
+      "mtime": "2026-10-22T15:14:05Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
+    },
+    {
+      "path": "morphogenesis/logs/20261022T151643Z-E02c_fp32_seed42_s4000.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 24682,
+      "mtime": "2026-10-22T16:09:40Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
+    },
+    {
+      "path": "morphogenesis/logs/20261022T152851Z-E02b_asymmetry_variance_retry.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 1281,
+      "mtime": "2026-10-22T15:31:56Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
+    },
+    {
+      "path": "morphogenesis/logs/20261022T160943Z-E02c_fp32_census_s4000.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 1181,
+      "mtime": "2026-10-22T16:30:06Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
+    },
+    {
+      "path": "morphogenesis/logs/20261022T163007Z-E02c_tf32_seed42_s4000.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 24631,
+      "mtime": "2026-10-22T17:23:19Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
+    },
+    {
+      "path": "morphogenesis/logs/20261022T172320Z-E02c_tf32_census_s4000.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 1193,
+      "mtime": "2026-10-22T17:42:50Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
+    },
+    {
+      "path": "morphogenesis/logs/20261022T172330Z-E02b_asymmetry_sides.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 746,
+      "mtime": "2026-10-22T17:28:25Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
+    },
+    {
+      "path": "morphogenesis/logs/20261022T172853Z-E02b_left_outcomes.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 667,
+      "mtime": "2026-10-22T17:37:39Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
+    },
+    {
+      "path": "morphogenesis/logs/20261022T174251Z-E02c_fp32_init42_data404.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 13069,
+      "mtime": "2026-10-22T18:10:29Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
+    },
+    {
+      "path": "morphogenesis/logs/20261022T181031Z-E02c_fp32_census_data404.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 1200,
+      "mtime": "2026-10-22T18:28:38Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
+    },
+    {
+      "path": "morphogenesis/logs/20261022T181716Z-E02b_carrier_pairs.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 2261,
+      "mtime": "2026-10-22T18:50:11Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
+    },
+    {
+      "path": "morphogenesis/logs/20261022T185014Z-E02c_transient_probe.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 2111,
+      "mtime": "2026-10-22T19:27:33Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
+    },
+    {
+      "path": "morphogenesis/logs/20261022T185941Z-E02b_carrier_ch13.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 480,
+      "mtime": "2026-10-22T19:01:11Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
+    },
+    {
+      "path": "morphogenesis/logs/20261022T190549Z-E02b_carrier_ch15.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 514,
+      "mtime": "2026-10-22T19:07:13Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
+    },
+    {
+      "path": "morphogenesis/logs/20261022T195236Z-E02c_transient_fp32.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 2083,
+      "mtime": "2026-10-22T20:27:51Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
+    },
+    {
+      "path": "morphogenesis/logs/20261022T204057Z-E02c_curve_rollout.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 8361,
+      "mtime": "2026-10-22T22:22:53Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
+    },
+    {
+      "path": "morphogenesis/logs/20261022T222257Z-E02c_randinit_census.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 1198,
+      "mtime": "2026-10-22T22:41:16Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
+    },
+    {
+      "path": "morphogenesis/logs/20261022T224117Z-E02c_R-9_s4000_seed202.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 24666,
+      "mtime": "2026-10-22T23:31:21Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
+    },
+    {
+      "path": "morphogenesis/logs/20261022T233122Z-E02c_transient_seed202.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 2162,
+      "mtime": "2026-10-23T00:09:09Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
+    },
+    {
+      "path": "morphogenesis/logs/20261023T000910Z-E02c_R-9_s4000_seed101.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 24598,
+      "mtime": "2026-10-23T01:02:39Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
+    },
+    {
+      "path": "morphogenesis/logs/20261023T010241Z-E02c_transient_seed101.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 2118,
+      "mtime": "2026-10-23T01:37:15Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
+    },
+    {
+      "path": "morphogenesis/logs/20261023T013736Z-E02c_curve_long_rollout.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 3832,
+      "mtime": "2026-10-23T02:58:03Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
+    },
+    {
+      "path": "morphogenesis/logs/20261023T031604Z-E02c_randmask_s2000.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 242,
+      "mtime": "2026-10-23T03:17:06Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
+    },
+    {
+      "path": "morphogenesis/logs/20261023T031707Z-E02c_randmask_s3000.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 241,
+      "mtime": "2026-10-23T03:18:04Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
+    },
+    {
+      "path": "morphogenesis/logs/20261023T032145Z-E02c_scan_seed101_dense.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 1812,
+      "mtime": "2026-10-23T03:51:46Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
+    },
+    {
+      "path": "morphogenesis/logs/20261023T035147Z-E02c_morphometry_s2000.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 1007,
+      "mtime": "2026-10-23T03:53:21Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
+    },
+    {
+      "path": "morphogenesis/logs/20261023T035321Z-E02c_morphometry_s3000.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 994,
+      "mtime": "2026-10-23T03:54:54Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
+    },
+    {
+      "path": "morphogenesis/logs/20261023T035534Z-E08_fp32_3000_anomaly.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 997,
+      "mtime": "2026-10-23T03:57:06Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
+    },
+    {
+      "path": "morphogenesis/logs/20261023T035842Z-E02c_randmask_s2000.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 386,
+      "mtime": "2026-10-23T03:59:39Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
+    },
+    {
+      "path": "morphogenesis/logs/20261023T035953Z-E02c_randmask_s3000.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 386,
+      "mtime": "2026-10-23T04:00:51Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
+    },
+    {
+      "path": "morphogenesis/logs/20261023T040220Z-E02c_randmask_s2000.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 393,
+      "mtime": "2026-10-23T04:03:17Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
+    },
+    {
+      "path": "morphogenesis/logs/20261023T040318Z-E02c_randmask_s3000.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 386,
+      "mtime": "2026-10-23T04:04:15Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
+    },
+    {
+      "path": "morphogenesis/logs/20261023T044402Z-E02c_density_0-20.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 391,
+      "mtime": "2026-10-23T04:45:00Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
+    },
+    {
+      "path": "morphogenesis/logs/20261023T044501Z-E02c_density_0-35.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 392,
+      "mtime": "2026-10-23T04:45:57Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
+    },
+    {
+      "path": "morphogenesis/logs/20261023T044558Z-E02c_density_0-50.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 385,
+      "mtime": "2026-10-23T04:46:54Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
+    },
+    {
+      "path": "morphogenesis/logs/20261023T044655Z-E02c_density_0-65.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 388,
+      "mtime": "2026-10-23T04:47:51Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
+    },
+    {
+      "path": "morphogenesis/logs/20261023T044752Z-E02c_density_0-80.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 389,
+      "mtime": "2026-10-23T04:48:48Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
+    },
+    {
+      "path": "morphogenesis/logs/20261023T045514Z-E02c_density_020.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 364,
+      "mtime": "2026-10-23T04:56:10Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
+    },
+    {
+      "path": "morphogenesis/logs/20261023T045611Z-E02c_density_035.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 365,
+      "mtime": "2026-10-23T04:57:08Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
+    },
+    {
+      "path": "morphogenesis/logs/20261023T045708Z-E02c_density_050.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 358,
+      "mtime": "2026-10-23T04:58:05Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
+    },
+    {
+      "path": "morphogenesis/logs/20261023T045806Z-E02c_density_065.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 361,
+      "mtime": "2026-10-23T04:59:03Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
+    },
+    {
+      "path": "morphogenesis/logs/20261023T045904Z-E02c_density_080.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 362,
+      "mtime": "2026-10-23T05:00:00Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
+    },
+    {
+      "path": "morphogenesis/logs/20261023T050218Z-E08_inv_sp202_035.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 364,
+      "mtime": "2026-10-23T05:03:15Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
+    },
+    {
+      "path": "morphogenesis/logs/20261023T050316Z-E08_inv_sp202_065.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 361,
+      "mtime": "2026-10-23T05:04:12Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
+    },
+    {
+      "path": "morphogenesis/logs/20261023T050413Z-E08_inv_du3000_035.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 359,
+      "mtime": "2026-10-23T05:05:10Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
+    },
+    {
+      "path": "morphogenesis/logs/20261023T050511Z-E08_inv_du3000_065.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 359,
+      "mtime": "2026-10-23T05:06:07Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
+    },
+    {
+      "path": "morphogenesis/logs/20261023T050608Z-E08_inv_fp32a_035.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 360,
+      "mtime": "2026-10-23T05:07:04Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
+    },
+    {
+      "path": "morphogenesis/logs/20261023T050705Z-E08_inv_fp32a_065.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 350,
+      "mtime": "2026-10-23T05:08:01Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
+    },
+    {
+      "path": "morphogenesis/logs/20261023T054326Z-E08_signature_curve.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 1150,
+      "mtime": "2026-10-23T05:55:46Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
+    },
+    {
+      "path": "morphogenesis/logs/20261023T064451Z-E08_holes_sponge42.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 1106,
+      "mtime": "2026-10-23T06:46:30Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
+    },
+    {
+      "path": "morphogenesis/logs/20261023T064630Z-E08_holes_sponge101.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 1479,
+      "mtime": "2026-10-23T06:48:08Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
+    },
+    {
+      "path": "morphogenesis/logs/20261023T064809Z-E08_exc_s101_2000_d020.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 329,
+      "mtime": "2026-10-23T06:49:07Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
+    },
+    {
+      "path": "morphogenesis/logs/20261023T064908Z-E08_exc_s101_2000_d050.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 328,
+      "mtime": "2026-10-23T06:50:07Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
+    },
+    {
+      "path": "morphogenesis/logs/20261023T065008Z-E08_exc_s101_2000_d080.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 327,
+      "mtime": "2026-10-23T06:51:08Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
+    },
+    {
+      "path": "morphogenesis/logs/20261023T065334Z-E08_holes_sponge42.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 1111,
+      "mtime": "2026-10-23T06:55:11Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
+    },
+    {
+      "path": "morphogenesis/logs/20261023T065512Z-E08_holes_sponge101.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 1097,
+      "mtime": "2026-10-23T06:56:50Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
+    },
+    {
+      "path": "morphogenesis/logs/20261023T074425Z-E09_world_base_rule.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 1510,
+      "mtime": "2026-10-23T07:46:52Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
+    },
+    {
+      "path": "morphogenesis/logs/20261023T074915Z-E09_world_base_rule.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 1512,
+      "mtime": "2026-10-23T07:51:39Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
+    },
+    {
+      "path": "morphogenesis/logs/20261023T075216Z-E09_world_base_rule.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 1510,
+      "mtime": "2026-10-23T07:55:14Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
+    },
+    {
+      "path": "morphogenesis/logs/20261023T075537Z-E09_world_base_rule.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 1510,
+      "mtime": "2026-10-23T07:58:21Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
+    },
+    {
+      "path": "morphogenesis/logs/20261023T094345Z-E09_world_base_rule.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 1512,
+      "mtime": "2026-10-23T09:46:32Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
+    },
+    {
+      "path": "morphogenesis/logs/20261023T095746Z-E09_pond_v01b.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 2525,
+      "mtime": "2026-10-23T09:59:24Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
+    },
+    {
+      "path": "morphogenesis/logs/20261023T104915Z-E09_pond_v02_gradient.log",
+      "family": "wrapper_stdout_log",
+      "size_bytes": 2524,
+      "mtime": "2026-10-23T10:50:22Z",
+      "reason": "stdout обёртки старше 2 суток; журнал, манифест и per-run JSONL сохранены (§5a)",
+      "deleted_at": "2026-10-26T01:45:18Z"
     }
   ],
   "updated_at": "2026-10-25T07:05:00+03:00"
