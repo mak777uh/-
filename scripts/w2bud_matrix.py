@@ -49,7 +49,7 @@ def _load_i_null():
     spec.loader.exec_module(module)
     return module
 
-NAME = re.compile(r"w2bud[0-9]?s?_(?P<arm>colony|cell)_seed(?P<seed>\d+)\.json$")
+NAME = re.compile(r"w2bud[a-z0-9]*_(?P<arm>colony|cell)_seed(?P<seed>\d+)\.json$")
 MIN_CELLS = 5
 MIN_LINEAGES = 5
 
@@ -426,6 +426,8 @@ def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("--src", default="morphogenesis/experiments/E09_pond/w2bud")
     ap.add_argument("--out", default=None)
+    ap.add_argument("--world", default=None,
+                    help="имя мира в агрегате (например W2-bud-d2)")
     args = ap.parse_args(argv)
 
     files = sorted(glob.glob(str(Path(args.src) / "w2bud*.json")))
@@ -433,7 +435,8 @@ def main(argv=None) -> int:
     table = by_arm(rows)
     payload = {
         "kind": "w2bud_runs",
-        "world": "W2-bud (клеточное почкование); числа НЕ сопоставимы с W1 напрямую",
+        "world": (args.world or "W2-bud (клеточное почкование); числа НЕ сопоставимы "
+                  "с W1 напрямую"),
         "metric": METRIC,
         "derived_by_construction": DERIVED_BY_CONSTRUCTION,
         "rows": rows,
