@@ -26,7 +26,8 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-POND = ROOT / "morphogenesis" / "experiments" / "E09_pond"
+POND = ROOT / "morphogenesis" / "experiments"  # весь каталог: R1 и другие миры тоже
+E09 = POND / "E09_pond"
 # 26.10: агрегаты бывают и в других каталогах экспериментов (R1 — мир без тела),
 # поэтому сканируем весь morphogenesis/experiments, а не только линию пруда.
 EXPERIMENTS = ROOT / "morphogenesis" / "experiments"
@@ -68,6 +69,20 @@ def load_numbers() -> dict[str, set[float]]:
                 for key, value in row.items():
                     if isinstance(value, (int, float)) and not isinstance(value, bool):
                         out.setdefault(key, set()).add(round(float(value), 4))
+        def walk(obj, depth=0):
+            if depth > 4:
+                return
+            if isinstance(obj, dict):
+                for key, value in obj.items():
+                    if isinstance(value, (int, float)) and not isinstance(value, bool):
+                        out.setdefault(key, set()).add(round(float(value), 4))
+                    else:
+                        walk(value, depth + 1)
+            elif isinstance(obj, list):
+                for item in obj:
+                    walk(item, depth + 1)
+
+        walk(data)
         for block in ("by_arm", "criteria", "invariants"):
             for item in data.get(block) or []:
                 if isinstance(item, dict):
@@ -150,7 +165,9 @@ def main(argv: list[str]) -> int:
     leftovers = []
     for match in re.finditer(r"(?<![A-Za-z0-9])-?\d\.\d{2,4}(?![\d])", text):
         value = round(float(match.group(0)), 4)
-        near = text[max(0, match.start() - 6): match.end() + 6]
+        near = text[max(0, match.start() - 24): match.end() + 24]
+        if "doi" in near.lower() or "10." in near or "http" in near.lower() or "annurev" in near.lower():
+            continue  # номер DOI/URL — не метрика
         if "–" in near or " p = " in near or "p =" in near or "GB" in near:
             continue  # диапазон, p-значение или размер файла — не метрика
         if any(abs(value - v) < 5e-4 for values in numbers.values() for v in values):
