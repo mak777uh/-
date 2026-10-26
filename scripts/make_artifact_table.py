@@ -59,9 +59,66 @@ def normalized_bytes(path: Path) -> bytes:
     return data
 
 
+_BLOB_CACHE: dict[str, bytes | None] = {}
+
+
+def prefetch_blobs(paths: list[Path]) -> None:
+    """Один вызов `git cat-file --batch` на все файлы: по одному процессу на файл слишком медленно
+    (сотни файлов → минуты). Кеш общий, поэтому render() и sha256() берут уже прочитанное."""
+    todo = [p.relative_to(REPO).as_posix() for p in paths
+            if p.relative_to(REPO).as_posix() not in _BLOB_CACHE]
+    if not todo:
+        return
+    try:
+        proc = subprocess.Popen(["git", "cat-file", "--batch"], cwd=REPO,
+                                stdin=subprocess.PIPE, stdout=subprocess.PIPE)
+    except OSError:
+        return
+    payload = ("".join(f"HEAD:{rel}\n" for rel in todo)).encode()
+    out, _ = proc.communicate(payload)
+    pos = 0
+    for rel in todo:
+        nl = out.find(b"\n", pos)
+        if nl < 0:
+            break
+        header = out[pos:nl].decode("utf-8", "replace")
+        pos = nl + 1
+        parts = header.split()
+        if len(parts) < 3 or parts[1] == "missing":
+            _BLOB_CACHE[rel] = None
+            continue
+        size = int(parts[2])
+        _BLOB_CACHE[rel] = out[pos:pos + size]
+        pos += size + 1  # блоб + перевод строки
+
+
+def git_blob(path: Path) -> bytes | None:
+    """Содержимое файла ИЗ COMMIT (HEAD), а не с диска.
+
+    Почему: таблица должна воспроизводиться в чистом клоне. Пока хеши считались по диску,
+    любая незакоммиченная правка (или файл, обновляемый прогоном вне git) делала SUPPLEMENT
+    невоспроизводимым — тест `test_supplement_matches_disk` падал в CI четвёртый раз за сутки,
+    а локально проходил. Источник истины для артефакта — коммит.
+    """
+    rel = path.relative_to(REPO).as_posix()
+    if rel not in _BLOB_CACHE:
+        prefetch_blobs([path])
+    return _BLOB_CACHE.get(rel)
+
+
+def content_bytes(path: Path) -> bytes:
+    """Байты из HEAD (нормализованные), с откатом на диск вне git."""
+    blob = git_blob(path)
+    if blob is None:
+        return normalized_bytes(path)
+    if path.suffix in TEXT_SUFFIXES:
+        return blob.replace(b"\r\n", b"\n")
+    return blob
+
+
 def sha256(path: Path) -> str:
     h = hashlib.sha256()
-    h.update(normalized_bytes(path))
+    h.update(content_bytes(path))
     return h.hexdigest()
 
 
@@ -108,7 +165,9 @@ def collect() -> list[Path]:
     tracked = git_tracked()
     if tracked is not None:
         files = [p for p in files if p.relative_to(REPO).as_posix() in tracked]
-    return sorted(files)
+    files = sorted(files)
+    prefetch_blobs(files)  # один процесс git на всю таблицу
+    return files
 
 
 def link(path: Path) -> str:
@@ -127,7 +186,7 @@ def render(files: list[Path] | None = None) -> str:
             "| {link} | {kind} | {size} | `{sha}` |".format(
                 link=link(path),
                 kind=kind_of(path),
-                size=len(normalized_bytes(path)),
+                size=len(content_bytes(path)),
                 sha=sha256(path),
             )
         )
