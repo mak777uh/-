@@ -33,7 +33,7 @@ import statistics
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-NAME = re.compile(r"w2bud[\w]*_(?:pilot_)?(?P<arm>colony|cell)_seed(?P<seed>\d+)\.json$")
+NAME = re.compile(r"w2bud[\w]*_(?:pilot_)?(?P<arm>colony|cell|pair)_seed(?P<seed>\d+)\.json$")
 
 # 25.10: объединение двух наборов вариантов (мой и рецензентский) в ОДИН агрегат.
 # Рецензент брал `floor_spores_per_cell` (целая часть), я — `discrete` (0/1 по медиане);

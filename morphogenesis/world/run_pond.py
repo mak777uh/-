@@ -109,7 +109,7 @@ def config_block(cfg) -> dict:
         "merge_rule": getattr(cfg, "merge_rule", "majority"),
         "trait_effect": getattr(cfg, "trait_effect", 0.0),
         "budding_unit": getattr(cfg, "budding_unit", "colony"),
-        "pair_degenerate_k": int(getattr(run.pond, "pair_degenerate", 0)) if getattr(cfg, "budding_unit", "") == "pair" else None,
+
         "require_placement": getattr(cfg, "require_placement", 0),
         "buds_per_component": getattr(cfg, "buds_per_component", 1),
         "death_return": getattr(cfg, "death_return", 0.0),
@@ -957,6 +957,8 @@ def main(argv: list[str] | None = None) -> int:
         summary["prepared_expected_hits"] = round(float(run.pond.niche_expected), 3)
         if getattr(run.pond, "niche_levels", None):
             summary["niche_levels"] = {str(k): v for k, v in sorted(run.pond.niche_levels.items())}
+    if getattr(run.pond.cfg, "budding_unit", "") == "pair":
+        summary["pair_degenerate_k"] = int(getattr(run.pond, "pair_degenerate", 0))
     summary["free_cells_at_injection"] = getattr(run.pond, "free_cells_at_injection", None)
     summary["max_free_component_at_injection"] = getattr(
         run.pond, "max_free_component_at_injection", None)
