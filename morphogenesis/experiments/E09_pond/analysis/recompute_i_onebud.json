@@ -1,0 +1,26 @@
+{
+  "kind": "recompute_i",
+  "task": "recompute_i_onebud",
+  "question": "Независимый пересчёт I для one-bud (серия, на которой стоит вердикт по цене)",
+  "spec": {
+    "glob": "w2bud_onebud/*.json",
+    "min_cells": 5,
+    "draws": 2000
+  },
+  "result": {
+    "runs": 10,
+    "min_cells": 5,
+    "null_draws": 2000,
+    "I_obs_median": 0.8924,
+    "I_null_95_median": 0.03,
+    "I_ratio_median": 33.12,
+    "I_ratio_of_medians": 29.765,
+    "above_null_k": 10,
+    "lines_median": 7.5
+  },
+  "script_commit": "12ebef0",
+  "repo_commit": "12ebef0",
+  "script_dirty": false,
+  "task_fn_sha256": "797ab6c78ec2a05c",
+  "script_sha256_eol_dependent": "2e8412ccf86274b1"
+}
