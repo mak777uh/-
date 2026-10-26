@@ -2898,6 +2898,37 @@
         "tasks": [],
         "reports": []
       }
+    },
+    {
+      "id": "B-083",
+      "type": "risk",
+      "target": {
+        "kind": "artifact",
+        "id": "farm_provenance_churn",
+        "ref": "scripts/analysis_task.py:328; .github/workflows/analysis.yml; analysis/whale_w2bud3.json"
+      },
+      "statement": "Провенанс фермы по HEAD даёт бесконечный шум: git_commit = rev-parse --short HEAD меняется после каждого коммита фермы, поэтому следующий прогон переписывает все 9 результатов без изменения чисел (8 коммитов в сутки). Проверка фактом: whale_w2bud3.json содержит git_commit=69d732c при HEAD=fc0319e. Плюс в том же файле script_dirty=True — результат посчитан незакоммиченным кодом, и git_commit его не идентифицирует. Предложение: провенанс по коммиту, последним менявшему скрипт (git log -1 --format=%h -- scripts/analysis_task.py), или по task_fn_sha256; при script_dirty — не публиковать результат либо помечать untrusted и пересчитывать после коммита.",
+      "evidence": [
+        {
+          "library": "answers.md#75",
+          "note": "оба дефекта проверяемы фактом: отставший git_commit и dirty=True"
+        }
+      ],
+      "action": {
+        "kind": "method",
+        "detail": "стабильный провенанс + отказ публикации при dirty"
+      },
+      "status": "new",
+      "wave": "current",
+      "owner": "librarian",
+      "created_at": "2026-10-26T03:07:52+03:00",
+      "decided_at": null,
+      "why": null,
+      "links": {
+        "insights": [],
+        "tasks": [],
+        "reports": []
+      }
     }
   ],
   "updated_at": "2026-10-25T05:15:00Z"
