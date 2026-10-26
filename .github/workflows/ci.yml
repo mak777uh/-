@@ -159,6 +159,9 @@ jobs:
             exit $code
           fi
 
+      - name: Контракт влезает в бюджет загрузки
+        run: python scripts/check_agents_size.py
+
       - name: Text integrity (links and section references)
         shell: bash
         run: |

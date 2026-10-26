@@ -38,6 +38,7 @@ REPORT = ROOT / "reports" / "health.md"
 # локальные гейты: (метка, аргументы, блокирующий?, тяжёлый?)
 GATES = [
     ("контракт", ["scripts/lab.py", "validate", "--ci"], True, False),
+    ("размер контракта", ["scripts/check_agents_size.py"], True, False),
     ("числа разделов", ["scripts/verify_sections_numbers.py"], True, False),
     ("числа рукописи", ["scripts/verify_manuscript_numbers.py"], True, True),
     ("утверждения", ["scripts/claims_lint.py"], True, False),
