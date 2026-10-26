@@ -1,11 +1,10 @@
 # Здоровье лаборатории
 
-Обновлено: 2026-10-26 15:19 UTC
+Обновлено: 2026-10-26 15:32 UTC
 
 ## Состояние
 
-- CI (по reports/ci-status.json): lab-contract: failure (2026-10-26 15:04); analysis-farm: success (2026-10-26 12:29); nightly-lab: failure (2026-10-26 03:59)
-- CI (живой API): lab-contract: failure (0.2 ч назад); analysis-farm: success (2.8 ч назад); nightly-lab: failure (11.3 ч назад)
+- CI (по reports/ci-status.json): lab-contract: success (2026-10-26 15:22); analysis-farm: success (2026-10-26 12:29)
 - ✅ контракт: counts: {"experiments": 31, "readme_experiments": 31, "manuscript_entries": 24, "lit_board_items": 84, "active
 - ✅ размер контракта: [agents-size] 57221 байт ≤ 60000 — ок
 - ✅ числа разделов: [sections] OK — числа разделов воспроизводятся из агрегатов
@@ -28,16 +27,13 @@
 - ✅ агрегат↔артефакт: ошибок: 0, без артефактов: 429
 - очереди: эксперименты: 22 в плане, 0 идёт; ферма: 0 ждёт; доска: 2 новых
 - серии: 19/19 серий с агрегатом
-- ресурсы: диск: 32.1 ГБ свободно; замков: 0
+- ресурсы: диск: 31.6 ГБ свободно; замков: 0
 
 ## Блокеры
 
-- ❌ CI «lab-contract» упал: шаг не определён
-- ❌ CI «lab-contract» упал (0.2 ч назад): https://github.com/mak777uh/-/actions/runs/40345631575
+нет
 
 ## Предупреждения
 
 - ⚠ незакоммиченных изменений: 2 (первое: M reports/ci-status.json)
-- ⚠ CI «nightly-lab» упал: шаг не определён (прогон на d11d7de3, HEAD 38255c07 — проверялся другой код)
-- ⚠ CI «nightly-lab» упал (11.3 ч назад): https://github.com/mak777uh/-/actions/runs/40266772772 — устарело, следующий прогон покажет
 - ⚠ доска: 2 замечаний без решения
