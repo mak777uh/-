@@ -387,6 +387,8 @@ def test_science_digest(tmp: Path) -> None:
           "## Рекомендации (из чисел, не из прозы)" in res.stdout, res.stdout[:300])
     check("science_digest: рекомендации несут основание",
           "основание:" in res.stdout, res.stdout[:300])
+    check("science_digest: считает отдачу литературы",
+          "Отдача литературы" in res.stdout, res.stdout[:400])
     check("science_digest: код 0", res.returncode == 0, str(res.returncode))
 
 

@@ -125,6 +125,46 @@ def lit_delta() -> tuple[int, list[str]]:
     return pressure, targets
 
 
+def lit_yield(days: int = 7) -> dict:
+    """Отдача литературы: сколько добавленных источников реально вошло в работу.
+
+    Считаем источники, добавленные в `library/hypotheses/*.md` за `days` (по git),
+    и из них — те, чей DOI встречается где-то ещё в `library/` (answers, conditions,
+    claims-evidence, reviews). Это грубая, но проверяемая мера «источник → действие».
+    """
+    try:
+        out = subprocess.run(["git", "log", f"--since={days} days ago", "-p", "--unified=0",
+                              "--format=", "--", "library/hypotheses/"], cwd=REPO,
+                             capture_output=True, text=True, encoding="utf-8",
+                             errors="replace", timeout=120).stdout
+    except Exception:
+        return {"added": 0, "used": 0, "yield": 0.0}
+    # только ДОБАВЛЕННЫЕ строки: «затронутый файл» ≠ «новый источник»
+    added_lines = [ln[1:] for ln in out.splitlines()
+                   if ln.startswith("+") and not ln.startswith("+++")]
+    dois: set[str] = set()
+    for ln in added_lines:
+        dois |= {d.lower() for d in re.findall(r"10\.\d{4,9}/[-._;()/:A-Za-z0-9]+", ln)}
+    if not dois:
+        return {"added": 0, "used": 0, "yield": 0.0}
+    blob = []
+    for path in OUT.rglob("*.md"):
+        if path.name.startswith(("topic-digest-", "science-review-")):
+            continue
+        if path.name == "README.md":
+            continue  # индексы перечисляют все DOI — это не «вошло в работу»
+        if "hypotheses" in path.parts:
+            continue
+        try:
+            blob.append(path.read_text(encoding="utf-8", errors="replace").lower())
+        except Exception:
+            continue
+    body = " ".join(blob)
+    used = sum(1 for d in dois if d in body)
+    total = len(dois)
+    return {"added": total, "used": used, "yield": round(used / total, 2) if total else 0.0}
+
+
 def recommendations(aggs: dict, board: dict, pressure: int, day: str) -> list[dict]:
     recs: list[dict] = []
 
@@ -233,6 +273,15 @@ def main(argv: list[str] | None = None) -> int:
     else:
         lines.append("- новых рекомендаций нет (все уже выдавались и не закрыты)")
     lines.append("")
+    ly = lit_yield()
+    lines.append("## Отдача литературы (7 дней)")
+    lines.append(f"- DOI в добавленных/правленых строках `hypotheses/` за неделю: **{ly['added']}**; "
+                 f"из них упомянуты ВНЕ индексов (answers/conditions/claims/reviews): **{ly['used']}** "
+                 f"(отдача {ly['yield']:.0%})")
+    lines.append("  *читается так:* это доля источников, которые дошли до рабочего текста, а не только "
+                 "до индекса. Ниже 30 % две недели подряд — снижать частоту литслота, а не наращивать объём.")
+    lines.append("")
+
     lines.append("## Доска и литература")
     lines.append(f"- новых замечаний: {board.get('new', 0)}; решено: {board.get('decided', 0)} "
                  f"(принято {board.get('accepted', 0)}, отклонено {board.get('declined', 0)})")
