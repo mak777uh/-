@@ -379,6 +379,17 @@ def test_i_null(tmp: Path) -> None:
     check("i_null: малое I — в пределах нуля", "в пределах нуля" in res2.stdout, res2.stdout)
 
 
+def test_science_digest(tmp: Path) -> None:
+    res = run("library/tools/science_digest.py", "--date", "2026-10-25", "--dry")
+    check("science_digest: строит дайджест", "# Научный дайджест за 2026-10-25" in res.stdout,
+          res.stdout[:300] + res.stderr[:200])
+    check("science_digest: есть раздел рекомендаций",
+          "## Рекомендации (из чисел, не из прозы)" in res.stdout, res.stdout[:300])
+    check("science_digest: рекомендации несут основание",
+          "основание:" in res.stdout, res.stdout[:300])
+    check("science_digest: код 0", res.returncode == 0, str(res.returncode))
+
+
 def main() -> int:
     with tempfile.TemporaryDirectory() as tdir:
         tmp = Path(tdir)
@@ -408,6 +419,8 @@ def main() -> int:
         test_w2bud_gate(tmp)
         print("== i_null ==")
         test_i_null(tmp)
+        print("== science digest ==")
+        test_science_digest(tmp)
     print(f"\nпровалено: {len(FAILED)}")
     return 1 if FAILED else 0
 
