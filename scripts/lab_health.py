@@ -58,6 +58,7 @@ GATES = [
     ("очередь экспериментов", ["scripts/queue_runner.py", "--audit"], True, False),
     ("витрина README", ["scripts/check_readme_fresh.py"], True, False),
     ("агрегат↔артефакт", ["scripts/aggregate_check.py", "--strict"], True, True),
+    ("гомогенность серий", ["scripts/check_series_homogeneity.py", "--strict"], True, False),
 ]
 
 

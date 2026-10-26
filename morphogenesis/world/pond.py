@@ -1648,8 +1648,8 @@ class Pond:
         n = self.cfg.grid
         if not (0 <= y < n and 0 <= x < n):
             return 0
-        if bool(s.alive[y, x]):
-            return 0
+        # ВАЖНО: в момент смерти клетка ещё помечена живой (маска обновляется позже),
+        # поэтому стартовую клетку считаем свободной принудительно — иначе размер всегда 0.
         seen = torch.zeros_like(s.alive, dtype=torch.bool)
         stack = [(y, x)]
         seen[y, x] = True
@@ -1659,9 +1659,12 @@ class Pond:
             size += 1
             for dy, dx in ((1, 0), (-1, 0), (0, 1), (0, -1)):
                 ny, nx = cy + dy, cx + dx
-                if 0 <= ny < n and 0 <= nx < n and not bool(seen[ny, nx]) and not bool(s.alive[ny, nx]):
-                    seen[ny, nx] = True
-                    stack.append((ny, nx))
+                if not (0 <= ny < n and 0 <= nx < n) or bool(seen[ny, nx]):
+                    continue
+                if bool(s.alive[ny, nx]) and (ny, nx) != (y, x):
+                    continue
+                seen[ny, nx] = True
+                stack.append((ny, nx))
         return size
 
     def _niche_update(self) -> None:
