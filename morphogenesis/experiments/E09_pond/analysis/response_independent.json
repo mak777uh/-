@@ -1,0 +1,96 @@
+{
+  "metric": {
+    "quantity": "births_by_type / lineage_cell_steps (рождения линии на её клетко-шаги)",
+    "coefficient": "чистый Спирмен, без контроля энергии",
+    "line_filter": "cells >= 5 и cell_steps > 0",
+    "denominator": "клетко-шаги линии",
+    "does_not_use": [
+      "spores",
+      "w"
+    ]
+  },
+  "note": "Проверка «отклик не заявляется» величиной, независимой от определения w. Совпадение знака с rho(признак, w) считалось по тем же прогонам.",
+  "response_independent_median": 0.0179,
+  "independent_positive": 5,
+  "runs": 10,
+  "quartiles": [
+    -0.3107,
+    0.0179,
+    0.4591
+  ],
+  "w_median": 0.5179,
+  "w_positive": 8,
+  "sign_match": 3,
+  "rows": [
+    {
+      "seed": 101,
+      "lines": 8,
+      "rho_trait_birth_rate": -0.3095,
+      "rho_trait_w": 0.6667,
+      "sign_match": false
+    },
+    {
+      "seed": 102,
+      "lines": 8,
+      "rho_trait_birth_rate": -0.1667,
+      "rho_trait_w": 0.2619,
+      "sign_match": false
+    },
+    {
+      "seed": 103,
+      "lines": 10,
+      "rho_trait_birth_rate": 0.6364,
+      "rho_trait_w": -0.1515,
+      "sign_match": false
+    },
+    {
+      "seed": 104,
+      "lines": 5,
+      "rho_trait_birth_rate": 0.3,
+      "rho_trait_w": 0.3,
+      "sign_match": true
+    },
+    {
+      "seed": 105,
+      "lines": 7,
+      "rho_trait_birth_rate": -0.0357,
+      "rho_trait_w": 0.4643,
+      "sign_match": false
+    },
+    {
+      "seed": 106,
+      "lines": 8,
+      "rho_trait_birth_rate": 0.0714,
+      "rho_trait_w": 0.5714,
+      "sign_match": true
+    },
+    {
+      "seed": 107,
+      "lines": 8,
+      "rho_trait_birth_rate": 0.8333,
+      "rho_trait_w": -0.0952,
+      "sign_match": false
+    },
+    {
+      "seed": 108,
+      "lines": 3,
+      "rho_trait_birth_rate": -1.0,
+      "rho_trait_w": 1.0,
+      "sign_match": false
+    },
+    {
+      "seed": 109,
+      "lines": 4,
+      "rho_trait_birth_rate": 0.4,
+      "rho_trait_w": 0.8,
+      "sign_match": true
+    },
+    {
+      "seed": 110,
+      "lines": 6,
+      "rho_trait_birth_rate": -0.3143,
+      "rho_trait_w": 0.8857,
+      "sign_match": false
+    }
+  ]
+}
