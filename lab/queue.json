@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-26T17:20:00",
+  "updated_at": "2026-10-26T17:35:00",
   "note": "Очередь пунктов после E02c. Claim берётся до пре-регистрации, а не перед запуском: lab.py item-claim. Статус running означает занятый GPU-лейн и может быть только у одного пункта. | 25.10: добавлено поле impact (1-5) — приоритет конвейера = impact/max(cost_gpu_h,0.1); для запуска пункту нужны prereg (закоммиченный план) и launch.command+outdir.",
   "items": [
     {
@@ -1166,6 +1166,28 @@
       ],
       "note": "после агрегата pair (10 сидов): предсказание I > null в >=7/10, линии >=4, дегенерация <30; если 0 — дело в размере (порог = одна клетка) ЗАКРЫТО 26.10: гипотеза родства ОПРОВЕРГНУТА — вырожденных пар 0 против 71-112, меток 16-51, но линий с данными 1, I_obs > null 1/10, valid_n = 0 (не оценивается); решает размер единицы, топ-1 0.925. §10ba; eliminations.",
       "closed_by": "scientist"
+    },
+    {
+      "id": "R1_unit_size",
+      "title": "R1: единица размножения в мире без тела (k = 1 / 2 / 8)",
+      "hypothesis": "H-ALIVE-50",
+      "status": "planned",
+      "owner": null,
+      "claimed_at": null,
+      "heartbeat_at": null,
+      "closed_at": null,
+      "ttl_minutes": 240,
+      "cost_gpu_h": 0.25,
+      "impact": 5,
+      "gated_by": [],
+      "unblocks": [],
+      "prereg": "reports/2026-10-26-r1-substrate-plan.md",
+      "launch": {
+        "command": "(после просмотра ведущим; новый модуль morphogenesis/world/replicator.py, world/ не трогается)",
+        "outdir": "morphogenesis/experiments/R1_replicator"
+      },
+      "artifacts": [],
+      "note": "только дизайн: проверка переноса «единица размножения решает» на репликаторы без тела; порядок k=1 > k=2, k=8 должен сохраниться"
     }
   ]
 }
