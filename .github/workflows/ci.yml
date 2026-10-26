@@ -8,7 +8,14 @@ name: lab-contract
 
 on:
   push:
-    branches: ["**"]
+    # Полный контракт не нужен на коммитах, которые меняют только машинный след прогонов:
+    # манифесты, журнал, состояние, локальный лог. Это сотни пушей в сутки и письма о падениях.
+    paths-ignore:
+      - "lab/runs/**"
+      - "lab/state.json"
+      - "lab/logs/**"
+      - "morphogenesis/logs/journal.jsonl"
+      - "reports/figures/**"
   pull_request:
   workflow_dispatch:
 

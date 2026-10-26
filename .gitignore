@@ -105,6 +105,13 @@ lab/locks/*.lock
 !/reports/20[0-9][0-9]-[0-1][0-9]-[0-3][0-9]-*.md
 !/reports/figures/
 !/reports/figures/**
+# Генерируемые служебные отчёты контура: их пишут lab_health.py и farm_reader.py,
+# они фиксированные по имени (а не датированные), поэтому нужны отдельные исключения.
+# Без них гейт «отчёт обязан быть в индексе» не мог выполняться, а внешний workflow
+# не мог закоммитить статус (падение `git add` → письма об ошибках, 26.10).
+!/reports/health.md
+!/reports/farm-latest.md
+!/reports/ci-status.json
 /experiments/
 /checkpoints/
 *.tmp

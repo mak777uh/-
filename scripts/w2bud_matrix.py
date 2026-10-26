@@ -434,6 +434,10 @@ def main(argv=None) -> int:
     args = ap.parse_args(argv)
 
     files = sorted(glob.glob(str(Path(args.src) / "w2bud*.json")))
+    # Пилоты — не часть серии: они нужны для решения «запускать ли серию», а не для агрегата.
+    # Без этого фильтра расширенный шаблон имени втягивал их в строки (26.10: +2 строки),
+    # и проверка свежести агрегатов справедливо ругалась на расхождение.
+    files = [f for f in files if "_pilot_" not in Path(f).name]
     rows = [row for row in (analyse(Path(f)) for f in files) if row is not None]
     table = by_arm(rows)
     payload = {
