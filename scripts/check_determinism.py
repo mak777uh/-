@@ -62,12 +62,15 @@ def close(va, vb, abs_tol: float, rel_tol: float) -> tuple[bool, float]:
 def compare(a: dict, b: dict, abs_tol: float, rel_tol: float) -> tuple[list[str], list[str]]:
     hard: list[str] = []     # несовместимые расхождения
     soft: list[str] = []     # в пределах допуска (округление)
+    schema: list[str] = []   # поле есть только в одном файле — эволюция схемы, не провал
     for key in sorted(set(a) | set(b)):
         if key not in a:
-            hard.append(f"{key}: есть только в B ({b[key]!r})")
+            # Поле появилось в новой версии кода: это эволюция схемы, а не недетерминизм.
+            # Иначе сравнение артефактов разных версий всегда «провал» (замечание учёного 26.10).
+            schema.append(f"{key}: только в B ({b[key]!r})")
             continue
         if key not in b:
-            hard.append(f"{key}: есть только в A ({a[key]!r})")
+            schema.append(f"{key}: только в A ({a[key]!r})")
             continue
         va, vb = a[key], b[key]
         if va == vb:
@@ -78,7 +81,7 @@ def compare(a: dict, b: dict, abs_tol: float, rel_tol: float) -> tuple[list[str]
                 soft.append(f"{key}: {va} против {vb} (разница {diff:.2e}) — округление")
                 continue
         hard.append(f"{key}: {va!r} против {vb!r}")
-    return hard, soft
+    return hard, soft, schema
 
 
 def main(argv: list[str]) -> int:
@@ -96,10 +99,14 @@ def main(argv: list[str]) -> int:
             return 1
 
     a, b = summarise(pa), summarise(pb)
-    hard, soft = compare(a, b, args.abs_tol, args.rel_tol)
+    hard, soft, schema = compare(a, b, args.abs_tol, args.rel_tol)
     print(f"[det] сравниваются {pa.name} и {pb.name}: полей {len(set(a) | set(b))}")
     for s in soft:
         print(f"[det] округление: {s}")
+    if schema:
+        print(f"[det] новых/отсутствующих полей схемы: {len(schema)} (не считается расхождением)")
+        for s in schema[:5]:
+            print(f"       {s}")
     if hard:
         print(f"[det] РАСХОЖДЕНИЕ в {len(hard)} поле(ях):")
         for h in hard[:15]:
