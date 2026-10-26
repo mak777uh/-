@@ -38,6 +38,13 @@ def main(argv: list[str]) -> int:
                     help="коммитить только эти пути (по умолчанию git add -A)")
     args = ap.parse_args(argv)
 
+    # Таблица артефактов должна собираться ПОСЛЕ коммита артефактов, иначе она отстаёт и
+    # роняет CI на шаге «CPU tests» без внятного сообщения. Раз коммит идёт через этот скрипт —
+    # пересобираем здесь, а не надеемся на память (26.10: на этом потеряно 4 прогона CI).
+    table = run([sys.executable, "scripts/make_artifact_table.py", "--write"])
+    if table.returncode == 0:
+        print("[safe-commit] таблица артефактов пересобрана")
+
     verify = run([sys.executable, "scripts/verify.py"])
     last = [ln for ln in verify.stdout.strip().splitlines() if ln.startswith("verify")]
     print(last[-1] if last else "verify: нет вывода")
