@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-26T15:10:00",
+  "updated_at": "2026-10-26T15:25:00",
   "note": "Очередь пунктов после E02c. Claim берётся до пре-регистрации, а не перед запуском: lab.py item-claim. Статус running означает занятый GPU-лейн и может быть только у одного пункта. | 25.10: добавлено поле impact (1-5) — приоритет конвейера = impact/max(cost_gpu_h,0.1); для запуска пункту нужны prereg (закоммиченный план) и launch.command+outdir.",
   "items": [
     {
@@ -1091,11 +1091,11 @@
       "id": "Adjacency_exact_10seeds",
       "title": "W1-niche: adjacency_exact на 10 сидах (закрыть дырку в §4j)",
       "hypothesis": "H-ALIVE-47",
-      "status": "planned",
-      "owner": null,
+      "status": "closed",
+      "owner": "scientist",
       "claimed_at": null,
       "heartbeat_at": null,
-      "closed_at": null,
+      "closed_at": "2026-10-26T15:25:00",
       "ttl_minutes": 120,
       "cost_gpu_h": 0.3,
       "impact": 5,
@@ -1106,8 +1106,12 @@
         "command": "pwsh -NoProfile -ExecutionPolicy Bypass -File _hourly/run_adjexact10_sweep.ps1",
         "outdir": "morphogenesis/experiments/E09_pond/w1niche"
       },
-      "artifacts": [],
-      "note": "7 новых прогонов (adjacency_exact, сиды 4-10); критерий legacy > exact в >=7/10; стратификация по n4 обязательна"
+      "artifacts": [
+        "morphogenesis/experiments/E09_pond/w1niche_matrix.json",
+        "docs/world-design.md"
+      ],
+      "note": "7 новых прогонов (adjacency_exact, сиды 4-10); критерий legacy > exact в >=7/10; стратификация по n4 обязательна ЗАКРЫТО 26.10: legacy > exact в 6/9 годных сидов (медиана +0.019, знаковый p = 0.254) — по критерию «на границе»: разницы по величине нет, строгого подтверждения тоже. Монотонность по n4 сохранилась (0.744 -> 0.881 на 10 сидах). §10ay.",
+      "closed_by": "scientist"
     },
     {
       "id": "W2bud_pair_unit",
