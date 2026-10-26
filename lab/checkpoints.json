@@ -312,11 +312,27 @@
     }
   ],
   "deposit": {
-    "note": "веса не в git; канонические лежат локально и публикуются отдельной записью Zenodo",
+    "note": "веса не в git. 26.10 депонированы в Zenodo (12 файлов, 6.47 ГБ, md5 сверен 12/12) и удалены локально по решению владельца; локально оставлен положительный контроль WP4_R-9_s2000_seed42. Хеши для проверки — docs/checkpoints-v1.1.json",
     "weights_doi": "10.5281/zenodo.23654174",
     "concept_doi": "10.5281/zenodo.23654173",
     "code_doi": "10.5281/zenodo.23571610",
     "hashes_file": "docs/checkpoints-v1.1.json",
-    "verified_against_disk": "2026-10-26: 12 из 12 sha256 совпали"
+    "verified_against_disk": "2026-10-26: 12 из 12 sha256 совпали",
+    "local_retained": [
+      "morphogenesis/checkpoints/WP4_R-9_s2000_seed42/nca_final.pt"
+    ],
+    "local_removed": [
+      "morphogenesis/checkpoints/WP4_H-A0_s2000_seed101/nca_final.pt",
+      "morphogenesis/checkpoints/WP4_H-A0_s2000_seed202/nca_final.pt",
+      "morphogenesis/checkpoints/WP4_H-A0_s2000_seed303/nca_final.pt",
+      "morphogenesis/checkpoints/WP4_H-A0_s2000_seed404/nca_final.pt",
+      "morphogenesis/checkpoints/WP4_H-A0_s2000_seed42/nca_final.pt",
+      "morphogenesis/checkpoints/WP4_H-P1_s2000_seed42/nca_final.pt",
+      "morphogenesis/checkpoints/WP4_R-11_s2000_seed42/nca_final.pt",
+      "morphogenesis/checkpoints/WP4_R-9_s2000_seed101/nca_final.pt",
+      "morphogenesis/checkpoints/WP4_R-9_s2000_seed202/nca_final.pt",
+      "morphogenesis/checkpoints/WP4_R-9_s2000_seed303/nca_final.pt",
+      "morphogenesis/checkpoints/WP4_R-9_s2000_seed404/nca_final.pt"
+    ]
   }
 }

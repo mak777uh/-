@@ -263,6 +263,7 @@ class Pond:
         self.niche_hit_any = 0
         self.niche_levels: dict[int, list[int]] = {}   # n4 -> [prepared, hit_same]
         self.death_log: list[tuple[int, int, int]] = []   # (y, x, tag) для плеча foreign
+        self.pair_degenerate = 0                          # H-ALIVE-48: пара выродилась в одну клетку
         self.free_cells_at_injection: int | None = None
         self.max_free_component_at_injection: int | None = None
         self.placement_attempts_used: int | None = None
@@ -1241,6 +1242,8 @@ class Pond:
         тому же `score` (ресурс минус теснота); `one_bud_per_lineage` запрещает два бутона одной
         линии, чтобы N не усиливал предка, а давал шанс мутанту.
         """
+        if getattr(self.cfg, "budding_unit", "colony") == "pair":
+            return [self.budding_parent_pair(body)]
         n_buds = int(getattr(self.cfg, "buds_per_component", 1))
         if getattr(self.cfg, "budding_unit", "colony") != "cell" or n_buds <= 1:
             return [self.budding_parent(body)]
@@ -1276,6 +1279,40 @@ class Pond:
             single[y, x] = True
             parents.append(single)
         return parents or [self.budding_parent(body)]
+
+    def budding_parent_pair(self, body: torch.Tensor) -> torch.Tensor:
+        """Единица размножения — ПАРА клеток: случайная живая клетка + живой 4-сосед той же метки.
+
+        Промежуточная единица между клеткой и колонией (H-ALIVE-48). Если соседа той же метки нет,
+        единица вырождается в одну клетку — это считается в `pair_degenerate`.
+        """
+        s = self.state
+        alive_body = body & s.alive
+        idx = alive_body.nonzero(as_tuple=False)
+        if idx.shape[0] == 0:
+            return self.budding_parent(body)
+        pick = idx[int(torch.randint(0, idx.shape[0], (), generator=self.gen_sel))]
+        y, x = int(pick[0]), int(pick[1])
+        mask = torch.zeros_like(alive_body)
+        mask[y, x] = True
+        n = int(alive_body.shape[0])
+        tag_here = int(s.tag[y, x]) if s.tag is not None else -1
+        cand = []
+        for dy, dx in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+            ny, nx = y + dy, x + dx
+            if not (0 <= ny < n and 0 <= nx < n):
+                continue
+            if not bool(alive_body[ny, nx]):
+                continue
+            if s.tag is not None and int(s.tag[ny, nx]) != tag_here:
+                continue
+            cand.append((ny, nx))
+        if cand:
+            ny, nx = cand[int(torch.randint(0, len(cand), (), generator=self.gen_sel))]
+            mask[ny, nx] = True
+        else:
+            self.pair_degenerate += 1
+        return mask
 
     def bud(self, parent_mask: torch.Tensor) -> torch.Tensor | None:
         """Выпустить спору: `spore_cells` свободных клеток рядом с родителем.

@@ -109,6 +109,7 @@ def config_block(cfg) -> dict:
         "merge_rule": getattr(cfg, "merge_rule", "majority"),
         "trait_effect": getattr(cfg, "trait_effect", 0.0),
         "budding_unit": getattr(cfg, "budding_unit", "colony"),
+        "pair_degenerate_k": int(getattr(run.pond, "pair_degenerate", 0)) if getattr(cfg, "budding_unit", "") == "pair" else None,
         "require_placement": getattr(cfg, "require_placement", 0),
         "buds_per_component": getattr(cfg, "buds_per_component", 1),
         "death_return": getattr(cfg, "death_return", 0.0),
@@ -733,7 +734,7 @@ def build_parser() -> argparse.ArgumentParser:
                     help="гарантировать столько клеток инокулята (0 = старая ветка бит-в-бит)")
     ap.add_argument("--placement-attempts", type=int, default=5,
                     help="сколько раз перерисовывать точку подсадки, если пятно не встало")
-    ap.add_argument("--budding-unit", default="colony", choices=["colony", "cell"],
+    ap.add_argument("--budding-unit", default="colony", choices=["colony", "cell", "pair"],
                     help="кто почкуется: colony (W1, по умолчанию) или cell (W2-bud)")
     ap.add_argument("--trait-effect", type=float, default=0.0,
                     help="eps: насколько tag_trait меняет интенсивность инвестирования "
