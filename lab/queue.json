@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-26T15:25:00",
+  "updated_at": "2026-10-26T16:15:00",
   "note": "Очередь пунктов после E02c. Claim берётся до пре-регистрации, а не перед запуском: lab.py item-claim. Статус running означает занятый GPU-лейн и может быть только у одного пункта. | 25.10: добавлено поле impact (1-5) — приоритет конвейера = impact/max(cost_gpu_h,0.1); для запуска пункту нужны prereg (закоммиченный план) и launch.command+outdir.",
   "items": [
     {
@@ -1134,6 +1134,30 @@
       },
       "artifacts": [],
       "note": "проверка монотонности: колония 0 < пара < клетка 12.16; требует правки world/ и якоря до серии"
+    },
+    {
+      "id": "W2bud_pair_any_tag",
+      "title": "pair_any_tag: механизм пары — родство внутри единицы, а не размер",
+      "hypothesis": "H-ALIVE-49",
+      "status": "planned",
+      "owner": null,
+      "claimed_at": null,
+      "heartbeat_at": null,
+      "closed_at": null,
+      "ttl_minutes": 240,
+      "cost_gpu_h": 0.45,
+      "impact": 5,
+      "gated_by": [
+        "W2bud_pair_unit"
+      ],
+      "unblocks": [],
+      "prereg": "reports/2026-10-26-pair-any-tag-plan.md",
+      "launch": {
+        "command": "pwsh -NoProfile -ExecutionPolicy Bypass -File _hourly/run_pairany_sweep.ps1",
+        "outdir": "morphogenesis/experiments/E09_pond/w2bud_pairany"
+      },
+      "artifacts": [],
+      "note": "после агрегата pair (10 сидов): предсказание I > null в >=7/10, линии >=4, дегенерация <30; если 0 — дело в размере (порог = одна клетка)"
     }
   ]
 }
