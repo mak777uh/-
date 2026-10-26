@@ -261,6 +261,7 @@ class Pond:
         self.niche_expected = 0.0
         self.niche_hit_same = 0
         self.niche_hit_any = 0
+        self.death_log: list[tuple[int, int, int]] = []   # (y, x, tag) для плеча foreign
         self.free_cells_at_injection: int | None = None
         self.max_free_component_at_injection: int | None = None
         self.placement_attempts_used: int | None = None
@@ -1466,7 +1467,81 @@ class Pond:
             return
         mode = str(getattr(self.cfg, "death_return_mode", "legacy"))
         tags = s.tag
-        if mode == "prepared":
+        if mode == "adjacent_matched":
+            # контроль СОСЕДСТВА: пустая клетка с тем же числом живых 4-соседей, что у точки
+            # смерти (+-1), но не точка смерти. Проверяет гипотезу «доступность/соседство».
+            ker = torch.tensor([[0., 1., 0.], [1., 0., 1.], [0., 1., 0.]], device=self.device)
+            n4 = torch.nn.functional.conv2d(
+                s.alive.float().view(1, 1, *s.alive.shape),
+                ker.view(1, 1, 3, 3), padding=1).view(s.alive.shape)
+            free_all = (~s.alive).nonzero(as_tuple=False)
+            targets = []
+            for (dy, dx) in idx.tolist():
+                if free_all.shape[0] == 0:
+                    return
+                want = float(n4[dy, dx])
+                dv = n4[free_all[:, 0], free_all[:, 1]]
+                ok = (dv - want).abs() <= 1.0
+                same_cell = (free_all[:, 0] == dy) & (free_all[:, 1] == dx)
+                ok = ok & ~same_cell
+                cand = free_all[ok]
+                if cand.shape[0] == 0:
+                    ok2 = dv >= min(2.0, want)
+                    cand = free_all[ok2 & ~same_cell]
+                if cand.shape[0] == 0:
+                    cand = free_all
+                pick = cand[int(torch.randint(0, cand.shape[0], (), generator=self.gen_sel))]
+                targets.append((int(pick[0]), int(pick[1])))
+            targets = torch.tensor(targets, device=self.device)
+            for (dy, dx) in idx.tolist():
+                if tags is not None:
+                    self.death_log.append((int(dy), int(dx), int(tags[dy, dx])))
+        elif mode == "density_matched":
+            # контроль плотности: пустая клетка с ТОЙ ЖЕ локальной плотностью (окно 5x5, +-1),
+            # но не точка смерти. Проверяет, объясняется ли эффект зоны плотностью.
+            dens = torch.nn.functional.conv2d(
+                s.alive.float().view(1, 1, *s.alive.shape),
+                torch.ones((1, 1, 5, 5), device=self.device), padding=2).view(-1)
+            dens = dens.view(s.alive.shape)
+            free_all = (~s.alive).nonzero(as_tuple=False)
+            targets = []
+            for (dy, dx) in idx.tolist():
+                d_here = float(dens[dy, dx])
+                if free_all.shape[0] == 0:
+                    return
+                dv = dens[free_all[:, 0], free_all[:, 1]]
+                ok = (dv - d_here).abs() <= 1.0
+                same_cell = (free_all[:, 0] == dy) & (free_all[:, 1] == dx)
+                ok = ok & ~same_cell
+                cand = free_all[ok]
+                if cand.shape[0] == 0:
+                    cand = free_all
+                pick = cand[int(torch.randint(0, cand.shape[0], (), generator=self.gen_sel))]
+                targets.append((int(pick[0]), int(pick[1])))
+            targets = torch.tensor(targets, device=self.device)
+            for (dy, dx) in idx.tolist():
+                if tags is not None:
+                    self.death_log.append((int(dy), int(dx), int(tags[dy, dx])))
+        elif mode == "foreign":
+            # подготовка в клетках, где умерла клетка ДРУГОЙ линии (контроль на «свою зону»)
+            targets = []
+            for (dy, dx) in idx.tolist():
+                tag_here = int(tags[dy, dx]) if tags is not None else -1
+                cand = [(y, x) for (y, x, tg) in self.death_log if tg != tag_here]
+                if cand:
+                    pick = cand[int(torch.randint(0, len(cand), (), generator=self.gen_sel))]
+                    targets.append(pick)
+                else:
+                    free0 = (~s.alive).nonzero(as_tuple=False)
+                    if free0.shape[0] == 0:
+                        return
+                    p0 = free0[int(torch.randint(0, free0.shape[0], (), generator=self.gen_sel))]
+                    targets.append((int(p0[0]), int(p0[1])))
+            targets = torch.tensor(targets, device=self.device)
+            for (dy, dx) in idx.tolist():
+                if tags is not None:
+                    self.death_log.append((int(dy), int(dx), int(tags[dy, dx])))
+        elif mode == "prepared":
             free = (~s.alive).nonzero(as_tuple=False)
             if free.shape[0] == 0:
                 return
@@ -1474,6 +1549,9 @@ class Pond:
             targets = free[perm]
         else:
             targets = idx
+            for (dy, dx) in idx.tolist():
+                if tags is not None:
+                    self.death_log.append((int(dy), int(dx), int(tags[dy, dx])))
         for (ty, tx), amount in zip(targets.tolist(), amounts):
             s.resource[ty, tx] = min(
                 float(s.resource[ty, tx]) + float(amount), float(self.cfg.resource_max))
@@ -1481,7 +1559,9 @@ class Pond:
             self.resource_at_death.append(float(s.resource[ty, tx]))
         # журнал «подготовленных» клеток для статистики наследования
         for k, ((dy, dx), amount) in enumerate(zip(idx.tolist(), amounts)):
-            ty, tx = (targets[k].tolist() if mode == "prepared" else (dy, dx))
+            ty, tx = (targets[k].tolist()
+                      if mode in ("prepared", "foreign", "density_matched",
+                                  "adjacent_matched") else (dy, dx))
             tag_val = int(tags[dy, dx]) if tags is not None else -1
             self.niche_log.append({
                 "step": int(s.step), "y": int(ty), "x": int(tx),

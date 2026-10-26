@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-26T06:15:00",
+  "updated_at": "2026-10-26T07:45:00",
   "note": "Очередь пунктов после E02c. Claim берётся до пре-регистрации, а не перед запуском: lab.py item-claim. Статус running означает занятый GPU-лейн и может быть только у одного пункта. | 25.10: добавлено поле impact (1-5) — приоритет конвейера = impact/max(cost_gpu_h,0.1); для запуска пункту нужны prereg (закоммиченный план) и launch.command+outdir.",
   "items": [
     {
@@ -951,11 +951,11 @@
       "id": "W1_niche_death_return",
       "title": "W1-niche: возврат энергии при смерти как механизм положительного наследия среды",
       "hypothesis": "H-ALIVE-41",
-      "status": "planned",
-      "owner": null,
+      "status": "closed",
+      "owner": "scientist",
       "claimed_at": null,
       "heartbeat_at": null,
-      "closed_at": null,
+      "closed_at": "2026-10-26T07:45:00",
       "ttl_minutes": 240,
       "cost_gpu_h": 1.0,
       "impact": 4,
@@ -963,8 +963,12 @@
       "unblocks": [],
       "prereg": "reports/2026-10-25-w1-niche-plan.md",
       "launch": null,
-      "artifacts": [],
-      "note": "death_return: при смерти клетки доля энергии возвращается в локальный ресурс; при death_return=0 мир бит-в-бит прежний (якорь 66679/459); три теста в docs/optimality.md и §3c"
+      "artifacts": [
+        "morphogenesis/experiments/E09_pond/w1niche5_matrix.json",
+        "docs/world-design.md"
+      ],
+      "note": "death_return: при смерти клетки доля энергии возвращается в локальный ресурс; при death_return=0 мир бит-в-бит прежний (якорь 66679/459); три теста в docs/optimality.md и §3c ЗАКРЫТО 26.10: 4 плеча x 10 сидов. Наследования по линии НЕТ (foreign 0.844 = legacy 0.846); плотность окна не объясняет (density_matched 0.704 = prepared 0.710); соседство объясняет малую часть (adjacent_matched 0.731, 6/10); остаток +0.12 специфичен точке смерти (9/9, p = 0.002), но контроль соседства грубый (>=2). §10ay; пул: W1-niche-adjacency-exact.",
+      "closed_by": "scientist"
     },
     {
       "id": "W2bud_threshold3",

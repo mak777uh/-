@@ -722,7 +722,7 @@ def build_parser() -> argparse.ArgumentParser:
     ap.add_argument("--death-return", type=float, default=0.0,
                     help="W1-niche: доля взятого за жизнь ресурса, возвращаемая при смерти (0 = старая ветка)")
     ap.add_argument("--death-return-mode", default="legacy",
-                    choices=["legacy", "prepared", "depleted"],
+                    choices=["legacy", "prepared", "foreign", "density_matched", "adjacent_matched", "depleted"],
                     help="legacy: туда, где умерла; prepared: в случайные СВОБОДНЫЕ (контроль объёма)")
     ap.add_argument("--buds-per-component", type=int, default=1,
                     help="W2-bud-d2: до N бутонов на компоненту (1 = W2-bud бит-в-бит)")
