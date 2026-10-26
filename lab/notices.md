@@ -4821,3 +4821,5 @@ parameters influence the spread and establishment»: **распростране�
 `claim_audit` 6/6, `validate` зелёный. Пункт S1 закрываю — очередь библиотеки пуста.
 
 - **серия `W2bud_onebud` запущена 05:22, ETA ~05:55**, сиды 101–110, `--buds-per-component 3 --one-bud-per-lineage` (третье плечо на тех же сидах); после финиша: агрегат `w2bud_onebud_matrix.json` + `metric_variants_onebud.json` + §10ax + README + CHANGELOG + CLAIMS. **Стоп-правило:** при `valid_n` < 7/10 цена в W2-bud объявляется неизмеримой по конструкции, четвёртый рычаг не ищется.
+
+- 05:15 — тест: запускает ли push через deploy key workflow
