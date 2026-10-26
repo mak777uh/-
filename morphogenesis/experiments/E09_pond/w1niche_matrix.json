@@ -1,0 +1,913 @@
+{
+  "kind": "w1niche_runs",
+  "world": "W1, type_level = cell, death_return = 0.05 (четыре способа выбрать подготовленную клетку)",
+  "metric": {
+    "same_share": "offspring_in_prepared_k / prepared_cells_total — доля подготовленных клеток, которые позже заняла клетка ТОЙ ЖЕ метки",
+    "any_share": "prepared_occupied_any_k / prepared_cells_total — занял кто угодно",
+    "underpowered": "prepared_cells_total < 100 — вне знакового теста, публикуется",
+    "prepared_expected_hits": "ожидание при случайном размещении; derived_by_construction: true, НЕ критерий (направление переворачивается от прогона к прогону)"
+  },
+  "rows": [
+    {
+      "artifact": "morphogenesis/experiments/E09_pond/w1niche/w1niche4_density_matched_seed1.json",
+      "arm": "density_matched",
+      "seed": 1,
+      "prepared_cells_total": 2236,
+      "offspring_in_prepared_k": 1573,
+      "prepared_occupied_any_k": 1746,
+      "same_share": 0.7035,
+      "any_share": 0.7809,
+      "underpowered": false,
+      "resource_at_death_median": 0.11162,
+      "returned_total": 126.1511,
+      "prepared_expected_hits": 2751.575,
+      "derived_by_construction": {
+        "prepared_expected_hits": true
+      }
+    },
+    {
+      "artifact": "morphogenesis/experiments/E09_pond/w1niche/w1niche4_density_matched_seed2.json",
+      "arm": "density_matched",
+      "seed": 2,
+      "prepared_cells_total": 2689,
+      "offspring_in_prepared_k": 1885,
+      "prepared_occupied_any_k": 2061,
+      "same_share": 0.701,
+      "any_share": 0.7665,
+      "underpowered": false,
+      "resource_at_death_median": 0.12852,
+      "returned_total": 154.3467,
+      "prepared_expected_hits": 3422.685,
+      "derived_by_construction": {
+        "prepared_expected_hits": true
+      }
+    },
+    {
+      "artifact": "morphogenesis/experiments/E09_pond/w1niche/w1niche4_density_matched_seed3.json",
+      "arm": "density_matched",
+      "seed": 3,
+      "prepared_cells_total": 2256,
+      "offspring_in_prepared_k": 1577,
+      "prepared_occupied_any_k": 1753,
+      "same_share": 0.699,
+      "any_share": 0.777,
+      "underpowered": false,
+      "resource_at_death_median": 0.11371,
+      "returned_total": 126.7264,
+      "prepared_expected_hits": 2968.667,
+      "derived_by_construction": {
+        "prepared_expected_hits": true
+      }
+    },
+    {
+      "artifact": "morphogenesis/experiments/E09_pond/w1niche/w1niche4_legacy_seed1.json",
+      "arm": "legacy",
+      "seed": 1,
+      "prepared_cells_total": 1988,
+      "offspring_in_prepared_k": 1671,
+      "prepared_occupied_any_k": 1824,
+      "same_share": 0.8405,
+      "any_share": 0.9175,
+      "underpowered": false,
+      "resource_at_death_median": 0.05583,
+      "returned_total": 112.6767,
+      "prepared_expected_hits": 2381.062,
+      "derived_by_construction": {
+        "prepared_expected_hits": true
+      }
+    },
+    {
+      "artifact": "morphogenesis/experiments/E09_pond/w1niche/w1niche4_legacy_seed2.json",
+      "arm": "legacy",
+      "seed": 2,
+      "prepared_cells_total": 2337,
+      "offspring_in_prepared_k": 2030,
+      "prepared_occupied_any_k": 2203,
+      "same_share": 0.8686,
+      "any_share": 0.9427,
+      "underpowered": false,
+      "resource_at_death_median": 0.05958,
+      "returned_total": 140.2846,
+      "prepared_expected_hits": 3034.238,
+      "derived_by_construction": {
+        "prepared_expected_hits": true
+      }
+    },
+    {
+      "artifact": "morphogenesis/experiments/E09_pond/w1niche/w1niche4_legacy_seed3.json",
+      "arm": "legacy",
+      "seed": 3,
+      "prepared_cells_total": 1993,
+      "offspring_in_prepared_k": 1686,
+      "prepared_occupied_any_k": 1838,
+      "same_share": 0.846,
+      "any_share": 0.9222,
+      "underpowered": false,
+      "resource_at_death_median": 0.05848,
+      "returned_total": 117.8518,
+      "prepared_expected_hits": 2576.492,
+      "derived_by_construction": {
+        "prepared_expected_hits": true
+      }
+    },
+    {
+      "artifact": "morphogenesis/experiments/E09_pond/w1niche/w1niche4_prepared_seed1.json",
+      "arm": "prepared",
+      "seed": 1,
+      "prepared_cells_total": 2267,
+      "offspring_in_prepared_k": 1553,
+      "prepared_occupied_any_k": 1711,
+      "same_share": 0.685,
+      "any_share": 0.7547,
+      "underpowered": false,
+      "resource_at_death_median": 0.12234,
+      "returned_total": 127.346,
+      "prepared_expected_hits": 2941.463,
+      "derived_by_construction": {
+        "prepared_expected_hits": true
+      }
+    },
+    {
+      "artifact": "morphogenesis/experiments/E09_pond/w1niche/w1niche4_prepared_seed2.json",
+      "arm": "prepared",
+      "seed": 2,
+      "prepared_cells_total": 2409,
+      "offspring_in_prepared_k": 1781,
+      "prepared_occupied_any_k": 1950,
+      "same_share": 0.7393,
+      "any_share": 0.8095,
+      "underpowered": false,
+      "resource_at_death_median": 0.14374,
+      "returned_total": 145.2439,
+      "prepared_expected_hits": 3194.573,
+      "derived_by_construction": {
+        "prepared_expected_hits": true
+      }
+    },
+    {
+      "artifact": "morphogenesis/experiments/E09_pond/w1niche/w1niche4_prepared_seed3.json",
+      "arm": "prepared",
+      "seed": 3,
+      "prepared_cells_total": 2134,
+      "offspring_in_prepared_k": 1433,
+      "prepared_occupied_any_k": 1593,
+      "same_share": 0.6715,
+      "any_share": 0.7465,
+      "underpowered": false,
+      "resource_at_death_median": 0.11069,
+      "returned_total": 116.9474,
+      "prepared_expected_hits": 2703.223,
+      "derived_by_construction": {
+        "prepared_expected_hits": true
+      }
+    },
+    {
+      "artifact": "morphogenesis/experiments/E09_pond/w1niche/w1niche5_adjacent_matched_seed1.json",
+      "arm": "adjacent_matched",
+      "seed": 1,
+      "prepared_cells_total": 2038,
+      "offspring_in_prepared_k": 1475,
+      "prepared_occupied_any_k": 1613,
+      "same_share": 0.7237,
+      "any_share": 0.7915,
+      "underpowered": false,
+      "resource_at_death_median": 0.12559,
+      "returned_total": 115.418,
+      "prepared_expected_hits": 2587.24,
+      "derived_by_construction": {
+        "prepared_expected_hits": true
+      }
+    },
+    {
+      "artifact": "morphogenesis/experiments/E09_pond/w1niche/w1niche5_adjacent_matched_seed10.json",
+      "arm": "adjacent_matched",
+      "seed": 10,
+      "prepared_cells_total": 2053,
+      "offspring_in_prepared_k": 1379,
+      "prepared_occupied_any_k": 1542,
+      "same_share": 0.6717,
+      "any_share": 0.7511,
+      "underpowered": false,
+      "resource_at_death_median": 0.11354,
+      "returned_total": 119.838,
+      "prepared_expected_hits": 2634.199,
+      "derived_by_construction": {
+        "prepared_expected_hits": true
+      }
+    },
+    {
+      "artifact": "morphogenesis/experiments/E09_pond/w1niche/w1niche5_adjacent_matched_seed2.json",
+      "arm": "adjacent_matched",
+      "seed": 2,
+      "prepared_cells_total": 2493,
+      "offspring_in_prepared_k": 1857,
+      "prepared_occupied_any_k": 2014,
+      "same_share": 0.7449,
+      "any_share": 0.8079,
+      "underpowered": false,
+      "resource_at_death_median": 0.1416,
+      "returned_total": 147.023,
+      "prepared_expected_hits": 3302.69,
+      "derived_by_construction": {
+        "prepared_expected_hits": true
+      }
+    },
+    {
+      "artifact": "morphogenesis/experiments/E09_pond/w1niche/w1niche5_adjacent_matched_seed3.json",
+      "arm": "adjacent_matched",
+      "seed": 3,
+      "prepared_cells_total": 2017,
+      "offspring_in_prepared_k": 1483,
+      "prepared_occupied_any_k": 1620,
+      "same_share": 0.7353,
+      "any_share": 0.8032,
+      "underpowered": false,
+      "resource_at_death_median": 0.09747,
+      "returned_total": 110.099,
+      "prepared_expected_hits": 2752.88,
+      "derived_by_construction": {
+        "prepared_expected_hits": true
+      }
+    },
+    {
+      "artifact": "morphogenesis/experiments/E09_pond/w1niche/w1niche5_adjacent_matched_seed4.json",
+      "arm": "adjacent_matched",
+      "seed": 4,
+      "prepared_cells_total": 2509,
+      "offspring_in_prepared_k": 1863,
+      "prepared_occupied_any_k": 2025,
+      "same_share": 0.7425,
+      "any_share": 0.8071,
+      "underpowered": false,
+      "resource_at_death_median": 0.13474,
+      "returned_total": 146.5848,
+      "prepared_expected_hits": 3235.924,
+      "derived_by_construction": {
+        "prepared_expected_hits": true
+      }
+    },
+    {
+      "artifact": "morphogenesis/experiments/E09_pond/w1niche/w1niche5_adjacent_matched_seed5.json",
+      "arm": "adjacent_matched",
+      "seed": 5,
+      "prepared_cells_total": 2140,
+      "offspring_in_prepared_k": 1509,
+      "prepared_occupied_any_k": 1649,
+      "same_share": 0.7051,
+      "any_share": 0.7706,
+      "underpowered": false,
+      "resource_at_death_median": 0.12131,
+      "returned_total": 122.1247,
+      "prepared_expected_hits": 2769.512,
+      "derived_by_construction": {
+        "prepared_expected_hits": true
+      }
+    },
+    {
+      "artifact": "morphogenesis/experiments/E09_pond/w1niche/w1niche5_adjacent_matched_seed6.json",
+      "arm": "adjacent_matched",
+      "seed": 6,
+      "prepared_cells_total": 2881,
+      "offspring_in_prepared_k": 2164,
+      "prepared_occupied_any_k": 2339,
+      "same_share": 0.7511,
+      "any_share": 0.8119,
+      "underpowered": false,
+      "resource_at_death_median": 0.14322,
+      "returned_total": 172.3245,
+      "prepared_expected_hits": 3671.165,
+      "derived_by_construction": {
+        "prepared_expected_hits": true
+      }
+    },
+    {
+      "artifact": "morphogenesis/experiments/E09_pond/w1niche/w1niche5_adjacent_matched_seed7.json",
+      "arm": "adjacent_matched",
+      "seed": 7,
+      "prepared_cells_total": 2379,
+      "offspring_in_prepared_k": 1767,
+      "prepared_occupied_any_k": 1903,
+      "same_share": 0.7427,
+      "any_share": 0.7999,
+      "underpowered": false,
+      "resource_at_death_median": 0.14,
+      "returned_total": 143.0543,
+      "prepared_expected_hits": 3180.179,
+      "derived_by_construction": {
+        "prepared_expected_hits": true
+      }
+    },
+    {
+      "artifact": "morphogenesis/experiments/E09_pond/w1niche/w1niche5_adjacent_matched_seed8.json",
+      "arm": "adjacent_matched",
+      "seed": 8,
+      "prepared_cells_total": 2302,
+      "offspring_in_prepared_k": 1672,
+      "prepared_occupied_any_k": 1837,
+      "same_share": 0.7263,
+      "any_share": 0.798,
+      "underpowered": false,
+      "resource_at_death_median": 0.14064,
+      "returned_total": 136.4102,
+      "prepared_expected_hits": 3068.964,
+      "derived_by_construction": {
+        "prepared_expected_hits": true
+      }
+    },
+    {
+      "artifact": "morphogenesis/experiments/E09_pond/w1niche/w1niche5_adjacent_matched_seed9.json",
+      "arm": "adjacent_matched",
+      "seed": 9,
+      "prepared_cells_total": 2302,
+      "offspring_in_prepared_k": 1645,
+      "prepared_occupied_any_k": 1821,
+      "same_share": 0.7146,
+      "any_share": 0.7911,
+      "underpowered": false,
+      "resource_at_death_median": 0.13149,
+      "returned_total": 136.2804,
+      "prepared_expected_hits": 3043.045,
+      "derived_by_construction": {
+        "prepared_expected_hits": true
+      }
+    },
+    {
+      "artifact": "morphogenesis/experiments/E09_pond/w1niche/w1niche5_density_matched_seed10.json",
+      "arm": "density_matched",
+      "seed": 10,
+      "prepared_cells_total": 2129,
+      "offspring_in_prepared_k": 1490,
+      "prepared_occupied_any_k": 1655,
+      "same_share": 0.6999,
+      "any_share": 0.7774,
+      "underpowered": false,
+      "resource_at_death_median": 0.11706,
+      "returned_total": 121.9355,
+      "prepared_expected_hits": 2730.376,
+      "derived_by_construction": {
+        "prepared_expected_hits": true
+      }
+    },
+    {
+      "artifact": "morphogenesis/experiments/E09_pond/w1niche/w1niche5_density_matched_seed4.json",
+      "arm": "density_matched",
+      "seed": 4,
+      "prepared_cells_total": 2464,
+      "offspring_in_prepared_k": 1786,
+      "prepared_occupied_any_k": 1938,
+      "same_share": 0.7248,
+      "any_share": 0.7865,
+      "underpowered": false,
+      "resource_at_death_median": 0.12783,
+      "returned_total": 140.9731,
+      "prepared_expected_hits": 3124.123,
+      "derived_by_construction": {
+        "prepared_expected_hits": true
+      }
+    },
+    {
+      "artifact": "morphogenesis/experiments/E09_pond/w1niche/w1niche5_density_matched_seed5.json",
+      "arm": "density_matched",
+      "seed": 5,
+      "prepared_cells_total": 2333,
+      "offspring_in_prepared_k": 1644,
+      "prepared_occupied_any_k": 1765,
+      "same_share": 0.7047,
+      "any_share": 0.7565,
+      "underpowered": false,
+      "resource_at_death_median": 0.12298,
+      "returned_total": 132.7107,
+      "prepared_expected_hits": 2982.913,
+      "derived_by_construction": {
+        "prepared_expected_hits": true
+      }
+    },
+    {
+      "artifact": "morphogenesis/experiments/E09_pond/w1niche/w1niche5_density_matched_seed6.json",
+      "arm": "density_matched",
+      "seed": 6,
+      "prepared_cells_total": 2789,
+      "offspring_in_prepared_k": 2038,
+      "prepared_occupied_any_k": 2221,
+      "same_share": 0.7307,
+      "any_share": 0.7963,
+      "underpowered": false,
+      "resource_at_death_median": 0.14582,
+      "returned_total": 166.581,
+      "prepared_expected_hits": 3654.838,
+      "derived_by_construction": {
+        "prepared_expected_hits": true
+      }
+    },
+    {
+      "artifact": "morphogenesis/experiments/E09_pond/w1niche/w1niche5_density_matched_seed7.json",
+      "arm": "density_matched",
+      "seed": 7,
+      "prepared_cells_total": 2428,
+      "offspring_in_prepared_k": 1760,
+      "prepared_occupied_any_k": 1925,
+      "same_share": 0.7249,
+      "any_share": 0.7928,
+      "underpowered": false,
+      "resource_at_death_median": 0.12188,
+      "returned_total": 140.9871,
+      "prepared_expected_hits": 3167.11,
+      "derived_by_construction": {
+        "prepared_expected_hits": true
+      }
+    },
+    {
+      "artifact": "morphogenesis/experiments/E09_pond/w1niche/w1niche5_density_matched_seed8.json",
+      "arm": "density_matched",
+      "seed": 8,
+      "prepared_cells_total": 2289,
+      "offspring_in_prepared_k": 1630,
+      "prepared_occupied_any_k": 1775,
+      "same_share": 0.7121,
+      "any_share": 0.7754,
+      "underpowered": false,
+      "resource_at_death_median": 0.12541,
+      "returned_total": 130.8542,
+      "prepared_expected_hits": 3040.299,
+      "derived_by_construction": {
+        "prepared_expected_hits": true
+      }
+    },
+    {
+      "artifact": "morphogenesis/experiments/E09_pond/w1niche/w1niche5_density_matched_seed9.json",
+      "arm": "density_matched",
+      "seed": 9,
+      "prepared_cells_total": 2335,
+      "offspring_in_prepared_k": 1643,
+      "prepared_occupied_any_k": 1792,
+      "same_share": 0.7036,
+      "any_share": 0.7675,
+      "underpowered": false,
+      "resource_at_death_median": 0.13139,
+      "returned_total": 135.7232,
+      "prepared_expected_hits": 3081.86,
+      "derived_by_construction": {
+        "prepared_expected_hits": true
+      }
+    },
+    {
+      "artifact": "morphogenesis/experiments/E09_pond/w1niche/w1niche5_legacy_seed10.json",
+      "arm": "legacy",
+      "seed": 10,
+      "prepared_cells_total": 2072,
+      "offspring_in_prepared_k": 1784,
+      "prepared_occupied_any_k": 1934,
+      "same_share": 0.861,
+      "any_share": 0.9334,
+      "underpowered": false,
+      "resource_at_death_median": 0.05645,
+      "returned_total": 118.6551,
+      "prepared_expected_hits": 2619.483,
+      "derived_by_construction": {
+        "prepared_expected_hits": true
+      }
+    },
+    {
+      "artifact": "morphogenesis/experiments/E09_pond/w1niche/w1niche5_legacy_seed4.json",
+      "arm": "legacy",
+      "seed": 4,
+      "prepared_cells_total": 89,
+      "offspring_in_prepared_k": 30,
+      "prepared_occupied_any_k": 30,
+      "same_share": 0.3371,
+      "any_share": 0.3371,
+      "underpowered": true,
+      "resource_at_death_median": 0.04827,
+      "returned_total": 4.2962,
+      "prepared_expected_hits": 1.113,
+      "derived_by_construction": {
+        "prepared_expected_hits": true
+      }
+    },
+    {
+      "artifact": "morphogenesis/experiments/E09_pond/w1niche/w1niche5_legacy_seed5.json",
+      "arm": "legacy",
+      "seed": 5,
+      "prepared_cells_total": 2118,
+      "offspring_in_prepared_k": 1830,
+      "prepared_occupied_any_k": 1998,
+      "same_share": 0.864,
+      "any_share": 0.9433,
+      "underpowered": false,
+      "resource_at_death_median": 0.05884,
+      "returned_total": 126.4626,
+      "prepared_expected_hits": 2732.481,
+      "derived_by_construction": {
+        "prepared_expected_hits": true
+      }
+    },
+    {
+      "artifact": "morphogenesis/experiments/E09_pond/w1niche/w1niche5_legacy_seed6.json",
+      "arm": "legacy",
+      "seed": 6,
+      "prepared_cells_total": 2358,
+      "offspring_in_prepared_k": 2019,
+      "prepared_occupied_any_k": 2195,
+      "same_share": 0.8562,
+      "any_share": 0.9309,
+      "underpowered": false,
+      "resource_at_death_median": 0.05816,
+      "returned_total": 138.729,
+      "prepared_expected_hits": 2989.053,
+      "derived_by_construction": {
+        "prepared_expected_hits": true
+      }
+    },
+    {
+      "artifact": "morphogenesis/experiments/E09_pond/w1niche/w1niche5_legacy_seed7.json",
+      "arm": "legacy",
+      "seed": 7,
+      "prepared_cells_total": 2501,
+      "offspring_in_prepared_k": 2151,
+      "prepared_occupied_any_k": 2322,
+      "same_share": 0.8601,
+      "any_share": 0.9284,
+      "underpowered": false,
+      "resource_at_death_median": 0.05924,
+      "returned_total": 149.5731,
+      "prepared_expected_hits": 3289.092,
+      "derived_by_construction": {
+        "prepared_expected_hits": true
+      }
+    },
+    {
+      "artifact": "morphogenesis/experiments/E09_pond/w1niche/w1niche5_legacy_seed8.json",
+      "arm": "legacy",
+      "seed": 8,
+      "prepared_cells_total": 2031,
+      "offspring_in_prepared_k": 1724,
+      "prepared_occupied_any_k": 1876,
+      "same_share": 0.8488,
+      "any_share": 0.9237,
+      "underpowered": false,
+      "resource_at_death_median": 0.05603,
+      "returned_total": 116.1487,
+      "prepared_expected_hits": 2546.38,
+      "derived_by_construction": {
+        "prepared_expected_hits": true
+      }
+    },
+    {
+      "artifact": "morphogenesis/experiments/E09_pond/w1niche/w1niche5_legacy_seed9.json",
+      "arm": "legacy",
+      "seed": 9,
+      "prepared_cells_total": 2172,
+      "offspring_in_prepared_k": 1868,
+      "prepared_occupied_any_k": 2026,
+      "same_share": 0.86,
+      "any_share": 0.9328,
+      "underpowered": false,
+      "resource_at_death_median": 0.05705,
+      "returned_total": 125.5357,
+      "prepared_expected_hits": 2730.662,
+      "derived_by_construction": {
+        "prepared_expected_hits": true
+      }
+    },
+    {
+      "artifact": "morphogenesis/experiments/E09_pond/w1niche/w1niche5_prepared_seed10.json",
+      "arm": "prepared",
+      "seed": 10,
+      "prepared_cells_total": 2112,
+      "offspring_in_prepared_k": 1477,
+      "prepared_occupied_any_k": 1637,
+      "same_share": 0.6993,
+      "any_share": 0.7751,
+      "underpowered": false,
+      "resource_at_death_median": 0.09864,
+      "returned_total": 117.9487,
+      "prepared_expected_hits": 2597.376,
+      "derived_by_construction": {
+        "prepared_expected_hits": true
+      }
+    },
+    {
+      "artifact": "morphogenesis/experiments/E09_pond/w1niche/w1niche5_prepared_seed4.json",
+      "arm": "prepared",
+      "seed": 4,
+      "prepared_cells_total": 2477,
+      "offspring_in_prepared_k": 1877,
+      "prepared_occupied_any_k": 2028,
+      "same_share": 0.7578,
+      "any_share": 0.8187,
+      "underpowered": false,
+      "resource_at_death_median": 0.14013,
+      "returned_total": 144.9871,
+      "prepared_expected_hits": 3188.702,
+      "derived_by_construction": {
+        "prepared_expected_hits": true
+      }
+    },
+    {
+      "artifact": "morphogenesis/experiments/E09_pond/w1niche/w1niche5_prepared_seed5.json",
+      "arm": "prepared",
+      "seed": 5,
+      "prepared_cells_total": 2025,
+      "offspring_in_prepared_k": 1464,
+      "prepared_occupied_any_k": 1617,
+      "same_share": 0.723,
+      "any_share": 0.7985,
+      "underpowered": false,
+      "resource_at_death_median": 0.11772,
+      "returned_total": 117.9261,
+      "prepared_expected_hits": 2663.826,
+      "derived_by_construction": {
+        "prepared_expected_hits": true
+      }
+    },
+    {
+      "artifact": "morphogenesis/experiments/E09_pond/w1niche/w1niche5_prepared_seed6.json",
+      "arm": "prepared",
+      "seed": 6,
+      "prepared_cells_total": 2881,
+      "offspring_in_prepared_k": 2048,
+      "prepared_occupied_any_k": 2303,
+      "same_share": 0.7109,
+      "any_share": 0.7994,
+      "underpowered": false,
+      "resource_at_death_median": 0.14178,
+      "returned_total": 169.4107,
+      "prepared_expected_hits": 3564.654,
+      "derived_by_construction": {
+        "prepared_expected_hits": true
+      }
+    },
+    {
+      "artifact": "morphogenesis/experiments/E09_pond/w1niche/w1niche5_prepared_seed7.json",
+      "arm": "prepared",
+      "seed": 7,
+      "prepared_cells_total": 2346,
+      "offspring_in_prepared_k": 1662,
+      "prepared_occupied_any_k": 1854,
+      "same_share": 0.7084,
+      "any_share": 0.7903,
+      "underpowered": false,
+      "resource_at_death_median": 0.14145,
+      "returned_total": 139.3969,
+      "prepared_expected_hits": 2954.019,
+      "derived_by_construction": {
+        "prepared_expected_hits": true
+      }
+    },
+    {
+      "artifact": "morphogenesis/experiments/E09_pond/w1niche/w1niche5_prepared_seed8.json",
+      "arm": "prepared",
+      "seed": 8,
+      "prepared_cells_total": 2350,
+      "offspring_in_prepared_k": 1636,
+      "prepared_occupied_any_k": 1796,
+      "same_share": 0.6962,
+      "any_share": 0.7643,
+      "underpowered": false,
+      "resource_at_death_median": 0.12434,
+      "returned_total": 134.3687,
+      "prepared_expected_hits": 2986.024,
+      "derived_by_construction": {
+        "prepared_expected_hits": true
+      }
+    },
+    {
+      "artifact": "morphogenesis/experiments/E09_pond/w1niche/w1niche5_prepared_seed9.json",
+      "arm": "prepared",
+      "seed": 9,
+      "prepared_cells_total": 2194,
+      "offspring_in_prepared_k": 1615,
+      "prepared_occupied_any_k": 1769,
+      "same_share": 0.7361,
+      "any_share": 0.8063,
+      "underpowered": false,
+      "resource_at_death_median": 0.11363,
+      "returned_total": 127.3208,
+      "prepared_expected_hits": 2869.215,
+      "derived_by_construction": {
+        "prepared_expected_hits": true
+      }
+    },
+    {
+      "artifact": "morphogenesis/experiments/E09_pond/w1niche/w1niche6_adjacency_exact_seed1.json",
+      "arm": "adjacency_exact",
+      "seed": 1,
+      "prepared_cells_total": 2450,
+      "offspring_in_prepared_k": 2113,
+      "prepared_occupied_any_k": 2280,
+      "same_share": 0.8624,
+      "any_share": 0.9306,
+      "underpowered": false,
+      "resource_at_death_median": 0.13247,
+      "returned_total": 144.191,
+      "prepared_expected_hits": 3209.457,
+      "derived_by_construction": {
+        "prepared_expected_hits": true
+      }
+    },
+    {
+      "artifact": "morphogenesis/experiments/E09_pond/w1niche/w1niche6_adjacency_exact_seed2.json",
+      "arm": "adjacency_exact",
+      "seed": 2,
+      "prepared_cells_total": 2557,
+      "offspring_in_prepared_k": 2165,
+      "prepared_occupied_any_k": 2376,
+      "same_share": 0.8467,
+      "any_share": 0.9292,
+      "underpowered": false,
+      "resource_at_death_median": 0.13263,
+      "returned_total": 150.2966,
+      "prepared_expected_hits": 3233.186,
+      "derived_by_construction": {
+        "prepared_expected_hits": true
+      }
+    },
+    {
+      "artifact": "morphogenesis/experiments/E09_pond/w1niche/w1niche6_adjacency_exact_seed3.json",
+      "arm": "adjacency_exact",
+      "seed": 3,
+      "prepared_cells_total": 2227,
+      "offspring_in_prepared_k": 1935,
+      "prepared_occupied_any_k": 2090,
+      "same_share": 0.8689,
+      "any_share": 0.9385,
+      "underpowered": false,
+      "resource_at_death_median": 0.10572,
+      "returned_total": 128.459,
+      "prepared_expected_hits": 3091.203,
+      "derived_by_construction": {
+        "prepared_expected_hits": true
+      }
+    }
+  ],
+  "by_arm": [
+    {
+      "arm": "legacy",
+      "runs": 10,
+      "underpowered_k": 1,
+      "prepared_median": 2095.0,
+      "same_share_median": 0.8581,
+      "same_share_median_powered": 0.86,
+      "same_share_min": 0.3371,
+      "same_share_max": 0.8686
+    },
+    {
+      "arm": "adjacent_matched",
+      "runs": 10,
+      "underpowered_k": 0,
+      "prepared_median": 2302.0,
+      "same_share_median": 0.7308,
+      "same_share_median_powered": 0.7308,
+      "same_share_min": 0.6717,
+      "same_share_max": 0.7511
+    },
+    {
+      "arm": "adjacency_exact",
+      "runs": 3,
+      "underpowered_k": 0,
+      "prepared_median": 2450,
+      "same_share_median": 0.8624,
+      "same_share_median_powered": 0.8624,
+      "same_share_min": 0.8467,
+      "same_share_max": 0.8689
+    },
+    {
+      "arm": "density_matched",
+      "runs": 10,
+      "underpowered_k": 0,
+      "prepared_median": 2334.0,
+      "same_share_median": 0.7042,
+      "same_share_median_powered": 0.7042,
+      "same_share_min": 0.699,
+      "same_share_max": 0.7307
+    },
+    {
+      "arm": "prepared",
+      "runs": 10,
+      "underpowered_k": 0,
+      "prepared_median": 2306.5,
+      "same_share_median": 0.7097,
+      "same_share_median_powered": 0.7097,
+      "same_share_min": 0.6715,
+      "same_share_max": 0.7578
+    }
+  ],
+  "paired": [
+    {
+      "comparison": "legacy > adjacent_matched",
+      "wins": 9,
+      "n": 9,
+      "diffs": [
+        0.1168,
+        0.1237,
+        0.1107,
+        0.1589,
+        0.1051,
+        0.1174,
+        0.1225,
+        0.1454,
+        0.1893
+      ],
+      "median_diff": 0.1225,
+      "sign_test_p_one_sided": 0.002
+    },
+    {
+      "comparison": "legacy > density_matched",
+      "wins": 9,
+      "n": 9,
+      "diffs": [
+        0.137,
+        0.1676,
+        0.147,
+        0.1593,
+        0.1255,
+        0.1352,
+        0.1367,
+        0.1564,
+        0.1611
+      ],
+      "median_diff": 0.147,
+      "sign_test_p_one_sided": 0.002
+    },
+    {
+      "comparison": "legacy > prepared",
+      "wins": 9,
+      "n": 9,
+      "diffs": [
+        0.1555,
+        0.1293,
+        0.1745,
+        0.141,
+        0.1453,
+        0.1517,
+        0.1526,
+        0.1239,
+        0.1617
+      ],
+      "median_diff": 0.1517,
+      "sign_test_p_one_sided": 0.002
+    },
+    {
+      "comparison": "adjacent_matched > density_matched",
+      "wins": 9,
+      "n": 10,
+      "diffs": [
+        0.0202,
+        0.0439,
+        0.0363,
+        0.0177,
+        0.0004,
+        0.0204,
+        0.0178,
+        0.0142,
+        0.011,
+        -0.0282
+      ],
+      "median_diff": 0.0178,
+      "sign_test_p_one_sided": 0.001
+    },
+    {
+      "comparison": "adjacent_matched > prepared",
+      "wins": 6,
+      "n": 10,
+      "diffs": [
+        0.0387,
+        0.0056,
+        0.0638,
+        -0.0153,
+        -0.0179,
+        0.0402,
+        0.0343,
+        0.0301,
+        -0.0215,
+        -0.0276
+      ],
+      "median_diff": 0.0178,
+      "sign_test_p_one_sided": 0.001
+    }
+  ],
+  "criteria": {
+    "not_lineage": 9,
+    "not_density": {
+      "comparison": "adjacent_matched > density_matched",
+      "wins": 9,
+      "n": 10,
+      "diffs": [
+        0.0202,
+        0.0439,
+        0.0363,
+        0.0177,
+        0.0004,
+        0.0204,
+        0.0178,
+        0.0142,
+        0.011,
+        -0.0282
+      ],
+      "median_diff": 0.0178,
+      "sign_test_p_one_sided": 0.001
+    },
+    "note": "вердикт — прямое парное сравнение долей; ожидание не используется"
+  },
+  "note": "Канонический агрегат семейства w1niche: пилоты (волны 1-4), серия (волна 5) и точный контроль соседства (волна 6, плечо adjacency_exact). w1niche5_matrix.json — исторический срез; пересборка всегда сюда. В §10ay «w1niche5» означает волну, а не файл."
+}

@@ -62,23 +62,25 @@ def _resid(a: list[float], b: list[float]) -> list[float]:
     return [u - ma - beta * (v - mb) for u, v in zip(a, b)]
 
 
-def pearson(x: list[float], y: list[float]) -> float:
+def pearson(x: list[float], y: list[float]) -> float | None:
     n = len(x)
     mx, my = sum(x) / n, sum(y) / n
     sxx = sum((v - mx) ** 2 for v in x)
     syy = sum((v - my) ** 2 for v in y)
     if sxx <= 0 or syy <= 0:
-        return float("nan")
+        # Вырожденный прогон: частная корреляция не определена. Это НЕ ноль —
+        # считать его нулём значит молча сдвигать медиану (поймано 26.10).
+        return None
     return sum((u - mx) * (v - my) for u, v in zip(x, y)) / (sxx * syy) ** 0.5
 
 
-def rho_partial_standard(x, y, z) -> float:
+def rho_partial_standard(x, y, z) -> float | None:
     """СТАНДАРТ: ранги → исключить z из рангов → корреляция остатков."""
     rx, ry, rz = ranks(x), ranks(y), ranks(z)
     return pearson(_resid(rx, rz), _resid(ry, rz))
 
 
-def rho_partial_hybrid(x, y, z) -> float:
+def rho_partial_hybrid(x, y, z) -> float | None:
     """То, что раньше было в агрегаторе: исключить z из сырых значений, затем ранги остатков."""
     rx, ry = ranks(_resid(x, z)), ranks(_resid(y, z))
     return pearson(rx, ry)
@@ -103,7 +105,9 @@ def per_run(pattern: str, kind: str = "standard") -> dict[int, float]:
         x = [traits[k] for k in keys]
         y = [steps[k] for k in keys]
         z = [ept[k] for k in keys]
-        out[seed] = rho_partial_standard(x, y, z) if kind == "standard" else rho_partial_hybrid(x, y, z)
+        value = rho_partial_standard(x, y, z) if kind == "standard" else rho_partial_hybrid(x, y, z)
+        if value is not None:
+            out[seed] = value
     return out
 
 
@@ -136,8 +140,10 @@ def main(argv: list[str]) -> int:
         med_stored = st.median(list(stored.values()))
         med_mine = st.median(list(mine.values())) if mine else float("nan")
         flag = "✗" if bad else "✓"
-        print(f"{flag} {name}: строк с ρ_partial {len(stored)}, расхождений > {args.tol}: {len(bad)}; "
-              f"медиана в агрегате {med_stored:.3f}, стандартная {med_mine:.3f}")
+        q1, q3 = (st.quantiles(list(mine.values()), n=4)[0], st.quantiles(list(mine.values()), n=4)[2]) \
+            if len(mine) >= 4 else (float("nan"), float("nan"))
+        print(f"{flag} {name}: n(агрегат)={len(stored)}, n(стандарт)={len(mine)}, расхождений > {args.tol}: {len(bad)}; "
+              f"медиана {med_stored:.3f} → {med_mine:.3f}; Q1–Q3 {q1:.2f}…{q3:.2f}")
         for seed, a, b in bad[:4]:
             print(f"    сид {seed}: агрегат {a:+.3f} против стандарта {b:+.3f}")
         if bad:

@@ -26,8 +26,10 @@ import re
 import statistics
 from pathlib import Path
 
-ARMS = ("legacy", "adjacent_matched", "density_matched", "prepared")
-NAME = re.compile(r"w1niche[45]_(?P<arm>legacy|adjacent_matched|density_matched|prepared)_seed(?P<seed>\d+)\.json$")
+ARMS = ("legacy", "adjacent_matched", "adjacency_exact", "density_matched", "prepared")
+# Волны w1niche..w1niche6: [45] пропускал новую волну с точным контролем соседства,
+# и агрегат молча не видел 3 прогонов (тот же класс ошибки, что шаблон w2bud).
+NAME = re.compile(r"w1niche\d*_(?P<arm>legacy|adjacent_matched|adjacency_exact|density_matched|prepared)_seed(?P<seed>\d+)\.json$")
 UNDERPOWERED = 100
 
 
