@@ -156,10 +156,11 @@ def git_tracked() -> set[str] | None:
     по §5a в git не едут, в неё попадать не должны.
     """
     try:
-        # tracked И untracked-but-not-ignored: перед коммитом новые артефакты ещё не в
-        # индексе, но именно они и составят коммит — таблица обязана их включать.
+        # ТОЛЬКО индекс (закоммиченное + подготовленное). Нельзя включать untracked:
+        # пока серия пишет артефакты, таблица становилась бы устаревшей на каждом
+        # новом файле. Порядок в safe_commit: git add -A → пересборка таблицы → verify.
         out = subprocess.run(
-            ["git", "ls-files", "-z", "--cached", "--others", "--exclude-standard"],
+            ["git", "ls-files", "-z", "--cached"],
             cwd=REPO, capture_output=True, check=True
         )
     except (OSError, subprocess.CalledProcessError):
