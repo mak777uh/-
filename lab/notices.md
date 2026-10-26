@@ -5010,3 +5010,5 @@ by size, not by quality» («Truth versus strength» звучит как фил�
 а распределение разниц с линией порога.
 
 **CLAIMS §4j:** сверил — черновик сильнее §4j ровно в пункте про остаток; после замены совпадёт.
+
+- **серия `W2bud_pair_any_tag` запущена 16:40, ETA ~17:05**, 10 прогонов `pair --pair-mode any_tag` на сидах 101–110; якоря: colony бит-в-бит 66679/459, pair/same_tag — детерминизм, cell — детерминизм. После финиша: агрегат `w2bud_pairany_matrix.json` + §10ba + CLAIMS + README + CHANGELOG. Критерий: I > null в ≥7/10, линии ≥4, дегенерация <30.
