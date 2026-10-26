@@ -323,7 +323,9 @@
       "attempts_median": 1.0,
       "peak_cells_median": 20.0,
       "survived_k": 10,
-      "time_to_rewrite_values": []
+      "time_to_rewrite_values": [],
+      "n": 10,
+      "survival": 1.0
     },
     {
       "arm": "majority",
@@ -347,11 +349,14 @@
         9,
         4,
         4
-      ]
+      ],
+      "n": 10,
+      "survival": 0.0
     }
   ],
   "criteria": {
     "placement_series_valid": true,
     "note": "серия годна по постановке, если в каждом плече rejected <= 1/10 И state >= 15 в >= 9/10; иначе вопрос о режиме гибели не ставится"
-  }
+  },
+  "note": "n восстановлено из rows 26.10 при мета-ревью: без знаменателя survived_k не читается (AGENTS §3c)."
 }

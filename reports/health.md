@@ -1,10 +1,11 @@
 # Здоровье лаборатории
 
-Обновлено: 2026-10-26 06:20 UTC
+Обновлено: 2026-10-26 09:17 UTC
 
 ## Состояние
 
-- CI (по reports/ci-status.json): lab-contract: failure (2026-10-26 06:12); nightly-lab: failure (2026-10-26 03:59); analysis-farm: success (2026-10-26 03:52)
+- CI (по reports/ci-status.json): lab-contract: success (2026-10-26 08:02); nightly-lab: failure (2026-10-26 03:59); analysis-farm: success (2026-10-26 03:52)
+- CI (живой API): lab-contract: success (1.2 ч назад); nightly-lab: failure (5.3 ч назад); analysis-farm: success (5.4 ч назад); ci-status: failure (7.0 ч назад)
 - ✅ контракт: counts: {"experiments": 31, "readme_experiments": 31, "manuscript_entries": 24, "lit_board_items": 83, "active
 - ✅ размер контракта: [agents-size] 57221 байт ≤ 60000 — ок
 - ✅ числа разделов: [sections] OK — числа разделов воспроизводятся из агрегатов
@@ -27,7 +28,7 @@
 - ✅ агрегат↔артефакт: ошибок: 0, без артефактов: 429
 - очереди: эксперименты: 21 в плане, 0 идёт; ферма: 0 ждёт; доска: 1 новых
 - серии: 17/17 серий с агрегатом
-- ресурсы: диск: 34.4 ГБ свободно; замков: 0
+- ресурсы: диск: 34.2 ГБ свободно; замков: 0
 
 ## Блокеры
 
@@ -35,7 +36,8 @@
 
 ## Предупреждения
 
-- ⚠ незакоммиченных изменений: 1 (первое: M manuscript/CLAIMS.md)
-- ⚠ CI «lab-contract» упал: шаг не определён (прогон на d7269567, HEAD db0c7a04 — проверялся другой код)
-- ⚠ CI «nightly-lab» упал: шаг не определён (прогон на d11d7de3, HEAD db0c7a04 — проверялся другой код)
+- ⚠ незакоммиченных изменений: 4 (первое: M library/.result-scan-state.json)
+- ⚠ CI «nightly-lab» упал: шаг не определён (прогон на d11d7de3, HEAD a07a4477 — проверялся другой код)
+- ⚠ CI «nightly-lab» упал (5.3 ч назад): https://github.com/mak777uh/-/actions/runs/40266772772 — устарело, следующий прогон покажет
+- ⚠ CI «ci-status» упал (7.0 ч назад): https://github.com/mak777uh/-/actions/runs/40258399221 — устарело, следующий прогон покажет
 - ⚠ доска: 1 замечаний без решения
