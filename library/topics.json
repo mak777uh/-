@@ -1,0 +1,139 @@
+{
+  "schema": 1,
+  "note": "Карта тем: что проходим сейчас и что дальше. status: current | next | backlog. queries — английские научные термины (Crossref/OpenAlex). implication — шаблон «к чему это нас обязывает» для комментария главному.",
+  "min_year": 2015,
+  "topics": [
+    {
+      "id": "invasion-establishment",
+      "ru": "Инвазия: укоренение редкой линии в занятом поле",
+      "status": "current",
+      "links": [
+        "docs/world-design.md#10at",
+        "docs/world-design.md#10at.4",
+        "reports/2026-10-25-invasion-patches-plan.md"
+      ],
+      "queries": [
+        "establishment versus spread invasion fitness",
+        "propagule pressure establishment Allee effect"
+      ],
+      "implication": "Проверить, разделены ли у нас «появление», «укоренение» и «распространение», и не смешаны ли они в одном числе выживания.",
+      "terms": [
+        "establishment",
+        "invasion",
+        "propagule",
+        "founder",
+        "allee",
+        "colonization"
+      ]
+    },
+    {
+      "id": "legacy-half-life",
+      "ru": "Наследие среды: полураспад и нормировка на поколение",
+      "status": "current",
+      "links": [
+        "library/conditions.md#условие-c",
+        "library/reviews/legacy-prior-art.md"
+      ],
+      "queries": [
+        "environmental legacy persistence half-life ecosystem engineering",
+        "ecological inheritance niche construction persistence"
+      ],
+      "implication": "Проверить единицы (шаги против поколений) и не выдаётся ли «переживание поколения» за выгоду для следующей когорты.",
+      "terms": [
+        "legacy",
+        "inheritance",
+        "niche construction",
+        "half-life",
+        "persistence",
+        "ecosystem engineer"
+      ]
+    },
+    {
+      "id": "selection-opportunity",
+      "ru": "Возможность отбора: I Кроу и нуль-модели",
+      "status": "current",
+      "links": [
+        "docs/world-design.md#10aq",
+        "library/reviews/w8-metrics-canon.md"
+      ],
+      "queries": [
+        "opportunity for selection null model demographic stochasticity",
+        "index of opportunity for selection bias mean fitness"
+      ],
+      "implication": "Проверить, что критерий — I_obs > I_null(95%), и что знаменатель/df/ddof зафиксированы до прогона.",
+      "terms": [
+        "opportunity for selection",
+        "selection gradient",
+        "variance in fitness",
+        "null model",
+        "demographic stochastic"
+      ]
+    },
+    {
+      "id": "unit-of-selection",
+      "ru": "Единица отбора и единица размножения (клеточное почкование)",
+      "status": "next",
+      "links": [
+        "docs/world-design.md#10ao",
+        "library/conditions.md#условие-e"
+      ],
+      "queries": [
+        "unit of selection reproduction bottleneck multicellularity",
+        "cell-level versus group-level selection digital organisms"
+      ],
+      "implication": "Проверить, совпадает ли у нас единица изменчивости с единицей размножения; иначе ρ не определён.",
+      "terms": [
+        "unit of selection",
+        "group selection",
+        "multicellular",
+        "bottleneck",
+        "propagule",
+        "reproduction"
+      ]
+    },
+    {
+      "id": "partial-information",
+      "ru": "Частичная информация: измерение выигрыша при шуме и задержке",
+      "status": "next",
+      "links": [
+        "library/conditions.md#досье-a",
+        "library/reviews/w12-partial-info-canon.md"
+      ],
+      "queries": [
+        "delayed feedback credit assignment learning measure",
+        "partially observable environment learning benefit measurement"
+      ],
+      "implication": "Проверить, есть ли контроль «та же статистика действий без информации» (yoked), иначе выигрыш неотличим от везения.",
+      "terms": [
+        "delayed",
+        "partial observab",
+        "credit assignment",
+        "noise",
+        "learning",
+        "feedback"
+      ]
+    },
+    {
+      "id": "death-mode-timing",
+      "ru": "Режим гибели и разрешение лога (enforce-период)",
+      "status": "backlog",
+      "links": [
+        "docs/world-design.md#10at.3",
+        "docs/world-design.md#10at.1"
+      ],
+      "queries": [
+        "temporal resolution sampling bias extinction detection",
+        "logging interval bias population dynamics"
+      ],
+      "implication": "Проверить, что категория гибели не путает «мгновенно» и «между отсчётами».",
+      "terms": [
+        "extinction",
+        "sampling",
+        "temporal resolution",
+        "logging",
+        "detection",
+        "population dynamics"
+      ]
+    }
+  ]
+}

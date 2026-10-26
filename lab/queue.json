@@ -970,11 +970,11 @@
       "id": "W2bud_threshold3",
       "title": "W2-bud с порогом линии >=3 клетки, зафиксированным ДО данных: вердикт по цене признака",
       "hypothesis": "H-ALIVE-42",
-      "status": "planned",
+      "status": "closed",
       "owner": null,
       "claimed_at": null,
       "heartbeat_at": null,
-      "closed_at": null,
+      "closed_at": "2026-10-26T00:16:56Z",
       "ttl_minutes": 240,
       "cost_gpu_h": 1.0,
       "impact": 3,
@@ -983,7 +983,8 @@
       "prereg": "reports/2026-10-25-w2bud-threshold3-plan.md",
       "launch": null,
       "artifacts": [],
-      "note": "20 прогонов W2-bud; порог линии >=3 клетки и >=1 спора фиксируется в пре-регистрации до запуска; критерий: медиана rho_partial <= -0.3 и отрицательна в >=7/10 сидов; нужен именно потому, что при >=3 это был post-hoc анализ | понижено: при медиане 2.5–3.5 линий порог >=3 всё равно даст invalid_by_data; вернуться после W2bud_d2"
+      "note": "20 прогонов W2-bud; порог линии >=3 клетки и >=1 спора фиксируется в пре-регистрации до запуска; критерий: медиана rho_partial <= -0.3 и отрицательна в >=7/10 сидов; нужен именно потому, что при >=3 это был post-hoc анализ | понижено: при медиане 2.5–3.5 линий порог >=3 всё равно даст invalid_by_data; вернуться после W2bud_d2 | закрыто без запуска: в W2-bud-d2 порог >=5 линий дал valid_n = 10/10, то есть вопрос «снизить порог, чтобы получить данные» снят конструкцией; хранить как проверку чувствительности не нужно — порог уже проверен на двух мирах",
+      "closed_by": "lead"
     },
     {
       "id": "metrics_library_common",
@@ -1010,11 +1011,11 @@
       "id": "V1e_invasion_patches",
       "title": "Инвазия на раскладке patches (20 клеток, 2 плеча x 10 сидов)",
       "hypothesis": "H-ALIVE-43",
-      "status": "planned",
+      "status": "closed",
       "owner": null,
       "claimed_at": null,
       "heartbeat_at": null,
-      "closed_at": null,
+      "closed_at": "2026-10-26T00:16:56Z",
       "ttl_minutes": 240,
       "cost_gpu_h": 0.85,
       "impact": 5,
@@ -1026,7 +1027,8 @@
         "outdir": "morphogenesis/experiments/E09_pond/placement_patches"
       },
       "artifacts": [],
-      "note": "снимает вопрос «а на другой раскладке?»: результат V1c (keep 7/10 против majority 0/10) получен на одной раскладке uniform"
+      "note": "снимает вопрос «а на другой раскладке?»: результат V1c (keep 7/10 против majority 0/10) получен на одной раскладке uniform | закрыто: §10at.4 — patches, keep 10/10 против majority 0/10, постановка годна",
+      "closed_by": "lead"
     }
   ]
 }
