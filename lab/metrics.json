@@ -588,6 +588,22 @@
       "denominator": "то же",
       "df": "n - 3",
       "units": "коэффициент"
+    },
+    "top1_share_median": {
+      "definition": "медиана по прогонам доли самой крупной линии в живых клетках (top1_share = max(type_counts)/sum(type_counts))",
+      "fields": [
+        "summary.type_counts"
+      ],
+      "denominator": "runs",
+      "units": "доля"
+    },
+    "pair_degenerate_k": {
+      "definition": "число моментов за прогон, когда бутон-пара требовался, но двух живых клеток нужной метки рядом не было (вырожденные пары)",
+      "fields": [
+        "summary.pair_degenerate_k"
+      ],
+      "denominator": "run",
+      "units": "события"
     }
   },
   "verdicts": {

@@ -63,6 +63,14 @@ def main(argv: list[str]) -> int:
             bad.append(f"{agg.name}: не читается ({exc})")
             continue
         rows = data.get("rows")
+        by_arm = data.get("by_arm")
+        if isinstance(rows, list) and rows and isinstance(by_arm, list) and not by_arm:
+            # 26.10: в w2bud_matrix.py by_arm перечислял плечи жёстко ("colony","cell"),
+            # и новое плечо pair не попадало в срез. Строки были, срез пустой — снаружи
+            # это выглядело как «эффекта нет». Проверяем явно.
+            bad.append(f"{agg.name}: строк {len(rows)}, но by_arm пуст — плечо не объявлено "
+                       f"в списке агрегатора (жёсткий список плеч)")
+            continue
         if not isinstance(rows, list) or rows:
             ok += 1
             continue

@@ -115,13 +115,15 @@ def git_blob(path: Path) -> bytes | None:
 
 
 def content_bytes(path: Path) -> bytes:
-    """Байты из HEAD (нормализованные), с откатом на диск вне git."""
-    blob = git_blob(path)
-    if blob is None:
-        return normalized_bytes(path)
-    if path.suffix in TEXT_SUFFIXES:
-        return blob.replace(b"\r\n", b"\n")
-    return blob
+    """Байты ИЗ РАБОЧЕЙ КОПИИ, нормализованные (CRLF → LF для текстовых).
+
+    Почему не из HEAD: перед коммитом новые артефакты ещё не в HEAD, и таблица,
+    собранная по HEAD, отставала бы ровно на один коммит — это гонка, на которой
+    мы потеряли четыре красных CI. Набор файлов при этом ограничен тем, что войдёт
+    в коммит (`git ls-files --cached --others`), поэтому локальные черновики не
+    попадают, и чистый клон даёт тот же результат.
+    """
+    return normalized_bytes(path)
 
 
 def sha256(path: Path) -> str:
@@ -154,8 +156,11 @@ def git_tracked() -> set[str] | None:
     по §5a в git не едут, в неё попадать не должны.
     """
     try:
+        # tracked И untracked-but-not-ignored: перед коммитом новые артефакты ещё не в
+        # индексе, но именно они и составят коммит — таблица обязана их включать.
         out = subprocess.run(
-            ["git", "ls-files", "-z"], cwd=REPO, capture_output=True, check=True
+            ["git", "ls-files", "-z", "--cached", "--others", "--exclude-standard"],
+            cwd=REPO, capture_output=True, check=True
         )
     except (OSError, subprocess.CalledProcessError):
         return None
