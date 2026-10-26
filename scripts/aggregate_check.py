@@ -40,7 +40,15 @@ def _resident_is_a(direction: str) -> bool:
     return "invade-B-into-A" in direction
 
 
-def check_row(row: dict, strict: bool) -> tuple[list[str], list[str]]:
+# Агрегаты, которые считаются в процессе и не имеют per-run артефактов:
+# их строки несут числа сами (например, проба состояния подсадки). Требовать для них
+# файл-артефакт бессмысленно — это ложная ошибка strict-режима (26.10).
+SELF_CONTAINED = {
+    "invasion_state_probe": "проба состояния подсадки: числа получены в процессе, артефактов на строку нет",
+}
+
+
+def check_row(row: dict, strict: bool, self_contained: bool = False) -> tuple[list[str], list[str]]:
     """Возвращает (ошибки, предупреждения) для одной строки."""
     errors: list[str] = []
     warns: list[str] = []
@@ -67,6 +75,8 @@ def check_row(row: dict, strict: bool) -> tuple[list[str], list[str]]:
                 f"{'A' if resident_a else 'B'} (ожидалось ~1.0/~0.0)"
             )
 
+    if self_contained:
+        return errors, warns
     rel = row.get("artifact")
     if not rel:
         if strict:
@@ -316,8 +326,9 @@ def check_file(path: Path, strict: bool = False) -> tuple[list[str], list[str]]:
         return [f"{path.name}{e}" for e in check_probe(rows)], warns
     if payload.get("kind") == "aggregate_medians":
         return [f"{path.name}{e}" for e in check_medians(rows)], warns
+    self_contained = payload.get("kind") in SELF_CONTAINED
     for i, row in enumerate(rows):
-        errs, ws = check_row(row, strict)
+        errs, ws = check_row(row, strict, self_contained=self_contained)
         errors += [f"{path.name}[{i}]: {e}" for e in errs]
         warns += [f"{path.name}[{i}]: {w}" for w in ws]
     return errors, warns

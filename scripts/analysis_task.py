@@ -34,7 +34,10 @@ import subprocess
 import sys
 from pathlib import Path
 
-import numpy as np
+try:  # numpy нужен только задачам, не CLI: иначе plan-джоб фермы падал на импорте
+    import numpy as np
+except ModuleNotFoundError:  # pragma: no cover
+    np = None
 
 ROOT = Path(__file__).resolve().parents[1]
 POND = ROOT / "morphogenesis" / "experiments" / "E09_pond"
@@ -339,6 +342,11 @@ def run_task(task: dict) -> Path:
     return out
 
 
+def _require_numpy() -> None:
+    if np is None:
+        raise SystemExit("нужен numpy: pip install numpy (ставится в run-джобе фермы)")
+
+
 def main(argv: list[str]) -> int:
     ap = argparse.ArgumentParser(description="ферма CPU-задач (GitHub Actions)")
     ap.add_argument("--list", action="store_true", help="показать очередь")
@@ -387,6 +395,7 @@ def main(argv: list[str]) -> int:
         print("[analysis] ОТКАЗ: скрипт изменён в рабочей копии, провенанс невалиден. "
               "Закоммитьте scripts/analysis_task.py или запустите с --allow-dirty (результат будет помечен).")
         return 1
+    _require_numpy()
     out = run_task(task)
     if args.mark_done:
         task["status"] = "done"

@@ -31,9 +31,23 @@ POND = ROOT / "morphogenesis" / "experiments" / "E09_pond"
 # (например, merge_keep содержит 5 плеч, а сборка по умолчанию даёт 2), поэтому
 # сверять его пересборкой нельзя: сначала надо записать команду в `metric`.
 BUILDERS: dict[str, tuple[str, list[str], bool]] = {
-    "w2bud_matrix.json": ("scripts/w2bud_matrix.py", [], True),
-    "w2bud2_matrix.json": ("scripts/w2bud_matrix.py", [], True),
-    "w2bud3_matrix.json": ("scripts/w2bud_matrix.py", [], True),
+    # ВАЖНО: у этих агрегатов ОДИН скрипт, но РАЗНЫЕ источники. Раньше все три
+    # пересобирались с пустым `--src`, то есть из одного и того же каталога, и два из
+    # трёх всегда «расходились» — ложная ошибка CI, которая держала контур красным
+    # (найдено 26.10 при разборе падений lab-contract).
+    # --src это КАТАЛОГ (внутри него берутся w2bud*.json), а не маска:
+    # передавать сюда glob нельзя — агрегат получится пустым (проверено 26.10).
+    "w2bud_matrix.json": ("scripts/w2bud_matrix.py",
+                          ["--src", "morphogenesis/experiments/E09_pond/w2bud"], True),
+    "w2bud2_matrix.json": ("scripts/w2bud_matrix.py",
+                           ["--src", "morphogenesis/experiments/E09_pond/w2bud2"], True),
+    "w2bud3_matrix.json": ("scripts/w2bud_matrix.py",
+                           ["--src", "morphogenesis/experiments/E09_pond/w2bud3"], True),
+    "w2bud4s_matrix.json": ("scripts/w2bud_matrix.py",
+                            ["--src", "morphogenesis/experiments/E09_pond/w2bud4s"], True),
+    "w2budd2_matrix.json": ("scripts/w2bud_matrix.py",
+                            ["--src", "morphogenesis/experiments/E09_pond/w2budd2",
+                             "--world", "W2-bud-d2"], True),
     "v8_matrix.json": ("scripts/v8_matrix.py", [], True),
     "merge_keep_matrix.json": ("scripts/v8_matrix.py", [], False),
     "founding_matrix.json": ("scripts/founding_matrix.py", [], True),
