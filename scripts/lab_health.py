@@ -104,14 +104,20 @@ def section_ci_file() -> tuple[list[str], list[str], str]:
     except Exception as exc:
         return [f"ci-status.json не читается: {exc}"], [], "ошибка"
     bad, warn, parts = [], [], []
+    # Имена — это `name:` из YAML, а не имена файлов. Иначе удалённый workflow
+    # (например ci-status.yml) продолжает висеть блокером из истории API.
     existing = set()
     try:
         wf = ROOT / ".github" / "workflows"
-        existing = {f.stem for f in wf.glob("*.yml")} if wf.exists() else set()
+        for f in wf.glob("*.yml") if wf.exists() else []:
+            for line in f.read_text(encoding="utf-8", errors="replace").splitlines():
+                if line.startswith("name:"):
+                    existing.add(line.split(":", 1)[1].strip())
+                    break
     except Exception:
         existing = set()
     for name, run in (data.get("runs") or {}).items():
-        if existing and name not in existing and name != "lab-contract":
+        if existing and name not in existing:
             continue  # workflow удалён из репозитория — его старый статус не считается
         concl = run.get("conclusion", "?")
         at = run.get("at", "")[:16].replace("T", " ")
