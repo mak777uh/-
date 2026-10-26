@@ -777,6 +777,7 @@
 | [`morphogenesis/experiments/E09_pond/w2bud_lines/pilot_steps200_seed1.json`](../morphogenesis/experiments/E09_pond/w2bud_lines/pilot_steps200_seed1.json) | other | 120644 | `87a8261d0a859366952176302efe6199e64630511b860957e069bbd03ded99d9` |
 | [`morphogenesis/experiments/E09_pond/w2bud_lines/pilot_steps250_seed1.json`](../morphogenesis/experiments/E09_pond/w2bud_lines/pilot_steps250_seed1.json) | other | 158987 | `e85d64cbf10da973caaa3eba410dd8299c66b2510f40d6be4cae3892b873500a` |
 | [`morphogenesis/experiments/E09_pond/w2bud_lines/pilot_steps300_seed1.json`](../morphogenesis/experiments/E09_pond/w2bud_lines/pilot_steps300_seed1.json) | other | 202456 | `81c92c84cd5b9371310cb867d00cf7ff0e74ab705dacd03ebfc4e10ea9af16f8` |
+| [`morphogenesis/experiments/E09_pond/w2bud_lines_matrix.json`](../morphogenesis/experiments/E09_pond/w2bud_lines_matrix.json) | other | 7626 | `d65a5801ccc1197a5e9517db2df992e6f25813c3c80247ef360a580d6b7179e4` |
 | [`morphogenesis/experiments/E09_pond/w2bud_matrix.json`](../morphogenesis/experiments/E09_pond/w2bud_matrix.json) | other | 34862 | `e7c676f07e0f9dd4840701c09590cf0dca8b624d236767b2c75892f6ae99dd11` |
 | [`morphogenesis/experiments/E09_pond/w2bud_onebud/w2bud_onebud_cell_seed101.json`](../morphogenesis/experiments/E09_pond/w2bud_onebud/w2bud_onebud_cell_seed101.json) | other | 597189 | `27b59f49865027df3ce7ba337c2a177e379dffdd46a8bd4b0830c4db98f68799` |
 | [`morphogenesis/experiments/E09_pond/w2bud_onebud/w2bud_onebud_cell_seed102.json`](../morphogenesis/experiments/E09_pond/w2bud_onebud/w2bud_onebud_cell_seed102.json) | other | 603936 | `2bf73d26a584ce7b4f99311b4ffd37fa6dcbe045562694c076fc2d86a9d36f43` |
@@ -992,6 +993,9 @@
 | [`reports/figures/e02b_transition_matrix.png`](../reports/figures/e02b_transition_matrix.png) | figure | 152522 | `81f1b4fe50fd819f45411c31fb737a0c232d9c4f993f5233184c8b276779f5b9` |
 | [`reports/figures/e02c_seed_grid.png`](../reports/figures/e02c_seed_grid.png) | figure | 69503 | `a14f0a6eb28fa0675629e539dc863049d97c3a7ef1914c34ebd7348b5c71776f` |
 <!-- artifacts:end -->
+
+
+
 
 
 

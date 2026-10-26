@@ -1,0 +1,240 @@
+{
+  "metric": {
+    "unit": "lineage с >= 5 клетками, >= 1 споры и cell_steps > 0",
+    "lineages_with_data": "число линий, проходящих фильтр (по ним считается rho)",
+    "top1_share": "доля клеток самой крупной линии от всех живых клеток",
+    "median_cell_steps_per_line": "медиана клетко-шагов на линию — экспозиция, по которой считается связь"
+  },
+  "design_search": true,
+  "exploratory": true,
+  "note": "Поиск маневра, дающего >= 12 линий на прогон (порог, при котором 95 % ДИ медианы rho перестаёт содержать -0.3). 14 пилотов по одному сиду: каждый меняет один параметр. Серия не запускалась: максимум 9 линий, причина — доминирующая линия занимает 69–90 % клеток, и чем длиннее прогон, тем сильнее вытеснение. В вердикт по цене не входит (он остаётся «знак твёрд, величина не определена»), входит в описание конструкции.",
+  "target_lines": 12,
+  "best": {
+    "artifact": "morphogenesis/experiments/E09_pond/w2bud_lines/pilot_steps250_seed1.json",
+    "lineages_with_data": 9,
+    "params": {
+      "steps": null,
+      "width": null,
+      "mutation_trait_sigma": 0.05,
+      "eps": null,
+      "start_components": null
+    }
+  },
+  "rows": [
+    {
+      "artifact": "morphogenesis/experiments/E09_pond/w2bud_lines/pilot_steps250_seed1.json",
+      "params": {
+        "steps": null,
+        "width": null,
+        "mutation_trait_sigma": 0.05,
+        "eps": null,
+        "start_components": null
+      },
+      "lineages_with_data": 9,
+      "labels": 24,
+      "top1_share": 0.5074,
+      "cells_total": 270,
+      "median_cell_steps_per_line": 600.0
+    },
+    {
+      "artifact": "morphogenesis/experiments/E09_pond/w2bud_lines/pilot_grid48_s300_seed1.json",
+      "params": {
+        "steps": null,
+        "width": null,
+        "mutation_trait_sigma": 0.05,
+        "eps": null,
+        "start_components": null
+      },
+      "lineages_with_data": 8,
+      "labels": 33,
+      "top1_share": 0.7417,
+      "cells_total": 453,
+      "median_cell_steps_per_line": 1063.0
+    },
+    {
+      "artifact": "morphogenesis/experiments/E09_pond/w2bud_lines/pilot_steps300_seed1.json",
+      "params": {
+        "steps": null,
+        "width": null,
+        "mutation_trait_sigma": 0.05,
+        "eps": null,
+        "start_components": null
+      },
+      "lineages_with_data": 8,
+      "labels": 32,
+      "top1_share": 0.6849,
+      "cells_total": 384,
+      "median_cell_steps_per_line": 984.5
+    },
+    {
+      "artifact": "morphogenesis/experiments/E09_pond/w2bud_lines/pilot_grid48_s250_seed1.json",
+      "params": {
+        "steps": null,
+        "width": null,
+        "mutation_trait_sigma": 0.05,
+        "eps": null,
+        "start_components": null
+      },
+      "lineages_with_data": 7,
+      "labels": 29,
+      "top1_share": 0.5981,
+      "cells_total": 311,
+      "median_cell_steps_per_line": 689.0
+    },
+    {
+      "artifact": "morphogenesis/experiments/E09_pond/w2bud_lines/pilot_steps200_seed1.json",
+      "params": {
+        "steps": null,
+        "width": null,
+        "mutation_trait_sigma": 0.05,
+        "eps": null,
+        "start_components": null
+      },
+      "lineages_with_data": 7,
+      "labels": 15,
+      "top1_share": 0.372,
+      "cells_total": 164,
+      "median_cell_steps_per_line": 81.0
+    },
+    {
+      "artifact": "morphogenesis/experiments/E09_pond/w2bud_lines/pilot_grid48_s200_seed1.json",
+      "params": {
+        "steps": null,
+        "width": null,
+        "mutation_trait_sigma": 0.05,
+        "eps": null,
+        "start_components": null
+      },
+      "lineages_with_data": 6,
+      "labels": 12,
+      "top1_share": 0.609,
+      "cells_total": 156,
+      "median_cell_steps_per_line": 609.5
+    },
+    {
+      "artifact": "morphogenesis/experiments/E09_pond/w2bud_lines/pilot_grid48_s400_seed1.json",
+      "params": {
+        "steps": null,
+        "width": null,
+        "mutation_trait_sigma": 0.05,
+        "eps": null,
+        "start_components": null
+      },
+      "lineages_with_data": 6,
+      "labels": 58,
+      "top1_share": 0.8382,
+      "cells_total": 822,
+      "median_cell_steps_per_line": 1733.0
+    },
+    {
+      "artifact": "morphogenesis/experiments/E09_pond/w2bud_lines/pilot_grid40_s300_seed1.json",
+      "params": {
+        "steps": null,
+        "width": null,
+        "mutation_trait_sigma": 0.05,
+        "eps": null,
+        "start_components": null
+      },
+      "lineages_with_data": 5,
+      "labels": 28,
+      "top1_share": 0.7635,
+      "cells_total": 334,
+      "median_cell_steps_per_line": 1300.0
+    },
+    {
+      "artifact": "morphogenesis/experiments/E09_pond/w2bud_lines/pilot_mut015_eps10_seed1.json",
+      "params": {
+        "steps": null,
+        "width": null,
+        "mutation_trait_sigma": 0.05,
+        "eps": null,
+        "start_components": null
+      },
+      "lineages_with_data": 3,
+      "labels": 103,
+      "top1_share": 0.7403,
+      "cells_total": 539,
+      "median_cell_steps_per_line": 169.0
+    },
+    {
+      "artifact": "morphogenesis/experiments/E09_pond/w2bud_lines/pilot_mut015_seed1.json",
+      "params": {
+        "steps": null,
+        "width": null,
+        "mutation_trait_sigma": 0.05,
+        "eps": null,
+        "start_components": null
+      },
+      "lineages_with_data": 3,
+      "labels": 97,
+      "top1_share": 0.7207,
+      "cells_total": 537,
+      "median_cell_steps_per_line": 211.0
+    },
+    {
+      "artifact": "morphogenesis/experiments/E09_pond/w2bud_lines/pilot_steps150_seed1.json",
+      "params": {
+        "steps": null,
+        "width": null,
+        "mutation_trait_sigma": 0.05,
+        "eps": null,
+        "start_components": null
+      },
+      "lineages_with_data": 3,
+      "labels": 6,
+      "top1_share": 0.5,
+      "cells_total": 70,
+      "median_cell_steps_per_line": 131.0
+    },
+    {
+      "artifact": "morphogenesis/experiments/E09_pond/w2bud_lines/pilot_eps10_seed1.json",
+      "params": {
+        "steps": null,
+        "width": null,
+        "mutation_trait_sigma": 0.05,
+        "eps": null,
+        "start_components": null
+      },
+      "lineages_with_data": 2,
+      "labels": 39,
+      "top1_share": 0.8922,
+      "cells_total": 566,
+      "median_cell_steps_per_line": 72710.0
+    },
+    {
+      "artifact": "morphogenesis/experiments/E09_pond/w2bud_lines/pilot_start100_seed1.json",
+      "params": {
+        "steps": null,
+        "width": null,
+        "mutation_trait_sigma": 0.05,
+        "eps": null,
+        "start_components": null
+      },
+      "lineages_with_data": 1,
+      "labels": 37,
+      "top1_share": 0.8798,
+      "cells_total": 549,
+      "median_cell_steps_per_line": 216453.0
+    },
+    {
+      "artifact": "morphogenesis/experiments/E09_pond/w2bud_lines/pilot_start40_seed1.json",
+      "params": {
+        "steps": null,
+        "width": null,
+        "mutation_trait_sigma": 0.05,
+        "eps": null,
+        "start_components": null
+      },
+      "lineages_with_data": 1,
+      "labels": 31,
+      "top1_share": 0.8875,
+      "cells_total": 551,
+      "median_cell_steps_per_line": 203353.0
+    }
+  ],
+  "criteria": {
+    "target_met": false,
+    "construction_allows_verdict": false,
+    "best_lines": 9
+  }
+}
