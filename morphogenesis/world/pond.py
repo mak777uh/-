@@ -100,6 +100,7 @@ class PondConfig:
     ignition_gate: bool = False        # запретить правилу зажигать без живого 4-соседа (пропагул)
     trait_effect: float = 0.0          # eps: насколько tag_trait меняет интенсивность инвестирования (E)
     budding_unit: str = "colony"       # colony (W1) | cell (W2-bud): кто почкуется — колония или клетка
+    pair_mode: str = "same_tag"        # H-ALIVE-49: same_tag (пара одной метки) | any_tag (любой сосед)
     death_return: float = 0.0          # W1-niche: доля взятого за жизнь ресурса, возвращаемая при смерти
     death_return_mode: str = "legacy"  # legacy (туда, где умерла) | prepared (в случайные СВОБОДНЫЕ) | depleted
     buds_per_component: int = 1        # W2-bud-d2: до N бутонов на компоненту (1 = W2-bud бит-в-бит)
@@ -1297,6 +1298,7 @@ class Pond:
         mask[y, x] = True
         n = int(alive_body.shape[0])
         tag_here = int(s.tag[y, x]) if s.tag is not None else -1
+        any_tag = str(getattr(self.cfg, "pair_mode", "same_tag")) == "any_tag"
         cand = []
         for dy, dx in ((1, 0), (-1, 0), (0, 1), (0, -1)):
             ny, nx = y + dy, x + dx
@@ -1304,9 +1306,23 @@ class Pond:
                 continue
             if not bool(alive_body[ny, nx]):
                 continue
-            if s.tag is not None and int(s.tag[ny, nx]) != tag_here:
+            if not any_tag and s.tag is not None and int(s.tag[ny, nx]) != tag_here:
                 continue
             cand.append((ny, nx))
+        if not cand and any_tag:
+            # 8-связность, затем любая живая клетка компоненты
+            for dy in (-1, 0, 1):
+                for dx in (-1, 0, 1):
+                    ny, nx = y + dy, x + dx
+                    if (dy, dx) == (0, 0) or not (0 <= ny < n and 0 <= nx < n):
+                        continue
+                    if bool(alive_body[ny, nx]):
+                        cand.append((ny, nx))
+            if not cand:
+                others = alive_body.nonzero(as_tuple=False)
+                if others.shape[0] > 1:
+                    o = others[int(torch.randint(0, others.shape[0], (), generator=self.gen_sel))]
+                    cand.append((int(o[0]), int(o[1])))
         if cand:
             ny, nx = cand[int(torch.randint(0, len(cand), (), generator=self.gen_sel))]
             mask[ny, nx] = True

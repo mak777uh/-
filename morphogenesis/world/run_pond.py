@@ -112,6 +112,7 @@ def config_block(cfg) -> dict:
 
         "require_placement": getattr(cfg, "require_placement", 0),
         "buds_per_component": getattr(cfg, "buds_per_component", 1),
+        "pair_mode": getattr(cfg, "pair_mode", "same_tag"),
         "death_return": getattr(cfg, "death_return", 0.0),
         "death_return_mode": getattr(cfg, "death_return_mode", "legacy"),
         "one_bud_per_lineage": bool(getattr(cfg, "one_bud_per_lineage", False)),
@@ -720,6 +721,8 @@ def build_parser() -> argparse.ArgumentParser:
     ap.add_argument("--invade-placement", default="random", choices=["random", "gap"],
                     help="куда садится инокулят: random (как §10ab) или gap — в самую "
                          "далёкую от резидента свободную клетку (V8)")
+    ap.add_argument("--pair-mode", default="same_tag", choices=["same_tag", "any_tag"],
+                    help="H-ALIVE-49: пара одной метки (по умолчанию) или с любым соседом")
     ap.add_argument("--death-return", type=float, default=0.0,
                     help="W1-niche: доля взятого за жизнь ресурса, возвращаемая при смерти (0 = старая ветка)")
     ap.add_argument("--death-return-mode", default="legacy",
@@ -815,6 +818,7 @@ def main(argv: list[str] | None = None) -> int:
     world.merge_rule = args.merge_rule
     world.trait_effect = args.trait_effect
     world.budding_unit = args.budding_unit
+    world.pair_mode = args.pair_mode
     world.death_return = args.death_return
     world.death_return_mode = args.death_return_mode
     world.buds_per_component = args.buds_per_component
