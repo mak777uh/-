@@ -120,6 +120,50 @@
         "reps": 400
       },
       "done_at": "40266191011"
+    },
+    {
+      "id": "recompute_i_pairany",
+      "kind": "recompute_i",
+      "status": "pending",
+      "question": "Независимый пересчёт I для pair_any_tag в чужой среде: линии, I_obs, I_null, сколько выше нуля",
+      "spec": {
+        "glob": "w2bud_pairany/*.json",
+        "min_cells": 5,
+        "draws": 2000
+      }
+    },
+    {
+      "id": "recompute_i_onebud",
+      "kind": "recompute_i",
+      "status": "pending",
+      "question": "Независимый пересчёт I для one-bud (серия, на которой стоит вердикт по цене)",
+      "spec": {
+        "glob": "w2bud_onebud/*.json",
+        "min_cells": 5,
+        "draws": 2000
+      }
+    },
+    {
+      "id": "ci_p_pair_any_tag",
+      "kind": "proportion",
+      "status": "pending",
+      "question": "Интервал Уилсона и bootstrap для доли pair_any_tag выше нуля (1 из 10)",
+      "spec": {
+        "k": 1,
+        "n": 10,
+        "bootstrap": 20000
+      }
+    },
+    {
+      "id": "ci_p_pair_same_tag",
+      "kind": "proportion",
+      "status": "pending",
+      "question": "Интервал для доли pair (одна метка) выше нуля (2 из 10)",
+      "spec": {
+        "k": 2,
+        "n": 10,
+        "bootstrap": 20000
+      }
     }
   ]
 }
