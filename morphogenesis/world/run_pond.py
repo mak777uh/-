@@ -722,7 +722,8 @@ def build_parser() -> argparse.ArgumentParser:
     ap.add_argument("--death-return", type=float, default=0.0,
                     help="W1-niche: доля взятого за жизнь ресурса, возвращаемая при смерти (0 = старая ветка)")
     ap.add_argument("--death-return-mode", default="legacy",
-                    choices=["legacy", "prepared", "foreign", "density_matched", "adjacent_matched", "depleted"],
+                    choices=["legacy", "prepared", "foreign", "density_matched",
+                             "adjacent_matched", "adjacency_exact", "depleted"],
                     help="legacy: туда, где умерла; prepared: в случайные СВОБОДНЫЕ (контроль объёма)")
     ap.add_argument("--buds-per-component", type=int, default=1,
                     help="W2-bud-d2: до N бутонов на компоненту (1 = W2-bud бит-в-бит)")
@@ -953,6 +954,8 @@ def main(argv: list[str] | None = None) -> int:
         summary["offspring_in_prepared_k"] = int(run.pond.niche_hit_same)
         summary["prepared_occupied_any_k"] = int(run.pond.niche_hit_any)
         summary["prepared_expected_hits"] = round(float(run.pond.niche_expected), 3)
+        if getattr(run.pond, "niche_levels", None):
+            summary["niche_levels"] = {str(k): v for k, v in sorted(run.pond.niche_levels.items())}
     summary["free_cells_at_injection"] = getattr(run.pond, "free_cells_at_injection", None)
     summary["max_free_component_at_injection"] = getattr(
         run.pond, "max_free_component_at_injection", None)

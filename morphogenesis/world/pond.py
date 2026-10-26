@@ -261,6 +261,7 @@ class Pond:
         self.niche_expected = 0.0
         self.niche_hit_same = 0
         self.niche_hit_any = 0
+        self.niche_levels: dict[int, list[int]] = {}   # n4 -> [prepared, hit_same]
         self.death_log: list[tuple[int, int, int]] = []   # (y, x, tag) для плеча foreign
         self.free_cells_at_injection: int | None = None
         self.max_free_component_at_injection: int | None = None
@@ -1467,7 +1468,8 @@ class Pond:
             return
         mode = str(getattr(self.cfg, "death_return_mode", "legacy"))
         tags = s.tag
-        if mode == "adjacent_matched":
+        if mode in ("adjacent_matched", "adjacency_exact"):
+            exact = (mode == "adjacency_exact")
             # контроль СОСЕДСТВА: пустая клетка с тем же числом живых 4-соседей, что у точки
             # смерти (+-1), но не точка смерти. Проверяет гипотезу «доступность/соседство».
             ker = torch.tensor([[0., 1., 0.], [1., 0., 1.], [0., 1., 0.]], device=self.device)
@@ -1481,10 +1483,13 @@ class Pond:
                     return
                 want = float(n4[dy, dx])
                 dv = n4[free_all[:, 0], free_all[:, 1]]
-                ok = (dv - want).abs() <= 1.0
+                ok = (dv == want) if exact else ((dv - want).abs() <= 1.0)
                 same_cell = (free_all[:, 0] == dy) & (free_all[:, 1] == dx)
                 ok = ok & ~same_cell
                 cand = free_all[ok]
+                if cand.shape[0] == 0 and exact:
+                    ok = ((dv - want).abs() <= 1.0) & ~same_cell
+                    cand = free_all[ok]
                 if cand.shape[0] == 0:
                     ok2 = dv >= min(2.0, want)
                     cand = free_all[ok2 & ~same_cell]
@@ -1563,10 +1568,20 @@ class Pond:
                       if mode in ("prepared", "foreign", "density_matched",
                                   "adjacent_matched") else (dy, dx))
             tag_val = int(tags[dy, dx]) if tags is not None else -1
+            lvl = -1
+            if mode in ("adjacent_matched", "adjacency_exact"):
+                ker2 = torch.tensor([[0., 1., 0.], [1., 0., 1.], [0., 1., 0.]], device=self.device)
+                n4m = torch.nn.functional.conv2d(
+                    s.alive.float().view(1, 1, *s.alive.shape),
+                    ker2.view(1, 1, 3, 3), padding=1).view(s.alive.shape)
+                lvl = int(n4m[dy, dx])
             self.niche_log.append({
-                "step": int(s.step), "y": int(ty), "x": int(tx),
+                "step": int(s.step), "y": int(ty), "x": int(tx), "n4": lvl,
                 "tag": tag_val, "amount": float(amount), "hit_same": False, "hit_any": False,
             })
+            if lvl >= 0:
+                slot = self.niche_levels.setdefault(lvl, [0, 0])
+                slot[0] += 1
             if tags is not None and bool(s.alive.any()):
                 same = int(((tags == tag_val) & s.alive).sum())
                 free_n = int((~s.alive).sum())
@@ -1590,6 +1605,9 @@ class Pond:
             if tags is not None and int(tags[y, x]) == entry["tag"]:
                 entry["hit_same"] = True
                 self.niche_hit_same += 1
+                lvl = int(entry.get("n4", -1))
+                if lvl >= 0 and lvl in self.niche_levels:
+                    self.niche_levels[lvl][1] += 1
 
     def _free_neighbours(self, mask: torch.Tensor) -> torch.Tensor:
         """Свободные (не живые) клетки, соседние с маской (4-связность)."""
