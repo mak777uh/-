@@ -30,6 +30,7 @@ import inspect
 import json
 import math
 import statistics as st
+import subprocess
 import sys
 from pathlib import Path
 
@@ -266,6 +267,16 @@ def task_power_lines(spec: dict) -> dict:
 
 
 
+
+
+def _git(args: list[str]) -> str:
+    """Короткий вызов git; при недоступности возвращает пустую строку."""
+    try:
+        out = subprocess.run(["git", *args], cwd=ROOT, capture_output=True, text=True, timeout=20)
+        return out.stdout.strip()
+    except Exception:
+        return ""
+
 def _whale_verdict(full, drop) -> str:
     """Вердикт про крупнейшую линию. Отсутствие данных — не «эффект пропал»,
     и «0.5 против 0.0» — не «знак не изменился»: сравнивать надо и величину."""
@@ -310,10 +321,16 @@ def run_task(task: dict) -> Path:
         "question": task.get("question", ""),
         "spec": task.get("spec") or {},
         "result": result,
+        # Провенанс. Урок 26.10: хеш «сырых байт файла» зависит от перевода строк
+        # (рабочая копия Windows — CRLF, блоб в git — LF), поэтому один и тот же код
+        # давал разные хеши, и связать результат с коммитом было нельзя без догадки.
+        # Теперь пишем то, что не зависит от платформы: коммит и признак «файл грязный».
+        "git_commit": _git(["rev-parse", "--short", "HEAD"]),
+        "script_dirty": bool(_git(["status", "--porcelain", "scripts/analysis_task.py"])),
         # Хеш именно той функции, которая считала: иначе любая правка скрипта
         # «переписывает» провенанс всех старых результатов (замечание библиотекаря 26.10).
         "task_fn_sha256": hashlib.sha256(inspect.getsource(TASKS[kind]).encode()).hexdigest()[:16],
-        "script_sha256": hashlib.sha256(Path(__file__).read_bytes()).hexdigest()[:16],
+        "script_sha256_eol_dependent": hashlib.sha256(Path(__file__).read_bytes()).hexdigest()[:16],
     }
     out.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n")
     return out
