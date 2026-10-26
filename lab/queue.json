@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-26T03:20:00",
+  "updated_at": "2026-10-26T03:45:00",
   "note": "Очередь пунктов после E02c. Claim берётся до пре-регистрации, а не перед запуском: lab.py item-claim. Статус running означает занятый GPU-лейн и может быть только у одного пункта. | 25.10: добавлено поле impact (1-5) — приоритет конвейера = impact/max(cost_gpu_h,0.1); для запуска пункту нужны prereg (закоммиченный план) и launch.command+outdir.",
   "items": [
     {
@@ -1029,6 +1029,28 @@
       "artifacts": [],
       "note": "снимает вопрос «а на другой раскладке?»: результат V1c (keep 7/10 против majority 0/10) получен на одной раскладке uniform | закрыто: §10at.4 — patches, keep 10/10 против majority 0/10, постановка годна",
       "closed_by": "lead"
+    },
+    {
+      "id": "W2budd2_replication",
+      "title": "W2-bud-d2: воспроизведение цены и отклика на сидах 101-110",
+      "hypothesis": "H-ALIVE-44",
+      "status": "planned",
+      "owner": null,
+      "claimed_at": null,
+      "heartbeat_at": null,
+      "closed_at": null,
+      "ttl_minutes": 240,
+      "cost_gpu_h": 0.45,
+      "impact": 5,
+      "gated_by": [],
+      "unblocks": [],
+      "prereg": "reports/2026-10-26-w2budd2-replication-plan.md",
+      "launch": {
+        "command": "pwsh -NoProfile -ExecutionPolicy Bypass -File _hourly/run_w2budd2_rep_sweep.ps1",
+        "outdir": "morphogenesis/experiments/E09_pond/w2budd2_rep"
+      },
+      "artifacts": [],
+      "note": "у цены 5 переделок, у отклика 4; по docs/optimality.md при >=3 переделках нужна репликация на новых начальных условиях"
     }
   ]
 }
