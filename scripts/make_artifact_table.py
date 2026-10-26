@@ -40,6 +40,14 @@ DIRS = [
 ]
 EXTRA = [REPO / "lab" / "checkpoints.json", REPO / "lab" / "registry.json"]
 
+# Служебные файлы, которые переписываются при каждом прогоне фермы и каждого health-цикла.
+# В таблице артефактов им не место: они не научные данные, а статус, и именно они держали
+# SUPPLEMENT в состоянии «отстал от диска» — тест падал в CI снова и снова.
+VOLATILE = {
+    "morphogenesis/experiments/E09_pond/analysis/farm-status.json",
+    "morphogenesis/experiments/E09_pond/provenance-legacy.json",
+}
+
 
 TEXT_SUFFIXES = {".json"}  # см. .gitattributes: `*.json text eol=lf`
 
@@ -162,6 +170,7 @@ def collect() -> list[Path]:
     files.extend(p for p in EXTRA if p.is_file())
     # строки *_rows.jsonl локальные (в git не едут) — их в таблице нет
     files = [p for p in files if p.suffix in (".json", ".png")]
+    files = [p for p in files if p.relative_to(REPO).as_posix() not in VOLATILE]
     tracked = git_tracked()
     if tracked is not None:
         files = [p for p in files if p.relative_to(REPO).as_posix() in tracked]
