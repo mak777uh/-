@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-25T22:55:00",
+  "updated_at": "2026-10-26T03:20:00",
   "note": "Очередь пунктов после E02c. Claim берётся до пре-регистрации, а не перед запуском: lab.py item-claim. Статус running означает занятый GPU-лейн и может быть только у одного пункта. | 25.10: добавлено поле impact (1-5) — приоритет конвейера = impact/max(cost_gpu_h,0.1); для запуска пункту нужны prereg (закоммиченный план) и launch.command+outdir.",
   "items": [
     {
@@ -818,11 +818,11 @@
       "id": "W2bud_d2_buds_per_component",
       "title": "W2-bud-d2: до N бутонов на компоненту (снятие «одного бутона на колонию»)",
       "hypothesis": "H-ALIVE-36",
-      "status": "planned",
-      "owner": null,
+      "status": "closed",
+      "owner": "scientist",
       "claimed_at": null,
       "heartbeat_at": null,
-      "closed_at": null,
+      "closed_at": "2026-10-26T03:20:00",
       "ttl_minutes": 240,
       "cost_gpu_h": 1.0,
       "impact": 5,
@@ -835,8 +835,12 @@
         "command": "pwsh -NoProfile -ExecutionPolicy Bypass -File _hourly/run_w2budd2_sweep.ps1",
         "outdir": "morphogenesis/experiments/E09_pond/w2budd2"
       },
-      "artifacts": [],
-      "note": "D-46 в исправленной формулировке: не «два потомка на клетку» (spore_cells=2 уже даёт двух), а до N бутонов на компоненту; N=1 воспроизводит W2-bud бит-в-бит. Пилот считает три числа (линии с данными, доля топ-1, линий с >=1 бутоном); если топ-1 растёт — ручка меняется на --one-bud-per-lineage | поднято: четвёртый раз ограничитель — размер линий (2.5–3.5 при пороге 5); сначала чиним размер, потом меряем цену"
+      "artifacts": [
+        "morphogenesis/experiments/E09_pond/w2budd2_matrix.json",
+        "docs/world-design.md"
+      ],
+      "note": "D-46 в исправленной формулировке: не «два потомка на клетку» (spore_cells=2 уже даёт двух), а до N бутонов на компоненту; N=1 воспроизводит W2-bud бит-в-бит. Пилот считает три числа (линии с данными, доля топ-1, линий с >=1 бутоном); если топ-1 растёт — ручка меняется на --one-bud-per-lineage | поднято: четвёртый раз ограничитель — размер линий (2.5–3.5 при пороге 5); сначала чиним размер, потом меряем цену ЗАКРЫТО 26.10: 10 сидов, valid_n 10/10 (линии 4.0->6.5, топ-1 0.866->0.757); цена впервые вердикт (rho_partial медиана -0.558, 9/10, price_confirmed), гейт манипуляции 9/10, отклик rho(признак,w) 0.707 (8/10, знак 9/10). §10au.",
+      "closed_by": "scientist"
     },
     {
       "id": "V1d_phase_sweep",
