@@ -4851,3 +4851,5 @@ parameters influence the spread and establishment»: **распростране�
   «возврат в поле с диффузией».
 
 Это дешевле, чем 30 прогонов, и закрывает единственный оставшийся способ получить очередной null.
+
+- **серия `W1_niche_v5` запущена 06:56, ETA ~08:30**, 4 плеча (`legacy`, `adjacent_matched`, `density_matched`, `prepared`) × 10 сидов, `f = 0.05`, `type_level = cell`; после финиша: агрегат `w1niche5_matrix.json` + §10ay + README + CHANGELOG + CLAIMS. Пилот показал: `legacy` > `adjacent_matched` 3/3 (+0.111…+0.124), то есть точка смерти добавляет сверх соседства.
