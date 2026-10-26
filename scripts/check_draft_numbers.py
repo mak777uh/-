@@ -27,6 +27,9 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 POND = ROOT / "morphogenesis" / "experiments" / "E09_pond"
+# 26.10: агрегаты бывают и в других каталогах экспериментов (R1 — мир без тела),
+# поэтому сканируем весь morphogenesis/experiments, а не только линию пруда.
+EXPERIMENTS = ROOT / "morphogenesis" / "experiments"
 
 # что именно обязано совпадать: (человеческое имя, значение, поля-кандидаты в агрегатах)
 CHECKS = [
@@ -52,7 +55,7 @@ FORBIDDEN = [
 def load_numbers() -> dict[str, set[float]]:
     """Все числа из агрегатов: имя поля → множество значений."""
     out: dict[str, set[float]] = {}
-    for path in POND.rglob("*.json"):
+    for path in EXPERIMENTS.rglob("*.json"):
         try:
             data = json.loads(path.read_text(encoding="utf-8"))
         except Exception:
@@ -109,7 +112,7 @@ def main(argv: list[str]) -> int:
     # 1б. знаменатели: если у плеча в агрегате invalid_by_data или valid_n == 0,
     # «N/10» в тексте без явного valid_n читается как результат, а это неверно (AGENTS §3c).
     invalid_arms: list[str] = []
-    for path in POND.rglob("*_matrix.json"):
+    for path in EXPERIMENTS.rglob("*_matrix.json"):
         try:
             data = json.loads(path.read_text(encoding="utf-8"))
         except Exception:
