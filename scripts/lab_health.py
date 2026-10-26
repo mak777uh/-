@@ -102,13 +102,29 @@ def section_ci_file() -> tuple[list[str], list[str], str]:
     except Exception as exc:
         return [f"ci-status.json не читается: {exc}"], [], "ошибка"
     bad, warn, parts = [], [], []
+    existing = set()
+    try:
+        wf = ROOT / ".github" / "workflows"
+        existing = {f.stem for f in wf.glob("*.yml")} if wf.exists() else set()
+    except Exception:
+        existing = set()
     for name, run in (data.get("runs") or {}).items():
+        if existing and name not in existing and name != "lab-contract":
+            continue  # workflow удалён из репозитория — его старый статус не считается
         concl = run.get("conclusion", "?")
         at = run.get("at", "")[:16].replace("T", " ")
         parts.append(f"{name}: {concl} ({at})")
         if concl == "failure":
             steps = run.get("failed_steps") or []
-            bad.append(f"CI «{name}» упал: " + ("; ".join(steps) if steps else "шаг не определён"))
+            age_h = 99.0
+            try:
+                at_raw = run.get("at", "")
+                age_h = (datetime.now(timezone.utc)
+                         - datetime.fromisoformat(at_raw.replace("Z", "+00:00"))).total_seconds() / 3600
+            except Exception:
+                pass
+            msg = f"CI «{name}» упал: " + ("; ".join(steps) if steps else "шаг не определён")
+            (bad if age_h <= 2 else warn).append(msg + ("" if age_h <= 2 else f" (запись {age_h:.1f} ч назад — вероятно, устарела, перезапишите статус)"))
         elif concl in ("cancelled", "timed_out"):
             warn.append(f"CI «{name}»: {concl}")
     return bad, warn, "; ".join(parts) if parts else "нет записей"

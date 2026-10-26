@@ -111,6 +111,8 @@ def config_block(cfg) -> dict:
         "budding_unit": getattr(cfg, "budding_unit", "colony"),
         "require_placement": getattr(cfg, "require_placement", 0),
         "buds_per_component": getattr(cfg, "buds_per_component", 1),
+        "death_return": getattr(cfg, "death_return", 0.0),
+        "death_return_mode": getattr(cfg, "death_return_mode", "legacy"),
         "one_bud_per_lineage": bool(getattr(cfg, "one_bud_per_lineage", False)),
         "invade_on_empty": bool(getattr(cfg, "invade_on_empty", False)),
         "start_cells": int(getattr(cfg, "start_cells", 4)),
@@ -567,6 +569,8 @@ class PondRun:
                     dim=-1, keepdim=True)
                 self.state[0][:, c_idx[:, 0], c_idx[:, 1]] = state_mean
                 births += 1
+        if self.pond.cfg.death_return > 0 and int(self.pond.state.step) % 10 == 0:
+            self.pond._niche_update()
         if int(self.pond.state.step) % 5 == 0:
             self.pond.enforce_colony_types()
             # серия меток линий для метрик условия B: каждые 5 шагов, а не каждый
@@ -715,6 +719,11 @@ def build_parser() -> argparse.ArgumentParser:
     ap.add_argument("--invade-placement", default="random", choices=["random", "gap"],
                     help="куда садится инокулят: random (как §10ab) или gap — в самую "
                          "далёкую от резидента свободную клетку (V8)")
+    ap.add_argument("--death-return", type=float, default=0.0,
+                    help="W1-niche: доля взятого за жизнь ресурса, возвращаемая при смерти (0 = старая ветка)")
+    ap.add_argument("--death-return-mode", default="legacy",
+                    choices=["legacy", "prepared", "depleted"],
+                    help="legacy: туда, где умерла; prepared: в случайные СВОБОДНЫЕ (контроль объёма)")
     ap.add_argument("--buds-per-component", type=int, default=1,
                     help="W2-bud-d2: до N бутонов на компоненту (1 = W2-bud бит-в-бит)")
     ap.add_argument("--one-bud-per-lineage", action="store_true",
@@ -804,6 +813,8 @@ def main(argv: list[str] | None = None) -> int:
     world.merge_rule = args.merge_rule
     world.trait_effect = args.trait_effect
     world.budding_unit = args.budding_unit
+    world.death_return = args.death_return
+    world.death_return_mode = args.death_return_mode
     world.buds_per_component = args.buds_per_component
     world.one_bud_per_lineage = bool(args.one_bud_per_lineage)
     world.require_placement = args.require_placement
@@ -930,6 +941,18 @@ def main(argv: list[str] | None = None) -> int:
     summary["invader_cells"] = int(getattr(run.pond, "invader_cells_requested", 0))
     summary["invader_cells_actual"] = int(getattr(run.pond, "invader_cells_actual", 0))
     # V1c: диагностика подсадки (None в старой ветке)
+    if getattr(run.pond, "cfg", None) is not None and run.pond.cfg.death_return > 0:
+        vals = sorted(run.pond.resource_at_death)
+        n = len(vals)
+        summary["death_return"] = float(run.pond.cfg.death_return)
+        summary["death_return_mode"] = str(run.pond.cfg.death_return_mode)
+        summary["returned_total"] = round(float(run.pond.returned_total), 4)
+        summary["resource_at_death_median"] = round(vals[n // 2], 5) if n else None
+        summary["resource_at_death_n"] = n
+        summary["prepared_cells_total"] = len(run.pond.niche_log)
+        summary["offspring_in_prepared_k"] = int(run.pond.niche_hit_same)
+        summary["prepared_occupied_any_k"] = int(run.pond.niche_hit_any)
+        summary["prepared_expected_hits"] = round(float(run.pond.niche_expected), 3)
     summary["free_cells_at_injection"] = getattr(run.pond, "free_cells_at_injection", None)
     summary["max_free_component_at_injection"] = getattr(
         run.pond, "max_free_component_at_injection", None)

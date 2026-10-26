@@ -100,6 +100,8 @@ class PondConfig:
     ignition_gate: bool = False        # запретить правилу зажигать без живого 4-соседа (пропагул)
     trait_effect: float = 0.0          # eps: насколько tag_trait меняет интенсивность инвестирования (E)
     budding_unit: str = "colony"       # colony (W1) | cell (W2-bud): кто почкуется — колония или клетка
+    death_return: float = 0.0          # W1-niche: доля взятого за жизнь ресурса, возвращаемая при смерти
+    death_return_mode: str = "legacy"  # legacy (туда, где умерла) | prepared (в случайные СВОБОДНЫЕ) | depleted
     buds_per_component: int = 1        # W2-bud-d2: до N бутонов на компоненту (1 = W2-bud бит-в-бит)
     one_bud_per_lineage: bool = False  # не больше одного бутона на линию в компоненте
     require_placement: int = 0         # 0 = старая ветка бит-в-бит; >0 = гарантировать столько клеток
@@ -251,6 +253,14 @@ class Pond:
         # число клеток в конце (§10ap: накопленное/текущее — сравнение разного).
         self.lineage_cell_steps: dict[int, int] = {0: 0}
         # V1c: диагностика подсадки (заполняется только при require_placement > 0)
+        # W1-niche: возврат ресурса при смерти и статистика «подготовленных» клеток
+        self.resource_taken = torch.zeros((self.cfg.grid, self.cfg.grid), device=self.device)
+        self.returned_total = 0.0
+        self.resource_at_death: list[float] = []
+        self.niche_log: list[dict] = []
+        self.niche_expected = 0.0
+        self.niche_hit_same = 0
+        self.niche_hit_any = 0
         self.free_cells_at_injection: int | None = None
         self.max_free_component_at_injection: int | None = None
         self.placement_attempts_used: int | None = None
@@ -685,6 +695,10 @@ class Pond:
             self.consumed_b = (1.0 - beta) * self.consumed_b + beta * eat_b
         s.energy = s.energy + income
         self.state.consumed_total += float(income.sum())
+        if self.cfg.death_return > 0:
+            # W1-niche: сколько ресурса клетка взяла за жизнь — это и возвращается при смерти
+            # (остаточную ЭНЕРГИЮ возвращать нельзя: клетка умирает при energy <= 0)
+            self.resource_taken = self.resource_taken + income
 
         spent = cfg.update_cost + cfg.repair_cost
         s.energy = torch.where(alive, s.energy - spent, s.energy)
@@ -808,6 +822,8 @@ class Pond:
             mid = ~rich & ~poor
             for name, zone in (("poor", poor), ("mid", mid), ("rich", rich)):
                 s.deaths_by_zone[name] += int((dies & zone).sum())
+        if cfg.death_return > 0 and died_now:
+            self._return_on_death(dies)
         s.energy = torch.where(dies, torch.zeros_like(s.energy), s.energy)
         s.alive = alive & ~dies
         s.died += died_now
@@ -1431,6 +1447,69 @@ class Pond:
                 "child_w": float(probe_w),
             })
         return child
+
+    def _return_on_death(self, dies: torch.Tensor) -> None:
+        """W1-niche: возврат взятого за жизнь ресурса (f * resource_taken).
+
+        `legacy`  — туда, где клетка умерла (освободившаяся клетка);
+        `prepared` — то же СУММАРНОЕ количество, но в случайные СВОБОДНЫЕ клетки (контроль на
+                     «просто больше ресурса»; попадание в свободные обязательно, иначе сравнивается
+                     доступность, а не наследование);
+        `depleted` — ничего (базовый уровень).
+        """
+        s = self.state
+        f = float(self.cfg.death_return)
+        idx = dies.nonzero(as_tuple=False)
+        amounts = (f * self.resource_taken[idx[:, 0], idx[:, 1]]).tolist()
+        total = float(sum(amounts))
+        if total <= 0:
+            return
+        mode = str(getattr(self.cfg, "death_return_mode", "legacy"))
+        tags = s.tag
+        if mode == "prepared":
+            free = (~s.alive).nonzero(as_tuple=False)
+            if free.shape[0] == 0:
+                return
+            perm = torch.randperm(free.shape[0], generator=self.gen_sel)[: len(amounts)]
+            targets = free[perm]
+        else:
+            targets = idx
+        for (ty, tx), amount in zip(targets.tolist(), amounts):
+            s.resource[ty, tx] = min(
+                float(s.resource[ty, tx]) + float(amount), float(self.cfg.resource_max))
+            self.returned_total += float(amount)
+            self.resource_at_death.append(float(s.resource[ty, tx]))
+        # журнал «подготовленных» клеток для статистики наследования
+        for k, ((dy, dx), amount) in enumerate(zip(idx.tolist(), amounts)):
+            ty, tx = (targets[k].tolist() if mode == "prepared" else (dy, dx))
+            tag_val = int(tags[dy, dx]) if tags is not None else -1
+            self.niche_log.append({
+                "step": int(s.step), "y": int(ty), "x": int(tx),
+                "tag": tag_val, "amount": float(amount), "hit_same": False, "hit_any": False,
+            })
+            if tags is not None and bool(s.alive.any()):
+                same = int(((tags == tag_val) & s.alive).sum())
+                free_n = int((~s.alive).sum())
+                self.niche_expected += (same / free_n) if free_n > 0 else 0.0
+
+    def _niche_update(self) -> None:
+        """W1-niche: занял ли кто-то подготовленную клетку — и потомок ли это той же линии."""
+        if not self.niche_log:
+            return
+        s = self.state
+        tags = s.tag
+        for entry in self.niche_log:
+            if entry["hit_same"]:
+                continue
+            y, x = entry["y"], entry["x"]
+            if not bool(s.alive[y, x]):
+                continue
+            if not entry["hit_any"]:
+                entry["hit_any"] = True
+                self.niche_hit_any += 1
+            if tags is not None and int(tags[y, x]) == entry["tag"]:
+                entry["hit_same"] = True
+                self.niche_hit_same += 1
 
     def _free_neighbours(self, mask: torch.Tensor) -> torch.Tensor:
         """Свободные (не живые) клетки, соседние с маской (4-связность)."""
