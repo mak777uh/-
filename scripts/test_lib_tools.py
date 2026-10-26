@@ -403,6 +403,23 @@ def test_topic_lit(tmp: Path) -> None:
     check("topic_lit: код 0", res.returncode == 0, str(res.returncode))
 
 
+def test_check_claim(tmp: Path) -> None:
+    art = tmp / "agg.json"
+    art.write_text('{"kind": "placement_runs", "by_arm": [{"arm": "keep", "survived_k": 7}]}',
+                   encoding="utf-8")
+    ok = run("library/tools/check_claim.py", "--artifact", str(art),
+             "--series-kind", "placement_runs", "--field", "by_arm.0.survived_k", "--expect", "7")
+    check("check_claim: верная находка проходит", ok.returncode == 0, ok.stdout + ok.stderr)
+    bad = run("library/tools/check_claim.py", "--artifact", str(art),
+              "--series-kind", "placement_runs", "--field", "by_arm.0.survived_k", "--expect", "10")
+    check("check_claim: неверное число отвергается", bad.returncode == 1, bad.stdout + bad.stderr)
+    kind = run("library/tools/check_claim.py", "--artifact", str(art), "--series-kind", "w2bud_runs")
+    check("check_claim: не та серия отвергается", kind.returncode == 1, kind.stdout + kind.stderr)
+    missing = run("library/tools/check_claim.py", "--artifact", str(art), "--field", "by_arm.0.nope")
+    check("check_claim: отсутствующее поле отвергается", missing.returncode == 1,
+          missing.stdout + missing.stderr)
+
+
 def main() -> int:
     with tempfile.TemporaryDirectory() as tdir:
         tmp = Path(tdir)
@@ -436,6 +453,8 @@ def main() -> int:
         test_science_digest(tmp)
         print("== topic lit ==")
         test_topic_lit(tmp)
+        print("== check claim ==")
+        test_check_claim(tmp)
     print(f"\nпровалено: {len(FAILED)}")
     return 1 if FAILED else 0
 
