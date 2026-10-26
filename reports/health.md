@@ -1,12 +1,12 @@
 # Здоровье лаборатории
 
-Обновлено: 2026-10-26 17:54 UTC
+Обновлено: 2026-10-26 17:57 UTC
 
 ## Состояние
 
 - CI (по reports/ci-status.json): lab-contract: success (2026-10-26 15:22); analysis-farm: success (2026-10-26 12:29)
 - ✅ контракт: counts: {"experiments": 31, "readme_experiments": 31, "manuscript_entries": 24, "lit_board_items": 84, "active
-- ✅ размер контракта: [agents-size] 58288 байт ≤ 60000 — ок
+- ✅ размер контракта: [agents-size] 58071 байт ≤ 60000 — ок
 - ✅ числа разделов: [sections] OK — числа разделов воспроизводятся из агрегатов
 - ✅ числа рукописи: проверено чисел: 41, ошибок: 0
 - ✅ утверждения: [claims_lint] OK (предупреждений: 6)
