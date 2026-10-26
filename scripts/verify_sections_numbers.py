@@ -212,6 +212,38 @@ def section_text(section: str) -> str | None:
     return rest[: stop.start()] if stop else rest
 
 
+
+# ---------------------------------------------------------------- устаревшие числа
+# Класс ошибки (26.10): в сводной таблице §4 стояло −0.700 — медиана частной корреляции,
+# посчитанная ГИБРИДНОЙ реализацией. После исправления текущее значение стало −0.219, а
+# старое осталось в таблице: читатель получал устаревшее число как результат.
+# Правило: устаревшее значение допустимо только рядом с маркером контекста («гибрид», «было»,
+# «истори», «пересчитан», «стандартн», «снят») — иначе это ошибка.
+SUPERSEDED = {
+    "0.700": ("гибрид", "было ", "истори", "пересчитан", "стандартн", "снят"),
+    "0.558": ("гибрид", "было ", "истори", "пересчитан", "стандартн", "снят"),
+}
+SUPERSEDED_WINDOW = 300
+
+
+def check_superseded(text: str) -> list[str]:
+    problems: list[str] = []
+    norm = text.replace("\u2212", "-").replace("\u2013", "-")
+    for value, markers in SUPERSEDED.items():
+        # только ОТРИЦАТЕЛЬНЫЕ устаревшие значения: +0.700 — другая величина (рост энергии),
+        # она не пересчитывалась и остаётся в тексте законно
+        for match in re.finditer(r"(?<![\d.,])-" + re.escape(value) + r"(?![\d])", norm):
+            lo = max(0, match.start() - SUPERSEDED_WINDOW)
+            hi = min(len(norm), match.end() + SUPERSEDED_WINDOW)
+            around = norm[lo:hi].lower()
+            if not any(marker in around for marker in markers):
+                line = norm.count("\n", 0, match.start()) + 1
+                problems.append(
+                    f"{PAPER.name}:{line}: устаревшее значение {value} без пометки "
+                    f"(нужен маркер: гибрид/было/истори/пересчитан/стандартн/снят)")
+    return problems
+
+
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("--list", action="store_true", help="показать таблицу проверок")
@@ -277,6 +309,8 @@ def main(argv=None) -> int:
                 f"§{check['section']}: в тексте нет «{expected}» (из {check['aggregate']}, "
                 f"ключи {check['values']}) — {check['note']}"
             )
+
+    problems.extend(check_superseded(PAPER.read_text(encoding="utf-8")))
 
     print(f"[sections] проверок: {len(CHECKS)}, выполнено: {checked}, отложено: {len(skipped)}")
     for s in skipped:
