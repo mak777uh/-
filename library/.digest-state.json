@@ -1,5 +1,6 @@
 {
   "hashes": [
+    "1d26da17bb70",
     "211bf935b57f",
     "25704037f544",
     "257dd5bf1b4c",
@@ -19,18 +20,25 @@
     "a27493a29c82",
     "ac5196496ebd",
     "bb56a5b8e3c2",
+    "c70d80ceec81",
     "cab76f9db2a8",
     "d1c8eb801be4",
     "d3b8fbe510f2",
-    "d98b1dd307e0"
+    "d98b1dd307e0",
+    "e6e5cd8dcaef",
+    "f3faa8457e61"
   ],
   "criteria": {
     "ci_p_invasion_dose5": {},
     "ci_p_invasion_keep_patches": {},
     "ci_p_invasion_keep_uniform": {},
     "ci_p_invasion_majority": {},
+    "ci_p_pair_any_tag": {},
+    "ci_p_pair_same_tag": {},
     "ci_p_selection_replication": {},
     "power_lines_price": {},
+    "recompute_i_onebud": {},
+    "recompute_i_pairany": {},
     "recompute_i_w2bud3": {},
     "recompute_i_w2budd2": {},
     "whale_w2bud3": {},
@@ -126,6 +134,38 @@
       "rho_ge_03_in_7_of_10_valid": false,
       "sign_agreement_7_of_10_valid": true
     },
+    "w2bud_pair_matrix": {
+      "I_above_null": false,
+      "I_above_null_7_of_10": false,
+      "I_positive_all_7_of_10": false,
+      "I_positive_valid_7_of_10": false,
+      "w1_control_I_zero_all": true,
+      "price_confirmed": false,
+      "benefit_confirmed": false,
+      "invalid_by_data": true,
+      "manipulation_gate_7_of_10": false,
+      "manipulation_gate_7_of_10_updates": false,
+      "manipulation_gate_7_of_10_per_step": false,
+      "rho_median_ge_03": false,
+      "rho_ge_03_in_7_of_10_valid": false,
+      "sign_agreement_7_of_10_valid": false
+    },
+    "w2bud_pairany_matrix": {
+      "I_above_null": false,
+      "I_above_null_7_of_10": false,
+      "I_positive_all_7_of_10": false,
+      "I_positive_valid_7_of_10": false,
+      "w1_control_I_zero_all": true,
+      "price_confirmed": false,
+      "benefit_confirmed": false,
+      "invalid_by_data": true,
+      "manipulation_gate_7_of_10": false,
+      "manipulation_gate_7_of_10_updates": false,
+      "manipulation_gate_7_of_10_per_step": false,
+      "rho_median_ge_03": false,
+      "rho_ge_03_in_7_of_10_valid": false,
+      "sign_agreement_7_of_10_valid": false
+    },
     "w2bud_rep_patches_matrix": {
       "I_above_null": true,
       "I_above_null_7_of_10": true,
@@ -205,7 +245,9 @@
       "rho_median_ge_03": false,
       "rho_ge_03_in_7_of_10_valid": false,
       "sign_agreement_7_of_10_valid": false
-    }
+    },
+    "r1_matrix": {},
+    "r1cap_matrix": {}
   },
-  "last_run": "2026-10-26T14:40:51"
+  "last_run": "2026-10-26T21:40:40"
 }

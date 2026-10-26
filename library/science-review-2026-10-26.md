@@ -1,41 +1,45 @@
 # Научный дайджест за 2026-10-26
 
-Коммитов за сутки: **90**. Изменённых агрегатов: **23**.
+Коммитов за сутки: **170**. Изменённых агрегатов: **31**.
 
 ## Что сделано (по коммитам)
-- `9242d74` library: слот 13:30 — C6 переписан явными дробями с знаменателями (uniform 7/10 и 0/10; patches 10/10 и 0/10; 
-- `5d75ed4` SUPPLEMENT: пересобран после правки агрегатов инвазии (таблица читает HEAD, поэтому обновляется только на след
-- `d3fbca1` мета-ревью (цикл 12:15): проверка утверждения об инвазии по сырью — placement uniform 7/10, patches 10/10, maj
-- `a07a447` library: глубокий проход 26.10 — исправлен устаревший счётчик (было 70, фактически 134 записи/93 G-строки); до
-- `d19a60d` library: слот 09:30 — очередь пуста, проверены три агрегата через check_claim (placement uniform 7, patches 10
-- `0d1b368` мета-ревью (цикл 09:15) нашло устаревшее число в CLAIMS: строка про W2-bud v4 всё ещё ссылалась на -0.700 из г
-- `db0c7a0` SUPPLEMENT: режим --check + блокирующий гейт в health и CI. Причина повторяющегося красного: любой пересчёт аг
-- `d726956` CI-задача дня: check_aggregate_coverage.py — каждый артефакт прогона обязан входить в агрегат (331 агрегат, 58
-- `e225079` library: тематическая литература 26.10 — Oszoli & Zachar 2024 (10.1371/journal.pcbi.1012107): агрегативная мно
-- `b31d8df` SUPPLEMENT: служебные файлы фермы (farm-status.json, provenance-legacy.json) исключены из таблицы артефактов. 
-- `996b7a6` health: устаревание красного CI определяется по коммиту, а не по времени — ночной прогон на d11d7de (до починк
-- `8b47ebf` health: отсев упавших workflow по name: из YAML, а не по имени файла — удалённый ci-status.yml продолжал висет
-- `324d900` reports: пункт 5 сводки — контроль «без резидента» провалился как свойство мира, а не как ошибка серии
-- `e4f2fba` docs+reports: цена — медиана с n и квартилями, «запас 0.03» убран как неверная формулировка
-- `62c8115` агрегат семейства w1niche канонизирован (43 строки: 4 плеча x 10 сидов + adjacency_exact 3) — шаблон имени зна
-- `43bdc32` reports: черновик итога суток для владельца — подтверждено / опровергнуто / открыто
-- `ec20ce2` SUPPLEMENT воспроизводим из коммита: хеши и размеры берутся из blob HEAD (пакетно, один git cat-file --batch),
-- `46f0dee` CI красный на обеих ОС из-за SUPPLEMENT: он собирался до пересборки агрегатов под стандартную метрику и не сод
-- `8ac43ec` lab+reports: пункт пула W1-niche-adjacency-exact закрыт (контроль выполнен), строка в индексе отчётов
-- `c7e3053` docs: §10ay — остаток объяснён числом живых соседей (adjacency_exact), специфики точки смерти нет
-- `984454a` world+reports: точный контроль соседства adjacency_exact (уровни n4 = 0..4) и поправка к пре-регистрации
-- `32390c3` world+experiments+docs: W1-niche — наследования по линии нет; эффект зоны не объясняется плотностью (§10ay)
-- `75861c4` reports: поправка к анализу W1-niche ДО конца серии — стратификация по размеру мира, порог underpowered, ожида
-- `57282eb` lab: строка о запуске серии W1_niche_v5 (4 плеча x 10 сидов)
-- `d11d7de` analysis-farm: результаты 03:53Z [skip ci]
+- `b53bb12` experiments+docs: 14 пилотов по числу линий — конструкция W2-bud не даёт >=12 линий (§10bd, exploratory)
+- `c3e5579` мета-ревью invasion-0of10: пересчитал претензию — подтверждается (gap: [0,0,0,0,5,10,15,20,40,50], медиана 7.5
+- `fde5792` SUPPLEMENT: в таблицу артефактов вошёл pilot_start100 (файл был в индексе, но таблица собрана раньше) — гейт а
+- `277f364` SUPPLEMENT: пересобран после правки §4
+- `08f94f5` гейт §чисел: verify_sections_numbers теперь ловит устаревшие значения (-0.700, -0.558) без пометки контекста —
+- `3ddeeb0` рукопись: ссылка на разделы world-design переписана без § (гейт section_refs читал §10bb как раздел рукописи)
+- `6d62e2a` рукопись §7: «что дальше» переписано — второй субстрат перенесён в «сделано» (R1: одна против многих, монотонн
+- `dddb018` рукопись: убрано устаревшее -0.700 из сводной таблицы (§4, база) — заменено на -0.219 (rho_partial_energy_medi
+- `69b798d` рукопись: указатель в начале раздела цены — текущие числа в блоке «Итог по цене (26.10)» (-0.478, знак 8/8), а
+- `527a1dc` док: §6 incidents — ноль и «нечего считать» неотличимы (пустой список линий от несоединившихся ключей даёт Non
+- `36cc942` правило §3c: любая корреляция подписывается коэффициентом, фильтром линий и знаменателем — без подписи число н
+- `791a2fe` reports: точные имена ключей для воспроизведения отклика + сверка с независимым пересчётом
+- `7ce87a1` reports: подписан метод расчёта отклика и зафиксировано расхождение с независимым пересчётом
+- `2243d0f` claims: отклик — опровергнут независимой величиной (было «открыто: данные невалидны»)
+- `a380d43` docs+reports: отклик признака не подтверждается независимой величиной — вопрос закрыт (0 GPU)
+- `ec61025` цена: знак и величина разделены — знаковый тест 8/8 (p=0.0039) твёрд, медиана -0.478 при 95% ДИ [-0.797, -0.17
+- `49258f4` рукопись: вставлены готовые блоки §4i (бутон-пара и пара любых меток, четыре конструкции со статусами, правило
+- `c8eecad` reports: готовые блоки рукописи для §4i — пара и пара «любых меток» (моя часть сборки)
+- `999153a` health.md: обновлён после закрытия дня
+- `ed86816` docs+reports: закрыт вопрос о величине (механизм не установлен) и обновлён итог суток
+- `28c7af9` инструкция: блок про выпуск v1.1 препринта (New version в Zenodo, concept DOI сохраняется, changelog в описани
+- `0a3980a` v1.1: черновик §4.6 (перенос вне тел — «одна против многих»), ограничение и вывод обновлены; LaTeX-исходник с 
+- `bfbbaae` scripts: check_draft_numbers сканирует весь morphogenesis/experiments, а не только линию пруда
+- `f630353` experiments+docs: exploratory-сетка N_cap 10/20/40 — интерпретация «лимит выравнивает размеры линий» выдержала
+- `8ac8733` рукопись §4j.1: опыт с лимитом роста (N_cap=20) — оба предсказания не выполнены (I_ratio k=1 падает с 1.765 до
 
 ## Что изменилось в числах (агрегаты)
 - **ci_p_invasion_dose5**: без criteria
 - **ci_p_invasion_keep_patches**: без criteria
 - **ci_p_invasion_keep_uniform**: без criteria
 - **ci_p_invasion_majority**: без criteria
+- **ci_p_pair_any_tag**: без criteria
+- **ci_p_pair_same_tag**: без criteria
 - **ci_p_selection_replication**: без criteria
 - **power_lines_price**: без criteria
+- **recompute_i_onebud**: без criteria
+- **recompute_i_pairany**: без criteria
 - **recompute_i_w2bud3**: без criteria
 - **recompute_i_w2budd2**: без criteria
 - **whale_w2bud3**: без criteria
@@ -48,30 +52,32 @@
 - **w2bud4s_matrix**: I_above_null=True, I_above_null_7_of_10=True, I_positive_all_7_of_10=True, I_positive_valid_7_of_10=False
 - **w2bud_matrix**: I_above_null=True, I_above_null_7_of_10=True, I_positive_all_7_of_10=True, I_positive_valid_7_of_10=False
 - **w2bud_onebud_matrix**: I_above_null=True, I_above_null_7_of_10=True, I_positive_all_7_of_10=True, I_positive_valid_7_of_10=True
+- **w2bud_pair_matrix**: I_above_null=False, I_above_null_7_of_10=False, I_positive_all_7_of_10=False, I_positive_valid_7_of_10=False
+- **w2bud_pairany_matrix**: I_above_null=False, I_above_null_7_of_10=False, I_positive_all_7_of_10=False, I_positive_valid_7_of_10=False
 - **w2bud_rep_patches_matrix**: I_above_null=True, I_above_null_7_of_10=True, I_positive_all_7_of_10=True, I_positive_valid_7_of_10=False
 - **w2bud_rep_uniform_matrix**: I_above_null=True, I_above_null_7_of_10=True, I_positive_all_7_of_10=True, I_positive_valid_7_of_10=False
 - **w2budd2_matrix**: I_above_null=True, I_above_null_7_of_10=True, I_positive_all_7_of_10=True, I_positive_valid_7_of_10=True
 - **w2budd2_rep_matrix**: I_above_null=True, I_above_null_7_of_10=True, I_positive_all_7_of_10=True, I_positive_valid_7_of_10=False
 - **w2budd2_rep_n1_matrix**: I_above_null=True, I_above_null_7_of_10=True, I_positive_all_7_of_10=True, I_positive_valid_7_of_10=False
+- **r1_matrix**: monotone_prediction=I_ratio(k=1) > I_ratio(k=2) > I_ratio(k=8), pilot_note=пилот: 1 сид на плечо; серия — 10 сидов после проверки режима
+- **r1cap_matrix**: monotone_prediction=I_ratio(k=1) > I_ratio(k=2) > I_ratio(k=8), pilot_note=пилот: 1 сид на плечо; серия — 10 сидов после проверки режима
 
 ## Рекомендации (из чисел, не из прозы)
-- **починить постановку серии по w2bud_matrix, вердикт не выносить**  
-  основание: `criteria.invalid_by_data = True`; цена: 1 цикл; проверка: повторный прогон/пересборка w2bud_matrix: criteria.invalid_by_data = true
-- **починить постановку серии по w2budd2_rep_matrix, вердикт не выносить**  
-  основание: `criteria.invalid_by_data = True`; цена: 1 цикл; проверка: повторный прогон/пересборка w2budd2_rep_matrix: criteria.invalid_by_data = true
-- **добрать линии/сиды для w2budd2_rep_matrix/cell: валидных 4/10**  
-  основание: `valid_n=4 из runs=10 (порог 0.5)`; цена: 1 серия; проверка: valid_n/runs >= 0.5
-- **починить постановку серии по w2budd2_rep_n1_matrix, вердикт не выносить**  
-  основание: `criteria.invalid_by_data = True`; цена: 1 цикл; проверка: повторный прогон/пересборка w2budd2_rep_n1_matrix: criteria.invalid_by_data = true
-- **добрать линии/сиды для w2budd2_rep_n1_matrix/cell: валидных 1/10**  
-  основание: `valid_n=1 из runs=10 (порог 0.5)`; цена: 1 серия; проверка: valid_n/runs >= 0.5
+- **починить постановку серии по w2bud_pair_matrix, вердикт не выносить**  
+  основание: `criteria.invalid_by_data = True`; цена: 1 цикл; проверка: повторный прогон/пересборка w2bud_pair_matrix: criteria.invalid_by_data = true
+- **добрать линии/сиды для w2bud_pair_matrix/pair: валидных 0/10**  
+  основание: `valid_n=0 из runs=10 (порог 0.5)`; цена: 1 серия; проверка: valid_n/runs >= 0.5
+- **починить постановку серии по w2bud_pairany_matrix, вердикт не выносить**  
+  основание: `criteria.invalid_by_data = True`; цена: 1 цикл; проверка: повторный прогон/пересборка w2bud_pairany_matrix: criteria.invalid_by_data = true
+- **добрать линии/сиды для w2bud_pairany_matrix/pair: валидных 0/10**  
+  основание: `valid_n=0 из runs=10 (порог 0.5)`; цена: 1 серия; проверка: valid_n/runs >= 0.5
 
 ## Отдача литературы (7 дней)
 - DOI в добавленных/правленых строках `hypotheses/` за неделю: **175**; из них упомянуты ВНЕ индексов (answers/conditions/claims/reviews): **37** (отдача 21%)
   *читается так:* это доля источников, которые дошли до рабочего текста, а не только до индекса. Ниже 30 % две недели подряд — снижать частоту литслота, а не наращивать объём.
 
 ## Доска и литература
-- новых замечаний: 1; решено: 2 (принято 0, отклонено 1)
+- новых замечаний: 2; решено: 2 (принято 0, отклонено 1)
 - литдавление: 2 (порог 3)
   открытые вопросы: 0 []
   открытые lit-пункты очереди: 0 []
