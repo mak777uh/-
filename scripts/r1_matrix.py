@@ -18,18 +18,21 @@ import re
 import statistics
 from pathlib import Path
 
-NAME = re.compile(r"r1_(?:pilot_)?k(?P<k>\d+)_seed(?P<seed>\d+)\.json$")
+# Шаблон имени — часть контракта: r1cap_* (серия с лимитом роста) не попадал под r1_(?:pilot_)?
+NAME = re.compile(r"r1(?:cap)?_(?:pilot_)?k(?P<k>\d+)_seed(?P<seed>\d+)\.json$")
 MIN_LINEAGES = 2
 
 
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("--src", default="morphogenesis/experiments/R1_replicator")
+    ap.add_argument("--pattern", default="r1_*.json",
+                    help="маска артефактов внутри --src (например r1cap_*.json для серии с лимитом роста)")
     ap.add_argument("--out", default=None)
     args = ap.parse_args(argv)
 
     rows = []
-    for path in sorted(glob.glob(str(Path(args.src) / "r1_*.json"))):
+    for path in sorted(glob.glob(str(Path(args.src) / args.pattern))):
         match = NAME.search(Path(path).name)
         if not match or Path(path).name.endswith("_matrix.json"):
             continue
