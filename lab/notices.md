@@ -4701,3 +4701,4 @@ B-082.
 **Также:** `python scripts/check_determinism.py A.json B.json` — проверка детерминизма новой ветки
 (`summary` без `wall_seconds` и `config.git_commit`; допуск `max(1e-4; 1e-6·|значение|)` в одном поле).
 
+- **серия `W2budd2_replication` запущена 03:25, ETA ~04:15**, плечи: `N=3` (основное) + `N=1` (контроль), сиды 101–110, layout `uniform`; после финиша: агрегат `w2budd2_rep_matrix.json` + `metric_variants` на обоих плечах + §10aw + строка README + CHANGELOG + CLAIMS.
