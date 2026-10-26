@@ -29,6 +29,21 @@ POND = ROOT / "morphogenesis" / "experiments" / "E09_pond"
 
 # каталоги, которые не являются сериями прогонов
 SKIP_DIRS = {"analysis", "quarantine", "__pycache__"}
+EXEMPT_FILE = ROOT / "lab" / "series-exemptions.json"
+
+
+def _exempt() -> dict:
+    """Серии, которым агрегат не нужен, с причиной и §-ссылкой."""
+    if not EXEMPT_FILE.exists():
+        return {}
+    try:
+        data = json.loads(EXEMPT_FILE.read_text(encoding="utf-8"))
+    except Exception:
+        return {}
+    return {e["series"]: e for e in data.get("exempt", []) if e.get("series")}
+
+
+EXEMPT = _exempt()
 
 
 def aggregates_for(dirname: str) -> list[Path]:
@@ -84,6 +99,9 @@ def main(argv: list[str]) -> int:
         if not arts:
             continue
         newest_art = max(arts, key=lambda f: f.stat().st_mtime)
+        if d.name in EXEMPT:
+            ok.append(d.name)
+            continue
         candidates = aggregates_for(d.name)
         agg = max(candidates, key=lambda a: a.stat().st_mtime) if candidates else None
         if agg is None:
