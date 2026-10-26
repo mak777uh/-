@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "run_id": "20261026T165141Z-R1cap_k1_s3",
+  "experiment": "R1cap_k1_s3",
+  "experiment_id": "R1",
+  "arm": "cap_k1",
+  "seed": 3,
+  "steps": 400,
+  "status": "finished",
+  "provenance": "runner",
+  "source": "morphogenesis/logs/journal.jsonl",
+  "started_at": "2026-10-26T16:51:41Z",
+  "finished_at": "2026-10-26T16:51:43Z",
+  "git_commit": "238ca51",
+  "git_dirty": true,
+  "command": [
+    "C:\\Users\\Admin\\Documents\\Qoder\\2026-10-18\\82ab86cd\\repo\\.venv\\Scripts\\python.exe",
+    "C:\\Users\\Admin\\Documents\\Qoder\\2026-10-18\\82ab86cd\\repo\\scripts\\run_replicator.py",
+    "--k",
+    "1",
+    "--seed",
+    "3",
+    "--steps",
+    "400",
+    "--lineage-cap",
+    "20",
+    "--out",
+    "C:\\Users\\Admin\\Documents\\Qoder\\2026-10-18\\82ab86cd\\repo\\morphogenesis\\experiments\\R1_replicator\\r1cap_k1_seed3.json"
+  ],
+  "cwd": "morphogenesis",
+  "owner": "scientist",
+  "environment": {
+    "python": "3.13.11",
+    "platform": "Windows-11-10.0.26300-SP0",
+    "torch": "2.6.0+cu124",
+    "numpy": "2.5.4",
+    "device": "NVIDIA GeForce RTX 3070 Laptop GPU, 595.79"
+  },
+  "checkpoint_in": null,
+  "outputs": {
+    "declared": [],
+    "log": "morphogenesis/logs/20261026T165141Z-R1cap_k1_s3.log"
+  },
+  "metrics": {},
+  "stop_reason": "exit_0",
+  "exit_code": 0,
+  "log_path": "morphogenesis/logs/20261026T165141Z-R1cap_k1_s3.log",
+  "notes": "H-ALIVE-51: lineage cap 20, k=1"
+}

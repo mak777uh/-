@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-10-26T19:50:00",
+  "updated_at": "2026-10-26T20:10:00",
   "note": "Очередь пунктов после E02c. Claim берётся до пре-регистрации, а не перед запуском: lab.py item-claim. Статус running означает занятый GPU-лейн и может быть только у одного пункта. | 25.10: добавлено поле impact (1-5) — приоритет конвейера = impact/max(cost_gpu_h,0.1); для запуска пункту нужны prereg (закоммиченный план) и launch.command+outdir.",
   "items": [
     {
@@ -1192,6 +1192,32 @@
       ],
       "note": "только дизайн: проверка переноса «единица размножения решает» на репликаторы без тела; порядок k=1 > k=2, k=8 должен сохраниться ЗАКРЫТО 26.10: k=1 выше нуля 9/10, I_ratio 1.765; k=1 > k=2 в 10/10 (p = 0.001), но k=2 > k=8 только 6/10 (p = 0.38) => направление переносится частично, величина нет (12-50 в W2-bud); при k=8 меток 60 и линий 60. §10bb; eliminations.",
       "closed_by": "scientist"
+    },
+    {
+      "id": "R1_lineage_cap",
+      "title": "R1 с лимитом роста линии (N_cap=20): проверка «геометрия усиливает отбор»",
+      "hypothesis": "H-ALIVE-51",
+      "status": "closed",
+      "owner": "scientist",
+      "claimed_at": null,
+      "heartbeat_at": null,
+      "closed_at": "2026-10-26T20:10:00",
+      "closed_by": "scientist",
+      "ttl_minutes": 240,
+      "cost_gpu_h": 0.02,
+      "impact": 5,
+      "gated_by": [],
+      "unblocks": [],
+      "prereg": "reports/2026-10-26-r1-cap-plan.md",
+      "launch": {
+        "command": "pwsh -NoProfile -File _hourly/run_r1cap.ps1",
+        "outdir": "morphogenesis/experiments/R1_replicator"
+      },
+      "artifacts": [
+        "morphogenesis/experiments/R1_replicator/",
+        "docs/world-design.md"
+      ],
+      "note": "ЗАКРЫТО 26.10: оба предсказания не выполнены — I_ratio(k=1) с лимитом 0.95 против 1.765 (выше в 0/10), k=2 > k=8 в 2/10. Лимит выравнивает размеры линий и снижает I. Объяснение «геометрия усиливает отбор» опровергнуто; перенос = «одна против многих». §10bc."
     }
   ]
 }
