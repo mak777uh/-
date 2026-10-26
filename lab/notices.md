@@ -4914,3 +4914,5 @@ aggregative propagule-formation enables cooperative multicellularity». Абст
 
 **Итог:** объём сознательно не наращивал (134 записи достаточно); выигрыш прохода — **устаревший
 счётчик** и один методологический источник с прямым следствием.
+
+- **серия `Adjacency_exact_10seeds` запущена 15:12, ETA ~15:35**, `adjacency_exact` сиды 4–10 (1–3 уже есть); после финиша: канонический `w1niche_matrix.json` + §10ay/§4j + README + CLAIMS + CHANGELOG. Затем — правка `world/` под `--budding-unit pair`, якорь бит-в-бит, и серия `W2bud_pair_unit` (20 прогонов).
