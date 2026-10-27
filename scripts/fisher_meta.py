@@ -96,9 +96,11 @@ def main(argv=None) -> int:
     if combined["center"] is not None:
         if combined["center"] <= THRESHOLD and combined["upper"] < THRESHOLD:
             verdict = "цена >= 0.3 (центр и верхняя граница ниже порога)"
-        elif combined["upper"] >= THRESHOLD and len(new) >= PREREG_N:
-            verdict = ("величина не определяется статистикой: верхняя граница >= -0.3 при N = "
-                       f"{len(new)} — вопрос закрывается по пре-регистрации")
+        elif combined["upper"] >= THRESHOLD and len([r for r in rows if r["seed"] >= 201]) >= PREREG_N:
+            launched_new = len([r for r in rows if r["seed"] >= 201])
+            verdict = ("величина не определяется статистикой: верхняя граница "
+                       f"{combined['upper']:+.3f} >= -0.3 при N = {launched_new} новых сидов "
+                       "(пре-регистрация: вопрос закрывается)")
         else:
             verdict = "недостаточно прогонов для критерия"
 
@@ -114,6 +116,16 @@ def main(argv=None) -> int:
             "criterion": "центр <= -0.3 И верхняя граница < -0.3",
             "refutation": "верхняя граница >= -0.3 при N = 15 новых сидов ⇒ величина не определяется статистикой",
         },
+        "series_mask": "w2bud_onebud/w2bud_onebud_cell_seed*.json",
+        "series_mask_note": (
+            "маска — часть определения агрегата (§3c): одна серия one-bud, старые сиды 101-110 и новые "
+            "201-215; блоки считаются отдельно, чтобы видеть, что дало расширение"
+        ),
+        "rho_undefined_note": (
+            "rho не вычислима, когда частная корреляция вырождена: если cell_steps и энергия "
+            "идеально совпадают по рангам (Spearman = 1.0), остаток после контроля энергии имеет "
+            "нулевую дисперсию и частная корреляция не определена (0/0), а не равна нулю"
+        ),
         "rows": rows,
         "blocks": blocks,
         "valid_n": len(allv),
