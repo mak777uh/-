@@ -790,7 +790,9 @@ majority — не конкуренция, а переписывание **пос
 принадлежат **разным модификациям мира** и напрямую не сравниваются.
 
 **Доказательства.** `morphogenesis/experiments/E09_pond/v8_matrix.json` (50 строк), `founding_matrix.json`
-(50 строк, покрытие 50/50, `scripts/aggregate_check.py` — 0 ошибок), `founding_maps.json`, `docs/world-design.md`,
+(50 строк, покрытие 50/50; прогон `scripts/aggregate_check.py` даёт 0 ошибок на момент сборки, но **поля
+`aggregate_check` в самом файле нет** — проверка внешняя, а не записанная в артефакт), `founding_maps.json`,
+`docs/world-design.md`,
 разделы 10ae–10af, пре-регистрации `reports/2026-10-24-placement-merge-plan.md` (в ней указано
 50 прогонов, фактическая сетка по списку плеч — 60: арифметическая ошибка описания; плечи и
 критерии не менялись) и `reports/2026-10-24-founding-threshold-plan.md`.

@@ -28,7 +28,11 @@
         "rho_partial_energy_negative_k = 5 из всех 10 сидов (пре-регистрация требует >=7/10)",
         "lineages_with_data median = 4 (< порога 5) -> invalid_by_data = true",
         "порог >=3 клеток: median rho_trait_cell_steps = -0.429, rho_partial = -0.521 (пост-хок)"
-      ]
+      ],
+      "checked_by_lead": {
+        "date": "2026-10-27",
+        "note": "перепроверено ведущим 26.10: медиана −0.478, знак 8/8, p=0.0039, ДИ [−0.797, −0.177] — совпало"
+      }
     },
     {
       "file": "lab\\reviews\\2026-10-25-invasion-0of10.md",
@@ -45,7 +49,11 @@
         "строк лога с a_share<1: медиана 7.5 (gap) и 16.5 (keep); в тексте 10 и 18 = верхние медианы",
         "invade_at = 200 во всех 90 прогонах (50 V8 + 20 keep + 20 режим гибели)",
         "v8_matrix.criteria.resident_free_control_ok = false"
-      ]
+      ],
+      "checked_by_lead": {
+        "date": "2026-10-27",
+        "note": "перепроверено ведущим 26.10: 0/10, 2/10, 6/10, 2/10 и медианы 7.5/16.5 — совпало; замечание о двух ветвях внесено в §4h"
+      }
     },
     {
       "file": "lab\\reviews\\2026-10-25-posthoc-confirmed.md",
@@ -60,7 +68,11 @@
         "L52: 8/10 подтверждено; медиана 18 строк -> 16.5",
         "paper.md:744-745 ссылается на несуществующее поле founding_matrix.aggregate_check",
         "L49: N=1 alive_final 520-665, медиана 585.5, основание 10/10 — расхождений нет"
-      ]
+      ],
+      "checked_by_lead": {
+        "date": "2026-10-27",
+        "note": "перепроверено ведущим 27.10: (1) даты подтверждены — план v3 закоммичен 25.10 15:33, i_null.py 12:48 (в сообщении уже был результат), первый артефакт v2 — 25.10 07:44, то есть критерий I_obs>I_null записан после данных; (2) поля `aggregate_check` в founding_matrix.json действительно нет (ключи: kind, experiment, metric, note, rows, by_n, criteria, provenance) — заявление в paper.md исправлено; (3) медиана 16.5 и 8/10 подтверждены ранее"
+      }
     },
     {
       "file": "lab\\reviews\\2026-10-25-founding-one-cell.md",
