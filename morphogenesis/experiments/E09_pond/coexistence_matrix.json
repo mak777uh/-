@@ -10,6 +10,15 @@
     "persistence_time": "НЕ вычисляется из существующих артефактов: в логе нет по-линейных размеров по шагам, только число меток",
     "lines_ge_5": "число линий с ≥5 клетками (старая величина, для сравнения)"
   },
+  "series_masks": {
+    "cell_onebud": "w2bud_onebud/w2bud_onebud_cell_seed*.json",
+    "cell_uniform": "w2bud_rep_uniform/w2bud5_cell_seed*.json",
+    "colony": "w2bud_rep_uniform/w2bud5_colony_seed*.json",
+    "pair_same_tag": "w2bud_pair/w2bud_pair_pair_seed*.json",
+    "pair_any_tag": "w2bud_pairany/w2bud_pairany_pair_seed*.json",
+    "n3_dev": "w2budd2/w2budd2_cell_seed*.json"
+  },
+  "series_masks_note": "маска — часть определения агрегата (§3c). Колония взята из w2bud_rep_uniform/w2bud5_colony_seed* (сиды 101-110) НАМЕРЕННО: это те же сиды, что у pair и pair_any_tag (парный дизайн). Другие серии колонии дают близкие числа: w2bud/w2bud_colony_seed* 37.0 меток / 1.127 / 0.119, w2bud2 и w2bud3 - 36.0 / 1.124 / 0.117; вывод не меняется.",
   "by_series": [
     {
       "series": "cell_onebud",
