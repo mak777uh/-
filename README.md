@@ -136,7 +136,9 @@ No GPU is required for any of the above; GPU runs are only needed to produce new
 
 ## 8. Experiment ledger (machine-checked)
 
-Statuses and ids are validated against `lab/registry.json` by `python scripts/lab.py validate`.
+Ids and statuses are **generated** from `lab/registry.json` by `python scripts/make_ledger.py --sync`
+(checked by `--check` and by `python scripts/lab.py validate`); do not edit ids or statuses by hand.
+The descriptive columns — period, question, outcome, evidence — stay hand-written.
 
 <!-- ledger:start -->
 | id | status | period | question | outcome | evidence |
