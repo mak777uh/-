@@ -37,7 +37,7 @@
     {
       "id": "legacy-half-life",
       "ru": "Наследие среды: полураспад и нормировка на поколение",
-      "status": "next",
+      "status": "current",
       "links": [
         "library/conditions.md#условие-c",
         "library/reviews/legacy-prior-art.md"
@@ -67,7 +67,7 @@
     {
       "id": "selection-opportunity",
       "ru": "Возможность отбора: I Кроу и нуль-модели",
-      "status": "current",
+      "status": "next",
       "links": [
         "docs/world-design.md#10aq",
         "library/reviews/w8-metrics-canon.md"
@@ -179,6 +179,35 @@
         "detection",
         "population"
       ]
+    },
+    {
+      "id": "series-homogeneity",
+      "ru": "Гомогенность серий: провенанс вычислений и воспроизводимость",
+      "status": "current",
+      "links": [
+        "lab/homogeneity.json",
+        "scripts/check_series_homogeneity.py",
+        "library/hypotheses/reproducibility.md"
+      ],
+      "queries": [
+        "reproducibility computational experiments code version provenance",
+        "research software versioning reproducibility machine learning results"
+      ],
+      "terms": [
+        "reproduc",
+        "provenance",
+        "version",
+        "artifact",
+        "checklist",
+        "variance"
+      ],
+      "must": [
+        "reproduc",
+        "provenance",
+        "artifact",
+        "version"
+      ],
+      "implication": "Проверить, что для каждой цифры известен коммит кода, которым снят артефакт; иначе парное сравнение недействительно."
     }
   ]
 }
