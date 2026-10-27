@@ -19,7 +19,14 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
-from w2bud_matrix import analyse  # noqa: E402  — то же определение цены, без второго мнения
+import re  # noqa: E402
+
+import w2bud_matrix as _W  # noqa: E402
+
+# Общий агрегатор распознаёт только плечи colony|cell|pair; для серии квоты расширяем шаблон,
+# не трогая ни метрику, ни код: иначе `analyse` вернёт None и агрегат покажет «нет строк».
+_W.NAME = re.compile(r"w2bud[\w]*_(?P<arm>colony|cell|cellq50|cellq30|pair)_seed(?P<seed>\d+)\.json$")
+analyse = _W.analyse  # то же определение цены, без второго мнения
 
 ARM_RE = {"cell": ("q=1.0", 1.0), "cellq50": ("q=0.5", 0.5), "cellq30": ("q=0.3", 0.3)}
 
@@ -46,9 +53,6 @@ def main(argv: list[str] | None = None) -> int:
             continue
         # общий агрегатор ищет имя по своему шаблону; подменяем имя на канонический вид
         res = analyse(path)
-        if res is None:
-            canonical = path.with_name(path.name.replace(f"_{arm}_seed", "_cell_seed"))
-            res = analyse(canonical)
         if res is None:
             continue
         res["arm"] = arm
