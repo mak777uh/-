@@ -81,3 +81,8 @@
 - Авторов и год — **только из Crossref**, не по памяти (уже ошибались дважды).
 - Взяли 1–2 — запись в `pond-lineage.md` (раздел H) или `tools-survey.md`, строка сюда.
 - Не взяли — тоже строка: чтобы через неделю не искать то же.
+
+| 2026-10-27 | series-homogeneity | reproducibility computational experiments code version provenance | 0 выше порога |
+| 2026-10-27 | series-homogeneity | research software versioning reproducibility ML results | 0 выше порога |
+| 2026-10-27 | unit-of-selection | (текущий запрос) | 1: Veit 2019 10.1007/s10539-019-9688-9 |
+| 2026-10-27 | unit-of-selection | отброшено: 10.5256/f1000research.209785.r520282 — peer-review отчёт, не статья (фильтр расширен) | — |

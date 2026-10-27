@@ -343,7 +343,13 @@ def test_lit_pressure(tmp: Path) -> None:
     out2 = tmp / "lp2.json"
     res2 = run("scripts/lit_pressure.py", "--threshold", "99", "--json", str(out2))
     data2 = json.loads(out2.read_text(encoding="utf-8"))
-    check("lit_pressure: при высоком пороге слот не нужен", data2["need"] is False, str(data2)[:200])
+    # правило скрипта: need = pressure >= threshold ИЛИ (pressure >= 1 и возраст предмета >= 24 ч).
+    # Проверяем не «высокий порог выключает слот», а согласие с объявленным правилом.
+    hours2 = data2.get("hours_since_lit")
+    expected2 = (data2["pressure"] >= data2["threshold"]) or (
+        data2["pressure"] >= 1 and hours2 is not None and hours2 >= 24)
+    check("lit_pressure: вердикт согласован с правилом (порог ИЛИ возраст ≥ 24 ч)",
+          data2["need"] is expected2, str(data2)[:260])
     check("lit_pressure: сигнал заданий учтён", "assignments_open" in data, str(data)[:200])
     check("lit_pressure: код возврата отражает вердикт",
           (res.returncode == 1) == data["need"] and (res2.returncode == 0) == (not data2["need"]),

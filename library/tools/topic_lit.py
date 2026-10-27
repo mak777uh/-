@@ -74,7 +74,8 @@ def known_dois() -> set[str]:
 
 
 BAD_DOI = ("review", "table-", "/v1/review", "/v2/review")
-BAD_TITLE = ("reviewer", "review for", "recommendation:", "elife assessment", "author response", "decision letter")
+BAD_TITLE = ("reviewer", "review for", "peer review", "review report", "recommendation:",
+             "elife assessment", "author response", "decision letter", "response to review")
 
 
 def looks_like_artifact(doi: str, title: str = "") -> bool:
