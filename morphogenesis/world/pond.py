@@ -108,6 +108,8 @@ class PondConfig:
     one_bud_per_lineage: bool = False  # не больше одного бутона на линию в компоненте
     quota_share: float = 1.0           # H-ALIVE-53: линия не может держать больше q живых клеток
                                        # (1.0 = выключено, бит-в-бит со старым миром)
+    bud_refractory: int = 0            # H-ALIVE-54: линия не почкуется чаще, чем раз в K шагов
+                                       # (0 = выключено, бит-в-бит со старым миром)
     require_placement: int = 0         # 0 = старая ветка бит-в-бит; >0 = гарантировать столько клеток
     placement_attempts: int = 5        # сколько раз перерисовывать точку, если пятно не встало
     mutation_trait_sigma: float = 0.01  # сдвиг признака линии при мутации (масштаб признака ~1)
@@ -1251,7 +1253,8 @@ class Pond:
         n_buds = int(getattr(self.cfg, "buds_per_component", 1))
         quota = float(getattr(self.cfg, "quota_share", 1.0) or 1.0)
         # При quota >= 1.0 старый путь сохраняется бит-в-бит (одна ветка, без лишних вычислений).
-        if quota >= 1.0 and (getattr(self.cfg, "budding_unit", "colony") != "cell" or n_buds <= 1):
+        if (quota >= 1.0 and int(getattr(self.cfg, "bud_refractory", 0) or 0) <= 0
+                and (getattr(self.cfg, "budding_unit", "colony") != "cell" or n_buds <= 1)):
             return [self.budding_parent(body)]
         s = self.state
         alive_body = body & s.alive
@@ -1275,6 +1278,8 @@ class Pond:
         # H-ALIVE-53: доля каждой линии среди живых клеток — считается один раз на компоненту.
         share_of: dict[int, float] = {}
         blocked = 0
+        refractory = int(getattr(self.cfg, "bud_refractory", 0) or 0)
+        blocked_ref = 0
         if quota < 1.0 and s.tag is not None:
             live_tags = s.tag[s.alive]
             total_alive = int(live_tags.numel())
@@ -1296,12 +1301,27 @@ class Pond:
                 if share_of.get(tag_here, 0.0) >= quota:
                     blocked += 1
                     continue
+            if refractory > 0 and s.tag is not None:
+                tag_ref = int(s.tag[y, x])
+                last = int((getattr(self, "lineage_last_bud", {}) or {}).get(tag_ref, -10**9))
+                if int(s.step) - last < refractory:
+                    blocked_ref += 1
+                    continue
             single = torch.zeros_like(alive_body)
             single[y, x] = True
             parents.append(single)
-        if quota < 1.0:
-            # Квота включена: пустой список — законный исход (размножение заблокировано).
+        if quota < 1.0 or refractory > 0:
+            # Квота или рефрактерный период включены: пустой список — законный исход.
             self.buds_blocked_by_quota = int(getattr(self, "buds_blocked_by_quota", 0)) + blocked
+            self.buds_blocked_by_refractory = int(getattr(self, "buds_blocked_by_refractory", 0)) + blocked_ref
+            if refractory > 0 and s.tag is not None and parents:
+                log_map = getattr(self, "lineage_last_bud", None)
+                if log_map is None:
+                    self.lineage_last_bud = log_map = {}
+                for mask in parents:
+                    coords = mask.nonzero(as_tuple=False)
+                    if coords.shape[0]:
+                        log_map[int(s.tag[int(coords[0, 0]), int(coords[0, 1])])] = int(s.step)
             return parents
         return parents or [self.budding_parent(body)]
 

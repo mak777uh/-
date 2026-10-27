@@ -128,6 +128,7 @@ def config_block(cfg) -> dict:
         "death_return_mode": getattr(cfg, "death_return_mode", "legacy"),
         "one_bud_per_lineage": bool(getattr(cfg, "one_bud_per_lineage", False)),
         "quota_share": float(getattr(cfg, "quota_share", 1.0)),
+        "bud_refractory": int(getattr(cfg, "bud_refractory", 0)),
         "invade_on_empty": bool(getattr(cfg, "invade_on_empty", False)),
         "start_cells": int(getattr(cfg, "start_cells", 4)),
         "ignition_gate": bool(getattr(cfg, "ignition_gate", False)),
@@ -750,6 +751,8 @@ def build_parser() -> argparse.ArgumentParser:
                     help="legacy: туда, где умерла; prepared: в случайные СВОБОДНЫЕ (контроль объёма)")
     ap.add_argument("--buds-per-component", type=int, default=1,
                     help="W2-bud-d2: до N бутонов на компоненту (1 = W2-bud бит-в-бит)")
+    ap.add_argument("--bud-refractory", type=int, default=0,
+                    help="H-ALIVE-54: линия почкуется не чаще, чем раз в K шагов (0 = выключено)")
     ap.add_argument("--quota-share", type=float, default=1.0,
                     help="H-ALIVE-53: линия держит не больше q живых клеток (1.0 = выключено)")
     ap.add_argument("--one-bud-per-lineage", action="store_true",
@@ -846,6 +849,7 @@ def main(argv: list[str] | None = None) -> int:
     world.buds_per_component = args.buds_per_component
     world.one_bud_per_lineage = bool(args.one_bud_per_lineage)
     world.quota_share = float(args.quota_share)
+    world.bud_refractory = int(args.bud_refractory)
     world.require_placement = args.require_placement
     world.placement_attempts = args.placement_attempts
     world.invade_on_empty = bool(args.invade_on_empty)
@@ -1001,6 +1005,9 @@ def main(argv: list[str] | None = None) -> int:
             summary["niche_levels"] = {str(k): v for k, v in sorted(run.pond.niche_levels.items())}
     if getattr(run.pond.cfg, "budding_unit", "") == "pair":
         summary["pair_degenerate_k"] = int(getattr(run.pond, "pair_degenerate", 0))
+    if int(getattr(run.pond.cfg, "bud_refractory", 0) or 0) > 0:
+        summary["bud_refractory"] = int(getattr(run.pond.cfg, "bud_refractory", 0))
+        summary["buds_blocked_by_refractory"] = int(getattr(run.pond, "buds_blocked_by_refractory", 0))
     blk = int(getattr(run.pond, "buds_blocked_by_quota", 0))
     if float(getattr(run.pond.cfg, "quota_share", 1.0) or 1.0) < 1.0:
         summary["quota_share"] = float(getattr(run.pond.cfg, "quota_share", 1.0))
