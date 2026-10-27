@@ -106,6 +106,8 @@ class PondConfig:
     death_return_mode: str = "legacy"  # legacy (туда, где умерла) | prepared (в случайные СВОБОДНЫЕ) | depleted
     buds_per_component: int = 1        # W2-bud-d2: до N бутонов на компоненту (1 = W2-bud бит-в-бит)
     one_bud_per_lineage: bool = False  # не больше одного бутона на линию в компоненте
+    quota_share: float = 1.0           # H-ALIVE-53: линия не может держать больше q живых клеток
+                                       # (1.0 = выключено, бит-в-бит со старым миром)
     require_placement: int = 0         # 0 = старая ветка бит-в-бит; >0 = гарантировать столько клеток
     placement_attempts: int = 5        # сколько раз перерисовывать точку, если пятно не встало
     mutation_trait_sigma: float = 0.01  # сдвиг признака линии при мутации (масштаб признака ~1)
@@ -1247,7 +1249,9 @@ class Pond:
         if getattr(self.cfg, "budding_unit", "colony") == "pair":
             return [self.budding_parent_pair(body)]
         n_buds = int(getattr(self.cfg, "buds_per_component", 1))
-        if getattr(self.cfg, "budding_unit", "colony") != "cell" or n_buds <= 1:
+        quota = float(getattr(self.cfg, "quota_share", 1.0) or 1.0)
+        # При quota >= 1.0 старый путь сохраняется бит-в-бит (одна ветка, без лишних вычислений).
+        if quota >= 1.0 and (getattr(self.cfg, "budding_unit", "colony") != "cell" or n_buds <= 1):
             return [self.budding_parent(body)]
         s = self.state
         alive_body = body & s.alive
@@ -1268,6 +1272,16 @@ class Pond:
             order = torch.randperm(idx.shape[0], generator=self.gen_sel)
         parents: list[torch.Tensor] = []
         used_tags: set[int] = set()
+        # H-ALIVE-53: доля каждой линии среди живых клеток — считается один раз на компоненту.
+        share_of: dict[int, float] = {}
+        blocked = 0
+        if quota < 1.0 and s.tag is not None:
+            live_tags = s.tag[s.alive]
+            total_alive = int(live_tags.numel())
+            if total_alive > 0:
+                uniq, cnt = torch.unique(live_tags, return_counts=True)
+                share_of = {int(u): float(c) / float(total_alive)
+                            for u, c in zip(uniq.tolist(), cnt.tolist())}
         for pos in order.tolist():
             if len(parents) >= n_buds:
                 break
@@ -1277,9 +1291,18 @@ class Pond:
                 if tag_val in used_tags:
                     continue
                 used_tags.add(tag_val)
+            if share_of:
+                tag_here = int(s.tag[y, x])
+                if share_of.get(tag_here, 0.0) >= quota:
+                    blocked += 1
+                    continue
             single = torch.zeros_like(alive_body)
             single[y, x] = True
             parents.append(single)
+        if quota < 1.0:
+            # Квота включена: пустой список — законный исход (размножение заблокировано).
+            self.buds_blocked_by_quota = int(getattr(self, "buds_blocked_by_quota", 0)) + blocked
+            return parents
         return parents or [self.budding_parent(body)]
 
     def budding_parent_pair(self, body: torch.Tensor) -> torch.Tensor:
