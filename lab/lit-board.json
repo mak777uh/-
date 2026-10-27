@@ -3003,6 +3003,37 @@
         ],
         "why": "12.16 подписано как медиана отношений I_obs/I_null; отношение медиан 9.04 — в статье 026 и рукописи §4i"
       }
+    },
+    {
+      "id": "B-086",
+      "type": "contradiction",
+      "target": {
+        "kind": "artifact",
+        "id": "quota_pilot_23_4_vs_69",
+        "ref": "morphogenesis/experiments/E09_pond/w2bud_quota/"
+      },
+      "statement": "Пилот квоты: 'заблокировано 23.4% делений' — это prequel_wrongparams/w2bud_quota_cellq50_seed1.json (1042/3412=0.2339), помеченный archived_invalid. Валидные: seed1 7048/3171=0.6897, seed2 5107/2518=0.6698 => блокируется 67-69%. Критерии 1-2 надо пересчитать на валидных прогонах. Нейтральность q=1.0 верна для summary (pop_time 223082, alive 554, types 34), но не 'бит-в-бит' по файлу: различия в config, wall_seconds, rejected_by_placement.",
+      "evidence": [
+        {
+          "library": "answers.md#83",
+          "note": "проверено по трём артефактам с счётчиками"
+        }
+      ],
+      "action": {
+        "kind": "method",
+        "detail": "пересчитать критерии на валидных прогонах"
+      },
+      "status": "new",
+      "wave": "current",
+      "owner": "librarian",
+      "created_at": "2026-10-27T13:33:26+03:00",
+      "decided_at": null,
+      "why": null,
+      "links": {
+        "insights": [],
+        "tasks": [],
+        "reports": []
+      }
     }
   ],
   "updated_at": "2026-10-25T05:15:00Z"
