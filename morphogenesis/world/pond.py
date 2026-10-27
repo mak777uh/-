@@ -110,6 +110,8 @@ class PondConfig:
                                        # (1.0 = выключено, бит-в-бит со старым миром)
     bud_refractory: int = 0            # H-ALIVE-54: линия не почкуется чаще, чем раз в K шагов
                                        # (0 = выключено, бит-в-бит со старым миром)
+    kill_winner: float = 0.0            # H-ALIVE-54: смертность ∝ превышению доли линии над средней
+                                        # (0 = выключено, бит-в-бит со старым миром)
     require_placement: int = 0         # 0 = старая ветка бит-в-бит; >0 = гарантировать столько клеток
     placement_attempts: int = 5        # сколько раз перерисовывать точку, если пятно не встало
     mutation_trait_sigma: float = 0.01  # сдвиг признака линии при мутации (масштаб признака ~1)
@@ -665,6 +667,56 @@ class Pond:
             mask, torch.ones_like(self.state.membrane), self.state.membrane
         )
 
+    def _kill_winner_step(self) -> None:
+        """H-ALIVE-54: смертность пропорциональна превышению доли линии над средней.
+
+        Зачем именно так, а не квотой: два предыдущих рычага (`quota_share`, `bud_refractory`)
+        блокировали ПОЧКОВАНИЕ, а новые метки рождаются только на бутоне, поэтому оба УМЕНЬШАЛИ
+        число линий (5 → 1). Здесь размножение не трогается: штрафуется только доля, то есть
+        «победитель». При `kill_winner = 0` — ранний выход без обращения к генератору, поэтому
+        старый мир остаётся бит-в-бит.
+        """
+        k = float(getattr(self.cfg, "kill_winner", 0.0) or 0.0)
+        if k <= 0.0:
+            return
+        s = self.state
+        if s.tag is None:
+            return
+        alive = s.alive
+        n = int(alive.sum())
+        if n <= 0:
+            return
+        tags = s.tag[alive]
+        uniq, cnt = torch.unique(tags, return_counts=True)
+        n_lines = int(uniq.numel())
+        if n_lines < 2:
+            return
+        mean_share = 1.0 / float(n_lines)
+        killed = 0
+        for val, c in zip(uniq.tolist(), cnt.tolist()):
+            share = float(c) / float(n)
+            excess = share - mean_share
+            if excess <= 0:
+                continue
+            want = int(k * excess * float(n))
+            if want <= 0:
+                continue
+            mask = alive & (s.tag == int(val))
+            idx = mask.nonzero(as_tuple=False)
+            if idx.shape[0] == 0:
+                continue
+            take = min(want, int(idx.shape[0]))
+            perm = torch.randperm(idx.shape[0], generator=self.gen_sel)[:take]
+            pick = idx[perm]
+            kill_mask = torch.zeros_like(alive)
+            kill_mask[pick[:, 0], pick[:, 1]] = True
+            s.energy = torch.where(kill_mask, torch.zeros_like(s.energy), s.energy)
+            s.alive = s.alive & ~kill_mask
+            killed += take
+        if killed:
+            self.killed_by_kill_winner = int(getattr(self, "killed_by_kill_winner", 0)) + killed
+            s.died += killed
+
     def step_cells(self) -> dict:
         """Один шаг бюджета: доход, плата, ремонт, повреждения, смерть."""
         cfg = self.cfg
@@ -836,6 +888,7 @@ class Pond:
         s.energy = torch.where(dies, torch.zeros_like(s.energy), s.energy)
         s.alive = alive & ~dies
         s.died += died_now
+        self._kill_winner_step()
         if cfg.learn_w and self._pending:
             still = []
             for entry in self._pending:
