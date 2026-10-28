@@ -86,3 +86,6 @@
 | 2026-10-27 | series-homogeneity | research software versioning reproducibility ML results | 0 выше порога |
 | 2026-10-27 | unit-of-selection | (текущий запрос) | 1: Veit 2019 10.1007/s10539-019-9688-9 |
 | 2026-10-27 | unit-of-selection | отброшено: 10.5256/f1000research.209785.r520282 — peer-review отчёт, не статья (фильтр расширен) | — |
+
+| 2026-10-28 | trait-cost-channel | cost of reproduction measured differently / trade-off depends on measurement | 0 выше порога; отброшено 2 (amproc.2025.22272abstract — управление, thesis-991013222946503412 — не по теме); фильтр ужесточён (fitness/reproduction/life history/trait/evolution, порог 4) |
+| 2026-10-28 | unit-of-selection, series-homogeneity, legacy-half-life | текущие запросы | 0 выше порога — канон в библиотеке |

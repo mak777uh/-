@@ -37,7 +37,7 @@
     {
       "id": "legacy-half-life",
       "ru": "Наследие среды: полураспад и нормировка на поколение",
-      "status": "current",
+      "status": "next",
       "links": [
         "library/conditions.md#условие-c",
         "library/reviews/legacy-prior-art.md"
@@ -67,7 +67,7 @@
     {
       "id": "selection-opportunity",
       "ru": "Возможность отбора: I Кроу и нуль-модели",
-      "status": "next",
+      "status": "backlog",
       "links": [
         "docs/world-design.md#10aq",
         "library/reviews/w8-metrics-canon.md"
@@ -208,6 +208,37 @@
         "version"
       ],
       "implication": "Проверить, что для каждой цифры известен коммит кода, которым снят артефакт; иначе парное сравнение недействительно."
+    },
+    {
+      "id": "trait-cost-channel",
+      "ru": "Цена признака зависит от механизма: цена принадлежит каналу",
+      "status": "current",
+      "links": [
+        "docs/world-design.md#10bj",
+        "library/claims-evidence.md"
+      ],
+      "queries": [
+        "cost of reproduction measured differently trade-off life history",
+        "trade-off depends on measurement trait cost fitness"
+      ],
+      "terms": [
+        "cost",
+        "trade-off",
+        "measurement",
+        "mechanism",
+        "manipulation",
+        "dependent"
+      ],
+      "must": [
+        "fitness",
+        "reproduction",
+        "life history",
+        "trait",
+        "evolution",
+        "selection"
+      ],
+      "implication": "Проверить, что 'цена' названа вместе с каналом: инвестирование против частоты обновления; иначе утверждение недоопределено.",
+      "min_score": 4
     }
   ]
 }
