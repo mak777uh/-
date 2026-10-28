@@ -227,7 +227,7 @@ random-плеча получены кодом с другой семантико
 смена постановки и решение владельца.
 
 **Доказательства.** `morphogenesis/experiments/E09_pond/colony_type_matrix.json` (24 строки,
-8 невалидных сохранены с причиной; `scripts/aggregate_check.py` — 0 ошибок), `docs/world-design.md`,
+8 невалидных сохранены с причиной; `scripts/aggregate_check.py` — 0 ошибок (проверка **внешняя**: поля `aggregate_check` в самом агрегате нет)), `docs/world-design.md`,
 раздел 10ab.
 
 ## 4c. Три версии одного числа: два артефакта подряд и что осталось
@@ -576,7 +576,7 @@ trait родителя + N(0, 0.01). Признак нигде не читает
 m = 0 проверен бит-в-бит против эталона — значит серия однородна по коду.
 
 **Доказательства.** `morphogenesis/experiments/E09_pond/mutation_matrix.json` (15 строк,
-`scripts/aggregate_check.py` — 0 ошибок), `docs/world-design.md`, раздел 10ad.
+`scripts/aggregate_check.py` — 0 ошибок (проверка **внешняя**: поля `aggregate_check` в самом агрегате нет)), `docs/world-design.md`, раздел 10ad.
 
 ## 4h. Размещение и правило слияния: рычаги есть, исхода нет
 
