@@ -115,6 +115,9 @@ class PondConfig:
     trait_effect_mode: str = "invest"   # H-ALIVE-56: invest (по умолчанию, бит-в-бит) | update
     inflow_coupling: float = 0.0        # H-ALIVE-59: сила связи с внешним потоком (0 = выключено)
     inflow_stream_mode: str = ""        # H-ALIVE-59: global | spatial
+    inflow_target: str = "income"       # H-ALIVE-60: income | rhythm
+    inflow_base_update: float = 1.0     # базовая вероятность обновления для rhythm-режима
+    inflow_stream_values: list | None = None  # проигрываемые значения 0..1
     require_placement: int = 0         # 0 = старая ветка бит-в-бит; >0 = гарантировать столько клеток
     placement_attempts: int = 5        # сколько раз перерисовывать точку, если пятно не встало
     mutation_trait_sigma: float = 0.01  # сдвиг признака линии при мутации (масштаб признака ~1)

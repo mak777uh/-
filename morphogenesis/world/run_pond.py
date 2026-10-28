@@ -548,7 +548,19 @@ class PondRun:
         with torch.no_grad():
             cfg_ = getattr(self, "world_cfg", None)
             live_src = getattr(cfg_, "inflow_live", None)
-            if live_src is not None and getattr(cfg_, "inflow_coupling", 0.0) > 0.0:
+            target = str(getattr(cfg_, "inflow_target", "income") or "income")
+            if target == "rhythm" and getattr(cfg_, "inflow_stream_values", None) is not None \
+                    and getattr(cfg_, "inflow_coupling", 0.0) > 0.0:
+                # H-ALIVE-60: внешний сигнал управляет ритмом обновления (канал, который двигает разнообразие)
+                vals_r = getattr(cfg_, "inflow_stream_values")
+                n_r = len(vals_r)
+                total_r = getattr(self, "total_steps", None) or 600
+                cur_r = len(getattr(self, "log", []) or [])
+                pos_r = int(round(cur_r / max(1, total_r - 1) * (n_r - 1))) if n_r > 1 else 0
+                c_r = float(getattr(cfg_, "inflow_coupling", 0.0))
+                base_r = float(getattr(cfg_, "inflow_base_update", 1.0))
+                self.update_probability = min(1.0, max(0.05, base_r * (1.0 + c_r * (2.0 * vals_r[pos_r] - 1.0))))
+            if live_src is not None and getattr(cfg_, "inflow_coupling", 0.0) > 0.0 and target != "rhythm":
                 # H-ALIVE-59 (живой режим): значение приходит от источника ПРЯМО СЕЙЧАС
                 v = float(live_src.value()) if hasattr(live_src, "value") else 0.5
                 rec = getattr(cfg_, "inflow_record", None)
@@ -816,6 +828,10 @@ def build_parser() -> argparse.ArgumentParser:
                     help="окно нормировки живого сигнала, секунды")
     ap.add_argument("--inflow-live-dump", default=None,
                     help="куда записать то, что услышал мир (для аудита и повторного проигрывания)")
+    ap.add_argument("--inflow-target", default="income", choices=["income", "rhythm"],
+                    help="H-ALIVE-60: к чему привязывается внешний сигнал. income — приток энергии "
+                         "(оказался нечувствителен: мир ограничен местом, а не энергией); "
+                         "rhythm — вероятность обновления клеток (тот канал, который в §10bk двигал разнообразие)")
     ap.add_argument("--inflow-stream-mode", default="global", choices=["global", "spatial"],
                     help="global: всё поле; spatial: полосы по Y (мир видит градиент)")
     ap.add_argument("--kill-winner", type=float, default=0.0,
@@ -998,6 +1014,12 @@ def main(argv: list[str] | None = None) -> int:
         run.pond.state.income_scale = world.inflow_scale
     run.snapshot_every = args.snapshot_every
     run.update_probability = args.update_probability
+    run.total_steps = args.steps
+    if hasattr(world, "inflow_target"):
+        world.inflow_target = str(args.inflow_target)
+        world.inflow_base_update = float(args.update_probability)
+        if getattr(world, "inflow_values", None):
+            world.inflow_stream_values = list(world.inflow_values)
     if args.abiotic:
         # контроль «среда без организмов»: гоняем только бюджет среды, без правила
         # (иначе обученное правило самопроизвольно зажигает клетки из нулевого поля)
