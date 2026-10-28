@@ -124,10 +124,28 @@ def main(argv: list[str]) -> int:
     groups: dict[str, list[str]] = {}
     for rel in missing:
         groups.setdefault(family_key(Path(rel)), []).append(rel)
-    families = {k: v for k, v in groups.items() if len(v) >= 3}
+    # Правило §0.2: гейт обязан различать «идёт» и «забыли». Серия, чьи артефакты писались только что,
+    # ещё не имеет агрегата по определению — это не проблема. Смотрим на возраст самого свежего файла
+    # семейства: если он моложе порога, семейство помечается «идёт» и не даёт ошибки.
+    import time as _time
+    fresh_minutes = 90.0
+    running: dict[str, list[str]] = {}
+    families: dict[str, list[str]] = {}
+    for key, rels in groups.items():
+        if len(rels) < 3:
+            continue
+        # пути в `missing` — относительно корня репозитория (не относительно E09_pond)
+        stamps = [ROOT / r for r in rels if (ROOT / r).exists()]
+        age_min = ((_time.time() - max(p.stat().st_mtime for p in stamps)) / 60.0) if stamps else 1e9
+        if age_min < fresh_minutes:
+            running[key] = rels
+        else:
+            families[key] = rels
     singles = sum(len(v) for v in groups.values() if len(v) < 3)
     print(f"[coverage] агрегатов {len(aggs)}, артефактов {artifacts}, без агрегата: {len(missing)} "
           f"(из них одиночных проб, это норма: {singles})")
+    for key, rels in sorted(running.items(), key=lambda kv: -len(kv[1]))[: args.limit]:
+        print(f"[coverage]   идёт прямо сейчас (агрегат будет по финишу): {key} — {len(rels)} файлов")
     if families:
         for key, rels in sorted(families.items(), key=lambda kv: -len(kv[1]))[: args.limit]:
             print(f"[coverage]   СЕРИЯ БЕЗ АГРЕГАТА {key}: {len(rels)} файлов, напр. {rels[0]}")
