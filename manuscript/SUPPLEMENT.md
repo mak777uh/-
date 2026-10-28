@@ -1018,6 +1018,8 @@
 | [`morphogenesis/experiments/E09_pond/w2bud_rep_uniform/w2bud5_colony_seed109.json`](../morphogenesis/experiments/E09_pond/w2bud_rep_uniform/w2bud5_colony_seed109.json) | other | 556842 | `98a1e8b1c3752d13618e03db33c41437d4ce517c0aaa06b814581e39234b979d` |
 | [`morphogenesis/experiments/E09_pond/w2bud_rep_uniform/w2bud5_colony_seed110.json`](../morphogenesis/experiments/E09_pond/w2bud_rep_uniform/w2bud5_colony_seed110.json) | other | 541663 | `d07c4f327d5468e02b61605b089866edbb7ed28f9a35e1f08421f2ae2f39b039` |
 | [`morphogenesis/experiments/E09_pond/w2bud_rep_uniform_matrix.json`](../morphogenesis/experiments/E09_pond/w2bud_rep_uniform_matrix.json) | other | 33657 | `a0f60c8331ffb579493763ee2d6c2287d6db6f9f4207ff6430dcf8348a4ed387` |
+| [`morphogenesis/experiments/E09_pond/w2bud_trait_update/w2bud_traitupd_cellupd_seed151.json`](../morphogenesis/experiments/E09_pond/w2bud_trait_update/w2bud_traitupd_cellupd_seed151.json) | other | 453871 | `aa6ec01c19849d3d1f90bc966781ee883234942ff9298a52a08726de97c059b5` |
+| [`morphogenesis/experiments/E09_pond/w2bud_trait_update/w2bud_traitupd_cellupd_seed152.json`](../morphogenesis/experiments/E09_pond/w2bud_trait_update/w2bud_traitupd_cellupd_seed152.json) | other | 462708 | `33e032d34cfa97b8318be76ff76218353706b7007feb1c0bbffad0396713908a` |
 | [`morphogenesis/experiments/E09_pond/w2budd2/pilot/w2budd2_pilot_cell_seed1.json`](../morphogenesis/experiments/E09_pond/w2budd2/pilot/w2budd2_pilot_cell_seed1.json) | other | 605399 | `0f0087cbf74ad6b6c21327492a16fb167b540a6bc23e32e0d799f4905febc59a` |
 | [`morphogenesis/experiments/E09_pond/w2budd2/pilot/w2budd2_pilot_cell_seed2.json`](../morphogenesis/experiments/E09_pond/w2budd2/pilot/w2budd2_pilot_cell_seed2.json) | other | 602952 | `a196907aeea6fe12ad17a4fec13cc1352e14934c5e3ab49b9535eb92f1afcae1` |
 | [`morphogenesis/experiments/E09_pond/w2budd2/w2budd2_cell_seed1.json`](../morphogenesis/experiments/E09_pond/w2budd2/w2budd2_cell_seed1.json) | other | 605398 | `abb037655b950b420579c206b009b0f0ffdb096b1710462f1eccd9fcc33c7159` |
@@ -1164,6 +1166,8 @@
 | [`reports/figures/e02b_transition_matrix.png`](../reports/figures/e02b_transition_matrix.png) | figure | 152522 | `81f1b4fe50fd819f45411c31fb737a0c232d9c4f993f5233184c8b276779f5b9` |
 | [`reports/figures/e02c_seed_grid.png`](../reports/figures/e02c_seed_grid.png) | figure | 69503 | `a14f0a6eb28fa0675629e539dc863049d97c3a7ef1914c34ebd7348b5c71776f` |
 <!-- artifacts:end -->
+
+
 
 
 
