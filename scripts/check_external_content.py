@@ -64,6 +64,29 @@ INJECTION_TARGETS = [
 ]
 
 
+QUOTE_CHARS = "«»\"'`"
+
+
+def match_is_quoted(line: str, start: int, end: int) -> bool:
+    """Попадание считается данными, если оно целиком лежит внутри «…», "…" или `…`.
+
+    Зачем так: гейт должен уметь описывать шаблоны инъекций в собственной документации, не краснея на себе
+    (это второй такой случай за вечер — первый был с «агент обязан» в контракте).
+    """
+    pairs = [("«", "»"), ('"', '"'), ("`", "`")]
+    for op, cl in pairs:
+        pos = line.find(op)
+        while pos != -1:
+            close = line.find(cl, pos + 1)
+            if close != -1 and pos < start and end <= close:
+                return True
+            pos = line.find(op, pos + 1)
+    # кавычки прямо по краям попадания
+    if start > 0 and end < len(line) and line[start - 1] in QUOTE_CHARS and line[end] in QUOTE_CHARS:
+        return True
+    return False
+
+
 def is_quote_context(line: str, i: int, lines: list[str]) -> bool:
     if line.lstrip().startswith(">"):
         return True
@@ -92,7 +115,8 @@ def main(argv=None) -> int:
                 if rx.search(line):
                     errors.append(f"{rel}:{i}: возможный секрет ({name})")
             for name, rx in (INJECTION_PATTERNS if check_injections else []):
-                if rx.search(line) and not is_quote_context(line, i - 1, lines):
+                m = rx.search(line)
+                if m and not is_quote_context(line, i - 1, lines) and not match_is_quoted(line, m.start(), m.end()):
                     errors.append(f"{rel}:{i}: похоже на инъекцию ({name}) — пометьте как цитату или перепишите")
             for m in USER_PATH.finditer(line):
                 if m.group(1).lower() not in {"admin", "public"}:

@@ -69,6 +69,9 @@ def main(argv=None) -> int:
                 continue
             data = json.loads(path.read_text(encoding="utf-8"))
             status = str(data.get("status") or "unknown")
+            if status == "running":
+                # открытый манифест дописывается при завершении прогона — цеплять его рано
+                continue
             h = entry_hash(prev, rid, status, file_sha(path))
             entries.append({"run_id": rid, "status": status, "content_sha256": file_sha(path),
                             "prev": prev, "hash": h})
@@ -89,10 +92,26 @@ def main(argv=None) -> int:
 
     for e in entries:
         path = RUNS / f"{e['run_id']}.json"
-        if path.exists() and file_sha(path) != e["content_sha256"]:
+        if not path.exists():
+            continue
+        try:
+            cur_status = str((json.loads(path.read_text(encoding="utf-8")) or {}).get("status") or "")
+        except Exception:
+            cur_status = ""
+        if cur_status == "running":
+            continue  # манифест ещё пишется — сверять рано
+        if file_sha(path) != e["content_sha256"]:
             problems.append(f"{e['run_id']}: содержимое манифеста изменилось после записи в цепочку")
 
-    missing = [p.name for p in manifests() if p.name[: -len(".json")] not in known]
+    closed_manifest_ids = []
+    for p_ in manifests():
+        try:
+            st_ = str((json.loads(p_.read_text(encoding="utf-8")) or {}).get("status") or "")
+        except Exception:
+            st_ = ""
+        if st_ != "running":
+            closed_manifest_ids.append(p_.name[: -len(".json")])
+    missing = [rid for rid in closed_manifest_ids if rid not in known]
     if missing:
         (problems if args.strict else []).append(f"{len(missing)} манифестов без записи в цепочке — запустите --append")
         if not args.strict:
