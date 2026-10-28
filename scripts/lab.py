@@ -49,7 +49,9 @@ CHECKPOINT_DIR = MORPH / "checkpoints"
 STATUSES = {"planned", "running", "closed", "blocked", "not_run"}
 KINDS = {"experiment", "diagnostic", "gate", "series"}
 HYPOTHESIS_STATUSES = {"planned", "running", "confirmed", "rejected", "blocked"}
-ITEM_STATUSES = {"planned", "claimed", "running", "closed"}
+ITEM_STATUSES = {"planned", "claimed", "running", "closed", "superseded"}
+# superseded — пункт вытеснен другим решением (например, протоколом), но не выполнен и не отменён молча:
+# в закрытые он не переводится, чтобы не выдавать вытеснение за результат.
 ITEM_TTL_MINUTES = 240
 LOOP_STAGES = (
     "sources",
