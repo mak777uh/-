@@ -3070,6 +3070,37 @@
           "reports/2026-10-27-killwinner-confirm-plan.md"
         ]
       }
+    },
+    {
+      "id": "B-088",
+      "type": "risk",
+      "target": {
+        "kind": "report",
+        "id": "prereg_file_missing_in_commit",
+        "ref": "reports/2026-10-28-asynchrony-coexistence-plan.md"
+      },
+      "statement": "Коммит f1d870c утверждал в сообщении, что пре-регистрация записана, но файла не было (неверный путь); исправлено ad36f06 с явной записью. Класс: сообщение коммита проверяется глазами, а не гейтом. Предложение (дёшево): если в subject есть 'пре-регистрация'/'пререгистрация', в диффе должен быть новый или изменённый файл в reports/, иначе красный. Второй кандидат: то же для слова 'агрегат' — файл morphogenesis/experiments/**/*matrix*.json.",
+      "evidence": [
+        {
+          "library": "answers.md#84",
+          "note": "случай 28.10, автор исправил сам"
+        }
+      ],
+      "action": {
+        "kind": "method",
+        "detail": "гейт: subject про пре-регистрацию => файл в reports/ в диффе"
+      },
+      "status": "new",
+      "wave": "current",
+      "owner": "librarian",
+      "created_at": "2026-10-28T05:26:35+03:00",
+      "decided_at": null,
+      "why": null,
+      "links": {
+        "insights": [],
+        "tasks": [],
+        "reports": []
+      }
     }
   ],
   "updated_at": "2026-10-25T05:15:00Z"
