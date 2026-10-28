@@ -3090,16 +3090,18 @@
         "kind": "method",
         "detail": "гейт: subject про пре-регистрацию => файл в reports/ в диффе"
       },
-      "status": "new",
+      "status": "done",
       "wave": "current",
       "owner": "librarian",
       "created_at": "2026-10-28T05:26:35+03:00",
-      "decided_at": null,
-      "why": null,
+      "decided_at": "2026-10-28",
+      "why": "сделано: scripts/check_commit_claims.py — гейт в CI; «пре-регистрация» в subject требует файла reports/*-plan.md в диффе, «агрегат» — *.json в E09_pond/; проверен на реальном нарушителе f1d870c (ловит) и на упоминании без заявления (токены [no-prereg]/[no-agg]); в процессе нашлась ловушка: git-вывод на Windows декодировался как cp1251 и кириллица не находилась — исправлено encoding='utf-8'",
       "links": {
         "insights": [],
         "tasks": [],
-        "reports": []
+        "reports": [
+          "scripts/check_commit_claims.py"
+        ]
       }
     }
   ],
