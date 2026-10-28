@@ -203,6 +203,7 @@ jobs:
           for cmd in "python scripts/insight.py --check" \
                      "python scripts/lit_board.py --check" \
                      "python scripts/check_commit_claims.py" \
+                     "python scripts/check_lean_integrity.py" \
                      "python scripts/check_scripts.py --ci"; do
             out=$($cmd 2>&1)
             code=$?

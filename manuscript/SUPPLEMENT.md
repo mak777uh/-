@@ -814,6 +814,22 @@
 | [`morphogenesis/experiments/E09_pond/w2bud4s/w2bud4s_cell_seed8.json`](../morphogenesis/experiments/E09_pond/w2bud4s/w2bud4s_cell_seed8.json) | other | 524864 | `f1068598a18e912e7ad18e917880a617f81edb7fabf682d8bc3ceaf7b3aa0df9` |
 | [`morphogenesis/experiments/E09_pond/w2bud4s/w2bud4s_cell_seed9.json`](../morphogenesis/experiments/E09_pond/w2bud4s/w2bud4s_cell_seed9.json) | other | 511446 | `2745a3cb56b78af03a5a05ad288d53a50501250cf6478b88d8a65253252251fb` |
 | [`morphogenesis/experiments/E09_pond/w2bud4s_matrix.json`](../morphogenesis/experiments/E09_pond/w2bud4s_matrix.json) | other | 19529 | `7cefc2476b4604427162fbc4fac8ecbd723bd4e0f92c859a741a9d50ff2ba726` |
+| [`morphogenesis/experiments/E09_pond/w2bud_additivity/w2bud_add_cellp10kw_seed171.json`](../morphogenesis/experiments/E09_pond/w2bud_additivity/w2bud_add_cellp10kw_seed171.json) | other | 700039 | `403a653fa457466cbcfb4b413b27056c0ac6f9fa8baa6967486109a7f0776f24` |
+| [`morphogenesis/experiments/E09_pond/w2bud_additivity/w2bud_add_cellp10kw_seed172.json`](../morphogenesis/experiments/E09_pond/w2bud_additivity/w2bud_add_cellp10kw_seed172.json) | other | 702881 | `4e25fa7ac35f14e2e1bc30a585b896e0cc82776450fc0f4a5ecc75f8c9a12c20` |
+| [`morphogenesis/experiments/E09_pond/w2bud_additivity/w2bud_add_cellp10kw_seed173.json`](../morphogenesis/experiments/E09_pond/w2bud_additivity/w2bud_add_cellp10kw_seed173.json) | other | 716126 | `fd556261022d8aeb977075091dd50202cbd78e7e70ff61d9aeb43578641a8faa` |
+| [`morphogenesis/experiments/E09_pond/w2bud_additivity/w2bud_add_cellp10kw_seed174.json`](../morphogenesis/experiments/E09_pond/w2bud_additivity/w2bud_add_cellp10kw_seed174.json) | other | 683271 | `badcc6e8e82db0a24820242da7342a723407eda94b0a7db064fa45f7a3a3b969` |
+| [`morphogenesis/experiments/E09_pond/w2bud_additivity/w2bud_add_cellp10kw_seed175.json`](../morphogenesis/experiments/E09_pond/w2bud_additivity/w2bud_add_cellp10kw_seed175.json) | other | 691257 | `80ded7f360c8ee3a445543b7ec79047d765bc332bbbf262d20a7d4b3492d0220` |
+| [`morphogenesis/experiments/E09_pond/w2bud_additivity/w2bud_add_cellp10kw_seed176.json`](../morphogenesis/experiments/E09_pond/w2bud_additivity/w2bud_add_cellp10kw_seed176.json) | other | 710454 | `78e0e40c619ead7e1efe2b236cb9648efaa3100ecfc3d31213ed22928e8d6cc2` |
+| [`morphogenesis/experiments/E09_pond/w2bud_additivity/w2bud_add_cellp10kw_seed177.json`](../morphogenesis/experiments/E09_pond/w2bud_additivity/w2bud_add_cellp10kw_seed177.json) | other | 686444 | `3b6f6fe49fcab443595949ca3d80e0f9b3dae506ecc22c59fe529139261ca236` |
+| [`morphogenesis/experiments/E09_pond/w2bud_additivity/w2bud_add_cellp10kw_seed178.json`](../morphogenesis/experiments/E09_pond/w2bud_additivity/w2bud_add_cellp10kw_seed178.json) | other | 709785 | `a177d5651828880e79e7b8c808f91dc79d7d3b973f8e08e018807aabf2b35546` |
+| [`morphogenesis/experiments/E09_pond/w2bud_additivity/w2bud_add_cellp10kw_seed179.json`](../morphogenesis/experiments/E09_pond/w2bud_additivity/w2bud_add_cellp10kw_seed179.json) | other | 696489 | `976e52ac04e8546beb44c0f866ce24fbcdc0ddde06b29f13964ae7927008e1e2` |
+| [`morphogenesis/experiments/E09_pond/w2bud_additivity/w2bud_add_cellp10kw_seed180.json`](../morphogenesis/experiments/E09_pond/w2bud_additivity/w2bud_add_cellp10kw_seed180.json) | other | 694956 | `62e32736db68fa96d8edd95842e5e7930b94c4b66f4ea280e8a11e53c3ecf9c0` |
+| [`morphogenesis/experiments/E09_pond/w2bud_additivity/w2bud_add_cellp10kw_seed181.json`](../morphogenesis/experiments/E09_pond/w2bud_additivity/w2bud_add_cellp10kw_seed181.json) | other | 722002 | `a69c1b17738323e22e9496bc869c1f40b7e657e1651a62843d4af33e8e55547a` |
+| [`morphogenesis/experiments/E09_pond/w2bud_additivity/w2bud_add_cellp10kw_seed182.json`](../morphogenesis/experiments/E09_pond/w2bud_additivity/w2bud_add_cellp10kw_seed182.json) | other | 694513 | `ef25d0f3dd9f3457b9daaec53ed35e1fc036ace82d8a35c323e9717853cdc94f` |
+| [`morphogenesis/experiments/E09_pond/w2bud_additivity/w2bud_add_cellp10kw_seed183.json`](../morphogenesis/experiments/E09_pond/w2bud_additivity/w2bud_add_cellp10kw_seed183.json) | other | 733258 | `2ccec3777db3b091b8cf865c2a566fbab69fd438177b26247b1328455403f635` |
+| [`morphogenesis/experiments/E09_pond/w2bud_additivity/w2bud_add_cellp10kw_seed184.json`](../morphogenesis/experiments/E09_pond/w2bud_additivity/w2bud_add_cellp10kw_seed184.json) | other | 697635 | `ef72ab0f8bb7073b21a5648cfea518e8091c0a3421b41de9ef23e37bef15e520` |
+| [`morphogenesis/experiments/E09_pond/w2bud_additivity/w2bud_add_cellp10kw_seed185.json`](../morphogenesis/experiments/E09_pond/w2bud_additivity/w2bud_add_cellp10kw_seed185.json) | other | 697494 | `3ceeb8c3fe5f75162a8b074e68d6c1e77b5694b6eb5a68ac4bdbe0b533674eee` |
+| [`morphogenesis/experiments/E09_pond/w2bud_additivity/w2bud_add_cellp10kw_seed186.json`](../morphogenesis/experiments/E09_pond/w2bud_additivity/w2bud_add_cellp10kw_seed186.json) | other | 684060 | `b73a338c7a924dd203ab5547b4b25f58f312143a436c3d5c65a055c87cbf43eb` |
 | [`morphogenesis/experiments/E09_pond/w2bud_async/w2bud_async_cellp05_seed171.json`](../morphogenesis/experiments/E09_pond/w2bud_async/w2bud_async_cellp05_seed171.json) | other | 423750 | `74552c8677ff47f3ff2d8ca2ebf426875949745539a22df76bb423b9d6131a04` |
 | [`morphogenesis/experiments/E09_pond/w2bud_async/w2bud_async_cellp05_seed172.json`](../morphogenesis/experiments/E09_pond/w2bud_async/w2bud_async_cellp05_seed172.json) | other | 441151 | `44d5f7f7b28cf8bb2b82c419261cb6281d5ec5d1ece45acd7b2e19913c545de6` |
 | [`morphogenesis/experiments/E09_pond/w2bud_async/w2bud_async_cellp05_seed173.json`](../morphogenesis/experiments/E09_pond/w2bud_async/w2bud_async_cellp05_seed173.json) | other | 454203 | `0e0a27a2bd3afe306423d46c36251c167b77e0e712ff307170fda954ac12b9b6` |
@@ -1245,6 +1261,7 @@
 | [`reports/figures/e02b_transition_matrix.png`](../reports/figures/e02b_transition_matrix.png) | figure | 152522 | `81f1b4fe50fd819f45411c31fb737a0c232d9c4f993f5233184c8b276779f5b9` |
 | [`reports/figures/e02c_seed_grid.png`](../reports/figures/e02c_seed_grid.png) | figure | 69503 | `a14f0a6eb28fa0675629e539dc863049d97c3a7ef1914c34ebd7348b5c71776f` |
 <!-- artifacts:end -->
+
 
 
 
