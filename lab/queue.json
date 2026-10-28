@@ -1265,9 +1265,9 @@
       "id": "H62_generality_grid",
       "title": "Общность: те же плечи на поле 64×64 (не 32×32)",
       "hypothesis": null,
-      "status": "planned",
+      "status": "superseded",
       "owner": "lead",
-      "note": "дорого по GPU; запускать только если горизонт не покажет, что всё уже на плато",
+      "note": "вытеснено протоколом «истина или отсрочка» (reports/2026-10-28-truth-or-delay-protocol.md): сначала K1-K3 и чоуз, топология/перенос/формализация — после",
       "claimed_at": null,
       "heartbeat_at": null,
       "ttl_minutes": 240,
@@ -1277,22 +1277,22 @@
       "id": "H63_river",
       "title": "Река: направленный поток ресурса с истоком и стоком, три времени пребывания",
       "hypothesis": null,
-      "status": "planned",
+      "status": "superseded",
       "owner": "lead",
       "claimed_at": null,
       "heartbeat_at": null,
       "ttl_minutes": 300,
       "cost_gpu_h": 1.5,
-      "note": "P-007: сосуществование ожидается при τ = V/Q порядка поколения; замер — распределение линий по градиенту (исток/середина/сток) и число линий с данными"
+      "note": "вытеснено протоколом «истина или отсрочка» (reports/2026-10-28-truth-or-delay-protocol.md): сначала K1-K3 и чоуз, топология/перенос/формализация — после"
     },
     {
       "id": "S1_topology",
       "title": "Топология связи: control vs pool vs clock vs river, 4 плеча × 3 сида",
-      "status": "planned",
+      "status": "superseded",
       "owner": "lead",
       "cost_gpu_h": 1.5,
       "ttl_minutes": 300,
-      "note": "решающее сравнение типов среды; проверяет P-006 и первый шаг P-007",
+      "note": "вытеснено протоколом «истина или отсрочка» (reports/2026-10-28-truth-or-delay-protocol.md): сначала K1-K3 и чоуз, топология/перенос/формализация — после",
       "hypothesis": null,
       "claimed_at": null,
       "heartbeat_at": null
@@ -1300,11 +1300,11 @@
     {
       "id": "S2_dose",
       "title": "Доза победителя: сила c или три времени пребывания τ",
-      "status": "planned",
+      "status": "superseded",
       "owner": "lead",
       "cost_gpu_h": 1.5,
       "ttl_minutes": 300,
-      "note": "отличает «работает» от «работает при правильной силе»; у реки ожидается максимум, не монотонность",
+      "note": "вытеснено протоколом «истина или отсрочка» (reports/2026-10-28-truth-or-delay-protocol.md): сначала K1-K3 и чоуз, топология/перенос/формализация — после",
       "hypothesis": null,
       "claimed_at": null,
       "heartbeat_at": null
@@ -1312,11 +1312,11 @@
     {
       "id": "S3_transfer",
       "title": "Перенос на второе пространство с другой сохраняемой величиной (без GPU)",
-      "status": "planned",
+      "status": "superseded",
       "owner": "lead",
       "cost_gpu_h": 0.0,
       "ttl_minutes": 240,
-      "note": "проверка P-005: переносится ли правило «рассогласование поднимает сосуществование»",
+      "note": "вытеснено протоколом «истина или отсрочка» (reports/2026-10-28-truth-or-delay-protocol.md): сначала K1-K3 и чоуз, топология/перенос/формализация — после",
       "hypothesis": null,
       "claimed_at": null,
       "heartbeat_at": null
@@ -1324,11 +1324,11 @@
     {
       "id": "S4_formal",
       "title": "Формализация ядра «сохраняемая величина + рассогласование» в Lean",
-      "status": "planned",
+      "status": "superseded",
       "owner": "lead",
       "cost_gpu_h": 0.0,
       "ttl_minutes": 480,
-      "note": "только если S3 даёт перенос; техника готова (lean_axioms + заморозка формулировок)",
+      "note": "вытеснено протоколом «истина или отсрочка» (reports/2026-10-28-truth-or-delay-protocol.md): сначала K1-K3 и чоуз, топология/перенос/формализация — после",
       "hypothesis": null,
       "claimed_at": null,
       "heartbeat_at": null
@@ -1368,6 +1368,66 @@
       "owner": "lead",
       "claimed_at": null,
       "heartbeat_at": null
+    },
+    {
+      "id": "P1_event_logs",
+      "title": "Счётчики событий (обновления/рождения/смерти) + ID основателя",
+      "status": "planned",
+      "cost_gpu_h": 0.0,
+      "note": "предпосылка всех остальных шагов; правит мир ⇒ после финиша горизонта",
+      "hypothesis": null,
+      "owner": "lead",
+      "claimed_at": null,
+      "heartbeat_at": null,
+      "ttl_minutes": 300
+    },
+    {
+      "id": "P2_K1_replay",
+      "title": "K1: реплей расписания + три плеча пауз (обычная/полная заморозка/без пауз) + фазовые сдвиги",
+      "status": "planned",
+      "cost_gpu_h": 2.0,
+      "note": "решает: пауза — механизм или перемасштабирование времени",
+      "hypothesis": null,
+      "owner": "lead",
+      "claimed_at": null,
+      "heartbeat_at": null,
+      "ttl_minutes": 300
+    },
+    {
+      "id": "P3_K2_invasion",
+      "title": "K2: взаимная инвазия 8 клеток, порог 160, нейтральная калибровка 512 реплеев",
+      "status": "planned",
+      "cost_gpu_h": 3.0,
+      "note": "главный показатель вместо эффективных линий; 128 повторов на плечо",
+      "hypothesis": null,
+      "owner": "lead",
+      "claimed_at": null,
+      "heartbeat_at": null,
+      "ttl_minutes": 300
+    },
+    {
+      "id": "P4_K3_surrogates",
+      "title": "K3: суррогаты (фазовая, IAAFT, белый, перестановка, доля тишины, равная средняя p)",
+      "status": "planned",
+      "cost_gpu_h": 2.0,
+      "note": "разделяет амплитуду и скважность; замороженный конвейер нормировки",
+      "hypothesis": null,
+      "owner": "lead",
+      "claimed_at": null,
+      "heartbeat_at": null,
+      "ttl_minutes": 300
+    },
+    {
+      "id": "P5_label_churn",
+      "title": "Чоуз без новых меток (3600 шагов/10 поколений) + скан по μ",
+      "status": "planned",
+      "cost_gpu_h": 1.5,
+      "note": "отделяет сосуществование от оборота меток",
+      "hypothesis": null,
+      "owner": "lead",
+      "claimed_at": null,
+      "heartbeat_at": null,
+      "ttl_minutes": 300
     }
   ]
 }
