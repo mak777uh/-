@@ -46,7 +46,13 @@ def main(argv=None) -> int:
     ap.add_argument("--src", required=True)
     ap.add_argument("--out", required=True)
     ap.add_argument("--criterion", type=float, default=-0.3,
-                    help="порог пре-регистрации для медианы и верхней границы ДИ")
+                    help="порог пре-регистрации для медианы и верхней границы ДИ (ценовой критерий)")
+    ap.add_argument("--criterion-kind", default="price", choices=["price", "coexistence", "none"],
+                    help="какой критерий записан в пре-регистрации: price (ρ), coexistence (1/Σp² и линии) "
+                         "или none. Смешивать нельзя: иначе агрегат серии про сосуществование несёт "
+                         "ценовой verdict и читается как провал (B-089)")
+    ap.add_argument("--control-arm", default=None,
+                    help="плечо-контроль для coexistence-критерия (например cellp10)")
     args = ap.parse_args(argv)
 
     src = Path(args.src)
@@ -92,14 +98,32 @@ def main(argv=None) -> int:
             "death_share_median": round(st.median(share), 3) if share else None,
         }
 
-    verdict = {}
-    for arm, d in by_arm.items():
-        verdict[arm] = {
-            "median_below_threshold": (d["rho_median"] is not None and d["rho_median"] < args.criterion),
-            "upper_ci_below_threshold": (d["ci_high"] is not None and d["ci_high"] < args.criterion),
-            "criterion_met": bool(d["rho_median"] is not None and d["ci_high"] is not None
-                                  and d["rho_median"] < args.criterion and d["ci_high"] < args.criterion),
-        }
+    verdict: dict[str, dict] = {}
+    coexistence: dict[str, dict] = {}
+    if args.criterion_kind == "price":
+        for arm, d in by_arm.items():
+            verdict[arm] = {
+                "median_below_threshold": (d["rho_median"] is not None and d["rho_median"] < args.criterion),
+                "upper_ci_below_threshold": (d["ci_high"] is not None and d["ci_high"] < args.criterion),
+                "criterion_met": bool(d["rho_median"] is not None and d["ci_high"] is not None
+                                      and d["rho_median"] < args.criterion and d["ci_high"] < args.criterion),
+            }
+    elif args.criterion_kind == "coexistence":
+        ctrl = args.control_arm or next(iter(by_arm))
+        base = by_arm.get(ctrl) or {}
+        base_eff = base.get("effective_lineages_median")
+        base_lin = base.get("lineages_with_data_median")
+        for arm, d in by_arm.items():
+            eff_r = (d["effective_lineages_median"] / base_eff) if (base_eff and d.get("effective_lineages_median")) else None
+            lin_r = (d["lineages_with_data_median"] / base_lin) if (base_lin and d.get("lineages_with_data_median")) else None
+            coexistence[arm] = {
+                "control_arm": ctrl,
+                "effective_lineages_ratio_vs_control": round(eff_r, 3) if eff_r else None,
+                "lineages_ratio_vs_control": round(lin_r, 3) if lin_r else None,
+                "criterion_met": bool(arm != ctrl and eff_r is not None and eff_r >= 3.0
+                                      and lin_r is not None and lin_r >= 2.0),
+            }
+        verdict = coexistence
 
     out = {
         "kind": "w2bud-killwinner-matrix",
@@ -112,7 +136,10 @@ def main(argv=None) -> int:
             "ci": "по z: mean ± 1.96·SD/√n, обратно tanh",
             "death_share": "доля смертей, созданных механизмом (killed / died_total)",
         },
-        "criterion_threshold": args.criterion,
+        "criterion_kind": args.criterion_kind,
+        "criterion_threshold": (args.criterion if args.criterion_kind == "price" else None),
+        "criterion_note": ("цена: медиана и верхняя граница ДИ ρ < порога" if args.criterion_kind == "price"
+                           else "сосуществование: 1/Σp² ≥ 3× контроля и линий ≥ 2× контроля"),
         "by_arm": by_arm,
         "verdict": verdict,
         "provenance": {

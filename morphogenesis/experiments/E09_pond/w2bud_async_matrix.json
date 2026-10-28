@@ -8,7 +8,9 @@
     "ci": "по z: mean ± 1.96·SD/√n, обратно tanh",
     "death_share": "доля смертей, созданных механизмом (killed / died_total)"
   },
-  "criterion_threshold": -0.3,
+  "criterion_kind": "coexistence",
+  "criterion_threshold": null,
+  "criterion_note": "сосуществование: 1/Σp² ≥ 3× контроля и линий ≥ 2× контроля",
   "by_arm": {
     "cellp10": {
       "kill_winner": 1.0,
@@ -58,19 +60,22 @@
   },
   "verdict": {
     "cellp10": {
-      "median_below_threshold": false,
-      "upper_ci_below_threshold": false,
+      "control_arm": "cellp10",
+      "effective_lineages_ratio_vs_control": 1.0,
+      "lineages_ratio_vs_control": 1.0,
       "criterion_met": false
     },
     "cellp07": {
-      "median_below_threshold": false,
-      "upper_ci_below_threshold": false,
+      "control_arm": "cellp10",
+      "effective_lineages_ratio_vs_control": 1.942,
+      "lineages_ratio_vs_control": 2.0,
       "criterion_met": false
     },
     "cellp05": {
-      "median_below_threshold": false,
-      "upper_ci_below_threshold": false,
-      "criterion_met": false
+      "control_arm": "cellp10",
+      "effective_lineages_ratio_vs_control": 3.991,
+      "lineages_ratio_vs_control": 2.615,
+      "criterion_met": true
     }
   },
   "provenance": {

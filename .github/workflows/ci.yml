@@ -195,6 +195,15 @@ jobs:
 
       # Мета-контур: инсайты без действия, мёртвые скрипты, цикл-токен волны.
       # Всё это уже проверяется локально; на чужой машине должно падать так же.
+      - name: Paired comparison smoke (self-test of the tool)
+        shell: bash
+        run: |
+          python scripts/paired_compare.py \
+            --a-dir morphogenesis/experiments/E09_pond/w2bud_async \
+            --b-dir morphogenesis/experiments/E09_pond/w2bud_async \
+            --pattern 'w2bud_async_{arm}_seed{seed}.json' \
+            --arm-a cellp10 --arm-b cellp05 --derived effective_lineages
+
       - name: Meta-contour (insights, scripts, wave)
         shell: bash
         run: |
@@ -204,7 +213,6 @@ jobs:
                      "python scripts/lit_board.py --check" \
                      "python scripts/check_commit_claims.py" \
                      "python scripts/check_lean_integrity.py" \
-                     "python scripts/paired_compare.py --a-dir morphogenesis/experiments/E09_pond/w2bud_async --b-dir morphogenesis/experiments/E09_pond/w2bud_async --pattern \"w2bud_async_{arm}_seed{seed}.json\" --arm-a cellp10 --arm-b cellp05 --derived effective_lineages" \
                      "python scripts/check_scripts.py --ci"; do
             out=$($cmd 2>&1)
             code=$?
