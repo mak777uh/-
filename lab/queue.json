@@ -1284,6 +1284,54 @@
       "ttl_minutes": 300,
       "cost_gpu_h": 1.5,
       "note": "P-007: сосуществование ожидается при τ = V/Q порядка поколения; замер — распределение линий по градиенту (исток/середина/сток) и число линий с данными"
+    },
+    {
+      "id": "S1_topology",
+      "title": "Топология связи: control vs pool vs clock vs river, 4 плеча × 3 сида",
+      "status": "planned",
+      "owner": "lead",
+      "cost_gpu_h": 1.5,
+      "ttl_minutes": 300,
+      "note": "решающее сравнение типов среды; проверяет P-006 и первый шаг P-007",
+      "hypothesis": null,
+      "claimed_at": null,
+      "heartbeat_at": null
+    },
+    {
+      "id": "S2_dose",
+      "title": "Доза победителя: сила c или три времени пребывания τ",
+      "status": "planned",
+      "owner": "lead",
+      "cost_gpu_h": 1.5,
+      "ttl_minutes": 300,
+      "note": "отличает «работает» от «работает при правильной силе»; у реки ожидается максимум, не монотонность",
+      "hypothesis": null,
+      "claimed_at": null,
+      "heartbeat_at": null
+    },
+    {
+      "id": "S3_transfer",
+      "title": "Перенос на второе пространство с другой сохраняемой величиной (без GPU)",
+      "status": "planned",
+      "owner": "lead",
+      "cost_gpu_h": 0.0,
+      "ttl_minutes": 240,
+      "note": "проверка P-005: переносится ли правило «рассогласование поднимает сосуществование»",
+      "hypothesis": null,
+      "claimed_at": null,
+      "heartbeat_at": null
+    },
+    {
+      "id": "S4_formal",
+      "title": "Формализация ядра «сохраняемая величина + рассогласование» в Lean",
+      "status": "planned",
+      "owner": "lead",
+      "cost_gpu_h": 0.0,
+      "ttl_minutes": 480,
+      "note": "только если S3 даёт перенос; техника готова (lean_axioms + заморозка формулировок)",
+      "hypothesis": null,
+      "claimed_at": null,
+      "heartbeat_at": null
     }
   ]
 }
