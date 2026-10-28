@@ -1011,6 +1011,7 @@
 | [`morphogenesis/experiments/E09_pond/w2bud_live/w2bud_live_system_seed171.json`](../morphogenesis/experiments/E09_pond/w2bud_live/w2bud_live_system_seed171.json) | other | 616022 | `74a91ccd8f902d9ab665911971ba4ad799d34c0a78be05307312a8757a6fa35e` |
 | [`morphogenesis/experiments/E09_pond/w2bud_live/w2bud_live_system_seed172.json`](../morphogenesis/experiments/E09_pond/w2bud_live/w2bud_live_system_seed172.json) | other | 585167 | `df1f35f0a8abc0250e41f38215e7d72b49a4a4e0e7315741cde22bd3f45d9977` |
 | [`morphogenesis/experiments/E09_pond/w2bud_live/w2bud_live_system_seed173.json`](../morphogenesis/experiments/E09_pond/w2bud_live/w2bud_live_system_seed173.json) | other | 618895 | `b86f9d4be6161212649f2e5e009f0cfeb79179643d8ce9ab5629b1205f38e4c9` |
+| [`morphogenesis/experiments/E09_pond/w2bud_live_matrix.json`](../morphogenesis/experiments/E09_pond/w2bud_live_matrix.json) | other | 16752 | `07121f4e4bdf1d4cc65b188f1148689f1ad6521d53d668af3b56ac368987b5e4` |
 | [`morphogenesis/experiments/E09_pond/w2bud_live_rhythm/dumps/w2bud_liverhythm_net_seed171_heard.json`](../morphogenesis/experiments/E09_pond/w2bud_live_rhythm/dumps/w2bud_liverhythm_net_seed171_heard.json) | other | 367 | `de6a98e4ac740a0fd0b1a0e2aadef5403df302eaedefb56265dd1900786d6f6b` |
 | [`morphogenesis/experiments/E09_pond/w2bud_live_rhythm/prequel_not_wired/w2bud_liverhythm_net_seed171.json`](../morphogenesis/experiments/E09_pond/w2bud_live_rhythm/prequel_not_wired/w2bud_liverhythm_net_seed171.json) | other | 620326 | `23303a44a047a6431a88f89be6a842c10da86522bc76d69d2dfdb71a1bc1a76c` |
 | [`morphogenesis/experiments/E09_pond/w2bud_matrix.json`](../morphogenesis/experiments/E09_pond/w2bud_matrix.json) | other | 34862 | `e7c676f07e0f9dd4840701c09590cf0dca8b624d236767b2c75892f6ae99dd11` |
@@ -1308,6 +1309,8 @@
 | [`reports/figures/e02b_transition_matrix.png`](../reports/figures/e02b_transition_matrix.png) | figure | 152522 | `81f1b4fe50fd819f45411c31fb737a0c232d9c4f993f5233184c8b276779f5b9` |
 | [`reports/figures/e02c_seed_grid.png`](../reports/figures/e02c_seed_grid.png) | figure | 69503 | `a14f0a6eb28fa0675629e539dc863049d97c3a7ef1914c34ebd7348b5c71776f` |
 <!-- artifacts:end -->
+
+
 
 
 
