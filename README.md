@@ -183,6 +183,10 @@ The descriptive columns — period, question, outcome, evidence — stay hand-wr
 
 **Preprint.** A standalone preprint summarising this stage is archived at [10.5281/zenodo.23694918](https://doi.org/10.5281/zenodo.23694918) (v1.1; v1.0: 10.5281/zenodo.23669738) (concept DOI [10.5281/zenodo.23669737](https://doi.org/10.5281/zenodo.23669737); 14 pages, four figures, LaTeX source included; not peer reviewed).
 
+**Release v1.2 (preparing):** measured price −0.374 with CI [−0.396, −0.266], the price belongs to the
+investment channel, two coexistence levers that amplify each other, four recorded prediction failures.
+Publication instructions: [`docs/release-v1.2.md`](docs/release-v1.2.md).
+
 **Deposits.** The code, reports and journal are archived with a DOI
 ([10.5281/zenodo.23571610](https://doi.org/10.5281/zenodo.23571610); concept DOI
 [10.5281/zenodo.23571609](https://doi.org/10.5281/zenodo.23571609)). The canonical weights are
