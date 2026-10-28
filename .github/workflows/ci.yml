@@ -195,6 +195,13 @@ jobs:
 
       # Мета-контур: инсайты без действия, мёртвые скрипты, цикл-токен волны.
       # Всё это уже проверяется локально; на чужой машине должно падать так же.
+      - name: Neutral yardstick smoke (self-test of the tool)
+        shell: bash
+        run: |
+          python scripts/neutral_yardstick.py \
+            --glob 'morphogenesis/experiments/E09_pond/w2bud_async/w2bud_async_cellp10_seed17*.json' \
+            --limit 3
+
       - name: Paired comparison smoke (self-test of the tool)
         shell: bash
         run: |
