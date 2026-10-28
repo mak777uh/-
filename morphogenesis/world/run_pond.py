@@ -549,7 +549,18 @@ class PondRun:
             cfg_ = getattr(self, "world_cfg", None)
             live_src = getattr(cfg_, "inflow_live", None)
             target = str(getattr(cfg_, "inflow_target", "income") or "income")
-            if target == "rhythm" and getattr(cfg_, "inflow_stream_values", None) is not None \
+            live_for_rhythm = getattr(cfg_, "inflow_live", None)
+            if target == "rhythm" and live_for_rhythm is not None \
+                    and getattr(cfg_, "inflow_coupling", 0.0) > 0.0:
+                # H-ALIVE-60: живой режим — значение берём у источника ПРЯМО СЕЙЧАС
+                v_live = float(live_for_rhythm.value()) if hasattr(live_for_rhythm, "value") else 0.5
+                rec_l = getattr(cfg_, "inflow_record", None)
+                if isinstance(rec_l, list):
+                    rec_l.append(round(v_live, 6))
+                c_l = float(getattr(cfg_, "inflow_coupling", 0.0))
+                base_l = float(getattr(cfg_, "inflow_base_update", 1.0))
+                self.update_probability = min(1.0, max(0.05, base_l * (1.0 + c_l * (2.0 * v_live - 1.0))))
+            elif target == "rhythm" and getattr(cfg_, "inflow_stream_values", None) is not None \
                     and getattr(cfg_, "inflow_coupling", 0.0) > 0.0:
                 # H-ALIVE-60: внешний сигнал управляет ритмом обновления (канал, который двигает разнообразие)
                 vals_r = getattr(cfg_, "inflow_stream_values")
