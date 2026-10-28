@@ -130,6 +130,7 @@ def config_block(cfg) -> dict:
         "quota_share": float(getattr(cfg, "quota_share", 1.0)),
         "bud_refractory": int(getattr(cfg, "bud_refractory", 0)),
         "kill_winner": float(getattr(cfg, "kill_winner", 0.0)),
+        "trait_effect_mode": str(getattr(cfg, "trait_effect_mode", "invest")),
         "invade_on_empty": bool(getattr(cfg, "invade_on_empty", False)),
         "start_cells": int(getattr(cfg, "start_cells", 4)),
         "ignition_gate": bool(getattr(cfg, "ignition_gate", False)),
@@ -548,11 +549,26 @@ class PondRun:
             else:
                 # абляция: часть клеток пропускает обновление (шум в динамике)
                 new_state = self.rule(self.state, self.genome)
-                keep = torch.rand(
-                    (1, 1, self.world_cfg.grid, self.world_cfg.grid),
-                    generator=self.gen,
-                    device=self.device,
-                ) < self.update_probability
+                base = float(self.update_probability)
+                mode = str(getattr(self.pond.cfg, "trait_effect_mode", "invest"))
+                eps = float(getattr(self.pond.cfg, "trait_effect", 0.0))
+                trait = self.pond.state.tag_trait
+                if mode == "update" and eps != 0.0 and trait is not None:
+                    # H-ALIVE-56: признак масштабирует ЧАСТОТУ обновления клетки, а не трату.
+                    alive = self.pond.state.alive
+                    mean_trait = float(trait[alive].mean()) if bool(alive.any()) else 0.0
+                    factor = torch.clamp(1.0 + eps * (trait - mean_trait), 0.0, 2.0)
+                    keep_p = torch.clamp(base * factor, 0.0, 1.0)
+                    draw = torch.rand(
+                        (1, 1, self.world_cfg.grid, self.world_cfg.grid),
+                        generator=self.gen, device=self.device)
+                    keep = draw < keep_p.unsqueeze(0).unsqueeze(0)
+                else:
+                    keep = torch.rand(
+                        (1, 1, self.world_cfg.grid, self.world_cfg.grid),
+                        generator=self.gen,
+                        device=self.device,
+                    ) < base
                 self.state = torch.where(keep, new_state, self.state)
         grown = self._sync_state_to_world()
         self.pond.regenerate()
@@ -752,6 +768,8 @@ def build_parser() -> argparse.ArgumentParser:
                     help="legacy: туда, где умерла; prepared: в случайные СВОБОДНЫЕ (контроль объёма)")
     ap.add_argument("--buds-per-component", type=int, default=1,
                     help="W2-bud-d2: до N бутонов на компоненту (1 = W2-bud бит-в-бит)")
+    ap.add_argument("--trait-effect-mode", default="invest", choices=["invest", "update"],
+                    help="H-ALIVE-56: канал признака — invest (по умолчанию) или update (частота обновления)")
     ap.add_argument("--kill-winner", type=float, default=0.0,
                     help="H-ALIVE-54: смертность пропорциональна превышению доли линии над средней (0 = выкл.)")
     ap.add_argument("--bud-refractory", type=int, default=0,
@@ -854,6 +872,7 @@ def main(argv: list[str] | None = None) -> int:
     world.quota_share = float(args.quota_share)
     world.bud_refractory = int(args.bud_refractory)
     world.kill_winner = float(args.kill_winner)
+    world.trait_effect_mode = str(args.trait_effect_mode)
     world.require_placement = args.require_placement
     world.placement_attempts = args.placement_attempts
     world.invade_on_empty = bool(args.invade_on_empty)

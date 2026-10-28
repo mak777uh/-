@@ -112,6 +112,7 @@ class PondConfig:
                                        # (0 = выключено, бит-в-бит со старым миром)
     kill_winner: float = 0.0            # H-ALIVE-54: смертность ∝ превышению доли линии над средней
                                         # (0 = выключено, бит-в-бит со старым миром)
+    trait_effect_mode: str = "invest"   # H-ALIVE-56: invest (по умолчанию, бит-в-бит) | update
     require_placement: int = 0         # 0 = старая ветка бит-в-бит; >0 = гарантировать столько клеток
     placement_attempts: int = 5        # сколько раз перерисовывать точку, если пятно не встало
     mutation_trait_sigma: float = 0.01  # сдвиг признака линии при мутации (масштаб признака ~1)
@@ -805,6 +806,11 @@ class Pond:
                 want = torch.zeros_like(alive)
             rate = torch.full_like(s.energy, float(cfg.invest_rate))
             eps = float(getattr(cfg, "trait_effect", 0.0))
+            mode = str(getattr(cfg, "trait_effect_mode", "invest"))
+            if eps != 0.0 and mode == "update":
+                # H-ALIVE-56: в этом режиме признак читается в асинхронности (run_pond.step),
+                # а инвестирование остаётся ровным — иначе каналы смешались бы.
+                eps = 0.0
             if eps != 0.0 and s.tag_trait is not None:
                 # E: признак линии читается миром — интенсивность инвестирования масштабируется
                 # (выше признак → больше поднимает потолок, но и больше тратит: trade-off)
