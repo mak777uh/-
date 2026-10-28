@@ -547,8 +547,21 @@ class PondRun:
     def step(self) -> dict:
         with torch.no_grad():
             cfg_ = getattr(self, "world_cfg", None)
+            live_src = getattr(cfg_, "inflow_live", None)
+            if live_src is not None and getattr(cfg_, "inflow_coupling", 0.0) > 0.0:
+                # H-ALIVE-59 (живой режим): значение приходит от источника ПРЯМО СЕЙЧАС
+                v = float(live_src.value()) if hasattr(live_src, "value") else 0.5
+                rec = getattr(cfg_, "inflow_record", None)
+                if isinstance(rec, list):
+                    rec.append(round(v, 6))
+                c = float(getattr(cfg_, "inflow_coupling", 0.0))
+                if str(getattr(cfg_, "inflow_stream_mode", "global") or "global") == "spatial":
+                    grid = cfg_.grid
+                    self.pond.state.income_scale.copy_((1.0 + c * (2.0 * v - 1.0)))
+                else:
+                    self.pond.state.income_scale.fill_(1.0 + c * (2.0 * v - 1.0))
             infl_vals = getattr(cfg_, "inflow_values", None)
-            if infl_vals and getattr(cfg_, "inflow_coupling", 0.0) > 0.0:
+            if infl_vals and getattr(cfg_, "inflow_coupling", 0.0) > 0.0 and live_src is None:
                 n = len(infl_vals)
                 total = getattr(self, "total_steps", None) or 600
                 cur = len(getattr(self, "log", []) or [])   # журнал растёт на один шаг за вызов
@@ -794,6 +807,15 @@ def build_parser() -> argparse.ArgumentParser:
                     help="H-ALIVE-59: JSON записанного потока (scripts/capture_stream.py), значения 0..1")
     ap.add_argument("--inflow-coupling", type=float, default=0.0,
                     help="сила связи: 0 = выключено, 1 = приток ходит от 0 до 2× базового")
+    ap.add_argument("--inflow-live", default=None,
+                    choices=["mic", "net", "crypto", "events", "usgs", "system"],
+                    help="H-ALIVE-59: живой сигнал в реальном времени (микрофон), а не проигрывание записи")
+    ap.add_argument("--inflow-live-rate", type=float, default=20.0,
+                    help="частота отсчётов живого сигнала, Гц")
+    ap.add_argument("--inflow-live-window", type=float, default=15.0,
+                    help="окно нормировки живого сигнала, секунды")
+    ap.add_argument("--inflow-live-dump", default=None,
+                    help="куда записать то, что услышал мир (для аудита и повторного проигрывания)")
     ap.add_argument("--inflow-stream-mode", default="global", choices=["global", "spatial"],
                     help="global: всё поле; spatial: полосы по Y (мир видит градиент)")
     ap.add_argument("--kill-winner", type=float, default=0.0,
@@ -950,8 +972,28 @@ def main(argv: list[str] | None = None) -> int:
     except ImportError:
         pass
 
+    live = None
+    if args.inflow_live:
+        import sys as _sys
+        _scripts = str(__import__("pathlib").Path(__file__).resolve().parents[2] / "scripts")
+        if _scripts not in _sys.path:
+            _sys.path.insert(0, _scripts)
+        import stream_sources as _ss
+        src = _ss.make(args.inflow_live, rate=args.inflow_live_rate,
+                       window_s=getattr(args, "inflow_live_window", 15.0)).start()
+        live = {"src": src}
+        world.inflow_record = []
+
     run = PondRun(world_cfg=world, seed=args.seed, device=args.device,
                   rule_checkpoint=args.rule_checkpoint)
+    if live is not None:
+        world.inflow_live = live["src"]
+        world.inflow_coupling = float(args.inflow_coupling)
+        world.inflow_stream_mode = str(args.inflow_stream_mode)
+        world.inflow_scale = torch.ones((world.grid, world.grid), device=args.device)
+        run.pond.state.income_scale = world.inflow_scale
+        run.pond.cfg.inflow_coupling = float(args.inflow_coupling)
+        run.pond.cfg.inflow_stream_mode = str(args.inflow_stream_mode)
     if getattr(world, "inflow_scale", None) is not None:
         run.pond.state.income_scale = world.inflow_scale
     run.snapshot_every = args.snapshot_every
@@ -1109,6 +1151,24 @@ def main(argv: list[str] | None = None) -> int:
         wcel = run.pond.state.w_cell[run.pond.state.alive]
         summary["w_cell_mean"] = float(wcel.mean())
         summary["w_cell_std"] = float(wcel.std())
+    if live is not None:
+        info = live["src"].stop()
+        rec = list(getattr(world, "inflow_record", []) or [])
+        summary.setdefault("live_stream", {}).update(info)
+        summary["live_stream"]["values_seen"] = rec[:2000]
+        if args.inflow_live_dump:
+            try:
+                import json as _json2
+                from pathlib import Path as _Path2
+                _p = _Path2(args.inflow_live_dump)
+                _p.parent.mkdir(parents=True, exist_ok=True)
+                _p.write_text(_json2.dumps({"source": args.inflow_live, "rate_hz": args.inflow_live_rate,
+                                            "coupling": float(args.inflow_coupling),
+                                            "values": rec, "raw": info},
+                                           ensure_ascii=False, indent=2) + "\n",
+                              encoding="utf-8", newline="\n")
+            except Exception:
+                pass
     if args.out:
         with open(args.out, "w", encoding="utf-8") as fh:
             json.dump({"summary": summary, "log": run.log}, fh, ensure_ascii=False, indent=2)
