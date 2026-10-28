@@ -139,6 +139,12 @@ def main(argv=None) -> int:
             "ci": "по z: mean ± 1.96·SD/√n, обратно tanh",
             "death_share": "доля смертей, созданных механизмом (killed / died_total)",
         },
+        "not_claimed": [
+            "что мир ведёт себя так же при другом размере поля или другом правиле",
+            "что величина воспроизведётся на другой видеокарте (окружение в манифестах, но не в агрегате)",
+            "что выбранный критерий — единственный разумный для этой серии",
+            "что числа остаются теми же при другом горизонте прогона",
+        ],
         "criterion_kind": args.criterion_kind,
         "criterion_threshold": (args.criterion if args.criterion_kind == "price" else None),
         "criterion_note": ("цена: медиана и верхняя граница ДИ ρ < порога" if args.criterion_kind == "price"
