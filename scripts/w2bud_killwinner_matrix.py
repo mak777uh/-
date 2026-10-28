@@ -25,8 +25,9 @@ sys.path.insert(0, str(ROOT / "scripts"))
 import w2bud_matrix as W  # noqa: E402
 
 W.NAME = re.compile(
-    r"w2bud[\w]*_(?P<arm>colony|cell|cellkw02|cellkw05|cellupd|pair)_seed(?P<seed>\d+)\.json$")
-ARMS = {"cell": 0.0, "cellkw02": 0.02, "cellkw05": 0.05, "cellupd": 0.05}
+    r"w2bud[\w]*_(?P<arm>colony|cell|cellkw02|cellkw05|cellupd|cellp10|cellp07|cellp05|pair)_seed(?P<seed>\d+)\.json$")
+ARMS = {"cell": 0.0, "cellkw02": 0.02, "cellkw05": 0.05, "cellupd": 0.05,
+        "cellp10": 1.0, "cellp07": 0.7, "cellp05": 0.5}
 
 
 def fisher(values: list[float]) -> tuple[float | None, float | None, float | None, float | None]:
