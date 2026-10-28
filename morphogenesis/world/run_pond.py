@@ -131,6 +131,8 @@ def config_block(cfg) -> dict:
         "bud_refractory": int(getattr(cfg, "bud_refractory", 0)),
         "kill_winner": float(getattr(cfg, "kill_winner", 0.0)),
         "trait_effect_mode": str(getattr(cfg, "trait_effect_mode", "invest")),
+        "inflow_coupling": float(getattr(cfg, "inflow_coupling", 0.0)),
+        "inflow_stream_mode": str(getattr(cfg, "inflow_stream_mode", "")),
         "invade_on_empty": bool(getattr(cfg, "invade_on_empty", False)),
         "start_cells": int(getattr(cfg, "start_cells", 4)),
         "ignition_gate": bool(getattr(cfg, "ignition_gate", False)),
@@ -544,6 +546,24 @@ class PondRun:
 
     def step(self) -> dict:
         with torch.no_grad():
+            cfg_ = getattr(self, "world_cfg", None)
+            infl_vals = getattr(cfg_, "inflow_values", None)
+            if infl_vals and getattr(cfg_, "inflow_coupling", 0.0) > 0.0:
+                n = len(infl_vals)
+                total = getattr(self, "total_steps", None) or 600
+                cur = len(getattr(self, "log", []) or [])   # журнал растёт на один шаг за вызов
+                if getattr(self, "total_steps", None) is None:
+                    self.total_steps = total
+                pos = int(round(cur / max(1, total - 1) * (n - 1))) if n > 1 else 0
+                c = float(getattr(cfg_, "inflow_coupling", 0.0))
+                if str(getattr(cfg_, "inflow_stream_mode", "global") or "global") == "spatial":
+                    grid = cfg_.grid
+                    per_row = [infl_vals[(pos + int(round(row / max(1, grid - 1) * (n - 1)))) % n]
+                               for row in range(grid)]
+                    col = torch.tensor(per_row, device=self.device).view(-1, 1)
+                    self.pond.state.income_scale.copy_((1.0 + c * (2.0 * col - 1.0)).expand(grid, grid))
+                else:
+                    self.pond.state.income_scale.fill_(1.0 + c * (2.0 * infl_vals[pos] - 1.0))
             if self.update_probability >= 1.0:
                 self.state = self.rule(self.state, self.genome)
             else:
@@ -770,6 +790,12 @@ def build_parser() -> argparse.ArgumentParser:
                     help="W2-bud-d2: до N бутонов на компоненту (1 = W2-bud бит-в-бит)")
     ap.add_argument("--trait-effect-mode", default="invest", choices=["invest", "update"],
                     help="H-ALIVE-56: канал признака — invest (по умолчанию) или update (частота обновления)")
+    ap.add_argument("--inflow-stream", default=None,
+                    help="H-ALIVE-59: JSON записанного потока (scripts/capture_stream.py), значения 0..1")
+    ap.add_argument("--inflow-coupling", type=float, default=0.0,
+                    help="сила связи: 0 = выключено, 1 = приток ходит от 0 до 2× базового")
+    ap.add_argument("--inflow-stream-mode", default="global", choices=["global", "spatial"],
+                    help="global: всё поле; spatial: полосы по Y (мир видит градиент)")
     ap.add_argument("--kill-winner", type=float, default=0.0,
                     help="H-ALIVE-54: смертность пропорциональна превышению доли линии над средней (0 = выкл.)")
     ap.add_argument("--bud-refractory", type=int, default=0,
@@ -872,6 +898,21 @@ def main(argv: list[str] | None = None) -> int:
     world.quota_share = float(args.quota_share)
     world.bud_refractory = int(args.bud_refractory)
     world.kill_winner = float(args.kill_winner)
+    # здесь `world` — это PondConfig, а не объект прогона (проверено ошибкой AttributeError)
+    if hasattr(world, "inflow_coupling"):
+        world.inflow_coupling = float(args.inflow_coupling)
+        world.inflow_stream_mode = str(args.inflow_stream_mode)
+    if args.inflow_stream and float(args.inflow_coupling) > 0.0:
+        import json as _json
+        from pathlib import Path as _Path
+        raw = _json.loads(_Path(args.inflow_stream).read_text(encoding="utf-8"))
+        values = [float(v) for v in (raw.get("values") or [])]
+        if not values:
+            raise SystemExit(f"поток пуст: {args.inflow_stream}")
+        world.inflow_values = values
+        world.inflow_coupling = float(args.inflow_coupling)
+        world.inflow_mode = str(args.inflow_stream_mode)
+        world.inflow_scale = torch.ones((world.grid, world.grid), device=args.device)
     world.trait_effect_mode = str(args.trait_effect_mode)
     world.require_placement = args.require_placement
     world.placement_attempts = args.placement_attempts
@@ -911,6 +952,8 @@ def main(argv: list[str] | None = None) -> int:
 
     run = PondRun(world_cfg=world, seed=args.seed, device=args.device,
                   rule_checkpoint=args.rule_checkpoint)
+    if getattr(world, "inflow_scale", None) is not None:
+        run.pond.state.income_scale = world.inflow_scale
     run.snapshot_every = args.snapshot_every
     run.update_probability = args.update_probability
     if args.abiotic:

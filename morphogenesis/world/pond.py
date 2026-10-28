@@ -113,6 +113,8 @@ class PondConfig:
     kill_winner: float = 0.0            # H-ALIVE-54: смертность ∝ превышению доли линии над средней
                                         # (0 = выключено, бит-в-бит со старым миром)
     trait_effect_mode: str = "invest"   # H-ALIVE-56: invest (по умолчанию, бит-в-бит) | update
+    inflow_coupling: float = 0.0        # H-ALIVE-59: сила связи с внешним потоком (0 = выключено)
+    inflow_stream_mode: str = ""        # H-ALIVE-59: global | spatial
     require_placement: int = 0         # 0 = старая ветка бит-в-бит; >0 = гарантировать столько клеток
     placement_attempts: int = 5        # сколько раз перерисовывать точку, если пятно не встало
     mutation_trait_sigma: float = 0.01  # сдвиг признака линии при мутации (масштаб признака ~1)
@@ -183,6 +185,7 @@ class Pond:
         self.invest_updates = 0
         self.thr_series: list[float] = []
         self.income_map: torch.Tensor | None = None
+        self.income_scale: torch.Tensor | None = None   # H-ALIVE-59: множитель притока
         self.thr: torch.Tensor | None = None
         self.learn_history: list[float] = []
         self._colony_alive_prev = 0
@@ -731,6 +734,10 @@ class Pond:
         else:
             is_b = None
             own = s.resource
+        if getattr(s, "income_scale", None) is not None:
+            # H-ALIVE-59: внешний поток масштабирует приток ПО КЛЕТКАМ; при множителе 1.0
+            # умножение на единицу не меняет ни одного бита (якорь проверяется отдельно).
+            own = own * s.income_scale
         if cfg.income_mode == "proportional":
             # доход пропорционален доступному ресурсу: бедная зона реально голодает
             income = torch.minimum(
