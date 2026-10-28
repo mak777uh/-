@@ -3155,16 +3155,17 @@
         "kind": "method",
         "detail": "interaction-критерий в агрегате + источник пар"
       },
-      "status": "new",
+      "status": "done",
       "wave": "current",
       "owner": "librarian",
       "created_at": "2026-10-28T17:33:26+03:00",
-      "decided_at": null,
-      "why": null,
+      "decided_at": "2026-10-28",
+      "why": "сделано по существу: агрегат серии больше не судит о взаимодействии (criterion_kind: none + metric.interaction_note); создан scripts/additivity_interaction.py, который считает I из четырёх ячеек (E00/E10 из w2bud_async, E01/E11 из w2bud_additivity, те же сиды 171-190) и пишет w2bud_additivity_interaction.json с полями I_median, I_ci_low, I_ci_high, paired_seeds, additive_prediction и вердиктом: СИНЕРГИЯ (+0.445, ДИ [+0.350, +0.566], 17/19)",
       "links": {
-        "insights": [],
-        "tasks": [],
-        "reports": []
+        "reports": [
+          "morphogenesis/experiments/E09_pond/w2bud_additivity_interaction.json",
+          "scripts/additivity_interaction.py"
+        ]
       }
     }
   ],

@@ -1,0 +1,70 @@
+{
+  "kind": "additivity-interaction",
+  "metric": {
+    "effective_lineages": "1/Σp² по живым клеткам (обратный индекс Симпсона)",
+    "interaction": "I = ln E11 − ln E10 − ln E01 + ln E00 (лог-шкала; 0 = аддитивность, <0 = насыщение, >0 = синергия)",
+    "ci": "bootstrap медианы по парным сидам, фиксированный seed"
+  },
+  "cells": {
+    "E00": {
+      "runs": 20,
+      "median_effective_lineages": 1.517,
+      "pattern": "morphogenesis/experiments/E09_pond/w2bud_async/w2bud_async_cellp10_seed*.json"
+    },
+    "E10": {
+      "runs": 19,
+      "median_effective_lineages": 6.054,
+      "pattern": "morphogenesis/experiments/E09_pond/w2bud_async/w2bud_async_cellp05_seed*.json"
+    },
+    "E01": {
+      "runs": 20,
+      "median_effective_lineages": 4.091,
+      "pattern": "morphogenesis/experiments/E09_pond/w2bud_additivity/w2bud_add_cellp10kw_seed*.json"
+    },
+    "E11": {
+      "runs": 20,
+      "median_effective_lineages": 26.056,
+      "pattern": "morphogenesis/experiments/E09_pond/w2bud_additivity/w2bud_add_cellp05kw_seed*.json"
+    }
+  },
+  "paired_seeds": 19,
+  "seeds": [
+    171,
+    172,
+    173,
+    174,
+    175,
+    176,
+    177,
+    178,
+    179,
+    180,
+    181,
+    182,
+    184,
+    185,
+    186,
+    187,
+    188,
+    189,
+    190
+  ],
+  "interaction": {
+    "median": 0.445,
+    "ci_low": 0.3499,
+    "ci_high": 0.5663,
+    "positive": 17,
+    "n": 19,
+    "half_width": 0.1082
+  },
+  "additive_prediction": 16.289,
+  "observed_E11": 26.322,
+  "verdict": {
+    "criterion_kind": "interaction",
+    "criterion": "95 % ДИ взаимодействия целиком > 0 ⇒ синергия; целиком < 0 ⇒ насыщение; содержит 0 ⇒ аддитивность; полуширина > 0.7 ⇒ величина неизмерима",
+    "synergy": true,
+    "saturation": false,
+    "additive": false,
+    "measurable": true
+  }
+}

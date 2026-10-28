@@ -140,7 +140,11 @@ def main(argv=None) -> int:
         "criterion_kind": args.criterion_kind,
         "criterion_threshold": (args.criterion if args.criterion_kind == "price" else None),
         "criterion_note": ("цена: медиана и верхняя граница ДИ ρ < порога" if args.criterion_kind == "price"
-                           else "сосуществование: 1/Σp² ≥ 3× контроля и линий ≥ 2× контроля"),
+                           else "сосуществование: 1/Σp² ≥ 3× контроля и линий ≥ 2× контроля"
+                           if args.criterion_kind == "coexistence"
+                           else "критерий этой серии считается отдельным инструментом "
+                                "(для взаимодействия — scripts/additivity_interaction.py); "
+                                "агрегат одной серии о нём не судит"),
         "by_arm": by_arm,
         "verdict": verdict,
         "provenance": {
@@ -156,7 +160,8 @@ def main(argv=None) -> int:
         print(f"  {arm} (s={d['kill_winner']}): прогонов {d['runs']}, ρ {d['valid_n']} | "
               f"медиана {d['rho_median']} | Фишер {d['fisher_center']} [{d['ci_low']}, {d['ci_high']}] | "
               f"линий {d['lineages_with_data_median']} | 1/Σp² {d['effective_lineages_median']} | "
-              f"pop_time {d['pop_time_median']} | критерий: {'ВЫПОЛНЕН' if verdict[arm]['criterion_met'] else 'не выполнен'}")
+              f"pop_time {d['pop_time_median']} | критерий: "
+              f"{'не оценивается (criterion_kind=none)' if arm not in verdict else ('ВЫПОЛНЕН' if verdict[arm]['criterion_met'] else 'не выполнен')}")
     return 0
 
 
