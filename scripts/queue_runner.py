@@ -195,7 +195,34 @@ def audit(data: dict) -> int:
             exp_name = item.get("experiment") or iid
             has_lock = any(lock.startswith(f"{exp_name}.lock") for lock in locks)
             if not has_lock:
-                problems.append(f"{iid}: running, но живого замка нет — статус устарел или серия упала")
+                # Правило §0.2: «идёт» и «забыли» — разные вещи. Серия из многих прогонов держит замок
+                # ПО ПРОГОНУ, поэтому между ними всегда есть щель без замка. Признаки «идёт», кроме замка:
+                #   (а) у пункта задан каталог вывода и в нём есть артефакт моложе порога;
+                #   (б) в системе жив процесс с именем плеча;
+                #   (в) у пункта указан `runner` — скрипт серии, и он числится запущенным.
+                fresh_min = 90.0
+                import time as _time
+                fresh = False
+                launch = item.get("launch") or {}
+                outdir = launch.get("outdir") if isinstance(launch, dict) else None
+                if outdir:
+                    path = (ROOT / outdir) if not Path(outdir).is_absolute() else Path(outdir)
+                    if path.exists():
+                        newest = max((f.stat().st_mtime for f in path.glob("*.json")), default=0)
+                        fresh = bool(newest) and (_time.time() - newest) / 60.0 < fresh_min
+                if not fresh:
+                    try:
+                        import subprocess as _sp
+                        ps = _sp.run(["powershell", "-NoProfile", "-Command",
+                                      f"(Get-CimInstance Win32_Process -Filter \"Name = 'python.exe'\" | "
+                                      f"Where-Object {{ $_.CommandLine -like '*{exp_name}*' }} | Measure-Object).Count"],
+                                     capture_output=True, text=True, timeout=8)
+                        fresh = int((ps.stdout or "0").strip() or 0) > 0
+                    except Exception:
+                        fresh = False
+                if not fresh:
+                    problems.append(f"{iid}: running, но ни замка, ни свежих артефактов, ни процесса — "
+                                    f"статус устарел или серия упала")
         if status in ("planned", "running"):
             launch = item.get("launch") or {}
             outdir = launch.get("outdir") if isinstance(launch, dict) else None
