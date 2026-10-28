@@ -12,6 +12,8 @@
 | Препринт (v1.0, предыдущая) | [10.5281/zenodo.23669738](https://doi.org/10.5281/zenodo.23669738) | 26.10.2026 | 1.0 МБ | PDF 14 стр. + LaTeX-исходник; заменена версией v1.1 |
 | **Канонические веса** (v1.1) | [10.5281/zenodo.23654174](https://doi.org/10.5281/zenodo.23654174) | 26.10.2026 | 6.03 ГБ | 12 файлов `nca_final.pt`, `world_base_rule.pt`, `CHECKSUMS.sha256`, `CHECKPOINTS.md`, `README_ZENODO.md`, `manifest.json`, `CITATION.cff` |
 | concept DOI весов | [10.5281/zenodo.23654173](https://doi.org/10.5281/zenodo.23654173) | — | — | всегда указывает на последнюю версию записи с весами |
+| **Набор данных** (v1.0) | [10.5281/zenodo.23734077](https://doi.org/10.5281/zenodo.23734077) | 28.10.2026 | 10.1 МБ | 120 per-run JSON четырёх серий v1.2 (killwinner, confirm, trait-update, additivity), 4 агрегата, `predictions.json`, 4 пре-регистрации, `CHECKSUMS-v1.2.csv` |
+| concept DOI набора данных | [10.5281/zenodo.23734076](https://doi.org/10.5281/zenodo.23734076) | — | — | всегда указывает на последнюю версию набора данных |
 
 ## Почему веса отдельно
 

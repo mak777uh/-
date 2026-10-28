@@ -190,7 +190,7 @@ Publication instructions: [`docs/release-v1.2.md`](docs/release-v1.2.md).
 **Deposits.** The code, reports and journal are archived with a DOI
 ([10.5281/zenodo.23733477](https://doi.org/10.5281/zenodo.23733477); concept DOI
 [10.5281/zenodo.23571609](https://doi.org/10.5281/zenodo.23571609)). The canonical weights are
-a separate dataset record (`10.5281/zenodo.23654174`, 12 checkpoints + service files, 6.03 GB) — see [`docs/deposit.md`](docs/deposit.md)
+a separate dataset record (`10.5281/zenodo.23654174`, 12 checkpoints + service files, 6.03 GB). The per-run artifacts behind preprint v1.2 are a dataset record of their own ([10.5281/zenodo.23734077](https://doi.org/10.5281/zenodo.23734077), 130 files, 10.1 MB) — see [`docs/deposit.md`](docs/deposit.md)
 for what is inside each record and how to verify the checksums. Citation metadata is in
 [`CITATION.cff`](CITATION.cff).
 
