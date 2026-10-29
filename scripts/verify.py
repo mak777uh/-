@@ -54,6 +54,12 @@ def main() -> int:
         ("ссылки на разделы рукописи", [PY, "scripts/check_section_refs.py"], None),
         ("витрина не отстаёт от результатов", [PY, "scripts/check_readme_fresh.py"], None),
         ("ревью оформлены как проверки", [PY, "scripts/check_reviews.py"], None),
+        # 29.10, крестовый аудит herness (находка 3): AGENTS §3c называет этот гейт гейтом, а make verify
+        # его не звал — читатель считал проверку включённой. Теперь зовёт.
+        ("определения метрик совпадают с реализацией", [PY, "scripts/check_metric_definitions.py"], None),
+        # 29.10, крестовый аудит herness (находка 2): cross-audit/ содержал числа и утверждения, которые
+        # не читал ни один страж. Теперь у файлов аудита обязателен маркер «не наше утверждение».
+        ("аудиты помечены как внешние", [PY, "scripts/check_cross_audit.py"], None),
     ]
     failures = 0
     print("=" * 72)

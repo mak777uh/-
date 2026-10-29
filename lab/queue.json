@@ -1676,6 +1676,18 @@
       "claimed_at": null,
       "heartbeat_at": null,
       "note": "из крестового аудита lexspec (M-2): спека — единственный носитель требований; если их две, читатель не узнает действующую"
+    },
+    {
+      "id": "X3_claims_expect_column",
+      "title": "Колонка ожидаемого значения в матрице утверждений (сверка числа с артефактом)",
+      "status": "planned",
+      "owner": "lead",
+      "cost_gpu_h": 0.0,
+      "ttl_minutes": 240,
+      "hypothesis": null,
+      "claimed_at": null,
+      "heartbeat_at": null,
+      "note": "из крестового аудита herness (находка 1, K115): claims_lint сверяет наличие и тип, но не значение. Добавить поле expect (число или регулярка) и сверять его с артефактом прямо в claims_lint"
     }
   ]
 }
