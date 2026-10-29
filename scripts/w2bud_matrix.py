@@ -210,8 +210,10 @@ def analyse(path: Path) -> dict | None:
     csteps = {str(k): int(v) for k, v in (summary.get("lineage_cell_steps") or {}).items()}
 
     def manip_rho_of(field: dict[str, float]) -> float | None:
+        # 29.10: у контрольных прогонов без разнообразия (например, нуль при p=0.05) признака может не быть
+        # вовсе — тогда линия без trait просто не входит в корреляцию, а не роняет агрегат целиком.
         pairs = [(traits[t], field[t]) for t in cells
-                 if t in field and cells[t] > 0 and field[t] > 0]
+                 if t in traits and t in field and cells[t] > 0 and field[t] > 0]
         return spearman(pairs) if len(pairs) >= 3 else None
 
     # (а) энергонезависимая: сколько РАЗ клетки линии инвестировали, на клетку
