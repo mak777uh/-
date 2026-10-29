@@ -83,6 +83,12 @@ def main(argv=None) -> int:
     ap.add_argument("--k", type=float, default=0.06)
     ap.add_argument("--eps", type=float, default=0.5,
                     help="влияние состава на рост: F_eff = F*(1+eps*(s - s_ref)), зажато в [0.5, 1.5]")
+    ap.add_argument("--hetero-amp", type=float, default=0.0,
+                    help="E7: сила пространственной неоднородности притока: F(x,y) = F*(1 + amp*(2S(t)-1)*(2G(x,y)-1))")
+    ap.add_argument("--hetero-scale", type=float, default=12.0, help="масштаб пространственного узора G (клеток)")
+    ap.add_argument("--hetero-signal", default=None,
+                    help="файл со значениями S(t) в 0..1 (дамп с железа); без него S = 0.5 (статичный узор)")
+    ap.add_argument("--hetero-shuffle", action="store_true", help="перемешать S(t) по времени — контроль структуры")
     ap.add_argument("--freq-dep", type=float, default=0.0,
                     help="E6e: частотная зависимость — защита слабеет с ростом доли похожих составов: "
                          "beta_eff = beta·(1 − freq_dep·share)")
@@ -114,6 +120,19 @@ def main(argv=None) -> int:
     u = torch.where(m, torch.full_like(u, 0.25), u)
 
     rng = np.random.default_rng(int(args.seed))
+    # E7: пространственный узор G (фиксирован) и временной сигнал S(t)
+    hetero_G = None
+    hetero_S = None
+    if args.hetero_amp > 0:
+        ky, kx = 2.0 * np.pi / max(2.0, args.hetero_scale), 2.0 * np.pi / max(2.0, args.hetero_scale)
+        hetero_G = (np.sin(ky * np.arange(g))[:, None] * np.cos(kx * np.arange(g))[None, :] + 1.0) / 2.0
+        if args.hetero_signal:
+            raw = json.loads(Path(args.hetero_signal).read_text(encoding="utf-8")).get("values") or []
+            hetero_S = list(raw)
+            if args.hetero_shuffle and hetero_S:
+                rng.shuffle(hetero_S)
+        else:
+            hetero_S = None  # статичный узор (S = 0.5)
     next_id = 1
     # состав: id компоненты → s
     comp_s: dict[int, float] = {}
@@ -147,6 +166,14 @@ def main(argv=None) -> int:
             mod_k = torch.tensor(modk_np, device=dev)
         F_eff = args.F * mod
         k_eff = args.k * mod_k
+        if hetero_G is not None and args.hetero_amp > 0:
+            s_t = 0.5
+            if hetero_S:
+                idx = int(round((step - 1) / max(1, args.steps - 1) * (len(hetero_S) - 1)))
+                s_t = float(hetero_S[max(0, min(len(hetero_S) - 1, idx))])
+            g_t = torch.tensor(hetero_G, device=dev, dtype=torch.float32)
+            spatial = (2.0 * g_t - 1.0) * (2.0 * s_t - 1.0)
+            F_eff = F_eff * (1.0 + args.hetero_amp * spatial)
 
         uvv = u * v * v
         du = args.Du * laplacian(u) - uvv + F_eff * (1.0 - u)
@@ -228,6 +255,13 @@ def main(argv=None) -> int:
             "splits": splits,
             "parent_child_pairs": len(pairs),
             "inheritability_r": round(r_parent, 3) if r_parent is not None else None,
+        },
+        "heterogeneity": {
+            "amp": args.hetero_amp,
+            "scale": args.hetero_scale,
+            "signal": args.hetero_signal,
+            "shuffled": bool(args.hetero_shuffle),
+            "components_last": series[-1]["components"] if series else 0,
         },
         "criteria": {
             "S1_shift_gt_2sd": None,
