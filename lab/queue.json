@@ -4,6 +4,684 @@
   "note": "Очередь пунктов после E02c. Claim берётся до пре-регистрации, а не перед запуском: lab.py item-claim. Статус running означает занятый GPU-лейн и может быть только у одного пункта. | 25.10: добавлено поле impact (1-5) — приоритет конвейера = impact/max(cost_gpu_h,0.1); для запуска пункту нужны prereg (закоммиченный план) и launch.command+outdir.",
   "items": [
     {
+      "id": "E02c_dynamics",
+      "title": "Динамика класса: struct_2 как транзиторная фаза траектории обучения",
+      "hypothesis": "H-E02C-2",
+      "status": "planned",
+      "owner": null,
+      "claimed_at": null,
+      "heartbeat_at": null,
+      "closed_at": null,
+      "ttl_minutes": 240,
+      "cost_gpu_h": 2.5,
+      "gated_by": "E02c_seed42_repro",
+      "artifacts": [],
+      "note": "Снимки 500/1000/1500, скрининг 16 стартов на снимок; полная перепись только там, где всплыл struct_2.",
+      "impact": 2
+    },
+    {
+      "id": "E02c_frequency_pilot",
+      "title": "Пилот частоты struct_2 на 10 новых тренировочных сидах",
+      "hypothesis": "H-E02C-3",
+      "status": "planned",
+      "owner": null,
+      "claimed_at": null,
+      "heartbeat_at": null,
+      "closed_at": null,
+      "ttl_minutes": 240,
+      "cost_gpu_h": 6.0,
+      "gated_by": "E02c_seed_decomposition",
+      "artifacts": [],
+      "note": "Гейт для 100-сидового sweep: верхняя граница CI ниже 20% — расширение отменяется.",
+      "impact": 1
+    },
+    {
+      "id": "E02d_sweep",
+      "title": "Sweep на 100 тренировочных сидах: точная частота и поиск новых классов",
+      "hypothesis": null,
+      "status": "planned",
+      "owner": null,
+      "claimed_at": null,
+      "heartbeat_at": null,
+      "closed_at": null,
+      "ttl_minutes": 240,
+      "cost_gpu_h": 52.0,
+      "gated_by": "E02c_frequency_pilot",
+      "artifacts": [],
+      "note": "Не стартует без плана диска и retention (~50 ГБ весов при 15 ГБ свободных).",
+      "impact": 1
+    },
+    {
+      "id": "E02c_repro_torch211",
+      "title": "Seed42 на torch 2.11.0+cu130 при том же GPU: версия фреймворка или железо",
+      "hypothesis": "H-REPRO-2",
+      "status": "planned",
+      "owner": null,
+      "claimed_at": null,
+      "heartbeat_at": null,
+      "closed_at": null,
+      "ttl_minutes": 240,
+      "cost_gpu_h": 0.8,
+      "gated_by": null,
+      "artifacts": [
+        "reports/2026-10-22-e02c-repro-torch211-plan.md"
+      ],
+      "note": "Заблокировано сетью: колесо torch 2.11.0+cu130 (1915 МБ) не скачивается (прокси 10.229.103.243:10809 отдаёт метаданные, но тело стоит на нуле — проверено pip и curl). Альтернатива: обратный опыт на Colab (T4 + torch 2.6.0+cu124).",
+      "closed_by": null,
+      "impact": 3
+    },
+    {
+      "id": "night_repro_5_6",
+      "title": "Ночная программа: общность переключателя TF32 (сиды 101/202) и достижимость struct_2 в FP32",
+      "hypothesis": "H-REPRO-5",
+      "status": "planned",
+      "owner": null,
+      "claimed_at": null,
+      "heartbeat_at": null,
+      "closed_at": null,
+      "ttl_minutes": 600,
+      "cost_gpu_h": 5.5,
+      "gated_by": null,
+      "artifacts": [
+        "reports/2026-10-22-night-program-plan.md"
+      ],
+      "note": "H-REPRO-6 (сиды 101/202 при TF32=off) + H-REPRO-5 (FP32: 4000 шагов и data404; контроль TF32-4000). Критерии закоммичены до старта. Ждёт GPU-лейн: сейчас его держит E02b_lesion_minimal (lead); скрипт _hourly/run_night_2026-10-22.ps1 сам ждёт ноль замков и стартует.",
+      "closed_by": null,
+      "impact": 2
+    },
+    {
+      "id": "E02c_init_basin",
+      "title": "Бассейн инициализации 42: 6 случайных порядков данных (H-E02C-8)",
+      "hypothesis": "H-E02C-8",
+      "status": "planned",
+      "owner": null,
+      "claimed_at": null,
+      "heartbeat_at": null,
+      "closed_at": null,
+      "ttl_minutes": 480,
+      "cost_gpu_h": 3.8,
+      "gated_by": null,
+      "artifacts": [
+        "reports/2026-10-22-init-basin-plan.md"
+      ],
+      "note": "Пре-регистрация готова, критерий зафиксирован: struct_2 >= 52/64 в >= 3 из 6 клеток — бассейн; <= 1 из 6 — совпадение. БЛОКИРОВАНО: новая тренировочная волна (~3 ч 50 мин), нужно решение владельца (AGENTS §3/§7).",
+      "impact": 2
+    },
+    {
+      "id": "V2_catastrophe_priority",
+      "title": "Катастрофы снимают эффект приоритета (инвазия)",
+      "hypothesis": "H-ALIVE-13",
+      "status": "planned",
+      "owner": null,
+      "claimed_at": null,
+      "heartbeat_at": null,
+      "closed_at": null,
+      "ttl_minutes": 240,
+      "cost_gpu_h": 0.4,
+      "gated_by": null,
+      "artifacts": [
+        "docs/plan-verification-2026-10-24.md"
+      ],
+      "note": "из плана проверок 24.10",
+      "impact": 2
+    },
+    {
+      "id": "V3_meta_L0_transfer",
+      "title": "L0: замороженное правило на 10 средах (kill-switch мета-серии)",
+      "hypothesis": "H-ALIVE-14",
+      "status": "planned",
+      "owner": null,
+      "claimed_at": null,
+      "heartbeat_at": null,
+      "closed_at": null,
+      "ttl_minutes": 240,
+      "cost_gpu_h": 1.0,
+      "gated_by": null,
+      "artifacts": [
+        "docs/plan-verification-2026-10-24.md"
+      ],
+      "note": "из плана проверок 24.10",
+      "impact": 2
+    },
+    {
+      "id": "V5_fixation_fixed_N",
+      "title": "Фиксация типа при фиксированном N (сверка с voter-теорией)",
+      "hypothesis": "H-ALIVE-15",
+      "status": "planned",
+      "owner": null,
+      "claimed_at": null,
+      "heartbeat_at": null,
+      "closed_at": null,
+      "ttl_minutes": 240,
+      "cost_gpu_h": 2.0,
+      "gated_by": null,
+      "artifacts": [
+        "docs/plan-verification-2026-10-24.md"
+      ],
+      "note": "из плана проверок 24.10",
+      "impact": 3,
+      "unblocks": [
+        "V11_selection_E"
+      ]
+    },
+    {
+      "id": "B2b_half_life",
+      "title": "Полураспад наследия B2: сколько живёт поднятый ресурс после удаления организмов",
+      "hypothesis": "H-ALIVE-16",
+      "status": "planned",
+      "owner": null,
+      "claimed_at": null,
+      "heartbeat_at": null,
+      "closed_at": null,
+      "ttl_minutes": 240,
+      "cost_gpu_h": 0.5,
+      "gated_by": "B2_niche",
+      "artifacts": [
+        "docs/plan-verification-2026-10-24.md"
+      ],
+      "note": "P49-P50: наследие должно переживать удаление организма, иначе это разовое удобство",
+      "impact": 3
+    },
+    {
+      "id": "V9_ecm",
+      "title": "ECM: постоянная пространственная память против затухающей",
+      "hypothesis": "H-ALIVE-22",
+      "status": "planned",
+      "owner": null,
+      "claimed_at": null,
+      "heartbeat_at": null,
+      "closed_at": null,
+      "ttl_minutes": 240,
+      "cost_gpu_h": 1.5,
+      "gated_by": "V8_placement_merge",
+      "artifacts": [
+        "reports/2026-10-24-ecm-plan.md",
+        "morphogenesis/experiments/E09_pond/ecm_matrix.json"
+      ],
+      "note": "пре-регистрация пишется после финиша V8 (world/ заморожен); запуск — только после «ок» владельца: смена физики среды. Плечи: control (смерть = пустота) против ECM (смерть = препятствие); метрики β1 + Boundary Rugosity + классы; 5 сидов",
+      "impact": 2
+    },
+    {
+      "status": "planned",
+      "owner": null,
+      "claimed_at": null,
+      "heartbeat_at": null,
+      "closed_at": null,
+      "ttl_minutes": 240,
+      "id": "V11_selection_E",
+      "title": "Условие E: признак читается миром",
+      "hypothesis": "H-ALIVE-24",
+      "cost_gpu_h": 2.0,
+      "gated_by": "V10_propagule",
+      "artifacts": [
+        "reports/2026-10-24-selection-plan.md"
+      ],
+      "note": "смена постановки: признак влияет на один параметр; запуск после «ок» владельца",
+      "impact": 5
+    },
+    {
+      "status": "planned",
+      "owner": null,
+      "claimed_at": null,
+      "heartbeat_at": null,
+      "closed_at": null,
+      "ttl_minutes": 240,
+      "id": "V12_c_sufficiency",
+      "title": "Достаточность наследования среды: kill-and-keep",
+      "hypothesis": "H-ALIVE-25",
+      "cost_gpu_h": 1.0,
+      "gated_by": "V10_propagule",
+      "artifacts": [
+        "reports/2026-10-24-killkeep-plan.md"
+      ],
+      "note": "закрывает условие C: выгода следующей когорты, а не только след",
+      "impact": 4,
+      "unblocks": [
+        "V11_selection_E"
+      ]
+    },
+    {
+      "status": "planned",
+      "owner": null,
+      "claimed_at": null,
+      "heartbeat_at": null,
+      "closed_at": null,
+      "ttl_minutes": 240,
+      "id": "V13_radial_gradient",
+      "title": "Радиальный градиент: нарушение симметрии средой",
+      "hypothesis": "H-ALIVE-26",
+      "cost_gpu_h": 0.7,
+      "gated_by": null,
+      "artifacts": [
+        "morphogenesis/experiments/E09_pond/radial_matrix.json"
+      ],
+      "note": "требует патча логгера (карта alive) для beta1/Rugosity; 30-40 мин GPU",
+      "impact": 2
+    },
+    {
+      "status": "planned",
+      "owner": null,
+      "claimed_at": null,
+      "heartbeat_at": null,
+      "closed_at": null,
+      "ttl_minutes": 240,
+      "id": "V14_live_signal",
+      "title": "D-45: живой сигнал мира против суррогата и задержки",
+      "hypothesis": "H-ALIVE-27",
+      "cost_gpu_h": 2.0,
+      "gated_by": "V10_propagule",
+      "artifacts": [
+        "reports/2026-10-24-live-signal-plan.md"
+      ],
+      "note": "источники проверены: микрофон (rms 0.0208), RTT 95-166 мс, NOAA 1/мин; патч логгера нужен для метрик; 3 сессии",
+      "impact": 2
+    },
+    {
+      "status": "planned",
+      "owner": null,
+      "claimed_at": null,
+      "heartbeat_at": null,
+      "closed_at": null,
+      "ttl_minutes": 240,
+      "id": "V15_logger_maps",
+      "title": "Патч логгера: карта alive 32x32 + метка класса",
+      "hypothesis": null,
+      "cost_gpu_h": 0.0,
+      "gated_by": null,
+      "artifacts": [],
+      "note": "разблокирует beta1/Rugosity для ECM, D-39, D-44, D-45; аддитивное поле, старые артефакты не переписываются",
+      "impact": 3
+    },
+    {
+      "id": "W2bud_replication",
+      "title": "Воспроизведение W2-bud на новых сидах и новой раскладке ресурса",
+      "hypothesis": "H-ALIVE-37",
+      "status": "planned",
+      "owner": null,
+      "claimed_at": null,
+      "heartbeat_at": null,
+      "closed_at": null,
+      "ttl_minutes": 240,
+      "cost_gpu_h": 1.5,
+      "impact": 5,
+      "gated_by": [],
+      "unblocks": [
+        "W2bud_param_sweep"
+      ],
+      "prereg": null,
+      "launch": null,
+      "artifacts": [],
+      "note": "сиды 101-110 (не использовались при разработке) + другая раскладка ресурса; критерий S и C по тем же порогам; обязательный проход по docs/optimality.md 2.1"
+    },
+    {
+      "id": "W2bud_param_sweep",
+      "title": "Устойчивость W2-bud к разумным изменениям параметров (4 конфигурации)",
+      "hypothesis": "H-ALIVE-38",
+      "status": "planned",
+      "owner": null,
+      "claimed_at": null,
+      "heartbeat_at": null,
+      "closed_at": null,
+      "ttl_minutes": 360,
+      "cost_gpu_h": 2.5,
+      "impact": 4,
+      "gated_by": [
+        "W2bud_replication"
+      ],
+      "unblocks": [],
+      "prereg": null,
+      "launch": null,
+      "artifacts": [],
+      "note": "mutation_rate x2, 900 шагов, eps 6, сетка 48; сетка фиксируется до запуска (docs/optimality.md 2.2)"
+    },
+    {
+      "id": "W2bud_metric_variants",
+      "title": "Инвариантность эффектов W2-bud к устройству метрики",
+      "hypothesis": "H-ALIVE-39",
+      "status": "planned",
+      "owner": null,
+      "claimed_at": null,
+      "heartbeat_at": null,
+      "closed_at": null,
+      "ttl_minutes": 120,
+      "cost_gpu_h": 0.0,
+      "impact": 4,
+      "gated_by": [],
+      "unblocks": [],
+      "prereg": null,
+      "launch": null,
+      "artifacts": [],
+      "note": "только пересчёт существующих артефактов: 3 варианта w, 3 порога линий, 2 нуль-модели (docs/optimality.md 2.3)"
+    },
+    {
+      "id": "conditions_measure",
+      "title": "Общая мера оптимальности: P/H/S/R/C по всем мирам",
+      "hypothesis": "H-ALIVE-40",
+      "status": "planned",
+      "owner": null,
+      "claimed_at": null,
+      "heartbeat_at": null,
+      "closed_at": null,
+      "ttl_minutes": 120,
+      "cost_gpu_h": 0.0,
+      "impact": 3,
+      "gated_by": [],
+      "unblocks": [],
+      "prereg": null,
+      "launch": null,
+      "artifacts": [],
+      "note": "docs/optimality.md раздел 1; таблица держится в актуальном виде"
+    },
+    {
+      "id": "metrics_library_common",
+      "title": "Общий модуль метрик: Уилсон, MI, beta1 — один код, один тест, без ручных повторов",
+      "hypothesis": "H-ALIVE-40",
+      "status": "planned",
+      "owner": null,
+      "claimed_at": null,
+      "heartbeat_at": null,
+      "closed_at": null,
+      "ttl_minutes": 120,
+      "cost_gpu_h": 0.0,
+      "impact": 3,
+      "gated_by": [],
+      "unblocks": [
+        "conditions_measure"
+      ],
+      "prereg": null,
+      "launch": null,
+      "artifacts": [],
+      "note": "B-067/068/069: Уилсон считается в 4 файлах руками, MI гистограммная с bins=8 (смещена), beta1 вручную; нужен один модуль + тесты + строка об ограничении в методах"
+    },
+    {
+      "id": "H61_price_calibration",
+      "title": "Цена в единицах поля: перевести −0.374 в эквивалентный коэффициент отбора",
+      "hypothesis": null,
+      "status": "planned",
+      "owner": "lead",
+      "note": "анализ без GPU: нейтральная эталонная модель и наблюдаемая доля фиксаций дают масштаб",
+      "claimed_at": null,
+      "heartbeat_at": null,
+      "ttl_minutes": 240,
+      "cost_gpu_h": 0.0
+    },
+    {
+      "id": "K1_schedule_replay",
+      "title": "Реплей записанного расписания обновлений без внешнего источника",
+      "status": "planned",
+      "cost_gpu_h": 0.5,
+      "ttl_minutes": 180,
+      "note": "если живой прогон ≈ реплей, внешний источник не нужен — работает расписание (совет 4 из 5 моделей)",
+      "hypothesis": null,
+      "owner": "lead",
+      "claimed_at": null,
+      "heartbeat_at": null
+    },
+    {
+      "id": "K2_invasion",
+      "title": "Инвазия редкой линии в сложившееся сообщество + событийное время",
+      "status": "planned",
+      "cost_gpu_h": 1.0,
+      "ttl_minutes": 240,
+      "note": "отличает сосуществование от отсрочки исключения; главный убийственный контроль",
+      "hypothesis": null,
+      "owner": "lead",
+      "claimed_at": null,
+      "heartbeat_at": null
+    },
+    {
+      "id": "K3_surrogates",
+      "title": "Суррогаты: спектр, амплитуда, перестановка, доля тишины, выравненная средняя p",
+      "status": "planned",
+      "cost_gpu_h": 1.5,
+      "ttl_minutes": 300,
+      "note": "отличает влияние статистики входа от процедуры нормировки",
+      "hypothesis": null,
+      "owner": "lead",
+      "claimed_at": null,
+      "heartbeat_at": null
+    },
+    {
+      "id": "P1_event_logs",
+      "title": "Счётчики событий (обновления/рождения/смерти) + ID основателя",
+      "status": "planned",
+      "cost_gpu_h": 0.0,
+      "note": "предпосылка всех шагов: founder ID каждой клетки, счётчики обновлений/рождений/смертей, нейтральные сентинелы (2–4 набора по 8 клеток) в каждом прогоне. Правит мир ⇒ после финиша горизонта",
+      "hypothesis": null,
+      "owner": "lead",
+      "claimed_at": null,
+      "heartbeat_at": null,
+      "ttl_minutes": 300
+    },
+    {
+      "id": "P2_K1_replay",
+      "title": "K1: реплей расписания + три плеча пауз (обычная/полная заморозка/без пауз) + фазовые сдвиги",
+      "status": "planned",
+      "cost_gpu_h": 2.0,
+      "note": "решает: пауза — механизм или перемасштабирование времени",
+      "hypothesis": null,
+      "owner": "lead",
+      "claimed_at": null,
+      "heartbeat_at": null,
+      "ttl_minutes": 300
+    },
+    {
+      "id": "P5_label_churn",
+      "title": "Чоуз без новых меток (3600 шагов/10 поколений) + скан по μ",
+      "status": "planned",
+      "cost_gpu_h": 1.5,
+      "note": "отделяет сосуществование от оборота меток",
+      "hypothesis": null,
+      "owner": "lead",
+      "claimed_at": null,
+      "heartbeat_at": null,
+      "ttl_minutes": 300
+    },
+    {
+      "id": "H64_live_vs_recorded",
+      "title": "Живой сигнал против записи: net/crypto (разомкнуто) и CPU (замкнуто)",
+      "status": "planned",
+      "owner": "lead",
+      "cost_gpu_h": 3.0,
+      "ttl_minutes": 300,
+      "hypothesis": null,
+      "claimed_at": null,
+      "heartbeat_at": null,
+      "note": "P-008: живое разомкнутое = запись (проверка конвейера); различает либо обратная связь (cpu_live), либо нестационарность между сессиями; 4 сессии × 4 мира"
+    },
+    {
+      "id": "H65_feedback_loop",
+      "title": "Обратная связь: мир как источник собственного сигнала (neg/pos/zero/cpu)",
+      "status": "planned",
+      "owner": "lead",
+      "cost_gpu_h": 2.5,
+      "ttl_minutes": 300,
+      "hypothesis": null,
+      "claimed_at": null,
+      "heartbeat_at": null,
+      "note": "P-009: neg повышает разнообразие И снижает амплитуду; pos ускоряет монополию; cpu — проверка, не является ли загрузка машины значимым каналом (тогда прежние серии перечитываются)"
+    },
+    {
+      "id": "H66_stigmergy",
+      "title": "След как среда: стигмергия (write/decay/read) вместо внешнего потока",
+      "status": "planned",
+      "owner": "lead",
+      "cost_gpu_h": 2.0,
+      "ttl_minutes": 300,
+      "hypothesis": null,
+      "claimed_at": null,
+      "heartbeat_at": null,
+      "note": "P-012: след с затуханием и торможением должен дать пространственную асинхронность; без затухания — монополию"
+    },
+    {
+      "id": "H67_soft_update",
+      "title": "Мягкое обновление против двоичного (урок остаточного потока трансформера)",
+      "status": "planned",
+      "owner": "lead",
+      "cost_gpu_h": 1.5,
+      "ttl_minutes": 300,
+      "hypothesis": null,
+      "claimed_at": null,
+      "heartbeat_at": null,
+      "note": "P-013: если soft > hard при том же p, то важна не только частота, но и величина шага"
+    },
+    {
+      "id": "H68_memory",
+      "title": "Память: среда / клетка / линия / мир + тест гистерезиса",
+      "status": "planned",
+      "owner": "lead",
+      "cost_gpu_h": 3.0,
+      "ttl_minutes": 300,
+      "hypothesis": null,
+      "claimed_at": null,
+      "heartbeat_at": null,
+      "note": "P-014: тормоз у успешных повышает сосуществование, награда ускоряет монополию; гистерезис проверяется одинаковым входом на шагах 300 и 900"
+    },
+    {
+      "id": "H69_sensitivity",
+      "title": "Градиент чувствительности: связь → энтрейнмент → энергия → живость",
+      "status": "planned",
+      "owner": "lead",
+      "cost_gpu_h": 3.5,
+      "ttl_minutes": 400,
+      "hypothesis": null,
+      "claimed_at": null,
+      "heartbeat_at": null,
+      "note": "P-015: при выровненном среднем p проверить, растёт ли энтрейнмент и энергия с c, и есть ли максимум живости"
+    },
+    {
+      "id": "H70_I_at_1800",
+      "title": "Пересчёт возможности отбора I на горизонте 1800 с нулём i_null (B-091, вторая половина)",
+      "status": "planned",
+      "owner": "lead",
+      "cost_gpu_h": 0.0,
+      "ttl_minutes": 240,
+      "hypothesis": null,
+      "claimed_at": null,
+      "heartbeat_at": null,
+      "note": "считается из готовых артефактов w2bud_horizon: I = Var(w)/mean(w)^2 по линиям с данными, нуль — library/tools/i_null.py; критерий §3c: I_obs > I_null(95 %). Без GPU, только анализ."
+    },
+    {
+      "id": "H71_hardware",
+      "title": "Физиология железа: взаимность, собственный след, чужая нагрузка",
+      "status": "planned",
+      "owner": "lead",
+      "cost_gpu_h": 3.0,
+      "ttl_minutes": 400,
+      "hypothesis": null,
+      "claimed_at": null,
+      "heartbeat_at": null,
+      "note": "P-017: взаимность > 0 и растёт с размером мира (32 против 64) — проверка причинности канала без интернета"
+    },
+    {
+      "id": "H72_heartbeat",
+      "title": "Живая петля с железом: взаимность и сердцебиение против реплея",
+      "status": "planned",
+      "owner": "lead",
+      "cost_gpu_h": 3.0,
+      "ttl_minutes": 400,
+      "hypothesis": null,
+      "claimed_at": null,
+      "heartbeat_at": null,
+      "note": "P-018: взаимность > 0 и собственная периодичность только в живой петле; реплей того же дампа — контроль"
+    },
+    {
+      "id": "H75_object_ladder",
+      "title": "Лестница L0-L3 и абляция объекта: среда или наша клетка",
+      "status": "planned",
+      "owner": "lead",
+      "cost_gpu_h": 6.0,
+      "ttl_minutes": 480,
+      "hypothesis": null,
+      "claimed_at": null,
+      "heartbeat_at": null,
+      "note": "P-020: ёмкость и темп должны сохраниться, инвазия и площадка — возможно, свойства объекта; начинать с L1 (obj_simple без NCA)"
+    },
+    {
+      "id": "E5_live_loop",
+      "title": "Живая двусторонняя петля с железом против реплея (синхронный опрос, окно 5 с)",
+      "status": "planned",
+      "owner": "lead",
+      "cost_gpu_h": 3.0,
+      "ttl_minutes": 480,
+      "hypothesis": null,
+      "claimed_at": null,
+      "heartbeat_at": null,
+      "note": "импакт-порядок E5 (reports/2026-10-29-impact-order.md)"
+    },
+    {
+      "id": "E6_field_confirm",
+      "title": "Поле: подтверждение критерия на новых параметрах + наследование состава",
+      "status": "planned",
+      "owner": "lead",
+      "cost_gpu_h": 4.0,
+      "ttl_minutes": 480,
+      "hypothesis": null,
+      "claimed_at": null,
+      "heartbeat_at": null,
+      "note": "импакт-порядок E6 (reports/2026-10-29-impact-order.md)"
+    },
+    {
+      "id": "X1_readme_commands_in_ci",
+      "title": "Гейт: команды из README действительно запускаются в CI",
+      "status": "planned",
+      "owner": "lead",
+      "cost_gpu_h": 0.0,
+      "ttl_minutes": 240,
+      "hypothesis": null,
+      "claimed_at": null,
+      "heartbeat_at": null,
+      "note": "из крестового аудита lexspec (M-1): «тесты зелёные» — утверждение о последнем запуске, а не о дереве; проверять машинно, что объявленная в README команда присутствует шагом в workflow"
+    },
+    {
+      "id": "X2_single_authoritative_spec",
+      "title": "Гейт: нет двух файлов, объявляющих одну версию требований",
+      "status": "planned",
+      "owner": "lead",
+      "cost_gpu_h": 0.0,
+      "ttl_minutes": 240,
+      "hypothesis": null,
+      "claimed_at": null,
+      "heartbeat_at": null,
+      "note": "из крестового аудита lexspec (M-2): спека — единственный носитель требований; если их две, читатель не узнает действующую"
+    },
+    {
+      "id": "X3_claims_expect_column",
+      "title": "Колонка ожидаемого значения в матрице утверждений (сверка числа с артефактом)",
+      "status": "planned",
+      "owner": "lead",
+      "cost_gpu_h": 0.0,
+      "ttl_minutes": 240,
+      "hypothesis": null,
+      "claimed_at": null,
+      "heartbeat_at": null,
+      "note": "из крестового аудита herness (находка 1, K115): claims_lint сверяет наличие и тип, но не значение. Добавить поле expect (число или регулярка) и сверять его с артефактом прямо в claims_lint"
+    },
+    {
+      "id": "E6c_tracked_inheritance",
+      "title": "Поле + отслеживание компонент: настоящее наследование состава (L3)",
+      "status": "planned",
+      "owner": "lead",
+      "cost_gpu_h": 4.0,
+      "ttl_minutes": 360,
+      "hypothesis": null,
+      "claimed_at": null,
+      "heartbeat_at": null,
+      "note": "пре-регистрация reports/2026-10-29-e6c-inheritance-plan.md: S1 сдвиг > 2 sd, S2 наследуемость r ≥ 0.5, S3 устойчивость к удвоению горизонта, S4 контроль eps=0. Гипотеза не заведена в registry как H-*, потому что линия новая и решение о её гипотезах за владельцем"
+    },
+    {
+      "id": "X6_board_backlog",
+      "title": "Сессия разбора доски: 23 залежавшихся замечания (принято, но не внедрено)",
+      "status": "planned",
+      "owner": "lead",
+      "cost_gpu_h": 0.0,
+      "ttl_minutes": 240,
+      "hypothesis": null,
+      "claimed_at": null,
+      "heartbeat_at": null,
+      "note": "гейт доски потребовал разбора: 23 замечания приняты 25-27.10 и не внедрены. Для каждого решить: внедрить (с записью где), отклонить (с причиной), или отложить с конкретным триггером. Это не формальность: доска — очередь методик, и «принято без действия» означает, что мы её не читаем"
+    },
+    {
       "id": "E02c_seed42_repro",
       "title": "Повтор обучения seed42 замороженным кодом: воспроизводится ли struct_2",
       "hypothesis": null,
@@ -43,22 +721,6 @@
       ],
       "note": "закрыто по §6: A uniform_dark 64/64, B struct_1 64/64, struct_2 0/64 в обоих; фактор не разделён, сильная форма 'нужны оба' не заявляется. Отчёт, статья 009, README, рукопись §4.8, registry — на месте.",
       "closed_by": "analyst"
-    },
-    {
-      "id": "E02c_dynamics",
-      "title": "Динамика класса: struct_2 как транзиторная фаза траектории обучения",
-      "hypothesis": "H-E02C-2",
-      "status": "planned",
-      "owner": null,
-      "claimed_at": null,
-      "heartbeat_at": null,
-      "closed_at": null,
-      "ttl_minutes": 240,
-      "cost_gpu_h": 2.5,
-      "gated_by": "E02c_seed42_repro",
-      "artifacts": [],
-      "note": "Снимки 500/1000/1500, скрининг 16 стартов на снимок; полная перепись только там, где всплыл struct_2.",
-      "impact": 2
     },
     {
       "id": "E02b_alive_open",
@@ -131,22 +793,6 @@
       "closed_by": "lead"
     },
     {
-      "id": "E02c_frequency_pilot",
-      "title": "Пилот частоты struct_2 на 10 новых тренировочных сидах",
-      "hypothesis": "H-E02C-3",
-      "status": "planned",
-      "owner": null,
-      "claimed_at": null,
-      "heartbeat_at": null,
-      "closed_at": null,
-      "ttl_minutes": 240,
-      "cost_gpu_h": 6.0,
-      "gated_by": "E02c_seed_decomposition",
-      "artifacts": [],
-      "note": "Гейт для 100-сидового sweep: верхняя граница CI ниже 20% — расширение отменяется.",
-      "impact": 1
-    },
-    {
       "id": "repro_independent",
       "title": "Независимое воспроизведение переписи на другом стеке (lite-чекпоинты, Kaggle)",
       "hypothesis": null,
@@ -167,22 +813,6 @@
       ],
       "note": "H-REPRO-1 отвергнута: на Colab T4 тот же рецепт и сид дали uniform_dark 64/64 вместо struct_2 64/64; untrained-контроль struct_1 64/64; сырые артефакты T4 внешние. Отчёт reports/2026-10-22-colab-t4-repro-results.md, статья 013, рукопись §4.12 (v0.13). Механизм не установлен: H-REPRO-2 (torch 2.6.0+cu124 на T4) и H-REPRO-3 (повтор на T4) записаны как planned; подача требует решения владельца о условном по стеку утверждении.",
       "closed_by": "lead"
-    },
-    {
-      "id": "E02d_sweep",
-      "title": "Sweep на 100 тренировочных сидах: точная частота и поиск новых классов",
-      "hypothesis": null,
-      "status": "planned",
-      "owner": null,
-      "claimed_at": null,
-      "heartbeat_at": null,
-      "closed_at": null,
-      "ttl_minutes": 240,
-      "cost_gpu_h": 52.0,
-      "gated_by": "E02c_frequency_pilot",
-      "artifacts": [],
-      "note": "Не стартует без плана диска и retention (~50 ГБ весов при 15 ГБ свободных).",
-      "impact": 1
     },
     {
       "id": "E02b_lesion_minimal",
@@ -224,25 +854,6 @@
       "note": "Обучение четырёх клеток (42/202, 42/303, 101/202, 101/303) вёл analyst; перепись волны запущена дважды по ошибке, дубль снят, попытка закрыта как aborted (start без finish), перепись перезапущена прогоном E02c_seeddec_census_wave2_run (384 развёртки, 42 мин). Вердикт по замороженному критерию: H-E02C-6 опровергнута — init=101 не фиксирует класс, при init=42 struct_2 даёт 63/64 и 60/64. Claim взят пост-фактум, так как бег шёл в чужой волне; закрытие и тексты — lead."
     },
     {
-      "id": "E02c_repro_torch211",
-      "title": "Seed42 на torch 2.11.0+cu130 при том же GPU: версия фреймворка или железо",
-      "hypothesis": "H-REPRO-2",
-      "status": "planned",
-      "owner": null,
-      "claimed_at": null,
-      "heartbeat_at": null,
-      "closed_at": null,
-      "ttl_minutes": 240,
-      "cost_gpu_h": 0.8,
-      "gated_by": null,
-      "artifacts": [
-        "reports/2026-10-22-e02c-repro-torch211-plan.md"
-      ],
-      "note": "Заблокировано сетью: колесо torch 2.11.0+cu130 (1915 МБ) не скачивается (прокси 10.229.103.243:10809 отдаёт метаданные, но тело стоит на нуле — проверено pip и curl). Альтернатива: обратный опыт на Colab (T4 + torch 2.6.0+cu124).",
-      "closed_by": null,
-      "impact": 3
-    },
-    {
       "id": "E02c_repro_tf32",
       "title": "Сид 42 с выключенным TF32: точность свёрток как на T4",
       "hypothesis": "H-REPRO-4",
@@ -261,25 +872,6 @@
       ],
       "note": "H-REPRO-8 подтверждена: TF32=off -> struct_1 64/64, struct_2 0/64; веса разошлись. Точность обучения объясняет исчезновение класса; версия torch для объяснения не нужна.",
       "closed_by": "analyst"
-    },
-    {
-      "id": "night_repro_5_6",
-      "title": "Ночная программа: общность переключателя TF32 (сиды 101/202) и достижимость struct_2 в FP32",
-      "hypothesis": "H-REPRO-5",
-      "status": "planned",
-      "owner": null,
-      "claimed_at": null,
-      "heartbeat_at": null,
-      "closed_at": null,
-      "ttl_minutes": 600,
-      "cost_gpu_h": 5.5,
-      "gated_by": null,
-      "artifacts": [
-        "reports/2026-10-22-night-program-plan.md"
-      ],
-      "note": "H-REPRO-6 (сиды 101/202 при TF32=off) + H-REPRO-5 (FP32: 4000 шагов и data404; контроль TF32-4000). Критерии закоммичены до старта. Ждёт GPU-лейн: сейчас его держит E02b_lesion_minimal (lead); скрипт _hourly/run_night_2026-10-22.ps1 сам ждёт ноль замков и стартует.",
-      "closed_by": null,
-      "impact": 2
     },
     {
       "id": "E02b_lesion_necessity",
@@ -408,24 +1000,6 @@
       "closed_by": "lead"
     },
     {
-      "id": "E02c_init_basin",
-      "title": "Бассейн инициализации 42: 6 случайных порядков данных (H-E02C-8)",
-      "hypothesis": "H-E02C-8",
-      "status": "planned",
-      "owner": null,
-      "claimed_at": null,
-      "heartbeat_at": null,
-      "closed_at": null,
-      "ttl_minutes": 480,
-      "cost_gpu_h": 3.8,
-      "gated_by": null,
-      "artifacts": [
-        "reports/2026-10-22-init-basin-plan.md"
-      ],
-      "note": "Пре-регистрация готова, критерий зафиксирован: struct_2 >= 52/64 в >= 3 из 6 клеток — бассейн; <= 1 из 6 — совпадение. БЛОКИРОВАНО: новая тренировочная волна (~3 ч 50 мин), нужно решение владельца (AGENTS §3/§7).",
-      "impact": 2
-    },
-    {
       "id": "E02b_carrier_ch13",
       "title": "Достаточен ли канал {3} один (H-CH-13)",
       "hypothesis": "H-CH-13",
@@ -484,42 +1058,6 @@
       "closed_by": "lead"
     },
     {
-      "id": "V2_catastrophe_priority",
-      "title": "Катастрофы снимают эффект приоритета (инвазия)",
-      "hypothesis": "H-ALIVE-13",
-      "status": "planned",
-      "owner": null,
-      "claimed_at": null,
-      "heartbeat_at": null,
-      "closed_at": null,
-      "ttl_minutes": 240,
-      "cost_gpu_h": 0.4,
-      "gated_by": null,
-      "artifacts": [
-        "docs/plan-verification-2026-10-24.md"
-      ],
-      "note": "из плана проверок 24.10",
-      "impact": 2
-    },
-    {
-      "id": "V3_meta_L0_transfer",
-      "title": "L0: замороженное правило на 10 средах (kill-switch мета-серии)",
-      "hypothesis": "H-ALIVE-14",
-      "status": "planned",
-      "owner": null,
-      "claimed_at": null,
-      "heartbeat_at": null,
-      "closed_at": null,
-      "ttl_minutes": 240,
-      "cost_gpu_h": 1.0,
-      "gated_by": null,
-      "artifacts": [
-        "docs/plan-verification-2026-10-24.md"
-      ],
-      "note": "из плана проверок 24.10",
-      "impact": 2
-    },
-    {
       "id": "V4_colony_type_invasion",
       "title": "Тип на колонии: проходит ли инвазия редкой колонии",
       "hypothesis": "H-ALIVE-10",
@@ -538,45 +1076,6 @@
       ],
       "note": "закрыто 24.10: дизайн 3, 24 прогона; под наследованием финал 0.0000 12/12 при fd=0 и fd=1 (рост 0.00), random-плечо невалидно 8/24; H-ALIVE-10 отвергнута; судьба основателя не отделена — развёртка по инокуляту вынесена в V6",
       "closed_by": "lead"
-    },
-    {
-      "id": "V5_fixation_fixed_N",
-      "title": "Фиксация типа при фиксированном N (сверка с voter-теорией)",
-      "hypothesis": "H-ALIVE-15",
-      "status": "planned",
-      "owner": null,
-      "claimed_at": null,
-      "heartbeat_at": null,
-      "closed_at": null,
-      "ttl_minutes": 240,
-      "cost_gpu_h": 2.0,
-      "gated_by": null,
-      "artifacts": [
-        "docs/plan-verification-2026-10-24.md"
-      ],
-      "note": "из плана проверок 24.10",
-      "impact": 3,
-      "unblocks": [
-        "V11_selection_E"
-      ]
-    },
-    {
-      "id": "B2b_half_life",
-      "title": "Полураспад наследия B2: сколько живёт поднятый ресурс после удаления организмов",
-      "hypothesis": "H-ALIVE-16",
-      "status": "planned",
-      "owner": null,
-      "claimed_at": null,
-      "heartbeat_at": null,
-      "closed_at": null,
-      "ttl_minutes": 240,
-      "cost_gpu_h": 0.5,
-      "gated_by": "B2_niche",
-      "artifacts": [
-        "docs/plan-verification-2026-10-24.md"
-      ],
-      "note": "P49-P50: наследие должно переживать удаление организма, иначе это разовое удобство",
-      "impact": 3
     },
     {
       "id": "V6_invader_dose",
@@ -637,25 +1136,6 @@
       "closed_by": "scientist"
     },
     {
-      "id": "V9_ecm",
-      "title": "ECM: постоянная пространственная память против затухающей",
-      "hypothesis": "H-ALIVE-22",
-      "status": "planned",
-      "owner": null,
-      "claimed_at": null,
-      "heartbeat_at": null,
-      "closed_at": null,
-      "ttl_minutes": 240,
-      "cost_gpu_h": 1.5,
-      "gated_by": "V8_placement_merge",
-      "artifacts": [
-        "reports/2026-10-24-ecm-plan.md",
-        "morphogenesis/experiments/E09_pond/ecm_matrix.json"
-      ],
-      "note": "пре-регистрация пишется после финиша V8 (world/ заморожен); запуск — только после «ок» владельца: смена физики среды. Плечи: control (смерть = пустота) против ECM (смерть = препятствие); метрики β1 + Boundary Rugosity + классы; 5 сидов",
-      "impact": 2
-    },
-    {
       "status": "closed",
       "owner": "scientist",
       "claimed_at": "2026-10-24T19:13:47Z",
@@ -672,97 +1152,6 @@
       ],
       "note": "закрыто 25.10: 50 прогонов, основание идёт из ОДНОЙ клетки 10/10 на всех дозах; порога в N=1..20 нет; §10af. Якорь с гейтом даёт расхождение с V8 (pop_time 91623 vs 66679) — мир модифицирован, сравнение только внутри серии",
       "closed_by": "scientist"
-    },
-    {
-      "status": "planned",
-      "owner": null,
-      "claimed_at": null,
-      "heartbeat_at": null,
-      "closed_at": null,
-      "ttl_minutes": 240,
-      "id": "V11_selection_E",
-      "title": "Условие E: признак читается миром",
-      "hypothesis": "H-ALIVE-24",
-      "cost_gpu_h": 2.0,
-      "gated_by": "V10_propagule",
-      "artifacts": [
-        "reports/2026-10-24-selection-plan.md"
-      ],
-      "note": "смена постановки: признак влияет на один параметр; запуск после «ок» владельца",
-      "impact": 5
-    },
-    {
-      "status": "planned",
-      "owner": null,
-      "claimed_at": null,
-      "heartbeat_at": null,
-      "closed_at": null,
-      "ttl_minutes": 240,
-      "id": "V12_c_sufficiency",
-      "title": "Достаточность наследования среды: kill-and-keep",
-      "hypothesis": "H-ALIVE-25",
-      "cost_gpu_h": 1.0,
-      "gated_by": "V10_propagule",
-      "artifacts": [
-        "reports/2026-10-24-killkeep-plan.md"
-      ],
-      "note": "закрывает условие C: выгода следующей когорты, а не только след",
-      "impact": 4,
-      "unblocks": [
-        "V11_selection_E"
-      ]
-    },
-    {
-      "status": "planned",
-      "owner": null,
-      "claimed_at": null,
-      "heartbeat_at": null,
-      "closed_at": null,
-      "ttl_minutes": 240,
-      "id": "V13_radial_gradient",
-      "title": "Радиальный градиент: нарушение симметрии средой",
-      "hypothesis": "H-ALIVE-26",
-      "cost_gpu_h": 0.7,
-      "gated_by": null,
-      "artifacts": [
-        "morphogenesis/experiments/E09_pond/radial_matrix.json"
-      ],
-      "note": "требует патча логгера (карта alive) для beta1/Rugosity; 30-40 мин GPU",
-      "impact": 2
-    },
-    {
-      "status": "planned",
-      "owner": null,
-      "claimed_at": null,
-      "heartbeat_at": null,
-      "closed_at": null,
-      "ttl_minutes": 240,
-      "id": "V14_live_signal",
-      "title": "D-45: живой сигнал мира против суррогата и задержки",
-      "hypothesis": "H-ALIVE-27",
-      "cost_gpu_h": 2.0,
-      "gated_by": "V10_propagule",
-      "artifacts": [
-        "reports/2026-10-24-live-signal-plan.md"
-      ],
-      "note": "источники проверены: микрофон (rms 0.0208), RTT 95-166 мс, NOAA 1/мин; патч логгера нужен для метрик; 3 сессии",
-      "impact": 2
-    },
-    {
-      "status": "planned",
-      "owner": null,
-      "claimed_at": null,
-      "heartbeat_at": null,
-      "closed_at": null,
-      "ttl_minutes": 240,
-      "id": "V15_logger_maps",
-      "title": "Патч логгера: карта alive 32x32 + метка класса",
-      "hypothesis": null,
-      "cost_gpu_h": 0.0,
-      "gated_by": null,
-      "artifacts": [],
-      "note": "разблокирует beta1/Rugosity для ECM, D-39, D-44, D-45; аддитивное поле, старые артефакты не переписываются",
-      "impact": 3
     },
     {
       "id": "W2bud_v4_energy_price",
@@ -868,86 +1257,6 @@
       "closed_by": "lead"
     },
     {
-      "id": "W2bud_replication",
-      "title": "Воспроизведение W2-bud на новых сидах и новой раскладке ресурса",
-      "hypothesis": "H-ALIVE-37",
-      "status": "planned",
-      "owner": null,
-      "claimed_at": null,
-      "heartbeat_at": null,
-      "closed_at": null,
-      "ttl_minutes": 240,
-      "cost_gpu_h": 1.5,
-      "impact": 5,
-      "gated_by": [],
-      "unblocks": [
-        "W2bud_param_sweep"
-      ],
-      "prereg": null,
-      "launch": null,
-      "artifacts": [],
-      "note": "сиды 101-110 (не использовались при разработке) + другая раскладка ресурса; критерий S и C по тем же порогам; обязательный проход по docs/optimality.md 2.1"
-    },
-    {
-      "id": "W2bud_param_sweep",
-      "title": "Устойчивость W2-bud к разумным изменениям параметров (4 конфигурации)",
-      "hypothesis": "H-ALIVE-38",
-      "status": "planned",
-      "owner": null,
-      "claimed_at": null,
-      "heartbeat_at": null,
-      "closed_at": null,
-      "ttl_minutes": 360,
-      "cost_gpu_h": 2.5,
-      "impact": 4,
-      "gated_by": [
-        "W2bud_replication"
-      ],
-      "unblocks": [],
-      "prereg": null,
-      "launch": null,
-      "artifacts": [],
-      "note": "mutation_rate x2, 900 шагов, eps 6, сетка 48; сетка фиксируется до запуска (docs/optimality.md 2.2)"
-    },
-    {
-      "id": "W2bud_metric_variants",
-      "title": "Инвариантность эффектов W2-bud к устройству метрики",
-      "hypothesis": "H-ALIVE-39",
-      "status": "planned",
-      "owner": null,
-      "claimed_at": null,
-      "heartbeat_at": null,
-      "closed_at": null,
-      "ttl_minutes": 120,
-      "cost_gpu_h": 0.0,
-      "impact": 4,
-      "gated_by": [],
-      "unblocks": [],
-      "prereg": null,
-      "launch": null,
-      "artifacts": [],
-      "note": "только пересчёт существующих артефактов: 3 варианта w, 3 порога линий, 2 нуль-модели (docs/optimality.md 2.3)"
-    },
-    {
-      "id": "conditions_measure",
-      "title": "Общая мера оптимальности: P/H/S/R/C по всем мирам",
-      "hypothesis": "H-ALIVE-40",
-      "status": "planned",
-      "owner": null,
-      "claimed_at": null,
-      "heartbeat_at": null,
-      "closed_at": null,
-      "ttl_minutes": 120,
-      "cost_gpu_h": 0.0,
-      "impact": 3,
-      "gated_by": [],
-      "unblocks": [],
-      "prereg": null,
-      "launch": null,
-      "artifacts": [],
-      "note": "docs/optimality.md раздел 1; таблица держится в актуальном виде"
-    },
-    {
       "id": "W1_niche_death_return",
       "title": "W1-niche: возврат энергии при смерти как механизм положительного наследия среды",
       "hypothesis": "H-ALIVE-41",
@@ -989,27 +1298,6 @@
       "artifacts": [],
       "note": "20 прогонов W2-bud; порог линии >=3 клетки и >=1 спора фиксируется в пре-регистрации до запуска; критерий: медиана rho_partial <= -0.3 и отрицательна в >=7/10 сидов; нужен именно потому, что при >=3 это был post-hoc анализ | понижено: при медиане 2.5–3.5 линий порог >=3 всё равно даст invalid_by_data; вернуться после W2bud_d2 | закрыто без запуска: в W2-bud-d2 порог >=5 линий дал valid_n = 10/10, то есть вопрос «снизить порог, чтобы получить данные» снят конструкцией; хранить как проверку чувствительности не нужно — порог уже проверен на двух мирах",
       "closed_by": "lead"
-    },
-    {
-      "id": "metrics_library_common",
-      "title": "Общий модуль метрик: Уилсон, MI, beta1 — один код, один тест, без ручных повторов",
-      "hypothesis": "H-ALIVE-40",
-      "status": "planned",
-      "owner": null,
-      "claimed_at": null,
-      "heartbeat_at": null,
-      "closed_at": null,
-      "ttl_minutes": 120,
-      "cost_gpu_h": 0.0,
-      "impact": 3,
-      "gated_by": [],
-      "unblocks": [
-        "conditions_measure"
-      ],
-      "prereg": null,
-      "launch": null,
-      "artifacts": [],
-      "note": "B-067/068/069: Уилсон считается в 4 файлах руками, MI гистограммная с bins=8 (смещена), beta1 вручную; нужен один модуль + тесты + строка об ограничении в методах"
     },
     {
       "id": "V1e_invasion_patches",
@@ -1251,18 +1539,6 @@
       "closed_at": "2026-10-29T00:45:00Z"
     },
     {
-      "id": "H61_price_calibration",
-      "title": "Цена в единицах поля: перевести −0.374 в эквивалентный коэффициент отбора",
-      "hypothesis": null,
-      "status": "planned",
-      "owner": "lead",
-      "note": "анализ без GPU: нейтральная эталонная модель и наблюдаемая доля фиксаций дают масштаб",
-      "claimed_at": null,
-      "heartbeat_at": null,
-      "ttl_minutes": 240,
-      "cost_gpu_h": 0.0
-    },
-    {
       "id": "H62_generality_grid",
       "title": "Общность: те же плечи на поле 64×64 (не 32×32)",
       "hypothesis": null,
@@ -1335,66 +1611,6 @@
       "heartbeat_at": null
     },
     {
-      "id": "K1_schedule_replay",
-      "title": "Реплей записанного расписания обновлений без внешнего источника",
-      "status": "planned",
-      "cost_gpu_h": 0.5,
-      "ttl_minutes": 180,
-      "note": "если живой прогон ≈ реплей, внешний источник не нужен — работает расписание (совет 4 из 5 моделей)",
-      "hypothesis": null,
-      "owner": "lead",
-      "claimed_at": null,
-      "heartbeat_at": null
-    },
-    {
-      "id": "K2_invasion",
-      "title": "Инвазия редкой линии в сложившееся сообщество + событийное время",
-      "status": "planned",
-      "cost_gpu_h": 1.0,
-      "ttl_minutes": 240,
-      "note": "отличает сосуществование от отсрочки исключения; главный убийственный контроль",
-      "hypothesis": null,
-      "owner": "lead",
-      "claimed_at": null,
-      "heartbeat_at": null
-    },
-    {
-      "id": "K3_surrogates",
-      "title": "Суррогаты: спектр, амплитуда, перестановка, доля тишины, выравненная средняя p",
-      "status": "planned",
-      "cost_gpu_h": 1.5,
-      "ttl_minutes": 300,
-      "note": "отличает влияние статистики входа от процедуры нормировки",
-      "hypothesis": null,
-      "owner": "lead",
-      "claimed_at": null,
-      "heartbeat_at": null
-    },
-    {
-      "id": "P1_event_logs",
-      "title": "Счётчики событий (обновления/рождения/смерти) + ID основателя",
-      "status": "planned",
-      "cost_gpu_h": 0.0,
-      "note": "предпосылка всех шагов: founder ID каждой клетки, счётчики обновлений/рождений/смертей, нейтральные сентинелы (2–4 набора по 8 клеток) в каждом прогоне. Правит мир ⇒ после финиша горизонта",
-      "hypothesis": null,
-      "owner": "lead",
-      "claimed_at": null,
-      "heartbeat_at": null,
-      "ttl_minutes": 300
-    },
-    {
-      "id": "P2_K1_replay",
-      "title": "K1: реплей расписания + три плеча пауз (обычная/полная заморозка/без пауз) + фазовые сдвиги",
-      "status": "planned",
-      "cost_gpu_h": 2.0,
-      "note": "решает: пауза — механизм или перемасштабирование времени",
-      "hypothesis": null,
-      "owner": "lead",
-      "claimed_at": null,
-      "heartbeat_at": null,
-      "ttl_minutes": 300
-    },
-    {
       "id": "P3_K2_invasion",
       "title": "K2: взаимная инвазия 8 клеток, порог 160, нейтральная калибровка 512 реплеев",
       "status": "closed",
@@ -1421,114 +1637,6 @@
       "closed_at": "2026-10-29T02:30:00Z"
     },
     {
-      "id": "P5_label_churn",
-      "title": "Чоуз без новых меток (3600 шагов/10 поколений) + скан по μ",
-      "status": "planned",
-      "cost_gpu_h": 1.5,
-      "note": "отделяет сосуществование от оборота меток",
-      "hypothesis": null,
-      "owner": "lead",
-      "claimed_at": null,
-      "heartbeat_at": null,
-      "ttl_minutes": 300
-    },
-    {
-      "id": "H64_live_vs_recorded",
-      "title": "Живой сигнал против записи: net/crypto (разомкнуто) и CPU (замкнуто)",
-      "status": "planned",
-      "owner": "lead",
-      "cost_gpu_h": 3.0,
-      "ttl_minutes": 300,
-      "hypothesis": null,
-      "claimed_at": null,
-      "heartbeat_at": null,
-      "note": "P-008: живое разомкнутое = запись (проверка конвейера); различает либо обратная связь (cpu_live), либо нестационарность между сессиями; 4 сессии × 4 мира"
-    },
-    {
-      "id": "H65_feedback_loop",
-      "title": "Обратная связь: мир как источник собственного сигнала (neg/pos/zero/cpu)",
-      "status": "planned",
-      "owner": "lead",
-      "cost_gpu_h": 2.5,
-      "ttl_minutes": 300,
-      "hypothesis": null,
-      "claimed_at": null,
-      "heartbeat_at": null,
-      "note": "P-009: neg повышает разнообразие И снижает амплитуду; pos ускоряет монополию; cpu — проверка, не является ли загрузка машины значимым каналом (тогда прежние серии перечитываются)"
-    },
-    {
-      "id": "H66_stigmergy",
-      "title": "След как среда: стигмергия (write/decay/read) вместо внешнего потока",
-      "status": "planned",
-      "owner": "lead",
-      "cost_gpu_h": 2.0,
-      "ttl_minutes": 300,
-      "hypothesis": null,
-      "claimed_at": null,
-      "heartbeat_at": null,
-      "note": "P-012: след с затуханием и торможением должен дать пространственную асинхронность; без затухания — монополию"
-    },
-    {
-      "id": "H67_soft_update",
-      "title": "Мягкое обновление против двоичного (урок остаточного потока трансформера)",
-      "status": "planned",
-      "owner": "lead",
-      "cost_gpu_h": 1.5,
-      "ttl_minutes": 300,
-      "hypothesis": null,
-      "claimed_at": null,
-      "heartbeat_at": null,
-      "note": "P-013: если soft > hard при том же p, то важна не только частота, но и величина шага"
-    },
-    {
-      "id": "H68_memory",
-      "title": "Память: среда / клетка / линия / мир + тест гистерезиса",
-      "status": "planned",
-      "owner": "lead",
-      "cost_gpu_h": 3.0,
-      "ttl_minutes": 300,
-      "hypothesis": null,
-      "claimed_at": null,
-      "heartbeat_at": null,
-      "note": "P-014: тормоз у успешных повышает сосуществование, награда ускоряет монополию; гистерезис проверяется одинаковым входом на шагах 300 и 900"
-    },
-    {
-      "id": "H69_sensitivity",
-      "title": "Градиент чувствительности: связь → энтрейнмент → энергия → живость",
-      "status": "planned",
-      "owner": "lead",
-      "cost_gpu_h": 3.5,
-      "ttl_minutes": 400,
-      "hypothesis": null,
-      "claimed_at": null,
-      "heartbeat_at": null,
-      "note": "P-015: при выровненном среднем p проверить, растёт ли энтрейнмент и энергия с c, и есть ли максимум живости"
-    },
-    {
-      "id": "H70_I_at_1800",
-      "title": "Пересчёт возможности отбора I на горизонте 1800 с нулём i_null (B-091, вторая половина)",
-      "status": "planned",
-      "owner": "lead",
-      "cost_gpu_h": 0.0,
-      "ttl_minutes": 240,
-      "hypothesis": null,
-      "claimed_at": null,
-      "heartbeat_at": null,
-      "note": "считается из готовых артефактов w2bud_horizon: I = Var(w)/mean(w)^2 по линиям с данными, нуль — library/tools/i_null.py; критерий §3c: I_obs > I_null(95 %). Без GPU, только анализ."
-    },
-    {
-      "id": "H71_hardware",
-      "title": "Физиология железа: взаимность, собственный след, чужая нагрузка",
-      "status": "planned",
-      "owner": "lead",
-      "cost_gpu_h": 3.0,
-      "ttl_minutes": 400,
-      "hypothesis": null,
-      "claimed_at": null,
-      "heartbeat_at": null,
-      "note": "P-017: взаимность > 0 и растёт с размером мира (32 против 64) — проверка причинности канала без интернета"
-    },
-    {
       "id": "K2b_equal_cohorts",
       "title": "Инвазия с равными когортами (10 против 10)",
       "status": "closed",
@@ -1542,18 +1650,6 @@
       "note": "закрыто: преимущества у инвазора нет ни в одном плече (22 против 30 % и 28 против 32 %); плато разнообразия не от восстановления редких линий; §10bq"
     },
     {
-      "id": "H72_heartbeat",
-      "title": "Живая петля с железом: взаимность и сердцебиение против реплея",
-      "status": "planned",
-      "owner": "lead",
-      "cost_gpu_h": 3.0,
-      "ttl_minutes": 400,
-      "hypothesis": null,
-      "claimed_at": null,
-      "heartbeat_at": null,
-      "note": "P-018: взаимность > 0 и собственная периодичность только в живой петле; реплей того же дампа — контроль"
-    },
-    {
       "id": "H73_organ",
       "title": "Орган-коррелянт: нарисованный (периферия) и само собирающийся (эволюция чувствительности)",
       "status": "closed",
@@ -1565,18 +1661,6 @@
       "heartbeat_at": null,
       "note": "закрыто частично: ветвь A (площадка) — жизнь не притягивается, доля клеток пропорциональна площади (11.5 % и 11.1 % при 11 % площади); орган на периферии не отличим от контроля по глобальным метрикам, а пространственное чтение показало, что линии локализованы и без сигнала (перевес ×3.3). Ветвь B (эволюция чувствительности) не запускалась — §10br",
       "closed_at": "2026-10-29T13:45:00Z"
-    },
-    {
-      "id": "H75_object_ladder",
-      "title": "Лестница L0-L3 и абляция объекта: среда или наша клетка",
-      "status": "planned",
-      "owner": "lead",
-      "cost_gpu_h": 6.0,
-      "ttl_minutes": 480,
-      "hypothesis": null,
-      "claimed_at": null,
-      "heartbeat_at": null,
-      "note": "P-020: ёмкость и темп должны сохраниться, инвазия и площадка — возможно, свойства объекта; начинать с L1 (obj_simple без NCA)"
     },
     {
       "id": "E1_criterion_to_pond",
@@ -1631,66 +1715,6 @@
       "closed_at": "2026-10-29T20:05:00Z"
     },
     {
-      "id": "E5_live_loop",
-      "title": "Живая двусторонняя петля с железом против реплея (синхронный опрос, окно 5 с)",
-      "status": "planned",
-      "owner": "lead",
-      "cost_gpu_h": 3.0,
-      "ttl_minutes": 480,
-      "hypothesis": null,
-      "claimed_at": null,
-      "heartbeat_at": null,
-      "note": "импакт-порядок E5 (reports/2026-10-29-impact-order.md)"
-    },
-    {
-      "id": "E6_field_confirm",
-      "title": "Поле: подтверждение критерия на новых параметрах + наследование состава",
-      "status": "planned",
-      "owner": "lead",
-      "cost_gpu_h": 4.0,
-      "ttl_minutes": 480,
-      "hypothesis": null,
-      "claimed_at": null,
-      "heartbeat_at": null,
-      "note": "импакт-порядок E6 (reports/2026-10-29-impact-order.md)"
-    },
-    {
-      "id": "X1_readme_commands_in_ci",
-      "title": "Гейт: команды из README действительно запускаются в CI",
-      "status": "planned",
-      "owner": "lead",
-      "cost_gpu_h": 0.0,
-      "ttl_minutes": 240,
-      "hypothesis": null,
-      "claimed_at": null,
-      "heartbeat_at": null,
-      "note": "из крестового аудита lexspec (M-1): «тесты зелёные» — утверждение о последнем запуске, а не о дереве; проверять машинно, что объявленная в README команда присутствует шагом в workflow"
-    },
-    {
-      "id": "X2_single_authoritative_spec",
-      "title": "Гейт: нет двух файлов, объявляющих одну версию требований",
-      "status": "planned",
-      "owner": "lead",
-      "cost_gpu_h": 0.0,
-      "ttl_minutes": 240,
-      "hypothesis": null,
-      "claimed_at": null,
-      "heartbeat_at": null,
-      "note": "из крестового аудита lexspec (M-2): спека — единственный носитель требований; если их две, читатель не узнает действующую"
-    },
-    {
-      "id": "X3_claims_expect_column",
-      "title": "Колонка ожидаемого значения в матрице утверждений (сверка числа с артефактом)",
-      "status": "planned",
-      "owner": "lead",
-      "cost_gpu_h": 0.0,
-      "ttl_minutes": 240,
-      "hypothesis": null,
-      "claimed_at": null,
-      "heartbeat_at": null,
-      "note": "из крестового аудита herness (находка 1, K115): claims_lint сверяет наличие и тип, но не значение. Добавить поле expect (число или регулярка) и сверять его с артефактом прямо в claims_lint"
-    },
-    {
       "id": "X4_slice300_chaos",
       "title": "Перепроверить старые числа по срезу 300 на хаотичность (пик 25.79 в §10bn и др.)",
       "status": "closed",
@@ -1728,18 +1752,6 @@
       "heartbeat_at": null,
       "note": "закрыто отрицательно: механизм построен (field_inherit.py), разнообразие состава выросло втрое (0.0067 против 0.0022), но направленного сдвига нет — s не наследуется, а пересчитывается из v. Две ошибки конструкции пойманы: центровка по среднему убивает направление отбора; пассивная примесь не переносится. Заменено пунктом E6c (отслеживание компонент)",
       "closed_at": "2026-10-29T20:55:00Z"
-    },
-    {
-      "id": "E6c_tracked_inheritance",
-      "title": "Поле + отслеживание компонент: настоящее наследование состава (L3)",
-      "status": "planned",
-      "owner": "lead",
-      "cost_gpu_h": 4.0,
-      "ttl_minutes": 360,
-      "hypothesis": null,
-      "claimed_at": null,
-      "heartbeat_at": null,
-      "note": "из E6b: пассивное поле s НЕ наследуется — оно каждый шаг пересчитывается из v, поэтому состав не свойство структуры. Нужно отслеживание компонент во времени (постфактум, не задано) с переносом состава при делении + мутация; состав влияет на локальный F. Это уровень L3"
     }
   ]
 }
