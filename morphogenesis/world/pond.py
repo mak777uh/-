@@ -257,6 +257,7 @@ class Pond:
         self.state.founder = torch.arange(n * n, dtype=torch.int64, device=self.device).reshape(n, n)
         self.founder_next = n * n
         self.sentinel_ids: list[int] = []
+        self.invader_id: int = -1
         self.updates_total = 0
         self.deaths_balance = 0      # смерти по балансу населения (полное покрытие путей гибели)
         self.births_balance = 0      # рождения по балансу (сумма прироста births_by_type)
@@ -1905,6 +1906,30 @@ class Pond:
         self.founder_next += max(1, k // max(1, int(cells))) + 1
         self.sentinel_ids = ids
         return ids
+
+    def inject_invader(self, cells: int, seed: int = 0) -> int:
+        """Вселить инвазора: `cells` случайных живых клеток получают НОВЫЙ общий ID основателя.
+
+        Энергия и возраст НЕ меняются (заменяем только идентификатор): иначе энергетический
+        артефакт подсадки смешается с инвазионным ростом. Свой генератор, чтобы не сдвигать
+        основной поток случайных чисел.
+        """
+        import torch as _t
+        s = self.state
+        if s.founder is None or not bool(s.alive.any()):
+            return -1
+        alive_idx = s.alive.view(-1).nonzero(as_tuple=False).view(-1)
+        gen = _t.Generator(device="cpu").manual_seed(int(seed) * 7919 + 3)
+        k = min(int(cells), int(alive_idx.numel()))
+        if k <= 0:
+            return -1
+        pick = alive_idx[_t.randperm(int(alive_idx.numel()), generator=gen)[:k].to(alive_idx.device)]
+        inv_id = self.founder_next + 100000  # отдельный диапазон, чтобы не столкнуться с сентинелами
+        self.founder_next += 1
+        flat = s.founder.view(-1)
+        flat[pick] = inv_id
+        self.invader_id = inv_id
+        return inv_id
 
     def register_births(self, newly: torch.Tensor, parent_mask: torch.Tensor,
                         labels: torch.Tensor | None = None, is_spore: bool = False) -> int:

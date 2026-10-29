@@ -146,6 +146,20 @@ def config_block(cfg) -> dict:
     }
 
 
+
+
+def _invader_block(pond) -> dict:
+    """Сколько клеток у инвазора и сколько у сентинелов на конец прогона (эмпирический нуль плеча)."""
+    s = pond.state
+    inv = int(getattr(pond, "invader_id", -1))
+    if inv < 0 or s.founder is None:
+        return {"id": inv, "cells": 0, "share": 0.0}
+    n_alive = int(s.alive.sum()) or 1
+    cells = int(((s.founder == inv) & s.alive).sum())
+    return {"id": inv, "cells": cells, "share": round(cells / n_alive, 5)}
+
+
+
 def _sentinel_block(pond) -> dict:
     """Сколько клеток осталось у каждой нейтральной линии-сентинела (эмпирический нуль плеча)."""
     import torch as _torch
@@ -205,6 +219,7 @@ def tag_metrics_block(pond) -> dict:
             "births_balance": int(getattr(pond, "births_balance", 0)),
         },
         "sentinels": _sentinel_block(pond),
+        "invader": _invader_block(pond),
     }
     if s.tag is None or not bool(s.alive.any()):
         return block
@@ -653,8 +668,14 @@ class PondRun:
                     ) < base
                 self.pond.updates_total += int((keep & alive_now).sum())
                 self.state = torch.where(keep, new_state, self.state)
+        if int(getattr(self, "invade_cells", 0)) > 0 and \
+                int(self.pond.state.step) == int(getattr(self, "invade_at_step", 900)) and \
+                not getattr(self, "_invader_done", False):
+            inv = self.pond.inject_invader(int(self.invade_cells), seed=int(getattr(self, "world_seed", 0)))
+            self._invader_done = True
+            self.log.append({"step": int(len(self.log)), "event": "invader", "id": inv})
         if int(getattr(self, "sentinel_sets", 0)) > 0 and \
-                len(self.log) == int(getattr(self, "sentinel_at_step", 1200)) and \
+                int(self.pond.state.step) == int(getattr(self, "sentinel_at_step", 1200)) and \
                 not getattr(self, "_sentinels_done", False):
             ids = self.pond.inject_sentinels(int(self.sentinel_sets), int(self.sentinel_cells),
                                              seed=int(getattr(self, "world_seed", 0)))
@@ -893,6 +914,10 @@ def build_parser() -> argparse.ArgumentParser:
                     help="окно нормировки живого сигнала, секунды")
     ap.add_argument("--inflow-live-dump", default=None,
                     help="куда записать то, что услышал мир (для аудита и повторного проигрывания)")
+    ap.add_argument("--invade-cells", type=int, default=0,
+                    help="K2: сколько живых клеток получить ID инвазора (0 = не вселять)")
+    ap.add_argument("--invade-at-step", type=int, default=900,
+                    help="K2: на каком шаге вселять инвазора (резидент должен быть вне быстрого спада)")
     ap.add_argument("--sentinel-sets", type=int, default=0,
                     help="H-ALIVE-61: сколько наборов нейтральных линий-сентинелов вселить (эмпирический нуль плеча)")
     ap.add_argument("--sentinel-cells", type=int, default=8,
@@ -1089,6 +1114,8 @@ def main(argv: list[str] | None = None) -> int:
     run.sentinel_cells = int(getattr(args, "sentinel_cells", 8))
     run.sentinel_at_step = int(getattr(args, "sentinel_at_step", 1200))
     run.world_seed = int(getattr(args, "seed", 0) or 0)
+    run.invade_cells = int(getattr(args, "invade_cells", 0))
+    run.invade_at_step = int(getattr(args, "invade_at_step", 900))
     run.total_steps = args.steps
     if hasattr(world, "inflow_target"):
         world.inflow_target = str(args.inflow_target)
