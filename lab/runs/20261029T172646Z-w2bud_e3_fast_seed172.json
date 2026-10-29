@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "run_id": "20261029T172646Z-w2bud_e3_fast_seed172",
+  "experiment": "w2bud_e3_fast_seed172",
+  "experiment_id": "E09_pond",
+  "arm": "w2bud_e3_fast",
+  "seed": 172,
+  "steps": 900,
+  "status": "aborted",
+  "provenance": "runner",
+  "source": "morphogenesis/logs/journal.jsonl",
+  "started_at": "2026-10-29T17:26:46Z",
+  "finished_at": null,
+  "git_commit": "4cf38cf",
+  "git_dirty": false,
+  "command": [
+    "C:\\Users\\Admin\\Documents\\Qoder\\2026-10-18\\82ab86cd\\repo\\.venv\\Scripts\\python.exe",
+    "run_exploratory.py",
+    "--script",
+    "../../_hourly/colinv4_driver.py",
+    "--experiment",
+    "w2bud_e3_fast_seed172",
+    "--device",
+    "cuda"
+  ],
+  "cwd": "morphogenesis",
+  "owner": "lead",
+  "environment": {
+    "python": "3.13.11",
+    "platform": "Windows-11-10.0.26300-SP0",
+    "torch": "2.6.0+cu124",
+    "numpy": "2.5.4",
+    "device": "NVIDIA GeForce RTX 3070 Laptop GPU, 595.79"
+  },
+  "checkpoint_in": null,
+  "outputs": {
+    "declared": [],
+    "log": "morphogenesis/logs/20261029T172646Z-w2bud_e3_fast_seed172.log"
+  },
+  "metrics": {},
+  "stop_reason": null,
+  "exit_code": null,
+  "log_path": "morphogenesis/logs/20261029T172646Z-w2bud_e3_fast_seed172.log",
+  "notes": "E3 память и гистерезис: три пути к одному состоянию",
+  "fail_reason": "прогон остановлен вручную: под внешней нагрузкой (два чужих процесса по 108 тыс. секунд CPU) он трижды вставал на одном шаге более 20 минут. Динамика от нагрузки не зависит, но время — да; серия E3 закрыта на const+slow (3+3 сида), fast — зеркальный контроль, на вывод не влияет"
+}

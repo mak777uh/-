@@ -867,12 +867,19 @@ class PondRun:
                 from pathlib import Path as _Path
                 _d = _Path(_dump_dir)
                 _d.mkdir(parents=True, exist_ok=True)
+                _st = self.pond.state
                 _snap = {
-                    "step": int(self.pond.state.step),
-                    "alive": self.pond.state.alive.detach().to("cpu").to(torch.int8).tolist(),
+                    "step": int(_st.step),
+                    "alive": _st.alive.detach().to("cpu").to(torch.int8).tolist(),
                     "energy": [[round(float(x), 4) for x in row]
-                               for row in self.pond.state.energy.detach().to("cpu").tolist()],
+                               for row in _st.energy.detach().to("cpu").tolist()],
                 }
+                # E1b: второе и третье независимое поле для критерия индивидуации
+                for _field, _key in ((getattr(_st, "damage", None), "damage"),
+                                     (getattr(_st, "age", None), "age")):
+                    if _field is not None:
+                        _snap[_key] = [[round(float(x), 4) for x in row]
+                                       for row in _field.detach().to("cpu").tolist()]
                 (_d / ("fields_%05d.json" % int(self.pond.state.step))).write_text(
                     _json.dumps(_snap) + "\n", encoding="utf-8")
 

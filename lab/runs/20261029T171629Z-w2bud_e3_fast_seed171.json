@@ -6,7 +6,7 @@
   "arm": "w2bud_e3_fast",
   "seed": 171,
   "steps": 900,
-  "status": "running",
+  "status": "aborted",
   "provenance": "runner",
   "source": "morphogenesis/logs/journal.jsonl",
   "started_at": "2026-10-29T17:16:29Z",
@@ -41,5 +41,6 @@
   "stop_reason": null,
   "exit_code": null,
   "log_path": "morphogenesis/logs/20261029T171629Z-w2bud_e3_fast_seed171.log",
-  "notes": "E3 память и гистерезис: три пути к одному состоянию"
+  "notes": "E3 память и гистерезис: три пути к одному состоянию",
+  "fail_reason": "прогон остановлен вручную: под внешней нагрузкой (два чужих процесса по 108 тыс. секунд CPU) он трижды вставал на одном шаге более 20 минут. Динамика от нагрузки не зависит, но время — да; серия E3 закрыта на const+slow (3+3 сида), fast — зеркальный контроль, на вывод не влияет"
 }
