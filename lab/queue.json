@@ -1503,6 +1503,18 @@
       "claimed_at": null,
       "heartbeat_at": null,
       "note": "P-015: при выровненном среднем p проверить, растёт ли энтрейнмент и энергия с c, и есть ли максимум живости"
+    },
+    {
+      "id": "H70_I_at_1800",
+      "title": "Пересчёт возможности отбора I на горизонте 1800 с нулём i_null (B-091, вторая половина)",
+      "status": "planned",
+      "owner": "lead",
+      "cost_gpu_h": 0.0,
+      "ttl_minutes": 240,
+      "hypothesis": null,
+      "claimed_at": null,
+      "heartbeat_at": null,
+      "note": "считается из готовых артефактов w2bud_horizon: I = Var(w)/mean(w)^2 по линиям с данными, нуль — library/tools/i_null.py; критерий §3c: I_obs > I_null(95 %). Без GPU, только анализ."
     }
   ]
 }
