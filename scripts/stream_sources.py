@@ -165,6 +165,57 @@ class _events:
         return float(count)
 
 
+class _system_ext:
+    """«Погода машины»: загрузка CPU БЕЗ нашего собственного процесса (доля 0..1).
+
+    Зачем (29.10, по замечанию владельца). Микрофона нет на сервере, а процессор есть везде — значит это
+    единственный сигнал, который делает эксперимент воспроизводимым на любой машине. Но нагрузка машины —
+    смесь: (а) наш собственный след (замкнутый контур), (б) другие процессы, ОС и планировщик, (в) физика
+    железа (частота, троттлинг). Пункт (а) мы можем исключить: `psutil.cpu_percent()` даёт общую загрузку,
+    `Process.cpu_percent()` — нашу, разность и есть внешняя часть.
+
+    Ограничение честное: `psutil` считает проценты за интервал между вызовами, поэтому первый вызов
+    возвращает 0.0 — это нормально для потока (значение появится со второго).
+    """
+
+    def __init__(self) -> None:
+        import os
+        import psutil
+        self._ps = psutil
+        self._me = psutil.Process(os.getpid())
+        self._ps.cpu_percent(interval=None)
+        self._me.cpu_percent(interval=None)
+        self._ncpu = max(1, psutil.cpu_count(logical=True) or 1)
+
+    def __call__(self) -> float:
+        total = float(self._ps.cpu_percent(interval=None))
+        mine = float(self._me.cpu_percent(interval=None)) / self._ncpu
+        return max(0.0, min(100.0, total - mine)) / 100.0
+
+
+class _gpu:
+    """Загрузка видеокарты в процентах (0..100), через `nvidia-smi`.
+
+    Плюс к «погоде машины»: GPU занят не только нашим прогоном, но и всем остальным, что запущено.
+    Если `nvidia-smi` недоступен, источник возвращает 0.0 — это надо проверять по профилю, а не молча.
+    """
+
+    def __init__(self) -> None:
+        import subprocess
+        self._sp = subprocess
+
+    def __call__(self) -> float:
+        try:
+            out = self._sp.run(
+                ["nvidia-smi", "--query-gpu=utilization.gpu", "--format=csv,noheader,nounits"],
+                capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=4,
+            )
+            first = (out.stdout or "").strip().split("\n")[0].strip()
+            return float(first) if first else 0.0
+        except Exception:
+            return 0.0
+
+
 class _solar_wind:
     """Скорость солнечного ветра (плазма на L1, NOAA DSCOVR/ACE), 1 отсчёт в минуту.
 
@@ -253,7 +304,7 @@ _READERS: dict[str, Callable[[], object]] = {
     "crypto": _crypto,
     "events": _events,
     "usgs": _usgs,
-    "system": _system, "solar_wind": _solar_wind, "goes_xray": _goes_xray,
+    "system": _system, "system_ext": _system_ext, "gpu": _gpu, "solar_wind": _solar_wind, "goes_xray": _goes_xray,
 }
 
 SOURCES = tuple(sorted(_READERS))
