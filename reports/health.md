@@ -1,11 +1,11 @@
 # Здоровье лаборатории
 
-Обновлено: 2026-10-29 05:26 UTC
+Обновлено: 2026-10-29 05:38 UTC
 
 ## Состояние
 
 - CI (по reports/ci-status.json): lab-contract: failure (2026-10-28 18:14); analysis-farm: success (2026-10-28 14:29); nightly-lab: failure (2026-10-28 04:51)
-- CI (живой API): lab-contract: failure (0.3 ч назад); nightly-lab: failure (0.4 ч назад); analysis-farm: success (4.7 ч назад)
+- CI (живой API): lab-contract: success (0.1 ч назад); nightly-lab: failure (0.6 ч назад); analysis-farm: success (4.9 ч назад)
 - ✅ контракт: counts: {"experiments": 31, "readme_experiments": 31, "manuscript_entries": 24, "lit_board_items": 90, "active
 - ✅ размер контракта: [agents-size] 58641 байт ≤ 60000 — ок
 - ✅ числа разделов: [sections] OK — числа разделов воспроизводятся из агрегатов
@@ -33,10 +33,9 @@
 
 ## Блокеры
 
-- ❌ CI «lab-contract» упал (0.3 ч назад): https://github.com/mak777uh/-/actions/runs/40821648178
-- ❌ CI «nightly-lab» упал (0.4 ч назад): https://github.com/mak777uh/-/actions/runs/40820983001
+- ❌ CI «nightly-lab» упал (0.6 ч назад): https://github.com/mak777uh/-/actions/runs/40820983001
 
 ## Предупреждения
 
-- ⚠ CI «lab-contract» упал: шаг не определён (прогон на 87f6c232, HEAD a6fee3b5 — проверялся другой код)
-- ⚠ CI «nightly-lab» упал: шаг не определён (прогон на 387c249e, HEAD a6fee3b5 — проверялся другой код)
+- ⚠ CI «lab-contract» упал: шаг не определён (прогон на 87f6c232, HEAD 4d60d39f — проверялся другой код)
+- ⚠ CI «nightly-lab» упал: шаг не определён (прогон на 387c249e, HEAD 4d60d39f — проверялся другой код)
