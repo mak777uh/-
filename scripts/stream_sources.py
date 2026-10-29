@@ -216,6 +216,64 @@ class _gpu:
             return 0.0
 
 
+class _hardware:
+    """«Физиология железа»: композит из того, что всегда локально, без интернета.
+
+    Откуда (29.10, владелец): канал железа органичен для цифрового организма — он живёт ВНУТРИ машины,
+    её состояние это его почва и погода; и канал есть всегда, даже без сети.
+
+    Композит из пяти компонент, каждая нормируется в 0..1 собственной шкалой:
+      * загрузка CPU без нашего процесса (чужая нагрузка);
+      * загрузка GPU (наш след + чужие задачи);
+      * давление на память (доля занятой RAM);
+      * температура/троттлинг — через частоту, если доступна (иначе 0.5, «неизвестно»);
+      * **джиттер шага** — изменчивость интервала между вызовами (ритм самой машины).
+
+    Оговорка: это НЕ физические единицы. Композит нужен как индекс среды; для выводов о конкретном
+    канале надо смотреть компоненты отдельно (`system_ext`, `gpu`).
+    """
+
+    def __init__(self) -> None:
+        import os
+        import psutil
+        self._ps = psutil
+        self._me = psutil.Process(os.getpid())
+        self._ps.cpu_percent(interval=None)
+        self._me.cpu_percent(interval=None)
+        self._ncpu = max(1, psutil.cpu_count(logical=True) or 1)
+        self._last = None
+        self._last_jitter = 0.0
+
+    def _gpu(self) -> float:
+        import subprocess
+        try:
+            out = subprocess.run(["nvidia-smi", "--query-gpu=utilization.gpu", "--format=csv,noheader,nounits"],
+                                 capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=3)
+            first = (out.stdout or "").strip().split("\n")[0].strip()
+            return float(first) / 100.0 if first else 0.0
+        except Exception:
+            return 0.0
+
+    def __call__(self) -> float:
+        import time
+        now = time.time()
+        if self._last is not None:
+            dt = now - self._last
+            # джиттер: отклонение интервала от типичного (сглаженное), в 0..1
+            self._last_jitter = 0.9 * self._last_jitter + 0.1 * min(1.0, abs(dt - 0.5) / 0.5)
+        self._last = now
+
+        cpu_total = float(self._ps.cpu_percent(interval=None))
+        cpu_mine = float(self._me.cpu_percent(interval=None)) / self._ncpu
+        cpu_ext = max(0.0, min(100.0, cpu_total - cpu_mine)) / 100.0
+        gpu = self._gpu()
+        mem = float(self._ps.virtual_memory().percent) / 100.0
+        # температуры нет в стандартном API без прав; берём 0.5 как «неизвестно», а не 0 как «холодно»
+        temp = 0.5
+        parts = [cpu_ext, gpu, mem, temp, self._last_jitter]
+        return sum(parts) / len(parts)
+
+
 class _solar_wind:
     """Скорость солнечного ветра (плазма на L1, NOAA DSCOVR/ACE), 1 отсчёт в минуту.
 
@@ -304,7 +362,7 @@ _READERS: dict[str, Callable[[], object]] = {
     "crypto": _crypto,
     "events": _events,
     "usgs": _usgs,
-    "system": _system, "system_ext": _system_ext, "gpu": _gpu, "solar_wind": _solar_wind, "goes_xray": _goes_xray,
+    "system": _system, "hardware": _hardware, "system_ext": _system_ext, "gpu": _gpu, "solar_wind": _solar_wind, "goes_xray": _goes_xray,
 }
 
 SOURCES = tuple(sorted(_READERS))

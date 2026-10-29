@@ -1,11 +1,11 @@
 # Здоровье лаборатории
 
-Обновлено: 2026-10-29 09:23 UTC
+Обновлено: 2026-10-29 09:27 UTC
 
 ## Состояние
 
 - CI (по reports/ci-status.json): lab-contract: failure (2026-10-28 18:14); analysis-farm: success (2026-10-28 14:29); nightly-lab: failure (2026-10-28 04:51)
-- CI (живой API): lab-contract: in_progress (0.0 ч назад); nightly-lab: failure (4.3 ч назад); analysis-farm: success (8.7 ч назад)
+- CI (живой API): lab-contract: in_progress (0.0 ч назад); nightly-lab: failure (4.4 ч назад); analysis-farm: success (8.8 ч назад)
 - ✅ контракт: counts: {"experiments": 31, "readme_experiments": 31, "manuscript_entries": 24, "lit_board_items": 91, "active
 - ✅ размер контракта: [agents-size] 58641 байт ≤ 60000 — ок
 - ✅ числа разделов: [sections] OK — числа разделов воспроизводятся из агрегатов
@@ -37,8 +37,7 @@
 
 ## Предупреждения
 
-- ⚠ незакоммиченных изменений: 1 (первое: M lab/lit-board.json)
-- ⚠ CI «lab-contract» упал: шаг не определён (прогон на 87f6c232, HEAD 04716487 — проверялся другой код)
-- ⚠ CI «nightly-lab» упал: шаг не определён (прогон на 387c249e, HEAD 04716487 — проверялся другой код)
-- ⚠ CI «nightly-lab» упал (4.3 ч назад): https://github.com/mak777uh/-/actions/runs/40820983001 — устарело, следующий прогон покажет
+- ⚠ CI «lab-contract» упал: шаг не определён (прогон на 87f6c232, HEAD e5d44c4e — проверялся другой код)
+- ⚠ CI «nightly-lab» упал: шаг не определён (прогон на 387c249e, HEAD e5d44c4e — проверялся другой код)
+- ⚠ CI «nightly-lab» упал (4.4 ч назад): https://github.com/mak777uh/-/actions/runs/40820983001 — устарело, следующий прогон покажет
 - ⚠ активные замки: 1 (w2bud_k2b_async_seed174)
