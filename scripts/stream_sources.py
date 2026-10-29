@@ -165,6 +165,55 @@ class _events:
         return float(count)
 
 
+class _solar_wind:
+    """Скорость солнечного ветра (плазма на L1, NOAA DSCOVR/ACE), 1 отсчёт в минуту.
+
+    Зачем (29.10, по запросу владельца: «излучение солнца, колебания планеты»). Это настоящий внешний
+    физический поток: он не зависит от нас, идёт круглосуточно и бесплатен. Ограничение честное: каденс
+    1 минута, а мир делает ~0.8 шага в секунду, поэтому сигнал для мира **квазистатичен** — одна точка на
+    ~48 шагов. Это не ритм, а смена режима; именно поэтому источник годится для проверки «реагирует ли мир
+    на смену режима», а не «ритм».
+    """
+
+    URL = "https://services.swpc.noaa.gov/json/rtsw/rtsw_wind_1m.json"
+
+    def __init__(self) -> None:
+        import requests
+        self._r = requests
+        self._last = None
+
+    def __call__(self) -> float:
+        j = self._r.get(self.URL, timeout=8, headers={"User-Agent": "digital-pond-lab"}).json()
+        rows = [r for r in j if r.get("active") and r.get("proton_speed") is not None]
+        if not rows:
+            return 0.0
+        last = rows[-1]
+        self._last = last
+        return float(last["proton_speed"])
+
+
+class _goes_xray:
+    """Поток рентгена GOES (0.1–0.8 нм), 1 отсчёт в минуту: вспышки на Солнце как внешние события.
+
+    Тот же каденс, что у солнечного ветра (квазистатичен для мира), но с огромным динамическим
+    диапазоном: во время вспышки поток растёт на порядки. Это лучший доступный пример **смены режима**,
+    которого не бывает в короткой записи.
+    """
+
+    URL = "https://services.swpc.noaa.gov/json/goes/primary/xrays-1-day.json"
+
+    def __init__(self) -> None:
+        import requests
+        self._r = requests
+
+    def __call__(self) -> float:
+        j = self._r.get(self.URL, timeout=8, headers={"User-Agent": "digital-pond-lab"}).json()
+        rows = [r for r in j if str(r.get("energy", "")).startswith("0.1-0.8")]
+        if not rows:
+            return 0.0
+        return float(rows[-1]["flux"] or 0.0)
+
+
 class _usgs:
     def __init__(self) -> None:
         import requests
@@ -204,7 +253,7 @@ _READERS: dict[str, Callable[[], object]] = {
     "crypto": _crypto,
     "events": _events,
     "usgs": _usgs,
-    "system": _system,
+    "system": _system, "solar_wind": _solar_wind, "goes_xray": _goes_xray,
 }
 
 SOURCES = tuple(sorted(_READERS))
