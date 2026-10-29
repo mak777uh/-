@@ -6,11 +6,11 @@
   "arm": "w2bud_e3_fast",
   "seed": 172,
   "steps": 900,
-  "status": "aborted",
+  "status": "finished",
   "provenance": "runner",
   "source": "morphogenesis/logs/journal.jsonl",
   "started_at": "2026-10-29T17:26:46Z",
-  "finished_at": null,
+  "finished_at": "2026-10-29T17:38:03Z",
   "git_commit": "4cf38cf",
   "git_dirty": false,
   "command": [
@@ -38,9 +38,8 @@
     "log": "morphogenesis/logs/20261029T172646Z-w2bud_e3_fast_seed172.log"
   },
   "metrics": {},
-  "stop_reason": null,
-  "exit_code": null,
+  "stop_reason": "exit_0",
+  "exit_code": 0,
   "log_path": "morphogenesis/logs/20261029T172646Z-w2bud_e3_fast_seed172.log",
-  "notes": "E3 память и гистерезис: три пути к одному состоянию",
-  "fail_reason": "прогон остановлен вручную: под внешней нагрузкой (два чужих процесса по 108 тыс. секунд CPU) он трижды вставал на одном шаге более 20 минут. Динамика от нагрузки не зависит, но время — да; серия E3 закрыта на const+slow (3+3 сида), fast — зеркальный контроль, на вывод не влияет"
+  "notes": "E3 память и гистерезис: три пути к одному состоянию"
 }

@@ -55,11 +55,11 @@ def components(mask):
     return comps
 
 
-def load(path: Path):
+def load(path: Path, w_field: str = "energy"):
     d = json.loads(path.read_text(encoding="utf-8"))
     if "alive" in d:
         z = [[float(v) for v in row] for row in d["alive"]]
-        w = [[float(v) for v in row] for row in d.get("energy") or z]
+        w = [[float(v) for v in row] for row in (d.get(w_field) or d.get("energy") or z)]
         kind = "pond"
     else:
         z = [[float(v) for v in row] for row in d["z"]]
@@ -68,8 +68,8 @@ def load(path: Path):
     return int(d["step"]), z, w, kind
 
 
-def analyse(paths: list[Path], alive_only: bool = False) -> dict:
-    snaps = [load(p) for p in sorted(paths)]
+def analyse(paths: list[Path], alive_only: bool = False, w_field: str = "energy") -> dict:
+    snaps = [load(p, w_field=w_field) for p in sorted(paths)]
     snaps.sort(key=lambda s: s[0])
     kind = snaps[0][3]
 
@@ -127,12 +127,15 @@ def analyse(paths: list[Path], alive_only: bool = False) -> dict:
         "C3_multiplication": c3,
         "C4_grid_refinement": "неприменимо: у дискретного мира нет непрерывного предела",
         "alive_only": bool(alive_only),
+        "w_field": w_field,
     }
 
 
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description="критерий индивидуации по снимкам полей")
     ap.add_argument("--dir", required=True)
+    ap.add_argument("--w", default="energy",
+                    help="какое поле считать независимым (energy | damage | age)")
     ap.add_argument("--alive-only", action="store_true",
                     help="сравнивать w только среди ЖИВЫХ клеток (у пруда пустые клетки имеют нулевую энергию, "
                          "и без этого «снаружи» — это деление на ноль)")
@@ -143,7 +146,7 @@ def main(argv=None) -> int:
     if len(paths) < 3:
         print(f"[individuation] снимков мало ({len(paths)}), нужно ≥3")
         return 1
-    res = analyse(paths, alive_only=bool(args.alive_only))
+    res = analyse(paths, alive_only=bool(args.alive_only), w_field=str(args.w))
     print(f"[individuation] {args.dir}: снимков {res['snapshots']}, шаги {res['steps']}")
     print(f"  компонент по срезам: {res['component_counts']}")
     print(f"  контраст w внутри/снаружи: {res['contrasts']}")
