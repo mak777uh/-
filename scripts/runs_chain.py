@@ -31,7 +31,14 @@ CHAIN = ROOT / "lab" / "runs.chain.json"
 
 
 def file_sha(path: Path) -> str:
-    return hashlib.sha256(path.read_bytes()).hexdigest()
+    """sha256 содержимого с НОРМАЛИЗАЦИЕЙ переводов строк.
+
+    Инцидент 29.10: цепочка сходилась локально (Windows, CRLF) и падала в CI (Ubuntu, LF): git отдаёт
+    файлы с другими концами строк, и «изменился манифест» означало «изменился перевод строки».
+    Перевод строки — не часть артефакта, поэтому хешируем каноническую форму.
+    """
+    data = path.read_bytes().replace(b"\r\n", b"\n")
+    return hashlib.sha256(data).hexdigest()
 
 
 def entry_hash(prev: str, run_id: str, status: str, content_sha: str) -> str:
