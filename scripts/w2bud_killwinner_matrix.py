@@ -25,7 +25,7 @@ sys.path.insert(0, str(ROOT / "scripts"))
 import w2bud_matrix as W  # noqa: E402
 
 W.NAME = re.compile(
-    r"w2bud[\w]*_(?P<arm>colony|cell|cellkw02|cellkw05|cellupd|cellp10|cellp07|cellp05|cellp10kw|cellp05kw|horizonc|horizonp05|horizonboth|k2_ctrl|k2_async|k2b_ctrl|k2b_async|k3_real|k3_iaaft|k3_shuffle|k3_const|live_net|live_system|live_crypto|liverhythm_net|liverhythm_system|liverhythm_crypto|pair)_seed(?P<seed>\d+)\.json$")
+    r"w2bud[\w]*_(?P<arm>colony|cell|cellkw02|cellkw05|cellupd|cellp10|cellp07|cellp05|cellp10kw|cellp05kw|horizonc|horizonp05|horizonboth|k2_ctrl|k2_async|k2b_ctrl|k2b_async|patch_off|patch_sham|patch_bud|k3_real|k3_iaaft|k3_shuffle|k3_const|live_net|live_system|live_crypto|liverhythm_net|liverhythm_system|liverhythm_crypto|pair)_seed(?P<seed>\d+)\.json$")
 ARMS = {"cell": 0.0, "cellkw02": 0.02, "cellkw05": 0.05, "cellupd": 0.05,
         "cellp10": 1.0, "cellp07": 0.7, "cellp05": 0.5,
         "cellp10kw": 1.0, "cellp05kw": 0.5,
