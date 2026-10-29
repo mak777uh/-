@@ -74,17 +74,27 @@ def next_id(items: list[dict]) -> str:
     return "B-%03d" % ((max(numbers) + 1) if numbers else 1)
 
 
-def _days_since(value: str) -> float | None:
+def _days_since(value: str, today: "dt.date | None" = None) -> float | None:
+    """Сколько дней назад. `today` нужен, чтобы проверка не зависела от календаря.
+
+    Инцидент 29.10: тест `test_accepted_with_insight_passes` держал фиксированную дату 2026-10-23 и через
+    шесть дней начал падать — гейт «старения» сам состарил тест. Теперь «сегодня» передаётся.
+    """
     try:
         stamp = dt.datetime.fromisoformat(value)
     except (TypeError, ValueError):
         return None
     if stamp.tzinfo is None:
         stamp = stamp.replace(tzinfo=dt.timezone.utc)
-    return (dt.datetime.now(dt.timezone.utc) - stamp).total_seconds() / 86400.0
+    now = dt.datetime.now(dt.timezone.utc)
+    if today is not None:
+        now = dt.datetime.combine(today, dt.time(12, 0), tzinfo=dt.timezone.utc)
+    return (now - stamp).total_seconds() / 86400.0
 
 
-def validate_items(items: list[dict]) -> tuple[list[str], list[str]]:
+def validate_items(items: list[dict], today: "dt.date | None" = None) -> tuple[list[str], list[str]]:
+    """`today` можно передать, чтобы проверка не зависела от календаря (тесты и разборы задним числом)."""
+    today = today or dt.date.today()
     errors: list[str] = []
     warnings: list[str] = []
     seen: set[str] = set()
@@ -145,7 +155,7 @@ def validate_items(items: list[dict]) -> tuple[list[str], list[str]]:
             if not has_link:
                 errors.append(f"{where}: accepted требует ссылки на инсайт/задачу/отчёт")
             # «принято» — не «сделано»: без этого замечания копятся как кладбище
-            age_acc = _days_since(str(item.get("decided_at") or item.get("created_at") or ""))
+            age_acc = _days_since(str(item.get("decided_at") or item.get("created_at") or ""), today)
             if age_acc is not None:
                 if age_acc > ACCEPTED_ERR_DAYS:
                     errors.append(

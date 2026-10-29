@@ -73,7 +73,7 @@ def test_accepted_with_insight_passes():
         [
             _item(
                 status="accepted",
-                decided_at="2026-10-23",
+                decided_at=(dt.date.today() - dt.timedelta(days=1)).isoformat(),
                 why="меняем формулировку",
                 links={"insights": ["I-013"], "tasks": [], "reports": []},
             )
