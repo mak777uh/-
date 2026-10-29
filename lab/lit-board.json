@@ -3167,6 +3167,37 @@
           "scripts/additivity_interaction.py"
         ]
       }
+    },
+    {
+      "id": "B-091",
+      "type": "risk",
+      "target": {
+        "kind": "artifact",
+        "id": "horizon_scales_numbers",
+        "ref": "w2bud_horizon_matrix.json"
+      },
+      "statement": "Все серии сосуществования снимались на 600 шагах; серия горизонта (1800 шагов, 5 прогонов/плечо, один git_code_commit) даёт плато на уровнях втрое ниже: контроль 1.302 (было 1.517), асинхронность 2.005 (было 6.054), асинхронность+смертность 8.800 (было 26.056). Порядок и направление сохраняются, величины нет => прежние headline-числа были пиком переходного процесса. Следствия: '6x линий' заменить на '6x на 600 шагах, 1.5x по 1/Sum p^2 на 1800'; синергия I=+0.445 (600 шагов) на 1800 не пересчитана — нужна четвёртая ячейка horizonkw.",
+      "evidence": [
+        {
+          "library": "answers.md#87",
+          "note": "проверено: summary.steps=1800, один git_code_commit"
+        }
+      ],
+      "action": {
+        "kind": "method",
+        "detail": "горизонт как часть определения + пересчёт I на 1800"
+      },
+      "status": "new",
+      "wave": "current",
+      "owner": "librarian",
+      "created_at": "2026-10-29T10:11:24+03:00",
+      "decided_at": null,
+      "why": null,
+      "links": {
+        "insights": [],
+        "tasks": [],
+        "reports": []
+      }
     }
   ],
   "updated_at": "2026-10-29T03:20:00+03:00"
