@@ -89,3 +89,7 @@
 
 | 2026-10-28 | trait-cost-channel | cost of reproduction measured differently / trade-off depends on measurement | 0 выше порога; отброшено 2 (amproc.2025.22272abstract — управление, thesis-991013222946503412 — не по теме); фильтр ужесточён (fitness/reproduction/life history/trait/evolution, порог 4) |
 | 2026-10-28 | unit-of-selection, series-homogeneity, legacy-half-life | текущие запросы | 0 выше порога — канон в библиотеке |
+
+| 2026-10-29 | surrogate-data | surrogate data analysis / Theiler surrogate method | 3: Theiler 1992 (10.1016/0167-2789(92)90102-s), Schreiber & Schmitz 2000 (10.1016/s0167-2789(00)00043-9), Theiler & Prichard 2006 (10.1090/fic/011/07) |
+| 2026-10-29 | surrogate-data | первый прогон дал 0 — причина: глобальный min_year 2015 отсекал канон 1992; добавлен per-topic min_year и allow_no_abstract | — |
+| 2026-10-29 | unit-of-selection, series-homogeneity, trait-cost-channel, legacy-half-life | текущие запросы | 0 выше порога — канон в библиотеке |

@@ -178,13 +178,15 @@ def main(argv: list[str] | None = None) -> int:
                     continue
                 if looks_like_artifact(cand["doi"], cand.get("title", "")):
                     continue
-                if cand["year"] and int(cand["year"]) < min_year:
+                topic_min = int(topic.get("min_year", min_year))
+                if cand["year"] and int(cand["year"]) < topic_min:
                     continue
                 if any(cand["doi"] == p["doi"] for p in picked):
                     continue
                 abs_ = abstract(cand["doi"])
-                if not abs_:
+                if not abs_ and not topic.get("allow_no_abstract"):
                     continue
+                abs_ = abs_ or "(абстракт недоступен — проверить по Crossref/полю, не цитировать вслепую)"
                 title_norm = norm_title(cand.get("title", ""))
                 if len(title_norm) >= 40 and title_norm[:60] in blob:
                     continue  # эта работа уже в библиотеке (по названию)
