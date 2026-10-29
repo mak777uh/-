@@ -83,6 +83,10 @@ def main(argv=None) -> int:
     ap.add_argument("--k", type=float, default=0.06)
     ap.add_argument("--eps", type=float, default=0.5,
                     help="влияние состава на рост: F_eff = F*(1+eps*(s - s_ref)), зажато в [0.5, 1.5]")
+    ap.add_argument("--freq-dep", type=float, default=0.0,
+                    help="E6e: частотная зависимость — защита слабеет с ростом доли похожих составов: "
+                         "beta_eff = beta·(1 − freq_dep·share)")
+    ap.add_argument("--bin-width", type=float, default=0.2, help="ширина корзины по составу для учёта доли")
     ap.add_argument("--beta", type=float, default=0.0,
                     help="E6d: состав влияет на ВЫЖИВАНИЕ (распад), а не на рост: k_eff = k*(1 + beta*(s_ref - s))")
     ap.add_argument("--s-ref", type=float, default=1.0, help="опорный состав (дикий тип)")
@@ -125,10 +129,20 @@ def main(argv=None) -> int:
         if prev_lab is not None and comp_s:
             mod_np = np.ones((g, g), dtype=np.float32)
             modk_np = np.ones((g, g), dtype=np.float32)
+            # E6e: доля похожих составов (по корзинам) — на неё ослабляется защита
+            all_s = list(comp_s.values())
+            shares = {}
+            if args.freq_dep > 0 and all_s:
+                bins = [round(v / args.bin_width) for v in all_s]
+                from collections import Counter
+                cnt = Counter(bins)
+                for i, cid in enumerate(comp_s.keys()):
+                    shares[cid] = cnt[bins[i]] / len(all_s)
             for cid, s_val in comp_s.items():
                 mod_np[prev_lab == cid] = float(np.clip(1.0 + args.eps * (s_val - args.s_ref), 0.5, 1.5))
                 # E6d: высокая s ЗАЩИЩАЕТ от распада (k_eff меньше), низкая — ускоряет распад
-                modk_np[prev_lab == cid] = float(np.clip(1.0 + args.beta * (args.s_ref - s_val), 0.3, 2.5))
+                beta_eff = args.beta * (1.0 - args.freq_dep * shares.get(cid, 0.0))
+                modk_np[prev_lab == cid] = float(np.clip(1.0 + beta_eff * (args.s_ref - s_val), 0.3, 2.5))
             mod = torch.tensor(mod_np, device=dev)
             mod_k = torch.tensor(modk_np, device=dev)
         F_eff = args.F * mod
