@@ -83,6 +83,8 @@ def main(argv=None) -> int:
     ap.add_argument("--k", type=float, default=0.06)
     ap.add_argument("--eps", type=float, default=0.5,
                     help="влияние состава на рост: F_eff = F*(1+eps*(s - s_ref)), зажато в [0.5, 1.5]")
+    ap.add_argument("--beta", type=float, default=0.0,
+                    help="E6d: состав влияет на ВЫЖИВАНИЕ (распад), а не на рост: k_eff = k*(1 + beta*(s_ref - s))")
     ap.add_argument("--s-ref", type=float, default=1.0, help="опорный состав (дикий тип)")
     ap.add_argument("--mutation", type=float, default=0.05, help="sigma мутации состава при делении")
     ap.add_argument("--threshold", type=float, default=0.2)
@@ -119,16 +121,22 @@ def main(argv=None) -> int:
     for step in range(1, int(args.steps) + 1):
         # поле роста из состава: у каждой компоненты свой F
         mod = torch.ones((g, g), device=dev)
+        mod_k = torch.ones((g, g), device=dev)
         if prev_lab is not None and comp_s:
             mod_np = np.ones((g, g), dtype=np.float32)
+            modk_np = np.ones((g, g), dtype=np.float32)
             for cid, s_val in comp_s.items():
                 mod_np[prev_lab == cid] = float(np.clip(1.0 + args.eps * (s_val - args.s_ref), 0.5, 1.5))
+                # E6d: высокая s ЗАЩИЩАЕТ от распада (k_eff меньше), низкая — ускоряет распад
+                modk_np[prev_lab == cid] = float(np.clip(1.0 + args.beta * (args.s_ref - s_val), 0.3, 2.5))
             mod = torch.tensor(mod_np, device=dev)
+            mod_k = torch.tensor(modk_np, device=dev)
         F_eff = args.F * mod
+        k_eff = args.k * mod_k
 
         uvv = u * v * v
         du = args.Du * laplacian(u) - uvv + F_eff * (1.0 - u)
-        dv = args.Dv * laplacian(v) + uvv - (F_eff + args.k) * v
+        dv = args.Dv * laplacian(v) + uvv - (F_eff + k_eff) * v
         u = torch.clamp(u + args.dt * du, 0.0, 1.0)
         v = torch.clamp(v + args.dt * dv, 0.0, 1.0)
 
