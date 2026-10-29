@@ -258,6 +258,8 @@ class Pond:
         self.founder_next = n * n
         self.sentinel_ids: list[int] = []
         self.invader_id: int = -1
+        self.invader_ids: list[int] = []
+        self.cohort_tag: str = ""
         self.updates_total = 0
         self.deaths_balance = 0      # смерти по балансу населения (полное покрытие путей гибели)
         self.births_balance = 0      # рождения по балансу (сумма прироста births_by_type)
@@ -1930,6 +1932,45 @@ class Pond:
         flat[pick] = inv_id
         self.invader_id = inv_id
         return inv_id
+
+    def inject_cohort(self, lines: int, cells: int, seed: int = 0, tag_prefix: str = "cohort") -> list[int]:
+        """K2b: вселить `lines` линий по `cells` клеток с РАВНЫМИ условиями.
+
+        Зачем отдельный метод. В K2 был один инвазор против десяти сентинелов: 8 клеток против 80, и
+        нейтральные давили друг друга сильнее, чем инвазор (это занижало нуль). Здесь обе группы — по
+        `lines` линий, каждая по `cells` клеток, вселяются одним и тем же способом (замена живых клеток,
+        без изменения энергии и возраста), различие только в том, кто «инвазор» для анализа.
+
+        Возвращает список ID: первые `lines` — инвазоры, следующие `lines` — нейтральные.
+        """
+        import torch as _t
+        s = self.state
+        if s.founder is None or not bool(s.alive.any()):
+            return []
+        alive_idx = s.alive.view(-1).nonzero(as_tuple=False).view(-1)
+        n_alive = int(alive_idx.numel())
+        need = int(lines) * int(cells) * 2
+        if n_alive < need + 16:  # не съедать больше ~половины поля на инъекцию
+            return []
+        gen = _t.Generator(device="cpu").manual_seed(int(seed) * 6151 + 11)
+        pick = alive_idx[_t.randperm(n_alive, generator=gen)[:need].to(alive_idx.device)]
+        flat = s.founder.view(-1)
+        ids: list[int] = []
+        base = self.founder_next + 500000
+        pos = 0
+        for group in (0, 1):
+            for j in range(int(lines)):
+                fid = base + group * 1000 + j
+                for _ in range(int(cells)):
+                    if pos < int(pick.numel()):
+                        flat[int(pick[pos])] = fid
+                    pos += 1
+                ids.append(fid)
+        self.founder_next += 5000
+        self.invader_ids = ids[: int(lines)]
+        self.sentinel_ids = ids[int(lines):]
+        self.cohort_tag = tag_prefix
+        return ids
 
     def register_births(self, newly: torch.Tensor, parent_mask: torch.Tensor,
                         labels: torch.Tensor | None = None, is_spore: bool = False) -> int:
