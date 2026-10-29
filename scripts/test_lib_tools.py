@@ -443,6 +443,31 @@ def test_check_claim_homogeneity(tmp: Path) -> None:
           res.stdout[:300])
 
 
+def test_claims_anchor(tmp: Path) -> None:
+    """P8: строка без якоря обязана ронять проверку (негативный тест).
+
+    Файлы кладём ВНУТРЬ репозитория (иначе путь к якорю не разрешается от корня),
+    поэтому используем отдельный каталог и убираем его за собой.
+    """
+    import shutil
+    work = REPO / "library" / ".anchor-test"
+    shutil.rmtree(work, ignore_errors=True)
+    work.mkdir(parents=True, exist_ok=True)
+    try:
+        good = work / "good.md"
+        good.write_text("| ID | утверждение | артефакт |\n|---|---|---|\n"
+                        "| C1 | что-то | library/README.md |\n", encoding="utf-8")
+        ok = run("library/tools/claims_anchor.py", "--file", "library/.anchor-test/good.md")
+        check("claims_anchor: строка с якорем проходит", ok.returncode == 0, ok.stdout[:300])
+        bad = work / "bad.md"
+        bad.write_text("| ID | утверждение | артефакт |\n|---|---|---|\n"
+                       "| C2 | что-то без якоря | — |\n", encoding="utf-8")
+        res = run("library/tools/claims_anchor.py", "--file", "library/.anchor-test/bad.md")
+        check("claims_anchor: строка без якоря отвергается", res.returncode == 1, res.stdout[:300])
+    finally:
+        shutil.rmtree(work, ignore_errors=True)
+
+
 def main() -> int:
     with tempfile.TemporaryDirectory() as tdir:
         tmp = Path(tdir)
@@ -476,6 +501,8 @@ def main() -> int:
         test_science_digest(tmp)
         print("== topic lit ==")
         test_topic_lit(tmp)
+        print("== claims anchor ==")
+        test_claims_anchor(tmp)
         print("== check claim ==")
         test_check_claim(tmp)
         print("== check claim homogeneity ==")
