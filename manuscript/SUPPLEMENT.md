@@ -943,6 +943,7 @@
 | [`morphogenesis/experiments/E09_pond/w2bud_k2_matrix.json`](../morphogenesis/experiments/E09_pond/w2bud_k2_matrix.json) | other | 12131 | `77cf19522ae38899e76b651c0ac293094f3117ccb4fa1b752aa101b68807229d` |
 | [`morphogenesis/experiments/E09_pond/w2bud_k2b/w2bud_k2b_ctrl_seed171.json`](../morphogenesis/experiments/E09_pond/w2bud_k2b/w2bud_k2b_ctrl_seed171.json) | other | 2355934 | `41b54f5def982b8e4fe62338944a4d5e2eb8cb2efa412de349ba0ba73fc30292` |
 | [`morphogenesis/experiments/E09_pond/w2bud_k2b/w2bud_k2b_ctrl_seed172.json`](../morphogenesis/experiments/E09_pond/w2bud_k2b/w2bud_k2b_ctrl_seed172.json) | other | 2342467 | `87d4460243a8e4c17b70118641145db3b3c1f1fb15b4ee4aa06d41d9d49a7b8e` |
+| [`morphogenesis/experiments/E09_pond/w2bud_k2b/w2bud_k2b_ctrl_seed173.json`](../morphogenesis/experiments/E09_pond/w2bud_k2b/w2bud_k2b_ctrl_seed173.json) | other | 2294637 | `dc0cb89234980b95d875d54f18ba23dd4a77a67148929907cb585a5db4d9c5ce` |
 | [`morphogenesis/experiments/E09_pond/w2bud_k3/w2bud_k3_const_seed171.json`](../morphogenesis/experiments/E09_pond/w2bud_k3/w2bud_k3_const_seed171.json) | other | 454077 | `ee0007a2644bed8e31e2dd16e90e7e68703e830a167407c20a36d0fdc11c91b3` |
 | [`morphogenesis/experiments/E09_pond/w2bud_k3/w2bud_k3_const_seed172.json`](../morphogenesis/experiments/E09_pond/w2bud_k3/w2bud_k3_const_seed172.json) | other | 439932 | `ed6f8a41192c888cead4b519753149a71200c3076f9d0cc5c804c210d13dd454` |
 | [`morphogenesis/experiments/E09_pond/w2bud_k3/w2bud_k3_const_seed173.json`](../morphogenesis/experiments/E09_pond/w2bud_k3/w2bud_k3_const_seed173.json) | other | 411354 | `030d15afef0172ca4b21c1a6e70f73db5cdc7596a5284655ba9f40eab8679522` |
@@ -1349,6 +1350,7 @@
 | [`reports/figures/e02b_transition_matrix.png`](../reports/figures/e02b_transition_matrix.png) | figure | 152522 | `81f1b4fe50fd819f45411c31fb737a0c232d9c4f993f5233184c8b276779f5b9` |
 | [`reports/figures/e02c_seed_grid.png`](../reports/figures/e02c_seed_grid.png) | figure | 69503 | `a14f0a6eb28fa0675629e539dc863049d97c3a7ef1914c34ebd7348b5c71776f` |
 <!-- artifacts:end -->
+
 
 
 
