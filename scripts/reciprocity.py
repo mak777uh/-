@@ -73,6 +73,12 @@ def stream_values(run_stem: str, summary: dict, stream_dir: Path | None) -> list
             f = stream_dir / fname
             if f.exists():
                 return list(json.loads(f.read_text(encoding="utf-8")).get("values") or [])
+    # H-ALIVE-72: у реплея вход — дамп соответствующего ЖИВОГО прогона.
+    # `w2bud_hb_replay_seed171` ← `dumps/w2bud_hb_live_seed171_heard.json`
+    if "_replay_" in run_stem:
+        cand = stream_dir / (run_stem.replace("_replay_", "_live_") + "_heard.json")
+        if cand.exists():
+            return list(json.loads(cand.read_text(encoding="utf-8")).get("values") or [])
     return []
 
 
