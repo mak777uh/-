@@ -1652,6 +1652,30 @@
       "claimed_at": null,
       "heartbeat_at": null,
       "note": "импакт-порядок E6 (reports/2026-10-29-impact-order.md)"
+    },
+    {
+      "id": "X1_readme_commands_in_ci",
+      "title": "Гейт: команды из README действительно запускаются в CI",
+      "status": "planned",
+      "owner": "lead",
+      "cost_gpu_h": 0.0,
+      "ttl_minutes": 240,
+      "hypothesis": null,
+      "claimed_at": null,
+      "heartbeat_at": null,
+      "note": "из крестового аудита lexspec (M-1): «тесты зелёные» — утверждение о последнем запуске, а не о дереве; проверять машинно, что объявленная в README команда присутствует шагом в workflow"
+    },
+    {
+      "id": "X2_single_authoritative_spec",
+      "title": "Гейт: нет двух файлов, объявляющих одну версию требований",
+      "status": "planned",
+      "owner": "lead",
+      "cost_gpu_h": 0.0,
+      "ttl_minutes": 240,
+      "hypothesis": null,
+      "claimed_at": null,
+      "heartbeat_at": null,
+      "note": "из крестового аудита lexspec (M-2): спека — единственный носитель требований; если их две, читатель не узнает действующую"
     }
   ]
 }
