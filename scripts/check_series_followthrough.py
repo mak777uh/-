@@ -48,18 +48,49 @@ EXEMPT = _exempt()
 # Серия, которая ЕЩЁ ИДЁТ, — не «забытая». Признаки: живой замок с её именем или
 # свежий артефакт (< RUNNING_MIN). Иначе гейт краснеет на каждой идущей серии и
 # превращается в фон, который перестают читать (26.10).
-RUNNING_MIN = 20
+# 29.10: было 20 минут — меньше, чем длится один прогон на 1900 шагов (~40 мин), поэтому идущая
+# серия успевала «состариться» и гейт краснел на ней (K2b, первый прогон). Ставим 90 минут.
+RUNNING_MIN = 90
 LOCK_DIR = ROOT / "lab" / "locks"
 
 
-def _is_running(dirname: str, newest_mtime: float) -> bool:
-    """Серия идёт, если её последний артефакт свежий.
+def _series_dirs() -> set[str]:
+    """Имена каталогов-серий (по наличию артефактов JSON)."""
+    root = ROOT / "morphogenesis" / "experiments"
+    names = set()
+    if root.exists():
+        for d in root.rglob("*"):
+            if d.is_dir() and any(d.glob("*.json")):
+                names.add(d.name)
+    return names
 
-    Замки не используем: имена замков содержат имена серий как подстроки
-    (`w2budd2_rep_n3_...` содержит `w2budd2`), и проверка по подстроке ложно
-    помечала давно закрытые серии идущими. Свежесть артефакта — однозначный признак.
+
+def _lock_alive(dirname: str) -> bool:
+    """Живой замок этой серии: имя замка равно имени каталога или начинается с него + «_».
+
+    Подстроку не используем: `w2budd2_rep_n3_...` содержит `w2budd2`, и проверка по вхождению ложно
+    помечала закрытые серии идущими (это и было причиной, почему раньше замки не смотрели вообще).
     """
+    if not LOCK_DIR.exists():
+        return False
+    # Замок принадлежит САМОМУ ДЛИННОМУ каталогу-серии, который является его префиксом: иначе
+    # зонтичный каталог `w2bud` перехватывает замки `w2bud_k2b_*` и ложно считается идущим.
+    dirs = _series_dirs()
+    for lock in LOCK_DIR.glob("*.lock"):
+        stem = lock.stem
+        owners = [d for d in dirs if stem == d or stem.startswith(d + "_")]
+        if not owners:
+            continue
+        if max(owners, key=len) == dirname:
+            return True
+    return False
+
+
+def _is_running(dirname: str, newest_mtime: float) -> bool:
+    """Серия идёт, если жив её замок или последний артефакт свежий."""
     import time
+    if _lock_alive(dirname):
+        return True
     return (time.time() - newest_mtime) < RUNNING_MIN * 60
 
 

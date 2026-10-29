@@ -178,6 +178,12 @@ def section_github() -> tuple[list[str], list[str], str]:
         if name not in seen:
             seen[name] = run_
     lines = []
+    try:
+        head_now = subprocess.run(["git", "-C", str(ROOT), "rev-parse", "--short", "HEAD"],
+                                  capture_output=True, text=True, encoding="utf-8",
+                                  errors="replace").stdout.strip()
+    except Exception:
+        head_now = ""
     for name, run_ in seen.items():
         concl = run_.get("conclusion") or run_.get("status")
         created = run_.get("created_at", "")
@@ -195,6 +201,15 @@ def section_github() -> tuple[list[str], list[str], str]:
                 stale = age_h > STALE_HOURS
             except NameError:
                 stale = False
+            # 29.10: у расписанных по времени workflow (nightly в 03:00) прогон не обновится до утра,
+            # поэтому «моложе 2 ч» не значит «описывает текущий код». Если голова уехала вперёд, провал
+            # на старом коммите — предупреждение: иначе красный живёт сутки после починки.
+            try:
+                run_sha = str(run_.get("head_sha") or "")[:7]
+                if run_sha and head_now and run_sha != head_now:
+                    stale = True
+            except Exception:
+                pass
             msg = f"CI «{name}» упал ({age}): {run_.get('html_url')}"
             (warn if stale else bad).append(msg + (" — устарело, следующий прогон покажет" if stale else ""))
         elif concl in ("cancelled", "timed_out", "action_required"):
