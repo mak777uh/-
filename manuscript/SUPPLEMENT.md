@@ -920,6 +920,7 @@
 | [`morphogenesis/experiments/E09_pond/w2bud_horizon/w2bud_horizon_horizonboth_seed172.json`](../morphogenesis/experiments/E09_pond/w2bud_horizon/w2bud_horizon_horizonboth_seed172.json) | other | 2228054 | `7bf9ca29aa13e059fe2e9893e9e99ae5396b47ce7cd265473d7c54a7bed4927b` |
 | [`morphogenesis/experiments/E09_pond/w2bud_horizon/w2bud_horizon_horizonboth_seed173.json`](../morphogenesis/experiments/E09_pond/w2bud_horizon/w2bud_horizon_horizonboth_seed173.json) | other | 2189518 | `c1561ad5417a14bc64696c81cef2ab07c838e73535250d3d3d9a7647d8d7a1f9` |
 | [`morphogenesis/experiments/E09_pond/w2bud_horizon/w2bud_horizon_horizonboth_seed174.json`](../morphogenesis/experiments/E09_pond/w2bud_horizon/w2bud_horizon_horizonboth_seed174.json) | other | 2134748 | `7e39f31b5e17e3305d89f8c1ce8124d56e89c870c89a45920e107c906eba1f7c` |
+| [`morphogenesis/experiments/E09_pond/w2bud_horizon/w2bud_horizon_horizonboth_seed175.json`](../morphogenesis/experiments/E09_pond/w2bud_horizon/w2bud_horizon_horizonboth_seed175.json) | other | 2181189 | `0564fdea7d56da28a236544ef0e75b3a530d8a03b9a0f4fb2d69e2633742b222` |
 | [`morphogenesis/experiments/E09_pond/w2bud_horizon/w2bud_horizon_horizonc_seed171.json`](../morphogenesis/experiments/E09_pond/w2bud_horizon/w2bud_horizon_horizonc_seed171.json) | other | 2165588 | `3adefc4496d5d699d99b9655d823bed0d6356dc8016d3cb0612e4a0f4dc2e342` |
 | [`morphogenesis/experiments/E09_pond/w2bud_horizon/w2bud_horizon_horizonc_seed172.json`](../morphogenesis/experiments/E09_pond/w2bud_horizon/w2bud_horizon_horizonc_seed172.json) | other | 2153243 | `0f69da60eed987441723353db12c5a1429225c3278dfc52f0103b78f96771062` |
 | [`morphogenesis/experiments/E09_pond/w2bud_horizon/w2bud_horizon_horizonc_seed173.json`](../morphogenesis/experiments/E09_pond/w2bud_horizon/w2bud_horizon_horizonc_seed173.json) | other | 2112728 | `80fadb93d72f750cd828531e2f44bc8932be9fd6a6b60d57960e61c969580d86` |
@@ -930,6 +931,7 @@
 | [`morphogenesis/experiments/E09_pond/w2bud_horizon/w2bud_horizon_horizonp05_seed173.json`](../morphogenesis/experiments/E09_pond/w2bud_horizon/w2bud_horizon_horizonp05_seed173.json) | other | 1868771 | `091b5589d00e471f33fa5fa2b1a4ced59b9b6205294d969cde039b9373d974f1` |
 | [`morphogenesis/experiments/E09_pond/w2bud_horizon/w2bud_horizon_horizonp05_seed174.json`](../morphogenesis/experiments/E09_pond/w2bud_horizon/w2bud_horizon_horizonp05_seed174.json) | other | 1811893 | `bfda1da8b577a6e395d17ec4c14a873b9da4f362b9381b38d9d16f9c7b614fa3` |
 | [`morphogenesis/experiments/E09_pond/w2bud_horizon/w2bud_horizon_horizonp05_seed175.json`](../morphogenesis/experiments/E09_pond/w2bud_horizon/w2bud_horizon_horizonp05_seed175.json) | other | 1791432 | `68fff4a1bdca9329719b82a385023fa9550478780a70a012610ff0a483bf6dfd` |
+| [`morphogenesis/experiments/E09_pond/w2bud_horizon_matrix.json`](../morphogenesis/experiments/E09_pond/w2bud_horizon_matrix.json) | other | 27184 | `f1696bcae4deaf554b9684983cd068c7792a68a010067cb9762d60380cc6cd49` |
 | [`morphogenesis/experiments/E09_pond/w2bud_killwinner/w2bud_killwinner_cell_seed101.json`](../morphogenesis/experiments/E09_pond/w2bud_killwinner/w2bud_killwinner_cell_seed101.json) | other | 597391 | `e8b13b8dc9170fe06141a2fb7f07552afc88ef6c64173b1e9c12240809e3c2da` |
 | [`morphogenesis/experiments/E09_pond/w2bud_killwinner/w2bud_killwinner_cell_seed102.json`](../morphogenesis/experiments/E09_pond/w2bud_killwinner/w2bud_killwinner_cell_seed102.json) | other | 604137 | `dd5e423c7caa3c71064b0d6c55b44cbe422778ea44bbcf7c7cf5ddcfc72c5257` |
 | [`morphogenesis/experiments/E09_pond/w2bud_killwinner/w2bud_killwinner_cell_seed103.json`](../morphogenesis/experiments/E09_pond/w2bud_killwinner/w2bud_killwinner_cell_seed103.json) | other | 620747 | `b537d179fab21d747cb7e6b604dfc0794a9157dd7e4d867819c50f69d79de8ab` |
@@ -1323,6 +1325,7 @@
 | [`reports/figures/e02b_transition_matrix.png`](../reports/figures/e02b_transition_matrix.png) | figure | 152522 | `81f1b4fe50fd819f45411c31fb737a0c232d9c4f993f5233184c8b276779f5b9` |
 | [`reports/figures/e02c_seed_grid.png`](../reports/figures/e02c_seed_grid.png) | figure | 69503 | `a14f0a6eb28fa0675629e539dc863049d97c3a7ef1914c34ebd7348b5c71776f` |
 <!-- artifacts:end -->
+
 
 
 
