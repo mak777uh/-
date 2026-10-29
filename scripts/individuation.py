@@ -68,7 +68,7 @@ def load(path: Path):
     return int(d["step"]), z, w, kind
 
 
-def analyse(paths: list[Path]) -> dict:
+def analyse(paths: list[Path], alive_only: bool = False) -> dict:
     snaps = [load(p) for p in sorted(paths)]
     snaps.sort(key=lambda s: s[0])
     kind = snaps[0][3]
@@ -92,12 +92,13 @@ def analyse(paths: list[Path]) -> dict:
         for c in comps:
             for (y, x) in c:
                 inmask[y][x] = True
+        alive = [[z[y][x] > 0 for x in range(wd)] for y in range(h)]
         for y in range(h):
             for x in range(wd):
                 if inmask[y][x]:
                     tot_in += w[y][x]
                     n_in += 1
-                else:
+                elif (not alive_only) or alive[y][x]:
                     tot_out += w[y][x]
                     n_out += 1
         if n_in and n_out:
@@ -125,12 +126,16 @@ def analyse(paths: list[Path]) -> dict:
         "C2_persistence": c2,
         "C3_multiplication": c3,
         "C4_grid_refinement": "неприменимо: у дискретного мира нет непрерывного предела",
+        "alive_only": bool(alive_only),
     }
 
 
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description="критерий индивидуации по снимкам полей")
     ap.add_argument("--dir", required=True)
+    ap.add_argument("--alive-only", action="store_true",
+                    help="сравнивать w только среди ЖИВЫХ клеток (у пруда пустые клетки имеют нулевую энергию, "
+                         "и без этого «снаружи» — это деление на ноль)")
     ap.add_argument("--out", default=None)
     args = ap.parse_args(argv)
 
@@ -138,7 +143,7 @@ def main(argv=None) -> int:
     if len(paths) < 3:
         print(f"[individuation] снимков мало ({len(paths)}), нужно ≥3")
         return 1
-    res = analyse(paths)
+    res = analyse(paths, alive_only=bool(args.alive_only))
     print(f"[individuation] {args.dir}: снимков {res['snapshots']}, шаги {res['steps']}")
     print(f"  компонент по срезам: {res['component_counts']}")
     print(f"  контраст w внутри/снаружи: {res['contrasts']}")
