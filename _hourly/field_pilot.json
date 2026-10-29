@@ -1,0 +1,94 @@
+{
+  "kind": "field_lab",
+  "params": {
+    "steps": 400,
+    "grid": 64,
+    "dt": 0.02,
+    "seed": 0,
+    "device": "cuda",
+    "diff_phi": 0.6,
+    "kappa": 1.2,
+    "growth": 1.2,
+    "decay": 0.25,
+    "inflow": 0.9,
+    "uptake": 1.0,
+    "diff_food": 1.5,
+    "waste_cost": 0.35,
+    "waste_decay": 0.8,
+    "diff_waste": 1.5,
+    "threshold": 0.35,
+    "sample_every": 100,
+    "no_catalysis": false,
+    "no_phase": false
+  },
+  "series": [
+    {
+      "step": 1,
+      "components": 0,
+      "max_size": 0,
+      "median_size": 0,
+      "occupied_share": 0.0,
+      "phi_inside": 0.0,
+      "phi_outside": 0.005,
+      "food_inside": 0.0,
+      "food_outside": 0.918,
+      "grad_mean": 0.00456
+    },
+    {
+      "step": 100,
+      "components": 0,
+      "max_size": 0,
+      "median_size": 0,
+      "occupied_share": 0.0,
+      "phi_inside": 0.0,
+      "phi_outside": 0.0031,
+      "food_inside": 0.0,
+      "food_outside": 2.7,
+      "grad_mean": 5e-05
+    },
+    {
+      "step": 200,
+      "components": 0,
+      "max_size": 0,
+      "median_size": 0,
+      "occupied_share": 0.0,
+      "phi_inside": 0.0,
+      "phi_outside": 0.0019,
+      "food_inside": 0.0,
+      "food_outside": 4.5,
+      "grad_mean": 1e-05
+    },
+    {
+      "step": 300,
+      "components": 0,
+      "max_size": 0,
+      "median_size": 0,
+      "occupied_share": 0.0,
+      "phi_inside": 0.0,
+      "phi_outside": 0.0011,
+      "food_inside": 0.0,
+      "food_outside": 6.3,
+      "grad_mean": 1e-05
+    },
+    {
+      "step": 400,
+      "components": 0,
+      "max_size": 0,
+      "median_size": 0,
+      "occupied_share": 0.0,
+      "phi_inside": 0.0,
+      "phi_outside": 0.0007,
+      "food_inside": 0.0,
+      "food_outside": 8.1,
+      "grad_mean": 0.0
+    }
+  ],
+  "final_components": 0,
+  "max_components": 0,
+  "note": "непрерывное поле: нет клеток, меток и правил деления. Компоненты — описательная величина, а не критерий: объект появляется из фазового разделения и автокатализа",
+  "not_claimed": [
+    "что компоненты — индивидуумы (это описание, а не критерий)",
+    "что система воспроизводится на другой сетке или другом шаге dt",
+    "что параметры оптимальны: они выбраны как первая точка, а не подобраны"
+  ]
+}
