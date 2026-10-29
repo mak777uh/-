@@ -40,12 +40,48 @@ def offenders() -> list[str]:
     return bad
 
 
+def resolve_commit(sha: str) -> bool:
+    """Существует ли коммит в нашей истории (короткий хеш ≥7 символов)."""
+    import subprocess
+    r = subprocess.run(["git", "-C", str(ROOT), "cat-file", "-t", sha],
+                       capture_output=True, text=True, encoding="utf-8", errors="replace")
+    return r.returncode == 0
+
+
+def provenance_warnings() -> list[str]:
+    """Входящий аудит обязан называть коммит и дату; нерезолвящийся коммит — предупреждение.
+
+    Откуда (30.10): рецензия lexspec была снята с клона месячной давности, но в шапке стоял только хеш, и
+    читатель читал «в дереве» как «сейчас». Правило их же: первая строка называет коммит И его дату, а
+    нерезолвящийся коммит виден до чтения.
+    """
+    import re
+    out: list[str] = []
+    if not AUDIT_DIR.exists():
+        return out
+    for f in sorted(AUDIT_DIR.rglob("*.md")):
+        rel = f.relative_to(ROOT).as_posix()
+        if rel.startswith("cross-audit/outgoing/") or f.name in SERVICE:
+            continue
+        head = "\n".join(f.read_text(encoding="utf-8", errors="replace").splitlines()[:25])
+        for sha in set(re.findall(r"\b[0-9a-f]{7,40}\b", head)):
+            if not resolve_commit(sha):
+                out.append(f"{rel}: коммит {sha} не резолвится в нашей истории — снимок чужой или устаревший")
+        if not re.search(r"\d{1,2}[.\-]\d{1,2}[.\-]\d{2,4}|дата|date", head, re.IGNORECASE):
+            out.append(f"{rel}: в шапке нет даты")
+    return out
+
+
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description="аудиты помечены как внешние")
     ap.add_argument("--ci", action="store_true")
     args = ap.parse_args(argv)
 
     bad = offenders()
+    warns = provenance_warnings()
+    for w in warns:
+        print("[cross-audit] предупреждение:", w)
+
     if bad:
         print(f"[cross-audit] файлов без маркера внешнего происхождения: {len(bad)}")
         for b in bad:
