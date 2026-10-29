@@ -124,7 +124,12 @@ def main(argv=None) -> int:
                 elif re.search(rf"'{re.escape(name)}'\s+does not depend on any axioms", out):
                     pass
                 else:
-                    problems.append(f"{path.name}: {short}: не удалось прочитать #print axioms (код {r.returncode})")
+                    toolchain_hint = ""
+                    if "Init" in out or "olean" in out:
+                        toolchain_hint = " [toolchain: нет Init/olean]"
+                    problems.append(
+                        f"{path.name}: {short}: не удалось прочитать #print axioms (код {r.returncode}){toolchain_hint}"
+                    )
 
     inv = json.loads(INVENTORY.read_text(encoding="utf-8")) if INVENTORY.exists() else {}
     frozen = inv.get("statements") or {}
@@ -144,6 +149,21 @@ def main(argv=None) -> int:
             problems.append(f"формулировка изменена после заморозки: {n} — «доказали не то»")
         if added:
             problems.append(f"новые теоремы без заморозки: {', '.join(added[:5])} — запустите --freeze")
+
+    # H-ALIVE-62: Lean может стоять, но быть неработоспособным (нет Init/olean — неполный тулчейн).
+    # Это НЕ провал теорем и НЕ «доказано»: проверка невозможна, и это должно быть видно как статус.
+    toolchain_markers = ("[toolchain: нет Init/olean]", "unknown module prefix 'Init'", "No directory 'Init'")
+    if problems and len(problems) >= max(1, checked) and any(
+            any(mk in pr for mk in toolchain_markers) for pr in problems):
+        print(f"[axioms] тулчейн Lean есть, но неработоспособен (нет Init/olean): проверка НЕ выполнена "
+              f"({len(problems)} теорем не проверены). Это статус unavailable, а не «пройдено».")
+        inv0 = json.loads(INVENTORY.read_text(encoding="utf-8")) if INVENTORY.exists() else {}
+        inv0["axioms_status"] = "unavailable: toolchain has no Init/olean"
+        inv0["axioms_checked_at"] = subprocess.run(
+            ["git", "-C", str(ROOT), "log", "-1", "--format=%h"], capture_output=True, text=True,
+            encoding="utf-8", errors="replace").stdout.strip() or None
+        INVENTORY.write_text(json.dumps(inv0, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n")
+        return 0
 
     if problems:
         print(f"[axioms] ОШИБКА: {len(problems)} проблем (проверено теорем: {checked})")
