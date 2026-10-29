@@ -77,6 +77,8 @@ def main(argv=None) -> int:
     ap.add_argument("--k", type=float, default=0.06)    # распад
     ap.add_argument("--threshold", type=float, default=0.2)
     ap.add_argument("--sample-every", type=int, default=200)
+    ap.add_argument("--seed-v", type=float, default=1.0, help="значение v в зародыше (0.5 маргинально)")
+    ap.add_argument("--seed-radius", type=float, default=3.0, help="радиус зародыша в ФИЗИЧЕСКИХ единицах")
     ap.add_argument("--no-catalysis", action="store_true",
                     help="нулевая модель: убрать член u*v^2 (нет автокатализа, структуры не должны возникать)")
     ap.add_argument("--seed-cells", type=int, default=0,
@@ -98,12 +100,14 @@ def main(argv=None) -> int:
             cy = int(torch.randint(0, g, (1,), generator=gen).item())
             cx = int(torch.randint(0, g, (1,), generator=gen).item())
             m = ((xx - cx) ** 2 + (yy - cy) ** 2) <= 4
-            v = torch.where(m, torch.full_like(v, 0.5), v)
+            v = torch.where(m, torch.full_like(v, float(args.seed_v)), v)
             u = torch.where(m, torch.full_like(u, 0.25), u)
     else:
-        c, r0 = g // 2, max(2, g // 32)
+        # радиус задаётся в физических единицах через масштаб h = grid/96, чтобы сравнение по сеткам было честным
+        h = g / 96.0
+        c, r0 = g // 2, max(2.0, float(args.seed_radius) / h)
         m = ((xx - c) ** 2 + (yy - c) ** 2) <= r0 * r0
-        v = torch.where(m, torch.full_like(v, 0.5), v)
+        v = torch.where(m, torch.full_like(v, float(args.seed_v)), v)
         u = torch.where(m, torch.full_like(u, 0.25), u)
 
     Du, Dv, F, k = float(args.Du), float(args.Dv), float(args.F), float(args.k)

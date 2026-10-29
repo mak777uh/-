@@ -1,0 +1,116 @@
+{
+  "kind": "field_lab",
+  "model": "Gray-Scott: du=Du*lap(u)-u*v^2+F*(1-u); dv=Dv*lap(v)+u*v^2-(F+k)*v",
+  "params": {
+    "steps": 48000,
+    "grid": 192,
+    "dt": 0.25,
+    "seed": 0,
+    "device": "cuda",
+    "Du": 0.16,
+    "Dv": 0.08,
+    "F": 0.035,
+    "k": 0.06,
+    "threshold": 0.2,
+    "sample_every": 8000,
+    "seed_v": 1.0,
+    "seed_radius": 3.0,
+    "no_catalysis": false,
+    "seed_cells": 0
+  },
+  "series": [
+    {
+      "step": 1,
+      "components": 1,
+      "max_size": 13,
+      "median_size": 13,
+      "occupied_share": 0.0004,
+      "v_inside": 0.9931,
+      "v_outside": 0.0,
+      "u_inside": 0.2402,
+      "u_outside": 1.0,
+      "grad_mean": 0.00103
+    },
+    {
+      "step": 8000,
+      "components": 5,
+      "max_size": 1340,
+      "median_size": 205,
+      "occupied_share": 0.0586,
+      "v_inside": 0.2805,
+      "v_outside": 0.0064,
+      "u_inside": 0.3834,
+      "u_outside": 0.9743,
+      "grad_mean": 0.00427
+    },
+    {
+      "step": 16000,
+      "components": 28,
+      "max_size": 674,
+      "median_size": 144,
+      "occupied_share": 0.2151,
+      "v_inside": 0.2828,
+      "v_outside": 0.0303,
+      "u_inside": 0.3821,
+      "u_outside": 0.8801,
+      "grad_mean": 0.01726
+    },
+    {
+      "step": 24000,
+      "components": 32,
+      "max_size": 1024,
+      "median_size": 458,
+      "occupied_share": 0.3923,
+      "v_inside": 0.2813,
+      "v_outside": 0.0733,
+      "u_inside": 0.3838,
+      "u_outside": 0.7068,
+      "grad_mean": 0.03074
+    },
+    {
+      "step": 32000,
+      "components": 22,
+      "max_size": 2800,
+      "median_size": 273,
+      "occupied_share": 0.4222,
+      "v_inside": 0.2799,
+      "v_outside": 0.08,
+      "u_inside": 0.385,
+      "u_outside": 0.6772,
+      "grad_mean": 0.03257
+    },
+    {
+      "step": 40000,
+      "components": 22,
+      "max_size": 2836,
+      "median_size": 279,
+      "occupied_share": 0.4193,
+      "v_inside": 0.2807,
+      "v_outside": 0.0826,
+      "u_inside": 0.3841,
+      "u_outside": 0.6703,
+      "grad_mean": 0.03304
+    },
+    {
+      "step": 48000,
+      "components": 18,
+      "max_size": 2894,
+      "median_size": 821,
+      "occupied_share": 0.4242,
+      "v_inside": 0.2796,
+      "v_outside": 0.0827,
+      "u_inside": 0.3856,
+      "u_outside": 0.6692,
+      "grad_mean": 0.03313
+    }
+  ],
+  "splits": 31,
+  "final_components": 18,
+  "max_components": 32,
+  "note": "нет клеток, меток и правил деления: пятна делятся сами. Компоненты — описательная величина, а не критерий: сначала наблюдение, критерий замораживается после разведки",
+  "not_claimed": [
+    "что компоненты — индивидуумы (это описание, а не критерий)",
+    "что система воспроизводится при другой сетке или другом dt",
+    "что параметры (F, k) оптимальны: это первая точка режима, а не подбор"
+  ]
+}
