@@ -684,11 +684,37 @@ class PondRun:
                         generator=self.gen, device=self.device)
                     keep = draw < keep_p.unsqueeze(0).unsqueeze(0)
                 else:
-                    keep = torch.rand(
+                    draw = torch.rand(
                         (1, 1, self.world_cfg.grid, self.world_cfg.grid),
                         generator=self.gen,
                         device=self.device,
-                    ) < base
+                    )
+                    # H-ALIVE-73: значение для органа берём у живого источника прямо здесь
+                    organ_v = 0.5
+                    _organ_src = getattr(self.world_cfg, "inflow_live", None)
+                    if _organ_src is not None and hasattr(_organ_src, "value"):
+                        try:
+                            organ_v = float(_organ_src.value())
+                        except Exception:
+                            organ_v = 0.5
+                    organ_cx = int(getattr(self.world_cfg, "organ_cx", -1))
+                    organ_cy = int(getattr(self.world_cfg, "organ_cy", -1))
+                    organ_r = float(getattr(self.world_cfg, "organ_r", 0.0) or 0.0)
+                    if organ_r > 0.0:
+                        # H-ALIVE-73: сигнал входит только в орган; остальное поле живёт как прежде.
+                        g = self.world_cfg.grid
+                        cx = organ_cx if organ_cx >= 0 else g // 2
+                        cy = organ_cy if organ_cy >= 0 else g // 2
+                        yy = torch.arange(g, device=self.device).view(-1, 1).expand(g, g)
+                        xx = torch.arange(g, device=self.device).view(1, -1).expand(g, g)
+                        inside = ((xx - cx) ** 2 + (yy - cy) ** 2) <= organ_r ** 2
+                        gain = float(getattr(self.world_cfg, "organ_gain", 0.0) or 0.0)
+                        mod = (1.0 + gain * (2.0 * organ_v - 1.0)) if gain else 1.0
+                        p_field = torch.where(inside, torch.full_like(xx, base * mod, dtype=torch.float32),
+                                              torch.full_like(xx, base, dtype=torch.float32))
+                        keep = draw < p_field.unsqueeze(0).unsqueeze(0)
+                    else:
+                        keep = draw < base
                 self.pond.updates_total += int((keep & alive_now).sum())
                 self.state = torch.where(keep, new_state, self.state)
         if int(getattr(self, "cohort_lines", 0)) > 0 and \
@@ -983,6 +1009,12 @@ def build_parser() -> argparse.ArgumentParser:
                     help="клеток в наборе сентинела (по умолчанию 8, как инокулят инвазии)")
     ap.add_argument("--sentinel-at-step", type=int, default=1200,
                     help="на каком шаге вселять сентинелы и инвазора (резидент должен быть сертифицирован по дрейфу)")
+    ap.add_argument("--organ-r", type=float, default=0.0,
+                    help="H-ALIVE-73: радиус органа-коррелянта в клетках (0 = орган выключен)")
+    ap.add_argument("--organ-gain", type=float, default=0.0,
+                    help="H-ALIVE-73: сила реакции органа на сигнал (0 = орган есть, но глухой)")
+    ap.add_argument("--organ-cx", type=int, default=-1, help="центр органа по X (-1 = центр поля)")
+    ap.add_argument("--organ-cy", type=int, default=-1, help="центр органа по Y (-1 = центр поля)")
     ap.add_argument("--inflow-target", default="income", choices=["income", "rhythm"],
                     help="H-ALIVE-60: к чему привязывается внешний сигнал. income — приток энергии "
                          "(оказался нечувствителен: мир ограничен местом, а не энергией); "
@@ -1173,6 +1205,12 @@ def main(argv: list[str] | None = None) -> int:
     run.sentinel_cells = int(getattr(args, "sentinel_cells", 8))
     run.sentinel_at_step = int(getattr(args, "sentinel_at_step", 1200))
     run.world_seed = int(getattr(args, "seed", 0) or 0)
+    if hasattr(world, "organ_r"):
+        world.organ_r = float(getattr(args, "organ_r", 0.0) or 0.0)
+        world.organ_gain = float(getattr(args, "organ_gain", 0.0) or 0.0)
+        world.organ_cx = int(getattr(args, "organ_cx", -1))
+        world.organ_cy = int(getattr(args, "organ_cy", -1))
+        world.organ_enabled = world.organ_r > 0.0
     run.cohort_lines = int(getattr(args, "cohort_lines", 0))
     run.cohort_cells = int(getattr(args, "cohort_cells", 8))
     run.cohort_at_step = int(getattr(args, "cohort_at_step", 700))

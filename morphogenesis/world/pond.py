@@ -116,6 +116,14 @@ class PondConfig:
     inflow_coupling: float = 0.0        # H-ALIVE-59: сила связи с внешним потоком (0 = выключено)
     inflow_stream_mode: str = ""        # H-ALIVE-59: global | spatial
     inflow_target: str = "income"       # H-ALIVE-60: income | rhythm
+    # H-ALIVE-73: «орган» — диск в поле, который один чувствует внешний сигнал.
+    # Нужен, чтобы сигнал входил в МЕСТО, а не в глобальную ручку: тогда возникает
+    # пространственная корреляция, а не просто смена среднего темпа.
+    organ_enabled: bool = False
+    organ_cx: int = -1                  # центр органа, -1 = центр поля
+    organ_cy: int = -1
+    organ_r: float = 6.0
+    organ_gain: float = 0.0             # сила реакции органа (0 = не реагирует)
     inflow_base_update: float = 1.0     # базовая вероятность обновления для rhythm-режима
     inflow_stream_values: list | None = None  # проигрываемые значения 0..1
     require_placement: int = 0         # 0 = старая ветка бит-в-бит; >0 = гарантировать столько клеток
