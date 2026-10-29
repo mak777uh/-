@@ -124,6 +124,14 @@ class PondConfig:
     organ_cy: int = -1
     organ_r: float = 6.0
     organ_gain: float = 0.0             # сила реакции органа (0 = не реагирует)
+    # H-ALIVE-74: «площадка» — место, в которое светим сигналом. Режимы:
+    # tempo (быстрее обновление), bud (легче почкование), sham (площадка есть, эффекта нет).
+    patch_mode: str = "off"
+    patch_r: float = 6.0
+    patch_cx: int = -1
+    patch_cy: int = -1
+    patch_bud_discount: float = 0.5     # во сколько раз дешевле почкование (оказалось не binds)
+    patch_mass_discount: float = 0.5    # во сколько раз ниже порог МАССЫ в площадке (вот это binds)
     inflow_base_update: float = 1.0     # базовая вероятность обновления для rhythm-режима
     inflow_stream_values: list | None = None  # проигрываемые значения 0..1
     require_placement: int = 0         # 0 = старая ветка бит-в-бит; >0 = гарантировать столько клеток
@@ -1219,6 +1227,34 @@ class Pond:
         return moves
 
     # ---------- размножение ----------
+    def patch_mask(self) -> "torch.Tensor | None":
+        """Маска «площадки», в которую светим сигналом (H-ALIVE-74). None, если площадка выключена."""
+        import torch as _t
+        mode = str(getattr(self.cfg, "patch_mode", "off") or "off")
+        r = float(getattr(self.cfg, "patch_r", 0.0) or 0.0)
+        if mode == "off" or r <= 0:
+            return None
+        g = self.cfg.grid
+        cx = int(getattr(self.cfg, "patch_cx", -1))
+        cy = int(getattr(self.cfg, "patch_cy", -1))
+        cx = g // 2 if cx < 0 else cx
+        cy = g // 2 if cy < 0 else cy
+        yy = _t.arange(g, device=self.device).view(-1, 1).expand(g, g)
+        xx = _t.arange(g, device=self.device).view(1, -1).expand(g, g)
+        return ((xx - cx) ** 2 + (yy - cy) ** 2) <= r * r
+
+    def _in_patch(self, mask: "torch.Tensor") -> bool:
+        """Центр масс маски внутри площадки?"""
+        pm = self.patch_mask()
+        if pm is None or not bool(mask.any()):
+            return False
+        idx = mask.nonzero(as_tuple=False).float().mean(dim=0)
+        g = self.cfg.grid
+        cx = int(getattr(self.cfg, "patch_cx", g // 2))
+        cy = int(getattr(self.cfg, "patch_cy", g // 2))
+        r = float(getattr(self.cfg, "patch_r", 0.0) or 0.0)
+        return (float(idx[1]) - cx) ** 2 + (float(idx[0]) - cy) ** 2 <= r * r
+
     def find_buds(self) -> list[torch.Tensor]:
         """Компоненты, у которых хватает массы и энергии на спору."""
         if not self.state.alive.any():
@@ -1226,10 +1262,19 @@ class Pond:
         mass, labels = self._components(self.state.alive)
         buds = []
         for comp_id, size in mass.items():
-            if size < self.cfg.budding_mass:
+            need_mass = float(self.cfg.budding_mass)
+            if str(getattr(self.cfg, "patch_mode", "off") or "off") == "bud" and self._in_patch(labels == comp_id):
+                # H-ALIVE-74: в площадке порог массы ниже — там легче начать размножаться.
+                # Цену не трогаем: она не является ограничением (0.2 против энергии 1.8).
+                need_mass *= float(getattr(self.cfg, "patch_mass_discount", 1.0) or 1.0)
+            if size < need_mass:
                 continue
             mask = labels == comp_id
-            if float(self.state.energy[mask].mean()) >= self.cfg.budding_cost:
+            need = float(self.cfg.budding_cost)
+            if str(getattr(self.cfg, "patch_mode", "off") or "off") == "bud" and self._in_patch(mask):
+                # H-ALIVE-74: в площадке почкование дешевле — там легче оставить потомство
+                need *= float(getattr(self.cfg, "patch_bud_discount", 1.0) or 1.0)
+            if float(self.state.energy[mask].mean()) >= need:
                 buds.append(mask)
         return buds
 

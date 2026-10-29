@@ -182,6 +182,53 @@ def _invader_block(pond) -> dict:
 
 
 
+
+
+def _patch_block(pond) -> dict:
+    """H-ALIVE-74: пространственное чтение — что выросло внутри площадки и что снаружи.
+
+    Глобальные метрики (q1, население) усредняют по полю и поэтому слепы к локальному эффекту.
+    Здесь считаются те же величины отдельно для площадки и её дополнения, плюс для каждой линии —
+    доля её клеток внутри площадки. «Выросло само» = у линии доля внутри заметно выше доли площади.
+    """
+    import torch as _torch
+    s = pond.state
+    pm = pond.patch_mask() if hasattr(pond, "patch_mask") else None
+    if pm is None or s.tag is None or not bool(s.alive.any()):
+        return {}
+
+    def stats(mask_reg: "Any") -> dict:
+        reg = mask_reg & s.alive
+        n = int(reg.sum())
+        if n == 0:
+            return {"alive": 0, "lineages_ge5": 0, "q1": 0.0, "energy_mean": 0.0}
+        vals = s.tag[reg]
+        uniq, counts = _torch.unique(vals, return_counts=True)
+        probs = (counts.float() / float(n))
+        q1 = float(1.0 / float((probs ** 2).sum()))
+        ge5 = int((counts >= 5).sum())
+        return {"alive": n, "lineages_ge5": ge5, "q1": round(q1, 3),
+                "energy_mean": round(float(s.energy[reg].mean()), 4)}
+
+    inside, outside = stats(pm), stats(~pm)
+    # по линиям: доля внутри площадки против доли площади
+    area_share = float(pm.float().mean())
+    per_lineage = {}
+    uniq, counts_in = _torch.unique(s.tag[pm & s.alive], return_counts=True)
+    total = dict(zip(*[x.tolist() for x in _torch.unique(s.tag[s.alive], return_counts=True)]))
+    for tag_id, cin in zip(uniq.tolist(), counts_in.tolist()):
+        tot = int(total.get(int(tag_id), 0))
+        if tot < 5:
+            continue
+        per_lineage[str(int(tag_id))] = {"total": tot, "inside": int(cin),
+                                         "inside_share": round(cin / tot, 3),
+                                         "over_representation": round((cin / tot) / max(1e-9, area_share), 2)}
+    return {"mode": str(getattr(pond.cfg, "patch_mode", "off")), "area_share": round(area_share, 3),
+            "inside": inside, "outside": outside, "per_lineage": dict(sorted(
+                per_lineage.items(), key=lambda kv: -kv[1]["over_representation"])[:8])}
+
+
+
 def _sentinel_block(pond) -> dict:
     """Сколько клеток осталось у каждой нейтральной линии-сентинела (эмпирический нуль плеча)."""
     import torch as _torch
@@ -241,6 +288,7 @@ def tag_metrics_block(pond) -> dict:
             "births_balance": int(getattr(pond, "births_balance", 0)),
         },
         "sentinels": _sentinel_block(pond),
+        "patch": _patch_block(pond),
         "invader": _invader_block(pond),
         "cohort": _cohort_block(pond),
     }
@@ -1009,6 +1057,15 @@ def build_parser() -> argparse.ArgumentParser:
                     help="клеток в наборе сентинела (по умолчанию 8, как инокулят инвазии)")
     ap.add_argument("--sentinel-at-step", type=int, default=1200,
                     help="на каком шаге вселять сентинелы и инвазора (резидент должен быть сертифицирован по дрейфу)")
+    ap.add_argument("--patch-mode", default="off", choices=["off", "tempo", "bud", "sham"],
+                    help="H-ALIVE-74: куда светим — tempo (быстрее обновление), bud (легче почкование), sham (контроль)")
+    ap.add_argument("--patch-r", type=float, default=6.0, help="H-ALIVE-74: радиус площадки")
+    ap.add_argument("--patch-cx", type=int, default=-1, help="центр площадки по X (-1 = центр поля)")
+    ap.add_argument("--patch-cy", type=int, default=-1, help="центр площадки по Y")
+    ap.add_argument("--patch-mass-discount", type=float, default=0.5,
+                    help="H-ALIVE-74: во сколько раз ниже порог МАССЫ в площадке (это ограничение binds)")
+    ap.add_argument("--patch-bud-discount", type=float, default=0.5,
+                    help="H-ALIVE-74: во сколько раз дешевле почкование в площадке (0.5 = вдвое)")
     ap.add_argument("--organ-r", type=float, default=0.0,
                     help="H-ALIVE-73: радиус органа-коррелянта в клетках (0 = орган выключен)")
     ap.add_argument("--organ-gain", type=float, default=0.0,
@@ -1205,6 +1262,13 @@ def main(argv: list[str] | None = None) -> int:
     run.sentinel_cells = int(getattr(args, "sentinel_cells", 8))
     run.sentinel_at_step = int(getattr(args, "sentinel_at_step", 1200))
     run.world_seed = int(getattr(args, "seed", 0) or 0)
+    if hasattr(world, "patch_mode"):
+        world.patch_mode = str(getattr(args, "patch_mode", "off") or "off")
+        world.patch_r = float(getattr(args, "patch_r", 6.0) or 0.0)
+        world.patch_cx = int(getattr(args, "patch_cx", -1))
+        world.patch_cy = int(getattr(args, "patch_cy", -1))
+        world.patch_bud_discount = float(getattr(args, "patch_bud_discount", 0.5) or 0.5)
+        world.patch_mass_discount = float(getattr(args, "patch_mass_discount", 0.5) or 0.5)
     if hasattr(world, "organ_r"):
         world.organ_r = float(getattr(args, "organ_r", 0.0) or 0.0)
         world.organ_gain = float(getattr(args, "organ_gain", 0.0) or 0.0)
