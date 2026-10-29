@@ -858,30 +858,30 @@ class PondRun:
                 "energy": self.pond.state.energy.detach().cpu().numpy().copy(),
             })
 
+        # E1: снимок полей для критерия индивидуации (живые клетки + энергия)
+        _dump_dir = getattr(self.world_cfg, "dump_fields", None)
+        if _dump_dir:
+            _every = int(getattr(self.world_cfg, "dump_every", 100) or 100)
+            if int(self.pond.state.step) % _every == 0:
+                import json as _json
+                from pathlib import Path as _Path
+                _d = _Path(_dump_dir)
+                _d.mkdir(parents=True, exist_ok=True)
+                _snap = {
+                    "step": int(self.pond.state.step),
+                    "alive": self.pond.state.alive.detach().to("cpu").to(torch.int8).tolist(),
+                    "energy": [[round(float(x), 4) for x in row]
+                               for row in self.pond.state.energy.detach().to("cpu").tolist()],
+                }
+                (_d / ("fields_%05d.json" % int(self.pond.state.step))).write_text(
+                    _json.dumps(_snap) + "\n", encoding="utf-8")
+
         self._accumulate(int(self.pond.state.alive.sum()))
         snap = self.pond.snapshot()
         snap["births_this_step"] = births
         snap["grown_cells"] = grown
         self.log.append(snap)
         return snap
-
-        # E1: снимок полей — живые клетки и энергия (для критерия индивидуации)
-        dump_dir = getattr(self.world_cfg, "dump_fields", None)
-        if dump_dir:
-            every = int(getattr(self.world_cfg, "dump_every", 100) or 100)
-            if int(self.pond.state.step) % every == 0:
-                import json as _json
-                from pathlib import Path as _Path
-                d = _Path(dump_dir)
-                d.mkdir(parents=True, exist_ok=True)
-                snap = {
-                    "step": int(self.pond.state.step),
-                    "alive": self.state.alive.detach().to("cpu").to(torch.int8).tolist(),
-                    "energy": [[round(float(x), 4) for x in row]
-                               for row in self.state.energy.detach().to("cpu").tolist()],
-                }
-                (d / ("fields_%05d.json" % int(self.pond.state.step))).write_text(
-                    _json.dumps(snap) + "\n", encoding="utf-8")
 
     def run(self, steps: int, log_every: int = 50) -> dict:
         t0 = time.perf_counter()
