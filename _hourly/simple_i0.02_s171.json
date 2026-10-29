@@ -1,0 +1,129 @@
+{
+  "kind": "simple_world",
+  "model": "агент без NCA: энергия, деление при пороге в любую свободную соседнюю клетку, смерть при нуле; нет массы, нет почкования-споры, нет правила мира",
+  "params": {
+    "steps": 800,
+    "grid": 32,
+    "seed": 171,
+    "device": "cpu",
+    "income": 0.02,
+    "maintenance": 0.02,
+    "divide_at": 1.0,
+    "energy_cap": 2.0,
+    "mutation_rate": 0.05,
+    "sample_every": 50,
+    "update_probability": 1.0
+  },
+  "series": [
+    {
+      "step": 1,
+      "alive": 9,
+      "q1": 1.0,
+      "lineages_ge5": 1
+    },
+    {
+      "step": 50,
+      "alive": 9,
+      "q1": 1.0,
+      "lineages_ge5": 1
+    },
+    {
+      "step": 100,
+      "alive": 9,
+      "q1": 1.0,
+      "lineages_ge5": 1
+    },
+    {
+      "step": 150,
+      "alive": 9,
+      "q1": 1.0,
+      "lineages_ge5": 1
+    },
+    {
+      "step": 200,
+      "alive": 9,
+      "q1": 1.0,
+      "lineages_ge5": 1
+    },
+    {
+      "step": 250,
+      "alive": 9,
+      "q1": 1.0,
+      "lineages_ge5": 1
+    },
+    {
+      "step": 300,
+      "alive": 9,
+      "q1": 1.0,
+      "lineages_ge5": 1
+    },
+    {
+      "step": 350,
+      "alive": 9,
+      "q1": 1.0,
+      "lineages_ge5": 1
+    },
+    {
+      "step": 400,
+      "alive": 9,
+      "q1": 1.0,
+      "lineages_ge5": 1
+    },
+    {
+      "step": 450,
+      "alive": 9,
+      "q1": 1.0,
+      "lineages_ge5": 1
+    },
+    {
+      "step": 500,
+      "alive": 9,
+      "q1": 1.0,
+      "lineages_ge5": 1
+    },
+    {
+      "step": 550,
+      "alive": 9,
+      "q1": 1.0,
+      "lineages_ge5": 1
+    },
+    {
+      "step": 600,
+      "alive": 9,
+      "q1": 1.0,
+      "lineages_ge5": 1
+    },
+    {
+      "step": 650,
+      "alive": 9,
+      "q1": 1.0,
+      "lineages_ge5": 1
+    },
+    {
+      "step": 700,
+      "alive": 9,
+      "q1": 1.0,
+      "lineages_ge5": 1
+    },
+    {
+      "step": 750,
+      "alive": 9,
+      "q1": 1.0,
+      "lineages_ge5": 1
+    },
+    {
+      "step": 800,
+      "alive": 9,
+      "q1": 1.0,
+      "lineages_ge5": 1
+    }
+  ],
+  "final_alive": 9,
+  "capacity_used": 0.009,
+  "note": "проверка: меняется ли население при ×10 по притоку, когда объект другой",
+  "not_claimed": [
+    "что это модель жизни: это минимальный агент для проверки одного механизма",
+    "что население не зависит от притока при любых параметрах",
+    "что линии здесь сопоставимы с линиями пруда"
+  ]
+}
