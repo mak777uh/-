@@ -1200,6 +1200,22 @@ def run_command(args: argparse.Namespace) -> int:
     print(f"[lab] cwd={MORPH}")
     print("[lab] " + " ".join(command), flush=True)
 
+    # 29.10 (дважды за день): серия запускалась при незакоммиченном коде мира, и первый прогон
+    # записывал СТАРЫЙ HEAD, а остальные — новый. Гейт гомогенности справедливо краснел, но разбираться
+    # приходилось задним числом. Теперь обёртка отказывается стартовать, если код мира грязный.
+    world_dirty = subprocess.run(
+        ["git", "-C", str(ROOT), "status", "--porcelain", "--", "morphogenesis/world"],
+        capture_output=True, text=True, encoding="utf-8", errors="replace",
+    ).stdout.strip()
+    if world_dirty and not getattr(args, "force_dirty", False):
+        print("[lab] WELT_DIRTY_REFUSED: код мира не закоммичен; закоммитьте его ДО запуска серии, "
+              "иначе прогоны разойдутся по HEAD. Показать: git status --short morphogenesis/world", flush=True)
+        for line in world_dirty.splitlines()[:8]:
+            print("   ", line.strip(), flush=True)
+        print("[lab] (обойти можно флагом --force-dirty, но тогда гомогенность надо доказывать вручную)", flush=True)
+        release_lock(experiment)
+        return 2
+
     return_code = 1
     try:
         with log_path.open("w", encoding="utf-8", newline="\n") as log_fh:
