@@ -1109,6 +1109,7 @@
 | [`morphogenesis/experiments/E09_pond/w2bud_org/w2bud_org_off_seed171.json`](../morphogenesis/experiments/E09_pond/w2bud_org/w2bud_org_off_seed171.json) | other | 530698 | `1e8e343a7f5214a746ccf022d4177ed52cfd20b9bce48a9639f3612c29b51acf` |
 | [`morphogenesis/experiments/E09_pond/w2bud_org/w2bud_org_off_seed172.json`](../morphogenesis/experiments/E09_pond/w2bud_org/w2bud_org_off_seed172.json) | other | 498776 | `4e67dd46ee9dbe47cbd63ef8335a4b991963286839bc8a834e8d9c88fe786ee4` |
 | [`morphogenesis/experiments/E09_pond/w2bud_org/w2bud_org_off_seed173.json`](../morphogenesis/experiments/E09_pond/w2bud_org/w2bud_org_off_seed173.json) | other | 486183 | `3bac669219f5ac9f2cbf2f82b4ab9f0fff68464667e29907664548c21906a3e1` |
+| [`morphogenesis/experiments/E09_pond/w2bud_org_matrix.json`](../morphogenesis/experiments/E09_pond/w2bud_org_matrix.json) | other | 20902 | `028c191aac6291747d03f4f771db66a1a2ebbc5991929f38147ad65414d8df9b` |
 | [`morphogenesis/experiments/E09_pond/w2bud_pair/pilot/w2bud_pair_pilot_pair_seed1.json`](../morphogenesis/experiments/E09_pond/w2bud_pair/pilot/w2bud_pair_pilot_pair_seed1.json) | other | 503310 | `83f6a3f68ece5308a2beeb99d7009a06666e602df678358b321ebd1eddeb9a38` |
 | [`morphogenesis/experiments/E09_pond/w2bud_pair/pilot/w2bud_pair_pilot_pair_seed2.json`](../morphogenesis/experiments/E09_pond/w2bud_pair/pilot/w2bud_pair_pilot_pair_seed2.json) | other | 511484 | `0b7949faa879b2c43b1aa11992a195598f1b53ab5fd5492f126cf1872aa71f9c` |
 | [`morphogenesis/experiments/E09_pond/w2bud_pair/pilot/w2bud_pair_pilot_pair_seed3.json`](../morphogenesis/experiments/E09_pond/w2bud_pair/pilot/w2bud_pair_pilot_pair_seed3.json) | other | 523614 | `6ba294b1ecaf293d6f46f420560b4e734310b79bd403247b4a67c023d1cf2519` |
@@ -1389,6 +1390,7 @@
 | [`reports/figures/e02b_transition_matrix.png`](../reports/figures/e02b_transition_matrix.png) | figure | 152522 | `81f1b4fe50fd819f45411c31fb737a0c232d9c4f993f5233184c8b276779f5b9` |
 | [`reports/figures/e02c_seed_grid.png`](../reports/figures/e02c_seed_grid.png) | figure | 69503 | `a14f0a6eb28fa0675629e539dc863049d97c3a7ef1914c34ebd7348b5c71776f` |
 <!-- artifacts:end -->
+
 
 
 
