@@ -1213,7 +1213,7 @@ def run_command(args: argparse.Namespace) -> int:
         for line in world_dirty.splitlines()[:8]:
             print("   ", line.strip(), flush=True)
         print("[lab] (обойти можно флагом --force-dirty, но тогда гомогенность надо доказывать вручную)", flush=True)
-        release_lock(experiment)
+        release(experiment, run_id)
         return 2
 
     return_code = 1

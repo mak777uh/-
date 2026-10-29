@@ -865,6 +865,24 @@ class PondRun:
         self.log.append(snap)
         return snap
 
+        # E1: снимок полей — живые клетки и энергия (для критерия индивидуации)
+        dump_dir = getattr(self.world_cfg, "dump_fields", None)
+        if dump_dir:
+            every = int(getattr(self.world_cfg, "dump_every", 100) or 100)
+            if int(self.pond.state.step) % every == 0:
+                import json as _json
+                from pathlib import Path as _Path
+                d = _Path(dump_dir)
+                d.mkdir(parents=True, exist_ok=True)
+                snap = {
+                    "step": int(self.pond.state.step),
+                    "alive": self.state.alive.detach().to("cpu").to(torch.int8).tolist(),
+                    "energy": [[round(float(x), 4) for x in row]
+                               for row in self.state.energy.detach().to("cpu").tolist()],
+                }
+                (d / ("fields_%05d.json" % int(self.pond.state.step))).write_text(
+                    _json.dumps(snap) + "\n", encoding="utf-8")
+
     def run(self, steps: int, log_every: int = 50) -> dict:
         t0 = time.perf_counter()
         for _ in range(steps):
@@ -1057,6 +1075,9 @@ def build_parser() -> argparse.ArgumentParser:
                     help="клеток в наборе сентинела (по умолчанию 8, как инокулят инвазии)")
     ap.add_argument("--sentinel-at-step", type=int, default=1200,
                     help="на каком шаге вселять сентинелы и инвазора (резидент должен быть сертифицирован по дрейфу)")
+    ap.add_argument("--dump-fields", default=None,
+                    help="E1: каталог для снимков полей (живые клетки + энергия) через каждые --dump-every шагов")
+    ap.add_argument("--dump-every", type=int, default=100, help="E1: шаг между снимками полей")
     ap.add_argument("--patch-mode", default="off", choices=["off", "tempo", "bud", "sham"],
                     help="H-ALIVE-74: куда светим — tempo (быстрее обновление), bud (легче почкование), sham (контроль)")
     ap.add_argument("--patch-r", type=float, default=6.0, help="H-ALIVE-74: радиус площадки")
@@ -1262,6 +1283,9 @@ def main(argv: list[str] | None = None) -> int:
     run.sentinel_cells = int(getattr(args, "sentinel_cells", 8))
     run.sentinel_at_step = int(getattr(args, "sentinel_at_step", 1200))
     run.world_seed = int(getattr(args, "seed", 0) or 0)
+    if hasattr(world, "dump_fields"):
+        world.dump_fields = str(getattr(args, "dump_fields", "") or "") or None
+        world.dump_every = int(getattr(args, "dump_every", 100) or 100)
     if hasattr(world, "patch_mode"):
         world.patch_mode = str(getattr(args, "patch_mode", "off") or "off")
         world.patch_r = float(getattr(args, "patch_r", 6.0) or 0.0)
