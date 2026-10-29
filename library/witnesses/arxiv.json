@@ -1,0 +1,22 @@
+{
+  "paper": "arXiv draft v1.2 — Morphogenesis",
+  "note": "Утверждение -> поле агрегата -> что доказывает -> что НЕ доказывает. Таблица перегенерируется, поэтому не стареет молча.",
+  "claims": [
+    {"id": "W1", "statement": "I_obs = 0.5614 (клеточное почкование)", "artifact": "morphogenesis/experiments/E09_pond/w2bud3_matrix.json", "field": "by_arm.1.crow_I_median_all", "expect": 0.5614,
+     "proves": "медиана I по 10 сидам воспроизводится из агрегата", "not_proves": "критерий I>null записан после данных, а не пре-регистрирован"},
+    {"id": "W2", "statement": "нуль-модель 95 % = 0.0621", "artifact": "morphogenesis/experiments/E09_pond/w2bud3_matrix.json", "field": "by_arm.1.I_null_95_median", "expect": 0.0621,
+     "proves": "значение нуля при rate = sum/sum", "not_proves": "чувствительность к выбору нуль-модели (mean-rate даёт другое)"},
+    {"id": "W3", "statement": "колониальное почкование: I = 0", "artifact": "morphogenesis/experiments/E09_pond/w2bud3_matrix.json", "field": "by_arm.0.crow_I_median_all", "expect": 0.0,
+     "proves": "в контроле вариативность между линиями отсутствует", "not_proves": "«отбора нет»: линия одна по построению"},
+    {"id": "W4", "statement": "цена: медиана rho_partial = -0.374 (kill-the-winner, 30 прогонов)", "artifact": "morphogenesis/experiments/E09_pond/w2bud_killwinner_confirm_matrix.json", "field": "by_arm.cellkw05.rho_median", "expect": -0.374,
+     "proves": "медиана частной ранговой корреляции по 30 прогонам", "not_proves": "величину <= 0.3: верхняя граница ДИ -0.266 порог не берёт"},
+    {"id": "W5", "statement": "цена отсутствует в канале частоты обновления: медиана +0.055", "artifact": "morphogenesis/experiments/E09_pond/w2bud_trait_update_matrix.json", "field": "by_arm.cellupd.rho_median", "expect": 0.055,
+     "proves": "в этом канале медиана около нуля при узком ДИ", "not_proves": "общий закон «цена принадлежит каналу» — только для этих двух конструкций"},
+    {"id": "W6", "statement": "инвазия uniform: keep 7/10, majority 0/10", "artifact": "morphogenesis/experiments/E09_pond/placement_matrix.json", "field": "by_arm.0.survived_k", "expect": 7,
+     "proves": "число выживших линий к концу в плече keep", "not_proves": "«появляется»: присутствие по a_share<1 даёт 10/10"},
+    {"id": "W7", "statement": "инвазия patches: keep 10/10, majority 0/10", "artifact": "morphogenesis/experiments/E09_pond/placement_patches_matrix.json", "field": "by_arm.0.survived_k", "expect": 10,
+     "proves": "выжившие в плече keep на раскладке patches", "not_proves": "механизм: majority стирает в шаге подсадки, это не конкуренция"},
+    {"id": "W8", "statement": "горизонт: плато 1/Sum p^2 = 8.80 (комбинация) против 1.30 (контроль)", "artifact": "morphogenesis/experiments/E09_pond/w2bud_horizon_matrix.json", "field": "by_arm.horizonboth.effective_lineages_median", "expect": 8.8,
+     "proves": "величина на 1800 шагах из одной истории прогона", "not_proves": "плато окончательно: 1800 не бесконечность"}
+  ]
+}

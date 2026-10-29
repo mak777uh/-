@@ -468,6 +468,24 @@ def test_claims_anchor(tmp: Path) -> None:
         shutil.rmtree(work, ignore_errors=True)
 
 
+def test_paper_witness(tmp: Path) -> None:
+    """Witness-таблица: все числа должны сходиться; подмена ожидания — расхождение."""
+    res = run("library/tools/paper_witness.py", "--spec", "library/witnesses/arxiv.json")
+    check("paper_witness: все числа сходятся", res.returncode == 0, res.stdout[-400:])
+    work = REPO / "library" / "witnesses" / ".test-spec.json"
+    try:
+        spec = {"paper": "test", "claims": [{
+            "id": "T1", "statement": "заведомо неверное ожидание",
+            "artifact": "morphogenesis/experiments/E09_pond/placement_matrix.json",
+            "field": "by_arm.0.survived_k", "expect": 999,
+            "proves": "-", "not_proves": "-"}]}
+        work.write_text(__import__("json").dumps(spec), encoding="utf-8")
+        bad = run("library/tools/paper_witness.py", "--spec", "library/witnesses/.test-spec.json")
+        check("paper_witness: неверное ожидание — расхождение", bad.returncode == 1, bad.stdout[-300:])
+    finally:
+        work.unlink(missing_ok=True)
+
+
 def main() -> int:
     with tempfile.TemporaryDirectory() as tdir:
         tmp = Path(tdir)
@@ -501,6 +519,8 @@ def main() -> int:
         test_science_digest(tmp)
         print("== topic lit ==")
         test_topic_lit(tmp)
+        print("== paper witness ==")
+        test_paper_witness(tmp)
         print("== claims anchor ==")
         test_claims_anchor(tmp)
         print("== check claim ==")
