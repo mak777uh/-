@@ -404,6 +404,8 @@ def test_topic_lit(tmp: Path) -> None:
           res.stdout[:300] + res.stderr[:200])
     check("topic_lit: есть раздел «к чему обязывает»", "К чему обязывает" in res.stdout,
           res.stdout[:300])
+    check("topic_lit: сообщает причины отказов, а не только «не нашлось»",
+          "отброшено (" in res.stdout, res.stdout[:400])
     check("topic_lit: есть черновик комментария главному",
           "Комментарий главному" in res.stdout, res.stdout[:300])
     check("topic_lit: не тащит peer-review артефакты",

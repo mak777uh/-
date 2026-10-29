@@ -172,25 +172,31 @@ def main(argv: list[str] | None = None) -> int:
         if topic.get("links"):
             lines.append("где у нас: " + ", ".join(f"`{l}`" for l in topic["links"]))
         picked: list[dict] = []
+        rejects = {"артефакт": 0, "старый": 0, "без абстракта": 0, "домен": 0, "релевантность": 0, "повтор": 0}
         for q in topic.get("queries", []):
             for cand in crossref(q):
                 if not cand["doi"] or cand["doi"] in have or cand["doi"] in seen:
+                    rejects["повтор"] += 1
                     continue
                 if looks_like_artifact(cand["doi"], cand.get("title", "")):
+                    rejects["артефакт"] += 1
                     continue
                 topic_min = int(topic.get("min_year", min_year))
                 if cand["year"] and int(cand["year"]) < topic_min:
+                    rejects["старый"] += 1
                     continue
                 if any(cand["doi"] == p["doi"] for p in picked):
                     continue
                 abs_ = abstract(cand["doi"])
                 if not abs_ and not topic.get("allow_no_abstract"):
+                    rejects["без абстракта"] += 1
                     continue
                 abs_ = abs_ or "(абстракт недоступен — проверить по Crossref/полю, не цитировать вслепую)"
                 title_norm = norm_title(cand.get("title", ""))
                 if len(title_norm) >= 40 and title_norm[:60] in blob:
                     continue  # эта работа уже в библиотеке (по названию)
                 if not passes_must(topic, cand, abs_):
+                    rejects["домен"] += 1
                     continue
                 base = relevance(topic, cand, abs_)
                 penalty = 0
@@ -202,6 +208,7 @@ def main(argv: list[str] | None = None) -> int:
                     continue  # не исследовательская работа — как источник не годится
                 score = base - penalty
                 if score < int(topic.get("min_score", 3)):
+                    rejects["релевантность"] += 1
                     continue
                 cand["abstract"] = abs_[:600]
                 cand["score"] = score
@@ -212,8 +219,8 @@ def main(argv: list[str] | None = None) -> int:
             if len(picked) >= args.per_topic:
                 break
         if not picked:
-            lines.append("- не нашлось работ выше порога: отброшены артефакты, препринты дублей, "
-                         "нет абстракта, не прошёл доменный фильтр или релевантность < порога")
+            parts = ", ".join(f"{k}: {v}" for k, v in rejects.items() if v)
+            lines.append(f"- не нашлось работ выше порога; отброшено ({parts or 'кандидатов не было'})")
         for c in picked:
             lines.append(f"- **{c['authors']} {c['year']}**, {c['journal']} — «{c['title'][:100]}»  ")
             kind = "препринт" if c.get("preprint") else "статья"
