@@ -146,6 +146,19 @@ def config_block(cfg) -> dict:
     }
 
 
+def _sentinel_block(pond) -> dict:
+    """Сколько клеток осталось у каждой нейтральной линии-сентинела (эмпирический нуль плеча)."""
+    import torch as _torch
+    s = pond.state
+    ids = list(getattr(pond, "sentinel_ids", []) or [])
+    if not ids or s.founder is None or not bool(s.alive.any()):
+        return {"ids": ids, "cells": {}, "alive_total": int(s.alive.sum()) if s.alive is not None else 0}
+    out: dict[str, int] = {}
+    for fid in ids:
+        out[str(fid)] = int(((s.founder == int(fid)) & s.alive).sum())
+    return {"ids": ids, "cells": out, "alive_total": int(s.alive.sum())}
+
+
 def tag_metrics_block(pond) -> dict:
     """Метрики условия B по МЕТКАМ ЛИНИЙ (tag), а не по экологическому типу A/B.
 
@@ -181,6 +194,17 @@ def tag_metrics_block(pond) -> dict:
         "lineage_energy_samples": {str(k): int(v)
                                    for k, v in getattr(pond, "lineage_energy_samples", {}).items()},
         "tag_source": "tag: наследуемая метка линии; type A/B — экологический пул",
+        # H-ALIVE-61: линии-основатели (ID не мутирует) и счётчики событий для дрейфового времени
+        "founder_source": "founder: ID основателя, наследуется без мутации; по нему считаются инвазия и сентинелы",
+        "event_series": list(getattr(pond, "event_series", [])),
+        "event_totals": {
+            "updates": int(getattr(pond, "updates_total", 0)),
+            "births": int(getattr(s, "born", 0)),
+            "deaths": int(getattr(s, "died", 0)),
+            "deaths_balance": int(getattr(pond, "deaths_balance", 0)),
+            "births_balance": int(getattr(pond, "births_balance", 0)),
+        },
+        "sentinels": _sentinel_block(pond),
     }
     if s.tag is None or not bool(s.alive.any()):
         return block
@@ -600,7 +624,9 @@ class PondRun:
                     self.pond.state.income_scale.copy_((1.0 + c * (2.0 * col - 1.0)).expand(grid, grid))
                 else:
                     self.pond.state.income_scale.fill_(1.0 + c * (2.0 * infl_vals[pos] - 1.0))
+            alive_now = self.pond.state.alive
             if self.update_probability >= 1.0:
+                self.pond.updates_total += int(alive_now.sum())
                 self.state = self.rule(self.state, self.genome)
             else:
                 # абляция: часть клеток пропускает обновление (шум в динамике)
@@ -625,10 +651,20 @@ class PondRun:
                         generator=self.gen,
                         device=self.device,
                     ) < base
+                self.pond.updates_total += int((keep & alive_now).sum())
                 self.state = torch.where(keep, new_state, self.state)
+        if int(getattr(self, "sentinel_sets", 0)) > 0 and \
+                len(self.log) == int(getattr(self, "sentinel_at_step", 1200)) and \
+                not getattr(self, "_sentinels_done", False):
+            ids = self.pond.inject_sentinels(int(self.sentinel_sets), int(self.sentinel_cells),
+                                             seed=int(getattr(self, "world_seed", 0)))
+            self._sentinels_done = True
+            self.log.append({"step": int(len(self.log)), "event": "sentinels", "ids": ids})
+        alive_before = int(self.pond.state.alive.sum())
         grown = self._sync_state_to_world()
         self.pond.regenerate()
         cell_stats = self.pond.step_cells()
+
         self._organism_mobility()
         self._plastic_mobility()
         self._flow_energy_to_state()
@@ -657,11 +693,29 @@ class PondRun:
                     dim=-1, keepdim=True)
                 self.state[0][:, c_idx[:, 0], c_idx[:, 1]] = state_mean
                 births += 1
+        self.pond.births_step_last = int(births)
         if self.pond.cfg.death_return > 0 and int(self.pond.state.step) % 10 == 0:
             self.pond._niche_update()
+        # H-ALIVE-61: смерти считаем БАЛАНСОМ за шаг: было + родилось − стало. Поле `s.died`
+        # покрывает только часть путей гибели (в пробе 300 шагов: 5 против ~4000 по балансу),
+        # поэтому рядом с ним появляется `deaths_balance`; старый счётчик не подменяем молча.
+        alive_end = int(self.pond.state.alive.sum())
+        born_cells_now = int(sum(self.pond.births_by_type.values()))
+        born_cells_step = born_cells_now - int(getattr(self.pond, "_births_seen", 0))
+        self.pond._births_seen = born_cells_now
+        self.pond.births_balance += max(0, born_cells_step)
+        self.pond.deaths_balance += max(0, alive_before + born_cells_step - alive_end)
         if int(self.pond.state.step) % 5 == 0:
             self.pond.enforce_colony_types()
             # серия меток линий для метрик условия B: каждые 5 шагов, а не каждый
+            # H-ALIVE-61: событийный ряд для дрейфового времени s = Σ(B+D)/(2N) — каждые 5 шагов
+            self.pond.event_series.append({
+                "step": int(self.pond.state.step),
+                "updates": int(getattr(self.pond, "updates_total", 0)),
+                "births": int(getattr(self.pond, "births_balance", 0)),
+                "deaths": int(getattr(self.pond, "deaths_balance", 0)),
+                "alive": int(self.pond.state.alive.sum()),
+            })
             tag_t = self.pond.state.tag
             if tag_t is not None and bool(self.pond.state.alive.any()):
                 uniq, counts = torch.unique(tag_t[self.pond.state.alive], return_counts=True)
@@ -839,6 +893,12 @@ def build_parser() -> argparse.ArgumentParser:
                     help="окно нормировки живого сигнала, секунды")
     ap.add_argument("--inflow-live-dump", default=None,
                     help="куда записать то, что услышал мир (для аудита и повторного проигрывания)")
+    ap.add_argument("--sentinel-sets", type=int, default=0,
+                    help="H-ALIVE-61: сколько наборов нейтральных линий-сентинелов вселить (эмпирический нуль плеча)")
+    ap.add_argument("--sentinel-cells", type=int, default=8,
+                    help="клеток в наборе сентинела (по умолчанию 8, как инокулят инвазии)")
+    ap.add_argument("--sentinel-at-step", type=int, default=1200,
+                    help="на каком шаге вселять сентинелы и инвазора (резидент должен быть сертифицирован по дрейфу)")
     ap.add_argument("--inflow-target", default="income", choices=["income", "rhythm"],
                     help="H-ALIVE-60: к чему привязывается внешний сигнал. income — приток энергии "
                          "(оказался нечувствителен: мир ограничен местом, а не энергией); "
@@ -1025,6 +1085,10 @@ def main(argv: list[str] | None = None) -> int:
         run.pond.state.income_scale = world.inflow_scale
     run.snapshot_every = args.snapshot_every
     run.update_probability = args.update_probability
+    run.sentinel_sets = int(getattr(args, "sentinel_sets", 0))
+    run.sentinel_cells = int(getattr(args, "sentinel_cells", 8))
+    run.sentinel_at_step = int(getattr(args, "sentinel_at_step", 1200))
+    run.world_seed = int(getattr(args, "seed", 0) or 0)
     run.total_steps = args.steps
     if hasattr(world, "inflow_target"):
         world.inflow_target = str(args.inflow_target)

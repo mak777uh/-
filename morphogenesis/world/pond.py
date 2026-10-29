@@ -146,6 +146,7 @@ class PondState:
     resource_b: torch.Tensor | None = None  # (H, W) ресурс второго типа (I-030)
     cell_type: torch.Tensor | None = None   # (H, W) int64: 0 = A, 1 = B
     tag: torch.Tensor | None = None         # (H, W) int64: метка линии (наследуемая)
+    founder: torch.Tensor | None = None     # (H, W) int64: ID линии-основателя (не мутирует)
     tag_trait: torch.Tensor | None = None   # (H, W) float: признак линии (наследуемый)
     pred: torch.Tensor | None = None    # (H, W) L2: предсказание локального ресурса
     w_cell: torch.Tensor | None = None  # (H, W) локальный вес политики (учится)
@@ -252,6 +253,16 @@ class Pond:
         # tag_trait = признак родителя + шум. Пул A/B и вся динамика от метки не зависят,
         # поэтому m=0 — бит-в-бит прежнее, а новизна (новые метки) измерима при m>0.
         self.state.tag = torch.zeros((n, n), dtype=torch.int64, device=self.device)
+        # H-ALIVE-61: ID основателя не мутирует (в отличие от tag) — по нему считается инвазия и сентинелы.
+        self.state.founder = torch.arange(n * n, dtype=torch.int64, device=self.device).reshape(n, n)
+        self.founder_next = n * n
+        self.sentinel_ids: list[int] = []
+        self.updates_total = 0
+        self.deaths_balance = 0      # смерти по балансу населения (полное покрытие путей гибели)
+        self.births_balance = 0      # рождения по балансу (сумма прироста births_by_type)
+        self._births_seen = 0
+        self.event_series: list[dict] = []   # H-ALIVE-61: ряд событий для дрейфового времени
+        self.births_step_last = 0    # рождений на последнем шаге
         self.state.tag_trait = torch.zeros((n, n), device=self.device)
         self.next_tag = 1
         self.mutation_events = 0
@@ -1838,6 +1849,63 @@ class Pond:
         sizes = {i: int((labels == i).sum()) for i in range(1, current + 1)}
         return sizes, labels
 
+    def _assign_founders(self, newly: torch.Tensor) -> None:
+        """Новорождённая клетка наследует ID основателя от ближайшего СТАРОГО соседа.
+
+        Почему так, а не по паре «родитель→потомок»: `register_births` получает маски, а не пары
+        координат, поэтому точного родителя здесь нет. Для почкования этого достаточно: потомок
+        ставится вплотную к родителю, значит первый старый сосед и есть родитель. Ограничение
+        записано честно: если когда-нибудь появится дальняя спора без соседей, она получит
+        основателя по первому найденному соседу, а не по фактическому родителю.
+        """
+        import torch as _t
+        s = self.state
+        if s.founder is None or not bool(newly.any()):
+            return
+        old = s.alive & ~newly
+        if not bool(old.any()):
+            return
+        cand = _t.where(old, s.founder, _t.full_like(s.founder, -1))
+        h, w = cand.shape
+        pad = _t.nn.functional.pad(cand.unsqueeze(0).unsqueeze(0), (1, 1, 1, 1), value=-1)[0, 0]
+        best = _t.full_like(cand, -1)
+        for dy, dx in ((0, 1), (0, 2), (1, 1), (2, 1)):
+            sl = pad[dy:dy + h, dx:dx + w]
+            best = _t.where((best < 0) & (sl >= 0), sl, best)
+        take = newly & (best >= 0)
+        if bool(take.any()):
+            s.founder[take] = best[take]
+
+    def inject_sentinels(self, sets: int, cells: int, seed: int = 0) -> list[int]:
+        """Пометить `sets`×`cells` случайных живых клеток НЕЙТРАЛЬНЫМИ линиями-основателями.
+
+        Смысл: порог инвазии должен быть эмпирическим и внутриплечевым, а не «8/160 = 5 %»
+        (эта арифметика верна только для идеального мартингала). Сентинелы — пассивные:
+        энергия, возраст и правила не меняются, только ID основателя. Свой генератор,
+        чтобы не сдвигать основной поток случайных чисел.
+        """
+        import torch as _t
+        s = self.state
+        if s.founder is None or not bool(s.alive.any()):
+            return []
+        alive_idx = s.alive.view(-1).nonzero(as_tuple=False).view(-1)
+        gen = _t.Generator(device="cpu").manual_seed(int(seed) * 104729 + 7)
+        k = min(int(sets) * int(cells), int(alive_idx.numel()))
+        if k <= 0:
+            return []
+        pick = alive_idx[_t.randperm(int(alive_idx.numel()), generator=gen)[:k].to(alive_idx.device)]
+        ids: list[int] = []
+        flat = s.founder.view(-1)
+        for j, pos in enumerate(pick.tolist()):
+            grp = j // max(1, int(cells))
+            fid = self.founder_next + grp
+            flat[pos] = fid
+            if fid not in ids:
+                ids.append(fid)
+        self.founder_next += max(1, k // max(1, int(cells))) + 1
+        self.sentinel_ids = ids
+        return ids
+
     def register_births(self, newly: torch.Tensor, parent_mask: torch.Tensor,
                         labels: torch.Tensor | None = None, is_spore: bool = False) -> int:
         """Записать рождения: метка линии потомка, родословная, мутации и счётчики.
@@ -1951,6 +2019,7 @@ class Pond:
         for val, cnt in zip(uniq.tolist(), counts.tolist()):
             key = f"T{int(val)}"
             self.births_by_type[key] = self.births_by_type.get(key, 0) + int(cnt)
+        self._assign_founders(newly)
         return mutated
 
     def snapshot(self) -> dict:
