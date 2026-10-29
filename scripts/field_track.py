@@ -88,6 +88,9 @@ def main(argv=None) -> int:
     ap.add_argument("--hetero-scale", type=float, default=12.0, help="масштаб пространственного узора G (клеток)")
     ap.add_argument("--hetero-signal", default=None,
                     help="файл со значениями S(t) в 0..1 (дамп с железа); без него S = 0.5 (статичный узор)")
+    ap.add_argument("--hetero-period", type=float, default=0.0,
+                    help="E9: период смены узора в шагах (0 = статика). Узор инвертируется с этим периодом: "
+                         "медленно меняющаяся неоднородность против дрожащей")
     ap.add_argument("--hetero-shuffle", action="store_true", help="перемешать S(t) по времени — контроль структуры")
     ap.add_argument("--freq-dep", type=float, default=0.0,
                     help="E6e: частотная зависимость — защита слабеет с ростом доли похожих составов: "
@@ -126,13 +129,16 @@ def main(argv=None) -> int:
     if args.hetero_amp > 0:
         ky, kx = 2.0 * np.pi / max(2.0, args.hetero_scale), 2.0 * np.pi / max(2.0, args.hetero_scale)
         hetero_G = (np.sin(ky * np.arange(g))[:, None] * np.cos(kx * np.arange(g))[None, :] + 1.0) / 2.0
-        if args.hetero_signal:
+        if args.hetero_period and args.hetero_period > 0:
+            # E9: прямоугольная смена 0/1 с заданным периодом — «зерно» среды
+            hetero_S = [1.0 if (i // max(1, int(args.hetero_period))) % 2 == 0 else 0.0 for i in range(args.steps)]
+        elif args.hetero_signal:
             raw = json.loads(Path(args.hetero_signal).read_text(encoding="utf-8")).get("values") or []
             hetero_S = list(raw)
             if args.hetero_shuffle and hetero_S:
                 rng.shuffle(hetero_S)
         else:
-            hetero_S = None  # статичный узор (S = 0.5)
+            hetero_S = None  # узор выключен (S = 0.5)
     next_id = 1
     # состав: id компоненты → s
     comp_s: dict[int, float] = {}
