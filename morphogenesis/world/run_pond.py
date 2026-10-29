@@ -812,6 +812,29 @@ class PondRun:
         return {"steps": steps, "wall_seconds": round(elapsed, 2), "final": self.log[-1] if self.log else {}}
 
 
+def _live_choices() -> list[str]:
+    """Список живых источников берётся из `scripts/stream_sources.py`, а не хардкодится.
+
+    29.10: список был зашит (`mic, net, crypto, events, usgs, system`), поэтому новые источники
+    (`solar_wind`, `goes_xray`, `system_ext`, `gpu`, `hardware`) не принимались argparse — мир просто
+    отказывался запускаться с ними. Теперь список спрашиваем у модуля, а если его нет — падаем на
+    статический перечень.
+    """
+    try:
+        import sys
+        from pathlib import Path as _P
+        scripts = _P(__file__).resolve().parents[2] / "scripts"
+        if str(scripts) not in sys.path:
+            sys.path.insert(0, str(scripts))
+        import stream_sources  # noqa: WPS433
+        return sorted(stream_sources.SOURCES)
+    except Exception:
+        return ["mic", "net", "crypto", "events", "usgs", "system"]
+
+
+_LIVE_SOURCE_CHOICES = _live_choices()
+
+
 def build_parser() -> argparse.ArgumentParser:
     """Собрать CLI. Отдельно от `main`, чтобы дефолты можно было проверить тестом.
 
@@ -936,7 +959,7 @@ def build_parser() -> argparse.ArgumentParser:
     ap.add_argument("--inflow-coupling", type=float, default=0.0,
                     help="сила связи: 0 = выключено, 1 = приток ходит от 0 до 2× базового")
     ap.add_argument("--inflow-live", default=None,
-                    choices=["mic", "net", "crypto", "events", "usgs", "system"],
+                    choices=_LIVE_SOURCE_CHOICES,
                     help="H-ALIVE-59: живой сигнал в реальном времени (микрофон), а не проигрывание записи")
     ap.add_argument("--inflow-live-rate", type=float, default=20.0,
                     help="частота отсчётов живого сигнала, Гц")
