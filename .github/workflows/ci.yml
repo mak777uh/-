@@ -224,6 +224,7 @@ jobs:
                      "python scripts/check_external_content.py" \
                      "python scripts/runs_chain.py --check" \
                      "python scripts/check_aggregate_claims.py" \
+                     "python scripts/check_environment_assumptions.py" \
                      "python scripts/check_scripts.py --ci"; do
             out=$($cmd 2>&1)
             code=$?

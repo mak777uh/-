@@ -106,7 +106,7 @@ def test_render_lists_current_and_paused():
                 status="deferred",
                 wave="paused",
                 why="вернуть позже",
-                decided_at="2026-10-23",
+                decided_at=(dt.date.today() - dt.timedelta(days=1)).isoformat(),
             ),
         ],
     }
