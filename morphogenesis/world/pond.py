@@ -124,6 +124,9 @@ class PondConfig:
     organ_cy: int = -1
     organ_r: float = 6.0
     organ_gain: float = 0.0             # сила реакции органа (0 = не реагирует)
+    # E1: снимки полей для критерия индивидуации
+    dump_fields: str | None = None
+    dump_every: int = 100
     # H-ALIVE-74: «площадка» — место, в которое светим сигналом. Режимы:
     # tempo (быстрее обновление), bud (легче почкование), sham (площадка есть, эффекта нет).
     patch_mode: str = "off"

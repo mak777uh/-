@@ -83,6 +83,8 @@ def main(argv=None) -> int:
                     help="нулевая модель: убрать член u*v^2 (нет автокатализа, структуры не должны возникать)")
     ap.add_argument("--seed-cells", type=int, default=0,
                     help="0 = один зародыш в центре; N>0 = N случайных зародышей (для проверки, что деление не наше)")
+    ap.add_argument("--dump-fields", default=None,
+                    help="каталог для снимков полей z=v, w=u (для критерия индивидуации)")
     ap.add_argument("--out", default=None)
     args = ap.parse_args(argv)
 
@@ -119,6 +121,19 @@ def main(argv=None) -> int:
         dv = Dv * laplacian(v) + uvv - (F + k) * v
         u = torch.clamp(u + args.dt * du, min=0.0, max=1.0)
         v = torch.clamp(v + args.dt * dv, min=0.0, max=1.0)
+
+        # снимки полей в формате критерия: z = v (материал), w = u (пища) — независимое поле
+        if args.dump_fields and step % int(args.sample_every) == 0:
+            import json as _json
+            from pathlib import Path as _Path
+            d = _Path(args.dump_fields)
+            d.mkdir(parents=True, exist_ok=True)
+            snap = {
+                "step": step,
+                "z": [[round(float(x), 4) for x in row] for row in v.detach().to("cpu").tolist()],
+                "w": [[round(float(x), 4) for x in row] for row in u.detach().to("cpu").tolist()],
+            }
+            (d / ("fields_%05d.json" % step)).write_text(_json.dumps(snap) + "\n", encoding="utf-8")
 
         if step % int(args.sample_every) == 0 or step == 1:
             import numpy as np
