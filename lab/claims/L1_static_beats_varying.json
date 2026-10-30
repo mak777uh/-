@@ -1,0 +1,51 @@
+{
+  "id": "L1_static_beats_varying",
+  "status": "retracted",
+  "statement": "ОТМЕНЕНО: статичная неоднородность притока даёт больше компонент, чем изменчивая (период 300). Держалось на 3 сидах; на 20 сидах разницы нет",
+  "setup": {
+    "params": {
+      "grid": [
+        96
+      ],
+      "hetero_amp": 0.5,
+      "horizon": [
+        6000
+      ]
+    },
+    "admissible": {
+      "metric": "components_integral",
+      "min_seeds_per_arm": 20,
+      "controls": [
+        "occupancy"
+      ]
+    },
+    "successful": {
+      "rule": "bootstrap_ci_excludes_zero",
+      "min_effect": 1.0
+    }
+  },
+  "budget": {
+    "seeds": 20,
+    "runs": 60,
+    "hours": 2,
+    "paid_by": "X11 на 20 сидах"
+  },
+  "evidence": {
+    "aggregate": "morphogenesis/experiments/L1_field/l1_field_matrix.json",
+    "arms": {
+      "static": [
+        "n20_static_s"
+      ],
+      "homog": [
+        "n20_p300_s"
+      ]
+    }
+  },
+  "check": {
+    "kind": "field_integral_contrast"
+  },
+  "failed_condition": "разница 0.14, bootstrap CI включает ноль; при 3 сидах выглядело как 7.14 против 3.9–4.7",
+  "references": [
+    "docs/world-design.md раздел 10cv"
+  ]
+}

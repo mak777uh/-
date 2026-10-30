@@ -1,0 +1,60 @@
+{
+  "id": "L1_heterogeneity_doubles",
+  "status": "confirmed",
+  "statement": "в поле без заданных объектов статичная пространственная неоднородность притока даёт примерно вдвое больше одновременно присутствующих компонент, чем гомогенный мир",
+  "setup": {
+    "params": {
+      "grid": [
+        96,
+        128
+      ],
+      "hetero_amp": 0.5,
+      "horizon": [
+        6000,
+        12000
+      ]
+    },
+    "admissible": {
+      "metric": "components_integral",
+      "min_seeds_per_arm": 20,
+      "controls": [
+        "grid",
+        "horizon"
+      ]
+    },
+    "successful": {
+      "rule": "bootstrap_ci_excludes_zero",
+      "min_effect": 1.0
+    }
+  },
+  "budget": {
+    "seeds": 20,
+    "runs": 100,
+    "hours": 3.5,
+    "paid_by": "X15 (20x2) + X16/X16b (20x2) + X17 (10x2 = 12000 шагов)"
+  },
+  "evidence": {
+    "aggregate": "morphogenesis/experiments/L1_field/l1_field_matrix.json",
+    "arms": {
+      "static": [
+        "n20_static_s",
+        "x16_static_s",
+        "x17_static_s"
+      ],
+      "homog": [
+        "x15_homog_s",
+        "x16_homog_s",
+        "x17_homog_s",
+        "n20_homog_s"
+      ]
+    }
+  },
+  "check": {
+    "kind": "field_integral_contrast"
+  },
+  "references": [
+    "manuscript/paper.md §4k",
+    "docs/world-design.md разделы 10cw–10cy",
+    "manuscript/CLAIMS.md"
+  ]
+}
