@@ -368,17 +368,29 @@ class _system:
         self._prev = None
 
     def __call__(self) -> float:
+        """Загрузка CPU хоста, 0..1 — как у остальных источников.
+
+        Дефект, найденный тестом контракта 30.10: раньше метод возвращал ПРОЦЕНТЫ (0..100, а на Linux
+        ещё и loadavg*100), то есть нарушал объявленный диапазон, и вдобавок запускал PowerShell
+        **на каждый отсчёт** — при 4 Гц это подпроцесс каждые 250 мс, что само по себе грузит машину
+        и делает измерение самонаблюдающимся.
+        """
         try:
-            out = subprocess.run(["powershell", "-NoProfile", "-Command",
-                                  "(Get-CimInstance Win32_PerfFormattedData_PerfOS_Processor | "
-                                  "Select-Object -First 1).PercentProcessorTime"],
-                                 capture_output=True, text=True, timeout=4)
-            return float((out.stdout or "0").strip() or 0)
+            import psutil
+            return min(1.0, max(0.0, psutil.cpu_percent(interval=None) / 100.0))
         except Exception:
             pass
         try:
+            import os
+            if os.name == "nt":
+                out = subprocess.run(["powershell", "-NoProfile", "-Command",
+                                      "(Get-CimInstance Win32_PerfFormattedData_PerfOS_Processor | "
+                                      "Select-Object -First 1).PercentProcessorTime"],
+                                     capture_output=True, text=True, timeout=4)
+                return min(1.0, max(0.0, float((out.stdout or "0").strip() or 0) / 100.0))
             with open("/proc/loadavg", encoding="utf-8") as fh:
-                return float(fh.read().split()[0]) * 100.0
+                ncpu = max(1, len(os.sched_getaffinity(0))) if hasattr(os, "sched_getaffinity") else 1
+                return min(1.0, max(0.0, float(fh.read().split()[0]) / ncpu))
         except Exception:
             return 0.0
 
