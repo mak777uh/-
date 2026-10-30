@@ -83,6 +83,13 @@ def main(argv=None) -> int:
     ap.add_argument("--k", type=float, default=0.06)
     ap.add_argument("--eps", type=float, default=0.5,
                     help="влияние состава на рост: F_eff = F*(1+eps*(s - s_ref)), зажато в [0.5, 1.5]")
+    ap.add_argument("--global-noise-amp", type=float, default=0.0,
+                    help="X18: модуляция притока ВО ВСЕМ ПОЛЕ одновременно (пространственно однородная, "
+                         "случайная во времени): F *= 1 + amp*(2*S(t)-1). Отличается от --hetero-amp тем, "
+                         "что не создаёт пространственной неоднородности")
+    ap.add_argument("--global-noise-rate", type=float, default=0.05,
+                    help="X18: как часто меняется глобальный сигнал (доля шага: 1.0 = каждый шаг)")
+    ap.add_argument("--global-noise-seed", type=int, default=0, help="X18: сид глобального сигнала")
     ap.add_argument("--hetero-amp", type=float, default=0.0,
                     help="E7: сила пространственной неоднородности притока: F(x,y) = F*(1 + amp*(2S(t)-1)*(2G(x,y)-1))")
     ap.add_argument("--hetero-scale", type=float, default=12.0, help="масштаб пространственного узора G (клеток)")
@@ -140,6 +147,7 @@ def main(argv=None) -> int:
     u = torch.where(m, torch.full_like(u, 0.25), u)
 
     rng = np.random.default_rng(int(args.seed))
+    rng_g = np.random.default_rng(int(args.global_noise_seed) + 7919)
     buf = torch.zeros((g, g), device=dev)   # E12: память среды
     # E7: пространственный узор G (фиксирован) и временной сигнал S(t)
     hetero_G = None
@@ -195,6 +203,12 @@ def main(argv=None) -> int:
         if args.protect_fading > 0:
             # E12c: защита гаснущего через распад, а не через приток
             k_eff = k_eff * torch.clamp(1.0 - args.protect_fading * torch.clamp(1.0 - v, 0.0, 1.0), 0.3, 1.0)
+
+        if args.global_noise_amp > 0:
+            # X18: глобальный сигнал — один и тот же множитель на всё поле (нет пространственной структуры)
+            gi = max(0, int(step * float(args.global_noise_rate)) - 1)
+            s_g = float(rng_g.random())
+            F_eff = F_eff * (1.0 + args.global_noise_amp * (2.0 * s_g - 1.0))
 
         if args.buffer_tau > 0:
             buf = buf + args.dt * (v - buf / float(args.buffer_tau))
@@ -335,6 +349,7 @@ def main(argv=None) -> int:
         },
         "buffer": {"protect_fading": args.protect_fading, "tau": args.buffer_tau, "gain": args.buffer_gain, "rescue": bool(args.buffer_rescue),
                    "mean_last": round(float(buf.mean()), 4)},
+        "global_noise": {"amp": args.global_noise_amp, "rate": args.global_noise_rate},
         "heterogeneity": {
             "amp": args.hetero_amp,
             "scale": args.hetero_scale,
