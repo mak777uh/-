@@ -1375,8 +1375,8 @@
       "wave": "current",
       "owner": "librarian",
       "created_at": "2026-10-24T13:02:24+03:00",
-      "decided_at": "2026-10-30T14:20:00+00:00",
-      "why": "Переведено в очередь, не внедрено: конкретное плечо не запускалось. Пакетный пункт X13_board_experiments_batch (lab/queue.json)",
+      "decided_at": "2026-10-30T12:55:00+00:00",
+      "why": "Выполнено: в inheritance_probe добавлены сырые поля — resource_mean_total_with_organisms и resource_mean_abiotic_control, суммы, и сырые ряды распада по обоим полям отдельно (не только отношение). Прогон показал то, что было скрыто за отношением: организмы меняют ресурс на 0.1 % (0.9797 против 0.9788) — согласуется с E2 «лимит — место, не энергия»",
       "links": {
         "insights": [
           "I-044"
@@ -1384,6 +1384,9 @@
         "tasks": [
           "X13_board_experiments_batch",
           "task-17"
+        ],
+        "reports": [
+          "reports/2026-10-30-board-triage.md"
         ]
       },
       "decided_by": "lead",
@@ -3333,5 +3336,5 @@
       }
     }
   ],
-  "updated_at": "2026-10-30T12:40:00+00:00"
+  "updated_at": "2026-10-30T12:55:00+00:00"
 }

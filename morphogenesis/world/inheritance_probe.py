@@ -55,8 +55,10 @@ def decay_half_life(built: torch.Tensor, control: torch.Tensor, cfg: PondConfig,
     pb.state.step = start_step
     diff0 = float((pa.state.resource - pb.state.resource).abs().mean())
     if diff0 <= 1e-9:
-        return None, []
+        return None, [], [], []
     series = []
+    raw_built = []
+    raw_control = []
     half = None
     for k in range(steps):
         pa.state.step += 1
@@ -65,9 +67,12 @@ def decay_half_life(built: torch.Tensor, control: torch.Tensor, cfg: PondConfig,
         pb.regenerate()
         cur = float((pa.state.resource - pb.state.resource).abs().mean()) / diff0
         series.append(round(cur, 4))
+        # B-034: сырые величины отдельно, а не только отношение — иначе не видно, что именно сравнивается
+        raw_built.append(round(float(pa.state.resource.mean()), 4))
+        raw_control.append(round(float(pb.state.resource.mean()), 4))
         if half is None and cur <= 0.5:
             half = k + 1
-    return half, series
+    return half, series, raw_built, raw_control
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -90,11 +95,18 @@ def main(argv: list[str] | None = None) -> int:
         built = field_after(cfg_build, args.steps, seed, args.device, args.checkpoint)
         control = field_after(cfg_ctrl, args.steps, seed, args.device, args.checkpoint)
         diff = float((built - control).abs().mean())
-        half, series = decay_half_life(built, control, cfg_build, seed, args.device,
-                                       args.decay, args.steps)
+        half, series, raw_built, raw_control = decay_half_life(
+            built, control, cfg_build, seed, args.device, args.decay, args.steps)
         rows.append({"env": args.env, "seed": seed, "mode": args.invest_mode,
                      "excess_mean_abs": round(diff, 6), "half_life_steps": half,
-                     "decay": series[:20]})
+                     # B-034: сырые поля по отдельности — с организмами и абиотический контроль
+                     "resource_mean_with_organisms": round(float(built.mean()), 4),
+                     "resource_mean_abiotic_control": round(float(control.mean()), 4),
+                     "resource_total_with_organisms": round(float(built.sum()), 2),
+                     "resource_total_abiotic_control": round(float(control.sum()), 2),
+                     "decay_raw_with_organisms": raw_built[:20],
+                     "decay_raw_abiotic_control": raw_control[:20],
+                     "decay_ratio": series[:20]})
     payload = {"env": args.env, "invest_mode": args.invest_mode,
                "invest_rate": args.invest_rate, "rows": rows}
     print(json.dumps(rows, ensure_ascii=False, indent=1))
