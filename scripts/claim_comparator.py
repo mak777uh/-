@@ -151,7 +151,12 @@ def check_claim(path: Path) -> tuple[bool, list[str], list[str]]:
     diff, lo, hi = boot_ci(a, b)
     excludes_zero = not (lo <= 0 <= hi)
     min_effect = float(suc.get("min_effect", 0.0))
-    rule_ok = excludes_zero and abs(diff) >= min_effect
+    rule = str(suc.get("rule", "bootstrap_ci_excludes_zero"))
+    if rule == "bootstrap_ci_includes_zero":
+        # утверждение ОБ ОТСУТСТВИИ различия: правило выполнено, если интервал накрывает ноль
+        rule_ok = not excludes_zero
+    else:
+        rule_ok = excludes_zero and abs(diff) >= min_effect
     notes.append(f"контраст: медианы {round(st.median(a), 3)} против {round(st.median(b), 3)}, "
                  f"разница {round(diff, 3)}, CI [{round(lo, 3)}; {round(hi, 3)}]")
 
@@ -160,14 +165,13 @@ def check_claim(path: Path) -> tuple[bool, list[str], list[str]]:
         notes.append("утверждение запланировано — правило пока не проверяется как вердикт")
         return True, notes, problems
     if status == "confirmed" and not rule_ok:
-        problems.append(f"утверждение confirmed, но правило не выполнено "
-                        f"(правило: CI не включает ноль и |эффект| ≥ {min_effect})")
+        problems.append(f"утверждение confirmed, но правило не выполнено (правило: {rule})")
     if status == "retracted":
         if rule_ok:
             problems.append("утверждение помечено retracted, но правило ВЫПОЛНЯЕТСЯ — отмена необоснованна")
         else:
             failed = c.get("failed_condition") or "правило не выполнено"
-            notes.append(f"отмена подтверждена ({failed})")
+            notes.append(f"отмена подтверждена: правило «{rule}» не выполнено ({failed})")
     return (not problems), notes, problems
 
 

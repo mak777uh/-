@@ -1,0 +1,51 @@
+{
+  "id": "L1_amplitude_domain",
+  "status": "confirmed",
+  "statement": "при амплитуде узора 0.8 эффект неоднородности значим (статика против гомогенного при той же амплитуде); при 0.2 направление то же, но при 10 сидах не значим — у эффекта есть область по амплитуде",
+  "setup": {
+    "params": {
+      "grid": [
+        96
+      ],
+      "hetero_amp": 0.8,
+      "horizon": [
+        6000
+      ]
+    },
+    "admissible": {
+      "metric": "components_integral",
+      "min_seeds_per_arm": 10
+    },
+    "successful": {
+      "rule": "bootstrap_ci_excludes_zero",
+      "min_effect": 1.0
+    }
+  },
+  "budget": {
+    "seeds": 10,
+    "runs": 20,
+    "hours": 0.6,
+    "paid_by": "H-L1-1"
+  },
+  "evidence": {
+    "aggregate": "morphogenesis/experiments/L1_field/l1_field_matrix.json",
+    "arms": {
+      "static": [
+        "hl1_amp0.8_static_s"
+      ],
+      "homog": [
+        "hl1_amp0.8_homog_s"
+      ]
+    }
+  },
+  "check": {
+    "kind": "field_integral_contrast",
+    "contrast": [
+      "static",
+      "homog"
+    ]
+  },
+  "references": [
+    "docs/world-design.md раздел 10cz"
+  ]
+}

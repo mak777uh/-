@@ -41,6 +41,11 @@ ARMS = {
     "globalnoise": ["x18_globalnoise_s*.json", "x21_globalnoise_s*.json"],
     "p300": ["n20_p300_s*.json"],
     "p3000": ["x14_p3000_s*.json"],
+    # H-L1-1: амплитуда узора 0.2 и 0.8 (статика и гомогенное плечо при той же амплитуде)
+    "amp02_static": ["hl1_amp0.2_static_s*.json"],
+    "amp02_homog": ["hl1_amp0.2_homog_s*.json"],
+    "amp08_static": ["hl1_amp0.8_static_s*.json"],
+    "amp08_homog": ["hl1_amp0.8_homog_s*.json"],
 }
 GRID_HINT = {"x16": 128, "x17": 96, "n20": 96, "x15": 96, "x14": 96}
 

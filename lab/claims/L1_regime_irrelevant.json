@@ -1,0 +1,50 @@
+{
+  "id": "L1_regime_irrelevant",
+  "status": "confirmed",
+  "statement": "режим неоднородности не важен: статика, быстрая (период 300) и медленная (период 3000) смена дают ОДИНАКОВОЕ число компонент — различие не значимо",
+  "setup": {
+    "params": {
+      "grid": [
+        96
+      ],
+      "hetero_amp": 0.5,
+      "horizon": [
+        6000
+      ]
+    },
+    "admissible": {
+      "metric": "components_integral",
+      "min_seeds_per_arm": 20
+    },
+    "successful": {
+      "rule": "bootstrap_ci_includes_zero"
+    }
+  },
+  "budget": {
+    "seeds": 20,
+    "runs": 40,
+    "hours": 1.5,
+    "paid_by": "X11 (статика vs p300)"
+  },
+  "evidence": {
+    "aggregate": "morphogenesis/experiments/L1_field/l1_field_matrix.json",
+    "arms": {
+      "static": [
+        "n20_static_s"
+      ],
+      "homog": [
+        "n20_p300_s"
+      ]
+    }
+  },
+  "check": {
+    "kind": "field_integral_contrast",
+    "contrast": [
+      "static",
+      "homog"
+    ]
+  },
+  "references": [
+    "docs/world-design.md разделы 10cv, 10cv-доп"
+  ]
+}
