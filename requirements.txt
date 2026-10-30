@@ -36,3 +36,5 @@ pytest>=8,<10
 # matplotlib==3.8.4
 # tensorboard==2.16.2
 # pytest==8.2.0
+psutil>=5.9  # нужен источникам живого сигнала (stream_sources: self, system, system_ext);
+            # без него `--inflow-live self/system` падает на импорте, и CPU-тесты падают в CI
