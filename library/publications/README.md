@@ -379,6 +379,7 @@ H29-пункт «ядро от цели»).
 | G95 | [Chesson, 2000, Annu. Rev. Ecol. Syst. 31:343–366](https://doi.org/10.1146/annurev.ecolsys.31.1.343) | сосуществование = стабилизация против выравнивания; наши механизмы — выравнивание | C1 | проверить наличие стабилизирующего компонента | `supported` (как рамка) | [alife-lineage §C1](../hypotheses/alife-lineage.md) |
 | G96 | [Chesson, 2018, J. Ecol. 106:1902–1918](https://doi.org/10.1111/1365-2745.13035) | invasibility criterion требует явной средней приспособленности и масштабных множителей | C2 | определить среднюю приспособленность линии | `supported` (методологически) | [C2](../hypotheses/alife-lineage.md) |
 | G97 | [West & Shnerb, 2022, Am. Nat. 200:E160–E173](https://doi.org/10.1086/720665) | количественные меры вклада стабилизации и выравнивания | C3 | адаптировать меру к нашим мирам | `open` | [C3](../hypotheses/alife-lineage.md) |
+| G98 | [Schreiber, 2025, J. Math. Biol. 91](https://doi.org/10.1007/s00285-025-02283-0) | IGR для flow-kick: редкий растёт ⇒ permanence; «присутствие» не критерий | C4 | сформулировать наш мир как flow-kick и посчитать IGR редкой линии | `open` | [C4](../hypotheses/alife-lineage.md) |
 
 ## H. ALife: классика, открытая эволюция, рамки, индивидуальность
 

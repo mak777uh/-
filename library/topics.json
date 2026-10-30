@@ -37,7 +37,7 @@
     {
       "id": "legacy-half-life",
       "ru": "Наследие среды: полураспад и нормировка на поколение",
-      "status": "next",
+      "status": "backlog",
       "links": [
         "library/conditions.md#условие-c",
         "library/reviews/legacy-prior-art.md"
@@ -183,7 +183,7 @@
     {
       "id": "series-homogeneity",
       "ru": "Гомогенность серий: провенанс вычислений и воспроизводимость",
-      "status": "current",
+      "status": "next",
       "links": [
         "lab/homogeneity.json",
         "scripts/check_series_homogeneity.py",
@@ -212,7 +212,7 @@
     {
       "id": "trait-cost-channel",
       "ru": "Цена признака зависит от механизма: цена принадлежит каналу",
-      "status": "current",
+      "status": "next",
       "links": [
         "docs/world-design.md#10bj",
         "library/claims-evidence.md"
@@ -243,7 +243,7 @@
     {
       "id": "surrogate-data",
       "ru": "Суррогатные данные: как проверять «сигнал против темпа»",
-      "status": "current",
+      "status": "backlog",
       "links": [
         "docs/world-design.md#10bm",
         "library/claims-evidence.md"
@@ -270,6 +270,34 @@
       "implication": "Проверить, что канон суррогатных методов назван: иначе наш K3 выглядит как самодельный контроль, хотя у него есть литературная основа.",
       "min_year": 1990,
       "allow_no_abstract": true
+    },
+    {
+      "id": "coexistence-grw",
+      "ru": "Сосуществование через скорость роста при инвазии (invasion growth rate)",
+      "status": "current",
+      "links": [
+        "reports/2026-10-29-deeper-than-cells.md",
+        "library/hypotheses/alife-lineage.md#C2",
+        "docs/world-design.md"
+      ],
+      "queries": [
+        "Chesson coexistence theory invasion growth rate review",
+        "invasion growth rate empirical test coexistence"
+      ],
+      "terms": [
+        "invasion growth rate",
+        "coexistence",
+        "invasion criterion",
+        "growth rate",
+        "storage effect"
+      ],
+      "must": [
+        "coexistence",
+        "invasion",
+        "growth rate"
+      ],
+      "min_score": 4,
+      "implication": "Проверить, что 'сосуществование' у нас = invasion growth rate > 0 у редкого, а не присутствие; иначе слово не заработано (E11)."
     }
   ]
 }

@@ -3238,6 +3238,37 @@
         ]
       },
       "deferred_at": "2026-10-29T20:52:00+00:00"
+    },
+    {
+      "id": "B-092",
+      "type": "opportunity",
+      "target": {
+        "kind": "metric",
+        "id": "igr_instead_of_structure_count",
+        "ref": "alife-lineage.md#C4; G98"
+      },
+      "statement": "Введена формализация, которая закрывает E11 ('присутствие != сосуществование'): Schreiber 2025 (J. Math. Biol. 91, 10.1007/s00285-025-02283-0) строит invasion growth rate (IGR) для flow-kick систем и доказывает: IGR > 0 у редкого для каждой инвариантной меры на множестве вымирания => permanence. Наш мир буквально flow-kick (поток = шаг мира, kick = почкование/инвазия/живой вход), значит IGR применим, а число структур — нет. Предложение: посчитать IGR редкой линии на существующих артефактах (0 GPU) и сравнить с числом структур; оговорка — конечный горизонт и переходные процессы, поэтому IGR есть приближение на окне, а не permanence.",
+      "evidence": [
+        {
+          "library": "answers.md#87",
+          "note": "метаданные и абстракт сверены Crossref/OpenAlex"
+        }
+      ],
+      "action": {
+        "kind": "method",
+        "detail": "IGR вместо числа структур"
+      },
+      "status": "new",
+      "wave": "current",
+      "owner": "librarian",
+      "created_at": "2026-10-30T09:03:50+03:00",
+      "decided_at": null,
+      "why": null,
+      "links": {
+        "insights": [],
+        "tasks": [],
+        "reports": []
+      }
     }
   ],
   "updated_at": "2026-10-30T06:35:00+00:00"
