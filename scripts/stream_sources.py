@@ -165,6 +165,29 @@ class _events:
         return float(count)
 
 
+class _self_load:
+    """Наш собственный след в нагрузке CPU (доля 0..1 от всех ядер).
+
+    Зачем (30.10, E5). Для замкнутого контура «мир → вычисление → нагрузка → мир» нужен источник, который
+    видит **именно наш** процесс: мир своей работой меняет нагрузку, читает её и отвечает. Существующий
+    `system_ext` делает обратное — вычитает наш процесс, чтобы измерить внешнюю погоду машины; для петли он
+    негоден по построению.
+
+    Ограничение честное: `psutil.cpu_percent()` считает за интервал между вызовами, первый вызов даёт 0.0.
+    """
+
+    def __init__(self) -> None:
+        import os
+        import psutil
+        self._me = psutil.Process(os.getpid())
+        self._ncpu = max(1, psutil.cpu_count(logical=True) or 1)
+        self._me.cpu_percent(interval=None)
+
+    def read(self) -> float:
+        share = self._me.cpu_percent(interval=None) / 100.0 / self._ncpu
+        return float(min(1.0, max(0.0, share)))
+
+
 class _system_ext:
     """«Погода машины»: загрузка CPU БЕЗ нашего собственного процесса (доля 0..1).
 
@@ -357,6 +380,7 @@ class _system:
 
 
 _READERS: dict[str, Callable[[], object]] = {
+    "self": _self_load,
     "mic": _mic,
     "net": _net,
     "crypto": _crypto,
