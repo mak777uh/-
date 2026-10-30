@@ -103,7 +103,10 @@ def check_claim(path: Path) -> tuple[bool, list[str], list[str]]:
         return True, [f"проверка вида «{kind}» не реализована — пропущено"], problems
 
     agg = ROOT / agg_rel
+    status0 = str(c.get("status"))
     if not agg.exists():
+        if status0 == "planned":
+            return True, [f"ожидает доказательств: нет агрегата {agg_rel}"], problems
         return False, notes, [f"нет агрегата {agg_rel}"]
     rows = field_rows(agg)
     params = (c.get("setup") or {}).get("params") or {}
@@ -131,8 +134,12 @@ def check_claim(path: Path) -> tuple[bool, list[str], list[str]]:
     min_seeds = int(adm.get("min_seeds_per_arm", 1))
     short = [arm for arm, v in vals.items() if len(v) < min_seeds]
     if short:
-        problems.append(f"бюджет не оплачен: в плечах {short} меньше {min_seeds} прогонов "
-                        f"(объявлено budget.seeds={budget.get('seeds')})")
+        msg = (f"бюджет не оплачен: в плечах {short} меньше {min_seeds} прогонов "
+               f"(объявлено budget.seeds={budget.get('seeds')})")
+        if status0 == "planned":
+            notes.append("ожидает: " + msg)
+            return True, notes, problems
+        problems.append(msg)
 
     a = vals.get("static") or []
     b = vals.get("homog") or []
@@ -147,7 +154,10 @@ def check_claim(path: Path) -> tuple[bool, list[str], list[str]]:
     notes.append(f"контраст: медианы {round(st.median(a), 3)} против {round(st.median(b), 3)}, "
                  f"разница {round(diff, 3)}, CI [{round(lo, 3)}; {round(hi, 3)}]")
 
-    status = str(c.get("status"))
+    status = status0
+    if status == "planned":
+        notes.append("утверждение запланировано — правило пока не проверяется как вердикт")
+        return True, notes, problems
     if status == "confirmed" and not rule_ok:
         problems.append(f"утверждение confirmed, но правило не выполнено "
                         f"(правило: CI не включает ноль и |эффект| ≥ {min_effect})")

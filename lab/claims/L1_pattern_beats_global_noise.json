@@ -1,0 +1,52 @@
+{
+  "id": "L1_pattern_beats_global_noise",
+  "status": "planned",
+  "statement": "пространственная неоднородность притока даёт больше компонент, чем случайный сигнал, одинаковый во всём поле: разница условий в пространстве важнее изменчивости во времени",
+  "setup": {
+    "params": {
+      "grid": [
+        96
+      ],
+      "hetero_amp": 0.5,
+      "horizon": [
+        6000
+      ]
+    },
+    "admissible": {
+      "metric": "components_integral",
+      "min_seeds_per_arm": 20,
+      "controls": [
+        "same mean inflow"
+      ]
+    },
+    "successful": {
+      "rule": "bootstrap_ci_excludes_zero",
+      "min_effect": 1.0
+    }
+  },
+  "budget": {
+    "seeds": 20,
+    "runs": 40,
+    "hours": 1.2,
+    "paid_by": "X18 (10x2) + X21 (20x2, добирается)"
+  },
+  "evidence": {
+    "aggregate": "morphogenesis/experiments/L1_field/l1_field_matrix.json",
+    "arms": {
+      "static": [
+        "x21_pattern_s"
+      ],
+      "homog": [
+        "x21_globalnoise_s"
+      ]
+    }
+  },
+  "check": {
+    "kind": "field_integral_contrast"
+  },
+  "references": [
+    "docs/world-design.md раздел 10da",
+    "manuscript/paper.md §4k"
+  ],
+  "note": "доказывается серией X21 (30 сидов на плечо); пока артефактов нет, компаратор сообщает «ожидает»"
+}
