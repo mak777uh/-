@@ -2413,19 +2413,20 @@
         "kind": "method",
         "detail": "обёртка wilson() -> proportion_confint(method='wilson'); тест на 20 парах"
       },
-      "status": "deferred",
+      "status": "accepted",
       "wave": "current",
       "owner": "librarian",
       "created_at": "2026-10-25T01:32:43+03:00",
-      "decided_at": "2026-10-25",
-      "why": "отложено с условием: замена самописного интервала Уилсона на proportion_confint требует пакета statsmodels и проверки на 20 парах; возврат — когда появится серия с долями, где интервал влияет на вердикт",
+      "decided_at": "2026-10-30T06:50:00+00:00",
+      "why": "Решено иначе, чем предлагалось: `statsmodels` в окружении нет, а настоящая проблема — пять разных реализаций Уилсона. Сделан гейт check_wilson_consistency.py: 36 пар, различает округление (≤1e-3) и расхождение; проверен подложенной неверной реализацией (36 расхождений). Входит в make verify",
       "links": {
         "insights": [],
         "tasks": [
           "metrics_library_common"
         ],
         "reports": [
-          "docs/optimality.md"
+          "docs/optimality.md",
+          "reports/2026-10-30-board-triage.md"
         ]
       },
       "note": " | переоткрыто 2026-10-25: закрытие было преждевременным — действие не выполнено",
