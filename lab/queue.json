@@ -622,18 +622,6 @@
       "note": "импакт-порядок E6 (reports/2026-10-29-impact-order.md)"
     },
     {
-      "id": "X2_single_authoritative_spec",
-      "title": "Гейт: нет двух файлов, объявляющих одну версию требований",
-      "status": "planned",
-      "owner": "lead",
-      "cost_gpu_h": 0.0,
-      "ttl_minutes": 240,
-      "hypothesis": null,
-      "claimed_at": null,
-      "heartbeat_at": null,
-      "note": "из крестового аудита lexspec (M-2): спека — единственный носитель требований; если их две, читатель не узнает действующую"
-    },
-    {
       "id": "X3_claims_expect_column",
       "title": "Колонка ожидаемого значения в матрице утверждений (сверка числа с артефактом)",
       "status": "planned",
@@ -668,6 +656,19 @@
       "claimed_at": null,
       "heartbeat_at": null,
       "note": "из E8: максимум при amp≈0.5 выглядит как оптимум, но при 3 сидах разброс сравним с эффектом. Нужно 6 сидов на трёх точках вокруг максимума, критерий — CV по сидам и попарное сравнение"
+    },
+    {
+      "id": "X2_single_authoritative_spec",
+      "title": "Гейт: нет двух файлов, объявляющих одну версию требований",
+      "status": "closed",
+      "owner": "lead",
+      "cost_gpu_h": 0.0,
+      "ttl_minutes": 240,
+      "hypothesis": null,
+      "claimed_at": null,
+      "heartbeat_at": null,
+      "note": "закрыто: гейт check_single_spec.py ловит два документа с одинаковой версией и файлы-копии; проверен на падении (две копии v9.9 → 2 ошибки). Входит в make verify",
+      "closed_at": "2026-10-30T04:45:00+00:00"
     },
     {
       "id": "X1_readme_commands_in_ci",
