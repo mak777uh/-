@@ -95,6 +95,9 @@ def main(argv=None) -> int:
     ap.add_argument("--buffer-tau", type=float, default=0.0,
                     help="E12: время памяти буфера в шагах (0 = буфера нет). Поле B помнит, где была структура, "
                          "и медленно распадается: dB/dt = v - B/tau")
+    ap.add_argument("--buffer-rescue", action="store_true",
+                    help="E12b: спасать ГАСНУЩЕЕ — усиливать приток там, где v мало, а память высока "
+                         "(другой знак обратной связи, чем буфер-награда)")
     ap.add_argument("--buffer-gain", type=float, default=0.0,
                     help="E12: насколько память усиливает приток в месте, где структура была: F_eff *= (1 + gain*B)")
     ap.add_argument("--invade-s", type=float, default=None,
@@ -189,7 +192,11 @@ def main(argv=None) -> int:
         if args.buffer_tau > 0:
             buf = buf + args.dt * (v - buf / float(args.buffer_tau))
             buf = torch.clamp(buf, 0.0, 5.0)
-            F_eff = F_eff * (1.0 + args.buffer_gain * buf)
+            if args.buffer_rescue:
+                # E12b: подкормка гаснущего: (1 - v) высоко там, где материал исчез, а память осталась
+                F_eff = F_eff * (1.0 + args.buffer_gain * buf * torch.clamp(1.0 - v, 0.0, 1.0))
+            else:
+                F_eff = F_eff * (1.0 + args.buffer_gain * buf)
 
         if hetero_G is not None and args.hetero_amp > 0:
             s_t = 0.5
@@ -317,7 +324,7 @@ def main(argv=None) -> int:
             "invader_rate": inv_rate,
             "invader_curve": inv_curve,
         },
-        "buffer": {"tau": args.buffer_tau, "gain": args.buffer_gain,
+        "buffer": {"tau": args.buffer_tau, "gain": args.buffer_gain, "rescue": bool(args.buffer_rescue),
                    "mean_last": round(float(buf.mean()), 4)},
         "heterogeneity": {
             "amp": args.hetero_amp,
