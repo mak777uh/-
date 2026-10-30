@@ -92,6 +92,11 @@ def main(argv=None) -> int:
                     help="E9: период смены узора в шагах (0 = статика). Узор инвертируется с этим периодом: "
                          "медленно меняющаяся неоднородность против дрожащей")
     ap.add_argument("--hetero-shuffle", action="store_true", help="перемешать S(t) по времени — контроль структуры")
+    ap.add_argument("--buffer-tau", type=float, default=0.0,
+                    help="E12: время памяти буфера в шагах (0 = буфера нет). Поле B помнит, где была структура, "
+                         "и медленно распадается: dB/dt = v - B/tau")
+    ap.add_argument("--buffer-gain", type=float, default=0.0,
+                    help="E12: насколько память усиливает приток в месте, где структура была: F_eff *= (1 + gain*B)")
     ap.add_argument("--invade-s", type=float, default=None,
                     help="E11: состав редкого типа, который подсевается отдельной каплей (например 1.4)")
     ap.add_argument("--invade-radius", type=float, default=3.0, help="радиус капли редкого типа")
@@ -129,6 +134,7 @@ def main(argv=None) -> int:
     u = torch.where(m, torch.full_like(u, 0.25), u)
 
     rng = np.random.default_rng(int(args.seed))
+    buf = torch.zeros((g, g), device=dev)   # E12: память среды
     # E7: пространственный узор G (фиксирован) и временной сигнал S(t)
     hetero_G = None
     hetero_S = None
@@ -180,6 +186,11 @@ def main(argv=None) -> int:
             mod_k = torch.tensor(modk_np, device=dev)
         F_eff = args.F * mod
         k_eff = args.k * mod_k
+        if args.buffer_tau > 0:
+            buf = buf + args.dt * (v - buf / float(args.buffer_tau))
+            buf = torch.clamp(buf, 0.0, 5.0)
+            F_eff = F_eff * (1.0 + args.buffer_gain * buf)
+
         if hetero_G is not None and args.hetero_amp > 0:
             s_t = 0.5
             if hetero_S:
@@ -306,6 +317,8 @@ def main(argv=None) -> int:
             "invader_rate": inv_rate,
             "invader_curve": inv_curve,
         },
+        "buffer": {"tau": args.buffer_tau, "gain": args.buffer_gain,
+                   "mean_last": round(float(buf.mean()), 4)},
         "heterogeneity": {
             "amp": args.hetero_amp,
             "scale": args.hetero_scale,
