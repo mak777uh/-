@@ -141,10 +141,11 @@ def check_claim(path: Path) -> tuple[bool, list[str], list[str]]:
             return True, notes, problems
         problems.append(msg)
 
-    a = vals.get("static") or []
-    b = vals.get("homog") or []
+    contrast = (c.get("check") or {}).get("contrast") or ["static", "homog"]
+    a = vals.get(contrast[0]) or []
+    b = vals.get(contrast[1]) or []
     if not a or not b:
-        problems.append("не хватает плеч static/homog для контраста")
+        problems.append(f"не хватает плеч {contrast} для контраста")
         return False, notes, problems
 
     diff, lo, hi = boot_ci(a, b)

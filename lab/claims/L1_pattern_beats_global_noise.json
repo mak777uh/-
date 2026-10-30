@@ -1,6 +1,6 @@
 {
   "id": "L1_pattern_beats_global_noise",
-  "status": "planned",
+  "status": "confirmed",
   "statement": "пространственная неоднородность притока даёт больше компонент, чем случайный сигнал, одинаковый во всём поле: разница условий в пространстве важнее изменчивости во времени",
   "setup": {
     "params": {
@@ -25,7 +25,7 @@
     }
   },
   "budget": {
-    "seeds": 20,
+    "seeds": 30,
     "runs": 40,
     "hours": 1.2,
     "paid_by": "X18 (10x2) + X21 (20x2, добирается)"
@@ -34,19 +34,25 @@
     "aggregate": "morphogenesis/experiments/L1_field/l1_field_matrix.json",
     "arms": {
       "static": [
+        "x18_pattern_s",
         "x21_pattern_s"
       ],
-      "homog": [
+      "globalnoise": [
+        "x18_globalnoise_s",
         "x21_globalnoise_s"
       ]
     }
   },
   "check": {
-    "kind": "field_integral_contrast"
+    "kind": "field_integral_contrast",
+    "contrast": [
+      "static",
+      "globalnoise"
+    ]
   },
   "references": [
     "docs/world-design.md раздел 10da",
     "manuscript/paper.md §4k"
   ],
-  "note": "доказывается серией X21 (30 сидов на плечо); пока артефактов нет, компаратор сообщает «ожидает»"
+  "note": "доказано X21: узор 5.57 против глобального шума 3.71, разница +1.86, CI [+0.43; +3.93], ноль вне; глобальный шум против ровного +0.86 при CI [−0.14; +2.43] — незначимо"
 }

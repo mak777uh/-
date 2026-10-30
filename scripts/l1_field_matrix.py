@@ -34,8 +34,11 @@ SRC = ROOT / "morphogenesis" / "experiments" / "L1_field"
 OUT = SRC / "l1_field_matrix.json"
 
 ARMS = {
-    "homog": ["x15_homog_s*.json", "x16_homog_s*.json", "x17_homog_s*.json", "n20_homog_s*.json"],
-    "static": ["n20_static_s*.json", "x16_static_s*.json", "x17_static_s*.json"],
+    "homog": ["x15_homog_s*.json", "x16_homog_s*.json", "x17_homog_s*.json", "n20_homog_s*.json",
+              "x18_homog_s*.json"],
+    "static": ["n20_static_s*.json", "x16_static_s*.json", "x17_static_s*.json",
+               "x18_pattern_s*.json", "x21_pattern_s*.json"],
+    "globalnoise": ["x18_globalnoise_s*.json", "x21_globalnoise_s*.json"],
     "p300": ["n20_p300_s*.json"],
     "p3000": ["x14_p3000_s*.json"],
 }
