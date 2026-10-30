@@ -187,6 +187,10 @@ class _self_load:
         share = self._me.cpu_percent(interval=None) / 100.0 / self._ncpu
         return float(min(1.0, max(0.0, share)))
 
+    # LiveSource вызывает читатель КАК ОБЪЕКТ (`self._reader()`), а не метод `.read()`.
+    # Без этого поток молча глотал TypeError и собирал 0 отсчётов (найдено 30.10 при E5).
+    __call__ = read
+
 
 class _system_ext:
     """«Погода машины»: загрузка CPU БЕЗ нашего собственного процесса (доля 0..1).
