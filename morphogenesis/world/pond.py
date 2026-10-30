@@ -57,6 +57,11 @@ class PondConfig:
     catastrophe_rate: float = 0.0     # если > 0: катастрофы пуассоновские (событий на шаг)
     genome_dim: int = 32              # размер генома (для cNCA)
     resource_layout: str = "uniform"  # uniform | gradient | patches
+    # M5: множители притока для пятен. Нужны, чтобы сравнивать плечи при РАВНОМ среднем притоке:
+    # старый жёсткий вариант (0.1x база, 4x пятна) давал средний приток 0.39 от ровного — то есть
+    # плечи различались количеством, а не только структурой (ошибка, найденная при разборе M1).
+    patch_inflow_base: float = 0.1
+    patch_inflow_rich: float = 4.0
     flip_at: int = 0                  # если > 0: на этом шаге градиент переворачивается
     drift_at: int = 0                  # если > 0: с этого шага градиент дрейфует
     drift_steps: int = 0               # за сколько шагов дрейф переворачивает верх и низ
@@ -646,11 +651,11 @@ class Pond:
             inflow = inflow * (0.1 + 0.9 * (1.0 - rows / max(cfg.grid - 1, 1)))[:, None]
         elif cfg.resource_layout == "patches":
             # три источника, остальное бедно
-            base = torch.full((cfg.grid, cfg.grid), cfg.resource_regen * 0.1, device=self.device)
+            base = torch.full((cfg.grid, cfg.grid), cfg.resource_regen * cfg.patch_inflow_base, device=self.device)
             third = cfg.grid // 3
-            base[third // 2 : third // 2 + third // 2, third // 2 : third // 2 + third // 2] = cfg.resource_regen * 4
-            base[cfg.grid - third : cfg.grid - third // 2, cfg.grid - third : cfg.grid - third // 2] = cfg.resource_regen * 4
-            base[third // 2 : third // 2 + third // 2, cfg.grid - third : cfg.grid - third // 2] = cfg.resource_regen * 4
+            base[third // 2 : third // 2 + third // 2, third // 2 : third // 2 + third // 2] = cfg.resource_regen * cfg.patch_inflow_rich
+            base[cfg.grid - third : cfg.grid - third // 2, cfg.grid - third : cfg.grid - third // 2] = cfg.resource_regen * cfg.patch_inflow_rich
+            base[third // 2 : third // 2 + third // 2, cfg.grid - third : cfg.grid - third // 2] = cfg.resource_regen * cfg.patch_inflow_rich
             inflow = base
         # потолок зависит от раскладки: иначе ресурс насыщается везде одинаково
         ceiling = torch.full((cfg.grid, cfg.grid), cfg.resource_max, device=self.device)

@@ -1093,6 +1093,11 @@ def build_parser() -> argparse.ArgumentParser:
     ap.add_argument("--patch-r", type=float, default=6.0, help="H-ALIVE-74: радиус площадки")
     ap.add_argument("--patch-cx", type=int, default=-1, help="центр площадки по X (-1 = центр поля)")
     ap.add_argument("--patch-cy", type=int, default=-1, help="центр площадки по Y")
+    ap.add_argument("--patch-inflow-base", type=float, default=0.1,
+                    help="M5: приток вне пятен, кратность resource_regen (дефолт 0.1)")
+    ap.add_argument("--patch-inflow-rich", type=float, default=4.0,
+                    help="M5: приток в пятнах, кратность resource_regen (дефолт 4.0); для равного среднего "
+                         "выбирать так, чтобы mean совпал с ровным плечом")
     ap.add_argument("--patch-mass-discount", type=float, default=0.5,
                     help="H-ALIVE-74: во сколько раз ниже порог МАССЫ в площадке (это ограничение binds)")
     ap.add_argument("--patch-bud-discount", type=float, default=0.5,
@@ -1172,6 +1177,8 @@ def main(argv: list[str] | None = None) -> int:
         world.budding_cost = args.budding_cost
     world.resource_layout = args.layout
     world.resource_max = args.resource_max
+    world.patch_inflow_base = args.patch_inflow_base
+    world.patch_inflow_rich = args.patch_inflow_rich
     world.spore_bias = args.spore_bias
     world.matching_temp = args.matching_temperature
     world.sense_noise = args.sense_noise
