@@ -954,6 +954,9 @@ def build_parser() -> argparse.ArgumentParser:
     ap.add_argument("--repair-cost", type=float, default=None, help="цена ремонта клетки")
     ap.add_argument("--budding-mass", type=float, default=None, help="масса для споры")
     ap.add_argument("--budding-cost", type=float, default=None, help="энергия на спору")
+    ap.add_argument("--resource-max", type=float, default=1.0,
+                    help="потолок ресурса (аддитивный флаг, дефолт 1.0 как в конфиге); нужен, чтобы "
+                         "выровнять средний ресурс между раскладками uniform и patches")
     ap.add_argument("--resource-regen", type=float, default=0.02,
                     help="приток ресурса на клетку за шаг (равновесие поля: regen*N = "
                          "потребление); H-ALIVE-29 меняет только это, не доход и не цену")
@@ -1168,6 +1171,7 @@ def main(argv: list[str] | None = None) -> int:
     if args.budding_cost is not None:
         world.budding_cost = args.budding_cost
     world.resource_layout = args.layout
+    world.resource_max = args.resource_max
     world.spore_bias = args.spore_bias
     world.matching_temp = args.matching_temperature
     world.sense_noise = args.sense_noise
