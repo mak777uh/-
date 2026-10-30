@@ -765,6 +765,26 @@ class PondRun:
                         keep = draw < base
                 self.pond.updates_total += int((keep & alive_now).sum())
                 self.state = torch.where(keep, new_state, self.state)
+        if int(getattr(self, "amputate_at", 0)) > 0 and \
+                int(self.pond.state.step) == int(getattr(self, "amputate_at", 0)) and \
+                not getattr(self, "_amputate_done", False):
+            # X13/B-038: ампутация — удалить долю живых клеток, чтобы измерить восстановление
+            alive_mask = self.pond.state.alive
+            alive_idx = alive_mask.nonzero(as_tuple=False)
+            n_alive = int(alive_idx.shape[0])
+            frac = float(getattr(self, "amputate_fraction", 0.5))
+            n_kill = int(round(n_alive * max(0.0, min(1.0, frac))))
+            if n_kill > 0:
+                g = torch.Generator(device=alive_idx.device).manual_seed(int(getattr(self, "world_seed", 0)) + 17)
+                perm = torch.randperm(n_alive, generator=g, device=alive_idx.device)[:n_kill]
+                kill = alive_idx[perm]
+                self.pond.state.alive[kill[:, 0], kill[:, 1]] = False
+                self.pond.state.energy[kill[:, 0], kill[:, 1]] = 0.0
+            self._amputate_done = True
+            self.log.append({"step": int(self.pond.state.step), "event": "amputation",
+                             "alive_before": n_alive, "killed": n_kill,
+                             "alive_after": int(self.pond.state.alive.sum())})
+
         if int(getattr(self, "cohort_lines", 0)) > 0 and \
                 int(self.pond.state.step) == int(getattr(self, "cohort_at_step", 700)) and \
                 not getattr(self, "_cohort_done", False):
@@ -1069,6 +1089,10 @@ def build_parser() -> argparse.ArgumentParser:
                     help="окно нормировки живого сигнала, секунды")
     ap.add_argument("--inflow-live-dump", default=None,
                     help="куда записать то, что услышал мир (для аудита и повторного проигрывания)")
+    ap.add_argument("--amputate-at", type=int, default=0,
+                    help="X13/B-038: шаг, на котором удалить долю живых клеток (0 = не ампутировать)")
+    ap.add_argument("--amputate-fraction", type=float, default=0.5,
+                    help="X13/B-038: какую долю живых клеток удалить (0..1)")
     ap.add_argument("--cohort-lines", type=int, default=0,
                     help="K2b: сколько линий в КАЖДОЙ группе (инвазоры и нейтральные) — равные условия")
     ap.add_argument("--cohort-cells", type=int, default=8,
@@ -1317,6 +1341,8 @@ def main(argv: list[str] | None = None) -> int:
         world.organ_cx = int(getattr(args, "organ_cx", -1))
         world.organ_cy = int(getattr(args, "organ_cy", -1))
         world.organ_enabled = world.organ_r > 0.0
+    run.amputate_at = int(getattr(args, "amputate_at", 0))
+    run.amputate_fraction = float(getattr(args, "amputate_fraction", 0.5))
     run.cohort_lines = int(getattr(args, "cohort_lines", 0))
     run.cohort_cells = int(getattr(args, "cohort_cells", 8))
     run.cohort_at_step = int(getattr(args, "cohort_at_step", 700))
