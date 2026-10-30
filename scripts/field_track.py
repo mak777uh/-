@@ -125,6 +125,9 @@ def main(argv=None) -> int:
     ap.add_argument("--s-ref", type=float, default=1.0, help="опорный состав (дикий тип)")
     ap.add_argument("--mutation", type=float, default=0.05, help="sigma мутации состава при делении")
     ap.add_argument("--threshold", type=float, default=0.2)
+    ap.add_argument("--thresholds", default="",
+                    help="X26: список порогов через запятую (например 0.1,0.15,0.2,0.25,0.3) — "
+                         "считать число компонент на каждом, чтобы отличить тело от перколяционного кластера")
     ap.add_argument("--min-cells", type=int, default=5)
     ap.add_argument("--overlap", type=float, default=0.5, help="доля клеток дочери, при которой родитель признан")
     ap.add_argument("--sample-every", type=int, default=1000)
@@ -168,7 +171,14 @@ def main(argv=None) -> int:
     next_id = 1
     # состав: id компоненты → s
     comp_s: dict[int, float] = {}
-    comp_flag: dict[int, bool] = {}   # True = потомок подсеянного редкого типа
+    comp_flag: dict[int, bool] = {}
+    threshold_list = [float(x) for x in str(args.thresholds).split(",") if x.strip()]
+    threshold_counts: dict[str, list] = {}
+    comp_uid: dict[int, int] = {}
+    uid_counter = 0
+    uid_first: dict[int, int] = {}
+    uid_last: dict[int, int] = {}
+    uid_peak: dict[int, int] = {}   # True = потомок подсеянного редкого типа
     _invade_pending = False
     prev_lab = None
     pairs: list[tuple[float, float]] = []   # (s родителя, s дочери)
@@ -238,6 +248,17 @@ def main(argv=None) -> int:
         vn = v.detach().cpu().numpy()
         mask = vn > float(args.threshold)
         lab, n_comp = label(mask)
+        # X26: число компонент при разных порогах — перколяция даёт резкий скачок доли главной компоненты.
+        # Считаем только на срезах: на каждом шаге это стоило бы 5 лишних разметок поля.
+        if threshold_list and step % int(args.sample_every) == 0:
+          for th in threshold_list:
+            lab_th, n_th = label(vn > th)
+            sizes_th = np.bincount(lab_th.ravel())[1:] if n_th else np.array([])
+            biggest = int(sizes_th.max()) if len(sizes_th) else 0
+            total = int(sizes_th.sum()) if len(sizes_th) else 0
+            threshold_counts.setdefault(str(th), []).append(
+                {"step": step, "n": n_th, "largest_share": round(biggest / total, 4) if total else None})
+
         sizes = {cid: int((lab == cid).sum()) for cid in range(1, n_comp + 1)}
         keep = [cid for cid, sz in sizes.items() if sz >= args.min_cells]
         new_s: dict[int, float] = {}
@@ -290,6 +311,30 @@ def main(argv=None) -> int:
                     new_flag[cid] = True
                     new_s[cid] = float(args.invade_s)
                     _invade_pending = False
+        # X23: устойчивый идентификатор компоненты (uid) — чтобы измерять ВРЕМЯ ЖИЗНИ, а не счётчик.
+        # uid наследуется от родителя (перекрытие >= overlap), иначе компонента считается новой.
+        new_uid: dict[int, int] = {}
+        for cid in keep:
+            cells = (lab == cid)
+            parent = None
+            if prev_lab is not None:
+                cand = prev_lab[cells]
+                if cand.size:
+                    vals, counts = np.unique(cand[cand > 0], return_counts=True)
+                    if len(vals):
+                        best = int(vals[int(np.argmax(counts))])
+                        if counts.max() / cells.sum() >= args.overlap and best in comp_uid:
+                            parent = best
+            if parent is not None:
+                new_uid[cid] = comp_uid[parent]
+            else:
+                uid_counter += 1
+                new_uid[cid] = uid_counter
+            uid_first.setdefault(new_uid[cid], step)
+            uid_last[new_uid[cid]] = step
+            uid_peak[new_uid[cid]] = max(uid_peak.get(new_uid[cid], 0), int(cells.sum()))
+        comp_uid = {cid: u for cid, u in new_uid.items()}
+
         comp_s = {cid: s_val for cid, s_val in new_s.items()}
         comp_flag = {cid: bool(new_flag.get(cid, False)) for cid in new_s}
         prev_lab = np.where(np.isin(lab, keep), lab, 0)
@@ -357,6 +402,14 @@ def main(argv=None) -> int:
             "shuffled": bool(args.hetero_shuffle),
             "components_last": series[-1]["components"] if series else 0,
         },
+        "lifetimes": {
+            "n_uids": len(uid_first),
+            "median_life_steps": (sorted(uid_last[u] - uid_first[u] for u in uid_first)[len(uid_first) // 2]
+                                  if uid_first else None),
+            "life_steps": sorted(uid_last[u] - uid_first[u] for u in uid_first)[:2000],
+            "peak_sizes": sorted(uid_peak.values(), reverse=True)[:2000],
+        },
+        "components_by_threshold": threshold_counts,
         "criteria": {
             "S1_shift_gt_2sd": None,
             "S2_inheritability_ge_0.5": (r_parent is not None and r_parent >= 0.5),
