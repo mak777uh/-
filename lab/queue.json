@@ -742,6 +742,18 @@
       "note": "из X6: experiment 4 + experiment_change 15"
     },
     {
+      "id": "X12_noisy_means",
+      "title": "Шесть плеч со средними CV > 0.3 без пометки: generation, w1niche×2, w1niche5, r1, r1cap",
+      "status": "planned",
+      "owner": "lead",
+      "cost_gpu_h": 0.0,
+      "ttl_minutes": 300,
+      "hypothesis": null,
+      "claimed_at": null,
+      "heartbeat_at": null,
+      "note": "из check_seed_dispersion.py: pop_time CV 0.39 (9 сидов), prepared_cells_total 0.33-0.34, k 0.84 (30 сидов). Разобрать по одному: либо пометить плечо в not_claimed агрегата, либо объяснить, почему CV здесь не признак ненадёжности (например k — подогнанный параметр, а не среднее)"
+    },
+    {
       "id": "X6_board_backlog",
       "title": "Сессия разбора доски: 23 залежавшихся замечания (принято, но не внедрено)",
       "status": "closed",

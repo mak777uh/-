@@ -48,6 +48,9 @@ GATES = [
     # пока агрегатор метрики не исправлен — предупреждение, а не блокер
     ("реализация метрик = определение", ["scripts/check_metric_definitions.py"], False, True),
     ("покрытие артефактов агрегатами", ["scripts/check_aggregate_coverage.py"], False, True),
+        # B-077 с доски: если разброс по сидам велик, агрегат обязан пометить плечо как незаявляемое.
+        # Предупреждение, а не блокер: 6 находок требуют разбора по одной.
+        ("разброс по сидам помечен", ["scripts/check_seed_dispersion.py"], False, False),
     ("таблица артефактов актуальна", ["scripts/make_artifact_table.py", "--check"], True, False),
     ("схема карточек", ["scripts/validate_runs.py"], True, False),
     ("ревью", ["scripts/check_reviews.py"], True, False),
