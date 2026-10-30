@@ -634,18 +634,6 @@
       "note": "из крестового аудита herness (находка 1, K115): claims_lint сверяет наличие и тип, но не значение. Добавить поле expect (число или регулярка) и сверять его с артефактом прямо в claims_lint"
     },
     {
-      "id": "X6_board_backlog",
-      "title": "Сессия разбора доски: 23 залежавшихся замечания (принято, но не внедрено)",
-      "status": "planned",
-      "owner": "lead",
-      "cost_gpu_h": 0.0,
-      "ttl_minutes": 240,
-      "hypothesis": null,
-      "claimed_at": null,
-      "heartbeat_at": null,
-      "note": "гейт доски потребовал разбора: 23 замечания приняты 25-27.10 и не внедрены. Для каждого решить: внедрить (с записью где), отклонить (с причиной), или отложить с конкретным триггером. Это не формальность: доска — очередь методик, и «принято без действия» означает, что мы её не читаем"
-    },
-    {
       "id": "X7_dose_confirmation",
       "title": "Подтверждение дозы неоднородности: 6 сидов на amp 0.35 / 0.5 / 0.65",
       "status": "planned",
@@ -716,6 +704,55 @@
       "claimed_at": null,
       "heartbeat_at": null,
       "note": "НАБЛЮДАТЕЛЬНЫЙ контроль выполнен (§10ch-доп): после снятия тренда по заполнению порядок сохранился (статика −0.13, колебания −1.1…−1.6, гомогенно −4.43). Осталось ЭКСПЕРИМЕНТАЛЬНОЕ: подобрать базу под равное заполнение и повторить; нужно для уверенного заявления (разница ≈1.3 компоненты)"
+    },
+    {
+      "id": "X6a_board_text",
+      "title": "Доска: 15 оставшихся text-замечаний с рукописью открытой",
+      "status": "planned",
+      "owner": "lead",
+      "cost_gpu_h": 0.0,
+      "ttl_minutes": 300,
+      "hypothesis": null,
+      "claimed_at": null,
+      "heartbeat_at": null,
+      "note": "из X6: закрывать только проверкой объекта в paper.md/CLAIMS.md"
+    },
+    {
+      "id": "X6b_board_method",
+      "title": "Доска: 13 замечаний по методам/параметрам — внести в код или отклонить",
+      "status": "planned",
+      "owner": "lead",
+      "cost_gpu_h": 0.0,
+      "ttl_minutes": 300,
+      "hypothesis": null,
+      "claimed_at": null,
+      "heartbeat_at": null,
+      "note": "из X6: method 11 + param 1 + baseline 1"
+    },
+    {
+      "id": "X6c_board_experiments",
+      "title": "Доска: 19 замечаний по экспериментам — включить в план или отклонить",
+      "status": "planned",
+      "owner": "lead",
+      "cost_gpu_h": 0.0,
+      "ttl_minutes": 300,
+      "hypothesis": null,
+      "claimed_at": null,
+      "heartbeat_at": null,
+      "note": "из X6: experiment 4 + experiment_change 15"
+    },
+    {
+      "id": "X6_board_backlog",
+      "title": "Сессия разбора доски: 23 залежавшихся замечания (принято, но не внедрено)",
+      "status": "closed",
+      "owner": "lead",
+      "cost_gpu_h": 0.0,
+      "ttl_minutes": 240,
+      "hypothesis": null,
+      "claimed_at": null,
+      "heartbeat_at": null,
+      "note": "закрыто с разбиением: отложенных оказалось 52, а не 24. Пять закрыты проверкой по рукописи (B-002, B-003, B-012, B-013, B-030), B-022 оставлено с триггером. Остальные 46 разбиты на X6a (текст, 15), X6b (методики, 13), X6c (эксперименты, 19). Отчёт: reports/2026-10-30-board-triage.md",
+      "closed_at": "2026-10-30T06:40:00+00:00"
     },
     {
       "id": "E13_noise_colour",
