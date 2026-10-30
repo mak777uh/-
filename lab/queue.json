@@ -730,18 +730,6 @@
       "note": "из X6: experiment 4 + experiment_change 15"
     },
     {
-      "id": "X12_noisy_means",
-      "title": "Шесть плеч со средними CV > 0.3 без пометки: generation, w1niche×2, w1niche5, r1, r1cap",
-      "status": "planned",
-      "owner": "lead",
-      "cost_gpu_h": 0.0,
-      "ttl_minutes": 300,
-      "hypothesis": null,
-      "claimed_at": null,
-      "heartbeat_at": null,
-      "note": "из check_seed_dispersion.py: pop_time CV 0.39 (9 сидов), prepared_cells_total 0.33-0.34, k 0.84 (30 сидов). Разобрать по одному: либо пометить плечо в not_claimed агрегата, либо объяснить, почему CV здесь не признак ненадёжности (например k — подогнанный параметр, а не среднее)"
-    },
-    {
       "id": "E5b_unsaturated_loop",
       "title": "Живая петля без насыщения: база ≤0.35, суммарная нагрузка ≤0.85",
       "status": "planned",
@@ -764,6 +752,19 @@
       "claimed_at": null,
       "heartbeat_at": null,
       "note": "из E5: нагрузка отражает реализацию, а не население (0.078 при разнице 4->621). Чтобы канал стал содержательным, сигнал должен зависеть от состояния. Меняет физику мира, нужно решение владельца"
+    },
+    {
+      "id": "X12_noisy_means",
+      "title": "Шесть плеч со средними CV > 0.3 без пометки: generation, w1niche×2, w1niche5, r1, r1cap",
+      "status": "closed",
+      "owner": "lead",
+      "cost_gpu_h": 0.0,
+      "ttl_minutes": 300,
+      "hypothesis": null,
+      "claimed_at": null,
+      "heartbeat_at": null,
+      "note": "закрыто с границей: гейт уточнён трижды (исключены индексы разброса, знаменатели, корреляции и средние у нуля), осталось 8 находок. Из них флаг уместен для generation/pop_time (уровень, 9 сидов), неуместен для 5 w2bud (заявляется знак/порог), неясен для r1/r1cap. Гейт остаётся предупреждением: отличить «среднее» от «знака» машинно нельзя — это свойство утверждения. §10ct",
+      "closed_at": "2026-10-30T13:05:00+00:00"
     },
     {
       "id": "X10_hill_numbers",

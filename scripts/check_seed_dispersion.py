@@ -32,11 +32,31 @@ METRIC_HINTS = ("value", "pop_time", "q1", "mean", "score", "survival", "rate")
 # Правило про CV относится к СРЕДНИМ. Индексы разброса (I_obs и т.п.) и величины с суффиксом *_median
 # не являются средними: для них заявляется знак или счёт, а не величина, и CV там — не признак
 # ненадёжности (категориальная ошибка, найденная при первом прогоне гейта 30.10).
-EXCLUDE_SUBSTR = ("I_obs", "I_null", "I_ratio", "median", "dispersion", "variance", "sd_", "_sd")
+# Коэффициенты корреляции и знаковые величины исключаются: у них среднее может быть у нуля,
+# и CV взрывается (rho_partial дал CV 12.3 при среднем около нуля — это не «шумное плечо», а неверная
+# величина для правила про CV). Найдено 30.10 при разборе X12.
+EXCLUDE_SUBSTR = ("rho", "corr", "slope", "sign", "state_after", "I_obs", "I_null", "I_ratio", "median", "dispersion", "variance", "sd_", "_sd",
+                  # знаменатели и счётчики — не заявляемая величина, а её база (найдено 30.10:
+                  # гейт взял prepared_cells_total вместо доли и выдал ложное «шумное плечо»)
+                  "_total", "_count", "_n", "cells_total", "_denom")
 
 
 def excluded(name: str) -> bool:
     return any(s.lower() in name.lower() for s in EXCLUDE_SUBSTR)
+
+
+def metric_fields(doc: dict) -> list[str]:
+    """Поля, объявленные в `metric` агрегата: это ЗАЯВЛЯЕМЫЕ величины, а не параметры и не знаменатели.
+
+    Откуда (30.10): гейт брал первую подходящую числовую колонку и уличал `k` (параметр дозы) и
+    `prepared_cells_total` (знаменатель). Оба раза это была категориальная ошибка, а не шумное плечо.
+    """
+    m = doc.get("metric")
+    if isinstance(m, dict):
+        return [k for k in m if isinstance(m[k], str)]
+    if isinstance(m, str):
+        return []
+    return []
 
 
 def pick_metric(rows: list[dict]) -> str | None:
@@ -50,6 +70,8 @@ def pick_metric(rows: list[dict]) -> str | None:
                 keys[k] = keys.get(k, 0) + 1
     if not keys:
         return None
+    # параметры и служебные колонки не являются метриками
+    keys.pop("k", None)
     for hint in METRIC_HINTS:
         for k, n in keys.items():
             if hint.lower() in k.lower() and n >= max(2, len(rows) // 2):
@@ -75,7 +97,8 @@ def main(argv=None) -> int:
         if not rows or not any("seed" in r for r in rows):
             skipped += 1
             continue
-        metric = pick_metric(rows)
+        declared = [k for k in metric_fields(d) if any(isinstance(r.get(k), (int, float)) and not isinstance(r.get(k), bool) for r in rows)]
+        metric = declared[0] if declared else pick_metric(rows)
         if metric is None:
             skipped += 1
             continue
@@ -95,6 +118,9 @@ def main(argv=None) -> int:
                 continue
             m = sum(vals) / len(vals)
             sd = (sum((x - m) ** 2 for x in vals) / len(vals)) ** 0.5
+            # CV осмыслен только для положительных средних, далёких от нуля относительно разброса
+            if m <= 0 or abs(m) < 2.0 * sd:
+                continue
             cv = sd / max(1e-12, abs(m))
             if cv > CV_LIMIT:
                 arm_l = arm.lower()
