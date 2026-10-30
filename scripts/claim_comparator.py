@@ -152,8 +152,13 @@ def check_claim(path: Path) -> tuple[bool, list[str], list[str]]:
     excludes_zero = not (lo <= 0 <= hi)
     min_effect = float(suc.get("min_effect", 0.0))
     rule = str(suc.get("rule", "bootstrap_ci_excludes_zero"))
-    if rule == "bootstrap_ci_includes_zero":
-        # утверждение ОБ ОТСУТСТВИИ различия: правило выполнено, если интервал накрывает ноль
+    if rule == "equivalent_within_margin":
+        # Проверка ЭКВИВАЛЕНТНОСТИ (TOST-подобная): весь интервал должен лежать внутри ±margin.
+        # «CI включает ноль» — не доказательство равенства (внешние ревью 31.10): интервал
+        # [−0.14; 2.43] совместим с заметным эффектом.
+        margin = float(suc.get("margin", 1.0))
+        rule_ok = (lo >= -margin) and (hi <= margin)
+    elif rule == "bootstrap_ci_includes_zero":
         rule_ok = not excludes_zero
     else:
         rule_ok = excludes_zero and abs(diff) >= min_effect
@@ -166,6 +171,12 @@ def check_claim(path: Path) -> tuple[bool, list[str], list[str]]:
         return True, notes, problems
     if status == "confirmed" and not rule_ok:
         problems.append(f"утверждение confirmed, но правило не выполнено (правило: {rule})")
+    if status == "weakened":
+        if rule_ok:
+            problems.append("утверждение помечено weakened, но строгое правило ВЫПОЛНЯЕТСЯ — ослабление необоснованно")
+        else:
+            notes.append(f"ослабление подтверждено: правило «{rule}» не выполнено "
+                         f"(интервал [{round(lo, 3)}; {round(hi, 3)}] не укладывается в допустимое)")
     if status == "retracted":
         if rule_ok:
             problems.append("утверждение помечено retracted, но правило ВЫПОЛНЯЕТСЯ — отмена необоснованна")

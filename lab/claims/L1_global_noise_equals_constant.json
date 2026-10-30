@@ -1,0 +1,52 @@
+{
+  "id": "L1_global_noise_equals_constant",
+  "status": "weakened",
+  "statement": "глобальный случайный сигнал (одинаковый во всём поле) не отличается по числу компонент от постоянного притока",
+  "setup": {
+    "params": {
+      "grid": [
+        96
+      ],
+      "hetero_amp": 0.5,
+      "horizon": [
+        6000
+      ]
+    },
+    "admissible": {
+      "metric": "components_integral",
+      "min_seeds_per_arm": 10
+    },
+    "successful": {
+      "rule": "equivalent_within_margin",
+      "margin": 1.0
+    }
+  },
+  "budget": {
+    "seeds": 10,
+    "runs": 20,
+    "hours": 0.8,
+    "paid_by": "X18"
+  },
+  "evidence": {
+    "aggregate": "morphogenesis/experiments/L1_field/l1_field_matrix.json",
+    "arms": {
+      "static": [
+        "x18_globalnoise_s"
+      ],
+      "homog": [
+        "x18_homog_s"
+      ]
+    }
+  },
+  "check": {
+    "kind": "field_integral_contrast",
+    "contrast": [
+      "static",
+      "homog"
+    ]
+  },
+  "note": "интервал [−0.14; 2.43] шире margin=1, поэтому равенство НЕ установлено; верно только «различия не обнаружены»",
+  "references": [
+    "docs/world-design.md раздел 10da"
+  ]
+}
