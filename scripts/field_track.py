@@ -299,6 +299,8 @@ def main(argv=None) -> int:
             series.append({
                 "step": step,
                 "invader_area": inv_area,
+                # X10: площади компонент — без них нельзя посчитать Hill q=1,2 (только счётчик q=0)
+                "areas": sorted((int((prev_lab == cid).sum()) for cid in keep), reverse=True),
                 "components": len(vals),
                 "s_mean": round(float(np.mean(vals)), 4) if vals else 0.0,
                 "s_sd_between": round(float(np.std(vals)), 4) if len(vals) > 1 else 0.0,
