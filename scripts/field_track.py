@@ -92,6 +92,12 @@ def main(argv=None) -> int:
                     help="E9: период смены узора в шагах (0 = статика). Узор инвертируется с этим периодом: "
                          "медленно меняющаяся неоднородность против дрожащей")
     ap.add_argument("--hetero-shuffle", action="store_true", help="перемешать S(t) по времени — контроль структуры")
+    ap.add_argument("--invade-s", type=float, default=None,
+                    help="E11: состав редкого типа, который подсевается отдельной каплей (например 1.4)")
+    ap.add_argument("--invade-radius", type=float, default=3.0, help="радиус капли редкого типа")
+    ap.add_argument("--invade-at", type=int, default=2000, help="шаг подсева редкого типа")
+    ap.add_argument("--invade-threshold", type=float, default=1.2,
+                    help="порог состава: компоненты выше считаются редким типом при измерении")
     ap.add_argument("--freq-dep", type=float, default=0.0,
                     help="E6e: частотная зависимость — защита слабеет с ростом доли похожих составов: "
                          "beta_eff = beta·(1 − freq_dep·share)")
@@ -142,6 +148,8 @@ def main(argv=None) -> int:
     next_id = 1
     # состав: id компоненты → s
     comp_s: dict[int, float] = {}
+    comp_flag: dict[int, bool] = {}   # True = потомок подсеянного редкого типа
+    _invade_pending = False
     prev_lab = None
     pairs: list[tuple[float, float]] = []   # (s родителя, s дочери)
     splits = 0
@@ -194,6 +202,7 @@ def main(argv=None) -> int:
         sizes = {cid: int((lab == cid).sum()) for cid in range(1, n_comp + 1)}
         keep = [cid for cid, sz in sizes.items() if sz >= args.min_cells]
         new_s: dict[int, float] = {}
+        new_flag: dict[int, bool] = {}
         for cid in keep:
             cells = (lab == cid)
             parent = None
@@ -207,8 +216,10 @@ def main(argv=None) -> int:
                             parent = best
             if parent is not None:
                 new_s[cid] = comp_s[parent]
+                new_flag[cid] = comp_flag.get(parent, False)
             else:
                 new_s[cid] = float(rng.normal(args.s_ref, args.mutation))
+                new_flag[cid] = False
         # расщепление: у одного родителя несколько дочерей
         used_parents: dict[int, int] = {}
         if prev_lab is not None:
@@ -233,19 +244,50 @@ def main(argv=None) -> int:
                             child_s = comp_s[parent] + float(rng.normal(0.0, args.mutation))
                             new_s[cid] = child_s
                             pairs.append((comp_s[parent], child_s))
+        if _invade_pending:
+            cy_i, cx_i = g // 4, g // 4
+            for cid in keep:
+                if lab[cy_i, cx_i] == cid:
+                    new_flag[cid] = True
+                    new_s[cid] = float(args.invade_s)
+                    _invade_pending = False
         comp_s = {cid: s_val for cid, s_val in new_s.items()}
+        comp_flag = {cid: bool(new_flag.get(cid, False)) for cid in new_s}
         prev_lab = np.where(np.isin(lab, keep), lab, 0)
+
+        # E11: подсев редкого типа отдельной каплей вдали от центра
+        if args.invade_s is not None and step == int(args.invade_at):
+            cy, cx = g // 4, g // 4
+            rr = max(2.0, float(args.invade_radius))
+            m_inv = ((xx - cx) ** 2 + (yy - cy) ** 2) <= rr * rr
+            v = torch.where(m_inv, torch.full_like(v, 0.8), v)
+            u = torch.where(m_inv, torch.full_like(u, 0.3), u)
+            # новая компонента получит «дикий» состав; подменяем его на invade_s после ближайшего среза
+            _invade_pending = True
 
         if step % int(args.sample_every) == 0 or step == 1:
             vals = list(comp_s.values())
+            inv_area = 0
+            for cid, flag in comp_flag.items():
+                if flag:
+                    inv_area += int((prev_lab == cid).sum())
             series.append({
                 "step": step,
+                "invader_area": inv_area,
                 "components": len(vals),
                 "s_mean": round(float(np.mean(vals)), 4) if vals else 0.0,
                 "s_sd_between": round(float(np.std(vals)), 4) if len(vals) > 1 else 0.0,
                 "s_wild_fraction": round(float(np.mean([abs(s - args.s_ref) < 1e-9 for s in vals])), 4) if vals else 0.0,
                 "occupied": round(float(mask.mean()), 4),
             })
+
+    # E11: удельная скорость роста редкого типа по срезам после подсева
+    inv_curve = [(r["step"], r.get("invader_area", 0)) for r in series
+                 if args.invade_s is not None and r["step"] > int(args.invade_at)]
+    inv_rate = None
+    if len(inv_curve) >= 2 and inv_curve[0][1] > 0 and inv_curve[-1][1] > 0:
+        dt = inv_curve[-1][0] - inv_curve[0][0]
+        inv_rate = round((math.log(inv_curve[-1][1]) - math.log(inv_curve[0][1])) / max(1, dt), 5)
 
     r_parent = pearson([p for p, _ in pairs], [q for _, q in pairs])
     result = {
@@ -261,6 +303,8 @@ def main(argv=None) -> int:
             "splits": splits,
             "parent_child_pairs": len(pairs),
             "inheritability_r": round(r_parent, 3) if r_parent is not None else None,
+            "invader_rate": inv_rate,
+            "invader_curve": inv_curve,
         },
         "heterogeneity": {
             "amp": args.hetero_amp,
