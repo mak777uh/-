@@ -95,6 +95,9 @@ def main(argv=None) -> int:
     ap.add_argument("--buffer-tau", type=float, default=0.0,
                     help="E12: время памяти буфера в шагах (0 = буфера нет). Поле B помнит, где была структура, "
                          "и медленно распадается: dB/dt = v - B/tau")
+    ap.add_argument("--protect-fading", type=float, default=0.0,
+                    help="E12c: буфер через СМЕРТНОСТЬ — ослаблять распад там, где материал гаснет: "
+                         "k_eff *= (1 - protect*(1 - v)) при protect в 0..1")
     ap.add_argument("--buffer-rescue", action="store_true",
                     help="E12b: спасать ГАСНУЩЕЕ — усиливать приток там, где v мало, а память высока "
                          "(другой знак обратной связи, чем буфер-награда)")
@@ -189,6 +192,10 @@ def main(argv=None) -> int:
             mod_k = torch.tensor(modk_np, device=dev)
         F_eff = args.F * mod
         k_eff = args.k * mod_k
+        if args.protect_fading > 0:
+            # E12c: защита гаснущего через распад, а не через приток
+            k_eff = k_eff * torch.clamp(1.0 - args.protect_fading * torch.clamp(1.0 - v, 0.0, 1.0), 0.3, 1.0)
+
         if args.buffer_tau > 0:
             buf = buf + args.dt * (v - buf / float(args.buffer_tau))
             buf = torch.clamp(buf, 0.0, 5.0)
@@ -324,7 +331,7 @@ def main(argv=None) -> int:
             "invader_rate": inv_rate,
             "invader_curve": inv_curve,
         },
-        "buffer": {"tau": args.buffer_tau, "gain": args.buffer_gain, "rescue": bool(args.buffer_rescue),
+        "buffer": {"protect_fading": args.protect_fading, "tau": args.buffer_tau, "gain": args.buffer_gain, "rescue": bool(args.buffer_rescue),
                    "mean_last": round(float(buf.mean()), 4)},
         "heterogeneity": {
             "amp": args.hetero_amp,
