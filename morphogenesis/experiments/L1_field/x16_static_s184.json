@@ -1,0 +1,199 @@
+{
+  "kind": "field_track",
+  "model": "Грей–Скотт + отслеживание компонент: каждая компонента имеет свой состав, наследуемый при расщеплении с мутацией; состав влияет на локальный F",
+  "params": {
+    "steps": 6000,
+    "grid": 128,
+    "dt": 1.0,
+    "seed": 184,
+    "device": "cuda",
+    "Du": 0.16,
+    "Dv": 0.08,
+    "F": 0.035,
+    "k": 0.06,
+    "eps": 0.0,
+    "hetero_amp": 0.5,
+    "hetero_scale": 12.0,
+    "hetero_signal": "lab/streams/const_ones.json",
+    "hetero_period": 0.0,
+    "hetero_shuffle": false,
+    "buffer_tau": 0.0,
+    "protect_fading": 0.0,
+    "buffer_rescue": false,
+    "buffer_gain": 0.0,
+    "invade_s": null,
+    "invade_radius": 3.0,
+    "invade_at": 2000,
+    "invade_threshold": 1.2,
+    "freq_dep": 1.0,
+    "bin_width": 0.2,
+    "beta": 0.2,
+    "s_ref": 1.0,
+    "mutation": 0.15,
+    "threshold": 0.2,
+    "min_cells": 5,
+    "overlap": 0.5,
+    "sample_every": 1000
+  },
+  "series": [
+    {
+      "step": 1,
+      "invader_area": 0,
+      "areas": [
+        21
+      ],
+      "components": 1,
+      "s_mean": 0.9312,
+      "s_sd_between": 0.0,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.0013
+    },
+    {
+      "step": 1000,
+      "invader_area": 0,
+      "areas": [
+        1628
+      ],
+      "components": 1,
+      "s_mean": 1.4865,
+      "s_sd_between": 0.0,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.0994
+    },
+    {
+      "step": 2000,
+      "invader_area": 0,
+      "areas": [
+        5998,
+        510,
+        471,
+        199,
+        153,
+        97,
+        62,
+        40,
+        33,
+        31,
+        31,
+        30,
+        30,
+        25,
+        24,
+        24,
+        23,
+        17,
+        16,
+        15,
+        13,
+        13,
+        6
+      ],
+      "components": 23,
+      "s_mean": 1.9116,
+      "s_sd_between": 0.2261,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.4802
+    },
+    {
+      "step": 3000,
+      "invader_area": 0,
+      "areas": [
+        5666,
+        950,
+        362,
+        276,
+        73,
+        39,
+        26,
+        24
+      ],
+      "components": 8,
+      "s_mean": 2.9432,
+      "s_sd_between": 0.2136,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.4526
+    },
+    {
+      "step": 4000,
+      "invader_area": 0,
+      "areas": [
+        10767
+      ],
+      "components": 1,
+      "s_mean": 2.1919,
+      "s_sd_between": 0.0,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.6572
+    },
+    {
+      "step": 5000,
+      "invader_area": 0,
+      "areas": [
+        11895,
+        79,
+        41
+      ],
+      "components": 3,
+      "s_mean": 1.0724,
+      "s_sd_between": 0.4338,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.7336
+    },
+    {
+      "step": 6000,
+      "invader_area": 0,
+      "areas": [
+        6152,
+        340,
+        195,
+        124,
+        65,
+        38,
+        28,
+        13,
+        12
+      ],
+      "components": 9,
+      "s_mean": 1.4476,
+      "s_sd_between": 0.1831,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.4252
+    }
+  ],
+  "selection": {
+    "s_mean_first": 0.9312,
+    "s_mean_last": 1.4476,
+    "s_sd_between_last": 0.1831,
+    "splits": 952,
+    "parent_child_pairs": 2345,
+    "inheritability_r": 0.975,
+    "invader_rate": null,
+    "invader_curve": []
+  },
+  "buffer": {
+    "protect_fading": 0.0,
+    "tau": 0.0,
+    "gain": 0.0,
+    "rescue": false,
+    "mean_last": 0.0
+  },
+  "heterogeneity": {
+    "amp": 0.5,
+    "scale": 12.0,
+    "signal": "lab/streams/const_ones.json",
+    "shuffled": false,
+    "components_last": 9
+  },
+  "criteria": {
+    "S1_shift_gt_2sd": null,
+    "S2_inheritability_ge_0.5": true,
+    "S3_survives_doubling": "проверяется сравнением с прогоном вдвое длиннее",
+    "S4_control_eps0": "проверяется прогоном с --eps 0"
+  },
+  "note": "S1 требует сравнения с контролем: сдвиг среднего считается от контроля, а не от старта, потому что состав дрейфует и в контроле",
+  "not_claimed": [
+    "что отбор доказан: нужно сравнение с контролем eps=0 и удвоенный горизонт",
+    "что правило сопоставления оптимально: порог перекрытия 0.5 фиксирован до данных",
+    "что структуры устойчивы к сетке: не проверялось"
+  ]
+}

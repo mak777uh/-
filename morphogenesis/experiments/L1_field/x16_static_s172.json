@@ -1,0 +1,186 @@
+{
+  "kind": "field_track",
+  "model": "Грей–Скотт + отслеживание компонент: каждая компонента имеет свой состав, наследуемый при расщеплении с мутацией; состав влияет на локальный F",
+  "params": {
+    "steps": 6000,
+    "grid": 128,
+    "dt": 1.0,
+    "seed": 172,
+    "device": "cuda",
+    "Du": 0.16,
+    "Dv": 0.08,
+    "F": 0.035,
+    "k": 0.06,
+    "eps": 0.0,
+    "hetero_amp": 0.5,
+    "hetero_scale": 12.0,
+    "hetero_signal": "lab/streams/const_ones.json",
+    "hetero_period": 0.0,
+    "hetero_shuffle": false,
+    "buffer_tau": 0.0,
+    "protect_fading": 0.0,
+    "buffer_rescue": false,
+    "buffer_gain": 0.0,
+    "invade_s": null,
+    "invade_radius": 3.0,
+    "invade_at": 2000,
+    "invade_threshold": 1.2,
+    "freq_dep": 1.0,
+    "bin_width": 0.2,
+    "beta": 0.2,
+    "s_ref": 1.0,
+    "mutation": 0.15,
+    "threshold": 0.2,
+    "min_cells": 5,
+    "overlap": 0.5,
+    "sample_every": 1000
+  },
+  "series": [
+    {
+      "step": 1,
+      "invader_area": 0,
+      "areas": [
+        21
+      ],
+      "components": 1,
+      "s_mean": 0.9254,
+      "s_sd_between": 0.0,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.0013
+    },
+    {
+      "step": 1000,
+      "invader_area": 0,
+      "areas": [
+        179,
+        94,
+        88,
+        63,
+        59,
+        57,
+        50,
+        47,
+        46,
+        43,
+        43,
+        41,
+        36,
+        35,
+        33,
+        25,
+        9
+      ],
+      "components": 17,
+      "s_mean": 0.8761,
+      "s_sd_between": 0.172,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.0579
+    },
+    {
+      "step": 2000,
+      "invader_area": 0,
+      "areas": [
+        6350,
+        68,
+        52,
+        30,
+        25,
+        11
+      ],
+      "components": 6,
+      "s_mean": 0.7707,
+      "s_sd_between": 0.4102,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.3989
+    },
+    {
+      "step": 3000,
+      "invader_area": 0,
+      "areas": [
+        8452,
+        591,
+        37,
+        32,
+        9
+      ],
+      "components": 5,
+      "s_mean": 0.9824,
+      "s_sd_between": 0.3527,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.5567
+    },
+    {
+      "step": 4000,
+      "invader_area": 0,
+      "areas": [
+        14152,
+        49
+      ],
+      "components": 2,
+      "s_mean": 1.4744,
+      "s_sd_between": 0.9168,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.8668
+    },
+    {
+      "step": 5000,
+      "invader_area": 0,
+      "areas": [
+        14603
+      ],
+      "components": 1,
+      "s_mean": 2.8752,
+      "s_sd_between": 0.0,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.8913
+    },
+    {
+      "step": 6000,
+      "invader_area": 0,
+      "areas": [
+        14834
+      ],
+      "components": 1,
+      "s_mean": 3.5758,
+      "s_sd_between": 0.0,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.9054
+    }
+  ],
+  "selection": {
+    "s_mean_first": 0.9254,
+    "s_mean_last": 3.5758,
+    "s_sd_between_last": 0.0,
+    "splits": 497,
+    "parent_child_pairs": 1428,
+    "inheritability_r": 0.988,
+    "invader_rate": null,
+    "invader_curve": []
+  },
+  "buffer": {
+    "protect_fading": 0.0,
+    "tau": 0.0,
+    "gain": 0.0,
+    "rescue": false,
+    "mean_last": 0.0
+  },
+  "heterogeneity": {
+    "amp": 0.5,
+    "scale": 12.0,
+    "signal": "lab/streams/const_ones.json",
+    "shuffled": false,
+    "components_last": 1
+  },
+  "criteria": {
+    "S1_shift_gt_2sd": null,
+    "S2_inheritability_ge_0.5": true,
+    "S3_survives_doubling": "проверяется сравнением с прогоном вдвое длиннее",
+    "S4_control_eps0": "проверяется прогоном с --eps 0"
+  },
+  "note": "S1 требует сравнения с контролем: сдвиг среднего считается от контроля, а не от старта, потому что состав дрейфует и в контроле",
+  "not_claimed": [
+    "что отбор доказан: нужно сравнение с контролем eps=0 и удвоенный горизонт",
+    "что правило сопоставления оптимально: порог перекрытия 0.5 фиксирован до данных",
+    "что структуры устойчивы к сетке: не проверялось"
+  ]
+}

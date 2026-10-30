@@ -1350,8 +1350,10 @@ CI [0.14; 7.07], Mann–Whitney z = 2.57. Нижняя граница близк
 Hill `q = 2` в этих данных равен 1.0–1.25, то есть «шесть компонент» — это одна доминирующая плюс фрагменты, а
 не шесть равных. Перенос на другие непрерывные среды не проверялся.
 
-**Доказательства.** §§10bs–10cy в `docs/world-design.md`; `scripts/field_lab.py`, `scripts/field_track.py`;
-артефакты `_hourly/x15_homog_*`, `_hourly/x16_*`, `_hourly/x17_*` (80 прогонов); калибровка оценки взаимной
+**Доказательства.** разделы 10bs–10cy в `docs/world-design.md`; `scripts/field_lab.py`, `scripts/field_track.py`;
+**140 прогонов в репозитории** — `morphogenesis/experiments/L1_field/` (перенесены из рабочего каталога 30.10,
+чтобы числа проверялись внешним читателем) и агрегат `l1_field_matrix.json` (медианы по плечам, bootstrap-интервал
+разницы, `not_claimed`); сборка и сверка — `scripts/l1_field_matrix.py --write|--check`; калибровка оценки взаимной
 информации — `scripts/check_mutual_information.py`.
 
 ## 5. Методологические находки

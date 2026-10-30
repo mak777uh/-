@@ -1,0 +1,187 @@
+{
+  "kind": "field_track",
+  "model": "Грей–Скотт + отслеживание компонент: каждая компонента имеет свой состав, наследуемый при расщеплении с мутацией; состав влияет на локальный F",
+  "params": {
+    "steps": 6000,
+    "grid": 96,
+    "dt": 1.0,
+    "seed": 176,
+    "device": "cuda",
+    "Du": 0.16,
+    "Dv": 0.08,
+    "F": 0.035,
+    "k": 0.06,
+    "eps": 0.0,
+    "hetero_amp": 0.5,
+    "hetero_scale": 12.0,
+    "hetero_signal": null,
+    "hetero_period": 300.0,
+    "hetero_shuffle": false,
+    "buffer_tau": 0.0,
+    "protect_fading": 0.0,
+    "buffer_rescue": false,
+    "buffer_gain": 0.0,
+    "invade_s": null,
+    "invade_radius": 3.0,
+    "invade_at": 2000,
+    "invade_threshold": 1.2,
+    "freq_dep": 1.0,
+    "bin_width": 0.2,
+    "beta": 0.2,
+    "s_ref": 1.0,
+    "mutation": 0.15,
+    "threshold": 0.2,
+    "min_cells": 5,
+    "overlap": 0.5,
+    "sample_every": 1000
+  },
+  "series": [
+    {
+      "step": 1,
+      "invader_area": 0,
+      "areas": [
+        29
+      ],
+      "components": 1,
+      "s_mean": 0.9701,
+      "s_sd_between": 0.0,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.0031
+    },
+    {
+      "step": 1000,
+      "invader_area": 0,
+      "areas": [
+        448,
+        187,
+        70,
+        63,
+        46,
+        45,
+        28
+      ],
+      "components": 7,
+      "s_mean": 0.7962,
+      "s_sd_between": 0.2712,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.0962
+    },
+    {
+      "step": 2000,
+      "invader_area": 0,
+      "areas": [
+        649,
+        532,
+        374,
+        216,
+        107,
+        92,
+        76,
+        76,
+        45,
+        38,
+        37,
+        33,
+        31,
+        21
+      ],
+      "components": 14,
+      "s_mean": 0.8319,
+      "s_sd_between": 0.3093,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.2525
+    },
+    {
+      "step": 3000,
+      "invader_area": 0,
+      "areas": [
+        4813,
+        50,
+        29
+      ],
+      "components": 3,
+      "s_mean": 1.1396,
+      "s_sd_between": 0.2994,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.5308
+    },
+    {
+      "step": 4000,
+      "invader_area": 0,
+      "areas": [
+        3035,
+        6
+      ],
+      "components": 2,
+      "s_mean": 2.7553,
+      "s_sd_between": 0.0796,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.3303
+    },
+    {
+      "step": 5000,
+      "invader_area": 0,
+      "areas": [
+        3690,
+        444,
+        98
+      ],
+      "components": 3,
+      "s_mean": 3.6839,
+      "s_sd_between": 0.0883,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.4592
+    },
+    {
+      "step": 6000,
+      "invader_area": 0,
+      "areas": [
+        4152,
+        230,
+        160,
+        78
+      ],
+      "components": 4,
+      "s_mean": 3.4678,
+      "s_sd_between": 0.108,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.5013
+    }
+  ],
+  "selection": {
+    "s_mean_first": 0.9701,
+    "s_mean_last": 3.4678,
+    "s_sd_between_last": 0.108,
+    "splits": 280,
+    "parent_child_pairs": 666,
+    "inheritability_r": 0.992,
+    "invader_rate": null,
+    "invader_curve": []
+  },
+  "buffer": {
+    "protect_fading": 0.0,
+    "tau": 0.0,
+    "gain": 0.0,
+    "rescue": false,
+    "mean_last": 0.0
+  },
+  "heterogeneity": {
+    "amp": 0.5,
+    "scale": 12.0,
+    "signal": null,
+    "shuffled": false,
+    "components_last": 4
+  },
+  "criteria": {
+    "S1_shift_gt_2sd": null,
+    "S2_inheritability_ge_0.5": true,
+    "S3_survives_doubling": "проверяется сравнением с прогоном вдвое длиннее",
+    "S4_control_eps0": "проверяется прогоном с --eps 0"
+  },
+  "note": "S1 требует сравнения с контролем: сдвиг среднего считается от контроля, а не от старта, потому что состав дрейфует и в контроле",
+  "not_claimed": [
+    "что отбор доказан: нужно сравнение с контролем eps=0 и удвоенный горизонт",
+    "что правило сопоставления оптимально: порог перекрытия 0.5 фиксирован до данных",
+    "что структуры устойчивы к сетке: не проверялось"
+  ]
+}
