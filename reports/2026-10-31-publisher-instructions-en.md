@@ -11,7 +11,10 @@ Record `10.5281/zenodo.23838564` (v1.4) was published correctly, but the uploade
 repository: it lacks the lifetime-share sentence (22 % / 71 %, 75 % / 24 %), the DOI line, and it states the median
 cell count as 2131 instead of **2131.5**. The uploaded archive also differs from the current build.
 
-Version 1.5 fixes both and adds the **English edition**.
+Version 1.5.1 fixes both and adds the **English edition**, and it carries one substantive strengthening: the claim that
+an organism builds a model of its own trace (rather than of the world) is now supported by an **intervention**, not by
+correlation alone. With consumption severed (`ghost_no_consumption`) the predictive dependence collapses from
+**+0.0362 in 10 of 10 runs** to **0.0000 in none of 8**. The Russian v1.4 does not contain this control.
 
 ---
 
@@ -24,7 +27,7 @@ Version 1.5 fixes both and adds the **English edition**.
 | `_exports/logs-2026-10-31.zip` | data and code; `README-BUNDLE.md`, `LICENSE`, `MANIFEST.json` inside |
 
 **Archive checksum (must match):**
-`5c2eb5f133a593d4…` — full value in the build output, and it is stable because the instructions are not inside the
+`da7c65dc7d84303b…` — full value in the build output, and it is stable because the instructions are not inside the
 archive. Verify with:
 
 ```
@@ -40,7 +43,7 @@ python scripts/make_logs_bundle.py --verify logs-2026-10-31.zip
 2. Press **New version** (not "New upload") — this keeps the concept DOI `10.5281/zenodo.23838563` and the link to
    `10.5281/zenodo.23669737`.
 3. Remove the two old files, upload the three files from §1.
-4. **Version:** `1.5`. **Publication date:** `2026-10-31`.
+4. **Version:** `1.5.1`. **Publication date:** `2026-10-31`.
 5. Type: **Preprint**. Language: **English** (the Russian edition is an attachment; if Zenodo allows only one language,
    set English and say in the description that the Russian original is included).
 6. License: **CC0 1.0** (unchanged).

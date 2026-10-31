@@ -1,6 +1,6 @@
 # A field without stipulated objects: how a component counter passed itself off as diversity
 
-**Version:** v1.5 (2026-10-31), English edition of v1.4
+**Version:** v1.5.1 (2026-10-31), English edition of v1.4
 **Author:** Vladimirov Ilia Sergeevich
 **License:** CC0 1.0 (public domain) — see `LICENSE`
 **DOI:** withdrawn — the record was deleted on 2026-10-31 (the DOI resolves to a tombstone); a corrected version will be published as a new record.
@@ -479,6 +479,7 @@ the limitations recorded in `docs/world-design.md` (§§10db–10dr) and in `lab
 
 | version | date | change |
 |---|---|---|
+| v1.5.1 | 2026-10-31 | §4b gains the ghost control (`X50`): the self-model claim is now causally tested — the dependence collapses from +0.0362 (10/10) to 0.0000 (0/8) when consumption is severed |
 | v1.5 | 2026-10-31 | English edition of v1.4 with the corrected numbers: the lifetime shares (22 % / 71 %, 75 % / 24 %) are stated in §4.9, the median cell count is 2131.5, and every number is now checked against its aggregate by a script |
 | v1.4 | 2026-10-31 | §4a: uninhabitability was a constant (income 0.008 against cost 0.03), habitable regime confirmed 10/10; §4b: adequacy turned out to be a self-model — 0.0000 about resource in empty cells |
 | v1.3 | 2026-10-31 | §4.11–4.13: heredity is stipulated by code, selection in the physical channel is weak (shift +0.0212 < 2 sd), form does not transfer and is not predicted (8–11 % survive) |
