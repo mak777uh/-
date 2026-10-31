@@ -1,0 +1,1811 @@
+{
+  "kind": "field_track",
+  "model": "Грей–Скотт + отслеживание компонент: каждая компонента имеет свой состав, наследуемый при расщеплении с мутацией; состав влияет на локальный F",
+  "params": {
+    "steps": 900,
+    "grid": 96,
+    "dt": 1.0,
+    "seed": 179,
+    "device": "cuda",
+    "Du": 0.16,
+    "Dv": 0.08,
+    "F": 0.035,
+    "k": 0.06,
+    "eps": 0.0,
+    "global_noise_amp": 0.0,
+    "global_noise_rate": 0.05,
+    "global_noise_seed": 0,
+    "trait_field": true,
+    "trait_diffusion": 0.02,
+    "trait_decay": 0.0,
+    "trait_mutation": 0.05,
+    "trait_mutation_local": true,
+    "trait_init": 1.0,
+    "cue_mode": "moving",
+    "cue_speed": 1.0,
+    "cue_width": 6.0,
+    "cue_gamma": 0.3,
+    "cue_kappa": 0.0,
+    "cue_memory_tau": 0.0,
+    "cue_kappa_local": false,
+    "cue_seed": 0,
+    "cue_lead": 40,
+    "hetero_amp": 0.5,
+    "hetero_scale": 12.0,
+    "hetero_signal": "lab/streams/const_ones.json",
+    "hetero_period": 0.0,
+    "hetero_shuffle": false,
+    "buffer_tau": 0.0,
+    "protect_fading": 0.0,
+    "buffer_rescue": false,
+    "buffer_gain": 0.0,
+    "invade_s": null,
+    "invade_radius": 3.0,
+    "invade_at": 2000,
+    "invade_threshold": 1.2,
+    "freq_dep": 1.0,
+    "bin_width": 0.2,
+    "beta": 0.6,
+    "s_ref": 1.0,
+    "mutation": 0.0,
+    "threshold": 0.2,
+    "thresholds": "",
+    "min_cells": 5,
+    "overlap": 0.5,
+    "sample_every": 25
+  },
+  "series": [
+    {
+      "step": 1,
+      "invader_area": 0,
+      "areas": [
+        29
+      ],
+      "components": 1,
+      "s_mean": 1.0,
+      "s_sd_between": 0.0,
+      "s_wild_fraction": 1.0,
+      "occupied": 0.0031,
+      "event_centre": 1.0,
+      "cue_centre": 41.0,
+      "components_log": [
+        {
+          "uid": 1,
+          "s": 1.0,
+          "area": 29,
+          "cx": 48.0,
+          "cy": 48.0
+        }
+      ]
+    },
+    {
+      "step": 25,
+      "invader_area": 0,
+      "areas": [
+        90
+      ],
+      "components": 1,
+      "s_mean": 1.0043,
+      "s_sd_between": 0.0,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.0098,
+      "event_centre": 25.0,
+      "cue_centre": 65.0,
+      "components_log": [
+        {
+          "uid": 1,
+          "s": 1.0043,
+          "area": 90,
+          "cx": 47.99,
+          "cy": 47.83
+        }
+      ]
+    },
+    {
+      "step": 50,
+      "invader_area": 0,
+      "areas": [
+        114
+      ],
+      "components": 1,
+      "s_mean": 1.0294,
+      "s_sd_between": 0.0,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.0124,
+      "event_centre": 50.0,
+      "cue_centre": 90.0,
+      "components_log": [
+        {
+          "uid": 1,
+          "s": 1.0294,
+          "area": 114,
+          "cx": 48.2,
+          "cy": 48.05
+        }
+      ]
+    },
+    {
+      "step": 75,
+      "invader_area": 0,
+      "areas": [
+        55,
+        28
+      ],
+      "components": 2,
+      "s_mean": 1.1385,
+      "s_sd_between": 0.0019,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.009,
+      "event_centre": 75.0,
+      "cue_centre": 19.0,
+      "components_log": [
+        {
+          "uid": 1,
+          "s": 1.1404,
+          "area": 55,
+          "cx": 45.0,
+          "cy": 49.89
+        },
+        {
+          "uid": 1,
+          "s": 1.1366,
+          "area": 28,
+          "cx": 52.68,
+          "cy": 48.75
+        }
+      ]
+    },
+    {
+      "step": 100,
+      "invader_area": 0,
+      "areas": [
+        86,
+        36
+      ],
+      "components": 2,
+      "s_mean": 1.1629,
+      "s_sd_between": 0.0606,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.0132,
+      "event_centre": 4.0,
+      "cue_centre": 44.0,
+      "components_log": [
+        {
+          "uid": 1,
+          "s": 1.2236,
+          "area": 86,
+          "cx": 44.67,
+          "cy": 50.42
+        },
+        {
+          "uid": 1,
+          "s": 1.1023,
+          "area": 36,
+          "cx": 53.22,
+          "cy": 49.06
+        }
+      ]
+    },
+    {
+      "step": 125,
+      "invader_area": 0,
+      "areas": [
+        192
+      ],
+      "components": 1,
+      "s_mean": 1.1589,
+      "s_sd_between": 0.0,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.0208,
+      "event_centre": 29.0,
+      "cue_centre": 69.0,
+      "components_log": [
+        {
+          "uid": 1,
+          "s": 1.1589,
+          "area": 192,
+          "cx": 47.02,
+          "cy": 50.21
+        }
+      ]
+    },
+    {
+      "step": 150,
+      "invader_area": 0,
+      "areas": [
+        166,
+        26
+      ],
+      "components": 2,
+      "s_mean": 1.1629,
+      "s_sd_between": 0.0316,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.0208,
+      "event_centre": 54.0,
+      "cue_centre": 94.0,
+      "components_log": [
+        {
+          "uid": 1,
+          "s": 1.1313,
+          "area": 26,
+          "cx": 44.73,
+          "cy": 43.04
+        },
+        {
+          "uid": 1,
+          "s": 1.1944,
+          "area": 166,
+          "cx": 47.72,
+          "cy": 51.89
+        }
+      ]
+    },
+    {
+      "step": 175,
+      "invader_area": 0,
+      "areas": [
+        103,
+        42,
+        30
+      ],
+      "components": 3,
+      "s_mean": 1.195,
+      "s_sd_between": 0.0618,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.019,
+      "event_centre": 79.0,
+      "cue_centre": 23.0,
+      "components_log": [
+        {
+          "uid": 1,
+          "s": 1.1162,
+          "area": 30,
+          "cx": 44.2,
+          "cy": 42.5
+        },
+        {
+          "uid": 1,
+          "s": 1.2013,
+          "area": 42,
+          "cx": 55.0,
+          "cy": 48.26
+        },
+        {
+          "uid": 1,
+          "s": 1.2673,
+          "area": 103,
+          "cx": 42.88,
+          "cy": 53.59
+        }
+      ]
+    },
+    {
+      "step": 200,
+      "invader_area": 0,
+      "areas": [
+        134,
+        57,
+        47
+      ],
+      "components": 3,
+      "s_mean": 1.1992,
+      "s_sd_between": 0.0756,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.0258,
+      "event_centre": 8.0,
+      "cue_centre": 48.0,
+      "components_log": [
+        {
+          "uid": 1,
+          "s": 1.0935,
+          "area": 47,
+          "cx": 43.7,
+          "cy": 42.09
+        },
+        {
+          "uid": 1,
+          "s": 1.2381,
+          "area": 57,
+          "cx": 55.89,
+          "cy": 47.68
+        },
+        {
+          "uid": 1,
+          "s": 1.266,
+          "area": 134,
+          "cx": 42.14,
+          "cy": 53.87
+        }
+      ]
+    },
+    {
+      "step": 225,
+      "invader_area": 0,
+      "areas": [
+        263,
+        66
+      ],
+      "components": 2,
+      "s_mean": 1.1652,
+      "s_sd_between": 0.0668,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.0357,
+      "event_centre": 33.0,
+      "cue_centre": 73.0,
+      "components_log": [
+        {
+          "uid": 1,
+          "s": 1.0984,
+          "area": 66,
+          "cx": 43.14,
+          "cy": 41.62
+        },
+        {
+          "uid": 1,
+          "s": 1.232,
+          "area": 263,
+          "cx": 47.19,
+          "cy": 52.1
+        }
+      ]
+    },
+    {
+      "step": 250,
+      "invader_area": 0,
+      "areas": [
+        279,
+        57
+      ],
+      "components": 2,
+      "s_mean": 1.1795,
+      "s_sd_between": 0.0477,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.0365,
+      "event_centre": 58.0,
+      "cue_centre": 2.0,
+      "components_log": [
+        {
+          "uid": 1,
+          "s": 1.1318,
+          "area": 57,
+          "cx": 42.47,
+          "cy": 41.05
+        },
+        {
+          "uid": 1,
+          "s": 1.2272,
+          "area": 279,
+          "cx": 47.87,
+          "cy": 52.06
+        }
+      ]
+    },
+    {
+      "step": 275,
+      "invader_area": 0,
+      "areas": [
+        284,
+        65
+      ],
+      "components": 2,
+      "s_mean": 1.2166,
+      "s_sd_between": 0.0201,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.0379,
+      "event_centre": 83.0,
+      "cue_centre": 27.0,
+      "components_log": [
+        {
+          "uid": 1,
+          "s": 1.1965,
+          "area": 65,
+          "cx": 41.35,
+          "cy": 41.37
+        },
+        {
+          "uid": 1,
+          "s": 1.2367,
+          "area": 284,
+          "cx": 46.46,
+          "cy": 52.53
+        }
+      ]
+    },
+    {
+      "step": 300,
+      "invader_area": 0,
+      "areas": [
+        428
+      ],
+      "components": 1,
+      "s_mean": 1.1824,
+      "s_sd_between": 0.0,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.0464,
+      "event_centre": 12.0,
+      "cue_centre": 52.0,
+      "components_log": [
+        {
+          "uid": 1,
+          "s": 1.1824,
+          "area": 428,
+          "cx": 45.18,
+          "cy": 50.24
+        }
+      ]
+    },
+    {
+      "step": 325,
+      "invader_area": 0,
+      "areas": [
+        380,
+        100
+      ],
+      "components": 2,
+      "s_mean": 1.1267,
+      "s_sd_between": 0.0689,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.0521,
+      "event_centre": 37.0,
+      "cue_centre": 77.0,
+      "components_log": [
+        {
+          "uid": 1,
+          "s": 1.0577,
+          "area": 100,
+          "cx": 40.55,
+          "cy": 40.83
+        },
+        {
+          "uid": 1,
+          "s": 1.1956,
+          "area": 380,
+          "cx": 47.01,
+          "cy": 52.21
+        }
+      ]
+    },
+    {
+      "step": 350,
+      "invader_area": 0,
+      "areas": [
+        182,
+        133,
+        51
+      ],
+      "components": 3,
+      "s_mean": 1.1613,
+      "s_sd_between": 0.001,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.0397,
+      "event_centre": 62.0,
+      "cue_centre": 6.0,
+      "components_log": [
+        {
+          "uid": 1,
+          "s": 1.1599,
+          "area": 51,
+          "cx": 40.67,
+          "cy": 39.61
+        },
+        {
+          "uid": 1,
+          "s": 1.162,
+          "area": 133,
+          "cx": 57.37,
+          "cy": 45.09
+        },
+        {
+          "uid": 1,
+          "s": 1.162,
+          "area": 182,
+          "cx": 41.01,
+          "cy": 56.59
+        }
+      ]
+    },
+    {
+      "step": 375,
+      "invader_area": 0,
+      "areas": [
+        194,
+        65,
+        60,
+        28,
+        17
+      ],
+      "components": 5,
+      "s_mean": 1.2074,
+      "s_sd_between": 0.0748,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.0395,
+      "event_centre": 87.0,
+      "cue_centre": 31.0,
+      "components_log": [
+        {
+          "uid": 1,
+          "s": 1.1569,
+          "area": 60,
+          "cx": 40.43,
+          "cy": 39.25
+        },
+        {
+          "uid": 1,
+          "s": 1.1405,
+          "area": 65,
+          "cx": 57.34,
+          "cy": 40.09
+        },
+        {
+          "uid": 1,
+          "s": 1.3247,
+          "area": 17,
+          "cx": 60.12,
+          "cy": 46.53
+        },
+        {
+          "uid": 1,
+          "s": 1.2673,
+          "area": 194,
+          "cx": 40.42,
+          "cy": 57.11
+        },
+        {
+          "uid": 1,
+          "s": 1.1475,
+          "area": 28,
+          "cx": 53.64,
+          "cy": 52.32
+        }
+      ]
+    },
+    {
+      "step": 400,
+      "invader_area": 0,
+      "areas": [
+        410,
+        88
+      ],
+      "components": 2,
+      "s_mean": 1.1707,
+      "s_sd_between": 0.0231,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.054,
+      "event_centre": 16.0,
+      "cue_centre": 56.0,
+      "components_log": [
+        {
+          "uid": 1,
+          "s": 1.1476,
+          "area": 88,
+          "cx": 40.02,
+          "cy": 39.18
+        },
+        {
+          "uid": 1,
+          "s": 1.1938,
+          "area": 410,
+          "cx": 47.17,
+          "cy": 52.26
+        }
+      ]
+    },
+    {
+      "step": 425,
+      "invader_area": 0,
+      "areas": [
+        459,
+        108
+      ],
+      "components": 2,
+      "s_mean": 1.1681,
+      "s_sd_between": 0.0223,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.0615,
+      "event_centre": 41.0,
+      "cue_centre": 81.0,
+      "components_log": [
+        {
+          "uid": 1,
+          "s": 1.1458,
+          "area": 108,
+          "cx": 40.01,
+          "cy": 39.09
+        },
+        {
+          "uid": 1,
+          "s": 1.1904,
+          "area": 459,
+          "cx": 48.39,
+          "cy": 52.08
+        }
+      ]
+    },
+    {
+      "step": 450,
+      "invader_area": 0,
+      "areas": [
+        397,
+        103
+      ],
+      "components": 2,
+      "s_mean": 1.175,
+      "s_sd_between": 0.0246,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.0543,
+      "event_centre": 66.0,
+      "cue_centre": 10.0,
+      "components_log": [
+        {
+          "uid": 1,
+          "s": 1.1504,
+          "area": 103,
+          "cx": 39.17,
+          "cy": 39.08
+        },
+        {
+          "uid": 1,
+          "s": 1.1995,
+          "area": 397,
+          "cx": 48.38,
+          "cy": 52.73
+        }
+      ]
+    },
+    {
+      "step": 475,
+      "invader_area": 0,
+      "areas": [
+        296,
+        119,
+        68,
+        28
+      ],
+      "components": 4,
+      "s_mean": 1.167,
+      "s_sd_between": 0.0198,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.0554,
+      "event_centre": 91.0,
+      "cue_centre": 35.0,
+      "components_log": [
+        {
+          "uid": 1,
+          "s": 1.1349,
+          "area": 119,
+          "cx": 38.18,
+          "cy": 38.92
+        },
+        {
+          "uid": 1,
+          "s": 1.1851,
+          "area": 28,
+          "cx": 55.04,
+          "cy": 40.04
+        },
+        {
+          "uid": 1,
+          "s": 1.1663,
+          "area": 68,
+          "cx": 63.5,
+          "cy": 43.16
+        },
+        {
+          "uid": 1,
+          "s": 1.1818,
+          "area": 296,
+          "cx": 41.53,
+          "cy": 58.65
+        }
+      ]
+    },
+    {
+      "step": 500,
+      "invader_area": 0,
+      "areas": [
+        342,
+        144,
+        138
+      ],
+      "components": 3,
+      "s_mean": 1.1434,
+      "s_sd_between": 0.0354,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.0677,
+      "event_centre": 20.0,
+      "cue_centre": 60.0,
+      "components_log": [
+        {
+          "uid": 1,
+          "s": 1.095,
+          "area": 138,
+          "cx": 37.46,
+          "cy": 38.76
+        },
+        {
+          "uid": 1,
+          "s": 1.1785,
+          "area": 144,
+          "cx": 60.93,
+          "cy": 42.19
+        },
+        {
+          "uid": 1,
+          "s": 1.1567,
+          "area": 342,
+          "cx": 41.72,
+          "cy": 58.45
+        }
+      ]
+    },
+    {
+      "step": 525,
+      "invader_area": 0,
+      "areas": [
+        302,
+        194,
+        117
+      ],
+      "components": 3,
+      "s_mean": 1.1491,
+      "s_sd_between": 0.028,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.0665,
+      "event_centre": 45.0,
+      "cue_centre": 85.0,
+      "components_log": [
+        {
+          "uid": 1,
+          "s": 1.1713,
+          "area": 117,
+          "cx": 38.22,
+          "cy": 38.63
+        },
+        {
+          "uid": 1,
+          "s": 1.1096,
+          "area": 194,
+          "cx": 61.27,
+          "cy": 42.29
+        },
+        {
+          "uid": 1,
+          "s": 1.1666,
+          "area": 302,
+          "cx": 43.44,
+          "cy": 57.64
+        }
+      ]
+    },
+    {
+      "step": 550,
+      "invader_area": 0,
+      "areas": [
+        124,
+        99,
+        68,
+        54,
+        23,
+        19,
+        6
+      ],
+      "components": 7,
+      "s_mean": 1.1432,
+      "s_sd_between": 0.0811,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.0433,
+      "event_centre": 70.0,
+      "cue_centre": 14.0,
+      "components_log": [
+        {
+          "uid": 1,
+          "s": 1.2023,
+          "area": 99,
+          "cx": 38.35,
+          "cy": 38.1
+        },
+        {
+          "uid": 1,
+          "s": 1.1343,
+          "area": 68,
+          "cx": 65.88,
+          "cy": 39.26
+        },
+        {
+          "uid": 1,
+          "s": 1.069,
+          "area": 23,
+          "cx": 54.0,
+          "cy": 39.0
+        },
+        {
+          "uid": 1,
+          "s": 1.219,
+          "area": 54,
+          "cx": 63.15,
+          "cy": 48.85
+        },
+        {
+          "uid": 1,
+          "s": 1.2651,
+          "area": 124,
+          "cx": 43.46,
+          "cy": 54.07
+        },
+        {
+          "uid": 1,
+          "s": 1.0809,
+          "area": 19,
+          "cx": 32.32,
+          "cy": 62.79
+        },
+        {
+          "uid": 1,
+          "s": 1.0318,
+          "area": 6,
+          "cx": 35.83,
+          "cy": 66.83
+        }
+      ]
+    },
+    {
+      "step": 575,
+      "invader_area": 0,
+      "areas": [
+        174,
+        134,
+        56,
+        49,
+        16,
+        8
+      ],
+      "components": 6,
+      "s_mean": 1.1864,
+      "s_sd_between": 0.0898,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.0475,
+      "event_centre": 95.0,
+      "cue_centre": 39.0,
+      "components_log": [
+        {
+          "uid": 1,
+          "s": 1.1369,
+          "area": 134,
+          "cx": 39.01,
+          "cy": 38.41
+        },
+        {
+          "uid": 1,
+          "s": 1.1413,
+          "area": 49,
+          "cx": 64.96,
+          "cy": 39.0
+        },
+        {
+          "uid": 1,
+          "s": 1.0334,
+          "area": 16,
+          "cx": 53.81,
+          "cy": 39.25
+        },
+        {
+          "uid": 1,
+          "s": 1.2725,
+          "area": 56,
+          "cx": 64.2,
+          "cy": 50.2
+        },
+        {
+          "uid": 1,
+          "s": 1.262,
+          "area": 174,
+          "cx": 40.99,
+          "cy": 55.64
+        },
+        {
+          "uid": 2,
+          "s": 1.2722,
+          "area": 8,
+          "cx": 42.0,
+          "cy": 62.5
+        }
+      ]
+    },
+    {
+      "step": 600,
+      "invader_area": 0,
+      "areas": [
+        271,
+        201,
+        80,
+        53
+      ],
+      "components": 4,
+      "s_mean": 1.1836,
+      "s_sd_between": 0.0428,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.0656,
+      "event_centre": 24.0,
+      "cue_centre": 64.0,
+      "components_log": [
+        {
+          "uid": 1,
+          "s": 1.1401,
+          "area": 201,
+          "cx": 41.04,
+          "cy": 38.46
+        },
+        {
+          "uid": 1,
+          "s": 1.143,
+          "area": 53,
+          "cx": 64.21,
+          "cy": 38.64
+        },
+        {
+          "uid": 1,
+          "s": 1.2367,
+          "area": 80,
+          "cx": 64.49,
+          "cy": 50.51
+        },
+        {
+          "uid": 1,
+          "s": 1.2147,
+          "area": 271,
+          "cx": 40.75,
+          "cy": 56.58
+        }
+      ]
+    },
+    {
+      "step": 625,
+      "invader_area": 0,
+      "areas": [
+        288,
+        287,
+        104
+      ],
+      "components": 3,
+      "s_mean": 1.1639,
+      "s_sd_between": 0.0271,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.0737,
+      "event_centre": 49.0,
+      "cue_centre": 89.0,
+      "components_log": [
+        {
+          "uid": 1,
+          "s": 1.1348,
+          "area": 287,
+          "cx": 47.64,
+          "cy": 38.6
+        },
+        {
+          "uid": 1,
+          "s": 1.1568,
+          "area": 104,
+          "cx": 64.84,
+          "cy": 50.96
+        },
+        {
+          "uid": 1,
+          "s": 1.2001,
+          "area": 288,
+          "cx": 41.22,
+          "cy": 56.73
+        }
+      ]
+    },
+    {
+      "step": 650,
+      "invader_area": 0,
+      "areas": [
+        270,
+        189,
+        87,
+        46
+      ],
+      "components": 4,
+      "s_mean": 1.1558,
+      "s_sd_between": 0.0239,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.0642,
+      "event_centre": 74.0,
+      "cue_centre": 18.0,
+      "components_log": [
+        {
+          "uid": 1,
+          "s": 1.1326,
+          "area": 189,
+          "cx": 40.49,
+          "cy": 38.4
+        },
+        {
+          "uid": 1,
+          "s": 1.1326,
+          "area": 46,
+          "cx": 63.98,
+          "cy": 38.09
+        },
+        {
+          "uid": 1,
+          "s": 1.1712,
+          "area": 87,
+          "cx": 65.26,
+          "cy": 50.92
+        },
+        {
+          "uid": 1,
+          "s": 1.1869,
+          "area": 270,
+          "cx": 39.54,
+          "cy": 57.61
+        }
+      ]
+    },
+    {
+      "step": 675,
+      "invader_area": 0,
+      "areas": [
+        320,
+        214,
+        69,
+        39
+      ],
+      "components": 4,
+      "s_mean": 1.1681,
+      "s_sd_between": 0.0366,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.0697,
+      "event_centre": 3.0,
+      "cue_centre": 43.0,
+      "components_log": [
+        {
+          "uid": 1,
+          "s": 1.1079,
+          "area": 214,
+          "cx": 39.59,
+          "cy": 38.45
+        },
+        {
+          "uid": 1,
+          "s": 1.1727,
+          "area": 39,
+          "cx": 64.0,
+          "cy": 37.9
+        },
+        {
+          "uid": 1,
+          "s": 1.2049,
+          "area": 69,
+          "cx": 65.65,
+          "cy": 51.38
+        },
+        {
+          "uid": 1,
+          "s": 1.1868,
+          "area": 320,
+          "cx": 38.91,
+          "cy": 57.97
+        }
+      ]
+    },
+    {
+      "step": 700,
+      "invader_area": 0,
+      "areas": [
+        368,
+        251,
+        78,
+        48
+      ],
+      "components": 4,
+      "s_mean": 1.1488,
+      "s_sd_between": 0.0485,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.0808,
+      "event_centre": 28.0,
+      "cue_centre": 68.0,
+      "components_log": [
+        {
+          "uid": 1,
+          "s": 1.0938,
+          "area": 251,
+          "cx": 39.44,
+          "cy": 38.7
+        },
+        {
+          "uid": 1,
+          "s": 1.1081,
+          "area": 48,
+          "cx": 63.96,
+          "cy": 37.77
+        },
+        {
+          "uid": 1,
+          "s": 1.2042,
+          "area": 78,
+          "cx": 65.69,
+          "cy": 51.56
+        },
+        {
+          "uid": 1,
+          "s": 1.1893,
+          "area": 368,
+          "cx": 38.95,
+          "cy": 58.05
+        }
+      ]
+    },
+    {
+      "step": 725,
+      "invader_area": 0,
+      "areas": [
+        141,
+        98,
+        91,
+        80,
+        59,
+        48,
+        18,
+        15
+      ],
+      "components": 8,
+      "s_mean": 1.1422,
+      "s_sd_between": 0.0658,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.0601,
+      "event_centre": 53.0,
+      "cue_centre": 93.0,
+      "components_log": [
+        {
+          "uid": 1,
+          "s": 1.1379,
+          "area": 18,
+          "cx": 32.56,
+          "cy": 31.89
+        },
+        {
+          "uid": 1,
+          "s": 1.0517,
+          "area": 59,
+          "cx": 64.14,
+          "cy": 37.83
+        },
+        {
+          "uid": 1,
+          "s": 1.1268,
+          "area": 91,
+          "cx": 48.38,
+          "cy": 41.65
+        },
+        {
+          "uid": 1,
+          "s": 1.0356,
+          "area": 15,
+          "cx": 28.87,
+          "cy": 40.53
+        },
+        {
+          "uid": 1,
+          "s": 1.1765,
+          "area": 98,
+          "cx": 65.8,
+          "cy": 51.38
+        },
+        {
+          "uid": 1,
+          "s": 1.2304,
+          "area": 48,
+          "cx": 35.1,
+          "cy": 51.58
+        },
+        {
+          "uid": 1,
+          "s": 1.2164,
+          "area": 141,
+          "cx": 46.16,
+          "cy": 57.23
+        },
+        {
+          "uid": 1,
+          "s": 1.1622,
+          "area": 80,
+          "cx": 29.74,
+          "cy": 64.62
+        }
+      ]
+    },
+    {
+      "step": 750,
+      "invader_area": 0,
+      "areas": [
+        164,
+        116,
+        90,
+        62,
+        35,
+        28,
+        19
+      ],
+      "components": 7,
+      "s_mean": 1.1205,
+      "s_sd_between": 0.08,
+      "s_wild_fraction": 0.1429,
+      "occupied": 0.0558,
+      "event_centre": 78.0,
+      "cue_centre": 22.0,
+      "components_log": [
+        {
+          "uid": 1,
+          "s": 1.0678,
+          "area": 28,
+          "cx": 32.36,
+          "cy": 31.61
+        },
+        {
+          "uid": 1,
+          "s": 1.1163,
+          "area": 35,
+          "cx": 65.09,
+          "cy": 37.94
+        },
+        {
+          "uid": 1,
+          "s": 1.1874,
+          "area": 62,
+          "cx": 47.42,
+          "cy": 42.0
+        },
+        {
+          "uid": 1,
+          "s": 1.045,
+          "area": 19,
+          "cx": 28.84,
+          "cy": 40.84
+        },
+        {
+          "uid": 1,
+          "s": 1.2172,
+          "area": 90,
+          "cx": 66.11,
+          "cy": 50.83
+        },
+        {
+          "uid": 1,
+          "s": 1.0,
+          "area": 164,
+          "cx": 31.59,
+          "cy": 60.3
+        },
+        {
+          "uid": 1,
+          "s": 1.2098,
+          "area": 116,
+          "cx": 46.26,
+          "cy": 57.16
+        }
+      ]
+    },
+    {
+      "step": 775,
+      "invader_area": 0,
+      "areas": [
+        377,
+        92,
+        87,
+        45,
+        31,
+        28
+      ],
+      "components": 6,
+      "s_mean": 1.1263,
+      "s_sd_between": 0.0426,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.0716,
+      "event_centre": 7.0,
+      "cue_centre": 47.0,
+      "components_log": [
+        {
+          "uid": 1,
+          "s": 1.1425,
+          "area": 45,
+          "cx": 32.18,
+          "cy": 31.6
+        },
+        {
+          "uid": 1,
+          "s": 1.0737,
+          "area": 28,
+          "cx": 65.57,
+          "cy": 38.04
+        },
+        {
+          "uid": 1,
+          "s": 1.0614,
+          "area": 31,
+          "cx": 29.1,
+          "cy": 40.68
+        },
+        {
+          "uid": 1,
+          "s": 1.1483,
+          "area": 87,
+          "cx": 47.26,
+          "cy": 41.74
+        },
+        {
+          "uid": 1,
+          "s": 1.1654,
+          "area": 92,
+          "cx": 66.34,
+          "cy": 50.38
+        },
+        {
+          "uid": 1,
+          "s": 1.1665,
+          "area": 377,
+          "cx": 36.96,
+          "cy": 59.26
+        }
+      ]
+    },
+    {
+      "step": 800,
+      "invader_area": 0,
+      "areas": [
+        418,
+        115,
+        109,
+        103,
+        38
+      ],
+      "components": 5,
+      "s_mean": 1.092,
+      "s_sd_between": 0.0623,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.085,
+      "event_centre": 32.0,
+      "cue_centre": 72.0,
+      "components_log": [
+        {
+          "uid": 1,
+          "s": 1.0463,
+          "area": 103,
+          "cx": 31.08,
+          "cy": 35.26
+        },
+        {
+          "uid": 1,
+          "s": 1.0016,
+          "area": 38,
+          "cx": 65.82,
+          "cy": 37.71
+        },
+        {
+          "uid": 1,
+          "s": 1.0929,
+          "area": 115,
+          "cx": 47.55,
+          "cy": 41.4
+        },
+        {
+          "uid": 1,
+          "s": 1.1627,
+          "area": 109,
+          "cx": 66.38,
+          "cy": 50.73
+        },
+        {
+          "uid": 1,
+          "s": 1.1566,
+          "area": 418,
+          "cx": 37.49,
+          "cy": 59.32
+        }
+      ]
+    },
+    {
+      "step": 825,
+      "invader_area": 0,
+      "areas": [
+        214,
+        135,
+        91,
+        63,
+        49,
+        46,
+        38,
+        10
+      ],
+      "components": 8,
+      "s_mean": 1.0936,
+      "s_sd_between": 0.0816,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.0701,
+      "event_centre": 57.0,
+      "cue_centre": 1.0,
+      "components_log": [
+        {
+          "uid": 1,
+          "s": 1.0416,
+          "area": 49,
+          "cx": 32.47,
+          "cy": 30.18
+        },
+        {
+          "uid": 1,
+          "s": 0.9975,
+          "area": 46,
+          "cx": 65.67,
+          "cy": 37.76
+        },
+        {
+          "uid": 1,
+          "s": 1.0666,
+          "area": 91,
+          "cx": 48.02,
+          "cy": 40.81
+        },
+        {
+          "uid": 1,
+          "s": 1.0926,
+          "area": 38,
+          "cx": 28.21,
+          "cy": 41.71
+        },
+        {
+          "uid": 1,
+          "s": 1.1327,
+          "area": 135,
+          "cx": 66.58,
+          "cy": 51.13
+        },
+        {
+          "uid": 1,
+          "s": 1.1921,
+          "area": 214,
+          "cx": 42.31,
+          "cy": 56.39
+        },
+        {
+          "uid": 1,
+          "s": 1.2327,
+          "area": 63,
+          "cx": 26.29,
+          "cy": 69.0
+        },
+        {
+          "uid": 1,
+          "s": 0.9934,
+          "area": 10,
+          "cx": 36.2,
+          "cy": 68.0
+        }
+      ]
+    },
+    {
+      "step": 850,
+      "invader_area": 0,
+      "areas": [
+        174,
+        107,
+        81,
+        59,
+        53,
+        32,
+        30,
+        22,
+        6
+      ],
+      "components": 9,
+      "s_mean": 1.0893,
+      "s_sd_between": 0.0847,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.0612,
+      "event_centre": 82.0,
+      "cue_centre": 26.0,
+      "components_log": [
+        {
+          "uid": 1,
+          "s": 0.996,
+          "area": 59,
+          "cx": 32.24,
+          "cy": 29.39
+        },
+        {
+          "uid": 1,
+          "s": 1.0491,
+          "area": 30,
+          "cx": 65.57,
+          "cy": 37.57
+        },
+        {
+          "uid": 1,
+          "s": 1.0507,
+          "area": 22,
+          "cx": 53.45,
+          "cy": 39.23
+        },
+        {
+          "uid": 1,
+          "s": 1.1449,
+          "area": 53,
+          "cx": 27.72,
+          "cy": 42.25
+        },
+        {
+          "uid": 1,
+          "s": 1.033,
+          "area": 32,
+          "cx": 43.06,
+          "cy": 40.69
+        },
+        {
+          "uid": 1,
+          "s": 1.1722,
+          "area": 107,
+          "cx": 66.6,
+          "cy": 52.0
+        },
+        {
+          "uid": 1,
+          "s": 1.2346,
+          "area": 174,
+          "cx": 41.34,
+          "cy": 56.24
+        },
+        {
+          "uid": 1,
+          "s": 1.1536,
+          "area": 81,
+          "cx": 26.41,
+          "cy": 69.25
+        },
+        {
+          "uid": 1,
+          "s": 0.9695,
+          "area": 6,
+          "cx": 37.0,
+          "cy": 68.5
+        }
+      ]
+    },
+    {
+      "step": 875,
+      "invader_area": 0,
+      "areas": [
+        340,
+        77,
+        73,
+        69,
+        47,
+        43,
+        28,
+        26,
+        13
+      ],
+      "components": 9,
+      "s_mean": 1.1,
+      "s_sd_between": 0.0702,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.0777,
+      "event_centre": 11.0,
+      "cue_centre": 51.0,
+      "components_log": [
+        {
+          "uid": 1,
+          "s": 1.0472,
+          "area": 73,
+          "cx": 31.88,
+          "cy": 28.64
+        },
+        {
+          "uid": 1,
+          "s": 1.1147,
+          "area": 28,
+          "cx": 53.5,
+          "cy": 38.89
+        },
+        {
+          "uid": 1,
+          "s": 0.965,
+          "area": 26,
+          "cx": 64.92,
+          "cy": 37.88
+        },
+        {
+          "uid": 1,
+          "s": 1.1143,
+          "area": 77,
+          "cx": 27.43,
+          "cy": 42.61
+        },
+        {
+          "uid": 1,
+          "s": 1.0447,
+          "area": 43,
+          "cx": 42.93,
+          "cy": 40.6
+        },
+        {
+          "uid": 1,
+          "s": 1.1675,
+          "area": 69,
+          "cx": 64.28,
+          "cy": 49.17
+        },
+        {
+          "uid": 1,
+          "s": 1.1818,
+          "area": 340,
+          "cx": 36.55,
+          "cy": 60.43
+        },
+        {
+          "uid": 1,
+          "s": 1.075,
+          "area": 47,
+          "cx": 69.26,
+          "cy": 58.19
+        },
+        {
+          "uid": 1,
+          "s": 1.1897,
+          "area": 13,
+          "cx": 36.62,
+          "cy": 68.62
+        }
+      ]
+    },
+    {
+      "step": 900,
+      "invader_area": 0,
+      "areas": [
+        364,
+        147,
+        77,
+        74,
+        54,
+        43,
+        30,
+        29
+      ],
+      "components": 8,
+      "s_mean": 1.054,
+      "s_sd_between": 0.0951,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.0888,
+      "event_centre": 36.0,
+      "cue_centre": 76.0,
+      "components_log": [
+        {
+          "uid": 1,
+          "s": 1.0532,
+          "area": 74,
+          "cx": 31.57,
+          "cy": 28.41
+        },
+        {
+          "uid": 1,
+          "s": 0.9386,
+          "area": 43,
+          "cx": 53.21,
+          "cy": 38.93
+        },
+        {
+          "uid": 1,
+          "s": 0.8848,
+          "area": 30,
+          "cx": 64.9,
+          "cy": 37.97
+        },
+        {
+          "uid": 1,
+          "s": 1.07,
+          "area": 77,
+          "cx": 27.01,
+          "cy": 43.1
+        },
+        {
+          "uid": 1,
+          "s": 1.0344,
+          "area": 54,
+          "cx": 43.04,
+          "cy": 40.44
+        },
+        {
+          "uid": 1,
+          "s": 1.1149,
+          "area": 147,
+          "cx": 66.22,
+          "cy": 53.44
+        },
+        {
+          "uid": 1,
+          "s": 1.1739,
+          "area": 364,
+          "cx": 37.77,
+          "cy": 59.67
+        },
+        {
+          "uid": 1,
+          "s": 1.1623,
+          "area": 29,
+          "cx": 37.0,
+          "cy": 68.69
+        }
+      ]
+    }
+  ],
+  "selection": {
+    "s_mean_first": 1.0,
+    "s_mean_last": 1.054,
+    "s_sd_between_last": 0.0951,
+    "splits": 25,
+    "parent_child_pairs": 51,
+    "inheritability_r": 1.0,
+    "invader_rate": null,
+    "invader_curve": []
+  },
+  "buffer": {
+    "protect_fading": 0.0,
+    "tau": 0.0,
+    "gain": 0.0,
+    "rescue": false,
+    "mean_last": 0.0
+  },
+  "global_noise": {
+    "amp": 0.0,
+    "rate": 0.05
+  },
+  "heterogeneity": {
+    "amp": 0.5,
+    "scale": 12.0,
+    "signal": "lab/streams/const_ones.json",
+    "shuffled": false,
+    "components_last": 8
+  },
+  "uid_outcomes": [
+    {
+      "uid": 1,
+      "first": 1,
+      "last": 900,
+      "peak": 485,
+      "s_at_birth": 1.0018
+    },
+    {
+      "uid": 2,
+      "first": 568,
+      "last": 582,
+      "peak": 10,
+      "s_at_birth": 1.4022
+    }
+  ],
+  "lifetimes": {
+    "n_uids": 2,
+    "median_life_steps": 899,
+    "life_steps": [
+      14,
+      899
+    ],
+    "peak_sizes": [
+      485,
+      10
+    ]
+  },
+  "components_by_threshold": {},
+  "criteria": {
+    "S1_shift_gt_2sd": null,
+    "S2_inheritability_ge_0.5": true,
+    "S3_survives_doubling": "проверяется сравнением с прогоном вдвое длиннее",
+    "S4_control_eps0": "проверяется прогоном с --eps 0"
+  },
+  "note": "S1 требует сравнения с контролем: сдвиг среднего считается от контроля, а не от старта, потому что состав дрейфует и в контроле",
+  "not_claimed": [
+    "что отбор доказан: нужно сравнение с контролем eps=0 и удвоенный горизонт",
+    "что правило сопоставления оптимально: порог перекрытия 0.5 фиксирован до данных",
+    "что структуры устойчивы к сетке: не проверялось"
+  ]
+}

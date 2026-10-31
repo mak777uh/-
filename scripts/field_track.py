@@ -111,6 +111,9 @@ def main(argv=None) -> int:
                     help="X45: сила влияния подсказки на распад: k_eff *= (1 + gamma*c)")
     ap.add_argument("--cue-kappa", type=float, default=0.0,
                     help="X45: сила влияния подсказки на признак: h += kappa*c (только при trait-field)")
+    ap.add_argument("--cue-memory-tau", type=float, default=0.0,
+                    help="X48: медленная переменная-память m(x,y), интегрирующая поле события: "
+                         "m += (1/tau)*(c - m). Распад зависит от m, а не от мгновенного c. 0 = памяти нет")
     ap.add_argument("--cue-kappa-local", action="store_true",
                     help="X47: сенсор действует только у границы (где |∇²v| велик), а не по всему полю — "
                          "иначе подсказка сдвигает признак везде одинаково и мир схлопывается (§10dp)")
@@ -175,6 +178,7 @@ def main(argv=None) -> int:
     c, r0 = g // 2, max(2.0, 3.0 / (g / 96.0))
     m = ((xx - c) ** 2 + (yy - c) ** 2) <= r0 * r0
     h_trait = None
+    mem_t = None   # X48: медленная память о ходе события
     cue_pos = 0.0
     cue_rng = np.random.default_rng(int(args.cue_seed) + 4241)
 
@@ -267,8 +271,19 @@ def main(argv=None) -> int:
         effect_np = cue_field((g, g), g, step)
         cue_np = cue_field((g, g), g, step + int(args.cue_lead)) if args.cue_lead else effect_np
         cue_t = torch.tensor(effect_np, device=dev, dtype=torch.float32) if effect_np is not None else None
+        # X48: память о прошлом ходе события. Обновляется ДО применения к распаду, поэтому в момент t
+        # распад видит смесь прошлых положений полосы (а не текущее).
         cue_lead_t = (torch.tensor(cue_np, device=dev, dtype=torch.float32)
                       if (cue_np is not None and args.cue_lead) else None)
+        # X48: память интегрирует ОПЕРЕЖАЮЩУЮ подсказку (то, что сообщает о будущем), а не текущее событие.
+        # Иначе опережение снова окажется не подключено к динамике — та же ошибка, что в X46.
+        mem_src = cue_lead_t if cue_lead_t is not None else cue_t
+        if args.cue_memory_tau > 0 and mem_src is not None:
+            if mem_t is None:
+                mem_t = mem_src.clone()
+            else:
+                mem_t = mem_t + (1.0 / float(args.cue_memory_tau)) * (mem_src - mem_t)
+        cue_decay_t = mem_t if (args.cue_memory_tau > 0 and mem_t is not None) else cue_t
 
         if h_trait is not None:
             # X32: признак диффундирует медленно, возвращается к s_ref и мутирует ТОЛЬКО в живых клетках.
@@ -306,7 +321,7 @@ def main(argv=None) -> int:
             # распад зависит от ЛОКАЛЬНОГО признака, а не от компоненты
             k_eff = args.k * torch.clamp(1.0 + args.beta * (args.s_ref - h_trait), 0.3, 2.5)
             if cue_t is not None and args.cue_gamma != 0.0:
-                k_eff = k_eff * (1.0 + args.cue_gamma * cue_t)
+                k_eff = k_eff * (1.0 + args.cue_gamma * cue_decay_t)
             mod_k = torch.ones_like(k_eff)
 
         F_eff = args.F * mod
