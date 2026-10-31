@@ -28,8 +28,25 @@ SECTION_RE = re.compile(r"^## (10[a-z]{2}(?:-[a-z])?)\. ", re.M)
 
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description="целостность разбиения плана")
+    ap.add_argument("--fix-index", action="store_true",
+                    help="пересобрать таблицу «раздел → файл» в docs/world-design.md из файлов плана")
     ap.add_argument("--ci", action="store_true")
     args = ap.parse_args(argv)
+
+    if args.fix_index:
+        rows = []
+        for p in sorted(PLAN.glob("*.md")):
+            for m in re.finditer(r"^## (10[a-z]{2}(?:-[a-z])?)\. (.+)$",
+                                 p.read_text(encoding="utf-8"), re.M):
+                rows.append((m.group(1), m.group(2).replace("|", "\\|"), p.name))
+        rows.sort(key=lambda r: r[0])
+        text = INDEX.read_text(encoding="utf-8")
+        head, sep, _tail = text.partition("## Full table: section → file")
+        table = ["## Full table: section → file", "", "| id | title | file |", "| --- | --- | --- |"]
+        table += [f"| §{sid} | {title} | [`plan/{name}`](plan/{name}) |" for sid, title, name in rows]
+        INDEX.write_text(head + "\n".join(table) + "\n", encoding="utf-8", newline="\n")
+        print(f"[plan-split] индекс пересобран: {len(rows)} разделов")
+        return 0
 
     problems: list[str] = []
     # часть 0 — спецификация мира, разделов §10xx в ней нет; проверяем, что она не пуста и на месте

@@ -28,8 +28,8 @@ sections were not rewritten, only moved; each one keeps its identifier, so every
 | §10ad | Условие B: новизна появляется — измеримо выше m = 0.05 (24.10, H-ALIVE-20) | [`plan/10a-pond-organization.md`](plan/10a-pond-organization.md) |
 | §10ae | Размещение и слияние: линия не удерживается даже с форой (24.10, H-ALIVE-21 / V8) | [`plan/10a-pond-organization.md`](plan/10a-pond-organization.md) |
 | §10af | Порог основания: одна клетка основывает колонию (24.10, H-ALIVE-23 / V10) | [`plan/10a-pond-organization.md`](plan/10a-pond-organization.md) |
-| §10ah | Достаточность условия C: тест не чувствителен, наследие не проверено (24.10, H-ALIVE-25 / V12) | [`plan/10a-pond-organization.md`](plan/10a-pond-organization.md) |
 | §10ag | Условие E: серия остановлена как невалидная по конструкции (25.10, H-ALIVE-24) | [`plan/10a-pond-organization.md`](plan/10a-pond-organization.md) |
+| §10ah | Достаточность условия C: тест не чувствителен, наследие не проверено (24.10, H-ALIVE-25 / V12) | [`plan/10a-pond-organization.md`](plan/10a-pond-organization.md) |
 | §10ai | Слияние «без переписывания»: направление есть, мощность мала (25.10, H-ALIVE-28) | [`plan/10a-pond-organization.md`](plan/10a-pond-organization.md) |
 | §10aj | Логгер родословной: бухгалтерия исправлена, картина не изменилась (25.10) | [`plan/10a-pond-organization.md`](plan/10a-pond-organization.md) |
 | §10ak | Ресурс в трёх зонах на шаге инвазии: три сида, и вывод изменился (25.10) | [`plan/10a-pond-organization.md`](plan/10a-pond-organization.md) |
@@ -42,8 +42,8 @@ sections were not rewritten, only moved; each one keeps its identifier, so every
 | §10as | W2-bud v4: метрика по времени меняет знак энергии; серия невалидна по данным (25.10, H-ALIVE-34) | [`plan/10a-pond-organization.md`](plan/10a-pond-organization.md) |
 | §10at | V1b: подсадка не встаёт в 60 % прогонов — отказ постановки, а не режим гибели (25.10, H-ALIVE-35) | [`plan/10a-pond-organization.md`](plan/10a-pond-organization.md) |
 | §10au | Инвариантность к устройству метрики: S и знак C держатся во всех 18 вариантах (25.10, H-ALIVE-39) | [`plan/10a-pond-organization.md`](plan/10a-pond-organization.md) |
-| §10av | Воспроизведение на новых сидах: направление держится, величина — не свойство выборки (26.10, H-ALIVE-40) | [`plan/10a-pond-organization.md`](plan/10a-pond-organization.md) |
 | §10au-b | W2-bud-d2: до N бутонов на компоненту — цена и отклик впервые стали вердиктом (26.10, H-ALIVE-36) | [`plan/10a-pond-organization.md`](plan/10a-pond-organization.md) |
+| §10av | Воспроизведение на новых сидах: направление держится, величина — не свойство выборки (26.10, H-ALIVE-40) | [`plan/10a-pond-organization.md`](plan/10a-pond-organization.md) |
 | §10aw | Репликация `W2-bud-d2`: механизм воспроизвёлся, вердикт по цене — нет (26.10, H-ALIVE-44) | [`plan/10a-pond-organization.md`](plan/10a-pond-organization.md) |
 | §10ax | `--one-bud-per-lineage`: шестая конструкция дотянулась — цена стала вердиктом (26.10, H-ALIVE-45) | [`plan/10a-pond-organization.md`](plan/10a-pond-organization.md) |
 | §10ay | Наследование среды в `W1`: эффект есть, но он не про родство, не про плотность и лишь частично про соседство (26.10, H-ALIVE-46) | [`plan/10a-pond-organization.md`](plan/10a-pond-organization.md) |
@@ -121,13 +121,4 @@ sections were not rewritten, only moved; each one keeps its identifier, so every
 | §10ds | Контроль «призрак»: самомодель подтверждена интервенцией (X50, 31.10) | [`plan/10e-habitability-and-channels.md`](plan/10e-habitability-and-channels.md) |
 | §10dt | Память сигнала: первый валидный опыт и отрицательный результат (X48, 31.10) | [`plan/10e-habitability-and-channels.md`](plan/10e-habitability-and-channels.md) |
 | §10du | Пропущенное событие в поле: опыт нечувствителен по конструкции (X49, 31.10) | [`plan/10e-habitability-and-channels.md`](plan/10e-habitability-and-channels.md) |
-
-## How to use this
-
-1. Find the identifier in the table above (or search this file for it).
-2. Open the file it points to; sections are in the same order as they were written.
-3. Numbers in a section name the aggregate or artifact they come from; the script index is
-   [`scripts-index.md`](scripts-index.md).
-
-**Machine check.** `scripts/check_plan_split.py` verifies that every section of the original file exists exactly
-once across `plan/`, and that this index lists all of them.
+| §10dv | Сходимость по шагу: контраст ослаб втрое, знак удержался (X56, 31.10) | [`plan/10e-habitability-and-channels.md`](plan/10e-habitability-and-channels.md) |

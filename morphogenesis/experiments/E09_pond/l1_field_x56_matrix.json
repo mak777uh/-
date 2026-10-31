@@ -1,0 +1,91 @@
+{
+  "kind": "l1_field_x56_matrix",
+  "experiment": "X56",
+  "command": "python scripts/x56_matrix.py --write",
+  "metric": {
+    "contrast": "медиана временного среднего числа компонент: неоднородный минус однородный",
+    "note": "временное среднее по всем срезам, а не последний срез (у среза CV 0.78–0.93)"
+  },
+  "design": {
+    "physical_time": 6000,
+    "steps": {
+      "1.0": 6000,
+      "0.5": 12000,
+      "2.0": 3000
+    },
+    "grid": 96,
+    "laplacian": "4 neighbours, periodic",
+    "integrator": "explicit Euler"
+  },
+  "by_dt": [
+    {
+      "label": "dt=1.0 (baseline)",
+      "dt": 1.0,
+      "n": 10,
+      "hetero_median": 6.429,
+      "hetero_sd": 3.732,
+      "homog_median": 2.857,
+      "homog_sd": 0.954,
+      "contrast": 3.571,
+      "seeds": [
+        171,
+        172,
+        173,
+        174,
+        175,
+        176,
+        177,
+        178,
+        179,
+        180
+      ],
+      "contrast_rel": 1.0
+    },
+    {
+      "label": "dt=0.5",
+      "dt": 0.5,
+      "n": 10,
+      "hetero_median": 4.84,
+      "hetero_sd": 2.333,
+      "homog_median": 3.6,
+      "homog_sd": 1.617,
+      "contrast": 1.24,
+      "seeds": [
+        171,
+        172,
+        173,
+        174,
+        175,
+        176,
+        177,
+        178,
+        179,
+        180
+      ],
+      "contrast_rel": 0.347
+    },
+    {
+      "label": "dt=2.0",
+      "dt": 2.0,
+      "n": 5,
+      "hetero_median": 0.143,
+      "hetero_sd": 0.0,
+      "homog_median": 0.143,
+      "homog_sd": 0.0,
+      "contrast": 0.0,
+      "seeds": [
+        171,
+        172,
+        173,
+        174,
+        175
+      ],
+      "contrast_rel": 0.0
+    }
+  ],
+  "not_claimed": [
+    "при dt = 2.0 мир нестабилен: живых структур почти нет, контраст неинформативен — это предел схемы",
+    "сетка 96 ниже диапазона, проверенного Пирсоном (256–1024), см. library/lit-reading-list.md",
+    "10 сидов на точку; интервалы не считались"
+  ]
+}
