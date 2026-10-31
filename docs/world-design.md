@@ -125,3 +125,4 @@ sections were not rewritten, only moved; each one keeps its identifier, so every
 | §10dw | Контраст нестационарен: «удвоение» — переходный процесс, плато около +1 (X57, 31.10) | [`plan/10e-habitability-and-channels.md`](plan/10e-habitability-and-channels.md) |
 | §10dx | «Сетка 96 против 128» — не измельчение, а другая физика (найдено поиском по корпусу, 31.10) | [`plan/10e-habitability-and-channels.md`](plan/10e-habitability-and-channels.md) |
 | §10dy | Как это делают: образец Nowak et al. 1994 для нашего нестационарного контраста | [`plan/10e-habitability-and-channels.md`](plan/10e-habitability-and-channels.md) |
+| §10dz | Три способа сообщить о зависимости результата от схемы, и какой из них наш | [`plan/10e-habitability-and-channels.md`](plan/10e-habitability-and-channels.md) |
