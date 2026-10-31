@@ -182,7 +182,12 @@ def main() -> int:
     # ---------------- v2: линия среды ----------------
     # Числа новой рукописи прослеживаются до docs/world-design.md (§10h-§10q).
     paper_v2 = PAPER_V2.read_text(encoding="utf-8")
+    # 31.10: план разложен по docs/plan/*.md, индекс остался в world-design.md — читаем всё вместе,
+    # иначе числа, уехавшие в часть плана, выглядят как «нет источника».
     world = WORLD_DOC.read_text(encoding="utf-8")
+    plan_dir = WORLD_DOC.parent / "plan"
+    if plan_dir.is_dir():
+        world = "\n".join([world] + [p.read_text(encoding="utf-8") for p in sorted(plan_dir.glob("*.md"))])
     v2_numbers = [
         "76711", "72948", "70373", "54428", "58032", "64791",  # pop_time
         "121", "742", "939",                                  # смерти в бедной зоне

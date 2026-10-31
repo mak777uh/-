@@ -11,6 +11,7 @@ sections were not rewritten, only moved; each one keeps its identifier, so every
 
 | file | covers | what is inside |
 | --- | --- | --- |
+| [`plan/00-pond-specification.md`](plan/00-pond-specification.md) | specification (1870 lines) | the pond world: what the medium is, why designed so, which alternatives were rejected |
 | [`plan/10a-pond-organization.md`](plan/10a-pond-organization.md) | §10aa–§10az (26) | Pond: how organisation and a line appeared (24–25.10, §10aa–§10az) |
 | [`plan/10b-pond-selection.md`](plan/10b-pond-selection.md) | §10ba–§10bz (26) | Pond: selection, the price of a trait, coexistence (25–28.10, §10ba–§10bz) |
 | [`plan/10c-field-heterogeneity.md`](plan/10c-field-heterogeneity.md) | §10ca–§10cz (26) | Field: heterogeneity of inflow and its dose (30.10, §10ca–§10cz) |

@@ -32,6 +32,10 @@ def main(argv=None) -> int:
     args = ap.parse_args(argv)
 
     problems: list[str] = []
+    # часть 0 — спецификация мира, разделов §10xx в ней нет; проверяем, что она не пуста и на месте
+    spec = PLAN / "00-pond-specification.md"
+    if not spec.is_file() or spec.stat().st_size < 5000:
+        problems.append("нет или подозрительно мала часть 0 (docs/plan/00-pond-specification.md)")
     in_files: dict[str, list[str]] = {}
     for p in sorted(PLAN.glob("*.md")):
         ids = SECTION_RE.findall(p.read_text(encoding="utf-8"))
