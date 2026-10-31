@@ -193,7 +193,19 @@
       "hypothesis": null,
       "claimed_at": null,
       "heartbeat_at": null,
-      "note": "из library/artifact-catalogue-assessment.md: каталог из 19 случаев составлен моделью, веб-поиск в момент проверки был недоступен (API 401). Подтверждено: Lehman et al. 2020 (Surprising Creativity). Опровергнуто: Tierra-паразиты датированы PNAS 2026 (это 1990-е). 12 пунктов вероятны, но ссылки не проверены. Задача: проверить по страницам издателей, подтверждённое внести в library/publications/, остальное исправить или отбросить"
+      "note": "из library/artifact-catalogue-assessment.md: каталог из 19 случаев составлен моделью, веб-поиск в момент проверки был недоступен (API 401). Подтверждено: Lehman et al. 2020 (Surprising Creativity). Опровергнуто: Tierra-паразиты датированы PNAS 2026 (это 1990-е). 12 пунктов вероятны, но ссылки не проверены. Задача: проверить по страницам издателей, подтверждённое внести в library/publications/, остальное исправить или отбросить | 31.10: каталог разобран (library/artifact-catalogue-assessment.md), собран корпус из 80 работ (library/lit-artifacts-elephant.md): настоящая дисциплина — verification & validation (Oberkampf & Roy 2010, DOI 10.1017/cbo9780511760396). Осталось прочесть полные тексты трёх работ без аннотаций"
+    },
+    {
+      "id": "X56_step_convergence",
+      "title": "Сходимость по шагу: выживает ли главный контраст при dt/2 и 2dt",
+      "status": "planned",
+      "owner": "lead",
+      "cost_gpu_h": 1.5,
+      "ttl_minutes": 600,
+      "hypothesis": null,
+      "claimed_at": null,
+      "heartbeat_at": null,
+      "note": "из library/lit-artifacts-elephant.md: стандартная проверка solution verification, которую мы НИКОГДА не делали. Все числа статьи получены при dt=1.0 и лапласиане по 4 соседям; сетку мы варьировали (96/128), шаг — ни разу. План: контраст долгоживущих структур (1.3 против 1.2) и компонент (6.50 против 2.81) при dt = 0.5 / 1.0 / 2.0, 10 сидов. Критерий: знак сохраняется, величина в пределах 25 %; иначе число объявляется зависящим от интегратора"
     },
     {
       "id": "X6a_board_text",
