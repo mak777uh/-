@@ -24,7 +24,7 @@
 | Артефакт | Тип | Байт | sha256 |
 | --- | --- | ---: | --- |
 | [`lab/checkpoints.json`](../lab/checkpoints.json) | index | 11024 | `fc6dbce037ae3f84d0b49dba9611767d26412d4c32e12a948b736251f32554f5` |
-| [`lab/registry.json`](../lab/registry.json) | index | 202323 | `83951d04bd41902908236f8c48bfe2bb59346962fe7b10ab2fc4db9cf13298e1` |
+| [`lab/registry.json`](../lab/registry.json) | index | 205948 | `3cfaae42df10fae3389bd794e5d1415cf822be33eeccc2bf21f2ed40603a75f8` |
 | [`morphogenesis/experiments/E01_criticality/lyapunov_scan.json`](../morphogenesis/experiments/E01_criticality/lyapunov_scan.json) | other | 1610 | `7db6283ea34a67927c31515e6aceb7f02c42e1124ea35d4800207dbaa51ead18` |
 | [`morphogenesis/experiments/E01_criticality/results.json`](../morphogenesis/experiments/E01_criticality/results.json) | other | 2885 | `a00a7272b24bcc22828abaf281f939d97518b8c59dadbd6fe0158a00a623ef22` |
 | [`morphogenesis/experiments/E02_pattern/collapse_probe.json`](../morphogenesis/experiments/E02_pattern/collapse_probe.json) | other | 22589 | `1574a6711fe997dbc59dd602f03123b02cb2a83cddc2d031b7d9f7d2ad424b6e` |
@@ -1448,7 +1448,7 @@
 | [`morphogenesis/experiments/L1_field/hl1_amp0.8_static_s178.json`](../morphogenesis/experiments/L1_field/hl1_amp0.8_static_s178.json) | other | 4521 | `dbe599a033bb31f5ae78a2a762e822cf1e92a836c7582ed36dea40952ce8f2a0` |
 | [`morphogenesis/experiments/L1_field/hl1_amp0.8_static_s179.json`](../morphogenesis/experiments/L1_field/hl1_amp0.8_static_s179.json) | other | 4687 | `b0e475ab79af1245e7df9a1c3930aa3a31c438916fdbd79bc2d87a8202cc83ff` |
 | [`morphogenesis/experiments/L1_field/hl1_amp0.8_static_s180.json`](../morphogenesis/experiments/L1_field/hl1_amp0.8_static_s180.json) | other | 4500 | `80b2fce2c9e62be700dc5f9cb6595f0380aece73345c33b2e87fcb28ba2e3d2c` |
-| [`morphogenesis/experiments/L1_field/l1_field_matrix.json`](../morphogenesis/experiments/L1_field/l1_field_matrix.json) | other | 45191 | `18ca24eea7c20fb0488c7fc149da4ac93b7ce7fcfa7b1560e59441a4e86fd9a0` |
+| [`morphogenesis/experiments/L1_field/l1_field_matrix.json`](../morphogenesis/experiments/L1_field/l1_field_matrix.json) | other | 54515 | `eeb7a172438adc848c6eed01f4d1d6fb53461ef46ac3c01b38aa9f1a7754e9fe` |
 | [`morphogenesis/experiments/L1_field/n20_p300_s171.json`](../morphogenesis/experiments/L1_field/n20_p300_s171.json) | other | 4482 | `74895da811290b4ef2b731b5a7237cbaf39757a43c8151f80829023dfa5f3e6d` |
 | [`morphogenesis/experiments/L1_field/n20_p300_s172.json`](../morphogenesis/experiments/L1_field/n20_p300_s172.json) | other | 4390 | `4aa9d0dc47ed8a48477d3925a394e040e2096cf286a01bb30e48d3b4c074397c` |
 | [`morphogenesis/experiments/L1_field/n20_p300_s173.json`](../morphogenesis/experiments/L1_field/n20_p300_s173.json) | other | 4790 | `2cd264a55e480c5336d896cc97a7810c089326edf3085b4373417d9ecbdbf85b` |
@@ -1770,6 +1770,8 @@
 | [`reports/figures/e02b_transition_matrix.png`](../reports/figures/e02b_transition_matrix.png) | figure | 152522 | `81f1b4fe50fd819f45411c31fb737a0c232d9c4f993f5233184c8b276779f5b9` |
 | [`reports/figures/e02c_seed_grid.png`](../reports/figures/e02c_seed_grid.png) | figure | 69503 | `a14f0a6eb28fa0675629e539dc863049d97c3a7ef1914c34ebd7348b5c71776f` |
 <!-- artifacts:end -->
+
+
 
 
 
