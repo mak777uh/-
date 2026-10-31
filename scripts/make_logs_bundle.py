@@ -68,8 +68,9 @@ PARTS: list[tuple[str, list[str]]] = [
     ("artifacts", ["morphogenesis/experiments/L1_field/*.json"]),
     ("habitable", ["morphogenesis/experiments/E09_pond/habitable/*.json"]),
     ("adequacy", ["morphogenesis/experiments/E09_pond/adequacy/*.json"]),
-    ("article", ["articles/028-pole-bez-zadannyh-obektov.md",
-                 "reports/2026-10-31-publication-package.md"]),
+    # Только данные и текст работы. Инструкции для публикатора здесь НЕТ намеренно: её текст содержит
+    # хеш этого архива, и включение сделало бы хеш самозависимым.
+    ("article", ["articles/028-pole-bez-zadannyh-obektov.md"]),
     ("docs", ["docs/world-design.md"]),
     ("legal", ["LICENSE", "CITATION.cff"]),
     ("code", ["scripts/field_track.py", "scripts/l1_field_matrix.py", "scripts/claim_comparator.py",
