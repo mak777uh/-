@@ -122,3 +122,4 @@ sections were not rewritten, only moved; each one keeps its identifier, so every
 | §10dt | Память сигнала: первый валидный опыт и отрицательный результат (X48, 31.10) | [`plan/10e-habitability-and-channels.md`](plan/10e-habitability-and-channels.md) |
 | §10du | Пропущенное событие в поле: опыт нечувствителен по конструкции (X49, 31.10) | [`plan/10e-habitability-and-channels.md`](plan/10e-habitability-and-channels.md) |
 | §10dv | Сходимость по шагу: контраст ослаб втрое, знак удержался (X56, 31.10) | [`plan/10e-habitability-and-channels.md`](plan/10e-habitability-and-channels.md) |
+| §10dw | Контраст нестационарен: «удвоение» — переходный процесс, плато около +1 (X57, 31.10) | [`plan/10e-habitability-and-channels.md`](plan/10e-habitability-and-channels.md) |
