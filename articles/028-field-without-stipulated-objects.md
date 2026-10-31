@@ -343,6 +343,20 @@ where it does not reach.** The measure and its control are computed by `python s
 And the price of error sharpens precisely the **self-model** (0.039 against 0.018) — naturally: only its own trace is
 available to the organism.
 
+**And it is confirmed by an intervention, not only by correlation.** Observational mutual information cannot separate
+causal paths: "state now predicts resource later" has two explanations. We blocked one. With `ghost_no_consumption` the
+organism **still receives income but the resource does not decrease** — its action on the medium is severed, everything
+else unchanged (cost, growth, division). The anchor holds: with the flag off, alive and energy are identical to a run
+made before the change over 700 steps.
+
+| arm | resource under the organism | resource in empty cells |
+|---|---|---|
+| normal | **+0.0362** (10/10 > 0) | 0.0000 (0/10) |
+| **ghost** | **0.0000** (**0/8 > 0**) | 0.0000 (0/8) |
+
+**The dependence vanishes when the action is blocked.** So it was a consequence of the organism's own footprint, not
+of external dynamics. The claim is now causally tested rather than observed.
+
 **The conclusion we consider the main one.** In our worlds evolution can build a **model of its own trace** and cannot
 build a **model of the world**. The reason is constructive: the organism has no organ that touches the outside.
 Everything it senses is a consequence of its own actions.

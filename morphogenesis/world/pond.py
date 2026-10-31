@@ -40,6 +40,9 @@ class PondConfig:
     resource_max: float = 1.0
     resource_regen: float = 0.02
     alive_floor: float = 0.0        # X43: нижний порог ресурса (хемостат). 0 = поведения нет
+    ghost_no_consumption: bool = False  # X50: контроль «призрак» — организм получает доход, но НЕ выедает
+                                        # ресурс. Тогда его действие на среду заблокировано, и наблюдаемая
+                                        # предиктивная зависимость не может быть следствием собственного следа
     alive_floor_noise: float = 0.0  # X43: шум порога (0 = ровный хемостат)      # сколько ресурса прибывает за шаг на клетку
     update_cost: float = 0.01         # цена одного обновления живой клетки
     baseline_income: float = 0.002    # доход клетки из ресурса за шаг
@@ -802,7 +805,8 @@ class Pond:
             income = income * gate
         income = torch.where(alive, income, torch.zeros_like(income))
         if is_b is None:
-            s.resource = s.resource - income
+            if not getattr(cfg, "ghost_no_consumption", False):
+                s.resource = s.resource - income
         else:
             s.resource = s.resource - torch.where(is_b, torch.zeros_like(income), income)
             s.resource_b = s.resource_b - torch.where(is_b, income, torch.zeros_like(income))

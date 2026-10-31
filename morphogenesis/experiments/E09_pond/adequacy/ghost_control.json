@@ -1,0 +1,50 @@
+{
+  "kind": "ghost_control",
+  "experiment": "X50",
+  "command": "python scripts/ghost_control.py --write",
+  "metric": {
+    "excess_under": "I(Δэнергия; Δресурс под живыми на t+1) минус перемешивание, бит",
+    "excess_empty": "то же для ресурса в пустых клетках"
+  },
+  "design": {
+    "arms": [
+      "normal",
+      "ghost"
+    ],
+    "steps": 700,
+    "income": 0.02,
+    "bins": 8
+  },
+  "by_arm": {
+    "ghost": {
+      "under": {
+        "n": 8,
+        "median": 0.0,
+        "positive": 0
+      },
+      "empty": {
+        "n": 8,
+        "median": 0.0,
+        "positive": 0
+      }
+    },
+    "normal": {
+      "under": {
+        "n": 10,
+        "median": 0.0362,
+        "positive": 10
+      },
+      "empty": {
+        "n": 10,
+        "median": 0.0,
+        "positive": 0
+      }
+    }
+  },
+  "verdict": "зависимость исчезла под «призраком»: она была следствием собственного действия",
+  "not_claimed": [
+    "мера по первым разностям консервативна и спорна (§10dq-доп); здесь она только для сравнения плеч",
+    "10 сидов на плечо",
+    "«призрак» блокирует потребление, но не дыхание/ремонт"
+  ]
+}
