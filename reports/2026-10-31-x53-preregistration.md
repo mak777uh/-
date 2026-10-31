@@ -23,7 +23,36 @@ living cells at step 700, `born = 0` and `died = 2103`. Growth here happens by c
 (`s.alive[dy, dx] = True; s.alive[sy, sx] = False`), not by division. Using `born` would have measured nothing while
 looking like a behavioural variable — the same class of error as `X46`, caught before the run.
 
-## 3. Sensitivity arithmetic (the part that decides the design)
+
+## 1. Manipulation is connected — REQUIRED
+
+Two runs differing **only** by the tide must show different dynamics. To be checked with:
+
+    python scripts/check_design.py --pair <tide.json> <no_tide.json> --key "alive_series"
+
+- **Hashes:** not yet measured — this is the pilot's first output.
+- Status: **not done**, and the series does not run until it is.
+
+## 2. Positive control fires — REQUIRED
+
+- **Control arm:** A (tide throughout), phase against non-phase.
+- **Observed effect:** not yet measured.
+- **Threshold that counts as "fires":** at least 30 % difference in growth (131 cells), as computed in §4.
+- Status: **not done.**
+
+## 3. Readout exists and varies — REQUIRED
+
+- **Readout name:** net growth of living cells.
+- **Field in the artifact:** `alive_series` (per slice).
+- **Observed variance:** between-seed sd 145 over the second half, median 436 — see §4.
+- Verified with: `python scripts/check_design.py --readout <run.json> --key "alive_series"`
+- Status: **partly done** — the field exists and varies; the paired spread is still unknown.
+
+## 5a. What this experiment will not measure
+
+`born` is **not** the readout (see §2 of this file): the counter does not fire on the growth path.
+
+## 4. Sensitivity arithmetic — REQUIRED
 
 From the ten habitable runs (`x43_hab_s*`, b = 0.02, 1500 steps), growth over the second half (750 steps):
 
@@ -50,7 +79,7 @@ difference is the statistic. Pairing removes the between-seed component, which i
 **The paired sd is not known yet and must not be assumed.** Pilot: 3 seeds × 2 arms, measure the sd of the differences,
 then choose n. If the paired sd stays near the unpaired one, the pairing failed and the experiment is not run.
 
-## 4. Design
+## Design summary
 
 | element | value |
 |---|---|
@@ -71,7 +100,7 @@ null result.
 window growth in the direction of the tide's effect (i.e. as if the event were still happening), with the paired
 difference exceeding the pilot sd at 95 %.
 
-## 5. What would make this experiment worthless
+## 5. Refusal rule — REQUIRED
 
 Written down in advance so that it cannot be discovered afterwards:
 
@@ -82,6 +111,12 @@ Written down in advance so that it cannot be discovered afterwards:
 5. the tide's effect is not local (if it changes the whole field uniformly, there is nothing to anticipate).
 
 ## 6. Status
+
+- [ ] 1. connected (hashes differ)
+- [ ] 2. positive control fires
+- [ ] 3. readout exists and varies
+- [ ] 4. sensitivity computed
+- [ ] 5. refusal rule written
 
 **Not run.** Blocked on the pilot that measures the paired sd. This document exists so that the next session does not
 start from a plausible-sounding design that the arithmetic already rejects.
