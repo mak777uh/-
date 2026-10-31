@@ -50,6 +50,8 @@ def check_no_sorry() -> tuple[bool, float, str]:
 def main() -> int:
     steps: list[tuple[str, list[str], Path | None]] = [
         ("контракт (lab.py validate)", [PY, "scripts/lab.py", "validate"], None),
+        # аудит библиотекаря 31.10: числа статьи 028 обязаны воспроизводиться из агрегатов
+        ("числа статьи 028 совпадают с агрегатами", [PY, "scripts/check_article_numbers.py", "--ci"], None),
         ("матрица утверждений (claims_lint --strict)", [PY, "scripts/claims_lint.py", "--strict"], None),
         ("ссылки на разделы рукописи", [PY, "scripts/check_section_refs.py"], None),
         ("витрина не отстаёт от результатов", [PY, "scripts/check_readme_fresh.py"], None),
