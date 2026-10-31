@@ -111,6 +111,12 @@
 
 ## Поиск: `lit_find.py` (31.10, вместо одного источника)
 
+**Веб — лестница с отказами:** DDG html → DDG lite → Wikipedia (последняя ступень помечается как
+«энциклопедия, не источник»). Кэш на 7 дней (`library/.lit-find-cache.json`), чтобы не долбить сервисы.
+Проверено 31.10: DDG требует **браузерный User-Agent**, иначе отдаёт пустую страницу; Mojeek и Startpage
+возвращают заглушку/JS, поэтому в лестницу не входят; Semantic Scholar без ключа — 403.
+
+
 `python library/tools/lit_find.py search --query "..." [--sources openalex,crossref,arxiv,europepmc,datacite,web] [--min-year Y] [--limit N]`
 `python library/tools/lit_find.py verify --doi 10.1007/...`
 

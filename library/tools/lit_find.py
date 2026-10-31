@@ -25,6 +25,8 @@ import argparse
 import json
 import re
 import sys
+import time
+from pathlib import Path
 import urllib.parse
 import urllib.request
 import xml.etree.ElementTree as ET
@@ -182,16 +184,43 @@ def src_datacite(query: str, limit: int, min_year: int | None):
 BROWSER_UA = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
               "(KHTML, like Gecko) Chrome/120 Safari/537.36")
 
+CACHE_PATH = Path(__file__).resolve().parents[1] / ".lit-find-cache.json"
+CACHE_TTL = 7 * 24 * 3600
 
-def src_web(query: str, limit: int, min_year: int | None):
-    """DuckDuckGo HTML. Требует браузерный User-Agent, иначе страница пустая."""
+
+def _cache_get(key: str):
     try:
-        req = urllib.request.Request("https://duckduckgo.com/html/?q=" + urllib.parse.quote(query),
-                                     headers={"User-Agent": BROWSER_UA})
-        with urllib.request.urlopen(req, timeout=TIMEOUT) as r:
-            html = r.read().decode("utf-8", "replace")
+        d = json.loads(CACHE_PATH.read_text(encoding="utf-8"))
     except Exception:
         return None
+    hit = d.get(key)
+    if not hit or time.time() - hit.get("ts", 0) > CACHE_TTL:
+        return None
+    return hit.get("items")
+
+
+def _cache_put(key: str, items):
+    try:
+        d = json.loads(CACHE_PATH.read_text(encoding="utf-8"))
+    except Exception:
+        d = {}
+    d[key] = {"ts": time.time(), "items": items}
+    try:
+        CACHE_PATH.write_text(json.dumps(d, ensure_ascii=False), encoding="utf-8", newline="\n")
+    except Exception:
+        pass
+
+
+def _fetch(url: str):
+    try:
+        req = urllib.request.Request(url, headers={"User-Agent": BROWSER_UA})
+        with urllib.request.urlopen(req, timeout=TIMEOUT) as r:
+            return r.read().decode("utf-8", "replace")
+    except Exception:
+        return None
+
+
+def _parse_ddg(html: str, limit: int):
     out = []
     for m in re.finditer(r"<a\b([^>]*)>(.*?)</a>", html, re.S):
         attrs, inner = m.group(1), m.group(2)
@@ -206,18 +235,79 @@ def src_web(query: str, limit: int, min_year: int | None):
             if mm:
                 href = urllib.parse.unquote(mm.group(1))
         title = re.sub(r"<[^>]+>", "", inner).strip()
-        if not title:
-            continue
-        out.append({"source": "web", "title": title, "year": None, "doi": "",
-                    "venue": "", "type": "web", "abstract": "", "url": href})
+        if title:
+            out.append({"source": "web", "title": title, "year": None, "doi": "",
+                        "venue": "", "type": "web", "abstract": "", "url": href})
         if len(out) >= limit:
             break
     return out
 
 
+def _parse_ddg_lite(html: str, limit: int):
+    out = []
+    for m in re.finditer(r'<a\b([^>]*class="result-link"[^>]*)>(.*?)</a>', html, re.S):
+        attrs, inner = m.group(1), m.group(2)
+        href_m = re.search(r'href="([^"]+)"', attrs)
+        if not href_m:
+            continue
+        href = href_m.group(1)
+        if "uddg=" in href:
+            mm = re.search(r"uddg=([^&]+)", href)
+            if mm:
+                href = urllib.parse.unquote(mm.group(1))
+        title = re.sub(r"<[^>]+>", "", inner).strip()
+        if title:
+            out.append({"source": "web", "title": title, "year": None, "doi": "",
+                        "venue": "", "type": "web", "abstract": "", "url": href})
+        if len(out) >= limit:
+            break
+    return out
+
+
+def _wiki(query: str, limit: int):
+    """Последняя ступень: энциклопедия. Явно помечается — это не научный источник."""
+    url = ("https://en.wikipedia.org/w/api.php?action=query&list=search&format=json&srlimit="
+           + str(limit) + "&srsearch=" + urllib.parse.quote(query))
+    d = get_json(url)
+    if not d:
+        return []
+    out = []
+    for r in ((d.get("query") or {}).get("search") or []):
+        out.append({"source": "wiki", "title": r.get("title") or "", "year": None, "doi": "",
+                    "venue": "Wikipedia (энциклопедия, не источник)",
+                    "type": "wiki", "abstract": re.sub(r"<[^>]+>", "", r.get("snippet") or ""),
+                    "url": "https://en.wikipedia.org/wiki/" + urllib.parse.quote((r.get("title") or "").replace(" ", "_"))})
+    return out
+
+
+def src_web(query: str, limit: int, min_year: int | None):
+    """Лестница: DDG html -> DDG lite -> Wikipedia. Возвращает (items, via) или None."""
+    key = "web:" + query
+    cached = _cache_get(key)
+    if cached is not None:
+        return cached
+    ladder = (
+        ("ddg-html", "https://duckduckgo.com/html/?q=" + urllib.parse.quote(query), _parse_ddg),
+        ("ddg-lite", "https://lite.duckduckgo.com/lite/?q=" + urllib.parse.quote(query), _parse_ddg_lite),
+    )
+    for name, url, parser in ladder:
+        html = _fetch(url)
+        if not html:
+            continue
+        items = parser(html, limit)
+        if items:
+            _cache_put(key, items)
+            return items
+    items = _wiki(query, limit)
+    if items:
+        _cache_put(key, items)
+        return items
+    return None
+
+
 SOURCES = {
     "openalex": src_openalex, "crossref": src_crossref, "arxiv": src_arxiv,
-    "europepmc": src_europepmc, "datacite": src_datacite, "web": src_web,
+    "europepmc": src_europepmc, "datacite": src_datacite, "web": src_web, "wiki": lambda q, l, y: _wiki(q, l),
 }
 
 

@@ -486,6 +486,14 @@ def test_paper_witness(tmp: Path) -> None:
         work.unlink(missing_ok=True)
 
 
+def test_lit_find(tmp: Path) -> None:
+    """lit_find: (а) неизвестный источник называется в отказе; (б) verify отвергает несуществующий DOI."""
+    res = run("library/tools/lit_find.py", "search", "--query", "coexistence", "--sources", "nosuchsource")
+    check("lit_find: неизвестный источник назван", "неизвестный источник" in res.stdout, res.stdout[-300:])
+    bad = run("library/tools/lit_find.py", "verify", "--doi", "10.9999/definitely-not-a-real-doi-xyz")
+    check("lit_find: несуществующий DOI отвергается", bad.returncode == 1, bad.stdout[-300:])
+
+
 def main() -> int:
     with tempfile.TemporaryDirectory() as tdir:
         tmp = Path(tdir)
@@ -519,6 +527,8 @@ def main() -> int:
         test_science_digest(tmp)
         print("== topic lit ==")
         test_topic_lit(tmp)
+        print("== lit_find ==")
+        test_lit_find(tmp)
         print("== paper witness ==")
         test_paper_witness(tmp)
         print("== claims anchor ==")
