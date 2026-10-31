@@ -96,6 +96,9 @@ def main(argv=None) -> int:
     ap.add_argument("--trait-diffusion", type=float, default=0.02, help="X32: коэффициент диффузии признака (<< Du)")
     ap.add_argument("--trait-decay", type=float, default=0.0, help="X32: возврат признака к s_ref за шаг")
     ap.add_argument("--trait-mutation", type=float, default=0.02, help="X32: шум признака в живых клетках за шаг")
+    ap.add_argument("--trait-mutation-local", action="store_true",
+                    help="X34: шум только там, где геометрия напряжена (|∇²v| велик, то есть у мест пережима). "
+                         "Тогда сёстры расходятся, и отбор получает материал")
     ap.add_argument("--trait-init", type=float, default=1.0, help="X32: стартовое значение признака")
     ap.add_argument("--hetero-amp", type=float, default=0.0,
                     help="E7: сила пространственной неоднородности притока: F(x,y) = F*(1 + amp*(2S(t)-1)*(2G(x,y)-1))")
@@ -226,9 +229,18 @@ def main(argv=None) -> int:
                 args.trait_diffusion * laplacian(h_trait)
                 - args.trait_decay * (h_trait - float(args.s_ref))
             )
-            h_trait = h_trait + args.trait_mutation * torch.randn(
+            noise = torch.randn(
                 h_trait.shape, generator=torch.Generator(device=dev).manual_seed(int(args.seed) + step),
-                device=dev) * (v > float(args.threshold)).float()
+                device=dev)
+            if args.trait_mutation_local:
+                # X34: мутация там, где геометрия напряжена — у пережимов, где и происходит деление.
+                # |∇²v| максимален на границе и в шейках; нормируем на 95-й процентиль, чтобы шум не взрывался.
+                curv = torch.abs(laplacian(v))
+                scale = float(torch.quantile(curv.flatten(), 0.95)) if float(curv.max()) > 0 else 1.0
+                weight = torch.clamp(curv / max(scale, 1e-6), 0.0, 2.0)
+                h_trait = h_trait + args.trait_mutation * noise * weight
+            else:
+                h_trait = h_trait + args.trait_mutation * noise * (v > float(args.threshold)).float()
             h_trait = torch.clamp(h_trait, 0.3, 2.5)
             # распад зависит от ЛОКАЛЬНОГО признака, а не от компоненты
             k_eff = args.k * torch.clamp(1.0 + args.beta * (args.s_ref - h_trait), 0.3, 2.5)
