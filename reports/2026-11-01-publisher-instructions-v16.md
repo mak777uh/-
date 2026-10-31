@@ -15,6 +15,13 @@ is now known to be wrong and is replaced.
 
 This is a **correction of our own claim**, not a new paper. Everything else stays.
 
+> **Note added at 00:30, after the package was built.** Two checks on stored snapshots have since confirmed the step
+> qualification and narrowed what the doubling means: the extra components are **small** (16–64 cells), and above
+> ~100 cells the two worlds are indistinguishable. This does not make the uploaded text false — the count really is
+> twice as large — but it is an improvement worth two sentences. The exact insert, and what rebuilding the archive
+> would cost, is in [`2026-11-01-before-upload-size-floor.md`](2026-11-01-before-upload-size-floor.md). **The package as
+> it stands is uploadable without it.**
+
 ## 1. What to upload — three files
 
 | file | what it is |
