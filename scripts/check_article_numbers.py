@@ -42,6 +42,9 @@ CHECKS: list[dict] = [
     {"agg": POND / "habitable_matrix.json", "path": "summary.min", "fmt": "{:d}", "what": "минимум клеток"},
     {"agg": POND / "habitable_matrix.json", "path": "summary.max", "fmt": "{:d}", "what": "максимум клеток"},
     # --- §4b: адекватность (X44, мера с командой)
+    # --- §4.5: сходимость по шагу (X56) и стационарность (X57)
+    {"agg": L1 / ".." / "E09_pond" / "l1_field_x56_matrix.json", "path": "by_dt.0.contrast", "fmt": "{:+.2f}", "what": "контраст при dt=1.0"},
+    {"agg": L1 / ".." / "E09_pond" / "l1_field_x56_matrix.json", "path": "by_dt.1.contrast", "fmt": "{:+.2f}", "what": "контраст при dt=0.5"},
     {"agg": POND / "adequacy_mi.json", "path": "by_arm.cost.under.median_excess", "fmt": "{:.4f}", "what": "адекватность, цена высокая"},
     {"agg": POND / "adequacy_mi.json", "path": "by_arm.cheap.under.median_excess", "fmt": "{:.4f}", "what": "адекватность, цена низкая"},
     {"agg": POND / "adequacy_mi.json", "path": "by_arm.free.under.median_excess", "fmt": "{:.4f}", "what": "адекватность, цена нулевая"},

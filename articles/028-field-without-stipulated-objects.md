@@ -1,6 +1,6 @@
 # A field without stipulated objects: how a component counter passed itself off as diversity
 
-**Version:** v1.5.1 (2026-10-31), English edition of v1.4
+**Version:** v1.6 (2026-10-31), English edition of v1.4
 **Author:** Vladimirov Ilia Sergeevich
 **License:** CC0 1.0 (public domain) — see `LICENSE`
 **DOI:** [10.5281/zenodo.23839898](https://doi.org/10.5281/zenodo.23839898) (Zenodo, v1.5.1; concept DOI `10.5281/zenodo.23839897`)
@@ -59,6 +59,10 @@ explicit Euler with `dt = 1.0`; `Du = 0.16`, `Dv = 0.08`; grids 96 and 128; a sn
 the series. In a continuous automaton a pattern can depend on exactly these choices, so we name them rather than leave them
 implicit; the percolation result of §4.10 is **threshold-dependent by construction**.
 
+The grid of 96 is **below the range tested in the founding study of this model**: Pearson (1993, *Science*
+261:189–192, DOI `10.1126/science.261.5118.189`) reports no qualitative difference for time steps from 1.0 to 0.01 and
+grids from 256 to 1024. Our numbers are therefore a statement about this coarse scheme, not about the continuum.
+
 **Arms.** Uniform inflow `F = const` versus spatially heterogeneous `F(x,y) = F·(1 + A·G(x,y))`, where `G` is a static
 pattern. Further arms: a varying pattern (periods 300 and 3000), global noise (inflow fluctuates in time but is
 **identical across the whole field**), and different amplitudes `A`.
@@ -115,18 +119,34 @@ cost.
 
 ### 4.5. Heterogeneity of inflow: the main number
 
-If the inflow is spatially heterogeneous, the number of components is roughly **twice** as large, and this is stable:
+If the inflow is spatially heterogeneous, the number of components is larger — but **the size of the effect belongs to
+the numerical scheme, not to the equations**, and it is **not stationary**.
 
 | horizon | homogeneous | heterogeneous | difference |
 |---|---|---|---|
 | 6000 steps | 2.86 | **6.43** | +3.57 |
 | **12 000 steps** | **2.81** | **6.50** | **+3.69** |
 
-Difference over 12 000 steps: **+3.69**, bootstrap 95 % CI **[1.27; 7.08]** (10 runs per arm). Doubling the horizon did
-not reduce the difference but slightly increased it (3.57 → 3.69) — a steady state, not a transient.
+Difference over 12 000 steps: **+3.69**, bootstrap 95 % CI **[1.27; 7.08]** (10 runs per arm). These are medians over
+per-seed time means, and between 6000 and 12 000 units of physical time they do not decay (+3.57 → +3.69).
 
-On a 128 grid: 5.64 versus 3.71 (n = 20), difference 1.93, CI **[0.14; 7.07]**, Mann–Whitney z = 2.57. The lower bound
-is close to zero: the effect reproduces in direction, but on that grid it is at the edge of resolution.
+**Three qualifications, added after the tests described below.**
+
+*The contrast is not stationary.* Split by quarters of physical time, it falls from **+4.00** in the first quarter to a
+plateau of **+1.00** at `dt = 1.0` (§10dw). The stability between 6000 and 12 000 is therefore a property of the
+time-integrated estimator, not of the instantaneous contrast: the early transient inflates the integral. Both estimators
+are lawful and give different numbers — +3.57 as a difference of medians over per-seed means, +1.00 as a pooled median of
+slices — so every number here names the one it uses.
+
+*The contrast depends on the time step.* With the same physical time (`dt × steps = 6000`), it is **+3.57 at `dt = 1.0`**
+and **+1.24 at `dt = 0.5`** (§10dv): the sign survives, the magnitude drops to a third. At `dt = 2.0` the explicit scheme
+is unstable and the comparison is uninformative.
+
+*The grid comparison is not a refinement.* On a 128 grid: 5.64 versus 3.71 (n = 20), difference 1.93, CI **[0.14; 7.07]**,
+Mann–Whitney z = 2.57 — but in this model family the spatial resolution enters as a `1/Δx²` coefficient multiplying the
+diffusion terms (Davis 2023, DOI `10.54854/imi2023.01`), so holding `Du` fixed while changing the grid changes the
+effective diffusion rather than the accuracy (§10dx). What that run shows is that the effect survives a change of scale;
+a genuine grid-convergence test needs `Du` and `Dv` rescaled and is queued.
 
 ### 4.6. The regime of heterogeneity: no difference detected (claim weakened)
 
@@ -484,6 +504,7 @@ the limitations recorded in `docs/world-design.md` (§§10db–10dr) and in `lab
 
 | version | date | change |
 |---|---|---|
+| v1.6 | 2026-10-31 | §4.5 qualified by three new tests: the contrast is not stationary (plateau +1.00 at dt=1.0, 0.00 at dt=0.5) and depends on the time step (+3.57 → +1.24); the grid comparison is relabelled as a change of scale, not a refinement; the grid of 96 is stated to be below the range of Pearson's founding check |
 | v1.5.1 | 2026-10-31 | §4b gains the ghost control (`X50`): the self-model claim is now causally tested — the dependence collapses from +0.0362 (10/10) to 0.0000 (0/8) when consumption is severed |
 | v1.5 | 2026-10-31 | English edition of v1.4 with the corrected numbers: the lifetime shares (22 % / 71 %, 75 % / 24 %) are stated in §4.9, the median cell count is 2131.5, and every number is now checked against its aggregate by a script |
 | v1.4 | 2026-10-31 | §4a: uninhabitability was a constant (income 0.008 against cost 0.03), habitable regime confirmed 10/10; §4b: adequacy turned out to be a self-model — 0.0000 about resource in empty cells |
