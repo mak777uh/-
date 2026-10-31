@@ -1,0 +1,124 @@
+{
+  "kind": "l1_field_stationarity",
+  "experiment": "X57 (pending)",
+  "command": "python scripts/contrast_stationarity.py --write",
+  "metric": {
+    "pooled": "медиана пула срезов в окне (взвешивает каждый срез)",
+    "median_of_means": "медиана по сидам от временных средних (наша основная оценка, как в агрегате X56)"
+  },
+  "design": {
+    "quarters": 4,
+    "note": "окна по доле физического времени каждого прогона"
+  },
+  "by_series": [
+    {
+      "series": "dt=1.0, 12000 шагов",
+      "n_seeds": 10,
+      "quarters": [
+        {
+          "window": "1/4",
+          "hetero": 5.5,
+          "homog": 1.5,
+          "contrast": 4.0,
+          "n_slices": 40
+        },
+        {
+          "window": "2/4",
+          "hetero": 3.0,
+          "homog": 2.0,
+          "contrast": 1.0,
+          "n_slices": 30
+        },
+        {
+          "window": "3/4",
+          "hetero": 3.0,
+          "homog": 2.0,
+          "contrast": 1.0,
+          "n_slices": 30
+        },
+        {
+          "window": "4/4",
+          "hetero": 3.0,
+          "homog": 2.0,
+          "contrast": 1.0,
+          "n_slices": 30
+        }
+      ],
+      "median_of_means": 3.115
+    },
+    {
+      "series": "dt=1.0, 6000 шагов",
+      "n_seeds": 10,
+      "quarters": [
+        {
+          "window": "1/4",
+          "hetero": 2.0,
+          "homog": 1.0,
+          "contrast": 1.0,
+          "n_slices": 20
+        },
+        {
+          "window": "2/4",
+          "hetero": 8.0,
+          "homog": 5.5,
+          "contrast": 2.5,
+          "n_slices": 20
+        },
+        {
+          "window": "3/4",
+          "hetero": 3.0,
+          "homog": 2.5,
+          "contrast": 0.5,
+          "n_slices": 10
+        },
+        {
+          "window": "4/4",
+          "hetero": 3.0,
+          "homog": 2.0,
+          "contrast": 1.0,
+          "n_slices": 20
+        }
+      ],
+      "median_of_means": 4.143
+    },
+    {
+      "series": "dt=0.5, 12000 шагов",
+      "n_seeds": 10,
+      "quarters": [
+        {
+          "window": "1/4",
+          "hetero": 3.0,
+          "homog": 1.0,
+          "contrast": 2.0,
+          "n_slices": 70
+        },
+        {
+          "window": "2/4",
+          "hetero": 4.0,
+          "homog": 6.0,
+          "contrast": -2.0,
+          "n_slices": 60
+        },
+        {
+          "window": "3/4",
+          "hetero": 3.0,
+          "homog": 3.0,
+          "contrast": 0.0,
+          "n_slices": 60
+        },
+        {
+          "window": "4/4",
+          "hetero": 3.0,
+          "homog": 3.0,
+          "contrast": 0.0,
+          "n_slices": 60
+        }
+      ],
+      "median_of_means": 1.6
+    }
+  ],
+  "not_claimed": [
+    "прогоны не длиннее 12 000 единиц: выход плато в ноль при dt=1.0 не проверен — это X57",
+    "две оценки дают разные числа по построению; сравнивать можно только одинаковые"
+  ]
+}
