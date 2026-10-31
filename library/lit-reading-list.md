@@ -67,3 +67,29 @@ as described, "Digital Evolution Exhibits Surprising Robustness", and Tierra par
    never checked `dt` until `X56`. That asymmetry is the most uncomfortable line in this table, and it belongs in the
    methods section whatever `X56` returns.
 5. **A fix does not end the question** (Davis 2024 against Kojima & Ikegami 2023).
+
+---
+
+## Corpus status (31.10, end of day)
+
+The list above is now backed by a searchable corpus: full texts in `library/corpus/texts/`, manifest in
+`library/corpus/manifest.json`, search via `python scripts/lit_index.py --search "<query>"`.
+
+| status | count | which |
+|---|---|---|
+| read in full | **5** | Davis & Bongard 2022, Davis 2023, Davis 2024, Pilat et al. 2012, Huberman & Glance 1993 |
+| partial | **2** | Kojima & Ikegami 2023, Woolley 2022 |
+| downloaded, unread | **5** | Nowak et al. 1994, Taylor et al. 2014, Wilson et al. 2014, Sandve et al. 2013, Mitchell et al. 1993 |
+| verified, not in corpus | 10 | Theiler 1992, Rechtsteiner & Bedau 1999, Axtell et al. 1996, Oberkampf & Roy 2010, Naylor 1967, Morrison 2007, Parker 2008, Darius & Rojas 1994, Hintze 2019, Spector et al. 2025 |
+
+**A search that found nothing, and that is a result.** Query `"tracking identity components lifetime"` across the corpus
+returns only incidental hits (a MATLAB continuation package, a bifurcation argument). There is **no material in the
+corpus on tracking the identity of structures through time** — which is exactly the method behind our lifetimes
+(median 57 vs 4046 steps, `uid` inherited by overlap ≥ 0.5).
+
+So the honest position: our identity-tracking has **no precedent in what we have read**, and the denominator question
+(what threshold, what correction for snapshot density) is open. That is librarian task **L-044**, not something to
+improvise at midnight.
+
+**Same for L-042** (grid conventions) and **L-043** (component counting vs percolation): the corpus mentions
+discretisation and persistence, but not the specific convention we need.

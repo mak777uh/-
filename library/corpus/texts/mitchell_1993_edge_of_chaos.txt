@@ -1,0 +1,1726 @@
+Revisiting the Edge of Chaos/:
+Ev olving Cellular Automata to P erform
+Computations
+Melanie Mitc hell
+/1
+/, P eter T/. Hrab er
+/1
+/, and James P /. Crutc h/eld
+/2
+San ta F e Institute W orking P ap er /9/3/-/0/3/-/0/1/4
+/(Submitted to Complex Systems /)
+Abstract
+W e presen t results from an exp erimen t similar to one p erformed b y P ac k ard /[/2/3 /]/, in
+whic h a genetic algorithm is used to ev olv e cellular automata /(CA/) to p erform a particular
+computational task/. P ac k ard examined the frequency of ev olv ed CA rules as a function of
+Langton/'s / parameter /[/1/6 /]/, and in terpreted the results of his exp erimen t as giving evidence
+for the follo wing t w o h yp otheses/: /(/1/) CA rules able to p erform complex computations are
+most lik ely to b e found near /\critical/" / v alues/, whic h ha v e b een claimed to correlate with
+a phase transition b et w een ordered and c haotic b eha vioral regimes for CA/; /(/2/) When CA
+rules are ev olv ed to p erform a complex computation/, ev olution will tend to select rules with
+/ v alues close to the critical v alues/. Our exp erimen t pro duced v ery di/eren t results/, and
+w e suggest that the in terpretation of the original results is not correct/. W e also review and
+discuss issues related to / /, dynamical/-b eha vior classes/, and computation in CA/.
+The main constructiv e results of our study are iden tifying the emergence and comp etition
+of computational strategies and analyzing the cen tral role of symmetries in an ev olutionary
+system/. In particular/, w e demonstrate ho w symmetry breaking can imp ede the ev olution
+to w ard higher computational capabilit y /.
+/1
+San ta F e Institute/, /1/6/6/0 Old P ecos T rail/, Suite A/, San ta F e/, New Mexico/, U/.S/.A/. /8/7/5/0/1/.
+Email/: mm/@san tafe/.edu/, pth/@san tafe/.edu
+/2
+Ph ysics Departmen t/, Univ ersit y of California/, Berk eley /, CA/, U/.S/.A/. /9/4/7/2/0/.
+Email/: c haos/@go jira/.b erk eley /.edu
+/1
+
+/1/. In tro duction
+The notion of /\computation at the edge of c haos/" has gained considerable atten tion in the
+study of complex systems and arti/cial life /(e/.g/./, /[/3/, /4 /, /1/4/, /1/6 /, /2/3 /, /3/0 /]/)/. This notion is related
+to the broad question/, What is the relation b et w een a computational system/'s abilit y for
+complex information pro cessing and other measures of the system/'s b eha vior/? In particular/,
+do es the abilit y for non trivial computation require a system/'s dynamical b eha vior to b e /\near
+a transition to c haos/"/? There has also b een considerable atten tion giv en to the notion of
+/\the edge of c haos/" in the con text of ev olution/. In particular/, it has b een h yp othesized that
+when biological systems m ust p erform complex computation in order to surviv e/, the pro cess
+of ev olution under natural selection tends to select suc h systems near a phase transition from
+ordered to c haotic b eha vior /[/1/3/, /1/4/, /2/3 /]/.
+This pap er describ es a re/-examination of one study that addressed these questions in
+the con text of cellular automata /[/2/3/]/. The results of the original study w ere in terpreted
+as evidence that an ev olutionary pro cess in whic h cellular/-automata rules are selected to
+p erform a non trivial computation preferen tially selected rules near the transition to c haos/.
+W e sho w that this conclusion is neither supp orted b y our exp erimen tal results nor consisten t
+with basic mathematical prop erties of the computation b eing ev olv ed/. In the pro cess of
+this demonstration/, w e review and clarify notions relating to terms suc h as /\computation/"/,
+/\dynamical b eha vior/"/, and /\edge of c haos/" in the con text of cellular automata/.
+/2/. Cellular Automata and Dynamics
+Cellular automata /(CA/) are discrete spatially/-extended dynamical systems that ha v e b een
+studied extensiv ely as mo dels of ph ysical pro cesses and as computational devices /[/6 /, /1/0 /, /2/5/,
+/2/9 /, /3/1 /]/. In its simplest form/, a CA consists of a spatial lattice of c el ls /, eac h of whic h/, at time
+t /, can b e in one of K states/. W e denote the lattice size or n um b er of cells as L /. A CA has a
+single /xed rule used to up date eac h cell/; the rule maps from the states in a neigh b orho o d
+of cells/|e/.g/./, the states of a cell and its nearest neigh b ors/|to a single state/, whic h is the
+up date v alue for the cell in question/. The lattice starts out with some initial con/guration
+of lo cal states and/, at eac h time step/, the states of all cells in the lattice are sync hronously
+up dated/. In the follo wing w e will use the term /\state/" to refer to the v alue of a single
+cell/|e/.g/./, /0 or /1/|and /\con/guration/" to mean the pattern of states o v er the en tire lattice/.
+The CA w e will discuss in this pap er are all one/-dimensional with t w o p ossible states p er
+cell /(/0 and /1/)/. In a one/-dimensional CA/, the neigh b orho o d of a cell includes the cell itself
+and some n um b er of neigh b ors on either side of the cell/. The n um b er of neigh b ors on either
+side of the cen ter cell is referred to as the CA/'s r adius r /. All of the sim ulations will b e of CA
+with spatially p erio dic b oundary conditions /(i/.e/./, the one/-dimensional lattice is view ed as a
+circle/, with the righ t neigh b or of the righ tmost cell b eing the leftmost cell/, and vice v ersa/)/.
+The equations of motion for a CA are often expressed in the form of a rule table /. This is
+a lo ok/-up table listing eac h of the neigh b orho o d patterns and the state to whic h the cen tral
+cell in that neigh b orho o d is mapp ed/. F or example/, Figure /1 displa ys one p ossible rule table
+for an /\elemen tary/" one/-dimensional t w o/-state CA with radius r /= /1/. The left/-hand column
+giv es the /8 p ossible neigh b orho o d con/gurations/, and the states in the righ t/-hand column
+/2
+
+/0/0/0 /0
+/0/0/1 /0
+/0/1/0 /0
+/0/1/1 /1
+/1/0/0 /0
+/1/0/1 /1
+/1/1/0 /1
+/1/1/1 /1
+Figure /1/: Rule table for the /\elemen tary/"/|binary/-state/, nearest/-
+neigh b or/|CA with rule n um b er /2/3/2/. The /8 /= /2
+/3
+neigh b orho o d
+patterns are giv en in the left/-hand column/. F or eac h of these the
+righ t/-hand column giv es the /\output bit/"/, the cen ter cell/'s v alue at
+the next time step/.
+are referred to as the /\output bits/" of the rule table/. T o run the CA/, this lo ok/-up table is
+applied to eac h neigh b orho o d in the curren t lattice con/guration/, resp ecting the c hoice of
+b oundary conditions/, to pro duce the con/guration at the next time step/.
+A common metho d for examining the b eha vior of a t w o/-state one/-dimensional CA is to
+displa y its space/-time diagram/, a t w o/-dimensional picture that v ertically strings together the
+one/-dimensional CA lattice con/gurations at eac h successiv e time step/, with white squares
+corresp onding to cells in state /0/, and blac k squares corresp onding to cells in state /1/. Tw o
+suc h space/-time diagrams are displa y ed in Figure /2/. These sho w the actions of the Gacs/-
+Kurdyumo v/-Levin /(GKL/) binary/-state CA on t w o random initial con/gurations of di/eren t
+densities of /1/'s /[/5/, /7/]/. In b oth cases/, o v er time the CA relaxes to a /xed pattern/|in one
+case/, all /0/'s/, and in the other case/, all /1/'s/. These patterns are/, in fact/, /xed p oin ts of the
+GKL CA/. That is/, once reac hed/, further applications of the CA do not c hange the pattern/.
+The GKL CA will b e discussed further b elo w/.
+CA are of in terest as mo dels of ph ysical pro cesses b ecause/, lik e man y ph ysical systems/,
+they consist of a large n um b er of simple comp onen ts /(cells/) whic h are mo di/ed only b y
+lo cal in teractions/, but whic h acting together can pro duce global complex b eha vior/. Lik e
+the class of dissipativ e dynamical systems/, ev en the class of elemen tary one/-dimensional CA
+exhibit the full sp ectrum of dynamical b eha vior/: from /xed p oin ts/, as seen in Figure /2/, to
+limit cycles /(p erio dic b eha vior/) to unpredictable /(/\c haotic/"/) b eha vior/. W olfram considered
+a coarse classi/cation of CA b eha vior in terms of these categories/. He prop osed the follo wing
+four classes with the in ten tion of capturing all p ossible CA b eha vior /[/3/0 /]/:
+Class /1/: All initial con/gurations relax after a transien t p erio d to the same /xed
+con/guration /(e/.g/./, all /1/'s/)/.
+Class /2/: All initial con/gurations relax after a transien t p erio d to some /xed p oin t or
+some temp orally p erio dic cycle of con/gurations/, but whic h one dep ends on the initial
+con/guration/.
+Class /3/: Some initial con/gurations relax after a transien t p erio d to c haotic b eha vior/.
+/3
+
+0
+t
+148
+0 i 148
+0
+t
+148
+0 i 148
+(a) (b)
+Figure /2/: Tw o space/-time diagrams for the binary/-state Gacs/-
+Kurdyumo v/-Levin CA/. L /= /1/4/9 sites are sho wn ev olving/, with time
+increasing do wn the page/, from t w o di/eren t initial con/gurations o v er
+/1/4/9 time steps/. In /(a/) the initial con/guration has a densit y of /1/'s of
+appro ximately /0/./4/8/; in /(b/) a densit y of appro ximately /0/./5/2/. Notice
+that b y the last time step the CA has con v erged to a /xed pattern of
+/(a/) all /0/'s and /(b/) all /1/'s/. In this w a y the CA has classi/ed the initial
+con/gurations according to their densit y /.
+/(The term /\c haotic/" here and in the rest of this pap er refers to apparen tly unpredictable
+space/-time b eha vior/./)
+Class /4/: Some initial con/gurations result in complex lo calized structures/, sometimes
+long/-liv ed/.
+W olfram do es not state the requiremen ts for mem b ership in Class /4 an y more precisely than
+is giv en ab o v e/. Th us/, unlik e the categories deriv ed from dynamical systems theory /, Class /4
+is not rigorously de/ned/.
+It should b e p oin ted out that on /nite lattices/, there is only a /nite n um b er /(/2
+L
+/) of
+p ossible con/gurations/, so all rules ultimately lead to p erio dic b eha vior/. Class /2 refers not
+to this t yp e of p erio dic b eha vior but rather to cycles with p erio ds m uc h shorter than /2
+L
+/.
+/3/. Cellular Automata and Computation
+CA are also of in terest as computational devices/, b oth as theoretical to ols and as practical
+highly e/cien t parallel mac hines /[/2/5/, /2/6/, /2/9 /, /3/1 /]/.
+/\Computation/" in the con text of CA has sev eral p ossible meanings/. The most common
+meaning is that the CA do es some /\useful/" computational task/. Here/, the rule is in terpreted
+as the /\program/"/, the initial con/guration is in terpreted as the /\input/"/, and the CA runs
+for some sp eci/ed n um b er of time steps or un til it reac hes some /\goal/" pattern/|p ossibly a
+/4
+
+/xed p oin t pattern/. The /nal pattern is in terpreted as the /\output/"/. An example of this is
+using CA to p erform image/-pro cessing tasks /[/2/6 /]/.
+A second meaning of computation in CA is for a CA/, giv en certain sp ecial initial con/-
+/gurations/, to b e capable of univ ersal computation/. That is/, the CA can/, giv en the righ t
+initial con/guration/, sim ulate a programmable computer/, complete with logical gates/, timing
+devices/, and so on/. Con w a y/'s Game of Life /[/1/] is suc h a CA/; one construction for univ er/-
+sal computation in the Game of Life is giv en in /[/1/]/. Similar constructions ha v e b een made
+for one/-dimensional CA /[/2/0/]/. W olfram sp eculated that all Class /4 rules ha v e the capacit y
+for univ ersal computation /[/3/0/]/. Ho w ev er/, giv en the informalit y of the de/nition of Class /4/,
+not to men tion the di/cult y of pro ving that a giv en rule is or is not capable of univ ersal
+computation/, this h yp othesis is imp ossible to v erify /.
+A third meaning of computation in CA in v olv es in terpreting the b eha vior of a giv en CA on
+an ensem ble of initial con/gurations as a kind of /\in trinsic/" computation/. Here computation
+is not in terpreted as the p erformance of a /\useful/" transformation of the input to pro duce
+the output/. Rather/, it is measured in terms of generic/, structural computational elemen ts
+suc h as memory /, information pro duction/, information transfer/, logical op erations/, and so on/.
+It is imp ortan t to emphasize that the measuremen t of suc h in trinsic computational elemen ts
+do es not rely on a seman tics of utilit y as do the preceding computation t yp es/. That is/,
+these elemen ts can b e detected and quan ti/ed without reference to an y sp eci/c /\useful/"
+computation p erformed b y the CA/|suc h as enhancing edges in an image or computing
+the digits of / /. This notion of in trinsic computation is cen tral to the w ork of Crutc h/eld/,
+Hanson/, and Y oung /[/3/, /1/1 /]/.
+Generally /, CA ha v e b oth the capacit y for all kinds of dynamical b eha viors and the ca/-
+pacit y for all kinds of computational b eha viors/. F or these reasons/, in addition to the compu/-
+tational ease of sim ulating them/, CA ha v e b een considered a go o d class of mo dels to use in
+studying ho w dynamical b eha vior and computational abilit y are related/. Similar questions
+ha v e also b een addressed in the con text of other dynamical systems/, including con tin uous/-
+state dynamical systems suc h as iterated maps and di/eren tial equations /[/3/, /4/]/, Bo olean
+net w orks /[/1/3 /]/, and recurren t neural net w orks /[/2/4/]/. Here w e will con/ne our discussion to CA/.
+With this bac kground/, w e can no w rephrase the broad questions presen ted in Section /1
+in the con text of CA/:
+/ What prop erties m ust a CA ha v e for non trivial computation/?
+/ In particular/, do es a capacit y for non trivial computation/, in an y of the three senses
+describ ed ab o v e/, require a CA to b e near a transition from ordered to c haotic b eha vior/?
+/ When CA rules are ev olv ed to p erform a non trivial computation/, will ev olution tend
+to select rules near suc h a transition to c haos/?
+/4/. Structure of CA Rule Space
+Ov er the last decade there ha v e b een a n um b er of studies addressing the /rst question ab o v e/.
+Here w e fo cus on Langton/'s empirical in v estigations of the second question in terms of the
+/5
+
+structure of the space of CA rules /[/1/6/]/. The relationship of the /rst t w o questions to the
+third/|ev olving CA/|will b e describ ed subsequen tly /.
+One of the ma jor di/culties in understanding the structure of the space of CA rules
+and its relation to computational capabilit y is its discrete nature/. In con trast to the w ell/-
+dev elop ed theory of bifurcations for con tin uous/-state dynamical systems/[/9 /]/, there app ears to
+b e little or no geometry in CA space and there is no notion of smo othly c hanging one CA to
+get another /\nearb y in b eha vior/"/. In an attempt to em ulate this/, ho w ev er/, Langton de/ned
+a parameter / that v aries incremen tall y as single output bits are turned on or o/ in a giv en
+rule table/. F or a giv en CA rule table/, / is computed as follo ws/. F or a K /-state CA/, one state
+q is c hosen arbitrarily to b e /\quiescen t/"/.
+/3
+The / of a giv en CA rule is then the fraction of
+non/-quiescen t output states in the rule table/. F or a binary/-state CA/, if /0 is c hosen to b e the
+quiescen t state/, then / is simply the fraction of output /1 bits in the rule table/. T ypically
+there are man y CA rules with a giv en / v alue/. F or a binary CA/, the n um b er is strongly
+p eak ed at / /= /1 /= /2/, due to the com binatorial dep endence on the radius r and the n um b er of
+states K /. It is also symmetric ab out / /= /1 /= /2/, due to the symmetry of exc hanging /0/'s and
+/1/'s/. Generally /, as / is increased from /0 to /[/1 /BnZr /1 /=K /]/, the CA mo v e from ha ving the most
+homogeneous rule tables to ha ving the most heterogeneous/.
+Langton p erformed a range of Mon te Carlo samples of t w o/-dimensional CA in an attempt
+to c haracterize their a v erage b eha vior as a function of / /[/1/6 /]/. The notion of /\a v erage b e/-
+ha vior/" w as in tended to capture the most lik ely b eha vior observ ed with a randomly c hosen
+initial con/guration for CA randomly selected in a /xed/- / subspace/. The observ ation w as
+that as / is incremen ted from /0 to /[/1 /BnZr /1 /=K /] the a v erage b eha vior of rules passes through
+the follo wing regimes/:
+/xed p oin t /) p erio dic /) /\complex/" /) c haotic/.
+That is/, according to Figure /1/6 in /[/1/6/]/, for example/, the a v erage b eha vior at lo w / is for a
+rule to relax to a /xed p oin t after a relativ ely short transien t phase/. As / is increased/, rules
+tend to relax to p erio dic patterns/, again after a relativ ely short transien t phase/. As / reac hes
+a /\critical v alue/" /
+c
+/, rules tend to ha v e longer and longer transien t phases/. Additionally /,
+the b eha vior in this regime exhibits long/-liv ed/, /\complex/"/|non/-p erio dic/, but non/-random/|
+patterns/. As / is increased further/, the a v erage transien t length decreases/, and rules tend
+to relax to apparen tly random space/-time patterns/. The actual v alue of /
+c
+dep ends on r /, K
+and the actual path of CA found as / is incremen ted/.
+These four b eha vioral regimes roughly corresp ond to W olfram/'s four classes/. Langton/'s
+claim is that/, as / is increased from /0 to /[/1 /BnZr /1 /=K /]/, the classes are passed through in the
+order /1/, /2/, /4/, /3/. He notes that as / is increased/, /\/././.one observ es a phase tr ansition b et w een
+highly or der e d and highly disor der e d dynamics/, analogous to the phase transition b et w een
+the solid and /
+uid states of matter/./" /(/[/1/6/]/, p/. /1/3/./)
+According to Langton/, as / is increased from /[/1 /BnZr /1 /=K /] to /1/, the four regimes o ccur in the
+rev erse order/, sub ject to some constrain ts for K /> /2 /[/1/6/]/. F or t w o/-state CA/, since b eha vior
+is necessarily symmetric ab out / /= /1 /= /2/, there are t w o v alues of /
+c
+at whic h the complex
+regime o ccurs/.
+/3
+In /[/1/6 /] all states ob ey ed a /\strong quiescence/" requiremen t/. F or an y state s /2 f /0 /; /:/:/:/; K /BnZr /1 g /, the
+neigh b orho o d consisting en tirely of state s m ust map to s /.
+/6
+
+0.0 1.0 λ
+γ
+Figure /3/: A graph of the a v erage di/erence/-pattern spreading rate /
+
+of a large n um b er of randomly c hosen r /= /3 /; K /= /2 CA/, as a function
+of / /. Adapted from /[/2/3 /]/, with p ermission of the author/. No v ertical
+scale w as pro vided there/.
+Ho w is /
+c
+determined/? F ollo wing standard practice Langton used v arious statistics suc h
+as single/-site en trop y /, t w o/-site m utual information/, and transien t length to classify CA b e/-
+ha vior/. The additional step w as to correlate b eha vior with / via these statistics/. Langton/'s
+Mon te Carlo samples sho w ed there w as some correlation b et w een the statistics and / /. But
+the a v eraged statistics did not rev eal a sharp transition in a v erage b eha vior/, a basic prop/-
+ert y of a phase transition in whic h macroscopic highly/-a v eraged quan tities do mak e mark ed
+c hanges/. W e note that W o otters and Langton ga v e evidence that in the limit of an increasing
+n um b er of states the transition region narro ws /[/3/2/]/. The main result indicates that in one
+class of t w o/-dimensional in/nite/-state sto c hastic cellular automata there is a sharp transition
+in single/-site en trop y at /
+c
+/ /0 /: /2/7/.
+The existence of a critical / and the dep endence of the critical region/'s width on r and
+K is less clear for /nite/-state CA/. Nonetheless/, P ac k ard empirically determined rough v alues
+of /
+c
+for r /= /3 /; K /= /2 CA b y lo oking at the di/er enc e/-p attern spr e ading r ate /
+ as a function
+of / /[/2/3/]/. The spreading rate /
+ is a measure of unpredictabilit y in spatio/-temp oral patterns
+and so is one p ossible measure of c haotic b eha vior /[/2/1/, /3/0 /]/. It is analogous to/, but not the
+same as/, the Ly apuno v exp onen t for con tin uous/-state dynamical systems/. In the case of CA
+it indicates the a v erage propagation sp eed of information through space/-time/, though not
+the rate of pro duction of lo cal information/.
+A t eac h / a large n um b er of rules w as sampled and for eac h CA /
+ w as estimated/. The
+a v erage /
+ o v er the selected CA w as tak en as the a v erage spreading rate at the giv en / /. The
+results are repro duced in Figure /3/. As can b e seen/, at lo w and high / /'s/, /
+ v anishes/; at
+in termediate / it is maximal /, and in the /\critical/" / regions/|cen tered ab out / / /0 /: /2/5 and
+/ / /0 /: /8/0/|it rises or falls gradually /.
+While not sho wn in Figure /3/, for most / v alues /
+ /'s v ariance is high/. The same is true
+for single/-site en trop y and t w o/-site m utual information as a function of / /[/1/6/]/. That is/, the
+b eha vior of an y p articular rule at a giv en / migh t b e v ery di/eren t from the aver age b eha vior
+/7
+
+at that v alue/. Th us/, the in terpretations of these a v erages is somewhat problematic/. This
+recoun ting of the b eha vioral structure of CA rule space as parameterized b y / is based on
+statistics tak en from Langton/'s and P ac k ard/'s Mon te Carlo sim ulations/. V arious problems
+in correlating / with b eha vior will b e discussed in Section /8/. A detailed analysis of some of
+these problems can b e found in /[/2/]/. Other w ork on in v estigating the structure of CA rule
+space is rep orted in /[/1/8/, /1/9 /]/.
+The claim in /[/1/6/] is that / predicts dynamical b eha vior w ell only when the space of rules
+is large enough/. Apparen tly /, / is not in tended to b e a go o d b eha vioral predictor for the
+space of elemen tary CA rules/| r /= /1/, K /= /2/|and p ossibly r /= /3 /; K /= /2 rules as w ell/.
+/5/. CA Rule Space and Computation
+Langton h yp othesizes that a CA/'s computational capabilit y is related to its a v erage dynam/-
+ical b eha vior/, whic h / is claimed to predict /[/1/6 /]/. In particular/, he h yp othesizes that CA
+capable of p erforming non trivial computation/|including univ ersal computation/|are most
+lik ely to b e found in the vicinit y of /\phase transitions/" b et w een order and c haos/, that is/, near
+/
+c
+v alues/. The h yp othesis relies on a basic observ ation of computation theory /, that an y form
+of computation requires memory/| inform ation storage/|and comm unication/|inform ation
+transmission and in teraction b et w een stored and transmitted information/. Ab o v e and b e/-
+y ond these prop erties/, though/, univ ersal computation requires memory and comm unication
+o v er arbitrary distances in time and space/. Th us complex computation requires signi/can tly
+long transien ts and space/-time correlation lengths/; in the case of univ ersal computation/,
+arbitrarily long transien ts and correlations are required/. Langton/'s claim is that these phe/-
+nomena are most lik ely to b e seen near /
+c
+v alues/|near /\phase transitions/" b et w een order
+and c haos/. This in tuition is b ehind Langton/'s notion of /\computation at the edge of c haos/"
+for CA/.
+/4
+/6/. Ev olving CA
+The empirical studies describ ed ab o v e addressed only the relationship b et w een / and the
+dynamical b eha vior of CA/|as rev ealed b y sev eral statistics/. Those studies did not correlate
+/ or b eha vior with an indep enden t measure of computation/. P ac k ard /[/2/3 /] addressed this
+issue b y using a genetic algorithm /(GA/) /[/8/, /1/2 /] to ev olv e CA rules to p erform a particular
+computation/. This exp erimen t w as mean t to test t w o h yp otheses/: /(/1/) CA rules able to
+p erform complex computations are most lik ely to b e found near /
+c
+v alues/; and /(/2/) When
+CA rules are ev olv ed to p erform a complex computation/, ev olution will tend to select rules
+near /
+c
+v alues/.
+/6/./1 The Computational T ask and an Example CA
+The original exp erimen t consisted of ev olving t w o/-state/| s /2 f /0 /; /1 g /|one/-dimensional CA
+with r /= /3/. That is/, the neigh b orho o d of a cell consists of itself and its three neigh b ors
+/4
+This should b e con trasted with the analysis of computation at the onset of c haos in /[/3 /, /4 /] and/, in
+particular/, with the discussion of the structure of CA space there/.
+/8
+
+on eac h side/. The computational task for the CA is to decide whether or not the initial
+con/guration con tains more than half /1/'s/. If the initial con/guration con tains more than
+half /1/'s/, the desired b eha vior is for the CA/, after some n um b er of time steps/, to relax to
+a /xed/-p oin t pattern of all /1/'s/. If the initial con/guration con tains less than half /1/'s/, the
+desired b eha vior is for the CA/, after some n um b er of time steps/, to relax to a /xed/-p oin t
+pattern of all /0/'s/. If the initial con/guration con tains exactly half /1/'s/, then the desired
+b eha vior is unde/ned/. This can b e a v oided in practice b y requiring the CA lattice to b e of
+o dd length/. Th us the desired CA has only t w o in v arian t patterns/, either all /1/'s or all /0/'s/. In
+the follo wing w e will denote the densit y of /1/'s in a lattice con/guration b y / /, the densit y of
+/1/'s in the con/guration at time t b y / /( t /)/, and the threshold densit y for classi/cation b y /
+c
+/.
+Do es the /
+c
+/= /1 /= /2 classi/cation task coun t as a /\non trivial/" computation for a small/-
+radius /( r / L /) CA/? Though this term w as not rigorously de/ned in /[/1/6/] or /[/2/3/]/, one p ossible
+de/nition migh t b e an y computation for whic h the memory requiremen t increases with L
+/(i/.e/./, an y computation whic h corresp onds to the recognition of a non/-regular language/) and
+in whic h information m ust b e transmitted o v er signi/can t space/-time distances /(on the order
+of L /)/. Under this de/nition the /
+c
+/= /1 /= /2 classi/cation task can b e though t of as a non trivial
+computation for a small radius CA/. The e/ectiv e minim um amoun t of memory is prop ortional
+to l og /( L /) since the equiv alen t of a coun ter register is required to trac k the excess of /1/'s in a
+serial scan of the initial pattern/. And since the /1/'s can b e distributed throughout the lattice/,
+information transfer o v er long space/-time distances m ust o ccur/. This is supp orted in a CA
+b y the non/-lo cal in teractions among man y di/eren t neigh b orho o ds after some p erio d of time/.
+P ac k ard cited a K /= /2 /; r /= /3 rule constructed b y Gacs/, Kurdyumo v/, and Levin /[/5/, /7/]/,
+whic h purp ortedly p erforms this task/. The Gacs/-Kurdyumo v/-Levin /(GKL/) CA is de/ned b y
+the follo wing rule/:
+If s
+i
+/( t /) /= /0/, then s
+i
+/( t /+ /1/) /= ma jorit y /[ s
+i
+/( t /)/, s
+i /BnZr /1
+/( t /)/, s
+i /BnZr /3
+/( t /)/]/;
+If s
+i
+/( t /) /= /1/, then s
+i
+/( t /+ /1/) /= ma jorit y /[ s
+i
+/( t /)/, s
+i /+/1
+/( t /)/, s
+i /+/3
+/( t /)/]/;
+where s
+i
+/( t /) is the state of site i at time t /.
+In w ords/, this rule sa ys that for eac h neigh b orho o d of sev en adjacen t cells/, if the state
+of the cen tral cell is /0/, then its new state is decided b y a ma jorit y v ote among itself/, its left
+neigh b or/, and the cell t w o cells to the left a w a y /. Lik ewise/, if the state of the cen tral cell is
+/1/, then its new state is decided b y a ma jorit y v ote among itself/, its righ t neigh b or/, and the
+cell t w o cells to the righ t a w a y /.
+Figure /2 giv es space/-time diagrams for the action of the GKL rule on an initial con/gu/-
+ration with / /< /
+c
+and on an initial con/guration with / /> /
+c
+/. It can b e seen that/, although
+the CA ev en tually con v erges to a /xed p oin t/, there is a transien t phase during whic h a spa/-
+tial and temp oral transfer of information ab out lo cal neigh b orho o ds tak es place/, and this
+lo cal information in teracts with other lo cal information to pro duce the desired /nal state/.
+V ery crudely /, the GKL CA successiv ely classi/es /\lo cal/" densities with the lo calit y range
+increasing with time/. In regions where there is some am biguit y /, a /\signal/" is propagated/.
+This is seen either as a c hec k erb oard pattern propagated in b oth spatial directions or as
+a v ertical white/-to/-blac k b oundary /. These signals indicate that the classi/cation is to b e
+made at a larger scale/. Note that b oth signals lo cally ha v e / /= /
+c
+/; the result is that the
+/9
+
+signal patterns can propagate/, since the densit y of patterns with / /= /
+c
+is not increased or
+decreased under the rule/. In a simple sense/, this is the CA/'s /\strategy/" for p erforming the
+computational task/.
+It has b een claimed that the GKL CA p erforms the /
+c
+/= /1 /= /2 task /[/1/7/]/, but actually this is
+true only to an appro ximation/. The GKL rule w as in v en ted not for the purp ose of p erforming
+an y particular computational task/, but rather as part of studies of reliable computation and
+phase transitions in one spatial dimension/. The goal in the former/, for example/, w as to
+/nd a CA whose b eha vior is robust to small errors in the rule/'s up date of the con/guration/.
+It has b een pro v ed that the GKL rule has only t w o attracting patterns/, either all /1/'s or
+all /0/'s /[/5/]/. A ttracting patterns here are those in v arian t patterns whic h/, when p erturb ed
+a small amoun t/, return to the same pattern/. It turns out that the basins of attraction
+for the all/-/1 and all/-/0 patterns are not precisely the initial con/gurations with / /> /1 /= /2 or
+/ /< /1 /= /2/, resp ectiv ely /.
+/5
+On /nite lattices the GKL rule do es classify most initial con/gurations
+according to this criterion/, but on a signi/can t n um b er the /\incorrect/" attractor is reac hed/.
+One set of exp erimen tal measures of the GKL CA/'s classi/cation p erformance is displa y ed
+in Figure /4/. T o mak e this plot/, w e ran the GKL CA on /5/0/0 randomly generated initial
+con/gurations at eac h of /1/9 densities / /2 /[/0 /: /0 /; /1 /: /0/]/. The fraction of correct classi/cations
+w as then plotted at eac h / /. The rule w as run either un til a /xed p oin t w as reac hed or for a
+maxim um n um b er of time steps equal to /1/0 / L /. This w as done for CA with three di/eren t
+lattice sizes/: L /2 f /1/4/9 /; /5/9/9 /; /9/9/9 g /.
+Note that appro ximately /2/0/% of the initial con/gurations with / /= /
+c
+w ere misclassi/ed/.
+All the incorrect classi/cations are made for initial con/gurations with / / /
+c
+/. In fact/, the
+w orst p erformances o ccur at / /= /
+c
+/. In terestingly /, although the error region narro ws with
+increasing lattice size/, the p erformance at / /= /
+c
+decreases when the lattice size is increased
+from /1/4/9 to /5/9/9/.
+The GKL rule table has / /= /1 /= /2/, not / /= /
+c
+/. Since it app ears to p erform a computational
+task of some complexit y /, at a minim um it is a deviation from the /\edge of c haos/" h yp othesis
+for CA computation/. The GKL rule/'s / /= /1 /= /2 puts it righ t at the cen ter of the /\c haotic/"
+region in Figure /3/. This ma y b e puzzling/, since clearly the GKL rule do es not pro duce c haotic
+b eha vior during either its transien t or asymptotic ep o c hs/|far from it/, in fact/. Ho w ev er/, the
+/ parameter w as in tended to correlate with /\a v erage/" b eha vior of CA rules at a giv en /
+v alue/. Recall that /
+ in Figure /3 represen t an aver age o v er a large n um b er of randomly
+c hosen CA rules and/, while not sho wn in that plot/, for most / v alues the v ariance in /
+ is
+high/. Th us/, it can b e claimed that the b eha vior of an y p articular rule at its / v alue migh t
+b e v ery di/eren t from the aver age b eha vior at that v alue/.
+More to the p oin t/, though/, w e exp ect a / v alue close to /0/./5 for a rule that p erforms w ell on
+the /
+c
+/= /1 /= /2 task/. This is largely b ecause the task is symmetri c with resp ect to the exc hange
+of /1/'s and /0/'s/. Supp ose/, for example/, a rule that carries out the /
+c
+/= /1 /= /2 task has / /< /1 /= /2/.
+This implies that there are more neigh b orho o ds in the rule table that map to output bit
+/0 than to output bit /1/. This/, in turn/, means that there will b e some initial con/gurations
+with / /> /
+c
+on whic h the action of the rule will de cr e ase the n um b er of /1/'s/. And this is the
+/5
+The terms /\attractor/" and /\basin of attraction/" are b eing used here in the sense of /[/5 /] and /[/1/1 /]/. This
+di/ers substan tially from the notion used in /[/3/3 /]/, for example/. There /\attractor/" refers to an y in v arian t or
+time/-p erio dic pattern/, and /\basin of attraction/" means that set of /nite lattice con/gurations relaxing to it/.
+/1/0
+
+0 0.25 0.5 0.75 1
+ρ
+0
+0.25
+0.5
+0.75
+1
+fraction of correct classifications
+149 cell lattice
+599 cell lattice
+999 cell lattice
+Figure /4/: Exp erimen tal p erformance of the GKL rule as a function
+of / /(/0/) for the /
+c
+/= /1 /= /2 task/. P erformance plots are giv en for three
+lattice sizes/: L /= /1/4/9 /(the size of the lattice used in the GA runs/)/,
+/5/9/9/, and /9/9/9/.
+opp osite of the desired action/. Ho w ev er/, if the rule acts to de cr e ase the n um b er of /1/'s on
+an initial con/guration with / /> /
+c
+/, it risks pro ducing an in termediate con/guration with
+/ /< /
+c
+/, whic h then w ould lead /(under the original assumption that the rule carries out the
+task correctly/) to a /xed p oin t of all /0/'s/, misclassifying the initial con/guration/. A similar
+argumen t holds in the other direction if the rule/'s / v alue is greater than /1 /= /2/. This informal
+argumen t sho ws that a rule with / /6/= /1 /= /2 will misclassify certain initial con/gurations/.
+Generally /, the further a w a y the rule is from / /= /1 /= /2/, the more suc h initial con/gurations
+there will b e/. Suc h rules ma y p erform fairly w ell/, classifying most initial con/gurations
+correctly /. Ho w ev er/, w e exp ect an y rule that p erforms reasonably w ell on this task/|in the
+sense of b eing close to the GKL CA/'s a v erage p erformance sho wn in Figure /4/|to ha v e a /
+v alue close to /1 /= /2/.
+This analysis p oin ts to a problem with using this task as an ev olutionary goal in order
+to study the relationship among ev olution/, computation/, and / /. As w as sho wn in Figure /3/,
+for r /= /3 /; K /= /2 CA the /
+c
+v alues o ccur at roughly /0/./2/5 and /0/./8/0/, and one h yp othesis
+that w as to b e tested b y the original exp erimen t is that the GA will tend to select rules
+close to these /
+c
+v alues/. But for the / /-classi/cation tasks/, the range of / v alues required for
+go o d p erformance is simply a function of the task and/, sp eci/cally /, of /
+c
+/. F or example/, the
+underlying /0/-/1 exc hange symmetry of the /
+c
+/= /1 /= /2 task implies that if a CA exists to do
+the task at an acceptable p erformance lev el/, then it has / / /1 /= /2/. Ev en though this do es not
+directly in v alidate the adaptation h yp othesis or claims ab out / /'s correlation with aver age
+b eha vior/, it presen ts problems with using / /-classi/cation tasks as a w a y to gain evidence
+ab out a generic relation b et w een / and computational capabilit y /.
+/1/1
+
+/6/./2 The Original Exp erime n t
+P ac k ard used a GA to ev olv e CA rules to p erform the /
+c
+/= /1 /= /2 task/. His GA started out
+with a randomly generated initial p opulation of CA rules/. Eac h rule w as represen ted as a bit
+string con taining the output bits of the rule table/. That is/, the bit at p osition /0 in the string
+is the state to whic h the neigh b orho o d /0/0/0/0/0/0/0 is mapp ed/, the bit at p osition /1 in the string
+is the state to whic h the neigh b orho o d /0/0/0/0/0/0/1 is mapp ed/, and so on/. The initial p opulation
+w as randomly generated but it w as constrained to b e uniformly distributed across / v alues
+b et w een /0/./0 and /1/./0/.
+A giv en rule in the p opulation w as ev aluated for abilit y to p erform the classi/cation task
+b y c ho osing an initial con/guration at random/, running the CA on that initial con/guration
+for some sp eci/ed n um b er of time steps/, and at the /nal time step measuring the fraction
+of cells in the lattice that ha v e the correct state/. F or initial con/gurations with / /> /
+c
+/, the
+correct /nal state for eac h cell is /1/, and for initial con/gurations with / /< /
+c
+/, the correct
+/nal state for eac h cell is /0/. F or example/, if the CA w ere run on an initial con/guration with
+/ /> /
+c
+and at the /nal time step the lattice con tained /9/0/% /1/'s/, the CA/'s score on that initial
+con/guration w ould b e /0/./9/.
+/6
+The /tness of a rule w as simply the rule/'s a v erage score o v er a
+large n um b er of initial con/gurations/. F or eac h rule in the p opulation/, P ac k ard generated a
+large set of initial con/gurations that w ere uniformly distributed across / v alues from /0 to
+/1/.
+P ac k ard/'s GA w ork ed as follo ws/. A t eac h generation/:
+/1/. The /tness of eac h rule in the p opulation is calculated/.
+/2/. The p opulation is rank ed b y /tness/.
+/3/. Some fraction of the lo w est /tness rules are remo v ed/.
+/4/. The remo v ed rules are replaced b y new rules formed b y crosso v er and m utation from
+the remaining rules/.
+Crosso v er b et w een t w o strings in v olv es randomly selecting a p osition in the strings at random
+and exc hanging parts of the strings b efore and after that p osition/. Mutation in v olv es /
+ipping
+one or more bits in a string/, with some lo w probabilit y /.
+A div ersit y/-enforcem en t sc heme w as also used to prev en t the p opulation from con v erging
+to o early and losing div ersit y /[/2/2 /]/. If a rule is formed that is to o close in Hamming distance
+/(i/.e/./, the n um b er of matc hing bits/) to existing rules in the p opulation/, its /tness is decreased/.
+The results from P ac k ard/'s exp erimen t are displa y ed in Figure /5/. The t w o histograms
+displa y the observ ed frequency of rules in the GA p opulation as a function of / /, with rules
+merged from a n um b er of di/eren t runs/. The top graph giv es this data for the initial
+/6
+A sligh t v ariation on this metho d w as used in /[/2/3 /]/. Instead of measuring the fraction of correct states in
+the /nal lattice/, the GA measured the fraction of correct states o v er con/gurations from a small n um b er n
+of /nal time steps /[/2/2 /]/. This prev en ted the GA from ev olving rules that w ere temp orally p erio dic/; viz/. those
+with patterns that alternated b et w een all /0/'s and all /1/'s/. Suc h rules obtained higher than a v erage /tness at
+early generations b y often landing at the /\correct/" phase of the oscillation for a giv en initial con/guration/.
+That is/, on the next time step the classi/cation w ould ha v e b een incorrect/. In our exp erimen ts w e used a
+sligh tly di/eren t metho d to address this problem/. This is explained in subsection /7/./1/.
+/1/2
+
+Prob(rule)Prob(rule)
+0.0 1.0 λ
+γ
+Figure /5/: Results from the original exp erimen t on GA ev olution of
+CA for the /
+c
+/= /1 /= /2 classi/cation task/. The top t w o /gures are
+p opulations of CA at generations /0 and /1/0/0/, resp ectiv ely /, v ersus / /.
+The b ottom /gure is Figure /3/, repro duced here for reference/. Adapted
+from /[/2/3 /]/, with p ermission of the author/.
+/1/3
+
+generation/. As can b e seen/, the rules are uniformly distributed o v er / v alues/. The middle
+graph giv es the same data for the /nal generation/|in this case/, after the GA has run for /1/0/0
+generations/. The rules no w cluster around the t w o /
+c
+regions/, as can b e seen b y comparison
+with the di/erence/-pattern spreading rate plot/, reprin ted here at the b ottom of the /gure/.
+Note that eac h individual run pro duced rules at one or the other p eak in the middle graph/,
+so when the runs w ere merged together/, b oth p eaks app ear /[/2/2 /]/. P ac k ard in terpreted these
+results as evidence for the h yp othesis that/, when an abilit y for complex computation is
+required/, ev olution tends to select rules near the transition to c haos/. He argues/, lik e Langton/,
+that this result in tuitiv ely mak es sense b ecause /\rules near the transition to c haos ha v e the
+capabilit y to selectiv ely comm unic ate information with complex structures in space/-time/,
+th us enabling computation/./" /(/[/2/3 /]/, p/. /8/)/.
+/7/. New Exp erimen ts
+As the /rst step in a study of ho w w ell these general conclusions hold up/, w e carried out a set
+of exp erimen ts similar to that just describ ed/. W e w ere unable to obtain some of the exact
+details of the original exp erimen t/'s parameters/, suc h as the exact p opulation size for the
+GA/, the m utation rate/, and so on/. As a result/, w e used what w e felt w ere reasonable v alues
+for these v arious parameters/. W e carried out a n um b er of parameter sensitivit y tests whic h
+indicated that v arying the parameters within small b ounds did not c hange our qualitativ e
+results/.
+/7/./1 Details of Our Exp erime n ts
+In our exp erimen ts/, as in the original/, the CA rules in the p opulation all ha v e r /= /3 and
+K /= /2/. Th us the bit strings represen ting the rules are of length /2
+/2 r /+/1
+/= /1/2/8 and the
+size of the searc h space is h uge/|the n um b er of p ossible CA rules is /= /2
+/1/2/8
+/. The tests
+for eac h CA rule are carried out on lattices of length L /= /1/4/9 with p erio dic b oundary
+conditions/. The p opulation size is /1/0/0/, whic h w as roughly the p opulation size used in the
+original exp erimen t /[/2/2 /]/. The initial p opulation is generated at random/, but constrained to
+b e uniformly distributed among di/eren t / v alues/. A rule/'s /tness is estimated b y running
+the rule on /3/0/0 randomly generated initial con/gurations that are uniformly distributed o v er
+/ /2 /[/0 /: /0 /; /1 /: /0/]/. Exactly half the initial con/gurations ha v e / /< /
+c
+and exactly half ha v e
+/ /> /
+c
+/.
+/7
+W e allo w eac h rule to run for a maxim um n um b er M of iterations/, where a new M
+is selected for eac h rule from a P oisson distribution with mean /3/2/0/. This is the measured
+maxim um amoun t of time for the GKL CA to reac h an in v arian t pattern o v er a large n um b er
+/7
+It w as necessary to ha v e this exact symmetry in the initial con/gurations at eac h generation to a v oid
+early biases in the / of selected rules/. If/, sa y /, /4/9/% of the initial con/gurations ha v e / /< /
+c
+and /5/1/% of initial
+con/gurations ha v e / /> /
+c
+/, high / rules w ould obtain sligh tly higher /tness than lo w / rules since high /
+rules will map most initial con/gurations to all /1/'s/. A rule with/, sa y /, / / /1 w ould in this case classify /5/1/%
+of the initial con/gurations correctly whereas a rule with / / /0 w ould classify only /4/9/% correctly /. But suc h
+sligh t di/erences in /tness ha v e a large e/ect in the initial generation/, when all rules ha v e /tness close to
+/0/./5/, since the GA selects the /5/0 b est rules/, ev en if they are only v ery sligh tly b etter than the /5/0 worst rules/.
+This biases the represen tativ e rules in the early p opulation/. And this bias can p ersist w ell in to the later
+generations/.
+/1/4
+
+of initial con/gurations on lattice size /1/4/9/.
+/8
+A rule/'s /tness is its a v erage score/|the fraction
+of cell states correct at the last iteration/|o v er the /3/0/0 initial con/gurations/. W e term this
+/tness function pr op ortional /tness to con trast with a second /tness function/| p erformanc e
+/tness /|whic h will b e describ ed b elo w/. A new set of /3/0/0 initial con/gurations is generated
+ev ery generation/. A t eac h generation/, all the rules in the p opulation are tested on this set/.
+Notice that this /tness function is sto c hastic/|the /tness of a giv en rule ma y v ary from
+generation to generation dep ending on the set of /3/0/0 initial con/gurations used in testing it/.
+Our GA is similar to P ac k ard/'s/. In our GA/, the fraction of new strings in the next
+generation/|the /\generation gap/"/|is /0/./5/. That is/, once the p opulation is ordered according
+to /tness/, the top half of the p opulation/, the set of /\elite/" strings/, is copied without mo di/-
+/cation in to the next generation/. F or GA practitioners more familiar with nono v erlapping
+generations/, this ma y sound lik e a small generation gap/. Ho w ev er/, since testing a rule on
+/3/0/0 /\training cases/" do es not necessarily pro vide a v ery reliable gauge of what the /tness
+w ould b e o v er a larger set of training cases/, our selected gap is a go o d w a y of making a /\/rst
+cut/" and allo wing rules that surviv e to b e tested o v er more initial con/gurations/. Since a
+new set of initial con/gurations is pro duced ev ery generation/, rules that are copied without
+mo di/cation are alw a ys retested on this new set/. If a rule p erforms w ell and th us surviv es
+o v er a large n um b er of generations/, then it is lik ely to b e a gen uinely b etter rule than those
+that are not selected/, since it has b een tested with a large set of initial con/gurations/. An
+alternativ e metho d w ould b e to test ev ery rule in ev ery generation on a m uc h larger set of
+initial con/gurations/, but giv en the amoun t of compute time in v olv ed/, that metho d seems
+unnecessarily w asteful/. Muc h to o m uc h e/ort/, for example/, w ould go in to testing v ery w eak
+rules/, whic h can safely b e w eeded out early using our metho d/.
+The remaining half of the p opulation for eac h new generation is created b y crosso v er
+and m utation from the previous generation/'s p opulation/.
+/9
+Fift y pairs of paren t rules are
+c hosen at random with replacemen t from the en tire previous p opulation/. F or eac h pair/, a
+single crosso v er p oin t is selected at random/, and t w o o/spring are created b y exc hanging the
+subparts of eac h paren t b efore and after the crosso v er p oin t/. The t w o o/spring then undergo
+m utation/. A m utation consists of /
+ipping a randomly c hosen bit in the string/. The n um b er
+of m utations for a giv en string is c hosen from a P oisson distribution with a mean of /3/./8 /(this
+is equiv alen t to a p er/-bit m utation rate of /0/./0/3/)/. Again/, to GA practitioners this ma y seem
+to b e a high m utation rate/, but one m ust tak e in to accoun t that at ev ery generation/, half
+the p opulation is b eing copied without mo di/cation/.
+/7/./2 Results of Prop ortional/-Fitness Exp erimen t
+/8
+It ma y not b e necessary to allo w the maxim um n um b er of iterations M to v ary /. In some early tests with
+smaller sets of /xed initial con/gurations/, though/, w e found the same problem P ac k ard rep orted /[/2/2 /]/: that
+if M is /xed/, then p erio d/-/2 rules ev olv e that alternate b et w een all /0/'s and all /1/'s/. These rules adapted to
+the small set of initial con/gurations and the /xed M b y landing at the /\correct/" pattern for a giv en initial
+con/guration at time step M /, only to mo v e to the opp osite pattern and so wrong classi/cation at time step
+M /+ /1/. These rules did v ery p o orly when tested on a di/eren t set of initial con/gurations/|evidence for
+/\o v er/-/tting/"/.
+/9
+This metho d of pro ducing the non/-elite strings di/ers from that in /[/2/3 /]/, where the non/-elite strings w ere
+formed from crosso v er and m utation among the elite strings only rather than from the en tire p opulation/. W e
+observ ed no statistically signi/can t di/erences in our tests using the latter mec hanism other than a mo dest
+di/erence in time scale/.
+/1/5
+
+0 0.25 0.5 0.75 1
+λ
+0
+0.25
+0.5
+0.75
+1
+fraction of total rules
+best fitness
+mean fitness
+(a)
+λ
+0 0.25 0.5 0.75 1
+0
+0.25
+0.5
+0.75
+1
+fraction of total rules
+best fitness
+mean fitness
+(b)
+Figure /6/: Results from our exp erimen t with prop ortional /tness/. The
+top histogram /(a/) plots as a function of / the frequencies of rules
+merged from the initial generations of /3/0 runs/. The b ottom histogram
+/(b/) plots the frequencies of rules merged from the /nal generations
+/(generation /1/0/0/) of these /3/0 runs/. F ollo wing /[/2/3 /] the x /-axis is divided
+in to /1/5 bins of length /0/./0/6/6/7 eac h/. The rules with / /= /1 /: /0 are included
+in the righ tmost bin/. In eac h histogram the b est /(cross/) and mean
+/(circle/) /tnesses are plotted for eac h bin/. /(The y /-axis in terv al for
+/tnesses is also /[/0/,/1/]/)/.
+/1/6
+
+W e p erformed /3/0 di/eren t runs of the GA with the parameters describ ed ab o v e/, eac h with
+a di/eren t random/-n um b er seed/. On eac h run the GA w as iterated for /1/0/0 generations/. W e
+found that running the GA for longer than this/, up to /3/0/0 generations/, did not result in
+impro v ed /tness/. The results of this set of runs are displa y ed in Figure /6/. Figure /6/(a/) is
+a histogram of the frequency of rules in the initial p opulations as a function of / /, merging
+together the rules from all /3/0 initial p opulations/; th us the total n um b er of rules represen ted
+in this histogram is /3/0/0/0/. The / bins in this histogram are the same ones that w ere used b y
+P ac k ard/, eac h of width /0/./0/6/6/7/. P ac k ard/'s highest bin con tained only rules with / /= /1/, that
+is/, rules that consist of all /1/'s/. W e ha v e merged this bin with the imm ediatel y lo w er bin/.
+As w as said earlier/, the initial p opulation consists of randomly generated rules uniformly
+spread o v er the / v alues b et w een /0/./0 and /1/./0/. Also plotted are the mean and b est /tness
+v alues for eac h bin/. These are all around /0/./5/, whic h is exp ected for a set of randomly
+generated rules under this /tness function/. The b est /tnesses are sligh tly higher in the v ery
+lo w and v ery high / bins/. This is b ecause rules with output bits that are almost all /0/'s /(or
+/1/'s/) correctly classify all lo w densit y /(or all high densit y/) initial con/gurations/. In addition
+these CA obtain small partial credit on some high densit y /(lo w densit y/) initial con/gurations/.
+Suc h rules th us ha v e /tness sigh tly higher than /0/./5/.
+Figure /6/(b/) sho ws the histogram for the /nal generation /(/1/0/0/)/, merging together rules
+from the /nal generations of all /3/0 runs/. Again the mean and b est /tness v alues for eac h
+bin are plotted/.
+In the /nal generation the mean /tnesses in eac h bin are all around /0/./8/. The exceptions
+are the cen tral bin with a mean /tness of /0/./7/2 and the leftmost bin with a mean /tness of
+/0/./7/5/. The leftmost bin con tains only /v e rules/|eac h at / / /0 /: /3/3/, righ t next to the the bin/'s
+upp er / limit/. The standard deviations of /tness for eac h bin/, not sho wn in the /gure/, are
+all appro ximately /0/./1/5/, except the leftmost bin/, whic h has a standard deviation of /0/./2/0/. The
+b est /tnesses for eac h bin are all b et w een /0/./9/3 and /0/./9/5/, except the leftmost bin whic h has
+a b est /tness of /0/./9/0/. Under this /tness function the GKL rule has /tness / /0/./9/8/; the GA
+nev er found a rule with /tness ab o v e /0/./9/5/.
+As w as men tioned ab o v e/, the /tness function is sto c hastic/: a giv en rule migh t b e assigned
+a di/eren t /tness eac h time the /tness function is ev aluated/. The standard deviation under
+the presen t /tness sc heme on a giv en rule is appro ximately /0/./0/1/5/. This indicates that the
+di/erences among the b est /tnesses plotted in the histogram are not signi/can t/, except for
+that in the leftmost bin/.
+The lo w er mean /tness in the cen tral bin is due to the fact that the rules in that bin
+largely come from non/-elite rules generated b y crosso v er and m utation in the /nal generation/.
+This is a com binatorial e/ect/: the densit y of CA rules as a function of / is v ery highly p eak ed
+ab out / /= /1 /= /2/, as already noted/. W e will return to this /\com binatorial drift/" e/ect shortly /.
+Man y of the rules in the middle bin ha v e not y et undergone selection and th us tend to ha v e
+lo w er /tnesses than rules that ha v e b een selected in the elite/. This e/ect disapp ears in
+Figure /7/, whic h includes only the elite rules at generation /1/0/0 for the /3/0 runs/. As can b e
+seen/, the di/erence in mean /tness disapp ears and the heigh t of the cen tral bin is decreased
+b y half/.
+The results presen ted in Figure /6/(b/) are strikingly di/eren t from the results of the original
+exp erimen t/. In the /nal generation histogram in Figure /5/, most of the rules clustered around
+/1/7
+
+0 0.25 0.5 0.75 1
+λ
+0
+0.25
+0.5
+0.75
+1
+fraction of total rules
+best fitness
+mean fitness
+Figure /7/: Histogram including only the elite rules from the /nal gen/-
+erations of the /3/0 runs /(cf/. Figure /6/(b/)/) with the prop ortional/-/tness
+function/.
+either / / /0 /: /2/4 or / / /0 /: /8/3/. Here/, though/, there are no rules in these /
+c
+regions/. Rather/, the
+rules cluster m uc h closer/|with a ratio of v ariances of /4 b et w een the t w o distributions/|to
+/ / /0 /: /5/. Recall this clustering is what w e exp ect from the basic /0/-/1 exc hange symmetry of
+the /
+c
+/= /1 /= /2 task/.
+One rough similarit y is the presence of t w o p eaks cen tered around a dip at / / /0 /: /5/|a
+phenomenon whic h w e will explain shortly and whic h is a k ey to understanding ho w the GA
+is w orking/. But there are signi/can t di/erences/, ev en within this similarit y /. In the original
+exp erimen ts the p eaks are in bins cen tered ab out / / /0 /: /2/4 and / / /0 /: /8/3/. In Figure /6/(b/)/,
+though/, the p eaks are v ery close to / /= /1 /= /2/, b eing cen tered in the neigh b oring bins/|those
+with / / /0 /: /4/3 and / / /0 /: /5/7/. Th us/, the ratio of original to curren t p eak spread is roughly a
+factor of /4/. Additionally /, in the /nal/-generation histogram of Figure /5 the t w o highest bin
+p opulations are roughly /v e times as high as the cen tral bin/, whereas in the /nal/-generation
+histogram of Figure /6/(b/) the t w o highest bins are roughly three times as high as the cen tral
+bin/. Finally /, the /nal/-generation histogram in Figure /5 sho ws the presence of rules in ev ery
+bin/, but in the new /nal/-generation histogram/, there are only rules in six of the cen tral bins/.
+Similar to the original exp erimen t/, w e found that on an y giv en run the p opulation w as
+clustered ab out one or the other p eak but not b oth/. Th us/, in the histograms that merge
+all runs/, t w o p eaks app ear/. This is illustrated in Figure /8/, whic h displa ys histograms from
+the /nal generation of t w o individual runs/. In one of these runs the p opulation clustered to
+the left of the cen tral bin/, in the other run it clustered to the righ t of the cen ter/. The fact
+that di/eren t runs result in di/eren t clustering lo cations is wh y w e p erformed man y runs
+and merged the results rather than p erforming a single run with a m uc h larger p opulation/.
+The latter metho d migh t ha v e yielded only one p eak/. Said a di/eren t w a y /, indep enden t of
+the p opulation size a giv en run will b e driv en b y and the p opulation organized around the
+/t individuals that app ear earliest/. Th us/, examining an ensem ble of individual runs rev eals
+more details of the ev olutionary dynamics/.
+/1/8
+
+The asymmetry in the heigh ts of the t w o p eaks in Figure /6/(b/) results from a small
+statistical asymmetry in the results of the /3/0 runs/. There w ere /1/4 out of /3/0 runs in whic h
+the rules clustered at the lo w er / bin and /1/6 out of /3/0 runs in whic h the rules clustered at
+the higher / bin/. This di/erence is not signi/can t/, but explains the small asymmetry in the
+p eaks/' heigh ts/.
+W e extended /1/6 of the /3/0 runs to /3/0/0 generations/, and found that not only do the /tnesses
+not increase further/, but the basic shap e of the histogram do es not c hange signi/can tly /.
+/7/./3 E/ects of Drift
+The results of our exp erimen ts suggest that/, for the /
+c
+/= /1 /= /2 task/, an ev olutionary pro cess
+mo deled b y a genetic algorithm tends to select rules with / / /1 /= /2/. This is what w e exp ect
+from the theoretical discussion giv en ab o v e concerning this task and its symmet ries/. W e
+will dela y un til the next section a discussion of the curious feature near / /= /1 /= /2/, viz/. the
+dip surrounded b y t w o p eaks/. Instead/, here w e fo cus on the larger/-scale clustering in that /
+region/.
+T o understand this clustering w e need to understand the degree to whic h the selection of
+rules close to / /= /1 /= /2 is due to an in trinsic selection pressure and the degree to whic h it is
+due to /\drift/"/. By /\drift/" w e refer to the force that deriv es from the com binatorial asp ects of
+CA space as explored b y random selection /(/\genetic drift/"/) along with the e/ects of crosso v er
+and m utation/. The in trinsic e/ects of random selection with crosso v er and m utation are to
+mo v e the p opulation/, irresp ectiv e of an y selection pressure/, to / /= /1 /= /2/. This is illustrated b y
+the histogram mosaic in Figure /9/. These histograms sho w the frequencies of the rules in the
+p opulation as a function of / ev ery /5 generations/, from /3/0 runs on whic h selection according
+to /tness w as turned o//. That is/, on these runs/, the /tness of the rules in the p opulation
+w as nev er calculated/, and at eac h generation the selection of the elite group of strings w as
+p erformed at random/. Ev erything else ab out the runs remains the same as b efore/. Since
+there is no selection/, drift is the only force at w ork here/. As can b e seen/, under the e/ects
+of random selection/, crosso v er/, and m utation/, b y generation /1/0 the p opulation has largely
+drifted to the region of / /= /1 /= /2 and this clustering b ecomes increasingly pronounced as the
+run con tin ues/.
+This drift to / /= /1 /= /2 is related to the com binatorics of the space of bit strings/. F or
+binary CA rules with neigh b orho o d size N /(/= /2 r /+ /1/)/, the space consists of all /2
+/2
+N
+binary
+strings of length /2
+N
+/. Denoting the subspace of CA with a /xed / and N as CA/( //; N /)/, w e
+see that the size of the subspace is binomially distributed with resp ect to / /:
+j CA/( //; N /) j /=
+/
+/2
+N
+/ /2
+N
+/
+/:
+The distribution is symmetric in / and tigh tly p eak ed ab out / /= /1 /= /2 with v ariance // /2
+/BnZr N
+/.
+Th us/, the v ast ma jorit y of rules is found at / /= /1 /= /2/. The steepness of the binomial distribu/-
+tion near its maxim um giv es an indication of the magnitude of the drift /\force/"/. Note that
+the last histogram in Figure /9 giv es the GA/'s rough appro ximation of this distribution/.
+Drift is th us a p o w erful force mo ving the p opulation to cluster around / /= /1 /= /2/. F or
+comparison/, Figure /1/0 giv es the rule/-frequency/-v ersus/- / histograms for the /3/0 runs of our
+/1/9
+
+0 0.25 0.5 0.75 1
+λ
+0
+0.25
+0.5
+0.75
+1
+fraction of total rules
+0 0.25 0.5 0.75 1
+λ
+0
+0.25
+0.5
+0.75
+1
+fraction of total rules
+Figure /8/: Histograms from the /nal generations of t w o individual runs
+of the GA emplo ying prop ortional /tness/. Eac h run had a p opulation
+of /1/0/0 rules/. The /nal distribution of rules in eac h of the /3/0 runs w e
+p erformed resem bled one or the other of these t w o histograms/.
+/2/0
+
+0.6
+P
+0
+0 5 10 15 20 25 30
+0.6
+P
+0
+35 40 45 50 55 60 65
+0.6
+P
+0
+70
+0 λ 1
+75
+0 λ 1
+80
+0 λ 1
+85
+0 λ 1
+90
+0 λ 1
+95
+0 λ 1
+100
+0 λ 1
+Figure /9/: No/-sele ction mosaic/: Rule/-frequency/-v ersus/- / histograms
+giv en ev ery /v e generations for p opulations ev olv ed under the genetic
+algorithm with no selection/; that is/, the /tness function w as not cal/-
+culated/. As b efore/, eac h histogram is merged from /3/0 runs/; eac h run
+had a p opulation of /1/0/0 rules/. The generation n um b er is giv en in the
+upp er left corner of eac h histogram/.
+0.6
+P
+0
+0 5 10 15 20 25 30
+0.6
+P
+0
+35 40 45 50 55 60 65
+0.6
+P
+0
+70
+0 λ 1
+75
+0 λ 1
+80
+0 λ 1
+85
+0 λ 1
+90
+0 λ 1
+95
+0 λ 1
+100
+0 λ 1
+Figure /1/0/: Pr op ortional/-/tness mosaic/: Rule/-frequency/-v ersus/- / his/-
+tograms giv en ev ery /v e generations/, merged from the /3/0 GA runs
+with prop ortional /tness/. Eac h run had a p opulation of /1/0/0 rules/.
+/2/1
+
+prop ortional/-/tness exp erimen t ev ery /v e generations/. The last histogram in this /gure is
+the same one that w as displa y ed in Figure /6/(b/)/. /(Figure /1/0 giv es the merged data from the
+en tire p opulation of eac h run ev ery /v e generations/. A similar mosaic plotting only the elite
+strings at eac h generation lo oks qualitativ ely similar/./)
+Figure /1/0 lo oks v ery similar to Figure /9 up to generation /3/5/. The main di/erence in
+generations /0/{/3/0 is that Figure /1/0 indicates a more rapid p eaking ab out / /= /1 /= /2/. The in/-
+creased sp eed of mo v em en t to the cen ter o v er that seen in Figure /9 is presumably due to the
+additional ev olutionary pressure of prop ortional /tness/. A t generation /3/5/, something new
+app ears/. The p eak in the cen ter has b egun to shrink signi/can tly and the t w o surrounding
+bins are b eginning to riv al it in magnitude/. By generation /4/0 the righ t/-of/-cen ter bin has
+exceeded the cen tral bin/, and b y generation /6/5 the histogram has dev elop ed t w o p eaks sur/-
+rounding a dip in the cen ter/. The dip b ecomes increasingly pronounced as the run con tin ues/,
+but stabilizes b y generation /8/5 or so/.
+The di/erences b et w een Figure /1/0 and Figure /9 o v er all /1/0/0 generations sho ws that the
+p opulation/'s structure in eac h generation is not en tirely due to drift/. Indeed/, after generation
+/3/5 the distinctiv e features of the p opulation indicates new/, qualitativ ely di/eren t/, and unique
+prop erties due to the selection mec hanism /. The t w o p eaks represen t a symmetry breaking
+in the ev olutionary pro cess/|the rules in eac h individual run initially are clustered around
+/ /= /1 /= /2 but mo v e to one side or the other of the cen tral bin b y around generation /3/5/. The
+causes of this symmetry breaking will b e discussed in the next subsection/.
+/7/./4 Ev olutionary Mec hanisms/: Symme try Breaking and the Dip at / /= /1 /= /2
+A t this p oin t w e mo v e a w a y from questions related to the original exp erimen t and instead
+concen trate on the mec hanisms in v olv ed in pro ducing our results/. Tw o ma jor questions need
+to b e answ ered/: Wh y in the /nal generation are there signi/can tly few er rules in the cen tral
+bin than in the t w o surrounding bins/? And what causes the symmetry breaking that b egins
+near generation /3/5 seen in Figure /1/0/?
+In the briefest terms/, the answ er/, obtained b y detailed analysis of the /3/0 GA runs/, is
+the follo wing/. The course of CA ev olution under our GA roughly falls in to four /\strategy/"
+ep o c hs/. Eac h ep o c h is asso ciated with an inno v ation disco v ered b y the GA for solving the
+problem/. Though the absolute time at whic h these inno v ations app ear in eac h run v aries
+somewhat/, eac h run basically passes through eac h of these four ep o c hs in succession/. The
+ep o c hs are sho wn in Figure /1/1/, whic h plots the b est /tness/, the mean /tness of the elite
+strings/, and the mean /tness of the p opulation v ersus generation for one t ypical run of the
+GA/. The b eginnings of ep o c hs /2 through /4 are p oin ted out on the b est/-/tness plot/. Ep o c h
+/1 b egins at generation /0/.
+Ep o c h /1/: Randomly generated rules
+The /rst ep o c h starts at generation /0/, when the b est /tness in the initial generation is
+appro ximately /0/./5/, and the / v alues are uniformly distributed b et w een /0/./0 and /1/./0/. No rule
+is m uc h /tter than an y other rule/, though as w as seen in Figure /6/(a/)/, rules with v ery lo w
+and v ery high / tend to ha v e sligh tly higher /tness/. The strategy here/|if it can b e called
+/2/2
+
+/0
+/0/./2
+/0/./4
+/0/./6
+/0/./8
+/1
+/0 /2/0 /4/0 /6/0 /8/0 /1/0/0
+Fitness
+Generation
+ep o ch /2
+ep o ch /3
+ep o ch /4
+/}
+o
+K
+b est /tness
+elite mean /tness
+p opulation mean /tness
+Figure /1/1/: Best /tness/, elite mean /tness/, and p opulation mean /tness
+v ersus generation for one t ypical run/. The b eginnings of ep o c hs /2/{/4
+are p oin ted out on the b est/-/tness plot/. Ep o c h /1 b egins at generation
+/0/.
+this at all/|deriv es from only the most elemen tary asp ect of the task/. Rules either sp ecialize
+for / /> /
+c
+con/gurations b y mapping high/-densit y neigh b orho o ds in the CA rule table to /1
+or sp ecialize for / /< /
+c
+con/gurations b y mapping lo w/-densit y neigh b orho o ds to /0/.
+Ep o c h /2/: Disco v ery of t w o halv es of the rule table
+The second ep o c h b egins when a rule is disco v ered in whic h most neigh b orho o d patterns in
+the rule table that ha v e / /< /
+c
+map to /0 and most neigh b orho o d patterns in the rule table
+that ha v e / /> /
+c
+map to /1/. This is roughly correlated with the left and righ t halv es of the
+rule table/: namely /, neigh b orho o ds /0/0/0/0/0/0/0 to /0/1/1/1/1/1/1 and /1/0/0/0/0/0/0 to /1/1/1/1/1/1/1/, resp ectiv ely /.
+Suc h a strategy is presumably easy for the GA to disco v er due to single/-p oin t crosso v er/'s ten/-
+dency to preserv e con tiguous sections of the rule table/. It di/ers from the acciden tal strategy
+of ep o c h /0 in that there is no w an organization to the rule table/: output bits are roughly
+asso ciated with densities of neigh b orho o d patterns/. It is the /rst signi/can t attempt at dis/-
+tinguishing initial con/gurations with more /1/'s than /0/'s and vice v ersa/. Under our /tness
+function/, the /tness of suc h rules is appro ximately b et w een /0/./6 and /0/./7/, whic h is signi/can tly
+higher than the /tness of the initial random rules/. This inno v ation t ypically o ccurs b et w een
+generations /1 and /1/0/; in the run displa y ed in Figure /1/1 it o ccurred in generation /2/, and can
+b e seen as the steep rise in the b est/-/tness plot at that generation/. All suc h rules tend to
+ha v e / close to /0/./5/. There are man y p ossible v ariations on these rules with similar /tness/, so
+suc h rules/|all close to / /= /1 /= /2/|b egin to dominate in the p opulation/. This/, along with the
+natural tendency for the p opulation to drift to / /= /1 /= /2/, is the cause of the clustering around
+/ /= /1 /= /2 seen b y generation /1/0 in Figure /1/0/. F or the next sev eral generations the p opulation
+tends to explore small v ariations on this broad strategy /. This can b e seen in Figure /1/1 as
+the lev eling o/ in the b est/-/tness plot b et w een generations /2 and /1/0/.
+/2/3
+
+0
+t
+148
+0 i 148
+0
+t
+148
+0 i 148
+(a) (b)
+Figure /1/2/: Space/-time diagrams of one ep o c h/-/3 rule with / / /0 /: /4/1
+that increases su/cien tly large blo c ks of adjacen t or nearly adjacen t
+/1/'s/. Both diagrams ha v e L /= /1/4/9 and are iterated for /1/4/9 time steps
+/(the time displa y ed here is shorter than the actual time allotted under
+the GA/)/. In /(a/) / /(/0/) / /0 /: /4/0 and / /(/1/4/8/) / /0 /: /1/7/. In /(b/) / /(/0/) / /0 /: /5/4 and
+/ /(/1/4/8/) /= /1 /: /0/. Th us/, in /(a/) the classi/cation is incorrect/, but partial
+credit is giv en/; in /(b/) it is correct/.
+Ep o c h /3/: Gro wing blo c ks of /1/'s or /0/'s
+The next ep o c h b egins when the GA disco v ers one of t w o new strategies/. The /rst strategy is
+to increase the size of a su/cien tly large blo c k of adjacen t or nearly adjacen t /0/'s/; the second
+strategy is to increase the size of a su/cien tly large blo c k of adjacen t or nearly adjacen t /1/'s/.
+Examples of these t w o strategies are illustrated in Figures /1/2 and /1/3/. These /gures giv e
+space/-time diagrams from t w o rules that mark ed the b eginning of this ep o c h in t w o di/eren t
+runs of the GA/. Figure /1/2 illustrates the action of a rule disco v ered at generation /9 of one
+run/. This rule has / / /0 /: /4/1/, whic h means that the rule maps most neigh b orho o ds to /0/. Its
+strategy is to map initial con/gurations to mostly /0/'s/|the con/gurations it pro duces ha v e
+/ /< /
+c
+/, unless the initial con/guration con tains a su/cien tly large blo c k of /1/'s/, in whic h
+case it increases the size of that blo c k/. The left space/-time diagram Figure /1/2/(a/) sho ws ho w
+the rule ev olv es an initial con/guration with / /< /
+c
+/, to a /nal lattice with mostly /0/'s/. This
+pro duces a fairly go o d score/. The righ t space/-time diagram Figure /1/2/(b/) sho ws ho w the
+rule ev olv es an initial con/guration with / /> /
+c
+/. The initial con/guration con tains a few
+su/cien tly large blo c ks of adjacen t or nearly adjacen t /1/'s/, and the size of these blo c ks is
+quic kly increased to yield a /nal lattice with all /1/'s for a p erfect score/. The /tness of this
+rule at generation /9 w as / /0/./8/0/.
+Figure /1/3 illustrates the action of a second rule/, disco v ered at generation /2/0 in another
+run/. This rule has / / /0 /: /5/8/, whic h means that the rule maps most neigh b orho o ds to /1/. Its
+strategy is the in v erse of the previous rule/. It maps initial con/gurations to mostly /1/'s unless
+the initial con/guration con tains a su/cien tly large blo c k of /0/'s/, in whic h case it increases the
+/2/4
+
+0
+t
+148
+0 i 148
+0
+t
+148
+0 i 148
+(a) (b)
+Figure /1/3/: Space/-time diagrams of one ep o c h/-/3 rule with / / /0 /: /5/8
+that increases su/cien tly large blo c ks of adjacen t or nearly adjacen t
+/0/'s/. In /(a/) the initial con/guration with / / /0 /: /4/2 maps to a correct
+classi/cation pattern of all /0/'s/. In /(b/) the initial con/guration with
+/ / /0 /: /5/6 is not correctly classi/ed /( / /(/1/4/8/) / /0 /: /7/5/) but partial credit
+is giv en/.
+size of that blo c k/. The left space/-time diagram /(a/) illustrates this for an initial con/guration
+with / /< /
+c
+/; here a su/cien tly large blo c k of /0/'s app ears in the initial con/guration and is
+increased in size/, yielding a p erfect score/. The righ t space/-time diagram /(b/) sho ws the action
+of the same rule on an initial con/guration with / /> /
+c
+/. Most neigh b orho o ds are mapp ed
+to /1 so the /nal con/guration con tains mostly /1/'s/, yielding a fairly high score/. The /tness
+of this rule at generation /2/0 w as / /0/./8/7/.
+The general idea b ehind these t w o strategies is to rely on statistical /
+uctuations in the
+initial con/gurations/. An initial con/guration with / /> /
+c
+is lik ely to con tain a su/cien tly
+large blo c k of adjacen t or nearly adjacen t /1/'s/. The rule then increases this region/'s size to
+yield the correct classi/cation/. Similarly /, this holds for the CA in Figure /1/3 with resp ect to
+blo c ks of /0/'s in initial con/gurations with / /< /
+c
+/. In short/, these strategies are assuming
+that the presence of a su/cien tly large blo c k of /1/'s or /0/'s is a go o d predictor of / /(/0/)/.
+Similar strategies w ere disco v ered in ev ery run/. They t ypically emerge b y generation
+/2/0/. A giv en strategy either increased blo c ks of /0/'s or blo c ks of /1/'s/, but not b oth/. These
+strategies result in a signi/can t jump in /tness/: t ypical /tnesses for the /rst instances of
+suc h strategies range from /0/./7/5 to /0/./8/5/. This jump in /tness can b e seen in the run of
+Figure /1/1 at appro ximately generation /1/0/, and is mark ed as the b eginning of ep o c h /3/. This
+is the /rst ep o c h in whic h a substan tial increase in /tness is asso ciated with a symmetry
+breaking in the p opulation/, whic h will b e explained b elo w/.
+The /rst instances of ep o c h/-/3 strategies t ypically ha v e a n um b er of problems/. As can
+b e seen in Figures /1/2 and /1/3/, the rules often rely on partial credit to ac hiev e fairly high
+/tness on structurally incorrect classi/cation/. They t ypically do not get p erfect scores on
+/2/5
+
+0
+t
+148
+0 i 148
+(a)
+0
+t
+148
+0 i 148
+(b)
+0
+t
+148
+0 i 148
+(c)
+Figure /1/4/: Space/-time diagrams illustrating three t yp es of classi/ca/-
+tion errors committed b y ep o c h/-/3 rules/: /(a/) gro wing a blo c k of /1s in
+a sea of / /< /
+c
+/, /(b/) gro wing a blo c k of /1/'s for an initial con/guration
+with / /> /
+c
+to o slo wly /(the correct /xed p oin t of all /1/'s do es not o ccur
+un til iteration /4/8/0/)/, and /(c/) generating a blo c k of /1/'s from a sea of
+/ /< /
+c
+and gro wing it so that / /> /
+c
+/(the incorrect /xed p oin t of all
+/1/'s o ccurs at iteration /1/8/0/)/. The initial con/guration densities are /(a/)
+/ /(/0/) / /0 /: /3/9/, /(b/) / /(/0/) / /0 /: /5/9/, and /(c/) / /(/0/) / /0 /: /4/5/.
+/2/6
+
+0
+t
+148
+0 i 148
+0
+t
+148
+0 i 148
+(a) (b)
+Figure /1/5/: Space/-time diagrams of one ep o c h/-/4 rule with / / /0 /: /3/8
+that increases su/cien tly large blo c ks of adjacen t or nearly adjacen t
+/1/'s/. In /(a/) / /(/0/) / /0 /: /4/4/; in /(b/) / /(/0/) / /0 /: /5/2/. Both initial con/gurations
+are correctly classi/ed/.
+man y initial con/gurations/. The rules also often mak e mistak es in classi/cation/. Three
+common t yp es of classi/cation errors are illustrated in Figure /1/4/. Figure /1/4/(a/) illustrates a
+rule increasing a to o/-small blo c k of /1/'s and th us misclassifying an initial con/guration with
+/ /< /
+c
+/. Figure /1/4/(b/) illustrates a rule that do es not increase blo c ks of /1/'s fast enough on an
+initial con/guration with / /> /
+c
+/, lea ving man y incorrect bits in the /nal lattice/. Figure /1/4/(c/)
+illustrates the cr e ation of a blo c k of /1/'s that did not app ear in an initial con/guration with
+/ /< /
+c
+/, ultimately leading to a misclassi/cation/. The rules that pro duced these diagrams
+come from ep o c h /3 in v arious GA runs/.
+The increase in /tness seen in Figure /1/1 b et w een generation /1/0 and /2/0 or so is due to
+further re/nemen ts of the basic strategies that correct these problems to some exten t/.
+Ep o c h /4/: Reac hing and sta ying at a maxim al /tness
+In most runs/, the b est /tness is t ypically at its maxim um v alue of /0/./9/0 to /0/./9/5 b y generation
+/4/0 or so/. In Figure /1/1 this o ccurs at appro ximately generation /2/0/, and is mark ed as the
+b eginning of ep o c h /4/. The b est /tness do es not increase signi/can tly after this/; the GA
+simply /nds a n um b er of v ariations of the b est strategies that all ha v e roughly the same
+/tness/. When w e extended /1/6 of the /3/0 runs to /3/0/0 generations/, w e did not see an y signi/can t
+increase in the b est /tness/.
+The actions of the b est rules from generation /1/0/0 of t w o separate runs are sho wn in Fig/-
+ures /1/5 and /1/6/. The leftmost space/-time diagrams in eac h /gure are for initial con/gurations
+with / /< /
+c
+/, and the righ tmost diagrams are for initial con/gurations with / /> /
+c
+/. The
+rule illustrated in Figure /1/5 has / /= /0 /: /3/8/; its strategy is to map initial con/gurations to /0/'s
+unless there is a su/cien tly large blo c k of adjacen t or nearly adjacen t /1/'s/, whic h if presen t
+/2/7
+
+0
+t
+148
+0 i 148
+0
+t
+148
+0 i 148
+(a) (b)
+Figure /1/6/: Space/-time diagrams of one ep o c h/-/4 rule with / / /0 /: /5/9
+that increases su/cien tly large blo c ks of adjacen t or nearly adjacen t
+/0/'s/. In /(a/) / /(/0/) / /0 /: /4/0/; in /(b/) / /(/0/) / /0 /: /5/6/. Both initial con/gurations
+are correctly classi/ed/.
+is increased/. The rule sho wn in Figure /1/6 has / /= /0 /: /5/9 and has the opp osite strategy /. Eac h
+of these rules has /tness / /0/./9/3/. They are b etter tuned v ersions of the rules in Figures /1/2
+and /1/3/.
+Symmet ry breaking in ep o c h /3
+Notice that the / v alues of the rules that ha v e b een describ ed are in the bins cen tered around
+/0/./4/3 and /0/./5/7 rather than /0/./5/. In fact/, it seems to b e m uc h easier for the GA to disco v er
+v ersions of the successful strategies close to / /= /0 /: /4/3 and / /= /0 /: /5/7 than to disco v er them
+close to / /= /1 /= /2/, though some instances of the latter rules w ere found/. Wh y is this/? One
+reason is that rules with high or lo w / w ork w ell b y sp e cializing /. The rules with lo w /
+map most neigh b orho o ds to /0/'s and then increase su/cien tly large blo c ks of /1/'s when they
+app ear/. Rules with high / sp ecialize in the opp osite direction/. A rule at / /= /1 /= /2 cannot
+easily sp ecialize in this w a y /. Another reason is that a successful rule that gro ws su/cien tly
+large blo c ks of /(sa y/) /1/'s m ust a v oid cr e ating a su/cien tly large blo c k of /1/'s from an initial
+con/guration with less than half /1/'s/. Doing so will lead it to increase the blo c k of /1/'s and
+pro duce an incorrect answ er/, as w as seen in Figure /1/4/. An easy w a y for a rule to a v oid
+creating a su/cien tly large blo c k of /1/'s is to ha v e a lo w / /. This ensures that lo w/-densit y
+initial con/gurations will quic kly map to all /0/'s/, as w as seen in Figure /1/5/. Lik ewise/, if a rule
+increases su/cien tly large blo c ks of /0/'s/, it is safer for the rule to ha v e a high / v alue so it will
+a v oid creating su/cien tly large blo c ks of /0/'s where none existed/. A rule close to / /= /1 /= /2 will
+not ha v e this safet y margin/, and ma y b e more lik ely to inadv erten tly create a blo c k of /0/'s or
+/1/'s that will lead it to a wrong answ er/. A /nal elemen t that con tributes to the di/cult y of
+/nding go o d rules with / /= /1 /= /2 is the com binatorially large n um b er of rules there/. In e/ect/,
+the searc h space is m uc h larger/, whic h mak es the global searc h more di/cult/. Lo cally /, ab out
+/2/8
+
+a giv en adequate rule at / /= /1 /= /2/, there are man y more rules close in Hamming distance and
+th us reac hable via m utation that are not mark edly b etter/.
+Once the more successful v ersions of the ep o c h/-/3 strategies are disco v ered in ep o c h /4/,
+their v arian ts spread in the p opulation/, and the most successful rules ha v e / on the lo w or
+high side of / /= /1 /= /2/. This explains the shift from the clustering around / /= /1 /= /2 as seen
+in generations /1/0/{/3/0 in Figure /1/0 to a t w o/-p eak ed distribution that b ecomes clear around
+generation /6/5/. The rules in eac h run cluster around one or the other p eak/, sp ecializing
+in one or the other w a y /. W e b eliev e this t yp e of symmetry breaking is a k ey mec hanism
+that determines m uc h of the p opulation dynamics and the GA/'s success/|or lac k thereof/|in
+optimization/.
+Ho w do es this analysis of the symmetry breaking jib e with the argumen t giv en earlier
+that the b est rules for the /
+c
+/= /1 /= /2 task m ust b e close to / /= /1 /= /2/? None of the rules found
+b y the GA had a /tness as high as /0/./9/8/|the /tness of the GKL rule/, whose / is exactly /1///2/.
+That is/, the ev olv ed rules mak e signi/can tly more classi/cation errors than the GKL rule/.
+T o obtain the /tness of the GKL rule a n um b er of careful balances in the rule table m ust b e
+ac hiev ed/. This is eviden tly v ery hard for the GA to do/, esp ecially in ligh t of the symmetri es
+in the task and their sub optimal breaking b y the GA/.
+/7/./5 P erformance of the Ev olv ed Rules
+Recall that the prop ortional /tness of a rule is the fraction of correct cell states at the /nal
+time step/, a v eraged o v er /3/0/0 initial con/gurations/. This /tness giv es a rule partial credit
+for getting some /nal cell states correct/. Ho w ev er/, the actual task is to relax to either
+all /1/'s or all /0/'s/, dep ending on the initial con/guration/. In order to measure ho w w ell the
+ev olv ed rules actually p erform the task/, w e de/ne the p erformanc e of a rule to b e the fraction
+of times the rule correctly classi/es initial con/gurations/, a v eraged o v er a large n um b er of
+initial con/gurations/. Here/, credit is giv en only if the initial con/guration relaxes to exactly
+the correct /xed p oin t after some n um b er of time steps/. W e measured the p erformance of
+eac h of the elite rules in the /nal generations of the /3/0 runs b y testing it on /3/0/0 randomly
+generated initial con/gurations that w ere uniformly distributed in the in terv al /0 / / / /1/,
+letting the rule iterate on eac h initial condition for /1/0/0/0 time steps/. Figure /1/7 displa ys the
+mean p erformance /(diamonds/) and b est p erformance /(squares/) in eac h / bin/. This /gure
+sho ws that while the mean p erformances in eac h bin are m uc h lo w er than the mean /tnesses
+for the elite rules sho wn in Figure /7/, the b est p erformance in eac h bin is roughly the same as
+the b est /tness in that bin/. /(In some cases the b est p erformance in a bin is sligh tly higher
+than the b est /tness sho wn in Figure /7/. This is b ecause di/eren t sets of /3/0/0 initial conditions
+w ere used to calculate /tness and p erformance/. This di/erence can pro duce small v ariations
+in the /tness or p erformance v alues/./) The b est p erformance w e measured w as / /0/./9/5/. Under
+this measure the p erformance of the GKL rule is / /0/./9/8/. Th us the GA nev er disco v ered
+a rule that p erformed as w ell as the GKL rule/, ev en up to /3/0/0 generations/. In addition/,
+when w e measure the p erformance of the /ttest ev olv ed rules on larger lattice sizes/, their
+p erformances decrease signi/can tly /, while that of the GKL rule remains roughly the same/.
+/2/9
+
+0 0.25 0.5 0.75 1
+λ
+0
+0.25
+0.5
+0.75
+1
+fraction of total rules
+best performance
+mean performance
+Figure /1/7/: P erformances of the rules ev olv ed with the prop ortional/-
+/tness function/. Only the elite rules from generation /1/0/0 are included
+in this histogram/. The mean p erformance in eac h bin /(op en dia/-
+monds/)/, and the b est p erformance in eac h bin /(blac k squares/) is plot/-
+ted/.
+/7/./6 Using P erformance as the Fitness Criterion
+Can the GA ev olv e b etter/-p erforming rules on this task/? T o test this/, w e carried out an
+additional exp erimen t in whic h p erformance as de/ned in the previous section is the /tness
+criterion/. As b efore/, at eac h generation eac h rule is tested on /3/0/0 initial con/gurations that
+are uniformly distributed o v er densit y v alues/. Ho w ev er/, in this exp erimen t/, a rule/'s /tness
+is the fraction of initial con/gurations that are correctly classi/ed/. An initial con/guration
+is considered to b e incorrectly classi/ed if an y bits in the /nal lattice are incorrect/. Aside
+from this mo di/ed /tness function/, ev erything ab out the GA remained the same as in the
+prop ortional/-/tness exp erimen ts/. W e p erformed /3/0 runs of the GA for /1/0/0 generations eac h/.
+The results are giv en in Figure /1/8/, whic h giv es a histogram plotting the frequencies of the
+elite rules from generation /1/0/0 of all /3/0 runs as a function of / /. As can b e seen/, the shap e
+of the histogram again has t w o p eaks cen tered around a dip at / /= /1 /= /2/. This shap e results
+from the same symmetry /-breaking e/ect that o ccurred in the prop ortional/-/tness case/: these
+runs also ev olv ed essen tially the same strategies as the ep o c h/-/3 strategies describ ed earlier/.
+The b est and mean p erformances here are comparable to the b est p erformances in the
+prop ortional/-/tness case/; the b est p erformances found here are / /0/./9/5/. The p erformance as
+a function of / /(/0/) for one of the b est rules is plotted in Figure /1/9/, for lattice sizes of /1/4/9
+/(the lattice size used for testing the rules in the GA runs/)/, /5/9/9/, and /9/9/9/. W e used the same
+pro cedure to mak e these plots as w as describ ed earlier for Figure /4/. As can b e seen/, the
+p erformance according to this measure is signi/can tly w orse than that of the GKL rule /(cf/.
+Figure /4/)/, esp ecially on larger lattice sizes/. The w orst p erformances for all lattice sizes are
+cen tered close to the rule/'s / v alue of / /0/./4/2/.
+/3/0
+
+0 0.25 0.5 0.75 1
+λ
+0
+0.25
+0.5
+0.75
+1
+fraction of total rules
+best performance
+mean performance
+Figure /1/8/: Results from our exp erimen t with p erformance as the
+/tness criterion/. The histogram plots the frequencies of elite rules
+merged from the /nal generations /(generation /1/0/0/) of /3/0 runs in whic h
+the p erformance/-/tness function w as used/.
+0 0.25 0.5 0.75 1
+ρ
+0
+0.25
+0.5
+0.75
+1
+fraction of correct classifications
+149 cell lattice
+599 cell lattice
+999 cell lattice
+Figure /1/9/: P erformance of one of the b est rules ev olv ed using p erfor/-
+mance /tness/, plotted as a function of / /(/0/)/. P erformance plots are
+giv en for three lattice sizes/: /1/4/9 /(the size of the lattice used in the
+GA runs/)/, /5/9/9/, and /9/9/9/. This rule has / / /0 /: /4/2/.
+/3/1
+
+0 0.25 0.5 0.75 1
+λ
+0
+0.25
+0.5
+0.75
+1
+fraction of total rules
+best fitness
+mean fitness
+Figure /2/0/: Results from our exp erimen t in whic h a div ersit y/-
+enforcemen t mec hanism w as added to the GA/. The histogram plots
+the frequencies of rules merged from the en tire p opulation at gener/-
+ation /1/0/0 of /2/0 runs in whic h our div ersit y/-enforcemen t sc heme w as
+used/.
+/7/./7 Adding A Div ersit y/-Enforcem e n t Mec hanism
+The description giv en ab o v e of the four ep o c hs in the GA/'s searc h explains the results of
+our exp erimen t/, but it do es not explain the di/erence b et w een our results and those of the
+original exp erimen t rep orted in /[/2/3/]/. One di/erence b et w een our GA and the original w as
+the inclusion in the original of a div ersit y/-enforcem en t sc heme that p enalized newly formed
+rules that w ere to o similar in Hamming distance to existing rules in the p opulation/. T o
+test the e/ect of this sc heme on our results/, in one set of exp erimen ts w e included a similar
+sc heme/. In our sc heme/, ev ery time a new string is created through crosso v er and m utation/,
+the a v erage Hamming distance b et w een the new string and the elite strings/|the /5/0 strings
+that are copied unc hanged/|is measured/. If this a v erage distance is less than /3/0/% of the
+string length /(here /3/8 bits/)/, then the new string is not allo w ed in the new p opulation/. New
+strings con tin ue to b e created through crosso v er and m utation un til /5/0 new strings ha v e met
+this div ersit y criterion/. W e note that man y other div ersit y/-enforcem en t sc hemes ha v e b een
+dev elop ed in the GA literature/; e/.g/./, /\cro wding/" /[/8/]/.
+The results of this exp erimen t are giv en in Figure /2/0/. The histogram in that /gure
+represen ts the merged rules from the en tire p opulation at generation /1/0/0 of /2/0 runs of the
+GA/, using the prop ortional/-/tness function and our div ersit y/-enforcem en t sc heme/. As can
+b e seen/, the histogram in this /gure is v ery similar to that in Figure /6/(b/)/. The only ma jor
+di/erence is the signi/can tly lo w er mean /tness in the middle and leftmost bins/, whic h results
+from the increased requiremen t for div ersit y in the /nal non/-elite p opulation/. W e conclude
+that the use of this div ersit y/-enforcem en t sc heme w as not resp onsible for the di/erence
+b et w een the results from /[/2/3 /] and our results/.
+/3/2
+
+/7/./8 Di/erences Bet w een Our Results and the Original Exp erimen t
+As w as seen in Figure /6/(b/)/, our results are strikingly di/eren t from those rep orted in /[/2/3/]/.
+These exp erimen tal results/, along with the theoretical argumen t that the most successful
+rules for this task should ha v e / close to /1 /= /2/, lead us to conclude that the in terpretation of
+the original results as giving evidence for the h yp otheses concerning ev olution/, computation/,
+and / is not correct/. Ho w ev er/, w e do not kno w what accoun ted for the di/erences b et w een
+our results and those obtained in the original exp erimen t/. W e sp eculate that the di/erences
+are due to additional mec hanisms in the GA used in the original exp erimen t that w ere not
+rep orted in /[/2/3 /]/.
+Although the results w ere v ery di/eren t/, there is one qualitativ e similarit y/: the rule/-
+frequency/-v ersus/- / histograms in b oth cases con tained t w o p eaks separated b y a dip in the
+cen ter/. As already noted/, in our histogram the t w o p eaks w ere closer to / /= /1 /= /2 b y a
+factor of /4/, but it is p ossible that the original results w ere due to a mec hanism similar to
+/(i/) the ep o c h/-/0 sensitivit y to initial con/guration and p opulation asymmetry ab out / /= /1 /= /2
+or /(ii/) the symmet ry breaking w e observ ed in ep o c h /3/, as describ ed ab o v e/. P erhaps these
+w ere com bined with some additional force in the original GA that k ept rules far a w a y from
+/ /= /1 /= /2/. Unfortunately /, the b est and mean /tnesses for the / bins w ere not rep orted for
+the original exp erimen t/. As a consequence w e do not kno w whether or not the p eaks in
+the original histogram con tained high/-/tness rules/, or ev en if they con tained rules that w ere
+more /t than rules in other bins/. Our results and the basic symmetry in the problem suggest
+otherwise/.
+/8/. General Discussion
+/8/./1 What W e Ha v e Sho wn
+The results rep orted in this pap er ha v e demonstrated that the results from P ac k ard/'s original
+exp erimen t do not hold up under our exp erimen ts/. W e conclude that the original exp erimen t
+do es not giv e /rm evidence for the h yp otheses it w as mean t to test/: /rst/, that rules capable of
+p erforming complex computation are most lik ely to b e found close to /
+c
+v alues and/, second/,
+that when CA rules are ev olv ed b y a GA to p erform a non trivial computation/, ev olution will
+tend to select rules close to /
+c
+v alues/.
+As w e argued theoretically and as our exp erimen tal results suggest/, the most successful
+rules for p erforming a giv en / /-classi/cation task will b e close to a particular v alue of / that
+dep ends on the particular /
+c
+of the task/. Th us for this class of computational tasks/, the
+/
+c
+v alues asso ciated with an /\edge of c haos/" are not correlated with the abilit y of rules to
+p erform the task/.
+In the remainder of this section/, w e step bac k from these particular exp erimen ts and
+discuss in more general terms the ideas that motiv ated these studies/.
+/3/3
+
+/8/./2 / /, Dynamical Beha vior/, and Computation
+As w as noted earlier/, Langton presen ted evidence that/, giv en certain ca v eats regarding the
+radius r and n um b er of states K /, there is some correlation b et w een / and the b eha vior
+of an /\a v erage/" CA on an /\a v erage/" initial con/guration /[/1/6/]/. Beha vior w as c haracterized
+in terms of quan tities suc h as single/-site en trop y /, t w o/-site m utual information/, di/erence/-
+pattern spreading rate/, and a v erage transien t length/. The correlation is quite go o d for v ery
+lo w and v ery high / v alues/, whic h predict /xed/-p oin t or short/-p erio d b eha vior/. Ho w ev er/,
+for in termediate / v alues/, there is a large degree of v ariation in b eha vior/. Moreo v er/, there
+is no precise correlation b et w een these / v alues and the lo cation of a b eha vioral /\phase
+transition/"/, other than that describ ed b y W o otters and Langton in the limit of in/nite K /.
+The remarks ab o v e and all the exp erimen tal results in /[/1/6 /] are concerned with the re/-
+lationship b et w een / and the dynamical b eha vior of CA/. They do not directly address the
+relationship b et w een / and computational capabilit y of CA/. The basic h yp othesis w as that /
+correlates with computational capabilit y in that rules capable of complex/, and in particular/,
+univ ersal/, computation m ust b e/, or at least are most lik ely to b e/, found near /
+c
+v alues/. As
+far as CA are concerned/,
+/1/0
+the h yp othesis w as based on the in tuition that complex compu/-
+tation cannot b e supp orted in the short/-p erio d or c haotic regimes b ecause the phenomena
+that apparen tly o ccur only in the /\complex/" /(non/-p erio dic/, non/-c haotic/) regimes/, suc h as
+long transien ts and long space/-time correlation/, are necessary to supp ort complex computa/-
+tion/. There has th us far b een no exp erimen tal evidence correlating / with an indep enden t
+measure of computation/. P ac k ard/'s exp erimen ts w ere in tended to address this issue since
+they in v olv ed an indep enden t measure of computation/|p erformance on a particular complex
+computational task/|but as w e ha v e sho wn/, these exp erimen ts do not pro vide evidence for
+the h yp othesis linking /
+c
+v alues with computational abilit y /. In order to test this h yp othesis/,
+more general measures of computation need to b e used/.
+The argumen t that complex computation cannot o ccur in the short/-p erio d or c haotic
+regimes ma y seem in tuitiv ely correct/, but there is actually a theoretical framew ork and
+strong exp erimen tal evidence to the con trary /. Hanson and Crutc h/eld /[/2/, /1/1 /] ha v e dev el/-
+op ed a metho d for /ltering out c haotic /\domains/" in the space/-time diagram of a CA/, some/-
+times rev ealing /\particles/" that ha v e the non/-p erio dic/, non/-c haotic prop erties of structures
+in W olfram/'s Class /4 CA/. That is/, with the appropriate /lter applied/, complex structures
+can b e unco v ered in a space/-time diagram that/, to the h uman ey e and to the statistics used
+in /[/1/6/]/, app ears to b e completely random/. As an extreme example/, it is conceiv able that
+suc h /lters could b e applied to a seemingly c haotic CA and rev eal that the CA is actually
+implem en ti ng a univ ersal computer /(with glider guns implem en ti ng AND/, OR/, and NOT
+gates/, etc/./)/. Hanson and Crutc h/eld/'s results strikingly illustrate that apparen t complexit y
+of b eha vior/|and apparen t computational capabilit y/|can dep end on the implicit /\/lter/"
+imp osed b y one/'s c hosen statistics/.
+/1/0
+In the con text of con tin uous/-state dynamical systems/, it has b een sho wn that there is a direct relationship
+b et w een in trinsic computational capabilit y of a pro cess and the degree of randomness of that pro cess at the
+phase transition from order to c haos/. Computational capabilit y w as quan ti/ed with the statistical complexit y /,
+a measure of the amoun t of memory of a pro cess/, and via the detection of an em b edded computational
+mec hanism equiv alen t to a stac k automaton/./[/3 /]
+/3/4
+
+/8/./3 What Kind of Computation in CA Do W e Care Ab out/?
+In the section ab o v e/, the phrases /\complex computation/" and /\computational capabilit y/"
+w ere used somewhat lo osely /. As w as discussed in Section /3/, there are at least three di/eren t
+in terpretations of the notion of computation in CA/. The notion of a CA b eing able to
+p erform a /\complex computation/" suc h as the /
+c
+/= /1 /= /2 task/, where the CA p erforms the
+same computation on all initial con/gurations/, is v ery di/eren t from the notion of a CA
+b eing capable/, under some sp ecial set of initial con/gurations/, of sim ulating a univ ersal
+computer/. Langton/'s sp eculations regarding the relationship b et w een dynamical b eha vior
+and computational capabilit y seemed to b e more concerned with the latter than the former/,
+though the implication is that the capabilit y to sustain long transien ts/, long correlation
+lengths/, and so on are necessary for b oth notions of computation/.
+If /\computationally capable/" is tak en to mean /\capable/, under some initial con/gura/-
+tion/(s/)/, of univ ersal computation/"/, then one migh t ask wh y this is a particularly imp ortan t
+prop ert y of CA on whic h to fo cus/. In /[/1/6 /] CA w ere used merely as a v ehicle to study
+the relationship b et w een phase transitions and computation/, with an emphasis on univ ersal
+computation/. But for those who w an t to use CA as scien ti/c mo dels or as practical compu/-
+tational to ols/, a fo cus on the capacit y for univ ersal computation ma y b e misguided/. If a CA
+is b eing used as a mo del of a natural pro cess /(e/.g/./, turbulence/)/, then it is curren tly of limited
+in terest to kno w whether or not the pro cess is in principle capable of univ ersal computation
+if univ ersal computation will arise only under some sp ecially engineered initial con/guration
+that the natural pro cess is extremel y unlik ely to ev er encoun ter/. Instead/, if one w an ts to
+understand emergen t computation in natural phenomena as mo deled b y CA/, then one should
+try to understand what computation the CA /\in trinsically/" do es /[/2/, /1/1 /] rather than what it
+is /\in principle capable/" of doing only under some v ery sp ecial initial con/gurations/. Th us/,
+understanding the conditions under whic h a capacit y for univ ersal computation is p ossible
+will not b e of m uc h v alue in understanding the natural systems mo deled b y CA/.
+This general p oin t is neither new nor deep/. Analogous argumen ts ha v e b een put forth
+in the con text of neural net w orks/, for example/. While man y constructions ha v e b een made
+of univ ersal computation in neural net w orks /(e/.g/./, /[/2/8/]/)/, some psyc hologists /(e/.g/./, /[/2/7/]/) ha v e
+argued that this has little to do with understanding ho w brains or minds w ork in the natural
+w orld/.
+Similarly /, if one w an ts to use a CA as a parallel computer for solving a real problem/|
+suc h as face recognition/|it w ould b e v ery ine/cien t/, if not practically imp ossible/, to solv e
+the problem b y /(sa y/) programming Con w a y/'s Game of Life CA to b e a univ ersal computer
+that sim ulates the action of the desired face recognizer/. Th us understanding the conditions
+under whic h univ ersal computation is p ossible in CA is not of m uc h practical v alue either/.
+In addition/, it is not clear that an ything lik e a driv e to w ard univ ersal/-computational
+capabilities is an imp ortan t force in the ev olution of biological organisms/. It seems lik ely
+that substan tially less computationally/-capable prop erties pla y a more frequen t and robust
+role/. Th us asking under what the conditions ev olution will create en tities /(including CA/)
+capable of univ ersal computation ma y not b e of great imp ortance in understanding natural
+ev olutionary mec hanisms/.
+In short/, it is mathematically imp ortan t to kno w that some CA are in principle capable
+/3/5
+
+of univ ersal computation/. But w e argue that this is b y no means the most scien ti/cally
+in teresting prop ert y of CA/. More to the p oin t/, this prop ert y do es not help scien tists m uc h
+in understanding the emergence of complexit y in nature or in harnessing the computational
+capabilities of CA to solv e real problems/.
+/9/. Conclusion
+The main purp ose of this study w as to examine and clarify the evidence for v arious h yp othe/-
+ses related to ev olution/, dynamics/, computation/, and cellular automata/. W e hop e this study
+has shed some new and constructiv e ligh t on these issues/. As a result of our study w e ha v e
+iden ti/ed a n um b er of ev olutionary mec hanisms/, suc h as the role of com binatorial drift/, and
+the role of symmetry and the imp edimen ts to emerging computational strategies caused b y
+symmetry breaking/. F or example/, w e ha v e found that the breaking of the goal task/'s sym/-
+metries in the early generations can b e an imp edim en t to further optimization of individuals
+in the p opulation/. The symmetry breaking results is a kind of sub optimal sp eciation in the
+p opulation that is stable or/, at least/, meta/-stable o v er long times/. The symmetry/-breaking
+e/ects w e describ ed here ma y b e similar to symmetry/-breaki ng phenomena suc h as bilateral
+symmetry and handedness that emerge in biological ev olution/. It is our goal to dev elop a
+more rigorous framew ork for understanding these mec hanisms in the con text of ev olving CA/.
+W e b eliev e that a deep understanding of these mec hanisms in this relativ ely simple con text
+can yield insigh ts for understanding ev olutionary pro cesses in general and for successfully
+applying ev olutionary/-computation metho ds to complex problems/.
+Though our exp erimen ts did not repro duce the results rep orted in /[/2/3 /]/, w e b eliev e that
+the original conception of using GAs to ev olv e computation in CA is an imp ortan t idea/.
+Aside from its p oten tial for studying v arious theoretical issues/, it also has a p oten tial prac/-
+tical side that could b e signi/can t/. As w as men tioned earlier/, CA are increasingly b eing
+studied as a class of e/cien t parallel computers/; the main b ottlenec k in applying CA more
+widely to parallel computation is pr o gr amming /|in general it is v ery di/cult to program CA
+to p erform complex tasks/. Our results suggest that the GA has promise as a metho d for ac/-
+complishing suc h programming automatically /. In order to further test the GA/'s e/ectiv eness
+as compared with other searc h metho ds/, w e p erformed an additional exp erimen t/, comparing
+the p erformance of our GA on the /
+c
+/= /1 /= /2 task with the p erformance of a simple steep est/-
+ascen t hill/-clim bing metho d/. W e found that the GA signi/can tly outp erformed hill/-clim bing/,
+reac hing m uc h higher /tnesses for an equiv alen t n um b er of /tness ev aluations/. This giv es
+some evidence for the relativ e e/ectiv eness of GAs as compared with simple gradien t ascen t
+metho ds for programming CA/. Koza /[/1/5 /] has also ev olv ed CA rules using a v ery di/eren t
+t yp e of represen tation sc heme/; it is a topic of substan tial practical in terest to study the
+relationship of represen tation and GA success on suc h tasks/.
+Ac kno wlegmen ts
+This researc h w as supp orted b y the San ta F e Institute/, under the Adaptiv e Computation and
+External F acult y Programs/, and b y the Univ ersit y of California/, Berk eley /, under con tract
+AF OSR /9/1/-/0/2/9/3/. Thanks to Do yne F armer/, Jim Hanson/, Erica Jen/, Chris Langton/, W en tian
+Li/, Cris Mo ore/, and Norman P ac k ard for man y helpful discussions and suggestions concerning
+this pro ject/. Thanks also to Emily Dic kinson and T erry Jones for tec hnical advice/.
+/3/6
+
+References
+/[/1/] E/. Berlek amp/, J/. H/. Con w a y /, and R/. Guy /. Winning ways for your mathematic al plays /. Aca/-
+demic Press/, New Y ork/, NY/, /1/9/8/2/.
+/[/2/] J/. P /. Crutc h/eld and J/. E/. Hanson/. T urbulen t pattern bases for cellular automata/. T ec hnical
+Rep ort SFI/-/9/3/-/0/3/-/0/1/0/, San ta F e Institute/, /1/9/9/3/.
+/[/3/] J/. P /. Crutc h/eld and K/. Y oung/. Inferring statistical complexit y /. Physic al R eview L etters /,
+/6/3/:/1/0/5/, /1/9/8/9/.
+/[/4/] J/. P /. Crutc h/eld and K/. Y oung/. Computation at the onset of c haos/. In W/. H/. Zurek/, edi/-
+tor/, Complexity/, Entr opy/, and the Physics of Information /, pages /2/2/3/{/2/6/9/. Addison W esley /,
+Redw o o d Cit y /, CA/, /1/9/9/0/.
+/[/5/] P /. Gonzaga de S/ a and C/. Maes/. The Gacs/-Kurdyumo v/-Levin automaton revisited/. Journal of
+Statistic al Physics /, /6/7/(/3///4/)/:/5/0/7/{/5/2 /2/, /1/9/9/2/.
+/[/6/] D/. F armer/, T/. T o/oli/, and S/. W olfram/, editors/. Cel lular A utomata/: Pr o c e e dings of an Inter/-
+disciplinary Workshop /. North Holland/, Amsterdam/, /1/9/8/4/.
+/[/7/] P /. Gacs/, G/. L/. Kurdyumo v/, and L/. A/. Levin/. One/-dimensional uniform arra ys that w ash out
+/nite islands/. Pr obl/. Per e dachi/. Inform/. /, /1/4/:/9/2/{/9/8/, /1/9/7/8/.
+/[/8/] D/. E/. Goldb erg/. Genetic A lgorithms in Se ar ch/, Optimization/, and Machine L e arning /. Addison
+W esley /, Reading/, MA/, /1/9/8/9/.
+/[/9/] J/. Guc k enheimer and P /. Holmes/. Nonline ar Oscil lations/, Dynamic al Systems/, and Bifur c ations
+of V e ctor Fields /. Springer/-V erlag/, New Y ork/, /1/9/8/3/.
+/[/1/0/] H/. A/. Guto witz/, editor/. Cel lular A utomata /. MIT Press/, Cam bridge/, MA/, /1/9/9/0/.
+/[/1/1/] J/. E/. Hanson and J/. P /. Crutc h/eld/. The attractor/-basin p ortrait of a cellular automaton/.
+Journal of Statistic al Physics /, /6/6/(/5///6/)/:/1/4/1/5/{ /1/4/6 /2/, /1/9/9/2/.
+/[/1/2/] J/. H/. Holland/. A daptation in Natur al and A rti/cial Systems /. The Univ ersit y of Mic higan Press/,
+Ann Arb or/, MI/, /1/9/7/5/.
+/[/1/3/] S/. A/. Kau/man/. Requiremen ts for ev olv abilit y in complex systems/: Orderly dynamics and
+frozen comp onen ts/. Physic a D /, /4/2/:/1/3/5/{/1/5/2/, /1/9/9/0/.
+/[/1/4/] S/. A/. Kau/man and S/. Johnson/. Co/-ev olution to the edge of c haos/: Coupled /tness landscap es/,
+p oised states/, and co/-ev olutionary a v alanc hes/. In C/. G/. Langton/, G/. T a ylor/, J/. Do yne F armer/,
+and S/. Rasm ussen/, editors/, A rti/cial Life II /, pages /3/2/5/{/3/6/8/, Redw o o d Cit y /, CA/, /1/9/9/2/. Addison
+W esley /.
+/[/1/5/] J/. R/. Koza/. Genetic pr o gr amming/: On the pr o gr amming of c omputers by me ans of natur al
+sele ction /. MIT Press/, Cam bridge/, MA/, /1/9/9/3/.
+/[/1/6/] C/. G/. Langton/. Computation at the edge of c haos/: Phase transitions and emergen t computa/-
+tion/. Physic a D /, /4/2/:/1/2/{/3/7/, /1/9/9/0/.
+/[/1/7/] W/. Li/. Non/-lo cal cellular automata/. In L/. Nadel and D/. Stein/, editors/, /1/9/9/1 L e ctur es in
+Complex Systems /, pages /3/1/7/{/3/2/7/. Addison W esley /, Redw o o d Cit y /, CA/, /1/9/9/2/.
+/3/7
+
+/[/1/8/] W/. Li and N/. H/. P ac k ard/. The structure of the elemen tary cellular automata rule space/.
+Complex Systems /, /4/:/2/8/1/{/2/9/7/, /1/9/9/0/.
+/[/1/9/] W/. Li/, N/. H/. P ac k ard/, and C/. G/. Langton/. T ransition phenomena in cellular automata rule
+space/. Physic a D /, /4/4/, /1/9/9/0/.
+/[/2/0/] K/. Lindgren and M/. G/. Nordahl/. Univ ersal computation in a simple one/-dimensional cellular
+automaton/. Complex Systems /, /4/:/2/9/9/{/3/1/8/, /1/9/9/0/.
+/[/2/1/] N/. P ac k ard/. Complexit y of gro wing patterns in cellular automata/. In J/. Demongeot/, E/. Goles/,
+and M/. Tc h uen te/, editors/, Dynamic al Behavior of A utomata/: The ory and Applic ations /. Aca/-
+demic Press/, New Y ork/, /1/9/8/4/.
+/[/2/2/] N/. H/. P ac k ard/. P ersonal comm unication/.
+/[/2/3/] N/. H/. P ac k ard/. Adaptation to w ard the edge of c haos/. In J/. A/. S/. Kelso/, A/. J/. Mandell/, and
+M/. F/. Shlesinger/, editors/, Dynamic Patterns in Complex Systems /, pages /2/9/3/{/3/0/1/, Singap ore/,
+/1/9/8/8/. W orld Scien ti/c/.
+/[/2/4/] J/. B/. P ollac k/. The induction of dynamical recognizers/. Machine L e arning /, /7/:/2/2/7/{/2/5/2/, /1/9/9/1/.
+/[/2/5/] K/. Preston and M/. Du//. Mo dern Cel lular A utomata /. Plen um/, New Y ork/, /1/9/8/4/.
+/[/2/6/] A/. Rosenfeld/. P arallel image pro cessing using cellular arra ys/. Computer /, /1/6/:/1/4/, /1/9/8/3/.
+/[/2/7/] D/. E/. Rumelhart and J/. L/. McClelland/. PDP mo dels and general issues in cognitiv e science/.
+In D/. E/. Rumelhart and J/. L/. McClelland/, editors/, Par al lel Distribute d Pr o c essing /, v olume /1/,
+Cam bridge/, MA/, /1/9/8/6/. MIT Press/.
+/[/2/8/] H/. Siegelman and E/. D/. Son tag/. Neural net w orks are univ ersal computing devices/. T ec hnical
+Rep ort SYCON/-/9/1/-/0/8/, Rutgers Cen ter for Systems and Con trol/, Rutgers Univ ersit y /, New
+Brunswic k/, NJ /0/8/9/0/3/, /1/9/9/1/.
+/[/2/9/] T/. T o/oli and N/. Margolus/. Cel lular A utomata Machines/: A new envir onment for mo deling /.
+MIT Press/, Cam bridge/, MA/, /1/9/8/7/.
+/[/3/0/] S/. W olfram/. Univ ersalit y and complexit y in cellular automata/. Physic a D /, /1/0/:/1/{/3/5/, /1/9/8/4/.
+/[/3/1/] S/. W olfram/, editor/. The ory and applic ations of c el lular automata /. W orld Scien ti/c/, Singap ore/,
+/1/9/8/6/.
+/[/3/2/] W/. K/. W o otters and C/. G/. Langton/. Is there a sharp phase transition for deterministic cellular
+automata/? Physic a D /, /4/5/:/9/5/{/1/0/4/, /1/9/9/0/.
+/[/3/3/] A/. W uensc he and M/. Lesser/. The glob al dynamics of c el lular automata /. San ta F e Institute
+Studies in the Sciences of Complexit y /. Addison W esley /, Reading/, MA/, /1/9/9/2/.
+/3/8
