@@ -192,7 +192,8 @@ def main(argv=None) -> int:
     uid_counter = 0
     uid_first: dict[int, int] = {}
     uid_last: dict[int, int] = {}
-    uid_peak: dict[int, int] = {}   # True = потомок подсеянного редкого типа
+    uid_peak: dict[int, int] = {}
+    uid_s_birth: dict[int, float] = {}   # True = потомок подсеянного редкого типа
     _invade_pending = False
     prev_lab = None
     pairs: list[tuple[float, float]] = []   # (s родителя, s дочери)
@@ -375,6 +376,8 @@ def main(argv=None) -> int:
                 uid_counter += 1
                 new_uid[cid] = uid_counter
             uid_first.setdefault(new_uid[cid], step)
+            if new_uid[cid] not in uid_s_birth and cid in comp_s:
+                uid_s_birth[new_uid[cid]] = round(float(comp_s[cid]), 4)
             uid_last[new_uid[cid]] = step
             uid_peak[new_uid[cid]] = max(uid_peak.get(new_uid[cid], 0), int(cells.sum()))
         comp_uid = {cid: u for cid, u in new_uid.items()}
@@ -409,6 +412,13 @@ def main(argv=None) -> int:
                 "s_sd_between": round(float(np.std(vals)), 4) if len(vals) > 1 else 0.0,
                 "s_wild_fraction": round(float(np.mean([abs(s - args.s_ref) < 1e-9 for s in vals])), 4) if vals else 0.0,
                 "occupied": round(float(mask.mean()), 4),
+                # X37/X39: журнал компонент по срезам — uid, признак, площадь.
+                # Без него нельзя ни дифференциал отбора по выжившим (X37), ни активность по типам (X39).
+                "components_log": [
+                    {"uid": comp_uid.get(cid), "s": round(float(comp_s[cid]), 4) if cid in comp_s else None,
+                     "area": int((prev_lab == cid).sum())}
+                    for cid in keep if cid in comp_s
+                ],
             })
 
     # E11: удельная скорость роста редкого типа по срезам после подсева
@@ -446,6 +456,11 @@ def main(argv=None) -> int:
             "shuffled": bool(args.hetero_shuffle),
             "components_last": series[-1]["components"] if series else 0,
         },
+        "uid_outcomes": [
+            {"uid": u, "first": uid_first[u], "last": uid_last[u], "peak": uid_peak.get(u, 0),
+             "s_at_birth": uid_s_birth.get(u)}
+            for u in sorted(uid_first)
+        ],
         "lifetimes": {
             "n_uids": len(uid_first),
             "median_life_steps": (sorted(uid_last[u] - uid_first[u] for u in uid_first)[len(uid_first) // 2]
