@@ -2,7 +2,7 @@
   "schema_version": 1,
   "generated_at": "2026-10-24T05:12:57Z",
   "policy": "Локально хранятся только canonical final из lab/checkpoints.json (требования активной/следующей серии) и явно объявленный положительный контроль. Best-снапшоты при наличии final и неканонические final закрытых/замещённых плеч удаляются после фиксации метрик, per-run JSONL, манифеста и этой записи в git. Веса в GitHub не отправляются; canonical final удаляется только по решению владельца.",
-  "freed_bytes": 68518866071,
+  "freed_bytes": 68663504171,
   "files": [
     {
       "path": "morphogenesis/checkpoints/gate_layer1_s800_seed101/nca_best.pt",
@@ -2587,6 +2587,16 @@
       "date": "2026-10-26",
       "size_bytes": 539495742,
       "deleted_at": "2026-10-26T12:06:40Z"
+    },
+    {
+      "path": "morphogenesis/logs/*.log",
+      "family": "logs_stdout_2026-10",
+      "bytes": 144638100,
+      "mtime": "2026-10-29T23:10:52",
+      "reason": "stdout закрытых прогонов 18–29.10 (§5a): журнал и артефакты остаются, логи упакованы в _exports/logs-stdout-2026-10.zip — 1253 записи, сверено с диском",
+      "date": "2026-10-31",
+      "files": 1253,
+      "archived_to": "_exports/logs-stdout-2026-10.zip"
     }
   ],
   "updated_at": "2026-10-30T00:50:00+00:00",
