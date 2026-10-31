@@ -55,15 +55,15 @@ KNOWN = {
         "why": "граничные условия дают другую бифуркационную структуру: границы — это модель, а не точность",
     },
     "taylor_2014_alife_review": {
-        "doi": "10.3389/frobt.2014.00008", "year": 2014, "status": "unread",
+        "doi": "10.3389/frobt.2014.00008", "year": 2014, "status": "partial",
         "why": "обзор ALife: у поля нет собственной традиции V&V",
     },
     "wilson_2014_best_practices": {
-        "doi": "10.1371/journal.pbio.1001745", "year": 2014, "status": "unread",
+        "doi": "10.1371/journal.pbio.1001745", "year": 2014, "status": "partial",
         "why": "практики научных вычислений: тесты, ревью, версии — дешёвая часть V&V",
     },
     "sandve_2013_ten_rules": {
-        "doi": "10.1371/journal.pcbi.1003285", "year": 2013, "status": "unread",
+        "doi": "10.1371/journal.pcbi.1003285", "year": 2013, "status": "partial",
         "why": "десять правил воспроизводимости; мы следуем большинству случайно, а не по правилу",
     },
     "mitchell_1993_edge_of_chaos": {
