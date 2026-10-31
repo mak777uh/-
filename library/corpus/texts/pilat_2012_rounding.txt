@@ -1,0 +1,306 @@
+Dealing with Rounding Error Problems in Evolutionary Physical Simulation
+Marcin L. Pilat1, Reiji Suzuki1, Takaya Arita1
+1Graduate School of Information Science, Nagoya University
+Furo-cho, Chikusa-ku, Nagoya 464-8601, Japan
+(pilat@alife.cs.is.nagoya-u.ac.jp)
+Abstract: This paper introduces the problem of ﬂoating-point rounding errors in physical simulation. A simple virtual creature
+is simulated in a physical environment for a speciﬁed number of time steps. The effect of rounding errors is illustrated by varying
+the initial position of the creature which causes a change in the ﬁtness value computed by a simple distance-based ﬁtness function.
+With a large evaluation time, these rounding errors can produce signiﬁcantly large differences in ﬁtness. A discussion is provided
+on the importance of this ﬁnding for evolutionary simulations, including suggestions to alleviate the problem.
+Keywords: physical simulation, ﬂoating point, rounding errors, evolutionary computation, artiﬁcial life
+1 INTRODUCTION
+Physical simulation is gaining popularity in the artiﬁcial
+life community. It enables experimentation with physical
+models which reﬂect the physical nature of biological or-
+ganisms. Such experiments are vital in real-world applied
+robotics research. Furthermore, physical simulation allows
+for a complex simulation environment, important for the
+study of theoretical problems.
+Physics engines are made for the video gaming market
+and are not meant to be used for accurate scientiﬁc simula-
+tion. However, they are valuable as they offer an approxi-
+mation to more accurate physical simulation but at real-time
+speeds. We present and discuss problems that occur when
+using video game grade physics engines for scientiﬁc simu-
+lation, focusing on the problem of ﬂoating-point rounding er-
+rors. We simulate a simple virtual creature in a simple physi-
+cal environment and demonstrate the rounding error problem
+on ﬁtness evaluation by varying the creature’s initial position.
+We show that the ﬁtness performance is highly sensitive
+to small variations in the creature’s initial position producing
+signiﬁcant variation in ﬁtness values. These rounding errors
+occur after only a few simulation steps and increase drasti-
+cally over simulation time. While not generally destructive,
+these errors can impact the performance of evolutionary algo-
+rithms that use ﬁtness-proportional selection. Having identi-
+ﬁed the problem and presented evidence of its occurrence,
+we offer solutions that can alleviate it.
+2 TEST MODEL AND ENVIRONMENT
+Floating-point is the most common method to represent
+real numbers in computers. However, it is often poorly un-
+derstood by software developers and researchers alike [1].
+The most common ﬂoating-point representation currently
+used is deﬁned by the IEEE 754 standard. There are mainly
+two sources of error when using ﬂoating-point representa-
+Fig. 1: Hand-crafted virtual creature used in the presented
+experiments composed of two bodies connected with a hinge
+joint. Neural network controller not shown.
+tion: not all real numbers can be exactly represented and
+rounding error is inherent in ﬂoating-point computation.
+The virtual creature model provides a simple yet pow-
+erful model for the study of evolution of morphologies and
+controllers for tasks such as locomotion [2] and light follow-
+ing [3]. We use a simple hand-crafted virtual creature, using
+the virtual creature model described in [2], composed of two
+blocks of different sizes joined with a hinge joint (shown in
+Fig. 1). The neural network consists of a sine wave genera-
+tor neuron feeding into an effector allowing the smaller body
+part to rotate around the hinge joint.
+The testing environment is composed of a simple plane
+simulation surface with friction. Virtual creatures are ini-
+tially positioned above the surface and are allowed to drop
+due to the gravitational force. Once a creature rests on the
+ground surface and is stable from movement, the neural net-
+work of the creature is turned on which makes the creature
+move along the surface. We use a simple ﬁtness function,
+measuring ﬁtness as a simple displacement from the original
+resting position to the ﬁnal resting position, to demonstrate
+the rounding error problem.
+Physical simulation is performed using the Morphid
+The Seventeenth International Symposium on Artificial Life and Robotics 2012 (AROB 17th ’12), 
+B-Con Plaza, Beppu, Oita, Japan, January 19-21, 2012
+© ISAROB 2012
+658
+
+Academy software [2]. Morphid Academy is a virtual lab-
+oratory for the evolution of functional forms called Mor-
+phids. The software features physical simulation using the
+Open Dynamics Engine 1 (ODE) and NVIDIA PhysX 2 en-
+gines, graphical visualization through the OGRE graphics
+engine, and an ability to perform structured evolutionary ex-
+periments with a built-in genetic algorithm.
+3 EXPERIMENTS AND RESULTS
+We executed a suite of creature evaluation experiments
+to showcase the problem with physical simulation due to
+ﬂoating-point rounding errors. These experiments only per-
+formed creature simulation and ﬁtness evaluation and did not
+have an evolutionary component. The position and evalu-
+ation time experiments were run using the NVIDIA PhysX
+engine while the precision experiments used ODE. The eval-
+uated creature was recreated for each evaluation to prevent
+accumulation of internal state errors. For each evaluation,
+the creature was located at a certain (x,y) coordinate, along
+the simulation plane. The z-coordinate was kept constant.
+3.1 Position
+The initial creature position experimental results demon-
+strate the main problem of rounding errors in the ﬂoating-
+point representation producing unexpected behavior in phys-
+ical simulations. Physics engines generally produce deter-
+ministic behavior (at least on the same hardware). When a
+ﬁxed initial position is used (as in most virtual creature evo-
+lution systems), the behavior of a virtual creature is the same
+over a number of evaluations. However, modifying the ini-
+tial position by a small amount can produce chaotic behavior
+with drastically different ﬁtness values.
+Fig. 2c illustrates this phenomenon showing the ﬁtness
+values of the evaluated creature for 10000 initial positions
+centered around the origin and offset by multiples of a ﬁxed
+position deltaδx = 0.001 along the x-axis. It is expected that
+the ﬁtness will be independent of the initialx position value,
+producing a plot with a straight line. However, the ﬁtness
+values vary greatly with a somewhat random distribution.
+Additional experiments were performed varying the value
+of δx (not shown). Experiments with smaller values of δx
+have similar ﬁtness behavior. With larger δx, somewhat pe-
+riodic patterns of ﬁtness values can be seen, which is likely
+due to the larger position values (in100s). Similar results are
+observed varyingδy along the y-axis.
+3.2 Evaluation Time
+Evaluation time is important for physical simulation since
+adequate evaluation time is required for the occurrence of
+1ODE is available at http://www.ode.org under an open source
+license.
+2The PhysX SDK is available for free from NVIDIA Corporation at
+http://developer.nvidia.com/physx.
+(a) t = 10; mean = 1.311 × 10−4, std dev = 5.033 × 10−7
+(b) t = 1000; mean = 6.70344, std dev = 0.00008
+(c) t = 10000; mean = 54.25, std dev = 34.89
+Fig. 2: Results of the evaluation time experiments with eval-
+uation time t of 10 (a), 1000 (b), and 10000 (c). The x-
+coordinate of the initial creature position is plotted against
+the computed ﬁtness value. Mean and standard deviation are
+displayed for each plot.
+certain behaviors. Evaluation time is expressed in terms of
+evaluation steps where each step is equal to one step of the
+physics engine. Fig. 2 shows the dependence of the evalua-
+tion time of 10, 1000, and 10000 on the error propagation in
+ﬁtness values usingδx = 0.001.
+These results indicate that the problem of rounding errors
+occurs quite early with only a few number of steps (10 eval-
+uation steps in Fig. 2a). The rounding errors propagate over
+The Seventeenth International Symposium on Artificial Life and Robotics 2012 (AROB 17th ’12), 
+B-Con Plaza, Beppu, Oita, Japan, January 19-21, 2012
+© ISAROB 2012
+659
+
+evaluation time to a point where they produce a large range
+of results (as seen in Figs. 2b and 2c).
+3.3 Precision
+We run similar ﬁtness evaluation experiments using the
+single and double precision versions of ODE with various
+evaluation time settings. ODE was used for these experi-
+ments since the NVIDIA PhysX SDK is only available in
+single precision. Selected results are shown in Fig. 3.
+The results for smaller values of evaluation time (100 and
+1000) show a larger dispersion of values using single preci-
+sion. On the other hand, double precision produces more ir-
+regular ﬁtness behavior within range [−2, 2] (see Fig. 3a vs.
+Fig. 3b). With evaluation time of 10000, the single and dou-
+ble precision results are very similar with signiﬁcantly large
+standard deviation values as demonstrated in Fig. 3c.
+From these results, it is difﬁcult to conclude whether the
+double precision ﬁtness results are, in general, better than the
+ones with single precision, especially for a higher number of
+evaluation steps. It is interesting to note that while the mean
+ﬁtness values for single and double precision are very similar
+with 100 and 1000 time steps, they are quite different with
+10000 time steps (e.g., means of 96.434 vs. 69.447).
+4 DISCUSSION
+The ﬂoating-point rounding errors, presented by the ex-
+amples in the previous section, are not necessarily a dis-
+advantage of physics engines. The real world is inherently
+chaotic and capturing this behavior in simulations allows for
+results that appear more realistic and can be more suited to
+the real world. Artiﬁcial life simulations, especially involv-
+ing a large number of interacting entities, are often criticized
+to be too orderly and thus not able to evolve novelty. Chaotic
+systems, such as physics engines, can be of beneﬁt in this do-
+main since they introduce inherent perturbations. Physically
+simulated ecosystems of evolving entities are a promising fu-
+ture for artiﬁcial life research.
+The effect of this chaotic behavior has to be considered
+for each simulation since it can have a strong effect on the
+performance of the system and on the acquired results. In an
+evolutionary system where the ﬁtness value decides on the re-
+productive strength of an individual, it needs to be calculated
+accurately for the algorithm to be effective. If the ﬁtness of an
+individual signiﬁcantly varies between different evaluations,
+the evolutionary algorithm might not select the individual for
+reproduction even though the individual is generally ﬁt.
+Fig. 4 illustrates the effect of the position-based rounding
+error problem on the performance of a genetic algorithm us-
+ing the simple displacement ﬁtness function. The variation
+in ﬁtness values can be seen on the best of population line
+(in green). Furthermore, the evolutionary algorithm perfor-
+mance is decreased since good individuals can be eliminated
+(a) single, t = 1000; mean 0.18475, std dev = 0.00006
+(b) double, t = 1000; mean 0.18487, std dev = 0.00017
+(c) single, t = 10000; mean 96.434, std dev = 56.544
+Fig. 3: Results of the precision experiments with single (a,c)
+and double (b) precision and evaluation time t of 1000 (a,b)
+and 10000 (c). The x-coordinate of the initial creature posi-
+tion is plotted against the computed ﬁtness value. Mean and
+standard deviation are displayed for each plot.
+from the population by worse performing individuals due to
+a signiﬁcant variation in ﬁtness values over different evalua-
+tions.
+The ﬁtness values and their spread are greatly dependent
+on the ﬁtness function used. Thus, care must be taken to craft
+a ﬁtness function where the position-dependent ﬁtness varia-
+tion of a ﬁt individual is still able to distinguish it from an un-
+ﬁt individual. The simple distance-based locomotion ﬁtness
+The Seventeenth International Symposium on Artificial Life and Robotics 2012 (AROB 17th ’12), 
+B-Con Plaza, Beppu, Oita, Japan, January 19-21, 2012
+© ISAROB 2012
+660
+
+Fig. 4: Fitness plot of an evolutionary run with virtual crea-
+tures using the locomotion distance ﬁtness function. The ini-
+tial position of each evaluated creature is randomized. The
+best of population (in green) and population average (in red)
+are shown.
+function used in the presented experiments was speciﬁcally
+chosen to demonstrate the rounding error and is not a good
+choice of a ﬁtness function to alleviate the problem.
+A simple solution to the initial position-based rounding
+error problem is to evaluate each individual at the same ini-
+tial position. This idea works well with a simple evolution-
+ary scenario where the evaluation of each virtual creature is
+separate. However, it is not well suited for co-evolutionary
+scenarios where multiple virtual creatures need to be evalu-
+ated in the same environment. Furthermore, a slight variation
+in initial position can prevent problems with the evolutionary
+system exploiting the position and can generally be beneﬁcial
+if the effect of rounding errors can be minimized.
+The ﬂoating-point precision setting can improve the re-
+sults as we found the double precision performance in ODE
+more stable. However, with a large evaluation time, the prob-
+lem is still signiﬁcant. For closed source engines, such as
+NVIDIA PhysX, the precision is ﬁxed and cannot be modi-
+ﬁed by the user. To alleviate the problem further, the ﬂoating-
+point representation can be replaced with a ﬁxed-point repre-
+sentation if the range of required values does not need to be
+large. Fixed-point representation can provide more stable be-
+havior but we are currently not aware of any free 3D physics
+engines that use a ﬁxed-point representation.
+A more important problem with ﬂoating-point arithmetic
+is that it is not guaranteed to produce the same results on dif-
+ferent computer architectures and across different compilers
+or optimization settings as detailed in [4]. This can severely
+affect the reproducibility of results over different machines.
+The problem can be solved to an extent but solving it is con-
+sidered to be very difﬁcult [5].
+5 CONCLUSIONS
+We presented experimental results showing the effect of
+ﬂoating-point rounding errors on a sample ﬁtness calculation
+of a virtual creature simulated using a physics engine. The
+variation of ﬁtness values due to the difference in initial po-
+sition of evaluation is evident and continues to increase with
+the evaluation time. The variation is signiﬁcant on the time
+scale that is typically used for evolutionary experiments such
+as the virtual creature experiments presented.
+This chaotic behavior can add beneﬁcial randomness to
+the simulations but needs to be considered, especially for
+evolutionary experiments where the survival of an individual
+is directly related to its ﬁtness value as compared with other
+individuals. In these evolutionary scenarios, a wrong choice
+of ﬁtness function can have a negative effect on the evolu-
+tionary performance. We identiﬁed several possible methods
+of alleviating the ﬂoating-point rounding error problem.
+The presented issue raises some important directions for
+future research. Can and should ﬂoating-point rounding er-
+rors be eliminated in physical simulations? Can evolution-
+ary systems using well-crafted ﬁtness functions harness the
+chaotic power of physics engines? How does this problem
+affect an evolutionary ecosystem simulated with a physics
+engine? The answers to these questions can situate physi-
+cal simulation as a basis for future artiﬁcial life simulation
+systems studying open-ended evolution.
+REFERENCES
+[1] Goldberg, D., What Every Computer Scientist Should
+Know About Floating-Point Arithmetic. ACM Comput-
+ing Surveys, 23 (1), pp. 5–48, March 1991.
+[2] Pilat, M. L. and Jacob, C., Creature Academy: A Sys-
+tem for Virtual Creature Evolution. In Proceedings of
+the IEEE Congress on Evolutionary Computation (CEC
+2008), pp. 3289–3297, IEEE, 2008.
+[3] Pilat, M. L. and Jacob C., Evolution of Vision Capa-
+bilities in Embodied Virtual Creatures. In Proceedings
+of the 12th annual Conference on Genetic and Evolu-
+tionary Computation Conference (GECCO 2010), pp.
+95–102, ACM, 2010.
+[4] Corden, M. J. and Kreitzer D., Consistency of Floating-
+Point Results using the Intel Compiler or Why doesnt
+my application always give the same answer? Pub-
+lished online: http://software.intel.com/
+file/32018/. Retrieved: September 2011.
+[5] Fiedler, G., Floating Point Determinism. Pub-
+lished online: http://gafferongames.com/
+networking-for-game-programmers/
+floating-point-determinism/. Retrieved:
+September 2011.
+The Seventeenth International Symposium on Artificial Life and Robotics 2012 (AROB 17th ’12), 
+B-Con Plaza, Beppu, Oita, Japan, January 19-21, 2012
+© ISAROB 2012
+661

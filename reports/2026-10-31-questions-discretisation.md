@@ -56,7 +56,19 @@ If our contrast survives `dt = 0.5` and `2.0`, we can say it is step-robust. If 
 - Is there a convention for reporting the **range** of `dt` over which a claimed effect holds?
 - Does anyone report a **negative** result of this kind — "our effect is non-Platonic" — and how is it received?
 
-## Q5. Diffusion and resolution are confounded in Gray–Scott — how do people disentangle them?
+## Q5. ~~Diffusion and resolution are confounded in Gray–Scott — how do people disentangle them?~~ **CLOSED from the corpus (31.10)**
+
+**Answer found, with the code-level mechanism.** In the U-Skate World family the "spatial resolution" knob is a
+coefficient `1/Δx²` multiplying the diffusion terms — it changes the **effective diffusion**, not the accuracy of the
+discretisation (Davis 2023, DOI `10.54854/imi2023.01`, found with `scripts/lit_index.py`).
+
+**Consequence for us:** our "grid 96 versus 128" comparison is **not a convergence test**. `Du = 0.16` is fixed and the
+Laplacian has no grid spacing in it, so changing the grid changes the number of cells per diffusion length — that is a
+change of physics, not of accuracy. Our only genuine numerical-parameter test is `X56` (time step).
+
+Proper spatial refinement requires scaling `Du → Du/Δx²`, `Dv → Dv/Δx²`; that is queued as `X58`. See §10dx.
+
+*The remainder of this section is kept as it was written, for the record.*
 
 Davis reports that in Gray–Scott refinement, changing spatial resolution also changes the effective diffusion, and
 labels part of his own evidence "putative" for that reason.

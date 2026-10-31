@@ -4,7 +4,7 @@
 
 The curated page — what matters and why — is [`scripts.md`](scripts.md). This file is the complete list, so that every command behind a number in the record can be found.
 
-Scripts: **171**.
+Scripts: **172**.
 
 ## Гейты и проверки (41)
 
@@ -75,7 +75,7 @@ Scripts: **171**.
 | `zenodo_link.py` | zenodo_link.py — вставить DOI депозита во все места репозитория одной командой. |
 | `zenodo_upload.py` | zenodo_upload.py — депозит новой версии в Zenodo одной командой (без ручной загрузки в браузере). |
 
-## Библиотека и литература (12)
+## Библиотека и литература (13)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -89,6 +89,7 @@ Scripts: **171**.
 | `lit_board.py` | Доска литературы: замечания к текущей работе. |
 | `lit_check.py` | Очередь проверок литературы: срабатывает на «нам нужен параметр/механизм X». |
 | `lit_duty.py` | Обязательный шаг литературы в каждом цикле. |
+| `lit_index.py` | lit_index.py — локальный поисковик по полным текстам статей. |
 | `lit_pressure.py` | Литдавление: нужен ли литературный слот прямо сейчас (триггер вместо календаря). |
 | `lit_search.py` | Поиск свежих публикаций по открытым вопросам библиотеки. |
 

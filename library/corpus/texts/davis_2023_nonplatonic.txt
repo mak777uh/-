@@ -1,0 +1,1051 @@
+Running head: DISCO GLIDERS 1
+Discretization-Dependent Dissolution of Gliders in (Dis)Continuous Systems:
+Non-Platonic Self-Organization in Complex Systems
+Q. Tyrell Davis
+Boulder, CO, United States
+arXiv:2401.13111v1  [nlin.CG]  23 Jan 2024
+
+DISCO GLIDERS 2
+Abstract
+Many simulated complex systems that support persistent self-organizing patterns,i.e.
+gliders have a ‘state-plus-update’ paradigm. This approach can be found in
+computational models of physics, continuous and neural cellular automata, residual
+connections in neural networks, and optimization methods like stochastic gradient
+descent. If the update is the output of a differential equation and modulated by a step
+size parameter, we have the familiar and general Euler method. Generally, a smaller
+step size is expected to yield more accurate results, at the expense of more
+computations to arrive at a desired end point. In other words, a simulation is usually
+expected to represent some real-world or mathematical ideal that can be approached as
+discretization, necessary for simulation on a digital computer, approaches zero. The
+concept of approaching an abstract ideal with finer and finer approximations is found in
+the philosophy of Platonism. In this work I investigate a phenomenon at odds with
+Platonism: the emergence of discretization as an essential ingredient for
+self-organization of persistent, mobile patterns found in some complex systems, known
+generally as gliders in cellular automata systems. I examine multiple systems supporting
+gliders that fit into the Euler method framework, including multiple approaches to
+continuous cellular automata and the Gray-Scott artificial chemistry system. Each of
+these systems yield one or more glider pattern-rule pairs that persist under specific, and
+sometimes quite coarse, discretization conditons, but become unstable at nominally
+more accurate, finer simulation conditions. These patterns (in combination with the
+systems they persist in) are clearly not approximations approaching an abstract ideal as
+discretization tends to zero, but exist on their own, somewhat baffling, terms that
+include the systematic errors of particular discretization regimes. I refer to these gliders
+as ‘non-Platonic’. Code for replicating or expanding on this work has been made
+available athttps://github.com/RiveSunder/DiscoGliders.
+
+DISCO GLIDERS 3
+Discretization-Dependent Dissolution of Gliders in (Dis)Continuous Systems:
+Non-Platonic Self-Organization in Complex Systems
+Introduction
+Physics that can be described by differential equations can be simulated by
+computing, starting from some set of initial condtions, the results of those equations
+over time. One of the simplest methods for doing so is the Euler method, in which the
+state of the system is modified by the result of a differential equation applied to said
+state, weighted by a step parameter,h.
+y(t +h) =y(t) +h∗f(y(t)) (1)
+where y(t) represents the state of system at timet, h is step size, andf(y(t)) is a
+differential equation ∂y∂t describing the rate of change iny with respect to time. In this
+work∗ is used to denote scalar or element-wise multiplication and⊛ will be used for
+convolution.
+Many complex systems that exhibit self-organization can be understood in terms
+of Equation 1. For example, Lenia, a continuous cellular automata (CA) framework
+(Chan, 2019), updates cell statesA(x,t ) at x cell locations at timet according to
+Equation 2.
+A(x,t ) = [A(x,t ) + ∆t∗G(Kn ⊛A(x,t ))]10 (2)
+Where G is the growth function,Kn is a convolutional kernel defining a
+neighborhood, and [·]10 denotes a clamping function that restricts cell states to a range
+between 0 and 1.
+Equation 2 maps to Euler’s method withh = ∆t and
+∂y
+∂t =f(y(x,t )) =G(Kn ⊛A(x,t )). The specifics of the neighborhood kernel and the
+growth function give rise to complex emergent dynamics, including the self-organization
+of persistent, bio-reminiscent patterns that move and interact (‘pseudorganisms’).
+The Euler method can be used as a first-order approximation of the physical laws
+of the universe of human residence. Likewise, we can think of CA and other complex
+
+DISCO GLIDERS 4
+computational systems as universes with their own physical laws, arranged and
+parameterized differently from our own.
+Historically, most CA systems that have been studied, including the well-known
+von Neumann universal constructor CA (von Neumann, 1951; von Neumann & Burks,
+1966) and Conway’s Game of Life (Gardner, 1970), are discrete systems. CA with
+continuous state values and updates have received some research interest over the
+decades, but simulating these on digital computers requires the ‘necessary evil’, to
+quote (Rucker, 2003), of discretization.
+In Equation 1, the step size (h or ∆t) is an obvious source of discretization (and
+discretization error). We typically expect a smaller step size in the Euler method to
+produce more accurate results, at the expense of computing more updates. Simulation
+with too large a step size may yield a result with high error, unlikely to reflect the
+physical dynamics of the ideal system. Simple physics simulations tend to follow this
+expectation, and discretization by a step size that is too large may cause simulations to
+fail in catastrophic fashion.
+Figure 1 shows a naive simulation of gravitational dynamics using the Euler
+method. With too large a step size, point masses spiral out in a manner that would
+make a very surprising observation in our cosmos. With a step size of 3.0 or less,
+simulations appear to follow a consistent trajectory. Unlike the two-body gravitational
+example, Scutium gravidus, a CA glider found in the Lenia framework, only persists in
+an intermediate range of step sizes. Similar to the Newtonian gravitation example, the
+glider loses stability at a high step size (≈ 0.99). Unlike the gravitation example, the
+glider also loses stability in a band of much smaller step sizes from roughly 0.1 to 0.2.
+If the dynamics of a continuous CA system represent a mathematical ideal,
+necessarily discretized for approximate simulation, the effect of decreasing the step size
+should increase the accuracy of the simulation, similar to a simulation of Newtonian
+physics. As previously described in (Davis & Bongard, 2022c) and shown in Figure 1,
+this expectation does not hold true in general.
+This work investigates self-organization in digital approximations of (nominally)
+
+DISCO GLIDERS 5
+continuous-valued complex systems. In particular I find several examples of glider
+pattern-rule pairs in a variety of complex systems where self-organization breaks down
+as discretization is reduced, including continuous CA, neural CA, artificial chemistry
+(the Gray-Scott system), and a CA based on the popular adam update method for
+training neural networks.
+The Related Work section discusses previous work in developing continuous CA
+frameworks and similar systems, with an emphasis on gliders and attention paid to
+discretization.
+The Methods section describes the types of complex systems and experiments I
+used to investigate how discretization affects self-organization of glider patterns. This
+includes modifications to a Gray-Scott reaction-diffusion system (Gray & Scott, 1985),
+called U-Skate World (Munafo, 2014), and a new variant of continuous CA (based on
+adam optimization developed by Kingma and Ba (2014)), that supports at least one
+glider.
+Results comprise the stability of glider patterns under different discretization
+conditions, and are presented as persistence scatter plots or a map of final grid states in
+a grid of discretization parameters values. The subsequent sections suggest plausible
+mechanisms for non-Platonic self-organization, and discuss connections between
+discretization, perception, and human experience.
+Related Work
+In one of the first implementations of continuous CA, MacLennan described a
+continuous spatial automaton implemented from the perspective of field computation
+(MacLennan, 1990). The implementation was described for a discrete time step wherein
+the transition function replaces the previous cell states completely. As a consequence,
+MacLennan’s continuous spatial automaton does not follow the state-plus-update form
+of Euler’s method, which provides a kind of ‘memory’ of previous cell states in the
+systems considered in this work: the cell states are instead replaced at each time step.
+No particular attention was paid to discretization effects and no gliders were described.
+
+DISCO GLIDERS 6
+In discussing a 2D continuous CA framework and software package (CAPOW),
+Rudy Rucker described the necessity of discretization to simulate CA in computers as a
+‘necessary evil’ (Rucker, 2003). While Rucker and his students did experiment with
+running CA simulations at a higher numerical precision (using double instead of single
+floating point numbers), they dismissed the modification as causing no qualitative
+difference in the behavior of the continuous CA, and thus not worth the added
+computational cost. The author did not consider gliders, but did note that in simulating
+the related phenomenon of waves, coarser numerical precision yielded earlier dissolution.
+The introduction of SmoothLife seems to be the first description of a glider in a
+continuous cellular automaton (Rafler, 2011), though gliders in a related complex
+system, the Gray-Scott reaction diffusion system, were informally reported in 20091.
+SmoothLife has continuous-valued neighborhoods and continuous state values, and
+Rafler described both a transition formulation, replacing previous cell states similar to
+(MacLennan, 1990), and a state-plus-update form that fits the Euler method (Equation
+1). The glider reported in (Rafler, 2011) was discovered in the transition version of
+SmoothLife, with discrete time steps, but the same basic pattern is stable in the Euler
+update version. In considering the effect of discretization, Rafler suggested a scheme for
+apodization of the neighborhood kernels and to use a transition function with smooth
+intervals to avoid edge effects and aliasing artifacts.
+Interest in continuous cellular automata was invigorated with the description of a
+broad taxonomy of pseudorganisms in the Lenia framework (Chan, 2019). Of the
+continuous CA systems considered in this work, CA in the Lenia framework support the
+largest number of described self-organizing mobile patterns2. Chan investigated
+discretization in the neighborhood kernel radius, time step, and numerical precision in
+bits. Observations and quantitative results in theOrbium glider-rule pair were
+consistent with the idea that, at least forOrbium, the CA was approximating an
+1 See https://www.mrob.com/pub/comp/xmorphia/uskate-world.html and
+https://youtu.be/ypYFUGiR51c
+2 See https://chakazul.github.io/Lenia/JavaScript/Lenia.html
+
+DISCO GLIDERS 7
+underlying mathematical ideal. TheOrbium glider becomes smoother as resolution in
+space and time approaches zero (∆t = 1T→ 0, ∆r = 1R→ 0, and precisionP→∞ ).
+In (Davis & Bongard, 2022c) the authors describe a surprising departure from
+what had previously been considered in discretization experiments with Lenia,
+MacLennan’s field automata, and others. The authors described observations that for
+some CA patterns, including a smallScutium gravidusglider described in (Chan, 2019),
+stability is lost for a step size∆t that is too small. The authors also demonstrated
+qualitative behavioral variation when modifying∆t: a ‘hopping’ glider that exhibits a
+range of locomotion from straight, forward travel to following a curved ‘corkscrew’
+pattern. The results in (Davis & Bongard, 2022c) were limited to two glider patterns in
+the Scutium gravidusLenia CA, and to a third glider from Glaberish (Davis & Bongard,
+2022a), an extended version of Lenia with the growth function split into
+cell-state-dependent genesis and persistence functions (analogous to birth and survival
+rules in Life-like CA). The Lenia framework and the Glaberish extension is described in
+more detail in Methods.
+Motile, self-organizing patterns in complex systems (which I refer to in general as
+gliders), are not limited to CA. Munafo (2014) reported a collection of stable motile
+patterns in the numerical Gray-Scott reaction diffusion system (Gray & Scott, 1985).
+The region of interesting behavior and glider support around a particular set of
+parameters is called U-Skate World, named for the archetypical and likely minimal
+glider in the system that resembles the letter ‘U’. U-Skate parameters support a variety
+of different glider patterns3. Munafo was concerned about the potential effects of
+simulating with larger discretization values, and investigated a range of temporal step
+sizes from 0.5 to 1128 = 0.0078125 and spatial resolution variable∆x from 1102 to 1572
+(approximately 0.0098039 to 0.0017483). However, the spatial resolution parameter in
+(Munafo, 2014) modifies the the diffusion term in the Gray-Scott equations (Equations
+12 and 13), unlike spatial resolution in continuous CA encapsulated by the size of the
+neighborhood kernel.
+3 See the U-Skate glider gallery athttps://www.mrob.com/pub/comp/xmorphia/catalog.html
+
+DISCO GLIDERS 8
+Munafo also compared U-Skate simulations with double and single precision
+floats. Double precision experiments yielded lower variance in experiments measuring
+glider traits like speed, but the results were otherwise qualitatively in agreement across
+different discretization regimes.
+Munafo’s work with gliders in U-Skate World built upon previous work by
+(Pearson, 1993). Pearson did not find or investigate gliders, but did consider the
+possibility of discretization impacting simulation fidelity, reporting no qualitative
+difference in temporal step size from 1.0 down to 0.01 and grid sizes from 256 to 1024.
+As Lenia revitalized academic interest in continuous cellular automata, evident in
+many subsequent works extending, analysing, or otherwise building on (Chan, 2019),
+(Mordvintsev, Randazzo, Niklasson, & Levin, 2020) similarly revitalized interest in the
+combination of neural networks and cellular automata (Neural Cellular Automata,
+NCA) in a model for growing simple images from a minimal pixel seed. Like Lenia and
+the re-invigoration of research interest in neural systems more broadly, contemporary
+work on NCA is preceded by earlier work combining neural networks and cellular
+automata, e.g. (Wulff & Hertz, 1992).
+In (Mordvintsev et al., 2020), the authors demonstrated a type of CA with the
+update rule encoded in a small dense neural network shared at all locations in a
+2-dimensional grid, trained via gradient descent. The NCA in (Mordvintsev et al., 2020)
+was a toy model of developmental biology (growing small images from pixel seeds), but
+NCA have since been used in a wide variety of scenarios including texture generation
+(Niklasson, Mordvintsev, Randazzo, & Levin, 2021), image classification/segmentation
+(Randazzo, Mordvintsev, Niklasson, Levin, & Greydanus, 2020), and control in a
+reinforcement learning context (Variengien, Nichele, Glover, & Pontes-Filho, 2021).
+Gliders and other self-organizing patterns in NCA have so far escaped attention in
+academic literature, but glider-like patterns and self-organization is evident in many
+NCA. For example, NCA for texture generation can yield patterns that are mobile and
+persist for some time (for example, see the texture NCA trained on ‘bubbly_0101.jpg’
+in Niklasson et al. (2021)). What constitutes a glider in NCA systems is not always
+
+DISCO GLIDERS 9
+obvious, as the boundaries between different individual patterns can be ill-defined
+and/or in flux, and patterns may be somewhat amorphous, transient, and variable.
+While NCA gliders have apparently not been subjected to systematic study, this
+seems to be due to their prevalence, rather than rarity. Discretization in NCA has also
+not been systematically investigated.
+The seminal CA glider, Life’s reflex glider, was reportedly discovered while
+simulating Conway’s Game of Life with the stones and board for playing the game of
+Go (Berlekamp, Conway, & Guy, 2004). Substantial subsequent work with discrete CA
+gliders and related patterns has been built on that discovery, and laid the foundation
+for continuous CA. A review of Life and other discrete CA, especially with respect to
+the importance of gliders, is beyond the scope of this paper; interested readers can find
+background on the importance of gliders by reading Chapter 25 of Volume 4 of the
+“Winning Ways” book (Berlekamp et al., 2004), and perusing the conwaylife website
+and forums4.
+Methods
+Glaberish
+This work examines the role of discretization in 6 simulated complex systems:
+continuous cellular automata frameworks Lenia (Chan, 2019), SmoothLife (Rafler,
+2011), Glaberish (Davis & Bongard, 2022a), a new variant based on the adam
+optimization update developed by Kingma and Ba (2014), and neural cellular
+automata. I also investigate a modified version of the Gray-Scott reaction diffusion
+system with U-Skate World parameters (Munafo, 2014; Pearson, 1993).
+Glaberish is a case of the Euler method where the dynamics of a continuously
+varying grid of cells,A, is described by a differential equation that takes cell states as
+input: f(x) = ∂A∂t , which I will refer to as the update equationU. U is composed of a
+genesis functionG, weighted by the difference of1.0 and cell states convolved with
+identity kernelKi, and a persistence functionP weighted by cell states convolved with
+4 https:://conwaylife.com
+
+DISCO GLIDERS 10
+the identity kernel.
+Genesis and persistence functions are analogous to the birth and survival rules
+defining the family of Life-like CA, Conway’s Game of Life being the archetypical
+example. P and G take as input the convolution of cell statesAt with neighborhood
+kernelKn.
+Convolution kernelsKi and Kn can be arbitrarily defined. For example, using a
+scalar 1.0 as the identity kernel and the Moore neighborhood asKn, we can implement
+Life-like CA in Glaberish as shown in Figure 2e.P and G can also be any function
+including, for example, those defined by a neural network (as in the neural cellular
+automata gliders considered in this work).
+Taken altogether we can write out the update function for Glaberish as the sum of
+the genesis and persistence functions, both acting on the result of convolving the
+neighborhood kernel with cell states and weighted by cell state identities. In
+SmoothLife, the identity kernel defines cell state identities as the convolution of cell
+states with a smoothing kernel (i.e. a top-hat or mesa function) with a small radius.
+∂A
+∂t =U(At) = (1−Ki ⊛At)G(Kn ⊛At) + (Ki ⊛At)P (Kn ⊛At) (3)
+We can concisely describe Glaberish dynamics in terms of the update functionU
+and the stateAt.
+At+∆t =At + ∆t∗U(At) (4)
+Lenia
+When U in Equation 4 only depends on neighborhoods,Kn ⊛At, we have the
+definition of Lenia (Chan, 2019) whereU is termed the growth function. The growth
+function for Lenia is typically a Gaussian defined by the peak centerµG and peak width
+captured byσG, offset to yield values in the range from -1 to 1.
+G(x) = 2e
+− (x−µG)22σ2G − 1 (5)
+Where x =Kn ⊛At is the neighborhood values defined by convolution with the
+
+DISCO GLIDERS 11
+neighborhood kernel. The update function is shifted to a range between -1 and 1 by
+multiplying by amplitude 2 and subtracting 1.
+Constructing Lenia neighborhood kernels also usually involves a Gaussian
+function. The neighborhood kernel for the archetypical Lenia CA,Orbium, has a peak
+value atµK = 0.5 and width parameterσK = 0.15
+Kn(r) =ae
+− (r−µK )22σ2K (6)
+and a is chosen to normalize the kernel to sum to 1.0:1a =∑i,je− (
+√
+i2+j2−b)2
+c2
+Update rules and the neighborhood kernel forOrbium are shown in Figure 2b.
+The growth function has parametersµG = 0.15, σG = 0.015, and the neighborhood
+kernel hasµK = 0.5 and σK = 0.15.
+SmoothLife
+SmoothLife’s transition function comprises smooth intervals, the product of
+sigmoid and inverted sigmoid functions. These can be described in a pair of Glaberish
+persistence and genesis functions. Like Conway’s Life and Life-like CA, SmoothLife
+intervals determine which cells take on a positive value at the next time step, depending
+on the inner and outer neighborhood states.
+sµ,α(x) = 11 +e−x−µα (7)
+G(x) =sµgl,αg(x)∗ (1−sµgu) (8)
+P (x) =sµpl,αp(x)∗ (1−sµpu) (9)
+Where µgl,µgu and µpl,µpu define the lower and upper edges of the genesis and
+persistence functions, respectively. Theα variable modulates the smoothness of the
+edges. I use only one set of parameters for SmoothLife in this work:αg = 0.0280,
+αp = 0.1470, µgl = 0.2780, µgu = 0.3650, µpl = 0.2670, andµpu = 0.4450.
+Unlike the other CA considered in this work, the SmoothLife identity kernelKi is
+not a simple 1x1 scalar kernel with value 1.0: it is defined to have non-zero values
+within an inner radiusri, normalized to have a sum of 1.0.
+
+DISCO GLIDERS 12
+Ki =
+
+
+
+1
+M if r <ri
+0 otherwise
+(10)
+The outer neighborhood kernel (Equation 11) is similarly defined within the outer
+radius ro, but is also bounded by the inner radiusri and normalized by1/N, N being
+the sum of pixels between the inner and outer radii.
+Kn =
+
+
+
+1
+N if ri≤r <ro
+0 otherwise
+(11)
+The neighborhood kernelsKi and Kn, update functionsG and P, and SmoothLife
+glider are shown in Figure 2c.
+Neural CA
+The Neural CA used in this work use the same neighborhood kernel function and
+µK and σK parameters as Lenia’sOrbium rule set.
+Neural CA update rules fit within the Glaberish framework, with neural networks
+operating as genesis and persistence functions in Equation 3, in place of symbolic
+equations. The networks are trained to poorly approximate symbolic counterparts from
+Lenia CA. An example of neural genesis and persistence functions is shown in Figure
+2d. Each neural network is implemented as 3 2D convolutional layers with 1 by 1 kernel
+size, non-linear activation functions (Tanh or Gaussian) applied to internal layer
+outputs, and a dropout layer (p=0.1). The dropout layers are active only while training
+the networks to approximate CA functions, and turned off for stability experiments to
+provide deterministic output.
+A summary of the neural CA used in experiments is shown in Table 1
+After training neural CA to approximate dynamic continuous CA, gliders were
+discovered using automated evolutionary methods described in Davis and Bongard
+(2022b).
+Modified U-Skate World
+I modified U-Skate World, a particular set of parameters for the Gray-Scott
+reaction-diffusion system (Gray & Scott, 1985) that exhibits dynamic behavior and
+
+DISCO GLIDERS 13
+supports gliders (Munafo, 2014; Pearson, 1993). The modification involves the
+computational approximation of the Laplacian in the diffusion term in the Gray-Scott
+dynamics equations (12 and 13).
+The Gray-Scott framework defines the dynamics of artificial chemical species ‘u’
+and ‘v’. A pair of differential equations define the change in these species over time.
+The first and second terms correspond to diffusion and reaction, respectively, while the
+third term in each equation corresponds to the feed/removal rate of u and v. The
+Gray-Scott equations are
+∂u
+∂t = 1∆x2Du∇2u−uv2 +F (1−u) (12)
+∂v
+∂t = 1∆x2Dv∇2v +uv2− (F +k)v (13)
+Where u and v are the concentrations of two chemical species,∆x is a spatial
+resolution scaling variable,Du and Dv are the diffusion constants foru and v, F is a
+feed rate variable, andk is the difference in the feed rates foru and v (k is sometimes
+called the ‘decay’ or ‘kill’ rate). The reaction termuv2 approximates the kinetics of a
+reaction that consumes one molecule ofu, catalyzed by two molecules ofv to produce
+one additional molecule ofv (for a total of three).
+U + 2V→ 3V (14)
+The states ofu and v are updated by the forward Euler method, as in Equation 1.
+ut+∆t =ut + ∆t∗ ∂u∂t (15)
+vt+∆t =vt + ∆t∗ ∂v∂t (16)
+Most implementations of Gray-Scott systems use a multipoint stencil convolution
+kernel to approximate the Laplacian in the diffusion terms in Equations 12 and 13,
+equivalent to the finite difference method of subtracting weighted adjacent values at
+each grid point. For example, one can use a five-point stencil as a convolutional kernel
+to approximate∇2:
+
+DISCO GLIDERS 14
+KD5 =
+
+ 0 1 01 − 4 1
+0 1 0
+
+ (17)
+or a nine-point stencil kernel:
+KD9 =
+
+ 1 2 12 − 12 2
+1 2 1
+
+ (18)
+Finite difference/stencil methods were used in (Munafo, 2014; Pearson, 1993), but
+my experimental objectives called for the ability to scale approximate Laplacian kernels
+arbitrarily, for which I used the Laplacian of Gaussian approximation
+LoG(r) = 1πσ2 (1− r22σ2 )e− r22σ2 (19)
+where σ determines the width, andr is the distance from the center of the kernel
+at each point, normalized by division with kernel radius. I then normalize the resulting
+kernels to have a sum of absolute values of 1.0, as in the neighborhood kernels used
+elsewhere in this work. I use a value ofσ = 0.5 radii when calculating the Laplacian of
+Gaussian kernel. The resulting 3x3 Laplacian of Gaussian kernel is
+Klog≈
+
+ 0.0419 0 .0831 0 .04190.0831 − 0.500 0 .0831
+0.0419 0 .0831 0 .0419
+
+ (20)
+which corresponds closely to the nine-point stencil method in Equation 18, after
+normalizing. To support the U-Skate and Daedalus gliders from the original U-Skate
+world required adjusting∆x from 1102 = 0.009804 to a value of0.00303. The parameters
+used for my implementation are∆x = 0.00303, Du = 2.00∗ 10−5, Dv = 1.00∗ 10−5,
+F = 0.0620, k = 0.0609, and the 3x3 kernel shown in Equation 20.
+Gliders in U-Skate world were manually developed, based on patterns and
+common characteristics in Robert Munafo’s online gallery5. The U-Skate and Daedalus
+5 https://www.mrob.com/pub/comp/xmorphia/catalog.html
+
+DISCO GLIDERS 15
+patterns (Figure 3r and 3q) can be found in the gallery directly, and BerryCup (Figure
+3p) is a new pattern developed by the author.
+Adam Automaton
+Adam optimization is a method for updating parameters, often based on gradients
+with respect to an objective function in large neural network models (Kingma & Ba,
+2014). The updates take the general form of the Euler method (Equation 1), with the
+learning rate as a step size and the quotient of the first momentm and the square root
+of the second moment√v of the gradient (and a small variableϵ to avoid division by 0)
+amounting to the differential equation describing the change in parameters.
+In equation form, the adam update is
+At+∆t =At + ∆t m√v +ϵ (21)
+For an adam cellular automaton, the grid statesAt stand in fore.g. neural
+network parametersθ and the step size∆t stands in for the learning rateα.
+I used the same neighborhood kernel as Lenia’sOrbium CA, and the same
+Gaussian function (Equation 5 with similar parameters as a growth function).
+The first moment is an exponential average of the result of the growth function
+applied to neighborhoods. Smoothness is determined by the exponential averaging
+variableβ1.
+mt+∆t =β1mt + (1−β1)G(Kn ⊛At) (22)
+The second moment is likewise calculated as an exponential average of the square
+of the results of the growth function, with averaging variableβ2.
+vt+∆t =β2vt + (1−β2)G(Kn ⊛At)2 (23)
+When the growth function (Equation 5) has a value of -1.0 in the absence of
+neighoring cells with non-zero state, the second moment tends to a default value of
+(−1)2 = 1.0.
+
+DISCO GLIDERS 16
+I selected and cropped sections from dynamic adam automata simulations with
+randomly initialized patches, eventually discovering a simple glider reminiscent of the
+Orbium glider. Based on the origins of the glider and the adam CA, I call the glider and
+the CA system that supports it ‘Adorbium’. The glider is visualized in Figure 3s, and
+Adorbium CA parameters areβ1 = 0.8, β2 = 0.99, ϵ = 10−8, µG = 0.167, σG = 0.013,
+µK = 0.5, σK = 0.15, and kernel radiuskr = 13 pixels.
+Adaptive Random Walk and Linear Grid Search
+I used a combination of adaptive random walks (for SmoothLife, Lenia, Glaberish,
+and neural CA) and linear grid search (for U-Skate World and Adorbium CA) to vary
+discretization parameters in glider persistence experiments. Random search is often
+preferred over grid search as a more efficient (in terms of using computational resources
+or wall time) means of hyperparameter tuning (Bergstra & Bengio, 2012). I used a
+similar approach to search over discretization parameters, starting at the native settings
+(that were used in the discovery of a given glider) and randomly perturbing
+discretization parameters within a range.
+The degree of random perturbation of discretization values depends on the
+difference between the persistence steps achieved for a given set of discretization
+parameter values and the number of persistence steps achieved in the previous iteration.
+In other words, my experiments were intended to make larger changes to the
+discretization parameter values when the current and last experimental iteration had the
+same or similar results (number of update steps the glider persists), and smaller changes
+when results were very different. The idea behind this approach was to sample more
+densely near boundaries in discretization parameter values supporting glider persistence.
+Succinctly, my experiments add random Normal noise to the discretization
+parameter values for step size∆t and kernel radiuskr. Step size is then constrained to
+fall between a minimal value (usually 0.01) and 1.0, and kernel radius is rounded to a
+whole number and constrained between a minimum and maximum size.
+θn+1 =θn +N [θn,σn] (24)
+
+DISCO GLIDERS 17
+Where θn is the discretization parameter value from experiment samplen. The
+standard deviationσn depends on the number of persistence steps in the current sample
+run and the last.
+σn is modified after each iteration by multiplication with a scaling factoraσ
+σn+1 = [σn∗aσ]σmaxσmin (25)
+Where [·]σmaxσmin clamps the result between minimum and maximum values. The
+scaling factor is determined by
+aσ =
+[(
+(pn +pn−1)
+(|pn−pn−1| + 1− 1
+)]amax
+amin
+(26)
+Where pn is the number of persistence steps for iterationn. There is no particular
+theoretical reason behind Equation 26, it was chosen empirically. Values for the scaling
+factor were clamped between a minimum and maximum of 0.5 and 1.5 as denoted by
+[·]amaxamin.
+For experiments which also modify the numerical precision, the data type (16, 32,
+or 64-bit floats) is sampled randomly with equal probability for each iteration.
+The CA systems used in random walk experiments lend themselves to automatic
+detection of glider persistence (or lack thereof). In my experiments I define persistence
+as the homeostatic ability for a glider pattern in a CA system to maintain a roughly
+consistent sum of cell states. Gliders can lose persistence in two ways: by vanishing,
+where the sum of cell states falls below a relative threshold; or by overgrowth, where the
+sum of cell states exceeds the original sum by that same relative threshold. The
+threshold used in my experiments is typically a relative deviation of 0.30,e.g. iterations
+are halted at the CA step where the sum of cell states, relative to the starting sum, is
+above≈ 1.3 or below≈ 0.7.
+U-Skate and Adorbium systems have non-zero background values, making
+automatic persistence detection less tenable. Although I did try using correlation of the
+current grid with the original pattern, using a few different normalization schemes, this
+seemed unreliable in my hands. Instead I ran each iteration for the full duration of
+update steps and manually assessed the final grid state to determine whether each grid
+
+DISCO GLIDERS 18
+contains a glider. This limits the number of iterations both by the number that can
+reasonably be assessed manually (I used about 500 for each glider in U-Skate world),
+and because each iteration runs for the full maximum number of update steps. I used a
+linear grid search to get even coverage across a range of discretization values.
+Results
+The investigations in this work aimed to address 3 hypotheses. The first
+hypothesis was that some glider pattern-rule pairs in continuous value cellular automata
+lose stability when discretization parameters are too fine,i.e. that systems simulated
+with higher nominal accuracy can lose glider stability; the second predicted that the
+phenomenon described in the first hypothesis is not specific to cellular automata, but
+can be found in multiple types of complex systems that support gliders6; the third
+hypothesis predicted that support for glider stability in a given system would be
+clustered around the discretization settings used in the pattern’s discovery or creation.
+I categorize pattern-rule pairs as Platonic and non-Platonic. The former
+classification denotes systems that plausibly correspond to a mathematical ideal, while
+for non-Platonic systems, discretization is essential for self organization of a
+pattern-rule pair. A system is non-Platonic with respect to specific discretization
+parameters iff, for a given set of discretization parameters for which self-organization
+does not persist (e.g. the glider dissolves or explodes), there is another set of coarser
+discretization parameters for which the pattern is stable. For example, if a glider
+vanishes after a few steps in a given CA with discretization parameters∆t = 0.20, and
+kernel radiuskr = 17, but can persist for thousands of steps at∆t = 0.225 and kr = 13,
+the pattern-rule pair meets the criteria of a non-Platonic system w.r.t. step and kernel
+size, i.e. temporal and spatial resolution.
+To address these expectations, I considered gliders in a variety of different
+6 Furthermore, non-Platonic pattern persistence is likely a more general feature of complex systems. In
+the discussion section we will consider the effect of step size on attractors in the Lorenz system and the
+differential equation of the logistic function.
+
+DISCO GLIDERS 19
+continuous CA frameworks while varying step size∆t, the kernel radiuskr, and
+numerical precision (float16, float32, or float64 datatypes in PyTorch). My results
+contained examples of glider dissolution with increasing discretization fineness
+(nominally greater simulation accuracy) in every type of complex system considered.
+Numerical precision can affect glider persistence as well, and my experiments
+included runs usingtorch.float16, torch.float32, and torch.float64 data types.
+Dependence on floating point precision data types is not easy to discern in the
+persistence scatter plots. As an alternative, Table 2 contains examples of persistence
+dependence on data type and readers are enouraged to explore this effect using
+demonstration notebooks in the project’s code repository:
+https://github.com/RiveSunder/DiscoGliders.
+SmoothLife
+The simple SmoothLife glider (Figure 3f) examined in this work is based on the
+image and CA parameters published in (Rafler, 2011). The glider was originally
+discovered in the spatially continuous, temporally discrete version of SmoothLife by
+Rafler, but the glider pattern was later found to stabilize in SmoothLife implemented
+with Euler method updates, and re-discovered by evolutionary methods (Davis &
+Bongard, 2022b). Under conditions similar to those described by Rafler, with a large
+step size near 1.0 and a kernel radius of 11 pixels, the glider is stable.
+In my experiments SmoothLife glider persistence depends on the interaction of
+spatial resolution (increasing with larger kernel size) and temporal resolution (the
+update step size∆t); it loses persistence at finer spatiotemporal resolution outside of a
+support region, meeting the criteria for non-Platonism w.r.t. spatiotemporal resolution.
+The shape of this dependence is qualitatively similar across 16, 32, and 64 bit PyTorch
+float datatypes, and the persistence scatter plot for the SmoothLife glider is shown in
+Figure 4. The SmoothLife glider also demonstrates non-Platonic persistence with
+respect to numerical precision (see Table 2).
+
+DISCO GLIDERS 20
+Lenia
+I examined discretization for 5 glider patterns in 4 different rule sets in the Lenia
+framework: 2 glider patterns inHydrogeminium natans(Figure 3a and b), the
+archetypical Orbium (Figure 3c),Scutium gravidus(Figure 3d), andTriscutium solidus
+(Figure 3e). Orbium and the eponymousHydrogeminium natansgliders fit the criteria
+for ideal, Platonic pattern-rule pairs: coarser discretization does not result in these
+patterns regaining persistence stability. The persistence scatter plot forOrbium is
+shown in Figure 5, and forHydrogeminium natansin Figure 6a.
+The Triscutium solidus, Scutium gravidussimple glider, and the wide wobble
+glider inHydrogeminium natansdo fit the criteria for non-Platonic pattern-rule pairs.
+For those gliders, under their respective CA rules, gliders may be unstable at a given
+combination of discretization parameters and regain stability by increasing
+discretization coarseness. The stability scatter plot forTriscutium solidusis shown in
+Figure 7,Scutium gravidusin Figure 8, and theH. natanswobble glider in Figure 6b.
+The smallScutium gravidusglider demonstrates non-Platonic persistence with
+respect to numerical precision, as does theH. natanswobbler glider. I did not find a
+specific example of non-Platonic persistence due to numerical precision forTriscutium
+solidus (see Table 2).
+Glaberish
+Gliders and rules for Glaberish CA were evolved in (Davis & Bongard, 2022b),
+and include a slow glider (Figure 3k), found in the rule set ‘s11’ (named for the random
+seed used in the evolutionary algorithm), and two very similar ‘frog’ gliders named for
+their pulsing movement patterns (Figures 3g and 3i) and two wobble gliders (Figures 3h
+and 3j) which are similar to the wobble glider found in Lenia’sHydrogeminium natans
+rule set. The frog and wobble gliders reside in rule sets s613 and s643.
+The wobble gliders were only semi-stable under the discretization parameters used
+in their discovery (∆t = 0.1, kr = 31), and persist for only a few hundred to a few
+thousand update steps under those conditions. Discretization experiments revealed
+
+DISCO GLIDERS 21
+more stable regions for both wobble gliders, at a step size∆t of slightly less than 0.1,
+but the gliders persist only in a narrow band of∆t values and are lost at finer
+resolution. This is in contrast to the frog gliders in the same rule sets. Those appear to
+meet criteria for Platonic pattern-rule systems, as does the s11 slow glider. Scatter plots
+for these pattern-rule pairs are shown in Figures 9 (s11 slow glider), 11a and 11b (s643
+frog and wobble glider), and 10a and 10b (s613 frog and wobble glider). The wobble
+gliders in s613 and s643 exhibit non-Platonic persistence with respect to numerical
+precision (Table 2).
+Neural Cellular Automata Gliders
+Reflecting their development, neural CA gliders resemble those found in other
+continuous CA systems: Neurorbium and Neurosynorbium resemble Lenia’sOrbium
+(Figures 3l and 3n, respectively), the Neurosingle glider (Figure 3m) resemblesScutium
+gravidus and SmoothLife gliders, and the Neurowobble glider is similar to the wobble
+gliders inHydrogeminium natansin Lenia, and s643 and s613 in the Glaberish
+framework.
+While Neurorbium and Neurosynorbium look similar to the PlatonicOrbium
+Lenia glider, only the latter seems to meet criteria for a Platonic pattern-rule pair
+(Neurosynorbium, see persistence scatter plot 13). Neurorbium is non-Platonic, losing
+persistence outside the narrow band of stability at moderate to large kernel sizes and
+step size∆t around 0.1 (Figure 12). Neurorbium also tends to be stable at very low step
+sizes around 0.01. In some areas of discretization space, Neurorbium persistence has a
+complicated, sometimes non-Platonic, dependence on numerical precision (Table 2).
+Unlike the wobble gliders inH. natans, s613, and s643, the Neurowobble glider
+seems to meet the criteria for a Platonic pattern-rule pair and is only stable at low∆t
+(Figure 14b). The Neurosingle glider has a much broader range of support up to∆t
+around 0.4, but also appears Platonic (Figure 14a).
+
+DISCO GLIDERS 22
+Preliminary Results in Modified U-Skate World
+The results for glider stability in U-Skate World are not directly comparable to
+results in continuous and neural CA. Namely, while using the Laplacian of Gaussian
+function (19) to approximate the Laplacian∇2 in the first terms of Equations 12 and 13
+facilitates scaling kernels to arbitrary size, in practice (in my implementation) only the
+default 3x3 kernel supports stable gliders. Scaling up the kernel leads to rapid pattern
+dissolution.
+Instead, I followed (Munafo, 2014) and use a1∆x2 coefficient to define spatial
+resolution. Unlike the CA used in this study,1∆x2 can be thought of as a modification of
+the diffusion constantsDu and Dv.
+In a linear grid search of 20 values from∆x = 6.061∗ 10−5 to 5.703∗ 10−3 and
+∆t = 0.04 to 1.0, the 3 U-Skate gliders considered in this work have a similar range of
+support, from 2.733∗ 10−3 to 3.624∗ 10−3 inclusive. The simple ‘U-Skate’ glider also
+was stable at∆x = 3.921∗ 10−3. Step size∆t does not appear to disrupt the
+self-organization of these gliders, over the range of values tested here.
+Figures 15 and 16 show a map of final grid states for the Daedalus and BerryCup
+gliders, respectively, after 262,144 steps. End states with a stable glider (as judged by
+the author) are boxed with a black line. The map of end states for the U-Skate glider is
+shown in Figure 17, and exhibited glider stability through an additional row
+(∆x = 3.921∗ 10−3) as well as the same range of stable parameters as the other two
+gliders.
+The U-Skate gliders in these experiments exhibited persistence that can
+tentatively be described as non-Platonic, but only with respect to the spatial resolution
+parameter ∆x and not ∆t in the range tested here. As mentioned earlier,∆x modifies
+the diffusion term in Equations 12 and 13. The discussion section discusses conflation of
+rates and discretization as a possible mechanism for non-Platonic glidersd.
+
+DISCO GLIDERS 23
+Preliminary Results in Adam Optimizer Automaton
+The Adorbium pattern-rule pair, unlike the LeniaOrbium glider and rules, is
+non-Platonic for the parameters investigated in this work. For values of∆t of 0.01 to
+0.05 with a kernel radius of 13 the glider is unstable; it appears stable after 2048 CA
+steps for ∆t values from 0.06 to 0.67, inclusive, and is then unstable for larger∆t up to
+a value of 1.0 (Figure 18). Exploratory experiments with different grid sizes can vary
+slightly (in the value of∆t that leads to unstable simulations), but qualitatively follow
+the pattern of instability at low∆t, stability for a middle range, and instability again
+for values that are too large.
+In a grid search of kernel radii from 9 to 22 and∆t from 0.01 to 1.01 (increments
+of 0.04) on a common grid size of 180 pixels, Adorbium is again unstable at low∆t as
+well as high∆t. There appears to be some interdependence of the effects of∆t and
+kernel radius on glider stability, visible in the final grid states in the persistence
+stability map in Figure 19.
+Discussion
+Many glider-rule pairs behave exactly as expected: the glider remains stable as
+discretization is decreased, in keeping with intuitive expectations associated with
+simulating physics by numerical methods. About half of glider-rule pairs in my
+experiments exhibit a more complicated dependence and gliders may become unstable
+at discretization that is too fine as well as too coarse. In fact, the interaction of different
+discretization parameters can be synergistic: stability support for a given discretization
+parameter sometimes depend on other discretization parameters in a non-linear way.
+Systems that support a glider that remains stable for increasingly fine
+discretization all do so in the same way: given a point in discretization parameter space
+that isnot stable, increasing coarseness in any discretization parameter never leads to a
+stable setting. These systems behave as if they are approaching an underlying, abstract
+ideal as discretization tends to 0 and the system approaches continuity.
+To reflect the relationship of simulation to mathematical idealism, I call these
+
+DISCO GLIDERS 24
+self-organizing systems ‘Platonic’, as their behavior does not conflict with the notion of
+Platonic idealism. When working with self-organizing pattern-rule combinations that
+are Platonic, coarse simulations lead to failure but finer simulations do not.
+The situation is markedly different for non-Platonic systems. In non-Platonic
+systems, the glider is apparently a consequence of simulation artifacts, at least in as
+much as it depends on a certain level of coarseness to persist. In other words,
+non-Platonic self-organizing systems are not approximations of an ideal. Their
+continued existence in effect depends on what would otherwise be considered systematic
+error.
+Of the 3 hypotheses this project set out to address, 2 of them are not challenged
+by the results described above. The 2 un-falsified hypotheses predicted that the
+phenomenon of non-Platonic self-organizing systems would extend to discretization
+parameters other than step size, and that the effect could be found in multiple complex
+systems, not just continuous CA. I found non-Platonic self-organization in a wide
+variety of cellular automata frameworks, including neural cellular automata and a CA
+based on the adaptive moment update, adam, widely used for training neural networks.
+In the Gray-Scott artificial chemistry system, the Daedalus, U-Skate, and BerryCup
+gliders of U-Skate world demonstrate a putative non-Platonism in spatial resolution,
+though the effect of the spatial parameter∆x is conflated with diffusion constants in
+this system.
+The third hypothesis predicted that glider stability would reflect the discretization
+characteristics of its discovery,e.g. that stability of a glider would be clustered around
+the discretization parameters where it was evolved, engineered, or discovered. This
+hypothesis proved to be wrong. In fact, wobble gliders in s643 and s613 are more stable
+at a smaller step size than the∆t = 0.1 they were evolved with.
+Many combinations of glider patterns and complex systems supporting them
+adhere to the traditional expectation that greater accuracy can be had with finer
+discretization, therefore the essential role of discretization is not a general rule. But I
+did find examples of non-Platonic combinations in every type of system investigated in
+
+DISCO GLIDERS 25
+this work. There does not appear to be an easy way to predicta prioriwhether a given
+self-organizing pattern in a given system will be Platonic or non-Platonic.
+The relationship between discretization and glider stability is not dependent on
+either the rules of a system nor the glider pattern in isolation. Continuous CA
+Hydrogeminium natans, s613, and s643 are all Platonic in the context of at least one
+glider, and non-Platonic in simulating another. TheOrbium, Neurorbium,
+Neurosynorbium, and Adorbium gliders all look alike, but Adorbium and Neurorbium
+are non-Platonic while the rest are Platonic. The same can be said for other groupings
+of similar glider patterns: two of three of the similarScutium gravidus, SmoothLife, and
+Neurosingle gliders are non-Platonc, as are four of the five wide/wobble gliders
+supported inH. natans, Triscutium solidus, s613, s643, and neuroscutium_valvatus rule
+sets.
+Perhaps the most interesting non-Platonic glider-rule pair found in this work is
+the SmoothLife glider. The support region for this glider demonstrates a marked
+synergy between spatial and temporal resolution (Figure 4). In most instances of
+non-Platonism described in this work spatial and temporal discretization had little
+effect on each other, and support regions are bounded in roughly rectangular areas
+(though there may be multiple regions of support). The SmoothLife glider in contrast
+has a distinctly curved support region.
+The diversity of scenarios where non-Platonic self-organization can be found
+suggests to this author that the cause is likely a systems effect that depends on multiple
+interacting mechanisms, but one plausible contributing factor is the conflation of rates
+described by update equations and the step size. To explore the concept of rate
+conflation, we can consider discretization effects in two well known systems, the Lorenz
+system and the (continuous version of) the logistic map (Lorenz, 1963; May, 1976).
+These classic examples from complex systems science and chaos theory have been
+meticulously studied over the years, and if we can understand non-Platonic gliders in
+similar terms the tools developed for analyzing them may prove useful.
+Perhaps the most mundane explanation for non-Platonic behavior is that the
+
+DISCO GLIDERS 26
+differential equations are wrong, and using coarse discretization artificially
+approximates a more suitable set of equations, with different rates of change, for a given
+pattern. The Lorenz system7 is a set of three differential equations that, given the right
+parameters and initial conditions, generates chaotic trajectories with a strange
+attractor. Simulated at high resolution, Lorenz system parametersσ = 10, ρ = 12, and
+β = 83 with initial conditionsx = 2, y = 1, z = 1, the Lorenz system has a ‘boring’
+trajectory: the system eventually reaches a quiescent steady state atx =−5.416,
+y =−5.416 and z = 11.00 (Figure20a). Retaining the same parameters and initial
+conditions but doubling the step size from∆t = 0.015 to ∆t = 0.03 yields a chaotic
+trajectory that superficially resembles the type of behavior that chaos mathematicians
+might find more interesting (Figure 20b).
+Conflation of the rate of change defining these systems with the step size used to
+simulate them is one plausible route to non-Platonic behavior, as we can see hints of in
+the Lorenz system example. In pattern-rule pairs where this occurs, it could explain
+some of the dependence of non-Platonic behavior on spatial resolution, as the
+denominator of speed. If it occurs, this could yield a signature in the range of
+discretization support for a given pattern and rule, for example in a relationship
+between spatial and temporal discretization that satisfies the Courant-Friedrichs-Lewy
+(CFL) condition or something similar (Courant, Friedrichs, & Lewy, 1967)8. I did not
+see clear evidence for this from my experiments, but the interaction may be a more
+complex, non-linear one. Most support regions for non-Platonic gliders are roughly
+rectangular, but SmoothLife does show pronounced interaction between∆t and kernel
+radius kr that could be consistent with self-organizing persistence from artifacts arising
+from a failure to satisfy something like the CFL condition.
+Another piece must be added to explain the sometimes observable dependence of
+non-Platonic persistence with respect to numerical precision, however. To gain insight
+7 Characterized by equations dxdt =σ(y−x), dydt =x(ρ−z)−y, dzdt =xy−βz
+8 The Courant number is the ratio of the product of the step size with the speed of a traveling
+phenomenon and the size of a grid point,i.e. for one dimension v∆t∆x , where v is speed.
+
+DISCO GLIDERS 27
+into this aspect, we will briefly visit another classic example of complexity and chaos
+theory in the differential equation of the logistic.
+The logistic function is a solution to the differential equation∂f (t)∂t =f(t)(1−f(t))
+with the boundary condition thatf(0) = 12. Likely more familiar is the discrete version,
+known as the logistic map,f(t + 1) =rf(t)(1−f(t)), where rater determines by what
+magnitude f(t + 1) will differ fromf(t). If we simulate the logistic differential equation
+across a range of step sizes∆t (conflated with an implicit rater = 1), we get a
+bifurcation diagram very similar to that of the discrete logistic map. This bifurcation
+diagram demonstrates regions of quiescent equilibrium, periodic oscillations, and chaos
+(Figure 21). A common classification scheme categorizes CA based on a tendency to
+reach a quiescent stable state (class 1), static and oscillatory patterns (class 2), and
+chaos (class 3), and a fourth class characterized by regions of order and chaos (Wolfram,
+1984). Many class 4 CA, including Conway’s Game of Life and elementary CA Rule
+110, are computationally universal (Berlekamp et al., 2004; Cook et al., 2004).
+The analogy between quiescent, periodic, and chaotic regions in the bifurcation
+diagram in Figure 21 and class 1, 2, and 3 CA may be a useful clue. CA considered
+most interesting fall under class 4, exhibiting chaos and order in complex sequence
+across space and time. Perhaps some continuous CA (and other complex systems) are
+intrinsically balanced between chaos and order, and the spatial distribution of patterns
+is sufficient to give rise to distinct regions of order and chaos. Other continuous CA and
+complex systems may be balanced in a region of rule space analogous to the bifurcation
+nodes in Figure 21 between order and chaos, but need a combination of discretization
+errors (possibly floating point rounding errors) and particular patterns to ‘tip the
+balance’ between a diverse repertoire of chaotic and ordered behavior. If this
+quasi-stable explanation for non-Platonic behavior is true, it should be possible to
+engineer simple systems like the logistic differential equation to both ‘knock out’ and
+‘rescue’ non-Platonic behavior9.
+9 This terminology is adopted from genetics, and complements Feynman’s famous quote about the
+route to understanding by building. Removing a gene that destroys a phenotype might indicate it is
+
+DISCO GLIDERS 28
+Conclusion
+In “Concept of Mind”, philosopher Gilbert Ryle introduces the phrase “Ghost in
+the Machine” as a criticism-via-absurdity of Cartesian dualism (Ryle, 1949). In Ryle’s
+view, the idea that the mind (or soul) is a separate thing causally disconnected from the
+body and the material world is as ridiculous as a ghost in a machine. In contemporary
+usage (especially fiction) the term has come to mean the opposite of its original
+intention ofreductio ad absurdum: “Ghost in the Machine” is more likely to refer to the
+surprising emergence of intelligence, agency, and/or self-organization in a sufficiently
+complex system, without being explicitly programmed or designed. This is a potent
+metaphor for the emergence of self-organization in complex systems like those studied
+here, and the results of this work are fully in agreement with the inextricable
+relationship between “Machines”, complex systems’ rules and their implementation
+artifacts, and “Ghosts”, the forms that arise and persist therein.
+The state-plus-update pattern exemplified in the Euler method is widely
+applicable in numerical simulations. It is a common component of physics simulations
+(simple ones, at least) of the physics of our own universe as well as the artificial
+universes considered in this article. It is also evident in the residual connections of
+neural networks, the incremental updates of optimization procedures like adam
+optimization or stochastic gradient descent, and from a high-level view reflects the
+feedback process in many control systems.
+It remains to be seen if non-Platonic self-organization occurs in more sophisticated
+numerical methods, the kind that might be trusted to simulate and predict the future.
+But the effect of discretization on self-organization goes beyond the risk of
+self-organizing entities like a weather pattern or climate tipping point arising in
+simulation from a poor choice of discretization parameters.
+Discretization also seems to play an intrinsic part in human experience. The
+discovery of period-doubling bifurcation in responses to flickering illumination,
+responsible for a trait, but for greater confidence it should be possible to restore the trait by
+re-introducing the gene.
+
+DISCO GLIDERS 29
+remarkably similar to Figure 21, in the visual systems of humans and salamanders
+(Crevier & Meister, 1998), aliasing effects in human vision under continuous lighting
+that occur in some situations (Purves, Paydarfar, & Andrews, 1996), and other
+‘freeze-frame’ illusions reported under the influence of drugs or other neurological
+conditions (Dubois & VanRullen, 2011), all point to an ambiguous but interesting role
+for discretization in human consciousness and perception.
+
+DISCO GLIDERS 30
+References
+Bergstra, J., & Bengio, Y. (2012). Random search for hyper-parameter optimization.J.
+Mach. Learn. Res., 13, 281-305.
+Berlekamp, E. R., Conway, J. H., & Guy, R. K. (2004).Winning ways for your
+mathematical plays volume 4. second edition. A K Peters, Wellesly, Massachusetts.
+Chan, B. W.-C. (2019). Lenia - biology of artificial life.Complex Systems, 28(3),
+251–286. Retrieved 2021-11-23, fromhttp://arxiv.org/abs/1812.05433 doi:
+10.25088/ComplexSystems.28.3.251
+Cook, M., et al. (2004). Universality in elementary cellular automata.Complex
+systems, 15(1), 1–40.
+Courant, R., Friedrichs, K., & Lewy, H. (1967). On the partial difference equations of
+mathematical physics.IBM journal of Research and Development, 11(2),
+215–234.
+Crevier, D. W., & Meister, M. (1998). Synchronous period-doubling in flicker vision of
+salamander and man.Journal of neurophysiology, 79(4), 1869–1878.
+Davis, Q. T., & Bongard, J. (2022a, 07). Glaberish: Generalizing the
+Continuously-Valued Lenia Framework to Arbitrary Life-Like Cellular Automata.
+ALIFE 2022: The 2022 Conference on Artificial Life, ALIFE 2022: The 2022
+Conference on Artificial Life. Retrieved from
+https://doi.org/10.1162/isal_a_00530 (47) doi: 10.1162/isal_a_00530
+Davis, Q. T., & Bongard, J. (2022c, 07). Step size is a consequential parameter in
+continuous cellular automata.ALIFE 2022: The 2022 Conference on Artificial
+Life, 43. Retrieved fromhttps://doi.org/10.1162/isal_a_00526 doi:
+10.1162/isal_a_00526
+Davis, Q. T., & Bongard, J. C. (2022b). Selecting continuous life-like cellular automata
+for halting unpredictability: evolving for abiogenesis.Proceedings of the Genetic
+and Evolutionary Computation Conference Companion. Retrieved from
+https://doi.org/10.1145/3520304.3529037
+
+DISCO GLIDERS 31
+Dubois, J., & VanRullen, R. (2011). Visual trails: do the doors of perception open
+periodically? PLoS biology, 9(5), e1001056.
+Gardner, M. (1970). Mathematical games: The fantastic combinations of John
+Conway’s new solitaire game “Life".Scientific American, 223, 120-123. Retrieved
+from https://web.stanford.edu/class/sts145/Library/life.pdf
+Gray, P., & Scott, S. K. (1985). Sustained oscillations and other exotic patterns of
+behavior in isothermal reactions.The Journal of Physical Chemistry, 89, 22-32.
+Kingma, D. P., & Ba, J. (2014). Adam: A method for stochastic optimization.CoRR,
+abs/1412.6980.
+Lorenz, E. N. (1963). Deterministic nonperiodic flow.Journal of atmospheric sciences,
+20(2), 130–141.
+MacLennan, B. J. (1990). Continuous spatial automata.
+May, R. M. (1976). Simple mathematical models with very complicated dynamics.
+Nature, 261(5560), 459–467.
+Mordvintsev, A., Randazzo, E., Niklasson, E., & Levin, M. (2020). Growing neural
+cellular automata. Distill. (https://distill.pub/2020/growing-ca) doi:
+10.23915/distill.00023
+Munafo, R. (2014). Stable localized moving patterns in the 2-d gray-scott model.
+arXiv: Pattern Formation and Solitons.
+Niklasson, E., Mordvintsev, A., Randazzo, E., & Levin, M. (2021). Self-organising
+textures. Distill. (https://distill.pub/selforg/2021/textures) doi:
+10.23915/distill.00027.003
+Pearson, J. E. (1993). Complex patterns in a simple system.Science, 261(5118),
+189–192.
+Purves, D., Paydarfar, J. A., & Andrews, T. J. (1996). The wagon wheel illusion in
+movies and reality.Proceedings of the National Academy of Sciences of the United
+States of America, 93 8, 3693-7.
+Rafler, S. (2011). Generalization of conway’s "game of life" to a continuous domain -
+smoothlife. arXiv: Cellular Automata and Lattice Gases.
+
+DISCO GLIDERS 32
+Randazzo, E., Mordvintsev, A., Niklasson, E., Levin, M., & Greydanus, S. (2020).
+Self-classifying mnist digits.Distill. (https://distill.pub/2020/selforg/mnist) doi:
+10.23915/distill.00027.002
+Rucker, R. (2003). Continuous-valued cellular automata in two.New Constructions in
+Cellular Automata, 295.
+Ryle, G. (1949).The concept of mind. University of Chicago Press. Retrieved from
+https://archive.org/details/conceptofmind032022mbp
+Variengien, A., Nichele, S., Glover, T. E., & Pontes-Filho, S. (2021). Towards
+self-organized control: Using neural cellular automata to robustly control a
+cart-pole agent. Innovations in Machine Intelligence (IMI), 1, 1-14. doi:
+10.54854/imi2021.01
+von Neumann, J. (1951). The general and logical theory of automata. In L. Jeffress
+(Ed.), Cerebral mechanisms in behavior – the hixon symposium(p. 1-31). John
+Wiley & Sons, New York, New York. Retrieved fromhttps://www.cs.unm.edu/
+~eschulte/classes/cs591-rpc/data/vonneumann1951-glta.pdf
+von Neumann, J., & Burks, A. W. (1966). Theory of self reproducing automata.
+University of Illinois Press, Urbana and London. Retrieved from
+https://web.archive.org/web/20220810124416/https://www.krusch.com/
+books/evolution/Theory_of_Self_Reproducing_Automata_Neumann1966.pdf
+Wolfram, S. (1984). Universality and complexity in cellular automata.Physica D:
+Nonlinear Phenomena, 10(1-2), 1–35.
+Wulff, N., & Hertz, J. A. (1992). Learning cellular automaton dynamics with neural
+networks. Advances in Neural Information Processing Systems, 5.
+
+DISCO GLIDERS 33
+Glider name config channels activation NN trained on
+neurorbium neurorbium_a 128 Tanh Orbium
+neurosynorbium neurosynorbium_a 256 Gaussian Synorbium
+neurosingle neuroscutium_valvatus_a 256 Gaussian Scutium valvatus
+neurowobble glider neuroscutium_valvatus_a 256 Gaussian Scutium valvatus
+Table 1
+Summary of neural CA used in experiments
+
+DISCO GLIDERS 34
+Glider name spatiotemporal discretization torch datatype stability at 1024 steps
+SmoothLife ∆t = 0.19, Kr = 36 float16[✓], float32[✗], float64[✗]
+Scutium gravidus ∆t = 0.24, Kr = 13 float16[✓], float32[✗], float64[✗]
+Triscutium solidus ∆t = 0.09, Kr = 11 float16[✗], float32[✓], float64[✓]
+H. natanswobbler ∆t = 0.41, Kr = 19 float16[✓], float32[✓], float64[✗]
+s613 wobbler ∆t = 0.066, Kr = 13 float16[✓], float32[✗], float64[✗]
+s643 wobbler ∆t = 0.08, Kr = 21 float16[✓], float32[✗], float64[✗]
+Neurorbium ∆t = 0.04, Kr = 25 float16[✗], float32[✓], float64[✓]
+Neurorbium ∆t = 0.14, Kr = 24 float16[✗], float32[✓], float64[✗]
+Table 2
+Examples of glider stability dependence on floating point numerical precision.
+
+DISCO GLIDERS 35
+Figure 1. Left Column: Gravitational attraction between two point bodies of equal
+mass simulated using the Euler method with different values for step sizeh. ‘X’ markers
+denote the ground truth final position of each body: the result of simulating with step
+size h = 0.009. Circles mark the end of each simulated path.Right Column:
+Simulations of a glider under theScutium gravidusupdate rules in the Lenia CCA
+framework. A very large step sizedt of 0.99 makes for an unstable glider. A step size of
+0.3 is stable for many steps, but a slightly smaller step size of 0.2 is unstable.
+
+DISCO GLIDERS 36
+Figure 2. Neighborhood kernels, update functions, and typical gliders for
+continuous and neural CA supporting gliders, implemented in the Glaberish
+framework (Davis & Bongard, 2022a).
+
+DISCO GLIDERS 37
+Figure 3. Gliders in this study. Dark red and light green letters denote non-Platonic and
+Platonic pattern-rule pairs, respectively. a)Hydrogeminium natans, Lenia, Platonic. b)
+Hydrogeminium natans wobbler, Lenia, non-Platonic. c)Orbium, Lenia, Platonic. d)Scutium
+gravidus glider, Lenia, non-Platonic. e)Triscutium solidus wide glider, Lenia, Non-Platonic. f)
+SmoothLife glider, SmoothLife, non-Platonic. g) s613 frog, Glaberish, Platonic. h) s613
+wobbler, Glaberish, non-Platonic. i) s643 frog, Glaberish, Platonic. j) s643 wobbler,
+Glaberish, non-Platonic. k) s11 slow glider, Glaberish, Platonic. l) Neurorbium, NCA,
+non-Platonic. m) Neurosingle glider, NCA, Platonic. n) Neurosynorbium, NCA, Platonic. o)
+Neurowobbler, NCA, Platonic. p) BerryCup, U-Skate (Gray-Scott reaction diffusion system),
+putatively non-Platonic. q) Daedalus, U-Skate, putatively non-Platonic, r) ‘U-Skate’ glider,
+U-Skate, putatively non-Platonic. s) ‘Adorbium’, Adam optimizer automaton, non-Platonic.
+
+DISCO GLIDERS 38
+Figure 4. Stability persistence scatter plot for the SmoothLife single glider.
+Figure 5. Stability persistence for theOrbium glider pattern in the Lenia CA of the
+same name, withµG = 0.15, σG = 0.015, andµK = 0.5, σK = 0.15.
+
+DISCO GLIDERS 39
+Figure 6. Stability persistence for two glider patterns inHydrogeminium natans, a
+Lenia CA
+Figure 7. Stability persistence for a glider pattern inTriscutium solidus, a Lenia CA
+
+DISCO GLIDERS 40
+Figure 8. Stability persistence for a glider pattern inScutium gravidus, a Lenia CA
+Figure 9. Stability persistence for the s11 slow glider
+
+DISCO GLIDERS 41
+Figure 10. Stability persistence for the s613 frog and s613 wobble gliders
+Figure 11. Stability persistence for the s643 frog and s613 wobble gliders
+
+DISCO GLIDERS 42
+Figure 12. Persistence stability for the Neurorbium glider.
+Figure 13. Persistence stability for the Neurosynorbium glider.
+
+DISCO GLIDERS 43
+Figure 14. Persistence stability for the Neurosingle and Neurowobble glider, in the
+neuroscutium_valvatus NCA.
+
+DISCO GLIDERS 44
+Figure 15. A map of final states for a grid search in∆x and ∆t for the Daedalus glider
+pattern in modified U-Skate world. The glider appears stable at 262,144 steps for
+∆x = 2.733e− 3, ∆x = 3.030e− 3, ∆x = 3.327e− 3, and ∆x = 3.624∗ 10−3.
+
+DISCO GLIDERS 45
+Figure 16. A map of final states for a grid search in∆x and ∆t for the novel BerryCup
+glider pattern in modified U-Skate world. The glider appears stable at 262,144 steps for
+∆x = 2.733∗ 10−3, ∆x = 3.030∗ 10−3, ∆x = 3.327∗ 10−3, and ∆x = 3.624∗ 10−3.
+
+DISCO GLIDERS 46
+Figure 17. A map of final states for a grid search in∆x and ∆t for the eponymous
+U-Skate glider pattern in modified U-Skate world. The glider appears stable at 262,144
+steps for ∆x = 2.733∗ 10−3, ∆x = 3.030∗ 10−3, ∆x = 3.327∗ 10−3, ∆x = 3.624∗ 10−3,
+and ∆x = 3.921∗ 10−3.
+
+DISCO GLIDERS 47
+Figure 18. Discretization-dependent dissolution by step 2048 of the ‘Adorbium’ glider
+in a cellular automaton based on Adam optimizer update rules, at small and large∆t
+step sizes. a) glider is unstable from∆t = 0.01 through ∆t = 0.05, with uncontained
+growth of non-zero cell states. b) glider is stable from∆t = 0.06 through ∆t = 0.67 c)
+glider is again unstable from∆t = 0.68 through ∆t = 1.0.
+
+DISCO GLIDERS 48
+Figure 19. Adorbium grid states at 1024 steps provide an approximate map of glider
+stability at different values for kernel radius and step size∆t. Separate grid instances
+are bordered by lightened pixels, and these boundaries have been darkened by the
+author to indicate putative stability boundaries, where the glider persisted to step 1024.
+A full resolution version is included in the supporting resources.
+
+DISCO GLIDERS 49
+Figure 20. The Lorenz system withσ = 10, ρ = 12, andβ = 83 and initial conditions
+(x0,y 0,z 0) = (2, 1, 1) settles to a quiescent steady state at
+(x,y,z )≈ (−5.416,−5.416, 11.0) when simulated with a sufficiently fine step size of
+0.015. Simulating the system with the same parameters and initial conditions, but a
+step size of∆t = 0.03 yields a chaotic trajectory with a strange attractor.
+Figure 21. Bifurcation diagram of the logistic differential equation. Areas that tend to
+a quiescent steady state, oscillations, or choas are approximately marked as class 1,
+class 2, and class 3 (analogous to CA classifications), respectively.

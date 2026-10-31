@@ -1,0 +1,2468 @@
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ROBOTICS AND AI
+REVIEW ARTICLE
+published: 10 October 2014
+doi: 10.3389/frobt.2014.00008
+The past, present, and future of artiﬁcial life
+Wendy Aguilar1, Guillermo Santamaría-Bonﬁl1,T om Froese1,2 and Carlos Gershenson1,2*
+1 Instituto de Investigaciones en Matemáticas Aplicadas y en Sistemas, Universidad Nacional Autónoma de México, Mexico City, Mexico
+2 Centro de Ciencias de la Complejidad, Universidad Nacional Autónoma de México, Mexico City, Mexico
+Edited by:
+Joseph T . Lizier, Commonwealth
+Scientiﬁc and Industrial Research
+Organisation (CSIRO), Australia
+Reviewed by:
+Mario Giacobini, University of Turin,
+Italy
+Tim Taylor, Monash University,
+Australia
+*Correspondence:
+Carlos Gershenson, Instituto de
+Investigaciones en Matemáticas
+Aplicadas y en Sistemas, Universidad
+Nacional Autónoma de México,
+Ciudad Universitaria, A.P . 20-126,
+Mexico City 01000, Mexico
+e-mail: cgg@unam.mx
+For millennia people have wondered what makes the living different from the non-living.
+Beginning in the mid-1980s, artiﬁcial life has studied living systems using a synthetic
+approach: build life in order to understand it better, be it by means of software, hardware, or
+wetware. This review provides a summary of the advances that led to the development of
+artiﬁcial life, its current research topics, and open problems and opportunities. We classify
+artiﬁcial life research into 14 themes: origins of life, autonomy, self-organization, adapta-
+tion (including evolution, development, and learning), ecology, artiﬁcial societies, behavior,
+computational biology, artiﬁcial chemistries, information, living technology, art, and philos-
+ophy. Being interdisciplinary, artiﬁcial life seems to be losing its boundaries and merging
+with other ﬁelds.
+Keywords: artiﬁcial life, cognitive science, robotics, artiﬁcial intelligence, philosophy, adaptation, self-organization,
+synthetic biology
+1. THE PAST
+Google’s Ngram Viewer (Michel et al., 2011) allows users to search
+the relative frequency of n-grams (short-words combinations,
+n ≤ 5) in time, exploiting the large database of Google Books that
+includes about 4% of all books ever written. Hiroki Sayama did a
+search for“artiﬁcial life”1, and the curve showed how the frequency
+jumps from 1986 and reaches a peak in 1997 before stabilizing.
+However, there is an even higher peak around 1821. “What were
+they doing in those days?” Hiroki tweeted. Well, Frankenstein, or
+The Modern Prometheus by Mary Shelley was published in 1818.
+That created a wave in literature until the end of the 1820s and had
+an impact for the rest of the nineteenth century, as people debated
+on the nature of life in view of the impressive technological and
+scientiﬁc advances of the age. What are the causes and conditions
+of life? Can we make living creatures?
+We know that such questions were asked from the dawn of his-
+tory. Consider, for instance, the artiﬁcial creatures found in the
+Greek, Mayan, Chinese, and Jewish mythologies, where human
+beings acquire the divine ability to make living creatures through
+magic. Other examples can be found during the middle ages,
+such as the automata created by al-Jazari (including the ﬁrst pro-
+grammable humanoid robot) and the legendary Albertus Magnus’
+brazen head (an automaton reputed to be able to answer any ques-
+tion) and its mechanical servant (which advanced to the door
+when anyone knocked and then opened it and saluted the visitor).
+Later on, during the Italian Renaissance, several automata were
+designed (Mazlish, 1995). Leonardo da Vinci’s mechanical knight
+(a humanoid that could stand, sit, raise its visor and indepen-
+dently maneuver its arms) and its mechanical lion (which could
+walk forward and open its chest to reveal a cluster of lilies) are just
+two examples of this kind of automata. There is also a legend that
+1http://t.co/boMAxmjQ2c
+says that Juanelo Turriano created an automata called “The Stick
+Man.” It begged in the streets, and when someone gave him a coin,
+he bowed. Through the modern age, automata became more and
+more sophisticated, based on and leading to advances in clock-
+work and engineering (Wood, 2002). Perhaps the most impressive
+of this period were the automata of Vaucanson. His ﬁrst work-
+shop was destroyed because the androids he wanted to build were
+considered profane. He later built a duck, which appeared to eat,
+drink, digest, and defecate. Other examples of modern automata
+are those created by Pierre Jaquet-Droz: the writer (made of 2500
+pieces), the musician (made of 2500 pieces), and the draughtsman
+(made of 2000 pieces).
+Questions related to the nature and purpose of life have been
+central to philosophy, and the quest of creating life has been present
+for centuries (Ball, 2011). Being able to imitate life with automata,
+can we understand better what makes the living alive? Hobbes
+(1651, p. 1) begins his Leviathan with:
+Nature (the art whereby God hath made and governs the
+world) is by the art of man, as in many other things, so in this
+also imitated that it can make an artiﬁcial animal. For seeing
+life is but a motion of limbs, the beginning whereof is in some
+principal part within, why may we not say that all automata
+(engines that move themselves by springs and wheels as doth
+a watch) have an artiﬁcial life? [our emphasis]
+Descartes also considered the living as being mechanical: life being
+similar to a clockwork (Descartes, 1677). Still, Descartes did not
+consider the soul to be mechanical, leading to dualism.
+Nevertheless, in spite of these many antecedents, it is commonly
+accepted [see, for example,Bedau (2003)] that it was not until 1951
+that the ﬁrst formal artiﬁcial life (ALife) model was created, when
+von Neumann (1951) was trying to understand the fundamen-
+tal properties of living systems. In particular, he was interested in
+www.frontiersin.org October 2014 | Volume 1 | Article 8 |1
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Aguilar et al. The past, present, and future of artiﬁcial life
+self-replication, a fundamental feature of life. Collaborating with
+Stanislaw Ulam at Los Alamos National Laboratory, von Neu-
+mann deﬁned the concept of cellular automata and proposed a
+self-replicating formal system, which was aimed at being com-
+putationally universal (Turing, 1936) and capable of open-ended
+evolution (von Neumann, 1966; Mange et al., 2004). Simpler alter-
+natives to von Neumann’s “universal constructor” were later pro-
+posed by Codd (Hutton, 2010) andBanks (1971). Langton (1984)
+then proposed simpler self-replicating “loops, ” based on Codd’s
+ideas but without universality2. Popularization and further devel-
+opment of cellular automata continued in the 1970s and 1980s, the
+best known examples being Conway’s Game of Life (Berlekamp
+et al., 1982), and Wolfram’s elementary cellular automata ( Wol-
+fram, 1983). A contemporary of von Neumann, Barricelli (1963)
+developed computational models similar to cellular automata,
+although focusing on evolution.
+In parallel to these studies by von Neumann and others, cyber-
+netics studied control and communication in systems ( Wiener,
+1948; Gershenson et al., 2014). Cybernetics and systems research
+described phenomena in terms of their function rather than
+their substrate, so similar principles were applied to animals
+and machines alike. Langton (1984) suggested that life should
+be studied as property of form, not matter. This resonates with
+the cybernetic approach, so it can be said that ALife has strong
+roots in cybernetics. Moreover, central concepts such as homeosta-
+sis (Ashby, 1947a, 1960; Williams, 2006) and autopoiesis ( Varela
+et al., 1974; Maturana and Varela, 1980) were developed within
+and inspired by cybernetics (Froese and Stewart, 2010). A couple
+of examples, Walter (1950, 1951) built robotic “tortoises” (Hol-
+land, 1997), which can be classiﬁed as early examples of adaptive
+robotics. In the 1960s, Beer (1966) developed a model for orga-
+nizations based on the principles of living systems. Beer’s ideas
+were implemented in Chile during the Cybersyn project (Miller
+Medina, 2005) in the early 1970s.
+It is clear that life does not depend only on its substrate. Take,
+for example, Kauffman’s blender thought experiment (Kauffman,
+2000): imagine you take the biosphere, place it in a giant blender,
+and press MAX. For some time, you would have the same mol-
+ecular diversity. However, without its organization, the complex
+molecules of the biosphere would soon decay and their diversity
+would be lost. Living systems organize ﬂows of matter, energy, and
+information to sustain themselves. Life cannot be studied without
+considering this organization, as one cannot distinguish mole-
+cules, which are part of a living organization from those that are
+not. There have been several advances, but there is still much to
+discover about the realm of the living.
+ALife has been closely related to artiﬁcial intelligence (AI), since
+some of their subjects overlap. As Bedau (2003, p. 597) stated:
+“living and ﬂourishing in a changing and uncertain environment
+requires at least rudimentary intelligence.” However, the former is
+particularly focused on systems, which can mimic nature and its
+laws and therefore it is more related to biology, while the latter is
+mainly focused on how human intelligence can be replicated, and
+therefore, it is more related to psychology. Moreover, they differ
+2Some of these and other self-replicators and cellular automata can be tested in the
+open source simulator Golly (Trevorrow and Rokicki, 2013).
+in their modeling strategies. On the one hand, most traditional
+AI models are top-down speciﬁc systems involving a complicated,
+centralized controller that makes decisions based on access to all
+aspects of global state. On the other hand, ALife systems are typ-
+ically bottom-up (Maes, 1993), implemented as low-level agents
+that simultaneously interact with each other, and whose decisions
+are based on information about, and directly affect, only their own
+local environment (Bedau, 2003).
+The research around these topics continued until 1987, the
+year in which Langton organized the ﬁrst Workshop on the Syn-
+thesis and Simulation of Living Systems in Santa Fe, New Mexico,
+where the term “artiﬁcial life” was coined in its current usage. The
+event marked the ofﬁcial birth of the ﬁeld. Incidentally, the scien-
+tiﬁc study of complex systems (Gershenson, 2008) also initiated
+roughly at the same time in the same place, the Santa Fe Institute.
+Figure 1 summarizes the “prehistory” of ALife, which begins
+with the ancient myths and stories and ﬁnishes with the formal
+creation of this area of research.
+2. THE PRESENT
+2.1. WHAT IS ARTIFICIAL LIFE?
+The concept of artiﬁcial life can take different meanings. In its
+current usage, the term artiﬁcial life (ALife) was coined in the late
+1980s by Langton (1989), who originally deﬁned it as “life made by
+man rather than by nature, ” i.e., it is the study of man-made sys-
+tems that exhibit behaviors characteristic of natural living systems.
+However, with time, Langton found fundamental problems with
+this deﬁnition, and redeﬁned it as “the study of natural life, where
+nature is understood to include rather than to exclude, human
+beings and their artifacts” (Langton, 1998). He stated that human
+beings, and all that they do, are part of nature, and as such, a major
+goal of ALife should be to work toward removing “artiﬁcial life” as
+a phrase that differs in meaning in any fundamental way from the
+term “biology.” Indeed, it is now quite common for biologists to
+use computational models, which would have been considered as
+ALife 20 years ago, but now they are part of mainstream biology
+(Bourne et al., 2005).
+Bedau (2007) deﬁned contemporary artiﬁcial life as an inter-
+disciplinary study of life and life-like processes, whose two most
+important qualities are that it focuses on the essential rather than
+the contingent features of living systems and that it attempts to
+understand living systems by artiﬁcially synthesizing simple forms
+of them. Three broad and intertwining branches of artiﬁcial life
+correspond to three different synthetic methods. “Soft” artiﬁcial
+life creates simulations or other purely digital constructions that
+exhibit life-like behavior (most ALife research is soft), “hard” arti-
+ﬁcial life produces hardware implementations of life-like systems,
+and “wet” artiﬁcial life synthesizes living systems from biochem-
+ical substances (Rasmussen et al., 2003, 2008). In this way, ALife
+attempts to synthesize properties of living systems in computers,
+machines, and molecules. Thus, ALife aims to understand bio-
+logical life better by creating systems with life-like properties and
+developing novel forms of life.
+In a broad sense, artiﬁcial life can be understood as the syn-
+thesis and simulation of living systems, which actually has been the
+name of the international workshops and conferences organized
+since 1987.
+Frontiers in Robotics and AI | Computational Intelligence October 2014 | Volume 1 | Article 8 |2
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Aguilar et al. The past, present, and future of artiﬁcial life
+FIGURE 1 | Summary of the historical roots of artiﬁcial life, from its precedents in the ancient myths and stories to the formal creation of this area of
+research.
+ALife has been an interdisciplinary research ﬁeld (Langton,
+1997; Adami, 1998; Dorin, 2014), bringing together biologists,
+philosophers, physicists, computer scientists, chemists, mathe-
+maticians, artists, engineers, and more. It has also been related
+to several ﬁelds, having a strong overlap with some of them, such
+as complexity (Bar-Y am, 1997; Mitchell, 2009), natural comput-
+ing (de Castro, 2006), evolutionary computation (Baeck et al.,
+1997; Coello Coello et al., 2007), language evolution (Cangelosi
+and Parisi, 2002; Christiansen and Kirby, 2003), theoretical biol-
+ogy (Waddington, 1968a), evolutionary biology (Maynard Smith
+and Szathmáry, 1995), philosophy (Boden, 1996), cognitive sci-
+ence (Clark, 1997; Bedau, 2003; Couzin, 2009), robotics (Mataric
+and Cliff, 1996), artiﬁcial intelligence (AI) (Steels and Brooks,
+1995)3, behavior-based systems (Maes, 1993; Webb, 2000), game
+theory (Sigmund, 1993), biomimesis (Meyer, 1997;Carmena et al.,
+2001), network theory (Newman, 2003;Newman et al., 2006), and
+synthetic biology (Benner and Sismour, 2005), among others.
+Current ALife research can be classiﬁed into the 14 themes
+summarized in the rest of this section: origins of life, autonomy,
+self-organization, adaptation (evolution, development, and learn-
+ing), ecology, artiﬁcial societies, behavior, computational biology,
+artiﬁcial chemistries, information, living technology, art, and phi-
+losophy. Figure 2 shows the number of papers published in the
+3Interestingly, according to Google’s Ngram Viewer, artiﬁcial intelligence had its
+peak around 1988 – the same year artiﬁcial life started growing – and has reduced
+its popularity since (http://t.co/d2r96JIuCm).
+Artiﬁcial Life journal related to each of these themes since 1993.
+The ﬁrst four themes focus more on properties of living systems.
+The next ﬁve themes study life at different scales. The last four are
+related to our understanding, uses, and descriptions we have of
+the living. This categorization is somewhat arbitrary, as several of
+the themes are entwined and overlapping. This also causes some
+of the topics to appear underrepresented, as related work has been
+mentioned in other subsections.
+2.2. ORIGINS OF LIFE
+ALife has had a close relationship with the community of scien-
+tists working on the origins of life. Similar to the subdivision of
+ALife into two rather distinct areas focused on either individual
+autonomy or population evolution, there have been two major the-
+ories about the origin of life, known as the metabolism-ﬁrst and
+replicator-ﬁrst approaches (Dyson, 1985; Pross, 2004). The former
+typically views the origin of life as related to the emergence of self-
+producing and self-maintaining far-from-equilibrium structures,
+for example, based on the principles of autopoiesis (Ono et al.,
+2008), autocatalytic networks (Kauffman, 1986), and reaction-
+diffusion systems (Froese et al., 2012a). The latter approach, which
+has received more attention in mainstream science (Joyce, 2002),
+prefers to identify the origin of life with the beginning of evolu-
+tion by natural selection (T essera, 2009). Its classic formulation
+is the “RNA world” hypothesis (Gilbert, 1986), which has been
+generalized to the idea of natural selection in chemical evolution
+(Fernando and Rowe, 2007). In recent work, these two approaches
+can no longer be clearly distinguished as both autonomy and
+www.frontiersin.org October 2014 | Volume 1 | Article 8 |3
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Aguilar et al. The past, present, and future of artiﬁcial life
+FIGURE 2 | Popularity of different themes per year, as measured by
+papers published in the Artiﬁcial Life journal. Adaptation has been a
+dominant theme in the journal, as it includes evolution, development,
+and learning. Self-organization has not been that popular, but is a
+constant topic. Some themes are poorly represented, such as art,
+because artists usually choose different venues to publicize their work.
+Other themes have had peaks of popularity for different reasons, such
+as special issues.
+evolution are thought to be necessary for life (Ruiz-Mirazo and
+Moreno, 2004). Metabolism-ﬁrst approaches have accepted the
+necessity of an informational capacity to enable open-ended evo-
+lution, even if it is in terms of a prebiotic “composite” genome
+(Segré et al., 2000). Replicator-ﬁrst approaches, on the other hand,
+had to make recourse to membrane boundaries and metabolic
+activity, for example, to give rise to individuated protocells capa-
+ble of competition (Chen et al., 2004). More recently, a new debate
+has arisen about the role of movement and adaptive behavior in
+the origin of life (Hanczyc, 2011; Egbert et al., 2012; Froese et al.,
+2014), a topic that had long been ignored by both metabolism-
+and replicator-ﬁrst approaches. Indeed, one of the major open
+challenges in this area is to better understand the engineering of
+second-order emergence (Froese and Ziemke, 2009), that is, how
+to synthesize the underlying conditions for the emergence of an
+individual that, in interaction with its environment, gives rise to
+interesting behavior. Here, we therefore ﬁnd the ﬂipside of the
+problem faced by evolutionary robotics (see below); while mod-
+els of the origin of life must somehow make its systems more
+interactive, robotics has to somehow make their systems more
+autonomous. It is likely that attempts at integrating biological
+autonomy, adaptive behavior, and evolution into one model will
+continue to improve, which would at the same time mean an inte-
+gration of the various subﬁelds of ALife. This integration of life and
+Frontiers in Robotics and AI | Computational Intelligence October 2014 | Volume 1 | Article 8 |4
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Aguilar et al. The past, present, and future of artiﬁcial life
+mind on various timescales is also supported by ongoing develop-
+ments in the philosophy of mind and cognitive science, which is
+increasingly realizing the many ways in which mind is inseparable
+from a living body (Thompson, 2007).
+A key question related to the studies of the origin of life is the
+deﬁnition of life itself (Schrödinger, 1944; Haldane, 1949; Mar-
+gulis and Sagan, 1995; Bedau, 2008; Lazcano, 2008), to be able to
+determine when it began. Some argue that one of the deﬁning
+properties of living systems is autonomy.
+2.3. AUTONOMY
+Since its beginnings, the ﬁeld of ALife has always been closely asso-
+ciated with the concepts of biological autonomy and autopoiesis
+(Bourgine and Varela, 1992). The term “autopoiesis” was coined
+by the biologists Maturana and Varela (1980) to characterize a
+bounded network of processes that self-maintains its organiza-
+tion such that it is identiﬁable as a unity in the chemical domain.
+They created a computer model that can be considered as one of
+the ﬁrst examples of ALife ( Varela et al., 1974), and which has
+given rise to a tradition of computational autopoiesis in the ﬁeld
+(McMullin, 2004). The precise deﬁnition of autopoiesis continues
+to be debated, and even Maturana and Varela were not always in
+agreement with each other (Froese and Stewart, 2010). Although
+the core idea seems to be that living beings are not only self-
+organizing but are also self-producing, they owe their existence as
+individual material entities to their ongoing internal (metabolic)
+and relational (regulatory) activities. This idea is sometimes for-
+malized as operational closure, which can be deﬁned as a network
+of processes in which each process enables, and is enabled by, at
+least one other process in that network. Varela (1979) used this
+concept to abstract autopoiesis from the speciﬁcities of the chemi-
+cal domain so as to derive a concept of autonomy in general. In this
+way, Varela was able to describe other biological systems, such as
+the nervous system and the immune system, as being autonomous,
+even if they did not chemically self-produce. Relatedly, this concept
+of autonomy has been used to describe the self-sustaining dynam-
+ics of social interaction (De Jaegher and Froese, 2009). However,
+there is a concern that this abstraction makes us overlook what
+is essential to life itself, which has prompted some researchers to
+develop a more concrete theory of biological autonomy. For exam-
+ple, Ruiz-Mirazo and Moreno (2004) propose that “basic auton-
+omy” is the capacity of a system to manage the ﬂow of matter and
+energy through it so that it can regulate internal self-constructive
+and interactive exchange processes under far-from-equilibrium
+thermodynamic conditions.
+This conception of autonomy, as referring to processes of self-
+production, must be distinguished from the term’s common use
+in robotics, where it is employed more loosely as the capacity of a
+system to move and interact without depending on remote con-
+trol by an operator (Froese et al., 2007). Nevertheless, it is the
+strong sense of autonomy that allows us to talk about a system
+as being an individual that acts in relation to its intrinsic goals,
+i.e., of being a genuine agent (Barandiaran et al., 2009), rather
+than being a system whose functions are heteronomously deﬁned
+from the outside. This has implications for how we should think
+about the so-called “ALife route to artiﬁcial intelligence” (Steels,
+1993; Steels and Brooks, 1995). An important ﬁrst step along this
+route was the development of behavior-based robotics, rather than
+micromanaging all aspects of a system’s behavior, as was common
+practice in good old-fashioned AI and still is in industrial robotics,
+behavior (see below) began to be seen as an emergent property of
+the robot-environment as a whole (Brooks, 1991).
+Living systems need a certain degree of autonomy. This implies
+that they have certain control over their own production. This can
+be achieved through the process of self-organization.
+2.4. SELF-ORGANIZATION
+The term“self-organizing system”was deﬁned byAshby (1947b)to
+describe phenomena where local interactions lead to global pat-
+terns or behaviors, such as in swarms, ﬂocks, or trafﬁc (Haken,
+1981; Camazine et al., 2003; Gershenson and Heylighen, 2003;
+Gershenson, 2007). Early examples of self-organization in ALife
+include snowﬂakes [Packard (1986), p. 305–310] and boids
+(Reynolds, 1987), which are examples of models of pattern forma-
+tion (Cross and Hohenberg, 1993) and collective motion ( Vicsek
+and Zafeiris, 2012), respectively. There have also been several mod-
+els of collective behavior (Couzin et al., 2004), such as ﬂocks,
+schools, herds, and crowds.
+Self-replication can be seen as a special case of self-organization,
+as a replicator has to conserve and duplicate its organization by
+itself. Examples from von Neumann to Langton have been already
+mentioned, although there have been several more (Sipper, 1998).
+Another special case of self-organization is self-maintenance,
+which is related to homeostasis ( Ashby, 1947a, 1960; Williams,
+2006) and has been studied in relation to artiﬁcial chemistries
+(Ono and Ikegami, 1999, 2001) (see below).
+Self-assembly (Whitesides and Grzybowski, 2002) can also be
+seen as a form of self-organization. There have been several exam-
+ples in hard ALife of self-assembling or self-reconﬁgurating robots
+(Murata et al., 1994; Holland and Melhuish, 1999; Zykov et al.,
+2005; Dorigo et al., 2006; Støy and Nagpal, 2007; Ampatzis et al.,
+2009; Rubenstein et al., 2014; Werfel et al., 2014).
+Some of these robots have taken inspiration from insect
+swarms. Their self-organization has served as an inspiration in
+computational intelligence (Bonabeau et al., 1999; Prokopenko,
+2014a). More recently, these studies have been extended toward
+cognitive science (Trianni and Tuci, 2009;Gershenson, 2010). This
+kind of research is also related to collective intelligence (Hutchins,
+1995) and the evolution of language (Steels, 2003).
+Recent attempts to guide self-organization (Prokopenko, 2009,
+2014b; Ay et al., 2012; Polani et al., 2013) are using information
+theory to develop systems, which are able to adapt to unforeseen
+circumstances (Gershenson, 2007).
+2.5. ADAPTATION
+Adaptation can be deﬁned as “a change in an agent or system as
+a response to a state of its environment that will help the agent
+or system to fulﬁll its goals” (Gershenson, 2007). Adaptation is
+a central feature of living systems and is essential for autonomy
+and survival. One of the major criticisms of AI has been its lack
+of adaptability, as it traditionally attempted to predict and con-
+trol rather than to adapt (Gershenson, 2013a), while part of ALife
+has focused on bringing adaptability to AI (Maes, 1993; Steels
+and Brooks, 1995). Still, both adaptability and predictability are
+desirable properties in natural and artiﬁcial systems.
+www.frontiersin.org October 2014 | Volume 1 | Article 8 |5
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Aguilar et al. The past, present, and future of artiﬁcial life
+Adaptation can occur at different time scales (Jablonka and
+Lamb, 2006; Gershenson, 2010). At a slow scale (several lifetimes),
+adaptation is called evolution. At a medium scale (one lifetime),
+adaptation is called development (including morphogenesis and
+cognitive development). At a fast scale (a fraction of a lifetime),
+adaptation is called learning. Adaptation at one or more scales has
+been a central topic in ALife, as shown by Figure 2.
+2.5.1. Evolution
+Computer science has exploited artiﬁcial evolution extensively, ini-
+tially with genetic algorithms (Holland, 1975;Mitchell et al., 1992;
+Mitchell and Forrest, 1993) 4, which were generalized in the ﬁeld
+of evolutionary computation (Baeck et al., 1997; Coello Coello
+et al., 2007), an important part of computational intelligence
+(Prokopenko, 2014a). The main purpose of using evolutionary
+algorithms is to search suitable solutions in problem spaces that
+are difﬁcult to explore with more traditional heuristic methods.
+ALife systems such as Tierra (Ray, 1993) and Avida (Ofria,
+1999; Ofria and Wilke, 2004) have been used to study the evolu-
+tion of “digital organisms, ” using a formal framework, which has
+brought fruitful advances in the understanding features of living
+systems such as robustness (Lenski et al., 1999), the evolution of
+complexity (Adami et al., 2000), the effect of high-mutation rates
+(Wilke et al., 2001), the evolution of complex organisms (Lenski
+et al., 2003), mass extinctions ( Y edid et al., 2012), and ecological
+networks (Fortuna et al., 2013).
+In hard ALife, evolution has been used also for further removing
+the inﬂuence of the designer with the development of evolutionary
+robotics (Cliff et al., 1993; Eiben, 2014), e.g., the use of evolu-
+tionary algorithms in the automated design of a robot’s cognitive
+architecture, which could simply be initialized as a generic dynam-
+ical system (Beer, 1995). This approach continues to be a popular
+tool for the ALife community (Nolﬁ and Floreano, 2000; Har-
+vey et al., 2005; Vargas et al., 2014), but it has become evident
+that replacing the human designer by artiﬁcial evolution does
+not spontaneously lead to the emergence of agents in the strong
+sense discussed above (Froese and Ziemke, 2009). One response
+has been to apply insights from organisms to better design the
+internal organization of artiﬁcial agents such that they can sponta-
+neously re-organize, for example, by incorporating some capacity
+for homeostatic adaptation and habit formation (Di Paolo, 2003).
+Initial attempts followed Ashby (1960) proposal of ultrastability,
+but the problem of heteronomous design quickly resurfaced. It is
+still an important open challenge to enable more profound forms
+of internal adaptation in these agents without pre-specifying the
+underlying mechanisms and/or their goals (Iizuka et al., 2013;
+Izquierdo et al., 2013; Egbert and Cañamero, 2014).
+2.5.2. Development
+Artiﬁcial development is, on one hand, inspired by the devel-
+opmental processes and cellular growth seen in nature (biolog-
+ical development), and on the other hand, it is interested in
+4Barricelli (1963) proposed computational models of evolution earlier, but his work
+has not had an impact within the ALife community. Current work on soft ALife can
+be traced back to Holland (1975).
+studying developmental processes related to cognition (cognitive
+development).
+Chavoya (2009) deﬁned “biological artiﬁcial development” as
+the study of computer models of cellular growth, with the objective
+of understanding how complex structures and forms can emerge
+from a small group of undifferentiated initial cells. These systems
+have been traditionally divided into two groups: (1) those that
+are based on self-organizing chemical processes in and between
+cells, and (2) those that follow a grammatical approach. Turing
+(1952) seminal paper on the chemical basis of morphogenesis
+is probably the earliest work belonging to the ﬁrst group. In
+that paper, Turing used a set of differential equations to pro-
+pose a reaction-diffusion model, which led him to suggest that
+an initially homogeneous medium might develop a structured
+pattern (such as certain radial and dappling patterns observed
+in the skin of many animals) due to an instability of the homo-
+geneous equilibrium, triggered by small random disturbances.
+Later on, Gierer and Meinhardt (1972) presented a model sim-
+ilar to Turing’s. They proposed that pattern formation was the
+result of local self-activation coupled with lateral inhibition. The
+most famous result of their theory is the simulation of seashell
+patterns (Meinhardt, 2003). Regarding those systems that follow
+a grammatical approach, Lindenmayer (1971) proposed the so-
+called L-Systems, which are a formal grammar with a set of symbols
+and a set of rewriting rules. They were introduced as a mathemat-
+ical formalism for modeling development of simple multicellular
+organisms. These systems were applied to modeling the devel-
+opment of plants and trees (Prusinkiewicz et al., 1990). In 1996,
+Dawkins (1996) introduced his famous work on “biomorphs” to
+illustrate how evolution might induce the creation of complex
+designs by means of micro-mutations and cumulative selection.
+His results include biomorphs that resemble tree-like structures,
+insects, crustaceans, and mammals. More recently,Stanley (2007)
+proposed a novel abstraction of natural development, called“com-
+positional pattern producing networks” (CPPNs). This model
+allowed him to demonstrate the existence of intrinsic proper-
+ties found in natural development, such as bilateral symmetry
+and repeating patterns with and without variation. There has also
+been interest in creating software platforms as tools for experi-
+menting with simulated developmental processes. For example,
+Stewart et al. (2005) created the METAMorph open source soft-
+ware, which allows researchers to manually design genetic regu-
+latory networks and visualize the resulting morphological growth
+process.
+The artiﬁcial life community has also been interested in cre-
+ating computational models of cognitive development.Mareschal
+and Thomas (2006) deﬁned them as formal systems that track
+the changes in information processing taking place as a behav-
+ior is acquired. Several approaches have been taken to tackle this
+problem, such as neural networks [e.g., Shultz et al. (1995); Parisi
+and Schlesinger (2002)], dynamical systems theory [e.g., Thelen
+and Smith (1996)], cognitive architectures [e.g.,Anderson (1993);
+Simon (1998); Jones et al. (2000)], and Bayesian networks [e.g.,
+Xu and T enenbaum (2000); Schlesinger and Parisi (2001)]. For
+recent reviews of this topic, seeElman (2005) and Schlesinger and
+McMurray (2012).
+Frontiers in Robotics and AI | Computational Intelligence October 2014 | Volume 1 | Article 8 |6
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Aguilar et al. The past, present, and future of artiﬁcial life
+2.5.3. Learning
+Learning is a fundamental aspect of adaptive behavior for living
+organisms. Although there is no agreed deﬁnition, it can be con-
+ceived as a change in an organism’s capacities or behavior brought
+about by experience ( Wilson and Keil, 1999). In the context of
+artiﬁcial life, several approaches have been taken to model learn-
+ing, some of which have inﬂuenced the ﬁeld of machine learning
+(Bishop, 2006).
+Artiﬁcial neural networks (Rojas, 1996;Neocleous and Schizas,
+2002) are a well known approach to learning, which are inspired by
+the structure and functional aspects of biological neural networks.
+Another common form of machine learning, inspired by behav-
+iorist psychology, is reinforcement learning (Kaelbling et al., 1996;
+Sutton and Barto, 1998; Nowé et al., 2012), where adaptation
+occurs through environmental interaction (Woergoetter and Porr,
+2008).
+There have been several other ALife approaches to learning
+in conjunction with other themes, e.g., behavior or evolution
+(Izquierdo et al., 2008).
+2.6. ECOLOGY
+At a high level of abstraction, ecological studies in ALife can
+be described as interactions between individuals from different
+species and with their environment.
+Coevolution involves species interaction across generations,
+having strong relations with ecology. Sims’s creatures (Sims, 1994)
+are one example of coevolution. These creatures compete for a
+resource and evolve interesting morphologies and behaviors. A
+relevant topic within coevolution is the “red queen effect” (Dave
+and Miller, 1995) where species evolution affects the ﬁtness of
+other species, leading to “arm races” (Nolﬁ and Floreano, 1998),
+which can promote the evolution of complex traits.
+Also, related with evolution, ecological studies of ALife can offer
+insights into relationships such as symbiosis, parasitism ( Watson
+et al., 2000; Froese et al., 2012a), and mutualism (Pachepsky et al.,
+2002).
+At a global level, the living properties of biospheres have been
+studied. Perhaps the best known example is Daisyworld ( Watson
+and Lovelock, 1983; Lenton and Lovelock, 2000). ALife models
+can study how regulation can occur as a consequence of multiple
+ecological interactions (McDonald-Gibson et al., 2008).
+ALife ecological models, including cellular automata and agent-
+based (Grimm et al., 2005), have been used already in ecology for
+applications such as resource management (Bousquet and Page,
+2004) and land-use models (Matthews et al., 2007), where models
+have to include also the social dimension.
+2.7. ARTIFICIAL SOCIETIES
+Societies are deﬁned by the interactions of individuals of the same
+species. The computational modeling of social systems has become
+very popular because it enables the systematic exploration of pos-
+sibilities of social interaction, which are very difﬁcult to achieve
+with complex societies (Gilbert and Conte, 1995; Epstein Axtell,
+1996; Gershenson, 2001; Epstein, 2006).
+For example, the evolution of cooperation has been a popu-
+lar research topic (Burtsev and Turchin, 2006). Mainly based on
+game theory (Nowak, 2006), one of the most studied problems of
+cooperation is the prisoner’s dilemma (Santos et al., 2006, 2008).
+This approach has also been used to study multilevel selection
+(Traulsen and Nowak, 2006;Powers et al., 2011).
+Central to human societies, the evolution of language and com-
+munication has been widely studied, beginning within the ALife
+community (Cangelosi and Parisi, 2002;Kirby, 2002;Steels, 2012).
+The evolution of language can be seen as a special case of semi-
+otics, i.e., the problem of how meaning is acquired, which is also
+studied within ALife (Emmeche, 1991; Rocha, 1998; Ziemke and
+Sharkey, 2001) and closely related with philosophy (Gershenson,
+2002).
+Language is also a part of culture, which is beginning to be
+modeled within computational anthropology (Axtell et al., 2002).
+The modeling of societies has led to the development of pop-
+ular ALife games, such as Creatures (Grand, 2001) and The Sims
+(Wikipedia, 2014).
+In several cases, artiﬁcial societies include models of individual
+behavior [e.g., Burtsev and Turchin (2006)].
+2.8. BEHAVIOR
+Some of the differences between artiﬁcial intelligence and artiﬁ-
+cial life can be seen in their contrasting views of and approaches
+to synthesizing behavior. Put in somewhat simpliﬁed terms, AI
+reduces behavior to something that is speciﬁed to take place inside
+an agent independently and on its own terms. This internal pro-
+cessing is often implemented in terms of a sense-model-plan-act
+architecture, which means that the agents behavior has more to do
+with logical inferences based on internal representations rather
+than with interacting with the world in real time. This tradi-
+tional view was widely criticized from scientiﬁc, engineering, and
+philosophical perspectives. These have agreed that the structure
+of behavior is primarily to be conceived, designed, and analyzed
+in terms of the dynamics of a closed sensorimotor loop (Braiten-
+berg, 1986; Brooks, 1991; Cliff, 1991; Dreyfus, 1992; Clark, 1997;
+Pfeifer and Scheier, 1999; Pfeifer et al., 2007a). This has led to the
+study of adaptive behavior, mainly based on ethology (Maes, 1993;
+Meyer, 1997). This widespread paradigm shift made it evident that
+the contributions of the body and of the environment cannot be
+ignored, which is why this research is often referred to as embod-
+ied and situated (or embedded) cognition ( Varela et al., 1991).
+Since the 1990s this paradigm has continued to grow in popu-
+larity (Wheeler, 2005; Chemero, 2009; Robbins and Aydede, 2009;
+Beer, 2014b), so much that the next step is to disentangle the many
+versions that have been proposed (Kiverstein and Clark, 2009).
+ALife has beneﬁted from this paradigm shift because it has always
+preferred to study the conditions of emergence to pre-speciﬁed
+behavior, and because it has closely linked the notion of life with
+biological embodiment and its environment. As cognitive science
+is in the process of continuing its theoretical development from
+an embodied to a so-called “enactive” approach, which pays par-
+ticular attention to the properties of the living such as autopoiesis,
+autonomy, and sense-making (Weber and Varela, 2002; Thomp-
+son, 2007;Di Paolo, 2009).Therefore, we can expect that ALife will
+take the place of AI as the most important synthetic discipline
+of cognitive science. It is ALife, not traditional AI, which has the
+tools in order to investigate the general principles of the biologi-
+cally embodied mind (Di Paolo, 2003; Pfeifer et al., 2007b; Froese
+and Ziemke, 2009). At the same time, given the increasing inter-
+est in the science of consciousness, it is likely that these efforts
+www.frontiersin.org October 2014 | Volume 1 | Article 8 |7
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Aguilar et al. The past, present, and future of artiﬁcial life
+will be complemented by a growing emphasis on synthesizing and
+using new kinds of immersive and life-like human-computer inter-
+faces to explore life- and mind-as-it-could-be from the ﬁrst-person
+perspective (Froese et al., 2012b).
+2.9. COMPUTATIONAL BIOLOGY
+Theoretical biology ( Waddington, 1968b) preceded ALife in the
+abstract study of living systems. In return, ALife has contributed
+to theoretical biology with the development of computational
+models and tools.
+Computers have enabled the study of complex systems (i.e.,
+having many non-linearly interacting components), in a similar
+way as microscopes enabled microbiology (Pagels, 1989). Sys-
+tems biology (Kitano, 2002) has also required computers to study
+the complexity of biological systems at different scales, overlap-
+ping with ALife in several aspects. The transmission, storage, and
+manipulation of information at different scales are essential fea-
+tures of living systems, and several ALife models focus on one or
+more of these.
+Cellular automata were already mentioned ( Wolfram, 1986;
+Wuensche, 1992). Similar models have been used to study other
+aspects of biology. For example, Kauffman (1969) proposed ran-
+dom Boolean networks as models of genetic regulatory net-
+works (Aldana-González et al., 2003;Gershenson, 2004). Studying
+ensembles of such networks, the functional effects of topologies,
+modularity, degeneracy, and other structural properties can be
+measured (Gershenson, 2012), providing insights into the nature
+of adaptability and robustness. These models of genetic regulatory
+networks have been useful for theoretical biology, as they have
+demonstrated the role of criticality in evolution (Balleza et al.,
+2008) and suggested that a possible evolutionary mechanism for
+obtaining this criticality (T orres-Sosa et al., 2012).
+The study of biological neural networks led to the proposal of
+several models of distributed computation (Rojas, 1996). Some of
+these have been used in ALife for the evolution, development, or
+learning of artiﬁcial “brains” with different applications.
+In a similar way, the computational study of immune systems
+(Bersini, 1992; Forrest et al., 1994) has led to developments in
+computer security and optimization (Burke et al., 2014).
+2.10. ARTIFICIAL CHEMISTRIES
+Artiﬁcial chemistries are used to study questions related to the
+origin of life from chemical components, as well as prebiotic and
+biochemical evolution (Dittrich et al., 2001). This is because chem-
+ical components are considered non-living, while they form living
+organisms. Perhaps the ﬁrst computer simulation of the forma-
+tion of a simple protocell consisting of a metabolic network and
+a boundary was that which introduced the concept of autopoiesis
+(Varela et al., 1974;Maturana and Varela, 1980;McMullin, 2004).
+Other examples of work related to the transition from chem-
+istry to biology include M, R systems (Rosen, 1958; Letelier et al.,
+2006), the chemoton (Gànti, 1975, 2003), the hypercycle (Eigen
+and Schuster, 1978, 1979), autocatalysis (Farmer et al., 1986;
+Kauffman, 1986), and algorithmic chemistry (Fontana, 1991).
+Artiﬁcial chemistries have been extended to include evolu-
+tion (Hutton, 2002) and are closely related with self-organization
+(Sayama, 2008).
+2.11. INFORMATION
+It has been argued that living systems lie at the “edge of chaos”
+(Langton, 1990; Kauffman, 1993), i.e., they require a balance
+between stability/robustness and change/adaptability. How to ﬁnd
+this balance? More generally, how are we to measure organization
+and self-organization? And adaptability, homeostasis, autonomy,
+or even autopoiesis? There have been several proposals, but still
+there is no agreement on how the properties of living systems
+should be measured.
+A recent attempt has been to use information theory (Shannon,
+1948; Prokopenko et al., 2009) to measure different properties of
+living systems. In this context, the ﬁeld of guided self-organization
+is emerging (Prokopenko, 2009, 2014b;Ay et al., 2012;Polani et al.,
+2013), combining tools and concepts from information theory,
+self-organizing systems, and ALife.
+For example, following Ashby’s law of requisite variety (Ashby,
+1956), autopoiesis can be seen as the ratio of the complexity of a
+system over the complexity of its environment (Fernández et al.,
+2014). This implies that a living system requires a higher complex-
+ity than its environment to have a certain degree of autonomy.
+This view shifts the deﬁnition of life from “all or nothing” to a
+continuous transition between the non-living and living.
+2.12. LIVING TECHNOLOGY
+There have been hundreds of papers published on applications
+of ALife (Kim and Cho, 2006). More recently, the term “liv-
+ing technology” has been used to describe technology that is
+based on the core features of living systems (Bedau et al., 2009,
+2013). Living technology is adaptive, robust, autonomous, and
+self-organizing. Living technology can be classiﬁed as primary and
+secondary [Bedau et al. (2009), p. 91]. Primary living technology
+is constructed from non-living components, while secondary liv-
+ing technology depends on living properties already present in its
+elements.
+An example of primary living technology would be the design
+of protocells (Rasmussen et al., 2008) or artiﬁcial cells (Gibson
+et al., 2010) for applications such as cleaning pollution, generating
+energy, and improving health.
+A broad area of application of secondary living technology lies
+within socio-technical systems (Helbing et al., 2012; Gershenson,
+2013c). Governments, economies, and cities will be more efﬁcient
+if they are “living, ” i.e., exhibiting some of the key properties of
+living systems, potentially bringing numerous beneﬁts to society.
+ALife has the capacity to improve technologies, but also tech-
+nologies have contributed to ALife. For example, there has been
+substantial ALife research based on the Internet, which facilitates
+the study of, e.g., interactive evolution (Taylor, 2014), which has
+also led to some artistic applications, e.g., Picbreeder (Secretan
+et al., 2008).
+2.13. ART
+Within artiﬁcial intelligence, methods have been developed to
+model creativity (Boden, 1998). This has also been the case in ALife
+(Rinaldo, 1998; Whitelaw, 2004), where computational methods
+such as evolutionary computation have been used for creating
+artwork (McCormack and d’Inverno, 2012; Antunes et al., 2014),
+mainly within design, the visual arts, and music.
+Frontiers in Robotics and AI | Computational Intelligence October 2014 | Volume 1 | Article 8 |8
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Aguilar et al. The past, present, and future of artiﬁcial life
+There have been several exhibitions dedicated to ALife art, such
+as the Ars Electronica Festival 1993, with many artists producing
+works within this movement (Penny, 2010). The VIDA Art and
+Artiﬁcial Life International Awards (T enhaaf, 2008) began in 1999
+and has been active since, supporting and promoting ALife art.
+The interaction between the scientiﬁc and artistic ALife com-
+munities has been marginal and could be enhanced. Still, they are
+far more interconnected than is sometimes the case between the
+sciences and the humanities.
+2.14. PHILOSOPHY
+Artiﬁcial life has dealt with several philosophical questions (Boden,
+1996). An ontology is required to discuss what lifeis. Epistemology
+is needed for understanding living systems (Pattee, 1995), but also
+artiﬁcial creatures can have their own epistemology (Beer, 2014a).
+ALife has also contributed to the philosophical discussions related
+to the nature of emergence (Bedau and Humphreys, 2008). Fur-
+thermore, building living systems has ethical implications (Bedau
+and Parke, 2009).
+In particular, one unresolved question in the philosophy of arti-
+ﬁcial life is the status of the modeled phenomena. In the case of wet
+ALife, the synthetic creation of a living system logically implies the
+creation of an actual life form. But what about simulation models
+of living systems? Some researchers argue that since life is a prop-
+erty of the systemic organization of a material phenomenon (such
+as autopoiesis), and not identical with the material phenomenon
+per se, we should also treat modeled life as real life. This posi-
+tion is known as “strong” ALife. Still, it could also be argued that
+even though life is expressed by a certain systemic organization, it
+nevertheless requires a concrete material realization in order to be
+considered real life. On this view, modeled life is just that – a model
+and not real life. An intuitive way to understand this position
+(“weak” ALife) is to consider what happens when we run a pro-
+gram that is simulating the molecular structure of water. Although
+the formal organization of the molecules in the model is the same
+as of real water, the computer running the simulation does not get
+wet! Therefore, it becomes understandable why many researchers
+do not assign to their modeling results the same status as empir-
+ical data, that is, data obtained from wet ALife or other physical
+experiments. Y et, due to the complexity of most models, running
+a computer simulation can provide us with new insights, some
+of which may, in fact, be unattainable without actually running
+the simulation. In other words, models are not just computerized
+versions of thought experiments, they are“opaque”thought exper-
+iments (Di Paolo et al., 2000). This interpretation also connects the
+ﬁeld of ALife with a long tradition in continental philosophy of
+mind that is currently gaining popularity in cognitive science, i.e.,
+phenomenology (Gallagher and Zahavi, 2008), which also relies on
+imaginative thought experiments (a method known as eidetic vari-
+ation) to investigate the essential structure of life and mind (Froese
+and Gallagher, 2010). Of course, this more conservative and prag-
+matic interpretation of the status of ALife models will not convince
+those who see life as a purely abstract relational phenomenon, and
+therefore, realizable by digital computers. Fortunately, for most
+purposes of scientiﬁc investigation based on the use of artiﬁcial
+life tools, this still unresolved philosophical debate is somewhat
+tangential. No matter whether we treat our simulations as models
+or as actual realizations, the objective results we obtain from them
+remain the same.
+3. THE FUTURE
+How can systems be built with metabolism, heredity, and mem-
+branes at the same time? How can adaptation at multiple temporal
+and spatial scales be achieved? Is there an inherent limitation to
+computer simulations of open-ended evolution? How to integrate
+adaptivity and autonomy? How can ALife beneﬁt society?
+These and other questions have been asked within the ALife
+community. Bedau et al. (2000)distilled a list of 14 open problems:
+1. Generate a molecular proto-organism in vitro.
+2. Achieve the transition to life in an artiﬁcial chemistry in silico.
+3. Determine whether fundamentally novel living organizations
+can exist.
+4. Simulate a unicellular organism over its entire lifecycle.
+5. Explain how rules and symbols are generated from physical
+dynamics in living systems.
+6. Determine what is inevitable in the open-ended evolution of
+life.
+7. Determine minimal conditions for evolutionary transitions
+from speciﬁc to generic response systems.
+8. Create a formal framework for synthesizing dynamical hierar-
+chies at all scales.
+9. Determine the predictability of evolutionary consequences of
+manipulating organisms and ecosystems.
+10. Develop a theory of information processing, information ﬂow,
+and information generation for evolving systems.
+11. Demonstrate the emergence of intelligence and mind in an
+artiﬁcial living system.
+12. Evaluate the inﬂuence of machines on the next major evolu-
+tionary transition of life.
+13. Provide a quantitative model of the interplay between cultural
+and biological evolution.
+14. Establish ethical principles for artiﬁcial life.
+There have been advances in all of these problems since 2000,
+but all of them remain open. As such, they continue to serve as
+guidelines for future ALife research.
+A better understanding of life will allow us to make better
+decisions at all levels: managing ecological resources, regulat-
+ing social interactions, planning urban systems, commercializing
+biotechnology, and more.
+We are increasingly designing living systems: from husbandry in
+ancient times to molecular robots (Benenson et al., 2004) and syn-
+thetic biology in the present and near future. The complexity of liv-
+ing systems limits the scalability of the systems we can design. For
+example, electronic circuits are scalable because their interactions
+can be regulated. Even when there is a registry of standard biolog-
+ical parts 5, it is difﬁcult to isolate components. Moreover, unex-
+pected chemical interactions bound the complexity of molecular
+machines because of limited scalability. T echniques based on evo-
+lution or self-organization have produced some advances, but
+5http://parts.igem.org
+www.frontiersin.org October 2014 | Volume 1 | Article 8 |9
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Aguilar et al. The past, present, and future of artiﬁcial life
+there is much to do before we will be able to design living sys-
+tems reliably. The interactions between components have been a
+limitation, as these generate novel information, which limits pre-
+dictability (Gershenson, 2013b). Guiding these interactions has to
+be the way forward in the design of living systems.
+The creation of artiﬁcial life is having deep implications in
+society and culture. The ﬁlm “Mechanical Love” (Ambo, 2009;
+Gershenson et al., 2010) explores two implications: how pet robots
+can beneﬁt human beings emotionally, and how artiﬁcial creatures,
+which look closely like human beings, generate an “uncanny val-
+ley” (Mori, 1970), i.e., discomfort because they look real but not
+real enough. As ALife progresses and its applications permeate into
+society, how will society be transformed as living artifacts are used?
+Will we still distinguish artiﬁcial from biological life?
+As mentioned above, the methods and insights of ALife have
+been also permeating into biology, in the sense that computational
+modeling is now commonplace in all branches of biology. Will the
+successes of ALife imply its absorption into the mainstream study
+of life? That seems to be the case. If this tendency continues, soon
+ALife will no longer be “artiﬁcial.”
+REFERENCES
+Adami, C. (1998). Introduction to Artiﬁcial Life. Berlin: Springer.
+Adami, C., Ofria, C., and Collier, T. C. (2000). Evolution of biological complexity.
+Proc. Natl. Acad. Sci. U.S.A. 97, 4463–4468. doi:10.1073/pnas.97.9.4463
+Aldana-González, M., Coppersmith, S., and Kadanoff, L. P . (2003).“Boolean dynam-
+ics with random couplings, ” inPerspectives and Problems in Nonlinear Science: A
+Celebratory Volume in Honor of Lawrence Sirovich (Applied Mathematical Sciences
+Series), eds E. Kaplan, J. E. Marsden, and K. R. Sreenivasan (Berlin: Springer).
+p. 23–89.
+Ambo, P . (2009).Mechanical Love. Brooklyn, NY: Icarus Films.
+Ampatzis, C., Tuci, E., Trianni, V ., Christensen, A., and Dorigo, M. (2009). Evolv-
+ing self-assembly in autonomous homogeneous robots: experiments with two
+physical robots. Artif. Life 15, 465–484. doi:10.1162/artl.2009.Ampatzis.013
+Anderson, J. (1993). Rules of the Mind. Hillsdale, NJ: L. Erlbaum Associates.
+Antunes, R., Leymarie, F., and Latham, W. (2014). Two decades of evolutionary art
+using computational ecosystems and its potential for virtual worlds. J Virtual
+Worlds Res. 7. doi:10.4101/jvwr.v7i3.7051
+Ashby,W. R. (1947a). The nervous system as physical machine: with special reference
+to the origin of adaptive behavior.Mind 56, 44–59. doi:10.1093/mind/LVI.221.44
+Ashby, W. R. (1947b). Principles of the self-organizing dynamic system. J. Gen.
+Psychol. 37, 125–128. doi:10.1080/00221309.1947.9918144
+Ashby, W. R. (1956).An Introduction to Cybernetics. London: Chapman & Hall.
+Ashby, W. R. (1960).Design for a Brain: The Origin of Adaptive Behaviour, 2nd Edn.
+London: Chapman & Hall.
+Axtell, R. L., Epstein, J. M., Dean, J. S., Gumerman, G. J., Swedlund, A. C., Har-
+burger, J., et al. (2002). Population growth and collapse in a multiagent model of
+the Kayenta Anasazi in long house valley. Proc. Natl. Aacd. Sci. U.S.A. 99(Suppl.
+3), 7275–7279. doi:10.1073/pnas.092080799
+Ay, N., Der, R., and Prokopenko, M. (2012). Guided self-organization: perception-
+action loops of embodied systems. Theory Biosci. 131, 125–127. doi:10.1007/
+s12064-011-0140-1
+Baeck, T., Fogel, D., and Michalewicz, Z. (1997).Handbook of Evolutionary Compu-
+tation. London: Taylor & Francis.
+Ball, P . (2011). Unnatural: The Heretical Idea of Making People. London: Bodley
+Head.
+Balleza, E.,Alvarez-Buylla, E. R., Chaos,A., Kauffman, S., Shmulevich, I., and Aldana,
+M. (2008). Critical dynamics in genetic regulatory networks: examples from four
+kingdoms. PLoS ONE 3:e2456. doi:10.1371/journal.pone.0002456
+Banks, E. R. (1971). Information Processing and Transmission in Cellular Automata.
+Ph.D. thesis, Massachusetts Institute of T echnology, Cambridge, MA.
+Barandiaran, X., Di Paolo, E. A., and Rohde, M. (2009). Deﬁning agency: individ-
+uality, normativity, asymmetry, and spatio-temporality in action. Adapt. Behav.
+17, 367–386. doi:10.1177/1059712309343819
+Barricelli, N. A. (1963). Numerical testing of evolution theories. Acta Biotheor. 16,
+99–126. doi:10.1007/BF01556602
+Bar-Y am, Y. (1997).Dynamics of Complex Systems (Studies in Nonlinearity). Boulder,
+CO: Westview Press.
+Bedau, M. A. (2003). Artiﬁcial life: organization, adaptation and complexity
+from the bottom up. Trends Cogn. Sci. (Regul. Ed.) 7, 505–512. doi:10.1016/j.
+tics.2003.09.012
+Bedau, M. A. (2007). “Artiﬁcial life, ” inHandbook of the Philosophy of Science. Vol-
+ume 3: Philosophy of Biology. Volume Editors: Mohan Matthen and Christopher
+Stephens. Handbook Editors: Dov M. Gabbay, Paul Thagard and John Woods(Ams-
+terdam: Elsevier BV), 585–603.
+Bedau, M. A. (2008). “What is life?, ” inA Companion to the Philosophy of Biology, eds
+S. Sahotra and A. Plutynski (Oxford, UK: Blackwell Publishing Ltd), 455–471.
+Bedau, M. A., and Humphreys, P . (eds) (2008).Emergence: Contemporary Readings
+in Philosophy and Science. Cambridge, MA: MIT Press.
+Bedau, M. A., McCaskill, J. S., Packard, N. H., Parke, E. C., and Rasmussen, S. R.
+(2013). Introduction to recent developments in living technology. Artif. Life 19,
+291–298. doi:10.1162/ARTL_e_00121
+Bedau, M. A., McCaskill, J. S., Packard, N. H., and Rasmussen, S. (2009). Liv-
+ing technology: exploiting life’s principles in technology. Artif. Life 16, 89–97.
+doi:10.1162/artl.2009.16.1.16103
+Bedau, M. A., McCaskill, J. S., Packard, N. H., Rasmussen, S., Adami, C., Green,
+D. G., et al. (2000). Open problems in artiﬁcial life. Artif. Life 6, 363–376.
+doi:10.1162/106454600300103683
+Bedau, M. A., and Parke, E. C. (eds) (2009).The Ethics of Protocells Moral and Social
+Implications of Creating Life in the Laboratory. Cambridge, MA: MIT Press.
+Beer, R. D. (1995). A dynamical systems perspective on agent-environment interac-
+tion. Artif. Intell. 72, 173–215. doi:10.1016/0004-3702(94)00005-L
+Beer, R. D. (2014a). The cognitive domain of a glider in the game of life. Artif. Life
+20, 183–206. doi:10.1162/ARTL_a_00125
+Beer, R. D. (2014b). “Dynamical systems and embedded cognition, ” in The Cam-
+bridge Handbook of Artiﬁcial Intelligence, eds K. Frankish and W. Ramsey (Cam-
+bridge University Press), 128–150.
+Beer, S. (1966). Decision and Control: The Meaning of Operational Research and
+Management Cybernetics. New Y ork, NY: John Wiley and Sons.
+Benenson, Y., Gil, B., Ben-Dor, U., Adar, R., and Shapiro, E. (2004). An autonomous
+molecular computer for logical control of gene expression.Nature 429, 423–429.
+doi:10.1038/nature02551
+Benner, S. A., and Sismour, A. M. (2005). Synthetic biology. Nat. Rev. Genet. 6,
+533–543. doi:10.1038/nrg1637
+Berlekamp, E. R., Conway, J. H., and Guy, R. K. (1982). Winning Ways for Your
+Mathematical Plays, Volume 2: Games in Particular. London: Academic Press.
+Bersini, H. (1992). “Immune network and adaptive control, ” in Proceedings of the
+1st European Conference on Artiﬁcial Life (ECAL), eds F. J. Varela and P . Bourgine
+(Cambridge: MIT Press), 217–226.
+Bishop, C. M. (2006).Pattern Recognition and Machine Learning. New Y ork Springer.
+Boden, M. (1996). The Philosophy of Artiﬁcial Life (Oxford Readings in Philosophy
+Series). Oxford: Oxford University Press.
+Boden, M. A. (1998). Creativity and artiﬁcial intelligence.Artif. Intell. 103, 347–356.
+doi:10.1016/S0004-3702(98)00055-1
+Bonabeau, E., Dorigo, M., and Theraulaz, G. (1999).Swarm Intelligence: From Nat-
+ural to Artiﬁcial Systems (Santa Fe Institute Studies in the Sciences of Complexity).
+New Y ork, NY: Oxford University Press.
+Bourgine, P ., and Varela, F. J. (1992). “Introduction: towards a practice of
+autonomous systems, ” inToward a Practice of Autonomous Systems: Proceedings
+of the First European Conference on Artiﬁcial Life, eds F. J. Varela and P . Bourgine
+(Cambridge, MA: MIT Press), xi–xvii.
+Bourne, P . E., Brenner, S. E., and Eisen, M. B. (2005). PLoS computational biology:
+a new community journal. PLoS Comput. Biol. 1:e4. doi:10.1371/journal.pcbi.
+0010004
+Bousquet, F., and Page, C. L. (2004). Multi-agent simulations and ecosystem manage-
+ment: a review. Ecol. Model. 176, 313–332. doi:10.1016/j.ecolmodel.2004.01.011
+Braitenberg, V . (1986). Vehicles: Experiments in Synthetic Psychology . Cambridge,
+MA: MIT Press.
+Brooks, R. A. (1991). Intelligence without representation. Artif. Intell. 47, 139–160.
+doi:10.1016/0004-3702(91)90053-M
+Burke, E. K., Kendall, G., Aickelin, U., Dasgupta, D., and Gu, F. (2014). “Artiﬁ-
+cial immune systems, ” inSearch Methodologies, eds E. K. Burke and G. Kendall
+(Springer), 187–211.
+Frontiers in Robotics and AI | Computational Intelligence October 2014 | Volume 1 | Article 8 |10
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Aguilar et al. The past, present, and future of artiﬁcial life
+Burtsev, M., and Turchin, P . (2006). Evolution of cooperative strategies from ﬁrst
+principles. Nature 440, 1041. doi:10.1038/nature04470
+Camazine, S., Deneubourg, J.-L., Franks, N. R., Sneyd, J., Theraulaz, G., and
+Bonabeau, E. (2003). Self-Organization in Biological Systems. Princeton, NJ:
+Princeton University Press.
+Cangelosi, A., and Parisi, D. (2002). Simulating the Evolution of Language. London:
+Springer.
+Carmena, J. M., Kampchen, N., Kim, D., and Hallam, J. C. T. (2001). Artiﬁcial ears
+for a biomimetic sonarhead: from multiple reﬂectors to surfaces. Artif. Life 7,
+147–169. doi:10.1162/106454601753138989
+Chavoya, A. (2009). “Artiﬁcial development, ” in Foundations of Computational,
+Intelligence Volume 1, Volume 201 of Studies in Computational Intelligence, eds
+A.-E. Hassanien, A. Abraham, A. Vasilakos, and W. Pedrycz (Berlin: Springer),
+185–215.
+Chemero, A. (2009). Radical Embodied Cognitive Science. Cambridge, MA: MIT
+Press.
+Chen, I. A., Roberts, R. W., and Szostak, J. W. (2004). The emergence of competition
+between model protocells.Science 305, 1474–1476. doi:10.1126/science.1100757
+Christiansen, M., and Kirby, S. (2003).Language Evolution. Oxford: Oxford Univer-
+sity Press.
+Clark, A. (1997). Being There: Putting Brain, Body, and World Together Again. Cam-
+bridge, MA: MIT Press.
+Cliff, D. (1991). “Computational neuroethology: a provisional manifesto, ” inFrom
+Animals to Animats: Proceedings of the First International Conference on Simula-
+tion of Adaptive Behavior, eds J.-A. Meyer and S. W. Wilson (Cambridge, MA:
+MIT Press), 29–39.
+Cliff, D., Husbands, P ., and Harvey, I. (1993). Explorations in evolutionary robotics.
+Adapt. Behav. 2, 73–110. doi:10.1016/j.neunet.2009.06.045
+Coello Coello, C. A., Lamont, G. B., and Van V eldhuizen, D. A. (2007). Evolution-
+ary Algorithms for Solving Multi-Objective Problems (Genetic and Evolutionary
+Computation), 2nd Edn. New Y ork: Springer.
+Couzin, I. D. (2009). Collective cognition in animal groups.Trends Cogn. Sci. (Regul.
+Ed.) 13, 36–43. doi:10.1016/j.tics.2008.10.002
+Couzin, I. D., Krause, J., Franks, N. R., and Levin, S. A. (2004). Effective leader-
+ship and decision-making in animal groups on the move. Nature 433, 513–516.
+doi:10.1038/nature03236
+Cross, M. C., and Hohenberg, P . C. (1993). Pattern formation outside of equilibrium.
+Rev. Mod. Phys. 65, 851–1112. doi:10.1103/RevModPhys.65.851
+Dave, C., and Miller, G. F. (1995).“Tracking the red queen: measurements of adaptive
+progress in co-evolutionary simulations, ” in Advances in Artiﬁcial Life, Volume
+929 of Lecture Notes in Computer Science, eds F. Morán, A. Moreno, J. Merelo, and
+P . Chacón (Berlin: Springer), 200–218.
+Dawkins, R. (1996). The Blind Watchmaker: Why the Evidence of Evolution Reveals a
+Universe Without Design. New Y ork: Norton.
+de Castro, L. (2006).Fundamentals of Natural Computing: Basic Concepts, Algorithms,
+and Applications. Florida: Chapman & Hall/CRC Computer & Information Sci-
+ence Series, Taylor & Francis.
+De Jaegher, H., and Froese, T. (2009). On the role of social interaction in individual
+agency. Adapt. Behav. 17, 444–460. doi:10.1177/1059712309343822
+Descartes, R. (1677). “Treatise on man, ” in L’homme et de la Formation du Foetus,
+eds C. Clerselier and T. Girard (Paris: P . R. Sloan).
+Di Paolo, E., Noble, J., and Bullock, S. (2000).“Simulation models as opaque thought
+experiments, ” inArtiﬁcial Life VII: Proceedings of the Seventh International Con-
+ference on Artiﬁcial Life, eds M. Bedau, J. McCaskill, N. Packard, and S. Rasmussen
+(Cambridge, MA: MIT Press), 497–506.
+Di Paolo, E. A. (2003). “Organismically-inspired robotics: homeostatic adapta-
+tion and teleology beyond the closed sensorimotor loop, ” inDynamical Systems
+Approach to Embodiment and Sociality, eds K. Murase and T. Asakura (Adelaide,
+SA: Advanced Knowledge International), 19–42.
+Di Paolo, E. A. (2009). Extended life.Topoi 28, 9–21.doi:10.1007/s11245-008-9042-3
+Dittrich, P ., Ziegler, J., and Banzhaf, W. (2001). Artiﬁcial chemistries – a review.Artif.
+Life 7, 225–275. doi:10.1162/106454601753238636
+Dorigo, M., Tuci, E., Trianni, V ., Groß, R., Nouyan, S., Ampatzis, C., et al. (2006).
+“SWARM-BOT: design and implementation of colonies of self-assembling
+robots, ” inComputational Intelligence: Principles and Practice, eds G. Y. Y en and
+D. B. Fogel (New Y ork, NY: IEEE), 103–135.
+Dorin, A. (2014). Biological Bits: A Brief Guide to the Ideas and Artefacts of Compu-
+tational Artiﬁcial Life. Melbourne: Animaland.
+Dreyfus, H. L. (1992).What Computers Still Can’t Do: A Critique of Artiﬁcial Reason.
+Cambridge, MA: MIT Press.
+Dyson, F. J. (1985).Origins of Life. Cambridge: Cambridge University Press.
+Egbert, M. D., Barandiaran, X., and Di Paolo, E. A. (2012). Behavioral metabolution:
+the adaptive and evolutionary potential of metabolism-based chemotaxis. Artif.
+Life 18, 1–25. doi:10.1162/artl_a_00047
+Egbert, M. D., and Cañamero, L. (2014). “Habit-based regulation of essential vari-
+ables, ” inArtiﬁcial Life 14: Proceedings of the Fourteenth International Conference
+on the Synthesis and Simulation of Living Systems, eds H. Sayama, J. Rieffel, S.
+Risi, R. Doursat, and H. Lipson (Cambridge, MA: MIT Press), 168–175.
+Eiben, A. (2014). Grand challenges for evolutionary robotics. Front. Robot. AI 1, 4.
+doi:10.3389/frobt.2014.00004
+Eigen, M., and Schuster, P . (1978). The hypercycle. Naturwissenschaften 65, 7–41.
+doi:10.1007/BF00439699
+Eigen, M., and Schuster, P . (1979). The Hypercycle: A Principle of Natural Self-
+Organization. Berlin: Springer-V erlag.
+Elman, J. L. (2005). Connectionist models of cognitive development: where next?
+Trends Cogn. Sci. (Regul. Ed.) 9, 111–117. doi:10.1016/j.tics.2005.01.005
+Emmeche, C. (1991). A semiotical reﬂection on biology, living signs and artiﬁcial
+life. Biol. Philos. 6, 325–340. doi:10.1073/pnas.1311254111
+Epstein, J. (2006). Generative Social Science: Studies in Agent-Based Computational
+Modeling. Princeton, NJ: Princeton University Press.
+Epstein, J., Axtell, R., and Project. (1996).Growing Artiﬁcial Societies: Social Science
+from the Bottom Up. Bradford: Brookings Institution Press.
+Farmer, J. D., Kauffman, S. A., and Packard, N. H. (1986). Autocatalytic replication
+of polymers. Physica D 22, 50–67. doi:10.1016/0167-2789(86)90233-2
+Fernández, N., Maldonado, C., and Gershenson, C. (2014). “Information measures
+of complexity, emergence, self-organization, homeostasis, and autopoiesis, ” in
+Guided Self-Organization: Inception, Volume 9 of Emergence, Complexity and
+Computation, ed. M. Prokopenko (Berlin: Springer), 19–51.
+Fernando, C., and Rowe, J. (2007). Natural selection in chemical evolution.J. Theor.
+Biol. 247, 152–167. doi:10.1016/j.jtbi.2007.01.028
+Fontana, W. (1991). “Algorithmic chemistry: a model for functional self-
+organization, ” inArtiﬁcial Life II, eds C. G. Langton, C. Taylor, J. D. Farmer,
+and S. Rasmussen (Boston, MA: Addison-Wesley), 159–202.
+Forrest, S., Perelson, A. S., Allen, L., and Cherukuri, R. (1994). “Self-nonself dis-
+crimination in a computer, ” inIEEE Symposium on Security and Privacy. IEEE,
+202–212.
+Fortuna, M. A., Zaman, L., Wagner, A. P ., and Ofria, C. (2013). Evolving digital
+ecological networks. PLoS Comput. Biol. 9:e1002928. doi:10.1371/journal.pcbi.
+1002928
+Froese, T., and Gallagher, S. (2010). Phenomenology and artiﬁcial life: toward a tech-
+nological supplementation of phenomenological methodology.Husserl Stud. 26,
+83–106. doi:10.1007/s10743-010-9071-9
+Froese, T., Ikegami, T., and Virgo, N. (2012a). “The behavior-based hypercycle: from
+parasitic reaction to symbiotic behavior, ” inArtiﬁcial Life 13: Proceedings of the
+Thirteenth International Conference on the Simulation and Synthesis of Living Sys-
+tems, eds C. Adami, D. M. Bryson, C. Ofria, and R. T. Pennock (Cambridge, MA:
+MIT Press), 457–464.
+Froese, T., Suzuki, K., Ogai, Y., and Ikegami, T. (2012b). Using human-computer
+interfaces to investigate ‘mind-as-it-could-be’ from the ﬁrst-person perspective.
+Cogn. Comput. 4, 365–382. doi:10.1007/s12559-012-9153-4
+Froese, T., and Stewart, J. (2010). Life after Ashby: ultrastability and the autopoietic
+foundations of biological autonomy. Cybern. Hum. Know.17, 7–49.
+Froese, T., Virgo, N., and Ikegami, T. (2014). Motility at the origin of life: its charac-
+terization and a model. Artif. Life 20, 55–76. doi:10.1162/ARTL_a_00096
+Froese, T., Virgo, N., and Izquierdo, E. (2007). “Autonomy: a review and a reap-
+praisal, ” inAdvances in Artiﬁcial Life: 9th European Conference, ECAL 2007, eds
+F. Almeida e Costa, L. M. Rocha, E. Costa, I. Harvey, and A. Coutinho (Berlin:
+Springer-V erlag), 455–464.
+Froese, T., and Ziemke, T. (2009). Enactive artiﬁcial intelligence: investigating the
+systemic organization of life and mind. Artif. Intell. 173, 366–500. doi:10.1016/j.
+artint.2008.12.001
+Gallagher, S., and Zahavi, D. (2008). The Phenomenological Mind: An Introduction
+to Philosophy of Mind and Cognitive Science. London: Routledge.
+Gànti, T. (1975). Organization of chemical reactions into dividing and metabolizing
+units: the chemotons. Biosystems 7, 15–21. doi:10.1016/0303-2647(75)90038-6
+Gànti, T. (2003).Chemoton Theory. Dordrecht: Kluwer Academic.
+www.frontiersin.org October 2014 | Volume 1 | Article 8 |11
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Aguilar et al. The past, present, and future of artiﬁcial life
+Gershenson, C. (2001). Artiﬁcial Societies of Intelligent Agents. Unpublished BEng
+thesis. Mexico: Fundación Arturo Rosenblueth.
+Gershenson, C. (2002). Philosophical ideas on the simulation of social behaviour.
+J. Artif. Soc. Soc. Simul. 5.
+Gershenson, C. (2004). “Introduction to random Boolean networks, ” in Workshop
+and Tutorial Proceedings, Ninth International Conference on the Simulation and
+Synthesis of Living Systems (A Life IX), eds M. Bedau, P . Husbands, T. Hutton, S.
+Kumar, and H. Suzuki (Boston, MA), 160–173.
+Gershenson, C. (2007). Design and Control of Self-Organizing Systems. Mexico City:
+CopIt Arxives.
+Gershenson, C. (2010). Computing networks: a general framework to contrast
+neural and swarm cognitions. Paladyn 1, 147–153. doi:10.2478/s13230-010-
+0015-z
+Gershenson, C. (2012). Guiding the self-organization of random Boolean networks.
+Theory Biosci. 131, 181–191. doi:10.1007/s12064-011-0144-x
+Gershenson, C. (2013a). “Facing complexity: prediction vs. adaptation, ” in Com-
+plexity Perspectives on Language, Communication and Society, eds A. Massip and
+A. Bastardas (Berlin: Springer), 3–14.
+Gershenson, C. (2013b). The implications of interactions for science and philoso-
+phy. Found. Sci. 18, 781–790. doi:10.1007/s10699-012-9305-8
+Gershenson, C. (2013c). Living in living cities. Artif. Life 19, 401–420. doi:10.1162/
+ARTL_a_00112
+Gershenson, C., Csermely, P ., Erdi, P ., Knyazeva, H., and Laszlo, A. (2014). The past,
+present and future of cybernetics and systems research. Systema. 1, 4–13.
+Gershenson, C. (ed.) (2008). Complexity: 5 Questions. Copenhagen: Automatic
+Peess/VIP .
+Gershenson, C., and Heylighen, F. (2003). “When can we call a system self-
+organizing?, ” inAdvances in Artiﬁcial Life, 7th European Conference, ECAL 2003
+LNAI 2801, eds W. Banzhaf, T. Christaller, P . Dittrich, J. T. Kim, and J. Ziegler
+(Berlin: Springer), 606–614.
+Gershenson, C., Meza, I. V ., Avilés, H., and Pineda, L. A. (2010). Mechanical
+love. phie ambo. (2009, icarus ﬁlms.) $390, 52 min. Artif. Life 16, 269–270.
+doi:10.1162/artl_r_00004
+Gibson, D. G., Glass, J. I., Lartigue, C., Noskov, V . N., Chuang, R.-Y., Algire, M. A.,
+et al. (2010). Creation of a bacterial cell controlled by a chemically synthesized
+genome. Science 329, 52–56. doi:10.1126/science.1190719
+Gierer, A., and Meinhardt, H. (1972). A theory of biological pattern formation.Biol.
+Cybern. 12, 30–39.
+Gilbert, N., and Conte, R. (eds) (1995).Artiﬁcial Societies: The Computer Simulation
+of Social Life. Bristol, PA: Taylor & Francis, Inc.
+Gilbert, W. (1986). The RNA world.Nature 319, 618. doi:10.1038/319618a0
+Grand, S. (2001). Creation: Life and How to Make it. Cambridge, MA: Phoenix.
+Grimm, V ., Revilla, E., Berger, U., Jeltsch, F., Mooij, W. M., Railsback, S. F., et al.
+(2005). Pattern-oriented modeling of agent-based complex systems: lessons from
+ecology. Science 310, 987–991. doi:10.1126/science.1116681
+Haken, H. (1981). “Synergetics and the problem of selforganization, ” in Self-
+Organizing Systems: An Interdisciplinary Approach, eds G. Roth and H. Schwegler
+(New Y ork, NY: Campus V erlag), 9–13.
+Haldane, J. B. S. (1949).What is Life? London: Lindsay Drummond.
+Hanczyc, M. M. (2011). Metabolism and motility in prebiotic structures. Philos.
+Trans. R. Soc. Lond. B Biol. Sci. 366, 2885–2893. doi:10.1098/rstb.2011.0141
+Harvey, I., Di Paolo, E. A., Wood, R., Quinn, M., and Tuci, E. (2005). Evolution-
+ary robotics: a new scientiﬁc tool for studying cognition. Artif. Life 11, 79–98.
+doi:10.1162/1064546053278991
+Helbing, D., Bishop, S., Conte, R., Lukowicz, P ., and McCarthy, J. B. (2012).
+Futurict: participatory computing to understand and manage our complex world
+in a more sustainable and resilient way. Eur. Phys. J. Spec. Top. 214, 11–39.
+doi:10.1140/epjst/e2012-01686-y
+Hobbes, T. (1651).Leviathan, or, The Matter, Forme, and Power of a Common Wealth,
+Ecclesiasticall and Civil. London: Andrew Crooke.
+Holland, J. H. (1975).Adaptation in Natural and Artiﬁcial Systems. Cambridge, MA:
+The University of Michigan Press.
+Holland, O. (1997). “Grey Walter: the pioneer of real artiﬁcial life, ” inProceedings of
+the 5th International Workshop on Artiﬁcial Life, 34–44. Cambridge: MIT Press.
+Holland, O., and Melhuish, C. (1999). Stigmergy, self-organization, and sorting in
+collective robotics. Artif. Life 5, 173–202. doi:10.1162/106454699568737
+Hutchins, E. (1995). Cognition in the Wild. Cambridge, MA: MIT Press.
+Hutton, T. J. (2002). Evolvable self-replicating molecules in an artiﬁcial chemistry.
+Artif. Life 8, 341–356. doi:10.1162/106454602321202417
+Hutton, T. J. (2010). Codd’s self-replicating computer. Artif. Life 16, 99–117.
+doi:10.1162/artl.2010.16.2.16200
+Iizuka, H., Ando, H., and Maeda, T. (2013). Extended homeostatic adaptation
+model with metabolic causation in plasticity mechanism – toward constructing
+a dynamic neural network model for mental imagery.Adapt. Behav.21, 263–273.
+doi:10.1177/1059712313488426
+Izquierdo, E., Aguilera, M., and Beer, R. D. (2013). “Analysis of ultrastability in small
+dynamical recurrent neural networks, ” inAdvances in Artiﬁcial Life, ECAL 2013:
+Proceedings of the Twelfth European Conference on the Synthesis and Simulation of
+Living Systems (Cambridge, MA: MIT Press), 51–88.
+Izquierdo, E., Harvey, I., and Beer, R. D. (2008). Associative learning on a con-
+tinuum in evolved dynamical neural networks. Adapt. Behav. 16, 361–384.
+doi:10.1177/1059712308097316
+Jablonka, E., and Lamb, M. J. (2006). Evolution in Four Dimensions: Genetic, Epige-
+netic, Behavioral, and Symbolic Variation in the History of Life. Cambridge, MA:
+MIT Press.
+Jones, G., Ritter, F. E., and Wood, D. J. (2000). Using a cognitive architecture to
+examine what develops. Psychol. Sci. 11, 93–100. doi:10.1111/1467-9280.00222
+Joyce, G. F. (2002). The antiquity of RNA-based evolution. Nature 418, 214–221.
+doi:10.1038/418214a
+Kaelbling, L. P ., Littman, M. L., and Moore, A. W. (1996). Reinforcement learning:
+a survey. J. Artif. Intell. Res. 4, 237–285.
+Kauffman, S. A. (1969). Metabolic stability and epigenesis in randomly constructed
+genetic nets. J. Theor. Biol. 22, 437–467. doi:10.1016/0022-5193(69)90015-0
+Kauffman, S. A. (1986). Autocatalytic sets of proteins. J. Theor. Biol. 119, 1–24.
+doi:10.1016/S0022-5193(86)80047-9
+Kauffman, S. A. (1993). The Origins of Order. Oxford: Oxford University Press.
+Kauffman, S. A. (2000). Investigations. Oxford: Oxford University Press.
+Kim, K.-J., and Cho, S.-B. (2006). A comprehensive overview of the applications of
+artiﬁcial life. Artif. Life 12, 153–182. doi:10.1162/106454606775186455
+Kirby, S. (2002). Natural language from artiﬁcial life. Artif. Life 8, 185–215.
+doi:10.1162/106454602320184248
+Kitano, H. (2002). Systems biology: a brief overview. Science 295, 1662–1664.
+doi:10.1126/science.1069492
+Kiverstein, J., and Clark, A. (2009). Introduction: mind embodied, embedded,
+enacted: one church or many? Topoi 28, 1–7. doi:10.1007/s11245-008-9041-4
+Langton, C. G. (1984). Self-reproduction in cellular automata. Physica D 10,
+135–144. doi:10.1016/0167-2789(84)90256-2
+Langton, C. G. (1990). Computation at the edge of chaos: phase transitions
+and emergent computation. Physica D 42, 12–37. doi:10.1016/0167-2789(90)
+90064-V
+Langton, C. G. (1997). Artiﬁcial Life: An Overview. Cambridge, MA: MIT Press.
+Langton, C. G. (1998).A new deﬁnition of artiﬁcial life. Available at: http://scifunam.
+ﬁsica.unam.mx/mir/langton.pdf
+Langton, C. G. (ed.) (1989). Artiﬁcial Life: Proceedings of an Interdisciplinary Work-
+shop on the Synthesis and Simulation of Living Systems . Los Alamos: Addison-
+Wesley. Complex Adaptive Systems.
+Lazcano, A. (2008). What is life? Chem. Biodivers. 5, 1–15. doi:10.1002/cbdv.
+200890001
+Lenski, R. E., Ofria, C., Collier, T. C., and Adami, C. (1999). Genome complexity,
+robustness and genetic interactions in digital organisms. Nature 400, 661–664.
+doi:10.1038/23245
+Lenski, R. E., Ofria, C., Pennock, R. T., and Adami, C. (2003). The evolutionary
+origin of complex features. Nature 423, 139–144. doi:10.1038/nature01568
+Lenton, T. M., and Lovelock, J. E. (2000). Daisyworld is Darwinian: constraints
+on adaptation are important for planetary self-regulation. J. Theor. Biol. 206,
+109–114. doi:10.1006/jtbi.2000.2105
+Letelier, J.-C., Soto-Andrade, J., Nez Abarzúa, F. G., Cornish-Bowden, A., and Cár-
+denas, M. L. (2006). Organizational invariance and metabolic closure: analysis
+in terms of systems. J. Theor. Biol. 238, 949–961. doi:10.1016/j.jtbi.2005.07.007
+Lindenmayer, A. (1971). Developmental systems without cellular interaction, their
+languages and grammars. J. Theor. Biol. 30, 455–484. doi:10.1186/1471-2105-
+15-249
+Maes, P . (1993). Modeling adaptive autonomous agents. 1, 135–162.
+Mange, D., Stauffer, A., Peparola, L., and T empesti, G. (2004). “A macroscopic view
+of self-replication, ” inProceedings of the IEEE, Number 12. IEEE. 1929–1945.
+Mareschal, D., and Thomas, M. S. C. (2006). How computational models help
+explain the origins of reasoning. IEEE Comput. Intell. Mag. 1, 32–40. doi:10.
+1109/MCI.2006.1672986
+Frontiers in Robotics and AI | Computational Intelligence October 2014 | Volume 1 | Article 8 |12
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Aguilar et al. The past, present, and future of artiﬁcial life
+Margulis, L., and Sagan, D. (1995).What is life?. Oakland, CA: University of Chicago
+Press of California Press.
+Matari´ c, M., and Cliff, D. (1996). Challenges in evolving controllers for physical
+robots. Rob. Auton. Syst. 19, 67–83. doi:10.1016/S0921-8890(96)00034-6
+Matthews, R., Gilbert, N., Roach, A., Polhill, J. G., and Gotts, N. (2007). Agent-
+based land-use models: a review of applications. Landsc. Ecol. 22, 1447–1459.
+doi:10.1007/s10980-007-9135-1
+Maturana, H., and Varela, F. (1980). Autopoiesis and Cognition: The Realization of
+Living. Dordrecht: Reidel Publishing Company.
+Maynard Smith, J., and Szathmáry, E. (1995). The Major Transitions in Evolution.
+New Y ork: Oxford University Press.
+Mazlish, B. (1995). The man-machine and artiﬁcial intelligence.Stanford Hum. Rev.
+4, 21–45.
+McCormack, J., and d’Inverno, M. (eds) (2012). Computers and Creativity. Heidel-
+berg: Springer.
+McDonald-Gibson, J., Dyke, J., Paolo, E. D., and Harvey, I. (2008). Environmental
+regulation can arise under minimal assumptions. J. Theor. Biol. 251, 653–666.
+doi:10.1016/j.jtbi.2007.12.016
+McMullin, B. (2004). 30 years of computational autopoiesis: a review.Artif. Life 10,
+277–295. doi:10.1162/1064546041255548
+Meinhardt, H. (2003). The Algorithmic Beauty of Sea Shells (Virtual Laboratory).
+Heidelberg: Springer.
+Meyer, J.-A. (1997). From natural to artiﬁcial life: biomimetic mechanisms in animat
+designs. Rob. Auton. Syst. 22, 3–21. doi:10.1016/S0921-8890(97)00013-4
+Michel, J.-B., Shen, Y. K., Aiden, A. P ., V eres, A., Gray, M. K., Google Books T eam,
+et al. (2011). Quantitative analysis of culture using millions of digitized books.
+Science 331, 176–182. doi:10.1126/science.1199644
+Miller Medina, E. (2005). The State Machine: Politics, Ideology, and Computation in
+Chile, 1964-1973. PhD thesis, Cambridge, MA: MIT.
+Mitchell, M. (2009). Complexity: A Guided Tour. Oxford: Oxford University Press.
+Mitchell, M., and Forrest, S. (1993). Genetic algorithms and artiﬁcial life. Artif. Life
+1, 267–289. doi:10.1162/artl.1994.1.3.267
+Mitchell, M., Forrest, S., and Holland, J. H. (1992). “The royal road for
+genetic algorithms: ﬁtness landscapes and GA performance, ” in Proceedings of
+the First European Conference on Artiﬁcial Life (Cambridge, MA: MIT Press),
+245–254.
+Mori, M. (1970). The uncanny valley. IEEE Robot. Autom. Mag. 19, 98–100; Trans-
+lated by K. F. MacDorman & N. Kageki. doi:10.1109/MRA.2012.2192811
+Murata, S., Kurokawa, H., and Kokaji, S. (1994). “Self-assembling machine, ” inPro-
+ceedings of the 1994 IEEE International Conference on Robotics and Automation,
+Los Alamitos, CA.
+Neocleous, C., and Schizas, C. (2002). “Artiﬁcial neural network learning: a compar-
+ative review, ” inMethods and Applications of Artiﬁcial Intelligence, Volume 2308
+of Lecture Notes in Computer Science, eds I. Vlahavas and C. Spyropoulos (Berlin:
+Springer), 300–313.
+Newman, M., Barabási, A.-L., and Watts, D. J. (eds) (2006). The Structure and
+Dynamics of Networks (Princeton Studies in Complexity). Princeton, NJ: Prince-
+ton University Press.
+Newman, M. E. J. (2003). The structure and function of complex networks. SIAM
+Rev. 45, 167–256. doi:10.1137/S003614450342480
+Nolﬁ, S., and Floreano, D. (1998). Coevolving predator and prey robots: do
+“arms races” arise in artiﬁcial evolution? Artif. Life 4, 311–335. doi:10.1162/
+106454698568620
+Nolﬁ, S., and Floreano, D. (2000). Evolutionary Robotics: The Biology, Intelligence,
+and Technology of Self-Organizing Machines. Cambridge, MA: MIT Press.
+Nowak, M. A. (2006). Five rules for the evolution of cooperation. Science 314,
+1560–1563. doi:10.1126/science.1133755
+Nowé, A., Vrancx, P ., and De Hauwere, Y.-M. (2012). “Reinforcement learning: state-
+of-the-art, ” in Game Theory and Multi-agent Reinforcement Learning, eds M.
+Wiering and M. van Otterlo (Heidelberg: Springer), 441–470.
+Ofria, C. A. (1999). Evolution of genetic codes. PhD thesis, California: California
+Institute of T echnology.
+Ofria, C. A., and Wilke, C. O. (2004). Avida: a software platform for research
+in computational evolutionary biology. Artif. Life 10, 191–229. doi:10.1162/
+106454604773563612
+Ono, N., and Ikegami, T. (1999). “Model of self-replicating cell capable of self-
+maintenance, ” inAdvances in Artiﬁcial Life, Volume 1674 of Lecture Notes in Com-
+puter Science, eds D. Floreano, J.-D. Nicoud, and F. Mondada (Berlin: Springer),
+399–406.
+Ono, N., and Ikegami, T. (2001). “Artiﬁcial chemistry: computational studies on the
+emergence of self-reproducing units, ” inAdvances in Artiﬁcial Life, Volume 2159
+of Lecture Notes in Computer Science (Berlin: Springer), 186–195.
+Ono, N., Madina, D., and Ikegami, T. (2008). “Origin of life and lattice artiﬁcial
+chemistry, ” inProtocells: Bridging Nonliving and Living Matter, eds S. Rasmussen,
+M. A. Bedau, L. Chen, D. Deamer, D. C. Krakauer, N. H. Packard, et al. (Cam-
+bridge, MA: MIT Press), 197–212.
+Pachepsky, E., Taylor, T., and Jones, S. (2002). Mutualism promotes diversity
+and stability in a simple artiﬁcial ecosystem. Artif. Life 8, 5–24. doi:10.1162/
+106454602753694747
+Packard, N. (1986). “Lattice models for solidiﬁcation and aggregation, ” in Theory
+and Application of Cellular Automata, ed. S. Wolfram (T okyo: World Scientiﬁc,
+Institute for Advanced Study Preprint), 305–310.
+Pagels, H. R. (1989).The Dreams of Reason: The Computer and the Rise of the Sciences
+of Complexity. London: Bantam Books.
+Parisi, D., and Schlesinger, M. (2002). Artiﬁcial life and Piaget. Cogn. Dev. 17,
+1301–1321. doi:10.1016/S0885-2014(02)00119-3
+Pattee, H. H. (1995). “Artiﬁcial life needs a real epistemology, ” inAdvances in Arti-
+ﬁcial Life, Volume 929 of Lecture Notes in Computer Science, eds F. Morán, A.
+Moreno, J. J. Merelo, and P . Chacón (Berlin: Springer), 21–38.
+Penny, S. (2010). Twenty years of artiﬁcial life art. Digit. Creat. 21, 197–204.
+doi:10.1080/14626261003654640
+Pfeifer, R., Bongard, J., and Grand, S. (2007a). How the Body Shapes the Way We
+Think: A New View of Intelligence. Cambridge, MA: MIT Press.
+Pfeifer, R., Lungarella, M., and Iida, F. (2007b). Self-organization, embodiment,
+and biologically inspired robotics. Science 318, 1088–1093. doi:10.1126/science.
+1145803
+Pfeifer, R., and Scheier, C. (1999).Understanding Intelligence. Cambridge, MA: MIT
+Press.
+Polani, D., Prokopenko, M., and Y aeger, L. S. (2013). Information and self-
+organization of behavior. Adv. Complex Syst. 16, 1303001. doi:10.1142/
+S021952591303001X
+Powers, S. T., Penn, A. S., and Watson, R. A. (2011). The concurrent evolution
+of cooperation and the population structures that support it. Evolution 65,
+1527–1543. doi:10.1111/j.1558-5646.2011.01250.x
+Prokopenko, M. (2009). Guided self-organization.HFSP J. 3, 287–289. doi:10.2976/
+1.3233933
+Prokopenko, M. (2014a). Grand challenges for computational intelligence. Front.
+Robot. AI 1, 2. doi:10.3389/frobt.2014.00002
+Prokopenko, M. (ed.) (2014b). Guided Self-Organization: Inception, Volume 9 of
+Emergence, Complexity and Computation. Berlin: Springer.
+Prokopenko, M., Boschetti, F., and Ryan, A. J. (2009). An information-theoretic
+primer on complexity, self-organisation and emergence. Complexity 15, 11–28.
+doi:10.1002/cplx.20249
+Pross, A. (2004). Causation and the origin of life. Metabolism or replication ﬁrst?
+Orig. Life Evol. Biosph. 34, 307–321. doi:10.1023/B:ORIG.0000016446.51012.bc
+Prusinkiewicz, P ., Lindenmayer, A., and Hanan, J. (1990).The Algorithmic Beauty of
+Plants (Virtual Laboratory). New Y ork: Springer-V erlag.
+Rasmussen, S., Badau, M., Hen, L., Deamer, D., Krakauer, D. C., Packard, N. H., et al.
+(eds) (2008). Protocells: Bridging Nonliving and Living Matter. Cambridge, MA:
+MIT Press.
+Rasmussen, S., Chen, L., Nilsson, M., and Abe, S. (2003). Bridging nonliving and
+living matter. Artif. Life 9, 269–316. doi:10.1162/106454603322392479
+Ray, T. S. (1993). An evolutionary approach to synthetic biology: Zen and the art of
+creating life. Artif. Life 1, 179–209. doi:10.1162/artl.1993.1.1_2.179
+Reynolds, C. W. (1987). Flocks, herds, and schools: a distributed behavioral model.
+Comput. Graph. 21, 25–34. doi:10.1145/37402.37406
+Rinaldo, K. E. (1998). T echnology recapitulates phylogeny: artiﬁcial life art.Leonardo
+31, 371–376. doi:10.2307/1576600
+Robbins, P ., and Aydede, M. (2009).The Cambridge Handbook of Situated Cognition.
+Cambridge: Cambridge University Press.
+Rocha, L. (1998). “Selected self-organization and the semiotics of evolutionary sys-
+tems, ” inEvolutionary Systems, eds G. van de Vijver, S. Salthe, and M. Delpos
+(Heidelberg: Springer), 341–358.
+Rojas, R. (1996). Neural Networks: A Systematic Introduction. Berlin: Springer.
+Rosen, R. (1958). A relational theory of biological systems. Bull. Math. Biophys. 20,
+245–260. doi:10.1007/BF02478302
+Rubenstein, M., Cornejo, A., and Nagpal, R. (2014). Programmable self-assembly in
+a thousand-robot swarm. Science 345, 795–799. doi:10.1126/science.1254295
+www.frontiersin.org October 2014 | Volume 1 | Article 8 |13
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Aguilar et al. The past, present, and future of artiﬁcial life
+Ruiz-Mirazo, K., and Moreno, A. (2004). Basic autonomy as a fundamental step in
+the synthesis of life. Artif. Life 10, 235–259. doi:10.1162/1064546041255584
+Santos, F. C., Pacheco, J. M., and Lenaerts, T. (2006). Evolutionary dynamics of social
+dilemmas in structured heterogeneous populations. Proc. Natl. Acad. Sci. U.S.A.
+103, 3490–3494. doi:10.1073/pnas.0508201103
+Santos, F. C., Santos, M. D., and Pacheco, J. M. (2008). Social diversity promotes
+the emergence of cooperation in public goods games. Nature 454, 213–216.
+doi:10.1038/nature06940
+Sayama, H. (2008). Swarm chemistry.Artif. Life 15, 105–114. doi:10.1162/artl.2009.
+15.1.15107
+Schlesinger, M., and McMurray, B. (2012). The past, present, and future of compu-
+tational models of cognitive development. Cogn. Dev. 27, 326–348. doi:10.1111/
+tops.12002
+Schlesinger, M., and Parisi, D. (2001). The agent-based approach: a new direction
+for computational models of development. Dev. Rev. 21, 121–146. doi:10.1006/
+drev.2000.0520
+Schrödinger, E. (1944).What is Life? Cambridge, UK: Cambridge University Press.
+Secretan, J., Beato, N., Ambrosio, D., Rodriguez, D. B., Campbell, A., and Stanley, K.
+O. (2008). “Picbreeder: evolving pictures collaboratively online, ” inProceedings
+of the SIGCHI Conference on Human Factors in Computing Systems, CHI’08(New
+Y ork, NY: ACM), 1759–1768.
+Segré, D., Ben-Eli, D., and Lancet, D. (2000). Compositional genomes: prebiotic
+information transfer in mutually catalytic non-covalent assemblies. Proc. Natl.
+Acad. Sci. U.S.A. 97, 4112–4117. doi:10.1073/pnas.97.8.4112
+Shannon, C. E. (1948). A mathematical theory of communication.Bell Syst. Tech. J.
+27, 379–423. doi:10.1002/j.1538-7305.1948.tb01338.x
+Shultz, T. R., Schmidt, W. C., Buckingham, D., and Mareschal, D. (1995). “Modeling
+cognitive development with a generative connectionist algorithm, ” inDeveloping
+Cognitive Competence: New Approaches to Process Modeling, eds T. J. Simon and
+G. S. Halford (Hillsdale, NJ: Erlbaum), 157–204.
+Sigmund, K. (1993).Games of Life: Explorations in Ecology, Evolution and Behaviour.
+New Y ork, NY: Oxford University Press, Inc.
+Simon, T. J. (1998). Computational evidence for the foundations of numerical com-
+petence. Dev. Sci. 1, 71–78. doi:10.1111/1467-7687.00015
+Sims, K. (1994). Evolving 3D morphology and behavior by competition. Artif. Life
+1, 353–372. doi:10.1162/artl.1994.1.4.353
+Sipper, M. (1998). Fifty years of research on self-replication: an overview.Artif. Life
+4, 237–257. doi:10.1162/106454698568576
+Stanley, K. O. (2007). Compositional pattern producing networks: a novel abstrac-
+tion of development. Genet. Program. Evol. Mach. 8, 131–162. doi:10.1007/
+s10710-007-9028-8
+Steels, L. (1993). The artiﬁcial life roots of artiﬁcial intelligence.Artif. Life 1, 75–110.
+doi:10.1162/artl.1993.1.1_2.75
+Steels, L. (2003). Evolving grounded communication for robots. Trends Cogn. Sci.
+(Regul. Ed.) 7, 308–312. doi:10.1016/S1364-6613(03)00129-3
+Steels, L. (2012).Experiments in Cultural Language Evolution (Advances in Interaction
+Studies). Amsterdam: John Benjamins Publishing Company.
+Steels, L., and Brooks, R. (1995). The Artiﬁcial Life Route to Artiﬁcial Intelligence:
+Building Embodied, Situated Agents. Hillsdale, NJ: L. Erlbaum Associates.
+Stewart, F., Taylor, T., and Konidaris, G. (2005). “METAMorph: experimenting with
+genetic regulatory networks for artiﬁcial development, ” in Proceedings of the
+Eighth European Conference on Artiﬁcial Life (Heidelberg: Springer-V erlag).
+Støy, K., and Nagpal, R. (2007). “Self-reconﬁguration using directed growth, ” in
+Distributed Autonomous Robotic Systems 6 (Japan: Springer), 3–12.
+Sutton, R. S., and Barto, A. G. (1998). Reinforcement Learning: An Introduction (A
+Bradford Book). Cambridge, MA: MIT Press.
+Taylor, T. (2014). Artiﬁcial life and the web: webal comes of age. arXiv, 1407.5719.
+T enhaaf, N. (2008). Art embodies A-life: the Vida competition.Leonardo 41, 6–15.
+doi:10.1162/leon.2008.41.1.6
+T essera, M. (2009). Life began when evolution began: a lipidic vesicle-based scenario.
+Orig. Life Evol. Biosph. 39, 559–564. doi:10.1007/s11084-009-9175-4
+Thelen, E., and Smith, L. (1996). A Dynamic Systems Approach to the Development
+of Cognition and Action (A Bradford Book). Cambridge, MA: MIT Press.
+Thompson, E. (2007). Mind in Life: Biology, Phenomenology, and the Sciences of
+Mind. Cambridge, MA: Harvard University Press.
+T orres-Sosa, C., Huang, S., and Aldana, M. (2012). Criticality is an emergent prop-
+erty of genetic networks that exhibit evolvability.PLoS Comput. Biol.8:e1002669.
+doi:10.1371/journal.pcbi.1002669
+Traulsen, A., and Nowak, M. A. (2006). Evolution of cooperation by multilevel
+selection. Proc. Natl. Acad. Sci. U.S.A. 103, 10952–10955. doi:10.1073/pnas.
+0602530103
+Trevorrow, A., and Rokicki, T. (2013).Golly. Available at: http://golly.sourceforge.net
+Trianni, V ., and Tuci, E. (2009). “Swarm cognition and artiﬁcial life, ” inAdvances in
+Artiﬁcial Life: Proceedings of the 10th European Conference on Artiﬁcial Life (ECAL
+2009). Berlin: Springer-V erlag.
+Turing, A. (1952). The chemical basis of morphogenesis.Philos. Trans. R. Soc. Lond.
+B Biol. Sci. 237, 37–72. doi:10.1098/rstb.1952.0012
+Turing, A. M. (1936). On computable numbers, with an application to theEntschei-
+dungsproblem. Proc. London Math. Soc. 2, 230–265.
+Varela, F. J. (1979).Principles of Biological Autonomy. New Y ork, NY: Elsevier North
+Holland.
+Varela, F. J., Maturana, H. R., and Uribe, R. (1974). Autopoiesis: the organiza-
+tion of living systems, its characterization and a model. Biosystems 5, 187–196.
+doi:10.1016/0303-2647(74)90031-8
+Varela, F. J., Thompson, E., and Rosch, E. (1991). The Embodied Mind: Cognitive
+Science and Human Experience. Cambridge, MA: MIT Press.
+Vargas, P . A., Di Paolo, E. A., Harvey, I., and Husbands, P . (eds) (2014).The Horizons
+of Evolutionary Robotics. Cambridge, MA: MIT Press.
+Vicsek, T., and Zafeiris, A. (2012). Collective motion. Phys. Rep. 517, 71–140.
+doi:10.1016/j.physrep.2012.03.004
+von Neumann, J. (1951). “The general and logical theory of automata, ” in
+Cerebral Mechanisms in Behavior-The Hixon Symposium, 1948 (Pasadena CA:
+Wiley), 1–41.
+von Neumann, J. (1966).The Theory of Self-Reproducing Automata. Champaign, IL:
+University of Illinois Press.
+Waddington, C. (ed.) (1968a). Biological Processes in Living Systems: Toward a The-
+oretical Biology. Chicago, IL: Aldine Transaction.
+Waddington, C. (1968b). T owards a theoretical biology. Nature 218, 525–527.
+doi:10.1038/218525a0
+Walter, W. G. (1950). An imitation of life. Sci. Am. 42–45. doi:10.1038/
+scientiﬁcamerican0550-42
+Walter, W. G. (1951). A machine that learns.Sci. Am. 185, 60–63.
+Watson, A. J., and Lovelock, J. E. (1983). Biological homeostasis of the global envi-
+ronment: the parable of Daisyworld. Tellus B 35, 284–289. doi:10.3402/tellusb.
+v35i4.14616
+Watson, R., Reil, T., and Pollack, J. B. (2000). “Mutualism, parasitism, and evolu-
+tionary adaptation, ” inArtiﬁcial Life VII: Proceedings of the Seventh International
+Conference on Artiﬁcial Life, eds M. Bedau, J. McCaskill, N. Packard, and S. Ras-
+mussen (Cambridge, MA: MIT Press), 170–178.
+Webb, B. (2000). What does robotics offer animal behaviour? Anim. Behav. 60,
+545–558. doi:10.1006/anbe.2000.1514
+Weber, A., and Varela, F. J. (2002). Life after Kant: natural purposes and the autopoi-
+etic foundations of biological individuality. Phenomenol. Cogn. Sci. 1, 97–125.
+doi:10.1023/A:1020368120174
+Werfel, J., Petersen, K., and Nagpal, R. (2014). Designing collective behavior in a
+termite-inspired robot construction team. Science 343, 754–758. doi:10.1126/
+science.1245842
+Wheeler, M. (2005). Reconstructing the Cognitive World: The Next Step. Cambridge,
+MA: MIT Press.
+Whitelaw, M. (2004). Metacreation: Art and Artiﬁcial Life. Cambridge, MA: MIT
+Press.
+Whitesides, G. M., and Grzybowski, B. (2002). Self-assembly at all scales. Science
+295, 2418–2421. doi:10.1126/science.1070821
+Wiener, N. (1948). Cybernetics: Or, Control and Communication in the Animal and
+the Machine. New Y ork, NY: Wiley and Sons.
+Wikipedia. (2014). The Sims – Wikipedia, The Free Encyclopedia . Available at:
+http://en.wikipedia.org/w/index.php?title=The_Sims&oldid=626921951
+Wilke, C. O., Wang, J. L., Ofria, C., Lenski, R. E., and Adami, C. (2001). Evolution of
+digital organisms at high mutation rates leads to survival of the ﬂattest. Nature
+412, 331–333. doi:10.1038/35085569
+Williams, H. T. P . (2006).Homeostatic Adaptive Networks. PhD thesis. Leeds, UK:
+University of Leeds.
+Wilson, R. A., and Keil, F. C. (eds) (1999). The MIT Encyclopedia of the Cognitive
+Sciences. Cambridge, MA: MIT Press.
+Woergoetter, F., and Porr, B. (2008). Reinforcement learning.Scholarpedia 3, 1448.
+doi:10.4249/scholarpedia.1448
+Frontiers in Robotics and AI | Computational Intelligence October 2014 | Volume 1 | Article 8 |14
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Aguilar et al. The past, present, and future of artiﬁcial life
+Wolfram, S. (1983). Statistical mechanics of cellular automata. Rev. Mod. Phys. 55,
+601–644. doi:10.1103/RevModPhys.55.601
+Wolfram, S. (1986).Theory and Application of Cellular Automata. Ridge, NY: World
+Scientiﬁc.
+Wood, G. (2002). Living Dolls: A Magical History of the Quest for Mechanical Life.
+London: Faber.
+Wuensche, A. and Lesser, M. (1992). The Global Dynamics of Cellular Automata;
+An Atlas of Basin of Attraction Fields of One-Dimensional Cellular Automata .
+Santa Fe Institute Studies in the Sciences of Complexity. Addison-Wesley, Read-
+ing, MA.
+Xu, F., and T enenbaum, J. B. (2000). “Word learning as Bayesian inference, ” inPro-
+ceedings of the 22nd Annual Conference of the Cognitive Science Society(Washing-
+ton, DC: Erlbaum), 517–522.
+Y edid, G., Stredwick, J., Ofria, C. A., and Agapow, P .-M. (2012). A comparison
+of the effects of random and selective mass extinctions on erosion of evo-
+lutionary history in communities of digital organisms. PLoS ONE 7:e37233.
+doi:10.1371/journal.pone.0037233
+Ziemke, T., and Sharkey, N. (2001). A stroll through the worlds of robots and ani-
+mals: applying Jakob von Uexkull’s theory of meaning to adaptive robots and
+artiﬁcial life. Semiotica 134, 701–746. doi:10.1515/semi.2001.2001
+Zykov, V ., Mytilinaios, E., Adams, B., and Lipson, H. (2005). Robotics: self-
+reproducing machines. Nature 435, 163–164. doi:10.1038/435163a
+Conﬂict of Interest Statement:The authors declare that the research was conducted
+in the absence of any commercial or ﬁnancial relationships that could be construed
+as a potential conﬂict of interest.
+Received: 10 July 2014; accepted: 19 September 2014; published online: 10 October
+2014.
+Citation: Aguilar W, Santamaría-Bonﬁl G, Froese T and Gershenson C (2014)
+The past, present, and future of artiﬁcial life. Front. Robot. AI 1:8. doi:
+10.3389/frobt.2014.00008
+This article was submitted to Computational Intelligence, a section of the journal
+Frontiers in Robotics and AI.
+Copyright © 2014 Aguilar, Santamaría-Bonﬁl, Froese and Gershenson. This is an
+open-access article distributed under the terms of the Creative Commons Attribution
+License (CC BY). The use, distribution or reproduction in other forums is permitted,
+provided the original author(s) or licensor are credited and that the original publica-
+tion in this journal is cited, in accordance with accepted academic practice. No use,
+distribution or reproduction is permitted which does not comply with these terms.
+www.frontiersin.org October 2014 | Volume 1 | Article 8 |15

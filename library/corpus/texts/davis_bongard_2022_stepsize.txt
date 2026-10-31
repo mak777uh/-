@@ -1,0 +1,186 @@
+Step Size is a Consequential Parameter in Continuous Cellular Automata
+Q. Tyrell Davis and Josh Bongard ˚
+Introduction
+In the 1960s, John H. Conway developed a zero-player game
+with simple rules. This Game of Life, a cellular automa-
+ton (CA), has had a seminal impact on the study of com-
+plex systems, computation, and art. Conway’s Life followed
+John von Neumann’s 29-state CA (von Neumann and Burks,
+1966), and Life’s impact on popular as well as academic
+imagination is unique, seeded by a 1970 article in Scientiﬁc
+American by Martin Gardner (Gardner, 1970).
+Subsequent decades saw increasing diversity of CA re-
+search and applications. The Life framework: totalistic
+CA based on a Moore neighborhood and cell states, sup-
+ports 262,144 different rulesets1 CA have since been devel-
+oped with larger neighborhoods (Evans, 2001; Pivato, 2007),
+higher dimensions (Bays, 1987; Chan, 2020), and evolving
+rules (McCaskill and Packard, 2019), to name but a few ex-
+amples among many. In this work we are concerned with
+continuous CA.
+Rudy Rucker developed a continuous CA framework in
+the 1990s called CAPOW (Rucker, 2003). Later, Stephen
+Raﬂer developed a continuous CA, SmoothLife, and discov-
+ered a persistent glider therein (Raﬂer, 2011). Recently, Bert
+Chan described the discovery of many persistent patterns in
+his Lenia framework (Chan, 2019, 2020), and encoding CA
+updates in continuously valued neural networks has been ap-
+plied to models for growth (Mordvintsev et al., 2020), image
+recognition (Randazzo et al., 2020), and control (Variengien
+et al., 2021). Continuous CA can be described as:
+Apt`dtq“ Aptq` dt¨fpAptqq (1)
+whereA represents cell states,t is unitless time,dt is step
+size, and fp¨q represents some function dependent on cell
+states2
+˚ ˚University of Vermont, [qdavis, jbongard]@uvm.edu
+1Life-like CA are deﬁned byBirth and Survival rules; each may
+contain any or all of the possible Moore neighborhood sum values
+0 through 8, yielding 29¨ 29“ 218“ 262, 144 possible rules. At
+each step, cells with a neighborhood sum in their S rules remain
+unchanged, become 1 with a sum in B; all other cells become 0.
+2fp¨q typically includes a neighborhood operation (e.g. convo-
+lution) and an arbitrary update function.
+Figure 1: Stability of a minimal glider in Lenia’s Scutium
+gravidus ruleset spans from approximately dt “ 0.25 to
+0.97. Kernel parameters pµK,σ Kq “ p0.5, 0.15q , update
+parameterspµG,σ Gq“p 0.283, 0.0369q.
+Typically receiving little scrutiny, dt can have important
+effects. Persistent patterns require step size to be neither too
+large nor too small, and multiple patterns may exist their
+own dt ranges within an otherwise identical CA rule set
+(Figures 2 and 3). Step size can also lead to qualitatively
+different behavior in CA. Varying step size from 0.0125 to
+0.13 in Figure 3 yields diverse movement types including
+hopping, meandering, and corkscrewing. While not a per-
+fect analogy, the behavioral repertoire in Figure 3 seems to
+have more in common with a robot in a conventional physics
+simulation changing from jumping to pirouette movement
+patterns than with the expected catastrophic failure (or te-
+dious slow-down) caused by an inappropriate time-step in a
+conventional differential equation-based numerical physics
+simulation. Supporting resources for this project are open-
+source 3
+3Links to animations, notebooks, and code used in this
+project are consolidated at https://rivesunder.github.
+io/yuca
+arXiv:2205.12728v1  [nlin.CG]  20 May 2022
+
+Figure 2: This wide glider pattern is pseudostable around
+dt “ 0.1, but tends to change size and shape (sometimes
+with explosive growth) at higher dt, and to disappear at
+lowerdt. Kernel parameters pµK,σ Kq “ p0.5, 0.15q , up-
+date parameterspµG,σ Gq“p 0.283, 0.0369q.
+Pattern stability and step size
+An intuitive consequence of poor step size choice is that pat-
+terns become unstable when the step size is too large, but
+this also occurs when step size is too small. This deﬁes the
+expectation that in simulations of physical system we typ-
+ically expect greater accuracy as the step size approaches
+zero. What would be considered systematic error in simulat-
+ing billiard ball trajectories is essential for self-organization
+by some CA patterns.
+A minimal glider Scutium gravidus in the Lenia frame-
+work, cousin to the SmoothLife glider (Raﬂer, 2011), is sta-
+ble between approximately dt“ 0.245 to 0.978, smaller or
+larger step sizes lead to the glider vanishing. Sample trajec-
+tories at both extremes are shown in Figure 1.
+Another pattern operating under the same neighborhood
+and update rules, a wide glider, is most stable at much lower
+step sizes around 0.1. Larger or smaller step sizes yield un-
+constrained growth or a vanishing pattern, respectively (Fig-
+ure 2). A step size of 0.1 is pseudo-stable for this pattern,
+but is sensitive to initial conditions (including grid dimen-
+sions, pattern placement, and ﬂoating point precision) and
+can eventually („1000s of steps) become unstable.
+Pattern behavior and step size
+In addition to pattern instability, step size can lead to qualita-
+tively different behavior. Figure 3 demonstrates behavioral
+diversity solely by changing step size. At the “natural” step
+size of 0.1, it moves in a “hopping” motion. Relatively large
+Figure 3: Identical starting conditions, here a mobile “frog”
+pattern, follow different trajectories with qualitatively differ-
+ent behavior under CA rules differing only in step size dt.
+Note the CA grid represents the surface of a torus: trajecto-
+ries reaching one edge of the grid reappear at the opposite
+edge.
+step sizes (« 0.13) bring the pattern to the edge of stability,
+with occasional explosive growth (responsible for a sharp
+turn in trajectory), and also occasional larger, surging hops.
+At step size 0.025 the pattern travels in a meandering
+trajectory and a step size of 0.0125 leads to corkscrew tra-
+jectories and a spiky morphology. The CA in Figure 3 uses
+the Glaberish CA framework (Davis and Bongard, 2022),
+splitting the update function into persistence and genesis
+functions dependent on cell state, with a neighborhood
+kernel of mixed Gaussians with parameters pµK,σ Kq “
+rp0.0938, 0.033q,p0.2814, 0.033q,p0.469, 0.033qs with
+weights r0.5, 1.0, 0.667s, a Gaussian genesis function
+pµg,σ gq “ p 0.0621, 0.0088q, and persistence function
+pµp,σ pq“p 0.2151, 0.0369q.
+Conclusions
+This work demonstrates that step size is a consequential pa-
+rameter in continuous CA, affecting pattern stability and
+qualitative behavior. This is in marked contrast to remarks
+in (Chan, 2019), which, noting the resemblance of the Le-
+nia update to Euler’s method, suggested that decreasing step
+size asymptotically approaches the ideal simulation of a Le-
+nia pattern, Orbium. This work demonstrates that for sev-
+eral patterns a lower step size does not entail a more accu-
+rate simulation, but different behavior or potential patterns
+entirely. Therefore, step size should be considered for opti-
+mization and learning with CA,e.g. to develop patterns with
+agency to avoid obstacles (Hamon et al., 2022) or for train-
+ing neural CA such as in(Mordvintsev et al., 2020; Randazzo
+et al., 2020; Variengien et al., 2021).
+
+Funding
+This work was supported by the National Science Founda-
+tion under the Emerging Frontiers in Research and Innova-
+tion (EFRI) program (EFMA-1830870).
+References
+Bays, C. (1987). Candidates for the Game of Life in three dimen-
+sions. Complex Syst., 1.
+Chan, B. W.-C. (2019). Lenia - biology of artiﬁcial life. Complex
+Systems, 28(3):251–286.
+Chan, B. W.-C. (2020). Lenia and expanded universe. The 2020
+Conference on Artiﬁcial Life, pages 221–229.
+Davis, Q. T. and Bongard, J. (2022). Glaberish: generalizing the
+continuously-valued Lenia framework to arbitrary Life-like
+cellular automata. ALIFE 2022: The 2022 Conference on
+Artiﬁcial Life.
+Evans, K. M. (2001). Larger than Life: Digital creatures in a family
+of two-dimensional cellular automata. Discrete Mathematics
+& Theoretical Computer Science , DMTCS Proceedings vol.
+AA,...:2288.
+Gardner, M. (1970). Mathematical games: The fantastic combina-
+tions of John Conway’s new solitaire game “Life”. Scientiﬁc
+American, 223:120–123.
+Hamon, G., Etcheverry, M., Chan, B. W.-C., Moulin-
+Frier, C., and Oudeyer, P.-Y . (2022). Learn-
+ing sensorimotor agency in cellular automata.
+https://developmentalsystems.org/sensorimotor-lenia/.
+McCaskill, J. S. and Packard, N. H. (2019). Analysing emergent
+dynamics of evolving computation in 2D cellular automata.
+TPNC, pages 3–40.
+Mordvintsev, A., Randazzo, E., Niklasson, E., and Levin,
+M. (2020). Growing neural cellular automata. Distill.
+https://distill.pub/2020/growing-ca.
+Pivato, M. (2007). RealLife: the continuum limit of Larger
+than Life cellular automata. Theoretical Computer Science,
+372(1):46–68.
+Raﬂer, S. (2011). Generalization of Conway’s “Game of Life” to a
+continuous domain - SmoothLife. arXiv:1111.1567 [nlin].
+Randazzo, E., Mordvintsev, A., Niklasson, E., Levin, M., and
+Greydanus, S. (2020). Self-classifying MNIST digits. Distill.
+https://distill.pub/2020/selforg/mnist.
+Rucker, R. (2003). Continuous-Valued Cellular Automata
+in Two Dimensions. in: New Constructions in Cel-
+lular Automata . Oxford University Press. doi:
+10.1093/oso/9780195137170.003.0016, ISBN: 978-0-19-
+513717-0 978-0-19-756165-.
+Variengien, A., Pontes-Filho, Sidny abd Glover, T., and Nichele, S.
+(2021). Towards self-organized control: Using neural cellular
+automata to robustly control a cart-pole agent. Innovations in
+Machine Intelligence, 1:1–14.
+von Neumann, J. and Burks, A. W. (1966). Theory of self-
+reproducing automata. Urbana, University of Illinois Press.
