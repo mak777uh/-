@@ -53,7 +53,10 @@ def canonical_families() -> list[str]:
     items = index.get("requirements", {}).get("E02b_morphospace", {}).get("items", [])
     for item in items:
         family = item.get("family")
-        if family and (ROOT / item.get("path", "")).is_file():
+        # `path` is null for a requirement whose canonical file is absent, and the default of
+        # get() covers a missing key but not a key holding None.
+        path = item.get("path") or ""
+        if family and path and (ROOT / path).is_file():
             families.append(family)
     return families
 

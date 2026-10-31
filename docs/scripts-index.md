@@ -4,7 +4,7 @@
 
 The curated page — what matters and why — is [`scripts.md`](scripts.md). This file is the complete list, so that every command behind a number in the record can be found.
 
-Scripts: **173**.
+Scripts: **175**.
 
 ## Гейты и проверки (41)
 
@@ -164,7 +164,7 @@ Scripts: **173**.
 | `make_seed_grid_figure.py` | Собрать Figure 4 рукописи: сетка «инициализация × порядок данных» (§4.13). |
 | `make_simple_poster.py` | Простой постер для владельца: что мы узнали, без терминов. |
 
-## Прочее (45)
+## Прочее (47)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -174,6 +174,7 @@ Scripts: **173**.
 | `analysis_task.py` | analysis_task.py — ферма CPU-задач на GitHub Actions: берёт задачу из очереди и считает. |
 | `analyze_grid_failures.py` | Какие шумовые старты не дают доминирующий класс в клетках сетки H-E02C-6. |
 | `backfill_not_claimed.py` | backfill_not_claimed.py — дописать `not_claimed` в старые агрегаты. |
+| `cadence_match.py` | cadence_match.py — is the `dt` dependence of the contrast a snapshot-cadence artefact? |
 | `calibrate_thresholds.py` | Откалибровать и заморозить пороги OOD и тривиальности (протокол v1.2 §6b, §7). |
 | `capture_stream.py` | capture_stream.py — запись настоящего потока из мира в артефакт. |
 | `claim_audit.py` | Проверить пакеты доказательств в library/claims-evidence.md. |
@@ -204,6 +205,7 @@ Scripts: **173**.
 | `runs_chain.py` | runs_chain.py — печать целостности манифестов прогонов (наш аналог аттестации TEE). |
 | `safe_commit.py` | safe_commit.py — коммит только при зелёном verify. |
 | `self_review.py` | Дневной самоаудит библиотеки: что сработало, что нет, что поправить. |
+| `size_resolved_contrast.py` | size_resolved_contrast.py — what size are the structures that make the contrast? |
 | `slim_checkpoint.py` | Облегчить чекпоинт для инференса: только веса правила + метаданные. |
 | `smc_interval.py` | smc_interval.py — интервалы вместо счёта «N из M». |
 | `split_world_design.py` | split_world_design.py — разложить план линии по файлам, оставив индекс. |

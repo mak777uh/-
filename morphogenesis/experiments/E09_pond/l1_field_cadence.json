@@ -1,0 +1,450 @@
+{
+  "kind": "l1_field_cadence",
+  "experiment": "X56 (re-analysis of stored snapshots)",
+  "command": "python scripts/cadence_match.py --write",
+  "question": "does snapshot cadence explain why the contrast falls from dt=1.0 to dt=0.5?",
+  "design": {
+    "source": "morphogenesis/experiments/L1_field/x1{7,8}_*, x56_dt0.5_*",
+    "grid": 96,
+    "laplacian": "4 neighbours, periodic",
+    "integrator": "explicit Euler",
+    "threshold": 0.2,
+    "estimator_note": "diff_of_medians = median(hetero per-seed mean) - median(homog per-seed mean), the estimator in l1_field_x56_matrix.json; median_of_diffs = median over seeds of the paired difference; ci95 = percentile bootstrap over seeds, paired",
+    "bootstrap": {
+      "resamples": 2000,
+      "seed": 0
+    }
+  },
+  "snapshot_cadence": {
+    "dt=1.0, 6000 steps": "every 1000 steps = every 1000 time units, 7 snapshots",
+    "dt=1.0, 12000 steps": "every 1000 steps = every 1000 time units, 13 snapshots",
+    "dt=0.5, 12000 steps": "every 500 steps = every 250 time units, 25 snapshots"
+  },
+  "matched_physical_times": [
+    {
+      "window": "t>=1000",
+      "family": "dt=1.0",
+      "n_seeds": 10,
+      "n_samples": 6,
+      "times": [
+        1000,
+        2000,
+        3000,
+        4000,
+        5000,
+        6000
+      ],
+      "hetero_median": 7.333,
+      "homog_median": 3.167,
+      "diff_of_medians": 4.167,
+      "median_of_diffs": 4.833,
+      "ci95_median_of_diffs": [
+        2.5,
+        7.667
+      ],
+      "seeds_positive": 10,
+      "per_seed_diffs": [
+        7.0,
+        15.333,
+        3.833,
+        0.667,
+        2.5,
+        9.5,
+        3.833,
+        5.833,
+        2.0,
+        5.833
+      ]
+    },
+    {
+      "window": "t>=1000",
+      "family": "dt=0.5",
+      "n_seeds": 10,
+      "n_samples": 6,
+      "times": [
+        1000,
+        2000,
+        3000,
+        4000,
+        5000,
+        6000
+      ],
+      "hetero_median": 5.0,
+      "homog_median": 4.0,
+      "diff_of_medians": 1.0,
+      "median_of_diffs": 0.833,
+      "ci95_median_of_diffs": [
+        -1.667,
+        6.417
+      ],
+      "seeds_positive": 7,
+      "per_seed_diffs": [
+        -2.167,
+        -1.167,
+        0.5,
+        12.833,
+        3.333,
+        -2.667,
+        3.167,
+        0.5,
+        1.167,
+        11.667
+      ]
+    },
+    {
+      "window": "t>=2000",
+      "family": "dt=1.0",
+      "n_seeds": 10,
+      "n_samples": 5,
+      "times": [
+        2000,
+        3000,
+        4000,
+        5000,
+        6000
+      ],
+      "hetero_median": 7.8,
+      "homog_median": 3.6,
+      "diff_of_medians": 4.2,
+      "median_of_diffs": 4.3,
+      "ci95_median_of_diffs": [
+        1.4,
+        8.4
+      ],
+      "seeds_positive": 9,
+      "per_seed_diffs": [
+        6.4,
+        18.0,
+        3.4,
+        -1.8,
+        1.4,
+        10.4,
+        3.6,
+        5.0,
+        1.0,
+        6.4
+      ]
+    },
+    {
+      "window": "t>=2000",
+      "family": "dt=0.5",
+      "n_seeds": 10,
+      "n_samples": 5,
+      "times": [
+        2000,
+        3000,
+        4000,
+        5000,
+        6000
+      ],
+      "hetero_median": 5.0,
+      "homog_median": 4.6,
+      "diff_of_medians": 0.4,
+      "median_of_diffs": 0.3,
+      "ci95_median_of_diffs": [
+        -2.4,
+        6.7
+      ],
+      "seeds_positive": 5,
+      "per_seed_diffs": [
+        -3.0,
+        -1.8,
+        0.0,
+        12.8,
+        4.0,
+        -4.2,
+        3.0,
+        -0.6,
+        0.6,
+        13.4
+      ]
+    },
+    {
+      "window": "t>=3000",
+      "family": "dt=1.0",
+      "n_seeds": 10,
+      "n_samples": 4,
+      "times": [
+        3000,
+        4000,
+        5000,
+        6000
+      ],
+      "hetero_median": 5.5,
+      "homog_median": 2.875,
+      "diff_of_medians": 2.625,
+      "median_of_diffs": 3.25,
+      "ci95_median_of_diffs": [
+        -0.5,
+        7.5
+      ],
+      "seeds_positive": 6,
+      "per_seed_diffs": [
+        5.5,
+        24.25,
+        5.5,
+        -1.0,
+        1.0,
+        8.0,
+        0.0,
+        7.5,
+        -1.75,
+        0.0
+      ]
+    },
+    {
+      "window": "t>=3000",
+      "family": "dt=0.5",
+      "n_seeds": 10,
+      "n_samples": 4,
+      "times": [
+        3000,
+        4000,
+        5000,
+        6000
+      ],
+      "hetero_median": 4.125,
+      "homog_median": 4.0,
+      "diff_of_medians": 0.125,
+      "median_of_diffs": 1.0,
+      "ci95_median_of_diffs": [
+        -3.0,
+        5.75
+      ],
+      "seeds_positive": 6,
+      "per_seed_diffs": [
+        -3.0,
+        -0.75,
+        1.0,
+        16.75,
+        -4.5,
+        -4.25,
+        2.25,
+        1.75,
+        1.0,
+        9.75
+      ]
+    },
+    {
+      "window": "t in 2000..4000",
+      "family": "dt=1.0",
+      "n_seeds": 10,
+      "n_samples": 3,
+      "times": [
+        2000,
+        3000,
+        4000
+      ],
+      "hetero_median": 8.833,
+      "homog_median": 4.167,
+      "diff_of_medians": 4.667,
+      "median_of_diffs": 5.333,
+      "ci95_median_of_diffs": [
+        1.667,
+        9.0
+      ],
+      "seeds_positive": 9,
+      "per_seed_diffs": [
+        9.333,
+        1.667,
+        4.333,
+        -3.0,
+        1.0,
+        8.667,
+        6.333,
+        9.0,
+        2.333,
+        11.0
+      ]
+    },
+    {
+      "window": "t in 2000..4000",
+      "family": "dt=0.5",
+      "n_seeds": 10,
+      "n_samples": 3,
+      "times": [
+        2000,
+        3000,
+        4000
+      ],
+      "hetero_median": 4.667,
+      "homog_median": 4.5,
+      "diff_of_medians": 0.167,
+      "median_of_diffs": 0.5,
+      "ci95_median_of_diffs": [
+        -3.667,
+        7.667
+      ],
+      "seeds_positive": 6,
+      "per_seed_diffs": [
+        0.667,
+        -4.333,
+        -0.667,
+        21.333,
+        4.0,
+        -4.667,
+        5.667,
+        -3.667,
+        0.333,
+        14.667
+      ]
+    }
+  ],
+  "decimation_within_run": [
+    {
+      "family": "dt=1.0, 12000 steps",
+      "keep_every": 1,
+      "n_samples": 13,
+      "dt": 1.0,
+      "diff_of_medians": 3.692,
+      "median_of_diffs": 3.115,
+      "n_seeds": 10
+    },
+    {
+      "family": "dt=1.0, 12000 steps",
+      "keep_every": 2,
+      "n_samples": 7,
+      "dt": 1.0,
+      "diff_of_medians": 2.786,
+      "median_of_diffs": 2.429,
+      "n_seeds": 10
+    },
+    {
+      "family": "dt=1.0, 12000 steps",
+      "keep_every": 4,
+      "n_samples": 4,
+      "dt": 1.0,
+      "diff_of_medians": 1.0,
+      "median_of_diffs": 1.125,
+      "n_seeds": 10
+    },
+    {
+      "family": "dt=1.0, 6000 steps",
+      "keep_every": 1,
+      "n_samples": 7,
+      "dt": 1.0,
+      "diff_of_medians": 3.571,
+      "median_of_diffs": 4.143,
+      "n_seeds": 10
+    },
+    {
+      "family": "dt=1.0, 6000 steps",
+      "keep_every": 2,
+      "n_samples": 4,
+      "dt": 1.0,
+      "diff_of_medians": 2.625,
+      "median_of_diffs": 2.75,
+      "n_seeds": 10
+    },
+    {
+      "family": "dt=1.0, 6000 steps",
+      "keep_every": 4,
+      "n_samples": 2,
+      "dt": 1.0,
+      "diff_of_medians": 0.25,
+      "median_of_diffs": -0.25,
+      "n_seeds": 10
+    },
+    {
+      "family": "dt=0.5, 12000 steps",
+      "keep_every": 1,
+      "n_samples": 25,
+      "dt": 0.5,
+      "diff_of_medians": 1.24,
+      "median_of_diffs": 1.6,
+      "n_seeds": 10
+    },
+    {
+      "family": "dt=0.5, 12000 steps",
+      "keep_every": 2,
+      "n_samples": 13,
+      "dt": 0.5,
+      "diff_of_medians": 1.692,
+      "median_of_diffs": 1.692,
+      "n_seeds": 10
+    },
+    {
+      "family": "dt=0.5, 12000 steps",
+      "keep_every": 4,
+      "n_samples": 7,
+      "dt": 0.5,
+      "diff_of_medians": 0.857,
+      "median_of_diffs": 0.714,
+      "n_seeds": 10
+    }
+  ],
+  "baseline_replication": {
+    "x17 t>=2000": {
+      "n_seeds": 10,
+      "n_samples": 5,
+      "times": [
+        2000,
+        3000,
+        4000,
+        5000,
+        6000
+      ],
+      "hetero_median": 7.8,
+      "homog_median": 3.6,
+      "diff_of_medians": 4.2,
+      "median_of_diffs": 4.3,
+      "ci95_median_of_diffs": [
+        1.4,
+        8.4
+      ],
+      "seeds_positive": 9,
+      "per_seed_diffs": [
+        6.4,
+        18.0,
+        3.4,
+        -1.8,
+        1.4,
+        10.4,
+        3.6,
+        5.0,
+        1.0,
+        6.4
+      ]
+    },
+    "x18 t>=2000": {
+      "n_seeds": 10,
+      "n_samples": 5,
+      "times": [
+        2000,
+        3000,
+        4000,
+        5000,
+        6000
+      ],
+      "hetero_median": 7.8,
+      "homog_median": 3.6,
+      "diff_of_medians": 4.2,
+      "median_of_diffs": 4.3,
+      "ci95_median_of_diffs": [
+        1.4,
+        8.4
+      ],
+      "seeds_positive": 9,
+      "per_seed_diffs": [
+        6.4,
+        18.0,
+        3.4,
+        -1.8,
+        1.4,
+        10.4,
+        3.6,
+        5.0,
+        1.0,
+        6.4
+      ]
+    }
+  },
+  "verdict": "Cadence is not the explanation for the gap. On identical physical times, identical sample counts and an identical estimator, dt=1.0 gives +4.2 and dt=0.5 gives +0.4 (t>=2000), and the ordering holds in every matched window; the two dt=1.0 baselines agree on their common window. What remains is a difference between two discrete systems, not between two samplings of one. But the decimation table shows something else that we have to say out loud: the magnitude at dt=1.0 is itself placement-sensitive (+3.69 with 13 samples, +2.79 with 7, +1.00 with 4), because the contrast decays with time and a coarse quadrature weights the late low-contrast part more heavily. So the robust part of the result is the gap, not the number +3.57, which is a property of the estimator at this cadence.",
+  "not_claimed": [
+    "this does not identify the mechanism (modified equation vs. genuine discrete dynamics); it removes one candidate",
+    "the decimation table changes sample count and quadrature placement together; it does not separate them",
+    "the seed bootstrap measures seed variability only, not systematic uncertainty of the field",
+    "grid 96 is below the range Pearson checked (256-1024); nothing here speaks about the continuum",
+    "counts at one fixed threshold 0.2 remain threshold-dependent (see l1_field_percolation)"
+  ]
+}

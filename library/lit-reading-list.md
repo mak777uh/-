@@ -19,6 +19,16 @@ Every DOI below was checked against Crossref or DataCite with `scripts/verify_re
 | 3 | **Pilat, Suzuki & Arita (2012)**, *Dealing with Rounding Error Problems in Evolutionary Physical Simulation*, DOI `10.1007/s10015-012-0038-0` | Rounding makes fitness chaotic in initial position (10 000 steps: mean 96.4, sd 56.5); double precision does not rescue long runs. Remedies: identical initial positions, fitness designed against it, precision. |
 | 4 | **Lehman et al. (2020)**, *The Surprising Creativity of Digital Evolution*, Artificial Life 26(2), DOI `10.1162/artl_a_00319` | The anecdote collection: the genre exists, but it is anecdotes, not a taxonomy. Usable only in its own sense. |
 
+### Read in full, 1 November: the identity and topology block
+
+Downloaded after the four reviews named Q4 as the weak link. Read one at a time, in this order.
+
+| # | work | what it gave us |
+|---|---|---|
+| 4a | **Jaqaman et al. (2008)**, *Robust single-particle tracking in live-cell time-lapse sequences*, Nat Methods 5:695, DOI `10.1038/nmeth.1237` | **Two-stage linear assignment**, not greedy overlap: frame-to-frame linking first, then a second pass that closes gaps of up to several frames and explicitly models **merges and splits**. Our `uid` rule is the one-stage greedy special case, without gap closing and without any lineage event. This is the standard our rule is measured against, and it is a higher standard than "overlap ≥ 0.5". |
+| 4b | **Chalfoun et al. (2016)**, *Lineage Mapper: a versatile cell and particle tracker*, Sci Rep 6:36984, DOI `10.1038/srep36984` | Segmentation-independent tracking: overlap **plus** object properties (size, position, intensity) for association, with divisions and fusions detected as events and clumps resolved. Shows that a tracker can be built so that identity decisions are *reported* rather than implicit — which is what our aggregate hides. |
+| 4c | **Spector, Harrington & Gaffney (2025)**, *Persistent homology classifies parameter dependence of patterns in Turing systems*, Bull Math Biol 88:10, DOI `10.1007/s11538-025-01552-9` | The most useful methodological paper in the corpus. Three concrete transfers: (1) the filtration is **normalised by the field's own `min`/`max`** in 20 steps, so patterns of different amplitude are comparable — our absolute 0.20/0.30 cannot do that; (2) the noise cutoff is chosen from the **distribution of barcode lengths** (bimodality, cut at the minimum), not by an arbitrary minimum area; (3) the stability theorem (Cohen-Steiner et al. 2006) is used explicitly to argue that numerical error cannot move the classification — and they concede in the same breath that "our notion of convergence is restricted to computational convergence" and that some observed patterns may be transient. Their mesh rule is also explicit: simplices no larger than **half the smallest unstable wavelength**. |
+
 ## Read in part (abstract + the sections that matter)
 
 | # | work | what it gave us |
@@ -70,26 +80,30 @@ as described, "Digital Evolution Exhibits Surprising Robustness", and Tierra par
 
 ---
 
-## Corpus status (31.10, end of day)
+## Corpus status (1.11, after the identity block)
 
-The list above is now backed by a searchable corpus: full texts in `library/corpus/texts/`, manifest in
+The list above is backed by a searchable corpus: full texts in `library/corpus/texts/`, manifest in
 `library/corpus/manifest.json`, search via `python scripts/lit_index.py --search "<query>"`.
 
 | status | count | which |
 |---|---|---|
-| read in full | **6** | Davis & Bongard 2022, Davis 2023, Davis 2024, Pilat et al. 2012, Huberman & Glance 1993, Nowak et al. 1994 |
-| partial | **2** | Kojima & Ikegami 2023, Woolley 2022 |
-| downloaded, unread | **4** | Taylor et al. 2014, Wilson et al. 2014, Sandve et al. 2013, Mitchell et al. 1993 |
-| verified, not in corpus | 10 | Theiler 1992, Rechtsteiner & Bedau 1999, Axtell et al. 1996, Oberkampf & Roy 2010, Naylor 1967, Morrison 2007, Parker 2008, Darius & Rojas 1994, Hintze 2019, Spector et al. 2025 |
+| read in full | **9** | Davis & Bongard 2022, Davis 2023, Davis 2024, Pilat et al. 2012, Huberman & Glance 1993, Nowak et al. 1994, Jaqaman et al. 2008, Chalfoun et al. 2016, Spector et al. 2025 |
+| partial | **6** | Kojima & Ikegami 2023, Woolley 2022, Taylor et al. 2014, Wilson et al. 2014, Sandve et al. 2013, Mitchell et al. 1993 |
+| downloaded, unread | **0** | — |
+| verified, not in corpus | 10 | Theiler 1992, Rechtsteiner & Bedau 1999, Axtell et al. 1996, Oberkampf & Roy 2010, Naylor 1967, Morrison 2007, Parker 2008, Darius & Rojas 1994, Hintze 2019, Cohen-Steiner 2006 |
 
-**A search that found nothing, and that is a result.** Query `"tracking identity components lifetime"` across the corpus
-returns only incidental hits (a MATLAB continuation package, a bifurcation argument). There is **no material in the
-corpus on tracking the identity of structures through time** — which is exactly the method behind our lifetimes
-(median 57 vs 4046 steps, `uid` inherited by overlap ≥ 0.5).
+**The search that found nothing, revisited.** On 31.10 the query `"tracking identity components lifetime"` returned only
+incidental hits, and the conclusion written here was that our identity tracking had **no precedent in what we had read**.
+That was true of what we had read, and false of the literature: tracking by overlap is standard practice in cell and
+particle tracking (Jaqaman 2008, Chalfoun 2016), and persistent homology supplies a threshold-free notion of birth and
+death (Spector 2025, Cohen-Steiner 2006). What remains true is narrower and still uncomfortable: **none of it is about
+Gray–Scott components**, and none of it validates our one-stage rule. The precedent exists; it sets a higher bar than
+ours, and it is a bar we have not met yet.
 
-So the honest position: our identity-tracking has **no precedent in what we have read**, and the denominator question
-(what threshold, what correction for snapshot density) is open. That is librarian task **L-044**, not something to
-improvise at midnight.
+The operational consequences are collected in [`lit-decision-rules.md`](lit-decision-rules.md), together with the two
+checks that could be done without a new run and what they found.
 
-**Same for L-042** (grid conventions) and **L-043** (component counting vs percolation): the corpus mentions
-discretisation and persistence, but not the specific convention we need.
+**L-042** (grid conventions) and **L-043** (component counting vs percolation) are partially answered by the same block:
+percolation and excursion-set framing are established, so the fragility of a fixed-threshold count is a known property
+rather than our discovery — the demonstration in this model family is what is ours.
+

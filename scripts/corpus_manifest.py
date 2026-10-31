@@ -66,6 +66,18 @@ KNOWN = {
         "doi": "10.1371/journal.pcbi.1003285", "year": 2013, "status": "partial",
         "why": "десять правил воспроизводимости; мы следуем большинству случайно, а не по правилу",
     },
+    "jaqaman_2008_particle_tracking": {
+        "doi": "10.1038/nmeth.1237", "year": 2008, "status": "read",
+        "why": "two-stage linear assignment: frame-to-frame linking, then gap closing with explicit merge and split events; our overlap>=0.5 uid is the greedy one-stage special case (Q4)",
+    },
+    "chalfoun_2016_lineage_mapper": {
+        "doi": "10.1038/srep36984", "year": 2016, "status": "read",
+        "why": "segmentation-independent tracking by overlap plus object properties; divisions and fusions are reported events rather than implicit consequences of the rule (Q4)",
+    },
+    "spector_2025_persistent_homology": {
+        "doi": "10.1007/s11538-025-01552-9", "year": 2025, "status": "read",
+        "why": "filtration normalised by the field min/max in 20 steps, noise cutoff taken from the barcode-length distribution, stability theorem cited for robustness; exactly the absolute fixed threshold we rely on (Q3, Q7)",
+    },
     "mitchell_1993_edge_of_chaos": {
         "doi": "10.48550/arxiv.adap-org/9303003", "year": 1993, "status": "partial",
         "why": "перепроверка знаменитого результата с лучшей статистикой — образец того, как это делается",

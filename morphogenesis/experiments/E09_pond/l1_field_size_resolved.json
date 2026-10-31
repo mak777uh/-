@@ -1,0 +1,313 @@
+{
+  "kind": "l1_field_size_resolved",
+  "experiment": "X56 / X23 (re-analysis of stored snapshots and uids)",
+  "command": "python scripts/size_resolved_contrast.py --write",
+  "question": "is the heterogeneous advantage made of structures, or of fragments?",
+  "design": {
+    "source": "morphogenesis/experiments/L1_field/x18_*, x56_dt0.5_*, x23_*",
+    "threshold": 0.2,
+    "grid": 96,
+    "laplacian": "4 neighbours, periodic",
+    "estimator": "per-seed mean of the per-snapshot count over snapshots, then median across seeds; diff_of_medians = median(hetero) - median(homog); median_of_diffs is the paired estimator",
+    "lifetime_sampling": "uids tracked at every 500th step, so lifetimes below 500 are unresolved"
+  },
+  "count_vs_min_area": {
+    "dt=1.0": [
+      {
+        "min_area": 1,
+        "n_seeds": 10,
+        "hetero_median": 6.43,
+        "homog_median": 2.86,
+        "diff_of_medians": 3.57,
+        "median_of_diffs": 4.14,
+        "seeds_positive": 10
+      },
+      {
+        "min_area": 2,
+        "n_seeds": 10,
+        "hetero_median": 6.43,
+        "homog_median": 2.86,
+        "diff_of_medians": 3.57,
+        "median_of_diffs": 4.14,
+        "seeds_positive": 10
+      },
+      {
+        "min_area": 4,
+        "n_seeds": 10,
+        "hetero_median": 6.43,
+        "homog_median": 2.86,
+        "diff_of_medians": 3.57,
+        "median_of_diffs": 4.14,
+        "seeds_positive": 10
+      },
+      {
+        "min_area": 8,
+        "n_seeds": 10,
+        "hetero_median": 6.43,
+        "homog_median": 2.86,
+        "diff_of_medians": 3.57,
+        "median_of_diffs": 3.57,
+        "seeds_positive": 10
+      },
+      {
+        "min_area": 16,
+        "n_seeds": 10,
+        "hetero_median": 5.43,
+        "homog_median": 2.86,
+        "diff_of_medians": 2.57,
+        "median_of_diffs": 2.36,
+        "seeds_positive": 10
+      },
+      {
+        "min_area": 32,
+        "n_seeds": 10,
+        "hetero_median": 3.79,
+        "homog_median": 2.43,
+        "diff_of_medians": 1.36,
+        "median_of_diffs": 2.21,
+        "seeds_positive": 8
+      },
+      {
+        "min_area": 64,
+        "n_seeds": 10,
+        "hetero_median": 2.57,
+        "homog_median": 1.71,
+        "diff_of_medians": 0.86,
+        "median_of_diffs": 1.14,
+        "seeds_positive": 8
+      },
+      {
+        "min_area": 128,
+        "n_seeds": 10,
+        "hetero_median": 1.57,
+        "homog_median": 1.5,
+        "diff_of_medians": 0.07,
+        "median_of_diffs": 0.0,
+        "seeds_positive": 4
+      },
+      {
+        "min_area": 256,
+        "n_seeds": 10,
+        "hetero_median": 1.07,
+        "homog_median": 1.07,
+        "diff_of_medians": 0.0,
+        "median_of_diffs": 0.07,
+        "seeds_positive": 5
+      }
+    ],
+    "dt=0.5": [
+      {
+        "min_area": 1,
+        "n_seeds": 10,
+        "hetero_median": 4.84,
+        "homog_median": 3.6,
+        "diff_of_medians": 1.24,
+        "median_of_diffs": 1.6,
+        "seeds_positive": 7
+      },
+      {
+        "min_area": 2,
+        "n_seeds": 10,
+        "hetero_median": 4.84,
+        "homog_median": 3.6,
+        "diff_of_medians": 1.24,
+        "median_of_diffs": 1.6,
+        "seeds_positive": 7
+      },
+      {
+        "min_area": 4,
+        "n_seeds": 10,
+        "hetero_median": 4.84,
+        "homog_median": 3.6,
+        "diff_of_medians": 1.24,
+        "median_of_diffs": 1.6,
+        "seeds_positive": 7
+      },
+      {
+        "min_area": 8,
+        "n_seeds": 10,
+        "hetero_median": 4.64,
+        "homog_median": 3.6,
+        "diff_of_medians": 1.04,
+        "median_of_diffs": 1.56,
+        "seeds_positive": 7
+      },
+      {
+        "min_area": 16,
+        "n_seeds": 10,
+        "hetero_median": 4.18,
+        "homog_median": 3.6,
+        "diff_of_medians": 0.58,
+        "median_of_diffs": 1.22,
+        "seeds_positive": 7
+      },
+      {
+        "min_area": 32,
+        "n_seeds": 10,
+        "hetero_median": 3.4,
+        "homog_median": 3.04,
+        "diff_of_medians": 0.36,
+        "median_of_diffs": 0.2,
+        "seeds_positive": 6
+      },
+      {
+        "min_area": 64,
+        "n_seeds": 10,
+        "hetero_median": 2.32,
+        "homog_median": 2.12,
+        "diff_of_medians": 0.2,
+        "median_of_diffs": -0.2,
+        "seeds_positive": 4
+      },
+      {
+        "min_area": 128,
+        "n_seeds": 10,
+        "hetero_median": 1.54,
+        "homog_median": 1.84,
+        "diff_of_medians": -0.3,
+        "median_of_diffs": -0.38,
+        "seeds_positive": 2
+      },
+      {
+        "min_area": 256,
+        "n_seeds": 10,
+        "hetero_median": 1.14,
+        "homog_median": 1.42,
+        "diff_of_medians": -0.28,
+        "median_of_diffs": -0.4,
+        "seeds_positive": 2
+      }
+    ]
+  },
+  "largest_cluster_share": {
+    "dt=1.0": {
+      "hetero": 0.817,
+      "homog": 0.925
+    },
+    "dt=0.5": {
+      "hetero": 0.836,
+      "homog": 0.893
+    }
+  },
+  "lifetime_vs_min_peak": [
+    {
+      "arm": "hetero",
+      "min_peak_area": 1,
+      "n_uids": 85,
+      "median_life_steps": 54,
+      "share_life_ge_1500": 0.212
+    },
+    {
+      "arm": "hetero",
+      "min_peak_area": 2,
+      "n_uids": 85,
+      "median_life_steps": 54,
+      "share_life_ge_1500": 0.212
+    },
+    {
+      "arm": "hetero",
+      "min_peak_area": 4,
+      "n_uids": 85,
+      "median_life_steps": 54,
+      "share_life_ge_1500": 0.212
+    },
+    {
+      "arm": "hetero",
+      "min_peak_area": 8,
+      "n_uids": 77,
+      "median_life_steps": 38,
+      "share_life_ge_1500": 0.143
+    },
+    {
+      "arm": "hetero",
+      "min_peak_area": 16,
+      "n_uids": 76,
+      "median_life_steps": 38.0,
+      "share_life_ge_1500": 0.145
+    },
+    {
+      "arm": "hetero",
+      "min_peak_area": 32,
+      "n_uids": 74,
+      "median_life_steps": 37.0,
+      "share_life_ge_1500": 0.122
+    },
+    {
+      "arm": "hetero",
+      "min_peak_area": 64,
+      "n_uids": 63,
+      "median_life_steps": 26,
+      "share_life_ge_1500": 0.095
+    },
+    {
+      "arm": "hetero",
+      "min_peak_area": 128,
+      "n_uids": 44,
+      "median_life_steps": 13.0,
+      "share_life_ge_1500": 0.023
+    },
+    {
+      "arm": "homog",
+      "min_peak_area": 1,
+      "n_uids": 17,
+      "median_life_steps": 4046,
+      "share_life_ge_1500": 0.706
+    },
+    {
+      "arm": "homog",
+      "min_peak_area": 2,
+      "n_uids": 17,
+      "median_life_steps": 4046,
+      "share_life_ge_1500": 0.706
+    },
+    {
+      "arm": "homog",
+      "min_peak_area": 4,
+      "n_uids": 17,
+      "median_life_steps": 4046,
+      "share_life_ge_1500": 0.706
+    },
+    {
+      "arm": "homog",
+      "min_peak_area": 8,
+      "n_uids": 13,
+      "median_life_steps": 3575,
+      "share_life_ge_1500": 0.692
+    },
+    {
+      "arm": "homog",
+      "min_peak_area": 16,
+      "n_uids": 13,
+      "median_life_steps": 3575,
+      "share_life_ge_1500": 0.692
+    },
+    {
+      "arm": "homog",
+      "min_peak_area": 32,
+      "n_uids": 13,
+      "median_life_steps": 3575,
+      "share_life_ge_1500": 0.692
+    },
+    {
+      "arm": "homog",
+      "min_peak_area": 64,
+      "n_uids": 13,
+      "median_life_steps": 3575,
+      "share_life_ge_1500": 0.692
+    },
+    {
+      "arm": "homog",
+      "min_peak_area": 128,
+      "n_uids": 13,
+      "median_life_steps": 3575,
+      "share_life_ge_1500": 0.692
+    }
+  ],
+  "verdict": "The advantage is real but it is an advantage in *small* structures. At dt=1.0 the count contrast is +3.57 with every component counted and unchanged down to 8 cells, then +1.36 at 32 cells, +0.86 at 64 and +0.07 at 128: the two worlds are indistinguishable once components below about 100 cells are excluded. The homogeneous world is one dominant cluster (largest share 0.925); the heterogeneous one is a scatter (0.817) whose count is carried by small pieces. Lifetimes agree under the same filter: the heterogeneous median falls from 54 to 13 steps as the peak-size threshold rises, while the homogeneous median stays at 3575, so the lifetime gap widens rather than closes. At dt=0.5 the size filter removes the count contrast entirely and turns it slightly negative above 128 cells. Read together: heterogeneous inflow multiplies small, short-lived pieces; it does not add durable structures.",
+  "not_claimed": [
+    "min-area filtering is not the same as identity tracking: it does not test the overlap rule, which needs masks",
+    "a 100-cell cutoff is where this dataset becomes blind, not a natural length scale",
+    "lifetimes exist only at dt=1.0, so nothing here separates lifetime from step size",
+    "no claim that small pieces are 'debris' in a mechanistic sense: they are small and short-lived, which is all we measured"
+  ]
+}

@@ -2,6 +2,13 @@
   "kind": "corpus_manifest",
   "purpose": "полные тексты, по которым ведётся поиск; статус чтения отделён от наличия файла",
   "documents": {
+    "chalfoun_2016_lineage_mapper": {
+      "doi": "10.1038/srep36984",
+      "year": 2016,
+      "status": "read",
+      "why": "segmentation-independent tracking by overlap plus object properties; divisions and fusions are reported events rather than implicit consequences of the rule (Q4)",
+      "file": "library/corpus/texts/chalfoun_2016_lineage_mapper.txt"
+    },
     "davis_2023_nonplatonic": {
       "doi": "10.54854/imi2023.01",
       "year": 2023,
@@ -29,6 +36,13 @@
       "status": "read",
       "why": "кооперация исчезает при асинхронном обновлении: гранулярность как источник результата",
       "file": "library/corpus/texts/huberman_glance_1993.txt"
+    },
+    "jaqaman_2008_particle_tracking": {
+      "doi": "10.1038/nmeth.1237",
+      "year": 2008,
+      "status": "read",
+      "why": "two-stage linear assignment: frame-to-frame linking, then gap closing with explicit merge and split events; our overlap>=0.5 uid is the greedy one-stage special case (Q4)",
+      "file": "library/corpus/texts/jaqaman_2008_particle_tracking.txt"
     },
     "kojima_ikegami_2023_lenia": {
       "doi": "10.1162/isal_a_00638",
@@ -65,6 +79,13 @@
       "why": "десять правил воспроизводимости; мы следуем большинству случайно, а не по правилу",
       "file": "library/corpus/texts/sandve_2013_ten_rules.txt"
     },
+    "spector_2025_persistent_homology": {
+      "doi": "10.1007/s11538-025-01552-9",
+      "year": 2025,
+      "status": "read",
+      "why": "filtration normalised by the field min/max in 20 steps, noise cutoff taken from the barcode-length distribution, stability theorem cited for robustness; exactly the absolute fixed threshold we rely on (Q3, Q7)",
+      "file": "library/corpus/texts/spector_2025_persistent_homology.txt"
+    },
     "taylor_2014_alife_review": {
       "doi": "10.3389/frobt.2014.00008",
       "year": 2014,
@@ -88,8 +109,8 @@
     }
   },
   "counts": {
-    "documents": 12,
-    "read": 6,
+    "documents": 15,
+    "read": 9,
     "partial": 6,
     "unread": 0
   },
