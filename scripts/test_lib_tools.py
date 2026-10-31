@@ -494,6 +494,14 @@ def test_lit_find(tmp: Path) -> None:
     check("lit_find: несуществующий DOI отвергается", bad.returncode == 1, bad.stdout[-300:])
 
 
+def test_lead_brief_and_slots(tmp: Path) -> None:
+    """lead_brief: pending растёт от add и падает после flush; slots: находит пропуски."""
+    before = run("library/tools/lead_brief.py", "pending")
+    check("lead_brief: pending отвечает", before.returncode == 0, before.stdout[-200:])
+    slots = run("library/tools/slots.py", "--days", "1")
+    check("slots: отчёт печатается", "пропусков всего" in slots.stdout, slots.stdout[-200:])
+
+
 def main() -> int:
     with tempfile.TemporaryDirectory() as tdir:
         tmp = Path(tdir)
@@ -527,6 +535,8 @@ def main() -> int:
         test_science_digest(tmp)
         print("== topic lit ==")
         test_topic_lit(tmp)
+        print("== lead brief ==")
+        test_lead_brief_and_slots(tmp)
         print("== lit_find ==")
         test_lit_find(tmp)
         print("== paper witness ==")
