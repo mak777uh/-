@@ -111,6 +111,9 @@ def main(argv=None) -> int:
                     help="X45: сила влияния подсказки на распад: k_eff *= (1 + gamma*c)")
     ap.add_argument("--cue-kappa", type=float, default=0.0,
                     help="X45: сила влияния подсказки на признак: h += kappa*c (только при trait-field)")
+    ap.add_argument("--cue-kappa-local", action="store_true",
+                    help="X47: сенсор действует только у границы (где |∇²v| велик), а не по всему полю — "
+                         "иначе подсказка сдвигает признак везде одинаково и мир схлопывается (§10dp)")
     ap.add_argument("--cue-seed", type=int, default=0, help="X45: сид для режима shuffled")
     ap.add_argument("--cue-lead", type=int, default=0,
                     help="X46: на сколько шагов подсказка ОПЕРЕЖАЕТ событие. 0 = подсказка и есть событие "
@@ -287,8 +290,15 @@ def main(argv=None) -> int:
             else:
                 h_trait = h_trait + args.trait_mutation * noise * (v > float(args.threshold)).float()
             if cue_lead_t is not None and args.cue_kappa != 0.0:
-                # X46: признак двигается по ПОДСКАЗКЕ (опережающей), а распад — по событию (текущему)
-                h_trait = h_trait + args.cue_kappa * cue_lead_t * (v > float(args.threshold)).float()
+                # X46: признак двигается по ПОДСКАЗКЕ (опережающей), а распад — по событию (текущему).
+                # X47: при `--cue-kappa-local` связь действует только там, где геометрия напряжена (у границы).
+                if args.cue_kappa_local:
+                    curv_h = torch.abs(laplacian(v))
+                    scale_h = float(torch.quantile(curv_h.flatten(), 0.95)) if float(curv_h.max()) > 0 else 1.0
+                    w_h = torch.clamp(curv_h / max(scale_h, 1e-6), 0.0, 2.0)
+                    h_trait = h_trait + args.cue_kappa * cue_lead_t * w_h
+                else:
+                    h_trait = h_trait + args.cue_kappa * cue_lead_t * (v > float(args.threshold)).float()
             if cue_t is not None and args.cue_kappa != 0.0:
                 # X45: подсказка двигает признак в живых клетках; она НЕ расходуется и не даёт энергии
                 h_trait = h_trait + args.cue_kappa * cue_t * (v > float(args.threshold)).float()
