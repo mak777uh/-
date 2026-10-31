@@ -3335,6 +3335,37 @@
           "reports/2026-10-30-literature-digest-coexistence.md"
         ]
       }
+    },
+    {
+      "id": "B-093",
+      "type": "risk",
+      "target": {
+        "kind": "artifact",
+        "id": "scripts/check_design.py",
+        "ref": "scripts/check_design.py:158"
+      },
+      "statement": "Гейт дизайна (P1) не может провалиться в обычном режиме: строка 158 возвращает '0 if (ok or not args.ci) else 1', то есть без --ci даже при 'ПРОВАЛ' код выхода 0; в make verify гейт не включён вовсе. Главный механизм против 'ста двадцати впустую потраченных прогонов' работает как советник, а не гейт — ровно P10 ('гейт без падающего случая — декорация'). Проверено запуском: без --ci код 0 при ПРОВАЛ, с --ci код 1. Предложение: падение по умолчанию (--advisory для мягкого режима) + проверка структуры пре-регистраций в verify.",
+      "evidence": [
+        {
+          "library": "answers.md#88",
+          "note": "проверено запуском, exit-коды 0 и 1"
+        }
+      ],
+      "action": {
+        "kind": "method",
+        "detail": "exit 1 по умолчанию + wire в verify"
+      },
+      "status": "new",
+      "wave": "current",
+      "owner": "librarian",
+      "created_at": "2026-10-31T20:43:36+03:00",
+      "decided_at": null,
+      "why": null,
+      "links": {
+        "insights": [],
+        "tasks": [],
+        "reports": []
+      }
     }
   ],
   "updated_at": "2026-10-30T20:30:00+00:00"
