@@ -18,7 +18,10 @@ import json
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-ARTICLE = ROOT / "articles" / "028-pole-bez-zadannyh-obektov.md"
+ARTICLES = [
+    ROOT / "articles" / "028-pole-bez-zadannyh-obektov.md",          # ru, v1.4 (опубликована)
+    ROOT / "articles" / "028-field-without-stipulated-objects.md",   # en, v1.5
+]
 L1 = ROOT / "morphogenesis" / "experiments" / "L1_field"
 POND = ROOT / "morphogenesis" / "experiments" / "E09_pond"
 
@@ -62,10 +65,13 @@ def main(argv=None) -> int:
     ap.add_argument("--ci", action="store_true")
     args = ap.parse_args(argv)
 
-    if not ARTICLE.exists():
-        print("[article] статьи нет")
+    texts = {}
+    for art in ARTICLES:
+        if art.exists():
+            texts[art.name] = art.read_text(encoding="utf-8")
+    if not texts:
+        print("[article] статей нет")
         return 1
-    text = ARTICLE.read_text(encoding="utf-8")
     bad = 0
     for c in CHECKS:
         agg = Path(c["agg"])
@@ -83,11 +89,12 @@ def main(argv=None) -> int:
             needle = c["fmt"].format(value * 100)
         else:
             needle = c["fmt"].format(value)
-        if needle not in text:
-            print(f"[article] РАСХОЖДЕНИЕ: {c['what']} = {needle} (из {agg.name}), в статье не найдено")
-            bad += 1
+        for name, text in texts.items():
+            if needle not in text:
+                print(f"[article] РАСХОЖДЕНИЕ: {c['what']} = {needle} (из {agg.name}), нет в {name}")
+                bad += 1
 
-    total = len(CHECKS)
+    total = len(CHECKS) * len(texts)
     if bad:
         print(f"[article] расхождений: {bad} из {total}")
         return 1 if args.ci else 0

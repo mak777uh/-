@@ -60,6 +60,7 @@
 ## Статьи
 
 | [028](028-pole-bez-zadannyh-obektov.md) | Поле без заданных объектов: как счётчик компонент выдал себя за разнообразие | v1.0, 31.10.2026 | линия поля: возникновение, наследование, отбор и переписанный вывод о дроблении |
+| [028 (en)](028-field-without-stipulated-objects.md) | A field without stipulated objects: how a component counter passed itself off as diversity | v1.5, 31.10.2026 | English edition of v1.4 with corrected numbers; every number checked against its aggregate |
 
 ## Научный цикл
 
