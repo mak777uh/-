@@ -14,6 +14,7 @@
 | concept DOI весов | [10.5281/zenodo.23654173](https://doi.org/10.5281/zenodo.23654173) | — | — | всегда указывает на последнюю версию записи с весами |
 | **Набор данных** (v1.0) | [10.5281/zenodo.23734077](https://doi.org/10.5281/zenodo.23734077) | 28.10.2026 | 10.1 МБ | 120 per-run JSON четырёх серий v1.2 (killwinner, confirm, trait-update, additivity), 4 агрегата, `predictions.json`, 4 пре-регистрации, `CHECKSUMS-v1.2.csv` |
 | concept DOI набора данных | [10.5281/zenodo.23734076](https://doi.org/10.5281/zenodo.23734076) | — | — | всегда указывает на последнюю версию набора данных |
+| **Article 028** (v1.5.1, EN + RU) | [10.5281/zenodo.23839898](https://doi.org/10.5281/zenodo.23839898) | 31.10.2026 | 3.3 МБ | `028-field-without-stipulated-objects.md` (29 068 Б) + `028-pole-bez-zadannyh-obektov.md` (41 112 Б) + `logs-2026-10-31.zip` (3 323 151 Б; 1658 файлов, сводный sha256 `da7c65dc…`); CC0 1.0; concept DOI `10.5281/zenodo.23839897` |
 
 ## Почему веса отдельно
 

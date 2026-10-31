@@ -186,6 +186,7 @@ The descriptive columns — period, question, outcome, evidence — stay hand-wr
 ## 10. Citing and contacting
 
 **Preprint.** A standalone preprint summarising this stage is archived at [10.5281/zenodo.23733719](https://doi.org/10.5281/zenodo.23733719) (v1.2; v1.1: 10.5281/zenodo.23694918; v1.0: 10.5281/zenodo.23669738) (concept DOI [10.5281/zenodo.23669737](https://doi.org/10.5281/zenodo.23669737); 14 pages, four figures, LaTeX source included; not peer reviewed).
+A second, separate paper covers the line of field (a medium with no stipulated objects): [10.5281/zenodo.23839898](https://doi.org/10.5281/zenodo.23839898) (v1.5.1, English, CC0, Russian original attached; concept DOI `10.5281/zenodo.23839897`).
 
 **Release v1.2 (preparing):** measured price −0.374 with CI [−0.396, −0.266], the price belongs to the
 investment channel, two coexistence levers that amplify each other, four recorded prediction failures.

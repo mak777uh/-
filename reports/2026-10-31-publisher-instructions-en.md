@@ -1,5 +1,7 @@
 # Publisher instructions: version 1.5 (English edition)
 
+**Published 31.10.2026:** new record, DOI 10.5281/zenodo.23839898 — https://zenodo.org/records/23839898 (v1.5.1, EN + RU, CC0).
+
 A short instruction for whoever uploads. The laboratory-side review is in `reports/2026-10-31-publication-package.md`
 (not needed for uploading).
 
