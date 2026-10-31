@@ -31,7 +31,7 @@ import statistics as st
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-OUT = ROOT / "morphogenesis" / "experiments" / "E09_pond" / "ghost_control.json"
+OUT = ROOT / "morphogenesis" / "experiments" / "E09_pond" / "ghost_matrix.json"
 BINS = 8
 SHUFFLES = 20
 

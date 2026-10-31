@@ -7989,7 +7989,7 @@ arXiv:2506.08569) измеряют эволюционную активность
 **только для сравнения двух плеч**, а не как абсолютное доказательство; «призрак» блокирует потребление, но не
 дыхание и ремонт (они по-прежнему тратят энергию); одна сетка, одно правило.
 
-**Машинная проверка.** `scripts/ghost_control.py --write` → `morphogenesis/experiments/E09_pond/ghost_control.json`;
+**Машинная проверка.** `scripts/ghost_control.py --write` → `morphogenesis/experiments/E09_pond/ghost_matrix.json`;
 артефакты `morphogenesis/experiments/E09_pond/ghost/x50_{normal,ghost}_s{171..180}.json` (18 файлов, в git);
 флаг `ghost_no_consumption` в `morphogenesis/world/pond.py`.
 

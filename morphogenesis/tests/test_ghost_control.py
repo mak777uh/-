@@ -16,7 +16,7 @@ import json
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
-AGG = ROOT / "morphogenesis" / "experiments" / "E09_pond" / "ghost_control.json"
+AGG = ROOT / "morphogenesis" / "experiments" / "E09_pond" / "ghost_matrix.json"
 
 
 def _load() -> dict:
