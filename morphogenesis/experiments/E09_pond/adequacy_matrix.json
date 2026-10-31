@@ -1,6 +1,7 @@
 {
   "kind": "adequacy_matrix",
   "experiment": "X44",
+  "command": "python scripts/pond_series_matrix.py --write",
   "metric": {
     "alive_last": "живых на последнем шаге (700)",
     "energy_last": "средняя энергия живых"
@@ -17,7 +18,7 @@
   },
   "rows": [
     {
-      "file": "x44_cheap_s171.json",
+      "artifact": "morphogenesis/experiments/E09_pond/adequacy/x44_cheap_s171.json",
       "arm": "cheap",
       "seed": 171,
       "alive_last": 2046,
@@ -25,7 +26,7 @@
       "energy_last": 0.9294
     },
     {
-      "file": "x44_cheap_s172.json",
+      "artifact": "morphogenesis/experiments/E09_pond/adequacy/x44_cheap_s172.json",
       "arm": "cheap",
       "seed": 172,
       "alive_last": 2020,
@@ -33,7 +34,7 @@
       "energy_last": 0.8887
     },
     {
-      "file": "x44_cheap_s173.json",
+      "artifact": "morphogenesis/experiments/E09_pond/adequacy/x44_cheap_s173.json",
       "arm": "cheap",
       "seed": 173,
       "alive_last": 1931,
@@ -41,7 +42,7 @@
       "energy_last": 0.956
     },
     {
-      "file": "x44_cheap_s174.json",
+      "artifact": "morphogenesis/experiments/E09_pond/adequacy/x44_cheap_s174.json",
       "arm": "cheap",
       "seed": 174,
       "alive_last": 2027,
@@ -49,7 +50,7 @@
       "energy_last": 0.9064
     },
     {
-      "file": "x44_cheap_s175.json",
+      "artifact": "morphogenesis/experiments/E09_pond/adequacy/x44_cheap_s175.json",
       "arm": "cheap",
       "seed": 175,
       "alive_last": 2023,
@@ -57,7 +58,7 @@
       "energy_last": 0.9243
     },
     {
-      "file": "x44_cost_s171.json",
+      "artifact": "morphogenesis/experiments/E09_pond/adequacy/x44_cost_s171.json",
       "arm": "cost",
       "seed": 171,
       "alive_last": 1469,
@@ -65,7 +66,7 @@
       "energy_last": 0.3462
     },
     {
-      "file": "x44_cost_s172.json",
+      "artifact": "morphogenesis/experiments/E09_pond/adequacy/x44_cost_s172.json",
       "arm": "cost",
       "seed": 172,
       "alive_last": 1475,
@@ -73,7 +74,7 @@
       "energy_last": 0.3372
     },
     {
-      "file": "x44_cost_s173.json",
+      "artifact": "morphogenesis/experiments/E09_pond/adequacy/x44_cost_s173.json",
       "arm": "cost",
       "seed": 173,
       "alive_last": 1666,
@@ -81,7 +82,7 @@
       "energy_last": 0.3525
     },
     {
-      "file": "x44_cost_s174.json",
+      "artifact": "morphogenesis/experiments/E09_pond/adequacy/x44_cost_s174.json",
       "arm": "cost",
       "seed": 174,
       "alive_last": 1558,
@@ -89,7 +90,7 @@
       "energy_last": 0.3489
     },
     {
-      "file": "x44_cost_s175.json",
+      "artifact": "morphogenesis/experiments/E09_pond/adequacy/x44_cost_s175.json",
       "arm": "cost",
       "seed": 175,
       "alive_last": 1339,
@@ -97,7 +98,7 @@
       "energy_last": 0.3482
     },
     {
-      "file": "x44_free_s171.json",
+      "artifact": "morphogenesis/experiments/E09_pond/adequacy/x44_free_s171.json",
       "arm": "free",
       "seed": 171,
       "alive_last": 2046,
@@ -105,7 +106,7 @@
       "energy_last": 1.1135
     },
     {
-      "file": "x44_free_s172.json",
+      "artifact": "morphogenesis/experiments/E09_pond/adequacy/x44_free_s172.json",
       "arm": "free",
       "seed": 172,
       "alive_last": 2020,
@@ -113,7 +114,7 @@
       "energy_last": 1.0553
     },
     {
-      "file": "x44_free_s173.json",
+      "artifact": "morphogenesis/experiments/E09_pond/adequacy/x44_free_s173.json",
       "arm": "free",
       "seed": 173,
       "alive_last": 1931,
@@ -121,7 +122,7 @@
       "energy_last": 1.1514
     },
     {
-      "file": "x44_free_s174.json",
+      "artifact": "morphogenesis/experiments/E09_pond/adequacy/x44_free_s174.json",
       "arm": "free",
       "seed": 174,
       "alive_last": 2027,
@@ -129,7 +130,7 @@
       "energy_last": 1.0806
     },
     {
-      "file": "x44_free_s175.json",
+      "artifact": "morphogenesis/experiments/E09_pond/adequacy/x44_free_s175.json",
       "arm": "free",
       "seed": 175,
       "alive_last": 2023,
@@ -140,20 +141,9 @@
   "summary": {
     "n": 15
   },
-  "result": {
-    "world_resource_under_self": {
-      "cost": 0.0386,
-      "cheap": 0.0184,
-      "free": 0.0188
-    },
-    "world_resource_in_empty_cells": {
-      "cost": 0.0,
-      "cheap": 0.0,
-      "free": 0.0
-    }
-  },
+  "note": "мера I(Δэнергия; Δресурс) считается отдельно — scripts/adequacy_mi.py; здесь только состав серии",
   "not_claimed": [
     "5 сидов на плечо",
-    "resource_empty — среднее по пустым клеткам, а не конкретная точка"
+    "агрегат не содержит меры, только ряды и исходы"
   ]
 }
