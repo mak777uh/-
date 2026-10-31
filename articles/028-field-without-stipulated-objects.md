@@ -54,6 +54,13 @@ Two diffusing quantities with autocatalysis and decay (the Gray–Scott model):
 `u` is material, `v` its autocatalytic form, `F` the inflow, `k` the decay. There are no "cells": the observer is only
 a **threshold on `v`**, which splits the field into connected components **after the fact**.
 
+**Numerical scheme, stated because it is part of the result.** Laplacian by the four neighbours on a periodic grid;
+explicit Euler with `dt = 1.0`; `Du = 0.16`, `Dv = 0.08`; grids 96 and 128; a snapshot every 10–500 steps depending on
+the series. In a continuous automaton the pattern can depend on exactly these choices — the genre of such dependence is
+documented (Lehman et al., *The Surprising Creativity of Digital Evolution*, Artificial Life 26(2), 2020,
+DOI `10.1162/artl_a_00319`) — so we name them rather than leave them implicit, and the percolation result of §4.10 is
+**threshold-dependent by construction**.
+
 **Arms.** Uniform inflow `F = const` versus spatially heterogeneous `F(x,y) = F·(1 + A·G(x,y))`, where `G` is a static
 pattern. Further arms: a varying pattern (periods 300 and 3000), global noise (inflow fluctuates in time but is
 **identical across the whole field**), and different amplitudes `A`.

@@ -4,9 +4,9 @@
 
 The curated page — what matters and why — is [`scripts.md`](scripts.md). This file is the complete list, so that every command behind a number in the record can be found.
 
-Scripts: **167**.
+Scripts: **168**.
 
-## Гейты и проверки (40)
+## Гейты и проверки (41)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -49,6 +49,7 @@ Scripts: **167**.
 | `verify_manuscript_numbers.py` | Сверить числа §4.12–§4.14 рукописи с артефактами. |
 | `verify_portable.py` | verify_portable.py — проверка portable-пакета E02b (smoke \| full). |
 | `verify_portable_package.py` | Проверка целостности портативного пакета E02b против его манифеста. |
+| `verify_references.py` | verify_references.py — проверить ссылку по названию, не доверяя памяти и не имея веб-поиска. |
 | `verify_sections_numbers.py` | verify_sections_numbers.py — числа в рукописи обязаны воспроизводиться из агрегатов. |
 
 ## Лабораторный контур (18)
