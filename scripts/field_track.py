@@ -181,7 +181,8 @@ def main(argv=None) -> int:
             pos = (float(args.cue_speed) * step_i) % g
             centre = pos
         elif args.cue_mode == "static":
-            centre = g / 2.0
+            # X45: полоса НЕ на затравке (затравка в центре) — иначе мир гибнет в первый шаг и контроль невалиден
+            centre = g / 4.0
         else:  # shuffled: положение случайно каждый срез, связи с будущим нет
             centre = float(cue_rng.uniform(0, g))
         xs = np.arange(g, dtype=float)
@@ -457,7 +458,10 @@ def main(argv=None) -> int:
                 "cue_centre": (float(np.argmax(cue_np[0])) if cue_np is not None else None),
                 "components_log": [
                     {"uid": comp_uid.get(cid), "s": round(float(comp_s[cid]), 4) if cid in comp_s else None,
-                     "area": int((prev_lab == cid).sum())}
+                     "area": int((prev_lab == cid).sum()),
+                     # X45: центроид нужен, чтобы считать, где признак относительно полосы-подсказки
+                     "cx": round(float(np.argwhere(prev_lab == cid)[:, 1].mean()), 2),
+                     "cy": round(float(np.argwhere(prev_lab == cid)[:, 0].mean()), 2)}
                     for cid in keep if cid in comp_s
                 ],
             })
