@@ -112,6 +112,9 @@ def main(argv=None) -> int:
     ap.add_argument("--cue-kappa", type=float, default=0.0,
                     help="X45: сила влияния подсказки на признак: h += kappa*c (только при trait-field)")
     ap.add_argument("--cue-seed", type=int, default=0, help="X45: сид для режима shuffled")
+    ap.add_argument("--cue-lead", type=int, default=0,
+                    help="X46: на сколько шагов подсказка ОПЕРЕЖАЕТ событие. 0 = подсказка и есть событие "
+                         "(тогда предвосхищать нечего, см. §10dp-доп)")
     ap.add_argument("--hetero-amp", type=float, default=0.0,
                     help="E7: сила пространственной неоднородности притока: F(x,y) = F*(1 + amp*(2S(t)-1)*(2G(x,y)-1))")
     ap.add_argument("--hetero-scale", type=float, default=12.0, help="масштаб пространственного узора G (клеток)")
@@ -256,8 +259,13 @@ def main(argv=None) -> int:
                 modk_np[prev_lab == cid] = float(np.clip(1.0 + beta_eff * (args.s_ref - s_val), 0.3, 2.5))
             mod = torch.tensor(mod_np, device=dev)
             mod_k = torch.tensor(modk_np, device=dev)
-        cue_np = cue_field((g, g), g, step)
-        cue_t = torch.tensor(cue_np, device=dev, dtype=torch.float32) if cue_np is not None else None
+        # X46: событие действует СЕЙЧАС, подсказка показывает, где оно будет через `lead` шагов.
+        # При lead = 0 оба поля совпадают и поведение прежнее (якорь).
+        effect_np = cue_field((g, g), g, step)
+        cue_np = cue_field((g, g), g, step + int(args.cue_lead)) if args.cue_lead else effect_np
+        cue_t = torch.tensor(effect_np, device=dev, dtype=torch.float32) if effect_np is not None else None
+        cue_lead_t = (torch.tensor(cue_np, device=dev, dtype=torch.float32)
+                      if (cue_np is not None and args.cue_lead) else None)
 
         if h_trait is not None:
             # X32: признак диффундирует медленно, возвращается к s_ref и мутирует ТОЛЬКО в живых клетках.
@@ -278,6 +286,9 @@ def main(argv=None) -> int:
                 h_trait = h_trait + args.trait_mutation * noise * weight
             else:
                 h_trait = h_trait + args.trait_mutation * noise * (v > float(args.threshold)).float()
+            if cue_lead_t is not None and args.cue_kappa != 0.0:
+                # X46: признак двигается по ПОДСКАЗКЕ (опережающей), а распад — по событию (текущему)
+                h_trait = h_trait + args.cue_kappa * cue_lead_t * (v > float(args.threshold)).float()
             if cue_t is not None and args.cue_kappa != 0.0:
                 # X45: подсказка двигает признак в живых клетках; она НЕ расходуется и не даёт энергии
                 h_trait = h_trait + args.cue_kappa * cue_t * (v > float(args.threshold)).float()
@@ -455,6 +466,7 @@ def main(argv=None) -> int:
                 "occupied": round(float(mask.mean()), 4),
                 # X37/X39: журнал компонент по срезам — uid, признак, площадь.
                 # Без него нельзя ни дифференциал отбора по выжившим (X37), ни активность по типам (X39).
+                "event_centre": (float(np.argmax(effect_np[0])) if effect_np is not None else None),
                 "cue_centre": (float(np.argmax(cue_np[0])) if cue_np is not None else None),
                 "components_log": [
                     {"uid": comp_uid.get(cid), "s": round(float(comp_s[cid]), 4) if cid in comp_s else None,
