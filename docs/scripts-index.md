@@ -4,9 +4,9 @@
 
 The curated page — what matters and why — is [`scripts.md`](scripts.md). This file is the complete list, so that every command behind a number in the record can be found.
 
-Scripts: **165**.
+Scripts: **167**.
 
-## Гейты и проверки (39)
+## Гейты и проверки (40)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -27,6 +27,7 @@ Scripts: **165**.
 | `check_links.py` | Проверить относительные ссылки в markdown-файлах репозитория. |
 | `check_metric_definitions.py` | check_metric_definitions.py — реализация метрики обязана совпадать с её определением. |
 | `check_mutual_information.py` | check_mutual_information.py — калибровка оценки взаимной информации на данных с ИЗВЕСТНЫМ ответом. |
+| `check_plan_split.py` | check_plan_split.py — план разложен по файлам без потерь и без дублей. |
 | `check_readme_commands.py` | check_readme_commands.py — команды из README должны запускаться в CI, а не только существовать. |
 | `check_readme_fresh.py` | check_readme_fresh.py — витрина не должна отставать от результатов. |
 | `check_references.py` | Проверить, что каждая ссылка из References рукописи есть в индексе библиотеки. |
@@ -161,7 +162,7 @@ Scripts: **165**.
 | `make_seed_grid_figure.py` | Собрать Figure 4 рукописи: сетка «инициализация × порядок данных» (§4.13). |
 | `make_simple_poster.py` | Простой постер для владельца: что мы узнали, без терминов. |
 
-## Прочее (40)
+## Прочее (41)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -200,6 +201,7 @@ Scripts: **165**.
 | `self_review.py` | Дневной самоаудит библиотеки: что сработало, что нет, что поправить. |
 | `slim_checkpoint.py` | Облегчить чекпоинт для инференса: только веса правила + метаданные. |
 | `smc_interval.py` | smc_interval.py — интервалы вместо счёта «N из M». |
+| `split_world_design.py` | split_world_design.py — разложить план линии по файлам, оставив индекс. |
 | `stream_profile.py` | stream_profile.py — измеряет профиль живых источников, а не угадывает «какой лучше». |
 | `stream_sources.py` | stream_sources.py — источники живого сигнала извне для цифрового мира. |
 | `test_lib_tools.py` | Регрессионные тесты инструментов библиотеки. |

@@ -148,6 +148,42 @@
       "note": "НАЙДЕНО 31.10 при чистке диска. `lab.py checkpoints` даёт E02b ready 1/12; на диске есть только WP4_R-9_s2000_seed42/nca_final.pt (515 МБ). Сохранённый снимок lab/checkpoints.json до сверки утверждал ready 12 / missing [] — то есть обещал веса, которых нет. Текущей линии (поле, пруд на b=0.02) это не мешает: те веса не используются. Для воспроизведения E02b это дыра. Варианты: (а) восстановить набор канонических чекпоинтов из депозита Zenodo (6.47 ГБ), (б) записать утрату явно в docs/deposit.md и снять требование из checkpoints.json. Решение владельца — нужен ответ, какой вариант"
     },
     {
+      "id": "P6_reports_catalogue",
+      "title": "Каталог отчётов по темам и архивный ярус",
+      "status": "planned",
+      "owner": "lead",
+      "cost_gpu_h": 0.0,
+      "ttl_minutes": 600,
+      "hypothesis": null,
+      "claimed_at": null,
+      "heartbeat_at": null,
+      "note": "из разбора 31.10: 211 файлов в reports/, плоский индекс на 349 строк, нет тематической группировки и архивного яруса. Сделать: 8 тем, «читать первыми пять», архив старше двух недель, индекс ≤ 60 строк"
+    },
+    {
+      "id": "P9_numbers_everywhere",
+      "title": "Проверка чисел во всех публикуемых текстах, а не только в статье 028",
+      "status": "planned",
+      "owner": "lead",
+      "cost_gpu_h": 0.0,
+      "ttl_minutes": 600,
+      "hypothesis": null,
+      "claimed_at": null,
+      "heartbeat_at": null,
+      "note": "из разбора 31.10: check_article_numbers покрывает статью 028 (15 проверок × 2 издания); рукопись, README и сводки проверяются глазами. Сделать: табличный чекер над всеми текстами, где бывают числа"
+    },
+    {
+      "id": "P8b_cited_artifacts_gate",
+      "title": "Гейт: артефакт, на который ссылается утверждение, обязан быть в git",
+      "status": "planned",
+      "owner": "lead",
+      "cost_gpu_h": 0.0,
+      "ttl_minutes": 600,
+      "hypothesis": null,
+      "claimed_at": null,
+      "heartbeat_at": null,
+      "note": "из docs/retention-policy.md: перед архивацией серии нужно машинно знать, что ни одно утверждение не потеряет артефакт. Скрипт scripts/check_cited_artifacts.py"
+    },
+    {
       "id": "X6a_board_text",
       "title": "Доска: 15 оставшихся text-замечаний с рукописью открытой",
       "status": "superseded",
