@@ -122,6 +122,7 @@ def run_once(arm: str, seed: int, steps: int, stream: str | None = None,
         run.pond.cfg.update_cost = float(sched[0])
 
     S, E, alive_n, costs = [], [], [], []
+    born_n, died_n = [], []
     for t in range(steps):
         if sched is not None:
             # цена читается в pond.py:813 на каждом шаге, поэтому менять её из зонда безопасно
@@ -133,6 +134,9 @@ def run_once(arm: str, seed: int, steps: int, stream: str | None = None,
         alive = s.alive
         n = int(alive.sum())
         alive_n.append(n)
+        # X53: деления и смерти — поведенческая переменная. В поле её нет (§10du), в пруду она уже считается.
+        born_n.append(int(getattr(s, "born", 0)))
+        died_n.append(int(getattr(s, "died", 0)))
         if sched is not None:
             costs.append(round(float(sched[t]), 5))
         if n:
@@ -159,6 +163,8 @@ def run_once(arm: str, seed: int, steps: int, stream: str | None = None,
             "cost_low": cost_low if cost_period else None, "cost_high": cost_high if cost_period else None,
             "cost_shuffle": bool(cost_shuffle),
             "alive_series": alive_n,
+            "born_series": born_n,
+            "died_series": died_n,
             "S": S, "E": E,
             "final": {"alive": alive_n[-1] if alive_n else 0,
                       "resource_mean": float(run.pond.state.resource.mean())}}
