@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-24T08:56:08Z",
+  "updated_at": "2026-10-31T19:58:05Z",
   "items": [
     {
       "id": "L-001",
@@ -675,6 +675,104 @@
         "ref": "docs/world-design.md#10bf"
       },
       "created_at": "2026-10-27"
+    },
+    {
+      "id": "L-042",
+      "status": "new",
+      "question": "Сетка и разрешение в исследованиях Грея–Скотта: какие сетки и dx стандартны и как делается измельчение",
+      "why": "Наши числа получены на сетке 96 при фиксированном Du. Davis 2023 показал, что в U-Skate разрешение задаётся коэффициентом 1/dx² при диффузии, значит сравнение 96/128 — другая физика, а не сходимость. Нужны: работы, где указаны стандартные сетки и процедура сеточного измельчения для спотовых режимов, начиная с Pearson 1993 (он проверял 256–1024).",
+      "target": {
+        "kind": "experiment",
+        "id": "X58_grid_scaling",
+        "ref": "docs/world-design.md"
+      },
+      "created_at": "2026-10-31",
+      "requested_by": "lead",
+      "deliverable": "полный текст в library/corpus/texts/ + запись в scripts/corpus_manifest.py KNOWN"
+    },
+    {
+      "id": "L-043",
+      "status": "new",
+      "question": "Счёт компонент против перколяции и персистентной гомологии как наблюдаемая в непрерывных средах",
+      "why": "Мы утверждаем, что число пороговых компонент меряет изрезанность, а не тела. Нужны работы, где эта наблюдаемая либо используется как законная, либо заменяется перколяцией / персистентной гомологией: Joe 2016 (persistence landscapes на Грее–Скотте), Spector et al. 2025 (Turing patterns), и любые другие.",
+      "target": {
+        "kind": "experiment",
+        "id": "§10de, X26",
+        "ref": "docs/world-design.md"
+      },
+      "created_at": "2026-10-31",
+      "requested_by": "lead",
+      "deliverable": "полный текст в library/corpus/texts/ + запись в scripts/corpus_manifest.py KNOWN"
+    },
+    {
+      "id": "L-044",
+      "status": "new",
+      "question": "Отслеживание идентичности структур в непрерывных средах: стандартные методы",
+      "why": "Мы наследуем uid по перекрытию >= 0.5 и получаем времена жизни (медиана 57 против 4046). Нужно: стандартные методы отслеживания (watershed, персистентная гомология, оптимальный транспорт), чувствительность времени жизни к порогу перекрытия и поправка на плотность срезов при уменьшении dt.",
+      "target": {
+        "kind": "experiment",
+        "id": "X23, §10dc",
+        "ref": "docs/world-design.md"
+      },
+      "created_at": "2026-10-31",
+      "requested_by": "lead",
+      "deliverable": "полный текст в library/corpus/texts/ + запись в scripts/corpus_manifest.py KNOWN"
+    },
+    {
+      "id": "L-045",
+      "status": "new",
+      "question": "Принятые формулировки для discretisation-dependent (non-Platonic) результатов",
+      "why": "Нужен язык, которым поле описывает «эффект существует в этой схеме и не существует в пределе»: определение Davis 2023 (iff есть более грубые параметры, где паттерн устойчив), примеры формулировок в статьях, и есть ли принятая конвенция сообщать диапазон dt, в котором эффект держится.",
+      "target": {
+        "kind": "experiment",
+        "id": "X56, §10dv",
+        "ref": "docs/world-design.md"
+      },
+      "created_at": "2026-10-31",
+      "requested_by": "lead",
+      "deliverable": "полный текст в library/corpus/texts/ + запись в scripts/corpus_manifest.py KNOWN"
+    },
+    {
+      "id": "L-046",
+      "status": "new",
+      "question": "Опубликованные случаи, где биологическая интерпретация паттерна Грея–Скотта или реакции–диффузии оказалась численным артефактом",
+      "why": "Ищем случаи с четырьмя элементами: исходное утверждение, дефект, процедура, которая его нашла, изменение интерпретации. Нужно понять, существует ли такой случай, или честная формулировка — «не документировано».",
+      "target": {
+        "kind": "experiment",
+        "id": "Q6, library/lit-reading-list.md",
+        "ref": "docs/world-design.md"
+      },
+      "created_at": "2026-10-31",
+      "requested_by": "lead",
+      "deliverable": "полный текст в library/corpus/texts/ + запись в scripts/corpus_manifest.py KNOWN"
+    },
+    {
+      "id": "L-047",
+      "status": "new",
+      "question": "Переходное против стационарного в паттерно-образующих системах: как поле отделяет временное преимущество от устойчивого",
+      "why": "Мы нашли, что контраст неоднородности убывает с +4.00 до плато +1.00 при dt=1.0 и до нуля при dt=0.5. Нужны работы, где временная динамика метрики разнообразия/числа паттернов отделяется от стационарного значения, и принятые способы это сообщать.",
+      "target": {
+        "kind": "experiment",
+        "id": "X57, §10dw",
+        "ref": "docs/world-design.md"
+      },
+      "created_at": "2026-10-31",
+      "requested_by": "lead",
+      "deliverable": "полный текст в library/corpus/texts/ + запись в scripts/corpus_manifest.py KNOWN"
+    },
+    {
+      "id": "L-048",
+      "status": "new",
+      "question": "Что из verification & validation применимо к агентным и ALife-моделям",
+      "why": "Канон V&V (Oberkampf & Roy 2010) написан для PDE. Нужны работы о V&V для agent-based / ALife / клеточных моделей: какие проверки переносятся, какие нет, и что считается стандартом в ALife-сообществе.",
+      "target": {
+        "kind": "experiment",
+        "id": "AGENTS §3d, docs/design-checks.md",
+        "ref": "docs/world-design.md"
+      },
+      "created_at": "2026-10-31",
+      "requested_by": "lead",
+      "deliverable": "полный текст в library/corpus/texts/ + запись в scripts/corpus_manifest.py KNOWN"
     }
   ]
 }

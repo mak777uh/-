@@ -4,7 +4,7 @@
 
 The curated page — what matters and why — is [`scripts.md`](scripts.md). This file is the complete list, so that every command behind a number in the record can be found.
 
-Scripts: **172**.
+Scripts: **173**.
 
 ## Гейты и проверки (41)
 
@@ -164,7 +164,7 @@ Scripts: **172**.
 | `make_seed_grid_figure.py` | Собрать Figure 4 рукописи: сетка «инициализация × порядок данных» (§4.13). |
 | `make_simple_poster.py` | Простой постер для владельца: что мы узнали, без терминов. |
 
-## Прочее (44)
+## Прочее (45)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -181,6 +181,7 @@ Scripts: **172**.
 | `coexistence_metrics.py` | coexistence_metrics.py — метрики сосуществования линий из СУЩЕСТВУЮЩИХ артефактов (0 GPU). |
 | `compare.py` | Второй фильтр сравнения: не одно число, а распределение по сидам (B-008, I-014). |
 | `contrast_stationarity.py` | contrast_stationarity.py — стационарен ли контраст «неоднородность минус однородность». |
+| `corpus_manifest.py` | corpus_manifest.py — манифест корпуса: что в нём, зачем и насколько прочитано. |
 | `e02c_seed_grid.py` | Собрать 2×2-сетку «инициализация × порядок данных» и применить критерий H-E02C-6. |
 | `entrainment.py` | entrainment.py — захватывает ли мир ритм входного потока (энтрейнмент), и связано ли это с «энергией». |
 | `farm_reader.py` | farm_reader.py — читать результаты фермы GitHub Actions. |

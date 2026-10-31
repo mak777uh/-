@@ -219,7 +219,10 @@ def main(argv: list[str] | None = None) -> int:
     # по умолчанию — список
     for item in data["items"]:
         mark = "✓" if item["status"] == "done" else "•"
-        print(f"{mark} {item['id']} [{','.join(item['kinds'])}] {item['text'][:70]}")
+        # 31.10: у новых пунктов поля question/why вместо text/kinds — поддерживаем оба формата
+        label = item.get("text") or item.get("question") or ""
+        kinds = ",".join(item.get("kinds") or []) or "—"
+        print(f"{mark} {item['id']} [{kinds}] {label[:70]}")
     return 0
 
 
