@@ -17,6 +17,9 @@ experiment ledger below is bilingual by design.
 
 ---
 
+
+**Где мы сейчас:** одна страница со всем, что установлено, отменено и осталось непонятным — [`docs/current-model.md`](docs/current-model.md).
+
 ## 1. Research question
 
 We ask what a *minimal* digital world can support. The concrete object is a 32×32 pond with cells
