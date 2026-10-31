@@ -1,0 +1,338 @@
+{
+  "kind": "field_track",
+  "model": "Грей–Скотт + отслеживание компонент: каждая компонента имеет свой состав, наследуемый при расщеплении с мутацией; состав влияет на локальный F",
+  "params": {
+    "steps": 6000,
+    "grid": 96,
+    "dt": 1.0,
+    "seed": 180,
+    "device": "cuda",
+    "Du": 0.16,
+    "Dv": 0.08,
+    "F": 0.035,
+    "k": 0.06,
+    "eps": 0.0,
+    "global_noise_amp": 0.0,
+    "global_noise_rate": 0.05,
+    "global_noise_seed": 0,
+    "hetero_amp": 0.5,
+    "hetero_scale": 12.0,
+    "hetero_signal": "lab/streams/const_ones.json",
+    "hetero_period": 0.0,
+    "hetero_shuffle": false,
+    "buffer_tau": 0.0,
+    "protect_fading": 0.0,
+    "buffer_rescue": false,
+    "buffer_gain": 0.0,
+    "invade_s": null,
+    "invade_radius": 3.0,
+    "invade_at": 2000,
+    "invade_threshold": 1.2,
+    "freq_dep": 1.0,
+    "bin_width": 0.2,
+    "beta": 0.2,
+    "s_ref": 1.0,
+    "mutation": 0.15,
+    "threshold": 0.2,
+    "min_cells": 5,
+    "overlap": 0.5,
+    "sample_every": 500
+  },
+  "series": [
+    {
+      "step": 1,
+      "invader_area": 0,
+      "areas": [
+        29
+      ],
+      "components": 1,
+      "s_mean": 1.0651,
+      "s_sd_between": 0.0,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.0031
+    },
+    {
+      "step": 500,
+      "invader_area": 0,
+      "areas": [
+        185,
+        160,
+        95
+      ],
+      "components": 3,
+      "s_mean": 1.0127,
+      "s_sd_between": 0.157,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.0477
+    },
+    {
+      "step": 1000,
+      "invader_area": 0,
+      "areas": [
+        1199,
+        143,
+        97,
+        27
+      ],
+      "components": 4,
+      "s_mean": 1.3961,
+      "s_sd_between": 0.3636,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.1591
+    },
+    {
+      "step": 1500,
+      "invader_area": 0,
+      "areas": [
+        709,
+        585,
+        241,
+        205,
+        74,
+        53,
+        52,
+        51,
+        47,
+        47,
+        47,
+        43,
+        38,
+        36,
+        32,
+        30,
+        30,
+        27,
+        14
+      ],
+      "components": 19,
+      "s_mean": 0.9216,
+      "s_sd_between": 0.2961,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.2563
+    },
+    {
+      "step": 2000,
+      "invader_area": 0,
+      "areas": [
+        1063,
+        675,
+        113,
+        109,
+        87,
+        82,
+        79,
+        74,
+        66,
+        57,
+        51,
+        51,
+        47,
+        47,
+        38,
+        37,
+        35,
+        35,
+        34,
+        32,
+        30,
+        26,
+        25,
+        23,
+        23,
+        23,
+        19,
+        18,
+        18,
+        17,
+        17,
+        17,
+        17,
+        16,
+        12,
+        12,
+        12,
+        11
+      ],
+      "components": 38,
+      "s_mean": 0.8831,
+      "s_sd_between": 0.2756,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.3417
+    },
+    {
+      "step": 2500,
+      "invader_area": 0,
+      "areas": [
+        3700,
+        85,
+        59,
+        42,
+        40,
+        25,
+        25,
+        22,
+        19,
+        17,
+        15
+      ],
+      "components": 11,
+      "s_mean": 0.8684,
+      "s_sd_between": 0.386,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.4393
+    },
+    {
+      "step": 3000,
+      "invader_area": 0,
+      "areas": [
+        5795,
+        27,
+        20
+      ],
+      "components": 3,
+      "s_mean": 1.2806,
+      "s_sd_between": 0.3229,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.6339
+    },
+    {
+      "step": 3500,
+      "invader_area": 0,
+      "areas": [
+        5540
+      ],
+      "components": 1,
+      "s_mean": 1.5899,
+      "s_sd_between": 0.0,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.6011
+    },
+    {
+      "step": 4000,
+      "invader_area": 0,
+      "areas": [
+        5893,
+        103
+      ],
+      "components": 2,
+      "s_mean": 1.5064,
+      "s_sd_between": 0.4003,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.6506
+    },
+    {
+      "step": 4500,
+      "invader_area": 0,
+      "areas": [
+        4781
+      ],
+      "components": 1,
+      "s_mean": 3.2116,
+      "s_sd_between": 0.0,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.5188
+    },
+    {
+      "step": 5000,
+      "invader_area": 0,
+      "areas": [
+        5169,
+        120
+      ],
+      "components": 2,
+      "s_mean": 3.2337,
+      "s_sd_between": 0.0422,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.5739
+    },
+    {
+      "step": 5500,
+      "invader_area": 0,
+      "areas": [
+        3994,
+        34,
+        24,
+        19,
+        10,
+        8
+      ],
+      "components": 6,
+      "s_mean": 3.5301,
+      "s_sd_between": 0.1817,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.4437
+    },
+    {
+      "step": 6000,
+      "invader_area": 0,
+      "areas": [
+        6420
+      ],
+      "components": 1,
+      "s_mean": 2.8023,
+      "s_sd_between": 0.0,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.6966
+    }
+  ],
+  "selection": {
+    "s_mean_first": 1.0651,
+    "s_mean_last": 2.8023,
+    "s_sd_between_last": 0.0,
+    "splits": 422,
+    "parent_child_pairs": 991,
+    "inheritability_r": 0.991,
+    "invader_rate": null,
+    "invader_curve": []
+  },
+  "buffer": {
+    "protect_fading": 0.0,
+    "tau": 0.0,
+    "gain": 0.0,
+    "rescue": false,
+    "mean_last": 0.0
+  },
+  "global_noise": {
+    "amp": 0.0,
+    "rate": 0.05
+  },
+  "heterogeneity": {
+    "amp": 0.5,
+    "scale": 12.0,
+    "signal": "lab/streams/const_ones.json",
+    "shuffled": false,
+    "components_last": 1
+  },
+  "lifetimes": {
+    "n_uids": 6,
+    "median_life_steps": 80,
+    "life_steps": [
+      1,
+      2,
+      75,
+      80,
+      103,
+      5999
+    ],
+    "peak_sizes": [
+      8189,
+      119,
+      85,
+      74,
+      41,
+      5
+    ]
+  },
+  "criteria": {
+    "S1_shift_gt_2sd": null,
+    "S2_inheritability_ge_0.5": true,
+    "S3_survives_doubling": "проверяется сравнением с прогоном вдвое длиннее",
+    "S4_control_eps0": "проверяется прогоном с --eps 0"
+  },
+  "note": "S1 требует сравнения с контролем: сдвиг среднего считается от контроля, а не от старта, потому что состав дрейфует и в контроле",
+  "not_claimed": [
+    "что отбор доказан: нужно сравнение с контролем eps=0 и удвоенный горизонт",
+    "что правило сопоставления оптимально: порог перекрытия 0.5 фиксирован до данных",
+    "что структуры устойчивы к сетке: не проверялось"
+  ]
+}

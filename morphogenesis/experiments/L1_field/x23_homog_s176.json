@@ -1,0 +1,293 @@
+{
+  "kind": "field_track",
+  "model": "Грей–Скотт + отслеживание компонент: каждая компонента имеет свой состав, наследуемый при расщеплении с мутацией; состав влияет на локальный F",
+  "params": {
+    "steps": 6000,
+    "grid": 96,
+    "dt": 1.0,
+    "seed": 176,
+    "device": "cuda",
+    "Du": 0.16,
+    "Dv": 0.08,
+    "F": 0.035,
+    "k": 0.06,
+    "eps": 0.0,
+    "global_noise_amp": 0.0,
+    "global_noise_rate": 0.05,
+    "global_noise_seed": 0,
+    "hetero_amp": 0.5,
+    "hetero_scale": 12.0,
+    "hetero_signal": null,
+    "hetero_period": 0.0,
+    "hetero_shuffle": false,
+    "buffer_tau": 0.0,
+    "protect_fading": 0.0,
+    "buffer_rescue": false,
+    "buffer_gain": 0.0,
+    "invade_s": null,
+    "invade_radius": 3.0,
+    "invade_at": 2000,
+    "invade_threshold": 1.2,
+    "freq_dep": 1.0,
+    "bin_width": 0.2,
+    "beta": 0.2,
+    "s_ref": 1.0,
+    "mutation": 0.15,
+    "threshold": 0.2,
+    "min_cells": 5,
+    "overlap": 0.5,
+    "sample_every": 500
+  },
+  "series": [
+    {
+      "step": 1,
+      "invader_area": 0,
+      "areas": [
+        29
+      ],
+      "components": 1,
+      "s_mean": 0.9701,
+      "s_sd_between": 0.0,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.0031
+    },
+    {
+      "step": 500,
+      "invader_area": 0,
+      "areas": [
+        468
+      ],
+      "components": 1,
+      "s_mean": 0.9701,
+      "s_sd_between": 0.0,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.0508
+    },
+    {
+      "step": 1000,
+      "invader_area": 0,
+      "areas": [
+        784
+      ],
+      "components": 1,
+      "s_mean": 0.9701,
+      "s_sd_between": 0.0,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.0851
+    },
+    {
+      "step": 1500,
+      "invader_area": 0,
+      "areas": [
+        1464
+      ],
+      "components": 1,
+      "s_mean": 0.9701,
+      "s_sd_between": 0.0,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.1589
+    },
+    {
+      "step": 2000,
+      "invader_area": 0,
+      "areas": [
+        1292,
+        271,
+        179,
+        176,
+        12,
+        7
+      ],
+      "components": 6,
+      "s_mean": 0.8632,
+      "s_sd_between": 0.2283,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.2104
+    },
+    {
+      "step": 2500,
+      "invader_area": 0,
+      "areas": [
+        1222,
+        1021,
+        397,
+        140,
+        106,
+        87,
+        86,
+        42,
+        38,
+        33,
+        29
+      ],
+      "components": 11,
+      "s_mean": 0.7681,
+      "s_sd_between": 0.2757,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.3473
+    },
+    {
+      "step": 3000,
+      "invader_area": 0,
+      "areas": [
+        3221,
+        178,
+        83,
+        81,
+        51,
+        36,
+        28,
+        26,
+        20,
+        11
+      ],
+      "components": 10,
+      "s_mean": 0.7212,
+      "s_sd_between": 0.2383,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.4053
+    },
+    {
+      "step": 3500,
+      "invader_area": 0,
+      "areas": [
+        4535,
+        95,
+        70,
+        51,
+        32,
+        21,
+        14
+      ],
+      "components": 7,
+      "s_mean": 0.795,
+      "s_sd_between": 0.2934,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.5228
+    },
+    {
+      "step": 4000,
+      "invader_area": 0,
+      "areas": [
+        4710,
+        69,
+        65,
+        21,
+        5
+      ],
+      "components": 5,
+      "s_mean": 0.8064,
+      "s_sd_between": 0.3394,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.5284
+    },
+    {
+      "step": 4500,
+      "invader_area": 0,
+      "areas": [
+        4481,
+        64
+      ],
+      "components": 2,
+      "s_mean": 1.1079,
+      "s_sd_between": 0.2139,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.4932
+    },
+    {
+      "step": 5000,
+      "invader_area": 0,
+      "areas": [
+        4480,
+        65
+      ],
+      "components": 2,
+      "s_mean": 1.1079,
+      "s_sd_between": 0.2139,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.4932
+    },
+    {
+      "step": 5500,
+      "invader_area": 0,
+      "areas": [
+        4491,
+        62
+      ],
+      "components": 2,
+      "s_mean": 1.1079,
+      "s_sd_between": 0.2139,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.494
+    },
+    {
+      "step": 6000,
+      "invader_area": 0,
+      "areas": [
+        4500,
+        61
+      ],
+      "components": 2,
+      "s_mean": 1.1079,
+      "s_sd_between": 0.2139,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.4949
+    }
+  ],
+  "selection": {
+    "s_mean_first": 0.9701,
+    "s_mean_last": 1.1079,
+    "s_sd_between_last": 0.2139,
+    "splits": 33,
+    "parent_child_pairs": 74,
+    "inheritability_r": 0.829,
+    "invader_rate": null,
+    "invader_curve": []
+  },
+  "buffer": {
+    "protect_fading": 0.0,
+    "tau": 0.0,
+    "gain": 0.0,
+    "rescue": false,
+    "mean_last": 0.0
+  },
+  "global_noise": {
+    "amp": 0.0,
+    "rate": 0.05
+  },
+  "heterogeneity": {
+    "amp": 0.5,
+    "scale": 12.0,
+    "signal": null,
+    "shuffled": false,
+    "components_last": 2
+  },
+  "lifetimes": {
+    "n_uids": 4,
+    "median_life_steps": 1055,
+    "life_steps": [
+      2,
+      18,
+      1055,
+      5999
+    ],
+    "peak_sizes": [
+      4774,
+      146,
+      6,
+      5
+    ]
+  },
+  "criteria": {
+    "S1_shift_gt_2sd": null,
+    "S2_inheritability_ge_0.5": true,
+    "S3_survives_doubling": "проверяется сравнением с прогоном вдвое длиннее",
+    "S4_control_eps0": "проверяется прогоном с --eps 0"
+  },
+  "note": "S1 требует сравнения с контролем: сдвиг среднего считается от контроля, а не от старта, потому что состав дрейфует и в контроле",
+  "not_claimed": [
+    "что отбор доказан: нужно сравнение с контролем eps=0 и удвоенный горизонт",
+    "что правило сопоставления оптимально: порог перекрытия 0.5 фиксирован до данных",
+    "что структуры устойчивы к сетке: не проверялось"
+  ]
+}

@@ -1,0 +1,235 @@
+{
+  "kind": "adequacy_mi",
+  "experiment": "X44",
+  "command": "python scripts/adequacy_mi.py --write",
+  "metric": {
+    "excess_under": "I(Δэнергия; Δресурс под живыми на t+1) минус перемешанный контроль, бит",
+    "excess_empty": "то же для ресурса в пустых клетках (то, чего организм не касается)"
+  },
+  "design": {
+    "bins": 8,
+    "shuffles": 20,
+    "steps": 700,
+    "income": 0.02,
+    "arms": [
+      "cost",
+      "cheap",
+      "free"
+    ]
+  },
+  "by_arm": {
+    "cheap": {
+      "under": {
+        "n": 5,
+        "median_excess": 0.0184,
+        "positive": 5
+      },
+      "empty": {
+        "n": 5,
+        "median_excess": 0.0,
+        "positive": 0
+      }
+    },
+    "cost": {
+      "under": {
+        "n": 5,
+        "median_excess": 0.0386,
+        "positive": 5
+      },
+      "empty": {
+        "n": 5,
+        "median_excess": 0.0,
+        "positive": 0
+      }
+    },
+    "free": {
+      "under": {
+        "n": 5,
+        "median_excess": 0.0188,
+        "positive": 5
+      },
+      "empty": {
+        "n": 5,
+        "median_excess": 0.0,
+        "positive": 1
+      }
+    }
+  },
+  "runs": {
+    "cheap": [
+      {
+        "seed": 171,
+        "alive_last": 2046,
+        "alive_max": 2077,
+        "mi_under": 0.0078,
+        "noise_under": 0.0009,
+        "excess_under": 0.0069,
+        "mi_empty": 0.0012,
+        "noise_empty": 0.0016,
+        "excess_empty": -0.0004
+      },
+      {
+        "seed": 172,
+        "alive_last": 2020,
+        "alive_max": 2023,
+        "mi_under": 0.0106,
+        "noise_under": 0.0071,
+        "excess_under": 0.0034,
+        "mi_empty": 0.0007,
+        "noise_empty": 0.0007,
+        "excess_empty": 0.0
+      },
+      {
+        "seed": 173,
+        "alive_last": 1931,
+        "alive_max": 1950,
+        "mi_under": 0.0388,
+        "noise_under": 0.0025,
+        "excess_under": 0.0363,
+        "mi_empty": 0.0019,
+        "noise_empty": 0.0019,
+        "excess_empty": 0.0
+      },
+      {
+        "seed": 174,
+        "alive_last": 2027,
+        "alive_max": 2058,
+        "mi_under": 0.0195,
+        "noise_under": 0.0011,
+        "excess_under": 0.0184,
+        "mi_empty": 0.001,
+        "noise_empty": 0.001,
+        "excess_empty": 0.0
+      },
+      {
+        "seed": 175,
+        "alive_last": 2023,
+        "alive_max": 2025,
+        "mi_under": 0.0548,
+        "noise_under": 0.0008,
+        "excess_under": 0.054,
+        "mi_empty": 0.0009,
+        "noise_empty": 0.0009,
+        "excess_empty": 0.0
+      }
+    ],
+    "cost": [
+      {
+        "seed": 171,
+        "alive_last": 1469,
+        "alive_max": 1469,
+        "mi_under": 0.0404,
+        "noise_under": 0.0013,
+        "excess_under": 0.0391,
+        "mi_empty": 0.0014,
+        "noise_empty": 0.0017,
+        "excess_empty": -0.0003
+      },
+      {
+        "seed": 172,
+        "alive_last": 1475,
+        "alive_max": 1478,
+        "mi_under": 0.0329,
+        "noise_under": 0.0031,
+        "excess_under": 0.0297,
+        "mi_empty": 0.0014,
+        "noise_empty": 0.002,
+        "excess_empty": -0.0006
+      },
+      {
+        "seed": 173,
+        "alive_last": 1666,
+        "alive_max": 1676,
+        "mi_under": 0.0271,
+        "noise_under": 0.0005,
+        "excess_under": 0.0266,
+        "mi_empty": 0.0007,
+        "noise_empty": 0.0007,
+        "excess_empty": 0.0
+      },
+      {
+        "seed": 174,
+        "alive_last": 1558,
+        "alive_max": 1566,
+        "mi_under": 0.0395,
+        "noise_under": 0.0009,
+        "excess_under": 0.0386,
+        "mi_empty": 0.0012,
+        "noise_empty": 0.0012,
+        "excess_empty": 0.0
+      },
+      {
+        "seed": 175,
+        "alive_last": 1339,
+        "alive_max": 1343,
+        "mi_under": 0.0508,
+        "noise_under": 0.0007,
+        "excess_under": 0.0502,
+        "mi_empty": 0.0009,
+        "noise_empty": 0.0009,
+        "excess_empty": 0.0
+      }
+    ],
+    "free": [
+      {
+        "seed": 171,
+        "alive_last": 2046,
+        "alive_max": 2077,
+        "mi_under": 0.0078,
+        "noise_under": 0.0009,
+        "excess_under": 0.0069,
+        "mi_empty": 0.0012,
+        "noise_empty": 0.0017,
+        "excess_empty": -0.0006
+      },
+      {
+        "seed": 172,
+        "alive_last": 2020,
+        "alive_max": 2023,
+        "mi_under": 0.0108,
+        "noise_under": 0.0074,
+        "excess_under": 0.0034,
+        "mi_empty": 0.0009,
+        "noise_empty": 0.0009,
+        "excess_empty": 0.0
+      },
+      {
+        "seed": 173,
+        "alive_last": 1931,
+        "alive_max": 1950,
+        "mi_under": 0.047,
+        "noise_under": 0.0063,
+        "excess_under": 0.0407,
+        "mi_empty": 0.0043,
+        "noise_empty": 0.0018,
+        "excess_empty": 0.0025
+      },
+      {
+        "seed": 174,
+        "alive_last": 2027,
+        "alive_max": 2058,
+        "mi_under": 0.0199,
+        "noise_under": 0.0011,
+        "excess_under": 0.0188,
+        "mi_empty": 0.001,
+        "noise_empty": 0.001,
+        "excess_empty": 0.0
+      },
+      {
+        "seed": 175,
+        "alive_last": 2023,
+        "alive_max": 2025,
+        "mi_under": 0.0531,
+        "noise_under": 0.0008,
+        "excess_under": 0.0522,
+        "mi_empty": 0.001,
+        "noise_empty": 0.001,
+        "excess_empty": 0.0
+      }
+    ]
+  },
+  "not_claimed": [
+    "5 сидов на плечо",
+    "resource_empty — среднее по пустым клеткам, а не конкретная точка"
+  ]
+}

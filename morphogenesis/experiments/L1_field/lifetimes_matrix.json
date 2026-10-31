@@ -1,0 +1,97 @@
+{
+  "kind": "lifetimes_matrix",
+  "experiment": "X23",
+  "command": "python scripts/field_lifetimes.py --write",
+  "metric": {
+    "median_life_steps": "медиана времени жизни структуры (uid), шагов",
+    "durable_per_run": "структур на прогон, живущих >= 1500 шагов",
+    "ephemeral_per_run": "структур на прогон, живущих меньше порога",
+    "median_peak_size": "медиана пиковой площади структуры, клеток",
+    "share_durable": "доля структур с жизнью >= порога (по всем структурам всех прогонов)",
+    "share_short": "доля структур с жизнью <= 500 шагов"
+  },
+  "design": {
+    "seeds": [
+      171,
+      172,
+      173,
+      174,
+      175,
+      176,
+      177,
+      178,
+      179,
+      180
+    ],
+    "durable_threshold": 1500,
+    "sample_every": 500,
+    "note": "по 10 сидов на плечо; доборы с сидами 181–200 в агрегат не входят"
+  },
+  "by_arm": {
+    "static": {
+      "n_files": 10,
+      "files": [
+        "x23_static_s171.json",
+        "x23_static_s172.json",
+        "x23_static_s173.json",
+        "x23_static_s174.json",
+        "x23_static_s175.json",
+        "x23_static_s176.json",
+        "x23_static_s177.json",
+        "x23_static_s178.json",
+        "x23_static_s179.json",
+        "x23_static_s180.json"
+      ],
+      "uids_total": 59,
+      "median_life_steps": 57,
+      "durable_per_run": 1.3,
+      "ephemeral_per_run": 4.6,
+      "structures_per_run": 5.9,
+      "median_peak_size": 97,
+      "share_durable": 0.22,
+      "share_short": 0.746
+    },
+    "homog": {
+      "n_files": 10,
+      "files": [
+        "x23_homog_s171.json",
+        "x23_homog_s172.json",
+        "x23_homog_s173.json",
+        "x23_homog_s174.json",
+        "x23_homog_s175.json",
+        "x23_homog_s176.json",
+        "x23_homog_s177.json",
+        "x23_homog_s178.json",
+        "x23_homog_s179.json",
+        "x23_homog_s180.json"
+      ],
+      "uids_total": 17,
+      "median_life_steps": 4046,
+      "durable_per_run": 1.2,
+      "ephemeral_per_run": 0.5,
+      "structures_per_run": 1.7,
+      "median_peak_size": 4575,
+      "share_durable": 0.706,
+      "share_short": 0.235
+    }
+  },
+  "excluded_files": [
+    "x23_homog_s180.json",
+    "x23_static_s180.json",
+    "x23_static_s181.json",
+    "x23_static_s182.json",
+    "x23_static_s183.json",
+    "x23_static_s184.json"
+  ],
+  "contrast": {
+    "durable_static": 1.3,
+    "durable_homog": 1.2,
+    "median_life_static": 57,
+    "median_life_homog": 4046
+  },
+  "not_claimed": [
+    "«долгоживущая» = пережившая 1500 шагов из 6000; порог выбран как четверть прогона",
+    "uid наследуется по перекрытию >= 0.5, поэтому слияния считаются продолжением одной структуры",
+    "время жизни короче 500 шагов не разрешается (срез каждые 500)"
+  ]
+}
