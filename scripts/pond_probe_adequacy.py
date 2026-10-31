@@ -29,6 +29,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import random
 import sys
 from pathlib import Path
 
@@ -46,8 +47,29 @@ ARMS = {
 }
 
 
+def cost_schedule(steps: int, period: int, cheap_share: float, low: float, high: float,
+                  shuffle: bool, seed: int) -> list[float]:
+    """X42: расписание цены обслуживания. Дешёвая фаза — окно роста, дорогая — окно нужды.
+
+    При `shuffle` тот же набор значений (и та же доля дешёвых) идёт в случайном порядке: ритм есть, а
+    предсказуемости нет. Это контроль на то, что мера ловит именно ритм, а не уровень цены.
+    """
+    n_cheap = max(1, int(round(period * cheap_share)))
+    block = [low] * n_cheap + [high] * (period - n_cheap)
+    sched: list[float] = []
+    rng = random.Random(seed * 7919 + 17)
+    while len(sched) < steps:
+        chunk = list(block)
+        if shuffle:
+            rng.shuffle(chunk)
+        sched.extend(chunk)
+    return sched[:steps]
+
+
 def run_once(arm: str, seed: int, steps: int, stream: str | None = None,
-             stream_coupling: float = 1.0, plastic: bool = False, plastic_eta: float = 0.3) -> dict:
+             stream_coupling: float = 1.0, plastic: bool = False, plastic_eta: float = 0.3,
+             cost_period: int = 0, cost_cheap_share: float = 0.4, cost_low: float = 0.002,
+             cost_high: float = 0.02, cost_shuffle: bool = False) -> dict:
     import random
 
     import numpy as np
@@ -87,8 +109,16 @@ def run_once(arm: str, seed: int, steps: int, stream: str | None = None,
         run.pond.state.income_scale = torch.ones((cfg.grid, cfg.grid), device="cpu")
     run.seed(cells=4, energy=8.0)
 
-    S, E, alive_n = [], [], []
+    sched = (cost_schedule(steps, cost_period, cost_cheap_share, cost_low, cost_high, cost_shuffle, seed)
+             if cost_period > 0 else None)
+    if sched is not None:
+        run.pond.cfg.update_cost = float(sched[0])
+
+    S, E, alive_n, costs = [], [], [], []
     for t in range(steps):
+        if sched is not None:
+            # цена читается в pond.py:813 на каждом шаге, поэтому менять её из зонда безопасно
+            run.pond.cfg.update_cost = float(sched[t])
         run.step()
         if t % SAMPLE_EVERY:
             continue
@@ -96,6 +126,8 @@ def run_once(arm: str, seed: int, steps: int, stream: str | None = None,
         alive = s.alive
         n = int(alive.sum())
         alive_n.append(n)
+        if sched is not None:
+            costs.append(round(float(sched[t]), 5))
         if n:
             S.append({
                 "energy": float(s.energy[alive].to(torch.float32).mean()),
@@ -115,6 +147,10 @@ def run_once(arm: str, seed: int, steps: int, stream: str | None = None,
             "stream_value_at_sample": [stream_values[i] for i in range(0, min(len(stream_values or []), steps), SAMPLE_EVERY)]
             if stream_values else None,
             "plastic": bool(plastic),
+            "cost_schedule": costs or None,
+            "cost_period": cost_period, "cost_cheap_share": cost_cheap_share if cost_period else None,
+            "cost_low": cost_low if cost_period else None, "cost_high": cost_high if cost_period else None,
+            "cost_shuffle": bool(cost_shuffle),
             "alive_series": alive_n,
             "S": S, "E": E,
             "final": {"alive": alive_n[-1] if alive_n else 0,
@@ -135,6 +171,14 @@ def main(argv=None) -> int:
     ap.add_argument("--plastic", action="store_true", help="X41: включить пластичность (plastic_eta)")
     ap.add_argument("--plastic-eta", type=float, default=0.3)
     ap.add_argument("--label", default=None, help="метка плеча для артефакта")
+    ap.add_argument("--cost-period", type=int, default=0,
+                    help="X42: период колебания цены обслуживания (0 = цена постоянна)")
+    ap.add_argument("--cost-cheap-share", type=float, default=0.4,
+                    help="X42: доля периода, когда цена низкая (окно роста)")
+    ap.add_argument("--cost-low", type=float, default=0.002, help="X42: низкая цена (update_cost)")
+    ap.add_argument("--cost-high", type=float, default=0.02, help="X42: высокая цена (update_cost)")
+    ap.add_argument("--cost-shuffle", action="store_true",
+                    help="X42: перемешать фазы (тот же набор цен, случайный порядок) — контроль на ритм")
     args = ap.parse_args(argv)
 
     out = Path(args.out)
@@ -146,11 +190,13 @@ def main(argv=None) -> int:
                 seed = args.seed_start + k
                 print(f"[x33] {arm} seed={seed}", flush=True)
                 runs.append(run_once(arm, seed, args.steps, args.stream, args.stream_coupling,
-                                     args.plastic, args.plastic_eta))
+                                     args.plastic, args.plastic_eta, args.cost_period,
+                                     args.cost_cheap_share, args.cost_low, args.cost_high, args.cost_shuffle))
     else:
         for k in range(args.seeds):
             runs.append(run_once(args.arm or "cost", args.seed_start + k, args.steps, args.stream,
-                                 args.stream_coupling, args.plastic, args.plastic_eta))
+                                 args.stream_coupling, args.plastic, args.plastic_eta, args.cost_period,
+                                 args.cost_cheap_share, args.cost_low, args.cost_high, args.cost_shuffle))
 
     out.write_text(json.dumps({"kind": "x33_adequacy", "runs": runs}, ensure_ascii=False, indent=2) + "\n",
                    encoding="utf-8", newline="\n")
