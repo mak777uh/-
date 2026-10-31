@@ -200,7 +200,13 @@ world breaks earlier (at 0.25 the largest share is 0.764 against 0.982): its net
 threshold counts more pieces in it.
 
 Hence the precise definition of our quantity: "number of threshold components" is a measure of the **fraying of one
-percolation cluster**, not a number of bodies and not a number of types. Such a cluster has no boundary of its own
+percolation cluster**, not a number of bodies and not a number of types.
+
+This is a multi-threshold statement, and multi-threshold analysis of Gray–Scott already exists: Joe (2016) analyses
+the model with **persistence landscapes** over a concentration threshold, and Spector, Harrington & Gaffney (2025)
+classify Turing patterns by persistence homology. Our sweep is in effect a β₀(threshold) curve, and we cite it as
+such rather than as a new idea; what we add is the observation that in *our two regimes* the count at one threshold is
+uninformative about the number of bodies. Such a cluster has no boundary of its own
 (it depends on the threshold) and no reproduction as a whole, so it cannot be called an individual.
 
 ### 4.11. Heredity is stipulated by code, not emergent
@@ -214,6 +220,16 @@ implementation. An adoption control does not remove this problem: it would test 
 
 What remains empirical is **selection** through this trait (0.957 → 1.294), because decay genuinely depends on `s`.
 The honest formulation: "a trait that **we** made heritable is subject to selection".
+
+**A correction we owe to external review (31.10).** Five independent model reviews answered eight of our open
+questions. Two answers changed our text. First, our measure of "adequacy" — mutual information between first
+differences — **manufactures lag information out of a purely simultaneous response**: if the environment is
+independent noise and the state merely copies it, the differenced series share a term with opposite signs, giving a
+correlation of −0.5 and about 0.2 bits with no predictive ability at all. Our numbers (+0.0386 against 0.0000) must
+therefore be read as *predictive dependence inside the consumption loop*, not as prediction. Second, memory is
+necessary only for a **departed** cue: a memoryless system predicts perfectly when the current signal already
+determines the future. The line "truth about the outside" is therefore not closed as logically impossible; what is
+established is narrower — *without a retained state only the currently visible signal is usable*.
 
 **An attempt to make transmission physical** (`X32`). The trait was moved into the medium — a slowly diffusing field
 `h`; decay depends on the local value, and a component's trait is **read** from the field. Result: `r = 1.0` on
@@ -283,6 +299,13 @@ the income ceiling is **0.008** per step. The **cost** of existence is **0.03**.
 
 **A cell paid almost four times more than it could physically earn.** No pattern, no selection and no metric can
 repair that: the medium is uninhabitable **by a constant**.
+
+**The break-even point is `b = 0.0075`** (`b_crit = cost / 4`). Our own sweep shows that the *working* threshold lies
+**above** break-even: at `b = 0.010` (ratio 1.33) the population still dies (maximum 274 cells), and only `b = 0.02`
+(2.67) survives in 10 of 10 runs. That is sharper than "uninhabitable by a constant": the boundary is 0.0075, and the
+practical threshold is higher. The principle itself is classical — maintenance energy (Pirt 1965) and the
+`P_F = P_S − P_M` condition of NutMEG — so our contribution here is a **methodological warning**: check habitability
+before interpreting an absence of adaptation.
 
 **A sweep over the coefficient** (cost fixed, 1200 steps):
 
