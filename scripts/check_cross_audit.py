@@ -49,6 +49,7 @@ def resolve_commit(sha: str) -> bool:
 
 
 def provenance_warnings() -> list[str]:
+    info: list[str] = []
     """Входящий аудит обязан называть коммит и дату; нерезолвящийся коммит — предупреждение.
 
     Откуда (30.10): рецензия lexspec была снята с клона месячной давности, но в шапке стоял только хеш, и
@@ -66,7 +67,13 @@ def provenance_warnings() -> list[str]:
         head = "\n".join(f.read_text(encoding="utf-8", errors="replace").splitlines()[:25])
         for sha in set(re.findall(r"\b[0-9a-f]{7,40}\b", head)):
             if not resolve_commit(sha):
-                out.append(f"{rel}: коммит {sha} не резолвится в нашей истории — снимок чужой или устаревший")
+                # Для файла с маркером внешнего происхождения нерезолвящийся коммит — НОРМА: это коммит
+                # чужого репозитория. Правило «коммит и дата в шапке» защищает от аудитов, снятых с нашей
+                # ветки; такие файлы ловит offenders() (без маркера → rc 1). Здесь — только сведения.
+                if MARKERS.search(head):
+                    info.append(f"{rel}: коммит {sha} чужого репозитория (ожидаемо для внешнего снимка)")
+                else:
+                    out.append(f"{rel}: коммит {sha} не резолвится в нашей истории — снимок чужой или устаревший")
         if not re.search(r"\d{1,2}[.\-]\d{1,2}[.\-]\d{2,4}|дата|date", head, re.IGNORECASE):
             out.append(f"{rel}: в шапке нет даты")
     return out
@@ -79,6 +86,7 @@ def main(argv=None) -> int:
 
     bad = offenders()
     warns = provenance_warnings()
+    infos = getattr(provenance_warnings, "info", [])
     for w in warns:
         print("[cross-audit] предупреждение:", w)
 

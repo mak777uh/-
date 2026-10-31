@@ -78,7 +78,11 @@ def is_new_row(claim: str, evidence: str) -> bool:
     return NEW_ROW_DATE in claim or NEW_ROW_DATE in evidence
 
 
-def main() -> int:
+def main(argv: list[str] | None = None) -> int:
+    # Флагов немного, поэтому разбор ручной: --strict делает «статистику без артефакта» ошибкой.
+    import sys as _sys
+    argv = list(_sys.argv[1:] if argv is None else argv)
+    strict = "--strict" in argv
     if not CLAIMS.exists():
         print(f"[claims_lint] нет файла {CLAIMS}")
         return 1
@@ -117,6 +121,9 @@ def main() -> int:
             errors.append(f"строка {lineno}: основание «доказательство», но нет ссылки на formal/")
         if kind == "статистика" and not existing:
             msg = f"строка {lineno}: основание «статистика», но ни один артефакт не существует ({paths[:3]})"
+            if strict:
+                errors.append(msg)
+                continue
             (errors if new else warnings).append(msg)
         if kind == "тест" and not any("test" in p for p in existing):
             msg = f"строка {lineno}: основание «тест», но нет существующего теста"

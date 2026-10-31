@@ -50,7 +50,7 @@ def check_no_sorry() -> tuple[bool, float, str]:
 def main() -> int:
     steps: list[tuple[str, list[str], Path | None]] = [
         ("контракт (lab.py validate)", [PY, "scripts/lab.py", "validate"], None),
-        ("матрица утверждений (claims_lint)", [PY, "scripts/claims_lint.py"], None),
+        ("матрица утверждений (claims_lint --strict)", [PY, "scripts/claims_lint.py", "--strict"], None),
         ("ссылки на разделы рукописи", [PY, "scripts/check_section_refs.py"], None),
         ("витрина не отстаёт от результатов", [PY, "scripts/check_readme_fresh.py"], None),
         ("ревью оформлены как проверки", [PY, "scripts/check_reviews.py"], None),
