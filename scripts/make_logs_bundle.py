@@ -71,6 +71,7 @@ PARTS: list[tuple[str, list[str]]] = [
     ("article", ["articles/028-pole-bez-zadannyh-obektov.md",
                  "reports/2026-10-31-publication-package.md"]),
     ("docs", ["docs/world-design.md"]),
+    ("legal", ["LICENSE", "CITATION.cff"]),
     ("code", ["scripts/field_track.py", "scripts/l1_field_matrix.py", "scripts/claim_comparator.py",
               "scripts/pond_probe_adequacy.py", "scripts/make_periodic_stream.py"]),
 ]
