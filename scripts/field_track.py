@@ -90,6 +90,13 @@ def main(argv=None) -> int:
     ap.add_argument("--global-noise-rate", type=float, default=0.05,
                     help="X18: как часто меняется глобальный сигнал (доля шага: 1.0 = каждый шаг)")
     ap.add_argument("--global-noise-seed", type=int, default=0, help="X18: сид глобального сигнала")
+    ap.add_argument("--trait-field", action="store_true",
+                    help="X32: признак живёт В СРЕДЕ (медленно диффундирующее поле h), а не в словаре наблюдателя; "
+                         "тогда наследование — следствие динамики, а не присваивания")
+    ap.add_argument("--trait-diffusion", type=float, default=0.02, help="X32: коэффициент диффузии признака (<< Du)")
+    ap.add_argument("--trait-decay", type=float, default=0.0, help="X32: возврат признака к s_ref за шаг")
+    ap.add_argument("--trait-mutation", type=float, default=0.02, help="X32: шум признака в живых клетках за шаг")
+    ap.add_argument("--trait-init", type=float, default=1.0, help="X32: стартовое значение признака")
     ap.add_argument("--hetero-amp", type=float, default=0.0,
                     help="E7: сила пространственной неоднородности притока: F(x,y) = F*(1 + amp*(2S(t)-1)*(2G(x,y)-1))")
     ap.add_argument("--hetero-scale", type=float, default=12.0, help="масштаб пространственного узора G (клеток)")
@@ -146,6 +153,10 @@ def main(argv=None) -> int:
     xx = torch.arange(g, device=dev).view(1, -1).expand(g, g)
     c, r0 = g // 2, max(2.0, 3.0 / (g / 96.0))
     m = ((xx - c) ** 2 + (yy - c) ** 2) <= r0 * r0
+    h_trait = None
+    if args.trait_field:
+        # X32: признак — поле, а не словарь. Стартует однородным; вариация появляется из шума в живых клетках.
+        h_trait = torch.full_like(v, float(args.trait_init))
     v = torch.where(m, torch.full_like(v, 1.0), v)
     u = torch.where(m, torch.full_like(u, 0.25), u)
 
@@ -208,8 +219,23 @@ def main(argv=None) -> int:
                 modk_np[prev_lab == cid] = float(np.clip(1.0 + beta_eff * (args.s_ref - s_val), 0.3, 2.5))
             mod = torch.tensor(mod_np, device=dev)
             mod_k = torch.tensor(modk_np, device=dev)
+        if h_trait is not None:
+            # X32: признак диффундирует медленно, возвращается к s_ref и мутирует ТОЛЬКО в живых клетках.
+            # Тогда дочерняя структура получает признак из среды, а не присваиванием.
+            h_trait = h_trait + args.dt * (
+                args.trait_diffusion * laplacian(h_trait)
+                - args.trait_decay * (h_trait - float(args.s_ref))
+            )
+            h_trait = h_trait + args.trait_mutation * torch.randn(
+                h_trait.shape, generator=torch.Generator(device=dev).manual_seed(int(args.seed) + step),
+                device=dev) * (v > float(args.threshold)).float()
+            h_trait = torch.clamp(h_trait, 0.3, 2.5)
+            # распад зависит от ЛОКАЛЬНОГО признака, а не от компоненты
+            k_eff = args.k * torch.clamp(1.0 + args.beta * (args.s_ref - h_trait), 0.3, 2.5)
+            mod_k = torch.ones_like(k_eff)
+
         F_eff = args.F * mod
-        k_eff = args.k * mod_k
+        k_eff = args.k * mod_k if h_trait is None else k_eff
         if args.protect_fading > 0:
             # E12c: защита гаснущего через распад, а не через приток
             k_eff = k_eff * torch.clamp(1.0 - args.protect_fading * torch.clamp(1.0 - v, 0.0, 1.0), 0.3, 1.0)
@@ -258,6 +284,12 @@ def main(argv=None) -> int:
             total = int(sizes_th.sum()) if len(sizes_th) else 0
             threshold_counts.setdefault(str(th), []).append(
                 {"step": step, "n": n_th, "largest_share": round(biggest / total, 4) if total else None})
+
+        if h_trait is not None:
+            # признак компоненты — среднее поля по её клеткам (физическое чтение, а не словарь)
+            h_np = h_trait.detach().cpu().numpy()
+            comp_s = {cid: float(h_np[lab == cid].mean()) for cid in range(1, n_comp + 1)
+                      if int((lab == cid).sum()) > 0}
 
         sizes = {cid: int((lab == cid).sum()) for cid in range(1, n_comp + 1)}
         keep = [cid for cid, sz in sizes.items() if sz >= args.min_cells]
