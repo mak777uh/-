@@ -7,7 +7,7 @@ Written 1 November 2026. Short page for whoever uploads. The laboratory-side rea
 
 ## 0. What this version is, in one paragraph
 
-The release of 31 October (DOI `10.5281/zenodo.23839898`) is published and correct. Three tests run on 31 October **qualified its main
+The release of 31 October (DOI `10.5281/zenodo.23844978`) is published and correct. Three tests run on 31 October **qualified its main
 number**: the heterogeneity contrast is not a steady-state doubling, it is a time integral that includes an early
 transient, its magnitude depends on the time step (+3.57 at `dt = 1.0`, +1.24 at `dt = 0.5`), and the grid comparison in
 the paper was never a refinement test. One sentence in §4.5 of the published text — "a steady state, not a transient" —

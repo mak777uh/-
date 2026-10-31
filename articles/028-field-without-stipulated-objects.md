@@ -3,7 +3,7 @@
 **Version:** v1.6 (2026-10-31), English edition of v1.4
 **Author:** Vladimirov Ilia Sergeevich
 **License:** CC0 1.0 (public domain) — see `LICENSE`
-**DOI:** [10.5281/zenodo.23839898](https://doi.org/10.5281/zenodo.23839898) (Zenodo, v1.5.1; concept DOI `10.5281/zenodo.23839897`)
+**DOI:** [10.5281/zenodo.23844978](https://doi.org/10.5281/zenodo.23844978) (Zenodo, v1.6; concept DOI `10.5281/zenodo.23839897`)
 **Status:** an article about a finished line of work; two claims were weakened and one conclusion rewritten after
 external review and a code check.
 
