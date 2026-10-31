@@ -46,7 +46,8 @@ ARMS = {
 }
 
 
-def run_once(arm: str, seed: int, steps: int) -> dict:
+def run_once(arm: str, seed: int, steps: int, stream: str | None = None,
+             stream_coupling: float = 1.0, plastic: bool = False, plastic_eta: float = 0.3) -> dict:
     import random
 
     import numpy as np
@@ -60,13 +61,30 @@ def run_once(arm: str, seed: int, steps: int) -> dict:
     random.seed(int(seed))
     np.random.seed(int(seed))
 
-    cfg = PondConfig(**ARMS[arm])
+    over = dict(ARMS[arm])
+    stream_values = None
+    if stream:
+        raw = json.loads(Path(stream).read_text(encoding="utf-8"))
+        stream_values = [float(v) for v in (raw.get("values") or [])]
+        over["inflow_coupling"] = float(stream_coupling)
+        over["inflow_stream_mode"] = "global"
+        over["inflow_target"] = "income"
+    if plastic:
+        over["plastic_eta"] = float(plastic_eta)
+    cfg = PondConfig(**over)
+    if stream_values:
+        # как в run_pond.py: `inflow_values` и `inflow_scale` — атрибуты, а не поля dataclass
+        cfg.inflow_values = list(stream_values)
+        cfg.inflow_scale = torch.ones((cfg.grid, cfg.grid), device="cpu")
     # Без обученного правила мир вымирает: CNCA по умолчанию — случайные веса, и «жизнь» в нём
     # не держится (проверено: все варианты дали 0 живых к 200 шагам). Серии пруда используют
     # замороженное правило — берём его же.
     rule = ROOT / "morphogenesis" / "checkpoints" / "world_base_rule.pt"
     run = PondRun(world_cfg=cfg, seed=seed, device="cpu",
                   rule_checkpoint=str(rule) if rule.exists() else None)
+    if stream_values:
+        # как в run_pond.py:1321 — множитель притока выделяет сам прогон, а не конфиг
+        run.pond.state.income_scale = torch.ones((cfg.grid, cfg.grid), device="cpu")
     run.seed(cells=4, energy=8.0)
 
     S, E, alive_n = [], [], []
@@ -93,6 +111,10 @@ def run_once(arm: str, seed: int, steps: int) -> dict:
             E.append({"resource_under_alive": None, "resource_empty": float(s.resource.mean())})
 
     return {"arm": arm, "seed": seed, "steps": steps, "sample_every": SAMPLE_EVERY,
+            "stream": Path(stream).name if stream else None,
+            "stream_value_at_sample": [stream_values[i] for i in range(0, min(len(stream_values or []), steps), SAMPLE_EVERY)]
+            if stream_values else None,
+            "plastic": bool(plastic),
             "alive_series": alive_n,
             "S": S, "E": E,
             "final": {"alive": alive_n[-1] if alive_n else 0,
@@ -107,6 +129,12 @@ def main(argv=None) -> int:
     ap.add_argument("--seed-start", type=int, default=1)
     ap.add_argument("--steps", type=int, default=1200)
     ap.add_argument("--out", required=True)
+    ap.add_argument("--stream", default=None,
+                    help="X41: JSON-ряд притока (периодический или его перемешанная копия)")
+    ap.add_argument("--stream-coupling", type=float, default=1.0)
+    ap.add_argument("--plastic", action="store_true", help="X41: включить пластичность (plastic_eta)")
+    ap.add_argument("--plastic-eta", type=float, default=0.3)
+    ap.add_argument("--label", default=None, help="метка плеча для артефакта")
     args = ap.parse_args(argv)
 
     out = Path(args.out)
@@ -117,10 +145,12 @@ def main(argv=None) -> int:
             for k in range(args.series):
                 seed = args.seed_start + k
                 print(f"[x33] {arm} seed={seed}", flush=True)
-                runs.append(run_once(arm, seed, args.steps))
+                runs.append(run_once(arm, seed, args.steps, args.stream, args.stream_coupling,
+                                     args.plastic, args.plastic_eta))
     else:
         for k in range(args.seeds):
-            runs.append(run_once(args.arm or "cost", args.seed_start + k, args.steps))
+            runs.append(run_once(args.arm or "cost", args.seed_start + k, args.steps, args.stream,
+                                 args.stream_coupling, args.plastic, args.plastic_eta))
 
     out.write_text(json.dumps({"kind": "x33_adequacy", "runs": runs}, ensure_ascii=False, indent=2) + "\n",
                    encoding="utf-8", newline="\n")
