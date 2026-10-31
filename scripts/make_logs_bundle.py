@@ -27,6 +27,37 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 
+BUNDLE_README = """# Пакет данных к статье «Поле без заданных объектов» (v1.4)
+
+Файлов: {count}, распакованный объём: {mib:.1f} МиБ, сводный sha256 содержимого: `{sha}`.
+
+## Что внутри
+
+- `articles/028-pole-bez-zadannyh-obektov.md` — статья;
+- `reports/2026-10-31-publication-package.md` — инструкция по публикации и вычитке;
+- `morphogenesis/experiments/L1_field/` — 251 артефакт линии поля и агрегат `l1_field_matrix.json`;
+- `morphogenesis/experiments/E09_pond/habitable/` — 10 прогонов обитаемости и `habitable_matrix.json`;
+- `morphogenesis/experiments/E09_pond/adequacy/` — 15 прогонов адекватности и `adequacy_matrix.json`;
+- `lab/claims/` — утверждения с допущениями, бюджетом и ссылками на артефакты;
+- `lab/runs/`, `morphogenesis/logs/journal.jsonl` — манифесты прогонов и канонический журнал;
+- `docs/world-design.md` — полный план линии с оговорками;
+- `scripts/` — код воспроизведения;
+- `MANIFEST.json` — путь, размер и sha256 каждого файла.
+
+## Как проверить целостность
+
+Распаковать и сверить любой файл с `MANIFEST.json`, либо (если есть этот скрипт):
+
+    python scripts/make_logs_bundle.py --verify <архив>.zip
+
+Ожидаемый вывод: `битых 0, отсутствующих 0, сводный хеш совпадает: True`.
+
+## Чего в пакете нет
+
+Весов моделей (`.pt`), stdout-логов и чужих текстов: по контракту лаборатории в архив едет след, а не файлы
+моделей. Отсутствие весов не мешает пересчитать все числа статьи — они считаются из JSON-артефактов.
+"""
+
 # Категории: (префикс в архиве, glob-шаблоны относительно корня репозитория)
 PARTS: list[tuple[str, list[str]]] = [
     ("journal", ["morphogenesis/logs/journal.jsonl"]),
@@ -35,9 +66,13 @@ PARTS: list[tuple[str, list[str]]] = [
     ("aggregates", ["morphogenesis/experiments/L1_field/l1_field_matrix.json",
                     "lab/registry.json", "lab/queue.json", "lab/metrics.json"]),
     ("artifacts", ["morphogenesis/experiments/L1_field/*.json"]),
-    ("article", ["articles/028-pole-bez-zadannyh-obektov.md"]),
+    ("habitable", ["morphogenesis/experiments/E09_pond/habitable/*.json"]),
+    ("adequacy", ["morphogenesis/experiments/E09_pond/adequacy/*.json"]),
+    ("article", ["articles/028-pole-bez-zadannyh-obektov.md",
+                 "reports/2026-10-31-publication-package.md"]),
     ("docs", ["docs/world-design.md"]),
-    ("code", ["scripts/field_track.py", "scripts/l1_field_matrix.py", "scripts/claim_comparator.py"]),
+    ("code", ["scripts/field_track.py", "scripts/l1_field_matrix.py", "scripts/claim_comparator.py",
+              "scripts/pond_probe_adequacy.py", "scripts/make_periodic_stream.py"]),
 ]
 
 
@@ -79,6 +114,9 @@ def build(out_path: Path) -> dict:
         for p in files:
             z.write(p, p.relative_to(ROOT).as_posix())
         z.writestr("MANIFEST.json", json.dumps(manifest, ensure_ascii=False, indent=2) + "\n")
+        z.writestr("README-BUNDLE.md", BUNDLE_README.format(count=manifest["file_count"],
+                                                          mib=manifest["total_bytes"] / (1 << 20),
+                                                          sha=manifest["content_sha256"]))
     return manifest
 
 

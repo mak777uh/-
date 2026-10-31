@@ -100,6 +100,18 @@ def main(argv=None) -> int:
                     help="X34: шум только там, где геометрия напряжена (|∇²v| велик, то есть у мест пережима). "
                          "Тогда сёстры расходятся, и отбор получает материал")
     ap.add_argument("--trait-init", type=float, default=1.0, help="X32: стартовое значение признака")
+    # X45: канал внешнего — поле-подсказка, которое НЕ потребляется, предсказывает будущее и не является
+    # следствием организма. При `off` поведение обязано остаться бит-в-бит (якорь).
+    ap.add_argument("--cue-mode", choices=["off", "moving", "static", "shuffled"], default="off",
+                    help="X45: поле-подсказка. moving — полоса едет с постоянной скоростью (предсказуемо); "
+                         "static — стоит; shuffled — положение случайно каждый срез (связи с будущим нет)")
+    ap.add_argument("--cue-speed", type=float, default=1.0, help="X45: скорость полосы, клеток за срез")
+    ap.add_argument("--cue-width", type=float, default=6.0, help="X45: полушырина полосы, клеток")
+    ap.add_argument("--cue-gamma", type=float, default=0.0,
+                    help="X45: сила влияния подсказки на распад: k_eff *= (1 + gamma*c)")
+    ap.add_argument("--cue-kappa", type=float, default=0.0,
+                    help="X45: сила влияния подсказки на признак: h += kappa*c (только при trait-field)")
+    ap.add_argument("--cue-seed", type=int, default=0, help="X45: сид для режима shuffled")
     ap.add_argument("--hetero-amp", type=float, default=0.0,
                     help="E7: сила пространственной неоднородности притока: F(x,y) = F*(1 + amp*(2S(t)-1)*(2G(x,y)-1))")
     ap.add_argument("--hetero-scale", type=float, default=12.0, help="масштаб пространственного узора G (клеток)")
@@ -157,6 +169,26 @@ def main(argv=None) -> int:
     c, r0 = g // 2, max(2.0, 3.0 / (g / 96.0))
     m = ((xx - c) ** 2 + (yy - c) ** 2) <= r0 * r0
     h_trait = None
+    cue_pos = 0.0
+    cue_rng = np.random.default_rng(int(args.cue_seed) + 4241)
+
+    def cue_field(shape, g, step_i):
+        """Полоса-подсказка: 1 в полосе, 0 вне. Не потребляется, в реакциях не участвует."""
+        nonlocal cue_pos
+        if args.cue_mode == "off":
+            return None
+        if args.cue_mode == "moving":
+            pos = (float(args.cue_speed) * step_i) % g
+            centre = pos
+        elif args.cue_mode == "static":
+            centre = g / 2.0
+        else:  # shuffled: положение случайно каждый срез, связи с будущим нет
+            centre = float(cue_rng.uniform(0, g))
+        xs = np.arange(g, dtype=float)
+        d = np.abs(((xs - centre + g / 2) % g) - g / 2)   # тороидальное расстояние
+        prof = np.exp(-0.5 * (d / max(1e-6, float(args.cue_width))) ** 2)
+        return np.tile(prof, (g, 1))
+
     if args.trait_field:
         # X32: признак — поле, а не словарь. Стартует однородным; вариация появляется из шума в живых клетках.
         h_trait = torch.full_like(v, float(args.trait_init))
@@ -223,6 +255,9 @@ def main(argv=None) -> int:
                 modk_np[prev_lab == cid] = float(np.clip(1.0 + beta_eff * (args.s_ref - s_val), 0.3, 2.5))
             mod = torch.tensor(mod_np, device=dev)
             mod_k = torch.tensor(modk_np, device=dev)
+        cue_np = cue_field((g, g), g, step)
+        cue_t = torch.tensor(cue_np, device=dev, dtype=torch.float32) if cue_np is not None else None
+
         if h_trait is not None:
             # X32: признак диффундирует медленно, возвращается к s_ref и мутирует ТОЛЬКО в живых клетках.
             # Тогда дочерняя структура получает признак из среды, а не присваиванием.
@@ -242,9 +277,14 @@ def main(argv=None) -> int:
                 h_trait = h_trait + args.trait_mutation * noise * weight
             else:
                 h_trait = h_trait + args.trait_mutation * noise * (v > float(args.threshold)).float()
+            if cue_t is not None and args.cue_kappa != 0.0:
+                # X45: подсказка двигает признак в живых клетках; она НЕ расходуется и не даёт энергии
+                h_trait = h_trait + args.cue_kappa * cue_t * (v > float(args.threshold)).float()
             h_trait = torch.clamp(h_trait, 0.3, 2.5)
             # распад зависит от ЛОКАЛЬНОГО признака, а не от компоненты
             k_eff = args.k * torch.clamp(1.0 + args.beta * (args.s_ref - h_trait), 0.3, 2.5)
+            if cue_t is not None and args.cue_gamma != 0.0:
+                k_eff = k_eff * (1.0 + args.cue_gamma * cue_t)
             mod_k = torch.ones_like(k_eff)
 
         F_eff = args.F * mod
@@ -414,6 +454,7 @@ def main(argv=None) -> int:
                 "occupied": round(float(mask.mean()), 4),
                 # X37/X39: журнал компонент по срезам — uid, признак, площадь.
                 # Без него нельзя ни дифференциал отбора по выжившим (X37), ни активность по типам (X39).
+                "cue_centre": (float(np.argmax(cue_np[0])) if cue_np is not None else None),
                 "components_log": [
                     {"uid": comp_uid.get(cid), "s": round(float(comp_s[cid]), 4) if cid in comp_s else None,
                      "area": int((prev_lab == cid).sum())}
