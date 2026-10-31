@@ -69,7 +69,8 @@ def cost_schedule(steps: int, period: int, cheap_share: float, low: float, high:
 def run_once(arm: str, seed: int, steps: int, stream: str | None = None,
              stream_coupling: float = 1.0, plastic: bool = False, plastic_eta: float = 0.3,
              cost_period: int = 0, cost_cheap_share: float = 0.4, cost_low: float = 0.002,
-             cost_high: float = 0.02, cost_shuffle: bool = False) -> dict:
+             cost_high: float = 0.02, cost_shuffle: bool = False,
+             floor: float = 0.0, income: float | None = None) -> dict:
     import random
 
     import numpy as np
@@ -93,6 +94,10 @@ def run_once(arm: str, seed: int, steps: int, stream: str | None = None,
         over["inflow_target"] = "income"
     if plastic:
         over["plastic_eta"] = float(plastic_eta)
+    if floor > 0.0:
+        over["alive_floor"] = float(floor)
+    if income is not None:
+        over["baseline_income"] = float(income)
     cfg = PondConfig(**over)
     if stream_values:
         # как в run_pond.py: `inflow_values` и `inflow_scale` — атрибуты, а не поля dataclass
@@ -177,6 +182,10 @@ def main(argv=None) -> int:
                     help="X42: доля периода, когда цена низкая (окно роста)")
     ap.add_argument("--cost-low", type=float, default=0.002, help="X42: низкая цена (update_cost)")
     ap.add_argument("--cost-high", type=float, default=0.02, help="X42: высокая цена (update_cost)")
+    ap.add_argument("--income", type=float, default=None,
+                    help="X43: baseline_income (доход). Максимум дохода за шаг = 4*income*own")
+    ap.add_argument("--floor", type=float, default=0.0,
+                    help="X43: порог ресурса (хемостат); 0 = выключено")
     ap.add_argument("--cost-shuffle", action="store_true",
                     help="X42: перемешать фазы (тот же набор цен, случайный порядок) — контроль на ритм")
     args = ap.parse_args(argv)
@@ -191,12 +200,14 @@ def main(argv=None) -> int:
                 print(f"[x33] {arm} seed={seed}", flush=True)
                 runs.append(run_once(arm, seed, args.steps, args.stream, args.stream_coupling,
                                      args.plastic, args.plastic_eta, args.cost_period,
-                                     args.cost_cheap_share, args.cost_low, args.cost_high, args.cost_shuffle))
+                                     args.cost_cheap_share, args.cost_low, args.cost_high, args.cost_shuffle,
+                                     args.floor, args.income))
     else:
         for k in range(args.seeds):
             runs.append(run_once(args.arm or "cost", args.seed_start + k, args.steps, args.stream,
                                  args.stream_coupling, args.plastic, args.plastic_eta, args.cost_period,
-                                 args.cost_cheap_share, args.cost_low, args.cost_high, args.cost_shuffle))
+                                 args.cost_cheap_share, args.cost_low, args.cost_high, args.cost_shuffle,
+                                 args.floor, args.income))
 
     out.write_text(json.dumps({"kind": "x33_adequacy", "runs": runs}, ensure_ascii=False, indent=2) + "\n",
                    encoding="utf-8", newline="\n")

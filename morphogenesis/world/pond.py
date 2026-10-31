@@ -38,7 +38,9 @@ class PondConfig:
 
     grid: int = 64
     resource_max: float = 1.0
-    resource_regen: float = 0.02      # сколько ресурса прибывает за шаг на клетку
+    resource_regen: float = 0.02
+    alive_floor: float = 0.0        # X43: нижний порог ресурса (хемостат). 0 = поведения нет
+    alive_floor_noise: float = 0.0  # X43: шум порога (0 = ровный хемостат)      # сколько ресурса прибывает за шаг на клетку
     update_cost: float = 0.01         # цена одного обновления живой клетки
     baseline_income: float = 0.002    # доход клетки из ресурса за шаг
     budding_mass: float = 64          # сколько живых клеток нужно для споры
@@ -671,6 +673,14 @@ class Pond:
         self.state.resource = torch.minimum(
             torch.clamp(self.state.resource + inflow + noise, min=0.0), ceiling
         )
+        if cfg.alive_floor > 0.0:
+            # X43: хемостат — ресурс не опускается ниже порога. Тогда доход клетки не может упасть до нуля,
+            # и появляется шанс на равновесие «доход >= расход» (которого в пруду сейчас нет, §10dm).
+            floor = torch.full_like(self.state.resource, float(cfg.alive_floor))
+            if cfg.alive_floor_noise > 0.0:
+                floor = floor + cfg.alive_floor_noise * torch.randn(
+                    floor.shape, generator=self.gen, device=self.device)
+            self.state.resource = torch.maximum(self.state.resource, torch.minimum(floor.clamp(min=0.0), ceiling))
         # второй тип ресурса: отрицательная частотная зависимость (I-030).
         # Тип, который едят больше, восстанавливается медленнее; недоедаемый — быстрее.
         if self.state.resource_b is not None:
