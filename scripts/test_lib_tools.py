@@ -500,6 +500,9 @@ def test_lead_brief_and_slots(tmp: Path) -> None:
     check("lead_brief: pending отвечает", before.returncode == 0, before.stdout[-200:])
     slots = run("library/tools/slots.py", "--days", "1")
     check("slots: отчёт печатается", "пропусков всего" in slots.stdout, slots.stdout[-200:])
+    today = slots.stdout.splitlines()[0] if slots.stdout else ""
+    check("slots: сегодняшние будущие слоты не считаются пропуском",
+          "пропущено" not in today or "ещё не" in today, today[:200])
 
 
 def main() -> int:

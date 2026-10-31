@@ -41,8 +41,14 @@ def audit(day: str) -> list[tuple[str, bool, str]]:
             if (rec.get("at") or "").startswith(day):
                 records.append(rec["at"])
     evening = (REPO / "library" / f"science-review-{day}.md").exists()
+    now = datetime.datetime.now()
+    is_today = day == now.date().isoformat()
+    now_min = now.hour * 60 + now.minute
     out = []
     for name, target in SLOTS:
+        if is_today and now_min < target:
+            out.append((name, True, "ещё не наступил"))  # будущий слот не считается пропуском
+            continue
         hit = any(m is not None and abs(m - target) <= WINDOW for m in map(minutes, records))
         if name == "21:40":
             hit = hit or evening
