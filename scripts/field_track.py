@@ -111,6 +111,12 @@ def main(argv=None) -> int:
                     help="X45: сила влияния подсказки на распад: k_eff *= (1 + gamma*c)")
     ap.add_argument("--cue-kappa", type=float, default=0.0,
                     help="X45: сила влияния подсказки на признак: h += kappa*c (только при trait-field)")
+    ap.add_argument("--cue-period", type=int, default=0,
+                    help="X49: период импульсных событий в шагах (0 = не импульсы). Событие = вспышка k-модуляции")
+    ap.add_argument("--cue-skip-from", type=int, default=-1,
+                    help="X49: с этого шага импульсы в окне [from, to) ПРОПУСКАЮТСЯ (дизайн Саигусы)")
+    ap.add_argument("--cue-skip-to", type=int, default=-1,
+                    help="X49: до этого шага импульсы пропускаются")
     ap.add_argument("--cue-memory-tau", type=float, default=0.0,
                     help="X48: медленная переменная-память m(x,y), интегрирующая поле события: "
                          "m += (1/tau)*(c - m). Распад зависит от m, а не от мгновенного c. 0 = памяти нет")
@@ -268,7 +274,15 @@ def main(argv=None) -> int:
             mod_k = torch.tensor(modk_np, device=dev)
         # X46: событие действует СЕЙЧАС, подсказка показывает, где оно будет через `lead` шагов.
         # При lead = 0 оба поля совпадают и поведение прежнее (якорь).
-        effect_np = cue_field((g, g), g, step)
+        pulse_on = True
+        if args.cue_period > 0:
+            # X49: импульс в начале каждого периода; ширина импульса — cue_width шагов
+            phase = step % int(args.cue_period)
+            pulse_on = phase < max(1, int(args.cue_width))
+            if args.cue_skip_from >= 0 and args.cue_skip_to > args.cue_skip_from:
+                if int(args.cue_skip_from) <= step < int(args.cue_skip_to):
+                    pulse_on = False
+        effect_np = cue_field((g, g), g, step) if pulse_on else None
         cue_np = cue_field((g, g), g, step + int(args.cue_lead)) if args.cue_lead else effect_np
         cue_t = torch.tensor(effect_np, device=dev, dtype=torch.float32) if effect_np is not None else None
         # X48: память о прошлом ходе события. Обновляется ДО применения к распаду, поэтому в момент t
@@ -492,6 +506,7 @@ def main(argv=None) -> int:
                 # X37/X39: журнал компонент по срезам — uid, признак, площадь.
                 # Без него нельзя ни дифференциал отбора по выжившим (X37), ни активность по типам (X39).
                 "event_centre": (float(np.argmax(effect_np[0])) if effect_np is not None else None),
+                "pulse_on": bool(pulse_on),   # X49: было ли событие в этом шаге (не зависит от положения среза)
                 "cue_centre": (float(np.argmax(cue_np[0])) if cue_np is not None else None),
                 "components_log": [
                     {"uid": comp_uid.get(cid), "s": round(float(comp_s[cid]), 4) if cid in comp_s else None,
