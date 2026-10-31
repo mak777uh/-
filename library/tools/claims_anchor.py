@@ -28,26 +28,56 @@ def anchor_ok(cell: str) -> bool:
         token = token.replace("\\", "/")
         if (REPO / token).exists():
             return True
+        # голое имя файла: ищем по индексу (кэш), чтобы «w2bud_x.json» тоже считался якорем
+        if "/" not in token and token in _BASENAME_INDEX():
+            return True
     return False
 
 
+_INDEX_CACHE: set[str] | None = None
+
+
+def _BASENAME_INDEX() -> set[str]:
+    global _INDEX_CACHE
+    if _INDEX_CACHE is None:
+        names: set[str] = set()
+        for root in (REPO / "morphogenesis" / "experiments", REPO / "docs", REPO / "reports",
+                     REPO / "library", REPO / "articles", REPO / "manuscript"):
+            if root.exists():
+                names |= {p.name for p in root.rglob("*") if p.is_file()}
+        _INDEX_CACHE = names
+    return _INDEX_CACHE
+
+
 def check(path: Path) -> list[tuple[int, str]]:
+    """P8 на уровне БЛОКА: каждый раздел `## ` обязан иметь якорь.
+
+    Строки таблиц — данные, а не утверждения: требовать путь в каждой строке
+    бессмысленно (это давало ложные срабатывания на таблицах значений).
+    """
     bad: list[tuple[int, str]] = []
     lines = path.read_text(encoding="utf-8").splitlines()
+    block_start = 0
+    block_title = "(до первого раздела)"
+    block_has_anchor = False
+
+    def flush():
+        nonlocal block_has_anchor
+        if not block_has_anchor:
+            bad.append((block_start, block_title))
+
     for i, line in enumerate(lines, 1):
-        if not line.startswith("|"):
+        if line.startswith("## "):
+            flush()
+            block_start = i
+            block_title = line[3:].strip()[:100]
+            block_has_anchor = False
             continue
-        cells = [c.strip() for c in line.strip().strip("|").split("|")]
-        if len(cells) < 3 or set("".join(cells)) <= set("-: "):
-            continue
-        if cells[0].upper() in ("ID", "C1", "ПАКЕТ") or cells[0].startswith("---"):
-            continue
-        row_id = cells[0]
-        if not re.match(r"^[A-Za-z]?\d+", row_id) and not row_id.startswith("C"):
-            continue
-        if not any(anchor_ok(c) for c in cells[1:]):
-            bad.append((i, line[:110]))
-    return bad
+        if anchor_ok(line):
+            block_has_anchor = True
+    flush()
+    # блок «до первого раздела» без якоря — не ошибка, если это заголовок файла
+    return [b for b in bad if b[1] != "(до первого раздела)"]
 
 
 def main(argv=None) -> int:

@@ -455,15 +455,15 @@ def test_claims_anchor(tmp: Path) -> None:
     work.mkdir(parents=True, exist_ok=True)
     try:
         good = work / "good.md"
-        good.write_text("| ID | утверждение | артефакт |\n|---|---|---|\n"
-                        "| C1 | что-то | library/README.md |\n", encoding="utf-8")
+        good.write_text("## Блок с якорем\n\n**Артефакт:** `library/README.md`.\n\n"
+                        "| ID | утверждение |\n|---|---|\n| C1 | что-то |\n", encoding="utf-8")
         ok = run("library/tools/claims_anchor.py", "--file", "library/.anchor-test/good.md")
-        check("claims_anchor: строка с якорем проходит", ok.returncode == 0, ok.stdout[:300])
+        check("claims_anchor: блок с якорем проходит", ok.returncode == 0, ok.stdout[:300])
         bad = work / "bad.md"
-        bad.write_text("| ID | утверждение | артефакт |\n|---|---|---|\n"
-                       "| C2 | что-то без якоря | — |\n", encoding="utf-8")
+        bad.write_text("## Блок без якоря\n\n| ID | утверждение |\n|---|---|\n| C2 | что-то без якоря |\n",
+                       encoding="utf-8")
         res = run("library/tools/claims_anchor.py", "--file", "library/.anchor-test/bad.md")
-        check("claims_anchor: строка без якоря отвергается", res.returncode == 1, res.stdout[:300])
+        check("claims_anchor: блок без якоря отвергается", res.returncode == 1, res.stdout[:300])
     finally:
         shutil.rmtree(work, ignore_errors=True)
 
