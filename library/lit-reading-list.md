@@ -32,7 +32,7 @@ Every DOI below was checked against Crossref or DataCite with `scripts/verify_re
 | # | work | why it is on the list |
 |---|---|---|
 | 8 | **Huberman & Glance (1993)**, PNAS 90(16):7716–7718, DOI `10.1073/pnas.90.16.7716` | An apparent spatial-cooperation result that depended on **synchronous updating**. The classic "artifact" dispute in our field's neighbourhood. |
-| 9 | **Nowak, Bonhoeffer & May (1994)**, PNAS 91(11):4877–4881, DOI `10.1073/pnas.91.11.4877` | The reply that **narrowed rather than reversed** the claim: a regime `1.8 < b < 2` is update-sensitive, broader cooperation survives. The model for how to report a partial artifact. |
+| 9 | **Nowak, Bonhoeffer & May (1994)**, PNAS 91(11):4877–4881, DOI `10.1073/pnas.91.11.4877` — **read in full** | The reply that **narrowed rather than reversed** the claim: a regime `1.8 < b < 2` is update-sensitive, broader cooperation survives. The four-step pattern — concede the regime, show the result does not generalise, argue about which model represents the biology — is adopted for our own step-dependent contrast (§10dy). |
 | 10 | **Darius & Rojas (1994)**, *"Simulated molecular evolution" or computer-generated artifacts?*, Biophys J 67(5):2120–2122, DOI `10.1016/S0006-3495(94)80695-2` | The statistical/semantic critique: optimising tiny differences in a fitted quality function is not evidence of improvement when the uncertainty is larger. |
 | 11 | **Woolley (2022)**, *Boundary Conditions Cause Different Generic Bifurcation Structures in Turing Systems*, Bull Math Biol 84:101, DOI `10.1007/s11538-022-01055-x` | Boundaries define a different model, not merely a different accuracy. Directly relevant to our periodic grid. |
 | 12 | **Theiler et al. (1992)**, *Testing for nonlinearity in time series: the method of surrogate data*, Physica D 58:77–94, DOI `10.1016/0167-2789(92)90102-S` | The proper foundation for the surrogates we improvised. Rejecting a null is not proving adaptation. |
@@ -77,9 +77,9 @@ The list above is now backed by a searchable corpus: full texts in `library/corp
 
 | status | count | which |
 |---|---|---|
-| read in full | **5** | Davis & Bongard 2022, Davis 2023, Davis 2024, Pilat et al. 2012, Huberman & Glance 1993 |
+| read in full | **6** | Davis & Bongard 2022, Davis 2023, Davis 2024, Pilat et al. 2012, Huberman & Glance 1993, Nowak et al. 1994 |
 | partial | **2** | Kojima & Ikegami 2023, Woolley 2022 |
-| downloaded, unread | **5** | Nowak et al. 1994, Taylor et al. 2014, Wilson et al. 2014, Sandve et al. 2013, Mitchell et al. 1993 |
+| downloaded, unread | **4** | Taylor et al. 2014, Wilson et al. 2014, Sandve et al. 2013, Mitchell et al. 1993 |
 | verified, not in corpus | 10 | Theiler 1992, Rechtsteiner & Bedau 1999, Axtell et al. 1996, Oberkampf & Roy 2010, Naylor 1967, Morrison 2007, Parker 2008, Darius & Rojas 1994, Hintze 2019, Spector et al. 2025 |
 
 **A search that found nothing, and that is a result.** Query `"tracking identity components lifetime"` across the corpus
