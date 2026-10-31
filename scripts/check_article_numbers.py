@@ -37,14 +37,14 @@ CHECKS: list[dict] = [
     {"agg": L1 / "lifetimes_matrix.json", "path": "by_arm.static.share_durable", "fmt": "{:.0f} %", "what": "доля долгоживущих"},
     {"agg": L1 / "lifetimes_matrix.json", "path": "by_arm.homog.share_short", "fmt": "{:.0f} %", "what": "доля короткоживущих"},
     # --- §4a: обитаемость (X43)
-    {"agg": POND / "habitable" / "habitable_matrix.json", "path": "summary.survived", "fmt": "{:d}", "what": "выживших прогонов"},
-    {"agg": POND / "habitable" / "habitable_matrix.json", "path": "summary.median_alive_last", "fmt": "{:g}", "what": "медиана клеток"},
-    {"agg": POND / "habitable" / "habitable_matrix.json", "path": "summary.min", "fmt": "{:d}", "what": "минимум клеток"},
-    {"agg": POND / "habitable" / "habitable_matrix.json", "path": "summary.max", "fmt": "{:d}", "what": "максимум клеток"},
+    {"agg": POND / "habitable_matrix.json", "path": "summary.survived", "fmt": "{:d}", "what": "выживших прогонов"},
+    {"agg": POND / "habitable_matrix.json", "path": "summary.median_alive_last", "fmt": "{:g}", "what": "медиана клеток"},
+    {"agg": POND / "habitable_matrix.json", "path": "summary.min", "fmt": "{:d}", "what": "минимум клеток"},
+    {"agg": POND / "habitable_matrix.json", "path": "summary.max", "fmt": "{:d}", "what": "максимум клеток"},
     # --- §4b: адекватность (X44, мера с командой)
-    {"agg": POND / "adequacy" / "adequacy_mi.json", "path": "by_arm.cost.under.median_excess", "fmt": "{:.4f}", "what": "адекватность, цена высокая"},
-    {"agg": POND / "adequacy" / "adequacy_mi.json", "path": "by_arm.cheap.under.median_excess", "fmt": "{:.4f}", "what": "адекватность, цена низкая"},
-    {"agg": POND / "adequacy" / "adequacy_mi.json", "path": "by_arm.free.under.median_excess", "fmt": "{:.4f}", "what": "адекватность, цена нулевая"},
+    {"agg": POND / "adequacy_mi.json", "path": "by_arm.cost.under.median_excess", "fmt": "{:.4f}", "what": "адекватность, цена высокая"},
+    {"agg": POND / "adequacy_mi.json", "path": "by_arm.cheap.under.median_excess", "fmt": "{:.4f}", "what": "адекватность, цена низкая"},
+    {"agg": POND / "adequacy_mi.json", "path": "by_arm.free.under.median_excess", "fmt": "{:.4f}", "what": "адекватность, цена нулевая"},
 ]
 
 

@@ -30,7 +30,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 SRC = ROOT / "morphogenesis" / "experiments" / "E09_pond" / "adequacy"
-OUT = SRC / "adequacy_mi.json"
+OUT = SRC.parent / "adequacy_mi.json"
 BINS = 8
 SHUFFLES = 20
 
