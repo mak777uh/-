@@ -380,6 +380,8 @@ H29-пункт «ядро от цели»).
 | G96 | [Chesson, 2018, J. Ecol. 106:1902–1918](https://doi.org/10.1111/1365-2745.13035) | invasibility criterion требует явной средней приспособленности и масштабных множителей | C2 | определить среднюю приспособленность линии | `supported` (методологически) | [C2](../hypotheses/alife-lineage.md) |
 | G97 | [West & Shnerb, 2022, Am. Nat. 200:E160–E173](https://doi.org/10.1086/720665) | количественные меры вклада стабилизации и выравнивания | C3 | адаптировать меру к нашим мирам | `open` | [C3](../hypotheses/alife-lineage.md) |
 | G98 | [Schreiber, 2025, J. Math. Biol. 91](https://doi.org/10.1007/s00285-025-02283-0) | IGR для flow-kick: редкий растёт ⇒ permanence; «присутствие» не критерий | C4 | сформулировать наш мир как flow-kick и посчитать IGR редкой линии | `open` | [C4](../hypotheses/alife-lineage.md) |
+| G99 | [Schreiber, 2022, J. Math. Biol. 84](https://doi.org/10.1007/s00285-022-01815-2) | Permanence via invasion graphs: invasibility + граф ⇒ permanence | C5 | построить граф инвазий по нашим артефактам | `open` | [C5](../hypotheses/alife-lineage.md) |
+| G100 | [Barabás et al., 2018, Ecol. Monogr. 88](https://doi.org/10.1002/ecm.1302) | Канон Chesson: equalizing vs stabilizing, инвазивность | C6 | словарь для оговорки «наши механизмы равняющие» | `open` | [C6](../hypotheses/alife-lineage.md) |
 
 ## H. ALife: классика, открытая эволюция, рамки, индивидуальность
 
