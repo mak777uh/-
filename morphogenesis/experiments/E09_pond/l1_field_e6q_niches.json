@@ -1,0 +1,89 @@
+{
+  "kind": "l1_field_e6q_niches",
+  "experiment": "E6q",
+  "command": "python scripts/e6q_analyse.py --write",
+  "prereg": "reports/2026-11-01-e6q-no-niches-plan.md",
+  "criterion": {
+    "sign_bar": 8,
+    "fixation_bar": 0.4,
+    "prediction": "homogeneous survfd keeps fewer than 2.5 structures"
+  },
+  "arms": {
+    "homog_ctrl": {
+      "n": 10,
+      "components_median": 4.0,
+      "s_mean_last_median": 0.96,
+      "s_sd_between_median": 0.144,
+      "splits_median": 4.0,
+      "r_median": 0.401,
+      "fixation_share": 0.0
+    },
+    "homog_survfd": {
+      "n": 10,
+      "components_median": 2.0,
+      "s_mean_last_median": 1.119,
+      "s_sd_between_median": 0.227,
+      "splits_median": 17.5,
+      "r_median": 0.812,
+      "fixation_share": 0.2
+    },
+    "hetero_ctrl_e6p": {
+      "n": 10,
+      "components_median": 36.0,
+      "s_mean_last_median": 1.077,
+      "s_sd_between_median": 0.437,
+      "splits_median": 89.0,
+      "r_median": 0.931,
+      "fixation_share": 0.0
+    },
+    "hetero_survfd_e6p": {
+      "n": 10,
+      "components_median": 2.5,
+      "s_mean_last_median": 1.95,
+      "s_sd_between_median": 0.201,
+      "splits_median": 311.0,
+      "r_median": 0.976,
+      "fixation_share": 0.2
+    }
+  },
+  "paired_components_homog_minus_hetero": {
+    "n": 10,
+    "median_diff": -1.0,
+    "seeds_negative": 5,
+    "per_seed": [
+      -2,
+      -13,
+      -2,
+      0,
+      -2,
+      -23,
+      0,
+      1,
+      1,
+      1
+    ]
+  },
+  "drift_homog": {
+    "n": 10,
+    "median_diff": 0.204,
+    "seeds_negative": 1,
+    "per_seed": [
+      0.073,
+      0.038,
+      0.272,
+      0.194,
+      0.324,
+      0.362,
+      0.214,
+      0.043,
+      0.333,
+      -0.136
+    ]
+  },
+  "prediction_supported": false,
+  "not_claimed": [
+    "no p-values: ten paired seeds and a pre-declared sign rule",
+    "components is the count at the last snapshot, not a time average",
+    "the two series differ only in hetero_amp, but they were run at different times on the same machine"
+  ]
+}
