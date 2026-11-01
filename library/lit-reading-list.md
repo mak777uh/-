@@ -56,6 +56,7 @@ Downloaded after the four reviews named Q4 as the weak link. Read one at a time,
 | 20 | **Parker (2008)**, *Does matter really matter?*, Synthese, DOI `10.1007/s11229-008-9434-3` | Whether a simulation can be an experiment at all. |
 | 21 | **Taylor et al. (2014)**, *The Past, Present, and Future of Artificial Life*, Front Robot AI, DOI `10.3389/frobt.2014.00008` | ALife has **no V&V tradition of its own** — which is why we had to borrow one. |
 | 22 | **Mitchell, Crutchfield & Hraber (1993)**, *Revisiting the Edge of Chaos*, DOI `10.48550/arxiv.adap-org/9303003` | The cautionary classic: a famous story weakened when redone with better statistics. |
+| 23 | **McGuirl, Volkening & Sandstede (2020)**, *Topological data analysis of zebrafish patterns*, PNAS 117(10):5113–5124, DOI `10.1073/pnas.1917763117` — verified 1.11, **queued** | The precedent our corpus was missing: persistence summaries used to classify **biological** pigment patterns, not a toy model. If anyone asks whether this method has been applied to real patterns, this is the answer, and it makes a persistence companion to our counts a normal thing to do rather than an exotic one. |
 
 ## Unverified — do not cite
 

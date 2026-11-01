@@ -71,8 +71,35 @@ snapshot cadence changes with `dt`; another argues it is a **modified-equation**
 growth rate `ln(1+dt·σ)/dt`). These are distinguishable by experiment, and both are cheap to test on data we already
 have: resample the `dt = 0.5` trajectory to every second snapshot and recompute.
 
+## Second pass, 03:20: the eight that were left unverified
+
+The first pass verified 22 and left the rest unchecked. Eight more were checked against Crossref by title, and the
+claimed DOI compared with what the search actually returns — the check that caught four wrong DOIs the first time.
+
+| work | claimed | verdict |
+|---|---|---|
+| *A theory of pattern formation for reaction–diffusion systems on temporal networks* | `10.1098/rspa.2020.0753` | **correct** (Proc. R. Soc. A, 2021) |
+| *Numerical study of pattern formation in an extended Gray–Scott model* | `10.1016/j.cnsns.2010.09.002` | **correct** (Commun. Nonlinear Sci. Numer. Simul., 2011) |
+| *Pattern Formation Beyond Turing: Physical Principles of Mass-Conserving Reaction–Diffusion Systems* | `10.1146/annurev-biophys-030822-031638` | **correct** (Annu. Rev. Biophys., 2026) |
+| *Transients: the key to long-term ecological …* | `10.1016/j.tree.2003.09.007` | **DOI correct, title wrong in the answer**: the paper is "…long-term ecological **understanding**?", not "change" |
+| *Computational Optimal Transport* | `10.1561/2200000073` | **correct**, and the search shows a second edition under `10.1561/9781680835519` (2019) — cite the one intended |
+| *Finite Difference Methods for ODEs and PDEs* (LeVeque) | `10.1137/1.9780898717839` | **correct** (SIAM, 2007) |
+| *Verifying and validating simulation models* (Sargent) | `10.1145/256562.256572` | **correct** (Winter Simulation Conference, 1996) |
+| *Topological data analysis of zebrafish patterns* (McGuirl, Volkening & Sandstede) | `10.1073/pnas.1917763117` | **correct** (PNAS, 2020) |
+
+Two are worth more than a line:
+
+- **McGuirl et al. 2020** is the precedent that was missing from our corpus: topological summaries (persistence) used
+  to classify *biological* pigment patterns, not a toy model. It is the strongest available answer to "has anyone
+  actually done this on real patterns?", and it strengthens the case for a persistence companion to our counts.
+- **Hastings 2004**, correctly cited, is the ecological statement that transients can dominate an observation window —
+  the same argument as our §4.5, made twenty years earlier in another field, and therefore a citation rather than a
+  discovery.
+
 ## Status
 
-- 22 references verified and recorded; 4 corrected; 3 not found; 1 has no DOI by nature.
-- Full texts added to the corpus where open: Jaqaman, Chalfoun, Spector.
-- Reading proceeds one at a time, in the order set by `library/lit-reading-list.md`.
+- 22 references verified in the first pass (4 corrected, 3 not found, 1 without a DOI by nature); **8 more verified in the
+  second pass**, one with a wrong title and one with a second edition to disambiguate.
+- Full texts added to the corpus where open: Jaqaman, Chalfoun, Spector; Woolley read in part.
+- Reading proceeds one at a time, in the order set by `library/lit-reading-list.md`; the corpus currently has **no unread
+  texts**.
