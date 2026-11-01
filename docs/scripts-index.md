@@ -4,7 +4,7 @@
 
 The curated page — what matters and why — is [`scripts.md`](scripts.md). This file is the complete list, so that every command behind a number in the record can be found.
 
-Scripts: **225**.
+Scripts: **227**.
 
 ## Гейты и проверки (45)
 
@@ -168,7 +168,7 @@ Scripts: **225**.
 | `make_seed_grid_figure.py` | Собрать Figure 4 рукописи: сетка «инициализация × порядок данных» (§4.13). |
 | `make_simple_poster.py` | Простой постер для владельца: что мы узнали, без терминов. |
 
-## Прочее (93)
+## Прочее (95)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -265,3 +265,5 @@ Scripts: **225**.
 | `x72_analyse.py` | x72_analyse.py — at the multistable boundary, does a daughter take her parent's branch? |
 | `x72b_analyse.py` | x72b_analyse.py — branch concordance at the multistability boundary, read from local spectra. |
 | `x72b_series.py` | x72b_series.py — the branch-heredity series, with fields every 50 steps. |
+| `x72c_analyse.py` | x72c_analyse.py — branch heredity with band powers: does a daughter's mixture follow her parent's? |
+| `x72c_series.py` | x72c_series.py — third attempt at branch heredity: ten worlds, band powers instead of a class. |

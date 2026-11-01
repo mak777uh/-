@@ -1451,3 +1451,26 @@ Both statements are needed: the band is narrow but stable. A wide band that deca
 persists 24 000 steps is a state of the medium. Report: `reports/2026-11-01-x71c-band-width-result.md`; aggregate
 `l1_field_x71c_width.json`. Next: re-analyse the existing fields with the cut at 0.15 and 0.25 to separate instrument from
 medium — no new series needed.
+
+## 10ew. The mixture belongs to the patch, not to the parent (X72c, 02.11)
+
+Third and last attempt at branch heredity, with the instrument the two earlier attempts produced: per-structure **band powers**
+(a 48-cell window, `p_wide` at q_win 3–4 = 12-cell period, `p_narrow` at 5–6 = 8.7-cell) instead of an argmax class, and ten
+worlds instead of five so the minority cases can be counted.
+
+Ten worlds at `F = 0.035`, **1 715 events**. Spearman(parent `p_wide`, daughter `p_wide`) = **0.853**, permutation p95 = 0.040,
+positive in **10/10** worlds — and it is **not** heredity: the nearest **non-parent** structure predicts the daughter better
+(concordance 0.843 against the parent's 0.740 on the 415 minority events, difference −0.104). The high correlation is the
+patch correlating with itself: parent and daughter are measured in the same 48-cell window 50 steps apart, and within a
+snapshot the band power varies across structures with sd **0.06–0.07**, so almost all variance in the readout is *where* the
+structure is.
+
+**Correction made after the run, stated because it changes nothing and sharpens everything:** the preregistered control used
+the spread of per-snapshot medians over time (0.11–0.18, failing in 10/10 worlds) instead of the spread across structures in a
+snapshot (0.060–0.068, passing). The verdict rests on the surrogate comparison, which never depended on that arithmetic.
+
+**What it closes.** Three instruments (spacing proxy, argmax class, band powers) now give the same answer: nothing
+parent-specific survives once the patch is controlled. The two-wavelength coexistence is real, stationary and narrow, and it
+belongs to **regions of the world**, not to lineages. Together with §10ep the line's statement becomes a contrast: the medium
+carries one generation of **size** memory (0.42–0.57, pair-specific) and **no memory of the mixture**. Report:
+`reports/2026-11-02-x72c-mixture-is-the-patch.md`; aggregate `l1_field_x72c_branch.json`.
