@@ -172,6 +172,12 @@ jobs:
           done
           exit $fail
 
+      # 01.11, дневная CPU-задача: CI запускал отдельные скрипты и не запускал весь набор гейтов,
+      # поэтому дважды за сутки локально было зелено, а в CI красно (check_reports_index, check_hourly_refs).
+      # Один шаг закрывает расхождение: тот же verify.py, что и локальный make verify.
+      - name: Full gate set (same as local make verify)
+        run: python scripts/verify.py
+
       - name: Claims matrix (evidence kinds, assumptions, artifact links)
         run: python scripts/claims_lint.py
 
