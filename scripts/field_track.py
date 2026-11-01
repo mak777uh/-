@@ -532,7 +532,7 @@ def main(argv=None) -> int:
                 _dir = Path(args.save_fields)
                 _dir.mkdir(parents=True, exist_ok=True)
                 _tag = Path(args.out).stem if args.out else f"seed{args.seed}"
-                _path = _dir / f"{_tag}_s{args.seed}_t{step}.npy"
+                _path = _dir / f"{_tag}_t{step}.npy"
                 np.save(_path, v.detach().to("cpu").numpy().astype("float32"))
                 fields_saved.append(str(_path).replace("\\", "/"))
 
