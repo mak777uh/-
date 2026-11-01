@@ -30,7 +30,7 @@ def minutes(at: str):
         return None
 
 
-def audit(day: str) -> list[tuple[str, bool, str]]:
+def audit(day: str, now_min: int | None = None) -> list[tuple[str, bool, str]]:
     records = []
     if INBOX.exists():
         for line in INBOX.read_text(encoding="utf-8").splitlines():
@@ -43,7 +43,8 @@ def audit(day: str) -> list[tuple[str, bool, str]]:
     evening = (REPO / "library" / f"science-review-{day}.md").exists()
     now = datetime.datetime.now()
     is_today = day == now.date().isoformat()
-    now_min = now.hour * 60 + now.minute
+    if now_min is None:
+        now_min = now.hour * 60 + now.minute
     out = []
     for name, target in SLOTS:
         if is_today and now_min < target:
@@ -56,16 +57,24 @@ def audit(day: str) -> list[tuple[str, bool, str]]:
     return out
 
 
+def _now_min(value: str | None):
+    if not value:
+        return None
+    hh, mm = value.split(":")
+    return int(hh) * 60 + int(mm)
+
+
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description="аудит слотов")
     ap.add_argument("--date", default=datetime.date.today().isoformat())
     ap.add_argument("--days", type=int, default=1)
+    ap.add_argument("--now", default=None, help="HH:MM — проверить как в это время (для тестов)")
     args = ap.parse_args(argv)
     start = datetime.date.fromisoformat(args.date)
     worse = 0
     for k in range(args.days):
         day = (start - datetime.timedelta(days=k)).isoformat()
-        res = audit(day)
+        res = audit(day, _now_min(args.now))
         missed = [n for n, ok, _ in res if not ok]
         print(f"{day}: " + " ".join(f"{n}{'+' if ok else '-'}" for n, ok, _ in res)
               + (f" | пропущено: {', '.join(missed)}" if missed else " | все слоты"))
