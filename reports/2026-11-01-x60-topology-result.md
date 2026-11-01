@@ -46,6 +46,27 @@ The excess of holes is not an excess of area.
 at all three times. The published +3.57 is a property of the *time average over an early transient*, not of any
 instantaneous field. That is the strongest confirmation so far of the v1.6 correction, and it comes from independent data.
 
+## How far the web claim survives, measured rather than assumed
+
+Two controls decide whether "more holes" is a property of the field or of the ruler. Both were run on the same arrays.
+
+**Threshold.** The pre-registered threshold 0.2 is one slice. At four thresholds:
+
+| threshold | t = 2000 | t = 4000 | t = 6000 |
+|---|---|---|---|
+| 0.15 | +14.5 (10/10) | +11.5 (8/10) | 0.0 (5/10) |
+| 0.20 | +9.0 (10/10) | +8.5 (7/10) | +4.5 (6/10) |
+| 0.25 | +7.5 (10/10) | +6.5 (6/10) | 0.0 (5/10) |
+| 0.30 | +5.0 (8/10) | +3.0 (8/10) | +2.5 (7/10) |
+
+The excess is **a transient phenomenon and nothing more**: it is robust at t = 2000 (8–10 of 10 seeds at every threshold)
+and gone by t = 6000 at a fixed threshold, where the two arms overlap seed by seed even though their medians differ
+(21.5 against 11.0). Reporting the late-time medians as a difference would be exactly the error this line keeps finding.
+
+**One honest asymmetry.** At t = 2000 the homogeneous world has not yet reached its pattern (its own spectrum still peaks
+at q = 1), so that comparison is *web against pre-pattern*, not *web against pattern*. The claim that survives is
+therefore about **what heterogeneity does during the transient**, not about a permanent difference in hole count.
+
 ## What the spectrum says, and what it refuses to say
 
 Seed-averaged radial power spectrum of `v`, q a mode index, λ = 96/q cells:
@@ -68,13 +89,17 @@ rule item 4 doing its job, and it is more informative than the number would have
 Old: *"heterogeneous inflow roughly doubles the number of components."* True as a time average, and now visibly an
 average over a transient.
 
-New: *"heterogeneous inflow replaces the medium's intrinsic pattern wavelength with a domain-scale organisation: the
-field becomes one perforated web with many holes, while the homogeneous field settles into a regular pattern of about
-twelve cells. The count doubles early because a web has more struts than a set of spots, not because there are more
-objects."*
+New, and deliberately in two parts because the evidence supports two different strengths:
 
-This is a statement about what the medium does, not about a counter, and it is the first one in this line that a reader
-outside could use.
+1. **Robust, across all three snapshots and both controls.** *Heterogeneous inflow costs the medium its pattern
+   wavelength.* The homogeneous world converges to a periodic pattern of about twelve cells; the heterogeneous world
+   never leaves the scale of the domain, at any snapshot, in the seed-averaged spectrum.
+2. **Transient only.** *While that happens, the heterogeneous field passes through a perforated web* — ten times the
+   holes of the homogeneous field at the same moment, 10/10 seeds, robust to threshold and to matched occupancy. By
+   t = 6000 the two arms overlap seed by seed, and no permanent difference in hole count is claimed.
+
+The count doubles early because a web has more struts than a set of spots, not because there are more objects — and the
+honest sentence is that heterogeneity changes **the scale at which the field organises**, not the number of things in it.
 
 ## What is still open, and what is next
 

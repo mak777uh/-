@@ -121,6 +121,28 @@ def _threshold_for_occupancy(v: np.ndarray, target: float, min_cells: int) -> fl
     return (lo + hi) / 2
 
 
+def threshold_sweep() -> list[dict]:
+    """β₁ при разных порогах: дырки — свойство поля или порога? Бесплатно, массивы уже на диске."""
+    out = []
+    for th in (0.15, 0.20, 0.25, 0.30):
+        for t in SNAPSHOTS:
+            diffs = []
+            for seed in range(171, 181):
+                fp = FIELDS / f"x60_pattern_s{seed}_t{t}.npy"
+                fh = FIELDS / f"x60_homog_s{seed}_t{t}.npy"
+                if not (fp.exists() and fh.exists()):
+                    continue
+                mc = 5
+                mp = drop_small(np.load(fp).astype(np.float64) > th, mc)
+                mh = drop_small(np.load(fh).astype(np.float64) > th, mc)
+                diffs.append((beta0(mp) - euler(mp)) - (beta0(mh) - euler(mh)))
+            if diffs:
+                out.append({"threshold": th, "t": t, "n": len(diffs),
+                            "median_diff_beta1": round(st.median(diffs), 2),
+                            "seeds_positive": sum(1 for d in diffs if d > 0)})
+    return out
+
+
 def spectrum_by_arm() -> list[dict]:
     """Радиальный спектр, усреднённый по сидам: q — номер моды, lambda = N/q клеток."""
     out = []
@@ -303,6 +325,7 @@ def main(argv=None) -> int:
         "summary": summarise(rows),
         "matched_occupancy": matched_occupancy(),   # вторичный контроль, см. docstring
         "spectrum_seed_mean": spectrum_by_arm(),      # популяционный спектр: на одном срезе шумно
+        "threshold_sweep": threshold_sweep(),         # порог 0.15-0.30, тот же вопрос без нового прогона
         "not_claimed": [
             "λ is in grid cells; comparability across grids requires the X58 scaling, not assumed here",
             "β₁ = β₀ − χ assumes β₂ = 0, true for a binary 2-D image but not for a thick 3-D shell",
