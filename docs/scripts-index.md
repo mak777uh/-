@@ -4,9 +4,9 @@
 
 The curated page — what matters and why — is [`scripts.md`](scripts.md). This file is the complete list, so that every command behind a number in the record can be found.
 
-Scripts: **206**.
+Scripts: **210**.
 
-## Гейты и проверки (42)
+## Гейты и проверки (43)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -38,6 +38,7 @@ Scripts: **206**.
 | `check_scripts.py` | P2: какие скрипты никто не вызывает — профилактика мёртвого кода. |
 | `check_section_refs.py` | Проверить внутренние ссылки на разделы (`§4.7`, `§5.6`) в рукописи. |
 | `check_seed_dispersion.py` | check_seed_dispersion.py — если разброс по сидам велик, агрегат обязан это признать. |
+| `check_seed_replication.py` | check_seed_replication.py — a seed is replication only if it changes the world. |
 | `check_series_followthrough.py` | check_series_followthrough.py — серия закончилась, а агрегат не собран? |
 | `check_series_homogeneity.py` | Гейт: серия должна быть снята одним кодом. |
 | `check_single_spec.py` | check_single_spec.py — не должно быть двух документов, объявляющих одну версию требований. |
@@ -165,7 +166,7 @@ Scripts: **206**.
 | `make_seed_grid_figure.py` | Собрать Figure 4 рукописи: сетка «инициализация × порядок данных» (§4.13). |
 | `make_simple_poster.py` | Простой постер для владельца: что мы узнали, без терминов. |
 
-## Прочее (77)
+## Прочее (80)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -246,3 +247,6 @@ Scripts: **206**.
 | `x70_analyse.py` | x70_analyse.py — size heredity: does a daughter's peak area follow its parent's? |
 | `x70_series.py` | x70_series.py — X70: size heredity in the neutral world. |
 | `x70_spatial_null.py` | x70_spatial_null.py — the control the four answers asked for: is the size signal just neighbours sharing a place? |
+| `x70_spatial_strata.py` | x70_spatial_strata.py — the spatial control for X70 done over all events, stratified instead of matched. |
+| `x70d_series.py` | x70d_series.py — X70 re-run with dense component logging, for the stratified spatial control. |
+| `x70r_series.py` | x70r_series.py — X70 with genuinely independent neutral worlds. |

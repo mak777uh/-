@@ -28,11 +28,14 @@ OUT = ROOT / "morphogenesis" / "experiments" / "E09_pond" / "l1_field_x70_size.j
 ARMS = ("pattern", "homog")
 
 
+PREFIX = "x70"
+
+
 def pairs_for_arm(arm: str) -> tuple[list[tuple[float, float]], int, int]:
     xs, ys = [], []
     events = 0
     paired = 0
-    for f in sorted(glob.glob(str(L1 / f"x70_{arm}_s*.json"))):
+    for f in sorted(glob.glob(str(L1 / f"{PREFIX}_{arm}_s*.json"))):
         d = json.loads(Path(f).read_text(encoding="utf-8"))
         peaks = {int(u["uid"]): int(u["peak"]) for u in (d.get("uid_outcomes") or []) if u.get("peak")}
         uid_pairs = d.get("uid_pairs") or []
@@ -71,7 +74,7 @@ def shuffle_null(arm: str, n_perm: int = 200, seed: int = 7) -> dict | None:
     import random
 
     per_run = []
-    for f in sorted(glob.glob(str(L1 / f"x70_{arm}_s*.json"))):
+    for f in sorted(glob.glob(str(L1 / f"{PREFIX}_{arm}_s*.json"))):
         d = json.loads(Path(f).read_text(encoding="utf-8"))
         peaks = {int(u["uid"]): int(u["peak"]) for u in (d.get("uid_outcomes") or []) if u.get("peak")}
         rows = [(peaks[int(a)], peaks[int(b)]) for a, b in (d.get("uid_pairs") or [])
@@ -104,13 +107,56 @@ def shuffle_null(arm: str, n_perm: int = 200, seed: int = 7) -> dict | None:
             "n_perm": len(nulls)}
 
 
+def per_world(arm: str, n_perm: int = 2000, seed: int = 9) -> list[dict]:
+    """Per-world numbers and a per-world pairing null.
+
+    A world is the unit: pooling across worlds mixes between-world size differences into the correlation, so the pooled
+    number is reported but never quoted alone.
+    """
+    import random
+
+    rng = random.Random(seed)
+    rows = []
+    for f in sorted(glob.glob(str(L1 / f"{PREFIX}_{arm}_s*.json"))):
+        d = json.loads(Path(f).read_text(encoding="utf-8"))
+        peaks = {int(u["uid"]): int(u["peak"]) for u in (d.get("uid_outcomes") or []) if u.get("peak")}
+        pairs = [(peaks[int(a)], peaks[int(b)]) for a, b in (d.get("uid_pairs") or [])
+                 if int(a) in peaks and int(b) in peaks]
+        s = stats(pairs)
+        null = None
+        if pairs:
+            parents = [x for x, _ in pairs]
+            daughters = [y for _, y in pairs]
+            draws = []
+            for _ in range(n_perm):
+                rng.shuffle(parents)
+                z = stats(list(zip(parents, daughters)))
+                if z:
+                    draws.append(z["corr"])
+            if draws:
+                draws.sort()
+                null = {"p95": round(draws[int(0.95 * len(draws)) - 1], 3),
+                        "median": round(st.median(draws), 3), "n_perm": len(draws)}
+        rows.append({"file": Path(f).name, "stats": s, "shuffle_null": null})
+    return rows
+
+
 def main(argv=None) -> int:
+    global PREFIX, OUT
     ap = argparse.ArgumentParser(description="X70 size heredity")
     ap.add_argument("--write", action="store_true")
+    ap.add_argument("--prefix", default="x70", help="artifact prefix: x70 (one world copied), x70r (five worlds)")
+    ap.add_argument("--out", default=None, help="aggregate path; default follows the prefix")
     args = ap.parse_args(argv)
+    PREFIX = args.prefix
+    if args.out:
+        OUT = Path(args.out)
+    elif PREFIX != "x70":
+        OUT = OUT.with_name(f"l1_field_{PREFIX}_size.json")
 
-    out = {"kind": "l1_field_x70_size", "experiment": "X70",
-           "command": "python scripts/x70_analyse.py --write",
+    out = {"kind": f"l1_field_{PREFIX}_size", "experiment": "X70",
+           "command": f"python scripts/x70_analyse.py --write --prefix {PREFIX}",
+           "prefix": PREFIX,
            "prereg": "reports/2026-11-01-x70-size-heredity-plan.md",
            "arms": {}, "not_claimed": [
                "five seeds per arm, pooled events, no p-values",
@@ -121,7 +167,7 @@ def main(argv=None) -> int:
         pairs, events, paired = pairs_for_arm(arm)
         s = stats(pairs)
         out["arms"][arm] = {"events": events, "paired_events": paired, "stats": s,
-                            "shuffle_null": shuffle_null(arm)}
+                            "shuffle_null": shuffle_null(arm), "per_world": per_world(arm)}
         if s:
             if s["corr"] >= 0.5 and s["slope"] >= 0.6:
                 out["arms"][arm]["verdict"] = "medium carries size heredity"

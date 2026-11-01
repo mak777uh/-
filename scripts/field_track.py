@@ -178,6 +178,8 @@ def main(argv=None) -> int:
     # время жизни персистентностью вместо правила перекрытия. Флаг не трогает ГПСЧ.
     ap.add_argument("--save-fields", default=None,
                     help="X60: каталог, куда писать v на выбранных срезах (.npy, float32)")
+    ap.add_argument("--init-jitter", action="store_true",
+                    help="X70r: сдвинуть стартовую каплю по сиду (реплика нейтрального мира; выключено = прежнее поведение)")
     ap.add_argument("--save-fields-at", default="2000,4000,6000",
                     help="X60: шаги, на которых сохраняется поле (по умолчанию 2000,4000,6000)")
     args = ap.parse_args(argv)
@@ -193,7 +195,19 @@ def main(argv=None) -> int:
     yy = torch.arange(g, device=dev).view(-1, 1).expand(g, g)
     xx = torch.arange(g, device=dev).view(1, -1).expand(g, g)
     c, r0 = g // 2, max(2.0, 3.0 / (g / 96.0))
-    m = ((xx - c) ** 2 + (yy - c) ** 2) <= r0 * r0
+    # X70r: в нейтральном мире (beta=0, eps=0) геометрия ОТ СИДА НЕ ЗАВИСИТ: стартовая капля фиксирована, а сид
+    # достаётся только каналу признака, который ни на что не влияет. Пять «сидов» тогда — одна и та же вселенная.
+    # Флаг сдвигает и слегка меняет размер запала по сиду: это реплика нейтрального мира, а не новый мир.
+    # С выключенным флагом ветка не исполняется — якорь остаётся бит-в-бит.
+    if args.init_jitter:
+        _jr = np.random.default_rng(int(args.seed) + 6067)
+        _dx, _dy = (int(x) for x in _jr.integers(-g // 4, g // 4 + 1, size=2))
+        _r = float(r0) * float(_jr.uniform(0.8, 1.2))
+        c = ((g // 2 + _dx) % g, (g // 2 + _dy) % g)
+        r0 = max(2.0, _r)
+        m = ((((xx - c[0] + g // 2) % g) - g // 2) ** 2 + (((yy - c[1] + g // 2) % g) - g // 2) ** 2) <= r0 * r0
+    else:
+        m = ((xx - c) ** 2 + (yy - c) ** 2) <= r0 * r0
     h_trait = None
     mem_t = None   # X48: медленная память о ходе события
     cue_pos = 0.0

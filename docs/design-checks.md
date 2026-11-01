@@ -129,3 +129,23 @@ difference.
 **Проверка пост-фактум:** в отчёте и в §-разделе линии пруда пишется строка «чувствительность:
 `own*` = …, поле = …, вывод — чувствительно/нечувствительно». Нечувствительный результат
 публикуется как «тест не дотянулся», а не как «эффекта нет».
+
+**A seed is replication only if it changes the world (01.11).** The laboratory default reading of a series is «five
+seeds», and for most arms that is true: nine distinct `series` rows for nine seeds. In the neutral world it is false by
+construction. With `beta = 0` and `eps = 0` the field has no trait feedback, the initial blob is fixed, and the seed is
+consumed only by the trait channel — so the geometry is identical for every seed and the run is *one* world with five
+different inert trait noises. Measured on 01.11: `uid_pairs`, `areas` and `peaks` identical across seeds, only `s`
+differs, and X70 925 division events turned out to be 185 events copied five times. Everything said about geometry in
+those arms — «5/5 seeds», «10/10 seeds», seed-averaged spreads — was one observation quoted five times, and a null
+calibrated on five copies is too tight by roughly a factor of the square root of five.
+
+Rules that follow. (1) A registration must name **which channel the seed feeds**; if the answer is "the trait channel
+only", the seed is not replication for a geometry claim. (2) A neutral world gets an explicit initial-condition knob
+(`--init-jitter`: seed-derived offset and plus-minus 20 percent radius of the starting blob, inert when off — anchor
+bit-for-bit on seed 171). (3) The claim is checked, not assumed: `python scripts/check_seed_replication.py` hashes every
+family series rows with the trait columns removed, writes `morphogenesis/experiments/E09_pond/seed_replication.json`, and
+`verify` fails if the committed table disagrees with the artifacts. (4) When a family collapses to one world, the report
+says so in the first paragraph and the numbers are restated per world, not per seed. Blast radius on 01.11 — the defect is
+exactly the `beta = 0` geometry arms (`x70*`, `x68_ov0*`, `x56_dt2.0`, `e6p_ctrl`, `e6q_ctrl_h`); the amplitude dose,
+correlation length, scale sweep, grid map, bigger box and transmission ratio all have genuinely distinct worlds behind
+them.
