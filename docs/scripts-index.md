@@ -4,9 +4,9 @@
 
 The curated page — what matters and why — is [`scripts.md`](scripts.md). This file is the complete list, so that every command behind a number in the record can be found.
 
-Scripts: **181**.
+Scripts: **182**.
 
-## Гейты и проверки (41)
+## Гейты и проверки (42)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -23,6 +23,7 @@ Scripts: **181**.
 | `check_empty_aggregates.py` | check_empty_aggregates.py — агрегат с нулём строк при живых данных — ошибка, а не результат. |
 | `check_environment_assumptions.py` | check_environment_assumptions.py — гейты не должны зависеть от календаря и концов строк. |
 | `check_external_content.py` | check_external_content.py — секреты и попытки инъекции во внешнем контенте, попавшем в репозиторий. |
+| `check_hourly_refs.py` | check_hourly_refs.py — audits references to `_hourly/` artifacts, and says which no longer exist. |
 | `check_lean_integrity.py` | check_lean_integrity.py — целостность формальных артефактов без запуска Lean. |
 | `check_links.py` | Проверить относительные ссылки в markdown-файлах репозитория. |
 | `check_metric_definitions.py` | check_metric_definitions.py — реализация метрики обязана совпадать с её определением. |
