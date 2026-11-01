@@ -4,7 +4,7 @@
 
 The curated page — what matters and why — is [`scripts.md`](scripts.md). This file is the complete list, so that every command behind a number in the record can be found.
 
-Scripts: **190**.
+Scripts: **191**.
 
 ## Гейты и проверки (42)
 
@@ -165,7 +165,7 @@ Scripts: **190**.
 | `make_seed_grid_figure.py` | Собрать Figure 4 рукописи: сетка «инициализация × порядок данных» (§4.13). |
 | `make_simple_poster.py` | Простой постер для владельца: что мы узнали, без терминов. |
 
-## Прочее (61)
+## Прочее (62)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -230,3 +230,4 @@ Scripts: **190**.
 | `x61l_series.py` | x61l_series.py — X61-long: is the late concentration selection starting, or a drift? |
 | `x62_analyse.py` | x62_analyse.py — correlation length against turnover. |
 | `x62_series.py` | x62_series.py — X62: does the correlation length of the inflow control turnover? |
+| `x63_series.py` | x63_series.py — X63: four more correlation lengths, to turn X62's three points into a profile. |
