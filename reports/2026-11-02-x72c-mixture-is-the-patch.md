@@ -110,6 +110,25 @@ That is a stronger statement than "it is the patch": the patch is not the enviro
 world made for itself. It also explains why the branch could never be inherited: what a daughter would have to inherit is a
 state of a region, and the region's state is not a function of the coordinates.
 
+## The contrast on one dataset: size is parent-specific, mixture is not
+
+Everything above and X70's result came from different runs, which leaves the objection that the comparison is between
+datasets. Removed: both readouts computed on **the same 1 955 division events** of the X72c worlds
+(`scripts/x72c_size_contrast.py`, aggregate `l1_field_x72c_size_contrast.json`).
+
+| readout | parent → daughter | nearest non-parent → daughter | difference |
+|---|---|---|---|
+| **peak area** (X70's measure) | **0.457** | 0.069 | **+0.388** |
+| **band mixture** (`p_wide`) | 0.853 | *predicts better* (concordance 0.843 vs 0.740) | negative |
+
+Per world, the area correlation beats its surrogate in **10 of 10** (parent 0.275–0.548 against surrogate −0.071…+0.188). So on
+one event set, with one geometry and one surrogate rule: **the size of a daughter is parent-specific, the mixture of a daughter
+is not.** The high raw correlation of the mixture (0.853) is what a spatially smooth quantity does when both ends are measured
+in the same patch; the surrogate is what separates "same place" from "same parent", and only size survives it.
+
+This is the sharpest statement the line has produced, and it is a statement about what a medium can carry: one generation of
+**how big**, no generation of **which form**.
+
 ## What would be worth doing next (and what would not)
 
 - **Not** another branch-heredity instrument. Three independent instruments agree; a fourth would be looking for a way to be

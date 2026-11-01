@@ -1480,6 +1480,11 @@ q is "the same place" by external conditions across worlds; yet the quadrant med
 worlds — which is a stronger claim than "it is the patch": the patch is not the environment we prescribed, it is the one the
 world made for itself, and that is why a daughter cannot inherit it.
 
+**The contrast on one dataset.** Both readouts on the same 1 955 division events: peak **area** gives parent 0.457 against a
+nearest non-parent 0.069 (difference **+0.388**, parent higher in **10/10** worlds), while the band **mixture** gives a higher
+raw correlation (0.853) that a neighbour beats. So the contrast is not between datasets: on one geometry, one event set and one
+surrogate rule, **size is parent-specific and the mixture is not** — one generation of "how big", no generation of "which form".
+
 **What it closes.** Three instruments (spacing proxy, argmax class, band powers) now give the same answer: nothing
 parent-specific survives once the patch is controlled. The two-wavelength coexistence is real, stationary and narrow, and it
 belongs to **regions of the world**, not to lineages. Together with §10ep the line's statement becomes a contrast: the medium
