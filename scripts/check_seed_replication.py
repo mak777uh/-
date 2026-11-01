@@ -18,6 +18,7 @@ import glob
 import hashlib
 import json
 import re
+import subprocess
 import sys
 from pathlib import Path
 
@@ -37,9 +38,27 @@ def geo_hash(doc: dict) -> str:
     return hashlib.sha256(json.dumps(rows, sort_keys=True).encode()).hexdigest()[:16]
 
 
+def tracked_artifacts() -> list[str]:
+    """Только то, что лежит в git: таблица описывает склад, а не рабочую копию.
+
+    01.11 гейт упал в CI сразу после того, как таблицу пересобрали, пока серия дописывала ещё не закоммиченные
+    артефакты: на машине они были, в клоне — нет. Снимок, зависящий от рабочего каталога, не может быть общим.
+    """
+    try:
+        out = subprocess.run(["git", "ls-files", "morphogenesis/experiments/L1_field"], cwd=str(ROOT),
+                             capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=120)
+        if out.returncode == 0 and out.stdout.strip():
+            return sorted(str(ROOT / line.strip()) for line in out.stdout.splitlines() if line.strip())
+    except (OSError, subprocess.SubprocessError):
+        pass
+    return sorted(glob.glob(str(L1 / "*_s[0-9]*.json")))
+
+
 def build() -> dict:
     fams: dict[str, dict] = {}
-    for path in sorted(glob.glob(str(L1 / "*_s[0-9]*.json"))):
+    for path in tracked_artifacts():
+        if not re.search(r"_s\d+\.json$", Path(path).name):
+            continue
         m = re.match(r"(.+)_s(\d+)\.json$", Path(path).name)
         if not m:
             continue
