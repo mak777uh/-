@@ -176,7 +176,21 @@ jobs:
       # поэтому дважды за сутки локально было зелено, а в CI красно (check_reports_index, check_hourly_refs).
       # Один шаг закрывает расхождение: тот же verify.py, что и локальный make verify.
       - name: Full gate set (same as local make verify)
-        run: python scripts/verify.py
+        shell: bash
+        # 01.11: падение этого шага в CI не удавалось разобрать — логи раннера недоступны без токена, а локально всё
+        # зелено. Поэтому каждая проваленная проверка печатается аннотацией: аннотации видны через API без авторизации,
+        # и имя упавшего гейта приходит событием, а не догадкой.
+        run: |
+          set +e
+          out=$(python scripts/verify.py 2>&1)
+          code=$?
+          printf '%s\n' "$out"
+          if [ $code -ne 0 ]; then
+            printf '%s\n' "$out" | grep -F '[FAIL]' | while IFS= read -r line; do
+              echo "::error title=verify::${line}"
+            done
+          fi
+          exit $code
 
       - name: Claims matrix (evidence kinds, assumptions, artifact links)
         run: python scripts/claims_lint.py
