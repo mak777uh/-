@@ -130,6 +130,11 @@ def main(argv=None) -> int:
     ap.add_argument("--hetero-amp", type=float, default=0.0,
                     help="E7: сила пространственной неоднородности притока: F(x,y) = F*(1 + amp*(2S(t)-1)*(2G(x,y)-1))")
     ap.add_argument("--hetero-scale", type=float, default=12.0, help="масштаб пространственного узора G (клеток)")
+    # X78b: составной узор — две длины волны в одном G. По умолчанию выключено, поэтому старая ветка бит-в-бит прежняя.
+    ap.add_argument("--hetero-scale2", type=float, default=0.0,
+                    help="X78b: вторая длина волны узора G (0 = выключено)")
+    ap.add_argument("--hetero-mix2", type=float, default=0.5,
+                    help="X78b: вес второй длины волны в составном узоре (0..1)")
     ap.add_argument("--hetero-signal", default=None,
                     help="файл со значениями S(t) в 0..1 (дамп с железа); без него S = 0.5 (статичный узор)")
     ap.add_argument("--hetero-period", type=float, default=0.0,
@@ -246,6 +251,12 @@ def main(argv=None) -> int:
     if args.hetero_amp > 0:
         ky, kx = 2.0 * np.pi / max(2.0, args.hetero_scale), 2.0 * np.pi / max(2.0, args.hetero_scale)
         hetero_G = (np.sin(ky * np.arange(g))[:, None] * np.cos(kx * np.arange(g))[None, :] + 1.0) / 2.0
+        if args.hetero_scale2 and args.hetero_scale2 > 0:
+            # X78b: вторая шкала складывается с первой в один узор; обе нормированы в [0,1], вес задаёт смесь.
+            ky2, kx2 = 2.0 * np.pi / max(2.0, args.hetero_scale2), 2.0 * np.pi / max(2.0, args.hetero_scale2)
+            G2 = (np.sin(ky2 * np.arange(g))[:, None] * np.cos(kx2 * np.arange(g))[None, :] + 1.0) / 2.0
+            w2 = min(1.0, max(0.0, float(args.hetero_mix2)))
+            hetero_G = (1.0 - w2) * hetero_G + w2 * G2
         if args.hetero_period and args.hetero_period > 0:
             # E9: прямоугольная смена 0/1 с заданным периодом — «зерно» среды
             hetero_S = [1.0 if (i // max(1, int(args.hetero_period))) % 2 == 0 else 0.0 for i in range(args.steps)]
