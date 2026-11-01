@@ -155,7 +155,9 @@ def main(argv=None) -> int:
         ap.print_help()
         return 2
     print("[design] итог:", "пройдено" if ok else "ПРОВАЛ")
-    return 0 if (ok or not args.ci) else 1
+    # 01.11, доска B-093: без --ci код возврата был 0 всегда, то есть гейт не мог провалиться.
+    # Интерактивный разбор удобен, но провал обязан быть виден и без флага.
+    return 0 if ok else 1
 
 
 if __name__ == "__main__":

@@ -58,3 +58,28 @@ steps at 96 is cheaper than 12 000 at 128 and answers it directly.
 `morphogenesis/experiments/L1_field/x58_{pattern,homog}_s{171..175}.json`, fields in `x58_fields/` (30 arrays),
 aggregate `morphogenesis/experiments/E09_pond/l1_field_x58_betti.json`. Scripts: `scripts/x58_series.py`,
 `scripts/x58_analyse.py`.
+
+## Correction, 10:20 — the scaling was wrong, and the board caught it
+
+Board remark **B-094** said the claim "diffusion rescaled by 1/Δx², same physical model" is unconfirmed. It is worse than
+unconfirmed: it is wrong, and the correction changes what this run was.
+
+The code has **no Δx**: its Laplacian is the bare four-neighbour stencil and `dt` multiplies it, so the quantity that plays
+the role of physical diffusion is `dt·Du` (per cell), not `Du` alone. Going from 96 cells to 128 while keeping `dt = 0.5`
+and `Du = 0.2844` gives `dt·Du = 0.142` against the 96-world's `0.16` — and the lattice is 128 cells wide, not the same
+domain at finer spacing, because nothing in the model knows about spacing.
+
+That reading is confirmed by the wavelength itself. The homogeneous pattern came out at **16 cells**: `√(0.2844/0.16) =
+1.33` and `12 × 1.33 = 16`. The pattern scaled exactly as `√Du` predicts for a larger domain with stronger diffusion.
+
+**So this was not a finite-size test at all.** The 12-unit wavelength I reported was an artefact of multiplying cells by
+0.75, a conversion the model does not support. Consequences:
+
+- "The homogeneous pattern lands at the same physical wavelength" — **withdrawn**;
+- "the no-selection result is reproduced at 128" — **withdrawn** as stated: the run shows that the heterogeneous spectrum
+  stays broadband in a larger, more diffusive world, which is a weaker but still relevant observation;
+- the finite-size question raised by X60 is **still open** and needs a real refinement: same physical domain, `Δx` halved,
+  which in this code means `dt·Du` and `dt·Dv` preserved while the lattice doubles — i.e. `dt = 0.25`, `Du = Dv` unchanged.
+
+What survives: the spectral measurement itself (heterogeneous broadband, homogeneous peaked) at these settings, and the
+β₁ excess. What does not: the interpretation that the 96-grid result had been replicated at a finer resolution.
