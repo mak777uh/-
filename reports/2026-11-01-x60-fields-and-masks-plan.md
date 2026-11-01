@@ -65,8 +65,8 @@ The series is declared **worthless, not negative**, if any of these holds:
 ## 6. Code change and anchor
 
 - **Change:** add `--save-fields <dir>` to `scripts/field_track.py`; when set, write `v` as `float32` `.npy` at snapshots
-  2, 4 and 6 (t = 2000, 4000, 6000), named `<arm>_s<seed>_t<t>.npy`. The flag must not consume the RNG and must be
-  placed after the existing per-snapshot block.
+  2, 4 and 6 (t = 2000, 4000, 6000), named `<out stem>_t<t>.npy`, i.e. `x60_pattern_s171_t2000.npy`. The flag must not
+  consume the RNG and must be placed after the existing per-snapshot block.
 - **Anchor (mandatory before the series):** rerun seed 171 heterogeneous with the flag on and compare the `series` to
   `x18_pattern_s171.json` with `python scripts/check_determinism.py`; the summary must match exactly (only `wall_seconds`
   and `config.git_commit` may differ). Recorded in the report as "anchor: bit-for-bit, old branch; new branch — determinism:
