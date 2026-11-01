@@ -40,19 +40,32 @@ def check_checkpoints(root: Path) -> list[str]:
         items = req.get("items") or []
         if not items:
             continue
-        real_ready = [it for it in items if it.get("path") and (root / it["path"]).is_file()]
+        # 01.11: веса (.pt/.pth/.ckpt) в git не ездят (контракт §5 и §7), поэтому «ready» про них — состояние МАШИНЫ,
+        # а не склада: локально лежит один канонический вес, в чистом клоне ноль, и падать из-за этого гейт не должен
+        # (именно так CI и падал на шаге «Full gate set»). Для весов проверяется только арифметика снимка,
+        # для всего остального — совпадение с диском.
+        def _is_weight(it) -> bool:
+            return str(it.get("path") or "").lower().endswith((".pt", ".pth", ".ckpt"))
+
+        weights = [it for it in items if _is_weight(it)]
+        files = [it for it in items if not _is_weight(it)]
         declared = req.get("ready")
-        if declared is not None and int(declared) != len(real_ready):
-            problems.append(
-                f"checkpoints.{exp}: заявлено ready={declared}, на диске {len(real_ready)} из {len(items)} — "
-                f"снимок обещает то, чего нет (пересоберите: python scripts/lab.py state)"
-            )
         declared_missing = len(req.get("missing") or [])
-        real_missing = len(items) - len(real_ready)
-        if declared is not None and declared_missing != real_missing:
+        if declared is not None and weights and int(declared) + declared_missing != len(items):
             problems.append(
-                f"checkpoints.{exp}: заявлено missing={declared_missing}, реально отсутствует {real_missing}"
+                f"checkpoints.{exp}: снимок не сходится сам с собой — ready={declared}, missing={declared_missing}, "
+                f"в требовании {len(items)} файлов, из них весов {len(weights)}"
             )
+        if files:
+            real_ready = [it for it in files if it.get("path") and (root / it["path"]).is_file()]
+            if declared is not None and int(declared) != len(real_ready) and not weights:
+                problems.append(
+                    f"checkpoints.{exp}: заявлено ready={declared}, на диске {len(real_ready)} из {len(files)} — "
+                    f"снимок обещает то, чего нет (пересоберите: python scripts/lab.py state)"
+                )
+            real_missing = len(files) - len(real_ready)
+            if declared is None and real_missing:
+                problems.append(f"checkpoints.{exp}: нет поля ready, а на диске отсутствует {real_missing}")
     return problems
 
 
