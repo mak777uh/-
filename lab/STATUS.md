@@ -1,58 +1,116 @@
-# STATUS — канонический поток внимания лаборатории
+# STATUS — canonical flow of attention
 
-Один файл, одно место правды о том, **что сейчас в работе**. Обновляется ведущим в каждом цикле;
-машинное состояние живёт в `lab/state.json`, журнал — в `_hourly/log.md`, числа — в артефактах.
+One file, one place that says what is actually in work. Machine state lives in `lab/state.json`, the log in
+`_hourly/log.md`, numbers in artifacts. The Russian sections below the line are **history** and are not rewritten; the top
+part is kept current (new text in English — decision of 31.10).
 
-**Обновлено:** 2026-10-27, 02:50 MSK (итог ночи 26→27.10)
+**Updated:** 2026-11-01, 19:05 MSK.
 
-## Сейчас в работе
+## Running now
 
-Ничего не идёт: замков нет, ГПУ свободен. Ночь закрыта осознанно, а не по сбою.
+- **X71 multistability** (`X71_multistability`, owner `lead`): inflow sweep `F = 0.025…0.055` at `k = 0.06`, five
+  `--init-jitter` worlds per cell in both arms, 70 runs, started 18:00, ~70–110 s per run. Readout: radial spectrum of `v`
+  at step 6000. Preregistered in `reports/2026-11-01-x71-multistability-plan.md` (§10eq). The run goes through
+  `scripts/x71_series.py` directly, not through `lab.py run`, so it holds **no lock** — the GPU lane is simply occupied until
+  about 19:20.
+- Nothing else is running; no locks.
+
+## Closed on 01.11 (field line)
+
+| what | verdict | where |
+|---|---|---|
+| X58-lite grid 128 | **withdrawn**: the code has no `dx`, so 96→128 at `dt = 0.5` changed the domain, not the resolution | §10ed, `reports/2026-11-01-x58-lite-grid128-result.md` |
+| X59 amplitude dose | divisions 308 → 79 → 21 at amp 0.5 / 0.25 / 0.1, factor 14.7, 5/5 worlds | §10ef |
+| X60 field topology | β₁ excess +9.0 (10/10) at t = 2000, gone by 6000 | §10ea |
+| X61l long horizon | the excess fades, no persistent selection | §10eg |
+| X62 / X63 / X64 / X65 / X66 / X67 | correlation length, scale sweep, refinement, grid-120 bracket, full grid map, doubled box | §10eh–§10em |
+| X68 identity rules | **replicated** on five real worlds: lifetime reversal 5/5 at loose overlap, 4/5 at medium, **5/5 the other way at strict** | §10en, `reports/2026-11-01-x68-identity-replicated.md` |
+| X70 size heredity | **real, pair-specific, partial**: 0.42–0.57 over five real worlds, nearest-distance surrogate −0.003, partial 0.545 | §10ep, `reports/2026-11-01-x70-spatial-control-result.md` |
+| method | a seed replicates nothing if the world ignores it (β = 0 geometry is seed-independent); gate `check_seed_replication.py` | `docs/design-checks.md` |
+| hygiene | board 94/94 closed, CI green, three Linux-only gate defects fixed | `_hourly/log.md` |
+
+## Waiting for the owner — only two items, both small
+
+1. **X54, canonical weights:** the snapshot is honest now (`ready 1 / missing 11`, `weights_tracked: false`), but the choice
+   remains: (a) restore the 12 `nca_final.pt` from Zenodo `10.5281/zenodo.23654174` (6.47 GB), or (b) record the local
+   absence in `docs/deposit.md` and drop the 12-file requirement. Option (b) costs 15 minutes and unblocks the retention
+   policy; option (a) is only needed if E02b is to be reproduced locally.
+2. **v1.7 of article 028:** v1.6 was **published** on 31.10 at 23:45 (DOI `10.5281/zenodo.23844978`), so "inserts before
+   upload" no longer exists as a category. Two things remain: the published files still call themselves v1.5.1 and link
+   `23839898` (a two-line header fix), and the two prepared inserts (the count is a count of *small* components; lifetimes
+   belong to the trait channel) would go into v1.7. Publication is outward-facing, so it is the owner's call; ~60 minutes.
+
+## Queued compute, not waiting on anyone
+
+- **X58 at grid 192** (the real refinement): `Du = 0.64`, `Dv = 0.32`, `dt = 0.375` (stability `dt·Du = 0.24 ≤ 0.25`),
+  16 000 steps, 10 runs, ~2 GPU-hours. Criterion: peak position at 12 units.
+- **X57 stationarity:** one 30 000-unit arm at `dt = 1.0`, 10 seeds, ~2 GPU-hours.
+- **X31 equivalence:** the rule is implemented in `claim_comparator.py`; the 60-seed series is missing, ~1 GPU-hour.
+- **X29:** `scripts/field_eas.py` (Flow-Lenia meter) has never been run; the `x37_sel`/`x37_null` data are on disk. No GPU.
+- **X35:** six published claim rows sit at `наблюдение` only because nobody matched their numbers to aggregates that already
+  exist (`v8_matrix.json`, `frequency_start_control.json`, five `w2bud_*` manifests). One hour, no GPU.
+- **X3:** the claims gate checks that an artifact exists, not that its value matches; add the expected-value column.
+- **X69:** 15-seed dose confirmation, registered, paused (`reports/2026-11-01-x69-dose-15-seeds-plan.md`).
+
+## No longer waiting (stale entries removed)
+
+- **A (`freq_dep > 0`)** — the quota arm was approved, run and closed negative on 27.10 (§10bf: lineages with data 4.0 → 5.0 →
+  4.0 against a target of ≥12, sign of the price flipped); the price magnitude was closed by §10bg/§10bh. Nothing waits.
+- **Preprint v1.1/v1.2** — v1.2 has been live since 28.10 (`10.5281/zenodo.23733719`); only the optional arXiv endorsement
+  step remains, and `_hourly/grants/ИНСТРУКЦИЯ-ОТПРАВКА.md` is out of date rather than blocking.
+- **Provenance gaps** — of the 93 references to lost `_hourly/` artifacts, **66 exist one directory up** (the gate scans
+  `repo/_hourly` only), 13 can be re-pointed to committed aggregates, 3 are filename drift, 11 are gone for good.
+
+## Deliberately not doing (unchanged)
+
+- New pilots on the same price construction (14 manoeuvres gave the answer: at most 9 lineages).
+- A third explanation of the price magnitude (two were tested and withdrawn).
+- Rewriting old series for cosmetics; re-running insensitive tests under new names.
+- Editing `world/` or `config.py` while a series runs.
+- Publishing anything outward without the owner's explicit "ok".
+
+## Lessons that still bind (pointers)
+
+| # | class | rule |
+|---|---|---|
+| 7 | a series taken across four code commits | the indicator is `git_code_commit`, not `git_dirty`; `check_series_homogeneity.py` |
+| 8 | `print` into a closed pipe killed a run | the artifact is written **before** printing; the fix is checked by deliberately breaking it |
+| 9 | a series mixed by parameters invisible in `config` | parameters come from the preregistration, not from the previous script |
+| 10 | 01.11 | a seed is replication only if it changes the world — `docs/design-checks.md` |
+
+## How to check the state
+
+```bash
+python scripts/lab.py validate      # contract
+python scripts/claims_lint.py       # claims matrix: basis kind, assumptions, artifacts
+make verify                         # everything, with per-step time budgets
+python scripts/lab_health.py --full --github   # single entry point: gates, CI, queues, series, disk
+```
+
+---
+
+# История (не переписывается)
 
 ## Что закрыто за ночь 26→27.10
 
-1. **Единица размножения — четыре конструкции** (§4i, §10az/§10ba): колония **0/10**, пара «своей»
-   метки **2/10**, пара «любых» меток **1/10**, клетка **10/10**. В первых трёх линия с данными одна,
-   поэтому они помечены **«не оценивается»**, а не «отбора нет». Утверждение сузилось до **«ровно одна
-   клетка»**; объяснение «порог в родстве внутри единицы» опровергнуто нашими же данными.
-2. **Цена признака** (§4i, §10bd): знак устойчив (**8/8**, p = 0.0039), величина **не определена**
-   (медиана −0.478, ДИ [−0.797, −0.177], порог −0.3 внутри). Причина — **ограничение конструкции**:
-   14 маневров дают максимум **9 линий** против нужных ≥12 (доминирующая линия занимает 69–90 %).
-   Серия не запускалась — это записано как свойство мира.
-3. **Отклик закрыт двумя величинами** (§10ax): независимая от `w` величина даёт медиану **0.018** (5/10),
-   `ρ(признак, w)` — **+0.518** (8/10), знак совпадает в **3/10** ⇒ кажущийся отклик — свойство
-   определения `w`.
-4. **Наследование среды закрыто механизмом** (§4j, §10be): пересъёмка 20 прогонов **одним
-   `git_code_commit`** (`248e01d`), фильтр «свободная компонента ≥15»: `legacy > adjacency_exact`
-   в **5/10**, медиана **−0.0092**, p = 0.62. Остаток +0.12 → +0.014 → **−0.0092** исчез; место
-   занимает тот, у кого больше живых 4-соседей (0.744 → 0.881). **Уточнение:** память среды при этом
-   есть — избыток живёт 2–4 поколения (полураспад 20–41 шаг при поколении 9–10); опровергнуто наследование
-   **по линии**, а не память среды вообще.
-5. **Перенос вне тел** (§4j.1, §10bb/§10bc): `k = 1 > k = 2` в **10/10** (p = 0.001), `k = 2` против
-   `k = 8` — **6/10**, величина 1.765 против 12–50. Объяснение «геометрия усиливает отбор» проверено
-   и **снято** (лимит роста даёт 0.95; сетка кэпов 0.68 / 0.95 / 1.275).
-6. **Препринт опубликован** (Zenodo, DOI v1.1 `10.5281/zenodo.23694918`, concept `10.5281/zenodo.23669737`); **v1.1 опубликован**
-   и ждёт сборки PDF: перенос вне тел, цена как ограничение конструкции, наследование среды.
-
-## Ждёт решения владельца
-
-1. **v1.1 препринта** — собрать PDF в Overleaf из `_hourly/grants/arxiv-tex.zip`, загрузить новой
-   версией записи в Zenodo, прислать DOI версии (впишем в `CITATION.cff` и `docs/deposit.md`).
-   Инструкция: `_hourly/grants/ИНСТРУКЦИЯ-ОТПРАВКА.md`, раздел «Как выпустить v1.1».
-2. **A (квоты / `freq_dep > 0`) — смена физики мира.** Единственный известный путь к вердикту по цене:
-   механизм, ограничивающий долю мира одной линией, должен поднять число линий до ≥12. Нужен «ок»
-   как на смену рамки; порядок — пре-регистрация + пилот 1 сид, серия только после арифметики.
-3. **Доска литературы** — 3 замечания без решения (перенести в план или отклонить с причиной).
-
-## Чего сознательно не делаем
-
-- **Новых пилотов на той же конструкции цены** — 14 маневров дали ответ: больше 9 линий она не даёт.
-- **Третьего объяснения величины отбора** — два проверены и сняты, вопрос записан как «свойство мира
-  с телом, механизм не установлен», и дальше не ищем (иначе «сад расходящихся тропок»).
-- **Пересъёмки старых серий ради косметики** — отозванные помечены и объяснены, но не переписываются.
-- **Правок `world/` во время серии** и **коммитов, трогающих `world/`/`config.py`, посреди серии**:
-  цена — расколотая серия (§10ay и первый проход §10be).
-- **Публикации наружу без «ок» владельца.**
+1. **Единица размножения — четыре конструкции** (§4i, §10az/§10ba): колония **0/10**, пара «своей» метки **2/10**, пара
+   «любых» меток **1/10**, клетка **10/10**. В первых трёх линия с данными одна, поэтому они помечены **«не оценивается»**,
+   а не «отбора нет». Утверждение сузилось до **«ровно одна клетка»**; объяснение «порог в родстве внутри единицы»
+   опровергнуто нашими же данными.
+2. **Цена признака** (§4i, §10bd): знак устойчив (**8/8**, p = 0.0039), величина **не определена** (медиана −0.478, ДИ
+   [−0.797, −0.177], порог −0.3 внутри). Причина — **ограничение конструкции**: 14 маневров дают максимум **9 линий**
+   против нужных ≥12 (доминирующая линия занимает 69–90 %). Серия не запускалась — это записано как свойство мира.
+3. **Отклик закрыт двумя величинами** (§10ax): независимая от `w` величина даёт медиану **0.018** (5/10), `ρ(признак, w)` —
+   **+0.518** (8/10), знак совпадает в **3/10** ⇒ кажущийся отклик — свойство определения `w`.
+4. **Наследование среды закрыто механизмом** (§4j, §10be): пересъёмка 20 прогонов **одним `git_code_commit`**
+   (`248e01d`), фильтр «свободная компонента ≥15»: `legacy > adjacency_exact` в **5/10**, медиана **−0.0092**, p = 0.62.
+   Остаток +0.12 → +0.014 → **−0.0092** исчез; место занимает тот, у кого больше живых 4-соседей (0.744 → 0.881).
+   **Уточнение:** память среды при этом есть — избыток живёт 2–4 поколения; опровергнуто наследование **по линии**, а не
+   память среды вообще.
+5. **Перенос вне тел** (§4j.1, §10bb/§10bc): `k = 1 > k = 2` в **10/10** (p = 0.001), `k = 2` против `k = 8` — **6/10**,
+   величина 1.765 против 12–50. Объяснение «геометрия усиливает отбор» проверено и **снято**.
+6. **Препринт опубликован** (Zenodo, v1.0 `23669738`, v1.1 `23694918`, v1.2 `23733719`); статья 028 v1.6 —
+   `23844978`.
 
 ## Уроки ночи (разборы — `docs/incidents.md` §7–9, правило — `AGENTS.md` §3c)
 
@@ -62,52 +120,25 @@
 | 8 | `print` в закрытый пайп убивал прогон (и PowerShell `*>>` — тоже пайп) | артефакт пишется **до** печати, `_safe_print` везде, фикс проверять **намеренной поломкой** |
 | 9 | серия смешана по параметрам, невидимым в `config` | параметры берутся из **пре-регистрации исполнителя**, а не из прошлого скрипта; сверка на одном сиде до серии |
 
-Плюс два собственных промаха ведущего, записанных явно: предсказание «+0.005…+0.02» для просторной
-зоны **не подтвердилось** (−0.0092), потому что опиралось на отозванную серию; и 17 прогонов были
-запущены скопированным старым `POND_ARGS` (три флага отсутствовали, а в `config` они не видны).
+Плюс два собственных промаха ведущего, записанных явно: предсказание «+0.005…+0.02» для просторной зоны **не
+подтвердилось** (−0.0092), потому что опиралось на отозванную серию; и 17 прогонов были запущены скопированным старым
+`POND_ARGS` (три флага отсутствовали, а в `config` они не видны).
 
-## Красное, которое оставлено осознанно
+## Красное, которое оставлено осознанно (26.10)
 
-- **Гейт «замечания библиотеки»: 1 замечание new висит больше дня.** Библиотекарь написал **58 новых
-  разделов** (`library/answers.md`), из них прочитаны и разобраны три ключевых (§37 меморандум о свободной
-  самоорганизации, §38 «5 из 16 внешних DOI неверны», §39 «поколение 9–10 шагов ⇒ наследие 2–4 поколения»).
-  `library_inbox --ack` отказывается закрывать без `--force`, а ставить `--force`, не прочитав 55 разделов, —
-  ровно то «зелёное, которое врёт», с чем мы воюем. Поэтому гейт **красный до утра**, и это первая задача
-  утренней смены: разобрать 58 разделов, начиная с §37–39 (там есть проверяемые предложения и правило про
-  внешние цитаты), затем `--ack`.
-
-## Ближайшие три шага
-
-1. **Проверить CI** на `be2c347` (шаг «Meta-contour» чинился ночью: агрегатор внесён в реестр скриптов).
-2. **Собрать v1.1** (владелец) → вписать DOI версии в `CITATION.cff` и `docs/deposit.md`.
-3. **Решить по A** (квоты): если «да» — пре-регистрация с арифметикой `q` и пилот на одном сиде;
-   серия только после проверки, что квота не отсекает размножение (доля делившихся ≥ 0.2).
-
-## Как проверять состояние
-
-```bash
-python scripts/lab.py validate      # контракт
-python scripts/claims_lint.py       # матрица утверждений: тип основания, допущения, артефакты
-make verify                         # всё сразу (гейт перед отправкой), с бюджетами времени
-python scripts/lab_health.py --full --github   # единая точка входа: гейты, CI, очереди, серии, диск
-```
-
-**Правила, появившиеся после ночи 26→27.10:** корреляция подписывается коэффициентом, фильтром линий и
-знаменателем; серия обязана быть снята одним кодом и одним набором параметров; нечувствительный результат
-публикуется как «тест не дотянулся», а не как «эффекта нет» (§3c контракта).
+- **Гейт «замечания библиотеки»: 1 замечание new висит больше дня.** Библиотекарь написал **58 новых разделов**
+  (`library/answers.md`), из них прочитаны и разобраны три ключевых (§37, §38, §39). `library_inbox --ack` отказывается
+  закрывать без `--force`, а ставить `--force`, не прочитав 55 разделов, — ровно то «зелёное, которое врёт», с чем мы
+  воюем. *(На 01.11 доска 94/94 закрыта; строка оставлена как история правила.)*
 
 ## 29.10 — вечер: итог дня
 
-**Закрыто:** E1, E1b (критерий индивидуации — пруд не проходит), E2 (абляция объекта — вывод устоял с
-границей), E3 (гистерезиса нет), E4 (связь даёт скорость, не прирост), E6a (критерий был неустойчив к сетке),
-E6b (пассивная примесь не наследуется), X5 (вердикт E1 не зависит от фона).
+**Закрыто:** E1, E1b (критерий индивидуации — пруд не проходит), E2 (абляция объекта — вывод устоял с границей), E3
+(гистерезиса нет), E4 (связь даёт скорость, не прирост), E6a (критерий был неустойчив к сетке), E6b (пассивная примесь не
+наследуется), X5 (вердикт E1 не зависит от фона).
 
 **Не выжили три вывода:** преимущество инвазии, гистерезис, оптимум чувствительности.
 
 **Два правила метода:** сравнивать на срезе 600 (CV 0.3), контраст против локального кольца.
-
-**Следующее:** `E6c` (пре-регистрация готова), `E5` (живая петля, нужна тихая машина), `X3` (единственный
-открытый из гейтов входящих аудитов: `X1` — `check_readme_commands.py` и `X2` — `check_single_spec.py` закрыты
-30.10; у `X3` владелец — ведущий, триггер — следующая правка `claims_lint`, пункт очереди `X3_claims_expect_column`).
 
 **Осторожно:** срез 300 хаотичен (CV до 0.80). Любое число, взятое до 600 шагов, публиковать только с CV.

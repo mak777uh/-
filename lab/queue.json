@@ -1,19 +1,21 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-01T01:35:42Z",
+  "updated_at": "2026-11-01T16:00:25Z",
   "note": "Очередь пунктов после E02c. Claim берётся до пре-регистрации, а не перед запуском: lab.py item-claim. Статус running означает занятый GPU-лейн и может быть только у одного пункта. | 25.10: добавлено поле impact (1-5) — приоритет конвейера = impact/max(cost_gpu_h,0.1); для запуска пункту нужны prereg (закоммиченный план) и launch.command+outdir.",
   "items": [
     {
       "id": "E6_field_confirm",
       "title": "Поле: подтверждение критерия на новых параметрах + наследование состава",
-      "status": "planned",
+      "status": "closed",
       "owner": "lead",
       "cost_gpu_h": 4.0,
       "ttl_minutes": 480,
       "hypothesis": null,
       "claimed_at": null,
       "heartbeat_at": null,
-      "note": "импакт-порядок E6 (reports/2026-10-29-impact-order.md)"
+      "note": "both halves answered: selection E6p (l1_field_e6p_selection.json, drift +0.484 10/10 and +0.835 9/10, fixation 9/10) and niches E6q (l1_field_e6q_niches.json, no niches); §10eb and §10ec, reports of 01.11. The four GPU-hours are not needed",
+      "closed_at": "2026-11-01T15:59:56Z",
+      "closed_by": "lead"
     },
     {
       "id": "X3_claims_expect_column",
@@ -30,14 +32,14 @@
     {
       "id": "X7_dose_confirmation",
       "title": "Подтверждение дозы неоднородности: 6 сидов на amp 0.35 / 0.5 / 0.65",
-      "status": "planned",
+      "status": "superseded",
       "owner": "lead",
       "cost_gpu_h": 0.5,
       "ttl_minutes": 200,
       "hypothesis": null,
       "claimed_at": null,
       "heartbeat_at": null,
-      "note": "из E8: максимум при amp≈0.5 выглядит как оптимум, но при 3 сидах разброс сравним с эффектом. Нужно 6 сидов на трёх точках вокруг максимума, критерий — CV по сидам и попарное сравнение"
+      "note": "premise retired: E8 rested on component count, which §10de/§10dc showed is an occupancy measure; the dose was re-measured on turnover in X59 (308 / 79 / 21 at amp 0.5 / 0.25 / 0.1, 5/5, factor 14.7). The 15-seed confirmation lives in the X69 registration (reports/2026-11-01-x69-dose-15-seeds-plan.md, paused)"
     },
     {
       "id": "X28_factorial_F",
@@ -109,7 +111,7 @@
       "hypothesis": null,
       "claimed_at": null,
       "heartbeat_at": null,
-      "note": "из §10dh-доп: при n=21 против 126 плотность источника даёт +0.231 с интервалом, включающим ноль. Чтобы исключить её вклад (или подтвердить), нужно 1000+ строк пересадок: больше источников и сред. Критерий: интервал разницы медиан не включает ноль"
+      "note": "premise stale: transition_matrix_rep_exploratory.json already holds 1296 rows (36 sources x 12 targets x 3 noise); only the density test still runs on the old 216 rows (§10dh). Recompute density on 1296 rows first"
     },
     {
       "id": "X52_spatial_optimum",
@@ -186,26 +188,30 @@
     {
       "id": "X55_verify_artifact_catalogue",
       "title": "Проверить каталог артефактов симуляции: 12 ссылок онлайн",
-      "status": "planned",
+      "status": "closed",
       "owner": "lead",
       "cost_gpu_h": 0.0,
       "ttl_minutes": 600,
       "hypothesis": null,
       "claimed_at": null,
       "heartbeat_at": null,
-      "note": "из library/artifact-catalogue-assessment.md: каталог из 19 случаев составлен моделью, веб-поиск в момент проверки был недоступен (API 401). Подтверждено: Lehman et al. 2020 (Surprising Creativity). Опровергнуто: Tierra-паразиты датированы PNAS 2026 (это 1990-е). 12 пунктов вероятны, но ссылки не проверены. Задача: проверить по страницам издателей, подтверждённое внести в library/publications/, остальное исправить или отбросить | 31.10: каталог разобран (library/artifact-catalogue-assessment.md), собран корпус из 80 работ (library/lit-artifacts-elephant.md): настоящая дисциплина — verification & validation (Oberkampf & Roy 2010, DOI 10.1017/cbo9780511760396). Осталось прочесть полные тексты трёх работ без аннотаций"
+      "note": "answered in library/artifact-catalogue-assessment.md: 6 of 12 cited references do not exist and 2 are misdescribed; only Lehman 2020 is citable. Residual reading (7, 9, 19) is a library task; none of the three DOIs is in library/corpus/manifest.json",
+      "closed_at": "2026-11-01T15:59:55Z",
+      "closed_by": "lead"
     },
     {
       "id": "X56_step_convergence",
       "title": "Сходимость по шагу: выживает ли главный контраст при dt/2 и 2dt",
-      "status": "planned",
+      "status": "closed",
       "owner": "lead",
       "cost_gpu_h": 1.5,
       "ttl_minutes": 600,
       "hypothesis": null,
       "claimed_at": null,
       "heartbeat_at": null,
-      "note": "из library/lit-artifacts-elephant.md: стандартная проверка solution verification, которую мы НИКОГДА не делали. Все числа статьи получены при dt=1.0 и лапласиане по 4 соседям; сетку мы варьировали (96/128), шаг — ни разу. План: контраст долгоживущих структур (1.3 против 1.2) и компонент (6.50 против 2.81) при dt = 0.5 / 1.0 / 2.0, 10 сидов. Критерий: знак сохраняется, величина в пределах 25 %; иначе число объявляется зависящим от интегратора | ПОСЛЕ ЧТЕНИЯ (library/lit-elephant-fulltexts.md): Davis & Bongard 2022 (DOI 10.1162/isal_a_00526) показали, что меньшее dt НЕ точнее — узор может исчезнуть при измельчении; Davis 2024 (10.1162/isal_a_00786) — «non-Platonic»: узор живёт только при определённом dt. Поэтому правило: контраст сохранился — step-robust; изменился по величине — свойство дискемы; исчез — non-Platonic, сообщаем как свойство схемы, НЕ как «мы ошиблись»"
+      "note": "answered since 31.10: l1_field_x56_matrix.json (git-tracked) + §10dv; contrast +3.571 at dt=1.0, +1.24 at dt=0.5 (35 percent), 0.00 at dt=2.0; cadence and size controls in reports/2026-11-01-free-checks-cadence-and-size.md (+4.20 vs +0.40). Residue (mechanism: RK4 or dt=0.25) is a new item, not this one",
+      "closed_at": "2026-11-01T15:59:55Z",
+      "closed_by": "lead"
     },
     {
       "id": "X57_contrast_stationarity",
@@ -222,14 +228,14 @@
     {
       "id": "X58_grid_scaling",
       "title": "Настоящая сеточная сходимость: масштабировать Du, Dv как 1/dx²",
-      "status": "planned",
+      "status": "superseded",
       "owner": "lead",
       "cost_gpu_h": 2.0,
       "ttl_minutes": 600,
       "hypothesis": null,
       "claimed_at": null,
       "heartbeat_at": null,
-      "note": "из §10dx: сравнение сеток 96/128 при фиксированном Du — это другая физика, а не сходимость (в U-Skate World разрешение задаётся коэффициентом 1/dx² при диффузии, Davis 2023). Настоящая проверка: при переходе на сетку 128/192 масштабировать Du→Du/dx², Dv→Dv/dx² и смотреть, сохраняется ли контраст. Критерий: знак и величина в пределах 25 % — тогда сетка не артефакт"
+      "note": "criterion retired: the 96->128 comparison was not a refinement (no dx in the code; physical diffusion is dt*Du; B-094, §10ed), the real refinement was done at 144 (§10ej, Du 0.36, dt 0.5) and the criterion moved to peak position (§10ek/§10el). The remaining 192 point is a new item: Du=0.64, Dv=0.32, dt<=0.39"
     },
     {
       "id": "X6a_board_text",
@@ -2026,6 +2032,18 @@
       "note": "20 runs, 0 failed; beta1 +9.0 at t=2000 (10/10), matched occupancy +5.5 (10/10); hetero keeps q=1 while homog settles at lambda=12 cells; N*lambda^2/A refused by its own rule",
       "closed_at": "2026-11-01T01:35:42Z",
       "closed_by": "lead"
+    },
+    {
+      "id": "X71_multistability",
+      "title": "Is the medium multistable: two morphologies at one inflow (the Q7 falsifier)",
+      "status": "running",
+      "owner": "lead",
+      "kind": "series",
+      "cost_gpu_h": 1.5,
+      "prereg": "reports/2026-11-01-x71-multistability-plan.md",
+      "note": "F sweep 0.025-0.055 at k=0.06, five jittered worlds per cell in both arms, radial spectrum at 6000; a split counts only if wider than 3 Fourier bins with >=2 worlds per cluster, or two modes with shares both >=0.2. Positive control restated before the series: response, not monotonicity",
+      "started_at": "2026-11-01T18:00:00+03:00",
+      "heartbeat_at": "2026-11-01T16:00:25Z"
     }
   ]
 }
