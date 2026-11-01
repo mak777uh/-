@@ -126,6 +126,32 @@ def check_prereg(path: Path, structure_only: bool = False) -> tuple[bool, list[s
     return not problems, problems + notes
 
 
+REQUIRED_SECTIONS = ("## 1. Manipulation is connected", "## 2. Positive control fires",
+                     "## 3. Readout exists and varies", "## 4. Sensitivity arithmetic", "## 5. Refusal rule")
+
+
+def scan_plans(since: str) -> tuple[bool, list[str]]:
+    """Каждая пре-регистрация, начиная с даты `since`, обязана нести пять разделов.
+
+    Доска B-093 (01.11): гейт дизайна падал только по одному файлу, который ему подадут руками, поэтому в `make verify`
+    его не было вовсе. Скан делает проверку общей: план без пяти разделов не может проскочить, потому что никто не забыл
+    его подать. Старые русские планы не проверяются — правило действует с даты, названной в `--since`.
+    """
+    root = Path(__file__).resolve().parents[1]
+    plans = [f for f in sorted((root / "reports").glob("*-plan.md")) if f.name[:10] >= since]
+    if not plans:
+        return True, [f"планов с {since}: 0 — проверять нечего"]
+    bad = []
+    for f in plans:
+        text = f.read_text(encoding="utf-8")
+        missing = [s.split(". ", 1)[1] for s in REQUIRED_SECTIONS if s not in text]
+        if missing:
+            bad.append(f"{f.name}: нет разделов {', '.join(missing)}")
+    if bad:
+        return False, [f"планов проверено: {len(plans)}, с нарушениями: {len(bad)}"] + bad
+    return True, [f"планов проверено: {len(plans)}, у всех пять разделов"]
+
+
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description="пять проверок дизайна до серии")
     ap.add_argument("--prereg", help="файл пре-регистрации")
@@ -135,6 +161,9 @@ def main(argv=None) -> int:
     ap.add_argument("--structure", action="store_true",
                     help="только структура: разделы на месте, отметки не требуются (для make verify)")
     ap.add_argument("--ci", action="store_true", help="падение при любом провале")
+    ap.add_argument("--scan-plans", action="store_true",
+                    help="проверить структуру всех пре-регистраций начиная с --since (для make verify)")
+    ap.add_argument("--since", default="2026-11-01", help="первая дата в имени файла плана, которую проверяем")
     args = ap.parse_args(argv)
 
     ok = True
@@ -151,7 +180,12 @@ def main(argv=None) -> int:
         good, line = check_readout(Path(args.readout), args.key)
         ok &= good
         print("  " + line)
-    if not (args.prereg or args.pair or args.readout):
+    if args.scan_plans:
+        good, lines = scan_plans(str(args.since))
+        ok &= good
+        for line in lines:
+            print("  " + line)
+    if not (args.prereg or args.pair or args.readout or args.scan_plans):
         ap.print_help()
         return 2
     print("[design] итог:", "пройдено" if ok else "ПРОВАЛ")
