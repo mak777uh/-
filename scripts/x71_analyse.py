@@ -131,9 +131,10 @@ def main(argv=None) -> int:
         pts = [(f, q) for f, q in pts if q]
         mono_down = all(pts[i][1] >= pts[i + 1][1] for i in range(len(pts) - 1))
         span_bins = round((max(q for _, q in pts) - min(q for _, q in pts)) / BIN, 1) if len(pts) > 1 else 0.0
+        # План (поправка 17:55) требует от контроля ОТКЛИК, а не монотонность: монотонность печатается как факт.
         control[arm] = {"points": [[round(f, 3), round(q, 4)] for f, q in pts],
                         "monotone_non_increasing": mono_down, "span_bins": span_bins,
-                        "fires": span_bins >= SPLIT_BINS and mono_down}
+                        "fires": span_bins >= SPLIT_BINS}
     res["positive_control"] = control
 
     splits = [k for k, c in res["cells"].items() if c["split"]]

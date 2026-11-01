@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-01T16:00:25Z",
+  "updated_at": "2026-11-01T16:25:35Z",
   "note": "Очередь пунктов после E02c. Claim берётся до пре-регистрации, а не перед запуском: lab.py item-claim. Статус running означает занятый GPU-лейн и может быть только у одного пункта. | 25.10: добавлено поле impact (1-5) — приоритет конвейера = impact/max(cost_gpu_h,0.1); для запуска пункту нужны prereg (закоммиченный план) и launch.command+outdir.",
   "items": [
     {
@@ -2036,14 +2036,16 @@
     {
       "id": "X71_multistability",
       "title": "Is the medium multistable: two morphologies at one inflow (the Q7 falsifier)",
-      "status": "running",
+      "status": "closed",
       "owner": "lead",
       "kind": "series",
       "cost_gpu_h": 1.5,
       "prereg": "reports/2026-11-01-x71-multistability-plan.md",
-      "note": "F sweep 0.025-0.055 at k=0.06, five jittered worlds per cell in both arms, radial spectrum at 6000; a split counts only if wider than 3 Fourier bins with >=2 worlds per cluster, or two modes with shares both >=0.2. Positive control restated before the series: response, not monotonicity",
+      "note": "positive: at F=0.035 (k=0.06) five jittered worlds split into 12.0 cells (2 worlds) and 8.73 cells (3), and all five runs carry both modes above a fifth of spectral power; single-valued outside the band. report reports/2026-11-01-x71-multistability-result.md, aggregate l1_field_x71_multistability.json, plan §10eq. Next: X72 branch heredity at the boundary",
       "started_at": "2026-11-01T18:00:00+03:00",
-      "heartbeat_at": "2026-11-01T16:00:25Z"
+      "heartbeat_at": null,
+      "closed_at": "2026-11-01T16:25:35Z",
+      "closed_by": "lead"
     }
   ]
 }

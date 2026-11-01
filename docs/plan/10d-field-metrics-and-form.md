@@ -1311,5 +1311,18 @@ showed 9, 8, 11, 11, 11 — spot size versus inflow is a different question than
 the spots-to-labyrinth boundary between `F = 0.035` and `0.040` (β₀ 31 → 4, β₁ 3 → 12), which is why the sweep has headroom
 on both sides.
 
-Status: running (70 runs, ~80 minutes). Result and verdict will be appended here; the aggregate will be
-`l1_field_x71_multistability.json`.
+Status: **closed, positive.** At `F = 0.035` (k = 0.06) five independently started worlds split into two wavelengths —
+12.0 cells (q = 8 bins, 2 worlds) and 8.73 cells (q = 11 bins, 3 worlds) — and **all five runs carry both modes at once**,
+each above a fifth of the spectral power. Outside the band the medium is single-valued (12.0 cells at F <= 0.030, 8.73 at
+0.040-0.050, spread 0-1 bin). The band is one inflow step wide; β0 falls 67 -> 31 -> 4 -> 1 and β1 rises 0 -> 0 -> 11 -> 37 ->
+87 across it, so the coexistence sits exactly where the spot phase neither holds nor is gone. The homogeneous arm cannot
+show this (its F = 0.055 worlds degenerate to q = 1), which is a property of the arm. Positive control: peak position moves
+8 -> 11 bins between the extremes, i.e. a response; it is not monotone, and that was written down before the five-world data
+existed.
+
+**What it changes.** X70 measured a graded memory (a daughter follows her parent at about half strength, one generation).
+In this band the same question becomes discrete: the daughter should take the parent's **branch**, so the next experiment
+(X72) reads branch concordance against a nearest-distance surrogate instead of a correlation slope. That is the first
+candidate mechanism in this line for heredity that is not diluted. Report:
+`reports/2026-11-01-x71-multistability-result.md`; aggregate `l1_field_x71_multistability.json`. Flagged, not counted: the
+F = 0.055 split (q = 6 bins, near the box scale).

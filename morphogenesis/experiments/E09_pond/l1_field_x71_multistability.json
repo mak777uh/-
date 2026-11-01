@@ -1,0 +1,637 @@
+{
+  "kind": "l1_field_x71_multistability",
+  "experiment": "X71",
+  "command": "python scripts/x71_analyse.py --write",
+  "prereg": "reports/2026-11-01-x71-multistability-plan.md",
+  "split_bins": 3.0,
+  "second_mode_share": 0.2,
+  "bin_width": 1.0,
+  "cells": {
+    "f025_pattern": {
+      "flow": 0.025,
+      "arm": "pattern",
+      "worlds": 5,
+      "q_peak": [
+        7.0,
+        7.0,
+        8.0,
+        8.0,
+        8.0
+      ],
+      "wavelength_cells": [
+        13.71,
+        13.71,
+        12.0,
+        12.0,
+        12.0
+      ],
+      "spread_bins": 1.0,
+      "clusters": [
+        {
+          "n": 5,
+          "centre": 7.6,
+          "values": [
+            7.0,
+            7.0,
+            8.0,
+            8.0,
+            8.0
+          ]
+        }
+      ],
+      "split": false,
+      "two_mode_runs": [],
+      "b0_median": 62,
+      "b1_median": 0.0
+    },
+    "f030_pattern": {
+      "flow": 0.03,
+      "arm": "pattern",
+      "worlds": 5,
+      "q_peak": [
+        9.0,
+        8.0,
+        11.0,
+        8.0,
+        8.0
+      ],
+      "wavelength_cells": [
+        10.67,
+        12.0,
+        8.73,
+        12.0,
+        12.0
+      ],
+      "spread_bins": 3.0,
+      "clusters": [
+        {
+          "n": 5,
+          "centre": 8.8,
+          "values": [
+            8.0,
+            8.0,
+            8.0,
+            9.0,
+            11.0
+          ]
+        }
+      ],
+      "split": false,
+      "two_mode_runs": [],
+      "b0_median": 67,
+      "b1_median": 0.0
+    },
+    "f035_pattern": {
+      "flow": 0.035,
+      "arm": "pattern",
+      "worlds": 5,
+      "q_peak": [
+        8.0,
+        11.0,
+        11.0,
+        8.0,
+        11.0
+      ],
+      "wavelength_cells": [
+        12.0,
+        8.73,
+        8.73,
+        12.0,
+        8.73
+      ],
+      "spread_bins": 3.0,
+      "clusters": [
+        {
+          "n": 2,
+          "centre": 8.0,
+          "values": [
+            8.0,
+            8.0
+          ]
+        },
+        {
+          "n": 3,
+          "centre": 11.0,
+          "values": [
+            11.0,
+            11.0,
+            11.0
+          ]
+        }
+      ],
+      "split": true,
+      "two_mode_runs": [
+        "x71_f035_pattern_s171.json",
+        "x71_f035_pattern_s172.json",
+        "x71_f035_pattern_s173.json",
+        "x71_f035_pattern_s174.json",
+        "x71_f035_pattern_s175.json"
+      ],
+      "b0_median": 31,
+      "b1_median": 0.0
+    },
+    "f040_pattern": {
+      "flow": 0.04,
+      "arm": "pattern",
+      "worlds": 5,
+      "q_peak": [
+        11.0,
+        11.0,
+        11.0,
+        11.0,
+        11.0
+      ],
+      "wavelength_cells": [
+        8.73,
+        8.73,
+        8.73,
+        8.73,
+        8.73
+      ],
+      "spread_bins": 0.0,
+      "clusters": [
+        {
+          "n": 5,
+          "centre": 11.0,
+          "values": [
+            11.0,
+            11.0,
+            11.0,
+            11.0,
+            11.0
+          ]
+        }
+      ],
+      "split": false,
+      "two_mode_runs": [
+        "x71_f040_pattern_s171.json",
+        "x71_f040_pattern_s172.json"
+      ],
+      "b0_median": 4,
+      "b1_median": 11.0
+    },
+    "f045_pattern": {
+      "flow": 0.045,
+      "arm": "pattern",
+      "worlds": 5,
+      "q_peak": [
+        11.0,
+        11.0,
+        11.0,
+        11.0,
+        11.0
+      ],
+      "wavelength_cells": [
+        8.73,
+        8.73,
+        8.73,
+        8.73,
+        8.73
+      ],
+      "spread_bins": 0.0,
+      "clusters": [
+        {
+          "n": 5,
+          "centre": 11.0,
+          "values": [
+            11.0,
+            11.0,
+            11.0,
+            11.0,
+            11.0
+          ]
+        }
+      ],
+      "split": false,
+      "two_mode_runs": [],
+      "b0_median": 1,
+      "b1_median": 37.0
+    },
+    "f050_pattern": {
+      "flow": 0.05,
+      "arm": "pattern",
+      "worlds": 5,
+      "q_peak": [
+        11.0,
+        11.0,
+        11.0,
+        11.0,
+        11.0
+      ],
+      "wavelength_cells": [
+        8.73,
+        8.73,
+        8.73,
+        8.73,
+        8.73
+      ],
+      "spread_bins": 0.0,
+      "clusters": [
+        {
+          "n": 5,
+          "centre": 11.0,
+          "values": [
+            11.0,
+            11.0,
+            11.0,
+            11.0,
+            11.0
+          ]
+        }
+      ],
+      "split": false,
+      "two_mode_runs": [],
+      "b0_median": 1,
+      "b1_median": 87.0
+    },
+    "f055_pattern": {
+      "flow": 0.055,
+      "arm": "pattern",
+      "worlds": 5,
+      "q_peak": [
+        6.0,
+        6.0,
+        11.0,
+        11.0,
+        11.0
+      ],
+      "wavelength_cells": [
+        16.0,
+        16.0,
+        8.73,
+        8.73,
+        8.73
+      ],
+      "spread_bins": 5.0,
+      "clusters": [
+        {
+          "n": 2,
+          "centre": 6.0,
+          "values": [
+            6.0,
+            6.0
+          ]
+        },
+        {
+          "n": 3,
+          "centre": 11.0,
+          "values": [
+            11.0,
+            11.0,
+            11.0
+          ]
+        }
+      ],
+      "split": true,
+      "two_mode_runs": [],
+      "b0_median": 1,
+      "b1_median": 75.0
+    },
+    "f025_homog": {
+      "flow": 0.025,
+      "arm": "homog",
+      "worlds": 5,
+      "q_peak": [
+        6.0,
+        7.0,
+        3.0,
+        7.0,
+        8.0
+      ],
+      "wavelength_cells": [
+        16.0,
+        13.71,
+        32.0,
+        13.71,
+        12.0
+      ],
+      "spread_bins": 5.0,
+      "clusters": [
+        {
+          "n": 1,
+          "centre": 3.0,
+          "values": [
+            3.0
+          ]
+        },
+        {
+          "n": 4,
+          "centre": 7.0,
+          "values": [
+            6.0,
+            7.0,
+            7.0,
+            8.0
+          ]
+        }
+      ],
+      "split": false,
+      "two_mode_runs": [],
+      "b0_median": 48,
+      "b1_median": 0.0
+    },
+    "f030_homog": {
+      "flow": 0.03,
+      "arm": "homog",
+      "worlds": 5,
+      "q_peak": [
+        8.0,
+        8.0,
+        8.0,
+        8.0,
+        8.0
+      ],
+      "wavelength_cells": [
+        12.0,
+        12.0,
+        12.0,
+        12.0,
+        12.0
+      ],
+      "spread_bins": 0.0,
+      "clusters": [
+        {
+          "n": 5,
+          "centre": 8.0,
+          "values": [
+            8.0,
+            8.0,
+            8.0,
+            8.0,
+            8.0
+          ]
+        }
+      ],
+      "split": false,
+      "two_mode_runs": [],
+      "b0_median": 39,
+      "b1_median": 1.0
+    },
+    "f035_homog": {
+      "flow": 0.035,
+      "arm": "homog",
+      "worlds": 5,
+      "q_peak": [
+        7.0,
+        8.0,
+        7.0,
+        8.0,
+        8.0
+      ],
+      "wavelength_cells": [
+        13.71,
+        12.0,
+        13.71,
+        12.0,
+        12.0
+      ],
+      "spread_bins": 1.0,
+      "clusters": [
+        {
+          "n": 5,
+          "centre": 7.6,
+          "values": [
+            7.0,
+            7.0,
+            8.0,
+            8.0,
+            8.0
+          ]
+        }
+      ],
+      "split": false,
+      "two_mode_runs": [],
+      "b0_median": 4,
+      "b1_median": 13.0
+    },
+    "f040_homog": {
+      "flow": 0.04,
+      "arm": "homog",
+      "worlds": 5,
+      "q_peak": [
+        8.0,
+        7.0,
+        8.0,
+        7.0,
+        7.0
+      ],
+      "wavelength_cells": [
+        12.0,
+        13.71,
+        12.0,
+        13.71,
+        13.71
+      ],
+      "spread_bins": 1.0,
+      "clusters": [
+        {
+          "n": 5,
+          "centre": 7.4,
+          "values": [
+            7.0,
+            7.0,
+            7.0,
+            8.0,
+            8.0
+          ]
+        }
+      ],
+      "split": false,
+      "two_mode_runs": [],
+      "b0_median": 2,
+      "b1_median": 17.0
+    },
+    "f045_homog": {
+      "flow": 0.045,
+      "arm": "homog",
+      "worlds": 5,
+      "q_peak": [
+        9.0,
+        8.0,
+        9.0,
+        8.0,
+        8.0
+      ],
+      "wavelength_cells": [
+        10.67,
+        12.0,
+        10.67,
+        12.0,
+        12.0
+      ],
+      "spread_bins": 1.0,
+      "clusters": [
+        {
+          "n": 5,
+          "centre": 8.4,
+          "values": [
+            8.0,
+            8.0,
+            8.0,
+            9.0,
+            9.0
+          ]
+        }
+      ],
+      "split": false,
+      "two_mode_runs": [],
+      "b0_median": 3,
+      "b1_median": 15.0
+    },
+    "f050_homog": {
+      "flow": 0.05,
+      "arm": "homog",
+      "worlds": 5,
+      "q_peak": [
+        8.0,
+        7.0,
+        8.0,
+        7.0,
+        8.0
+      ],
+      "wavelength_cells": [
+        12.0,
+        13.71,
+        12.0,
+        13.71,
+        12.0
+      ],
+      "spread_bins": 1.0,
+      "clusters": [
+        {
+          "n": 5,
+          "centre": 7.6,
+          "values": [
+            7.0,
+            7.0,
+            8.0,
+            8.0,
+            8.0
+          ]
+        }
+      ],
+      "split": false,
+      "two_mode_runs": [],
+      "b0_median": 1,
+      "b1_median": 12.0
+    },
+    "f055_homog": {
+      "flow": 0.055,
+      "arm": "homog",
+      "worlds": 5,
+      "q_peak": [
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "wavelength_cells": [
+        96.0,
+        96.0,
+        96.0,
+        96.0,
+        96.0
+      ],
+      "spread_bins": 0.0,
+      "clusters": [
+        {
+          "n": 5,
+          "centre": 1.0,
+          "values": [
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        }
+      ],
+      "split": false,
+      "two_mode_runs": [],
+      "b0_median": 1,
+      "b1_median": 1.0
+    }
+  },
+  "positive_control": {
+    "pattern": {
+      "points": [
+        [
+          0.025,
+          8.0
+        ],
+        [
+          0.03,
+          8.0
+        ],
+        [
+          0.035,
+          11.0
+        ],
+        [
+          0.04,
+          11.0
+        ],
+        [
+          0.045,
+          11.0
+        ],
+        [
+          0.05,
+          11.0
+        ],
+        [
+          0.055,
+          11.0
+        ]
+      ],
+      "monotone_non_increasing": false,
+      "span_bins": 3.0,
+      "fires": true
+    },
+    "homog": {
+      "points": [
+        [
+          0.025,
+          7.0
+        ],
+        [
+          0.03,
+          8.0
+        ],
+        [
+          0.035,
+          8.0
+        ],
+        [
+          0.04,
+          7.0
+        ],
+        [
+          0.045,
+          8.0
+        ],
+        [
+          0.05,
+          8.0
+        ],
+        [
+          0.055,
+          1.0
+        ]
+      ],
+      "monotone_non_increasing": false,
+      "span_bins": 7.0,
+      "fires": true
+    }
+  },
+  "verdict": "multistable: two branches visible at some inflow",
+  "split_cells": [
+    "f035_pattern",
+    "f055_pattern"
+  ],
+  "two_mode_cells": [
+    "f035_pattern",
+    "f040_pattern"
+  ]
+}
