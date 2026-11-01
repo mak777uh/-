@@ -118,7 +118,7 @@ Reserved to the owner by `lab/autonomy-rules.json`: publishing anything outward:
 
 ## Reviews not re-checked
 
-- `lab/reviews/2026-10-25-i-trait-price.md`
+- every review has a second pair of eyes
 
 ## Literature board
 
