@@ -4,7 +4,7 @@
 
 The curated page — what matters and why — is [`scripts.md`](scripts.md). This file is the complete list, so that every command behind a number in the record can be found.
 
-Scripts: **223**.
+Scripts: **225**.
 
 ## Гейты и проверки (45)
 
@@ -168,7 +168,7 @@ Scripts: **223**.
 | `make_seed_grid_figure.py` | Собрать Figure 4 рукописи: сетка «инициализация × порядок данных» (§4.13). |
 | `make_simple_poster.py` | Простой постер для владельца: что мы узнали, без терминов. |
 
-## Прочее (91)
+## Прочее (93)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -260,6 +260,8 @@ Scripts: **223**.
 | `x71_series.py` | x71_series.py — does one inflow support two morphologies? (preregistered in reports/2026-11-01-x71-multistability-plan.md) |
 | `x71b_analyse.py` | x71b_analyse.py — is the two-branch coexistence of X71 stable or a transient? |
 | `x71b_series.py` | x71b_series.py — does the two-branch coexistence of X71 survive 24 000 steps? |
+| `x71c_analyse.py` | x71c_analyse.py — how wide is the multistable band? Measured, not assumed from the sweep step. |
+| `x71c_series.py` | x71c_series.py — how wide is the multistable band? Two half-steps around F = 0.035 at 24 000 steps. |
 | `x72_analyse.py` | x72_analyse.py — at the multistable boundary, does a daughter take her parent's branch? |
 | `x72b_analyse.py` | x72b_analyse.py — branch concordance at the multistability boundary, read from local spectra. |
 | `x72b_series.py` | x72b_series.py — the branch-heredity series, with fields every 50 steps. |
