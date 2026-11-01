@@ -138,3 +138,4 @@ sections were not rewritten, only moved; each one keeps its identifier, so every
 | §10ej | Настоящее измельчение снимает главное утверждение утра: отсутствие выбора длины волны — свойство сетки 96 (X64, 01.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
 | §10ek | Скобка на 120 не разрешила переход, и критерий был слишком узким (X65, 01.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
 | §10el | Карта четырёх сеток при одном шаге: отзыв отзыва (X66, 01.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
+| §10em | Ящик вдвое — и пик ушёл вместе с ним: у неоднородного поля нет своей структуры (X67, 01.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |

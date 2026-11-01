@@ -1,0 +1,88 @@
+{
+  "kind": "l1_field_x67_box",
+  "experiment": "X67",
+  "command": "python scripts/x67_analyse.py --write",
+  "prereg": "reports/2026-11-01-x67-bigger-box-plan.md",
+  "design": {
+    "grid": 192,
+    "domain_units": 192.0,
+    "dx": 1.0,
+    "dt": 1.0,
+    "steps": 6000
+  },
+  "spectra": [
+    {
+      "arm": "homog",
+      "t": 2000,
+      "n_seeds": 5,
+      "q_peak": 1,
+      "lambda_units": 192.0,
+      "peak_share": 0.774,
+      "second_share": 0.112,
+      "split_peak": false,
+      "entropy_normalised": 0.313
+    },
+    {
+      "arm": "pattern",
+      "t": 2000,
+      "n_seeds": 5,
+      "q_peak": 1,
+      "lambda_units": 192.0,
+      "peak_share": 0.73,
+      "second_share": 0.14,
+      "split_peak": false,
+      "entropy_normalised": 0.342
+    },
+    {
+      "arm": "homog",
+      "t": 4000,
+      "n_seeds": 5,
+      "q_peak": 1,
+      "lambda_units": 192.0,
+      "peak_share": 0.679,
+      "second_share": 0.138,
+      "split_peak": false,
+      "entropy_normalised": 0.412
+    },
+    {
+      "arm": "pattern",
+      "t": 4000,
+      "n_seeds": 5,
+      "q_peak": 1,
+      "lambda_units": 192.0,
+      "peak_share": 0.249,
+      "second_share": 0.145,
+      "split_peak": false,
+      "entropy_normalised": 0.791
+    },
+    {
+      "arm": "homog",
+      "t": 6000,
+      "n_seeds": 5,
+      "q_peak": 16,
+      "lambda_units": 12.0,
+      "peak_share": 0.23,
+      "second_share": 0.175,
+      "split_peak": false,
+      "entropy_normalised": 0.722
+    },
+    {
+      "arm": "pattern",
+      "t": 6000,
+      "n_seeds": 5,
+      "q_peak": 1,
+      "lambda_units": 192.0,
+      "peak_share": 0.681,
+      "second_share": 0.101,
+      "split_peak": false,
+      "entropy_normalised": 0.421
+    }
+  ],
+  "homogeneous_control_ok": true,
+  "verdict": "box: the organisation follows the domain",
+  "not_claimed": [
+    "five seeds, seed-averaged spectra, no p-values",
+    "one box size; a third size would be needed to call the box effect a law",
+    "the 96-unit reading (q = 2) is within one mode of q = 1, so a peak there is suggestive, not sharp"
+  ]
+}
