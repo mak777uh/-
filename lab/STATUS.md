@@ -4,7 +4,7 @@ One file, one place that says what is actually in work. Machine state lives in `
 `_hourly/log.md`, numbers in artifacts. The Russian sections below the line are **history** and are not rewritten; the top
 part is kept current (new text in English — decision of 31.10).
 
-**Updated:** 2026-11-01, 23:35 MSK.
+**Updated:** 2026-11-02, 00:30 MSK.
 
 ## Running now
 
@@ -12,6 +12,8 @@ part is kept current (new text in English — decision of 31.10).
   when moving the second-mode cut showed the width is a property of the cut — see §10ev.
 - Closed since the previous update: **X71** (the medium is multistable in a narrow band at `F = 0.035`; 70 runs), **X71b**
   (coexistence stationary over 24 000 steps, 5/5 worlds), **X71c** (width depends on the cut; the gradient is the finding),
+  **X72c** (band powers: a neighbour predicts a daughter better than her parent does, so the mixture belongs to the patch;
+  the follow-up regional test gives η² = 0.307),
   **X72/X72b** (both void — first the proxy did not track the wavelength, then the branch turned out to be a world-level
   mixture), **X29** (selection differential fails its own null: +0.148 where the trait cannot act) and the queue/provenance
   repairs (X3, X35, X38, P8b).
