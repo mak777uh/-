@@ -1630,3 +1630,27 @@ To impose a second scale properly the runner needs a **composite pattern**: two 
 multiplication. That is ~40 lines plus an anchor, and then the same design. Until then the causal status of the two-level statement
 is: pattern measured, three monotone covariates excluded, mechanism described but **not manipulated**. Report:
 `reports/2026-11-02-x78-causal-void.md`; aggregate `l1_field_x78_causal.json`.
+
+## 10fd. An imposed second scale shortens memory by 1.43x: right direction, not the full band effect (X78b, 02.11)
+
+X78 failed because prescribing a single wavelength at `F = 0.040` killed the field. The runner therefore gained a **composite
+pattern** (`--hetero-scale2`, `--hetero-mix2`; off by default, anchored bit-for-bit), and X78b applies it at the robust `0.030`
+cell, where the single-scale memory lasts 1.47 divisions.
+
+Manipulation check first: the world stays patterned (**30.6 components**), genealogies are plentiful (**1 464 / 1 438 / 1 394**
+pairs at lags 1-3), and **9 of 10** worlds carry two spectral peaks (near q = 8 and q = 11, i.e. 12.0 and 8.7 cells). The composite
+reached the world.
+
+| cell | rho 1/2/3 | half-life |
+|---|---|---|
+| 0.030 single scale | 0.507 / 0.304 / 0.198 | **1.47** |
+| 0.030 two imposed scales | 0.498 / 0.228 / 0.129 | **1.03** |
+
+Lag-1 is unchanged (0.498), the decay is steeper, and the half-life falls by a factor **1.43**. The registered rule wanted below 1.0
+*and* a factor >= 1.3: the factor is met, the level misses by 0.03, so the verdict is **inconclusive** — reported as it stands.
+
+The narrow reading: an imposed second scale moves memory **in the predicted direction by about a third**, but not to the level of the
+medium's own multistability (0.56-0.73). Either a prescribed scale is a weaker perturbation than two genuinely competing attractors,
+or the band's shallowness is partly about sitting near a phase boundary — not separated here. For the write-up: imposing a second
+scale shortens the half-life by 1.4x, the medium's own band by 2.1-2.5x. Report:
+`reports/2026-11-02-x78b-two-scale-result.md`; aggregate `l1_field_x78b_causal.json`.
