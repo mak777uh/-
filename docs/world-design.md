@@ -151,3 +151,4 @@ sections were not rewritten, only moved; each one keeps its identifier, so every
 | §10ex | The size memory decays by 0.4 per division: half-life under one generation (X73, 02.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
 | §10ey | The half-life depends on the inflow, and the multistable band is where memory dies fastest (X74, 02.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
 | §10ez | At the band edges: one cell shallow, one void — inconclusive, and the pattern is in mixedness (X75, 02.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
+| §10fa | Memory is two-valued: short inside the multistable band, long outside it (X76, 02.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |

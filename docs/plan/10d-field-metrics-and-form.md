@@ -1564,3 +1564,26 @@ initial memory, which is the direction the reading predicts. Not a claim: one ed
 Next, designed but not run: ten worlds at 0.033 (to tighten rho1), or cells at 0.031 / 0.039, where mixedness should interpolate;
 either would test the reading without touching the control band. Report: `reports/2026-11-02-x75-edges-result.md`; aggregate
 `l1_field_x75_edges.json`.
+
+## 10fa. Memory is two-valued: short inside the multistable band, long outside it (X76, 02.11)
+
+X75 left one cell void: at `F = 0.033` five worlds gave ρ₁ = 0.377, 0.023 under the registered band. X76 replicated that cell with
+**ten** worlds: ρ₁ = **0.447** (inside the band), ρ₂ = 0.098, ρ₃ = 0.040, half-life **0.57**. The void was sampling — doubling the
+sample moved ρ₁ by 0.07. The per-world table shows why five were not enough: ρ₁ ranges **0.224-0.561**, only 4 of 10 worlds above
+0.45.
+
+With that cell filled, the five cells stop forming a U and become **two levels**:
+
+| cell | mixed (X71c) | half-life |
+|---|---|---|
+| 0.030 | no | 1.47 |
+| 0.033 | 3/5 | 0.57 |
+| 0.035 | 5/5 | 0.73 |
+| 0.037 | 4/5 | 0.56 |
+| 0.040 | no | 1.61 |
+
+Inside or at the edge of the multistable band the half-life is **0.56-0.73** divisions; outside it **1.47-1.61** — a factor of
+about 2.5, the same at three inflows inside the band. The mechanism is not split rate and not size dispersion (both monotone in
+`F`, §10ey); what the shallow cells share is **two coexisting length scales**. That is a description, not a demonstrated cause:
+testing it causally would need an independently imposed second scale. Report:
+`reports/2026-11-02-x76-033-replication-result.md`; aggregate `l1_field_x76_033.json`.

@@ -161,7 +161,10 @@ def scan_plans(since: str) -> tuple[bool, list[str]]:
         end = text.find("## 3.", start) if start >= 0 else -1
         section = text[start:end if end > start else len(text)] if start >= 0 else ""
         has_number = re.search(r"\d", section) is not None
-        has_threshold = re.search(r"threshold|порог|≥|>=|at least|не меньше", section, re.I) is not None
+        # «порог» — это не только знак: план может сказать «the control fires if» и назвать полосу. Оба варианта равны,
+        # поэтому список слов шире, чем знаки сравнения; смысл проверки — что условие срабатывания записано словами.
+        has_threshold = re.search(r"threshold|порог|≥|>=|at least|не меньше|fires if|срабатыва|сработал",
+                                  section, re.I) is not None
         if not has_number:
             bad.append(f"{f.name}: положительный контроль без числа (нужно значение эффекта, а не только галочка)")
         elif not has_threshold:
