@@ -52,3 +52,31 @@ in the same artifacts.
 - It does not identify the mechanism — that is the next measurement, not this one.
 - Three inflows is not a curve; the minimum is located to ±0.005 and the shape between cells is unknown.
 - Same limitations as X73: survival bias flattens the decay, peak area is a lifetime maximum, one box, one `k`.
+
+## The mechanism check, run and failed — both candidate explanations are refuted by the same artifacts
+
+The report above named two candidates and a measurement that would separate them: if the faster decay at 0.035 is **kinematic**
+(more splitting and merging), the split rate there should be higher than in the neighbouring cells; if it is **competing pulls**,
+the split rates should be similar while the spread of structure sizes is larger at the boundary. Both were computed from the same
+artifacts.
+
+| cell | splits per component per 1000 steps | splits per 1000 occupied cells per 1000 steps | mean components | peak-area CV |
+|---|---|---|---|---|
+| 0.030 | 0.79 | **19 567** | 47.7 | 0.54 |
+| 0.035 | 1.22 | **13 191** | 27.8 | 0.96 |
+| 0.040 | **4.14** | 10 180 | 7.0 | 1.40 |
+
+**Both predictions fail.** The split rate per component rises monotonically with `F` (0.79 → 1.22 → 4.14) — it is *highest* where
+memory lasts *longest* (0.040), so a kinematic explanation cannot produce a U-shaped half-life. The area-normalised rate runs the
+other way (19 567 → 13 191 → 10 180) and is monotone as well. And the size spread (CV 0.54 → 0.96 → 1.40) is monotone in `F` too,
+not peaked at the boundary, so it cannot stand in for "competing pulls" either.
+
+So the honest state is: the decay rate depends on the inflow with a minimum at the multistable cell, and **none of the three
+obvious covariates — split rate per structure, split rate per area, size dispersion — explains it**. A U-shaped half-life in a
+world where all three covariates are monotone means the mechanism is something the boundary cell has that the others do not, and
+by construction that is exactly **two coexisting length scales** (X71–X71c). That reading is consistent but not established: this
+analysis removes two explanations rather than confirming a third.
+
+**What it would take to confirm the third:** an inflow where two scales coexist *without* the split-rate change — the band edge
+(`0.033`/`0.037`, already measured for a different purpose) is the natural place, and the depth curve there is a 20-minute
+re-analysis of `x71c` artifacts, which lack genealogies (1000-step logging) and would need the dense-logging version.

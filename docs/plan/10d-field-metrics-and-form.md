@@ -1534,5 +1534,11 @@ replaced faster). The separating measurement — split rate per structure per 10
 artifacts.
 
 The registered criterion asked for a *consistent direction*; the spread is there (factor 2.0) but the direction is not, so the
-claim is stated narrowly: the rate depends on the inflow, and the dependence is non-monotone. Report:
+claim is stated narrowly: the rate depends on the inflow, and the dependence is non-monotone.
+
+**The mechanism check refuted both candidates.** Splits per component per 1000 steps rise monotonically with `F`
+(0.79 → 1.22 → 4.14) — highest where memory lasts longest — and the area-normalised rate falls monotonically (19 567 → 13 191 →
+10 180); the size CV is monotone too (0.54 → 0.96 → 1.40). A U-shaped half-life with three monotone covariates means the cause is
+what only the boundary cell has: **two coexisting length scales**. That is consistent with §10eq-§10ev but not established — the
+check removed two explanations rather than confirming a third. Report:
 `reports/2026-11-02-x74-rate-result.md`; aggregate `l1_field_x74_rate.json`.
