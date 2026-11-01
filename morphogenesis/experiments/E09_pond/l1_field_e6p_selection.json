@@ -1,0 +1,86 @@
+{
+  "kind": "l1_field_e6p_selection",
+  "experiment": "E6p",
+  "command": "python scripts/e6p_analyse.py --write",
+  "prereg": "reports/2026-11-01-e6p-selection-regimes-plan.md",
+  "criterion": {
+    "drift_bar": 0.2,
+    "sign_bar": 8,
+    "paired_by": "seed"
+  },
+  "arms": {
+    "ctrl": {
+      "n": 10,
+      "s_mean_last_median": 1.077,
+      "s_sd_between_median": 0.437,
+      "splits_median": 89.0,
+      "pairs_median": 185.0,
+      "r_median": 0.931,
+      "components_median": 36.0,
+      "fixation_share": 0.0
+    },
+    "surv": {
+      "n": 10,
+      "s_mean_last_median": 1.487,
+      "s_sd_between_median": 0.0,
+      "splits_median": 22.5,
+      "pairs_median": 47.5,
+      "r_median": 0.775,
+      "components_median": 1.0,
+      "fixation_share": 0.9
+    },
+    "survfd": {
+      "n": 10,
+      "s_mean_last_median": 1.95,
+      "s_sd_between_median": 0.201,
+      "splits_median": 311.0,
+      "pairs_median": 731.0,
+      "r_median": 0.976,
+      "components_median": 2.5,
+      "fixation_share": 0.2
+    }
+  },
+  "contrast_vs_control": {
+    "surv": {
+      "n": 10,
+      "median_drift": 0.484,
+      "seeds_positive": 10,
+      "per_seed": [
+        0.349,
+        0.483,
+        0.529,
+        0.735,
+        0.486,
+        0.512,
+        0.212,
+        0.148,
+        0.297,
+        0.555
+      ],
+      "meets_bar": true
+    },
+    "survfd": {
+      "n": 10,
+      "median_drift": 0.835,
+      "seeds_positive": 9,
+      "per_seed": [
+        0.801,
+        0.868,
+        0.257,
+        1.968,
+        -0.074,
+        0.188,
+        2.603,
+        0.342,
+        4.997,
+        1.893
+      ],
+      "meets_bar": true
+    }
+  },
+  "not_claimed": [
+    "p-values are not computed: ten autocorrelated trajectories would overstate precision",
+    "fixation is defined as median components <= 1, not as a dynamical criterion",
+    "the survival channel is implemented as k_eff = k*(1 + beta*(s_ref - s)), so 'selection' here means 'drift of a trait that changes decay'"
+  ]
+}

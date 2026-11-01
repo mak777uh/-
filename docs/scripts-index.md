@@ -4,7 +4,7 @@
 
 The curated page — what matters and why — is [`scripts.md`](scripts.md). This file is the complete list, so that every command behind a number in the record can be found.
 
-Scripts: **178**.
+Scripts: **179**.
 
 ## Гейты и проверки (41)
 
@@ -164,7 +164,7 @@ Scripts: **178**.
 | `make_seed_grid_figure.py` | Собрать Figure 4 рукописи: сетка «инициализация × порядок данных» (§4.13). |
 | `make_simple_poster.py` | Простой постер для владельца: что мы узнали, без терминов. |
 
-## Прочее (50)
+## Прочее (51)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -184,6 +184,7 @@ Scripts: **178**.
 | `contrast_stationarity.py` | contrast_stationarity.py — стационарен ли контраст «неоднородность минус однородность». |
 | `corpus_manifest.py` | corpus_manifest.py — манифест корпуса: что в нём, зачем и насколько прочитано. |
 | `e02c_seed_grid.py` | Собрать 2×2-сетку «инициализация × порядок данных» и применить критерий H-E02C-6. |
+| `e6p_analyse.py` | e6p_analyse.py — three selection regimes: does the survival channel drift, and does frequency dependence hold diversity? |
 | `e6p_series.py` | e6p_series.py — E6p: three selection regimes in the field, artifacts inside git. |
 | `entrainment.py` | entrainment.py — захватывает ли мир ритм входного потока (энтрейнмент), и связано ли это с «энергией». |
 | `farm_reader.py` | farm_reader.py — читать результаты фермы GitHub Actions. |

@@ -1,0 +1,421 @@
+{
+  "kind": "field_track",
+  "model": "Грей–Скотт + отслеживание компонент: каждая компонента имеет свой состав, наследуемый при расщеплении с мутацией; состав влияет на локальный F",
+  "params": {
+    "steps": 6000,
+    "grid": 96,
+    "dt": 1.0,
+    "seed": 171,
+    "device": "cuda",
+    "Du": 0.16,
+    "Dv": 0.08,
+    "F": 0.035,
+    "k": 0.06,
+    "eps": 0.0,
+    "global_noise_amp": 0.0,
+    "global_noise_rate": 0.05,
+    "global_noise_seed": 0,
+    "trait_field": false,
+    "trait_diffusion": 0.02,
+    "trait_decay": 0.0,
+    "trait_mutation": 0.02,
+    "trait_mutation_local": false,
+    "trait_init": 1.0,
+    "cue_mode": "off",
+    "cue_speed": 1.0,
+    "cue_width": 6.0,
+    "cue_gamma": 0.0,
+    "cue_kappa": 0.0,
+    "cue_period": 0,
+    "cue_skip_from": -1,
+    "cue_skip_to": -1,
+    "cue_memory_tau": 0.0,
+    "cue_kappa_local": false,
+    "cue_seed": 0,
+    "cue_lead": 0,
+    "hetero_amp": 0.5,
+    "hetero_scale": 12.0,
+    "hetero_signal": "lab/streams/const_ones.json",
+    "hetero_period": 0.0,
+    "hetero_shuffle": false,
+    "buffer_tau": 0.0,
+    "protect_fading": 0.0,
+    "buffer_rescue": false,
+    "buffer_gain": 0.0,
+    "invade_s": null,
+    "invade_radius": 3.0,
+    "invade_at": 2000,
+    "invade_threshold": 1.2,
+    "freq_dep": 0.0,
+    "bin_width": 0.2,
+    "beta": 0.2,
+    "s_ref": 1.0,
+    "mutation": 0.15,
+    "threshold": 0.2,
+    "thresholds": "",
+    "min_cells": 5,
+    "overlap": 0.5,
+    "sample_every": 1000,
+    "save_fields": null,
+    "save_fields_at": "2000,4000,6000"
+  },
+  "series": [
+    {
+      "step": 1,
+      "invader_area": 0,
+      "areas": [
+        29
+      ],
+      "components": 1,
+      "s_mean": 1.1002,
+      "s_sd_between": 0.0,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.0031,
+      "event_centre": null,
+      "pulse_on": true,
+      "cue_centre": null,
+      "components_log": [
+        {
+          "uid": 1,
+          "s": 1.1002,
+          "area": 29,
+          "cx": 48.0,
+          "cy": 48.0
+        }
+      ]
+    },
+    {
+      "step": 1000,
+      "invader_area": 0,
+      "areas": [
+        266,
+        176,
+        138,
+        80,
+        67,
+        63,
+        60,
+        41,
+        39,
+        38,
+        36,
+        35,
+        31,
+        29,
+        27
+      ],
+      "components": 15,
+      "s_mean": 0.8934,
+      "s_sd_between": 0.2157,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.1222,
+      "event_centre": null,
+      "pulse_on": true,
+      "cue_centre": null,
+      "components_log": [
+        {
+          "uid": 1,
+          "s": 1.2341,
+          "area": 266,
+          "cx": 61.09,
+          "cy": 24.2
+        },
+        {
+          "uid": 1,
+          "s": 0.8505,
+          "area": 67,
+          "cx": 28.03,
+          "cy": 25.34
+        },
+        {
+          "uid": 1,
+          "s": 0.7696,
+          "area": 35,
+          "cx": 41.11,
+          "cy": 25.69
+        },
+        {
+          "uid": 1,
+          "s": 1.1928,
+          "area": 60,
+          "cx": 41.63,
+          "cy": 38.78
+        },
+        {
+          "uid": 1,
+          "s": 0.5954,
+          "area": 31,
+          "cx": 29.48,
+          "cy": 38.77
+        },
+        {
+          "uid": 1,
+          "s": 0.9914,
+          "area": 39,
+          "cx": 54.13,
+          "cy": 39.13
+        },
+        {
+          "uid": 1,
+          "s": 0.7886,
+          "area": 36,
+          "cx": 66.17,
+          "cy": 38.5
+        },
+        {
+          "uid": 1,
+          "s": 0.8751,
+          "area": 41,
+          "cx": 67.46,
+          "cy": 49.15
+        },
+        {
+          "uid": 1,
+          "s": 1.1519,
+          "area": 138,
+          "cx": 48.07,
+          "cy": 52.3
+        },
+        {
+          "uid": 1,
+          "s": 0.7288,
+          "area": 38,
+          "cx": 28.95,
+          "cy": 51.08
+        },
+        {
+          "uid": 1,
+          "s": 0.6824,
+          "area": 29,
+          "cx": 72.72,
+          "cy": 57.34
+        },
+        {
+          "uid": 1,
+          "s": 0.4884,
+          "area": 27,
+          "cx": 28.7,
+          "cy": 63.85
+        },
+        {
+          "uid": 1,
+          "s": 1.0027,
+          "area": 63,
+          "cx": 38.49,
+          "cy": 66.17
+        },
+        {
+          "uid": 1,
+          "s": 1.1147,
+          "area": 176,
+          "cx": 65.16,
+          "cy": 67.23
+        },
+        {
+          "uid": 1,
+          "s": 0.9351,
+          "area": 80,
+          "cx": 48.2,
+          "cy": 72.76
+        }
+      ]
+    },
+    {
+      "step": 2000,
+      "invader_area": 0,
+      "areas": [
+        6809,
+        34,
+        18
+      ],
+      "components": 3,
+      "s_mean": 1.1686,
+      "s_sd_between": 0.2838,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.7445,
+      "event_centre": null,
+      "pulse_on": true,
+      "cue_centre": null,
+      "components_log": [
+        {
+          "uid": 1,
+          "s": 1.5529,
+          "area": 6809,
+          "cx": 46.55,
+          "cy": 48.39
+        },
+        {
+          "uid": 1,
+          "s": 1.0769,
+          "area": 34,
+          "cx": 77.97,
+          "cy": 3.62
+        },
+        {
+          "uid": 1,
+          "s": 0.876,
+          "area": 18,
+          "cx": 78.5,
+          "cy": 75.22
+        }
+      ]
+    },
+    {
+      "step": 3000,
+      "invader_area": 0,
+      "areas": [
+        7012
+      ],
+      "components": 1,
+      "s_mean": 1.5529,
+      "s_sd_between": 0.0,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.7609,
+      "event_centre": null,
+      "pulse_on": true,
+      "cue_centre": null,
+      "components_log": [
+        {
+          "uid": 1,
+          "s": 1.5529,
+          "area": 7012,
+          "cx": 47.17,
+          "cy": 47.62
+        }
+      ]
+    },
+    {
+      "step": 4000,
+      "invader_area": 0,
+      "areas": [
+        7012
+      ],
+      "components": 1,
+      "s_mean": 1.5529,
+      "s_sd_between": 0.0,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.7609,
+      "event_centre": null,
+      "pulse_on": true,
+      "cue_centre": null,
+      "components_log": [
+        {
+          "uid": 1,
+          "s": 1.5529,
+          "area": 7012,
+          "cx": 47.17,
+          "cy": 47.62
+        }
+      ]
+    },
+    {
+      "step": 5000,
+      "invader_area": 0,
+      "areas": [
+        7012
+      ],
+      "components": 1,
+      "s_mean": 1.5529,
+      "s_sd_between": 0.0,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.7609,
+      "event_centre": null,
+      "pulse_on": true,
+      "cue_centre": null,
+      "components_log": [
+        {
+          "uid": 1,
+          "s": 1.5529,
+          "area": 7012,
+          "cx": 47.17,
+          "cy": 47.62
+        }
+      ]
+    },
+    {
+      "step": 6000,
+      "invader_area": 0,
+      "areas": [
+        7012
+      ],
+      "components": 1,
+      "s_mean": 1.5529,
+      "s_sd_between": 0.0,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.7609,
+      "event_centre": null,
+      "pulse_on": true,
+      "cue_centre": null,
+      "components_log": [
+        {
+          "uid": 1,
+          "s": 1.5529,
+          "area": 7012,
+          "cx": 47.17,
+          "cy": 47.62
+        }
+      ]
+    }
+  ],
+  "fields_saved": [],
+  "selection": {
+    "s_mean_first": 1.1002,
+    "s_mean_last": 1.5529,
+    "s_sd_between_last": 0.0,
+    "splits": 49,
+    "parent_child_pairs": 104,
+    "inheritability_r": 0.773,
+    "invader_rate": null,
+    "invader_curve": []
+  },
+  "buffer": {
+    "protect_fading": 0.0,
+    "tau": 0.0,
+    "gain": 0.0,
+    "rescue": false,
+    "mean_last": 0.0
+  },
+  "global_noise": {
+    "amp": 0.0,
+    "rate": 0.05
+  },
+  "heterogeneity": {
+    "amp": 0.5,
+    "scale": 12.0,
+    "signal": "lab/streams/const_ones.json",
+    "shuffled": false,
+    "components_last": 1
+  },
+  "uid_outcomes": [
+    {
+      "uid": 1,
+      "first": 1,
+      "last": 6000,
+      "peak": 7020,
+      "s_at_birth": 1.1002
+    }
+  ],
+  "lifetimes": {
+    "n_uids": 1,
+    "median_life_steps": 5999,
+    "life_steps": [
+      5999
+    ],
+    "peak_sizes": [
+      7020
+    ]
+  },
+  "components_by_threshold": {},
+  "criteria": {
+    "S1_shift_gt_2sd": null,
+    "S2_inheritability_ge_0.5": true,
+    "S3_survives_doubling": "проверяется сравнением с прогоном вдвое длиннее",
+    "S4_control_eps0": "проверяется прогоном с --eps 0"
+  },
+  "note": "S1 требует сравнения с контролем: сдвиг среднего считается от контроля, а не от старта, потому что состав дрейфует и в контроле",
+  "not_claimed": [
+    "что отбор доказан: нужно сравнение с контролем eps=0 и удвоенный горизонт",
+    "что правило сопоставления оптимально: порог перекрытия 0.5 фиксирован до данных",
+    "что структуры устойчивы к сетке: не проверялось"
+  ]
+}
