@@ -10,7 +10,7 @@ during the night and is now stable enough to state.
 
 | finding | evidence | status |
 |---|---|---|
-| Heterogeneous inflow **delays wavelength selection at 96 cells** | homogeneous selects q = 8, λ = 12 units (45 % of low-q power); heterogeneous stays broadband on 96, entropy 2.19–2.25 | **withdrawn as a claim about the medium**: at a correctly scaled 144 grid the heterogeneous arm selects too (normalised entropy 0.61 against 0.90 on 96) — see §10ej |
+| Heterogeneous inflow **delays wavelength selection at 96 cells** | homogeneous selects q = 8, λ = 12 units (45 % of low-q power); heterogeneous stays broadband on 96, entropy 2.19–2.25 | **holds on peak position across four grids** (96, 108, 120, 144 at `dt = 0.5`): the homogeneous arm peaks at 12 units wherever it patterns; the heterogeneous arm never does — it concentrates on the box scale. An earlier withdrawal based on concentration was itself withdrawn — see §10el |
 | The advantage in component count is an **advantage in small, short-lived pieces** | contrast +3.57 falls to +1.36 at 32 cells, +0.07 at 128 cells | free re-analysis, 10 seeds |
 | Heterogeneity produces a **transient perforated web** | β₁ +9.0 (10/10 seeds), survives matched occupancy (+5.5, 10/10) and every threshold tested | transient only; gone by t = 6000 |
 | **Transmission follows geometry** | divisions 308 → 79 → 21 as inflow amplitude falls 0.5 → 0.25 → 0.1 (14.7×, 5/5 seeds), spectra sharpening in the same order | dose-response, five seeds |
@@ -100,3 +100,20 @@ version says so.
 more loops at every snapshot (median excess +13 at physical time 2000, +12 at 6000) but the sign holds in only 4/5 and 3/5
 seeds, against 10/10 at 96, and the occupancy control has not been run there. So the web is a hypothesis supported by two
 grids, not a result — and the table row above should be read with that in mind.
+
+## Final correction of the day, 13:10 — twice withdrawn, now restored
+
+The spectral claim was withdrawn at 11:00 and restored at 13:10, and the reason matters more than the outcome: both the
+original claim and its withdrawal were judged by **concentration** (share, entropy) while the sentence was always about
+**position** (does the peak sit at the medium's wavelength). Once position is the readout, the picture is sharp and stable
+across four grids: the homogeneous world picks 12 units wherever it patterns, the heterogeneous world never does.
+
+Two lessons, both about instruments rather than physics:
+
+1. **A summary number is not the claim.** Share and entropy compress a spectrum into one value and can make two very
+   different spectra look alike.
+2. **The right fix was a criterion, not a rerun.** X66 cost twenty runs, but the map was already there; what was missing was
+   the quantity to read off it.
+
+The row above is the corrected form. Everything else in this page — turnover, heritability, coexistence — is untouched by
+this sequence.

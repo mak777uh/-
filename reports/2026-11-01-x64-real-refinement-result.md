@@ -101,3 +101,16 @@ control used in X60 is not optional here — it has not been run at 144, and unt
 
 **Status of the β₁ claim after both grids:** same sign at 96 (10/10) and 144 (4/5, 3/5), magnitude uncertain, occupancy
 control missing at 144. That is a hypothesis with two supporting grids, not a result.
+
+## Correction to this correction, 13:10 — the criterion was wrong, not the claim
+
+X66 reran the map with the time step held fixed and — crucially — with **peak position** as the readout instead of
+concentration. On that criterion the picture changes again: at 144 the heterogeneous arm is concentrated **on the box
+scale** (q = 1), not on the medium's 12 units, while the homogeneous arm is on 12 units. So this report's withdrawal —
+"the heterogeneous arm selects too" — was itself based on the same mistake X65 identified: reading a summary number
+instead of the quantity the sentence names.
+
+**What stands here:** the scaling validation (homogeneous at 12.00 units at 144) and the observation that the two arms have
+similar *concentration* at that grid.
+**What does not stand:** the conclusion that the no-selection claim dies. It returns in the sharper form stated in X66 and
+§10el: heterogeneity does not stop the field concentrating, it stops it concentrating on the medium's own wavelength.

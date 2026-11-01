@@ -137,3 +137,12 @@ finding that the count contrast is absent at any single snapshot.
 
 **What does not stand:** "the heterogeneous world never selects anything", and the normalisation refusal that
 rested on it.
+
+## Note on the 11:00 correction above — superseded at 13:10
+
+That correction withdrew the spectral claim because at grid 144 the heterogeneous arm's normalised entropy matched the
+homogeneous one's. X66 shows why that was the wrong comparison: the heterogeneous peak at 144 sits on the **box scale**,
+not on 12 units. Judged by peak position, the claim of this page stands on all four grids tested (96, 108, 120, 144), and
+it stands in a sharper form — see §10el and `2026-11-01-x66-grid-map-result.md`.
+
+The β₀/β₁ findings of this page are unaffected by any of this.
