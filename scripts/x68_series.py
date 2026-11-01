@@ -31,10 +31,10 @@ COMMON = [
     "--Du", "0.16", "--Dv", "0.08", "--F", "0.035", "--k", "0.06", "--eps", "0.0",
     "--hetero-scale", "12.0", "--hetero-period", "0.0",
     "--sample-every", "1000", "--threshold", "0.2",
-    "--freq-dep", "1.0", "--bin-width", "0.2", "--beta", "0.2", "--s-ref", "1.0", "--mutation", "0.15",
+    "--freq-dep", "0.0", "--bin-width", "0.2", "--beta", "0.0", "--s-ref", "1.0", "--mutation", "0.15",   # amendment: no feedback channel
 ]
 
-RULES = {"ov03": ["--overlap", "0.3"], "ov07": ["--overlap", "0.7"]}
+RULES = {"ov03": ["--overlap", "0.3"], "ov05": ["--overlap", "0.5"], "ov07": ["--overlap", "0.7"]}
 ARMS = {
     "pattern": ["--hetero-amp", "0.5", "--hetero-signal", "lab/streams/const_ones.json"],
     "homog": ["--hetero-amp", "0.0"],
@@ -67,7 +67,7 @@ def run_one(rule: str, arm: str, seed: int) -> dict:
 def dynamics_unchanged(rule: str, arm: str, seed: int) -> tuple[bool, str]:
     """The observer must not touch the field: compare series with the 0.5 arm already on disk."""
     new = L1 / f"x68_{rule}_{arm}_s{seed}.json"
-    old = L1 / f"x60_{arm}_s{seed}.json"
+    old = L1 / f"x68_ov05_{arm}_s{seed}.json"
     if not (new.exists() and old.exists()):
         return False, "files missing"
     a = [s.get("components") for s in json.loads(new.read_text(encoding="utf-8")).get("series") or []]
@@ -84,17 +84,18 @@ def main(argv=None) -> int:
     lo, _, hi = args.seeds.partition("-")
     seeds = list(range(int(lo), int(hi or lo) + 1))
 
-    rows = [run_one("ov03", "pattern", seeds[0])]
-    print(f"[x68] first run: {rows[0]}", flush=True)
+    rows = [run_one("ov05", "pattern", seeds[0])]
+    print(f"[x68] baseline run: {rows[0]}", flush=True)
+    rows.append(run_one("ov03", "pattern", seeds[0]))
     ok, msg = dynamics_unchanged("ov03", "pattern", seeds[0])
     print(f"[x68] leak check: {'PASS' if ok else 'FAIL'} — {msg}", flush=True)
     if not ok:
         return 1
 
-    for rule in ("ov03", "ov07"):
+    for rule in ("ov03", "ov05", "ov07"):
         for seed in seeds:
             for arm in ("pattern", "homog"):
-                if rule == "ov03" and seed == seeds[0] and arm == "pattern":
+                if seed == seeds[0] and arm == "pattern" and rule in ("ov03", "ov05"):
                     continue
                 r = run_one(rule, arm, seed)
                 rows.append(r)

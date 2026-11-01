@@ -1,0 +1,151 @@
+{
+  "kind": "l1_field_x68_identity",
+  "experiment": "X68",
+  "command": "python scripts/x68_analyse.py --write",
+  "prereg": "reports/2026-11-01-x68-identity-rule-plan.md",
+  "criterion": {
+    "sign_bar": 4,
+    "claim": "heterogeneous median lifetime below homogeneous at each rule"
+  },
+  "by_rule": {
+    "0.3": {
+      "n": 5,
+      "pattern_median": 5999,
+      "homog_median": 4030,
+      "seeds_hetero_below": 0,
+      "ordering_holds": false,
+      "rows": [
+        {
+          "seed": 171,
+          "pattern_median": 5999,
+          "homog_median": 4030,
+          "pattern_uids": 1,
+          "homog_uids": 2
+        },
+        {
+          "seed": 172,
+          "pattern_median": 5999,
+          "homog_median": 4030,
+          "pattern_uids": 1,
+          "homog_uids": 2
+        },
+        {
+          "seed": 173,
+          "pattern_median": 5999,
+          "homog_median": 4030,
+          "pattern_uids": 1,
+          "homog_uids": 2
+        },
+        {
+          "seed": 174,
+          "pattern_median": 5999,
+          "homog_median": 4030,
+          "pattern_uids": 1,
+          "homog_uids": 2
+        },
+        {
+          "seed": 175,
+          "pattern_median": 5999,
+          "homog_median": 4030,
+          "pattern_uids": 1,
+          "homog_uids": 2
+        }
+      ]
+    },
+    "0.5": {
+      "n": 5,
+      "pattern_median": 5044,
+      "homog_median": 1565,
+      "seeds_hetero_below": 0,
+      "ordering_holds": false,
+      "rows": [
+        {
+          "seed": 171,
+          "pattern_median": 5044,
+          "homog_median": 1565,
+          "pattern_uids": 7,
+          "homog_uids": 5
+        },
+        {
+          "seed": 172,
+          "pattern_median": 5044,
+          "homog_median": 1565,
+          "pattern_uids": 7,
+          "homog_uids": 5
+        },
+        {
+          "seed": 173,
+          "pattern_median": 5044,
+          "homog_median": 1565,
+          "pattern_uids": 7,
+          "homog_uids": 5
+        },
+        {
+          "seed": 174,
+          "pattern_median": 5044,
+          "homog_median": 1565,
+          "pattern_uids": 7,
+          "homog_uids": 5
+        },
+        {
+          "seed": 175,
+          "pattern_median": 5044,
+          "homog_median": 1565,
+          "pattern_uids": 7,
+          "homog_uids": 5
+        }
+      ]
+    },
+    "0.7": {
+      "n": 5,
+      "pattern_median": 2607,
+      "homog_median": 1565,
+      "seeds_hetero_below": 0,
+      "ordering_holds": false,
+      "rows": [
+        {
+          "seed": 171,
+          "pattern_median": 2607,
+          "homog_median": 1565,
+          "pattern_uids": 47,
+          "homog_uids": 5
+        },
+        {
+          "seed": 172,
+          "pattern_median": 2607,
+          "homog_median": 1565,
+          "pattern_uids": 47,
+          "homog_uids": 5
+        },
+        {
+          "seed": 173,
+          "pattern_median": 2607,
+          "homog_median": 1565,
+          "pattern_uids": 47,
+          "homog_uids": 5
+        },
+        {
+          "seed": 174,
+          "pattern_median": 2607,
+          "homog_median": 1565,
+          "pattern_uids": 47,
+          "homog_uids": 5
+        },
+        {
+          "seed": 175,
+          "pattern_median": 2607,
+          "homog_median": 1565,
+          "pattern_uids": 47,
+          "homog_uids": 5
+        }
+      ]
+    }
+  },
+  "leaks": [],
+  "verdict": "fails at least one rule",
+  "not_claimed": [
+    "five seeds per cell; the argument is the per-seed ordering, not a test",
+    "0.5 comes from the X60 files, the other two from X68; same parameters and seeds",
+    "the rule changes only the observer, which the leak check verifies"
+  ]
+}

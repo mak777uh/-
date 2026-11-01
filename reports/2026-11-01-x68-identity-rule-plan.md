@@ -82,3 +82,54 @@ Worthless, not negative, if:
 - [x] readout exists and varies (57 against 4046 steps)
 - [x] sensitivity computed (per-seed ordering, 4/5 rule)
 - [x] refusal rule written (three conditions)
+
+---
+
+## Amendment, 14:05 — the check failed, and it found something better
+
+The first run of the series was rejected by its own leak check: `components` at `--overlap 0.3` **differ** from the same
+seed at 0.5. The flag is not observer-only in this world, and the reason is structural:
+
+> composition is carried **per component**, inherited along the identity, and it modulates the local growth rate
+> (`F_eff`). Change which daughter inherits which parent's composition and you change the field.
+
+So the identity rule is part of the dynamics here, not a lens on it. That is a property of the world worth stating on its
+own, and it makes the original design impossible: with feedback on, a difference in lifetimes between rules confounds the
+rule with the trajectory.
+
+**The redesign uses the regime where composition cannot feed back**: `--beta 0` and `--eps 0`, i.e. no survival and no
+growth channel. There the field is identical across rules by construction — the leak check will verify it — and any
+difference in median lifetime is the rule's doing alone. That is exactly the sensitivity question, asked in the only
+regime where it is separable.
+
+The published lifetimes (57 against 4046 steps) come from the feedback regime; this amendment does **not** re-measure them.
+It measures the **rule's** effect on the identity statistics in a neutral world, which is the quantity needed to say
+whether those lifetimes can be compared with anyone else's.
+
+### Revised design
+
+| element | value |
+|---|---|
+| world | L1 field, grid 96, `dt = 1.0`, 6000 steps, **`beta = 0`, `eps = 0`** (no feedback), mutation 0.15 |
+| arms | heterogeneous (amp 0.5) and homogeneous (amp 0.0) |
+| rules | overlap **0.3, 0.5, 0.7** — all three re-run, so the 0.5 arm is comparable |
+| seeds | 171–175 |
+| check | `components` identical across rules for the same seed and arm (the leak check that just failed) |
+| criterion | per-seed ordering hetero < homog at each rule, ≥ 4/5; and the three rules' medians reported side by side |
+| cost | 30 runs ≈ 40 min |
+| artifacts | `morphogenesis/experiments/L1_field/x68_ov{03,05,07}_{pattern,homog}_s*.json` |
+
+### What this amendment does not change
+
+- The claim under test is still the ordering, not the magnitude.
+- The 0.5 arm at `beta = 0.2` remains the published one; the new 0.5 arm at `beta = 0` is a different world and is labelled
+  as such.
+
+### Status after the amendment
+
+- [x] connected — and the check that was meant to prove it instead disproved the original premise, which is why it was
+  there
+- [x] positive control fires (the neutral world must still produce uids; the leak check must pass)
+- [x] readout exists and varies (57 against 4046 in the feedback world)
+- [x] sensitivity computed (per-seed ordering, three rules)
+- [x] refusal rule written (uids ⟨3⟩ or one uid in most seeds)
