@@ -1,0 +1,26 @@
+{
+  "kind": "l1_field_x70_spatial",
+  "experiment": "X70 control",
+  "command": "python scripts/x70_spatial_null.py --write",
+  "prereg": "reports/2026-11-01-x70-size-heredity-plan.md (control added after the answers)",
+  "tolerance_cells": 4.0,
+  "draws": 20,
+  "arms": {
+    "pattern": {
+      "events": 50,
+      "observed_corr": 0.104,
+      "surrogate_corr_median": 0.64,
+      "surrogate_corr_p95": 0.769,
+      "exceeds_surrogate": false,
+      "median_distance": 9.45
+    },
+    "homog": {
+      "events": 35,
+      "observed_corr": 0.889,
+      "surrogate_corr_median": -0.889,
+      "surrogate_corr_p95": -0.889,
+      "exceeds_surrogate": true,
+      "median_distance": 15.31
+    }
+  }
+}

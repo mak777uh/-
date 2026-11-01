@@ -52,3 +52,40 @@ and it is a real result rather than a null.
 `morphogenesis/experiments/L1_field/x70_{pattern,homog}_s{171..175}.json` (10 files, with `uid_pairs`, `size_pairs`,
 `uid_outcomes`), aggregate `morphogenesis/experiments/E09_pond/l1_field_x70_size.json`. Scripts: `scripts/x70_series.py`,
 `scripts/x70_analyse.py` (the shuffle null is `shuffle_null()` in the latter).
+
+## Addendum, 15:55 — the spatial control ran, and it points against the signal while being too thin to settle it
+
+The four answers to the morning's questions said the same thing: a parent–daughter correlation in area is expected even
+with zero transmission, because the daughter sits where the parent was. The control is a **non-parent structure at the same
+distance at the same time**; only the excess over that baseline is heredity-like.
+
+It has now been run (`scripts/x70_spatial_null.py`, aggregate `l1_field_x70_spatial.json`): for each division event, the
+parent–child distance is measured from the centroids, and a surrogate is drawn from structures present at the child's
+birth whose distance to the child is within ±4 cells.
+
+| arm | events matched | observed corr | surrogate corr (median, p95) | exceeds surrogate |
+|---|---|---|---|---|
+| heterogeneous | **50** of 925 | 0.104 | **0.640** (0.769) | **no** |
+| homogeneous | 35 of 100 | 0.889 | degenerate (single surrogate) | not interpretable |
+
+**Two things, and neither is a verdict.**
+
+1. **The direction is against transmission.** On the events that could be distance-matched, a neighbouring non-parent
+   correlates with the daughter *more* strongly (0.64) than the parent does (0.10). That is the common-environment
+   confound behaving exactly as predicted.
+2. **The control is far too thin to carry that conclusion.** Only **50 of 925** events survived the ±4-cell matching, and
+   they are not a random subset: an event is matched only if a same-distance neighbour existed at the child's birth, which
+   biases towards crowded, fragmenting regions — precisely where the geometry is least representative.
+
+So the honest status of X70 is now **unresolved**, in a specific way: the pairing null says there is a parent-specific
+signal, and the first spatial control says it may be the place, on 5 % of the data. Neither number deserves to be quoted as
+the result.
+
+**What the control needs before it can decide anything:** matching inside distance bins across the whole sample rather than
+discarding unmatched events (a stratified comparison keeps all 925), and a second covariate — local occupancy in a small
+window — because distance and crowding are confounded in this world. That is a half-hour of analysis on data already on
+disk, and it is the first item for the next session.
+
+The claim as it stands: **the two-species medium shows a parent-specific size correlation that exceeds a pairing null and
+does not clearly survive the first, underpowered spatial control.** That is a weaker sentence than the one written before
+this addendum, and it is the one that matches the evidence.
