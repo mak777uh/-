@@ -1,0 +1,51 @@
+{
+  "version": 1,
+  "principle": "minimum attention from the owner, maximum useful autonomous work; act on request or on these rules, and never interrupt without a reason that is written down here",
+  "updated": "2026-11-01",
+  "allowed_without_asking": [
+    "run any series whose preregistration is committed and whose cost fits the GPU budget below",
+    "write reports, plan sections, aggregates, gates, indexes and summaries",
+    "fix a failing gate by fixing its cause, and add the gate to make verify",
+    "close a queue item whose artifacts, report, plan section and README row are all in git",
+    "rewrite README, STATUS, plan text and the attention page",
+    "refactor analysis scripts behind a bit-for-bit anchor"
+  ],
+  "requires_owner": [
+    "publishing anything outward: Zenodo, arXiv, deposit, tags, grant applications",
+    "changing the world's physics: morphogenesis/config.py defaults, morphogenesis/world/, a freq_dep>0 frame, a new world rule",
+    "deleting canonical weights, artifacts or a closed report",
+    "promoting an arm, declaring a gate passed, or changing a hypothesis after it was registered"
+  ],
+  "forbidden": [
+    "force push, rewriting shared history, deleting someone else's branch",
+    "committing weights, runtime logs, secrets or generated field dumps",
+    "closing a scientific result without report + plan section + README row + claims row",
+    "editing closed artifacts retroactively instead of writing a new one",
+    "leaving a lock, a background process or a temporary file in a tracked directory"
+  ],
+  "budgets": {
+    "gpu_hours_without_asking": 3,
+    "wall_hours_without_asking": 4,
+    "disk_free_gb_floor": 10
+  },
+  "authorized_task_sources": {
+    "github_issues": {
+      "repo": "mak777uh/-",
+      "label": "lab:task",
+      "authors": ["mak777uh"],
+      "note": "an issue with this label by an authorized author becomes a queue item; the agent answers in the issue and in the report"
+    },
+    "owner_chat": {
+      "note": "any direct instruction from the owner is a task; it is recorded as a queue item before work starts"
+    }
+  },
+  "protected_paths": [
+    "articles/",
+    "manuscript/CLAIMS.md",
+    "docs/deposit.md",
+    "CITATION.cff",
+    "morphogenesis/config.py",
+    "morphogenesis/world/"
+  ],
+  "protected_paths_note": "a change here needs an entry in docs/decision-log.md in the same commit, because it is either publication or the physics of the world"
+}

@@ -91,6 +91,8 @@ def main() -> int:
         ("агрегат линии поля совпадает с артефактами", [PY, "scripts/l1_field_matrix.py", "--check"], None),
     ("сид-репликация не выдаёт один мир за пять", [PY, "scripts/check_seed_replication.py", "--check"], None),
     ("пре-регистрации несут пять разделов", [PY, "scripts/check_design.py", "--scan-plans"], None),
+    ("политика автономии читается машиной", [PY, "scripts/check_autonomy.py"], None),
+    ("страница внимания не теряет решений", [PY, "scripts/attention.py", "--check"], None),
         # X19 (по схеме LongTails): утверждение отдельно от Setup, бюджет явно, аудит отказывает при выходе за допущения
         ("утверждения проходят аудит против Setup", [PY, "scripts/claim_comparator.py", "--ci"], None),
     ]

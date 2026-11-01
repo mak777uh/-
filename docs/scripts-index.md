@@ -4,9 +4,9 @@
 
 The curated page — what matters and why — is [`scripts.md`](scripts.md). This file is the complete list, so that every command behind a number in the record can be found.
 
-Scripts: **217**.
+Scripts: **220**.
 
-## Гейты и проверки (43)
+## Гейты и проверки (44)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -15,6 +15,7 @@ Scripts: **217**.
 | `check_aggregate_coverage.py` | check_aggregate_coverage.py — каждый научный артефакт обязан входить хотя бы в один агрегат. |
 | `check_aggregates_fresh.py` | check_aggregates_fresh.py — агрегаты в git обязаны совпадать с пересборкой. |
 | `check_article_numbers.py` | check_article_numbers.py — числа статьи 028 обязаны воспроизводиться из агрегатов. |
+| `check_autonomy.py` | check_autonomy.py — the autonomy policy has to be machine-readable, and its protected paths have to be enforced. |
 | `check_commit_claims.py` | check_commit_claims.py — сообщение коммита не должно утверждать того, чего нет в диффе. |
 | `check_cross_audit.py` | check_cross_audit.py — аудиты обязаны быть помечены как внешние утверждения. |
 | `check_design.py` | check_design.py — пять проверок дизайна ДО серии. Гейт против нашего главного провала. |
@@ -166,7 +167,7 @@ Scripts: **217**.
 | `make_seed_grid_figure.py` | Собрать Figure 4 рукописи: сетка «инициализация × порядок данных» (§4.13). |
 | `make_simple_poster.py` | Простой постер для владельца: что мы узнали, без терминов. |
 
-## Прочее (87)
+## Прочее (89)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -175,6 +176,7 @@ Scripts: **217**.
 | `analyse_e3_state.py` | analyse_e3_state.py — сравнение по СОСТОЯНИЮ, а не по времени. |
 | `analysis_task.py` | analysis_task.py — ферма CPU-задач на GitHub Actions: берёт задачу из очереди и считает. |
 | `analyze_grid_failures.py` | Какие шумовые старты не дают доминирующий класс в клетках сетки H-E02C-6. |
+| `attention.py` | attention.py — one page that answers "what needs a human, right now". |
 | `backfill_not_claimed.py` | backfill_not_claimed.py — дописать `not_claimed` в старые агрегаты. |
 | `cadence_match.py` | cadence_match.py — is the `dt` dependence of the contrast a snapshot-cadence artefact? |
 | `calibrate_thresholds.py` | Откалибровать и заморозить пороги OOD и тривиальности (протокол v1.2 §6b, §7). |
@@ -193,6 +195,7 @@ Scripts: **217**.
 | `entrainment.py` | entrainment.py — захватывает ли мир ритм входного потока (энтрейнмент), и связано ли это с «энергией». |
 | `farm_reader.py` | farm_reader.py — читать результаты фермы GitHub Actions. |
 | `founding_matrix.py` | founding_matrix.py — агрегат серии «порог основания» (H-ALIVE-23 / V10). |
+| `github_intake.py` | github_intake.py — GitHub issues as a task source, with an author allowlist. |
 | `index_report.py` | index_report.py — add a report row to reports/README.md, or check which reports lack one. |
 | `l1_field_matrix.py` | l1_field_matrix.py — агрегат линии поля: медианы, разброс и интервалы по плечам. |
 | `lean_axioms.py` | lean_axioms.py — независимая проверка теорем Lean на «чистоту аксиом» и неизменность формулировок. |

@@ -147,7 +147,8 @@
       "hypothesis": null,
       "claimed_at": null,
       "heartbeat_at": null,
-      "note": "НАЙДЕНО 31.10 при чистке диска. `lab.py checkpoints` даёт E02b ready 1/12; на диске есть только WP4_R-9_s2000_seed42/nca_final.pt (515 МБ). Сохранённый снимок lab/checkpoints.json до сверки утверждал ready 12 / missing [] — то есть обещал веса, которых нет. Текущей линии (поле, пруд на b=0.02) это не мешает: те веса не используются. Для воспроизведения E02b это дыра. Варианты: (а) восстановить набор канонических чекпоинтов из депозита Zenodo (6.47 ГБ), (б) записать утрату явно в docs/deposit.md и снять требование из checkpoints.json. Решение владельца — нужен ответ, какой вариант"
+      "note": "the false promise is fixed (ready 1 / missing 11, weights_tracked false); what remains is the owner's binary choice: restore the 12 canonical weights from Zenodo 10.5281/zenodo.23654174 (6.47 GB) or record the local absence in docs/deposit.md and drop the 12-file requirement (15 minutes)",
+      "waiting_on": "owner"
     },
     {
       "id": "P6_reports_catalogue",
@@ -2046,6 +2047,16 @@
       "heartbeat_at": null,
       "closed_at": "2026-11-01T16:25:35Z",
       "closed_by": "lead"
+    },
+    {
+      "id": "v17_publication",
+      "title": "Publish v1.7 of article 028 (fix the self-reference and optionally carry the two inserts)",
+      "status": "planned",
+      "owner": "lead",
+      "waiting_on": "owner",
+      "cost_gpu_h": 0,
+      "created_at": "2026-11-01T20:20:00+03:00",
+      "note": "v1.6 was published 31.10 23:45 (10.5281/zenodo.23844978) but its own files still call themselves v1.5.1 and link 23839898; the two prepared inserts are in reports/2026-11-01-before-upload-size-floor.md and now need the rule-by-rule lifetime wording. ~60 minutes; outward publication, so it is the owner's call"
     }
   ]
 }
