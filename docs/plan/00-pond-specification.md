@@ -882,7 +882,7 @@ CUDA: `torch.multinomial` там недетерминирован. Повтор�
 обучение не затронуты (у них нет выборки), но σ = 1.0 и 2.0 добирались заново.
 
 Матрица целиком, **σ ∈ {0, 0.2, 0.5, 1.0, 2.0}**, 3 сида, агрегат в git:
-[`morphogenesis/experiments/E09_pond/sense_noise_matrix.json`](../morphogenesis/experiments/E09_pond/sense_noise_matrix.json)
+[`morphogenesis/experiments/E09_pond/sense_noise_matrix.json`](../../morphogenesis/experiments/E09_pond/sense_noise_matrix.json)
 (60 строк: σ, политика, сид, pop_time, живых, родилось, умерло, w_final).
 
 | σ | фикс w=0.1 | IFD | matching T=0.5 | обучение bandit |
@@ -1002,7 +1002,7 @@ CUDA: `torch.multinomial` там недетерминирован. Повтор�
 **Оговорки.** 3 сида; одна раскладка и экономика; дрейф только по потолку
 градиента (приток остаётся направленным вверх, как и при `flip_at`); режим «без
 изменения» — отдельный базлайн, его нельзя путать с §10m, где переворот был;
-агрегат в git — [`drift_matrix.json`](../morphogenesis/experiments/E09_pond/drift_matrix.json)
+агрегат в git — [`drift_matrix.json`](../../morphogenesis/experiments/E09_pond/drift_matrix.json)
 (18 строк), полные прогоны — `_hourly/polish/drift_*.json`.
 
 **Следующая гипотеза.** Не менять расписание среды, а изменить саму структуру
@@ -1031,7 +1031,7 @@ CUDA: `torch.multinomial` там недетерминирован. Повтор�
 
 Матрица: 4 режима подвижности × 3 политики × 3 сида, 300 шагов, переворот на 150,
 `mobility_steps = 5`. Агрегат в git:
-[`mobility_matrix.json`](../morphogenesis/experiments/E09_pond/mobility_matrix.json)
+[`mobility_matrix.json`](../../morphogenesis/experiments/E09_pond/mobility_matrix.json)
 (36 строк).
 
 | режим подвижности | политика | pop_time, среднее ± std | s1 / s2 / s3 | живых | родилось | умерло | шагов | сдвиг |
@@ -1113,7 +1113,7 @@ expensive лучше фикса» — тоже не различимо (−0.5% 
 на цену хода, состояние и геном переезжают вместе с клеткой.
 
 Матрица: 3 режима × 3 политики × 3 сида, 300 шагов, переворот на 150. Агрегат в
-git — [`organism_mobility_matrix.json`](../morphogenesis/experiments/E09_pond/organism_mobility_matrix.json)
+git — [`organism_mobility_matrix.json`](../../morphogenesis/experiments/E09_pond/organism_mobility_matrix.json)
 (27 строк).
 
 | режим | политика | pop_time, среднее ± std | s1 / s2 / s3 | живых | родилось | умерло | ходов |
@@ -1203,7 +1203,7 @@ pop_time это настоящий рост (+15%), но формулировк�
 Матрица: fd ∈ {0, 0.5, 1.0} × 4 политики, 300 шагов, переворот на 150,
 расстановка фиксирована (`score w=0.1`). **n = 5 сидов** для fixed/random/learn,
 **n = 3** для mixed-fixed. Агрегат в git —
-[`frequency_matrix.json`](../morphogenesis/experiments/E09_pond/frequency_matrix.json)
+[`frequency_matrix.json`](../../morphogenesis/experiments/E09_pond/frequency_matrix.json)
 (54 строки).
 
 | fd | политика типа | pop_time, среднее ± std | s1…s5 | живых | доля A в конце |
@@ -1286,7 +1286,7 @@ fd ∈ {0, 1}, сверка равновесной доли с soft selection �
 шагов наблюдения. Инвазия на шаге 200, а не на старте: при 4 стартовых клетках
 5% не выражается целым числом, и резидент должен быть уже устоявшимся. Матрица:
 fd ∈ {0, 1} × два направления × 3 сида. Агрегат в git —
-[`invasion_matrix.json`](../morphogenesis/experiments/E09_pond/invasion_matrix.json)
+[`invasion_matrix.json`](../../morphogenesis/experiments/E09_pond/invasion_matrix.json)
 (12 строк).
 
 | fd | направление | доля редкого после подсадки | доля в конце | рост |
@@ -1495,7 +1495,7 @@ fd = 1 переключение даёт 71.3 и 71.0 тыс. против 58.9 
 шаге 200, fd = 1, 300 шагов. Сетка rev2: `catastrophe_rate` ∈ {0, 0.001, 0.003,
 0.01, 0.03, 0.1}, 3 сида, два режима катастроф: `shift` (ресурс переезжает) и
 `drop` (ресурс падает везде). Агрегат —
-[`catastrophe_matrix.json`](../morphogenesis/experiments/E09_pond/catastrophe_matrix.json)
+[`catastrophe_matrix.json`](../../morphogenesis/experiments/E09_pond/catastrophe_matrix.json)
 (54 строки).
 
 | rate | режим | доля инвайдера A (три сида) | доля инвайдера B (три сида) | pop_time A / B |
@@ -1621,7 +1621,7 @@ cycle. Это ровно тот же урок, что в H62 (селективн
 разнообразия по картам (энтропия классов/персистентная гомология), а не по `alive_cells`.
 
 **Машинная проверка.**
-[`catastrophe_diversity.json`](../morphogenesis/experiments/E09_pond/catastrophe_diversity.json)
+[`catastrophe_diversity.json`](../../morphogenesis/experiments/E09_pond/catastrophe_diversity.json)
 (`kind: idh_reanalysis`, 54 строки + сводка по режимам и уровням, поля `not_computable` и
 `confound_note`) собирается `scripts/idh_diversity.py`. Это **exploratory**-реанализ:
 критерий не пре-регистрировался, числа описательные.
@@ -1772,7 +1772,7 @@ L2F — 112845 / 105696; nomove — 77945 / 70252.
 рычаг — подвижность, и он уже измерен (§10s–§10t, здесь). Дальше — A-gate
 (дифференцируемый soft-pond, если гейт soft→hard воспроизводит hard) и B2
 (niche construction). Агрегат —
-[`l2_matrix.json`](../morphogenesis/experiments/E09_pond/l2_matrix.json) (30 строк).
+[`l2_matrix.json`](../../morphogenesis/experiments/E09_pond/l2_matrix.json) (30 строк).
 
 ### 10aa. B2: строительство — механизм есть, обучение не окупается (24.10)
 
@@ -1807,7 +1807,7 @@ L2F — 112845 / 105696; nomove — 77945 / 70252.
 в **своей** клетке (`× 2.0`, до `resource_max`). Терминология NC3: L2 (§10z) —
 это niche **choice** (перемещение), B2 — niche **construction** (подъём потолка);
 conformance не реализован. Три среды × 3 сида, 300 шагов; медианы (агрегат
-[`b2_matrix.json`](../morphogenesis/experiments/E09_pond/b2_matrix.json), 24 строки,
+[`b2_matrix.json`](../../morphogenesis/experiments/E09_pond/b2_matrix.json), 24 строки,
 `aggregate_check` — 0 ошибок):
 
 | среда | control | fixed | fixed без движения | mobile | both (fixed+mobile) | surplus (адаптивный порог) | placebo |

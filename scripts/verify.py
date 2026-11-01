@@ -58,6 +58,10 @@ def main() -> int:
         ("числа статьи 028 совпадают с агрегатами", [PY, "scripts/check_article_numbers.py", "--ci"], None),
         ("матрица утверждений (claims_lint --strict)", [PY, "scripts/claims_lint.py", "--strict"], None),
         ("ссылки на разделы рукописи", [PY, "scripts/check_section_refs.py"], None),
+        # 01.11: CI падал на шаге «Text integrity», а локальный verify был зелёным, потому что звал
+        # check_section_refs и не звал check_links. После разбиения плана 83 ссылки в docs/plan/*.md
+        # указывали на уровень выше нужного и вели в никуда; нашлись только в CI. Гейт зовётся здесь.
+        ("относительные ссылки ведут в существующие файлы", [PY, "scripts/check_links.py", "--all"], None),
         ("витрина не отстаёт от результатов", [PY, "scripts/check_readme_fresh.py"], None),
         ("ревью оформлены как проверки", [PY, "scripts/check_reviews.py"], None),
         # 29.10, крестовый аудит herness (находка 3): AGENTS §3c называет этот гейт гейтом, а make verify

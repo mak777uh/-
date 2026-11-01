@@ -70,7 +70,7 @@ M-плечо метаобучения остаётся заблокирован�
 B в колонию A) × два режима × 3 сида = 24 прогона. **Метки артефактов — это значения
 параметра:** `fd0` = `freq_dep` 0.0, `fd10` = `freq_dep` **1.0** (а не 10). Рост = доля в
 конце / доля сразу после подсадки. Агрегат —
-[`colony_type_matrix.json`](../morphogenesis/experiments/E09_pond/colony_type_matrix.json)
+[`colony_type_matrix.json`](../../morphogenesis/experiments/E09_pond/colony_type_matrix.json)
 (24 строки, `kind: invasion_runs`).
 
 | `freq_dep` | направление | режим | доля после подсадки (3 сида) | доля в конце | рост |
@@ -190,7 +190,7 @@ patches, сид 1 — коллапс (0 почкований, поколение
 родителя не имеют.
 
 **Машинная проверка.**
-[`generation_matrix.json`](../morphogenesis/experiments/E09_pond/generation_matrix.json)
+[`generation_matrix.json`](../../morphogenesis/experiments/E09_pond/generation_matrix.json)
 (`kind: generation_runs`, 9 строк + сводка по средам с параметрами конфигурации и
 списком различий с `b2_*`) собирается `scripts/generation_matrix.py`;
 `python scripts/aggregate_check.py --strict` — **0 ошибок**.
@@ -204,7 +204,7 @@ patches, сид 1 — коллапс (0 почкований, поколение
 разводит эти объяснения развёрткой по **размеру инокулята**.
 
 **Дизайн** (пре-регистрация
-[`reports/2026-10-24-invader-dose-plan.md`](../reports/2026-10-24-invader-dose-plan.md),
+[`reports/2026-10-24-invader-dose-plan.md`](../../reports/2026-10-24-invader-dose-plan.md),
 закоммичена коммитом `9f92a11` **до** старта серии в 16:43; критерий после данных не
 менялся). Конфигурация §10ab: 32×32, 300 шагов, обученное правило, инвазия на шаге 200,
 тип на компоненте, `freq_dep` 1.0, A в колонию B. Дозы 1/2/5/10/20 клеток **связным
@@ -284,7 +284,7 @@ patches, сид 1 — коллапс (0 почкований, поколение
    карантин первой волны), не замаскированы.
 
 **Машинная проверка.**
-[`invader_dose_matrix.json`](../morphogenesis/experiments/E09_pond/invader_dose_matrix.json)
+[`invader_dose_matrix.json`](../../morphogenesis/experiments/E09_pond/invader_dose_matrix.json)
 (`kind: invader_dose_runs`, 50 строк + сводка по дозе с Wilson-интервалами) собирается
 `scripts/invader_dose_matrix.py`; `python scripts/aggregate_check.py --strict` — **0
 ошибок**.
@@ -305,7 +305,7 @@ patches, сид 1 — коллапс (0 почкований, поколение
 `trait_родителя + N(0, 0.01)`. Признак нигде не читается миром ⇒ это **нейтральная**
 изменчивость; отбор по признаку — условие E и отдельный дизайн.
 
-**Дизайн** (пре-регистрация [`reports/2026-10-24-mutation-plan.md`](../reports/2026-10-24-mutation-plan.md),
+**Дизайн** (пре-регистрация [`reports/2026-10-24-mutation-plan.md`](../../reports/2026-10-24-mutation-plan.md),
 до данных; критерий после данных не менялся). 32×32, 300 шагов, обученное правило,
 `layout uniform`, `freq_dep` 0.0, `type_mode mixfixed`, `type_level cell`, инвазия
 выключена. `m` ∈ {0, 0.001, 0.01, 0.05, 0.2} × 3 сида = **15 прогонов**. Мутация
@@ -369,7 +369,7 @@ m = 0.001–0.01 новизна есть, но разнообразие ниже
    весов правила не проверялась (в пуле, условие возврата — если B и E покажут отбор).
 
 **Машинная проверка.**
-[`mutation_matrix.json`](../morphogenesis/experiments/E09_pond/mutation_matrix.json)
+[`mutation_matrix.json`](../../morphogenesis/experiments/E09_pond/mutation_matrix.json)
 (`kind: mutation_runs`, 15 строк + сводка по дозе + вердикт по критериям) собирается
 `scripts/mutation_matrix.py` (метрики — `scripts/trait_metrics.py`, определения сверены
 с `library/tools/trait_metrics.py` тестом согласия);
@@ -389,7 +389,7 @@ m = 0.001–0.01 новизна есть, но разнообразие ниже
 большинства).
 
 **Дизайн** (пре-регистрация
-[`reports/2026-10-24-placement-merge-plan.md`](../reports/2026-10-24-placement-merge-plan.md)).
+[`reports/2026-10-24-placement-merge-plan.md`](../../reports/2026-10-24-placement-merge-plan.md)).
 Конфигурация §10ab/§10ac: 32×32, 300 шагов, обученное правило, инвазия на шаге 200, тип
 на компоненте, `freq_dep` 1.0, A в колонию B, доза 5 клеток связным 4-пятном; плечи
 `into_resident` (случайная точка) и `into_gap` (самая далёкая свободная клетка) × правило
@@ -479,7 +479,7 @@ V8-артефактов их нет — идентичность доказан�
 (валидно по критерию ≤ 5%).
 
 **Машинная проверка.**
-[`v8_matrix.json`](../morphogenesis/experiments/E09_pond/v8_matrix.json)
+[`v8_matrix.json`](../../morphogenesis/experiments/E09_pond/v8_matrix.json)
 (`kind: v8_placement_merge`, 50 строк + сводка по плечам + критерии + провенанс)
 собирается `scripts/v8_matrix.py`; `aggregate_check --strict` — **0 ошибок**.
 
@@ -506,7 +506,7 @@ V8-артефактов их нет — идентичность доказан�
 мы не знаем, барьер ли это основания или резидента. Здесь — чистый тест основания: пустое
 поле, гейт, пятно N клеток в самой далёкой точке, без всякой инвазии и слияния.
 
-**Дизайн** (пре-регистрация [`reports/2026-10-24-founding-threshold-plan.md`](../reports/2026-10-24-founding-threshold-plan.md),
+**Дизайн** (пре-регистрация [`reports/2026-10-24-founding-threshold-plan.md`](../../reports/2026-10-24-founding-threshold-plan.md),
 закоммичена до старта). 32×32, 300 шагов, обученное правило, `layout uniform`, старт
 заполнен на 0.9, доход 0.2, цены 0.02/0.02, почкование при массе 24, `freq_dep` 1.0, тип
 на компоненте, `--start-cells 0 --ignition-gate`, подсадка на шаге 1 в самую далёкую
@@ -565,7 +565,7 @@ N = 1…20 нет. Пре-регистрированный критерий «п
    качественный), не seed-matched с сеткой.
 
 **Машинная проверка.**
-[`founding_matrix.json`](../morphogenesis/experiments/E09_pond/founding_matrix.json)
+[`founding_matrix.json`](../../morphogenesis/experiments/E09_pond/founding_matrix.json)
 (`kind: founding_runs`, 50 строк + сводка по дозе + критерии с вердиктом) собирается
 `scripts/founding_matrix.py`; форма — `founding_maps.json` (`scripts/map_metrics.py`);
 `python scripts/aggregate_check.py --strict` — **0 ошибок**.
@@ -581,7 +581,7 @@ kill-and-keep (`H-ALIVE-25`, идёт); (3) метрики по картам д�
 **следующая когорта** от того, что предыдущая оставила. Здесь — прямой тест: убить
 организмы, сохранить поле, посадить свежий пропагул; контроль — то же с очищенным полем.
 
-**Дизайн** (пре-регистрация [`reports/2026-10-24-kill-keep-plan.md`](../reports/2026-10-24-kill-keep-plan.md),
+**Дизайн** (пре-регистрация [`reports/2026-10-24-kill-keep-plan.md`](../../reports/2026-10-24-kill-keep-plan.md),
 до старта). Фаза 1 — 200 шагов, колония из 4 клеток строит нишу (`invest_rate 0.02`);
 убийство всех клеток (поле ресурса сохраняется); пересев 5 клеток в самой далёкой точке;
 фаза 2 — 100 шагов. Плечи `keep` (поле как есть) и `clean` (`resource = resource_max`)
@@ -634,7 +634,7 @@ kill-and-keep (`H-ALIVE-25`, идёт); (3) метрики по картам д�
    проверялся.
 
 **Машинная проверка.**
-[`kill_keep_matrix.json`](../morphogenesis/experiments/E09_pond/kill_keep_matrix.json)
+[`kill_keep_matrix.json`](../../morphogenesis/experiments/E09_pond/kill_keep_matrix.json)
 (`kind: kill_keep_runs`, 10 строк + 5 пар + критерии) собирается
 `scripts/kill_keep_matrix.py`; артефакты — `killkeep_{keep,clean}_seed1..5.json`.
 
@@ -644,7 +644,7 @@ kill-and-keep (`H-ALIVE-25`, идёт); (3) метрики по картам д�
 ### 10ah.1. v2: чувствительнее не стало — ресурс не управляет судьбой клетки (25.10)
 
 **Что изменено относительно §10ah** (пре-регистрация
-[`reports/2026-10-25-killkeep-v2-plan.md`](../reports/2026-10-25-killkeep-v2-plan.md),
+[`reports/2026-10-25-killkeep-v2-plan.md`](../../reports/2026-10-25-killkeep-v2-plan.md),
 закоммичена до старта): фаза 2 **300** шагов вместо 100, заряд пересеянных клеток **1.0**
 вместо 8.0 (автономия ≈ 25 шагов вместо ≈ 200), всё остальное без изменений.
 
@@ -693,7 +693,7 @@ cap` с `baseline_income 0.05`. Тогда в `keep` клетка на гран�
 правка на ходу.
 
 **Машинная проверка.**
-[`kill_keep2_matrix.json`](../morphogenesis/experiments/E09_pond/kill_keep2_matrix.json)
+[`kill_keep2_matrix.json`](../../morphogenesis/experiments/E09_pond/kill_keep2_matrix.json)
 (`kind: kill_keep_runs`, 10 строк + 5 пар + критерии + `reached_growth`), артефакты
 `killkeep2_{keep,clean}_seed1..5.json` с `sensitivity_note` в каждом.
 
@@ -803,7 +803,7 @@ own* = spent / (4·b)
 верная запись, а не ошибка сборки.
 
 **Машинная проверка.**
-[`selection_matrix.json`](../morphogenesis/experiments/E09_pond/selection_matrix.json)
+[`selection_matrix.json`](../../morphogenesis/experiments/E09_pond/selection_matrix.json)
 (`kind: selection_runs`, три уровня + индекс Кроу + `invalid_reason` по каждому прогону),
 собирается `scripts/selection_matrix.py`; `aggregate_check --strict` — 0 ошибок.
 
@@ -877,7 +877,7 @@ own* = spent / (4·b)
 **переписывать ли вообще**. Здесь правило `merge=keep`: при слиянии компонент клетки
 сохраняют свой тип, никто не переписывается.
 
-**Дизайн** (пре-регистрация [`reports/2026-10-24-merge-keep-plan.md`](../reports/2026-10-24-merge-keep-plan.md),
+**Дизайн** (пре-регистрация [`reports/2026-10-24-merge-keep-plan.md`](../../reports/2026-10-24-merge-keep-plan.md),
 `117fca3`, до старта). Конфигурация §10ab/§10ac/§10ae: 32×32, 300 шагов, обученное
 правило, инвазия на шаге 200, `freq_dep` 1.0, A в колонию B, доза 5 клеток связным
 пятном, `into_resident`. Плечи `majority` и `keep` × 10 сидов = 20 прогонов.
@@ -940,7 +940,7 @@ keep` не сдвинул поведение по умолчанию (как и 
 **конкуренции за ресурс внутри занятого поля**, а не до механики слияния.
 
 **Машинная проверка.**
-[`merge_keep_matrix.json`](../morphogenesis/experiments/E09_pond/merge_keep_matrix.json)
+[`merge_keep_matrix.json`](../../morphogenesis/experiments/E09_pond/merge_keep_matrix.json)
 (`kind: v8_placement_merge`, 20 строк + сводка по плечам + провенанс), собирается
 `scripts/v8_matrix.py --glob 'mergekeep_*.json'`; `aggregate_check --strict` — 0 ошибок.
 
@@ -1241,7 +1241,7 @@ resource += inflow · (fa − 1)
 клеточному признаку неизмерим. W2-bud делает единицей размножения клетку: почкуется одна
 клетка тела (тем же критерием `spore_bias`), спора и метка принадлежат ей.
 
-**Пре-регистрация** [`reports/2026-10-25-w2bud-plan.md`](../reports/2026-10-25-w2bud-plan.md),
+**Пре-регистрация** [`reports/2026-10-25-w2bud-plan.md`](../../reports/2026-10-25-w2bud-plan.md),
 поправка критерия от 25.10 — **до серии** (пер-прогонный порог «≥10 линий» заменён кросс-сидовым
 требованием, это строже). Якорь W1 с дефолтом `--budding-unit colony` — **бит-в-бит**
 (66679 / 1.0 / 0.0111 / 449 / 5 / 0.95065 / 10.0 / 936 / 459).
@@ -1319,7 +1319,7 @@ resource += inflow · (fa − 1)
 Манипуляция слабая — при следующей попытке поднять `eps` или `invest_rate` **до** данных.
 
 **Машинная проверка (после сверки 25.10).**
-[`w2bud_matrix.json`](../morphogenesis/experiments/E09_pond/w2bud_matrix.json)
+[`w2bud_matrix.json`](../../morphogenesis/experiments/E09_pond/w2bud_matrix.json)
 (`kind: w2bud_runs`, блок `metric` с формулами, 20 строк с полями `tags_ge2`, `lineages_with_data`, `crow_I`, `rho`, `beta_*`, `cumulative`; сводка по плечам с `crow_I_positive_k_all` и `crow_I_positive_k_valid`), собирается `scripts/w2bud_matrix.py`;
 артефакты `w2bud/{colony,cell}_seed1..10.json`. Воспроизведение: `python scripts/w2bud_matrix.py` печатает таблицу «сид → метки≥2 → линии → `I`», из которой
 получаются 13.5 / 4.0 / 9-из-10.
@@ -1334,7 +1334,7 @@ resource += inflow · (fa − 1)
 **Тот же мир `W2-bud`, не `W1`.** Числа несопоставимы с V8/§10ae, основанием/§10af,
 дозой/§10ac, `merge=keep`/§10ai и E/§10ag; сравнение — только с §10ao (v1) по тем же метрикам.
 **Менялось ровно одно:** `eps` 2.0 → 4.0 (сила чтения признака), экономика и `own* = 0.05` не
-тронуты. Пре-регистрация — [`reports/2026-10-25-w2bud-v2-plan.md`](../reports/2026-10-25-w2bud-v2-plan.md)
+тронуты. Пре-регистрация — [`reports/2026-10-25-w2bud-v2-plan.md`](../../reports/2026-10-25-w2bud-v2-plan.md)
 (`f1b2e09`), критерий не менялся.
 
 **Якоря (до серии).** (1) `--budding-unit colony --trait-effect 0.0`,
@@ -1382,7 +1382,7 @@ resource += inflow · (fa − 1)
 потомка на клетку» лежит в пуле (`D-46`) с условием возврата.
 
 **Машинная проверка.**
-[`w2bud2_matrix.json`](../morphogenesis/experiments/E09_pond/w2bud2_matrix.json)
+[`w2bud2_matrix.json`](../../morphogenesis/experiments/E09_pond/w2bud2_matrix.json)
 (`kind: w2bud_runs`, блок `metric` с формулами, 20 строк, `crow_I_positive_k_all` = 10,
 `crow_I_positive_k_valid` = 4, `manipulation_ok_k` = 5), собирается
 `scripts/w2bud_matrix.py --src morphogenesis/experiments/E09_pond/w2bud2`;
@@ -1394,7 +1394,7 @@ resource += inflow · (fa − 1)
 `merge=keep`/§10ai, E/§10ag; сравнение — с §10ao (v1) и §10ap (v2). **Менялось:** критерий
 `I > 0` → `I_obs > I_null(95 %)` и добавлены два логгера (`lineage_invest_updates`,
 `lineage_cell_steps`) — мир не тронут, якорь бит-в-бит (66679 / 459). Пре-регистрация —
-[`reports/2026-10-25-w2bud-v3-plan.md`](../reports/2026-10-25-w2bud-v3-plan.md) (`9fd7169`).
+[`reports/2026-10-25-w2bud-v3-plan.md`](../../reports/2026-10-25-w2bud-v3-plan.md) (`9fd7169`).
 
 **Определения (формулой, как требует §3c).** `w(t) = lineage_spores[t] / type_counts[t]` (споры на
 живую клетку); линии с данными — `type_counts[t] ≥ 5` **и** `lineage_spores[t] ≥ 1`; `I_obs =
@@ -1439,7 +1439,7 @@ W1 — `I = 0` в 10/10. То есть линия в W2-bud имеет разб�
 вложение/клетко-шаг) = 0.99–1.00` **тавтологичен** (это та же формула), он проверяет реализацию
 механизма, а не отсутствие конфаундера. Прямой контроль — `lineage_energy_mean` /
 `lineage_energy_steps` — следующий шаг, пре-регистрация
-[`reports/2026-10-25-w2bud-energy-logger-plan.md`](../reports/2026-10-25-w2bud-energy-logger-plan.md).
+[`reports/2026-10-25-w2bud-energy-logger-plan.md`](../../reports/2026-10-25-w2bud-energy-logger-plan.md).
 
 **Детерминизм как проверка.** Артефакты v3 численно совпадают с v2 (`I`, `w`, `ρ`) — те же сиды,
 та же конфигурация, разница только в логгерах. Это независимое подтверждение, что новые счётчики
@@ -1449,7 +1449,7 @@ W1 — `I = 0` в 10/10. То есть линия в W2-bud имеет разб�
 линии мелкие (медиана 4 с данными, §10ao.1); вариант «два потомка на клетку» — в пуле (`D-46`).
 
 **Машинная проверка.**
-[`w2bud3_matrix.json`](../morphogenesis/experiments/E09_pond/w2bud3_matrix.json) — блок `metric`
+[`w2bud3_matrix.json`](../../morphogenesis/experiments/E09_pond/w2bud3_matrix.json) — блок `metric`
 с формулами, `derived_by_construction`, 20 строк, `by_arm` с `crow_I_positive_k_all` /
 `crow_I_positive_k_valid`, `I_obs_median` / `I_null_95_median` / `I_ratio_median` /
 `I_above_null_k_all`, `rho_trait_cell_steps_median` / `_negative_k`, три гейта манипуляции.
@@ -1460,7 +1460,7 @@ W1 — `I = 0` в 10/10. То есть линия в W2-bud имеет разб�
 
 **Тот же мир `W2-bud`.** Несопоставимо с `W1`-сериями. Это **диагностика**, не серия: 2 прогона
 (сиды 1 и 2), те же, что в пилоте v3, чтобы сравнивать напрямую. Пре-регистрация —
-[`reports/2026-10-25-w2bud-energy-logger-plan.md`](../reports/2026-10-25-w2bud-energy-logger-plan.md)
+[`reports/2026-10-25-w2bud-energy-logger-plan.md`](../../reports/2026-10-25-w2bud-energy-logger-plan.md)
 (`de9b5c9`). Якорь после правки логгера — **бит-в-бит** (66679 / 1.0 / 0.0111 / 449 / 5 / 0.95065 /
 10.0 / 936 / 459).
 
@@ -1518,7 +1518,7 @@ W1 — `I = 0` в 10/10. То есть линия в W2-bud имеет разб�
 ## 10as. W2-bud v4: метрика по времени меняет знак энергии; серия невалидна по данным (25.10, H-ALIVE-34)
 
 **Тот же мир `W2-bud`.** Несопоставимо с `W1`-сериями; сравнение — с §10aq/§10ar. Пре-регистрация —
-[`reports/2026-10-25-w2bud-v4-energy-price-plan.md`](../reports/2026-10-25-w2bud-v4-energy-price-plan.md)
+[`reports/2026-10-25-w2bud-v4-energy-price-plan.md`](../../reports/2026-10-25-w2bud-v4-energy-price-plan.md)
 (`d4a1aa3`). Якорь после правки логгера — **бит-в-бит** (66679 / 1.0 / 0.0111 / 449 / 5 / 0.95065 /
 10.0 / 936 / 459).
 
@@ -1579,15 +1579,15 @@ W1 — `I = 0` в 10/10. То есть линия в W2-bud имеет разб�
 `ρ_partial` на 5–6 линиях — шум; сэмплирование каждые 10 шагов.
 
 **Машинная проверка.**
-[`w2bud4s_matrix.json`](../morphogenesis/experiments/E09_pond/w2bud4s_matrix.json) — поля
+[`w2bud4s_matrix.json`](../../morphogenesis/experiments/E09_pond/w2bud4s_matrix.json) — поля
 `rho_trait_cell_steps`, `rho_trait_energy_per_cell_time`, `rho_partial_energy`, медианы и счётчики
 знаков, критерии `price_confirmed` / `benefit_confirmed` / `invalid_by_data`. Определения —
-в [`lab/metrics.json`](../lab/metrics.json). Артефакты `w2bud4s/cell_seed1..10.json`
+в [`lab/metrics.json`](../../lab/metrics.json). Артефакты `w2bud4s/cell_seed1..10.json`
 (поля `lineage_energy_mean_sum`, `lineage_energy_samples`).
 
 ### 10ae.1. Оценка серии V8 по её же контролю: невалидна как тест конкуренции (25.10)
 
-**Что записано в пре-регистрации** ([`reports/2026-10-24-placement-merge-plan.md`](../reports/2026-10-24-placement-merge-plan.md),
+**Что записано в пре-регистрации** ([`reports/2026-10-24-placement-merge-plan.md`](../../reports/2026-10-24-placement-merge-plan.md),
 строки 62–64): если контроль `resident_free` не выполнен (выживание ≤ 2/10 без резидента), **вся серия
 невалидна по постановке** — вопрос про конкуренцию не задан.
 
@@ -1612,11 +1612,11 @@ W1 — `I = 0` в 10/10. То есть линия в W2-bud имеет разб�
 **Мир `W1`** (не `W2-bud`). Вопрос был: гибнет ли редкая линия рывком (переписывание типа) или
 постепенно (вытеснение), и зависит ли это от `merge_rule`. **Ответ: из этой серии — никакой**, потому
 что постановка не выдержала: подсадка 20 клеток встаёт целиком только в 4 из 10 прогонов **в каждом
-плече**. Пре-регистрация — [`reports/2026-10-25-invader-death-mode-plan.md`](../reports/2026-10-25-invader-death-mode-plan.md).
+плече**. Пре-регистрация — [`reports/2026-10-25-invader-death-mode-plan.md`](../../reports/2026-10-25-invader-death-mode-plan.md).
 
 **Дизайн.** 2 плеча (`keep`, `majority`) × 10 сидов, 300 шагов, `--invader-cells 20`,
 `into_resident`, остальное как в §10ai. Агрегат
-[`invader_death_matrix.json`](../morphogenesis/experiments/E09_pond/invader_death_matrix.json),
+[`invader_death_matrix.json`](../../morphogenesis/experiments/E09_pond/invader_death_matrix.json),
 классификатор `scripts/invader_death_matrix.py`.
 
 **Результат 1 — отказ постановки (публикуемый).** `invader_cells_actual` по сидам: **20, 20, 20, 20,
@@ -1708,14 +1708,14 @@ seed6 427. Значит ограничитель **локальный**, а не
 (≥ 15 из 20) до `_grow_invader_blob`, до 5 перерисовок RNG, `rejected_by_placement` не считается ни
 выживанием, ни гибелью, флаг `--require-placement 15`, проверка **состояния** после подсадки (а не
 намерения), плюс поля `free_cells_at_injection` и `max_free_component_at_injection`
-([`reports/2026-10-25-placement-guarantee-plan.md`](../reports/2026-10-25-placement-guarantee-plan.md)).
+([`reports/2026-10-25-placement-guarantee-plan.md`](../../reports/2026-10-25-placement-guarantee-plan.md)).
 Пока подсадка не гарантирована, любой «режим гибели» будет смешивать 1 клетку и 20.
 
 ## 10at.2. Фазовая развёртка majority: период объясняет ТИПИЧНЫЙ случай, слияние — хвост (25.10, H-ALIVE-38)
 
 **Мир `W1`.** 3 фазы (`invade_at` = 201 / 202 / 203) × 10 сидов, пропагул 20 клеток, `majority`,
-300 шагов. Пре-регистрация — [`reports/2026-10-25-phase-sweep-plan.md`](../reports/2026-10-25-phase-sweep-plan.md).
-Агрегат [`phase_matrix.json`](../morphogenesis/experiments/E09_pond/phase_matrix.json),
+300 шагов. Пре-регистрация — [`reports/2026-10-25-phase-sweep-plan.md`](../../reports/2026-10-25-phase-sweep-plan.md).
+Агрегат [`phase_matrix.json`](../../morphogenesis/experiments/E09_pond/phase_matrix.json),
 собирается `scripts/phase_matrix.py`.
 
 **Стратификация обязательна и сделана ДО подсчёта распределения:** из 30 прогонов **13 с полной
@@ -1760,13 +1760,13 @@ seed6 427. Значит ограничитель **локальный**, а не
 **Зачем.** У эффектов «отбор возможен» (S) и «цена признака» (C) **4 и 3 переделки** соответственно;
 по протоколу против «сада тропок» (`docs/optimality.md` §2.3) при переделках ≥ 3 эффект заявляется
 только если **все варианты метрики дают один знак**. Пре-регистрация —
-[`reports/2026-10-25-metric-variants-plan.md`](../reports/2026-10-25-metric-variants-plan.md).
+[`reports/2026-10-25-metric-variants-plan.md`](../../reports/2026-10-25-metric-variants-plan.md).
 **GPU не тратился:** пересчёт существующих артефактов `w2bud4s/`.
 
 **План: 3 × 3 × 2 = 18 вариантов** — определение `w` (`spores_per_cell` / `raw_spores` /
 `discrete`), порог линий (`cells ≥ 5` / `≥ 3` / все со спорами), нуль-модель
 (`rate = sum/sum` / `mean`). Агрегат
-[`metric_variants.json`](../morphogenesis/experiments/E09_pond/metric_variants.json),
+[`metric_variants.json`](../../morphogenesis/experiments/E09_pond/metric_variants.json),
 собирается `scripts/metric_variants.py`.
 
 | `w` | порог | нуль | S медиана | S > 1 | медиана `ρ_partial` | отриц. |
@@ -1813,7 +1813,7 @@ seed6 427. Значит ограничитель **локальный**, а не
 данным, §10as). При пороге **≥ 3** — в **10/10** (медиана −0.522, 9/10 отрицательных), **но порог
 изменён после того, как данные были увидены**. Это **анализ чувствительности**, а не вердикт:
 законный вердикт требует пре-регистрации порога ≥3 **до** запуска и **новых** данных —
-[`W2bud_threshold3`](../reports/2026-10-25-threshold3-plan.md) (H-ALIVE-42).
+[`W2bud_threshold3`](../../reports/2026-10-25-threshold3-plan.md) (H-ALIVE-42).
 
 **Что это меняет.** Качественное утверждение устойчиво: **знак цены не зависит от устройства
 метрики** (18/18). Количественный вердикт остаётся открытым до `W2bud_threshold3`. Отклик — не
@@ -1824,7 +1824,7 @@ seed6 427. Значит ограничитель **локальный**, а не
 
 ## 10at.3. V1c: подсадка починена — 20/20 полных, и вопрос о режиме гибели наконец задан (25.10, H-ALIVE-37)
 
-**Мир `W1`.** Пре-регистрация — [`reports/2026-10-25-placement-guarantee-plan.md`](../reports/2026-10-25-placement-guarantee-plan.md).
+**Мир `W1`.** Пре-регистрация — [`reports/2026-10-25-placement-guarantee-plan.md`](../../reports/2026-10-25-placement-guarantee-plan.md).
 Правка `world/` аддитивная и **за флагом**: `--require-placement 15` (0 = старая ветка). Якорь
 `--budding-unit colony` без флага — **бит-в-бит** (66679 / 1.0 / 0.0111 / 449 / 5 / 0.95065 / 10.0 /
 936 / 459); поля V1c в старой ветке остаются `null`/`false`.
@@ -1877,14 +1877,14 @@ seed6 427. Значит ограничитель **локальный**, а не
 
 
 
-**Машинная проверка.** [`placement_matrix.json`](../morphogenesis/experiments/E09_pond/placement_matrix.json)
+**Машинная проверка.** [`placement_matrix.json`](../../morphogenesis/experiments/E09_pond/placement_matrix.json)
 (`kind: placement_runs`, 20 строк, `by_arm`, критерий `placement_series_valid = true`), собирается
 `scripts/placement_matrix.py`; артефакты `placement/{keep,majority}_seed1..10.json`; проба пути
 инъекции — `scripts/probe_invasion_state.py` + `invasion_state_probe.json`.
 
 ## 10at.4. Инвазия на раскладке `patches`: направление сохраняется и усиливается (25.10, H-ALIVE-43)
 
-**Мир `W1`.** Пре-регистрация — [`reports/2026-10-25-invasion-patches-plan.md`](../reports/2026-10-25-invasion-patches-plan.md).
+**Мир `W1`.** Пре-регистрация — [`reports/2026-10-25-invasion-patches-plan.md`](../../reports/2026-10-25-invasion-patches-plan.md).
 Меняется только `--layout patches` (локальная плотность и корреляция ресурса); всё остальное — как в
 §10at.3: 20 клеток, `--invade-at 201`, `--require-placement 15`, 300 шагов, `freq_dep = 1.0`.
 
@@ -1914,14 +1914,14 @@ seed6 427. Значит ограничитель **локальный**, а не
 ресурса, поэтому сравниваются знаки и доли, а не величины; 20 прогонов; `keep` 10/10 при n = 10 —
 нижняя граница Уилсона 0.72, «удерживается в подавляющем большинстве», но не «всегда».
 
-**Машинная проверка.** [`placement_patches_matrix.json`](../morphogenesis/experiments/E09_pond/placement_patches_matrix.json)
+**Машинная проверка.** [`placement_patches_matrix.json`](../../morphogenesis/experiments/E09_pond/placement_patches_matrix.json)
 (`kind: placement_runs`, 20 строк, `by_arm`, `placement_series_valid = true`), собирается
 `scripts/placement_matrix.py --src morphogenesis/experiments/E09_pond/placement_patches`;
 артефакты `placement_patches/{keep,majority}_seed1..10.json`.
 
 ## 10av. Воспроизведение на новых сидах: направление держится, величина — не свойство выборки (26.10, H-ALIVE-40)
 
-**Мир `W2-bud`.** Пре-регистрация — [`reports/2026-10-25-w2bud-replication-plan.md`](../reports/2026-10-25-w2bud-replication-plan.md)
+**Мир `W2-bud`.** Пре-регистрация — [`reports/2026-10-25-w2bud-replication-plan.md`](../../reports/2026-10-25-w2bud-replication-plan.md)
 (`2812bb7`, до запуска). Сиды **101–110** (разработка шла на 1–10), три плеча по 10 прогонов:
 `uniform` × `cell`, `uniform` × `colony` (контроль W1), `patches` × `cell`.
 
@@ -1970,9 +1970,9 @@ seed6 427. Значит ограничитель **локальный**, а не
 
 
 
-**Машинная проверка.** [`w2bud_rep_uniform_matrix.json`](../morphogenesis/experiments/E09_pond/w2bud_rep_uniform_matrix.json)
+**Машинная проверка.** [`w2bud_rep_uniform_matrix.json`](../../morphogenesis/experiments/E09_pond/w2bud_rep_uniform_matrix.json)
 (20 строк: `cell` + контроль `colony`) и
-[`w2bud_rep_patches_matrix.json`](../morphogenesis/experiments/E09_pond/w2bud_rep_patches_matrix.json)
+[`w2bud_rep_patches_matrix.json`](../../morphogenesis/experiments/E09_pond/w2bud_rep_patches_matrix.json)
 (10 строк); собираются `scripts/w2bud_matrix.py --src …`; артефакты
 `w2bud_rep_{uniform,patches}/…_seed101..110.json`.
 
@@ -1991,7 +1991,7 @@ seed6 427. Значит ограничитель **локальный**, а не
 
 **Что изменено.** `--buds-per-component N`: до `N` разных клеток компоненты дают по бутону (выбор по
 тому же `score`); `--one-bud-per-lineage` запрещает два бутона одной линии. Пре-регистрация —
-[`reports/2026-10-25-w2bud-d2-plan.md`](../reports/2026-10-25-w2bud-d2-plan.md).
+[`reports/2026-10-25-w2bud-d2-plan.md`](../../reports/2026-10-25-w2bud-d2-plan.md).
 
 **Якоря (по правилу «якорь покрывает путь»).** Старая ветка: `colony/N=1` — **бит-в-бит** 66679/459.
 Новая ветка: `colony/N=3` — **тоже бит-в-бит** 66679/459 (флаг не протекает в колониальную механику).
@@ -2058,7 +2058,7 @@ seed6 427. Значит ограничитель **локальный**, а не
 вручную параметр, сетка по `N` не строилась; топ-1 всё ещё 0.757, то есть предок остаётся крупнейшим;
 мир `W2-bud-d2` — третья смена единицы размножения, абсолютные числа с `W1` и `W2-bud` несопоставимы.
 
-**Машинная проверка.** [`w2budd2_matrix.json`](../morphogenesis/experiments/E09_pond/w2budd2_matrix.json)
+**Машинная проверка.** [`w2budd2_matrix.json`](../../morphogenesis/experiments/E09_pond/w2budd2_matrix.json)
 (`kind: w2bud_runs`, поле `world` = `W2-bud-d2`, 10 строк, `by_arm`, критерии `price_confirmed = true`,
 `invalid_by_data = false`, `manipulation_gate_7_of_10 = true`), собирается
 `scripts/w2bud_matrix.py --src morphogenesis/experiments/E09_pond/w2budd2 --world "W2-bud-d2 …"`;
@@ -2066,7 +2066,7 @@ seed6 427. Значит ограничитель **локальный**, а не
 
 ## 10aw. Репликация `W2-bud-d2`: механизм воспроизвёлся, вердикт по цене — нет (26.10, H-ALIVE-44)
 
-**Мир `W2-bud-d2`.** Пре-регистрация — [`reports/2026-10-26-w2budd2-replication-plan.md`](../reports/2026-10-26-w2budd2-replication-plan.md)
+**Мир `W2-bud-d2`.** Пре-регистрация — [`reports/2026-10-26-w2budd2-replication-plan.md`](../../reports/2026-10-26-w2budd2-replication-plan.md)
 (`c2e421c`, до запуска). Сиды **101–110**, два плеча **на одних и тех же сидах**:
 `N = 3` (основное) и `N = 1` (контроль). Контроль добавлен ведущим до запуска: без него вывод
 «N = 3 сделал линии измеримыми» опирался бы на сравнение **разных выборок** (сиды 1–10 при N = 1 против
@@ -2136,14 +2136,14 @@ seed6 427. Значит ограничитель **локальный**, а не
 **Оговорки.** 10 сидов, один layout (`uniform`), `freq_dep = 0`, `eps = 4.0`; `N = 3` выбран вручную;
 контроль `N = 1` и основное плечо — разные прогоны, но один мир и одни сиды.
 
-**Машинная проверка.** [`w2budd2_rep_matrix.json`](../morphogenesis/experiments/E09_pond/w2budd2_rep_matrix.json)
-(N = 3, 10 строк) и [`w2budd2_rep_n1_matrix.json`](../morphogenesis/experiments/E09_pond/w2budd2_rep_n1_matrix.json)
+**Машинная проверка.** [`w2budd2_rep_matrix.json`](../../morphogenesis/experiments/E09_pond/w2budd2_rep_matrix.json)
+(N = 3, 10 строк) и [`w2budd2_rep_n1_matrix.json`](../../morphogenesis/experiments/E09_pond/w2budd2_rep_n1_matrix.json)
 (N = 1, 10 строк); инвариантность — `metric_variants_d2rep.json` и `metric_variants_d2rep_n1.json`
 (24 варианта каждый); артефакты `w2budd2_rep/` и `w2budd2_rep_n1/`.
 
 ## 10ax. `--one-bud-per-lineage`: шестая конструкция дотянулась — цена стала вердиктом (26.10, H-ALIVE-45)
 
-**Мир `W2-bud`.** Пре-регистрация — [`reports/2026-10-26-onebud-plan.md`](../reports/2026-10-26-onebud-plan.md)
+**Мир `W2-bud`.** Пре-регистрация — [`reports/2026-10-26-onebud-plan.md`](../../reports/2026-10-26-onebud-plan.md)
 (`5ff972f`, до запуска). Сиды **101–110**, **третье плечо на тех же сидах**, что `N = 3` и `N = 1`:
 `--buds-per-component 3 --one-bud-per-lineage`. Механизм назван заранее: запрет двух бутонов одной линии
 не даёт предку забирать оба бутона компоненты.
@@ -2219,7 +2219,7 @@ seed6 427. Значит ограничитель **локальный**, а не
 **5/10**, Q1–Q3 = **−0.31…+0.46** — распределение центрировано на нуле; для сравнения `ρ(признак, w)` даёт
 **+0.518** и 8/10, а знак совпадает лишь в **3/10** прогонов. Значит кажущийся отклик на `w` — **свойство
 определения `w`**, а не связь признака с приспособленностью; отклик **не заявляется**, вопрос закрыт.
-Подробности — [`reports/2026-10-26-response-independent-plan.md`](../reports/2026-10-26-response-independent-plan.md).
+Подробности — [`reports/2026-10-26-response-independent-plan.md`](../../reports/2026-10-26-response-independent-plan.md).
 
 **Оговорки.**
 
@@ -2236,9 +2236,9 @@ seed6 427. Значит ограничитель **локальный**, а не
 5. **`d2` теряет вердикт:** после исправления реализации его медиана −0.219 > −0.3, то есть при
    `N = 3` цена — **направление, а не вердикт**. Вердикт остаётся только за `one-bud`.
 
-**Машинная проверка.** [`w2bud_onebud_matrix.json`](../morphogenesis/experiments/E09_pond/w2bud_onebud_matrix.json)
+**Машинная проверка.** [`w2bud_onebud_matrix.json`](../../morphogenesis/experiments/E09_pond/w2bud_onebud_matrix.json)
 (10 строк, `price_confirmed = true`, `invalid_by_data = false`), инвариантность —
-[`metric_variants_onebud.json`](../morphogenesis/experiments/E09_pond/metric_variants_onebud.json)
+[`metric_variants_onebud.json`](../../morphogenesis/experiments/E09_pond/metric_variants_onebud.json)
 (24 варианта, `C_sign = negative`); артефакты `w2bud_onebud/…_seed101..110.json`.
 
 ## 10ay. Наследование среды в `W1`: эффект есть, но он не про родство, не про плотность и лишь частично про соседство (26.10, H-ALIVE-46)
@@ -2249,7 +2249,7 @@ seed6 427. Значит ограничитель **локальный**, а не
 > §10be, а не §10ay.
 
 
-**Мир `W1`.** Пре-регистрация — [`reports/2026-10-26-w1-niche-plan.md`](../reports/2026-10-26-w1-niche-plan.md)
+**Мир `W1`.** Пре-регистрация — [`reports/2026-10-26-w1-niche-plan.md`](../../reports/2026-10-26-w1-niche-plan.md)
 (+ поправка к анализу, внесённая **до** конца серии). Флаг `--death-return f`: при смерти клетки в поле
 возвращается `f ×` ресурс, взятый ею за жизнь. `f = 0.05` выбран по арифметике: `own* = spent/(4·b) =
 0.05`, а медиана взятого за жизнь — 1.36, значит `f = 0.05` даёт ≈ 0.068, то есть **на уровне порога**.
@@ -2354,13 +2354,13 @@ seed6 427. Значит ограничитель **локальный**, а не
 параметр по арифметике, сетки нет; сид 4 — коллапс мира (89 подготовленных клеток), публикуется, но
 вне знакового теста; вердикт относится к `W1` при `type_level = cell`.
 
-**Машинная проверка.** [`w1niche5_matrix.json`](../morphogenesis/experiments/E09_pond/w1niche5_matrix.json)
+**Машинная проверка.** [`w1niche5_matrix.json`](../../morphogenesis/experiments/E09_pond/w1niche5_matrix.json)
 (40 строк: 4 плеча × 10 сидов; `same_share`, `any_share`, `underpowered`, парные сравнения), собирается
 `scripts/w1niche_matrix.py`; артефакты `w1niche/{w1niche4_*,w1niche5_*}.json`.
 
 ## 10az. Третья единица размножения — бутон-пара: не промежуточная, а колониальная (26.10, H-ALIVE-48)
 
-**Мир `W2-bud`.** Пре-регистрация — [`reports/2026-10-26-pair-unit-plan.md`](../reports/2026-10-26-pair-unit-plan.md).
+**Мир `W2-bud`.** Пре-регистрация — [`reports/2026-10-26-pair-unit-plan.md`](../../reports/2026-10-26-pair-unit-plan.md).
 Главное утверждение этапа: «отбор есть, когда единица размножения мельче целого» (клетка — 12.16× над
 нулём, колония — ровно 0). Вопрос: закономерность это или свойство двух конструкций? Третья единица —
 **бутон-пара**: родитель = случайная живая клетка + живой 4-сосед **той же метки** (`--budding-unit pair`).
@@ -2406,6 +2406,6 @@ seed6 427. Значит ограничитель **локальный**, а не
 данными < 2), поэтому плечо помечено `invalid_by_data` — это описание конструкции, а не отсутствие
 эффекта.
 
-**Машинная проверка.** [`w2bud_pair_matrix.json`](../morphogenesis/experiments/E09_pond/w2bud_pair_matrix.json)
+**Машинная проверка.** [`w2bud_pair_matrix.json`](../../morphogenesis/experiments/E09_pond/w2bud_pair_matrix.json)
 (10 строк, `pair_degenerate_k`, `top1_share`, `by_arm.pair`), собирается `scripts/w2bud_matrix.py`;
 артефакты `w2bud_pair/w2bud_pair_pair_seed101..110.json`.
