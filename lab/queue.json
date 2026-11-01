@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-01T16:25:35Z",
+  "updated_at": "2026-11-01T17:01:04Z",
   "note": "Очередь пунктов после E02c. Claim берётся до пре-регистрации, а не перед запуском: lab.py item-claim. Статус running означает занятый GPU-лейн и может быть только у одного пункта. | 25.10: добавлено поле impact (1-5) — приоритет конвейера = impact/max(cost_gpu_h,0.1); для запуска пункту нужны prereg (закоммиченный план) и launch.command+outdir.",
   "items": [
     {
@@ -56,14 +56,16 @@
     {
       "id": "X29_eas_flow_lenia",
       "title": "EAS по схеме Flow-Lenia: тип = бин s, активность = масса",
-      "status": "planned",
+      "status": "closed",
       "owner": "lead",
       "cost_gpu_h": 1.0,
       "ttl_minutes": 400,
       "hypothesis": null,
       "claimed_at": null,
       "heartbeat_at": null,
-      "note": "Plantec et al. 2025 (arXiv:2506.08569) измеряют эволюционную активность на непрерывном субстрате. Это заменяет метрику числа компонент метрикой накопления"
+      "note": "answered by failure of the instrument: the meter had run on 31.10 and its shadow arm (beta=0) gives S = +0.148, 10/10 positive, so the -0.060 in the selection arm is uninterpretable; runs also hold two uids each. Artifacts now in git, report reports/2026-11-01-x29-eas-meter-null.md, §10et",
+      "closed_at": "2026-11-01T17:01:04Z",
+      "closed_by": "lead"
     },
     {
       "id": "X30_env_without_constructors",

@@ -1373,3 +1373,24 @@ a class; conditioning on the parent's band, so only the 10–25 % minority cases
 300 events each, because five worlds leave 20–40 informative events per world. Alternatively the question changes: if the
 branch is a world property, the measurable quantity is the **switch rate** and what precedes a switch. Report:
 `reports/2026-11-01-x72b-branch-class-void.md`; aggregate `l1_field_x72b_branch.json`.
+
+## 10et. The selection differential fails its own null, and X29 closes on that (01.11)
+
+`X29_eas_flow_lenia` sat in the queue as "the meter is written and the data are on disk, never run". The meter had been run
+on 31.10; the report stayed in the scratch directory and the numbers were never written up — because they are a failure.
+
+`S = mean(s at birth | survived) − mean(s at birth | died)` is meant to isolate selection from drift. Its control is an arm
+where the trait cannot act (`beta = 0`). Measured over twenty runs of 3000 steps: the shadow arm gives **S = +0.148, 10/10
+positive, bootstrap [+0.1405, +0.1545]**, the selection arm (`beta = 1.2`) gives −0.060 with 0/4 positive. A meter that
+reports +0.148 where nothing can be selected cannot support −0.060 as evidence of selection in the other direction; the
+plausible confound is that `s` correlates with size and birth timing, which set lifetime on their own.
+
+A second defect compounds it: the runs contain **two** uids each (~7 events per run), so even a valid differential would have
+an error larger than the effect. Both are recorded, the twenty artifacts are now in git (they carry parameters but no code
+commit — stated, not papered over), and the item is closed as **answered by failure of the instrument**, not by a series.
+Report: `reports/2026-11-01-x29-eas-meter-null.md`; aggregate `l1_field_x37_eas.json`.
+
+**What a valid version needs:** a null that is zero by construction (S inside strata matched on birth step and area at
+birth, or `s` randomised at birth within a run), ten or more uids per run, and the two statistics of that meter — the
+differential and the EAS accumulation — reported and validated separately, because bundling them is what let a broken `S`
+sit unnoticed beside a plausible accumulation curve.

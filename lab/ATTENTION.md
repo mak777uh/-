@@ -21,7 +21,6 @@ Reserved to the owner by `lab/autonomy-rules.json`: publishing anything outward:
 - **P9_numbers_everywhere** — Проверка чисел во всех публикуемых текстах, а не только в статье 028 (no GPU)
 - **P8b_cited_artifacts_gate** — Гейт: артефакт, на который ссылается утверждение, обязан быть в git (no GPU)
 - **X28_factorial_F** — Факторный дизайн: состав × конфигурация при фиксированном реализованном притоке (1.0 GPU-h)
-- **X29_eas_flow_lenia** — EAS по схеме Flow-Lenia: тип = бин s, активность = масса (1.0 GPU-h)
 - **X30_env_without_constructors** — Среда без конструкторов: решающий опыт наследования (1.0 GPU-h)
 - **X31_equivalence_tests** — Эквивалентность вместо «CI включает ноль» на 60 сидах (1.0 GPU-h)
 - **X38_transplant_replication** — Репликация пересадок до 1000+ строк (1.0 GPU-h)

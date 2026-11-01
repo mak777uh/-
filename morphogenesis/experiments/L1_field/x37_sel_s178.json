@@ -1,0 +1,642 @@
+{
+  "kind": "field_track",
+  "model": "Грей–Скотт + отслеживание компонент: каждая компонента имеет свой состав, наследуемый при расщеплении с мутацией; состав влияет на локальный F",
+  "params": {
+    "steps": 3000,
+    "grid": 96,
+    "dt": 1.0,
+    "seed": 178,
+    "device": "cuda",
+    "Du": 0.16,
+    "Dv": 0.08,
+    "F": 0.035,
+    "k": 0.06,
+    "eps": 0.0,
+    "global_noise_amp": 0.0,
+    "global_noise_rate": 0.05,
+    "global_noise_seed": 0,
+    "trait_field": true,
+    "trait_diffusion": 0.02,
+    "trait_decay": 0.0,
+    "trait_mutation": 0.05,
+    "trait_mutation_local": true,
+    "trait_init": 1.0,
+    "hetero_amp": 0.5,
+    "hetero_scale": 12.0,
+    "hetero_signal": "lab/streams/const_ones.json",
+    "hetero_period": 0.0,
+    "hetero_shuffle": false,
+    "buffer_tau": 0.0,
+    "protect_fading": 0.0,
+    "buffer_rescue": false,
+    "buffer_gain": 0.0,
+    "invade_s": null,
+    "invade_radius": 3.0,
+    "invade_at": 2000,
+    "invade_threshold": 1.2,
+    "freq_dep": 1.0,
+    "bin_width": 0.2,
+    "beta": 1.2,
+    "s_ref": 1.0,
+    "mutation": 0.0,
+    "threshold": 0.2,
+    "thresholds": "",
+    "min_cells": 5,
+    "overlap": 0.5,
+    "sample_every": 250
+  },
+  "series": [
+    {
+      "step": 1,
+      "invader_area": 0,
+      "areas": [
+        29
+      ],
+      "components": 1,
+      "s_mean": 1.0,
+      "s_sd_between": 0.0,
+      "s_wild_fraction": 1.0,
+      "occupied": 0.0031,
+      "components_log": [
+        {
+          "uid": 1,
+          "s": 1.0,
+          "area": 29
+        }
+      ]
+    },
+    {
+      "step": 250,
+      "invader_area": 0,
+      "areas": [
+        586
+      ],
+      "components": 1,
+      "s_mean": 1.1434,
+      "s_sd_between": 0.0,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.0636,
+      "components_log": [
+        {
+          "uid": 1,
+          "s": 1.1434,
+          "area": 586
+        }
+      ]
+    },
+    {
+      "step": 500,
+      "invader_area": 0,
+      "areas": [
+        974
+      ],
+      "components": 1,
+      "s_mean": 1.1034,
+      "s_sd_between": 0.0,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.1057,
+      "components_log": [
+        {
+          "uid": 1,
+          "s": 1.1034,
+          "area": 974
+        }
+      ]
+    },
+    {
+      "step": 750,
+      "invader_area": 0,
+      "areas": [
+        1149,
+        81
+      ],
+      "components": 2,
+      "s_mean": 1.0715,
+      "s_sd_between": 0.0194,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.1335,
+      "components_log": [
+        {
+          "uid": 1,
+          "s": 1.0909,
+          "area": 1149
+        },
+        {
+          "uid": 1,
+          "s": 1.0521,
+          "area": 81
+        }
+      ]
+    },
+    {
+      "step": 1000,
+      "invader_area": 0,
+      "areas": [
+        1234,
+        213,
+        211,
+        83
+      ],
+      "components": 4,
+      "s_mean": 1.0695,
+      "s_sd_between": 0.0309,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.1889,
+      "components_log": [
+        {
+          "uid": 1,
+          "s": 1.0884,
+          "area": 1234
+        },
+        {
+          "uid": 1,
+          "s": 1.1092,
+          "area": 213
+        },
+        {
+          "uid": 1,
+          "s": 1.0309,
+          "area": 83
+        },
+        {
+          "uid": 1,
+          "s": 1.0495,
+          "area": 211
+        }
+      ]
+    },
+    {
+      "step": 1250,
+      "invader_area": 0,
+      "areas": [
+        1479,
+        517,
+        139,
+        101,
+        50,
+        34,
+        29
+      ],
+      "components": 7,
+      "s_mean": 1.0357,
+      "s_sd_between": 0.0613,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.2549,
+      "components_log": [
+        {
+          "uid": 1,
+          "s": 1.083,
+          "area": 1479
+        },
+        {
+          "uid": 1,
+          "s": 0.9161,
+          "area": 50
+        },
+        {
+          "uid": 1,
+          "s": 1.0434,
+          "area": 139
+        },
+        {
+          "uid": 1,
+          "s": 1.083,
+          "area": 517
+        },
+        {
+          "uid": 1,
+          "s": 1.1081,
+          "area": 29
+        },
+        {
+          "uid": 1,
+          "s": 0.9897,
+          "area": 101
+        },
+        {
+          "uid": 1,
+          "s": 1.0266,
+          "area": 34
+        }
+      ]
+    },
+    {
+      "step": 1500,
+      "invader_area": 0,
+      "areas": [
+        2095,
+        697,
+        339,
+        33,
+        18
+      ],
+      "components": 5,
+      "s_mean": 1.0189,
+      "s_sd_between": 0.0547,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.3453,
+      "components_log": [
+        {
+          "uid": 1,
+          "s": 1.0494,
+          "area": 697
+        },
+        {
+          "uid": 1,
+          "s": 1.0504,
+          "area": 339
+        },
+        {
+          "uid": 1,
+          "s": 1.0859,
+          "area": 2095
+        },
+        {
+          "uid": 1,
+          "s": 0.964,
+          "area": 33
+        },
+        {
+          "uid": 1,
+          "s": 0.9447,
+          "area": 18
+        }
+      ]
+    },
+    {
+      "step": 1750,
+      "invader_area": 0,
+      "areas": [
+        2958,
+        569,
+        145,
+        41,
+        32,
+        20,
+        16,
+        14
+      ],
+      "components": 8,
+      "s_mean": 0.9886,
+      "s_sd_between": 0.0872,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.4118,
+      "components_log": [
+        {
+          "uid": 1,
+          "s": 1.0834,
+          "area": 2958
+        },
+        {
+          "uid": 1,
+          "s": 1.0721,
+          "area": 569
+        },
+        {
+          "uid": 1,
+          "s": 1.083,
+          "area": 145
+        },
+        {
+          "uid": 1,
+          "s": 0.8431,
+          "area": 16
+        },
+        {
+          "uid": 1,
+          "s": 0.902,
+          "area": 32
+        },
+        {
+          "uid": 1,
+          "s": 0.9185,
+          "area": 14
+        },
+        {
+          "uid": 1,
+          "s": 1.0351,
+          "area": 20
+        },
+        {
+          "uid": 1,
+          "s": 0.9716,
+          "area": 41
+        }
+      ]
+    },
+    {
+      "step": 2000,
+      "invader_area": 0,
+      "areas": [
+        2115,
+        1339,
+        264,
+        82,
+        66,
+        62,
+        52,
+        38,
+        37,
+        27,
+        23
+      ],
+      "components": 11,
+      "s_mean": 1.0016,
+      "s_sd_between": 0.0515,
+      "s_wild_fraction": 0.0909,
+      "occupied": 0.4454,
+      "components_log": [
+        {
+          "uid": 1,
+          "s": 1.0518,
+          "area": 66
+        },
+        {
+          "uid": 1,
+          "s": 0.9938,
+          "area": 82
+        },
+        {
+          "uid": 1,
+          "s": 1.0728,
+          "area": 2115
+        },
+        {
+          "uid": 1,
+          "s": 0.9854,
+          "area": 1339
+        },
+        {
+          "uid": 1,
+          "s": 0.9822,
+          "area": 37
+        },
+        {
+          "uid": 1,
+          "s": 0.9063,
+          "area": 52
+        },
+        {
+          "uid": 1,
+          "s": 1.0359,
+          "area": 38
+        },
+        {
+          "uid": 1,
+          "s": 1.0618,
+          "area": 62
+        },
+        {
+          "uid": 1,
+          "s": 0.9184,
+          "area": 264
+        },
+        {
+          "uid": 1,
+          "s": 1.009,
+          "area": 27
+        },
+        {
+          "uid": 1,
+          "s": 1.0,
+          "area": 23
+        }
+      ]
+    },
+    {
+      "step": 2250,
+      "invader_area": 0,
+      "areas": [
+        3560,
+        506,
+        138,
+        98,
+        83,
+        27,
+        25,
+        21,
+        15
+      ],
+      "components": 9,
+      "s_mean": 1.0318,
+      "s_sd_between": 0.0538,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.4854,
+      "components_log": [
+        {
+          "uid": 1,
+          "s": 1.08,
+          "area": 98
+        },
+        {
+          "uid": 1,
+          "s": 1.0275,
+          "area": 138
+        },
+        {
+          "uid": 1,
+          "s": 1.0738,
+          "area": 83
+        },
+        {
+          "uid": 1,
+          "s": 1.0898,
+          "area": 25
+        },
+        {
+          "uid": 1,
+          "s": 1.0662,
+          "area": 506
+        },
+        {
+          "uid": 1,
+          "s": 1.0715,
+          "area": 3560
+        },
+        {
+          "uid": 1,
+          "s": 0.9578,
+          "area": 21
+        },
+        {
+          "uid": 1,
+          "s": 0.9633,
+          "area": 27
+        },
+        {
+          "uid": 1,
+          "s": 0.9565,
+          "area": 15
+        }
+      ]
+    },
+    {
+      "step": 2500,
+      "invader_area": 0,
+      "areas": [
+        4745,
+        49,
+        37
+      ],
+      "components": 3,
+      "s_mean": 1.014,
+      "s_sd_between": 0.043,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.5242,
+      "components_log": [
+        {
+          "uid": 1,
+          "s": 1.0733,
+          "area": 4745
+        },
+        {
+          "uid": 1,
+          "s": 0.9961,
+          "area": 37
+        },
+        {
+          "uid": 1,
+          "s": 0.9726,
+          "area": 49
+        }
+      ]
+    },
+    {
+      "step": 2750,
+      "invader_area": 0,
+      "areas": [
+        4234,
+        517
+      ],
+      "components": 2,
+      "s_mean": 1.059,
+      "s_sd_between": 0.0139,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.5155,
+      "components_log": [
+        {
+          "uid": 1,
+          "s": 1.0729,
+          "area": 4234
+        },
+        {
+          "uid": 1,
+          "s": 1.0452,
+          "area": 517
+        }
+      ]
+    },
+    {
+      "step": 3000,
+      "invader_area": 0,
+      "areas": [
+        4503,
+        84,
+        78,
+        10,
+        5
+      ],
+      "components": 5,
+      "s_mean": 1.021,
+      "s_sd_between": 0.0393,
+      "s_wild_fraction": 0.2,
+      "occupied": 0.5078,
+      "components_log": [
+        {
+          "uid": 1,
+          "s": 1.0675,
+          "area": 4503
+        },
+        {
+          "uid": 2,
+          "s": 1.0,
+          "area": 5
+        },
+        {
+          "uid": 1,
+          "s": 0.9563,
+          "area": 10
+        },
+        {
+          "uid": 1,
+          "s": 1.0319,
+          "area": 78
+        },
+        {
+          "uid": 1,
+          "s": 1.0494,
+          "area": 84
+        }
+      ]
+    }
+  ],
+  "selection": {
+    "s_mean_first": 1.0,
+    "s_mean_last": 1.021,
+    "s_sd_between_last": 0.0393,
+    "splits": 91,
+    "parent_child_pairs": 184,
+    "inheritability_r": 1.0,
+    "invader_rate": null,
+    "invader_curve": []
+  },
+  "buffer": {
+    "protect_fading": 0.0,
+    "tau": 0.0,
+    "gain": 0.0,
+    "rescue": false,
+    "mean_last": 0.0
+  },
+  "global_noise": {
+    "amp": 0.0,
+    "rate": 0.05
+  },
+  "heterogeneity": {
+    "amp": 0.5,
+    "scale": 12.0,
+    "signal": "lab/streams/const_ones.json",
+    "shuffled": false,
+    "components_last": 5
+  },
+  "uid_outcomes": [
+    {
+      "uid": 1,
+      "first": 1,
+      "last": 3000,
+      "peak": 4765,
+      "s_at_birth": 1.0013
+    },
+    {
+      "uid": 2,
+      "first": 3000,
+      "last": 3000,
+      "peak": 5,
+      "s_at_birth": 1.0276
+    }
+  ],
+  "lifetimes": {
+    "n_uids": 2,
+    "median_life_steps": 2999,
+    "life_steps": [
+      0,
+      2999
+    ],
+    "peak_sizes": [
+      4765,
+      5
+    ]
+  },
+  "components_by_threshold": {},
+  "criteria": {
+    "S1_shift_gt_2sd": null,
+    "S2_inheritability_ge_0.5": true,
+    "S3_survives_doubling": "проверяется сравнением с прогоном вдвое длиннее",
+    "S4_control_eps0": "проверяется прогоном с --eps 0"
+  },
+  "note": "S1 требует сравнения с контролем: сдвиг среднего считается от контроля, а не от старта, потому что состав дрейфует и в контроле",
+  "not_claimed": [
+    "что отбор доказан: нужно сравнение с контролем eps=0 и удвоенный горизонт",
+    "что правило сопоставления оптимально: порог перекрытия 0.5 фиксирован до данных",
+    "что структуры устойчивы к сетке: не проверялось"
+  ]
+}
