@@ -148,3 +148,4 @@ sections were not rewritten, only moved; each one keeps its identifier, so every
 | §10eu | The multistability is stable: five of five worlds still carry both modes at 24 000 steps (X71b, 01.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
 | §10ev | The band is narrow: mixed at 0.037, not at 0.033 (X71c, 01.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
 | §10ew | The mixture belongs to the patch, not to the parent (X72c, 02.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
+| §10ex | The size memory decays by 0.4 per division: half-life under one generation (X73, 02.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |

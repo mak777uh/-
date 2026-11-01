@@ -4,7 +4,7 @@
 
 The curated page — what matters and why — is [`scripts.md`](scripts.md). This file is the complete list, so that every command behind a number in the record can be found.
 
-Scripts: **229**.
+Scripts: **230**.
 
 ## Гейты и проверки (45)
 
@@ -168,7 +168,7 @@ Scripts: **229**.
 | `make_seed_grid_figure.py` | Собрать Figure 4 рукописи: сетка «инициализация × порядок данных» (§4.13). |
 | `make_simple_poster.py` | Простой постер для владельца: что мы узнали, без терминов. |
 
-## Прочее (97)
+## Прочее (98)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -269,3 +269,4 @@ Scripts: **229**.
 | `x72c_regions.py` | x72c_regions.py — is the mixture a property of regions? (follow-up to X72c, no new runs) |
 | `x72c_series.py` | x72c_series.py — third attempt at branch heredity: ten worlds, band powers instead of a class. |
 | `x72c_size_contrast.py` | x72c_size_contrast.py — the same events, two readouts: size versus mixture. |
+| `x73_depth.py` | x73_depth.py — how deep is the size memory? Ancestor–descendant correlation over genealogical distance. |

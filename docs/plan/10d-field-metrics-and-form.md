@@ -1490,3 +1490,25 @@ parent-specific survives once the patch is controlled. The two-wavelength coexis
 belongs to **regions of the world**, not to lineages. Together with §10ep the line's statement becomes a contrast: the medium
 carries one generation of **size** memory (0.42–0.57, pair-specific) and **no memory of the mixture**. Report:
 `reports/2026-11-02-x72c-mixture-is-the-patch.md`; aggregate `l1_field_x72c_branch.json`.
+
+## 10ex. The size memory decays by 0.4 per division: half-life under one generation (X73, 02.11)
+
+X70 measured one step of heredity; X73 follows the genealogy. Spearman(ancestor peak area, descendant peak area) over
+re-analysis of the X71c/X70r worlds (no new runs):
+
+| lag | X72c pairs | X72c rho | X70r rho | shuffle p95 |
+|---|---|---|---|---|
+| 1 | 2 140 | **0.475** | **0.512** | 0.033-0.055 |
+| 2 | 1 968 | **0.204** | **0.239** | 0.037-0.052 |
+| 3 | 1 776 | **0.072** | 0.121 | 0.040-0.055 |
+
+The registered verdict is **depth >= 2** (lag-2 0.204 against p95 0.037, and >= 0.15 in 7 of 10 worlds), but the result is the
+**shape**: the correlation falls by a factor 0.43 and then 0.35, i.e. roughly **0.4 per division**, a **half-life of 0.7-0.8
+divisions**. A copying rule would give a flat curve (0.45, 0.45, 0.45); an exponentially forgetting medium gives this.
+
+That distinction is what the thread needs: a heritable state with a half-life below one generation is enough for a daughter to
+resemble her mother and not enough for a lineage to accumulate anything. Limitations stated in the report: survival bias
+flattens the curve, peak area is a lifetime maximum, one inflow and one box. Report:
+`reports/2026-11-02-x73-depth-result.md`; aggregate `l1_field_x73_depth.json`. Next: the half-life should scale with how
+strongly the field pulls structures to its preferred size — a measurable prediction, but it needs worlds with long chains,
+i.e. a new run.
