@@ -140,3 +140,4 @@ sections were not rewritten, only moved; each one keeps its identifier, so every
 | §10el | Карта четырёх сеток при одном шаге: отзыв отзыва (X66, 01.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
 | §10em | Ящик вдвое — и пик ушёл вместе с ним: у неоднородного поля нет своей структуры (X67, 01.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
 | §10en | Время жизни принадлежит каналу обратной связи, а не геометрии поля (X68, 01.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
+| §10ep | Наследование размера есть, но частичное: треть отклонения переживает деление, две трети гасятся (X70, 01.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |

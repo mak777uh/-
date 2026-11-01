@@ -1,0 +1,51 @@
+{
+  "kind": "l1_field_x70_size",
+  "experiment": "X70",
+  "command": "python scripts/x70_analyse.py --write",
+  "prereg": "reports/2026-11-01-x70-size-heredity-plan.md",
+  "arms": {
+    "pattern": {
+      "events": 925,
+      "paired_events": 925,
+      "stats": {
+        "n": 925,
+        "corr": 0.334,
+        "slope": 0.335,
+        "parent_median": 142.0,
+        "daughter_median": 106.0
+      },
+      "shuffle_null": {
+        "observed_corr": 0.334,
+        "null_median": -0.0,
+        "null_p95": 0.054,
+        "exceeds_null": true,
+        "n_perm": 200
+      },
+      "verdict": "sizes regress to the medium's scale"
+    },
+    "homog": {
+      "events": 100,
+      "paired_events": 100,
+      "stats": {
+        "n": 100,
+        "corr": 0.294,
+        "slope": 0.262,
+        "parent_median": 3524.0,
+        "daughter_median": 331.0
+      },
+      "shuffle_null": {
+        "observed_corr": 0.294,
+        "null_median": -0.005,
+        "null_p95": 0.159,
+        "exceeds_null": true,
+        "n_perm": 200
+      },
+      "verdict": "sizes regress to the medium's scale"
+    }
+  },
+  "not_claimed": [
+    "five seeds per arm, pooled events, no p-values",
+    "peak area is a thresholded quantity and moves with the threshold",
+    "the daughter's own peak may occur after it has already split again, which biases the slope downward"
+  ]
+}
