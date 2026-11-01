@@ -78,3 +78,26 @@ by working correctly.
 `morphogenesis/experiments/L1_field/x64_{pattern,homog}_s{171..175}.json`, fields in `x64_fields/` (30 arrays), aggregate
 `morphogenesis/experiments/E09_pond/l1_field_x64_refinement.json`. Scripts: `scripts/x64_series.py`,
 `scripts/x64_analyse.py`.
+
+## Addendum, 11:15 — the topological half, from the same saved fields
+
+The X60 correction note says the perforated web (β₁) was untested at other grids. It is testable for free here: the fields
+are saved, and the same functions give β₀, β₁ and the largest-cluster share at 144.
+
+| physical time | β₀ het / hom | β₁ het / hom | Δβ₁ (seeds) | largest share het / hom |
+|---|---|---|---|---|
+| 2000 | 6.0 / 1.0 | **14.0 / 1.0** | **+13.0 (4/5)** | 0.959 / 1.000 |
+| 4000 | 3.0 / 3.0 | 12.0 / 9.0 | +4.0 (3/5) | 0.968 / 0.952 |
+| 6000 | 2.0 / 3.0 | **17.0 / 4.0** | **+12.0 (3/5)** | 0.969 / 0.951 |
+
+**The direction survives, the evidence weakens.** At 96 the excess was 10/10 seeds at the early time; here it is 4/5, and
+later 3/5. Five seeds cannot distinguish "the effect is real but noisy at this grid" from "the effect is half the size".
+What can be said: the heterogeneous field has more loops at every snapshot, with a median excess of +13 and +12 holes at the
+first and last, and the sign never reverses.
+
+Note also that at physical time 2000 the two arms differ hugely in occupancy (0.52 against 0.21), so the matched-occupancy
+control used in X60 is not optional here — it has not been run at 144, and until it is, the +13 should be read as
+"heterogeneous world occupies more area and has more holes", not as a separated effect.
+
+**Status of the β₁ claim after both grids:** same sign at 96 (10/10) and 144 (4/5, 3/5), magnitude uncertain, occupancy
+control missing at 144. That is a hypothesis with two supporting grids, not a result.

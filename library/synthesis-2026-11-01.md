@@ -95,3 +95,8 @@ discretisation and not at another. The practical consequence is a rule for every
 What the night's sentence becomes after this: heterogeneity buys turnover at the cost of organisation — the *turnover*
 half is a count and is unaffected (X59's dose-response stands); the *organisation* half is grid-dependent, and the honest
 version says so.
+
+**And the topological half at the refined grid (11:15).** The same saved fields give β₁ at 144: the heterogeneous arm has
+more loops at every snapshot (median excess +13 at physical time 2000, +12 at 6000) but the sign holds in only 4/5 and 3/5
+seeds, against 10/10 at 96, and the occupancy control has not been run there. So the web is a hypothesis supported by two
+grids, not a result — and the table row above should be read with that in mind.
