@@ -1542,3 +1542,25 @@ claim is stated narrowly: the rate depends on the inflow, and the dependence is 
 what only the boundary cell has: **two coexisting length scales**. That is consistent with §10eq-§10ev but not established — the
 check removed two explanations rather than confirming a third. Report:
 `reports/2026-11-02-x74-rate-result.md`; aggregate `l1_field_x74_rate.json`.
+
+## 10ez. At the band edges: one cell shallow, one void — inconclusive, and the pattern is in mixedness (X75, 02.11)
+
+The surviving explanation for §10ey was that memory is short where the medium is **mixed**. X75 measured the depth curve at the
+two band edges (50-step logging; X71c's 1000-step logs carry no genealogies):
+
+| cell | rho 1/2/3 | half-life | registered check |
+|---|---|---|---|
+| 0.033 | 0.377 / 0.038 / 0.053 | (0.71) | **void**: rho1 below the 0.40 band |
+| 0.037 | 0.456 / 0.192 / 0.039 | **0.56** | passes |
+
+Registered verdict: **inconclusive** — one edge shallow, the other outside its control by 0.023. The band `[0.40, 0.60]` was fixed
+in advance from the three X74 cells (0.475-0.507, spread 0.032), so the miss is within the band's own noise; relaxing it after
+seeing the data is precisely the move the line forbids, so the cell stays void.
+
+What the five cells now say, ordered by mixedness rather than by `F`: 0.030 (not mixed) 1.47, 0.040 (not mixed) 1.61, 0.035
+(mixed 5/5) 0.73, 0.037 (mixed 4/5) **0.56**, 0.033 (mixed 3/5) void with rho1 0.377 — the least mixed cell also has the weakest
+initial memory, which is the direction the reading predicts. Not a claim: one edge is unusable.
+
+Next, designed but not run: ten worlds at 0.033 (to tighten rho1), or cells at 0.031 / 0.039, where mixedness should interpolate;
+either would test the reading without touching the control band. Report: `reports/2026-11-02-x75-edges-result.md`; aggregate
+`l1_field_x75_edges.json`.
