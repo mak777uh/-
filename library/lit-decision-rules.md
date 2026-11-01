@@ -154,6 +154,11 @@ result, and it should be the first run of the next series.
 the founding paper. We work at 96 and had never varied `dt` before 31 October. Whatever we conclude, the asymmetry is
 stated in the methods.
 
+**And boundary conditions are a third choice we never defended.** Woolley (2022) shows that the Turing bifurcation is a
+pitchfork under zero-flux boundaries and **transcritical** under Dirichlet — generically, for two-species systems in 1D —
+and that linear analysis cannot tell the two apart. Our grid is periodic, which is neither case: it is the third choice,
+and it belongs in the methods next to `dt` and the grid rather than in a footnote.
+
 ---
 
 ## 6. Vocabulary: our gates are verification, not validation

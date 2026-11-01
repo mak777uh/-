@@ -52,7 +52,7 @@ KNOWN = {
     },
     "woolley_2022_boundaries": {
         "doi": "10.1007/s11538-022-01055-x", "year": 2022, "status": "partial",
-        "why": "граничные условия дают другую бифуркационную структуру: границы — это модель, а не точность",
+        "why": "pitchfork under zero-flux, transcritical under Dirichlet, generically in 1D and invisible to linear analysis; periodic is the third case, so the rule (vary boundary conditions too) transfers and the result does not",
     },
     "taylor_2014_alife_review": {
         "doi": "10.3389/frobt.2014.00008", "year": 2014, "status": "partial",
