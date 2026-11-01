@@ -76,8 +76,12 @@ def euler(mask: np.ndarray) -> float:
     return (n1 - n3 - 2 * diag) / 4.0
 
 
-def structure_factor(v: np.ndarray) -> tuple[float, float]:
-    """(q_peak, peak/median-tail ratio) from the radial power spectrum of v."""
+def radial_profile(v: np.ndarray) -> dict[int, float]:
+    """Радиально усреднённая мощность по целым радиусам (в клетках⁻¹), кадр 0 пропущен.
+
+    Вынесено из `structure_factor`, чтобы потребители (X71: доли мод) брали **тот же** профиль, а не вторую реализацию:
+    26.10 расхождение «определение против реализации» уже стоило нам вердикта (`docs/design-checks.md`).
+    """
     f = np.fft.fft2(v - v.mean())
     p = (np.abs(f) ** 2).astype(np.float64)
     ky = np.fft.fftfreq(v.shape[0]) * v.shape[0]
@@ -90,6 +94,12 @@ def structure_factor(v: np.ndarray) -> tuple[float, float]:
         sel = rbin == rad
         if sel.any():
             prof[rad] = float(p[sel].mean())
+    return prof
+
+
+def structure_factor(v: np.ndarray) -> tuple[float, float]:
+    """(q_peak, peak/median-tail ratio) from the radial power spectrum of v."""
+    prof = radial_profile(v)
     if not prof:
         return 0.0, 0.0
     q = max(prof, key=prof.get)

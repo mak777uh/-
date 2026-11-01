@@ -1289,3 +1289,27 @@ the medium rule, and at the strict rule the direction goes back — there hetero
 against 1565–3985, which is the published direction. The rule does not merely move the magnitude; it moves the sign, and
 the old table's 2607 at the strict cutoff was one draw of the starting blob. Report:
 `reports/2026-11-01-x68-identity-replicated.md`; aggregate `l1_field_x68r_identity.json`.
+
+## 10eq. Is the medium multistable? Two morphologies at one inflow would make heredity discrete (X71, 01.11, идёт)
+
+X70 left the size signal graded: a daughter follows her parent at about half strength, so the memory of form lasts one
+generation and cannot accumulate. A **multistable** medium would change that class of answer: if two morphologies are
+stable at the same parameters, a daughter can fall into the parent's branch and the lineage carries a discrete state instead
+of a blurred number. That is the falsifier the four external answers proposed, and it is the first question in this line
+that asks about the *shape of the heredity* rather than its presence.
+
+Design (preregistered in `reports/2026-11-01-x71-multistability-plan.md`, amended once after the pilot and before the
+series): sweep the inflow `F ∈ {0.025 … 0.055}` at fixed `k = 0.06`, five worlds per cell in each arm (heterogeneous
+`amp 0.5`, homogeneous `amp 0.0`), grid 96, `dt = 1.0`, 6000 steps, seeds made real by `--init-jitter` (a `beta = 0` world
+ignores its seed — `docs/design-checks.md`). The readout is the radial structure factor of `v` at step 6000: peak position
+`q*` (Fourier bins, wavelength `96/q*` cells), the peak's share, the strongest second mode, and `β₀`/`β₁` at threshold 0.2.
+
+A split is called only if it is wider than the instrument: two clusters of `q*` separated by **≥ 3 bins**, each holding
+**≥ 2 worlds**, or a single run keeping two modes with shares both ≥ 0.2. The positive control is that the peak position
+responds to the inflow (≥ 3 bins between the extremes); monotonicity is reported but was withdrawn as a gate after the pilot
+showed 9, 8, 11, 11, 11 — spot size versus inflow is a different question than the one asked here. The pilot also located
+the spots-to-labyrinth boundary between `F = 0.035` and `0.040` (β₀ 31 → 4, β₁ 3 → 12), which is why the sweep has headroom
+on both sides.
+
+Status: running (70 runs, ~80 minutes). Result and verdict will be appended here; the aggregate will be
+`l1_field_x71_multistability.json`.

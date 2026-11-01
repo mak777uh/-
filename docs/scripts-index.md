@@ -4,7 +4,7 @@
 
 The curated page — what matters and why — is [`scripts.md`](scripts.md). This file is the complete list, so that every command behind a number in the record can be found.
 
-Scripts: **212**.
+Scripts: **214**.
 
 ## Гейты и проверки (43)
 
@@ -166,7 +166,7 @@ Scripts: **212**.
 | `make_seed_grid_figure.py` | Собрать Figure 4 рукописи: сетка «инициализация × порядок данных» (§4.13). |
 | `make_simple_poster.py` | Простой постер для владельца: что мы узнали, без терминов. |
 
-## Прочее (82)
+## Прочее (84)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -252,3 +252,5 @@ Scripts: **212**.
 | `x70_spatial_strata.py` | x70_spatial_strata.py — the spatial control for X70 done over all events, stratified instead of matched. |
 | `x70d_series.py` | x70d_series.py — X70 re-run with dense component logging, for the stratified spatial control. |
 | `x70r_series.py` | x70r_series.py — X70 with genuinely independent neutral worlds. |
+| `x71_analyse.py` | x71_analyse.py — is the selected wavelength single-valued across worlds, or do two branches coexist? |
+| `x71_series.py` | x71_series.py — does one inflow support two morphologies? (preregistered in reports/2026-11-01-x71-multistability-plan.md) |
