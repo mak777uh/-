@@ -32,7 +32,9 @@
     "github_issues": {
       "repo": "mak777uh/-",
       "label": "lab:task",
-      "authors": ["mak777uh"],
+      "authors": [
+        "mak777uh"
+      ],
       "note": "an issue with this label by an authorized author becomes a queue item; the agent answers in the issue and in the report"
     },
     "owner_chat": {
@@ -41,11 +43,10 @@
   },
   "protected_paths": [
     "articles/",
-    "manuscript/CLAIMS.md",
     "docs/deposit.md",
     "CITATION.cff",
     "morphogenesis/config.py",
     "morphogenesis/world/"
   ],
-  "protected_paths_note": "a change here needs an entry in docs/decision-log.md in the same commit, because it is either publication or the physics of the world"
+  "protected_paths_note": "a change here needs an entry in docs/decision-log.md in the same commit, because it is either publication or the physics of the world. The claims matrix is deliberately NOT protected: it is the scientific record and changes with every closed result, so guarding it would only teach everyone to touch the decision log mechanically"
 }

@@ -16,7 +16,6 @@ Reserved to the owner by `lab/autonomy-rules.json`: publishing anything outward:
 ## Waiting, but not on a human
 
 - **X3_claims_expect_column** — Колонка ожидаемого значения в матрице утверждений (сверка числа с артефактом) (no GPU)
-- **X35_restore_claim_artifacts** — Вернуть артефакты строкам CLAIMS, понижённым до наблюдения (no GPU)
 - **P6_reports_catalogue** — Каталог отчётов по темам и архивный ярус (no GPU)
 - **P9_numbers_everywhere** — Проверка чисел во всех публикуемых текстах, а не только в статье 028 (no GPU)
 - **P8b_cited_artifacts_gate** — Гейт: артефакт, на который ссылается утверждение, обязан быть в git (no GPU)
