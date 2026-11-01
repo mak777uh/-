@@ -36,6 +36,9 @@ from urllib.parse import unquote
 REPO = Path(__file__).resolve().parents[1]
 LINK_RE = re.compile(r"!?\[[^\]]*\]\(\s*([^)\s]+)(?:\s+\"[^\"]*\")?\s*\)")
 SKIP_DIRS = {".git", ".venv", "venv-cuda", "dist", "__pycache__", ".ruff_cache", ".pytest_cache"}
+# 01.11: локальный прогон pytest оставляет каталоги pytest-of-*/ с копиями рукописи, и гейт ссылок начинал
+# падать на них, хотя в git их нет. Каталоги тестов — не документы, ссылки в них не проверяются.
+SKIP_DIR_PREFIXES = ("pytest-of-",)
 # замороженные рукописи сохраняются как были: их относительные ссылки не сверяем
 SKIP_PATHS = {"manuscript/archive"}
 EXTERNAL_PREFIXES = ("http://", "https://", "mailto:", "tel:", "ftp://")
@@ -68,7 +71,7 @@ def iter_markdown(path: Path) -> list[Path]:
     out = []
     for item in path.rglob("*.md"):
         rel_parts = item.relative_to(REPO).parts
-        if SKIP_DIRS & set(rel_parts):
+        if SKIP_DIRS & set(rel_parts) or any(part.startswith(SKIP_DIR_PREFIXES) for part in rel_parts):
             continue
         if any("/".join(rel_parts[: i + 1]) in SKIP_PATHS for i in range(len(rel_parts) - 1)):
             continue
