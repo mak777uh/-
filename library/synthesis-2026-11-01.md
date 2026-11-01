@@ -117,3 +117,15 @@ Two lessons, both about instruments rather than physics:
 
 The row above is the corrected form. Everything else in this page — turnover, heritability, coexistence — is untouched by
 this sequence.
+
+## Last word on the spectrum, 13:50 — tested against two domain sizes
+
+X67 doubled the domain with the cell size fixed. The homogeneous pattern stayed at twelve units (q = 16), and the
+heterogeneous peak stayed at q = 1 — it moved with the box. So the heterogeneous concentration is **the domain**, not a
+structure: that world has less organisation, not a different kind of it.
+
+The spectral claim has now been tested against five grids (96, 108, 120, 144, 192 cells in the domain-size run) and two
+domain sizes (96 and 192 units), with the time step held fixed where it matters. Its final form:
+
+> Heterogeneous inflow suppresses the medium's twelve-unit pattern. What concentration the heterogeneous field shows is
+> the box itself, so it is not alternative organisation but the absence of it.
