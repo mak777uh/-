@@ -4,7 +4,7 @@
 
 The curated page — what matters and why — is [`scripts.md`](scripts.md). This file is the complete list, so that every command behind a number in the record can be found.
 
-Scripts: **203**.
+Scripts: **204**.
 
 ## Гейты и проверки (42)
 
@@ -165,7 +165,7 @@ Scripts: **203**.
 | `make_seed_grid_figure.py` | Собрать Figure 4 рукописи: сетка «инициализация × порядок данных» (§4.13). |
 | `make_simple_poster.py` | Простой постер для владельца: что мы узнали, без терминов. |
 
-## Прочее (74)
+## Прочее (75)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -243,3 +243,4 @@ Scripts: **203**.
 | `x67_series.py` | x67_series.py — X67: the box doubled, the cell size fixed. |
 | `x68_analyse.py` | x68_analyse.py — does the lifetime contrast survive a different identity rule? |
 | `x68_series.py` | x68_series.py — X68: the lifetime contrast under two other identity rules. |
+| `x70_series.py` | x70_series.py — X70: size heredity in the neutral world. |
