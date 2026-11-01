@@ -4,9 +4,9 @@
 
 The curated page — what matters and why — is [`scripts.md`](scripts.md). This file is the complete list, so that every command behind a number in the record can be found.
 
-Scripts: **220**.
+Scripts: **221**.
 
-## Гейты и проверки (44)
+## Гейты и проверки (45)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -16,6 +16,7 @@ Scripts: **220**.
 | `check_aggregates_fresh.py` | check_aggregates_fresh.py — агрегаты в git обязаны совпадать с пересборкой. |
 | `check_article_numbers.py` | check_article_numbers.py — числа статьи 028 обязаны воспроизводиться из агрегатов. |
 | `check_autonomy.py` | check_autonomy.py — the autonomy policy has to be machine-readable, and its protected paths have to be enforced. |
+| `check_claim_artifacts.py` | check_claim_artifacts.py — an artifact cited by a claim must exist in git. |
 | `check_commit_claims.py` | check_commit_claims.py — сообщение коммита не должно утверждать того, чего нет в диффе. |
 | `check_cross_audit.py` | check_cross_audit.py — аудиты обязаны быть помечены как внешние утверждения. |
 | `check_design.py` | check_design.py — пять проверок дизайна ДО серии. Гейт против нашего главного провала. |

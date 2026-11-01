@@ -93,6 +93,7 @@ def main() -> int:
     ("пре-регистрации несут пять разделов", [PY, "scripts/check_design.py", "--scan-plans"], None),
     ("политика автономии читается машиной", [PY, "scripts/check_autonomy.py"], None),
     ("страница внимания не теряет решений", [PY, "scripts/attention.py", "--check"], None),
+    ("артефакт, на который ссылается утверждение, лежит в git", [PY, "scripts/check_claim_artifacts.py", "--ci"], None),
         # X19 (по схеме LongTails): утверждение отдельно от Setup, бюджет явно, аудит отказывает при выходе за допущения
         ("утверждения проходят аудит против Setup", [PY, "scripts/claim_comparator.py", "--ci"], None),
     ]

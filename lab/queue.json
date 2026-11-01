@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-01T17:37:12Z",
+  "updated_at": "2026-11-01T17:42:27Z",
   "note": "Очередь пунктов после E02c. Claim берётся до пре-регистрации, а не перед запуском: lab.py item-claim. Статус running означает занятый GPU-лейн и может быть только у одного пункта. | 25.10: добавлено поле impact (1-5) — приоритет конвейера = impact/max(cost_gpu_h,0.1); для запуска пункту нужны prereg (закоммиченный план) и launch.command+outdir.",
   "items": [
     {
@@ -183,14 +183,16 @@
     {
       "id": "P8b_cited_artifacts_gate",
       "title": "Гейт: артефакт, на который ссылается утверждение, обязан быть в git",
-      "status": "planned",
+      "status": "closed",
       "owner": "lead",
       "cost_gpu_h": 0.0,
       "ttl_minutes": 600,
       "hypothesis": null,
       "claimed_at": null,
       "heartbeat_at": null,
-      "note": "из docs/retention-policy.md: перед архивацией серии нужно машинно знать, что ни одно утверждение не потеряет артефакт. Скрипт scripts/check_cited_artifacts.py"
+      "note": "closed: scripts/check_claim_artifacts.py in verify and CI; 48 tokens, 3 _hourly exempt, 0 broken; negative control fails with exit 1. report reports/2026-11-01-p8b-claim-artifacts-gate.md",
+      "closed_at": "2026-11-01T17:42:27Z",
+      "closed_by": "lead"
     },
     {
       "id": "X55_verify_artifact_catalogue",
