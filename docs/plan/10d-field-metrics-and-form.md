@@ -1654,3 +1654,19 @@ medium's own multistability (0.56-0.73). Either a prescribed scale is a weaker p
 or the band's shallowness is partly about sitting near a phase boundary — not separated here. For the write-up: imposing a second
 scale shortens the half-life by 1.4x, the medium's own band by 2.1-2.5x. Report:
 `reports/2026-11-02-x78b-two-scale-result.md`; aggregate `l1_field_x78b_causal.json`.
+
+## 10fe. The mix sweep was confounded by its own construction, and the fix is two lines (X79, 02.11)
+
+X79 swept the weight of the imposed second scale (`--hetero-mix2` 0.25 / 0.75) at `F = 0.030` to separate a graded effect from
+saturation. The points are not monotone — 0.76 (w = 0.25), 1.03 (w = 0.50), 0.96 (w = 0.75) — and the registered verdict is
+**inconclusive**. The reason is a design error that is worth more than the sweep:
+
+`G = (1-w) G1 + w G2` with independent components has variance `(1-w)^2 + w^2`, **minimal at w = 0.5** (amplitude factor 0.71 against
+0.79 at both 0.25 and 0.75). The sweep therefore moved two things at once — the dominant scale *and* the modulation strength — and the
+non-monotonicity is what that confound predicts. The two-peak check makes it visible: at w = 0.75 no world shows two peaks (0/10), so
+that cell is effectively single-scale at a different wavelength, not two-scale.
+
+What survives: the **w = 0.25** cell is genuinely two-peaked (10/10) and is the shortest-lived long-inflow world measured (0.76 against
+1.47 single-scale) — a second point in X78b's direction, with a stronger effect. Fix before the next attempt: renormalise after mixing
+(`G <- (G - 0.5)/sigma(w) + 0.5`) so every weight has the same amplitude and only the spectrum changes. Report:
+`reports/2026-11-02-x79-mix-confound.md`; aggregate `l1_field_x79_mix.json`.

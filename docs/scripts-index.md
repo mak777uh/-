@@ -4,7 +4,7 @@
 
 The curated page — what matters and why — is [`scripts.md`](scripts.md). This file is the complete list, so that every command behind a number in the record can be found.
 
-Scripts: **241**.
+Scripts: **243**.
 
 ## Гейты и проверки (45)
 
@@ -168,7 +168,7 @@ Scripts: **241**.
 | `make_seed_grid_figure.py` | Собрать Figure 4 рукописи: сетка «инициализация × порядок данных» (§4.13). |
 | `make_simple_poster.py` | Простой постер для владельца: что мы узнали, без терминов. |
 
-## Прочее (109)
+## Прочее (111)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -281,3 +281,5 @@ Scripts: **241**.
 | `x78_series.py` | x78_series.py — causal test: matched vs mismatched prescribed scale at F = 0.040 (X78). |
 | `x78b_analyse.py` | x78b_analyse.py — does an imposed second scale shorten memory at a long-memory inflow? |
 | `x78b_series.py` | x78b_series.py — composite two-scale pattern at F = 0.030 (X78b). |
+| `x79_analyse.py` | x79_analyse.py — does memory shorten gradually with the weight of an imposed second scale? |
+| `x79_series.py` | x79_series.py — mix sweep of the composite pattern at F = 0.030 (X79). |

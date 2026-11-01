@@ -45,7 +45,7 @@ def run_one(mix: str, seed: int) -> dict:
     if out.exists():
         return {"mix": mix, "seed": seed, "status": "skipped (exists)"}
     cmd = [PY, str(TRACK), *COMMON, "--hetero-mix2", mix, "--seed", str(seed), "--out", str(out)]
-    last = {"flow": flow, "seed": seed, "status": "failed"}
+    last = {"mix": mix, "seed": seed, "status": "failed"}
     for attempt in (1, 2):
         t0 = time.time()
         try:
