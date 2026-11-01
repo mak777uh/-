@@ -129,3 +129,31 @@ domain sizes (96 and 192 units), with the time step held fixed where it matters.
 
 > Heterogeneous inflow suppresses the medium's twelve-unit pattern. What concentration the heterogeneous field shows is
 > the box itself, so it is not alternative organisation but the absence of it.
+
+## Where to go next, and what is deliberately not being done now
+
+The day closed three questions and left three, and the order below is a judgement about cost rather than importance.
+
+**1. Turnover, with a readout that can carry it.** X59's dose-response is the strongest evidence in the line (divisions
+308 → 79 → 21 as amplitude falls, 5/5 seeds), and X63 showed why the correlation-length profile could not be resolved: the
+count is heavy-tailed, with a tenfold spread between seeds inside one arm. The next experiment is not another scale sweep
+but **more seeds at fewer points** — three scales, fifteen to twenty seeds each — with divisions per component per 1000
+steps as the readout. That is about two hours of GPU and it would turn a hypothesis into a curve.
+
+**2. Lifetimes and identity.** The weakest link in the published line has not moved all day: the median lifetimes (57
+against 4046 steps) rest on the overlap rule, and the tracking literature we read says that rule is a convention, not a
+standard. The fix was specified this morning and never executed: one run saving masks, then lifetimes under overlap
+0.3 / 0.5 / 0.7, plus a persistence-based definition on the same fields. Until it runs, the lifetime contrast should be
+quoted with its rule attached, exactly as the v1.6 text does.
+
+**3. The publication decision.** The v1.6 package is built, checksummed and sitting on disk; the two-sentence insert about
+small components is written and costed. That decision is the owner's and it has been open since the small hours.
+
+**What is not being done, and why.** No further grid work on the spectrum: it has been tested against five resolutions and
+two domain sizes and the answer stopped changing. No more reading: the corpus is at the point where the next useful text is
+an implementation, not an argument. And no new "quick" run at the end of a long day — the two claims that went wrong today
+both went wrong through a rushed criterion, not through a rushed measurement.
+
+One rule from today is worth keeping above the rest: **a claim names the quantity it is about.** Twice this line judged a
+sentence about *position* by a number that measured *concentration*, and once it judged a sentence about the medium by a
+number that measured the box. Each time the measurement was fine and the reading was not.
