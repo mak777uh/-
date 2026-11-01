@@ -4,7 +4,7 @@
 
 The curated page — what matters and why — is [`scripts.md`](scripts.md). This file is the complete list, so that every command behind a number in the record can be found.
 
-Scripts: **179**.
+Scripts: **180**.
 
 ## Гейты и проверки (41)
 
@@ -164,7 +164,7 @@ Scripts: **179**.
 | `make_seed_grid_figure.py` | Собрать Figure 4 рукописи: сетка «инициализация × порядок данных» (§4.13). |
 | `make_simple_poster.py` | Простой постер для владельца: что мы узнали, без терминов. |
 
-## Прочее (51)
+## Прочее (52)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -186,6 +186,7 @@ Scripts: **179**.
 | `e02c_seed_grid.py` | Собрать 2×2-сетку «инициализация × порядок данных» и применить критерий H-E02C-6. |
 | `e6p_analyse.py` | e6p_analyse.py — three selection regimes: does the survival channel drift, and does frequency dependence hold diversity? |
 | `e6p_series.py` | e6p_series.py — E6p: three selection regimes in the field, artifacts inside git. |
+| `e6q_series.py` | e6q_series.py — E6q: turn the niches off. |
 | `entrainment.py` | entrainment.py — захватывает ли мир ритм входного потока (энтрейнмент), и связано ли это с «энергией». |
 | `farm_reader.py` | farm_reader.py — читать результаты фермы GitHub Actions. |
 | `founding_matrix.py` | founding_matrix.py — агрегат серии «порог основания» (H-ALIVE-23 / V10). |
