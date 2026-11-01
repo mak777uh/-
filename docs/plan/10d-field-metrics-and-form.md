@@ -1326,3 +1326,26 @@ In this band the same question becomes discrete: the daughter should take the pa
 candidate mechanism in this line for heredity that is not diluted. Report:
 `reports/2026-11-01-x71-multistability-result.md`; aggregate `l1_field_x71_multistability.json`. Flagged, not counted: the
 F = 0.055 split (q = 6 bins, near the box scale).
+
+## 10er. Branch heredity: the readout failed before the measurement did (X72, 01.11, void)
+
+X71 made the next question concrete: at `F = 0.035` the medium holds two wavelengths, so a daughter could take her parent's
+**branch** rather than a blurred size. The X70 replication worlds run at exactly that inflow, so the question looked
+answerable from existing data without a single new run. It was not.
+
+The branch had to be read from the component log, which has centroids but no local spectrum; the stand-in was the distance to
+the nearest neighbouring structure, with the split at 10.4 cells between X71's 12.0- and 8.73-cell branches. The proxy passes
+the pre-registered class-population control (59 % wide) and fails the one that matters: median spacing stays at 11.0–11.5
+cells while the global wavelength moves between 12.0 cells and a labyrinth, correlation −0.18, spread 0.7 cells against the
+3.3-cell difference it would have to resolve. It measures packing, not size.
+
+The numbers the invalid proxy produced are in the aggregate (`l1_field_x72_branch.json`) and would have read as a clean
+negative: parent–daughter concordance 0.517 (chance 0.50), surrogate 0.904, difference −0.387 in all five worlds. They are
+not a result: the surrogate is measured at the same instant and in the same patch as the daughter, so its 0.90 is spatial
+autocorrelation of the proxy, and the parent is measured a snapshot earlier, so the two are not comparable.
+
+**Verdict: void, not negative** — no claim either way. What the next attempt needs: a **local spectrum** in a 48–64 cell
+window from fields logged every **50** steps (the existing fields are every 200, which puts the parent's branch and the
+daughter's in different transients), ideally a two-mode fit per patch rather than an argmax. The rule that came out of it is
+in `docs/design-checks.md` ("a proxy must move with what it stands for") and applies to every stand-in readout in the line.
+Report: `reports/2026-11-01-x72-branch-readout-void.md`.

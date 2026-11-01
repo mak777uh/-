@@ -1,0 +1,191 @@
+{
+  "kind": "l1_field_x72_branch",
+  "experiment": "X72",
+  "command": "python scripts/x72_analyse.py --write",
+  "prereg": "reports/2026-11-01-x72-branch-heredity-plan.md",
+  "branch_split_cells": 10.4,
+  "band": 0.15,
+  "arms": {
+    "pattern": {
+      "worlds": {
+        "171": {
+          "events": 144,
+          "parent_wide_share": 0.576,
+          "concordance_parent": 0.451,
+          "concordance_surrogate": 0.965,
+          "difference": -0.514,
+          "shuffle_p95": 0.549,
+          "shuffle_median": 0.493
+        },
+        "172": {
+          "events": 189,
+          "parent_wide_share": 0.561,
+          "concordance_parent": 0.513,
+          "concordance_surrogate": 0.873,
+          "difference": -0.36,
+          "shuffle_p95": 0.534,
+          "shuffle_median": 0.481
+        },
+        "173": {
+          "events": 166,
+          "parent_wide_share": 0.602,
+          "concordance_parent": 0.554,
+          "concordance_surrogate": 0.922,
+          "difference": -0.367,
+          "shuffle_p95": 0.53,
+          "shuffle_median": 0.47
+        },
+        "174": {
+          "events": 160,
+          "parent_wide_share": 0.537,
+          "concordance_parent": 0.494,
+          "concordance_surrogate": 0.887,
+          "difference": -0.394,
+          "shuffle_p95": 0.544,
+          "shuffle_median": 0.481
+        },
+        "175": {
+          "events": 173,
+          "parent_wide_share": 0.659,
+          "concordance_parent": 0.561,
+          "concordance_surrogate": 0.884,
+          "difference": -0.324,
+          "shuffle_p95": 0.526,
+          "shuffle_median": 0.468
+        }
+      },
+      "pooled": {
+        "events": 832,
+        "parent_wide_share": 0.588,
+        "concordance_parent": 0.517,
+        "concordance_surrogate": 0.904,
+        "difference": -0.387,
+        "shuffle_p95": 0.502,
+        "shuffle_median": 0.476
+      }
+    },
+    "homog": {
+      "worlds": {
+        "171": {
+          "events": 8,
+          "parent_wide_share": 1.0,
+          "concordance_parent": 0.375,
+          "concordance_surrogate": 1.0,
+          "difference": -0.625,
+          "shuffle_p95": 0.375,
+          "shuffle_median": 0.375
+        },
+        "172": {
+          "events": 0,
+          "parent_wide_share": null,
+          "concordance_parent": null,
+          "concordance_surrogate": null,
+          "difference": null,
+          "shuffle_p95": null,
+          "shuffle_median": null
+        },
+        "173": {
+          "events": 6,
+          "parent_wide_share": 1.0,
+          "concordance_parent": 0.333,
+          "concordance_surrogate": 0.667,
+          "difference": -0.333,
+          "shuffle_p95": 0.333,
+          "shuffle_median": 0.333
+        },
+        "174": {
+          "events": 0,
+          "parent_wide_share": null,
+          "concordance_parent": null,
+          "concordance_surrogate": null,
+          "difference": null,
+          "shuffle_p95": null,
+          "shuffle_median": null
+        },
+        "175": {
+          "events": 16,
+          "parent_wide_share": 0.0,
+          "concordance_parent": 0.5,
+          "concordance_surrogate": 0.625,
+          "difference": -0.125,
+          "shuffle_p95": 0.5,
+          "shuffle_median": 0.5
+        }
+      },
+      "pooled": {
+        "events": 30,
+        "parent_wide_share": 0.467,
+        "concordance_parent": 0.433,
+        "concordance_surrogate": 0.733,
+        "difference": -0.3,
+        "shuffle_p95": 0.633,
+        "shuffle_median": 0.5
+      }
+    }
+  },
+  "proxy_check": {
+    "x70r_pattern_s171": {
+      "points": 29,
+      "corr": -0.329,
+      "spacing_median": 11.43,
+      "spacing_sd": 1.54,
+      "q_values": [
+        1,
+        8
+      ],
+      "usable": false
+    },
+    "x70r_pattern_s172": {
+      "points": 28,
+      "corr": 0.217,
+      "spacing_median": 11.19,
+      "spacing_sd": 0.86,
+      "q_values": [
+        1,
+        2,
+        6,
+        11
+      ],
+      "usable": false
+    },
+    "x70r_pattern_s173": {
+      "points": 29,
+      "corr": -0.376,
+      "spacing_median": 9.73,
+      "spacing_sd": 1.26,
+      "q_values": [
+        1,
+        7,
+        11
+      ],
+      "usable": false
+    },
+    "x70r_pattern_s174": {
+      "points": 29,
+      "corr": -0.332,
+      "spacing_median": 10.23,
+      "spacing_sd": 1.15,
+      "q_values": [
+        1,
+        5,
+        8
+      ],
+      "usable": false
+    },
+    "x70r_pattern_s175": {
+      "points": 29,
+      "corr": -0.404,
+      "spacing_median": 10.49,
+      "spacing_sd": 1.12,
+      "q_values": [
+        1,
+        2,
+        8,
+        11
+      ],
+      "usable": false
+    }
+  },
+  "verdict": "inconclusive: the nearest-neighbour spacing does not track the wavelength branch, so the branch variable is not measurable from the component log alone (this is an instrument failure, not a null)",
+  "worlds_above_band": 0
+}

@@ -4,7 +4,7 @@
 
 The curated page — what matters and why — is [`scripts.md`](scripts.md). This file is the complete list, so that every command behind a number in the record can be found.
 
-Scripts: **214**.
+Scripts: **215**.
 
 ## Гейты и проверки (43)
 
@@ -166,7 +166,7 @@ Scripts: **214**.
 | `make_seed_grid_figure.py` | Собрать Figure 4 рукописи: сетка «инициализация × порядок данных» (§4.13). |
 | `make_simple_poster.py` | Простой постер для владельца: что мы узнали, без терминов. |
 
-## Прочее (84)
+## Прочее (85)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -254,3 +254,4 @@ Scripts: **214**.
 | `x70r_series.py` | x70r_series.py — X70 with genuinely independent neutral worlds. |
 | `x71_analyse.py` | x71_analyse.py — is the selected wavelength single-valued across worlds, or do two branches coexist? |
 | `x71_series.py` | x71_series.py — does one inflow support two morphologies? (preregistered in reports/2026-11-01-x71-multistability-plan.md) |
+| `x72_analyse.py` | x72_analyse.py — at the multistable boundary, does a daughter take her parent's branch? |

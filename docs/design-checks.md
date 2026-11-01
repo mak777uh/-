@@ -149,3 +149,19 @@ says so in the first paragraph and the numbers are restated per world, not per s
 exactly the `beta = 0` geometry arms (`x70*`, `x68_ov0*`, `x56_dt2.0`, `e6p_ctrl`, `e6q_ctrl_h`); the amplitude dose,
 correlation length, scale sweep, grid map, bigger box and transmission ratio all have genuinely distinct worlds behind
 them.
+
+**A proxy must move with what it stands for (20:00, X72).** A readout that replaces the measured quantity with a cheaper
+stand-in needs its own positive control, and "both classes are populated" is not one. X72 wanted a branch class (which of
+X71's two wavelengths a structure sits on) from a component log that has centroids but no spectrum, so it used the distance
+to the nearest neighbour as a stand-in for the local wavelength. The classes were populated (59 % wide), the pre-registered
+control passed, and the numbers looked like a clean null: parent–daughter branch concordance 0.517 against chance 0.50,
+surrogate 0.904. The stand-in was measuring packing density, not size: median spacing stayed at 11.0–11.5 cells while the
+global wavelength moved between 12.0 cells and a labyrinth, correlation −0.18, spread 0.7 cells against a 3.3-cell
+difference to resolve. The report is a void, not a negative, and that is the cheaper outcome by far.
+
+Rules. (1) Every proxy readout names the quantity it stands for and the control that would move it — in the
+preregistration, next to the class criterion. (2) The control is a correlation or a monotone response, not the existence of
+variation: "the proxy must track the quantity across the range where the quantity is known to change". (3) A void is
+reported as a void: the numbers are recorded, the verdict says "instrument failure", and no claim is made in either
+direction. (4) A surrogate that is measured at the same instant and in the same patch as the target is a measure of spatial
+autocorrelation; it cannot be compared with a control measured one snapshot earlier.
