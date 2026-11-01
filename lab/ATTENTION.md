@@ -20,7 +20,6 @@ Reserved to the owner by `lab/autonomy-rules.json`: publishing anything outward:
 - **X28_factorial_F** — Факторный дизайн: состав × конфигурация при фиксированном реализованном притоке (1.0 GPU-h)
 - **X30_env_without_constructors** — Среда без конструкторов: решающий опыт наследования (1.0 GPU-h)
 - **X31_equivalence_tests** — Эквивалентность вместо «CI включает ноль» на 60 сидах (1.0 GPU-h)
-- **X38_transplant_replication** — Репликация пересадок до 1000+ строк (1.0 GPU-h)
 - **X52_spatial_optimum** — Пространственно меняющийся оптимум существующего признака (1.0 GPU-h)
 - **X53_pond_omission** — Пропущенное событие в пруду: прилив ресурса и его отсутствие (1.5 GPU-h)
 - **X57_contrast_stationarity** — Стационарность контраста: выходит ли он на ноль при dt=1.0 на длинном горизонте (2.0 GPU-h)

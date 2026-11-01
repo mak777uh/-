@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-01T17:42:27Z",
+  "updated_at": "2026-11-01T17:46:37Z",
   "note": "Очередь пунктов после E02c. Claim берётся до пре-регистрации, а не перед запуском: lab.py item-claim. Статус running означает занятый GPU-лейн и может быть только у одного пункта. | 25.10: добавлено поле impact (1-5) — приоритет конвейера = impact/max(cost_gpu_h,0.1); для запуска пункту нужны prereg (закоммиченный план) и launch.command+outdir.",
   "items": [
     {
@@ -110,14 +110,16 @@
     {
       "id": "X38_transplant_replication",
       "title": "Репликация пересадок до 1000+ строк",
-      "status": "planned",
+      "status": "closed",
       "owner": "lead",
       "cost_gpu_h": 1.0,
       "ttl_minutes": 300,
       "hypothesis": null,
       "claimed_at": null,
       "heartbeat_at": null,
-      "note": "premise stale: transition_matrix_rep_exploratory.json already holds 1296 rows (36 sources x 12 targets x 3 noise); only the density test still runs on the old 216 rows (§10dh). Recompute density on 1296 rows first"
+      "note": "premise wrong: the 216 struct rows are the struct subset of the 1296-row matrix (108+108 = 12 targets x 3 source seeds x 3 noise), so the test already uses every struct transplant; the other 1080 rows are other source families. Plan §10dh-доп corrected; replicating needs new struct-source runs. report reports/2026-11-01-x38-transplant-premise-wrong.md",
+      "closed_at": "2026-11-01T17:46:37Z",
+      "closed_by": "lead"
     },
     {
       "id": "X52_spatial_optimum",
