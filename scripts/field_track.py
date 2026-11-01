@@ -256,7 +256,15 @@ def main(argv=None) -> int:
             ky2, kx2 = 2.0 * np.pi / max(2.0, args.hetero_scale2), 2.0 * np.pi / max(2.0, args.hetero_scale2)
             G2 = (np.sin(ky2 * np.arange(g))[:, None] * np.cos(kx2 * np.arange(g))[None, :] + 1.0) / 2.0
             w2 = min(1.0, max(0.0, float(args.hetero_mix2)))
+            # X79: смесь двух независимых узоров имеет дисперсию (1-w)^2 + w^2, то есть МИНИМУМ при w = 0.5 — вес и амплитуда
+            # двигались вместе, и развёртка по весу мерила две вещи сразу. Нормируем смесь к амплитуде одиночного узора:
+            # теперь любой вес даёт одинаковую силу модуляции, и меняется только спектральный состав.
+            _sigma1 = float(hetero_G.std()) or 1.0
             hetero_G = (1.0 - w2) * hetero_G + w2 * G2
+            _sd = float(hetero_G.std())
+            if _sd > 0:
+                hetero_G = (hetero_G - float(hetero_G.mean())) / _sd * _sigma1 + 0.5
+            hetero_G = np.clip(hetero_G, 0.0, 1.0)
         if args.hetero_period and args.hetero_period > 0:
             # E9: прямоугольная смена 0/1 с заданным периодом — «зерно» среды
             hetero_S = [1.0 if (i // max(1, int(args.hetero_period))) % 2 == 0 else 0.0 for i in range(args.steps)]
