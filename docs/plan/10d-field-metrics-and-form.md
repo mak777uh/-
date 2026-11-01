@@ -1349,3 +1349,27 @@ window from fields logged every **50** steps (the existing fields are every 200,
 daughter's in different transients), ideally a two-mode fit per patch rather than an argmax. The rule that came out of it is
 in `docs/design-checks.md` ("a proxy must move with what it stands for") and applies to every stand-in readout in the line.
 Report: `reports/2026-11-01-x72-branch-readout-void.md`.
+
+## 10es. Branch heredity, second attempt: the readout works and the branch is not a class (X72b, 01.11, void)
+
+The first attempt (§10er) failed because the readout was a stand-in that never tracked the wavelength. The second writes the
+field every 50 steps and reads a 48-cell window spectrum; the instrument now passes its control (median local wavelength vs
+global peak position, correlation **0.90–0.99** in 5/5 worlds, local spread ~15 cells). The measurement still cannot be made,
+and for a better reason.
+
+In four of five worlds **85–100 %** of classified structures sit on the **wide** branch (12.0 cells), so parent–daughter
+concordance and the surrogate's concordance both sit at the ceiling (0.90–1.00 and 0.95–1.00, differences 0.00–0.02). The
+registered refusal rule fires on one class above 75 % and the verdict is **void** — but the diagnosis is informative: X71's
+two modes coexist **globally** (≥ 20 % of spectral power each) while a local window's argmax almost always picks the dominant
+one. The branch is therefore not a discrete per-structure state that a daughter can inherit; it is a **world-level mixture**
+of a dominant lattice and a persistent minority component.
+
+**What this corrects in §10eq.** The coexistence is between worlds (different attractors from different starts) plus a
+secondary mode inside each world; no world yet shows two branches side by side as equals. The multistability claim stands as
+measured on the global spectrum, and its reading narrows: one dominant branch per world, with a minority component.
+
+**What the third attempt needs.** Two band powers per structure (fraction within ±1 bin of 12.0 and of 8.73 cells) instead of
+a class; conditioning on the parent's band, so only the 10–25 % minority cases carry information; and roughly ten worlds of
+300 events each, because five worlds leave 20–40 informative events per world. Alternatively the question changes: if the
+branch is a world property, the measurable quantity is the **switch rate** and what precedes a switch. Report:
+`reports/2026-11-01-x72b-branch-class-void.md`; aggregate `l1_field_x72b_branch.json`.
