@@ -93,3 +93,16 @@
 | 2026-10-29 | surrogate-data | surrogate data analysis / Theiler surrogate method | 3: Theiler 1992 (10.1016/0167-2789(92)90102-s), Schreiber & Schmitz 2000 (10.1016/s0167-2789(00)00043-9), Theiler & Prichard 2006 (10.1090/fic/011/07) |
 | 2026-10-29 | surrogate-data | первый прогон дал 0 — причина: глобальный min_year 2015 отсекал канон 1992; добавлен per-topic min_year и allow_no_abstract | — |
 | 2026-10-29 | unit-of-selection, series-homogeneity, trait-cost-channel, legacy-half-life | текущие запросы | 0 выше порога — канон в библиотеке |
+
+## 2026-11-01, 09:10 — тема `finite-size-refinement`
+
+Искал: «finite size scaling cellular automata pattern formation», «grid refinement lattice artefact reaction
+diffusion patterns», «continuum limit discrete excitable media».
+
+- **принято:** `10.2514/6.2021-2006` — *Validation of Three-Dimensional Grid Refinement for Lattice Boltzmann
+  Methods* (AIAA Scitech 2021). Метаданные сверены Crossref, абстракт прочитан. Даёт **протокол валидации
+  уточнения** (пересчёт параметров при смене `dx`), а не общий разговор.
+- **отброшено:** `10.1017/9781108569392.012` — *Classical Integrability: Continuum Limit of Discrete, Lattice,
+  and Spin Systems* (2019). Тема — **интегрируемость** в классической теории поля; к артефактам дискретизации
+  в паттерн-образующих системах отношения не имеет. Причина: домен и предмет не совпадают, несмотря на слово
+  «continuum limit».

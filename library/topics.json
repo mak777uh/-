@@ -95,7 +95,7 @@
     {
       "id": "unit-of-selection",
       "ru": "Единица отбора и единица размножения (клеточное почкование)",
-      "status": "current",
+      "status": "next",
       "links": [
         "docs/world-design.md#10ao",
         "library/conditions.md#условие-e"
@@ -183,7 +183,7 @@
     {
       "id": "series-homogeneity",
       "ru": "Гомогенность серий: провенанс вычислений и воспроизводимость",
-      "status": "next",
+      "status": "backlog",
       "links": [
         "lab/homogeneity.json",
         "scripts/check_series_homogeneity.py",
@@ -274,7 +274,7 @@
     {
       "id": "coexistence-grw",
       "ru": "Сосуществование через скорость роста при инвазии (invasion growth rate)",
-      "status": "current",
+      "status": "next",
       "links": [
         "reports/2026-10-29-deeper-than-cells.md",
         "library/hypotheses/alife-lineage.md#C2",
@@ -298,6 +298,37 @@
       ],
       "min_score": 4,
       "implication": "Проверить, что 'сосуществование' у нас = invasion growth rate > 0 у редкого, а не присутствие; иначе слово не заработано (E11)."
+    },
+    {
+      "id": "finite-size-refinement",
+      "ru": "Конечный размер и уточнение сетки: когда эффект — свойство дискретизации",
+      "status": "current",
+      "links": [
+        "docs/world-design.md",
+        "library/claims-evidence.md",
+        "library/lit-elephant-fulltexts.md"
+      ],
+      "queries": [
+        "finite size scaling cellular automata pattern formation",
+        "grid refinement lattice artefact reaction diffusion patterns",
+        "continuum limit discrete excitable media"
+      ],
+      "terms": [
+        "finite size",
+        "scaling",
+        "refinement",
+        "lattice",
+        "artefact",
+        "continuum limit",
+        "grid"
+      ],
+      "must": [
+        "finite size",
+        "refinement",
+        "continuum"
+      ],
+      "min_score": 4,
+      "implication": "Проверить, что наш эффект неоднородности не артефакт 11-модовой box-модели: нужны работы по finite-size scaling и continuum limit, и правило записи трёх исходов."
     }
   ]
 }

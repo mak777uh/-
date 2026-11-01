@@ -382,6 +382,7 @@ H29-пункт «ядро от цели»).
 | G98 | [Schreiber, 2025, J. Math. Biol. 91](https://doi.org/10.1007/s00285-025-02283-0) | IGR для flow-kick: редкий растёт ⇒ permanence; «присутствие» не критерий | C4 | сформулировать наш мир как flow-kick и посчитать IGR редкой линии | `open` | [C4](../hypotheses/alife-lineage.md) |
 | G99 | [Schreiber, 2022, J. Math. Biol. 84](https://doi.org/10.1007/s00285-022-01815-2) | Permanence via invasion graphs: invasibility + граф ⇒ permanence | C5 | построить граф инвазий по нашим артефактам | `open` | [C5](../hypotheses/alife-lineage.md) |
 | G100 | [Barabás et al., 2018, Ecol. Monogr. 88](https://doi.org/10.1002/ecm.1302) | Канон Chesson: equalizing vs stabilizing, инвазивность | C6 | словарь для оговорки «наши механизмы равняющие» | `open` | [C6](../hypotheses/alife-lineage.md) |
+| G101 | [Validation of 3D Grid Refinement for Lattice Boltzmann Methods, 2021](https://doi.org/10.2514/6.2021-2006) | Протокол валидации уточнения сетки: параметры пересчитываются при смене dx | — | сослаться как стандартную практику; оговорка — у нас пересчитана только диффузия | `open` | `library/search-log.md` |
 
 ## H. ALife: классика, открытая эволюция, рамки, индивидуальность
 
