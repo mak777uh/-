@@ -141,3 +141,7 @@ sections were not rewritten, only moved; each one keeps its identifier, so every
 | §10em | Ящик вдвое — и пик ушёл вместе с ним: у неоднородного поля нет своей структуры (X67, 01.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
 | §10en | Время жизни принадлежит каналу обратной связи, а не геометрии поля (X68, 01.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
 | §10ep | Наследование размера есть, но частичное: треть отклонения переживает деление, две трети гасятся (X70, 01.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
+| §10eq | Is the medium multistable? Two morphologies at one inflow would make heredity discrete (X71, 01.11, идёт) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
+| §10er | Branch heredity: the readout failed before the measurement did (X72, 01.11, void) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
+| §10es | Branch heredity, second attempt: the readout works and the branch is not a class (X72b, 01.11, void) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
+| §10et | The selection differential fails its own null, and X29 closes on that (01.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
