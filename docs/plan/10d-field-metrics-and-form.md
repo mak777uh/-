@@ -1399,3 +1399,25 @@ Report: `reports/2026-11-01-x29-eas-meter-null.md`; aggregate `l1_field_x37_eas.
 birth, or `s` randomised at birth within a run), ten or more uids per run, and the two statistics of that meter — the
 differential and the EAS accumulation — reported and validated separately, because bundling them is what let a broken `S`
 sit unnoticed beside a plausible accumulation curve.
+
+## 10eu. The multistability is stable: five of five worlds still carry both modes at 24 000 steps (X71b, 01.11)
+
+X71 left one question open by construction — it measured the coexistence at a single horizon, and a field that is still
+choosing looks the same as a field that has chosen. X71b repeats the boundary cell at `F = 0.035`, `k = 0.06` for
+**24 000** steps, five jittered worlds, fields at 6 000 / 12 000 / 18 000 / 24 000, and applies X71's two-mode rule unchanged.
+
+**All five worlds are mixed at every horizon**, and the shares are constant to two decimals: the peak carries 0.23–0.40 of the
+power and the strongest second mode 0.21–0.26 at 6 000 and at 24 000 alike. A transient would have shown a trend — the
+dominant mode growing, the second fading — and there is none. The pre-registered verdict is **bistable**.
+
+What "mixed" means, plainly: two humps with a broad remainder, not two equal lattices. Each world keeps its own peak
+position (q = 8, i.e. 12.0 cells, in three worlds; q = 11, i.e. 8.73 cells, in two) while the minority component sits at the
+other branch — which confirms the reading given in §10es: the branch is a world property and the second branch persists as a
+minority mode.
+
+What it does not say: the band's width (the horizon varied, not the inflow), and "two attractors" in the dynamical-systems
+sense — the measured statement is "stationary shares over four horizons", and "bistable" is the label registered for it. One
+box (96), one `k`, one threshold, five worlds.
+
+Report: `reports/2026-11-01-x71b-persistence-result.md`; aggregate `l1_field_x71b_persistence.json`. Next: half-steps
+`F = 0.033 / 0.037` for the real width, and X72c for branch heredity on stationary branches.

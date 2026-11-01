@@ -145,3 +145,4 @@ sections were not rewritten, only moved; each one keeps its identifier, so every
 | §10er | Branch heredity: the readout failed before the measurement did (X72, 01.11, void) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
 | §10es | Branch heredity, second attempt: the readout works and the branch is not a class (X72b, 01.11, void) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
 | §10et | The selection differential fails its own null, and X29 closes on that (01.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
+| §10eu | The multistability is stable: five of five worlds still carry both modes at 24 000 steps (X71b, 01.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |

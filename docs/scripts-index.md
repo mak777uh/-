@@ -4,7 +4,7 @@
 
 The curated page — what matters and why — is [`scripts.md`](scripts.md). This file is the complete list, so that every command behind a number in the record can be found.
 
-Scripts: **221**.
+Scripts: **223**.
 
 ## Гейты и проверки (45)
 
@@ -168,7 +168,7 @@ Scripts: **221**.
 | `make_seed_grid_figure.py` | Собрать Figure 4 рукописи: сетка «инициализация × порядок данных» (§4.13). |
 | `make_simple_poster.py` | Простой постер для владельца: что мы узнали, без терминов. |
 
-## Прочее (89)
+## Прочее (91)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -258,6 +258,8 @@ Scripts: **221**.
 | `x70r_series.py` | x70r_series.py — X70 with genuinely independent neutral worlds. |
 | `x71_analyse.py` | x71_analyse.py — is the selected wavelength single-valued across worlds, or do two branches coexist? |
 | `x71_series.py` | x71_series.py — does one inflow support two morphologies? (preregistered in reports/2026-11-01-x71-multistability-plan.md) |
+| `x71b_analyse.py` | x71b_analyse.py — is the two-branch coexistence of X71 stable or a transient? |
+| `x71b_series.py` | x71b_series.py — does the two-branch coexistence of X71 survive 24 000 steps? |
 | `x72_analyse.py` | x72_analyse.py — at the multistable boundary, does a daughter take her parent's branch? |
 | `x72b_analyse.py` | x72b_analyse.py — branch concordance at the multistability boundary, read from local spectra. |
 | `x72b_series.py` | x72b_series.py — the branch-heredity series, with fields every 50 steps. |
