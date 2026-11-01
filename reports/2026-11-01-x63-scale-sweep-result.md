@@ -61,3 +61,28 @@ Until then, no shape claim about correlation length should be made, including my
 `morphogenesis/experiments/L1_field/x63_{s06,s08,s16,s32}_s{171..175}.json`, fields at t = 6000 in `x63_fields/`,
 aggregate `morphogenesis/experiments/E09_pond/l1_field_x63_profile.json` (which includes the X62 anchors), scripts
 `scripts/x63_series.py`, `scripts/x63_analyse.py`.
+
+## Addendum, 10:05 — a rate statistic, computed from the same files
+
+If the counter is heavy-tailed, a rate per structure should be steadier than a raw count. Computed from the existing
+artifacts, no new runs: divisions per component per 1000 steps, where the component count is the mean over the run's seven
+snapshots.
+
+| scale | splits | mean components | per component / 1000 steps | share of seeds above 150 |
+|---|---|---|---|---|
+| 4 | 20 | 2.14 | 1.46 | 0.2 |
+| 6 | 34 | 2.43 | 2.13 | 0.2 |
+| 8 | 33 | 3.86 | 1.17 | 0.0 |
+| **12** | **308** | 5.43 | **6.94** | **0.8** |
+| 16 | 63 | 7.71 | 1.23 | 0.2 |
+| **24** | **175** | 4.86 | **4.93** | **0.6** |
+| 32 | 113 | 3.29 | 2.90 | 0.2 |
+
+**The verdict does not change.** The rate has the same shape as the count, so the profile is not an artefact of arm size,
+and it still has no monotone or single-peaked form: two arms stand out, five do not.
+
+**One observation, explicitly *not* a claim.** The two elevated arms are at 12 and 24 — the pattern wavelength and twice it.
+The low arms are at 4, 6, 8, 16 and 32, none of which is a multiple. That would read as a resonance at *integer multiples*
+of the pattern scale, and it is exactly the kind of post-hoc pattern I withdrew twenty minutes ago on the strength of two
+extra points. It is recorded here as a hypothesis for a pre-registered test (scales 12, 24 against 18 and 36, many more
+seeds), not as a finding.
