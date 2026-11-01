@@ -69,20 +69,27 @@ therefore about **what heterogeneity does during the transient**, not about a pe
 
 ## What the spectrum says, and what it refuses to say
 
-Seed-averaged radial power spectrum of `v`, q a mode index, λ = 96/q cells:
+Seed-averaged radial power spectrum of , share of power in modes q = 1..12, and spectral entropy against its
+maximum (ln 12 = 2.48 — a flat spectrum, i.e. no selected wavelength):
 
 | t | heterogeneous | homogeneous |
 |---|---|---|
-| 2000 | q = 1, λ = 96 cells | q = 1, λ = 96 cells |
-| 4000 | q = 1, λ = 96 cells | **q = 8, λ = 12 cells** |
-| 6000 | q = 1, λ = 96 cells | **q = 8, λ = 12 cells** |
+| 2000 | H = 2.25, peak 0.22 at q = 1 | H = 1.63, peak 0.50 at q = 1 |
+| 4000 | H = 2.19, peak 0.26 at q = 1 | H = 2.04, peak 0.27 at **q = 8** |
+| 6000 | H = 2.23, peak 0.24 at q = 1 | **H = 1.52, peak 0.45 at q = 8** |
 
-The homogeneous world settles into a **12-cell pattern wavelength** — the value the parameters imply. The heterogeneous
-world never does: its variance stays at the largest available scale, one structure wrapping the domain.
+The homogeneous world **selects a mode**: by t = 6000, 45 % of its low-q power sits at q = 8, λ = 96/8 = **12 cells** —
+the value the parameters imply — and its entropy falls to 1.52. The heterogeneous world **never selects anything**: its
+entropy stays at 2.19–2.25, its largest mode never exceeds a quarter of the power, and the spectrum remains broad.
 
-**The wavelength normalisation of the preregistration is therefore refused, not performed.** `N·λ²/A` is only meaningful
-when λ is a pattern scale; for the heterogeneous arm λ is the box, and the expression degenerates to `N`. This is refusal
-rule item 4 doing its job, and it is more informative than the number would have been.
+**This is the robust half of the result, and the earlier reading of it was wrong.** A first pass recorded "the
+heterogeneous spectrum peaks at q = 1, the domain scale". The shares show why that was misleading: q = 1 takes only 22–26 %
+there, because *no* mode dominates and the largest-scale bin simply wins by default among near-equal shares. The
+difference is not which wavelength wins — it is **whether a wavelength wins at all**.
+
+**The wavelength normalisation of the preregistration is therefore refused, not performed** — and for a better reason
+than at first written. N·λ²/A presupposes a selected λ; the heterogeneous arm has none to normalise by. This is refusal
+rule item 4 doing its job.
 
 ## What changes in the claim
 
@@ -91,9 +98,10 @@ average over a transient.
 
 New, and deliberately in two parts because the evidence supports two different strengths:
 
-1. **Robust, across all three snapshots and both controls.** *Heterogeneous inflow costs the medium its pattern
-   wavelength.* The homogeneous world converges to a periodic pattern of about twelve cells; the heterogeneous world
-   never leaves the scale of the domain, at any snapshot, in the seed-averaged spectrum.
+1. **Robust, across all three snapshots.** *Heterogeneous inflow prevents wavelength selection.* The homogeneous world
+   converges to a selected mode at twelve cells (45 % of the low-q power, entropy 1.52); the heterogeneous world keeps a
+   broad spectrum at every snapshot (peak share at most 0.26, entropy 2.19-2.25). It is not that a different wavelength
+   wins — no wavelength wins.
 2. **Transient only.** *While that happens, the heterogeneous field passes through a perforated web* — ten times the
    holes of the homogeneous field at the same moment, 10/10 seeds, robust to threshold and to matched occupancy. By
    t = 6000 the two arms overlap seed by seed, and no permanent difference in hole count is claimed.

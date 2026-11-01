@@ -27,6 +27,7 @@ from __future__ import annotations
 import argparse
 import glob
 import json
+import math
 import os
 import statistics as st
 import sys
@@ -166,9 +167,18 @@ def spectrum_by_arm() -> list[dict]:
             prof = {rad: float(p[r == rad].mean()) for rad in range(1, int(r.max()) + 1) if (r == rad).any()}
             q = max(prof, key=prof.get)
             top = [rad for rad, _ in sorted(prof.items(), key=lambda kv: -kv[1])[:3]]
+            # Доли мощности по модам 1..12 и энтропия: "есть ли выделенная длина волны" — это
+            # концентрация спектра, а не номер пика. Пик на q=1 бывает и у широкого спектра.
+            low = {rad: prof[rad] for rad in sorted(prof) if rad <= 12}
+            tot = sum(prof.values()) or 1.0
+            shares = {rad: round(v / tot, 3) for rad, v in low.items()}
+            ent = -sum((v / tot) * math.log(v / tot) for v in low.values() if v > 0)
             out.append({"t": t, "arm": arm, "n_seeds": len(ps), "q_peak": q,
                         "lambda_cells": round(n / q, 2), "top3_modes": top,
-                        "peak_over_median": round(prof[q] / max(st.median(list(prof.values())), 1e-12), 1)})
+                        "peak_share": shares.get(q),
+                        "power_share_q1_12": shares,
+                        "spectral_entropy": round(ent, 3),
+                        "entropy_max_ln12": round(math.log(12), 3)})
     return out
 
 
