@@ -4,7 +4,7 @@
 
 The curated page — what matters and why — is [`scripts.md`](scripts.md). This file is the complete list, so that every command behind a number in the record can be found.
 
-Scripts: **194**.
+Scripts: **195**.
 
 ## Гейты и проверки (42)
 
@@ -165,7 +165,7 @@ Scripts: **194**.
 | `make_seed_grid_figure.py` | Собрать Figure 4 рукописи: сетка «инициализация × порядок данных» (§4.13). |
 | `make_simple_poster.py` | Простой постер для владельца: что мы узнали, без терминов. |
 
-## Прочее (65)
+## Прочее (66)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -234,3 +234,4 @@ Scripts: **194**.
 | `x63_series.py` | x63_series.py — X63: four more correlation lengths, to turn X62's three points into a profile. |
 | `x64_analyse.py` | x64_analyse.py — did the refinement preserve the physical wavelength? |
 | `x64_series.py` | x64_series.py — X64: a real refinement (grid 144, dt 0.5, Du scaled by 1/dx^2 AND dt scaled with it). |
+| `x65_series.py` | x65_series.py — X65: bracket the grid transition at 120 cells (15 cells per pattern period). |
