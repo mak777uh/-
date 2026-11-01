@@ -4,7 +4,7 @@
 
 The curated page — what matters and why — is [`scripts.md`](scripts.md). This file is the complete list, so that every command behind a number in the record can be found.
 
-Scripts: **197**.
+Scripts: **198**.
 
 ## Гейты и проверки (42)
 
@@ -165,7 +165,7 @@ Scripts: **197**.
 | `make_seed_grid_figure.py` | Собрать Figure 4 рукописи: сетка «инициализация × порядок данных» (§4.13). |
 | `make_simple_poster.py` | Простой постер для владельца: что мы узнали, без терминов. |
 
-## Прочее (68)
+## Прочее (69)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -237,3 +237,4 @@ Scripts: **197**.
 | `x64_series.py` | x64_series.py — X64: a real refinement (grid 144, dt 0.5, Du scaled by 1/dx^2 AND dt scaled with it). |
 | `x65_analyse.py` | x65_analyse.py — the grid-120 bracket: does the heterogeneous arm select at 15 cells per period? |
 | `x65_series.py` | x65_series.py — X65: bracket the grid transition at 120 cells (15 cells per pattern period). |
+| `x66_series.py` | x66_series.py — X66: the grid map with the time step held fixed. |
