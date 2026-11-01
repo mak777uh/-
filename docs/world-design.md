@@ -133,3 +133,4 @@ sections were not rewritten, only moved; each one keeps its identifier, so every
 | §10ee | Мир без выбранной длины волны — мир с восемнадцатикратным оборотом линий (01.11, пересчёт) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
 | §10ef | Доза подтверждает: оборот линий монотонно следует за амплитудой притока (X59, 01.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
 | §10eg | Длинный горизонт: неоднородное поле не выбирает длину волны вообще, а не «пока» (X61-long, 01.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
+| §10eh | Оборот максимален, когда среда меняется на масштабе паттерна: резонанс вместо монотонности (X62, 01.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |

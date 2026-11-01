@@ -1,0 +1,70 @@
+{
+  "kind": "l1_field_x62_scale",
+  "experiment": "X62",
+  "command": "python scripts/x62_analyse.py --write",
+  "prereg": "reports/2026-11-01-x62-correlation-length-plan.md",
+  "criterion": {
+    "sign_bar": 4,
+    "factor_bar": 2.0,
+    "prediction": "splits ordered s04 > s12 > s24; entropy s24 < s04"
+  },
+  "arms": {
+    "s04": {
+      "n": 5,
+      "splits_median": 20,
+      "pairs_median": 44,
+      "r_median": 0.82,
+      "components_median": 3,
+      "s_mean_last_median": 1.14
+    },
+    "s12": {
+      "n": 5,
+      "splits_median": 308,
+      "pairs_median": 682,
+      "r_median": 0.97,
+      "components_median": 3,
+      "s_mean_last_median": 1.89
+    },
+    "s24": {
+      "n": 5,
+      "splits_median": 175,
+      "pairs_median": 389,
+      "r_median": 0.97,
+      "components_median": 2,
+      "s_mean_last_median": 2.8
+    }
+  },
+  "ordering": {
+    "as_predicted": false,
+    "extreme_factor": 0.11,
+    "seeds_agreeing": 1,
+    "n_pairs": 5
+  },
+  "spectra_t6000": {
+    "s04": {
+      "q_peak": 1,
+      "peak_share": 0.204,
+      "entropy": 2.16,
+      "entropy_max_ln12": 2.485
+    },
+    "s12": {
+      "q_peak": 1,
+      "peak_share": 0.247,
+      "entropy": 2.265,
+      "entropy_max_ln12": 2.485
+    },
+    "s24": {
+      "q_peak": 6,
+      "peak_share": 0.33,
+      "entropy": 1.956,
+      "entropy_max_ln12": 2.485
+    }
+  },
+  "entropy_ordered": true,
+  "prediction_supported": false,
+  "not_claimed": [
+    "five seeds per arm; the argument is the ordering, not a test",
+    "correlation length and amplitude both change the occupied area, so the knob is not pure",
+    "splits count events under the overlap rule, not verified lineages"
+  ]
+}
