@@ -1273,3 +1273,19 @@ division (slope 0.45). The homogeneous arm remains **unresolved** (73 events, 1 
 the earlier 0.294 for it was twenty events copied five times. Report:
 `reports/2026-11-01-x70-spatial-control-result.md`; defects: `reports/2026-11-01-x70-two-design-defects.md`; aggregates
 `l1_field_x70r_size.json` and `l1_field_x70_spatial_strata.json`.
+
+**Correction, 17:20 (replication).** Everything above was measured in a `beta = 0` world, where the seed does not move the
+geometry: the `lifetimes` blocks of the five seeds are byte-identical, so the table's "0/5" column is one world, not five.
+The rerun (`scripts/x68r_series.py`, `--init-jitter`, 30 runs) keeps the measurement and gives five real worlds per rule:
+
+| rule | hetero medians (5 worlds) | homog medians (5 worlds) | direction | worlds |
+|---|---|---|---|---|
+| 0.3 loose | 5999 ×5 | 2846, 3985, 4030, 3985, 3091 | hetero longer | 5/5 |
+| 0.5 medium | 4400, 4505, 5999, 3777, 5999 | 2846, 3985, 1565, 3985, 2713 | hetero longer | 4/5 |
+| 0.7 strict | 871, 1128, 1417, 1118, 712 | 2846, 3985, 1565, 3985, 2713 | hetero **shorter** | 5/5 |
+
+So "the ordering reverses at all three rules" is **withdrawn**: the reversal is unanimous at the loose rule, four of five at
+the medium rule, and at the strict rule the direction goes back — there heterogeneous components live 712–1417 steps
+against 1565–3985, which is the published direction. The rule does not merely move the magnitude; it moves the sign, and
+the old table's 2607 at the strict cutoff was one draw of the starting blob. Report:
+`reports/2026-11-01-x68-identity-replicated.md`; aggregate `l1_field_x68r_identity.json`.

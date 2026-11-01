@@ -67,3 +67,9 @@ attack it.
 `morphogenesis/experiments/L1_field/x68_ov{03,05,07}_{pattern,homog}_s{171..175}.json` (30 files), aggregate
 `morphogenesis/experiments/E09_pond/l1_field_x68_identity.json`. Scripts: `scripts/x68_series.py`,
 `scripts/x68_analyse.py`.
+
+**Correction (17:20).** The five seeds here are one world copied five times — in a `beta = 0` world the seed does not move
+the geometry, and the `lifetimes` blocks are byte-identical across seeds. Replicated on five real worlds
+(`--init-jitter`), the reversal is unanimous at the loose rule, 4/5 at the medium rule, and **reverses back at the strict
+rule**, so "the ordering reverses at all three rules" is withdrawn. See
+[`2026-11-01-x68-identity-replicated.md`](2026-11-01-x68-identity-replicated.md).

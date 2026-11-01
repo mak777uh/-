@@ -1,0 +1,177 @@
+{
+  "kind": "l1_field_x68r_identity",
+  "experiment": "X68 replicated",
+  "command": "python scripts/x68r_analyse.py --write",
+  "why": "in a beta=0 world the seed does not move the geometry, so the X68 arms were one world per rule; --init-jitter makes five real worlds, and only then is a per-world contrast a replication",
+  "prereg": "reports/2026-11-01-x68-identity-rule-plan.md (design unchanged; replication route repaired)",
+  "rules": {
+    "ov03": {
+      "worlds": 5,
+      "hetero_below": 0,
+      "hetero_above": 5,
+      "direction": "hetero longer",
+      "unanimous": true,
+      "rows": [
+        {
+          "seed": 171,
+          "hetero_n_uids": 1,
+          "homog_n_uids": 3,
+          "hetero_median_life": 5999,
+          "homog_median_life": 2846,
+          "hetero_below": false,
+          "difference": 3153
+        },
+        {
+          "seed": 172,
+          "hetero_n_uids": 1,
+          "homog_n_uids": 2,
+          "hetero_median_life": 5999,
+          "homog_median_life": 3985,
+          "hetero_below": false,
+          "difference": 2014
+        },
+        {
+          "seed": 173,
+          "hetero_n_uids": 1,
+          "homog_n_uids": 2,
+          "hetero_median_life": 5999,
+          "homog_median_life": 4030,
+          "hetero_below": false,
+          "difference": 1969
+        },
+        {
+          "seed": 174,
+          "hetero_n_uids": 1,
+          "homog_n_uids": 2,
+          "hetero_median_life": 5999,
+          "homog_median_life": 3985,
+          "hetero_below": false,
+          "difference": 2014
+        },
+        {
+          "seed": 175,
+          "hetero_n_uids": 1,
+          "homog_n_uids": 3,
+          "hetero_median_life": 5999,
+          "homog_median_life": 3091,
+          "hetero_below": false,
+          "difference": 2908
+        }
+      ],
+      "hetero_median_of_medians": 5999,
+      "homog_median_of_medians": 3985
+    },
+    "ov05": {
+      "worlds": 5,
+      "hetero_below": 1,
+      "hetero_above": 4,
+      "direction": "hetero longer",
+      "unanimous": false,
+      "rows": [
+        {
+          "seed": 171,
+          "hetero_n_uids": 7,
+          "homog_n_uids": 3,
+          "hetero_median_life": 4400,
+          "homog_median_life": 2846,
+          "hetero_below": false,
+          "difference": 1554
+        },
+        {
+          "seed": 172,
+          "hetero_n_uids": 9,
+          "homog_n_uids": 2,
+          "hetero_median_life": 4505,
+          "homog_median_life": 3985,
+          "hetero_below": false,
+          "difference": 520
+        },
+        {
+          "seed": 173,
+          "hetero_n_uids": 2,
+          "homog_n_uids": 5,
+          "hetero_median_life": 5999,
+          "homog_median_life": 1565,
+          "hetero_below": false,
+          "difference": 4434
+        },
+        {
+          "seed": 174,
+          "hetero_n_uids": 13,
+          "homog_n_uids": 2,
+          "hetero_median_life": 3777,
+          "homog_median_life": 3985,
+          "hetero_below": true,
+          "difference": -208
+        },
+        {
+          "seed": 175,
+          "hetero_n_uids": 1,
+          "homog_n_uids": 5,
+          "hetero_median_life": 5999,
+          "homog_median_life": 2713,
+          "hetero_below": false,
+          "difference": 3286
+        }
+      ],
+      "hetero_median_of_medians": 4505,
+      "homog_median_of_medians": 2846
+    },
+    "ov07": {
+      "worlds": 5,
+      "hetero_below": 5,
+      "hetero_above": 0,
+      "direction": "hetero shorter",
+      "unanimous": true,
+      "rows": [
+        {
+          "seed": 171,
+          "hetero_n_uids": 35,
+          "homog_n_uids": 4,
+          "hetero_median_life": 871,
+          "homog_median_life": 2846,
+          "hetero_below": true,
+          "difference": -1975
+        },
+        {
+          "seed": 172,
+          "hetero_n_uids": 60,
+          "homog_n_uids": 2,
+          "hetero_median_life": 1128,
+          "homog_median_life": 3985,
+          "hetero_below": true,
+          "difference": -2857
+        },
+        {
+          "seed": 173,
+          "hetero_n_uids": 51,
+          "homog_n_uids": 5,
+          "hetero_median_life": 1417,
+          "homog_median_life": 1565,
+          "hetero_below": true,
+          "difference": -148
+        },
+        {
+          "seed": 174,
+          "hetero_n_uids": 57,
+          "homog_n_uids": 2,
+          "hetero_median_life": 1118,
+          "homog_median_life": 3985,
+          "hetero_below": true,
+          "difference": -2867
+        },
+        {
+          "seed": 175,
+          "hetero_n_uids": 66,
+          "homog_n_uids": 5,
+          "hetero_median_life": 712,
+          "homog_median_life": 2713,
+          "hetero_below": true,
+          "difference": -2001
+        }
+      ],
+      "hetero_median_of_medians": 1118,
+      "homog_median_of_medians": 2846
+    }
+  }
+}

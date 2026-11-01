@@ -63,3 +63,8 @@ lifetimes belonging to the trait channel — is the sort of qualification a revi
 single question.
 
 **This is the owner's call**, because it changes the scope of the central claims rather than fixing an error (§3).
+
+**Correction for the insert text (17:30).** The quoted reversal "5999 / 5044 / 2607 against 4030 / 1565 / 1565" is one
+world per rule and is superseded: on five real neutral worlds the reversal is 5/5 at the loose cutoff, 4/5 at the medium
+one, and **5/5 the other way at the strict cutoff** (712–1417 against 1565–3985). If the insert goes into v1.6, it must
+carry the rule-by-rule direction, not a single "reverses" sentence.

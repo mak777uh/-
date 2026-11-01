@@ -202,3 +202,10 @@ It does, but weakly, and testing it properly cost more than expected.
 The general lesson, which is the day's most transferable finding: **replication is a property of the world, not of the
 seed count.** A world that ignores its seed cannot be replicated by more seeds, and a null calibrated on copies is too
 tight by roughly the square root of the number of copies.
+
+**Correction on the lifetimes, 17:30.** The sentence above about the neutral world reversing the ordering at all three
+cutoffs was measured in one world per rule: in a `beta = 0` world the seed does not move the geometry, so the five "seeds"
+are one universe. Replicated on five real worlds (`--init-jitter`, 30 runs), the reversal is unanimous at the loose cutoff
+(5999 against 2846–4030), four of five at the medium one, and **goes back to the published direction at the strict cutoff**
+(heterogeneous 712–1417 against homogeneous 1565–3985, 5/5). The identity rule therefore moves the *sign* of the contrast,
+not only its size — and the strict-cutoff fragmentation into 35–66 uids is where the rule visibly manufactures entities.

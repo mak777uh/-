@@ -4,7 +4,7 @@
 
 The curated page — what matters and why — is [`scripts.md`](scripts.md). This file is the complete list, so that every command behind a number in the record can be found.
 
-Scripts: **211**.
+Scripts: **212**.
 
 ## Гейты и проверки (43)
 
@@ -166,7 +166,7 @@ Scripts: **211**.
 | `make_seed_grid_figure.py` | Собрать Figure 4 рукописи: сетка «инициализация × порядок данных» (§4.13). |
 | `make_simple_poster.py` | Простой постер для владельца: что мы узнали, без терминов. |
 
-## Прочее (81)
+## Прочее (82)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -244,6 +244,7 @@ Scripts: **211**.
 | `x67_series.py` | x67_series.py — X67: the box doubled, the cell size fixed. |
 | `x68_analyse.py` | x68_analyse.py — does the lifetime contrast survive a different identity rule? |
 | `x68_series.py` | x68_series.py — X68: the lifetime contrast under two other identity rules. |
+| `x68r_analyse.py` | x68r_analyse.py — X68 lifetimes on five genuinely different neutral worlds per identity rule. |
 | `x68r_series.py` | x68r_series.py — X68 with five genuinely different neutral worlds per rule. |
 | `x70_analyse.py` | x70_analyse.py — size heredity: does a daughter's peak area follow its parent's? |
 | `x70_series.py` | x70_series.py — X70: size heredity in the neutral world. |
