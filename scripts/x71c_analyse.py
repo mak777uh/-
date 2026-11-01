@@ -56,11 +56,15 @@ def classify(v: np.ndarray) -> dict:
 
 
 def main(argv=None) -> int:
+    global SECOND_MODE
     ap = argparse.ArgumentParser(description="X71c band width")
     ap.add_argument("--write", action="store_true")
+    ap.add_argument("--second-mode", type=float, default=SECOND_MODE,
+                    help="порог доли второй моды (чувствительность к инструменту: 0.15 / 0.20 / 0.25)")
     args = ap.parse_args(argv)
+    SECOND_MODE = float(args.second_mode)
 
-    res = {"kind": "l1_field_x71c_width", "experiment": "X71c",
+    res = {"kind": "l1_field_x71c_width", "experiment": "X71c", "second_mode_used": SECOND_MODE,
            "command": "python scripts/x71c_analyse.py --write",
            "prereg": "reports/2026-11-01-x71c-band-width-plan.md",
            "step": STEP, "second_mode": SECOND_MODE, "collapse_share": COLLAPSE_SHARE, "cells": {}}

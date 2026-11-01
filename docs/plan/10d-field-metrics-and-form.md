@@ -1439,6 +1439,14 @@ lower edge is **knife-edge at the chosen threshold** — at 0.19 the band would 
 edge lies within a few hundredths of the cut, and X71b (shares constant to two decimals over four horizons) is what makes the
 cut defensible: the second mode is not drifting through 0.2, it sits just above or just below.
 
+**Correction, 23:30 — the width depends on the cut.** Re-running the same fields with the second-mode threshold at 0.15,
+0.20 and 0.25 gives **wide** (`w >= 0.004`), **narrow** (`0.002 < w < 0.005`) and **one step** (`w <= 0.005`) — same data, same
+registered rule, three widths. The shares near the boundary run 0.19-0.28, so a binary cut draws an arbitrary line through a
+continuous quantity. What X71c therefore establishes is a **gradient**, not a width: the second-mode share varies smoothly
+across the boundary, and any "band width" number is a joint statement about the medium and the cut. The defensible form is
+"at a cut of 0.2 the band spans one to two sweep cells"; the next step is to report the share itself per world and cell
+instead of a class.
+
 Both statements are needed: the band is narrow but stable. A wide band that decayed would be a transient; a narrow band that
 persists 24 000 steps is a state of the medium. Report: `reports/2026-11-01-x71c-band-width-result.md`; aggregate
 `l1_field_x71c_width.json`. Next: re-analyse the existing fields with the cut at 0.15 and 0.25 to separate instrument from

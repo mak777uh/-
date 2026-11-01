@@ -51,3 +51,31 @@ defensible at all — the second mode is not drifting through 0.2, it sits just 
 Quarter-steps (`0.034`, `0.036`) would halve the uncertainty, but the more informative experiment is different: hold
 `F = 0.037` and re-run the second-mode cut at 0.15 and 0.25 to measure how much of the band's edge is instrument and how much
 is the medium. That is a re-analysis of existing fields, not a new series.
+
+## Correction, 23:30 — the width is a property of the cut, not of the medium
+
+The report above states the width as `0.002 < w < 0.005` under the pre-registered 4-of-5 rule and the 0.2 second-mode cut.
+An hour later I re-ran the same fields with the cut moved, and that sentence does not survive: **the width moves with the
+threshold, continuously, and there is no threshold-free width to report.**
+
+| second-mode cut | `F = 0.033` | `F = 0.037` | verdict produced by the same registered rule |
+|---|---|---|---|
+| 0.15 | 5/5 mixed | 5/5 mixed | **wide**, `w >= 0.004` (three sweep cells) |
+| 0.20 | 3/5 mixed | 4/5 mixed | **narrow**, `0.002 < w < 0.005` |
+| 0.25 | 0/5 mixed | 1/5 mixed | **one step**, `w <= 0.005` |
+
+Same data, same rule, three different widths depending on where the line is drawn through the shares. That is not a defect
+of the run; it is what a continuous quantity looks like when a binary classifier is applied to it. The second-mode shares
+near the boundary run 0.19–0.28, so a cut at 0.15 puts every world in "mixed", a cut at 0.25 puts almost none, and 0.20 —
+the value used everywhere else in this line — lands in the middle.
+
+**What X71c therefore establishes:** the second-mode share **varies smoothly across the boundary** (0.39, 0.29, 0.31, 0.32,
+0.24, 0.28, 0.16–0.28 across the measured cells), rather than switching abruptly between "one mode" and "two modes". That is
+a statement about the medium and it does not depend on the cut. **What it does not establish** is a width: any number with
+"0.00x" in it is a joint statement about the medium *and* the cut, and the preregistered `0.002 < w < 0.005` must be quoted
+with the cut attached or not at all.
+
+**What this corrects in the report above and in §10ev:** "the band is narrow" is too strong on its own; the defensible form
+is "at a second-mode cut of 0.2 the band spans one to two sweep cells, and the width is threshold-dependent — see the
+three-cut table". The next experiment that could remove the ambiguity is not another inflow step: it is a **continuous**
+readout — report the share itself per world and cell, and let the reader see the gradient instead of a class.
