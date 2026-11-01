@@ -78,6 +78,43 @@ def main(argv=None) -> int:
             "eta2_p90": round(sorted(etas)[int(0.9 * len(etas)) - 1], 3) if len(etas) >= 10 else None,
         }
 
+    # Межмировой тест: гетерогенный узор одинаков во всех мирах (статический const_ones), поэтому квадрант q в мире A
+    # и квадрант q в мире B — «одно и то же место» по притоку. Если смешение задаётся местом, медианы по квадрантам
+    # должны согласованно различаться между мирами; если оно задаётся историей мира — нет.
+    per_world_quad: dict[str, dict[int, float]] = {}
+    for path in sorted(L1.glob("x72c_pattern_s*.json")):
+        d = json.loads(path.read_text(encoding="utf-8"))
+        acc: dict[int, list[float]] = {}
+        for s in d.get("series") or []:
+            step = int(s["step"])
+            f = FIELDS / f"{path.stem}_t{step}.npy"
+            if not f.is_file():
+                continue
+            v = np.load(f)
+            for c in (s.get("components_log") or []):
+                if c.get("cx") is None:
+                    continue
+                bp = band_powers(window_profile(v, c["cx"], c["cy"]))
+                if bp:
+                    acc.setdefault(quadrant(c["cx"], c["cy"]), []).append(bp[0])
+        if acc:
+            per_world_quad[path.stem.split("_s")[-1]] = {q: round(st.median(v), 3) for q, v in acc.items()}
+    cross = {"worlds": len(per_world_quad), "table": per_world_quad, "quadrant_medians": {}}
+    quad_vals: dict[int, list[float]] = {}
+    for seed, row in per_world_quad.items():
+        for q, v in row.items():
+            quad_vals.setdefault(q, []).append(v)
+    for q, vals in sorted(quad_vals.items()):
+        cross["quadrant_medians"][q] = {"worlds": len(vals), "median": round(st.median(vals), 3),
+                                        "sd": round(st.pstdev(vals), 3) if len(vals) > 1 else None}
+    allv = [v for vals in quad_vals.values() for v in vals]
+    if allv:
+        gm = st.mean(allv)
+        ss_tot = sum((x - gm) ** 2 for x in allv)
+        ss_bet = sum(len(v) * (st.mean(v) - gm) ** 2 for v in quad_vals.values())
+        cross["eta2_across_worlds"] = round(ss_bet / ss_tot, 3) if ss_tot else None
+    res["cross_world"] = cross
+
     med = [w["eta2_median"] for w in res["worlds"].values() if w["eta2_median"] is not None]
     res["pooled_eta2_median"] = round(st.median(med), 3) if med else None
     res["regions_carry"] = bool(med and st.median(med) >= 0.2)
@@ -95,6 +132,9 @@ def main(argv=None) -> int:
     for seed, w in res["worlds"].items():
         print(f"  s{seed}: snapshots={w['snapshots']} eta2_median={w['eta2_median']} p90={w['eta2_p90']}")
     print("  pooled eta2:", res["pooled_eta2_median"], "->", res["verdict"])
+    cross = res.get("cross_world") or {}
+    print("  cross-world quadrant medians:", cross.get("quadrant_medians"))
+    print("  eta2 across worlds (quadrant effect consistent between worlds):", cross.get("eta2_across_worlds"))
     return 0
 
 

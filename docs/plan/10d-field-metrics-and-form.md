@@ -1474,6 +1474,12 @@ with each other. Tested on the same 1 200 snapshots (no new runs): **η² = 0.30
 third of the variance of `p_wide` is explained by the quadrant — a positive statement where the heredity test was negative. The
 partition is coarse (4 quadrants of 24x24 cells), so this is a lower bound on regionality for finer partitions.
 
+**And the regions are historical, not prescribed.** The heterogeneous inflow pattern is identical in every world, so quadrant
+q is "the same place" by external conditions across worlds; yet the quadrant medians are 0.541 / 0.519 / 0.522 / 0.523 with
+**η² = 0.004** across worlds. Regions are strongly distinguishable *within* a world (0.307) and indistinguishable *between*
+worlds — which is a stronger claim than "it is the patch": the patch is not the environment we prescribed, it is the one the
+world made for itself, and that is why a daughter cannot inherit it.
+
 **What it closes.** Three instruments (spacing proxy, argmax class, band powers) now give the same answer: nothing
 parent-specific survives once the patch is controlled. The two-wavelength coexistence is real, stationary and narrow, and it
 belongs to **regions of the world**, not to lineages. Together with §10ep the line's statement becomes a contrast: the medium

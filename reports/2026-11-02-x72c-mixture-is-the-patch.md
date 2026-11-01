@@ -89,6 +89,27 @@ Caveat, stated because the decomposition is crude: four quadrants on a 96-cell t
 about two wavelengths across), so η² here is a lower bound on regionality for a finer partition and an upper bound for "any
 partition at all". A finer test would need a windowed local average rather than a hard quadrant split.
 
+## The regions are historical, not prescribed
+
+The inflow pattern (`--hetero-signal const_ones.json`) is the **same in every world**, so quadrant *q* in one world is the
+same place by external conditions as quadrant *q* in another. That gives a sharp test of what "regional" means, and it came
+out the other way from the naive reading:
+
+| quadrant | median `p_wide` over 10 worlds | sd |
+|---|---|---|
+| 0 | 0.541 | 0.061 |
+| 1 | 0.519 | 0.066 |
+| 2 | 0.522 | 0.077 |
+| 3 | 0.523 | 0.050 |
+
+`η²` across worlds for the quadrant labels: **0.004**. So the quadrants are indistinguishable *between* worlds even though they
+are strongly distinguishable *within* a world (η² = 0.307). The regions exist, they carry a third of the mixture's variance, and
+**which** region is rich is a property of that world's history, not of the prescribed inflow.
+
+That is a stronger statement than "it is the patch": the patch is not the environment we wrote down, it is the environment the
+world made for itself. It also explains why the branch could never be inherited: what a daughter would have to inherit is a
+state of a region, and the region's state is not a function of the coordinates.
+
 ## What would be worth doing next (and what would not)
 
 - **Not** another branch-heredity instrument. Three independent instruments agree; a fourth would be looking for a way to be
