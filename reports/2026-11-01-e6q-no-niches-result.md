@@ -24,6 +24,11 @@ median shift to mean anything.
 | homogeneous | `beta = 0` | 4.0 | 0.960 | 0.0 |
 | homogeneous | `beta = 0.2`, `freq_dep = 1` | 2.0 | **1.119** | 0.2 |
 
+> **Caveat added at 06:35.** The eta = 0 control has no seed-dependent dynamics: its structure series is one
+> deterministic trajectory repeated ten times, so "4.0 structures" is a constant, not a distribution. The paired
+> comparison below is between the two **treatment** arms, which do vary. See
+> [2026-11-01-seed-reaches-only-the-trait-channel.md](2026-11-01-seed-reaches-only-the-trait-channel.md).
+
 The trait still drifts without niches — **+0.204 against the homogeneous control, 9 of 10 seeds positive**, just over the
 +0.20 bar — so the survival channel is not inert and the series is not refused by its own rule 3.
 

@@ -16,6 +16,11 @@ that produced the topology result.
 | `beta = 0.2`, `freq_dep = 0` | 1.487 | **0.000** | 22.5 | 0.775 | **1.0** | **0.9** |
 | `beta = 0.2`, `freq_dep = 1` | **1.950** | 0.201 | **311** | **0.976** | 2.5 | 0.2 |
 
+> **Caveat added at 06:35.** In this world the seed reaches the dynamics only through the trait channel, so the
+> control's **structure** series is identical across all ten seeds — "36 structures, spread 0.437" gives the spread
+> of the *composition*, not of the structures. The composition itself does vary per seed, so the paired drift
+> below is unaffected. See [2026-11-01-seed-reaches-only-the-trait-channel.md](2026-11-01-seed-reaches-only-the-trait-channel.md).
+
 Paired drift of mean composition against the control, seed by seed:
 
 - **survival channel, no frequency dependence: +0.484, 10/10 seeds positive** — meets the pre-declared bar (+0.20, 8/10);
