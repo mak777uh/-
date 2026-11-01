@@ -1,0 +1,98 @@
+{
+  "kind": "l1_field_x64_refinement",
+  "experiment": "X64",
+  "command": "python scripts/x64_analyse.py --write",
+  "prereg": "reports/2026-11-01-x64-real-refinement-plan.md",
+  "design": {
+    "grid": 144,
+    "domain_units": 96.0,
+    "dx": 0.6667,
+    "dt": 0.5,
+    "Du": 0.36,
+    "Dv": 0.18,
+    "steps": 12000
+  },
+  "spectra": [
+    {
+      "arm": "pattern",
+      "t": 4000,
+      "n_seeds": 5,
+      "q_peak": 1,
+      "lambda_cells": 144.0,
+      "lambda_units": 96.0,
+      "peak_share": 0.286,
+      "entropy": 2.253,
+      "entropy_max": 2.996
+    },
+    {
+      "arm": "homog",
+      "t": 4000,
+      "n_seeds": 5,
+      "q_peak": 1,
+      "lambda_cells": 144.0,
+      "lambda_units": 96.0,
+      "peak_share": 0.587,
+      "entropy": 1.488,
+      "entropy_max": 2.996
+    },
+    {
+      "arm": "pattern",
+      "t": 8000,
+      "n_seeds": 5,
+      "q_peak": 1,
+      "lambda_cells": 144.0,
+      "lambda_units": 96.0,
+      "peak_share": 0.192,
+      "entropy": 2.38,
+      "entropy_max": 2.996
+    },
+    {
+      "arm": "homog",
+      "t": 8000,
+      "n_seeds": 5,
+      "q_peak": 7,
+      "lambda_cells": 20.57,
+      "lambda_units": 13.71,
+      "peak_share": 0.279,
+      "entropy": 2.061,
+      "entropy_max": 2.996
+    },
+    {
+      "arm": "pattern",
+      "t": 12000,
+      "n_seeds": 5,
+      "q_peak": 1,
+      "lambda_cells": 144.0,
+      "lambda_units": 96.0,
+      "peak_share": 0.447,
+      "entropy": 1.845,
+      "entropy_max": 2.996
+    },
+    {
+      "arm": "homog",
+      "t": 12000,
+      "n_seeds": 5,
+      "q_peak": 8,
+      "lambda_cells": 18.0,
+      "lambda_units": 12.0,
+      "peak_share": 0.374,
+      "entropy": 1.859,
+      "entropy_max": 2.996
+    }
+  ],
+  "criterion": {
+    "band_cells": [
+      17.0,
+      19.0
+    ],
+    "entropy_below": 1.8,
+    "homog_in_band": true,
+    "homog_entropy_ok": false
+  },
+  "verdict": "wrong",
+  "not_claimed": [
+    "five seeds, seed-averaged spectra, no p-values",
+    "one refinement factor (1.5x), not a convergence study",
+    "grid 192 would need dt <= 0.39 and four times the steps, so it is not attempted here"
+  ]
+}

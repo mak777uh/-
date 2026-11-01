@@ -135,3 +135,4 @@ sections were not rewritten, only moved; each one keeps its identifier, so every
 | §10eg | Длинный горизонт: неоднородное поле не выбирает длину волны вообще, а не «пока» (X61-long, 01.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
 | §10eh | Оборот максимален, когда среда меняется на масштабе паттерна: резонанс вместо монотонности (X62, 01.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
 | §10ei | Резонанс отозван: профиль по длине корреляции не имеет формы, а счётчик делений тяжелохвостый (X63, 01.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
+| §10ej | Настоящее измельчение снимает главное утверждение утра: отсутствие выбора длины волны — свойство сетки 96 (X64, 01.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
