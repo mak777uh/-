@@ -100,6 +100,10 @@ def check_claim(path: Path) -> tuple[bool, list[str], list[str]]:
     kind = (c.get("check") or {}).get("kind")
     agg_rel = (c.get("evidence") or {}).get("aggregate")
     if kind != "field_integral_contrast" or not agg_rel:
+        # 01.11, доска X3/ABC: неизвестный вид проверки — это UNKNOWN, а не успех. Под --ci он не зелёный.
+        if STRICT:
+            problems.append(f"проверка вида «{kind}» не реализована — unknown, не засчитывается как успех")
+            return False, notes, problems
         return True, [f"проверка вида «{kind}» не реализована — пропущено"], problems
 
     agg = ROOT / agg_rel
@@ -185,6 +189,9 @@ def check_claim(path: Path) -> tuple[bool, list[str], list[str]]:
     status = status0
     if status == "planned":
         notes.append("утверждение запланировано — правило пока не проверяется как вердикт")
+        if STRICT:
+            problems.append("проверка не реализована для этого вида (unknown): не засчитывается как успех")
+            return False, notes, problems
         return True, notes, problems
     if status == "confirmed" and not rule_ok:
         problems.append(f"утверждение confirmed, но правило не выполнено (правило: {rule})")
@@ -203,10 +210,15 @@ def check_claim(path: Path) -> tuple[bool, list[str], list[str]]:
     return (not problems), notes, problems
 
 
+STRICT = False
+
+
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description="аудит утверждений против их Setup")
     ap.add_argument("--ci", action="store_true")
     args = ap.parse_args(argv)
+    global STRICT
+    STRICT = bool(getattr(args, "ci", False))
 
     files = sorted(glob.glob(str(CLAIMS / "*.json")))
     if not files:

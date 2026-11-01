@@ -1421,3 +1421,25 @@ box (96), one `k`, one threshold, five worlds.
 
 Report: `reports/2026-11-01-x71b-persistence-result.md`; aggregate `l1_field_x71b_persistence.json`. Next: half-steps
 `F = 0.033 / 0.037` for the real width, and X72c for branch heredity on stationary branches.
+
+## 10ev. The band is narrow: mixed at 0.037, not at 0.033 (X71c, 01.11)
+
+The multistable window was known to be at least the sweep step (X71) and stationary in time (X71b). Its **width** was the
+sweep's resolution, not a measurement. X71c repeats the boundary protocol at two half-steps, 24 000 steps each:
+
+| inflow | mixed worlds | states | second-mode shares |
+|---|---|---|---|
+| 0.033 | 3/5 | mixed, mixed, single, single, mixed | 0.19–0.23 |
+| 0.035 | 5/5 | mixed ×5 | 0.21–0.26 |
+| 0.037 | 4/5 | mixed, mixed, single, mixed, mixed | 0.16–0.28 |
+
+By the registered 4-of-5 bar the verdict is **narrow**: the band covers 0.035–0.037, `0.002 < width < 0.005`. The honest
+caveat is in the numbers: at 0.033 two worlds sit at second-mode shares of 0.197 and 0.190, a hair under the 0.2 cut, so the
+lower edge is **knife-edge at the chosen threshold** — at 0.19 the band would be twice as wide. What is measured is that the
+edge lies within a few hundredths of the cut, and X71b (shares constant to two decimals over four horizons) is what makes the
+cut defensible: the second mode is not drifting through 0.2, it sits just above or just below.
+
+Both statements are needed: the band is narrow but stable. A wide band that decayed would be a transient; a narrow band that
+persists 24 000 steps is a state of the medium. Report: `reports/2026-11-01-x71c-band-width-result.md`; aggregate
+`l1_field_x71c_width.json`. Next: re-analyse the existing fields with the cut at 0.15 and 0.25 to separate instrument from
+medium — no new series needed.

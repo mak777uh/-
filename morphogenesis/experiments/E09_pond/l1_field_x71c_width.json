@@ -1,0 +1,103 @@
+{
+  "kind": "l1_field_x71c_width",
+  "experiment": "X71c",
+  "command": "python scripts/x71c_analyse.py --write",
+  "prereg": "reports/2026-11-01-x71c-band-width-plan.md",
+  "step": 24000,
+  "second_mode": 0.2,
+  "collapse_share": 0.6,
+  "cells": {
+    "f033": {
+      "flow": 0.033,
+      "worlds": {
+        "171": {
+          "q_peak": 8.0,
+          "share_peak": 0.319,
+          "share_second": 0.217,
+          "state": "mixed"
+        },
+        "172": {
+          "q_peak": 8.0,
+          "share_peak": 0.292,
+          "share_second": 0.228,
+          "state": "mixed"
+        },
+        "173": {
+          "q_peak": 8.0,
+          "share_peak": 0.321,
+          "share_second": 0.197,
+          "state": "single"
+        },
+        "174": {
+          "q_peak": 8.0,
+          "share_peak": 0.401,
+          "share_second": 0.19,
+          "state": "single"
+        },
+        "175": {
+          "q_peak": 8.0,
+          "share_peak": 0.322,
+          "share_second": 0.202,
+          "state": "mixed"
+        }
+      },
+      "mixed": 3,
+      "pattern_bearing": 5,
+      "states": [
+        "mixed",
+        "mixed",
+        "single",
+        "single",
+        "mixed"
+      ],
+      "mixed_cell": false
+    },
+    "f037": {
+      "flow": 0.037,
+      "worlds": {
+        "171": {
+          "q_peak": 11.0,
+          "share_peak": 0.249,
+          "share_second": 0.225,
+          "state": "mixed"
+        },
+        "172": {
+          "q_peak": 11.0,
+          "share_peak": 0.297,
+          "share_second": 0.202,
+          "state": "mixed"
+        },
+        "173": {
+          "q_peak": 11.0,
+          "share_peak": 0.417,
+          "share_second": 0.156,
+          "state": "single"
+        },
+        "174": {
+          "q_peak": 11.0,
+          "share_peak": 0.287,
+          "share_second": 0.276,
+          "state": "mixed"
+        },
+        "175": {
+          "q_peak": 11.0,
+          "share_peak": 0.281,
+          "share_second": 0.231,
+          "state": "mixed"
+        }
+      },
+      "mixed": 4,
+      "pattern_bearing": 5,
+      "states": [
+        "mixed",
+        "mixed",
+        "single",
+        "mixed",
+        "mixed"
+      ],
+      "mixed_cell": true
+    }
+  },
+  "verdict": "narrow: only the 0.035-0.037 half is mixed",
+  "width": "0.002 < width < 0.005"
+}

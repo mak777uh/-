@@ -23,6 +23,7 @@
 from __future__ import annotations
 
 import argparse
+import re
 import hashlib
 import json
 import statistics as st
@@ -126,6 +127,10 @@ def check_prereg(path: Path, structure_only: bool = False) -> tuple[bool, list[s
     return not problems, problems + notes
 
 
+# Числовой положительный контроль обязателен с этой даты: планы, написанные раньше, не переписываются задним числом
+# (это была бы правка пре-регистрации после данных), они остаются как есть и помечаются в отчёте об аудите.
+NUMERIC_CONTROL_SINCE = "2026-11-02"
+
 REQUIRED_SECTIONS = ("## 1. Manipulation is connected", "## 2. Positive control fires",
                      "## 3. Readout exists and varies", "## 4. Sensitivity arithmetic", "## 5. Refusal rule")
 
@@ -147,6 +152,20 @@ def scan_plans(since: str) -> tuple[bool, list[str]]:
         missing = [s.split(". ", 1)[1] for s in REQUIRED_SECTIONS if s not in text]
         if missing:
             bad.append(f"{f.name}: нет разделов {', '.join(missing)}")
+            continue
+        # 01.11, ABC (outcome validity): контроль обязан быть числом, а не галочкой.
+        # Раздел «2. Positive control fires» должен содержать значение эффекта и порог, при котором он «сработал».
+        if f.name[:10] < NUMERIC_CONTROL_SINCE:
+            continue
+        start = text.find("## 2. Positive control fires")
+        end = text.find("## 3.", start) if start >= 0 else -1
+        section = text[start:end if end > start else len(text)] if start >= 0 else ""
+        has_number = re.search(r"\d", section) is not None
+        has_threshold = re.search(r"threshold|порог|≥|>=|at least|не меньше", section, re.I) is not None
+        if not has_number:
+            bad.append(f"{f.name}: положительный контроль без числа (нужно значение эффекта, а не только галочка)")
+        elif not has_threshold:
+            bad.append(f"{f.name}: положительный контроль без порога «сработал, если …»")
     if bad:
         return False, [f"планов проверено: {len(plans)}, с нарушениями: {len(bad)}"] + bad
     return True, [f"планов проверено: {len(plans)}, у всех пять разделов"]
