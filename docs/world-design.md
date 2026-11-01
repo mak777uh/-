@@ -153,3 +153,4 @@ sections were not rewritten, only moved; each one keeps its identifier, so every
 | §10ez | At the band edges: one cell shallow, one void — inconclusive, and the pattern is in mixedness (X75, 02.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
 | §10fa | Memory is two-valued: short inside the multistable band, long outside it (X76, 02.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
 | §10fb | The patch had no power: neighbour sizes do not predict a structure's size (X77, 02.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
+| §10fc | The causal test failed on its own manipulation (X78, 02.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |

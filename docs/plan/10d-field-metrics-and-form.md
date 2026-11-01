@@ -1611,3 +1611,22 @@ are rejected: neighbour sizes and local richness do not predict a structure's si
 Unmeasured: patches much larger than a wavelength (radius 12 was fixed); "patch" as a field quantity rather than a mean of
 structures (that is X70's control, separate). Report: `reports/2026-11-02-x77-patch-control-result.md`; aggregate
 `l1_field_x77_patch.json`.
+
+## 10fc. The causal test failed on its own manipulation (X78, 02.11)
+
+The two-scale reading (§10ey-§10fa) was to be turned into a manipulation: at `F = 0.040`, prescribe the hetero wavelength **matched**
+to the medium's own (8.7 cells) versus **mismatched** (12.0), and see whether memory follows the scale rather than `F`.
+
+The matched arm turned out to be **not a patterned world**: one component per world on average, lag-1 0.212 on 255 pairs, `lambda` >
+1 (no decay). `--hetero-scale` chooses the wavelength of an inflow *modulation*, not the wavelength the medium patterns at; at 8.7
+cells with `amp = 0.5` that modulation destroys the pattern instead of reinforcing it. The pre-registered control caught it (lag-1
+left the band) and the series is **void**.
+
+The surviving arm is a useful consistency check: the mismatched cell is an ordinary `0.040` world (6.8 components, half-life
+**1.88** against X74's **1.61** for the same cell) — two independent samples of one cell agree within ~15 %, so the depth number is
+reproducible across series.
+
+To impose a second scale properly the runner needs a **composite pattern**: two wavelengths summed in `G` before the `F_eff`
+multiplication. That is ~40 lines plus an anchor, and then the same design. Until then the causal status of the two-level statement
+is: pattern measured, three monotone covariates excluded, mechanism described but **not manipulated**. Report:
+`reports/2026-11-02-x78-causal-void.md`; aggregate `l1_field_x78_causal.json`.

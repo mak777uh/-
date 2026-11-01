@@ -4,7 +4,7 @@
 
 The curated page — what matters and why — is [`scripts.md`](scripts.md). This file is the complete list, so that every command behind a number in the record can be found.
 
-Scripts: **237**.
+Scripts: **239**.
 
 ## Гейты и проверки (45)
 
@@ -168,7 +168,7 @@ Scripts: **237**.
 | `make_seed_grid_figure.py` | Собрать Figure 4 рукописи: сетка «инициализация × порядок данных» (§4.13). |
 | `make_simple_poster.py` | Простой постер для владельца: что мы узнали, без терминов. |
 
-## Прочее (105)
+## Прочее (107)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -277,3 +277,5 @@ Scripts: **237**.
 | `x76_analyse.py` | x76_analyse.py — ten worlds at F = 0.033: sampling accident or a genuinely weak initial memory? |
 | `x76_series.py` | x76_series.py — ten worlds at F = 0.033 to replicate the weak-memory cell (X76). |
 | `x77_patch_control.py` | x77_patch_control.py — is the size memory parental, or just the local patch? |
+| `x78_analyse.py` | x78_analyse.py — causal test: does memory depth follow the number of preferred scales, or the inflow? |
+| `x78_series.py` | x78_series.py — causal test: matched vs mismatched prescribed scale at F = 0.040 (X78). |

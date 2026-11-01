@@ -70,7 +70,7 @@ def main(argv=None) -> int:
     seeds = list(range(int(lo), int(hi or lo) + 1))
 
     rows = []
-    for flow in FLOWS:
+    for flow in ARMS:
         for seed in seeds:
             r = run_one(flow, seed)
             rows.append(r)
