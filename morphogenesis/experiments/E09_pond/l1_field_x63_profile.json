@@ -1,0 +1,70 @@
+{
+  "kind": "l1_field_x63_profile",
+  "experiment": "X63",
+  "command": "python scripts/x63_analyse.py --write",
+  "prereg": "reports/2026-11-01-x63-scale-sweep-plan.md",
+  "bar": 154.0,
+  "profile": {
+    "4": {
+      "arm": "s04",
+      "n": 5,
+      "median_splits": 20,
+      "min": 6,
+      "max": 267
+    },
+    "12": {
+      "arm": "s12",
+      "n": 5,
+      "median_splits": 308,
+      "min": 87,
+      "max": 554
+    },
+    "24": {
+      "arm": "s24",
+      "n": 5,
+      "median_splits": 175,
+      "min": 131,
+      "max": 182
+    },
+    "6": {
+      "arm": "s06",
+      "n": 5,
+      "median_splits": 34,
+      "min": 8,
+      "max": 260
+    },
+    "8": {
+      "arm": "s08",
+      "n": 5,
+      "median_splits": 33,
+      "min": 11,
+      "max": 139
+    },
+    "16": {
+      "arm": "s16",
+      "n": 5,
+      "median_splits": 63,
+      "min": 53,
+      "max": 244
+    },
+    "32": {
+      "arm": "s32",
+      "n": 5,
+      "median_splits": 113,
+      "min": 19,
+      "max": 164
+    }
+  },
+  "criterion": {
+    "interior_at_least_bar": false,
+    "endpoints_below_bar": true,
+    "monotone_rise": false,
+    "monotone_fall": false
+  },
+  "verdict": "unclear",
+  "not_claimed": [
+    "five seeds per scale, medians, no curve fitting",
+    "the anchors 4/12/24 come from X62, the rest from X63, same parameters and seeds",
+    "correlation length also changes occupied area, so the knob is not pure geometry"
+  ]
+}
