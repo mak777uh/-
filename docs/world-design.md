@@ -130,3 +130,4 @@ sections were not rewritten, only moved; each one keeps its identifier, so every
 | §10eb | Отбор через выживание воспроизведён, и частота держит не разнообразие, а застой (E6p, 01.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
 | §10ec | Ниши не нужны отбору, чтобы быть, но нужны, чтобы он значил (E6q, 01.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
 | §10ed | Сетка 128: отсутствие выбора длины волны — не свойство ящика 96 (X58-lite, 01.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
+| §10ee | Мир без выбранной длины волны — мир с восемнадцатикратным оборотом линий (01.11, пересчёт) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
