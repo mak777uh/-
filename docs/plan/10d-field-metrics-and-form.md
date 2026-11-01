@@ -1587,3 +1587,27 @@ about 2.5, the same at three inflows inside the band. The mechanism is not split
 `F`, §10ey); what the shallow cells share is **two coexisting length scales**. That is a description, not a demonstrated cause:
 testing it causally would need an independently imposed second scale. Report:
 `reports/2026-11-02-x76-033-replication-result.md`; aggregate `l1_field_x76_033.json`.
+
+## 10fb. The patch had no power: neighbour sizes do not predict a structure's size (X77, 02.11)
+
+X70's spatial control compared a daughter with the **nearest non-parent**; the sharper objection is that the whole **patch**
+within a wavelength sets her size, with the parent merely a member of it. X77 tested that on the same event sets, with the patch
+mean (radius 12 cells, ancestors excluded) as a regressor:
+
+| dataset | events | rho parent | rho patch mean | rho nearest | beta parent given patch |
+|---|---|---|---|---|---|
+| X72c | 1 566 | 0.409 | **0.010** | 0.038 | 0.422 [0.326, 0.531] |
+| X70r | 779 | 0.438 | **0.007** | 0.067 | 0.441 [0.288, 0.602] |
+
+The registered rule required the control to have power (`rho_patch >= 0.20`) before the coefficient could be read; it does not, and
+the median patch holds only two structures. Verdict: **void as a discriminator** — a regressor unrelated to the outcome cannot
+absorb anything.
+
+The void is the finding: reading (a) of X70 ("the parent is just a member of a patch whose size sets the daughter") is now
+**excluded by measurement**, not argument — neighbour sizes are unrelated to a structure's size in this world (0.01). Together with
+X70's local-field test (field richness predicts the daughter at −0.022, the parent at 0.111) both measurable families of confounds
+are rejected: neighbour sizes and local richness do not predict a structure's size; her parent does.
+
+Unmeasured: patches much larger than a wavelength (radius 12 was fixed); "patch" as a field quantity rather than a mean of
+structures (that is X70's control, separate). Report: `reports/2026-11-02-x77-patch-control-result.md`; aggregate
+`l1_field_x77_patch.json`.

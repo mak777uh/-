@@ -1,0 +1,40 @@
+{
+  "kind": "l1_field_x77_patch",
+  "experiment": "X77",
+  "command": "python scripts/x77_patch_control.py --write",
+  "prereg": "reports/2026-11-02-x77-patch-plan.md",
+  "radius_cells": 12.0,
+  "datasets": {
+    "x72c": {
+      "events": 1566,
+      "rho_parent": 0.409,
+      "rho_patch_mean": 0.01,
+      "rho_nearest": 0.038,
+      "beta_parent_given_patch": 0.422154,
+      "beta_ci95": [
+        0.325832,
+        0.530711
+      ],
+      "patch_size_median": 2.0
+    },
+    "x70r": {
+      "events": 779,
+      "rho_parent": 0.438,
+      "rho_patch_mean": 0.007,
+      "rho_nearest": 0.067,
+      "beta_parent_given_patch": 0.441057,
+      "beta_ci95": [
+        0.2883,
+        0.602237
+      ],
+      "patch_size_median": 2
+    }
+  },
+  "controls": {
+    "patch_has_power": false,
+    "enough_events": false,
+    "reference_reproduces_x70": true
+  },
+  "verdict": "void as a discriminator: control(s) ['patch_has_power', 'enough_events'] failed — the patch mean does not predict the daughter, so putting it in the model cannot absorb the parent",
+  "note": "patch_mean replaces the nearest-neighbour control with a local average; the coefficient of the parent is the part of the daughter's size that the patch cannot explain"
+}
