@@ -59,6 +59,36 @@ For the thread's main question — conditions under which a medium carries form 
 shape: the medium carries one generation of *size* memory (X70, pair-specific, 0.42–0.57) and **no** memory of the mixture.
 Form at the branch level is not heritable; size is, weakly.
 
+## The prediction tested on the same data: a third of the mixture is "which quadrant you are in"
+
+The "it is the patch" reading makes a falsifiable prediction that needs no new runs: if the mixture belongs to regions rather
+than to structures, then structures inside one quadrant of the box should agree with each other more than quadrants agree with
+each other. Tested on the same 1 200 snapshots (`scripts/x72c_regions.py`, aggregate `l1_field_x72c_regions.json`) by a one-way
+decomposition of `p_wide` across the four quadrants:
+
+| world | η² median | η² p90 |
+|---|---|---|
+| s171 | 0.427 | 0.485 |
+| s172 | 0.226 | 0.413 |
+| s173 | 0.322 | 0.680 |
+| s174 | 0.304 | 0.416 |
+| s175 | 0.218 | 0.277 |
+| s176 | **0.542** | 0.692 |
+| s177 | 0.321 | 0.506 |
+| s178 | 0.284 | 0.437 |
+| s179 | 0.225 | 0.268 |
+| s180 | 0.311 | 0.443 |
+| **pooled** | **0.307** | — |
+
+**About a third of the variance of the band power is explained by the quadrant a structure sits in**, in every world, and in the
+best worlds over half of it. The prediction held, independently of the surrogate comparison that produced the verdict, and it
+is a *positive* statement where the heredity test was negative: the mixture has a spatial structure, and "region" is the level
+at which it is a real quantity.
+
+Caveat, stated because the decomposition is crude: four quadrants on a 96-cell torus is a coarse partition (24 × 24 cells each,
+about two wavelengths across), so η² here is a lower bound on regionality for a finer partition and an upper bound for "any
+partition at all". A finer test would need a windowed local average rather than a hard quadrant split.
+
 ## What would be worth doing next (and what would not)
 
 - **Not** another branch-heredity instrument. Three independent instruments agree; a fourth would be looking for a way to be

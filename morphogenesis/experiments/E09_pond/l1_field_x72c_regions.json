@@ -1,0 +1,63 @@
+{
+  "kind": "l1_field_x72c_regions",
+  "experiment": "X72c follow-up",
+  "command": "python scripts/x72c_regions.py --write",
+  "question": "does the band mixture belong to regions rather than to structures?",
+  "statistic": "eta^2 = SS_between quadrants / SS_total, per snapshot",
+  "worlds": {
+    "171": {
+      "snapshots": 99,
+      "eta2_median": 0.427,
+      "eta2_p90": 0.485
+    },
+    "172": {
+      "snapshots": 100,
+      "eta2_median": 0.226,
+      "eta2_p90": 0.413
+    },
+    "173": {
+      "snapshots": 98,
+      "eta2_median": 0.322,
+      "eta2_p90": 0.68
+    },
+    "174": {
+      "snapshots": 107,
+      "eta2_median": 0.304,
+      "eta2_p90": 0.416
+    },
+    "175": {
+      "snapshots": 107,
+      "eta2_median": 0.218,
+      "eta2_p90": 0.277
+    },
+    "176": {
+      "snapshots": 99,
+      "eta2_median": 0.542,
+      "eta2_p90": 0.692
+    },
+    "177": {
+      "snapshots": 105,
+      "eta2_median": 0.321,
+      "eta2_p90": 0.506
+    },
+    "178": {
+      "snapshots": 102,
+      "eta2_median": 0.284,
+      "eta2_p90": 0.437
+    },
+    "179": {
+      "snapshots": 106,
+      "eta2_median": 0.225,
+      "eta2_p90": 0.268
+    },
+    "180": {
+      "snapshots": 106,
+      "eta2_median": 0.311,
+      "eta2_p90": 0.443
+    }
+  },
+  "pooled_eta2_median": 0.307,
+  "regions_carry": true,
+  "verdict": "regional: the mixture varies between quadrants more than within them",
+  "note": "eta2 = 0.2 means a fifth of the variance of the band power is explained by which quadrant a structure is in; the X72c reading predicts eta2 to be substantial, because the neighbour predicts better than the parent"
+}

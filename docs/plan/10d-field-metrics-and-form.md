@@ -1469,6 +1469,11 @@ structure is.
 the spread of per-snapshot medians over time (0.11–0.18, failing in 10/10 worlds) instead of the spread across structures in a
 snapshot (0.060–0.068, passing). The verdict rests on the surrogate comparison, which never depended on that arithmetic.
 
+**The prediction held.** If the mixture belongs to regions, structures in one quadrant should agree more than quadrants agree
+with each other. Tested on the same 1 200 snapshots (no new runs): **η² = 0.307 pooled** (0.218-0.542 per world), i.e. about a
+third of the variance of `p_wide` is explained by the quadrant — a positive statement where the heredity test was negative. The
+partition is coarse (4 quadrants of 24x24 cells), so this is a lower bound on regionality for finer partitions.
+
 **What it closes.** Three instruments (spacing proxy, argmax class, band powers) now give the same answer: nothing
 parent-specific survives once the patch is controlled. The two-wavelength coexistence is real, stationary and narrow, and it
 belongs to **regions of the world**, not to lineages. Together with §10ep the line's statement becomes a contrast: the medium
