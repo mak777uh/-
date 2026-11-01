@@ -47,7 +47,10 @@ def check_checkpoints(root: Path) -> list[str]:
         def _is_weight(it) -> bool:
             return str(it.get("path") or "").lower().endswith((".pt", ".pth", ".ckpt"))
 
-        weights = [it for it in items if _is_weight(it)]
+        # Веса не ездят в git, поэтому «ready» про них — состояние машины; но только если это объявлено в самом
+        # снимке (`weights_tracked: false`). Без объявления сравнение остаётся строгим, иначе гейт перестаёт
+        # ловить класс ошибки, ради которого он написан (тест test_snapshot_promising_absent_files_fails).
+        weights = [it for it in items if _is_weight(it)] if req.get("weights_tracked") is False else []
         files = [it for it in items if not _is_weight(it)]
         declared = req.get("ready")
         declared_missing = len(req.get("missing") or [])

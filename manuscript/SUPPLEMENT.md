@@ -23,7 +23,7 @@
 <!-- artifacts:start -->
 | Артефакт | Тип | Байт | sha256 |
 | --- | --- | ---: | --- |
-| [`lab/checkpoints.json`](../lab/checkpoints.json) | index | 3576 | `ea7da604a03dbec372645b77d69154bab0c2338d030aeb50cfd996b3cc4597cc` |
+| [`lab/checkpoints.json`](../lab/checkpoints.json) | index | 3608 | `ab04638610b1d9ac31ec3c0aef4fb516157edb06b4579cf98a87380b2e39ec59` |
 | [`lab/registry.json`](../lab/registry.json) | index | 208449 | `cc789461bb309668e3e4fbebbab9b8e21ef62477f56a34da1e558358b333481f` |
 | [`morphogenesis/experiments/E01_criticality/lyapunov_scan.json`](../morphogenesis/experiments/E01_criticality/lyapunov_scan.json) | other | 1610 | `7db6283ea34a67927c31515e6aceb7f02c42e1124ea35d4800207dbaa51ead18` |
 | [`morphogenesis/experiments/E01_criticality/results.json`](../morphogenesis/experiments/E01_criticality/results.json) | other | 2885 | `a00a7272b24bcc22828abaf281f939d97518b8c59dadbd6fe0158a00a623ef22` |
@@ -2219,6 +2219,8 @@
 | [`reports/figures/e02b_transition_matrix.png`](../reports/figures/e02b_transition_matrix.png) | figure | 152522 | `81f1b4fe50fd819f45411c31fb737a0c232d9c4f993f5233184c8b276779f5b9` |
 | [`reports/figures/e02c_seed_grid.png`](../reports/figures/e02c_seed_grid.png) | figure | 69503 | `a14f0a6eb28fa0675629e539dc863049d97c3a7ef1914c34ebd7348b5c71776f` |
 <!-- artifacts:end -->
+
+
 
 
 
