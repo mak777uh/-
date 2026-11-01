@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_at": "2026-11-01T17:06:19Z",
+  "updated_at": "2026-11-01T17:37:12Z",
   "note": "Очередь пунктов после E02c. Claim берётся до пре-регистрации, а не перед запуском: lab.py item-claim. Статус running означает занятый GPU-лейн и может быть только у одного пункта. | 25.10: добавлено поле impact (1-5) — приоритет конвейера = impact/max(cost_gpu_h,0.1); для запуска пункту нужны prereg (закоммиченный план) и launch.command+outdir.",
   "items": [
     {
@@ -20,14 +20,16 @@
     {
       "id": "X3_claims_expect_column",
       "title": "Колонка ожидаемого значения в матрице утверждений (сверка числа с артефактом)",
-      "status": "planned",
+      "status": "closed",
       "owner": "lead",
       "cost_gpu_h": 0.0,
       "ttl_minutes": 240,
       "hypothesis": null,
       "claimed_at": null,
       "heartbeat_at": null,
-      "note": "из крестового аудита herness (находка 1, K115): claims_lint сверяет наличие и тип, но не значение. Добавить поле expect (число или регулярка) и сверять его с артефактом прямо в claims_lint"
+      "note": "closed: check.expect added to six lab/claims specs and enforced by claim_comparator (tolerance 0.02, counts exact); positive run returns 0, negative control (expect 9.99) returns 1. report reports/2026-11-01-x3-claims-comparator-expect.md",
+      "closed_at": "2026-11-01T17:37:12Z",
+      "closed_by": "lead"
     },
     {
       "id": "X7_dose_confirmation",

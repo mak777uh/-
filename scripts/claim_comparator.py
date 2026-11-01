@@ -165,6 +165,23 @@ def check_claim(path: Path) -> tuple[bool, list[str], list[str]]:
     notes.append(f"контраст: медианы {round(st.median(a), 3)} против {round(st.median(b), 3)}, "
                  f"разница {round(diff, 3)}, CI [{round(lo, 3)}; {round(hi, 3)}]")
 
+    # 01.11, доска X3: компаратор пересчитывал значение и печатал его, но не сравнивал с записанным —
+    # то есть утверждение не могло заметить дрейф артефакта. Теперь ожидаемое значение лежит в спецификации
+    # (`check.expect`), и расхождение сверх допуска валит гейт. Запись `expect` — часть проверки, а не отчёт.
+    expect = (c.get("check") or {}).get("expect") or {}
+    if expect:
+        tol = float(expect.get("tolerance", 0.05))
+        observed = {"contrast": diff, "median_a": st.median(a), "median_b": st.median(b),
+                    "n_a": len(a), "n_b": len(b)}
+        for key, val in observed.items():
+            if key not in expect:
+                continue
+            want = float(expect[key])
+            limit = 0.0 if key.startswith("n_") else tol
+            if abs(float(val) - want) > limit:
+                problems.append(f"дрейф значения {key}: ожидалось {want}, получено {round(float(val), 3)} "
+                                f"(допуск {limit}); если изменение намеренное — обновите expect в спецификации")
+
     status = status0
     if status == "planned":
         notes.append("утверждение запланировано — правило пока не проверяется как вердикт")

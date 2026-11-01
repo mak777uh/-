@@ -42,7 +42,15 @@
     }
   },
   "check": {
-    "kind": "field_integral_contrast"
+    "kind": "field_integral_contrast",
+    "expect": {
+      "contrast": 0.143,
+      "median_a": 6.286,
+      "median_b": 6.143,
+      "n_a": 20,
+      "n_b": 20,
+      "tolerance": 0.02
+    }
   },
   "failed_condition": "разница 0.14, bootstrap CI включает ноль; при 3 сидах выглядело как 7.14 против 3.9–4.7",
   "references": [
