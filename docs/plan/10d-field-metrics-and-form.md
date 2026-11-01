@@ -1512,3 +1512,27 @@ flattens the curve, peak area is a lifetime maximum, one inflow and one box. Rep
 `reports/2026-11-02-x73-depth-result.md`; aggregate `l1_field_x73_depth.json`. Next: the half-life should scale with how
 strongly the field pulls structures to its preferred size — a measurable prediction, but it needs worlds with long chains,
 i.e. a new run.
+
+## 10ey. The half-life depends on the inflow, and the multistable band is where memory dies fastest (X74, 02.11)
+
+Two new inflow cells (`F = 0.030` and `0.040`, dense 50-step logging — the X71 logs carry no genealogies at all) joined the
+0.035 cell of X73:
+
+| inflow | rho lag 1 / 2 / 3 | lambda | half-life |
+|---|---|---|---|
+| 0.030 | 0.507 / 0.304 / 0.198 | 0.625 | **1.47** |
+| 0.035 | 0.475 / 0.204 / 0.072 | 0.389 | **0.73** |
+| 0.040 | 0.486 / 0.278 / 0.205 | 0.649 | **1.61** |
+
+Lag-1 is essentially the same in all three cells (0.475-0.507), so **how much a daughter resembles her mother does not depend on
+the inflow**; what depends on it is **how fast that resemblance is forgotten**, and the dependence is not monotone: a U with its
+minimum at 0.035, the multistable cell of §10eq-§10ev. Away from the band memory lasts 1.5-1.6 divisions, inside it 0.73.
+
+**The world that can be two things remembers less.** Two mechanisms are consistent and not separated here: competing pulls at
+the boundary (a structure's size is under two preferred scales) or kinematics (more splitting and merging, so a parent's size is
+replaced faster). The separating measurement — split rate per structure per 1000 steps in each cell — is available in the same
+artifacts.
+
+The registered criterion asked for a *consistent direction*; the spread is there (factor 2.0) but the direction is not, so the
+claim is stated narrowly: the rate depends on the inflow, and the dependence is non-monotone. Report:
+`reports/2026-11-02-x74-rate-result.md`; aggregate `l1_field_x74_rate.json`.
