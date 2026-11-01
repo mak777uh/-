@@ -104,3 +104,21 @@ The series is declared **worthless, not negative**, if any of these holds:
 - [x] refusal rule written (four conditions above)
 
 **Run after the anchor passes, not before.**
+
+## Anchor result — passed, 1 November 04:20
+
+The flag was implemented and tested before any series:
+
+| test | result |
+|---|---|
+| flag is inert — `series` with and without `--save-fields` | **identical, bit-for-bit** (`_exports/anchor-x60/off.json` against `on.json`) |
+| reproduces the stored artifact — all fields that existed in `x18_pattern_s171` (`step`, `components`, `areas`, `s_mean`, `s_sd_between`, `occupied`, `invader_area`, `s_wild_fraction`) | **identical** |
+| summary | components `[1, 11, 15, 20, 3, 6, 6]`, `splits` 482, `parent_child_pairs` 1182, `r` 0.964 |
+| fields written | 3 files, 36 992 B each (`96 × 96 × float32` + header), snapshot tag `on_s171_t{2000,4000,6000}.npy` |
+| wall time | 81 s without saving, 97 s with (seed 171, grid 96, 6000 steps, CUDA) |
+
+The one difference from the old artifact is a schema addition made by later probes (`components_log`, `pulse_on`), not a
+change in dynamics — the comparable fields match exactly.
+
+Artifacts: `morphogenesis/experiments/L1_field/anchor_x60/` (two JSONs and the three arrays, so the anchor is checkable
+without rerunning). The remaining 19 runs of the series are **not** started: they need the owner's go-ahead, per §3.

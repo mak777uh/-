@@ -169,6 +169,13 @@ def main(argv=None) -> int:
     ap.add_argument("--overlap", type=float, default=0.5, help="доля клеток дочери, при которой родитель признан")
     ap.add_argument("--sample-every", type=int, default=1000)
     ap.add_argument("--out", default=None)
+    # X60: сохранить само поле, а не только счётчики. Без этого нельзя посчитать β0/β1,
+    # спектр и длину волны, а значит нельзя ни нормировать число на λ², ни определить
+    # время жизни персистентностью вместо правила перекрытия. Флаг не трогает ГПСЧ.
+    ap.add_argument("--save-fields", default=None,
+                    help="X60: каталог, куда писать v на выбранных срезах (.npy, float32)")
+    ap.add_argument("--save-fields-at", default="2000,4000,6000",
+                    help="X60: шаги, на которых сохраняется поле (по умолчанию 2000,4000,6000)")
     args = ap.parse_args(argv)
 
     import numpy as np
@@ -248,6 +255,8 @@ def main(argv=None) -> int:
     pairs: list[tuple[float, float]] = []   # (s родителя, s дочери)
     splits = 0
     series = []
+    _save_at = {int(x) for x in str(args.save_fields_at).split(",") if x.strip()}
+    fields_saved: list[str] = []
 
     for step in range(1, int(args.steps) + 1):
         # поле роста из состава: у каждой компоненты свой F
@@ -517,6 +526,15 @@ def main(argv=None) -> int:
                     for cid in keep if cid in comp_s
                 ],
             })
+            # X60: поле пишется ПОСЛЕ записи среза и не меняет ни порядок, ни ГПСЧ —
+            # иначе якорь (сравнение series с прежним прогоном) не сойдётся.
+            if args.save_fields and step in _save_at:
+                _dir = Path(args.save_fields)
+                _dir.mkdir(parents=True, exist_ok=True)
+                _tag = Path(args.out).stem if args.out else f"seed{args.seed}"
+                _path = _dir / f"{_tag}_s{args.seed}_t{step}.npy"
+                np.save(_path, v.detach().to("cpu").numpy().astype("float32"))
+                fields_saved.append(str(_path).replace("\\", "/"))
 
     # E11: удельная скорость роста редкого типа по срезам после подсева
     inv_curve = [(r["step"], r.get("invader_area", 0)) for r in series
@@ -533,6 +551,7 @@ def main(argv=None) -> int:
                   "расщеплении с мутацией; состав влияет на локальный F"),
         "params": {k: v for k, v in vars(args).items() if k != "out"},
         "series": series,
+        "fields_saved": fields_saved,   # X60: пути .npy, если --save-fields
         "selection": {
             "s_mean_first": series[0]["s_mean"] if series else None,
             "s_mean_last": series[-1]["s_mean"] if series else None,
