@@ -245,6 +245,8 @@ def collect() -> list[dict]:
             comp_json = (by_step.get(t) or {}).get("components")
             rows.append({
                 "arm": arm, "seed": seed, "t": t,
+                # гейт aggregate_check требует ссылку на артефакт в каждой строке
+                "artifact": f"morphogenesis/experiments/L1_field/x58_{arm}_s{seed}.json",
                 "components_json": comp_json,
                 "match": (b0 == comp_json) if comp_json is not None else None,
                 "beta0": b0, "beta1": int(round(b1)), "chi": round(chi, 2),
