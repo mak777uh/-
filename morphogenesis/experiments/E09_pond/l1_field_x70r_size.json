@@ -1,0 +1,186 @@
+{
+  "kind": "l1_field_x70r_size",
+  "experiment": "X70",
+  "command": "python scripts/x70_analyse.py --write --prefix x70r",
+  "prefix": "x70r",
+  "prereg": "reports/2026-11-01-x70-size-heredity-plan.md",
+  "arms": {
+    "pattern": {
+      "events": 1034,
+      "paired_events": 1034,
+      "stats": {
+        "n": 1034,
+        "corr": 0.526,
+        "slope": 0.463,
+        "parent_median": 137.0,
+        "daughter_median": 98.0
+      },
+      "shuffle_null": {
+        "observed_corr": 0.526,
+        "null_median": 0.026,
+        "null_p95": 0.091,
+        "exceeds_null": true,
+        "n_perm": 200
+      },
+      "per_world": [
+        {
+          "file": "x70r_pattern_s171.json",
+          "stats": {
+            "n": 175,
+            "corr": 0.491,
+            "slope": 0.383,
+            "parent_median": 156,
+            "daughter_median": 100
+          },
+          "shuffle_null": {
+            "p95": 0.13,
+            "median": -0.006,
+            "n_perm": 2000
+          }
+        },
+        {
+          "file": "x70r_pattern_s172.json",
+          "stats": {
+            "n": 219,
+            "corr": 0.468,
+            "slope": 0.396,
+            "parent_median": 125,
+            "daughter_median": 88
+          },
+          "shuffle_null": {
+            "p95": 0.106,
+            "median": -0.0,
+            "n_perm": 2000
+          }
+        },
+        {
+          "file": "x70r_pattern_s173.json",
+          "stats": {
+            "n": 210,
+            "corr": 0.566,
+            "slope": 0.571,
+            "parent_median": 136.0,
+            "daughter_median": 100.0
+          },
+          "shuffle_null": {
+            "p95": 0.12,
+            "median": -0.009,
+            "n_perm": 2000
+          }
+        },
+        {
+          "file": "x70r_pattern_s174.json",
+          "stats": {
+            "n": 196,
+            "corr": 0.423,
+            "slope": 0.377,
+            "parent_median": 126.0,
+            "daughter_median": 97.0
+          },
+          "shuffle_null": {
+            "p95": 0.125,
+            "median": -0.006,
+            "n_perm": 2000
+          }
+        },
+        {
+          "file": "x70r_pattern_s175.json",
+          "stats": {
+            "n": 234,
+            "corr": 0.548,
+            "slope": 0.515,
+            "parent_median": 139.0,
+            "daughter_median": 100.5
+          },
+          "shuffle_null": {
+            "p95": 0.119,
+            "median": -0.009,
+            "n_perm": 2000
+          }
+        }
+      ],
+      "verdict": "sizes regress to the medium's scale"
+    },
+    "homog": {
+      "events": 76,
+      "paired_events": 76,
+      "stats": {
+        "n": 76,
+        "corr": 0.367,
+        "slope": 0.214,
+        "parent_median": 2104.0,
+        "daughter_median": 331.0
+      },
+      "shuffle_null": {
+        "observed_corr": 0.367,
+        "null_median": 0.132,
+        "null_p95": 0.335,
+        "exceeds_null": true,
+        "n_perm": 200
+      },
+      "per_world": [
+        {
+          "file": "x70r_homog_s171.json",
+          "stats": {
+            "n": 16,
+            "corr": 0.086,
+            "slope": 0.142,
+            "parent_median": 2138.0,
+            "daughter_median": 318.5
+          },
+          "shuffle_null": {
+            "p95": 0.399,
+            "median": 0.0,
+            "n_perm": 2000
+          }
+        },
+        {
+          "file": "x70r_homog_s172.json",
+          "stats": null,
+          "shuffle_null": null
+        },
+        {
+          "file": "x70r_homog_s173.json",
+          "stats": {
+            "n": 20,
+            "corr": 0.294,
+            "slope": 0.262,
+            "parent_median": 3524.0,
+            "daughter_median": 331.0
+          },
+          "shuffle_null": {
+            "p95": 0.357,
+            "median": -0.016,
+            "n_perm": 2000
+          }
+        },
+        {
+          "file": "x70r_homog_s174.json",
+          "stats": null,
+          "shuffle_null": null
+        },
+        {
+          "file": "x70r_homog_s175.json",
+          "stats": {
+            "n": 24,
+            "corr": 0.471,
+            "slope": 0.103,
+            "parent_median": 2316.0,
+            "daughter_median": 414.0
+          },
+          "shuffle_null": {
+            "p95": 0.342,
+            "median": 0.013,
+            "n_perm": 2000
+          }
+        }
+      ],
+      "verdict": "sizes regress to the medium's scale"
+    }
+  },
+  "not_claimed": [
+    "five seeds per arm, pooled events, no p-values",
+    "peak area is a thresholded quantity and moves with the threshold",
+    "the daughter's own peak may occur after it has already split again, which biases the slope downward"
+  ]
+}

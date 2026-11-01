@@ -1,0 +1,392 @@
+{
+  "kind": "l1_field_x70_spatial_strata",
+  "experiment": "X70 control, second design",
+  "command": "python scripts/x70_spatial_strata.py --write --prefix x70r",
+  "prefix": "x70r",
+  "prereg": "docs/plan/10d-field-metrics-and-form.md §10ep, registered before the run",
+  "draws": 40,
+  "bootstrap": 400,
+  "min_pairs": 5,
+  "arms": {
+    "pattern": {
+      "arm": "pattern",
+      "events": 841,
+      "fallback_share": 0.511,
+      "distance_bins": {
+        "edges": [
+          4.52,
+          6.55,
+          13.1
+        ],
+        "rows": [
+          {
+            "bin": 0,
+            "events": 211,
+            "distance_range": [
+              0.2,
+              4.52
+            ],
+            "observed": 0.768,
+            "surrogate_median": -0.005,
+            "fallback_share": 0.938
+          },
+          {
+            "bin": 1,
+            "events": 210,
+            "distance_range": [
+              4.52,
+              6.55
+            ],
+            "observed": 0.661,
+            "surrogate_median": -0.012,
+            "fallback_share": 0.957
+          },
+          {
+            "bin": 2,
+            "events": 210,
+            "distance_range": [
+              6.55,
+              13.1
+            ],
+            "observed": 0.673,
+            "surrogate_median": 0.003,
+            "fallback_share": 0.148
+          },
+          {
+            "bin": 3,
+            "events": 210,
+            "distance_range": [
+              13.25,
+              59.57
+            ],
+            "observed": 0.225,
+            "surrogate_median": 0.001,
+            "fallback_share": 0.0
+          }
+        ]
+      },
+      "distance_stratified": {
+        "observed_weighted": 0.582,
+        "surrogate_weighted": -0.003,
+        "difference": 0.585,
+        "observed_fisher": 0.613,
+        "surrogate_fisher": -0.003
+      },
+      "occupancy_tertiles": {
+        "edges": [
+          25,
+          38
+        ],
+        "rows": [
+          {
+            "tertile": 0,
+            "events": 281,
+            "occupancy_range": [
+              2,
+              25
+            ],
+            "observed": 0.422,
+            "surrogate_median": 0.018
+          },
+          {
+            "tertile": 1,
+            "events": 286,
+            "occupancy_range": [
+              26,
+              38
+            ],
+            "observed": 0.581,
+            "surrogate_median": -0.038
+          },
+          {
+            "tertile": 2,
+            "events": 274,
+            "occupancy_range": [
+              39,
+              52
+            ],
+            "observed": 0.433,
+            "surrogate_median": 0.005
+          }
+        ],
+        "dense_difference": 0.428
+      },
+      "per_seed": [
+        {
+          "seed": 171,
+          "events": 146,
+          "observed": 0.574,
+          "surrogate_median": -0.01,
+          "difference": 0.584
+        },
+        {
+          "seed": 172,
+          "events": 191,
+          "observed": 0.473,
+          "surrogate_median": -0.013,
+          "difference": 0.487
+        },
+        {
+          "seed": 173,
+          "events": 167,
+          "observed": 0.557,
+          "surrogate_median": -0.045,
+          "difference": 0.602
+        },
+        {
+          "seed": 174,
+          "events": 162,
+          "observed": 0.404,
+          "surrogate_median": 0.059,
+          "difference": 0.344
+        },
+        {
+          "seed": 175,
+          "events": 175,
+          "observed": 0.646,
+          "surrogate_median": -0.063,
+          "difference": 0.709
+        }
+      ],
+      "seeds_with_diff_gt_010": 5,
+      "bootstrap_difference_ci95": [
+        0.474,
+        0.683
+      ],
+      "local_environment": {
+        "covered": 835,
+        "edges": [
+          0.12376268953084946,
+          0.14792901277542114
+        ],
+        "rows": [
+          {
+            "tertile": 0,
+            "events": 279,
+            "local_v_range": [
+              0.0,
+              0.124
+            ],
+            "observed": 0.183,
+            "surrogate_median": 0.015
+          },
+          {
+            "tertile": 1,
+            "events": 278,
+            "local_v_range": [
+              0.124,
+              0.148
+            ],
+            "observed": 0.488,
+            "surrogate_median": 0.013
+          },
+          {
+            "tertile": 2,
+            "events": 278,
+            "local_v_range": [
+              0.148,
+              0.199
+            ],
+            "observed": 0.63,
+            "surrogate_median": -0.048
+          }
+        ],
+        "weighted_difference": 0.44,
+        "predicts": {
+          "corr_local_v_parent": 0.111,
+          "corr_local_v_child": -0.022,
+          "corr_local_occ_child": 0.019
+        }
+      },
+      "partial_corr_distance_occupancy": 0.531,
+      "partial_corr_plus_local_environment": 0.545,
+      "spearman_raw": 0.5,
+      "verdict": "survives"
+    },
+    "homog": {
+      "arm": "homog",
+      "events": 73,
+      "fallback_share": 0.247,
+      "distance_bins": {
+        "edges": [
+          15.48,
+          21.36,
+          28.43
+        ],
+        "rows": [
+          {
+            "bin": 0,
+            "events": 19,
+            "distance_range": [
+              0.09,
+              15.48
+            ],
+            "observed": 0.77,
+            "surrogate_median": 0.287,
+            "fallback_share": 0.474
+          },
+          {
+            "bin": 1,
+            "events": 18,
+            "distance_range": [
+              15.51,
+              21.36
+            ],
+            "observed": 0.375,
+            "surrogate_median": 0.538,
+            "fallback_share": 0.444
+          },
+          {
+            "bin": 2,
+            "events": 19,
+            "distance_range": [
+              21.94,
+              28.43
+            ],
+            "observed": 0.453,
+            "surrogate_median": 0.578,
+            "fallback_share": 0.053
+          },
+          {
+            "bin": 3,
+            "events": 17,
+            "distance_range": [
+              28.88,
+              50.31
+            ],
+            "observed": 0.439,
+            "surrogate_median": 0.091,
+            "fallback_share": 0.0
+          }
+        ]
+      },
+      "distance_stratified": {
+        "observed_weighted": 0.513,
+        "surrogate_weighted": 0.379,
+        "difference": 0.134,
+        "observed_fisher": 0.537,
+        "surrogate_fisher": 0.395
+      },
+      "occupancy_tertiles": {
+        "edges": [
+          8,
+          8
+        ],
+        "rows": [
+          {
+            "tertile": 0,
+            "events": 57,
+            "occupancy_range": [
+              5,
+              8
+            ],
+            "observed": 0.669,
+            "surrogate_median": 0.243
+          },
+          {
+            "tertile": 2,
+            "events": 16,
+            "occupancy_range": [
+              12,
+              12
+            ],
+            "observed": -0.043,
+            "surrogate_median": -0.102
+          }
+        ],
+        "dense_difference": 0.059
+      },
+      "per_seed": [
+        {
+          "seed": 171,
+          "events": 16,
+          "observed": 1.0,
+          "surrogate_median": 0.155,
+          "difference": 0.845
+        },
+        {
+          "seed": 172,
+          "events": 8,
+          "observed": null,
+          "surrogate_median": -0.612,
+          "difference": null
+        },
+        {
+          "seed": 173,
+          "events": 17,
+          "observed": 0.743,
+          "surrogate_median": 0.968,
+          "difference": -0.225
+        },
+        {
+          "seed": 174,
+          "events": 8,
+          "observed": null,
+          "surrogate_median": null,
+          "difference": null
+        },
+        {
+          "seed": 175,
+          "events": 24,
+          "observed": 0.094,
+          "surrogate_median": 0.494,
+          "difference": -0.4
+        }
+      ],
+      "seeds_with_diff_gt_010": 1,
+      "bootstrap_difference_ci95": [
+        -0.289,
+        0.489
+      ],
+      "local_environment": {
+        "covered": 73,
+        "edges": [
+          0.16289319097995758,
+          0.1824379563331604
+        ],
+        "rows": [
+          {
+            "tertile": 0,
+            "events": 25,
+            "local_v_range": [
+              0.117,
+              0.163
+            ],
+            "observed": 0.499,
+            "surrogate_median": 0.128
+          },
+          {
+            "tertile": 1,
+            "events": 24,
+            "local_v_range": [
+              0.164,
+              0.182
+            ],
+            "observed": 0.457,
+            "surrogate_median": -0.045
+          },
+          {
+            "tertile": 2,
+            "events": 24,
+            "local_v_range": [
+              0.19,
+              0.203
+            ],
+            "observed": 0.026,
+            "surrogate_median": 0.207
+          }
+        ],
+        "weighted_difference": 0.233,
+        "predicts": {
+          "corr_local_v_parent": -0.158,
+          "corr_local_v_child": -0.145,
+          "corr_local_occ_child": -0.207
+        }
+      },
+      "partial_corr_distance_occupancy": 0.376,
+      "partial_corr_plus_local_environment": 0.18,
+      "spearman_raw": 0.381,
+      "verdict": "unresolved"
+    }
+  }
+}

@@ -18,6 +18,15 @@ tested against a *spatial* null. The control is a non-parent structure at the sa
 runs, the claim is "parent-specific signal exists, spatial control pending" — and this is now the first item of the plan,
 not the last.
 
+**Update, 17:20 the same day — the objection was tested and the claim survived it, at a different number.** The control
+ran three ways (nearest-distance surrogate inside distance bins, occupancy tertiles, and the local field itself as both
+stratum and covariate). Observed 0.582 against a surrogate of −0.003, partial 0.545, and heredity is weak in the driest
+third of the field and strong in the richest — the environment modulates it but does not predict the area, so the common-
+environment confound is measured and rejected. Running the control also exposed a defect in the run itself: in a `beta = 0`
+world the seeds do not move the geometry, so the original five seeds were one world copied five times and 0.334 was one
+draw of the starting blob. Over five genuinely different worlds the coefficient is 0.499 (0.42–0.57), and the pairing
+null is 0.11–0.13, not 0.054.
+
 ## 2. Hysteresis: two different things wear the same name
 
 Three answers converged: a hysteresis **threshold in the detector** (appear above θ_hi, vanish below θ_lo) changes our
@@ -32,8 +41,8 @@ is a **measurement change, not an inheritance channel**, and must be labelled th
 All four answers failed to find a two-species reaction–diffusion system with no imposed genotype that transmits a
 lineage-level property across generations with measured fidelity. The most plausible falsifier any of them proposed is
 **multistability of morphology**: parameter regions where several stable spot sizes coexist, so a daughter inherits the
-parent's attractor. That is "limited heredity" in Szathmáry's sense — the category our X70 result (a third of the deviation
-survives, two thirds regress) belongs to.
+parent's attractor. That is "limited heredity" in Szathmáry's sense — the category our X70 result belongs to (originally
+"a third of the deviation survives"; after the repair, about half, with slopes 0.38–0.57).
 
 One answer cited a **recent Gray–Scott Markov-blanket paper** reporting that a flux-defined claim failed under the tested
 estimators. If it exists, it is the closest published relative of our negative result and must be read before we state

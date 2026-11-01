@@ -1205,20 +1205,71 @@ X59 (счётчик делений) не тронут — это счётчик,
 утверждение звучит так: специфичный для пары сигнал есть и превышает перестановочный нуль; переживает ли он контроль на
 соседство — не проверено.
 
-**Пространственный контроль (15:55).** Четыре внешних ответа указали, что корреляция площади возникнет и при нулевой
-передаче: дочь стоит там, где был родитель. Контроль сделан (scripts/x70_spatial_null.py, агрегат
-l1_field_x70_spatial.json): для каждого деления измеряется расстояние «родитель–дочь» по центроидам и берётся суррогат —
-структура, присутствующая при рождении дочери на таком же расстоянии (±4 клетки). Результат двойной: **направление против
-передачи** (суррогат коррелирует с дочерью сильнее, 0.64 против 0.10), но **событий всего 50 из 925**, и это не случайная
-подвыборка — совпадение по расстоянию выживает только в тесных, дробящихся местах. Гомогенное плечо вырождено (35
-событий, один суррогат).
+**First spatial control (15:55).** All four external answers made the same objection: an area correlation arises even at
+zero transmission, because the daughter stands where the parent stood. The control was built (`scripts/x70_spatial_null.py`,
+aggregate `l1_field_x70_spatial.json`): for each division the parent–child centroid distance is measured, and the surrogate
+is a structure present at the daughter's birth at the same distance (±4 cells). The result is double-edged: the
+**direction is against transmission** (the surrogate correlates with the daughter more strongly, 0.64 against 0.10), but
+only **50 of 925 events** survive the distance match, and they are not a random subsample — the match survives only in
+tight, actively dividing places. The homogeneous arm is degenerate (35 events, one surrogate).
 
-**Статус X70 после контроля: не решено.** Перестановочный нуль говорит, что сигнал специфичен паре; первый
-пространственный контроль говорит, что это может быть место, но на 5 % данных. Ни одно из чисел не заслуживает того,
-чтобы его цитировали как результат. Чтобы контроль решал, нужно сравнивать внутри **бинов расстояния** (тогда
-сохраняются все 925 событий) и добавить вторую ковариату — локальную занятость в окне, потому что расстояние и теснота в
-этом мире смешаны. Это полчаса анализа по уже лежащим данным и первый пункт следующей сессии.
+**Status of X70 after the first control: unresolved** — see below, where it is resolved. The pairing null says the signal is
+specific to the pair; the first spatial control says it may be the place, measured on 5 % of the data. Neither number
+deserves to be quoted as a result.
+
+**Second spatial control, registered before it runs.** Two defects are fixed by design. (1) No tolerance: every event is
+kept, and the surrogate for each event is the non-parent structure present at the daughter's birth that is **closest in
+distance** to the daughter, so the comparison holds in all 925 events. (2) Stratification instead of global pooling:
+events are binned by parent–child distance (pooled quartiles), and the comparison of observed against surrogate is made
+**inside each bin**, because distance and crowding are mixed in this world; a second pass repeats it inside tertiles of
+**local occupancy** (number of components at the daughter's birth). A rank partial correlation of parent and daughter
+controlling both distance and occupancy is reported alongside.
+
+Decision rule, fixed now: the pair-specific signal **survives** if the observed correlation exceeds the
+nearest-distance surrogate by more than **+0.10** (event-weighted mean of within-bin values) in **at least 4 of 5 seeds**
+and in the pooled estimate, and if it also exceeds the surrogate in the **densest occupancy tertile**. It is
+**spatial** if the difference is **≤ 0** in the pooled estimate. Anything else — mixed signs, differences inside
+(−0.00, +0.10], seed disagreement — is **unresolved** and is reported as such, with the number of events, the bin
+boundaries and the fallback count (events whose bin contained no candidate surrogate).
+
+**Why the data had to be re-logged (16:05).** The old artifacts keep one snapshot per 1000 steps, so a daughter's birth
+almost never coincides with a logged snapshot and the structures present at her birth are unknown: the redesign keeps
+925 events only in principle. X70 was therefore re-run with `--sample-every 50` and field snapshots every 200 steps,
+nothing else changed. Anchor: the seven rows the old artifacts kept (steps 1000…6000), `uid_pairs` and `uid_outcomes`
+match the old run bit-for-bit in both arms, so logging did not touch the world; only the record got denser (121 rows
+instead of 7). This is a re-logging of an existing experiment, not a new one, and the numbers of X70 itself are
+unchanged.
+
+**Third control, same registration.** The best available stand-in for "the place" is not another component but the field
+itself, so for every event the local environment at the daughter's birth is measured from the snapshot within 200 steps:
+mean `v` and occupied fraction inside a radius-8 disc around her centroid. Three uses: (1) does the environment predict
+both ends — if it does not, the confound story is empty; (2) does the parent–daughter correlation survive **inside**
+local-environment tertiles; (3) does it survive as a rank partial correlation controlling distance, occupancy and the two
+local field statistics. Same band: the effect must stay above +0.10 in the pooled estimate and in ≥4 of 5 seeds to be
+called transmission rather than place.
 
 **Что это значит для утреннего вопроса.** Правильная среда даёт **ограниченную** наследственность: одно поколение,
 точность около трети, линии дальше без дополнительного канала не возникают. Это та же категория «limited heredity»,
 на которую указывали ответы (мультистабильность морфологий), и это результат, а не ноль.
+
+**Result after repair (17:20).** The repair found a second, larger defect before it could answer the first question: in a
+neutral world (`beta = 0`, `eps = 0`) the geometry does not depend on the seed, so the five "seeds" were one world with
+five inert trait noises — `uid_pairs`, areas and peaks identical, only `s` differing. The 925 events were 185 events copied
+five times and the pairing null (p95 = 0.054) was five copies wide. `--init-jitter` (seed-derived offset and ±20 % radius
+of the starting blob, inert when off, anchor bit-for-bit) produced five real worlds: 1034 events, per-world correlations
+0.491 / 0.468 / 0.566 / 0.423 / 0.548 (mean 0.499), each above its own pairing null (p95 = 0.11–0.13), slopes 0.38–0.57.
+
+All three controls were re-run on those worlds. Nearest-distance surrogate: observed **0.582** against **−0.003**
+(difference +0.585, cluster bootstrap +0.47…+0.68, 5/5 worlds above +0.10), and the four distance bins read 0.768 / 0.661 /
+0.673 / 0.225 — parent-specific at every distance, weakest far away. Occupancy tertiles 0.422 / 0.581 / 0.433 with no
+monotone crowding story. Field tertiles **0.183 / 0.488 / 0.630**: heredity is weak in the driest third of the field and
+strong in the richest, while the environment does not predict the daughter's area (−0.022) or the parent's (0.111) — so
+richness **modulates** heredity instead of causing it. Partial rank correlation controlling distance, occupancy and both
+local field statistics: **0.545**.
+
+**Verdict.** Size heredity in the neutral world is real, specific to the parent–daughter pair, and survives the proximity
+control that the four external answers demanded. It is partial: about half the parent's deviation is erased within one
+division (slope 0.45). The homogeneous arm remains **unresolved** (73 events, 1 of 3 estimable worlds above its null), and
+the earlier 0.294 for it was twenty events copied five times. Report:
+`reports/2026-11-01-x70-spatial-control-result.md`; defects: `reports/2026-11-01-x70-two-design-defects.md`; aggregates
+`l1_field_x70r_size.json` and `l1_field_x70_spatial_strata.json`.

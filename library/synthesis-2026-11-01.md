@@ -174,3 +174,31 @@ two-channel world, and the field geometry alone produces the other sign.
 
 This is the third claim today to change its object rather than its number, and the pattern is consistent: what looks like a
 property of the medium keeps turning out to be a property of the measurement channel attached to it.
+
+## Added 17:30 — the size-heredity question, and a defect the repair found
+
+The afternoon's last experiment asked whether the medium itself carries heredity of form, with no copying rule imposed.
+It does, but weakly, and testing it properly cost more than expected.
+
+- **Heredity is real and belongs to the pair, not the place.** Over five genuinely different worlds a daughter's peak
+  area correlates with her own parent's at 0.42–0.57 (mean 0.499), each above its own pairing null. The control the
+  external answers demanded — a non-parent companion at the same distance — gives −0.003 against the observed 0.582, and
+  the partial correlation controlling distance, crowding and two local field statistics is 0.545. So the parent is not
+  just a proxy for a rich neighbourhood.
+- **It is partial.** Slope 0.38–0.57: roughly half the parent's deviation is erased within one division. That is
+  "limited heredity", not a lineage mechanism — enough for a memory of form one generation deep, not enough for
+  cumulative evolution.
+- **Richness modulates it instead of causing it.** Heredity is 0.18 in the driest third of the field and 0.63 in the
+  richest, while the local environment does not predict the area itself. A rich neighbourhood lets the pair similarity
+  show; it does not manufacture it.
+- **The defect that made the first numbers wrong.** In a world without feedback (`beta = 0`) the seed does not move the
+  geometry at all: the start is a fixed blob and the seed only feeds the trait channel. Five "seeds" were one universe
+  copied five times, so the morning's 0.334 was a single draw and every "5/5 seeds" sentence about geometry was one
+  observation. Fixed with `--init-jitter` (seed-dependent start position and radius, inert when off) and gated by
+  `check_seed_replication.py`, which now measures per family whether the seeds actually produced different worlds. Blast
+  radius: exactly the `beta = 0` arms; the amplitude dose, correlation length, scale sweep, grid map and transmission ratio
+  all have genuinely distinct worlds behind them.
+
+The general lesson, which is the day's most transferable finding: **replication is a property of the world, not of the
+seed count.** A world that ignores its seed cannot be replicated by more seeds, and a null calibrated on copies is too
+tight by roughly the square root of the number of copies.
