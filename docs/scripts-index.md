@@ -4,7 +4,7 @@
 
 The curated page — what matters and why — is [`scripts.md`](scripts.md). This file is the complete list, so that every command behind a number in the record can be found.
 
-Scripts: **195**.
+Scripts: **197**.
 
 ## Гейты и проверки (42)
 
@@ -165,7 +165,7 @@ Scripts: **195**.
 | `make_seed_grid_figure.py` | Собрать Figure 4 рукописи: сетка «инициализация × порядок данных» (§4.13). |
 | `make_simple_poster.py` | Простой постер для владельца: что мы узнали, без терминов. |
 
-## Прочее (66)
+## Прочее (68)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -192,6 +192,7 @@ Scripts: **195**.
 | `entrainment.py` | entrainment.py — захватывает ли мир ритм входного потока (энтрейнмент), и связано ли это с «энергией». |
 | `farm_reader.py` | farm_reader.py — читать результаты фермы GitHub Actions. |
 | `founding_matrix.py` | founding_matrix.py — агрегат серии «порог основания» (H-ALIVE-23 / V10). |
+| `index_report.py` | index_report.py — add a report row to reports/README.md, or check which reports lack one. |
 | `l1_field_matrix.py` | l1_field_matrix.py — агрегат линии поля: медианы, разброс и интервалы по плечам. |
 | `lean_axioms.py` | lean_axioms.py — независимая проверка теорем Lean на «чистоту аксиом» и неизменность формулировок. |
 | `literature_harvest.py` | literature_harvest.py — собрать настоящие работы по теме, с аннотациями и ссылками на полные тексты. |
@@ -234,4 +235,5 @@ Scripts: **195**.
 | `x63_series.py` | x63_series.py — X63: four more correlation lengths, to turn X62's three points into a profile. |
 | `x64_analyse.py` | x64_analyse.py — did the refinement preserve the physical wavelength? |
 | `x64_series.py` | x64_series.py — X64: a real refinement (grid 144, dt 0.5, Du scaled by 1/dx^2 AND dt scaled with it). |
+| `x65_analyse.py` | x65_analyse.py — the grid-120 bracket: does the heterogeneous arm select at 15 cells per period? |
 | `x65_series.py` | x65_series.py — X65: bracket the grid transition at 120 cells (15 cells per pattern period). |

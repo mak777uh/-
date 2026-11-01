@@ -1,0 +1,569 @@
+{
+  "kind": "field_track",
+  "model": "Грей–Скотт + отслеживание компонент: каждая компонента имеет свой состав, наследуемый при расщеплении с мутацией; состав влияет на локальный F",
+  "params": {
+    "steps": 12000,
+    "grid": 120,
+    "dt": 0.5,
+    "seed": 174,
+    "device": "cuda",
+    "Du": 0.25,
+    "Dv": 0.125,
+    "F": 0.035,
+    "k": 0.06,
+    "eps": 0.0,
+    "global_noise_amp": 0.0,
+    "global_noise_rate": 0.05,
+    "global_noise_seed": 0,
+    "trait_field": false,
+    "trait_diffusion": 0.02,
+    "trait_decay": 0.0,
+    "trait_mutation": 0.02,
+    "trait_mutation_local": false,
+    "trait_init": 1.0,
+    "cue_mode": "off",
+    "cue_speed": 1.0,
+    "cue_width": 6.0,
+    "cue_gamma": 0.0,
+    "cue_kappa": 0.0,
+    "cue_period": 0,
+    "cue_skip_from": -1,
+    "cue_skip_to": -1,
+    "cue_memory_tau": 0.0,
+    "cue_kappa_local": false,
+    "cue_seed": 0,
+    "cue_lead": 0,
+    "hetero_amp": 0.0,
+    "hetero_scale": 15.0,
+    "hetero_signal": null,
+    "hetero_period": 0.0,
+    "hetero_shuffle": false,
+    "buffer_tau": 0.0,
+    "protect_fading": 0.0,
+    "buffer_rescue": false,
+    "buffer_gain": 0.0,
+    "invade_s": null,
+    "invade_radius": 3.0,
+    "invade_at": 2000,
+    "invade_threshold": 1.2,
+    "freq_dep": 1.0,
+    "bin_width": 0.2,
+    "beta": 0.2,
+    "s_ref": 1.0,
+    "mutation": 0.15,
+    "threshold": 0.2,
+    "thresholds": "",
+    "min_cells": 5,
+    "overlap": 0.5,
+    "sample_every": 1000,
+    "save_fields": "C:\\Users\\Admin\\Documents\\Qoder\\2026-10-18\\82ab86cd\\repo\\morphogenesis\\experiments\\L1_field\\x65_fields",
+    "save_fields_at": "4000,8000,12000"
+  },
+  "series": [
+    {
+      "step": 1,
+      "invader_area": 0,
+      "areas": [
+        21
+      ],
+      "components": 1,
+      "s_mean": 1.0676,
+      "s_sd_between": 0.0,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.0015,
+      "event_centre": null,
+      "pulse_on": true,
+      "cue_centre": null,
+      "components_log": [
+        {
+          "uid": 1,
+          "s": 1.0676,
+          "area": 21,
+          "cx": 60.0,
+          "cy": 60.0
+        }
+      ]
+    },
+    {
+      "step": 1000,
+      "invader_area": 0,
+      "areas": [
+        684
+      ],
+      "components": 1,
+      "s_mean": 1.0676,
+      "s_sd_between": 0.0,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.0475,
+      "event_centre": null,
+      "pulse_on": true,
+      "cue_centre": null,
+      "components_log": [
+        {
+          "uid": 1,
+          "s": 1.0676,
+          "area": 684,
+          "cx": 60.0,
+          "cy": 60.0
+        }
+      ]
+    },
+    {
+      "step": 2000,
+      "invader_area": 0,
+      "areas": [
+        1152
+      ],
+      "components": 1,
+      "s_mean": 1.0676,
+      "s_sd_between": 0.0,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.08,
+      "event_centre": null,
+      "pulse_on": true,
+      "cue_centre": null,
+      "components_log": [
+        {
+          "uid": 1,
+          "s": 1.0676,
+          "area": 1152,
+          "cx": 60.0,
+          "cy": 60.0
+        }
+      ]
+    },
+    {
+      "step": 3000,
+      "invader_area": 0,
+      "areas": [
+        2096
+      ],
+      "components": 1,
+      "s_mean": 1.0676,
+      "s_sd_between": 0.0,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.1456,
+      "event_centre": null,
+      "pulse_on": true,
+      "cue_centre": null,
+      "components_log": [
+        {
+          "uid": 1,
+          "s": 1.0676,
+          "area": 2096,
+          "cx": 60.0,
+          "cy": 60.0
+        }
+      ]
+    },
+    {
+      "step": 4000,
+      "invader_area": 0,
+      "areas": [
+        3284
+      ],
+      "components": 1,
+      "s_mean": 1.0676,
+      "s_sd_between": 0.0,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.2281,
+      "event_centre": null,
+      "pulse_on": true,
+      "cue_centre": null,
+      "components_log": [
+        {
+          "uid": 1,
+          "s": 1.0676,
+          "area": 3284,
+          "cx": 60.0,
+          "cy": 60.0
+        }
+      ]
+    },
+    {
+      "step": 5000,
+      "invader_area": 0,
+      "areas": [
+        3485,
+        600,
+        491,
+        431,
+        128,
+        108,
+        43
+      ],
+      "components": 7,
+      "s_mean": 0.9296,
+      "s_sd_between": 0.2188,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.3671,
+      "event_centre": null,
+      "pulse_on": true,
+      "cue_centre": null,
+      "components_log": [
+        {
+          "uid": 1,
+          "s": 1.1716,
+          "area": 3485,
+          "cx": 59.39,
+          "cy": 58.84
+        },
+        {
+          "uid": 1,
+          "s": 1.0329,
+          "area": 491,
+          "cx": 59.35,
+          "cy": 37.75
+        },
+        {
+          "uid": 1,
+          "s": 1.0211,
+          "area": 431,
+          "cx": 83.23,
+          "cy": 59.45
+        },
+        {
+          "uid": 1,
+          "s": 0.7215,
+          "area": 108,
+          "cx": 34.44,
+          "cy": 51.19
+        },
+        {
+          "uid": 1,
+          "s": 0.5295,
+          "area": 43,
+          "cx": 48.93,
+          "cy": 59.72
+        },
+        {
+          "uid": 1,
+          "s": 0.8754,
+          "area": 128,
+          "cx": 33.79,
+          "cy": 68.31
+        },
+        {
+          "uid": 1,
+          "s": 1.1556,
+          "area": 600,
+          "cx": 59.57,
+          "cy": 82.23
+        }
+      ]
+    },
+    {
+      "step": 6000,
+      "invader_area": 0,
+      "areas": [
+        5629,
+        453,
+        395,
+        117,
+        30
+      ],
+      "components": 5,
+      "s_mean": 0.9261,
+      "s_sd_between": 0.2193,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.46,
+      "event_centre": null,
+      "pulse_on": true,
+      "cue_centre": null,
+      "components_log": [
+        {
+          "uid": 1,
+          "s": 1.1716,
+          "area": 5629,
+          "cx": 58.94,
+          "cy": 61.37
+        },
+        {
+          "uid": 1,
+          "s": 1.0329,
+          "area": 453,
+          "cx": 59.47,
+          "cy": 37.35
+        },
+        {
+          "uid": 1,
+          "s": 1.0211,
+          "area": 395,
+          "cx": 83.83,
+          "cy": 59.32
+        },
+        {
+          "uid": 1,
+          "s": 0.5295,
+          "area": 30,
+          "cx": 47.63,
+          "cy": 59.37
+        },
+        {
+          "uid": 1,
+          "s": 0.8754,
+          "area": 117,
+          "cx": 33.51,
+          "cy": 67.62
+        }
+      ]
+    },
+    {
+      "step": 7000,
+      "invader_area": 0,
+      "areas": [
+        5677,
+        433,
+        377
+      ],
+      "components": 3,
+      "s_mean": 1.1181,
+      "s_sd_between": 0.087,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.4505,
+      "event_centre": null,
+      "pulse_on": true,
+      "cue_centre": null,
+      "components_log": [
+        {
+          "uid": 1,
+          "s": 1.2321,
+          "area": 5677,
+          "cx": 61.62,
+          "cy": 63.05
+        },
+        {
+          "uid": 1,
+          "s": 1.1012,
+          "area": 433,
+          "cx": 15.48,
+          "cy": 15.6
+        },
+        {
+          "uid": 1,
+          "s": 1.0211,
+          "area": 377,
+          "cx": 83.87,
+          "cy": 59.22
+        }
+      ]
+    },
+    {
+      "step": 8000,
+      "invader_area": 0,
+      "areas": [
+        5761,
+        439,
+        381
+      ],
+      "components": 3,
+      "s_mean": 1.1181,
+      "s_sd_between": 0.087,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.457,
+      "event_centre": null,
+      "pulse_on": true,
+      "cue_centre": null,
+      "components_log": [
+        {
+          "uid": 1,
+          "s": 1.2321,
+          "area": 5761,
+          "cx": 61.7,
+          "cy": 63.0
+        },
+        {
+          "uid": 1,
+          "s": 1.1012,
+          "area": 439,
+          "cx": 15.62,
+          "cy": 15.59
+        },
+        {
+          "uid": 1,
+          "s": 1.0211,
+          "area": 381,
+          "cx": 84.29,
+          "cy": 59.43
+        }
+      ]
+    },
+    {
+      "step": 9000,
+      "invader_area": 0,
+      "areas": [
+        5879,
+        425
+      ],
+      "components": 2,
+      "s_mean": 1.1667,
+      "s_sd_between": 0.0655,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.4378,
+      "event_centre": null,
+      "pulse_on": true,
+      "cue_centre": null,
+      "components_log": [
+        {
+          "uid": 1,
+          "s": 1.2321,
+          "area": 5879,
+          "cx": 63.2,
+          "cy": 62.5
+        },
+        {
+          "uid": 1,
+          "s": 1.1012,
+          "area": 425,
+          "cx": 15.79,
+          "cy": 15.73
+        }
+      ]
+    },
+    {
+      "step": 10000,
+      "invader_area": 0,
+      "areas": [
+        5768,
+        411
+      ],
+      "components": 2,
+      "s_mean": 1.1667,
+      "s_sd_between": 0.0655,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.4291,
+      "event_centre": null,
+      "pulse_on": true,
+      "cue_centre": null,
+      "components_log": [
+        {
+          "uid": 1,
+          "s": 1.2321,
+          "area": 5768,
+          "cx": 63.06,
+          "cy": 62.32
+        },
+        {
+          "uid": 1,
+          "s": 1.1012,
+          "area": 411,
+          "cx": 16.45,
+          "cy": 16.01
+        }
+      ]
+    },
+    {
+      "step": 11000,
+      "invader_area": 0,
+      "areas": [
+        5721
+      ],
+      "components": 1,
+      "s_mean": 1.3394,
+      "s_sd_between": 0.0,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.3973,
+      "event_centre": null,
+      "pulse_on": true,
+      "cue_centre": null,
+      "components_log": [
+        {
+          "uid": 1,
+          "s": 1.3394,
+          "area": 5721,
+          "cx": 59.53,
+          "cy": 59.19
+        }
+      ]
+    },
+    {
+      "step": 12000,
+      "invader_area": 0,
+      "areas": [
+        6095
+      ],
+      "components": 1,
+      "s_mean": 1.3394,
+      "s_sd_between": 0.0,
+      "s_wild_fraction": 0.0,
+      "occupied": 0.4233,
+      "event_centre": null,
+      "pulse_on": true,
+      "cue_centre": null,
+      "components_log": [
+        {
+          "uid": 1,
+          "s": 1.3394,
+          "area": 6095,
+          "cx": 59.68,
+          "cy": 59.52
+        }
+      ]
+    }
+  ],
+  "fields_saved": [
+    "C:/Users/Admin/Documents/Qoder/2026-10-18/82ab86cd/repo/morphogenesis/experiments/L1_field/x65_fields/x65_homog_s174_t4000.npy",
+    "C:/Users/Admin/Documents/Qoder/2026-10-18/82ab86cd/repo/morphogenesis/experiments/L1_field/x65_fields/x65_homog_s174_t8000.npy",
+    "C:/Users/Admin/Documents/Qoder/2026-10-18/82ab86cd/repo/morphogenesis/experiments/L1_field/x65_fields/x65_homog_s174_t12000.npy"
+  ],
+  "selection": {
+    "s_mean_first": 1.0676,
+    "s_mean_last": 1.3394,
+    "s_sd_between_last": 0.0,
+    "splits": 5,
+    "parent_child_pairs": 16,
+    "inheritability_r": 0.883,
+    "invader_rate": null,
+    "invader_curve": []
+  },
+  "buffer": {
+    "protect_fading": 0.0,
+    "tau": 0.0,
+    "gain": 0.0,
+    "rescue": false,
+    "mean_last": 0.0
+  },
+  "global_noise": {
+    "amp": 0.0,
+    "rate": 0.05
+  },
+  "heterogeneity": {
+    "amp": 0.0,
+    "scale": 15.0,
+    "signal": null,
+    "shuffled": false,
+    "components_last": 1
+  },
+  "uid_outcomes": [
+    {
+      "uid": 1,
+      "first": 1,
+      "last": 12000,
+      "peak": 6883,
+      "s_at_birth": 1.0676
+    }
+  ],
+  "lifetimes": {
+    "n_uids": 1,
+    "median_life_steps": 11999,
+    "life_steps": [
+      11999
+    ],
+    "peak_sizes": [
+      6883
+    ]
+  },
+  "components_by_threshold": {},
+  "criteria": {
+    "S1_shift_gt_2sd": null,
+    "S2_inheritability_ge_0.5": true,
+    "S3_survives_doubling": "проверяется сравнением с прогоном вдвое длиннее",
+    "S4_control_eps0": "проверяется прогоном с --eps 0"
+  },
+  "note": "S1 требует сравнения с контролем: сдвиг среднего считается от контроля, а не от старта, потому что состав дрейфует и в контроле",
+  "not_claimed": [
+    "что отбор доказан: нужно сравнение с контролем eps=0 и удвоенный горизонт",
+    "что правило сопоставления оптимально: порог перекрытия 0.5 фиксирован до данных",
+    "что структуры устойчивы к сетке: не проверялось"
+  ]
+}
