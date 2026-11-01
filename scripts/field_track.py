@@ -167,6 +167,10 @@ def main(argv=None) -> int:
                          "считать число компонент на каждом, чтобы отличить тело от перколяционного кластера")
     ap.add_argument("--min-cells", type=int, default=5)
     ap.add_argument("--overlap", type=float, default=0.5, help="доля клеток дочери, при которой родитель признан")
+    # X70: при делении давать дочерям СВОИ идентичности, иначе пики родителя и дочери неразделимы
+    # и «наследование размера» измерить нельзя — обе записи несут один uid.
+    ap.add_argument("--split-new-uid", action="store_true",
+                    help="X70: при расщеплении выдавать дочерям новые uid и писать пары (родитель, дочь)")
     ap.add_argument("--sample-every", type=int, default=1000)
     ap.add_argument("--out", default=None)
     # X60: сохранить само поле, а не только счётчики. Без этого нельзя посчитать β0/β1,
@@ -253,6 +257,10 @@ def main(argv=None) -> int:
     _invade_pending = False
     prev_lab = None
     pairs: list[tuple[float, float]] = []   # (s родителя, s дочери)
+    # X70: пары (площадь родителя, площадь дочери) на момент деления — чтобы мерить
+    # наследование РАЗМЕРА, а не навязанного состава. Логгер, ГПСЧ не трогает.
+    size_pairs: list[tuple[int, int]] = []
+    uid_pairs: list[tuple[int, int]] = []   # (uid родителя, uid дочери) при --split-new-uid
     splits = 0
     series = []
     _save_at = {int(x) for x in str(args.save_fields_at).split(",") if x.strip()}
@@ -437,6 +445,7 @@ def main(argv=None) -> int:
                         best = int(vals[int(np.argmax(counts))])
                         if counts.max() / cells.sum() >= args.overlap:
                             used_parents[best] = used_parents.get(best, 0) + 1
+        split_children: set[int] = set()   # X70: cid, которым при этом шаге достаётся новая идентичность
         for parent, k_children in used_parents.items():
             if k_children >= 2 and parent in comp_s:
                 splits += 1
@@ -449,6 +458,8 @@ def main(argv=None) -> int:
                             child_s = comp_s[parent] + float(rng.normal(0.0, args.mutation))
                             new_s[cid] = child_s
                             pairs.append((comp_s[parent], child_s))
+                            size_pairs.append((int(sizes.get(parent, 0)), int(sizes.get(cid, 0))))
+                            split_children.add(cid)
         if _invade_pending:
             cy_i, cx_i = g // 4, g // 4
             for cid in keep:
@@ -470,7 +481,13 @@ def main(argv=None) -> int:
                         best = int(vals[int(np.argmax(counts))])
                         if counts.max() / cells.sum() >= args.overlap and best in comp_uid:
                             parent = best
-            if parent is not None:
+            if parent is not None and args.split_new_uid and cid in split_children:
+                # X70: дочь получает собственную идентичность, иначе её пик неотделим от пикового
+                # значения родителя и «наследование размера» измерить невозможно
+                uid_counter += 1
+                new_uid[cid] = uid_counter
+                uid_pairs.append((comp_uid.get(parent, 0), uid_counter))
+            elif parent is not None:
                 new_uid[cid] = comp_uid[parent]
             else:
                 uid_counter += 1
@@ -551,6 +568,9 @@ def main(argv=None) -> int:
                   "расщеплении с мутацией; состав влияет на локальный F"),
         "params": {k: v for k, v in vars(args).items() if k != "out"},
         "series": series,
+        # X70: сырые пары размеров, чтобы наследование размера считалось без правила копирования
+        "size_pairs": size_pairs,
+        "uid_pairs": uid_pairs,
         "fields_saved": fields_saved,   # X60: пути .npy, если --save-fields
         "selection": {
             "s_mean_first": series[0]["s_mean"] if series else None,
