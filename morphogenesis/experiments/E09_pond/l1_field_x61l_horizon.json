@@ -1,0 +1,87 @@
+{
+  "kind": "l1_field_x61l_horizon",
+  "experiment": "X61-long",
+  "command": "python scripts/x61l_analyse.py --write",
+  "prereg": "reports/2026-11-01-x61-long-horizon-plan.md",
+  "spectra": [
+    {
+      "t": 6000,
+      "n_seeds": 5,
+      "q_peak": 1,
+      "peak_share": 0.247,
+      "entropy": 2.265,
+      "entropy_max_ln12": 2.485
+    },
+    {
+      "t": 12000,
+      "n_seeds": 5,
+      "q_peak": 11,
+      "peak_share": 0.15,
+      "entropy": 2.342,
+      "entropy_max_ln12": 2.485
+    },
+    {
+      "t": 18000,
+      "n_seeds": 5,
+      "q_peak": 1,
+      "peak_share": 0.282,
+      "entropy": 2.204,
+      "entropy_max_ln12": 2.485
+    },
+    {
+      "t": 24000,
+      "n_seeds": 5,
+      "q_peak": 11,
+      "peak_share": 0.25,
+      "entropy": 2.202,
+      "entropy_max_ln12": 2.485
+    }
+  ],
+  "trend": {
+    "peak_shares": [
+      0.247,
+      0.15,
+      0.282,
+      0.25
+    ],
+    "entropies": [
+      2.265,
+      2.342,
+      2.204,
+      2.202
+    ],
+    "monotone_rise": false
+  },
+  "verdict": "neither",
+  "runs": {
+    "171": {
+      "splits": 1271,
+      "components": 34,
+      "s_mean_last": 0.8811
+    },
+    "172": {
+      "splits": 1931,
+      "components": 3,
+      "s_mean_last": 1.2649
+    },
+    "173": {
+      "splits": 226,
+      "components": 3,
+      "s_mean_last": 1.384
+    },
+    "174": {
+      "splits": 860,
+      "components": 2,
+      "s_mean_last": 1.2424
+    },
+    "175": {
+      "splits": 87,
+      "components": 3,
+      "s_mean_last": 1.1066
+    }
+  },
+  "not_claimed": [
+    "five seeds, seed-averaged spectra, no p-values",
+    "the four points come from one continued run per seed, so they are not independent samples"
+  ]
+}

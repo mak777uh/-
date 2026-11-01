@@ -132,3 +132,4 @@ sections were not rewritten, only moved; each one keeps its identifier, so every
 | §10ed | Сетка 128: отсутствие выбора длины волны — не свойство ящика 96 (X58-lite, 01.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
 | §10ee | Мир без выбранной длины волны — мир с восемнадцатикратным оборотом линий (01.11, пересчёт) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
 | §10ef | Доза подтверждает: оборот линий монотонно следует за амплитудой притока (X59, 01.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
+| §10eg | Длинный горизонт: неоднородное поле не выбирает длину волны вообще, а не «пока» (X61-long, 01.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
