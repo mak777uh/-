@@ -157,3 +157,20 @@ both went wrong through a rushed criterion, not through a rushed measurement.
 One rule from today is worth keeping above the rest: **a claim names the quantity it is about.** Twice this line judged a
 sentence about *position* by a number that measured *concentration*, and once it judged a sentence about the medium by a
 number that measured the box. Each time the measurement was fine and the reading was not.
+
+## Correction, 14:35 — the lifetimes belong to the trait channel, not to the field
+
+X68 varied the overlap cutoff that defines identity, and its own leak check killed the first design within one seed: the
+rule cannot be varied in isolation, because composition is **carried per component, inherited with the identity, and paid
+for in growth**. Change who inherits and you change the field.
+
+In the neutral world where the rule is separable, the ordering reverses: heterogeneous components live **longer** (5999,
+5044, 2607 steps at cutoffs 0.3, 0.5, 0.7) than homogeneous ones (4030, 1565, 1565) — the opposite of the published 57
+against 4046, which was measured with the feedback on.
+
+So the sentence is not "structures in a heterogeneous field are short-lived". It is: **a trait carried along lineages and
+paying for its carrier's growth fragments the field into short-lived pieces**. The contrast is a property of the
+two-channel world, and the field geometry alone produces the other sign.
+
+This is the third claim today to change its object rather than its number, and the pattern is consistent: what looks like a
+property of the medium keeps turning out to be a property of the measurement channel attached to it.
