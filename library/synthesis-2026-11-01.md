@@ -10,7 +10,7 @@ during the night and is now stable enough to state.
 
 | finding | evidence | status |
 |---|---|---|
-| Heterogeneous inflow **prevents wavelength selection** | homogeneous arm selects q = 8, λ = 12 units, 45 % of low-q power, entropy 1.52; heterogeneous stays broadband, entropy 2.19–2.25 | robust at 96 and reproduced at 128 |
+| Heterogeneous inflow **delays wavelength selection at 96 cells** | homogeneous selects q = 8, λ = 12 units (45 % of low-q power); heterogeneous stays broadband on 96, entropy 2.19–2.25 | **withdrawn as a claim about the medium**: at a correctly scaled 144 grid the heterogeneous arm selects too (normalised entropy 0.61 against 0.90 on 96) — see §10ej |
 | The advantage in component count is an **advantage in small, short-lived pieces** | contrast +3.57 falls to +1.36 at 32 cells, +0.07 at 128 cells | free re-analysis, 10 seeds |
 | Heterogeneity produces a **transient perforated web** | β₁ +9.0 (10/10 seeds), survives matched occupancy (+5.5, 10/10) and every threshold tested | transient only; gone by t = 6000 |
 | **Transmission follows geometry** | divisions 308 → 79 → 21 as inflow amplitude falls 0.5 → 0.25 → 0.1 (14.7×, 5/5 seeds), spectra sharpening in the same order | dose-response, five seeds |
@@ -80,3 +80,18 @@ Three lessons that outlive the numbers:
 *Sources: the nine reports of 1 November in `reports/`, the plan sections §10ea–§10ef, and the aggregates under
 `morphogenesis/experiments/E09_pond/`. Every number above is reproducible from a file in this repository — that was not
 true yesterday for half of them.*
+
+## Correction, 11:00 — the spectral claim is about the grid
+
+The refinement run of 11:00 (X64) changed one row of the table above and, with it, the shape of the argument. The
+heterogeneous world does not *prevent* wavelength selection; at 96 cells the pattern has only twelve cells per period and
+the inflow modulation, which has the same period, destroys it. At 144 cells — same physical domain, diffusion rescaled
+correctly — the heterogeneous arm selects a mode as the homogeneous one does.
+
+This is the **non-Platonic** effect Davis describes, now measured in our own world: a pattern that exists at one
+discretisation and not at another. The practical consequence is a rule for every spectral sentence in this project:
+**name the grid**, or the sentence is about the instrument.
+
+What the night's sentence becomes after this: heterogeneity buys turnover at the cost of organisation — the *turnover*
+half is a count and is unaffected (X59's dose-response stands); the *organisation* half is grid-dependent, and the honest
+version says so.

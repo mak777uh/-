@@ -123,3 +123,17 @@ honest sentence is that heterogeneity changes **the scale at which the field org
 Five checks passed before the run; the anchor passed; the run happened; **one of the four planned readouts (λ
 normalisation) is refused by its own rule and the other three are reported**. That is the preregistration working, not
 failing.
+
+## Correction, 11:00 — the spectral half did not survive refinement
+
+The claim that heterogeneous inflow *prevents* wavelength selection was measured on the 96 grid. A correctly
+scaled refinement to 144 (`Du = 0.36`, `dt = 0.5`, `D = Du·Δx²` preserved) shows the heterogeneous arm selecting
+too: normalised entropy 0.61 of its maximum, against 0.90 on 96. The effect is a property of twelve cells per
+period, not of the medium — see `2026-11-01-x64-real-refinement-result.md` and §10ej.
+
+**What stands from this page:** the β₀/β₁ cross-check (60 of 60 rows), the transient perforated web at t = 2000
+(β₁ +9.0, 10/10, robust to threshold and matched occupancy — but now also grid-specific until checked), and the
+finding that the count contrast is absent at any single snapshot.
+
+**What does not stand:** "the heterogeneous world never selects anything", and the normalisation refusal that
+rested on it.

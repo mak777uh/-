@@ -54,3 +54,9 @@ statements are now cleanly separated: **topology of the transient, spectrum of t
 `morphogenesis/experiments/L1_field/x61l_a50_s{171..175}.json`, fields at four times in `x61l_fields/` (20 arrays),
 aggregate `morphogenesis/experiments/E09_pond/l1_field_x61l_horizon.json`. Scripts: `scripts/x61l_series.py`,
 `scripts/x61l_analyse.py`.
+
+## Correction, 11:00 — the horizon was the wrong axis
+
+This run quadrupled time at grid 96 and concluded that the heterogeneous spectrum never selects. X64 shows that
+the right axis was resolution: at 144 cells the same world selects within the same physical time. The negative
+result here is therefore about the 96 grid at four horizons, not about the medium — see §10ej.
