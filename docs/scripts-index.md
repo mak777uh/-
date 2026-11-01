@@ -4,7 +4,7 @@
 
 The curated page — what matters and why — is [`scripts.md`](scripts.md). This file is the complete list, so that every command behind a number in the record can be found.
 
-Scripts: **185**.
+Scripts: **186**.
 
 ## Гейты и проверки (42)
 
@@ -165,7 +165,7 @@ Scripts: **185**.
 | `make_seed_grid_figure.py` | Собрать Figure 4 рукописи: сетка «инициализация × порядок данных» (§4.13). |
 | `make_simple_poster.py` | Простой постер для владельца: что мы узнали, без терминов. |
 
-## Прочее (56)
+## Прочее (57)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -222,6 +222,7 @@ Scripts: **185**.
 | `x56_matrix.py` | x56_matrix.py — сходимость по шагу: контраст при dt = 1.0, 0.5, 2.0. |
 | `x58_analyse.py` | x58_analyse.py — the same measurement on a 128 grid: β₀, β₁, wavelength, normalised count. |
 | `x58_series.py` | x60_series.py — X60: the twenty field runs that keep their snapshots. |
+| `x59_analyse.py` | x59_analyse.py — amplitude dose-response: does transmission fall as the inflow smooths? |
 | `x59_series.py` | x59_series.py — X59: is transmission a dose-response in the inflow amplitude? |
 | `x60_analyse.py` | x60_analyse.py — what the kept fields say: β₀, β₁, wavelength, normalised count. |
 | `x60_series.py` | x60_series.py — X60: the twenty field runs that keep their snapshots. |

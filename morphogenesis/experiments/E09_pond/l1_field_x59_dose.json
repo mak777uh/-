@@ -1,0 +1,67 @@
+{
+  "kind": "l1_field_x59_dose",
+  "experiment": "X59",
+  "command": "python scripts/x59_analyse.py --write",
+  "prereg": "reports/2026-11-01-x59-amplitude-dose-plan.md",
+  "criterion": {
+    "sign_bar": 4,
+    "factor_bar": 2.0,
+    "prediction": "splits fall monotonically with inflow amplitude, spectrum broadens with it"
+  },
+  "arms": {
+    "a50": {
+      "n": 5,
+      "splits_median": 308,
+      "pairs_median": 682,
+      "r_median": 0.97,
+      "s_mean_last_median": 1.89
+    },
+    "a25": {
+      "n": 5,
+      "splits_median": 79,
+      "pairs_median": 167,
+      "r_median": 0.89,
+      "s_mean_last_median": 1.28
+    },
+    "a10": {
+      "n": 5,
+      "splits_median": 21,
+      "pairs_median": 43,
+      "r_median": 0.8,
+      "s_mean_last_median": 1.07
+    }
+  },
+  "ordering": {
+    "strictly_ordered": true,
+    "extreme_factor": 14.67,
+    "seeds_agreeing": 5,
+    "n_pairs": 5
+  },
+  "spectra_t6000": {
+    "a50": {
+      "q_peak": 1,
+      "peak_share": 0.247,
+      "entropy": 2.265,
+      "entropy_max_ln12": 2.485
+    },
+    "a25": {
+      "q_peak": 8,
+      "peak_share": 0.192,
+      "entropy": 2.25,
+      "entropy_max_ln12": 2.485
+    },
+    "a10": {
+      "q_peak": 8,
+      "peak_share": 0.385,
+      "entropy": 1.748,
+      "entropy_max_ln12": 2.485
+    }
+  },
+  "entropy_ordered": true,
+  "prediction_supported": true,
+  "not_claimed": [
+    "five seeds per amplitude; the argument is the ordering, not a test",
+    "splits count events under the overlap rule, not verified lineages",
+    "the amplitude also changes how much area is occupied, so the dose is not a pure geometry knob"
+  ]
+}
