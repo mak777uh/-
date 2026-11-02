@@ -2868,3 +2868,27 @@ a dead structure's age is its outcome. The claim stays "at fixed size, more daug
 caveat sharpened: **time-to-divide is largely excluded, hazard is not tested**. A survival model over the intermediate snapshots is registered as X121.
 
 Report: `reports/2026-11-03-x120-window-daughters-void.md`; aggregate `l1_field_x120_window_daughters.json`.
+
+## 10gq. The cost of division was the identity convention (X122, 03.11)
+
+X121's person-period table could not produce a non-zero daughter count, and the diagnosis retired X119's headline. With `--split-new-uid` a structure's uid ends
+**exactly when it divides**: uid 1 is present at steps 1-210 and its children appear at 220; uid 2 at 220-330 with children at 340; uid 5 at 340-490 with children
+at 500. So "has daughters" and "present at the end under that uid" are mutually exclusive by construction, and X119's −0.429 (CI −0.509…−0.345) is a restatement
+of the identity rule rather than a cost of division. **The claim is withdrawn as an artefact**, not hedged.
+
+Three readouts must now be kept apart, and the line had been sloppy about it:
+
+| readout | meaning | used by |
+|---|---|---|
+| uid present at the end | undivided and alive | X119, X121 (misread as survival) |
+| subtree alive at the end | the lineage continues | X115, X116 (correct for the question) |
+| generations reached | depth of the lineage | X113, X114 |
+
+Everything else from the night's consequence work stands: size is inherited; it is a lineage property across a generation (X97/X97b); it buys generations faster
+(X113/X114); larger lineages persist more often (X115/X116, halving on branch counts). Only the cost-of-division reading falls, and it falls because the tracker's
+identity rule makes it a tautology.
+
+Rule earned: an identity convention is part of every survival readout; a model predicting a uid's presence must not carry a count of its own divisions, and every
+lineage statistic states whether it uses the uid or the subtree.
+
+Report: `reports/2026-11-03-x122-identity-artefact.md`.

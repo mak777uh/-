@@ -193,3 +193,4 @@ sections were not rewritten, only moved; each one keeps its identifier, so every
 | §10gn | Half to two-thirds of the survival advantage is branch count (X116, 03.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
 | §10go | Matching cannot separate size from daughters, and a model finds a cost of division (X118–X119, 03.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
 | §10gp | Daughters are an early-life property, and the time confound is weaker than assumed (X120, 03.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
+| §10gq | The cost of division was the identity convention (X122, 03.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |

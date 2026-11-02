@@ -298,3 +298,15 @@ with zero variance aborts the run: a coefficient for a constant is not an estima
 looks like a finding. (3) The same check covers coverage: the share of rows where a joined quantity was found. (4) An event-rate model also prints the event
 rate against its registered band before anything else, because a rate outside the band makes every coefficient uninterpretable regardless of variance.
 Report: `reports/2026-11-03-x121-hazard-void.md`.
+
+**An identity convention is part of every survival readout (03.11, X122).** With `--split-new-uid` a structure's uid ends **exactly when it divides**: uid 1 is
+present at steps 1-210 and its children appear at 220, uid 2 at 220-330 with children at 340, uid 5 at 340-490 with children at 500. So "the structure has
+daughters" and "the structure is present at the end" are mutually exclusive states, and X119's regression of presence on a daughter count produced −0.429 that
+is nothing but that exclusivity. The claim was withdrawn as an artefact.
+
+Rules. (1) Every survival readout names which of the three quantities it measures: **uid present at the end** (undivided and alive), **subtree alive at the end**
+(the lineage continues), or **generations reached** (depth). (2) A model that predicts a uid's presence must not carry a count of its own divisions as a
+predictor — the two are the same event with opposite signs. (3) Lineage statistics (X93, X97, X113-X116) use the subtree and are unaffected; a reader must be
+told when a number uses the uid instead. (4) When a tracker's identity rule can retire a parent at a split, the rule is stated next to every survival number it
+touches.
+Report: `reports/2026-11-03-x122-identity-artefact.md`.
