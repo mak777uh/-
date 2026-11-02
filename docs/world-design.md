@@ -190,3 +190,4 @@ sections were not rewritten, only moved; each one keeps its identifier, so every
 | §10gk | The generation advantage is speed, not arithmetic (X113b–X113c, 03.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
 | §10gl | The generation advantage survives an equal observation window (X114, 03.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
 | §10gm | Faster lines persist: the consequence acquires a survival currency (X115, 03.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
+| §10gn | Half to two-thirds of the survival advantage is branch count (X116, 03.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |

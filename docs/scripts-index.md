@@ -4,7 +4,7 @@
 
 The curated page — what matters and why — is [`scripts.md`](scripts.md). This file is the complete list, so that every command behind a number in the record can be found.
 
-Scripts: **301**.
+Scripts: **302**.
 
 ## Гейты и проверки (46)
 
@@ -170,7 +170,7 @@ Scripts: **301**.
 | `make_seed_grid_figure.py` | Собрать Figure 4 рукописи: сетка «инициализация × порядок данных» (§4.13). |
 | `make_simple_poster.py` | Простой постер для владельца: что мы узнали, без терминов. |
 
-## Прочее (167)
+## Прочее (168)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -253,6 +253,7 @@ Scripts: **301**.
 | `x113c_analyse.py` | x113c_analyse.py — X113c: faster propagation or more division events? |
 | `x114_analyse.py` | x114_analyse.py — X114: is the generation-rate advantage an artefact of the horizon? |
 | `x115_analyse.py` | x115_analyse.py — X115: does the faster line persist? Survival to the horizon, paired within sister pairs. |
+| `x116_analyse.py` | x116_analyse.py — X116: is the survival advantage mechanical? |
 | `x56_matrix.py` | x56_matrix.py — сходимость по шагу: контраст при dt = 1.0, 0.5, 2.0. |
 | `x58_analyse.py` | x58_analyse.py — the same measurement on a 128 grid: β₀, β₁, wavelength, normalised count. |
 | `x58_series.py` | x60_series.py — X60: the twenty field runs that keep their snapshots. |

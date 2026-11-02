@@ -2786,3 +2786,29 @@ in one snapshot, not resilience; the mechanism is not identified, since a bigger
 present — X97b ruled that out for one generation, not for survival.
 
 Report: `reports/2026-11-03-x115-persistence.md`; aggregate `l1_field_x115_persistence.json`.
+
+## 10gn. Half to two-thirds of the survival advantage is branch count (X116, 03.11)
+
+X115 found the larger sister's line alive at the end +0.250 / +0.137 more often. A larger structure has more cells and often more daughters, so it can lose
+members and still be present. X116 matches sister pairs on the **number of daughters** and compares survival among matched pairs.
+
+| cell | pairs full → matched | mean daughters difference before → after | full | **matched** | 95 % CI | only larger / smaller (matched) |
+|---|---|---|---|---|---|---|
+| 0.030 | 1 142 → **633** | 0.825 → **0.000** | 0.250 | **+0.125** | **[0.092, 0.160]** | **104 / 25** |
+| 0.040 | 1 195 → **631** | 0.894 → **0.000** | 0.137 | **+0.044** | **[0.022, 0.067]** | **39 / 11** |
+
+Both controls fired: the full-sample contrast reproduces X115 within 5 %, and matching removes the confound by construction. The advantage more than halves
+(0.250 → 0.125 in the lattice, 0.137 → 0.044 in the maze), so **branch count explains about half of the lattice advantage and about two-thirds of the maze
+advantage** — the arithmetic objection is partly right and X115's headline was partly a count of daughters. It does not explain all of it: the residual is
+positive with an interval excluding zero in both cells, above the 0.10 resolution in the lattice and below it in the maze.
+
+Registered verdict: **the advantage is not branch count** (the rule asked whether the matched interval excludes zero, and it does); the report adds what the
+rule did not — the residual's size is above resolution in one cell and below it in the other.
+
+So X115's claim is quoted with X116 beside it: the larger sister's line is alive at the end more often, **half to two-thirds of that is having more
+daughters**, and the non-arithmetic remainder is strongest where the medium is a lattice.
+
+Caveats: matching discards ~45 % of the pairs; matching on daughters does not match on cells, and the larger sister still has more; survival is presence in
+one snapshot; the maze barely survives at all (963 of 1 195 pairs have neither branch alive).
+
+Report: `reports/2026-11-03-x116-matched.md`; aggregate `l1_field_x116_matched.json`.

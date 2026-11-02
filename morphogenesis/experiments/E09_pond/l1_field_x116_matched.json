@@ -1,0 +1,42 @@
+{
+  "kind": "l1_field_x116_matched",
+  "experiment": "X116",
+  "command": "python scripts/x116_analyse.py --write",
+  "prereg": "reports/2026-11-03-x116-matched-plan.md",
+  "readout": "survival difference among sister pairs matched on the number of daughters",
+  "cells": {
+    "f030": {
+      "pairs_full": 1142,
+      "pairs_matched": 633,
+      "rho_heredity": 0.548,
+      "full_diff_mean": 0.2496,
+      "matched_diff_mean": 0.1248,
+      "matched_diff_ci": [
+        0.0916,
+        0.1596
+      ],
+      "n_diff_full": 0.825,
+      "n_diff_matched": 0,
+      "only_bigger": 104,
+      "only_smaller": 25,
+      "x115_reference": 0.2496
+    },
+    "f040": {
+      "pairs_full": 1195,
+      "pairs_matched": 631,
+      "rho_heredity": 0.48,
+      "full_diff_mean": 0.1372,
+      "matched_diff_mean": 0.0444,
+      "matched_diff_ci": [
+        0.0222,
+        0.0666
+      ],
+      "n_diff_full": 0.894,
+      "n_diff_matched": 0,
+      "only_bigger": 39,
+      "only_smaller": 11,
+      "x115_reference": 0.1372
+    }
+  },
+  "verdict": "the advantage is not branch count: among pairs matched on the number of daughters the larger sister still survives 0.125 more often (CI [0.0916, 0.1596]) in the lattice and 0.044 in the maze (CI [0.0222, 0.0666]); matched pairs 633 / 631, mean n difference 0.825 before matching against 0.0 after"
+}

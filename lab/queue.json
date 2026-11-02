@@ -1,6 +1,6 @@
 {
  "schema_version": 1,
- "updated_at": "2026-11-03T01:30:19+03:00",
+ "updated_at": "2026-11-03T01:37:15+03:00",
  "note": "Очередь пунктов после E02c. Claim берётся до пре-регистрации, а не перед запуском: lab.py item-claim. Статус running означает занятый GPU-лейн и может быть только у одного пункта. | 25.10: добавлено поле impact (1-5) — приоритет конвейера = impact/max(cost_gpu_h,0.1); для запуска пункту нужны prereg (закоммиченный план) и launch.command+outdir.",
  "items": [
   {
@@ -2438,6 +2438,19 @@
    "closed_at": "2026-11-02T22:30:19Z",
    "closed_by": "lead",
    "note": "closed: faster lines persist — +0.250 (CI 0.220-0.279) and +0.137 (CI 0.116-0.159), counts 324:39 and 178:14. Aggregate l1_field_x115_persistence.json, report reports/2026-11-03-x115-persistence.md, plan §10gm. Next: resilience after a perturbation, which needs runs"
+  },
+  {
+   "id": "X116_matched",
+   "title": "Is the survival advantage mechanical (more branches)?",
+   "status": "closed",
+   "owner": "lead",
+   "kind": "analysis",
+   "cost_gpu_h": 0,
+   "prereg": "reports/2026-11-03-x116-matched-plan.md",
+   "created_at": "2026-11-03T01:37:15+03:00",
+   "closed_at": "2026-11-02T22:37:15Z",
+   "closed_by": "lead",
+   "note": "closed: matching on the number of daughters halves the survival advantage (0.250 -> 0.125; 0.137 -> 0.044) but a residual remains (104:25 and 39:11). Aggregate l1_field_x116_matched.json, report reports/2026-11-03-x116-matched.md, plan §10gn. Next: match on area as well"
   }
  ]
 }
