@@ -1,0 +1,52 @@
+{
+  "kind": "l1_field_x102_specificity_ladder",
+  "experiment": "X102",
+  "command": "python scripts/x102_analyse.py --write",
+  "prereg": "reports/2026-11-02-x102-specificity-plan.md",
+  "readout": "Spearman(parent, daughter) minus Spearman(nearest non-ancestor, daughter), under the excursion-set area and under the topological basin area, on the same daughters",
+  "cells": {
+    "f030": {
+      "flow": 0.03,
+      "worlds": 10,
+      "pairs": 2024,
+      "coverage_basin": 0.93,
+      "stranger_same_basin": 0.132,
+      "parent_same_basin": 0.398,
+      "n_same_basin": 1815,
+      "rho_parent_threshold": 0.531,
+      "rho_stranger_threshold": 0.219,
+      "gap_threshold": 0.312,
+      "rho_parent_basin": 0.308,
+      "rho_stranger_basin": 0.291,
+      "gap_basin": 0.017,
+      "gap_change": -0.295,
+      "n_basin_pairs": 1882
+    },
+    "f040": {
+      "flow": 0.04,
+      "worlds": 10,
+      "pairs": 1139,
+      "coverage_basin": 0.839,
+      "stranger_same_basin": 0.081,
+      "parent_same_basin": 0.187,
+      "n_same_basin": 951,
+      "rho_parent_threshold": 0.384,
+      "rho_stranger_threshold": 0.169,
+      "gap_threshold": 0.215,
+      "rho_parent_basin": 0.153,
+      "rho_stranger_basin": 0.163,
+      "gap_basin": -0.01,
+      "gap_change": -0.225,
+      "n_basin_pairs": 956
+    }
+  },
+  "positive_control": {
+    "fires": true,
+    "note": "the threshold gap must be positive in both cells — that is X91's result reproduced on these worlds"
+  },
+  "gap_changes": {
+    "f030": -0.295,
+    "f040": -0.225
+  },
+  "verdict": "specificity is definition-bound too: the gap collapses under the weaker definition, so heredity in this medium is an excursion-set concept through and through"
+}

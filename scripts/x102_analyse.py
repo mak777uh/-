@@ -59,21 +59,54 @@ def world_data(run_json: Path) -> dict:
             "parent": {int(b): int(a) for a, b in (d.get("uid_pairs") or [])}}
 
 
-def basin_size(cache: dict, run_json: Path, uid: int, info: dict) -> float | None:
-    if info.get("cx") is None:
-        return None
-    key = (uid, int(info["step"]))
+def labels_for(cache: dict, run_json: Path, step: int) -> np.ndarray | None:
+    """Basin labels of one saved frame, cached by step (labels are per frame)."""
+    key = ("labels", int(step))
     if key in cache:
         return cache[key]
-    f = field_for(run_json, int(info["step"]))
+    f = field_for(run_json, int(step))
     if f is None:
+        cache[key] = None
         return None
     labels, _ = basins(np.load(f))
-    yi, xi = int(round(float(info["cy"]))) % GRID, int(round(float(info["cx"]))) % GRID
+    cache[key] = labels
+    return labels
+
+
+def pixel(cy, cx) -> tuple[int, int]:
+    return int(round(float(cy))) % GRID, int(round(float(cx))) % GRID
+
+
+def basin_of(cache: dict, run_json: Path, uid: int, info: dict) -> tuple[float | None, int | None]:
+    """(area, label) of the steepest-ascent basin holding this uid's peak pixel."""
+    if info.get("cx") is None:
+        return None, None
+    labels = labels_for(cache, run_json, int(info["step"]))
+    if labels is None:
+        return None, None
+    yi, xi = pixel(info["cy"], info["cx"])
     lab = int(labels[yi, xi])
-    val = float((labels == lab).sum()) if lab >= 0 else None
-    cache[key] = val
-    return val
+    return (float((labels == lab).sum()), lab) if lab >= 0 else (None, None)
+
+
+def shares_basin(cache: dict, run_json: Path, host: dict, guest: dict) -> bool | None:
+    """Is the guest's peak site inside the host's basin, **in the host's own frame**?
+
+    Labels are assigned per frame, so comparing a label from one snapshot with a
+    label from another is meaningless.  The only honest degeneracy check is a
+    same-frame containment question.
+    """
+    if host.get("cx") is None or guest.get("cx") is None:
+        return None
+    labels = labels_for(cache, run_json, int(host["step"]))
+    if labels is None:
+        return None
+    hy, hx = pixel(host["cy"], host["cx"])
+    gy, gx = pixel(guest["cy"], guest["cx"])
+    lh, lg = int(labels[hy, hx]), int(labels[gy, gx])
+    if lh < 0 or lg < 0:
+        return None
+    return lh == lg
 
 
 def chain_of(parent: dict[int, int], uid: int) -> set[int]:
@@ -109,6 +142,8 @@ def nearest_stranger(world: dict, uid: int) -> int | None:
 def cell_stats(flow_tag: str, flow: float) -> dict:
     parent_a, parent_d, stranger_a, stranger_d = [], [], [], []
     b_parent_a, b_parent_d, b_stranger_a, b_stranger_d = [], [], [], []
+    same_stranger_hits, same_parent_hits = 0, 0
+    n_same_stranger, n_same_parent = 0, 0
     pairs, covered, expected, worlds = 0, 0, 0, 0
     for path in cell_files(("x100",), flow, filename=""):
         w = world_data(path)
@@ -122,18 +157,26 @@ def cell_stats(flow_tag: str, flow: float) -> dict:
             s = nearest_stranger(w, child)
             parent_a.append(w["peak"][par]["area"])
             parent_d.append(w["peak"][child]["area"])
-            bp = basin_size(cache, path, par, w["peak"][par])
-            bc = basin_size(cache, path, child, w["peak"][child])
+            bs, ls = basin_of(cache, path, par, w["peak"][par])
+            bc, lc = basin_of(cache, path, child, w["peak"][child])
             if s is not None and s in w["peak"]:
                 stranger_a.append(w["peak"][s]["area"])
                 stranger_d.append(w["peak"][child]["area"])
-                bs = basin_size(cache, path, s, w["peak"][s])
-                if None not in (bs, bc, bp):
-                    b_stranger_a.append(bs)
+                bst, _ = basin_of(cache, path, s, w["peak"][s])
+                if None not in (bst, bc, bs):
+                    b_stranger_a.append(bst)
                     b_stranger_d.append(bc)
-                    b_parent_a.append(bp)
+                    b_parent_a.append(bs)
                     b_parent_d.append(bc)
                     covered += 1
+                    same_s = shares_basin(cache, path, w["peak"][s], w["peak"][child])
+                    same_p = shares_basin(cache, path, w["peak"][par], w["peak"][child])
+                    if same_s is not None:
+                        n_same_stranger += 1
+                        same_stranger_hits += int(same_s)
+                    if same_p is not None:
+                        n_same_parent += 1
+                        same_parent_hits += int(same_p)
     rho_p = spearman(parent_a, parent_d)
     rho_s = spearman(stranger_a, stranger_d)
     brho_p = spearman(b_parent_a, b_parent_d)
@@ -142,6 +185,9 @@ def cell_stats(flow_tag: str, flow: float) -> dict:
     gap_basin = round(brho_p - brho_s, 3) if brho_p is not None and brho_s is not None else None
     return {"flow": flow, "worlds": worlds, "pairs": pairs,
             "coverage_basin": round(covered / expected, 3) if expected else None,
+            "stranger_same_basin": round(same_stranger_hits / n_same_stranger, 3) if n_same_stranger else None,
+            "parent_same_basin": round(same_parent_hits / n_same_parent, 3) if n_same_parent else None,
+            "n_same_basin": n_same_stranger,
             "rho_parent_threshold": round(rho_p, 3) if rho_p is not None else None,
             "rho_stranger_threshold": round(rho_s, 3) if rho_s is not None else None,
             "gap_threshold": gap_thr,

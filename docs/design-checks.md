@@ -196,3 +196,25 @@ experiment**, never borrowed from an older series. (3) When a series needs both 
 density in advance and keep it identical across every cell of every series that will be compared. (4) The recipe for a probe that
 draws randomness is the same as for a probe that modifies the field: it needs an anchor on both settings.
 Report: `reports/2026-11-02-x85-symmetry-memory-void.md`.
+
+**A label is only comparable inside its own frame (02.11, X102).** `basins()` numbers the basins of one snapshot; the numbers mean
+nothing across snapshots, and nothing in the function's type says so. X102's first degeneracy check compared the parent's basin label
+in the snapshot where the parent peaks with the daughter's label in the snapshot where the daughter peaks, and reported that the parent
+sat inside the daughter's basin **no more often than a stranger** (0.13 against 0.07). Recomputed as same-frame containment, the parent
+is inside the daughter's basin 2.3-3.0 times as often as the stranger (0.398 against 0.132 at `F = 0.030`, 0.187 against 0.081 at
+0.040) — the opposite reading, and the one the report now carries.
+
+Rules. (1) A topological or component **label** (`basin id`, `uid`) may be compared with another label only when both were produced from
+the same frame; anything else compares numbering schemes, and the result is noise that looks like a negative. (2) Aggregators that keep
+labels expose them together with the frame they came from (`label`, `step`), so the mistake is visible at the call site. (3) Any
+comparison of a quantity computed per frame across frames is done on a **scalar** (area, count, position), never on an identifier.
+
+**A collapse needs a degeneracy check before it is interpreted (02.11, X102).** X102 found that the specificity of size heredity
+(X91's parent-versus-stranger gap) falls from 0.312 / 0.215 to 0.017 / -0.010 when the size definition is weakened. Two readings were
+possible: the medium stops being specific, or the weaker readout cannot separate the candidates by construction (every stranger sits in
+the same basin as the daughter). The containment table above decided it — the basin readout had room, so the collapse is real.
+
+Rules. (1) Every null or collapse that could be mechanical carries a **degeneracy table**: how often the control falls in the same
+structure as the subject, next to how often the true ancestor does. (2) The table is printed for every cell, not just once. (3) If the
+control is nearly always inside, the series is a void **by construction** and is registered as such — never as a negative result.
+Report: `reports/2026-11-02-x102-specificity-ladder.md`.

@@ -1,6 +1,6 @@
 {
  "schema_version": 1,
- "updated_at": "2026-11-02T16:26:34+03:00",
+ "updated_at": "2026-11-02T16:48:42+03:00",
  "note": "Очередь пунктов после E02c. Claim берётся до пре-регистрации, а не перед запуском: lab.py item-claim. Статус running означает занятый GPU-лейн и может быть только у одного пункта. | 25.10: добавлено поле impact (1-5) — приоритет конвейера = impact/max(cost_gpu_h,0.1); для запуска пункту нужны prereg (закоммиченный план) и launch.command+outdir.",
  "items": [
   {
@@ -2131,22 +2131,50 @@
   {
    "id": "X101_watershed",
    "title": "Basins defined by the field's own topology (watershed on v, no level set) — the only truly boundary-free size",
-   "status": "planned",
+   "status": "closed",
    "owner": "lead",
    "waiting_on": null,
    "cost_gpu_h": 1,
    "created_at": "2026-11-02T16:19:29+03:00",
-   "note": "X100 showed the skirt carries heredity and the core does not, but its boundary was relative to each structure, not absent. A truly boundary-free size needs watershed basins on v (seeded at local maxima, catchment by steepest descent), then area or integral per basin. It reuses the same 20 runs with per-step fields (already on disk) if the implementation reads the saved snapshots, so the cost is analysis only — about an hour of work, no GPU."
+   "note": "runs: X100's twenty (no GPU). rho1 0.531 / 0.384 for the excursion set at v > 0.20, 0.300 / 0.174 for a basin by steepest ascent, 0.176 / 0.058 for a basin at half the local maximum, on 2 165 and 1 761 pairs. Verdict: heredity needs the cut; the ladder is monotone in how excursion-like the definition is. Basin coverage 95 % / 80 %, aggregate l1_field_x101_watershed.json, report reports/2026-11-02-x101-definition-ladder.md, plan §10fu. Next: X102 (does the specificity fall too?)",
+   "prereg": "reports/2026-11-02-x101-watershed-plan.md",
+   "closed_at": "2026-11-02T13:48:42Z",
+   "closed_by": "lead"
   },
   {
    "id": "X102_specificity_under_definition",
    "title": "Does parent-beats-neighbour survive the weaker size definition? (X91's control under the basin measure)",
-   "status": "planned",
+   "status": "closed",
    "owner": "lead",
    "waiting_on": null,
    "cost_gpu_h": 0,
    "created_at": "2026-11-02T16:26:34+03:00",
-   "note": "X101 established a ladder: the excursion set at 0.20 gives rho1 0.53/0.38, a topological basin 0.30/0.17, a relative core 0.18/0.06. X91 showed the parent beats the nearest non-ancestor by 0.26-0.41 under the strong definition. The open question is whether that SPECIFICITY also shrinks with the definition: if it does, heredity is an excursion-set concept through and through; if it holds, the specificity is robust where the level is not. Analysis only, on X100's snapshots already on disk."
+   "note": "threshold gap 0.312 / 0.215, basin gap 0.017 / -0.010 (change -0.295 / -0.225, past the declared 0.15) — specificity is definition-bound too. Degeneracy check: parent sits in the daughter's basin 0.398 / 0.187 against a stranger's 0.132 / 0.081, so the basin readout had room and the collapse is real, not mechanical. aggregate l1_field_x102_specificity_ladder.json, report reports/2026-11-02-x102-specificity-ladder.md, plan §10fv. Next: X103 (position within the basin), X104 (the gap at a second cut)",
+   "prereg": "reports/2026-11-02-x102-specificity-plan.md",
+   "closed_at": "2026-11-02T13:48:42Z",
+   "closed_by": "lead"
+  },
+  {
+   "id": "X103_basin_position",
+   "title": "Is heredity topographic after all? Where in the mother's basin the daughter starts, not how big the basin is",
+   "status": "planned",
+   "owner": "lead",
+   "kind": "analysis",
+   "cost_gpu_h": 0,
+   "prereg": null,
+   "created_at": "2026-11-02T16:48:42+03:00",
+   "note": "X102 found that the basin's AREA carries no specificity (gap 0.017 / -0.010) although a parent sits inside the daughter's basin 2.3-3.0 times as often as a stranger. Two readings survive: what is inherited is the width of the excursion (X100/X101) and the basin is only the stage; or the inherited quantity is topographic but not its area. This analysis separates them on X100's snapshots: for every pair, measure the daughter's radial position inside the mother's basin (0 = the mother's peak, 1 = the drainage boundary) and test whether it predicts the daughter's size better than either area does. If position predicts and area does not, the skirt reading is refuted. Analysis only, no GPU; register before running."
+  },
+  {
+   "id": "X104_gap_at_another_cut",
+   "title": "Does the parent-beats-neighbour gap move with the excursion cut the way the level does?",
+   "status": "planned",
+   "owner": "lead",
+   "kind": "series",
+   "cost_gpu_h": 2.0,
+   "prereg": null,
+   "created_at": "2026-11-02T16:48:42+03:00",
+   "note": "X99 showed the level of size heredity is cut-bound by a factor of three and even reverses between inflows; X102 showed it is definition-bound. The specificity has only ever been measured at v > 0.20. If the gap is an excursion-set quantity it should move with the cut, and the honest statement about this medium would then carry its cut twice over. Needs runs at 0.15 and 0.25 because the component logs store 0.20 areas only (X99's route); a pilot on one world decides whether the saved fields can be re-thresholded instead — check that before claiming the 2 GPU-hours. Register with a control before running."
   }
  ]
 }

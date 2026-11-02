@@ -172,3 +172,4 @@ sections were not rewritten, only moved; each one keeps its identifier, so every
 | §10fs | The memory map is definition-bound: three cuts, a factor of three, and a reversal (X99, 02.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
 | §10ft | Heredity lives in the skirt, not in the core (X100, 02.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
 | §10fu | Three definitions of size, one ladder: heredity is strongest where the definition is an excursion set (X101, 02.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
+| §10fv | The specificity is definition-bound too, but the containment is not (X102, 02.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |

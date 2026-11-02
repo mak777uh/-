@@ -2191,3 +2191,37 @@ If it does, heredity is an excursion-set concept through and through; if it hold
 Registered as X102.
 
 Report: `reports/2026-11-02-x101-definition-ladder.md`; aggregate `l1_field_x101_watershed.json`.
+
+## 10fv. The specificity is definition-bound too, but the containment is not (X102, 02.11)
+
+X101's ladder showed the *level* of size heredity falling with the definition. X102 asked whether X91's *specificity* — a daughter
+follows her own parent more than her nearest non-ancestor, gap 0.26-0.41 — survives the same weakening. Same daughters, two definitions,
+ten worlds per inflow:
+
+| inflow | definition | rho parent | rho stranger | gap |
+|---|---|---|---|---|
+| 0.030 | excursion set, `v > 0.20` | 0.531 | 0.219 | **0.312** |
+| 0.030 | basin by steepest ascent | 0.308 | 0.291 | **0.017** |
+| 0.040 | excursion set, `v > 0.20` | 0.384 | 0.169 | **0.215** |
+| 0.040 | basin by steepest ascent | 0.153 | 0.163 | **-0.010** |
+
+Registered verdict: **specificity is definition-bound too** (the gap falls by 0.295 and 0.225, past the declared 0.15). At 0.040 the
+basin gap is zero to two decimals: under the weaker definition the neighbour is as good a predictor as the mother.
+
+The collapse was checked for the mechanical explanation before being read. If the nearest stranger were almost always inside the
+daughter's own drainage basin, the basin area could not separate the candidates by construction. Same-frame containment says otherwise:
+a parent's peak site lies in the daughter's basin **0.398 / 0.187** of the time against a stranger's **0.132 / 0.081** — ancestry is
+visible in the topography, two to three times the stranger rate. The basin readout had room, so the collapse is a property of the
+quantity and not of the control: the basin's *extent* carries no heredity, the basin's *identity* does.
+
+(That paragraph replaces a first, published-nowhere attempt that compared basin labels **across frames**. Labels are numbered per
+snapshot, so the parent looked no more often inside than the stranger, 0.13 against 0.07 — the opposite reading. The rule is now in
+`docs/design-checks.md`: a label is comparable only inside its own frame.)
+
+Together, level and specificity give one sentence: what the medium passes from mother to daughter is **an extensive property of a fixed
+density region** — the width of the skirt, not the size of the valley she sits in, and not the height of her peak. The next test is
+topographic and is registered: if the daughter's fate depends on **where** in the mother's basin she sits, this reading is refuted
+(X103); if the gap moves with the cut the way the level does (X99), it is an excursion-set quantity twice over (X104).
+
+Report: `reports/2026-11-02-x102-specificity-ladder.md`; aggregate `l1_field_x102_specificity_ladder.json`; runs: X100's twenty, no
+new GPU.
