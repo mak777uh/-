@@ -26,7 +26,11 @@ OUT = ROOT / "morphogenesis" / "experiments" / "E09_pond" / "l1_field_x92_pay.js
 sys.path.insert(0, str(ROOT / "scripts"))
 from x72c_analyse import spearman  # noqa: E402
 
-CELLS = {"f025": ("x87", 0.025), "f030": ("x87", 0.030), "f035": ("x87", 0.035), "f040": ("x88", 0.040)}
+CELLS = {
+    # twenty worlds per lattice cell: eight from X85 (191-198) plus twelve from X87 (221-232), as registered
+    "f025": (("x85", "x87"), 0.025), "f030": (("x85", "x87"), 0.030), "f035": (("x85", "x87"), 0.035),
+    "f040": (("x88",), 0.040),
+}
 MIN_UIDS, MIN_PAIRS = 500, 300
 SHUFFLE = 1000
 NULL_BAND_MAX = 0.10
@@ -43,10 +47,10 @@ def partial_spearman(x, y, z):
 
 
 def cell_stats(series: str, flow: float) -> dict:
-    tag = f"{series}_f{int(round(flow * 1000)):03d}"
+    tags = [f"{s}_f{int(round(flow * 1000)):03d}" for s in series]
     areas, lifes, daughters, pairs_count = [], [], [], 0
     worlds = 0
-    for path in sorted(L1.glob(f"{tag}_pattern_s*.json")):
+    for path in sorted(p for tag in tags for p in L1.glob(f"{tag}_pattern_s*.json")):
         d = json.loads(path.read_text(encoding="utf-8"))
         outcomes = d.get("uid_outcomes") or []
         links = d.get("uid_pairs") or []

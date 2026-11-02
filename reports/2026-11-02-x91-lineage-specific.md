@@ -49,3 +49,23 @@ resemblance **pays** — whether a lineage whose size matches its parent's leave
 was invalid; the field line still has no measurement of consequence.
 
 доска: принято 0, отклонено 0, отложено 0.
+
+**Correction, 02.11 12:25 — the sample was twelve worlds per lattice cell, not twenty.** The analysis globbed `x87_*` only and X87
+holds twelve worlds per cell; the registered twenty are X87's twelve **plus** X85's eight (seeds 191–198), which live under a different
+prefix. Both are pooled now and everything below is recomputed on the full twenty:
+
+| `F` | events | neighbour found | ρ parent | ρ nearest non-ancestor | gap |
+|---|---|---|---|---|---|
+| 0.025 | 4 901 | 96 % | 0.391 | 0.130 | **0.261** |
+| 0.030 | 4 791 | 96 % | 0.549 | 0.249 | **0.300** |
+| 0.035 | 4 115 | 91 % | 0.470 | 0.059 | **0.411** |
+| 0.040 | 3 753 | 84 % | 0.471 | 0.064 | **0.407** |
+| 0.045 | 636 | 49 % | 0.165 | −0.585 | (control not applicable) |
+
+The conclusion is unchanged and slightly stronger: gaps 0.26–0.41 against the earlier 0.30–0.46 on a smaller sample, both shoulders
+lineage-specific, and the 0.035 control now reads 0.470 against X73's 0.457. The earlier table in this report is superseded as values, not
+as direction; the numbers to quote are these.
+
+The lesson is the same class as `--sample-every` and `--split-new-uid`: **a series' identity is not its prefix.** Two files with different
+prefixes were one cell by design, and a glob silently halved the sample. The fix is procedural — the cell's file list is now written as a
+list of prefixes in the script, and a cell's world count is checked against the registered number before the numbers are read.

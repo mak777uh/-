@@ -25,11 +25,13 @@ from x73_depth import ancestors, build, stranger_peak  # noqa: E402
 from x72c_analyse import spearman  # noqa: E402
 
 CELLS = {
-    "f025": ("x87", 0.025),
-    "f030": ("x87", 0.030),
-    "f035": ("x87", 0.035),
-    "f040": ("x88", 0.040),
-    "f045": ("x88", 0.045),
+    # 02.11 fix: the lattice cells are twenty worlds, eight from X85 (seeds 191-198) and twelve from X87 (221-232). Globbing a
+    # single prefix silently used twelve and the reports said twenty; both prefixes are pooled here.
+    "f025": (("x85", "x87"), 0.025),
+    "f030": (("x85", "x87"), 0.030),
+    "f035": (("x85", "x87"), 0.035),
+    "f040": (("x88",), 0.040),
+    "f045": (("x88",), 0.045),
 }
 CONTROL_BAND = (0.35, 0.55)   # X73 at 0.035 with the same code
 MIN_EVENTS = 100
@@ -47,10 +49,10 @@ def partial_spearman(xs, ys, zs):
 
 
 def cell_stats(series: str, flow: float) -> dict:
-    tag = f"{series}_f{int(round(flow * 1000)):03d}"
+    tags = [f"{s}_f{int(round(flow * 1000)):03d}" for s in series]
     parent_a, parent_d, stranger_a, stranger_d = [], [], [], []
     worlds, events, with_stranger = 0, 0, 0
-    for path in sorted(L1.glob(f"{tag}_pattern_s*.json")):
+    for path in sorted(p for tag in tags for p in L1.glob(f"{tag}_pattern_s*.json")):
         w = build(path)
         worlds += 1
         for uid in w["peaks"]:
