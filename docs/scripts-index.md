@@ -4,7 +4,7 @@
 
 The curated page — what matters and why — is [`scripts.md`](scripts.md). This file is the complete list, so that every command behind a number in the record can be found.
 
-Scripts: **246**.
+Scripts: **248**.
 
 ## Гейты и проверки (45)
 
@@ -168,7 +168,7 @@ Scripts: **246**.
 | `make_seed_grid_figure.py` | Собрать Figure 4 рукописи: сетка «инициализация × порядок данных» (§4.13). |
 | `make_simple_poster.py` | Простой постер для владельца: что мы узнали, без терминов. |
 
-## Прочее (114)
+## Прочее (116)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -286,3 +286,5 @@ Scripts: **246**.
 | `x80_analyse.py` | x80_analyse.py — with amplitude fixed, does memory dip where the mixture is richest? |
 | `x80_series.py` | x80_series.py — amplitude-normalised mix sweep at F = 0.030 (X80). |
 | `x81_series.py` | x81_series.py — prescribed spectrum: share of a second peak at fixed dominant (X81). |
+| `x82_analyse.py` | x82_analyse.py — prescribed vs realised spectral share: how far does inflow modulation reach? |
+| `x82_series.py` | x82_series.py — the reach of inflow modulation: prescribed vs realised spectral share (X82). |

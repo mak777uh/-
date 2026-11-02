@@ -475,7 +475,7 @@
 | [`morphogenesis/experiments/E09_pond/l1_field_x78_causal.json`](../morphogenesis/experiments/E09_pond/l1_field_x78_causal.json) | other | 7257 | `5c88d8b9d895515d78714a2f0b4820c74bfe8c0423d6f02a46698f468d82a1db` |
 | [`morphogenesis/experiments/E09_pond/l1_field_x78b_causal.json`](../morphogenesis/experiments/E09_pond/l1_field_x78b_causal.json) | other | 5496 | `0f6fb2a00c7b400c7ea9f5dccf248c23241d50d051b61798ae6f4e587577c6aa` |
 | [`morphogenesis/experiments/E09_pond/l1_field_x79_mix.json`](../morphogenesis/experiments/E09_pond/l1_field_x79_mix.json) | other | 6369 | `dc86079345d14da59f3b70b88acbb3467a3ed2fc4efccabb8a8acec2e7738314` |
-| [`morphogenesis/experiments/E09_pond/l1_field_x80_dip.json`](../morphogenesis/experiments/E09_pond/l1_field_x80_dip.json) | other | 5637 | `edbb38f2a114cc54944280c23d31bff9db5487fd00de6ee4fe46b4027ef7a2f3` |
+| [`morphogenesis/experiments/E09_pond/l1_field_x80_dip.json`](../morphogenesis/experiments/E09_pond/l1_field_x80_dip.json) | other | 6142 | `f45a69ffaa1c019bcb065ff66bf3fac3d6ba587bfbda05598363a90bbcddeaa0` |
 | [`morphogenesis/experiments/E09_pond/l2_matrix.json`](../morphogenesis/experiments/E09_pond/l2_matrix.json) | other | 9877 | `066d9b748d3be92f8122002dc6c28aaa5297eff8055b06580d5a4c23f1ad0e9b` |
 | [`morphogenesis/experiments/E09_pond/merge_keep_matrix.json`](../morphogenesis/experiments/E09_pond/merge_keep_matrix.json) | other | 17866 | `41f5ff962f61e6b2d34b432149dbb1b063bb4e9f451271d3f65ad9e0192c8804` |
 | [`morphogenesis/experiments/E09_pond/mergekeep_keep_seed1.json`](../morphogenesis/experiments/E09_pond/mergekeep_keep_seed1.json) | other | 169196 | `bc661f89a6290dd63693c1647f7e14abc1481b432dffae0b711fb15d39b6a47e` |
@@ -2496,6 +2496,8 @@
 | [`reports/figures/e02b_transition_matrix.png`](../reports/figures/e02b_transition_matrix.png) | figure | 152522 | `81f1b4fe50fd819f45411c31fb737a0c232d9c4f993f5233184c8b276779f5b9` |
 | [`reports/figures/e02c_seed_grid.png`](../reports/figures/e02c_seed_grid.png) | figure | 69503 | `a14f0a6eb28fa0675629e539dc863049d97c3a7ef1914c34ebd7348b5c71776f` |
 <!-- artifacts:end -->
+
+
 
 
 

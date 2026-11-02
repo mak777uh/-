@@ -38,9 +38,19 @@ CELLS = {"w025": ("0.25", "x80_w025_s*.json"), "w050": ("0.50", "x80_w05_s*.json
 SINGLE_SCALE = 1.47
 
 
+def family_power(prof: dict[int, float], window: tuple[int, int]) -> tuple[int | None, float]:
+    """Peak of one spectral family and the power in its +-1 bin neighbourhood."""
+    keys = [k for k in sorted(prof) if window[0] <= k <= window[1]]
+    if not keys:
+        return None, 0.0
+    q = max(keys, key=lambda k: prof[k])
+    return q, float(sum(prof[k] for k in prof if abs(k - q) <= 1))
+
+
 def cell_stats(pattern: str, rng: random.Random) -> dict:
     per_lag = {k: {"pairs": [], "worlds": {}} for k in LAGS}
     comps, two_peak = [], 0
+    shares: list[float] = []
     for path in sorted(L1.glob(pattern)):
         w = build(path)
         seed = path.stem.split("_s")[-1]
@@ -50,6 +60,12 @@ def cell_stats(pattern: str, rng: random.Random) -> dict:
         if f.is_file():
             prof = radial_profile(np.load(f))
             if prof:
+                # 02.11 correction: the local-maximum count is kept as a description only; the reading uses the realised
+                # power share, because a count passes on a tie and fails on a shoulder.
+                q1, p1 = family_power(prof, (6, 9))
+                q2, p2 = family_power(prof, (10, 13))
+                if (p1 + p2) > 0:
+                    shares.append(round(p2 / (p1 + p2), 3))
                 keys = sorted(prof)
                 peaks = [q for i, q in enumerate(keys)
                          if 1 < i < len(keys) - 1 and prof[keys[i]] > prof[keys[i - 1]] and prof[keys[i]] >= prof[keys[i + 1]]]
@@ -92,7 +108,10 @@ def cell_stats(pattern: str, rng: random.Random) -> dict:
             lam = math.exp(sum(math.log(x) for x in ratios) / len(ratios))
             half = math.log(0.5) / math.log(lam) if 0 < lam < 1 else None
     out["components_mean"] = round(st.mean(comps), 1) if comps else None
-    out["two_peak_worlds"] = two_peak
+    out["two_peak_worlds"] = two_peak  # description only (strict local maxima); the gate uses share_median
+    out["share_median"] = round(st.median(shares), 3) if shares else None
+    out["share_range"] = [min(shares), max(shares)] if shares else None
+    out["share_worlds"] = len(shares)
     out["worlds"] = len(comps)
     out["lambda"] = round(lam, 3) if lam else None
     out["half_life"] = round(half, 2) if half else None
@@ -117,14 +136,25 @@ def main(argv=None) -> int:
     a, b, c = res["cells"]["w025"], res["cells"]["w050"], res["cells"]["w075"]
     void = [k for k, x in res["cells"].items()
             if (x["components_mean"] or 0) < 10 or (x[1]["pairs"] or 0) < 400]
-    most_two_peak = max((x["two_peak_worlds"] for x in (a, b, c)))
-    middle_most = b["two_peak_worlds"] == most_two_peak and most_two_peak > 0
+    # 02.11 correction: the gate is the realised share, not a peak count (a count passes on a tie and fails on a shoulder).
+    sh = {k: res["cells"][k]["share_median"] for k in res["cells"]}
+    reach = None if any(v is None for v in sh.values()) else round(max(sh.values()) - min(sh.values()), 3)
+    middle_share = (sh["w050"] is not None and sh["w025"] is not None and sh["w075"] is not None
+                    and sh["w050"] - max(sh["w025"], sh["w075"]) >= 0.05)
     h25, h50, h75 = a["half_life"], b["half_life"], c["half_life"]
+    control = h25 is not None and h75 is not None and h25 > 1.0 and h75 > 1.0
     if void:
         verdict = f"void: collapsed or underpowered cells: {void}"
-    elif not middle_most:
-        verdict = ("void: the middle cell is not the most two-peaked, so the amplitude fix did not isolate spectral content "
-                   f"(two-peak worlds: {a['two_peak_worlds']}/{b['two_peak_worlds']}/{c['two_peak_worlds']})")
+    elif reach is not None and reach < 0.10:
+        verdict = ("void by manipulation reach: the realised second-peak share moves by only "
+                   f"{reach} across the sweep ({sh['w025']} / {sh['w050']} / {sh['w075']}), so the cells are spectrally "
+                   "near-identical and any ordering between them is realisation noise")
+    elif not middle_share:
+        verdict = ("void: the middle cell does not carry more of the second peak than both wings by 0.05, so the amplitude "
+                   f"fix did not isolate spectral content (realised shares: {sh['w025']} / {sh['w050']} / {sh['w075']})")
+    elif not control:
+        verdict = ("void: the positive control did not fire — a wing half-life is at or below 1.0, so no cell is "
+                   f"single-scale-like (half-lives: {h25} / {h50} / {h75})")
     elif not (h25 and h50 and h75):
         verdict = "inconclusive: a half-life could not be fitted"
     elif h50 < min(h25, h75) - 0.15:
