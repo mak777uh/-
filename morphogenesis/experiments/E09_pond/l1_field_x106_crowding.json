@@ -1,0 +1,155 @@
+{
+  "kind": "l1_field_x106_crowding",
+  "experiment": "X106",
+  "command": "python scripts/x106_analyse.py --write",
+  "prereg": "reports/2026-11-02-x106-crowding-plan.md",
+  "readout": "Spearman(distance to the nearest non-ancestor peak, daughter area), the same coordinate against the mother's area, and against the daughter's lifetime, with the area effect partialled on lifetime",
+  "cells": {
+    "f030": {
+      "flow": 0.03,
+      "worlds": 10,
+      "pairs": 2165,
+      "used": 1834,
+      "coverage": 0.847,
+      "median_d_near": 8.81,
+      "median_lifetime": 450.0,
+      "rho_area": 0.322,
+      "rho_place": 0.397,
+      "rho_life": 0.171,
+      "rho_control": 0.483,
+      "rho_area_given_life": 0.343,
+      "per_world_life": [
+        {
+          "world": "x100_f030_s291.json",
+          "pairs": 216,
+          "rho_life": 0.23
+        },
+        {
+          "world": "x100_f030_s292.json",
+          "pairs": 112,
+          "rho_life": -0.112
+        },
+        {
+          "world": "x100_f030_s293.json",
+          "pairs": 145,
+          "rho_life": 0.146
+        },
+        {
+          "world": "x100_f030_s294.json",
+          "pairs": 162,
+          "rho_life": 0.157
+        },
+        {
+          "world": "x100_f030_s295.json",
+          "pairs": 149,
+          "rho_life": 0.008
+        },
+        {
+          "world": "x100_f030_s296.json",
+          "pairs": 188,
+          "rho_life": 0.228
+        },
+        {
+          "world": "x100_f030_s297.json",
+          "pairs": 149,
+          "rho_life": 0.093
+        },
+        {
+          "world": "x100_f030_s298.json",
+          "pairs": 222,
+          "rho_life": 0.121
+        },
+        {
+          "world": "x100_f030_s299.json",
+          "pairs": 205,
+          "rho_life": 0.031
+        },
+        {
+          "world": "x100_f030_s300.json",
+          "pairs": 286,
+          "rho_life": 0.393
+        }
+      ],
+      "worlds_life_positive": 9,
+      "worlds_measured": 10
+    },
+    "f040": {
+      "flow": 0.04,
+      "worlds": 10,
+      "pairs": 1761,
+      "used": 800,
+      "coverage": 0.454,
+      "median_d_near": 12.45,
+      "median_lifetime": 150.0,
+      "rho_area": 0.114,
+      "rho_place": -0.038,
+      "rho_life": 0.056,
+      "rho_control": 0.391,
+      "rho_area_given_life": 0.107,
+      "per_world_life": [
+        {
+          "world": "x100_f040_s291.json",
+          "pairs": 103,
+          "rho_life": 0.014
+        },
+        {
+          "world": "x100_f040_s292.json",
+          "pairs": 49,
+          "rho_life": 0.41
+        },
+        {
+          "world": "x100_f040_s293.json",
+          "pairs": 79,
+          "rho_life": 0.218
+        },
+        {
+          "world": "x100_f040_s294.json",
+          "pairs": 99,
+          "rho_life": 0.037
+        },
+        {
+          "world": "x100_f040_s295.json",
+          "pairs": 70,
+          "rho_life": 0.35
+        },
+        {
+          "world": "x100_f040_s296.json",
+          "pairs": 76,
+          "rho_life": 0.323
+        },
+        {
+          "world": "x100_f040_s297.json",
+          "pairs": 70,
+          "rho_life": 0.094
+        },
+        {
+          "world": "x100_f040_s298.json",
+          "pairs": 90,
+          "rho_life": -0.022
+        },
+        {
+          "world": "x100_f040_s299.json",
+          "pairs": 94,
+          "rho_life": -0.015
+        },
+        {
+          "world": "x100_f040_s300.json",
+          "pairs": 70,
+          "rho_life": -0.341
+        }
+      ],
+      "worlds_life_positive": 7,
+      "worlds_measured": 10
+    }
+  },
+  "positive_control": {
+    "fires": true,
+    "note": "heredity >= 0.35; the crowding coefficient reproduces X103d within 0.10"
+  },
+  "references_x103d": {
+    "f030": 0.358,
+    "f040": 0.103
+  },
+  "resolution": 0.1,
+  "verdict": "mixed: the three readings are not separated with one sign in both cells — printed cell by cell"
+}

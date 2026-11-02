@@ -2285,3 +2285,39 @@ line describes **long-lived** structures only — the reason X105 exists.
 Reports: `reports/2026-11-02-x103-basin-position-void.md` (the two voids), `reports/2026-11-02-x103cd-birth-distance.md` (the
 answer); aggregates `l1_field_x103_basin_position.json`, `l1_field_x103b_basin_position.json`,
 `l1_field_x103c_birth_distance.json`, `l1_field_x103d_peak_null.json`.
+
+## 10fx. Room is a property of the place, and heredity is not made of it (X106–X107, 02.11)
+
+X103d's internal null produced a term nobody had asked for: in the lattice, a structure born farther from the nearest **non-ancestor**
+peak grows larger. X106 asked what that coordinate is, and X107 asked the one question that could have reduced every heredity number
+in this line — how much of the parent–daughter correlation is the daughter simply sitting in her mother's room.
+
+| inflow | ρ(room, daughter area) | ρ(room, **mother's** area) | ρ(room, lifetime) | heredity | partial given room | partial given both rooms | drop |
+|---|---|---|---|---|---|---|---|
+| 0.030 | +0.322 | **+0.397** | +0.171 (9/10 worlds) | 0.519 | **0.455** | 0.425 | **0.064** |
+| 0.040 | +0.114 | −0.038 | +0.056 | 0.395 | 0.395 | 0.392 | 0.000 |
+
+**X106** registered three readings — a property of places, a constraint on growth, a constraint on persistence — and returned
+*mixed*, for a reason that is itself the finding: in the lattice the effect is present for mothers and daughters alike (0.397 against
+0.322), so the coordinate describes where a structure sits in the packing rather than anything it inherits; in the maze it is absent
+for both (0.114 and −0.038). A labyrinth sets the width of a structure by the geometry of its arms, so "the distance to the next peak"
+stops being informative — the nearest peak is often one wall away in the next arm. Lifetime follows weakly in the lattice (+0.171, nine
+worlds of ten, below the coarse-quantity floor of 0.20 that the plan set in advance), so the primary reading is **growth in space**,
+not duration.
+
+**X107** then removed the room: the coefficient falls from 0.519 to 0.455 in the lattice and from 0.395 to nothing in the maze, and
+controlling both rooms (the mother's and the daughter's) takes the lattice value to 0.425. Registered verdict: **heredity is not a
+shared-room effect** — the drop is inside the declared resolution of 0.10.
+
+The honest form of that sentence: the room cannot account for the heredity, not that it accounts for nothing. About 12 % of the
+lattice coefficient is room, so 0.455 / 0.395 are the room-adjusted values, and any future claim that needs three decimals should
+quote them. This is the answer to the referee question the whole line invites — *isn't this just daughters staying near their
+mothers?* — and the answer is a number, 0.064.
+
+The two analyses also give the line its second non-ancestral quantity, with a stated domain: room matters where structures compete for
+open space and vanishes where the medium already fixes their width. That is a checkable morphological statement, not a statistical
+one: an observer can see the arms of the maze and predict where the coordinate should stop working.
+
+Reports: `reports/2026-11-02-x106-crowding.md`, `reports/2026-11-02-x107-shared-room.md`; aggregates
+`l1_field_x106_crowding.json`, `l1_field_x107_shared_room.json`. X105 (dense logging, twenty runs) is the replication that removes the
+maze cell's long-lived selection.

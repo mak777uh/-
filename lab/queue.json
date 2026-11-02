@@ -1,6 +1,6 @@
 {
  "schema_version": 1,
- "updated_at": "2026-11-02T17:13:00+03:00",
+ "updated_at": "2026-11-02T17:18:34+03:00",
  "note": "Очередь пунктов после E02c. Claim берётся до пре-регистрации, а не перед запуском: lab.py item-claim. Статус running означает занятый GPU-лейн и может быть только у одного пункта. | 25.10: добавлено поле impact (1-5) — приоритет конвейера = impact/max(cost_gpu_h,0.1); для запуска пункту нужны prereg (закоммиченный план) и launch.command+outdir.",
  "items": [
   {
@@ -2199,13 +2199,15 @@
   {
    "id": "X106_crowding",
    "title": "The crowding term on its own: does the distance to the nearest stranger peak predict lifetime as well as size?",
-   "status": "planned",
+   "status": "closed",
    "owner": "lead",
    "kind": "analysis",
    "cost_gpu_h": 0,
-   "prereg": null,
+   "prereg": "reports/2026-11-02-x106-crowding-plan.md",
    "created_at": "2026-11-02T17:07:12+03:00",
-   "note": "X103d found, in the lattice cell, that a daughter born farther from the nearest non-ancestor peak grows larger (+0.358, 10/10 worlds) - the first quantity in this line that is not about ancestry. Two questions decide what it is: does the same distance predict the mother's area (if yes, it is a property of where structures can grow, not of daughters), and does it predict lifetime as well as peak area (if yes, crowding constrains persistence, not growth). Both are readouts on X100's stored logs, no GPU. Register before running, with a size-matched control."
+   "note": "closed: the room coordinate predicts the mother's own area (+0.397) better than the daughter's (+0.322) in the lattice, and nothing in the maze (0.114 / -0.038); lifetime +0.171 with 9/10 worlds. Registered verdict 'mixed' because the place condition was required in both cells — the substance is 'a property of places, in the lattice only'. Aggregate l1_field_x106_crowding.json, report reports/2026-11-02-x106-crowding.md, plan §10fx. Next: X107",
+   "closed_at": "2026-11-02T14:18:34Z",
+   "closed_by": "lead"
   }
  ]
 }
