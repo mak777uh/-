@@ -4,7 +4,7 @@
 
 The curated page — what matters and why — is [`scripts.md`](scripts.md). This file is the complete list, so that every command behind a number in the record can be found.
 
-Scripts: **267**.
+Scripts: **268**.
 
 ## Гейты и проверки (46)
 
@@ -170,7 +170,7 @@ Scripts: **267**.
 | `make_seed_grid_figure.py` | Собрать Figure 4 рукописи: сетка «инициализация × порядок данных» (§4.13). |
 | `make_simple_poster.py` | Простой постер для владельца: что мы узнали, без терминов. |
 
-## Прочее (133)
+## Прочее (134)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -307,3 +307,4 @@ Scripts: **267**.
 | `x92_analyse.py` | x92_analyse.py — does size pay? Peak area against lifetime and against the number of daughters. |
 | `x93_analyse.py` | x93_analyse.py — do sisters pay for size? Within-family contrast with lifetime as the outcome. |
 | `x98_analyse.py` | x98_analyse.py — is the angular map a property of the world or of the excursion cut? |
+| `x99_series.py` | x99_series.py — the memory map at two other excursion cuts (X99). |
