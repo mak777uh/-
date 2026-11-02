@@ -160,3 +160,4 @@ sections were not rewritten, only moved; each one keeps its identifier, so every
 | §10fg | One period and two symmetries: X71's "two wavelengths" was a radial binning artefact (X84, 02.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
 | §10fh | The reach test voided itself and confirmed the period: sixteen times the power moves nothing (X82, 02.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
 | §10fi | Symmetry against memory voided itself, and found that the logging frequency is a physical parameter (X85, 02.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
+| §10fj | The symmetry curve is placed, and the identity convention turns out to limit which questions a series can be asked (X86, 02.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |

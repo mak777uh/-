@@ -1832,3 +1832,36 @@ the instrument is the binding constraint. Placing a cell's `s` to ±0.03 needs a
 
 Reports: `reports/2026-11-02-x85-symmetry-memory-void.md`; aggregate `l1_field_x85_symmetry_memory.json`. Rule added to
 `docs/design-checks.md` ("logging frequency is a physical parameter").
+
+## 10fj. The symmetry curve is placed, and the identity convention turns out to limit which questions a series can be asked (X86, 02.11)
+
+X86 ran sixty worlds — twenty per inflow, all at `--sample-every 50` (the X82/X85 regime) — to place `s(F)` at the precision the line
+now needs.
+
+| `F` | `s` median | IQR | sd | SE | axis period `q'` |
+|---|---|---|---|---|---|
+| 0.025 | **0.421** | 0.365–0.609 | 0.138 | 0.031 | 4–8 |
+| 0.030 | **0.674** | 0.519–0.762 | 0.163 | 0.036 | 8–10 |
+| 0.035 | **0.848** | 0.778–0.880 | 0.110 | 0.025 | 7–9 |
+
+The registered control fired (ordered medians, 0.025→0.035 gap **0.427** against a required 0.15) and both adjacent steps clear the
+declared resolution: **+0.253** (5.3σ) and **+0.174** (3.9σ). The curve is **placed**. The 0.030 value, 0.674, reproduces X85's 0.671
+measured on eight different worlds to three hundredths — the first clean replicate of a level in this line.
+
+Two corrections to the plan's own arithmetic, stated rather than hidden: the observed `sd(s)` is 0.110–0.163, not the 0.07–0.10 that
+X85's eight worlds suggested, so the standard error is 0.025–0.036 and the resolution ≈0.08 rather than 0.05 (both steps still clear
+it); and `q'` spans 4–10 bins (9.6–24 cells), coarser at `F = 0.025`, so "one period ≈ 12 cells" is a median with real spread — never
+11, which is the part X84 refuted.
+
+**The secondary readout does not exist.** The plan expected these worlds to serve the heredity question later "without a new run". They
+cannot: with `--split-new-uid` off (X71's convention, chosen so the symmetry numbers match X71's) the identity tracker keeps **4–7
+uids** and `uid_pairs` is **empty**. X71 has the same 0 pairs, which is why it never measured heredity, while the split convention
+gives 209–250 pairs per run (X74, X85). The registered refusal rule required ≥400 pairs and would have voided the series over a
+readout it could not produce; the aggregate separates the two, judges the curve on its own gate and marks the second unavailable with
+its cause.
+
+So the lesson repeats in a second costume: `--sample-every` and `--split-new-uid` are not conveniences but parameters that decide which
+questions a series can be asked. A design names, before the run, every readout the worlds will serve.
+
+Report: `reports/2026-11-02-x86-curve-placed.md`; aggregate `l1_field_x86_symmetry_curve.json`. Registered next: the memory-versus-
+symmetry test on worlds that carry both readouts (X85's eight per cell plus twelve more, split on, 36 runs).

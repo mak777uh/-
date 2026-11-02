@@ -162,9 +162,17 @@ def main(argv=None) -> int:
     res["positive_control"] = {"fires": control, "medians": med, "gap_025_035": gap,
                               "required_gap": CONTROL_GAP, "f030_band": list(CONTROL_F030)}
 
+    # The preregistered void rule also required >=400 lag-1 pairs per cell, because the plan expected these worlds to double as
+    # heredity data. They cannot: with `--split-new-uid` off the identity tracker keeps 4-7 uids and `uid_pairs` is empty by
+    # construction (X71 has 0 pairs too). The curve needs no pairs, so the two readouts are separated here and both facts are
+    # reported: the primary is judged on its own gate, the secondary is declared unavailable with its cause.
     void = [k for k, x in c.items()
-            if (x["components_mean"] or 0) < 10 or (x["1"]["pairs"] or 0) < 400
+            if (x["components_mean"] or 0) < 10
             or x["symmetry_range"] is None or (x["symmetry_range"][1] - x["symmetry_range"][0]) < 0.05]
+    secondary = {k: (x["1"]["pairs"] or 0) >= 400 for k, x in c.items()}
+    res["secondary_readout_available"] = secondary
+    res["secondary_unavailable_reason"] = ("uid_pairs is empty: --split-new-uid is off (X71's identity convention), which keeps "
+                                           "4-7 uids per run; a heredity readout needs the split convention")
     steps = {"030-025": round(med["f030"] - med["f025"], 3) if ordered else None,
              "035-030": round(med["f035"] - med["f030"], 3) if ordered else None}
 
