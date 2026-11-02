@@ -11,8 +11,8 @@ Reserved to the owner by `lab/autonomy-rules.json`: publishing anything outward:
 
 ## Running now
 
-- **X112b_cuts_series** — The ladder and the specificity at cuts 0.15 and 0.25, built at each cut (owner `lead`)
-- last artifact written 0.8 h ago
+- **X112c_cuts_maze** — The same cut sweep at F = 0.040, where X99 found the inflow ordering reversing (owner `lead`)
+- last artifact written 0.6 h ago
 
 ## Waiting, but not on a human
 
