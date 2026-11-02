@@ -1,0 +1,77 @@
+{
+  "kind": "l1_field_x92_pay",
+  "experiment": "X92",
+  "command": "python scripts/x92_analyse.py --write",
+  "prereg": "reports/2026-11-02-x92-pay-plan.md",
+  "readout": "Spearman(area, lifetime); Spearman(area, daughters) raw and as a partial controlling lifetime; null = 1000 within-world shuffles of area, 95th percentile of |rho|",
+  "resolution": 0.1,
+  "cells": {
+    "f025": {
+      "flow": 0.025,
+      "series": "x87",
+      "worlds": 12,
+      "uids": 3090,
+      "pairs": 3001,
+      "median_lifetime": 424.0,
+      "median_area": 50.0,
+      "rho_area_lifetime": 0.185,
+      "rho_area_daughters": 0.843,
+      "partial_area_daughters_given_lifetime": 0.86,
+      "null_p95_abs": 0.035
+    },
+    "f030": {
+      "flow": 0.03,
+      "series": "x87",
+      "worlds": 12,
+      "uids": 3136,
+      "pairs": 3054,
+      "median_lifetime": 307.0,
+      "median_area": 58.0,
+      "rho_area_lifetime": 0.11,
+      "rho_area_daughters": 0.806,
+      "partial_area_daughters_given_lifetime": 0.834,
+      "null_p95_abs": 0.036
+    },
+    "f035": {
+      "flow": 0.035,
+      "series": "x87",
+      "worlds": 12,
+      "uids": 2486,
+      "pairs": 2403,
+      "median_lifetime": 222.0,
+      "median_area": 101.0,
+      "rho_area_lifetime": -0.074,
+      "rho_area_daughters": 0.656,
+      "partial_area_daughters_given_lifetime": 0.667,
+      "null_p95_abs": 0.039
+    },
+    "f040": {
+      "flow": 0.04,
+      "series": "x88",
+      "worlds": 20,
+      "uids": 3932,
+      "pairs": 3753,
+      "median_lifetime": 89.0,
+      "median_area": 202.0,
+      "rho_area_lifetime": -0.046,
+      "rho_area_daughters": 0.624,
+      "partial_area_daughters_given_lifetime": 0.632,
+      "null_p95_abs": 0.031
+    }
+  },
+  "positive_control": {
+    "fires": true,
+    "null_bands": {
+      "f025": 0.035,
+      "f030": 0.036,
+      "f035": 0.039,
+      "f040": 0.031
+    }
+  },
+  "pay_cells": [
+    "f025",
+    "f030"
+  ],
+  "decorative_cells": [],
+  "verdict": "mixed"
+}

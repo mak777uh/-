@@ -2014,3 +2014,32 @@ series — is what becomes uninterpretable.
 Report: `reports/2026-11-02-x91-lineage-specific.md`; aggregate `l1_field_x91_lineage_specificity.json`. What is still missing for a
 claim about inheritance in the biological sense is the third leg: whether the resemblance **pays**, i.e. whether a lineage whose size
 matches its parent's leaves more descendants. X29 tried and its meter was invalid; the field line still has no measurement of consequence.
+
+## 10fp. Size is not a currency in this medium: weakly good in the lattice, bad in the maze, and the tempting correlation is mechanical (X92, 02.11)
+
+X91 closed the artefact route for resemblance; the remaining leg is consequence — does a structure's size buy it persistence or descendants?
+X29 failed with an invalid meter (selection differential +0.148 where the trait cannot act), so X92 tried the stored artifacts: every uid's
+peak area against its lifetime, and against its number of daughters.
+
+| F | uids | rho(area, lifetime) | rho(area, daughters) | partial (lifetime held) | null p95 | median lifetime |
+|---|---|---|---|---|---|---|
+| 0.025 | 3 090 | **+0.185** | 0.843 | 0.860 | 0.035 | 424 |
+| 0.030 | 3 136 | **+0.110** | 0.806 | 0.834 | 0.036 | 307 |
+| 0.035 | 2 486 | **-0.074** | 0.656 | 0.667 | 0.039 | 222 |
+| 0.040 | 3 932 | **-0.046** | 0.624 | 0.632 | 0.031 | 89 |
+
+Registered verdict: **mixed** — only the daughters readout clears the 0.10 bar.
+
+Two readings, and only one of them can be trusted. **Lifetime flips sign with morphology**: a bigger structure lives a little longer in
+the lattice (+0.19, +0.11) and a little *shorter* in the percolating arm (-0.07, -0.05), consistent with a maze in which the largest
+components are the thickenings about to be cut. Median lifetime collapses across the same range, 424 steps to 89. **The daughters
+correlation is mechanical**: with the split identity convention, a component that divides is by construction the large one, so area and
+out-degree share an object; shuffling areas breaks the pairing but not that link, which is why a null of 0.031-0.039 sits under a
+coefficient of 0.62-0.86 and settles nothing.
+
+So the field line still has **no measurement of consequence**. What it now has is a warning and a design: the clean form is a **sibling
+contrast** — among daughters of the same mother, does the larger sister leave more daughters? That holds the mother, the place and the
+moment fixed and cannot be produced by the mechanical link. The stored pairs define siblings; following a sister's own descendants needs
+a longer horizon or a denser log, about one GPU-hour.
+
+Reports: `reports/2026-11-02-x92-pay-mixed.md`; aggregate `l1_field_x92_pay.json`.

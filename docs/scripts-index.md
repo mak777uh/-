@@ -4,7 +4,7 @@
 
 The curated page — what matters and why — is [`scripts.md`](scripts.md). This file is the complete list, so that every command behind a number in the record can be found.
 
-Scripts: **262**.
+Scripts: **263**.
 
 ## Гейты и проверки (45)
 
@@ -168,7 +168,7 @@ Scripts: **262**.
 | `make_seed_grid_figure.py` | Собрать Figure 4 рукописи: сетка «инициализация × порядок данных» (§4.13). |
 | `make_simple_poster.py` | Простой постер для владельца: что мы узнали, без терминов. |
 
-## Прочее (130)
+## Прочее (131)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -302,3 +302,4 @@ Scripts: **262**.
 | `x90_analyse.py` | x90_analyse.py — does the lineage trickle stop, or does it only slow down? |
 | `x90_series.py` | x90_series.py — does the trickle stop or only slow? 12 000 steps at the fading edge (X90). |
 | `x91_analyse.py` | x91_analyse.py — is the memory at the band's shoulders lineage memory or regional resemblance? |
+| `x92_analyse.py` | x92_analyse.py — does size pay? Peak area against lifetime and against the number of daughters. |
