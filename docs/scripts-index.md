@@ -4,7 +4,7 @@
 
 The curated page — what matters and why — is [`scripts.md`](scripts.md). This file is the complete list, so that every command behind a number in the record can be found.
 
-Scripts: **254**.
+Scripts: **255**.
 
 ## Гейты и проверки (45)
 
@@ -168,7 +168,7 @@ Scripts: **254**.
 | `make_seed_grid_figure.py` | Собрать Figure 4 рукописи: сетка «инициализация × порядок данных» (§4.13). |
 | `make_simple_poster.py` | Простой постер для владельца: что мы узнали, без терминов. |
 
-## Прочее (122)
+## Прочее (123)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -293,4 +293,5 @@ Scripts: **254**.
 | `x85_series.py` | x85_series.py — does the symmetry of the pattern carry the size memory? (X85) |
 | `x86_analyse.py` | x86_analyse.py — place the symmetry curve, then read the memory against it. |
 | `x86_series.py` | x86_series.py — place the symmetry curve with twenty worlds per inflow (X86). |
+| `x87_analyse.py` | x87_analyse.py — memory against symmetry on twenty worlds per inflow (X85's eight + X87's twelve). |
 | `x87_series.py` | x87_series.py — memory against symmetry, twelve more worlds per cell (X87). |

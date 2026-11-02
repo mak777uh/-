@@ -1865,3 +1865,30 @@ questions a series can be asked. A design names, before the run, every readout t
 
 Report: `reports/2026-11-02-x86-curve-placed.md`; aggregate `l1_field_x86_symmetry_curve.json`. Registered next: the memory-versus-
 symmetry test on worlds that carry both readouts (X85's eight per cell plus twelve more, split on, 36 runs).
+
+## 10fk. Orientation does not carry the memory, and the U-shaped band does not survive twenty worlds (X87, 02.11)
+
+X87 brought X85's cells to twenty worlds each (twelve new per inflow, seeds 221–232, flags verified identical), so the memory and the
+symmetry are measured on the same worlds at last.
+
+| `F` | `rho1` | pairs | ρ(`rho1`, `s`) within cell | `s` median | half-life, per world | fittable |
+|---|---|---|---|---|---|---|
+| 0.025 | 0.391 | 4 901 | **−0.05** | 0.385 | **1.82** | 20/20 |
+| 0.030 | 0.549 | 4 791 | **−0.26** | 0.679 | **1.16** | 18/20 |
+| 0.035 | 0.470 | 4 115 | **−0.21** | 0.837 | **1.07** | 19/20 |
+
+The registered control fired (0.030 `rho1` 0.549 in [0.45, 0.56]; 0.035 symmetry 0.837 in [0.78, 0.90]) and the verdict is
+**symmetry does not carry the memory** — all three coefficients inside ±0.3, pooled partial correlation controlling inflow **−0.10**,
+raw pooled correlation +0.16 being inflow confounding (`s` tracks `F` at 0.90). At twenty worlds a coefficient of 0.26 is ≈1.2σ, so the
+bound is: a negative association stronger than ≈0.3 is excluded, nothing smaller.
+
+What the environment can turn — orientation — therefore does not carry the state that the heredity numbers measure. Memory belongs to
+the medium, not to the symmetry it displays. That closes the question the two-scale programme was built to ask.
+
+**And the U-shaped band does not survive.** Per-world median half-life is **1.82 / 1.16 / 1.07** at 0.025 / 0.030 / 0.035: monotone
+declining, not U-shaped. §10fa and claim 295 described a U (1.47 / 0.73 / 1.61) from five worlds and pooled pairs; the 0.025 inflow was
+never measured then, and the 0.035 cell moved 0.73 → 0.85 → 1.07 as the sample grew from five to eight to twenty. Direction: memory
+shortens as inflow rises in the range where the medium is single-scale. The high-inflow arm (0.040–0.050), where the morphology
+percolates, remains unmeasured at this power — that is the only place a U could still live, and it is what to run next (~60 runs).
+
+Reports: `reports/2026-11-02-x87-symmetry-does-not-carry-memory.md`; aggregate `l1_field_x87_memory_vs_symmetry.json`.
