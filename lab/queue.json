@@ -1,6 +1,6 @@
 {
  "schema_version": 1,
- "updated_at": "2026-11-03T00:17:17+03:00",
+ "updated_at": "2026-11-03T01:30:19+03:00",
  "note": "Очередь пунктов после E02c. Claim берётся до пре-регистрации, а не перед запуском: lab.py item-claim. Статус running означает занятый GPU-лейн и может быть только у одного пункта. | 25.10: добавлено поле impact (1-5) — приоритет конвейера = impact/max(cost_gpu_h,0.1); для запуска пункту нужны prereg (закоммиченный план) и launch.command+outdir.",
  "items": [
   {
@@ -2412,6 +2412,32 @@
    "note": "closed through X113c after X113b voided on a borrowed control band: size buys speed — +6.06 and +18.96 generations per 1 000 steps, per-division contrast positive. Aggregate l1_field_x113c_depth_rate.json, report reports/2026-11-03-x113bcd-depth-rate.md, plan §10gk.",
    "closed_at": "2026-11-02T21:17:17Z",
    "closed_by": "lead"
+  },
+  {
+   "id": "X114_window",
+   "title": "Is the generation advantage an artefact of the horizon?",
+   "status": "closed",
+   "owner": "lead",
+   "kind": "analysis",
+   "cost_gpu_h": 0,
+   "prereg": "reports/2026-11-03-x114-window-plan.md",
+   "created_at": "2026-11-03T01:22:21+03:00",
+   "closed_at": "2026-11-02T22:22:21Z",
+   "closed_by": "lead",
+   "note": "closed: the advantage survives an equal 3 000-step window — +0.407 (CI 0.362-0.453) and +0.638 (CI 0.561-0.720) generations per 1 000 windowed steps, median depth 3 -> 2. Aggregate l1_field_x114_window.json, report reports/2026-11-03-x114-window.md, plan §10gl."
+  },
+  {
+   "id": "X115_persistence",
+   "title": "Does the faster line persist to the end?",
+   "status": "closed",
+   "owner": "lead",
+   "kind": "analysis",
+   "cost_gpu_h": 0,
+   "prereg": "reports/2026-11-03-x115-persistence-plan.md",
+   "created_at": "2026-11-03T01:30:19+03:00",
+   "closed_at": "2026-11-02T22:30:19Z",
+   "closed_by": "lead",
+   "note": "closed: faster lines persist — +0.250 (CI 0.220-0.279) and +0.137 (CI 0.116-0.159), counts 324:39 and 178:14. Aggregate l1_field_x115_persistence.json, report reports/2026-11-03-x115-persistence.md, plan §10gm. Next: resilience after a perturbation, which needs runs"
   }
  ]
 }

@@ -2724,3 +2724,65 @@ Caveats: the maze filter drops 42 % of uids; a rate is a ratio of two noisy quan
 truncated by the 6 000-step horizon (median 3); one seed set, one box.
 
 Report: `reports/2026-11-03-x113bcd-depth-rate.md`; aggregates `l1_field_x113c_depth_rate.json` (and X113's `l1_field_x113_depth.json`).
+
+## 10gl. The generation advantage survives an equal observation window (X114, 03.11)
+
+X113 and X113c measured depth over the whole run, so a line that starts late or dies early has less time to go deep and lines alive at the horizon are
+favoured. X114 gives both branches of a sister pair the same budget: generations reached inside `W = 3 000` steps of each branch's own first appearance,
+counting only descendants born inside that window.
+
+| cell | pairs | heredity | median depth windowed vs whole-run | rate contrast per 1 000 windowed steps | 95 % CI |
+|---|---|---|---|---|---|
+| 0.030 | 1 142 | 0.548 | **2 vs 3** | **+0.407** | **[0.362, 0.453]** |
+| 0.040 | 1 195 | 0.480 | **2 vs 3** | **+0.638** | **[0.561, 0.720]** |
+
+Registered verdict: **the advantage survives** — both intervals exclude zero, and the window demonstrably bites (median depth 3 → 2 in both cells), so it
+is not the previous measurement in disguise. The magnitudes are not comparable with X113c's +6.06 / +18.96: that rate divides by each branch's own
+lifetime, this one by the fixed window. Two denominators, one question, the same answer.
+
+So the truncation caveat carried by the day's consequence claim is tested and does not explain the effect. What stays open: whether reaching generations
+is worth anything for persistence, and whether `W = 3 000` is the right horizon — a design choice, registered so it can be attacked.
+
+**Data restored.** The same disk cleanup that removed nineteen tracked files also deleted the full X108 logs (50 MB), which had never been compacted or
+committed, so this analysis could not run. The series was re-run from its seeds and reproduces the committed aggregates **exactly** — `x113`'s
+0.467 / 0.332, partial 0.459 / 0.340, depth–lifetime −0.185 / −0.070, sister contrasts +1.479 and +2.213 with the same intervals, and the excursion-set
+heredity 0.548 / 0.480. The reconstruction is a repair because the world is deterministic, and the `.compact.json` projections of all twenty runs are now
+committed (5.9 MB) so the loss cannot recur.
+
+Caveats: `W` is half the run; about 450 pairs per cell have a window that runs past the series end (nominal rather than exact); the two rate denominators
+must not be compared in size.
+
+Report: `reports/2026-11-03-x114-window.md`; aggregate `l1_field_x114_window.json`.
+
+## 10gm. Faster lines persist: the consequence acquires a survival currency (X115, 03.11)
+
+X113–X114 gave the larger sister's lineage more generations, faster, on equal windows. The currency that matters for "conditions for life" is whether the
+line still exists at the end. Paired within sister pairs, on X108's restored logs:
+
+| cell | pairs | heredity | survival difference (larger - smaller) | 95 % CI | only larger / only smaller survive | both / neither |
+|---|---|---|---|---|---|---|
+| 0.030 | 1 142 | 0.548 | **+0.250** | **[0.220, 0.279]** | **324 / 39** | 641 / 138 |
+| 0.040 | 1 195 | 0.480 | **+0.137** | **[0.116, 0.159]** | **178 / 14** | 40 / 963 |
+
+Registered verdict: **faster lines persist better** — both intervals far from zero, same direction in both cells, and among the discriminating pairs the
+asymmetry is 8:1 in the lattice and 13:1 in the maze. The secondary readout (living descendants at the end) agrees: +0.349 (CI 0.319-0.380) and +0.141
+(CI 0.120-0.163). Controls: heredity 0.548 / 0.480 and the depth contrast reproducing X113 within 5 %, i.e. the same pairs measured for a new question.
+
+The day's arc now reads:
+
+| claim | measurement | cells |
+|---|---|---|
+| size is inherited | rho1 0.548 / 0.480; room-corrected 0.469 / 0.487 | both |
+| it is a lineage property across a generation | granddaughters +12.68 cells (median, 98 % of the mean), branch counts within 4 % | both |
+| it buys generations, faster | +1.479 / +2.213 generations; +6.06 / +18.96 per 1 000 steps; survives equal windows | both |
+| **and it buys survival** | **+0.250 / +0.137 end-survival, 324:39 and 178:14** | both |
+
+So the hedge is retired: a medium that transmits a size faithfully also pays for it, in generations and in persistence. X92's "size is not a currency"
+remains true in its own terms — *lifetime* is not the currency and the maze reverses it — while survival of the line is a different quantity, and there
+size pays in both cells.
+
+Caveats: the maze barely survives at all (963 of 1 195 pairs have neither branch alive, so its effect rests on 232 pairs); "alive at the end" is presence
+in one snapshot, not resilience; the mechanism is not identified, since a bigger line has more cells and more branches and can lose members and still be
+present — X97b ruled that out for one generation, not for survival.
+
+Report: `reports/2026-11-03-x115-persistence.md`; aggregate `l1_field_x115_persistence.json`.

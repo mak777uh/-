@@ -35,7 +35,9 @@ def cell_files(series, flow: float, filename: str = "pattern") -> list[Path]:
     prefixes = (series,) if isinstance(series, str) else tuple(series)
     tag = f"f{int(round(float(flow) * 1000)):03d}"
     tail = f"_{filename}_s*.json" if filename else "_s*.json"
-    return sorted(p for pre in prefixes for p in L1.glob(f"{pre}_{tag}{tail}"))
+    # 03.11: the `.compact.json` projections match this glob once they exist and carry a different `series` shape, so a reader that expects
+    # run files dies on them. The projections are for the analyses that know how to read them (`compact_world.world_from_compact`).
+    return sorted(p for pre in prefixes for p in L1.glob(f"{pre}_{tag}{tail}") if not p.name.endswith(".compact.json"))
 
 
 def _power_at(spec: np.ndarray, n: int, ky: int, kx: int, rad: int = 1) -> float:

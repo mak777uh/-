@@ -1,0 +1,48 @@
+{
+  "kind": "l1_field_x115_persistence",
+  "experiment": "X115",
+  "command": "python scripts/x115_analyse.py --write",
+  "prereg": "reports/2026-11-03-x115-persistence-plan.md",
+  "readout": "paired difference in end-survival between the larger and the smaller sister, and the difference in living descendants",
+  "cells": {
+    "f030": {
+      "pairs": 1142,
+      "rho_heredity": 0.548,
+      "depth_diff_mean": 1.479,
+      "survival_diff_mean": 0.2496,
+      "survival_diff_ci": [
+        0.2198,
+        0.2793
+      ],
+      "count_diff_mean": 0.3492,
+      "count_diff_ci": [
+        0.3186,
+        0.3804
+      ],
+      "both": 641,
+      "only_bigger": 324,
+      "only_smaller": 39,
+      "neither": 138
+    },
+    "f040": {
+      "pairs": 1195,
+      "rho_heredity": 0.48,
+      "depth_diff_mean": 2.213,
+      "survival_diff_mean": 0.1372,
+      "survival_diff_ci": [
+        0.1155,
+        0.159
+      ],
+      "count_diff_mean": 0.1414,
+      "count_diff_ci": [
+        0.1196,
+        0.1633
+      ],
+      "both": 40,
+      "only_bigger": 178,
+      "only_smaller": 14,
+      "neither": 963
+    }
+  },
+  "verdict": "faster lines persist better: the larger sister's branch is alive at the end 0.250 more often (CI [0.2198, 0.2793]) in the lattice and 0.137 in the maze (CI [0.1155, 0.159]); counts both/only bigger/only smaller/neither: 641/324/39/138 and 40/178/14/963"
+}

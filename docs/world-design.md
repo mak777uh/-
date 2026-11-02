@@ -188,3 +188,5 @@ sections were not rewritten, only moved; each one keeps its identifier, so every
 | §10gi | The second-generation sister advantage is a lineage effect, not branching arithmetic (X97b, 03.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
 | §10gj | Size buys generations — the line's first measured consequence (X113, 03.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
 | §10gk | The generation advantage is speed, not arithmetic (X113b–X113c, 03.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
+| §10gl | The generation advantage survives an equal observation window (X114, 03.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
+| §10gm | Faster lines persist: the consequence acquires a survival currency (X115, 03.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |

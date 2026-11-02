@@ -4,7 +4,7 @@
 
 The curated page — what matters and why — is [`scripts.md`](scripts.md). This file is the complete list, so that every command behind a number in the record can be found.
 
-Scripts: **298**.
+Scripts: **301**.
 
 ## Гейты и проверки (46)
 
@@ -170,7 +170,7 @@ Scripts: **298**.
 | `make_seed_grid_figure.py` | Собрать Figure 4 рукописи: сетка «инициализация × порядок данных» (§4.13). |
 | `make_simple_poster.py` | Простой постер для владельца: что мы узнали, без терминов. |
 
-## Прочее (164)
+## Прочее (167)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -188,6 +188,7 @@ Scripts: **298**.
 | `claim_comparator.py` | claim_comparator.py — независимый аудит утверждения против его Setup (перенос идеи LongTails). |
 | `coexistence_metrics.py` | coexistence_metrics.py — метрики сосуществования линий из СУЩЕСТВУЮЩИХ артефактов (0 GPU). |
 | `compact_field_series.py` | compact_field_series.py — keep the derivable part of a dense-logging series in git. |
+| `compact_world.py` | Helpers for reading the committed `.compact.json` projections of the dense series. |
 | `compare.py` | Второй фильтр сравнения: не одно число, а распределение по сидам (B-008, I-014). |
 | `contrast_stationarity.py` | contrast_stationarity.py — стационарен ли контраст «неоднородность минус однородность». |
 | `corpus_manifest.py` | corpus_manifest.py — манифест корпуса: что в нём, зачем и насколько прочитано. |
@@ -250,6 +251,8 @@ Scripts: **298**.
 | `x113_analyse.py` | x113_analyse.py — X113: does size buy generations? |
 | `x113b_analyse.py` | x113c_analyse.py — X113c: faster propagation or more division events? |
 | `x113c_analyse.py` | x113c_analyse.py — X113c: faster propagation or more division events? |
+| `x114_analyse.py` | x114_analyse.py — X114: is the generation-rate advantage an artefact of the horizon? |
+| `x115_analyse.py` | x115_analyse.py — X115: does the faster line persist? Survival to the horizon, paired within sister pairs. |
 | `x56_matrix.py` | x56_matrix.py — сходимость по шагу: контраст при dt = 1.0, 0.5, 2.0. |
 | `x58_analyse.py` | x58_analyse.py — the same measurement on a 128 grid: β₀, β₁, wavelength, normalised count. |
 | `x58_series.py` | x60_series.py — X60: the twenty field runs that keep their snapshots. |
