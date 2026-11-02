@@ -266,3 +266,13 @@ Rules. (1) A deletion driven by a pattern first runs `git ls-files` over that pa
 added after the fact does **not** untrack what is already committed — the two states coexist, and only `git rm --cached` separates them. (3) A
 retention ledger entry for a restored path is corrected by a new entry, never by editing the old one, and `freed_bytes` goes down by exactly
 what came back.
+
+**Before deleting a derived artifact, check that its committed projection exists (03.11).** The same cleanup that removed nineteen tracked files also
+removed the **full dense logs of the X108 series** — fifty megabytes that had never been compacted and never committed. The aggregates were in git, so
+no claim was lost, but every re-analysis of the evening's chain (X109, X113, X113c, X114) suddenly needed data that no longer existed anywhere: the
+series had to be re-run from its seeds, and only determinism makes that a repair rather than a loss.
+
+Rules. (1) A deletion of derived data names the committed artifact that stands in for it — for this line, the `.compact.json` projection or the
+aggregate. (2) If no projection exists, the projection is written **before** the deletion, not after. (3) "It is in the aggregate" is enough only for
+claims; any analysis that might be re-read needs the projection. (4) A regenerated series is checked against the aggregate it was supposed to
+reproduce, and the check is recorded — determinism is the only reason a re-run can replace deleted raw data.
