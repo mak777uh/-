@@ -1,0 +1,54 @@
+{
+  "kind": "l1_field_x121_hazard",
+  "experiment": "X121",
+  "command": "python scripts/x121_analyse.py --write",
+  "prereg": "reports/2026-11-03-x121-hazard-plan.md",
+  "model": "death ~ 1 + age + daughters_so_far + log_area on person-period rows, world-level bootstrap (500 draws)",
+  "cells": {
+    "f030": {
+      "rows": 275916,
+      "uids": 2249,
+      "deaths": 1597,
+      "death_rate": 0.0058,
+      "rho_heredity": 0.548,
+      "coef_age": -0.004037,
+      "coef_daughters": 0.0,
+      "coef_log_area": 0.011789,
+      "ci_age": [
+        -0.0058,
+        -0.0027
+      ],
+      "ci_daughters": [
+        0.0,
+        0.0
+      ],
+      "ci_log_area": [
+        0.0102,
+        0.0139
+      ]
+    },
+    "f040": {
+      "rows": 46081,
+      "uids": 1993,
+      "deaths": 1934,
+      "death_rate": 0.042,
+      "rho_heredity": 0.48,
+      "coef_age": -0.029043,
+      "coef_daughters": 0.0,
+      "coef_log_area": 0.000928,
+      "ci_age": [
+        -0.0333,
+        -0.0264
+      ],
+      "ci_daughters": [
+        0.0,
+        0.0
+      ],
+      "ci_log_area": [
+        -0.0011,
+        0.0027
+      ]
+    }
+  },
+  "verdict": "void: f030: death rate 0.0058 outside (0.01, 0.5)"
+}

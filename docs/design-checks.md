@@ -288,3 +288,13 @@ mediator carries; on the exposure it deletes the effect and cannot be reported a
 1.57 to ≤ 1.10") is not evidence that the match was the right one. (4) When a registered rule fires a verdict that the design cannot support, the report
 says so and the verdict is withdrawn — a fired rule is not a licence to publish the sentence it was written for.
 Report: `reports/2026-11-03-x117-area-matched-void.md`.
+
+**A constant predictor must fail before the model runs (03.11, X121).** X121's person-period table gave every `daughters` coefficient as 0.0 with interval
+[0.0, 0.0] — the signature of a column with no variance, not a measured zero effect. The join that was supposed to count daughters matched nothing, and the
+model reported the consequence as a clean result.
+
+Rules. (1) Every model prints, before the coefficients, the **count, mean, standard deviation and share of non-zero values** of each predictor. (2) A predictor
+with zero variance aborts the run: a coefficient for a constant is not an estimate, and returning 0.0 with a tight interval is worse than failing, because it
+looks like a finding. (3) The same check covers coverage: the share of rows where a joined quantity was found. (4) An event-rate model also prints the event
+rate against its registered band before anything else, because a rate outside the band makes every coefficient uninterpretable regardless of variance.
+Report: `reports/2026-11-03-x121-hazard-void.md`.

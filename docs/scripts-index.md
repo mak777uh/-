@@ -4,7 +4,7 @@
 
 The curated page — what matters and why — is [`scripts.md`](scripts.md). This file is the complete list, so that every command behind a number in the record can be found.
 
-Scripts: **306**.
+Scripts: **307**.
 
 ## Гейты и проверки (46)
 
@@ -170,7 +170,7 @@ Scripts: **306**.
 | `make_seed_grid_figure.py` | Собрать Figure 4 рукописи: сетка «инициализация × порядок данных» (§4.13). |
 | `make_simple_poster.py` | Простой постер для владельца: что мы узнали, без терминов. |
 
-## Прочее (172)
+## Прочее (173)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -258,6 +258,7 @@ Scripts: **306**.
 | `x118_analyse.py` | x118_analyse.py — X118: at fixed size, does the number of daughters matter? |
 | `x119_analyse.py` | x119_analyse.py — X119: does the daughter count predict survival with size held statistically? |
 | `x120_analyse.py` | x120_analyse.py — X120: cost of division or time to divide? Daughters counted in a fixed early window. |
+| `x121_analyse.py` | x121_analyse.py — X121: discrete-time hazard of disappearing, given age and daughters. |
 | `x56_matrix.py` | x56_matrix.py — сходимость по шагу: контраст при dt = 1.0, 0.5, 2.0. |
 | `x58_analyse.py` | x58_analyse.py — the same measurement on a 128 grid: β₀, β₁, wavelength, normalised count. |
 | `x58_series.py` | x60_series.py — X60: the twenty field runs that keep their snapshots. |

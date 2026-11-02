@@ -1,6 +1,6 @@
 {
  "schema_version": 1,
- "updated_at": "2026-11-03T02:02:11+03:00",
+ "updated_at": "2026-11-03T02:11:07+03:00",
  "note": "Очередь пунктов после E02c. Claim берётся до пре-регистрации, а не перед запуском: lab.py item-claim. Статус running означает занятый GPU-лейн и может быть только у одного пункта. | 25.10: добавлено поле impact (1-5) — приоритет конвейера = impact/max(cost_gpu_h,0.1); для запуска пункту нужны prereg (закоммиченный план) и launch.command+outdir.",
  "items": [
   {
@@ -2507,13 +2507,26 @@
   {
    "id": "X121_hazard",
    "title": "Hazard of disappearing as a function of age and daughter count",
+   "status": "closed",
+   "owner": "lead",
+   "kind": "analysis",
+   "cost_gpu_h": 0,
+   "prereg": "reports/2026-11-03-x121-hazard-plan.md",
+   "created_at": "2026-11-03T02:02:11+03:00",
+   "note": "closed as a void twice over: the per-snapshot death rate is 0.58 % against a 1 % floor, and the daughters column was identically zero (a join that matched nothing, printed as 0.0 with a tight interval). Report reports/2026-11-03-x121-hazard-void.md. Next: fix the join, use every logged step, and print predictor variance before coefficients.",
+   "closed_at": "2026-11-02T23:11:07Z",
+   "closed_by": "lead"
+  },
+  {
+   "id": "X122_hazard_fixed",
+   "title": "Hazard model, take two: every logged step, with predictor variance checks",
    "status": "planned",
    "owner": "lead",
    "kind": "analysis",
    "cost_gpu_h": 0,
    "prereg": null,
-   "created_at": "2026-11-03T02:02:11+03:00",
-   "note": "X119/X120 leave one confound: an older structure has had more time to die before the horizon, and a dead structure's age is its outcome, so OLS on the last snapshot cannot separate it. A survival model over the intermediate snapshots can: hazard of disappearing per logged step as a function of age and current daughter count. The logs carry every logged step. Register with five sections; no GPU."
+   "created_at": "2026-11-03T02:11:07+03:00",
+   "note": "X121 voided twice: death rate 0.58 % per 10-step snapshot, and the daughters column identically zero. Take two: build the person-period table on every logged step (the dense series has them) so the per-row death rate is ~10 %, print count/mean/sd/share-nonzero for every predictor before the coefficients, and abort on a zero-variance column. Register with five sections first."
   }
  ]
 }
