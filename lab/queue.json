@@ -1,6 +1,6 @@
 {
  "schema_version": 1,
- "updated_at": "2026-11-03T01:37:15+03:00",
+ "updated_at": "2026-11-03T01:40:35+03:00",
  "note": "Очередь пунктов после E02c. Claim берётся до пре-регистрации, а не перед запуском: lab.py item-claim. Статус running означает занятый GPU-лейн и может быть только у одного пункта. | 25.10: добавлено поле impact (1-5) — приоритет конвейера = impact/max(cost_gpu_h,0.1); для запуска пункту нужны prereg (закоммиченный план) и launch.command+outdir.",
  "items": [
   {
@@ -2451,6 +2451,30 @@
    "closed_at": "2026-11-02T22:37:15Z",
    "closed_by": "lead",
    "note": "closed: matching on the number of daughters halves the survival advantage (0.250 -> 0.125; 0.137 -> 0.044) but a residual remains (104:25 and 39:11). Aggregate l1_field_x116_matched.json, report reports/2026-11-03-x116-matched.md, plan §10gn. Next: match on area as well"
+  },
+  {
+   "id": "X117_area_matched",
+   "title": "Match on daughters and area — conditioning on the exposure",
+   "status": "closed",
+   "owner": "lead",
+   "kind": "analysis",
+   "cost_gpu_h": 0,
+   "prereg": "reports/2026-11-03-x117-area-matched-plan.md",
+   "created_at": "2026-11-03T01:40:35+03:00",
+   "closed_at": "2026-11-02T22:40:35Z",
+   "closed_by": "lead",
+   "note": "closed as a void by interpretation: matching on area conditions on the exposure, so the null is by construction. The registered 'fully arithmetic' verdict is withdrawn; the matching rule is in design-checks. Aggregate l1_field_x117_area_matched.json, report reports/2026-11-03-x117-area-matched-void.md."
+  },
+  {
+   "id": "X118_exposure_kept",
+   "title": "Does the number of daughters matter at fixed size?",
+   "status": "planned",
+   "owner": "lead",
+   "kind": "analysis",
+   "cost_gpu_h": 0,
+   "prereg": null,
+   "created_at": "2026-11-03T01:40:35+03:00",
+   "note": "X116 matched on daughters (a mediator) and halved the survival advantage; X117 matched on area (the exposure) and deleted it by construction. The right test keeps the exposure: among sister pairs of nearly equal area, compare survival between the branch with more daughters and the branch with fewer. That separates 'more daughters' from 'bigger' without conditioning on size. Analysis only on X108's logs; register with five sections, naming each matched variable as confounder, mediator or exposure."
   }
  ]
 }

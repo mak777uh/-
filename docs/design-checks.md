@@ -276,3 +276,15 @@ Rules. (1) A deletion of derived data names the committed artifact that stands i
 aggregate. (2) If no projection exists, the projection is written **before** the deletion, not after. (3) "It is in the aggregate" is enough only for
 claims; any analysis that might be re-read needs the projection. (4) A regenerated series is checked against the aggregate it was supposed to
 reproduce, and the check is recorded — determinism is the only reason a re-run can replace deleted raw data.
+
+**Matching on the exposure deletes the effect by construction (03.11, X117).** X117 matched sister pairs on the number of daughters *and on area*, found the
+survival advantage collapse to nothing, and the registered rule fired "fully arithmetic". The rule was wrong to fire: area **is** the exposure — "the larger
+sister" means the one with the larger area — so matching on it compares sisters of equal size and can only produce a null. X116's match on the number of
+daughters was a mediator test and halved the effect; X117's match on area removed the question.
+
+Rules. (1) A matched design names, for every variable it matches on, whether that variable is a **confounder** (associated with exposure and outcome, not on
+the causal path), a **mediator** (on the path), or the **exposure**. (2) Matching on a confounder tests the effect; on a mediator it measures the share the
+mediator carries; on the exposure it deletes the effect and cannot be reported as a null. (3) A control that verifies the match worked ("the ratio falls from
+1.57 to ≤ 1.10") is not evidence that the match was the right one. (4) When a registered rule fires a verdict that the design cannot support, the report
+says so and the verdict is withdrawn — a fired rule is not a licence to publish the sentence it was written for.
+Report: `reports/2026-11-03-x117-area-matched-void.md`.

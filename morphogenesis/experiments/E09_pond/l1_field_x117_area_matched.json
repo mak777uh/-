@@ -1,0 +1,50 @@
+{
+  "kind": "l1_field_x117_area_matched",
+  "experiment": "X117",
+  "command": "python scripts/x117_analyse.py --write",
+  "prereg": "reports/2026-11-03-x117-area-matched-plan.md",
+  "readout": "survival difference among sister pairs matched on the number of daughters and on area",
+  "cells": {
+    "f030": {
+      "rho_heredity": 0.548,
+      "pairs_daughters_only": 633,
+      "diff_daughters_only": 0.1248,
+      "mean_area_ratio_full": 1.574,
+      "band_used": 0.1,
+      "pairs_matched": 217,
+      "diff_matched": 0.0184,
+      "diff_matched_ci": [
+        -0.0184,
+        0.0553
+      ],
+      "only_bigger": 10,
+      "only_smaller": 6,
+      "pairs_by_band": {
+        "0.1": 217,
+        "0.2": 323
+      },
+      "x116_reference": 0.1248
+    },
+    "f040": {
+      "rho_heredity": 0.48,
+      "pairs_daughters_only": 631,
+      "diff_daughters_only": 0.0444,
+      "mean_area_ratio_full": 4.869,
+      "band_used": 0.1,
+      "pairs_matched": 222,
+      "diff_matched": 0,
+      "diff_matched_ci": [
+        -0.0135,
+        0.0135
+      ],
+      "only_bigger": 1,
+      "only_smaller": 1,
+      "pairs_by_band": {
+        "0.1": 222,
+        "0.2": 249
+      },
+      "x116_reference": 0.0444
+    }
+  },
+  "verdict": "the survival advantage is fully arithmetic: matched on daughters and area the difference is 0.018 (CI [-0.0184, 0.0553]) and 0.000 (CI [-0.0135, 0.0135]), both containing zero; matched pairs 217 / 222 at ±10 %, mean area ratio 1.574 before matching"
+}
