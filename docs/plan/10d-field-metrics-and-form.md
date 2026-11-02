@@ -2643,3 +2643,30 @@ X93's lifetime share, so the two are not interchangeable; areas are threshold-0.
 correction.
 
 Report: `reports/2026-11-02-x97-sisters-second-generation.md`; aggregate `l1_field_x97_sisters_second_generation.json`.
+
+## 10gi. The second-generation sister advantage is a lineage effect, not branching arithmetic (X97b, 03.11)
+
+X97's mean difference (+12.90 cells) could have been carried by **how many** grandchildren a branch produces: a larger structure has more cells
+that can divide. The median is insensitive to that, and the branch counts measure it directly.
+
+| cell | pairs | mean | median | median / mean | grandchildren per branch |
+|---|---|---|---|---|---|
+| 0.030 | 286 | 12.93 | **12.68** | **98 %** | 2.024 / 2.000 (+1.2 %) |
+| 0.040 | 205 | 171.74 | **145.96** | **85 %** | 2.093 / 2.005 (+4.4 %) |
+
+Registered verdict: **a lineage effect is needed** — the median holds at 98 % and 85 % of the mean while the branch counts differ by 1-4 %,
+against a 10 % bar. The larger sister's granddaughters are individually larger, not merely more numerous. Controls: heredity 0.548 / 0.480 and
+the mean reproducing X97 within 0.5 %.
+
+This closes the doubt that X97 was an artefact of branch counting. It does **not** close the consequence question: a lineage whose structures
+are larger is not a lineage that does better — X92 and X111 put any consequence of size at the noise floor, and X93's lifetime advantage
+reverses in the maze.
+
+So the day's honest statement: **size is a lineage property in this medium** — inherited (ρ₁ ≈ 0.5), surviving a generation as a difference
+that grows (X97), not an arithmetic consequence of branching (X97b) — **but nothing yet shows that inheriting it buys anything.** That is the
+shape of the answer to the owner's question: a medium can transmit a trait faithfully and offer no advantage for it.
+
+Caveats: the median of a two-grandchild branch is coarse (98 % agreement with the mean is partly luck of the distribution); 286 and 205 pairs,
+the maze count slightly above X97's 186 because the peak filter differs; two cells, one seed set, one box.
+
+Report: `reports/2026-11-03-x97b-sisters-median.md`; aggregate `l1_field_x97b_sisters_median.json`.

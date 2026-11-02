@@ -1,6 +1,6 @@
 {
  "schema_version": 1,
- "updated_at": "2026-11-02T23:49:33+03:00",
+ "updated_at": "2026-11-03T00:00:04+03:00",
  "note": "Очередь пунктов после E02c. Claim берётся до пре-регистрации, а не перед запуском: lab.py item-claim. Статус running означает занятый GPU-лейн и может быть только у одного пункта. | 25.10: добавлено поле impact (1-5) — приоритет конвейера = impact/max(cost_gpu_h,0.1); для запуска пункту нужны prereg (закоммиченный план) и launch.command+outdir.",
  "items": [
   {
@@ -2373,6 +2373,19 @@
    },
    "closed_at": "2026-11-02T20:38:57Z",
    "closed_by": "lead"
+  },
+  {
+   "id": "X97b_sisters_median",
+   "title": "Is the second-generation sister advantage branching arithmetic?",
+   "status": "closed",
+   "owner": "lead",
+   "kind": "analysis",
+   "cost_gpu_h": 0,
+   "prereg": "reports/2026-11-03-x97b-sisters-median-plan.md",
+   "created_at": "2026-11-03T00:00:04+03:00",
+   "closed_at": "2026-11-02T21:00:04Z",
+   "closed_by": "lead",
+   "note": "closed: a lineage effect is needed — median 98 % / 85 % of the mean, branch counts within 1-4 %. Aggregate l1_field_x97b_sisters_median.json, report reports/2026-11-03-x97b-sisters-median.md, plan §10gi."
   }
  ]
 }

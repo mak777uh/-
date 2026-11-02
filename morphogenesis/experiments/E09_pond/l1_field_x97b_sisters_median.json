@@ -1,0 +1,34 @@
+{
+  "kind": "l1_field_x97b_sisters_median",
+  "experiment": "X97b",
+  "command": "python scripts/x97b_analyse.py --write",
+  "prereg": "reports/2026-11-03-x97b-sisters-median-plan.md",
+  "readout": "mean, median and per-grandchild differences in granddaughter area, plus grandchildren per branch",
+  "reference_x97": {
+    "0.03": 12.9007,
+    "0.04": 170.9068
+  },
+  "cells": {
+    "f030": {
+      "pairs": 286,
+      "rho_heredity": 0.548,
+      "mean_diff": 12.9336,
+      "median_diff": 12.6783,
+      "median_diff_of_medians": 8.5,
+      "branch_big": 2.024,
+      "branch_small": 2,
+      "x97_mean": 12.9007
+    },
+    "f040": {
+      "pairs": 205,
+      "rho_heredity": 0.48,
+      "mean_diff": 171.739,
+      "median_diff": 145.9585,
+      "median_diff_of_medians": 46.5,
+      "branch_big": 2.093,
+      "branch_small": 2.005,
+      "x97_mean": 170.9068
+    }
+  },
+  "verdict": "a lineage effect is needed: the median difference is 98% of the mean; (lattice mean 12.9336, median 12.6783, branches 2.024 vs 2); maze: mean 171.739, median 145.9585, branches 2.093 vs 2.005"
+}
