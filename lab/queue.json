@@ -1,6 +1,6 @@
 {
  "schema_version": 1,
- "updated_at": "2026-11-02T17:45:38+03:00",
+ "updated_at": "2026-11-02T18:16:00+03:00",
  "note": "Очередь пунктов после E02c. Claim берётся до пре-регистрации, а не перед запуском: lab.py item-claim. Статус running означает занятый GPU-лейн и может быть только у одного пункта. | 25.10: добавлено поле impact (1-5) — приоритет конвейера = impact/max(cost_gpu_h,0.1); для запуска пункту нужны prereg (закоммиченный план) и launch.command+outdir.",
  "items": [
   {
@@ -2093,10 +2093,11 @@
    "title": "A channel that can actually move the morphological scale: a second diffusive species (owner decision)",
    "status": "planned",
    "owner": "lead",
-   "waiting_on": "owner",
+   "waiting_on": null,
    "cost_gpu_h": 2,
    "created_at": "2026-11-02T13:10:52+03:00",
-   "note": "Каналы закрыты измерением: приток (X82: до 16x мощности второй линии период не двигается) и начальное условие (X96b: полевой периодический старт умирает при трёх амплитудах и двух длинах, слабый сдвиг 5% оставляет q' на своём). Остаётся один канал — ВТОРАЯ КОМПОНЕНТА со своей длиной диффузии; это новое правило мира, политика автономии требует решения владельца. Вопрос владельцу: добавлять ли вторую компоненту в field_track.py."
+   "note": "owner approved 02.11 18:11 (chat: «пробуй конечно»); decision recorded in docs/decision-log.md. Pilot first: third field w with its own diffusion length, uvv/(1+gamma w), dw/dt = Dw lap(w) + beta(v - w); 7 runs at F = 0.030, seed 401, anchor bit-for-bit against x100_f030_s291.json. Criterion: q-prime leaves 5-9 by two units.",
+   "prereg": "reports/2026-11-02-x96-second-species-plan.md"
   },
   {
    "id": "X97_sibling_deep",
