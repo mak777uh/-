@@ -2126,7 +2126,7 @@
    "waiting_on": null,
    "cost_gpu_h": 1,
    "created_at": "2026-11-02T15:25:18+03:00",
-   "note": "X99 showed the half-life map is definition-bound: it moves by a factor of three across cuts 0.15/0.20/0.25 and the ordering between inflows reverses at 0.25, because peak area is defined by the cut. The next step is not another cut but a size that is defined on the continuous field (integral of v over a component's basin, or area at half maximum), then re-deriving the map on stored fields without new runs where possible."
+   "note": "X99 показал, что карта полураспада привязана к определению: разброс втрое по срезам и переворот порядка при 0.25, потому что площадь пика задаётся срезом. Следующий шаг — размер, определённый на непрерывном поле (интеграл v по бассейну компоненты или площадь на полувысоте). Уточнение: на сохранённых полях это НЕ считается — поле сохранено только в t=6000, а пики uid приходятся на разные моменты, поэтому нужен раннер, пишущий поле на каждом логируемом шаге (новый флаг + якорь + серия). Пока не сделано; условие запуска — решение, нужна ли карте безсрезовая версия вообще, или достаточно честной подписи «при пороге 0.20»."
   }
  ]
 }
