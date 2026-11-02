@@ -11,8 +11,8 @@ Reserved to the owner by `lab/autonomy-rules.json`: publishing anything outward:
 
 ## Running now
 
-- **X96d_orientation_series** — Does the second species really move the orientation? A three-seed series (owner `lead`)
-- last artifact written 0.5 h ago
+- **X110_gamma_cell** — How close to the edge does each cell sit? gamma_cell by bisection with three seeds (owner `lead`)
+- last artifact written 0.0 h ago
 
 ## Waiting, but not on a human
 
