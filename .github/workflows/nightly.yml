@@ -56,6 +56,12 @@ jobs:
       - name: Покрытие артефактов агрегатами
         run: python scripts/check_aggregate_coverage.py --strict
 
+      # Числа полевой линии (CLAIMS 308-311) обязаны пересчитываться из артефактов на чужой машине.
+      # До 02.11 ни один из двадцати полевых агрегатов не пересчитывался в CI: они были только
+      # закоммичены. Проверка занимает ~1-2 минуты и не пишет в репозиторий (файл восстанавливается).
+      - name: Полевые агрегаты пересчитываются из артефактов
+        run: python scripts/check_field_analyses.py --ci
+
       - name: CPU tests
         working-directory: morphogenesis
         env:
