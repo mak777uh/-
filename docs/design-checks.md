@@ -256,3 +256,13 @@ lab/locks/` costs nothing and prevents a red gate. (3) A `running` item with no 
 the audit is right and the bookkeeping is wrong. (4) When a runner's release does not match the lock it claimed (the run id is chosen by
 `lab.py claim`, not by the caller), the lock outlives the series and the snapshot gate flags it — release by run id in that case.
 Reports: `reports/2026-11-02-x110-gamma-cell.md`, `reports/2026-11-02-x112b-cuts.md`.
+
+**Check `git ls-files` before deleting a glob (03.11).** A disk cleanup deleted nineteen *tracked* artifacts —
+`morphogenesis/experiments/L1_field/x96*_*.json` — because the ignore rules were added **after** those runs were committed, so the files were
+both in git and matched the "dense logs are not committed" pattern I was reasoning with. `git status` caught it as nineteen deletions and
+`git checkout` restored them, but the ledger had already recorded them as freed.
+
+Rules. (1) A deletion driven by a pattern first runs `git ls-files` over that pattern and refuses if any path is tracked. (2) An ignore rule
+added after the fact does **not** untrack what is already committed — the two states coexist, and only `git rm --cached` separates them. (3) A
+retention ledger entry for a restored path is corrected by a new entry, never by editing the old one, and `freed_bytes` goes down by exactly
+what came back.
