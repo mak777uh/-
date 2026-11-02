@@ -1,6 +1,6 @@
 # Project Morphogenesis
 
-Обновлено: 2026-10-29
+Обновлено: 2026-11-02
 
 A research bench for **morphogenesis in neural cellular automata (NCA)** — and, more recently, for a
 narrower and harder question: **which conditions let a reproducing lineage persist in a digital
@@ -67,6 +67,16 @@ environmental inheritance; its *sufficiency* (does the next cohort benefit?) is 
 two versions of that test were structurally insensitive and are reported as such. Selection itself is
 blocked by architecture: reproduction in this world is colony-level budding, so a cell-level tag is
 not a unit of reproduction and has no path to offspring.
+
+**The field line has a map, not a number** (Gray–Scott medium, one box, one grid; details and caveats in
+[`library/memory-in-this-medium-2026-11-02.md`](library/memory-in-this-medium-2026-11-02.md)). The medium
+has **one** preferred scale (~12 cells) and a **symmetry** coordinate the environment can turn but which
+carries no memory; the size memory is U-shaped in inflow with its minimum at the multistable band's edge
+(1.07 divisions against 2.08 on the shoulder above it). Above `F = 0.049` the pattern stops dividing in
+practice, so inheritance there is undefined rather than weak. Resemblance and retention are established
+(the parent predicts the daughter at 0.39–0.55, the nearest neighbour at 0.02–0.25); **consequence is
+not** — two attempts failed on their instruments, and the words *selection* and *inheritance* therefore
+stay out of the text.
 
 ## 3. What is ruled out
 
