@@ -2842,3 +2842,29 @@ Caveats: the maze's alive rate is 3 %, so its coefficients rest on few survivors
 presence, not its subtree's; one seed set, one box, the 0.20 cut.
 
 Report: `reports/2026-11-03-x118-x119-daughters-cost.md`; aggregates `l1_field_x118_mediator.json` (void), `l1_field_x119_model.json`.
+
+## 10gp. Daughters are an early-life property, and the time confound is weaker than assumed (X120, 03.11)
+
+X120 tried to separate "cost of division" from "time to divide" by counting daughters inside a fixed 1 000-step window after birth. Its own control fired
+against it: the early count correlates with the whole-life count at **0.868** (lattice) and **0.983** (maze), above the registered 0.8 bar, so the design is
+void.
+
+The correlation is the finding: **divisions happen early in a structure's life.** A 1 000-step window captures almost all daughters, so "many daughters" is not
+"lived long enough to divide a lot" — it is a property of the first fifth of a life. X119's named confound is therefore much weaker than its report assumed:
+structures do not accumulate daughters over a long life; they divide early or not at all.
+
+The model's other coefficients, recorded without a verdict resting on them:
+
+| cell | uids (excluded late births) | alive | area | daughters in 1 000 steps | start time |
+|---|---|---|---|---|---|
+| 0.030 | 1 891 (366) | 29.3 % | +0.013 (CI −0.060…0.062) | **−0.268 (CI −0.300…−0.215)** | −0.021 (CI −0.041…0.073) |
+| 0.040 | 1 976 (17) | 2.3 % | +0.016 (CI 0.009…0.025) | **−0.021 (CI −0.025…−0.017)** | **+0.077 (CI 0.053…0.107)** |
+
+The early daughter count keeps X119's negative sign in both cells, and start time does **not** take a negative sign (uninformative in the lattice, positive in the
+maze), so "later-born structures are less likely present" is not what the model finds.
+
+What remains uncontrolled is the **hazard** reading of age — an older structure has had more time to die before the horizon — and X120 cannot address it because
+a dead structure's age is its outcome. The claim stays "at fixed size, more daughters predicts lower own-survival; the mechanism is not identified", with the
+caveat sharpened: **time-to-divide is largely excluded, hazard is not tested**. A survival model over the intermediate snapshots is registered as X121.
+
+Report: `reports/2026-11-03-x120-window-daughters-void.md`; aggregate `l1_field_x120_window_daughters.json`.

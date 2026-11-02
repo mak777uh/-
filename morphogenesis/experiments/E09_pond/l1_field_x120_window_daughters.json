@@ -1,0 +1,55 @@
+{
+  "kind": "l1_field_x120_window_daughters",
+  "experiment": "X120",
+  "command": "python scripts/x120_analyse.py --write",
+  "prereg": "reports/2026-11-03-x120-window-daughters-plan.md",
+  "model": "alive ~ 1 + log(area) + daughters_1000 + start, world-level bootstrap (500 draws)",
+  "window": 1000,
+  "cells": {
+    "f030": {
+      "uids": 1891,
+      "excluded_late_births": 366,
+      "rho_heredity": 0.548,
+      "corr_early_vs_life": 0.868,
+      "alive_rate": 0.293,
+      "coef_log_area": 0.0132,
+      "coef_daughters_1000": -0.2676,
+      "coef_start": -0.021,
+      "ci_log_area": [
+        -0.06,
+        0.0624
+      ],
+      "ci_daughters_1000": [
+        -0.2995,
+        -0.2151
+      ],
+      "ci_start": [
+        -0.0414,
+        0.073
+      ]
+    },
+    "f040": {
+      "uids": 1976,
+      "excluded_late_births": 17,
+      "rho_heredity": 0.48,
+      "corr_early_vs_life": 0.983,
+      "alive_rate": 0.0233,
+      "coef_log_area": 0.0161,
+      "coef_daughters_1000": -0.0208,
+      "coef_start": 0.0767,
+      "ci_log_area": [
+        0.009,
+        0.0247
+      ],
+      "ci_daughters_1000": [
+        -0.0248,
+        -0.0173
+      ],
+      "ci_start": [
+        0.0529,
+        0.1072
+      ]
+    }
+  },
+  "verdict": "void: f030: early-vs-life daughter correlation 0.868 ≥ 0.8; f040: early-vs-life daughter correlation 0.983 ≥ 0.8"
+}

@@ -1,6 +1,6 @@
 {
  "schema_version": 1,
- "updated_at": "2026-11-03T01:46:45+03:00",
+ "updated_at": "2026-11-03T02:02:11+03:00",
  "note": "Очередь пунктов после E02c. Claim берётся до пре-регистрации, а не перед запуском: lab.py item-claim. Статус running означает занятый GPU-лейн и может быть только у одного пункта. | 25.10: добавлено поле impact (1-5) — приоритет конвейера = impact/max(cost_gpu_h,0.1); для запуска пункту нужны prereg (закоммиченный план) и launch.command+outdir.",
  "items": [
   {
@@ -2494,13 +2494,26 @@
   {
    "id": "X120_age_control",
    "title": "Cost of division or age? Add first appearance to the survival model",
+   "status": "closed",
+   "owner": "lead",
+   "kind": "analysis",
+   "cost_gpu_h": 0,
+   "prereg": "reports/2026-11-03-x120-window-daughters-plan.md",
+   "created_at": "2026-11-03T01:46:45+03:00",
+   "note": "closed as a void by its own control: early-versus-life daughter correlation 0.868/0.983, because divisions happen early. The time-to-divide confound is largely absent; hazard remains untested. Report reports/2026-11-03-x120-window-daughters-void.md, plan §10gp.",
+   "closed_at": "2026-11-02T23:02:11Z",
+   "closed_by": "lead"
+  },
+  {
+   "id": "X121_hazard",
+   "title": "Hazard of disappearing as a function of age and daughter count",
    "status": "planned",
    "owner": "lead",
    "kind": "analysis",
    "cost_gpu_h": 0,
    "prereg": null,
-   "created_at": "2026-11-03T01:46:45+03:00",
-   "note": "X119 found daughters predicting lower own-survival at fixed size, but a structure with many daughters has usually lived longer, and age gives more time either to be present at the end or to die before it. Add `age = last_step - first_appearance` to the model: if the daughters coefficient survives, it is a cost of division; if it collapses, X119's headline was age. Analysis only. Register with five sections."
+   "created_at": "2026-11-03T02:02:11+03:00",
+   "note": "X119/X120 leave one confound: an older structure has had more time to die before the horizon, and a dead structure's age is its outcome, so OLS on the last snapshot cannot separate it. A survival model over the intermediate snapshots can: hazard of disappearing per logged step as a function of age and current daughter count. The logs carry every logged step. Register with five sections; no GPU."
   }
  ]
 }
