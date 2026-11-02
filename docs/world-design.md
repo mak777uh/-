@@ -175,3 +175,4 @@ sections were not rewritten, only moved; each one keeps its identifier, so every
 | §10fv | The specificity is definition-bound too, but the containment is not (X102, 02.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
 | §10fw | Where a daughter is born matters in the maze, not in the lattice — and the basin was the wrong instrument (X103–X103d, 02.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
 | §10fx | Room is a property of the place, and heredity is not made of it (X106–X107, 02.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
+| §10fy | Dense logging: the maternal decay is real, and the maze heredity was underestimated (X105, 02.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |

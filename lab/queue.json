@@ -1,6 +1,6 @@
 {
  "schema_version": 1,
- "updated_at": "2026-11-02T17:22:37+03:00",
+ "updated_at": "2026-11-02T17:45:38+03:00",
  "note": "Очередь пунктов после E02c. Claim берётся до пре-регистрации, а не перед запуском: lab.py item-claim. Статус running означает занятый GPU-лейн и может быть только у одного пункта. | 25.10: добавлено поле impact (1-5) — приоритет конвейера = impact/max(cost_gpu_h,0.1); для запуска пункту нужны prereg (закоммиченный план) и launch.command+outdir.",
  "items": [
   {
@@ -2181,13 +2181,13 @@
   {
    "id": "X105_dense_logging",
    "title": "Dense logging: ten worlds per inflow at --sample-every 10, so the maze cell stops being a long-lived sample",
-   "status": "running",
+   "status": "closed",
    "owner": "lead",
    "kind": "series",
    "cost_gpu_h": 0,
    "prereg": "reports/2026-11-02-x105-dense-logging-plan.md",
    "created_at": "2026-11-02T17:07:12+03:00",
-   "note": "At F = 0.040, 35.3 % of ancestor-daughter pairs have a member that was never logged: median lifetime there is 89 steps and the logging interval is 50, so short-lived structures are invisible (X103's diagnosis). Every maze number in this line is a statement about long-lived structures. Ten worlds per inflow at seeds 301-310, --sample-every 10, the same two inflows, everything else identical to X100's flags; the logging density is fixed for BOTH cells in advance (the X85 rule: logging frequency is a physical parameter, so two cells of one series must share it). CPU only, roughly one to two hours; the anchor must pass bit-for-bit on the old setting first. Register with five sections and a numeric control before running; the null to beat is the 35 % structural loss.",
+   "note": "closed: structural loss 0.353 -> 0.088 at 0.040 (lattice 0.065 -> 0.021), heredity 0.480 / 0.548 (was 0.384 / 0.531), maternal decay -0.329 (10/10 worlds) and lattice crowding +0.367 (10/10) both robust. The maze heredity was a lower bound produced by the logging interval. Aggregate l1_field_x105_dense.json, report reports/2026-11-02-x105-dense-logging.md, plan §10fy. Next: X108",
    "started_at": "2026-11-02T17:11:53+03:00",
    "launch": {
     "outdir": "morphogenesis/experiments/L1_field",
@@ -2195,7 +2195,8 @@
     "runner": "scripts/x105_series.py"
    },
    "experiment": "x105_series",
-   "heartbeat_at": "2026-11-02T17:22:37+03:00"
+   "closed_at": "2026-11-02T14:45:38Z",
+   "closed_by": "lead"
   },
   {
    "id": "X106_crowding",
@@ -2209,6 +2210,17 @@
    "note": "closed: the room coordinate predicts the mother's own area (+0.397) better than the daughter's (+0.322) in the lattice, and nothing in the maze (0.114 / -0.038); lifetime +0.171 with 9/10 worlds. Registered verdict 'mixed' because the place condition was required in both cells — the substance is 'a property of places, in the lattice only'. Aggregate l1_field_x106_crowding.json, report reports/2026-11-02-x106-crowding.md, plan §10fx. Next: X107",
    "closed_at": "2026-11-02T14:18:34Z",
    "closed_by": "lead"
+  },
+  {
+   "id": "X108_ladder_on_dense",
+   "title": "Re-measure the definition ladder and the specificity on the dense series",
+   "status": "planned",
+   "owner": "lead",
+   "kind": "analysis",
+   "cost_gpu_h": 0,
+   "prereg": null,
+   "created_at": "2026-11-02T17:45:38+03:00",
+   "note": "X105 showed the sparse series understated the maze heredity by a quarter (0.384 -> 0.480) because the pairs that appear in a 50-step log are the long-lived ones and in the maze lifetime and area are inversely related (X92). X101's ladder (0.531/0.384 -> 0.300/0.174 -> 0.176/0.058) and X102's specificity gaps (0.312/0.215 -> 0.017/-0.010) were measured on the sparse series, so their levels at 0.040 are probably also lower bounds. Both scripts already take the file prefix; on x105 they need the fields saved every 50 steps (they are) and a fresh registration with a numeric control. The open question is the ordering: if the basin gap comes back at dense logging, X102's 'definition-bound' verdict is weaker than it looked."
   }
  ]
 }

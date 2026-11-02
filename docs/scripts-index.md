@@ -4,7 +4,7 @@
 
 The curated page — what matters and why — is [`scripts.md`](scripts.md). This file is the complete list, so that every command behind a number in the record can be found.
 
-Scripts: **278**.
+Scripts: **279**.
 
 ## Гейты и проверки (46)
 
@@ -170,7 +170,7 @@ Scripts: **278**.
 | `make_seed_grid_figure.py` | Собрать Figure 4 рукописи: сетка «инициализация × порядок данных» (§4.13). |
 | `make_simple_poster.py` | Простой постер для владельца: что мы узнали, без терминов. |
 
-## Прочее (144)
+## Прочее (145)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -187,6 +187,7 @@ Scripts: **278**.
 | `claim_audit.py` | Проверить пакеты доказательств в library/claims-evidence.md. |
 | `claim_comparator.py` | claim_comparator.py — независимый аудит утверждения против его Setup (перенос идеи LongTails). |
 | `coexistence_metrics.py` | coexistence_metrics.py — метрики сосуществования линий из СУЩЕСТВУЮЩИХ артефактов (0 GPU). |
+| `compact_field_series.py` | compact_field_series.py — keep the derivable part of a dense-logging series in git. |
 | `compare.py` | Второй фильтр сравнения: не одно число, а распределение по сидам (B-008, I-014). |
 | `contrast_stationarity.py` | contrast_stationarity.py — стационарен ли контраст «неоднородность минус однородность». |
 | `corpus_manifest.py` | corpus_manifest.py — манифест корпуса: что в нём, зачем и насколько прочитано. |

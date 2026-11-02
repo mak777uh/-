@@ -1,0 +1,184 @@
+{
+  "kind": "l1_field_x105_dense",
+  "experiment": "X105",
+  "command": "python scripts/x105_analyse.py --write",
+  "prereg": "reports/2026-11-02-x105-dense-logging-plan.md",
+  "series": "twenty runs, seeds 301-310 per inflow, --sample-every 10",
+  "readout": "structural loss; health of the genealogies; rho(distance, daughter area) against X103c's references; rho(distance to the nearest non-ancestor peak, daughter area) against X103d's",
+  "cells": {
+    "f030": {
+      "flow": 0.03,
+      "worlds": 10,
+      "pairs": 2211,
+      "pairs_logged": 2164,
+      "used": 2164,
+      "coverage_logged": 1.0,
+      "structural_loss": 0.021,
+      "median_distance": 4.57,
+      "rho_dist": -0.041,
+      "rho_control": 0.548,
+      "rho_partial_area": 0.6,
+      "rho_crowd": 0.367,
+      "per_world": [
+        {
+          "world": "x105_f030_s301.json",
+          "pairs": 159,
+          "rho_dist": -0.288,
+          "rho_crowd": 0.343
+        },
+        {
+          "world": "x105_f030_s302.json",
+          "pairs": 170,
+          "rho_dist": -0.073,
+          "rho_crowd": 0.284
+        },
+        {
+          "world": "x105_f030_s303.json",
+          "pairs": 389,
+          "rho_dist": 0.127,
+          "rho_crowd": 0.246
+        },
+        {
+          "world": "x105_f030_s304.json",
+          "pairs": 152,
+          "rho_dist": -0.233,
+          "rho_crowd": 0.346
+        },
+        {
+          "world": "x105_f030_s305.json",
+          "pairs": 282,
+          "rho_dist": -0.168,
+          "rho_crowd": 0.374
+        },
+        {
+          "world": "x105_f030_s306.json",
+          "pairs": 179,
+          "rho_dist": -0.124,
+          "rho_crowd": 0.485
+        },
+        {
+          "world": "x105_f030_s307.json",
+          "pairs": 190,
+          "rho_dist": -0.1,
+          "rho_crowd": 0.408
+        },
+        {
+          "world": "x105_f030_s308.json",
+          "pairs": 196,
+          "rho_dist": -0.121,
+          "rho_crowd": 0.369
+        },
+        {
+          "world": "x105_f030_s309.json",
+          "pairs": 159,
+          "rho_dist": -0.123,
+          "rho_crowd": 0.315
+        },
+        {
+          "world": "x105_f030_s310.json",
+          "pairs": 288,
+          "rho_dist": 0.116,
+          "rho_crowd": 0.501
+        }
+      ],
+      "worlds_dist_negative": 8,
+      "worlds_crowd_positive": 10,
+      "worlds_measured": 10
+    },
+    "f040": {
+      "flow": 0.04,
+      "worlds": 10,
+      "pairs": 1951,
+      "pairs_logged": 1779,
+      "used": 1779,
+      "coverage_logged": 1.0,
+      "structural_loss": 0.088,
+      "median_distance": 9.12,
+      "rho_dist": -0.329,
+      "rho_control": 0.48,
+      "rho_partial_area": 0.648,
+      "rho_crowd": 0.182,
+      "per_world": [
+        {
+          "world": "x105_f040_s301.json",
+          "pairs": 189,
+          "rho_dist": -0.233,
+          "rho_crowd": 0.207
+        },
+        {
+          "world": "x105_f040_s302.json",
+          "pairs": 207,
+          "rho_dist": -0.438,
+          "rho_crowd": 0.172
+        },
+        {
+          "world": "x105_f040_s303.json",
+          "pairs": 182,
+          "rho_dist": -0.371,
+          "rho_crowd": 0.003
+        },
+        {
+          "world": "x105_f040_s304.json",
+          "pairs": 173,
+          "rho_dist": -0.349,
+          "rho_crowd": -0.025
+        },
+        {
+          "world": "x105_f040_s305.json",
+          "pairs": 203,
+          "rho_dist": -0.234,
+          "rho_crowd": 0.248
+        },
+        {
+          "world": "x105_f040_s306.json",
+          "pairs": 171,
+          "rho_dist": -0.33,
+          "rho_crowd": 0.155
+        },
+        {
+          "world": "x105_f040_s307.json",
+          "pairs": 136,
+          "rho_dist": -0.365,
+          "rho_crowd": 0.364
+        },
+        {
+          "world": "x105_f040_s308.json",
+          "pairs": 163,
+          "rho_dist": -0.441,
+          "rho_crowd": 0.395
+        },
+        {
+          "world": "x105_f040_s309.json",
+          "pairs": 156,
+          "rho_dist": -0.381,
+          "rho_crowd": 0.124
+        },
+        {
+          "world": "x105_f040_s310.json",
+          "pairs": 199,
+          "rho_dist": -0.185,
+          "rho_crowd": 0.187
+        }
+      ],
+      "worlds_dist_negative": 10,
+      "worlds_crowd_positive": 9,
+      "worlds_measured": 10
+    }
+  },
+  "positive_control": {
+    "fires": true,
+    "note": "heredity >= 0.35; maze distance coefficient negative and <= -0.20; lattice within +-0.15"
+  },
+  "references": {
+    "distance": {
+      "f030": -0.008,
+      "f040": -0.367
+    },
+    "crowding": {
+      "f030": 0.358,
+      "f040": 0.103
+    }
+  },
+  "resolution": 0.1,
+  "verdict": "maze distance -0.329 (10/10 worlds negative); the maternal decay is robust to dense logging; lattice crowding 0.367 (10/10 worlds positive); crowding is robust"
+}

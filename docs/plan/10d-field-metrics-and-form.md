@@ -2321,3 +2321,31 @@ one: an observer can see the arms of the maze and predict where the coordinate s
 Reports: `reports/2026-11-02-x106-crowding.md`, `reports/2026-11-02-x107-shared-room.md`; aggregates
 `l1_field_x106_crowding.json`, `l1_field_x107_shared_room.json`. X105 (dense logging, twenty runs) is the replication that removes the
 maze cell's long-lived selection.
+
+## 10fy. Dense logging: the maternal decay is real, and the maze heredity was underestimated (X105, 02.11)
+
+Every maze number in this line rested on structures that lived long enough to be logged twice. The arithmetic: at `F = 0.040` the
+median lifetime is 89 steps, the logging interval was 50, and **35.3 %** of ancestor–daughter pairs had a member that never appeared in
+the component log. X105 reran both cells at `--sample-every 10`, twenty new runs (seeds 301–310), everything else as X100. It is a
+replication at a new density, not a refinement of the same worlds: logging density draws the trait mutations, so the seeds make
+different worlds (the X85 rule).
+
+| inflow | structural loss | pairs | ρ(distance, daughter) | worlds negative | crowding ρ | worlds positive | heredity ρ(mother, daughter) |
+|---|---|---|---|---|---|---|---|
+| 0.030 | 0.065 → **0.021** | 2 211 | −0.041 | 8/10 | **+0.367** | **10/10** | 0.531 → **0.548** |
+| 0.040 | 0.353 → **0.088** | 1 951 | **−0.329** | **10/10** | +0.182 | 9/10 | 0.384 → **0.480** |
+
+Both registered verdicts fired: **the maternal decay is robust** (−0.329 against −0.367, ten worlds out of ten, per-world −0.185 …
+−0.441) and **crowding is robust** (+0.367 against +0.358, ten out of ten). Neither non-ancestral term was an artefact of the visible
+subset, and the lattice sign control held (−0.041, inside ±0.15).
+
+The number that moved is the one nobody was auditing: **the maze heredity was being underestimated.** `ρ(mother, daughter)` at 0.040
+is 0.480, not 0.384 — a quarter larger — because the pairs that made it into the sparse sample are the long-lived ones, and in the maze
+lifetime and area are inversely related (X92), so the visible pairs were a compressed subset. The lattice cell barely moved.
+
+Consequences. The *levels* of the X101 ladder and of X102's specificity at 0.040 are probably understated by a similar factor; their
+*ordering* is a property of definitions applied to the same pairs and should survive. Re-running both on the dense series is analysis
+only (X108). Dense logging should be the default for this line: it costs the same ~105 s per run, because the integration dominates.
+
+Report: `reports/2026-11-02-x105-dense-logging.md`; aggregate `l1_field_x105_dense.json`; series index
+`morphogenesis/experiments/L1_field/x105_series_index.json` (20 runs, all ok).
