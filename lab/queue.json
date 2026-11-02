@@ -1,6 +1,6 @@
 {
  "schema_version": 1,
- "updated_at": "2026-11-02T16:48:42+03:00",
+ "updated_at": "2026-11-02T17:07:12+03:00",
  "note": "Очередь пунктов после E02c. Claim берётся до пре-регистрации, а не перед запуском: lab.py item-claim. Статус running означает занятый GPU-лейн и может быть только у одного пункта. | 25.10: добавлено поле impact (1-5) — приоритет конвейера = impact/max(cost_gpu_h,0.1); для запуска пункту нужны prereg (закоммиченный план) и launch.command+outdir.",
  "items": [
   {
@@ -2157,13 +2157,15 @@
   {
    "id": "X103_basin_position",
    "title": "Is heredity topographic after all? Where in the mother's basin the daughter starts, not how big the basin is",
-   "status": "planned",
+   "status": "closed",
    "owner": "lead",
    "kind": "analysis",
    "cost_gpu_h": 0,
-   "prereg": null,
+   "prereg": "reports/2026-11-02-x103-basin-position-plan.md",
    "created_at": "2026-11-02T16:48:42+03:00",
-   "note": "X102 found that the basin's AREA carries no specificity (gap 0.017 / -0.010) although a parent sits inside the daughter's basin 2.3-3.0 times as often as a stranger. Two readings survive: what is inherited is the width of the excursion (X100/X101) and the basin is only the stage; or the inherited quantity is topographic but not its area. This analysis separates them on X100's snapshots: for every pair, measure the daughter's radial position inside the mother's basin (0 = the mother's peak, 1 = the drainage boundary) and test whether it predicts the daughter's size better than either area does. If position predicts and area does not, the skirt reading is refuted. Analysis only, no GPU; register before running."
+   "note": "four analyses, two voids and one answer. X103 void (coverage 0.599 against a 0.60 gate, 622 of 1 761 pairs unloggable at 0.040); X103b void (selection ratio 0.662 at 0.030 - the basin loses the mothers on structure boundaries, and their daughters are the large ones); X103c distance only: rho(distance, daughter) -0.008 / -0.367, area's partial 0.570 / 0.552 (position adds, does not replace); X103d stranger-peak null: mother -0.367 against stranger peaks +0.103 in the maze (maternal), and the lattice cell gave a crowding term, +0.358 with 10/10 worlds. Aggregates l1_field_x103{,b,c,d}_*.json, reports reports/2026-11-02-x103-basin-position-void.md and reports/2026-11-02-x103cd-birth-distance.md, plan §10fw. Next: X105 (dense logging), X106 (the crowding term on its own)",
+   "closed_at": "2026-11-02T14:07:12Z",
+   "closed_by": "lead"
   },
   {
    "id": "X104_gap_at_another_cut",
@@ -2175,6 +2177,28 @@
    "prereg": null,
    "created_at": "2026-11-02T16:48:42+03:00",
    "note": "X99 showed the level of size heredity is cut-bound by a factor of three and even reverses between inflows; X102 showed it is definition-bound. The specificity has only ever been measured at v > 0.20. If the gap is an excursion-set quantity it should move with the cut, and the honest statement about this medium would then carry its cut twice over. Needs runs at 0.15 and 0.25 because the component logs store 0.20 areas only (X99's route); a pilot on one world decides whether the saved fields can be re-thresholded instead — check that before claiming the 2 GPU-hours. Register with a control before running."
+  },
+  {
+   "id": "X105_dense_logging",
+   "title": "Dense logging: ten worlds per inflow at --sample-every 10, so the maze cell stops being a long-lived sample",
+   "status": "planned",
+   "owner": "lead",
+   "kind": "series",
+   "cost_gpu_h": 0,
+   "prereg": null,
+   "created_at": "2026-11-02T17:07:12+03:00",
+   "note": "At F = 0.040, 35.3 % of ancestor-daughter pairs have a member that was never logged: median lifetime there is 89 steps and the logging interval is 50, so short-lived structures are invisible (X103's diagnosis). Every maze number in this line is a statement about long-lived structures. Ten worlds per inflow at seeds 301-310, --sample-every 10, the same two inflows, everything else identical to X100's flags; the logging density is fixed for BOTH cells in advance (the X85 rule: logging frequency is a physical parameter, so two cells of one series must share it). CPU only, roughly one to two hours; the anchor must pass bit-for-bit on the old setting first. Register with five sections and a numeric control before running; the null to beat is the 35 % structural loss."
+  },
+  {
+   "id": "X106_crowding",
+   "title": "The crowding term on its own: does the distance to the nearest stranger peak predict lifetime as well as size?",
+   "status": "planned",
+   "owner": "lead",
+   "kind": "analysis",
+   "cost_gpu_h": 0,
+   "prereg": null,
+   "created_at": "2026-11-02T17:07:12+03:00",
+   "note": "X103d found, in the lattice cell, that a daughter born farther from the nearest non-ancestor peak grows larger (+0.358, 10/10 worlds) - the first quantity in this line that is not about ancestry. Two questions decide what it is: does the same distance predict the mother's area (if yes, it is a property of where structures can grow, not of daughters), and does it predict lifetime as well as peak area (if yes, crowding constrains persistence, not growth). Both are readouts on X100's stored logs, no GPU. Register before running, with a size-matched control."
   }
  ]
 }

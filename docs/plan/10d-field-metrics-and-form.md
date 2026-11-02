@@ -2225,3 +2225,63 @@ topographic and is registered: if the daughter's fate depends on **where** in th
 
 Report: `reports/2026-11-02-x102-specificity-ladder.md`; aggregate `l1_field_x102_specificity_ladder.json`; runs: X100's twenty, no
 new GPU.
+
+## 10fw. Where a daughter is born matters in the maze, not in the lattice — and the basin was the wrong instrument (X103–X103d, 02.11)
+
+X102 left two readings: heredity is the width of the excursion (the basin is only the stage), or heredity is topographic (what a
+daughter inherits is where she starts inside the valley). Four analyses were needed to answer it, and the first two are voids worth
+recording because they priced the instrument.
+
+**X103** asked the question with the mother's basin and voided at coverage 0.599 against a 0.60 gate for 0.040. The denominator
+counted every ancestor–daughter pair, including 622 of 1 761 (35 %) whose ancestor or daughter was never logged at all — at that
+inflow the median lifetime is 89 steps against a 50-step logging interval, so a structure born and divided between two samples is
+invisible. Among pairs whose peaks exist the instrument was available 0.973 and 0.925.
+
+**X103b** fixed the denominator and added a selection control (median daughter area, kept versus dropped, in [0.75, 1.33]). It
+voided again, and this time informatively: at 0.030 the 54 pairs lost had daughters of median area 80 against 53 (ratio 0.662). The
+basin loses the mothers that sit on structure boundaries — precisely the ones that produce large excursions — so the missing third
+is not random and the question had to be asked without the basin.
+
+**X103c** used only the distance between the mother's peak centroid and the daughter's birth centroid, available for every pair
+whose two structures were logged (coverage 1.000; structural loss 6.5 % and 35.3 % reported as itself):
+
+| inflow | pairs | rho(distance, daughter area) | rho(mother area, daughter) | partial: area given distance | worlds negative |
+|---|---|---|---|---|---|
+| 0.030 | 2 024 | **−0.008** | 0.531 | 0.570 | 7/10 |
+| 0.040 | 1 139 | **−0.367** | 0.384 | 0.552 | **10/10** |
+
+Registered verdict: **mixed** — the cells disagree. But the criterion for "the topographic reading wins" (the mother's area must
+lose its coefficient once position is known) did not fire in either cell: the area's partial is *higher* than its raw value.
+Position adds a term; it does not replace the inherited width.
+
+**X103d** tested the obvious confound of the maze cell — in a labyrinth, distance from a peak is nearly the same coordinate as
+half-width of the arm, so any peak might do. The null was the distance to the nearest **non-ancestor** peak at the birth step:
+
+| inflow | rho(distance to mother) | rho(distance to nearest stranger peak) | contrast | worlds negative (mother / stranger) |
+|---|---|---|---|---|
+| 0.030 | −0.008 | **+0.358** | −0.350 | 7/10 / **0/10** |
+| 0.040 | **−0.367** | +0.103 | **+0.265** | **10/10** / 2/10 |
+
+Registered verdict for the maze cell: **maternal** — stranger peaks carry the opposite sign, so the term is about the mother. And the
+cell that was meant to be an internal null produced the day's cleanest new effect: in the lattice, the farther a daughter is born
+from the nearest **other** peak, the larger she grows (+0.358, ten worlds out of ten). That is a crowding term, with its own sign and
+its own perfect agreement.
+
+Three separable sources of size, then, measured on the same pairs:
+
+| term | lattice | maze | what it is |
+|---|---|---|---|
+| mother's excursion area | 0.531 | 0.384 | the inherited width of the excursion (X100–X102) |
+| distance to the mother's peak | −0.008 | −0.367 | maternal decay: farther from her maximum, smaller |
+| distance to the nearest stranger peak | +0.358 | +0.103 | crowding: farther from a competitor, larger |
+
+This sharpens X100–X102 rather than contradicting them: what is *inherited* is the excursion set; where a daughter sits decides how
+much of that inheritance she expresses. It also gives the line its first quantity that is not about ancestry at all — crowding.
+
+Cost of the detour: two voids and two analyses of stored artifacts, no GPU. What it bought: two rules in `docs/design-checks.md`
+(coverage denominators name their pairs; a collapse needs a degeneracy table) and the selection fact that every maze number in this
+line describes **long-lived** structures only — the reason X105 exists.
+
+Reports: `reports/2026-11-02-x103-basin-position-void.md` (the two voids), `reports/2026-11-02-x103cd-birth-distance.md` (the
+answer); aggregates `l1_field_x103_basin_position.json`, `l1_field_x103b_basin_position.json`,
+`l1_field_x103c_birth_distance.json`, `l1_field_x103d_peak_null.json`.

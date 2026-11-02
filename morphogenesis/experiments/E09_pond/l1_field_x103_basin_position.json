@@ -1,0 +1,51 @@
+{
+  "kind": "l1_field_x103_basin_position",
+  "experiment": "X103",
+  "command": "python scripts/x103_analyse.py --write",
+  "prereg": "reports/2026-11-02-x103-basin-position-plan.md",
+  "readout": "Spearman(torus distance from the mother's peak to the daughter's birth centroid, daughter's peak area), and the same on the normalized radius, with partial correlations against the mother's excursion area",
+  "cells": {
+    "f030": {
+      "flow": 0.03,
+      "worlds": 10,
+      "pairs": 2165,
+      "pairs_logged": 2024,
+      "used": 1970,
+      "coverage": 0.91,
+      "coverage_logged": 0.973,
+      "median_distance": 4.82,
+      "median_basin_radius": 9.9,
+      "frac_outside": 0.201,
+      "rho_dist": -0.033,
+      "rho_r": -0.053,
+      "rho_control": 0.531,
+      "rho_partial_area": 0.576,
+      "rho_partial_dist": -0.264,
+      "drop_area": -0.045
+    },
+    "f040": {
+      "flow": 0.04,
+      "worlds": 10,
+      "pairs": 1761,
+      "pairs_logged": 1139,
+      "used": 1054,
+      "coverage": 0.599,
+      "coverage_logged": 0.925,
+      "median_distance": 10.28,
+      "median_basin_radius": 9.06,
+      "frac_outside": 0.571,
+      "rho_dist": -0.34,
+      "rho_r": -0.304,
+      "rho_control": 0.408,
+      "rho_partial_area": 0.574,
+      "rho_partial_dist": -0.537,
+      "drop_area": -0.166
+    }
+  },
+  "positive_control": {
+    "fires": true,
+    "note": "rho(mother area, daughter area) >= 0.35 on the same subset"
+  },
+  "resolution": 0.1,
+  "verdict": "void: the registered coverage gate failed — f040: used 1054, coverage 0.599 (logged-only 0.925)"
+}

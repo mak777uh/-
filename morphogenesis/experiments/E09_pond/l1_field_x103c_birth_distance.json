@@ -1,0 +1,154 @@
+{
+  "kind": "l1_field_x103c_birth_distance",
+  "experiment": "X103c",
+  "command": "python scripts/x103_analyse.py --c --write",
+  "prereg": "reports/2026-11-02-x103c-birth-distance-plan.md",
+  "readout": "Spearman(torus distance from the mother's peak centroid to the daughter's birth centroid, daughter's peak area), with the partial of the mother's area given the distance, the partial of the distance given the mother's area, and a per-world coefficient table",
+  "cells": {
+    "f030": {
+      "flow": 0.03,
+      "worlds": 10,
+      "pairs": 2165,
+      "pairs_logged": 2024,
+      "used": 2024,
+      "coverage_logged": 1.0,
+      "structural_loss": 0.065,
+      "median_distance": 4.87,
+      "rho_dist": -0.008,
+      "rho_control": 0.531,
+      "rho_partial_area": 0.57,
+      "rho_partial_dist": -0.246,
+      "drop_area": -0.039,
+      "per_world": [
+        {
+          "world": "x100_f030_s291.json",
+          "pairs": 236,
+          "rho_dist": 0.089
+        },
+        {
+          "world": "x100_f030_s292.json",
+          "pairs": 116,
+          "rho_dist": -0.134
+        },
+        {
+          "world": "x100_f030_s293.json",
+          "pairs": 157,
+          "rho_dist": -0.125
+        },
+        {
+          "world": "x100_f030_s294.json",
+          "pairs": 183,
+          "rho_dist": -0.119
+        },
+        {
+          "world": "x100_f030_s295.json",
+          "pairs": 153,
+          "rho_dist": -0.057
+        },
+        {
+          "world": "x100_f030_s296.json",
+          "pairs": 207,
+          "rho_dist": 0.069
+        },
+        {
+          "world": "x100_f030_s297.json",
+          "pairs": 153,
+          "rho_dist": -0.073
+        },
+        {
+          "world": "x100_f030_s298.json",
+          "pairs": 256,
+          "rho_dist": -0.122
+        },
+        {
+          "world": "x100_f030_s299.json",
+          "pairs": 233,
+          "rho_dist": 0.218
+        },
+        {
+          "world": "x100_f030_s300.json",
+          "pairs": 330,
+          "rho_dist": -0.057
+        }
+      ],
+      "worlds_negative": 7,
+      "worlds_measured": 10
+    },
+    "f040": {
+      "flow": 0.04,
+      "worlds": 10,
+      "pairs": 1761,
+      "pairs_logged": 1139,
+      "used": 1139,
+      "coverage_logged": 1.0,
+      "structural_loss": 0.353,
+      "median_distance": 10.82,
+      "rho_dist": -0.367,
+      "rho_control": 0.384,
+      "rho_partial_area": 0.552,
+      "rho_partial_dist": -0.543,
+      "drop_area": -0.168,
+      "per_world": [
+        {
+          "world": "x100_f040_s291.json",
+          "pairs": 136,
+          "rho_dist": -0.293
+        },
+        {
+          "world": "x100_f040_s292.json",
+          "pairs": 85,
+          "rho_dist": -0.302
+        },
+        {
+          "world": "x100_f040_s293.json",
+          "pairs": 112,
+          "rho_dist": -0.423
+        },
+        {
+          "world": "x100_f040_s294.json",
+          "pairs": 134,
+          "rho_dist": -0.446
+        },
+        {
+          "world": "x100_f040_s295.json",
+          "pairs": 103,
+          "rho_dist": -0.315
+        },
+        {
+          "world": "x100_f040_s296.json",
+          "pairs": 94,
+          "rho_dist": -0.404
+        },
+        {
+          "world": "x100_f040_s297.json",
+          "pairs": 103,
+          "rho_dist": -0.275
+        },
+        {
+          "world": "x100_f040_s298.json",
+          "pairs": 135,
+          "rho_dist": -0.205
+        },
+        {
+          "world": "x100_f040_s299.json",
+          "pairs": 149,
+          "rho_dist": -0.411
+        },
+        {
+          "world": "x100_f040_s300.json",
+          "pairs": 88,
+          "rho_dist": -0.405
+        }
+      ],
+      "worlds_negative": 10,
+      "worlds_measured": 10
+    }
+  },
+  "positive_control": {
+    "fires": true,
+    "note": "rho(mother area, daughter area) >= 0.35 on the kept pairs"
+  },
+  "coverage_gate": 0.9,
+  "resolution": 0.1,
+  "verdict": "mixed: the cells disagree, so the answer is not one number — and the next step is denser logging (X105), not another analysis of these artifacts"
+}

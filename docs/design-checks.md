@@ -218,3 +218,16 @@ Rules. (1) Every null or collapse that could be mechanical carries a **degenerac
 structure as the subject, next to how often the true ancestor does. (2) The table is printed for every cell, not just once. (3) If the
 control is nearly always inside, the series is a void **by construction** and is registered as such — never as a negative result.
 Report: `reports/2026-11-02-x102-specificity-ladder.md`.
+
+**A coverage gate names its denominator (02.11, X103).** X103 registered "basin coverage at least 60 % of the pairs" and came back
+at **0.599** for `F = 0.040` — a void by a thousandth. The gate was counting every ancestor-daughter pair in the logs, including
+**622 of 1 761 (35 %)** whose ancestor or daughter was never logged at all: at that inflow the median lifetime is 89 steps against
+a 50-step logging interval, so a structure that is born and divides between two samples is invisible by construction. Among pairs
+whose peaks do exist, the instrument was available for **0.973 and 0.925**.
+
+Rules. (1) A coverage floor states which pairs the denominator contains: all pairs, pairs with both peaks logged, or pairs with a
+usable instrument — the same run reads 0.599 or 0.925 depending on the choice. (2) Structural loss (the world never showed the
+object) is reported as a **selection fact** with its own count, never folded into an instrument-availability gate. (3) When a gate
+fails, the diagnosis is part of the void: the numbers are recorded, the reason is named, and the rule that follows is written down
+before the re-registration. A report that only says "void by coverage" loses the one thing the run produced.
+Report: `reports/2026-11-02-x103-basin-position-void.md`.
