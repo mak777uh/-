@@ -205,10 +205,13 @@ def audit(data: dict) -> int:
                 fresh = False
                 launch = item.get("launch") or {}
                 outdir = launch.get("outdir") if isinstance(launch, dict) else None
+                # 02.11 (X105): a series that writes into a shared directory (L1_field holds every family) cannot be judged by
+                # "*.json" — the newest file there may belong to another series.  `launch.pattern` names this item's files.
+                pattern = (launch.get("pattern") if isinstance(launch, dict) else None) or "*.json"
                 if outdir:
                     path = (ROOT / outdir) if not Path(outdir).is_absolute() else Path(outdir)
                     if path.exists():
-                        newest = max((f.stat().st_mtime for f in path.glob("*.json")), default=0)
+                        newest = max((f.stat().st_mtime for f in path.glob(pattern)), default=0)
                         fresh = bool(newest) and (_time.time() - newest) / 60.0 < fresh_min
                 if not fresh:
                     try:
@@ -223,13 +226,17 @@ def audit(data: dict) -> int:
                 if not fresh:
                     problems.append(f"{iid}: running, но ни замка, ни свежих артефактов, ни процесса — "
                                     f"статус устарел или серия упала")
-        if status in ("planned", "running"):
+        if status == "planned":
+            # 02.11 (X105): the "probably done" warning is for a *planned* item with artifacts.  For a `running` one the rule
+            # above already decides whether it is alive, and counting the files it is writing right now reported "вероятно,
+            # серия выполнена" about a series that was mid-flight.
             launch = item.get("launch") or {}
             outdir = launch.get("outdir") if isinstance(launch, dict) else None
+            pattern = (launch.get("pattern") if isinstance(launch, dict) else None) or "*.json"
             if outdir:
                 path = (ROOT / outdir) if not Path(outdir).is_absolute() else Path(outdir)
                 if path.exists():
-                    done = len(list(path.glob("*.json")))
+                    done = len(list(path.glob(pattern)))
                     if done:
                         warnings.append(
                             f"{iid}: статус {status}, но в {outdir} уже {done} артефактов — "

@@ -2188,7 +2188,13 @@
    "prereg": "reports/2026-11-02-x105-dense-logging-plan.md",
    "created_at": "2026-11-02T17:07:12+03:00",
    "note": "At F = 0.040, 35.3 % of ancestor-daughter pairs have a member that was never logged: median lifetime there is 89 steps and the logging interval is 50, so short-lived structures are invisible (X103's diagnosis). Every maze number in this line is a statement about long-lived structures. Ten worlds per inflow at seeds 301-310, --sample-every 10, the same two inflows, everything else identical to X100's flags; the logging density is fixed for BOTH cells in advance (the X85 rule: logging frequency is a physical parameter, so two cells of one series must share it). CPU only, roughly one to two hours; the anchor must pass bit-for-bit on the old setting first. Register with five sections and a numeric control before running; the null to beat is the 35 % structural loss.",
-   "started_at": "2026-11-02T17:11:53+03:00"
+   "started_at": "2026-11-02T17:11:53+03:00",
+   "launch": {
+    "outdir": "morphogenesis/experiments/L1_field",
+    "pattern": "x105_*.json",
+    "runner": "scripts/x105_series.py"
+   },
+   "experiment": "x105_series"
   },
   {
    "id": "X106_crowding",
