@@ -4,7 +4,7 @@
 
 The curated page — what matters and why — is [`scripts.md`](scripts.md). This file is the complete list, so that every command behind a number in the record can be found.
 
-Scripts: **272**.
+Scripts: **273**.
 
 ## Гейты и проверки (46)
 
@@ -170,7 +170,7 @@ Scripts: **272**.
 | `make_seed_grid_figure.py` | Собрать Figure 4 рукописи: сетка «инициализация × порядок данных» (§4.13). |
 | `make_simple_poster.py` | Простой постер для владельца: что мы узнали, без терминов. |
 
-## Прочее (138)
+## Прочее (139)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -230,6 +230,7 @@ Scripts: **272**.
 | `x100_analyse.py` | x100_analyse.py — does the heredity of size survive a definition that needs no excursion cut? |
 | `x100_series.py` | x100_series.py — heredity with a size that needs no excursion cut (X100). |
 | `x101_analyse.py` | x101_analyse.py — basins by steepest ascent: a structure size with no level set at all. |
+| `x102_analyse.py` | x102_analyse.py — does the SPECIFICITY of inheritance (parent beats neighbour) survive a weaker size definition? |
 | `x56_matrix.py` | x56_matrix.py — сходимость по шагу: контраст при dt = 1.0, 0.5, 2.0. |
 | `x58_analyse.py` | x58_analyse.py — the same measurement on a 128 grid: β₀, β₁, wavelength, normalised count. |
 | `x58_series.py` | x60_series.py — X60: the twenty field runs that keep their snapshots. |
