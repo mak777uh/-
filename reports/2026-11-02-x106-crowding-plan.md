@@ -20,7 +20,7 @@ centroid to the nearest component at that step that is not an ancestor (the X103
 distance is computed for the **mother** at the mother's own peak step. Connectedness: at least **100 pairs** per cell with a
 non-ancestor peak present and a measurable lifetime.
 
-## 2. Positive controls fire (numeric, both required)
+## 2. Positive control fires (numeric, both required)
 
 1. **Heredity:** `ρ(mother's area, daughter's area) ≥ 0.35` in both cells.
 2. **Replication:** the crowding coefficient on the daughter's area must reproduce X103d within **0.10** (+0.358 at 0.030, +0.103 at

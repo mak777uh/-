@@ -28,7 +28,7 @@ Twenty runs: two inflows (`F = 0.030`, `0.040`) × ten seeds (301–310), `field
 - the components log must remain smaller than the fields archive (no disk surprise): the log grows by ~5×, from ~1 MB to ~5 MB per
   run, and the fields stay at one per 50 steps as in X100.
 
-## 2. Positive controls fire (numeric, both required)
+## 2. Positive control fires (numeric, both required)
 
 1. **Heredity on the new pairs:** `ρ(mother's excursion area, daughter's peak area) ≥ 0.35` in both cells (X100: 0.531 / 0.384). If
    denser logging changes the pair population enough to destroy heredity, the series has changed the world too much and is void.

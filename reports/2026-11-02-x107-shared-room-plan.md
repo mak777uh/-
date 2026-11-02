@@ -14,7 +14,7 @@ X100's logs, two inflows, ten worlds each; the same pairs as X106, which means t
 mother's peak step and a measurable lifetime is **not** needed here — only the non-ancestor distance for the mother. At least
 **100 pairs** per cell, and the mother-distance coordinate must cover at least **50 %** of the ancestor–daughter pairs.
 
-## 2. Positive controls fire (numeric, both required)
+## 2. Positive control fires (numeric, both required)
 
 1. **Heredity:** `ρ(mother area, daughter area) ≥ 0.35` in both cells (full samples 0.531 / 0.384).
 2. **The room coordinate:** `ρ(d_near of the mother, mother's area)` must reproduce X106 within **0.10** (+0.397 at 0.030, −0.038

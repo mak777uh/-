@@ -12,7 +12,8 @@ Reserved to the owner by `lab/autonomy-rules.json`: publishing anything outward:
 
 ## Running now
 
-- nothing is running
+- **X105_dense_logging** — Dense logging: ten worlds per inflow at --sample-every 10, so the maze cell stops being a long-lived sample (owner `lead`)
+- last artifact written 0.0 h ago
 
 ## Waiting, but not on a human
 
@@ -23,8 +24,11 @@ Reserved to the owner by `lab/autonomy-rules.json`: publishing anything outward:
 - **X31_equivalence_tests** — Эквивалентность вместо «CI включает ноль» на 60 сидах (1.0 GPU-h)
 - **X52_spatial_optimum** — Пространственно меняющийся оптимум существующего признака (1.0 GPU-h)
 - **X97_sibling_deep** — Sibling contrast with a second generation: do the daughters of the larger sister outnumber the smaller sister's? (1 GPU-h)
+- **X99_threshold_memory** — Does the memory map depend on the excursion threshold? Two cells at 0.15 and 0.25 (1 GPU-h)
+- **X100_cut_free_size** — A size measure that does not need an excursion threshold: integral of v over a basin, or area at half maximum (1 GPU-h)
 - **X53_pond_omission** — Пропущенное событие в пруду: прилив ресурса и его отсутствие (1.5 GPU-h)
 - **X57_contrast_stationarity** — Стационарность контраста: выходит ли он на ноль при dt=1.0 на длинном горизонте (2.0 GPU-h)
+- **X104_gap_at_another_cut** — Does the parent-beats-neighbour gap move with the excursion cut the way the level does? (2.0 GPU-h)
 - **X94_memory_minimum** — Locate the minimum of the size-memory curve (the 0.030-0.035 plateau) with fifty worlds per inflow (3 GPU-h)
 - **X95_trickle_above_0050** — Does the division trickle reach zero above F = 0.050? A long-horizon or big-box test (4 GPU-h)
 
