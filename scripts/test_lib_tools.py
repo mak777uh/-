@@ -506,6 +506,13 @@ def test_lead_brief_and_slots(tmp: Path) -> None:
           "пропусков всего: 0" in early.stdout, first[:200])
 
 
+def test_params_audit(tmp: Path) -> None:
+    """params_audit: находит постоянные ручки (buffer_tau = 0 во всех артефактах)."""
+    res = run("library/tools/params_audit.py", "--field", "buffer_tau")
+    check("params_audit: buffer_tau назван постоянным",
+          "buffer_tau = 0.0" in res.stdout and "не проверялось" in res.stdout, res.stdout[-300:])
+
+
 def main() -> int:
     with tempfile.TemporaryDirectory() as tdir:
         tmp = Path(tdir)
@@ -539,6 +546,8 @@ def main() -> int:
         test_science_digest(tmp)
         print("== topic lit ==")
         test_topic_lit(tmp)
+        print("== params audit ==")
+        test_params_audit(tmp)
         print("== lead brief ==")
         test_lead_brief_and_slots(tmp)
         print("== lit_find ==")
