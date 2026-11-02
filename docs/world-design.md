@@ -158,3 +158,4 @@ sections were not rewritten, only moved; each one keeps its identifier, so every
 | §10fe | The mix sweep was confounded by its own construction, and the fix is two lines (X79, 02.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
 | §10ff | With amplitude fixed the sweep still cannot separate mixedness from wavelength, and the half-life turns out to be aggregation-dependent (X80, 02.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
 | §10fg | One period and two symmetries: X71's "two wavelengths" was a radial binning artefact (X84, 02.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
+| §10fh | The reach test voided itself and confirmed the period: sixteen times the power moves nothing (X82, 02.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |

@@ -1778,3 +1778,33 @@ coordinate `s ∈ [0,1]` that rises from ~0.4 at `F = 0.025` to a plateau ~0.92 
 two-scale world was supposed to test (does imposed structure shorten memory) becomes "does the symmetry carry memory", and the
 readout for that already exists on stored fields. Report: `reports/2026-11-02-x84-one-period-two-symmetries.md`; aggregate
 `l1_field_x84_angular.json`. Registered plan (deviation stated in the report): `reports/2026-11-02-x84-angular-plan.md`.
+
+## 10fh. The reach test voided itself and confirmed the period: sixteen times the power moves nothing (X82, 02.11)
+
+X82 ran five cells (prescribed second-line power ratio 0, 1, 4, 16 at `q = 11`, and 4 at `q = 14`), five worlds each, to measure the
+transfer function from prescribed to realised spectral share. **It is void by its own control**: the single-scale cell gives a radial
+share of **0.304** against a required below-0.15, and X84 explains why — the checkerboard forcing line of the 12-cell pattern sits at
+`|k| = 8√2 = 11.3`, inside the `[10, 13]` window, in every world. The registered quantity was measuring the forcing against the
+structure band, so no claim is built on it.
+
+The angular readout carried alongside the aggregate is interpretable and consistent:
+
+| cell | second line | `q'` | symmetry `s` | `rho1` |
+|---|---|---|---|---|
+| share 0 | — | 9, 8, 9, 9, 8 | 0.603 | 0.565 |
+| share 1 | `q = 11` | 8, 6, 7, 6, 7 | 0.652 | 0.328 |
+| share 4 | `q = 11` | 8, 6, 6, 7, 7 | 0.494 | 0.423 |
+| share 16 | `q = 11` | 7, 8, 7, 7, 7 | **0.324** | 0.507 |
+| share 4 | `q = 14` | 8, 8, 8, 8, 8 | 0.710 | 0.572 |
+
+- the **period never moves**: `q'` = 6–9 (10.7–16.0 cells) in every cell, including the one whose second line sits at 6.9 cells. A
+  second line at sixteen times the power of the first buys no change of period — the fifth confirmation of §10fg, now with a
+  manipulation that is far outside the medium's band;
+- an **in-band** second line breaks the lock (s 0.603 → 0.652 → 0.494 → 0.324), while an **off-band** one at the same prescribed power
+  leaves it intact (0.710). So `s` is not only a function of inflow: it measures how strongly the forcing is one coherent
+  checkerboard;
+- `rho1` drops in exactly the two disturbed cells (0.328 and 0.423 against 0.565–0.572), which is the question X85 was registered to
+  test with proper power — these five-world numbers are descriptive only.
+
+Report: `reports/2026-11-02-x82-reach-void.md`; aggregate `l1_field_x82_reach.json`. Registration (void, kept as written):
+`reports/2026-11-02-x82-reach-plan.md`.
