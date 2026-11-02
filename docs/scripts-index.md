@@ -4,7 +4,7 @@
 
 The curated page — what matters and why — is [`scripts.md`](scripts.md). This file is the complete list, so that every command behind a number in the record can be found.
 
-Scripts: **289**.
+Scripts: **290**.
 
 ## Гейты и проверки (46)
 
@@ -170,7 +170,7 @@ Scripts: **289**.
 | `make_seed_grid_figure.py` | Собрать Figure 4 рукописи: сетка «инициализация × порядок данных» (§4.13). |
 | `make_simple_poster.py` | Простой постер для владельца: что мы узнали, без терминов. |
 
-## Прочее (155)
+## Прочее (156)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -243,6 +243,7 @@ Scripts: **289**.
 | `x110b_analyse.py` | x110b_analyse.py — X110b: gamma_cell with a liveness test that can tell a pattern from a speckle. |
 | `x111_analyse.py` | x111_analyse.py — X111: does the sign of rho(peak area, lifetime) survive a nine-times finer lifetime? |
 | `x112_analyse.py` | x112_analyse.py — X112: the ladder and the specificity at three excursion cuts, on the same genealogies and frames. |
+| `x112b_series.py` | x112b_series.py — X112b: the same worlds at thresholds 0.15 and 0.25, next to X108's 0.20 reference. |
 | `x56_matrix.py` | x56_matrix.py — сходимость по шагу: контраст при dt = 1.0, 0.5, 2.0. |
 | `x58_analyse.py` | x58_analyse.py — the same measurement on a 128 grid: β₀, β₁, wavelength, normalised count. |
 | `x58_series.py` | x60_series.py — X60: the twenty field runs that keep their snapshots. |
