@@ -117,3 +117,16 @@ diffusion patterns», «continuum limit discrete excitable media».
 `10.1016/S0065-2504(08`. Повторная проверка с полным цитированием (`quote(safe="")`) подтвердила **все три**.
 
 **Правило:** DOI из markdown брать до пробела/`|`, а не до `)`; проверять `verify --doi` с `quote(safe="")`.
+
+## 2026-11-02, 09:05 — тема `medium-memory-scales`
+
+Искал: «environmental memory pattern formation preferred length scale», «spatial memory ecological inheritance multiple
+scales», «symmetry breaking memory size pattern».
+
+- **принято (с оговоркой):** `10.14711/thesis-b1155687` — *Macroscopic domain pattern selection in shape memory
+  alloys: effects of length and time scales* (Zhou, 2011, **диссертация**). Прямо про **выбор масштаба
+  паттерна** и роль **длины и времени** — это наш вопрос «один предпочитаемый масштаб против двух». Тип —
+  `dissertation`: цитировать как диссертацию, не как рецензируемую статью.
+- **отброшено:** `10.3390/sym12122037` — *Spontaneous Symmetry Breaking and Its Pattern of Scales* (Symmetry,
+  2020). Предмет — **два массовых масштаба в λΦ⁴ и SSB в квантовой теории поля**, не память среды и не
+  масштаб паттерна в классических системах. Совпали слова «pattern of scales», а не предмет.
