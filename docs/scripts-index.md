@@ -4,7 +4,7 @@
 
 The curated page — what matters and why — is [`scripts.md`](scripts.md). This file is the complete list, so that every command behind a number in the record can be found.
 
-Scripts: **277**.
+Scripts: **278**.
 
 ## Гейты и проверки (46)
 
@@ -170,7 +170,7 @@ Scripts: **277**.
 | `make_seed_grid_figure.py` | Собрать Figure 4 рукописи: сетка «инициализация × порядок данных» (§4.13). |
 | `make_simple_poster.py` | Простой постер для владельца: что мы узнали, без терминов. |
 
-## Прочее (143)
+## Прочее (144)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -232,6 +232,7 @@ Scripts: **277**.
 | `x101_analyse.py` | x101_analyse.py — basins by steepest ascent: a structure size with no level set at all. |
 | `x102_analyse.py` | x102_analyse.py — does the SPECIFICITY of inheritance (parent beats neighbour) survive a weaker size definition? |
 | `x103_analyse.py` | x103_analyse.py — X103: is heredity topographic?  Where in the mother's basin, not how big it is. |
+| `x105_analyse.py` | x105_analyse.py — X105: does the maternal-decay term survive dense logging? |
 | `x105_series.py` | x105_series.py — dense logging for the maze cell (X105). |
 | `x106_analyse.py` | x106_analyse.py — X106: what is the crowding term?  A property of places, of growth, or of persistence. |
 | `x107_analyse.py` | x107_analyse.py — X107: how much of the parent-daughter correlation is a shared room? |
