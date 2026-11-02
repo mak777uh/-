@@ -201,3 +201,12 @@ python scripts/lab_health.py --full --github   # single entry point: gates, CI, 
 **Два правила метода:** сравнивать на срезе 600 (CV 0.3), контраст против локального кольца.
 
 **Осторожно:** срез 300 хаотичен (CV до 0.80). Любое число, взятое до 600 шагов, публиковать только с CV.
+## Constraint (03.11, 00:45) — the host disk is nearly full, and it is not the repository
+
+Free space on C: fell from 2.4 GB to **1.2 GB** during the evening and is still falling, while the repository's own footprint is stable: 0.89 GB of
+derived archives were deleted tonight (field .npy archives and dense logs whose compact projections are in git; recorded in lab/retention.json),
+and no large file inside the workspace has been written in the last twenty minutes. The remaining consumers are the virtualenv (4.8 GB), the
+canonical E02b weight (514 MB) and tracked artifacts — none of them mine to remove.
+
+Consequences while this holds: **no heavy series** (the policy's own < 10 GB rule), analysis-only work continues, and commits stay small. If the
+free space keeps dropping, the host itself needs attention — the lab can free at most a few hundred more megabytes from its own derived files.
