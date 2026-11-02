@@ -4,7 +4,7 @@
 
 The curated page — what matters and why — is [`scripts.md`](scripts.md). This file is the complete list, so that every command behind a number in the record can be found.
 
-Scripts: **296**.
+Scripts: **298**.
 
 ## Гейты и проверки (46)
 
@@ -170,7 +170,7 @@ Scripts: **296**.
 | `make_seed_grid_figure.py` | Собрать Figure 4 рукописи: сетка «инициализация × порядок данных» (§4.13). |
 | `make_simple_poster.py` | Простой постер для владельца: что мы узнали, без терминов. |
 
-## Прочее (162)
+## Прочее (164)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -248,6 +248,8 @@ Scripts: **296**.
 | `x112c_analyse.py` | x112c_analyse.py — X112c: the ladder and the specificity at cuts 0.15 and 0.25, on X108's worlds. |
 | `x112c_series.py` | x112c_series.py — X112c: the same cut sweep in the maze cell (F = 0.040), next to X108's 0.20 reference. |
 | `x113_analyse.py` | x113_analyse.py — X113: does size buy generations? |
+| `x113b_analyse.py` | x113c_analyse.py — X113c: faster propagation or more division events? |
+| `x113c_analyse.py` | x113c_analyse.py — X113c: faster propagation or more division events? |
 | `x56_matrix.py` | x56_matrix.py — сходимость по шагу: контраст при dt = 1.0, 0.5, 2.0. |
 | `x58_analyse.py` | x58_analyse.py — the same measurement on a 128 grid: β₀, β₁, wavelength, normalised count. |
 | `x58_series.py` | x60_series.py — X60: the twenty field runs that keep their snapshots. |

@@ -2696,3 +2696,31 @@ correlation and the denominator is stated; the cells differ in magnitude (1.5 ag
 reverses, so their agreement in sign here is information rather than a given.
 
 Report: `reports/2026-11-03-x113-depth.md`; aggregate `l1_field_x113_depth.json`.
+
+## 10gk. The generation advantage is speed, not arithmetic (X113b–X113c, 03.11)
+
+X113 measured the larger sister's line reaching +1.479 / +2.213 more generations, with depth negatively correlated with lifetime. Two mechanisms
+could produce that count: faster propagation, or more division events per cell. A rate separates them.
+
+X113b voided on its own control: a rate needs `life >= 50` steps, so the sample is filtered (83 of 1 087 uids excluded in the lattice, 369 of 877 in
+the maze), and the plan required the filtered contrast to reproduce the unfiltered number within 5 %. It came back 8.6 % and 10 % lower — the
+borrowed-control-band error, committed by the plan. X113c measures the filter's effect directly, by computing the depth contrast on both samples in
+the same run and allowing a 15 % shift.
+
+| cell | usable uids (excluded) | generations per 1 000 steps | 95 % CI | rho(area, rate) | per-division contrast | 95 % CI |
+|---|---|---|---|---|---|---|
+| 0.030 | 1 004 (83) | **+6.06** | **[5.03, 7.08]** | **0.414** | **+0.162** | [0.146, 0.180] |
+| 0.040 | 508 (369) | **+18.96** | **[14.89, 23.30]** | 0.115 | **+0.124** | [0.105, 0.144] |
+
+Registered verdict: **size buys speed.** Both cells gain generations per unit time with intervals far from zero, `rho(area, rate)` clears the 0.10
+bar, and the per-division contrast also excludes zero — so the advantage is not the number of divisions alone: per child, the larger sister's line
+still goes deeper.
+
+The chain the line has been closing all day is closed **in one currency**: size is inherited (0.548 / 0.480), it spans a generation as a size
+difference that grows (X97/X97b), and it pays in generations at a faster rate (X113/X113c). What stays open is whether that payment matters for
+persistence — generations are propagation, not survival, and the maze is where the lifetime advantage reverses.
+
+Caveats: the maze filter drops 42 % of uids; a rate is a ratio of two noisy quantities and the bootstrap is on paired differences only; depth is
+truncated by the 6 000-step horizon (median 3); one seed set, one box.
+
+Report: `reports/2026-11-03-x113bcd-depth-rate.md`; aggregates `l1_field_x113c_depth_rate.json` (and X113's `l1_field_x113_depth.json`).

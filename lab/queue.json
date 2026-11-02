@@ -1,6 +1,6 @@
 {
  "schema_version": 1,
- "updated_at": "2026-11-03T00:11:21+03:00",
+ "updated_at": "2026-11-03T00:17:17+03:00",
  "note": "Очередь пунктов после E02c. Claim берётся до пре-регистрации, а не перед запуском: lab.py item-claim. Статус running означает занятый GPU-лейн и может быть только у одного пункта. | 25.10: добавлено поле impact (1-5) — приоритет конвейера = impact/max(cost_gpu_h,0.1); для запуска пункту нужны prereg (закоммиченный план) и launch.command+outdir.",
  "items": [
   {
@@ -2403,13 +2403,15 @@
   {
    "id": "X113b_depth_rate",
    "title": "Is the generation advantage faster propagation or more division events?",
-   "status": "planned",
+   "status": "closed",
    "owner": "lead",
    "kind": "analysis",
    "cost_gpu_h": 0,
-   "prereg": null,
+   "prereg": "reports/2026-11-03-x113c-depth-rate-plan.md",
    "created_at": "2026-11-03T00:11:21+03:00",
-   "note": "X113 found the larger sister's line reaches +1.479 / +2.213 more generations with depth negatively correlated with lifetime. The rate version — generations per 1 000 steps, and generations per division — separates faster propagation from more division events per cell. Same pairs, same controls (heredity >= 0.35, depth not lifetime). Register with five sections before running; no GPU."
+   "note": "closed through X113c after X113b voided on a borrowed control band: size buys speed — +6.06 and +18.96 generations per 1 000 steps, per-division contrast positive. Aggregate l1_field_x113c_depth_rate.json, report reports/2026-11-03-x113bcd-depth-rate.md, plan §10gk.",
+   "closed_at": "2026-11-02T21:17:17Z",
+   "closed_by": "lead"
   }
  ]
 }

@@ -1,0 +1,52 @@
+{
+  "kind": "l1_field_x113c_depth_rate",
+  "experiment": "X113b",
+  "command": "python scripts/x113b_analyse.py --write",
+  "prereg": "reports/2026-11-03-x113c-depth-rate-plan.md",
+  "readout": "sister contrast in generations per 1 000 steps (speed) and per division (arithmetic), plus rho(area, rate)",
+  "reference_x113": {
+    "0.03": 1.479,
+    "0.04": 2.213
+  },
+  "cells": {
+    "f030": {
+      "uids": 1004,
+      "excluded_short_life": 83,
+      "rho_heredity": 0.548,
+      "rho_area_rate": 0.414,
+      "median_rate": 8.547,
+      "sister_pairs": 957,
+      "rate_diff_mean": 6.056,
+      "rate_diff_ci": [
+        5.03,
+        7.076
+      ],
+      "perdiv_diff_mean": 0.162,
+      "perdiv_diff_ci": [
+        0.146,
+        0.18
+      ],
+      "depth_diff_mean": 1.351
+    },
+    "f040": {
+      "uids": 508,
+      "excluded_short_life": 369,
+      "rho_heredity": 0.48,
+      "rho_area_rate": 0.115,
+      "median_rate": 19.608,
+      "sister_pairs": 638,
+      "rate_diff_mean": 18.96,
+      "rate_diff_ci": [
+        14.889,
+        23.3
+      ],
+      "perdiv_diff_mean": 0.124,
+      "perdiv_diff_ci": [
+        0.105,
+        0.144
+      ],
+      "depth_diff_mean": 1.987
+    }
+  },
+  "verdict": "size buys speed: the larger sister's line gains 6.056 generations per 1 000 steps (CI [5.03, 7.076]) and rho(area, rate) is 0.414 / 0.115; per-division contrast 0.162 (CI [0.146, 0.18]) / 0.124 (CI [0.105, 0.144])"
+}
