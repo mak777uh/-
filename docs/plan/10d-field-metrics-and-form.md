@@ -1670,3 +1670,59 @@ What survives: the **w = 0.25** cell is genuinely two-peaked (10/10) and is the 
 1.47 single-scale) — a second point in X78b's direction, with a stronger effect. Fix before the next attempt: renormalise after mixing
 (`G <- (G - 0.5)/sigma(w) + 0.5`) so every weight has the same amplitude and only the spectrum changes. Report:
 `reports/2026-11-02-x79-mix-confound.md`; aggregate `l1_field_x79_mix.json`.
+
+## 10ff. With amplitude fixed the sweep still cannot separate mixedness from wavelength, and the half-life turns out to be aggregation-dependent (X80, 02.11)
+
+X80 ran the amplitude-normalised composite (`--hetero-mix2` 0.25 / 0.50 / 0.75, five jittered worlds each, `F = 0.030`, field at
+6000). All three cells are patterned and powered (27-39 components, 665-981 lag-1 pairs). The registered rule fires **slope**
+(0.86 < 1.18 < 1.25, spread 0.39 >= 0.20), and that verdict does not stand, for reasons written into the preregistration:
+
+- the **positive control did not fire** — the plan required both wings above 1.0 and `w = 0.25` gave 0.86;
+- the middle cell is **not uniquely two-peaked**: 5/5 at `w = 0.25`, 5/5 at `w = 0.50`, **0/5** at `w = 0.75`. The tie passed a
+  clause written for "highest", so the sweep is not three degrees of mixedness but *mixture, mixture, one single scale at 8.7
+  cells*.
+
+What the pooled numbers do support: both mixture cells are shorter-lived than the single-scale reference at the same inflow
+(0.86 and 1.18 against 1.47) — third and fourth points in X78b's and X79's direction — with **no ordering between them**.
+
+The larger finding is about the ruler. `lambda` is fitted to the ratios of the **pooled** pair pool; per-world it is a different
+question, and in X80 the two answers have different signs:
+
+| reading | w = 0.25 | w = 0.50 | w = 0.75 | shape |
+|---|---|---|---|---|
+| pooled `rho1` | 0.509 | **0.391** | 0.499 | dip |
+| pooled half-life | 0.86 | 1.18 | 1.25 | slope |
+| per-world median half-life | 1.04 | **0.52** | 1.16 | dip |
+
+The reason is arithmetic, not noise: when `rho1` falls and `rho2`/`rho3` do not fall as fast, `rho2/rho1` **rises**, so `lambda`
+rises and the fitted half-life lengthens although the memory starts lower. Half-life is a ratio, not a level.
+
+Recomputed on the stored per-world correlations (no new runs), the same audit on the published cells:
+
+| cell | pooled (published) | per-world median | range | worlds fittable |
+|---|---|---|---|---|
+| F = 0.030 | 1.47 | 1.26 | 1.21-2.44 | 5/5 |
+| F = 0.035 | 0.73 | 0.92 | 0.27-3.09 | 10/10 |
+| F = 0.040 | 1.61 | 1.82 | 0.82-2.10 | 5/5 |
+| F = 0.033 | 0.57 | 0.66 | 0.43-1.86 | **7/10** |
+| X79 w = 0.25 | 0.76 | 0.64 | 0.42-1.86 | 9/10 |
+| X79 w = 0.75 | 0.96 | 0.89 | 0.21-3.36 | 10/10 |
+
+The **direction** of the multistable band survives (1.26 and 1.82 outside, 0.66 and 0.92 inside), the **size** does not: the
+pooled contrast is 2.01x and 2.58x, the per-world median contrast 1.37x and 1.91x. The "two-valued, 2.1-2.5x" sentence of §10fa
+and claim 295 is therefore a pooled number and is quoted as one. At `F = 0.033` three of ten worlds have a lag-2 or lag-3
+correlation at or below zero, so their `lambda` does not exist at all and the published 0.57 is fitted from a pool that contains
+them.
+
+Two gates are now known to be too weak: the two-peak check passes on a tie, and a failed positive control did not void the
+series because the plan stated the consequence but the refusal rule did not encode it. Both are fixed in the next registration.
+
+**Registered next (X81), before any run.** Report `rho1` as the primary level and the half-life as a secondary derived quantity,
+always printing the per-world median and range beside the pooled value; fit `lambda` per world and aggregate by median, and
+declare a cell unfittable if fewer than 7 of 10 worlds yield a positive decay. Replace the mixture with a **prescribed
+spectrum**: dominant at q = 8, second peak at q = 11, share swept 0 / 0.5 / 1.0 of the dominant power, random phases,
+amplitude-normalised; the manipulation check is the **measured** share from the saved field (void if it deviates from the
+prescribed share by more than 0.15, and void on a two-peak tie). Prediction to be falsified: `rho1` falls monotonically with the
+measured share of the second peak; if instead the effect tracks the *wavelength* of the second peak at fixed share, mixedness is
+not the cause. Ten worlds per cell, 6000 steps. Report: `reports/2026-11-02-x80-dip-estimator.md`; aggregate
+`l1_field_x80_dip.json`.

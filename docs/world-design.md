@@ -156,3 +156,4 @@ sections were not rewritten, only moved; each one keeps its identifier, so every
 | §10fc | The causal test failed on its own manipulation (X78, 02.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
 | §10fd | An imposed second scale shortens memory by 1.43x: right direction, not the full band effect (X78b, 02.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
 | §10fe | The mix sweep was confounded by its own construction, and the fix is two lines (X79, 02.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
+| §10ff | With amplitude fixed the sweep still cannot separate mixedness from wavelength, and the half-life turns out to be aggregation-dependent (X80, 02.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |

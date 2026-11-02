@@ -4,7 +4,7 @@
 
 The curated page — what matters and why — is [`scripts.md`](scripts.md). This file is the complete list, so that every command behind a number in the record can be found.
 
-Scripts: **243**.
+Scripts: **245**.
 
 ## Гейты и проверки (45)
 
@@ -168,7 +168,7 @@ Scripts: **243**.
 | `make_seed_grid_figure.py` | Собрать Figure 4 рукописи: сетка «инициализация × порядок данных» (§4.13). |
 | `make_simple_poster.py` | Простой постер для владельца: что мы узнали, без терминов. |
 
-## Прочее (111)
+## Прочее (113)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -283,3 +283,5 @@ Scripts: **243**.
 | `x78b_series.py` | x78b_series.py — composite two-scale pattern at F = 0.030 (X78b). |
 | `x79_analyse.py` | x79_analyse.py — does memory shorten gradually with the weight of an imposed second scale? |
 | `x79_series.py` | x79_series.py — mix sweep of the composite pattern at F = 0.030 (X79). |
+| `x80_analyse.py` | x80_analyse.py — with amplitude fixed, does memory dip where the mixture is richest? |
+| `x80_series.py` | x80_series.py — amplitude-normalised mix sweep at F = 0.030 (X80). |

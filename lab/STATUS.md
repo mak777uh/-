@@ -4,20 +4,18 @@ One file, one place that says what is actually in work. Machine state lives in `
 `_hourly/log.md`, numbers in artifacts. The Russian sections below the line are **history** and are not rewritten; the top
 part is kept current (new text in English — decision of 31.10).
 
-**Updated:** 2026-11-02, 01:15 MSK.
+**Updated:** 2026-11-02, 06:55 MSK.
 
 ## Running now
 
-- Nothing. No locks. The last series closed at 23:00: **X71c** (band width), and its report was corrected an hour later
-  when moving the second-mode cut showed the width is a property of the cut — see §10ev.
-- Closed since the previous update: **X71** (the medium is multistable in a narrow band at `F = 0.035`; 70 runs), **X71b**
-  (coexistence stationary over 24 000 steps, 5/5 worlds), **X71c** (width depends on the cut; the gradient is the finding),
-  **X72c** (band powers: a neighbour predicts a daughter better than her parent does, so the mixture belongs to the patch;
-  the follow-up regional test gives η² = 0.307 inside a world and 0.004 between worlds, so the regions are historical),
-  **X73** (the size memory decays 0.475 → 0.204 → 0.072 over three divisions: half-life under one generation),
-  **X72/X72b** (both void — first the proxy did not track the wavelength, then the branch turned out to be a world-level
-  mixture), **X29** (selection differential fails its own null: +0.148 where the trait cannot act) and the queue/provenance
-  repairs (X3, X35, X38, P8b).
+- Nothing. No locks. The last series closed at 06:10: **X80** (amplitude-normalised weight sweep at `F = 0.030`), and it did
+  not settle the question it was built for — see the table below and §10ff.
+- Closed since the previous update: **X74** (half-life follows the inflow non-monotonically: 1.47 / 0.73 / 1.61 at 0.030 /
+  0.035 / 0.040 — the multistable band remembers least), **X76** (the 0.033 cell is ordinary at ten worlds, so the five cells
+  fall into two levels), **X77** (patch control has no power: a daughter's patch mean predicts her at 0.01, which excludes the
+  common-environment reading by measurement), **X78** (void: the matched-scale arm collapsed to one component), **X78b** (an
+  imposed second scale shortens the half-life 1.47 → 1.03 while lag-1 stays 0.498), **X79** (the mix sweep was confounded by
+  its own construction: variance `(1−w)² + w²` is minimal at `w = 0.5`), **X80** (see below).
 
 ## Closed on 01.11 (field line)
 
@@ -33,6 +31,24 @@ part is kept current (new text in English — decision of 31.10).
 | method | a seed replicates nothing if the world ignores it (β = 0 geometry is seed-independent); gate `check_seed_replication.py` | `docs/design-checks.md` |
 | hygiene | board 94/94 closed, CI green, three Linux-only gate defects fixed | `_hourly/log.md` |
 
+## Closed on 02.11 (field line)
+
+| what | verdict | where |
+|---|---|---|
+| X74 rate | half-life depends on the inflow **non-monotonically**: 1.47 / 0.73 / 1.61 at `F = 0.030 / 0.035 / 0.040`, lag-1 flat at 0.475–0.507 | §10ey |
+| X75 edges | inconclusive by the registered rule: 0.037 shallow (0.56), 0.033 out of its control band | §10ez |
+| X76 replication | the 0.033 cell is ordinary at ten worlds (ρ₁ 0.447), so the five cells are **two levels** | §10fa |
+| X77 patch control | **void as a discriminator**: patch mean predicts a daughter at 0.01 (median patch = 2 structures) — the common-environment reading is excluded *by measurement* | §10fb |
+| X78 causal | **void**: the matched-scale arm has one component per world, so the manipulation changed the regime, not the scale | §10fc |
+| X78b two scales | imposed second scale shortens memory 1.47 → 1.03 (1.43×) while lag-1 stays 0.498; right direction, third of the band effect | §10fd |
+| X79 mix sweep | confounded **by construction**: `Var(G) = (1−w)² + w²` is minimal at `w = 0.5`, so weight and amplitude moved together | §10fe |
+| X80 dip test | **neither dip nor slope**: the registered rule fires slope, but its positive control failed (0.86 < 1.0) and the middle cell only *ties* on two peaks (5/5 vs 5/5, and 0/5 at w = 0.75), so the sweep compared two mixtures with one single scale at 8.7 cells | §10ff |
+| the ruler | **half-life is aggregation-dependent**: pooled and per-world median disagree in *sign* on X80 (0.86/1.18/1.25 against 1.04/0.52/1.16), and the band contrast is 2.01×/2.58× pooled but 1.37×/1.91× per-world median; at `F = 0.033` only 7 of 10 worlds are fittable | §10ff, claims 296–297 |
+
+The estimator note is the one with teeth: every half-life we published (X74, X76, X78b, X79) is **pooled**, and pooling is a
+choice that was never declared. The direction of the band survives it; the size does not.
+
+
 ## Waiting for the owner — only two items, both small
 
 1. **X54, canonical weights:** the snapshot is honest now (`ready 1 / missing 11`, `weights_tracked: false`), but the choice
@@ -46,6 +62,10 @@ part is kept current (new text in English — decision of 31.10).
 
 ## Queued compute, not waiting on anyone
 
+- **X81 prescribed spectrum** (registered in §10ff, not yet built): dominant at q = 8, second peak at q = 11 with share
+  0 / 0.5 / 1.0, phases random, amplitude-normalised; ten worlds per cell; `ρ₁` primary, per-world median half-life
+  secondary; the manipulation check is the **measured** share in the saved field. Needs a new generator in
+  `field_track.py` (~40 lines) plus an anchor on the flags-off path. ~70 minutes of GPU.
 - **X58 at grid 192** (the real refinement): `Du = 0.64`, `Dv = 0.32`, `dt = 0.375` (stability `dt·Du = 0.24 ≤ 0.25`),
   16 000 steps, 10 runs, ~2 GPU-hours. Criterion: peak position at 12 units.
 - **X57 stationarity:** one 30 000-unit arm at `dt = 1.0`, 10 seeds, ~2 GPU-hours.
