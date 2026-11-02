@@ -1726,3 +1726,12 @@ prescribed share by more than 0.15, and void on a two-peak tie). Prediction to b
 measured share of the second peak; if instead the effect tracks the *wavelength* of the second peak at fixed share, mixedness is
 not the cause. Ten worlds per cell, 6000 steps. Report: `reports/2026-11-02-x80-dip-estimator.md`; aggregate
 `l1_field_x80_dip.json`.
+
+**Correction (02.11, 08:05).** The two-peak count above was a **strict local-maximum** test, and it fails on a shoulder. Measured as
+a power share over the same fifteen fields, the three X80 cells carry `P2/(P1+P2) = 0.27-0.31`, `0.18-0.23` and `0.27-0.34`: all
+three are two-peaked, and the sweep moved the *prescribed* composition while the *realised* spectrum hardly moved. The "0/5 at
+`w = 0.75`" figure is therefore withdrawn, the registered "slope" compares three near-identical spectra, and X80's verdict is **void
+by manipulation reach**, not slope. Three pilots then measured the channel directly: prescribed power ratio 1.0 gives realised 0.19,
+4.0 gives 0.31, 16.0 gives 0.28 — the second peak saturates at about a third whatever is prescribed. X81 as registered would have
+been void by its own check, so it is superseded by **X82** (the transfer function measured with worlds, five cells x five worlds).
+Report: `reports/2026-11-02-x80-correction-two-peak.md`; registration: `reports/2026-11-02-x82-reach-plan.md`.
