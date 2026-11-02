@@ -189,6 +189,13 @@ def main(argv=None) -> int:
                     help="X60: каталог, куда писать v на выбранных срезах (.npy, float32)")
     ap.add_argument("--init-jitter", action="store_true",
                     help="X70r: сдвинуть стартовую каплю по сиду (реплика нейтрального мира; выключено = прежнее поведение)")
+    # X96b: вторая шкала в начальном условии вместо притока. По умолчанию выключено (0), поэтому старая ветка бит-в-бит прежняя.
+    ap.add_argument("--init-pattern-cells", type=float, default=0.0,
+                    help="X96b: длина волны стартового узора в клетках (0 = выключено, старт с одной капли)")
+    ap.add_argument("--init-pattern-fill", type=float, default=0.5,
+                    help="X96b: амплитуда стартового узора (0..1): v += fill*pattern, u -= 0.75*fill*pattern")
+    ap.add_argument("--init-pattern-binary", action="store_true",
+                    help="X96b: бинаризовать узор (полосы 0/1) вместо гладкой синусоиды")
     ap.add_argument("--save-fields-at", default="2000,4000,6000",
                     help="X60: шаги, на которых сохраняется поле (по умолчанию 2000,4000,6000)")
     args = ap.parse_args(argv)
@@ -245,6 +252,22 @@ def main(argv=None) -> int:
         h_trait = torch.full_like(v, float(args.trait_init))
     v = torch.where(m, torch.full_like(v, 1.0), v)
     u = torch.where(m, torch.full_like(u, 0.25), u)
+
+    # X96b: вторая шкала не в притоке, а в НАЧАЛЬНОМ УСЛОВИИ. Приток задаёт узор непрерывно, и среда его игнорирует
+    # (X82: до 16x мощности период не двигается). Здесь вместо одной капли поле стартует синусоидой заданной длины,
+    # и вопрос ставится иначе: удержится ли навязанная шкала, если она — единственное, что есть в t = 0.
+    # Выключено по умолчанию, поэтому старая ветка бит-в-бит прежняя.
+    if args.init_pattern_cells > 0:
+        q0 = float(g) / max(2.0, float(args.init_pattern_cells))
+        phase = np.random.default_rng(int(args.seed) * 7919 + 11).uniform(0.0, 2.0 * np.pi, size=2)
+        y0 = np.arange(g)[:, None]
+        x0 = np.arange(g)[None, :]
+        pat = np.sin(2.0 * np.pi * q0 * y0 / g + phase[0]) * np.sin(2.0 * np.pi * q0 * x0 / g + phase[1])
+        pat = (pat > 0.0).astype(np.float32) if args.init_pattern_binary else pat.astype(np.float32)
+        pat_t = torch.tensor(pat, device=dev, dtype=torch.float32)
+        fill = float(np.clip(args.init_pattern_fill, 0.0, 1.0))
+        v = torch.clamp(v + fill * pat_t, 0.0, 1.0)
+        u = torch.clamp(u - 0.75 * fill * pat_t, 0.0, 1.0)
 
     rng = np.random.default_rng(int(args.seed))
     rng_g = np.random.default_rng(int(args.global_noise_seed) + 7919)
