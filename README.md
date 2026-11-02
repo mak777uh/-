@@ -72,7 +72,9 @@ not a unit of reproduction and has no path to offspring.
 [`library/memory-in-this-medium-2026-11-02.md`](library/memory-in-this-medium-2026-11-02.md)). The medium
 has **one** preferred scale (~12 cells) and a **symmetry** coordinate the environment can turn but which
 carries no memory; the size memory is U-shaped in inflow with its minimum at the multistable band's edge
-(1.07 divisions against 2.08 on the shoulder above it). Above `F = 0.049` the pattern stops dividing in
+(1.07 divisions against 2.08 on the shoulder above it) — but every half-life here is defined on an excursion set, and moving
+the cut from 0.20 to 0.15 or 0.25 moves the levels by a factor of three and reverses the order between inflows, so the numbers
+are quoted with their cut. Above `F = 0.049` the pattern stops dividing in
 practice, so inheritance there is undefined rather than weak. Resemblance and retention are established
 (the parent predicts the daughter at 0.39–0.55, the nearest neighbour at 0.02–0.25); **consequence is
 not** — two attempts failed on their instruments, and the words *selection* and *inheritance* therefore
