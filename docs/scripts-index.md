@@ -4,7 +4,7 @@
 
 The curated page — what matters and why — is [`scripts.md`](scripts.md). This file is the complete list, so that every command behind a number in the record can be found.
 
-Scripts: **292**.
+Scripts: **293**.
 
 ## Гейты и проверки (46)
 
@@ -170,7 +170,7 @@ Scripts: **292**.
 | `make_seed_grid_figure.py` | Собрать Figure 4 рукописи: сетка «инициализация × порядок данных» (§4.13). |
 | `make_simple_poster.py` | Простой постер для владельца: что мы узнали, без терминов. |
 
-## Прочее (158)
+## Прочее (159)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -245,6 +245,7 @@ Scripts: **292**.
 | `x112_analyse.py` | x112_analyse.py — X112: the ladder and the specificity at three excursion cuts, on the same genealogies and frames. |
 | `x112b_analyse.py` | x112b_analyse.py — X112b: the ladder and the specificity at cuts 0.15 and 0.25, on X108's worlds. |
 | `x112b_series.py` | x112b_series.py — X112b: the same worlds at thresholds 0.15 and 0.25, next to X108's 0.20 reference. |
+| `x112c_analyse.py` | x112c_analyse.py — X112c: the ladder and the specificity at cuts 0.15 and 0.25, on X108's worlds. |
 | `x112c_series.py` | x112c_series.py — X112c: the same cut sweep in the maze cell (F = 0.040), next to X108's 0.20 reference. |
 | `x56_matrix.py` | x56_matrix.py — сходимость по шагу: контраст при dt = 1.0, 0.5, 2.0. |
 | `x58_analyse.py` | x58_analyse.py — the same measurement on a 128 grid: β₀, β₁, wavelength, normalised count. |

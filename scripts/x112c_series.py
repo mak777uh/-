@@ -48,7 +48,10 @@ def _lock(action: str, extra: list[str] | None = None) -> None:
 
 
 def run_one(seed: int, thr: str) -> dict:
-    tag = f"x112c_f030_thr{thr.replace('.', '')}_s{seed}"
+    # the cell tag is derived from FLOW, not typed: a copied runner that keeps the old tag writes mislabeled artifacts
+    cell_tag = "f" + FLOW.replace(".", "").lstrip("0")
+    tag = f"x112c_{cell_tag}_thr{thr.replace('.', '')}_s{seed}"
+    assert cell_tag == "f040", cell_tag
     out = L1 / f"{tag}.json"
     if out.exists():
         return {"tag": tag, "seed": seed, "threshold": thr, "status": "skipped (exists)"}
