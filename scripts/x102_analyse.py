@@ -23,6 +23,7 @@ import numpy as np
 
 ROOT = Path(__file__).resolve().parents[1]
 L1 = ROOT / "morphogenesis" / "experiments" / "L1_field"
+PREFIX = "x100"   # X108: the same ladder on the dense-field series needs only this to change
 FIELDS = L1 / "_x100_fields"
 OUT = ROOT / "morphogenesis" / "experiments" / "E09_pond" / "l1_field_x102_specificity_ladder.json"
 
@@ -145,7 +146,7 @@ def cell_stats(flow_tag: str, flow: float) -> dict:
     same_stranger_hits, same_parent_hits = 0, 0
     n_same_stranger, n_same_parent = 0, 0
     pairs, covered, expected, worlds = 0, 0, 0, 0
-    for path in cell_files(("x100",), flow, filename=""):
+    for path in cell_files((PREFIX,), flow, filename=""):
         w = world_data(path)
         cache: dict = {}
         worlds += 1
@@ -199,13 +200,27 @@ def cell_stats(flow_tag: str, flow: float) -> dict:
 
 
 def main(argv=None) -> int:
+    global PREFIX, FIELDS, OUT
     ap = argparse.ArgumentParser(description="X102 specificity down the ladder")
     ap.add_argument("--write", action="store_true")
+    ap.add_argument("--prefix", default=PREFIX, help="run-file prefix (default x100; x108 for the dense-field rerun)")
+    ap.add_argument("--fields", default=None, help="directory with the saved fields (default _x100_fields)")
+    ap.add_argument("--out", default=OUT.name, help="aggregate file name inside E09_pond")
     args = ap.parse_args(argv)
 
-    res = {"kind": "l1_field_x102_specificity_ladder", "experiment": "X102",
-           "command": "python scripts/x102_analyse.py --write",
-           "prereg": "reports/2026-11-02-x102-specificity-plan.md",
+    PREFIX = args.prefix
+    if args.fields:
+        import x101_analyse
+        FIELDS = (L1 / args.fields) if not Path(args.fields).is_absolute() else Path(args.fields)
+        x101_analyse.FIELDS = FIELDS   # field_for comes from that module; its globals must move too
+    OUT = OUT.parent / args.out
+
+    res = {"kind": "l1_field_x102_specificity_ladder", "experiment": "X102" if PREFIX == "x100" else "X108",
+           "command": f"python scripts/x102_analyse.py --write --prefix {PREFIX}"
+                      + (f" --fields {args.fields}" if args.fields else ""),
+           "series": PREFIX,
+           "prereg": ("reports/2026-11-02-x102-specificity-plan.md" if PREFIX == "x100"
+                      else "reports/2026-11-02-x108-ladder-on-dense-plan.md"),
            "readout": "Spearman(parent, daughter) minus Spearman(nearest non-ancestor, daughter), under the excursion-set area and under "
                       "the topological basin area, on the same daughters",
            "cells": {}}

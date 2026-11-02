@@ -36,6 +36,11 @@ EXTENT = 0.10
 NEEDS_CUT = 0.20
 FLOOR = 0.01   # ниже этого поле считается пустым: у таких клеток нет «водораздела», они не входят в бассейны
 
+# 02.11 (X108): the ladder was measured on the sparse series (`x100`). Dense logging (`x108`) is the same twenty worlds with a
+# field at every logged step, so the same analysis must be re-runnable there with only the prefix and the fields directory changed.
+# The defaults reproduce the committed X100 aggregate byte-for-byte.
+PREFIX = "x100"
+
 
 def field_for(run_json: Path, step: int) -> Path | None:
     p = FIELDS / f"{run_json.stem}_t{step}.npy"
@@ -111,7 +116,7 @@ def world_sizes(run_json: Path) -> dict:
 def cell_stats(flow_tag: str, flow: float) -> dict:
     ax_area, ay_area, ax_basin, ay_basin = [], [], [], []
     pairs, covered, expected, worlds, partitions = 0, 0, 0, 0, 0
-    for path in cell_files(("x100",), flow, filename=""):
+    for path in cell_files((PREFIX,), flow, filename=""):
         sizes = world_sizes(path)
         worlds += 1
         partitions += 1 if sizes["partition_ok"] else 0
@@ -142,13 +147,28 @@ def cell_stats(flow_tag: str, flow: float) -> dict:
 
 
 def main(argv=None) -> int:
+    global PREFIX, FIELDS, X100_THRESHOLD_RHO, OUT
     ap = argparse.ArgumentParser(description="X101 watershed basins")
     ap.add_argument("--write", action="store_true")
+    ap.add_argument("--prefix", default=PREFIX, help="run-file prefix (default x100; x108 for the dense-field rerun)")
+    ap.add_argument("--fields", default=None, help="directory with the saved fields (default _x100_fields)")
+    ap.add_argument("--ref-a", type=float, default=X100_THRESHOLD_RHO[0.030], help="threshold-area rho1 at 0.030 to reproduce")
+    ap.add_argument("--ref-b", type=float, default=X100_THRESHOLD_RHO[0.040], help="threshold-area rho1 at 0.040 to reproduce")
+    ap.add_argument("--out", default=OUT.name, help="aggregate file name inside E09_pond")
     args = ap.parse_args(argv)
 
-    res = {"kind": "l1_field_x101_watershed", "experiment": "X101",
-           "command": "python scripts/x101_analyse.py --write",
-           "prereg": "reports/2026-11-02-x101-watershed-plan.md",
+    PREFIX = args.prefix
+    if args.fields:
+        FIELDS = (L1 / args.fields) if not Path(args.fields).is_absolute() else Path(args.fields)
+    X100_THRESHOLD_RHO = {0.030: args.ref_a, 0.040: args.ref_b}
+    OUT = OUT.parent / args.out
+
+    res = {"kind": "l1_field_x101_watershed", "experiment": "X101" if PREFIX == "x100" else "X108",
+           "command": f"python scripts/x101_analyse.py --write --prefix {PREFIX}"
+                      + (f" --fields {args.fields}" if args.fields else ""),
+           "series": PREFIX,
+           "prereg": ("reports/2026-11-02-x101-watershed-plan.md" if PREFIX == "x100"
+                      else "reports/2026-11-02-x108-ladder-on-dense-plan.md"),
            "basin_definition": "each cell assigned to the local maximum reached by steepest ascent (8-neighbourhood, periodic); a "
                                "structure's size is the area of the basin its centroid drains to; no level set, no free parameter",
            "cells": {}}
