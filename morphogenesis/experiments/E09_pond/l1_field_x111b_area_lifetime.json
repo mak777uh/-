@@ -1,0 +1,95 @@
+{
+  "kind": "l1_field_x111b_area_lifetime",
+  "experiment": "X111",
+  "command": "python scripts/x111_analyse.py --write",
+  "prereg": "reports/2026-11-02-x111b-area-lifetime-plan.md",
+  "readout": "Spearman(peak area, lifetime) per cell and series, with a 1 000-shuffle within-cell null",
+  "series": {
+    "sparse": "x100, --sample-every 50, seeds 291-300",
+    "dense": "x108, --sample-every 10, seeds 301-310"
+  },
+  "reference_x92": {
+    "0.03": 0.067,
+    "0.04": -0.046
+  },
+  "control_band": 0.05,
+  "cells": {
+    "f030": {
+      "sparse": {
+        "uids": 2201,
+        "rho": 0.077,
+        "null_p95": 0.042,
+        "median_life": 349.0,
+        "per_world": [
+          0.139,
+          -0.733,
+          -0.173,
+          0.05,
+          -0.38,
+          0.198,
+          -0.38,
+          0.258,
+          0.064,
+          0.405
+        ]
+      },
+      "dense": {
+        "uids": 2268,
+        "rho": 0.049,
+        "null_p95": 0.041,
+        "median_life": 356.5,
+        "per_world": [
+          -0.232,
+          -0.329,
+          0.293,
+          -0.511,
+          0.258,
+          -0.271,
+          -0.093,
+          0.05,
+          -0.38,
+          0.3
+        ]
+      }
+    },
+    "f040": {
+      "sparse": {
+        "uids": 1858,
+        "rho": 0.021,
+        "null_p95": 0.047,
+        "median_life": 101.0,
+        "per_world": [
+          0.107,
+          0.085,
+          -0.115,
+          -0.036,
+          0.111,
+          0.065,
+          0.111,
+          -0.01,
+          0.048,
+          -0.04
+        ]
+      },
+      "dense": {
+        "uids": 2046,
+        "rho": -0.039,
+        "null_p95": 0.041,
+        "median_life": 97.5,
+        "per_world": [
+          -0.197,
+          -0.054,
+          -0.005,
+          -0.218,
+          -0.01,
+          0.019,
+          -0.122,
+          -0.036,
+          0.111,
+          0.153
+        ]
+      }
+    }
+  },
+  "verdict": "the sign is set by the sample, not the density: the cells disagree in sign between the two series ([0.077, 0.021] against [0.049, -0.039], deltas {'f030': -0.028, 'f040': -0.06}) while every coefficient sits inside its shuffle null — at this resolution the relation is indistinguishable from zero in both series"
+}

@@ -180,3 +180,4 @@ sections were not rewritten, only moved; each one keeps its identifier, so every
 | §10ga | A second diffusion length moves the orientation, not the wavelength (X96–X96c, 02.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
 | §10gb | Both room results survive dense logging, and crowding keeps its domain (X109, 02.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
 | §10gc | The second species moves neither scale nor orientation, and it shows where each cell sits relative to the edge (X96d, 02.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
+| §10gd | The area–lifetime relation sits at the null's edge, and the logging density does not move it (X111–X111b, 02.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |

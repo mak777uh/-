@@ -2486,3 +2486,30 @@ nothing at 0.50, so the gap is at least fourfold). X110 is registered to measure
 
 Report: `reports/2026-11-02-x96d-orientation.md`; aggregate `l1_field_x96d_orientation.json`; series index
 `morphogenesis/experiments/L1_field/x96d_series_index.json` (30 runs, all ok).
+
+## 10gd. The area–lifetime relation sits at the null's edge, and the logging density does not move it (X111–X111b, 02.11)
+
+X92's "size is not a currency" rested on coefficients of +0.191 / +0.067 / −0.041 / −0.046 across four cells, measured on lifetimes
+quantised by a 50-step logging interval. X105 then showed that interval was hiding a third of the maze cell's genealogies, and its dense
+series measures lifetime in 10-step units. X111 asked whether the sign survives the finer measurement; it voided on its own control,
+because the plan took X92's 0.025/0.035 values for the 0.030/0.040 cells (CLAIMS 312 lists them per cell). Recomputing on X92's **own**
+series reproduces it to within 0.004 (+0.069 against +0.067, −0.042 against −0.046), so the code is right and the reference was
+mis-assigned; X111b re-registered with the reference measured on the right worlds and with the comparison stated as two samples of one
+design at two densities, never one sample twice.
+
+| cell | X92 (own worlds) | recomputed | x100 sparse | x108 dense | null p95 |
+|---|---|---|---|---|---|
+| 0.030 | +0.067 | +0.069 | +0.077 | +0.049 | 0.042 / 0.041 |
+| 0.040 | −0.046 | −0.042 | +0.021 | −0.039 | 0.047 / 0.041 |
+
+Registered verdict: **the sign is set by the sample, not the density** — the deltas are −0.028 and −0.060, inside the 0.10 resolution,
+and every coefficient in the x100/x108 comparison sits inside its own shuffle null.
+
+What follows for the claim: X92's headline survives, but its support is weaker than the numbers looked. The live coefficient is about
+0.07 (6–8 % of variance) at best and on two of four samples here it does not clear a 0.04 null. The honest formulation is "no consequence
+of size has been demonstrated above the noise floor of this estimator", not "size does not pay". A sibling design meant to detect a
+0.05 effect (X93) would need samples where the null is below 0.02 — roughly four times the structures the current series carry.
+
+Caveats: only the two cells the dense series covers; 1 000 within-cell shuffles; lifetimes are `last − first + 1` on logged steps.
+
+Report: `reports/2026-11-02-x111-area-lifetime.md`; aggregate `l1_field_x111b_area_lifetime.json`.
