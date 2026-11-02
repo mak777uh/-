@@ -135,6 +135,10 @@ def main(argv=None) -> int:
                     help="X78b: вторая длина волны узора G (0 = выключено)")
     ap.add_argument("--hetero-mix2", type=float, default=0.5,
                     help="X78b: вес второй длины волны в составном узоре (0..1)")
+    # X81: предписанный спектр вместо смеси двух узоров. По умолчанию выключено (None), поэтому старая ветка бит-в-бит прежняя.
+    ap.add_argument("--spectrum-share", type=float, default=None,
+                    help="X81: предписанное отношение МОЩНОСТИ второго пика к первому (0 = одна шкала, 1 = равные мощности); "
+                         "фазы тянутся из отдельного генератора, при 0 фазы нулевые и узор совпадает со старым")
     ap.add_argument("--hetero-signal", default=None,
                     help="файл со значениями S(t) в 0..1 (дамп с железа); без него S = 0.5 (статичный узор)")
     ap.add_argument("--hetero-period", type=float, default=0.0,
@@ -251,7 +255,35 @@ def main(argv=None) -> int:
     if args.hetero_amp > 0:
         ky, kx = 2.0 * np.pi / max(2.0, args.hetero_scale), 2.0 * np.pi / max(2.0, args.hetero_scale)
         hetero_G = (np.sin(ky * np.arange(g))[:, None] * np.cos(kx * np.arange(g))[None, :] + 1.0) / 2.0
-        if args.hetero_scale2 and args.hetero_scale2 > 0:
+        if args.spectrum_share is not None:
+            # X81: prescribe the spectrum instead of mixing two patterns. The dominant peak stays at `--hetero-scale`
+            # (q = g/scale), the second sits at `--hetero-scale2`, and `--spectrum-share` is the prescribed POWER ratio of
+            # the second peak to the first (0 = single scale, 1 = equal power). Phases are drawn per world from a private
+            # generator, so seeds realise distinct worlds and the main RNG stream is untouched; at share = 0 the phases are
+            # zero and the pattern is the old single-scale one bit-for-bit (anchor on the flags-off path).
+            q1, q2 = float(g) / max(2.0, args.hetero_scale), float(g) / max(2.0, args.hetero_scale2)
+            share = max(0.0, float(args.spectrum_share))
+            rng_phase = np.random.default_rng(int(args.seed) * 1000003 + 17)
+            if share > 0:
+                ph1 = rng_phase.uniform(0.0, 2.0 * np.pi, size=2)
+                ph2 = rng_phase.uniform(0.0, 2.0 * np.pi, size=2)
+            else:
+                ph1 = np.zeros(2)
+                ph2 = np.zeros(2)
+            y = np.arange(g)[:, None]
+            x = np.arange(g)[None, :]
+            wave1 = np.sin(2.0 * np.pi * q1 * y / g + ph1[0]) * np.cos(2.0 * np.pi * q1 * x / g + ph1[1])
+            wave2 = np.sin(2.0 * np.pi * q2 * y / g + ph2[0]) * np.cos(2.0 * np.pi * q2 * x / g + ph2[1])
+            # a product of two unit waves has std 1/2, so power is proportional to the squared amplitude of the wave
+            amp2 = share ** 0.5
+            G = wave1 + amp2 * wave2
+            # same amplitude normalisation as the composite path: equal modulation strength in every cell
+            _sigma1 = float(hetero_G.std()) or 1.0
+            _sd = float(G.std())
+            if _sd > 0:
+                G = (G - float(G.mean())) / _sd * _sigma1 + 0.5
+            hetero_G = np.clip(G, 0.0, 1.0)
+        elif args.hetero_scale2 and args.hetero_scale2 > 0:
             # X78b: вторая шкала складывается с первой в один узор; обе нормированы в [0,1], вес задаёт смесь.
             ky2, kx2 = 2.0 * np.pi / max(2.0, args.hetero_scale2), 2.0 * np.pi / max(2.0, args.hetero_scale2)
             G2 = (np.sin(ky2 * np.arange(g))[:, None] * np.cos(kx2 * np.arange(g))[None, :] + 1.0) / 2.0
