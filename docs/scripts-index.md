@@ -4,7 +4,7 @@
 
 The curated page — what matters and why — is [`scripts.md`](scripts.md). This file is the complete list, so that every command behind a number in the record can be found.
 
-Scripts: **260**.
+Scripts: **261**.
 
 ## Гейты и проверки (45)
 
@@ -168,7 +168,7 @@ Scripts: **260**.
 | `make_seed_grid_figure.py` | Собрать Figure 4 рукописи: сетка «инициализация × порядок данных» (§4.13). |
 | `make_simple_poster.py` | Простой постер для владельца: что мы узнали, без терминов. |
 
-## Прочее (128)
+## Прочее (129)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -299,4 +299,5 @@ Scripts: **260**.
 | `x88_series.py` | x88_series.py — the high-inflow (percolating) arm at twenty worlds per cell (X88). |
 | `x89_analyse.py` | x89_analyse.py — where do the lineages vanish between F = 0.045 and 0.050? |
 | `x89_series.py` | x89_series.py — four half-steps between 0.045 and 0.050, to locate where lineages vanish (X89). |
+| `x90_analyse.py` | x90_analyse.py — does the lineage trickle stop, or does it only slow down? |
 | `x90_series.py` | x90_series.py — does the trickle stop or only slow? 12 000 steps at the fading edge (X90). |

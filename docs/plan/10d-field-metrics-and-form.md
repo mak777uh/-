@@ -1956,3 +1956,34 @@ eports/2026-11-02-x89-lineages-fade.md; aggregate l1_field_x89_lineage_edge.json
 above 0.050 (needs a longer horizon or a bigger box), and whether the lattice-to-maze melt and the fading of divisions are one
 transition or two (same scan at another k).
 
+## 10fn. Above 0.049 the medium stops dividing in practice, and the control that says so voids itself (X90, 02.11)
+
+X89 left the lineage count at 0.3 pairs per world at `F = 0.050`, at the resolution limit. X90 doubled the horizon to 12 000 steps in
+three cells (eight worlds each) to separate "rare" from "stopped".
+
+Registered verdict: **void**. The control required the 0.050 cell to reach a median of one event per world so that a ratio could be
+taken; it reached **0**. A ratio against a median of zero does not exist.
+
+| `F` | pairs per world at 6 000 | at 12 000 | ratio |
+|---|---|---|---|
+| 0.048 | 2.0 | 2.0 (0–4) | 1.0 |
+| 0.049 | 1.0 | 2.0 (0–2) | 2.0 |
+| 0.050 | 0.3 | 0.0 (0–2) | — |
+
+What this does say, descriptively: at 0.049 the count doubles with the horizon, so reproduction there is rare but continuing; at 0.048 it
+does not, so that world's divisions are a **transient** finished inside the first 6 000 steps; at 0.050 the median world never divides at
+all over 12 000 steps (six events across eight worlds). The correct shape is therefore not a rate decaying smoothly to zero but a
+**transient whose duration shrinks with inflow** — and above 0.049 it is over before it produces anything countable.
+
+The design error is mine and worth naming: a control written as "median at least one event" is satisfied only where there is something
+to compare, so the cell where the question matters is the cell that voids the series. The right instrument for a last trickle is a rate
+over a long horizon with enough worlds; at 0.75 events per world over eight worlds the Poisson uncertainty on the cell mean (±0.3) is the
+size of the whole effect. A decisive answer would need ~50 000 steps (four GPU-hours for one cell) or a bigger box, and it is not worth
+it for the heredity line, which needs hundreds of pairs and has none at 0.050 at any sane horizon.
+
+So the statement for the write-up is "above 0.049 the medium stops dividing **in practice**" — a bound, not a rate, and with the words
+*in practice* doing real work. The three cells remain the same regime as X89: single component and β₁ > 0 in all 24 worlds, so the maze
+is alive and simply no longer divides.
+
+Report: `reports/2026-11-02-x90-trickle-void.md`; aggregate `l1_field_x90_trickle.json`.
+

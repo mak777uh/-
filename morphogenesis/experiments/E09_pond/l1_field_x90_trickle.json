@@ -1,0 +1,97 @@
+{
+  "kind": "l1_field_x90_trickle",
+  "experiment": "X90",
+  "command": "python scripts/x90_analyse.py --write",
+  "prereg": "reports/2026-11-02-x90-trickle-plan.md",
+  "horizon": 12000,
+  "reference_6000": {
+    "f048": 2.0,
+    "f049": 1.0,
+    "f050": 0.3
+  },
+  "thresholds": {
+    "continues": 1.5,
+    "stopped": 1.2
+  },
+  "cells": {
+    "f048": {
+      "flow": 0.048,
+      "worlds": 8,
+      "pairs_median": 2.0,
+      "pairs_mean": 2,
+      "pairs_range": [
+        0,
+        4
+      ],
+      "pairs_per_world": [
+        2,
+        0,
+        4,
+        4,
+        2,
+        2,
+        2,
+        0
+      ],
+      "components_median": 1.0,
+      "single_component_share": 1.0,
+      "b1_positive_worlds": 8
+    },
+    "f049": {
+      "flow": 0.049,
+      "worlds": 8,
+      "pairs_median": 2.0,
+      "pairs_mean": 1.25,
+      "pairs_range": [
+        0,
+        2
+      ],
+      "pairs_per_world": [
+        2,
+        0,
+        2,
+        2,
+        0,
+        2,
+        2,
+        0
+      ],
+      "components_median": 1.0,
+      "single_component_share": 1.0,
+      "b1_positive_worlds": 8
+    },
+    "f050": {
+      "flow": 0.05,
+      "worlds": 8,
+      "pairs_median": 0.0,
+      "pairs_mean": 0.75,
+      "pairs_range": [
+        0,
+        2
+      ],
+      "pairs_per_world": [
+        2,
+        0,
+        2,
+        0,
+        0,
+        2,
+        0,
+        0
+      ],
+      "components_median": 1.0,
+      "single_component_share": 1.0,
+      "b1_positive_worlds": 8
+    }
+  },
+  "ratio_vs_6000": {
+    "f048": 1.0,
+    "f049": 2.0,
+    "f050": 0.0
+  },
+  "positive_control": {
+    "fires": false,
+    "f050_median_pairs": 0.0
+  },
+  "verdict": "void: the 0.050 cell still carries fewer than one event per world at double the horizon, so the horizon is too short to compare"
+}
