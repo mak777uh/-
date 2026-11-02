@@ -4,11 +4,13 @@ One file, one place that says what is actually in work. Machine state lives in `
 `_hourly/log.md`, numbers in artifacts. The Russian sections below the line are **history** and are not rewritten; the top
 part is kept current (new text in English — decision of 31.10).
 
-**Updated:** 2026-11-02, 12:10 MSK.
+**Updated:** 2026-11-02, 18:00 MSK.
 
 ## Running now
 
-- Nothing. No locks. X86–X90 closed between 06:45 and 12:00; X90 closed at 12:00: **void by its control**, and the control's failure found the cause — `--sample-every` is a
+- **X108** — the ladder and the specificity re-measured on X105's twenty worlds with a field at every logged step (seeds 301–310,
+  `_x108_fields`; the worlds are bit-identical to X105's, only the field density changed). Analysis only after the series.
+- Nothing else. No locks. X86–X90 closed between 06:45 and 12:00; X90 closed at 12:00: **void by its control**, and the control's failure found the cause — `--sample-every` is a
   physical parameter, not a logging choice (trait mutations are drawn at every sampled step). X82 closed at 05:05, also void by its
   control, with the period confirmed unmoved on 25 fields. X84 (the angular re-read of X71) closed at 04:35 and changed the headline.
 - Closed since the previous update: **X74** (half-life follows the inflow non-monotonically: 1.47 / 0.73 / 1.61 at 0.030 /
@@ -53,6 +55,15 @@ part is kept current (new text in English — decision of 31.10).
 | X88 percolating arm | **the U is real**: per-world half-life 2.08 at 0.040 and 1.60 at 0.045 against 1.07 at 0.035; at 0.050 heredity is **undefined** (one component in 20/20 worlds, six pairs). The direction of §10fa is restored, its values are not (inside 1.07–1.16, outside 1.82–2.08) | §10fl, claims 305–306 |
 | X89 lineage edge | **graded disappearance**: pairs per world 31.8 / 13.0 / 6.0 / 2.0 / 1.0 / 0.3 across 0.045…0.050, factor 2.4 per half-step, no 10× step; every world is one component with β₁ > 0 from 0.046 and still divides, so what fades is the rate | §10fm, claim 307 |
 | X90 trickle | **void by its own control** (median 0 events at 0.050 over 12 000 steps), and the descriptive shape is a **transient, not a rate**: at 0.048 the count does not grow with the horizon, at 0.049 it doubles, at 0.050 it is zero. Statement for the text: above 0.049 the medium stops dividing *in practice* | §10fn |
+| X98 threshold | **void, and the reason is a category error**: `q'` and `s` come from the continuous field and have no threshold, so masking it produced four different statistics; the memory numbers *do* depend on the cut and were left untested | §10fr |
+| X99 cut dependence | the half-life map is **definition-bound**: 0.77 / 1.16 / 2.26 at cuts 0.15 / 0.20 / 0.25 for `F = 0.030`, 1.84 / 2.08 / 0.69 for 0.040 — the ordering between inflows **reverses** at 0.25, so every half-life is quoted with its estimator and its cut | §10fs, claim 313 |
+| X100 core vs skirt | heredity lives in the **skirt**: 0.531 / 0.384 (threshold area) against 0.176 / 0.058 (basin at half the local maximum) on the same pairs | §10ft, claim 314 |
+| X101 ladder | three definitions, one monotone ladder: 0.531 / 0.384 → 0.300 / 0.174 → 0.176 / 0.058; heredity is strongest where the definition is an excursion set | §10fu, claim 315 |
+| X102 specificity | the **gap** is definition-bound too: 0.312 / 0.215 → 0.017 / −0.010, and the degeneracy check clears it (mother in the daughter's basin 0.398 / 0.187 against a stranger's 0.132 / 0.081) | §10fv, claim 316 |
+| X103–X103d position | two voids (a coverage denominator that counted 622 unloggable pairs; a selection control that caught the basin losing the 54 boundary mothers, whose daughters are the large ones), then the answer: distance predicts nothing in the lattice (−0.008) and −0.367 in the maze (10/10 worlds), the mother's area keeps its coefficient (0.570 / 0.552), and stranger peaks carry the opposite sign — **maternal**, plus an unasked-for **crowding** term (+0.358, 10/10) in the lattice | §10fw |
+| X105 dense logging | **both registered verdicts fired**: structural loss 0.353 → 0.088 at 0.040, maternal decay −0.329 (10/10) and crowding +0.367 (10/10) robust — and the maze heredity was **underestimated**, 0.384 → **0.480** | §10fy, claim 317 |
+| X106 room | the crowding coordinate is a property of the **place**, not the lineage: it predicts the mother's own area (+0.397) better than her daughter's (+0.322), and nothing in the maze (0.114 / −0.038) | §10fx, claim 318 |
+| X107 shared room | **heredity is not a shared-room effect**: controlling the mother's room costs 0.064 of 0.519, both rooms 0.094; room-adjusted values 0.455 / 0.395 now travel beside the raw ones | §10fx, claim 319 |
 
 **The headline changed.** "Multistability between two wavelengths at `F = 0.035`" is withdrawn: the medium has one preferred scale
 (~12 cells, the same with and without forcing) and a symmetry coordinate that follows the inflow. The environment can set the
