@@ -106,10 +106,10 @@ def main(argv=None) -> int:
         gap_stable = all(v is not None and abs(v) <= GAP_STABLE for v in gap.values())
         parts = ["the level is cut-bound" if level_bound else ("the level is cut-stable" if level_stable
                  else "the level moves less than 0.10")]
-        parts.append(f"(deltas against 0.548: {level})")
+        parts.append(f"(deltas against 0.480: {level})")
         parts.append("the gap is cut-bound" if gap_bound else ("the gap is cut-stable" if gap_stable
                      else "the gap moves less than 0.15"))
-        parts.append(f"(deltas against 0.302: {gap})")
+        parts.append(f"(deltas against 0.443: {gap})")
         verdict = "; ".join(parts)
 
     res = {

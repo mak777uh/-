@@ -1,0 +1,38 @@
+{
+  "kind": "l1_field_x112c_cuts",
+  "experiment": "X112c",
+  "command": "python scripts/x112c_analyse.py --write",
+  "prereg": "reports/2026-11-02-x112c-cuts-maze-plan.md",
+  "design": "thresholds 0.15 and 0.25 on seeds 301-310, the same worlds as the 0.20 reference (threshold is an observer parameter)",
+  "reference_x108": {
+    "rho1": 0.48,
+    "gap": 0.443
+  },
+  "cells": {
+    "0.15": {
+      "threshold": "0.15",
+      "worlds": 10,
+      "pairs": 882,
+      "used": 460,
+      "coverage": 0.522,
+      "all_alive": true,
+      "rho1": 0.408,
+      "gap": 0.322,
+      "median_area": 1775.0,
+      "stranger_pairs": 447
+    },
+    "0.25": {
+      "threshold": "0.25",
+      "worlds": 10,
+      "pairs": 3003,
+      "used": 2356,
+      "coverage": 0.785,
+      "all_alive": true,
+      "rho1": 0.42,
+      "gap": 0.347,
+      "median_area": 93.0,
+      "stranger_pairs": 2356
+    }
+  },
+  "verdict": "the level moves less than 0.10; (deltas against 0.480: {'0.15': -0.072, '0.25': -0.06}); the gap moves less than 0.15; (deltas against 0.443: {'0.15': -0.121, '0.25': -0.096})"
+}

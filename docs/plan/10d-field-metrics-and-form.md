@@ -2578,3 +2578,40 @@ higher cut moves both sides of the comparison at once.
 
 Report: `reports/2026-11-02-x112b-cuts.md`; aggregate `l1_field_x112b_cuts.json`; series index
 `morphogenesis/experiments/L1_field/x112b_series_index.json` (20 runs, all ok).
+
+## 10gg. The maze cell is cut-stable too, and the order between cells does not reverse (X112c, 02.11)
+
+X112b gave the lattice cell a clean separation: the level moves one step with the cut (0.554 / 0.548 / 0.445) and the specificity gap does not
+(0.284 / 0.302 / 0.326). X99 had found the **half-life's** inflow ordering reversing at 0.25, so the maze cell was the open question.
+
+Twenty runs at `F = 0.040`, seeds 301-310, thresholds 0.15 and 0.25 — the same worlds X108 measured at 0.20, because the threshold is an
+observer parameter.
+
+| cut | pairs (used) | rho1 | delta vs 0.20 | gap | delta | median area |
+|---|---|---|---|---|---|---|
+| 0.15 | 882 (460) | **0.408** | −0.072 | 0.322 | −0.121 | 1 775 |
+| 0.20 (X108) | 1 951 | **0.480** | — | **0.443** | — | 321 |
+| 0.25 | 3 003 (2 356) | **0.420** | −0.060 | 0.347 | −0.096 | 93 |
+
+Registered verdict: **both cut-stable** — level deltas inside 0.10, gap deltas inside 0.15. **No cross-cell reversal**: at 0.25 the lattice is
+0.445 and the maze 0.420, a gap of 0.025 against an 0.08 bar. X99's reversal belongs to the half-life, not to these readouts.
+
+Together with X112b the statement is complete for both cells:
+
+| cell | level 0.15 / 0.20 / 0.25 | gap 0.15 / 0.20 / 0.25 |
+|---|---|---|
+| 0.030 | 0.554 / 0.548 / 0.445 | 0.284 / 0.302 / 0.326 |
+| 0.040 | 0.408 / 0.480 / 0.420 | 0.322 / 0.443 / 0.347 |
+
+The definition-dependence of X101/X102 is therefore **not** a cut artefact: changing the cut moves the level by about a tenth and the gap by
+less, while changing the definition kind moves the level by 0.2-0.37 and the gap by 0.21-0.38. The line's central claim holds at three cuts in
+both cells.
+
+Two defects were caught before the numbers: a copied runner kept its old cell tag (seven mislabeled artifacts deleted, tag now derived from
+FLOW with an assertion) and the liveness floor was a component count, which rejects the maze's one percolating body by construction — the
+amendment uses X110b's structural rule and discloses that two of twenty runs had been summarised when it was written.
+
+Caveats: coverage at 0.15 is 460 of 882 pairs (the maze is one body of 1 775 cells there, so many uids share a component); ten worlds per cut;
+the 0.20 reference is X108's own number.
+
+Report: `reports/2026-11-02-x112c-cuts-maze.md`; aggregate `l1_field_x112c_cuts_maze.json`; series index (20 runs, all ok).

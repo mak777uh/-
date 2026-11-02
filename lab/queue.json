@@ -1,6 +1,6 @@
 {
  "schema_version": 1,
- "updated_at": "2026-11-02T22:58:00+03:00",
+ "updated_at": "2026-11-02T23:38:57+03:00",
  "note": "Очередь пунктов после E02c. Claim берётся до пре-регистрации, а не перед запуском: lab.py item-claim. Статус running означает занятый GPU-лейн и может быть только у одного пункта. | 25.10: добавлено поле impact (1-5) — приоритет конвейера = impact/max(cost_gpu_h,0.1); для запуска пункту нужны prereg (закоммиченный план) и launch.command+outdir.",
  "items": [
   {
@@ -2355,20 +2355,21 @@
   {
    "id": "X112c_cuts_maze",
    "title": "The same cut sweep at F = 0.040, where X99 found the inflow ordering reversing",
-   "status": "running",
+   "status": "closed",
    "owner": "lead",
    "kind": "series",
    "cost_gpu_h": 0,
    "prereg": "reports/2026-11-02-x112c-cuts-maze-plan.md",
    "created_at": "2026-11-02T22:21:31+03:00",
-   "note": "X112b showed the specificity gap is cut-stable in the lattice cell (0.284 / 0.302 / 0.326) while the level moves one step (0.554 / 0.548 / 0.445). X99 found the ordering between inflows reversing at the 0.25 cut, so the maze cell may behave differently. Twenty runs: seeds 301-310 at thresholds 0.15 and 0.25, F = 0.040, X108's flags; reference is X108's maze numbers (0.480 / gap from x102b). Register with five sections before running.",
+   "note": "closed: level 0.408 / 0.480 / 0.420 and gap 0.322 / 0.443 / 0.347 at cuts 0.15 / 0.20 / 0.25 — both cut-stable, and the cross-cell order does not reverse (lattice 0.445 against maze 0.420 at 0.25). Aggregate l1_field_x112c_cuts_maze.json, report reports/2026-11-02-x112c-cuts-maze.md, plan §10gg.",
    "started_at": "2026-11-02T22:58:00+03:00",
-   "heartbeat_at": "2026-11-02T22:58:00+03:00",
    "launch": {
     "outdir": "morphogenesis/experiments/L1_field",
     "pattern": "x112c_*.json",
     "runner": "scripts/x112c_series.py"
-   }
+   },
+   "closed_at": "2026-11-02T20:38:57Z",
+   "closed_by": "lead"
   }
  ]
 }
