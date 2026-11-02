@@ -62,27 +62,50 @@ def run_one(cell: str, flow: str, seed: int, dw: str | None) -> dict:
             "status": "ok" if ok else "failed", "seconds": round(time.time() - t0, 1), "tail": tail}
 
 
+def _lock(action: str, extra: list[str] | None = None) -> None:
+    """Claim / heartbeat / release the queue lock through lab.py.
+
+    02.11: CI went red on 3435e30e because the queue item was marked `running` before this runner had produced an artifact or
+    taken a lock — `queue-audit` saw "running without a lock, without fresh artifacts, without a process". The lock now comes
+    first, the heartbeat follows every run, and the release is the last thing that happens.
+    """
+    cmd = [PY, str(ROOT / "scripts" / "lab.py"), action,
+           "--experiment", "X96d_orientation_series", "--owner", "lead"]
+    if extra:
+        cmd += extra
+    try:
+        subprocess.run(cmd, cwd=str(ROOT), capture_output=True, text=True, timeout=60)
+    except Exception as exc:                      # a lock is bookkeeping; it must not kill the series
+        print(f"[x96d] lock {action} failed: {exc}", flush=True)
+
+
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description="X96d orientation series")
     ap.add_argument("--limit", type=int, default=0, help="stop after N runs (smoke test)")
     args = ap.parse_args(argv)
 
     FIELDS.mkdir(parents=True, exist_ok=True)
+    _lock("claim", ["--ttl-minutes", "120"])
     index = L1 / "x96d_series_index.json"
     rows: list[dict] = []
-    for cell, flow in CELLS.items():
-        for seed in SEEDS:
-            for dw in (None, *DWS):
-                if args.limit and len(rows) >= args.limit:
-                    print(f"[x96d] limit reached at {len(rows)} runs")
-                    return 0
-                r = run_one(cell, flow, seed, dw)
-                rows.append(r)
-                print(f"[x96d] {r['tag']} seed {seed}: {r['status']} {r.get('seconds', '')}", flush=True)
-                index.write_text(json.dumps({"kind": "x96d_series_index", "rows": rows}, ensure_ascii=False, indent=2) + "\n",
-                                 encoding="utf-8", newline="\n")
-                if r["status"] == "failed":
-                    return 1
+    try:
+        for cell, flow in CELLS.items():
+            for seed in SEEDS:
+                for dw in (None, *DWS):
+                    if args.limit and len(rows) >= args.limit:
+                        print(f"[x96d] limit reached at {len(rows)} runs")
+                        return 0
+                    r = run_one(cell, flow, seed, dw)
+                    rows.append(r)
+                    print(f"[x96d] {r['tag']} seed {seed}: {r['status']} {r.get('seconds', '')}", flush=True)
+                    index.write_text(json.dumps({"kind": "x96d_series_index", "rows": rows},
+                                                ensure_ascii=False, indent=2) + "\n",
+                                     encoding="utf-8", newline="\n")
+                    _lock("heartbeat")
+                    if r["status"] == "failed":
+                        return 1
+    finally:
+        _lock("release")
     print(f"[x96d] done: {len(rows)} runs")
     return 0
 
