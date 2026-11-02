@@ -5,12 +5,9 @@ Why. Since 01.11 the field line has produced twenty aggregates (`l1_field_x*.jso
 than the one that wrote them: `l1_field_matrix.py --check` covers only the old single aggregate, and `aggregate_check.py` compares
 aggregates to artifacts by name, not by re-running the analysis.
 
-This checker re-runs three analyses whose outputs are quoted as claims, in a scratch copy, and compares the result with the committed
-aggregate:
-
-    x91_analyse.py  -> l1_field_x91_lineage_specificity.json   (claim 308: parent vs neighbour)
-    x92_analyse.py  -> l1_field_x92_pay.json                   (claim 309/310: area vs lifetime and daughters)
-    x93_analyse.py  -> l1_field_x93_sibling_contrast.json      (claim 311: sisters)
+This checker re-runs every analysis whose output is quoted in CLAIMS or in docs/plan, compares the result with the committed aggregate
+and restores the file. Eleven are covered (x80, x82, x84-x89, x91-x93); the rest of the twenty field aggregates are either not backed by
+a re-runnable script or not yet quoted, and are added when they become load-bearing.
 
 The committed file is restored byte-for-byte after the run, so the check never modifies the repository. Numbers are compared with a
 tolerance of 1e-6 to absorb float ordering; the shuffle in x92 uses a fixed seed, so it is deterministic.
@@ -32,6 +29,14 @@ PY = sys.executable
 TOL = 1e-6
 
 REGISTRY = [
+    ("scripts/x80_analyse.py", "morphogenesis/experiments/E09_pond/l1_field_x80_dip.json"),
+    ("scripts/x82_analyse.py", "morphogenesis/experiments/E09_pond/l1_field_x82_reach.json"),
+    ("scripts/x84_analyse.py", "morphogenesis/experiments/E09_pond/l1_field_x84_angular.json"),
+    ("scripts/x85_analyse.py", "morphogenesis/experiments/E09_pond/l1_field_x85_symmetry_memory.json"),
+    ("scripts/x86_analyse.py", "morphogenesis/experiments/E09_pond/l1_field_x86_symmetry_curve.json"),
+    ("scripts/x87_analyse.py", "morphogenesis/experiments/E09_pond/l1_field_x87_memory_vs_symmetry.json"),
+    ("scripts/x88_analyse.py", "morphogenesis/experiments/E09_pond/l1_field_x88_percolating_arm.json"),
+    ("scripts/x89_analyse.py", "morphogenesis/experiments/E09_pond/l1_field_x89_lineage_edge.json"),
     ("scripts/x91_analyse.py", "morphogenesis/experiments/E09_pond/l1_field_x91_lineage_specificity.json"),
     ("scripts/x92_analyse.py", "morphogenesis/experiments/E09_pond/l1_field_x92_pay.json"),
     ("scripts/x93_analyse.py", "morphogenesis/experiments/E09_pond/l1_field_x93_sibling_contrast.json"),
