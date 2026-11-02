@@ -2093,3 +2093,36 @@ run. That is the reviewer's obvious question and it has no answer today. Registe
 `0.25`, twenty worlds each (40 runs, ~1 h), waiting on nobody.
 
 Reports: `reports/2026-11-02-x98-threshold-void.md`; aggregate `l1_field_x98_threshold.json`.
+
+## 10fs. The memory map is definition-bound: three cuts, a factor of three, and a reversal (X99, 02.11)
+
+X98 voided because the angular map has no threshold; X99 asked the question of the map that does have one. Two inflows x two further
+excursion cuts x ten worlds, against the committed 0.20 values (1.16 at `F = 0.030`, 2.08 at 0.040).
+
+| cell | cut | half-life | vs 0.20 | rho1 | components |
+|---|---|---|---|---|---|
+| 0.030 | 0.15 | **0.77** | -0.39 | 0.552 | 43.1 |
+| 0.030 | 0.20 | 1.16 | - | - | - |
+| 0.030 | 0.25 | **2.26** | **+1.10** | 0.479 | 54.4 |
+| 0.040 | 0.15 | **1.84** | -0.24 | 0.392 | 2.5 |
+| 0.040 | 0.20 | 2.08 | - | - | - |
+| 0.040 | 0.25 | **0.69** | **-1.39** | 0.474 | 23.2 |
+
+Registered verdict: **void**, on a floor that was mine to get right and was not: the rule required at least ten mean components, which a
+percolating cell has never had (2.5 at the 0.15 cut is its regime, not a collapse — X88 avoided exactly this mistake with a
+"few components **and** beta1 > 0" check).
+
+The finding is legible regardless. **The levels are not robust**: a factor of almost three across the cuts at 0.030 and the same at
+0.040. **The ordering between inflows reverses**: at 0.20 and 0.15 the maze remembers longer (2.08 vs 1.16; 1.84 vs 0.77), at 0.25 the
+lattice does (2.26 vs 0.69). And the reason is plain — the cut decides which cells count as a structure, so it decides what "size"
+means: at 0.15 the maze is 2.5 objects of ~530 cells, at 0.25 it is 23 objects of ~70.
+
+Consequence: claims 305/306 and this section's predecessors stand **at threshold 0.20 and only there**, and every half-life in the line
+must be quoted with its estimator and its cut. This is the third family member of the same species met today — pooled vs per-world
+(§10ff), logging regime (§10fi), excursion cut here — and the rule that covers all three is: a number that looked like a property of the
+world was partly a property of a choice, and the choice goes into the sentence.
+
+Next step is not another cut but a size defined on the continuous field: the integral of `v` over a component's basin, or area at half
+maximum. Registered as X100; it can be evaluated on stored fields first, without new runs.
+
+Reports: `reports/2026-11-02-x99-cut-dependent.md`; aggregate `l1_field_x99_threshold_memory.json`.

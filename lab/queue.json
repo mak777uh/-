@@ -1,6 +1,6 @@
 {
  "schema_version": 1,
- "updated_at": "2026-11-02T14:14:37+03:00",
+ "updated_at": "2026-11-02T15:25:18+03:00",
  "note": "Очередь пунктов после E02c. Claim берётся до пре-регистрации, а не перед запуском: lab.py item-claim. Статус running означает занятый GPU-лейн и может быть только у одного пункта. | 25.10: добавлено поле impact (1-5) — приоритет конвейера = impact/max(cost_gpu_h,0.1); для запуска пункту нужны prereg (закоммиченный план) и launch.command+outdir.",
  "items": [
   {
@@ -2117,6 +2117,16 @@
    "cost_gpu_h": 1,
    "created_at": "2026-11-02T14:14:37+03:00",
    "note": "X98 voided because the angular map has no threshold — q' and s come from the continuous field, and masking it changed the statistic (0.02-0.07 per cell). But the MEMORY numbers do depend on the threshold: peak area is defined on v > 0.2, and the stored artifacts cannot be re-derived at another cut because the genealogies were built at 0.2 during the run. Two cells at --threshold 0.15 and 0.25, twenty worlds each (40 runs, ~1 h), would say whether the U and the shoulders survive a different excursion cut. This is the reviewer's obvious question and it currently has no answer."
+  },
+  {
+   "id": "X100_cut_free_size",
+   "title": "A size measure that does not need an excursion threshold: integral of v over a basin, or area at half maximum",
+   "status": "planned",
+   "owner": "lead",
+   "waiting_on": null,
+   "cost_gpu_h": 1,
+   "created_at": "2026-11-02T15:25:18+03:00",
+   "note": "X99 showed the half-life map is definition-bound: it moves by a factor of three across cuts 0.15/0.20/0.25 and the ordering between inflows reverses at 0.25, because peak area is defined by the cut. The next step is not another cut but a size that is defined on the continuous field (integral of v over a component's basin, or area at half maximum), then re-deriving the map on stored fields without new runs where possible."
   }
  ]
 }
