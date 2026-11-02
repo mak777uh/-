@@ -2812,3 +2812,33 @@ Caveats: matching discards ~45 % of the pairs; matching on daughters does not ma
 one snapshot; the maze barely survives at all (963 of 1 195 pairs have neither branch alive).
 
 Report: `reports/2026-11-03-x116-matched.md`; aggregate `l1_field_x116_matched.json`.
+
+## 10go. X118–X119: matching cannot separate size from daughters, and a model finds a cost of division (03.11)
+
+X118 kept the exposure fixed (sisters within ±10 %, widened to ±15 %) and varied the mediator (different daughter counts). The subset came back at 22 and 17
+pairs with area ratios 0.919 / 0.906 — the design is void, and the diagnosis is structural: sisters resemble each other in size (that is the heredity measured
+all day) and daughter count rises with size, so the two conditions fight over the same tail. **Size and daughter counts are not separable by matching inside
+sister pairs.**
+
+X119 answers the same question with a model instead: pool every uid, fit `alive ~ log(area) + daughters` with a world-level bootstrap.
+
+| cell | uids | alive at end | area coefficient | 95 % CI | daughters coefficient | 95 % CI |
+|---|---|---|---|---|---|---|
+| 0.030 | 2 257 | 29.2 % | **+0.363** | [0.258, 0.468] | **−0.429** | **[-0.509, -0.345]** |
+| 0.040 | 1 993 | 3.0 % | **+0.052** | [0.043, 0.062] | **−0.051** | **[-0.061, -0.043]** |
+
+Both coefficients exclude zero in both cells and point in opposite directions: **size helps the structure's own survival, and having more daughters hurts it**.
+That is a cost of division — the first this line has seen — and it explains why X115's raw survival advantage was so large and why X116 halved it: the two
+channels run against each other.
+
+The confound that must be named first: **age**. A structure with many daughters has usually lived longer, and a longer life gives more time either to be
+present at the horizon or to die before it. The model controls area, not age, so the honest statement is "at fixed size, more daughters predicts lower
+survival; whether that is a cost of division or the age of the structure is not separated here". Age is on the logs, so the control is analysis-only: X120.
+
+This makes the day's consequence picture two-signed rather than one-signed: size → own survival positive, daughters → own survival negative, size → lineage
+survival positive on the raw contrast and halving when daughters are matched.
+
+Caveats: the maze's alive rate is 3 %, so its coefficients rest on few survivors; OLS on a binary outcome is a linear probability model; "alive" is the uid's own
+presence, not its subtree's; one seed set, one box, the 0.20 cut.
+
+Report: `reports/2026-11-03-x118-x119-daughters-cost.md`; aggregates `l1_field_x118_mediator.json` (void), `l1_field_x119_model.json`.

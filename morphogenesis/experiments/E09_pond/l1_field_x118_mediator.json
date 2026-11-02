@@ -1,0 +1,47 @@
+{
+  "kind": "l1_field_x118_mediator",
+  "experiment": "X118",
+  "command": "python scripts/x118_analyse.py --write",
+  "prereg": "reports/2026-11-03-x118-mediator-plan.md",
+  "roles": "area = exposure (held fixed within the band), number of daughters = mediator (varied)",
+  "readout": "paired survival difference between the many-daughter and few-daughter branch at a fixed area ratio",
+  "cells": {
+    "f030": {
+      "rho_heredity": 0.548,
+      "band_used": 0.15,
+      "pairs": 22,
+      "area_ratio_mean": 0.9187,
+      "daughter_diff_mean": 1.818,
+      "survival_diff_mean": 0.1364,
+      "survival_diff_ci": [
+        0.1485,
+        0.1485
+      ],
+      "only_many": 3,
+      "only_few": 0,
+      "pairs_by_band": {
+        "0.1": 16,
+        "0.15": 22
+      }
+    },
+    "f040": {
+      "rho_heredity": 0.48,
+      "band_used": 0.15,
+      "pairs": 17,
+      "area_ratio_mean": 0.906,
+      "daughter_diff_mean": 1.882,
+      "survival_diff_mean": 0,
+      "survival_diff_ci": [
+        0.017,
+        0.017
+      ],
+      "only_many": 1,
+      "only_few": 1,
+      "pairs_by_band": {
+        "0.1": 9,
+        "0.15": 17
+      }
+    }
+  },
+  "verdict": "void: f030: only 22 pairs even at ±15 %; f030: area ratio 0.9187 outside (0.95, 1.05); f040: only 17 pairs even at ±15 %; f040: area ratio 0.906 outside (0.95, 1.05)"
+}

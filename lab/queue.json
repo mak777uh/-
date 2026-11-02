@@ -1,6 +1,6 @@
 {
  "schema_version": 1,
- "updated_at": "2026-11-03T01:40:35+03:00",
+ "updated_at": "2026-11-03T01:46:45+03:00",
  "note": "Очередь пунктов после E02c. Claim берётся до пре-регистрации, а не перед запуском: lab.py item-claim. Статус running означает занятый GPU-лейн и может быть только у одного пункта. | 25.10: добавлено поле impact (1-5) — приоритет конвейера = impact/max(cost_gpu_h,0.1); для запуска пункту нужны prereg (закоммиченный план) и launch.command+outdir.",
  "items": [
   {
@@ -2468,13 +2468,39 @@
   {
    "id": "X118_exposure_kept",
    "title": "Does the number of daughters matter at fixed size?",
+   "status": "closed",
+   "owner": "lead",
+   "kind": "analysis",
+   "cost_gpu_h": 0,
+   "prereg": "reports/2026-11-03-x118-mediator-plan.md",
+   "created_at": "2026-11-03T01:40:35+03:00",
+   "note": "closed as a void by design: near-equal-area sisters with different daughter counts barely exist (22 and 17 pairs). Answered instead by a model (X119): daughters predict lower own-survival at fixed size. Report reports/2026-11-03-x118-x119-daughters-cost.md, plan §10go.",
+   "closed_at": "2026-11-02T22:46:45Z",
+   "closed_by": "lead"
+  },
+  {
+   "id": "X119_model",
+   "title": "Does the number of daughters predict own survival at fixed size?",
+   "status": "closed",
+   "owner": "lead",
+   "kind": "analysis",
+   "cost_gpu_h": 0,
+   "prereg": null,
+   "created_at": "2026-11-03T01:46:45+03:00",
+   "closed_at": "2026-11-02T22:46:45Z",
+   "closed_by": "lead",
+   "note": "closed: area +0.363/+0.052, daughters -0.429/-0.051, both excluding zero; age is the uncontrolled confound. Aggregate l1_field_x119_model.json, report reports/2026-11-03-x118-x119-daughters-cost.md, plan §10go."
+  },
+  {
+   "id": "X120_age_control",
+   "title": "Cost of division or age? Add first appearance to the survival model",
    "status": "planned",
    "owner": "lead",
    "kind": "analysis",
    "cost_gpu_h": 0,
    "prereg": null,
-   "created_at": "2026-11-03T01:40:35+03:00",
-   "note": "X116 matched on daughters (a mediator) and halved the survival advantage; X117 matched on area (the exposure) and deleted it by construction. The right test keeps the exposure: among sister pairs of nearly equal area, compare survival between the branch with more daughters and the branch with fewer. That separates 'more daughters' from 'bigger' without conditioning on size. Analysis only on X108's logs; register with five sections, naming each matched variable as confounder, mediator or exposure."
+   "created_at": "2026-11-03T01:46:45+03:00",
+   "note": "X119 found daughters predicting lower own-survival at fixed size, but a structure with many daughters has usually lived longer, and age gives more time either to be present at the end or to die before it. Add `age = last_step - first_appearance` to the model: if the daughters coefficient survives, it is a cost of division; if it collapses, X119's headline was age. Analysis only. Register with five sections."
   }
  ]
 }

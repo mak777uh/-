@@ -1,0 +1,42 @@
+{
+  "kind": "l1_field_x119_model",
+  "experiment": "X119",
+  "command": "python scripts/x119_analyse.py --write",
+  "prereg": "reports/2026-11-03-x119-model-plan.md",
+  "model": "alive ~ 1 + log(area) + daughters, OLS with a world-level bootstrap (500 draws)",
+  "cells": {
+    "f030": {
+      "uids": 2257,
+      "rho_heredity": 0.548,
+      "coef_log_area": 0.3627,
+      "coef_log_area_ci": [
+        0.2582,
+        0.4682
+      ],
+      "coef_daughters": -0.4286,
+      "coef_daughters_ci": [
+        -0.5088,
+        -0.3453
+      ],
+      "alive_rate": 0.2924,
+      "mean_daughters": 0.967
+    },
+    "f040": {
+      "uids": 1993,
+      "rho_heredity": 0.48,
+      "coef_log_area": 0.0516,
+      "coef_log_area_ci": [
+        0.0432,
+        0.0618
+      ],
+      "coef_daughters": -0.0514,
+      "coef_daughters_ci": [
+        -0.061,
+        -0.0425
+      ],
+      "alive_rate": 0.0296,
+      "mean_daughters": 0.925
+    }
+  },
+  "verdict": "daughters does predict survival with size held (-0.4286 with CI [-0.5088, -0.3453]; -0.0514 with CI [-0.061, -0.0425]); area does (0.3627 / 0.0516)"
+}
