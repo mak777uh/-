@@ -2670,3 +2670,29 @@ Caveats: the median of a two-grandchild branch is coarse (98 % agreement with th
 the maze count slightly above X97's 186 because the peak filter differs; two cells, one seed set, one box.
 
 Report: `reports/2026-11-03-x97b-sisters-median.md`; aggregate `l1_field_x97b_sisters_median.json`.
+
+## 10gj. Size buys generations — the line's first measured consequence (X113, 03.11)
+
+Every earlier attempt at "consequence" used lifetime (X92, X93), which is entangled with size and sits at the noise floor. This one uses
+**lineage depth**: how many generations a line reaches. Not a size, not a lifetime.
+
+| cell | uids with descendants | rho(area, depth) | partial given lifetime | rho(depth, lifetime) | heredity | sister contrast | 95 % CI | pairs |
+|---|---|---|---|---|---|---|---|---|
+| 0.030 | 1 073 | **0.467** | **0.459** | −0.185 | 0.548 | **+1.479 generations** | **[1.289, 1.654]** | 1 142 |
+| 0.040 | 832 | **0.332** | **0.340** | −0.070 | 0.480 | **+2.213 generations** | **[1.962, 2.489]** | 1 195 |
+
+Registered verdict: **size buys generations.** The sister contrast excludes zero in both cells and the partial of area given lifetime is
+0.459 / 0.340. Both controls fired: heredity 0.548 / 0.480, and depth is not lifetime in disguise — they correlate negatively (−0.185,
+−0.070), so the readout does different work from X92's.
+
+It is the line's first consequence: a lineage whose structures are larger reaches more generations, on 1 142-1 195 sister pairs, in both cells.
+It is **not yet** evidence that the larger line is faster or fitter: depth counts generations, and a bigger structure has more cells that can
+divide, so it may reach more generations in the same time by arithmetic rather than advantage — the same worry X97b answered for the
+granddaughters' sizes. The separating number is a **rate**, generations per unit lifetime, and the negative depth-lifetime correlation hints
+it will be stronger. Registered as X113b.
+
+Caveats: horizon truncation (median depth 3 of a 6 000-step run, so lines alive at the end are favoured); leaves are excluded from the
+correlation and the denominator is stated; the cells differ in magnitude (1.5 against 2.2), and the maze is where X93's lifetime advantage
+reverses, so their agreement in sign here is information rather than a given.
+
+Report: `reports/2026-11-03-x113-depth.md`; aggregate `l1_field_x113_depth.json`.

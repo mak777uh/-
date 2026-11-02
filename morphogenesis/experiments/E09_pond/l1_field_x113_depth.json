@@ -1,0 +1,40 @@
+{
+  "kind": "l1_field_x113_depth",
+  "experiment": "X113",
+  "command": "python scripts/x113_analyse.py --write",
+  "prereg": "reports/2026-11-03-x113-depth-plan.md",
+  "readout": "rho(area, depth), the same partialled on lifetime, and the paired sister contrast in depth",
+  "cells": {
+    "f030": {
+      "uids": 1073,
+      "rho_area_depth": 0.467,
+      "rho_partial_life": 0.459,
+      "rho_depth_life": -0.185,
+      "rho_heredity": 0.548,
+      "median_depth": 3,
+      "max_depth": 27,
+      "sister_pairs": 1142,
+      "sister_diff_mean": 1.479,
+      "sister_diff_ci": [
+        1.289,
+        1.654
+      ]
+    },
+    "f040": {
+      "uids": 832,
+      "rho_area_depth": 0.332,
+      "rho_partial_life": 0.34,
+      "rho_depth_life": -0.07,
+      "rho_heredity": 0.48,
+      "median_depth": 3.0,
+      "max_depth": 34,
+      "sister_pairs": 1195,
+      "sister_diff_mean": 2.213,
+      "sister_diff_ci": [
+        1.962,
+        2.489
+      ]
+    }
+  },
+  "verdict": "size buys generations: the larger sister's line goes 1.479 generations deeper (CI [1.289, 1.654]) and the partial of area given lifetime is 0.459 / 0.34"
+}

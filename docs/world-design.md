@@ -186,3 +186,4 @@ sections were not rewritten, only moved; each one keeps its identifier, so every
 | §10gg | The maze cell is cut-stable too, and the order between cells does not reverse (X112c, 02.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
 | §10gh | The sister difference is inherited into the second generation, and it grows there (X97, 02.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
 | §10gi | The second-generation sister advantage is a lineage effect, not branching arithmetic (X97b, 03.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
+| §10gj | Size buys generations — the line's first measured consequence (X113, 03.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |

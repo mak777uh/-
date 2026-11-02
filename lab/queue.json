@@ -1,6 +1,6 @@
 {
  "schema_version": 1,
- "updated_at": "2026-11-03T00:00:04+03:00",
+ "updated_at": "2026-11-03T00:11:21+03:00",
  "note": "Очередь пунктов после E02c. Claim берётся до пре-регистрации, а не перед запуском: lab.py item-claim. Статус running означает занятый GPU-лейн и может быть только у одного пункта. | 25.10: добавлено поле impact (1-5) — приоритет конвейера = impact/max(cost_gpu_h,0.1); для запуска пункту нужны prereg (закоммиченный план) и launch.command+outdir.",
  "items": [
   {
@@ -2386,6 +2386,30 @@
    "closed_at": "2026-11-02T21:00:04Z",
    "closed_by": "lead",
    "note": "closed: a lineage effect is needed — median 98 % / 85 % of the mean, branch counts within 1-4 %. Aggregate l1_field_x97b_sisters_median.json, report reports/2026-11-03-x97b-sisters-median.md, plan §10gi."
+  },
+  {
+   "id": "X113_depth",
+   "title": "Does size buy generations?",
+   "status": "closed",
+   "owner": "lead",
+   "kind": "analysis",
+   "cost_gpu_h": 0,
+   "prereg": "reports/2026-11-03-x113-depth-plan.md",
+   "created_at": "2026-11-03T00:11:21+03:00",
+   "closed_at": "2026-11-02T21:11:21Z",
+   "closed_by": "lead",
+   "note": "closed: size buys generations — sister contrast +1.479 (CI 1.289-1.654) and +2.213 (CI 1.962-2.489), partial 0.459 / 0.340, depth-lifetime negative. Aggregate l1_field_x113_depth.json, report reports/2026-11-03-x113-depth.md, plan §10gj. Next: X113b (rate version)"
+  },
+  {
+   "id": "X113b_depth_rate",
+   "title": "Is the generation advantage faster propagation or more division events?",
+   "status": "planned",
+   "owner": "lead",
+   "kind": "analysis",
+   "cost_gpu_h": 0,
+   "prereg": null,
+   "created_at": "2026-11-03T00:11:21+03:00",
+   "note": "X113 found the larger sister's line reaches +1.479 / +2.213 more generations with depth negatively correlated with lifetime. The rate version — generations per 1 000 steps, and generations per division — separates faster propagation from more division events per cell. Same pairs, same controls (heredity >= 0.35, depth not lifetime). Register with five sections before running; no GPU."
   }
  ]
 }
