@@ -8,11 +8,9 @@ part is kept current (new text in English — decision of 31.10).
 
 ## Running now
 
-- **X82** (since 08:12): the transfer function from prescribed to realised spectral share — five cells (prescribed power ratio
-  0 / 1 / 4 / 16 at q = 11, and 4 at q = 14), five worlds each, ~40 minutes. Registered in
-  `reports/2026-11-02-x82-reach-plan.md` before the run.
-- Why it exists: three pilots showed the channel **saturates** (prescribed 1 → realised 0.19, 4 → 0.31, 16 → 0.28), which voids
-  X80 (its three cells are spectrally near-identical) and would have voided X81 as registered. X81 is superseded by X82.
+- Nothing. No locks. X85 closed at 10:35: **void by its control**, and the control's failure found the cause — `--sample-every` is a
+  physical parameter, not a logging choice (trait mutations are drawn at every sampled step). X82 closed at 10:05, also void by its
+  control, with the period confirmed unmoved on 25 fields. X84 (the angular re-read of X71) closed at 09:20 and changed the headline.
 - Closed since the previous update: **X74** (half-life follows the inflow non-monotonically: 1.47 / 0.73 / 1.61 at 0.030 /
   0.035 / 0.040 — the multistable band remembers least), **X76** (the 0.033 cell is ordinary at ten worlds, so the five cells
   fall into two levels), **X77** (patch control has no power: a daughter's patch mean predicts her at 0.01, which excludes the
@@ -48,6 +46,8 @@ part is kept current (new text in English — decision of 31.10).
 | X80 dip test | **void by manipulation reach**: the registered rule fired slope, but measured as a power share all three cells carry a second peak of 0.18–0.34, so the sweep compared three near-identical spectra (the 0/5 two-peak figure was a local-maximum artefact and is withdrawn) | §10ff, `reports/2026-11-02-x80-correction-two-peak.md` |
 | the ruler | **half-life is aggregation-dependent**: pooled and per-world median disagree in *sign* on X80 (0.86/1.18/1.25 against 1.04/0.52/1.16), and the band contrast is 2.01×/2.58× pooled but 1.37×/1.91× per-world median; at `F = 0.033` only 7 of 10 worlds are fittable | §10ff, claims 296–298 |
 | X84 angular re-read | **one period, two symmetries**: X71's "12.0 vs 8.73 cells" are the stripe axis and the checkerboard forcing diagonal landing in one radial bin; `q'` = 5–9 (10.7–19.2 cells) in all 35 forced worlds and never 11, while the symmetry `s` rises 0.38 → 0.92 with inflow (ρ = 0.687). X71b's flatness is the forcing's, X71c's "band" is a smooth crossover | §10fg, claims 298–299 |
+| X82 reach | **void by its own control**: the radial share of a single-scale world is 0.304 where the plan required below 0.15, because the forcing line sits inside the window. The angular readout on 25 fields: `q'` = 6–9 in every cell (a second line at 16× the power moves no period), and an in-band second line breaks the symmetry lock (0.603 → 0.324) while an off-band one does not (0.710) | §10fh |
+| X85 symmetry × memory | **void by its control**, and that is the finding: `--sample-every` decides how often trait mutations fire, so X71 (1000) and X85 (50) are different regimes and the borrowed band was invalid (verified: same seed, different logging, fields differ by 0.365). Within the 50-step regime `s` = 0.40 / 0.67 / 0.87 and memory has no partial correlation with it (0.00) | §10fi, `docs/design-checks.md` |
 
 **The headline changed.** "Multistability between two wavelengths at `F = 0.035`" is withdrawn: the medium has one preferred scale
 (~12 cells, the same with and without forcing) and a symmetry coordinate that follows the inflow. The environment can set the

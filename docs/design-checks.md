@@ -181,3 +181,18 @@ and the rule did not encode the consequence, so the series closed with a verdict
 Consequence for the field line: the transfer function from prescribed to realised spectral share is now measured **before** the design
 (X82), because a design built on a channel that saturates at a third would have measured its own ceiling rather than the world.
 Reports: `reports/2026-11-02-x80-correction-two-peak.md`, `reports/2026-11-02-x82-reach-plan.md`.
+
+**Logging frequency is a physical parameter (02.11, X85).** In `field_track.py` the trait mutations are drawn **at every sampled
+step** (`rng.normal(args.s_ref, args.mutation)` for newborn components, `rng.normal(0, args.mutation)` for daughters), and the trait
+feeds back into the field. So `--sample-every` does not only decide how often we look: it decides how many mutation events a world
+experiences. X71 ran at 1000 (six events over 6000 steps), X73–X85 at 50 (a hundred and twenty).
+
+Verified: seed 191, `F = 0.035`, identical flags except `--sample-every` — the fields differ by up to **0.365** in v. Two series at
+different logging density are therefore **not the same cell measured twice**, and a control band taken from one regime does not apply
+to the other. X85 voided itself exactly that way.
+
+Rules. (1) Any cross-series comparison states the logging density of both sides. (2) A control band is measured **in the regime of the
+experiment**, never borrowed from an older series. (3) When a series needs both dense genealogies and a cheap run, decide the logging
+density in advance and keep it identical across every cell of every series that will be compared. (4) The recipe for a probe that
+draws randomness is the same as for a probe that modifies the field: it needs an anchor on both settings.
+Report: `reports/2026-11-02-x85-symmetry-memory-void.md`.

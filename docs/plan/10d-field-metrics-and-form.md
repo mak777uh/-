@@ -1808,3 +1808,27 @@ The angular readout carried alongside the aggregate is interpretable and consist
 
 Report: `reports/2026-11-02-x82-reach-void.md`; aggregate `l1_field_x82_reach.json`. Registration (void, kept as written):
 `reports/2026-11-02-x82-reach-plan.md`.
+
+## 10fi. Symmetry against memory voided itself, and found that the logging frequency is a physical parameter (X85, 02.11)
+
+X85 asked whether the size memory depends on the symmetry `s` — the one knob X84 showed the environment can turn. Three inflows,
+eight worlds each, 24 runs. **Void by its own positive control**: the `F = 0.035` cell was required to sit in `[0.64, 0.81]` (X71's
+0.777) and gave **0.870** (0.778–0.901).
+
+The reason is not seed scatter. X71 ran at `--sample-every 1000`; X85 runs at 50, and in `field_track.py` the trait mutations are
+drawn **at every sampled step** while the trait feeds back into the field. X71's worlds saw six mutation events over 6000 steps,
+X85's saw a hundred and twenty. Verified directly: seed 191 at `F = 0.035`, identical flags except logging, gives fields that differ
+by up to **0.365**. Different logging density is a different world, so the borrowed control band was invalid — and, more importantly,
+**every cross-series comparison in this line must state its logging regime**. X71/X71b/X71c used 1000; X73–X85 used 50.
+
+Within the 50-step regime the direction replicates: X85 gives `s` = 0.399 → 0.671 → 0.870 for `F` = 0.025 → 0.030 → 0.035 (ranges
+0.357–0.474, 0.503–0.808, 0.778–0.901), and X82's control cell independently gave 0.603 at 0.030. Across regimes the direction still
+replicates (X71: 0.38 → 0.52 → 0.78) but the **level** does not: 0.516 (1000-step) against 0.603/0.671 (50-step) at `F = 0.030`.
+
+The substantive numbers, descriptive only: within-cell Spearman(`rho1`, `s`) = **−0.33, −0.25, −0.02**; pooled raw correlation
+**+0.26**; **partial correlation controlling inflow 0.00**. So the registered prediction (memory shorter where the pattern is locked to
+the forcing) appears in two cells below the bar and vanishes once inflow is held — the hypothesis is neither supported nor refuted, and
+the instrument is the binding constraint. Placing a cell's `s` to ±0.03 needs about twenty worlds, 60 runs for the curve.
+
+Reports: `reports/2026-11-02-x85-symmetry-memory-void.md`; aggregate `l1_field_x85_symmetry_memory.json`. Rule added to
+`docs/design-checks.md` ("logging frequency is a physical parameter").
