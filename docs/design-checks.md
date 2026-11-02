@@ -244,3 +244,15 @@ so gamma = 0.5 is a 33 % cut in the autocatalysis, not a perturbation. (4) The l
 part of the refusal rule.
 Report: 
 eports/2026-11-02-x96-void-regime.md.
+
+**Mark a queue item running only after its runner holds the lock (02.11, third time).** Three series in one evening (X105, X110, X112c) were
+marked `running` in `lab/queue.json` before their runner had taken a lock or written an artifact, and `queue-audit` — correctly — reported
+"running without a lock, without fresh artifacts, without a process". One of those states reached CI and turned it red on the exact commit
+that started the series.
+
+Rules. (1) The runner claims its lock **first**, heartbeats after every run, and releases in a `finally` block; the queue status follows the
+runner, not the other way round. (2) If the status must change from a separate agent, it changes *after* the lock file exists — one `ls
+lab/locks/` costs nothing and prevents a red gate. (3) A `running` item with no lock, no artifact and no process is an error, not a warning:
+the audit is right and the bookkeeping is wrong. (4) When a runner's release does not match the lock it claimed (the run id is chosen by
+`lab.py claim`, not by the caller), the lock outlives the series and the snapshot gate flags it — release by run id in that case.
+Reports: `reports/2026-11-02-x110-gamma-cell.md`, `reports/2026-11-02-x112b-cuts.md`.
