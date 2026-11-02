@@ -71,12 +71,16 @@ def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description="X96 pilot analysis")
     ap.add_argument("--write", action="store_true")
     ap.add_argument("--mild", action="store_true", help="X96b: the mild sweep (gamma 0.05-0.20)")
+    ap.add_argument("--per-cell", action="store_true",
+                    help="X96c: per-cell liveness, scale against the band, orientation against itself")
     args = ap.parse_args(argv)
 
     tags = TAGS
+    if args.per_cell:
+        args.mild = True
     if args.mild:
         PREFIX, FIELDS_DIR = "x96bpilot", L1 / "_x96b_fields"
-        OUT = OUT.parent / "l1_field_x96b_pilot.json"
+        OUT = OUT.parent / ("l1_field_x96c_pilot.json" if args.per_cell else "l1_field_x96b_pilot.json")
         tags = MILD_TAGS
 
     ref_field, ref_run = load("w_off")
@@ -90,7 +94,10 @@ def main(argv=None) -> int:
     control_q = (rows.get("w_off") or {}).get("q")
     control_ok = control_q is not None and BAND[0] <= control_q <= BAND[1]
     settings = {k: v for k, v in rows.items() if k != "w_off"}
-    dead = [k for k, v in settings.items() if (v.get("components_end") or 0) < MIN_ALIVE]
+    # X96b registered a liveness floor of ten components: at gamma 0.2 the field collapses whatever Dw is, and a collapsed field
+    # cannot report a wavelength. The first pass used two, which is why the floor is per-pass rather than global.
+    min_alive = 10 if args.mild else MIN_ALIVE
+    dead = [k for k, v in settings.items() if (v.get("components_end") or 0) < min_alive]
     live = {k: v for k, v in settings.items() if k not in dead}
     moved = [k for k, v in live.items()
              if v.get("q") is not None and (v["q"] <= BAND[0] - MOVE or v["q"] >= BAND[1] + MOVE)]
@@ -104,9 +111,25 @@ def main(argv=None) -> int:
     elif not touched:
         verdict = ("void: the third field does not reach the dynamics (max|dv| < 0.01 in every setting) — a dead term, "
                    "not a channel")
+    elif args.per_cell:
+        # X96c: each setting is judged on its own; a collapsed cell is a regime boundary, not a reason to void the grid.
+        live_q = sorted(v.get("q") for v in live.values() if v.get("q") is not None)
+        syms = [v.get("symmetry") for v in live.values() if v.get("symmetry") is not None]
+        spread = round(max(syms) - min(syms), 3) if len(syms) >= 2 else None
+        out_of_band = any(q <= BAND[0] - MOVE or q >= BAND[1] + MOVE for q in live_q)
+        if len(live) < 4:
+            verdict = f"void: only {len(live)} live cells — the grid collapsed and cannot answer the question"
+        elif out_of_band:
+            verdict = f"the scale channel exists: q' leaves 5-9 by two units in a live cell (live q' = {live_q})"
+        elif spread is not None and spread >= 0.10:
+            verdict = (f"the scale channel does not exist and the second species moves ORIENTATION instead: q' stays in "
+                       f"{live_q} across all {len(live)} live cells while the symmetry spans {spread} "
+                       f"({min(syms):.3f}-{max(syms):.3f}); one seed, so this is a direction to test on a series, not a claim")
+        else:
+            verdict = f"the scale channel does not exist: q' stays in {live_q} and the symmetry spans only {spread}"
     elif dead:
         verdict = (f"void: the coupling is a regime change, not a perturbation — the field collapses to fewer than "
-                   f"{MIN_ALIVE} components in {sorted(dead)} (max|dv| up to "
+                   f"{min_alive} components in {sorted(dead)} (max|dv| up to "
                    f"{max((settings[k].get('max_dv_vs_w_off') or 0) for k in dead):.2f}), so a weaker coupling must be swept "
                    f"before any scale statement")
     elif moved:

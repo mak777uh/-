@@ -500,6 +500,8 @@
 | [`morphogenesis/experiments/E09_pond/l1_field_x92_pay.json`](../morphogenesis/experiments/E09_pond/l1_field_x92_pay.json) | other | 2075 | `8f5169c00567503bbcf00af8c3244515de071bfc54f1affd4587c0a43a27fb62` |
 | [`morphogenesis/experiments/E09_pond/l1_field_x93_sibling_contrast.json`](../morphogenesis/experiments/E09_pond/l1_field_x93_sibling_contrast.json) | other | 1734 | `30b2bd0bc0134a2b051175f57a4bd03d470b65a48f1faf0a719542fd39ac2a19` |
 | [`morphogenesis/experiments/E09_pond/l1_field_x96_pilot.json`](../morphogenesis/experiments/E09_pond/l1_field_x96_pilot.json) | other | 2611 | `5c8966d76405b9cef9617a8102d3f09c1718db384d6cd8ecc8336ae67eb4da9c` |
+| [`morphogenesis/experiments/E09_pond/l1_field_x96b_pilot.json`](../morphogenesis/experiments/E09_pond/l1_field_x96b_pilot.json) | other | 3306 | `46f9bb4a74c067dc1e8834319da5e4aec82d6a9ea0a5ac96415fc843987d7d0e` |
+| [`morphogenesis/experiments/E09_pond/l1_field_x96c_pilot.json`](../morphogenesis/experiments/E09_pond/l1_field_x96c_pilot.json) | other | 3306 | `46f9bb4a74c067dc1e8834319da5e4aec82d6a9ea0a5ac96415fc843987d7d0e` |
 | [`morphogenesis/experiments/E09_pond/l1_field_x98_threshold.json`](../morphogenesis/experiments/E09_pond/l1_field_x98_threshold.json) | other | 6903 | `d66445f799ff5d6e40983c70edae6bd7a31fa8bc3ab42f81b996d70307396eb1` |
 | [`morphogenesis/experiments/E09_pond/l1_field_x99_threshold_memory.json`](../morphogenesis/experiments/E09_pond/l1_field_x99_threshold_memory.json) | other | 2888 | `735c71d8d6399ed99bf42b238e0053d0f0d2160f755f72fa133a68e508d907f2` |
 | [`morphogenesis/experiments/E09_pond/l2_matrix.json`](../morphogenesis/experiments/E09_pond/l2_matrix.json) | other | 9877 | `066d9b748d3be92f8122002dc6c28aaa5297eff8055b06580d5a4c23f1ad0e9b` |
@@ -2720,6 +2722,25 @@
 | [`morphogenesis/experiments/L1_field/x90_f050_pattern_s277.json`](../morphogenesis/experiments/L1_field/x90_f050_pattern_s277.json) | other | 117252 | `efc6e7682170caa05e767530f1f353a338434367e0a3ba691a2ba6828c1b6bc9` |
 | [`morphogenesis/experiments/L1_field/x90_f050_pattern_s278.json`](../morphogenesis/experiments/L1_field/x90_f050_pattern_s278.json) | other | 116371 | `a409d449c47c05d2c9381183bee7e9399e397ff0e41a55f009eef9f7edcb917d` |
 | [`morphogenesis/experiments/L1_field/x90_series_index.json`](../morphogenesis/experiments/L1_field/x90_series_index.json) | other | 2425 | `1c7cbd9c58b49ccfda51be606d22f9f832090bcffff6634a642b413e6edf53ac` |
+| [`morphogenesis/experiments/L1_field/x96bpilot_dw008_g005.json`](../morphogenesis/experiments/L1_field/x96bpilot_dw008_g005.json) | other | 464468 | `dff1ea552172e1b9466268d2e98fc075ba274483441f4e282fe6aba3d02a2d99` |
+| [`morphogenesis/experiments/L1_field/x96bpilot_dw008_g01.json`](../morphogenesis/experiments/L1_field/x96bpilot_dw008_g01.json) | other | 538421 | `0f5e4c39e43aa177262e687e067b8040d5bd8d490e2f8b32dda80ef6d5ea5892` |
+| [`morphogenesis/experiments/L1_field/x96bpilot_dw008_g02.json`](../morphogenesis/experiments/L1_field/x96bpilot_dw008_g02.json) | other | 151249 | `e22ba5352223c3350755fa4e6bb4d1ce88c0693f649d553ba878e08d8fb1fa3c` |
+| [`morphogenesis/experiments/L1_field/x96bpilot_dw016_g005.json`](../morphogenesis/experiments/L1_field/x96bpilot_dw016_g005.json) | other | 688054 | `281c3af4b86a1394610555fe714905bcbc3007ddb32f6e700c51402bb73c57fa` |
+| [`morphogenesis/experiments/L1_field/x96bpilot_dw016_g01.json`](../morphogenesis/experiments/L1_field/x96bpilot_dw016_g01.json) | other | 547629 | `2792977c705a822f57d8b734c993ccaadd5eb1d45d9357d5a143011a6300d83c` |
+| [`morphogenesis/experiments/L1_field/x96bpilot_dw016_g02.json`](../morphogenesis/experiments/L1_field/x96bpilot_dw016_g02.json) | other | 205341 | `b4e7323897c7a3b39257819cf36dac7fda48b4ba86a6268e049067732c5a40ad` |
+| [`morphogenesis/experiments/L1_field/x96bpilot_dw032_g005.json`](../morphogenesis/experiments/L1_field/x96bpilot_dw032_g005.json) | other | 452533 | `c2cef604b120c5591c50d9aad0f64c5ff3670b0b8a65abae3099fc1bec3329d7` |
+| [`morphogenesis/experiments/L1_field/x96bpilot_dw032_g01.json`](../morphogenesis/experiments/L1_field/x96bpilot_dw032_g01.json) | other | 320892 | `ecf344821209b271ac982150ca4feda8d41f45e3bfd76722f89efb1ce2e19c79` |
+| [`morphogenesis/experiments/L1_field/x96bpilot_dw032_g02.json`](../morphogenesis/experiments/L1_field/x96bpilot_dw032_g02.json) | other | 60937 | `6b0ce366edd8df1c8b9d89da439d03532d837808a512ebe527f6fc47d11c19a6` |
+| [`morphogenesis/experiments/L1_field/x96bpilot_index.json`](../morphogenesis/experiments/L1_field/x96bpilot_index.json) | other | 4637 | `04ed0134954a57cb72103a60a86961133101900356282cbf1bf6f7c6cd6bb93e` |
+| [`morphogenesis/experiments/L1_field/x96bpilot_w_off.json`](../morphogenesis/experiments/L1_field/x96bpilot_w_off.json) | other | 927799 | `924522b50c6bc8ce8c26a0ec0bd40d28c60b1bc6da452780a96783fb753e6be2` |
+| [`morphogenesis/experiments/L1_field/x96pilot_dw008_g05.json`](../morphogenesis/experiments/L1_field/x96pilot_dw008_g05.json) | other | 60555 | `ddc300915093f0c769d24a050ddd2988e3577455dcc20ced02cd39764dd16c75` |
+| [`morphogenesis/experiments/L1_field/x96pilot_dw008_g15.json`](../morphogenesis/experiments/L1_field/x96pilot_dw008_g15.json) | other | 41435 | `60acbcfd68bdbe03e01d2d44ef5afe66583d461246fcb07d1b9f004174d61340` |
+| [`morphogenesis/experiments/L1_field/x96pilot_dw016_g05.json`](../morphogenesis/experiments/L1_field/x96pilot_dw016_g05.json) | other | 60554 | `0c0ba1c92c34decac58003eaf1cb049c4234ff9e1cfdf2895428f9971aa1ee9f` |
+| [`morphogenesis/experiments/L1_field/x96pilot_dw016_g15.json`](../morphogenesis/experiments/L1_field/x96pilot_dw016_g15.json) | other | 41435 | `82035380b2c78955bea1e4161b37515a18b574dc6dd47a9b2a9c41e30d38d7cb` |
+| [`morphogenesis/experiments/L1_field/x96pilot_dw032_g05.json`](../morphogenesis/experiments/L1_field/x96pilot_dw032_g05.json) | other | 41821 | `6135e244b4fca61817e7d513c53da3606b2341597e4efc29688042a8cfabfaa1` |
+| [`morphogenesis/experiments/L1_field/x96pilot_dw032_g15.json`](../morphogenesis/experiments/L1_field/x96pilot_dw032_g15.json) | other | 41435 | `bdff0a2ee844f2e3d52db02a25e21c9c3bbc6861ba23731455b3687e4a8ec454` |
+| [`morphogenesis/experiments/L1_field/x96pilot_index.json`](../morphogenesis/experiments/L1_field/x96pilot_index.json) | other | 3194 | `4beea8769a4ac204f6b56bb2fe9cc77414ebb0c5a4510f6a0a59208c1f2c4794` |
+| [`morphogenesis/experiments/L1_field/x96pilot_w_off.json`](../morphogenesis/experiments/L1_field/x96pilot_w_off.json) | other | 927796 | `927528e9440b6e8c9b8e3dae04a2d4d4ec380300e8418c4b1459879f74aa2567` |
 | [`morphogenesis/experiments/L1_field/x99_f030_thr015_s281.json`](../morphogenesis/experiments/L1_field/x99_f030_thr015_s281.json) | other | 866601 | `1892855f168d5d3a304e2682af723ea3981afddbbff5e9a399f2b23a4261e8f7` |
 | [`morphogenesis/experiments/L1_field/x99_f030_thr015_s282.json`](../morphogenesis/experiments/L1_field/x99_f030_thr015_s282.json) | other | 868622 | `5c8cfb9023cc3124d386e3de720bafb9ef94189bb2e19c3c9103c6f1f3ae3f8d` |
 | [`morphogenesis/experiments/L1_field/x99_f030_thr015_s283.json`](../morphogenesis/experiments/L1_field/x99_f030_thr015_s283.json) | other | 911562 | `96d2ab1463cf99b9119188d2efc17a7e44c02f0119a3fd814038a75566ee0bd2` |
@@ -2872,6 +2893,9 @@
 | [`reports/figures/e02b_transition_matrix.png`](../reports/figures/e02b_transition_matrix.png) | figure | 152522 | `81f1b4fe50fd819f45411c31fb737a0c232d9c4f993f5233184c8b276779f5b9` |
 | [`reports/figures/e02c_seed_grid.png`](../reports/figures/e02c_seed_grid.png) | figure | 69503 | `a14f0a6eb28fa0675629e539dc863049d97c3a7ef1914c34ebd7348b5c71776f` |
 <!-- artifacts:end -->
+
+
+
 
 
 

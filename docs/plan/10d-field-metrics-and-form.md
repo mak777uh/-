@@ -2388,3 +2388,41 @@ sparse originals, `l1_field_x101b_dense.json` / `l1_field_x102b_dense.json` the 
 definition is quoting a sparse-series number.
 
 Reports: `reports/2026-11-02-x108-ladder-on-dense.md`.
+
+## 10ga. A second diffusion length moves the orientation, not the wavelength (X96–X96c, 02.11)
+
+The owner approved the one channel the line had never tried (02.11 18:11, `docs/decision-log.md`): a third field `w`, a slowly
+diffusing inhibitor with its own length, entering the autocatalysis as `u·v²/(1 + γ·w)` with `dw/dt = Dw∇²w + β_w(v − w)`. The flag is
+off by default and the anchor is the strictest kind: with it off, seed 291 reproduces the committed `x100_f030_s291.json`
+**bit-for-bit**.
+
+**The first coupling was a regime change, not a perturbation.** At `γ` 0.5–1.5 the field dies: the control has 69 components and mean
+amplitude 0.128, every `w`-on run ends with 1 or 0 components and mean 0.002. The arithmetic is decisive — inside a structure
+`w ≈ v ≈ 1`, so `γ = 0.5` cuts the autocatalysis by a third, and the Gray–Scott band does not absorb that. The identical
+`max|Δv| = 0.4325` across six settings was the control's own peak: the manipulated fields were empty. Recorded as a void, with the
+diagnostic written into `docs/design-checks.md`.
+
+**The mild sweep answers the question.** At `γ` 0.05–0.10, six living cells (15–59 components):
+
+| `Dw` | γ = 0.05 | γ = 0.10 |
+|---|---|---|
+| 0.08 | q' 8, s 0.704, 47 comps | q' 9, s 0.832, 43 |
+| 0.16 | q' 8, s 0.649, 59 | q' 8, s 0.715, 43 |
+| 0.32 | q' 8, s 0.636, 39 | q' 8, s 0.837, 15 |
+
+`q'` is 8 or 9 in all six — inside the 5–9 band every forced world has shown — while the symmetry `s` spans **0.636–0.837**. So the
+second diffusion length changes *which way the pattern runs*, not how far apart its stripes are. At `γ = 0.20` the field collapses at
+two diffusion lengths (4 and 1 components) and at the third it survives with 18 components but coarsens to `q' = 4`, one unit below the
+band: reported, not claimed, because the registered criterion was two units.
+
+The reading for the line: three channels for scale are now closed by measurement (inflow, initial condition, second diffusion length),
+and the fourth (spatial inflow) sets orientation. The second species is the informative one because it is the knob that *should* set a
+wavelength — in a Turing system the ratio of diffusion lengths does exactly that. Here that ratio moves the orientation instead, which
+suggests the scale is pinned by the reaction band `(F, k)` and the grid rather than by diffusion geometry. That is a hypothesis.
+
+Caveats: one seed, one cell, nine settings, no per-world statistics; `s` and `q'` are single numbers per setting; `γ = 0.05–0.10` means
+a 5–9 per cent cut in the autocatalysis inside structures. X96d is registered to replicate the orientation result on three seeds and to
+push `Dw` to 0.64.
+
+Reports: `reports/2026-11-02-x96-void-regime.md`, `reports/2026-11-02-x96bcd-second-species.md`; aggregates
+`l1_field_x96_pilot.json`, `l1_field_x96b_pilot.json`, `l1_field_x96c_pilot.json`.
