@@ -1,0 +1,88 @@
+{
+  "kind": "l1_field_x91_lineage_specificity",
+  "experiment": "X91",
+  "command": "python scripts/x91_analyse.py --write",
+  "prereg": "reports/2026-11-02-x91-specificity-plan.md",
+  "method": "Spearman(ancestor area, daughter area) against Spearman(nearest non-ancestor area, daughter area); the gap is the readout. Same code as X73 (x73_depth.stranger_peak).",
+  "control_band": [
+    0.35,
+    0.55
+  ],
+  "resolution": 0.15,
+  "cells": {
+    "f025": {
+      "flow": 0.025,
+      "series": "x87",
+      "worlds": 12,
+      "events": 3001,
+      "stranger_coverage": 0.956,
+      "rho_parent": 0.4,
+      "rho_stranger": 0.104,
+      "gap": 0.296,
+      "mean_area_parent": 71.7,
+      "mean_area_daughter": 50.7
+    },
+    "f030": {
+      "flow": 0.03,
+      "series": "x87",
+      "worlds": 12,
+      "events": 3054,
+      "stranger_coverage": 0.956,
+      "rho_parent": 0.55,
+      "rho_stranger": 0.236,
+      "gap": 0.314,
+      "mean_area_parent": 87.9,
+      "mean_area_daughter": 59.4
+    },
+    "f035": {
+      "flow": 0.035,
+      "series": "x87",
+      "worlds": 12,
+      "events": 2403,
+      "stranger_coverage": 0.913,
+      "rho_parent": 0.475,
+      "rho_stranger": 0.016,
+      "gap": 0.459,
+      "mean_area_parent": 183.2,
+      "mean_area_daughter": 120.9
+    },
+    "f040": {
+      "flow": 0.04,
+      "series": "x88",
+      "worlds": 20,
+      "events": 3753,
+      "stranger_coverage": 0.841,
+      "rho_parent": 0.471,
+      "rho_stranger": 0.064,
+      "gap": 0.407,
+      "mean_area_parent": 726.3,
+      "mean_area_daughter": 385.2
+    },
+    "f045": {
+      "flow": 0.045,
+      "series": "x88",
+      "worlds": 20,
+      "events": 636,
+      "stranger_coverage": 0.489,
+      "rho_parent": 0.165,
+      "rho_stranger": -0.585,
+      "gap": 0.75,
+      "mean_area_parent": 2398.3,
+      "mean_area_daughter": 1270.6
+    }
+  },
+  "positive_control": {
+    "fires": true,
+    "f035_rho_parent": 0.475,
+    "f035_gap": 0.459
+  },
+  "lineage_cells": [
+    "f025",
+    "f030",
+    "f035",
+    "f040",
+    "f045"
+  ],
+  "regional_cells": [],
+  "verdict": "void: underpowered cells: ['f045']"
+}

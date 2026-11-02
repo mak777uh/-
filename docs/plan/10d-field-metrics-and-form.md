@@ -1987,3 +1987,30 @@ is alive and simply no longer divides.
 
 Report: `reports/2026-11-02-x90-trickle-void.md`; aggregate `l1_field_x90_trickle.json`.
 
+## 10fo. The shoulders' memory is lineage memory, and one cell cannot host the control (X91, 02.11)
+
+The map of §10fl says the medium is habitable at two shoulders of the band (F = 0.025, lattice; F = 0.040, just above the percolation
+threshold) and forgets quickly in the middle. The way that could have been an artefact is the same one X70 caught earlier: a daughter's
+size may follow the **place** she was born rather than her mother. X91 ran the parent-versus-nearest-non-ancestor control (the code and
+convention of X73) on the stored artifacts — X87's 60 worlds and X88's 40 — with no new runs.
+
+| F | events | neighbour found | rho parent | rho nearest non-ancestor | gap |
+|---|---|---|---|---|---|
+| 0.025 | 3 001 | 96 % | 0.400 | 0.104 | **0.296** |
+| 0.030 | 3 054 | 96 % | 0.550 | 0.236 | **0.314** |
+| 0.035 | 2 403 | 91 % | 0.475 | 0.016 | **0.459** |
+| 0.040 | 3 753 | 84 % | 0.471 | 0.064 | **0.407** |
+| 0.045 | 636 | 49 % | 0.165 | -0.585 | (control not applicable) |
+
+The positive control fired: at 0.035 the parent correlation is 0.475 against X73's 0.457 (band [0.35, 0.55]), same code, twenty worlds
+instead of ten. In every cell where the control is possible the gap is 0.30-0.46, **including both shoulders** — so the long half-life
+there is specific to the line, not a region resembling itself.
+
+Registered verdict: **void**, because the 0.045 cell finds a neighbour for only 49 % of its events (the world is one component and has
+almost no non-ancestors). The rule voided the whole series for a defect of one cell; that is corrected here to a **cell-level** void and
+written into the design rules: a control that needs a population cannot be applied where there is no population, and the cell — not the
+series — is what becomes uninterpretable.
+
+Report: `reports/2026-11-02-x91-lineage-specific.md`; aggregate `l1_field_x91_lineage_specificity.json`. What is still missing for a
+claim about inheritance in the biological sense is the third leg: whether the resemblance **pays**, i.e. whether a lineage whose size
+matches its parent's leaves more descendants. X29 tried and its meter was invalid; the field line still has no measurement of consequence.
