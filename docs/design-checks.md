@@ -231,3 +231,16 @@ object) is reported as a **selection fact** with its own count, never folded int
 fails, the diagnosis is part of the void: the numbers are recorded, the reason is named, and the rule that follows is written down
 before the re-registration. A report that only says "void by coverage" loses the one thing the run produced.
 Report: `reports/2026-11-02-x103-basin-position-void.md`.
+
+**A manipulation that deletes the pattern reports the pattern's own peak (02.11, X96).** The second-species pilot showed every w-on
+setting differing from the control by max|dv| = 0.4325 — identical to six digits across three diffusion lengths and two couplings.
+The reason was not a bug: the w-on fields were empty, so the difference *was* the control. The number that looked like a strong effect
+was the strongest possible evidence that the manipulated field no longer existed.
+
+Rules. (1) A field-level manipulation reports max|dv| **next to** the manipulated field's own mean and maximum, never alone. (2) If
+max|dv| equals the reference's maximum, the manipulated field is gone and the run is void by liveness, not a result. (3) Couplings
+that enter a reaction term are checked in the regime they create: a factor 1/(1+gamma*w) is 1/(1+gamma) wherever a structure sits,
+so gamma = 0.5 is a 33 % cut in the autocatalysis, not a perturbation. (4) The liveness floor is registered before the run and is
+part of the refusal rule.
+Report: 
+eports/2026-11-02-x96-void-regime.md.

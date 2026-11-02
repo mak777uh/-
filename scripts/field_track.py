@@ -79,6 +79,14 @@ def main(argv=None) -> int:
     ap.add_argument("--device", default="cuda")
     ap.add_argument("--Du", type=float, default=0.16)
     ap.add_argument("--Dv", type=float, default=0.08)
+    # X96 (owner-approved 02.11): третье поле w — медленный ингибитор со СВОЕЙ длиной диффузии. Это новое правило мира, а
+    # не параметр, поэтому по умолчанию выключено: без флага уравнения бит-в-бит прежние, и якорь проверяется по
+    # закоммиченному артефакту x100_f030_s291.json, а не по свежему прогону.
+    ap.add_argument("--second-species", action="store_true",
+                    help="X96: включить третье поле w: uvv/(1+gamma*w), dw/dt = Dw*lap(w) + beta_w*(v - w)")
+    ap.add_argument("--Dw", type=float, default=0.32, help="X96: коэффициент диффузии w (по умолчанию 4*Dv)")
+    ap.add_argument("--gamma", type=float, default=1.0, help="X96: сила ослабления автокатализа третьим полем")
+    ap.add_argument("--beta-w", type=float, default=0.05, help="X96: скорость релаксации w к v")
     ap.add_argument("--F", type=float, default=0.035)
     ap.add_argument("--k", type=float, default=0.06)
     ap.add_argument("--eps", type=float, default=0.5,
@@ -275,6 +283,9 @@ def main(argv=None) -> int:
     rng = np.random.default_rng(int(args.seed))
     rng_g = np.random.default_rng(int(args.global_noise_seed) + 7919)
     buf = torch.zeros((g, g), device=dev)   # E12: память среды
+    # X96: третье поле стартует равным v, чтобы на первом шаге не было импульса от разности (v - w). При выключенном флаге
+    # переменной нет вовсе, поэтому старая ветка не меняется ни на бит.
+    w = v.clone() if args.second_species else None
     # E7: пространственный узор G (фиксирован) и временной сигнал S(t)
     hetero_G = None
     hetero_S = None
@@ -477,10 +488,17 @@ def main(argv=None) -> int:
             F_eff = F_eff * (1.0 + args.hetero_amp * spatial)
 
         uvv = u * v * v
+        if args.second_species:
+            # X96: медленное поле гасит автокатализ пропорционально своей амплитуде; длина волны задаётся отношением
+            # длин диффузии Dv и Dw. Порядок явный: w обновляется по СТАРОМУ v, как и остальные уравнения.
+            uvv = uvv / (1.0 + float(args.gamma) * w)
         du = args.Du * laplacian(u) - uvv + F_eff * (1.0 - u)
         dv = args.Dv * laplacian(v) + uvv - (F_eff + k_eff) * v
         u = torch.clamp(u + args.dt * du, 0.0, 1.0)
         v = torch.clamp(v + args.dt * dv, 0.0, 1.0)
+        if args.second_species:
+            dw = args.Dw * laplacian(w) + args.beta_w * (v - w)
+            w = torch.clamp(w + args.dt * dw, 0.0, 1.0)
 
         # --- наблюдатель: компоненты и сопоставление ---
         vn = v.detach().cpu().numpy()

@@ -1,0 +1,103 @@
+{
+  "kind": "l1_field_x96_pilot",
+  "experiment": "X96",
+  "command": "python scripts/x96_analyse.py --write",
+  "prereg": "reports/2026-11-02-x96-second-species-plan.md",
+  "rule": "uvv = u*v*v/(1+gamma*w); dw/dt = Dw*lap(w) + beta_w*(v - w); w(0) = v(0)",
+  "readout": "q' and s from field_metrics.angular on the final field, components and peak at the end, max|dv| against w_off",
+  "band": [
+    5,
+    9
+  ],
+  "criterion_move": 2,
+  "min_manipulation": 0.01,
+  "cells": {
+    "w_off": {
+      "q": 9,
+      "symmetry": 0.702,
+      "field_std": 0.1119,
+      "max_dv_vs_w_off": 0.0,
+      "components_end": 69,
+      "v_max_end": null,
+      "Dw": 0.32,
+      "gamma": 1.0
+    },
+    "dw008_g05": {
+      "q": 4,
+      "symmetry": 0.116,
+      "field_std": 0.0202,
+      "max_dv_vs_w_off": 0.4325,
+      "components_end": 1,
+      "v_max_end": null,
+      "Dw": 0.08,
+      "gamma": 0.5
+    },
+    "dw008_g15": {
+      "q": null,
+      "symmetry": null,
+      "field_std": 0.0,
+      "max_dv_vs_w_off": 0.4325,
+      "components_end": 0,
+      "v_max_end": null,
+      "Dw": 0.08,
+      "gamma": 1.5
+    },
+    "dw016_g05": {
+      "q": 4,
+      "symmetry": 0.101,
+      "field_std": 0.0207,
+      "max_dv_vs_w_off": 0.4325,
+      "components_end": 1,
+      "v_max_end": null,
+      "Dw": 0.16,
+      "gamma": 0.5
+    },
+    "dw016_g15": {
+      "q": null,
+      "symmetry": null,
+      "field_std": 0.0,
+      "max_dv_vs_w_off": 0.4325,
+      "components_end": 0,
+      "v_max_end": null,
+      "Dw": 0.16,
+      "gamma": 1.5
+    },
+    "dw032_g05": {
+      "q": null,
+      "symmetry": null,
+      "field_std": 0.0,
+      "max_dv_vs_w_off": 0.4325,
+      "components_end": 0,
+      "v_max_end": null,
+      "Dw": 0.32,
+      "gamma": 0.5
+    },
+    "dw032_g15": {
+      "q": null,
+      "symmetry": null,
+      "field_std": 0.0,
+      "max_dv_vs_w_off": 0.4325,
+      "components_end": 0,
+      "v_max_end": null,
+      "Dw": 0.32,
+      "gamma": 1.5
+    }
+  },
+  "positive_control": {
+    "fires": true,
+    "control_q": 9,
+    "note": "the w-off run's q' must sit inside the 5-9 band every forced world has shown"
+  },
+  "manipulation_check": {
+    "reaches": [
+      "dw008_g05",
+      "dw008_g15",
+      "dw016_g05",
+      "dw016_g15",
+      "dw032_g05",
+      "dw032_g15"
+    ],
+    "threshold": 0.01
+  },
+  "verdict": "void: the coupling is a regime change, not a perturbation — the field collapses to fewer than 2 components in ['dw008_g05', 'dw008_g15', 'dw016_g05', 'dw016_g15', 'dw032_g05', 'dw032_g15'] (max|dv| up to 0.43), so a weaker coupling must be swept before any scale statement"
+}

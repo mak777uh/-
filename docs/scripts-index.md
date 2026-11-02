@@ -4,7 +4,7 @@
 
 The curated page — what matters and why — is [`scripts.md`](scripts.md). This file is the complete list, so that every command behind a number in the record can be found.
 
-Scripts: **279**.
+Scripts: **282**.
 
 ## Гейты и проверки (46)
 
@@ -170,7 +170,7 @@ Scripts: **279**.
 | `make_seed_grid_figure.py` | Собрать Figure 4 рукописи: сетка «инициализация × порядок данных» (§4.13). |
 | `make_simple_poster.py` | Простой постер для владельца: что мы узнали, без терминов. |
 
-## Прочее (145)
+## Прочее (148)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -237,6 +237,7 @@ Scripts: **279**.
 | `x105_series.py` | x105_series.py — dense logging for the maze cell (X105). |
 | `x106_analyse.py` | x106_analyse.py — X106: what is the crowding term?  A property of places, of growth, or of persistence. |
 | `x107_analyse.py` | x107_analyse.py — X107: how much of the parent-daughter correlation is a shared room? |
+| `x108_series.py` | x108_series.py — the same twenty worlds as X105, with a field at every logged step (X108). |
 | `x56_matrix.py` | x56_matrix.py — сходимость по шагу: контраст при dt = 1.0, 0.5, 2.0. |
 | `x58_analyse.py` | x58_analyse.py — the same measurement on a 128 grid: β₀, β₁, wavelength, normalised count. |
 | `x58_series.py` | x60_series.py — X60: the twenty field runs that keep their snapshots. |
@@ -316,6 +317,8 @@ Scripts: **279**.
 | `x91_analyse.py` | x91_analyse.py — is the memory at the band's shoulders lineage memory or regional resemblance? |
 | `x92_analyse.py` | x92_analyse.py — does size pay? Peak area against lifetime and against the number of daughters. |
 | `x93_analyse.py` | x93_analyse.py — do sisters pay for size? Within-family contrast with lifetime as the outcome. |
+| `x96_analyse.py` | x96_analyse.py — X96 pilot: does a second diffusive species move the pattern's scale? |
+| `x96_pilot.py` | x96_pilot.py — X96: the second diffusive species (owner-approved 02.11). |
 | `x98_analyse.py` | x98_analyse.py — is the angular map a property of the world or of the excursion cut? |
 | `x99_analyse.py` | x99_analyse.py — is the memory map a property of the world or of the excursion cut? |
 | `x99_series.py` | x99_series.py — the memory map at two other excursion cuts (X99). |

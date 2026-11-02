@@ -1,6 +1,6 @@
 {
  "schema_version": 1,
- "updated_at": "2026-11-02T18:31:05+03:00",
+ "updated_at": "2026-11-02T18:50:00+03:00",
  "note": "Очередь пунктов после E02c. Claim берётся до пре-регистрации, а не перед запуском: lab.py item-claim. Статус running означает занятый GPU-лейн и может быть только у одного пункта. | 25.10: добавлено поле impact (1-5) — приоритет конвейера = impact/max(cost_gpu_h,0.1); для запуска пункту нужны prereg (закоммиченный план) и launch.command+outdir.",
  "items": [
   {
@@ -2091,13 +2091,14 @@
   {
    "id": "X96_scale_channel",
    "title": "A channel that can actually move the morphological scale: a second diffusive species (owner decision)",
-   "status": "planned",
+   "status": "running",
    "owner": "lead",
    "waiting_on": null,
    "cost_gpu_h": 2,
    "created_at": "2026-11-02T13:10:52+03:00",
-   "note": "owner approved 02.11 18:11 (chat: «пробуй конечно»); decision recorded in docs/decision-log.md. Pilot first: third field w with its own diffusion length, uvv/(1+gamma w), dw/dt = Dw lap(w) + beta(v - w); 7 runs at F = 0.030, seed 401, anchor bit-for-bit against x100_f030_s291.json. Criterion: q-prime leaves 5-9 by two units.",
-   "prereg": "reports/2026-11-02-x96-second-species-plan.md"
+   "note": "owner approved 02.11 18:11; first pass (gamma 0.5-1.5) VOID by liveness: the pattern dies (69 -> 1/0 components), so the coupling was a regime change; anchor passed bit-for-bit against x100_f030_s291.json. Now X96b: mild sweep gamma 0.05-0.20, nine runs, liveness floor 10 components.",
+   "prereg": "reports/2026-11-02-x96-second-species-plan.md",
+   "heartbeat_at": "2026-11-02T18:50:00+03:00"
   },
   {
    "id": "X97_sibling_deep",
@@ -2224,6 +2225,23 @@
    "note": "closed: ladder delta 0.209 -> 0.370 at 0.040 (basin 0.110 against area 0.480), specificity fall 0.213 / 0.379, maze threshold gap 0.443; coverage 0.979 / 0.937, partitions 10/10, rho1 reproduced to three decimals. Aggregates l1_field_x101b_dense.json and l1_field_x102b_dense.json, report reports/2026-11-02-x108-ladder-on-dense.md, plan §10fz. Next: X96 pilot (owner-approved second species)",
    "closed_at": "2026-11-02T15:31:05Z",
    "closed_by": "lead"
+  },
+  {
+   "id": "X96b_mild_sweep",
+   "title": "The second species at a coupling the medium can absorb",
+   "status": "running",
+   "owner": "lead",
+   "kind": "series",
+   "cost_gpu_h": 0,
+   "prereg": "reports/2026-11-02-x96b-mild-sweep-plan.md",
+   "created_at": "2026-11-02T18:47:00+03:00",
+   "heartbeat_at": "2026-11-02T18:50:00+03:00",
+   "launch": {
+    "outdir": "morphogenesis/experiments/L1_field",
+    "pattern": "x96bpilot_*.json",
+    "runner": "scripts/x96_pilot.py"
+   },
+   "note": "gamma in {0.05,0.10,0.20} x Dw in {0.08,0.16,0.32}, seed 401, F=0.030; criterion q-prime leaves 5-9 by two units with >=10 components."
   }
  ]
 }

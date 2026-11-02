@@ -11,7 +11,9 @@ Reserved to the owner by `lab/autonomy-rules.json`: publishing anything outward:
 
 ## Running now
 
-- nothing is running
+- **X96_scale_channel** — A channel that can actually move the morphological scale: a second diffusive species (owner decision) (owner `lead`)
+- **X96b_mild_sweep** — The second species at a coupling the medium can absorb (owner `lead`)
+- last artifact written 0.0 h ago
 
 ## Waiting, but not on a human
 
@@ -26,7 +28,6 @@ Reserved to the owner by `lab/autonomy-rules.json`: publishing anything outward:
 - **X100_cut_free_size** — A size measure that does not need an excursion threshold: integral of v over a basin, or area at half maximum (1 GPU-h)
 - **X53_pond_omission** — Пропущенное событие в пруду: прилив ресурса и его отсутствие (1.5 GPU-h)
 - **X57_contrast_stationarity** — Стационарность контраста: выходит ли он на ноль при dt=1.0 на длинном горизонте (2.0 GPU-h)
-- **X96_scale_channel** — A channel that can actually move the morphological scale: a second diffusive species (owner decision) (2 GPU-h)
 - **X104_gap_at_another_cut** — Does the parent-beats-neighbour gap move with the excursion cut the way the level does? (2.0 GPU-h)
 - **X94_memory_minimum** — Locate the minimum of the size-memory curve (the 0.030-0.035 plateau) with fifty worlds per inflow (3 GPU-h)
 - **X95_trickle_above_0050** — Does the division trickle reach zero above F = 0.050? A long-horizon or big-box test (4 GPU-h)
