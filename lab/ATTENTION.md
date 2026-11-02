@@ -11,13 +11,13 @@ Reserved to the owner by `lab/autonomy-rules.json`: publishing anything outward:
 
 ## Running now
 
-- **X110_gamma_cell** — How close to the edge does each cell sit? gamma_cell by bisection with three seeds (owner `lead`)
-- last artifact written 0.0 h ago
+- nothing is running
 
 ## Waiting, but not on a human
 
 - **P6_reports_catalogue** — Каталог отчётов по темам и архивный ярус (no GPU)
 - **P9_numbers_everywhere** — Проверка чисел во всех публикуемых текстах, а не только в статье 028 (no GPU)
+- **provenance_rule_sha** — Write rule_sha256 into every row of the pond aggregators (no GPU)
 - **X28_factorial_F** — Факторный дизайн: состав × конфигурация при фиксированном реализованном притоке (1.0 GPU-h)
 - **X30_env_without_constructors** — Среда без конструкторов: решающий опыт наследования (1.0 GPU-h)
 - **X31_equivalence_tests** — Эквивалентность вместо «CI включает ноль» на 60 сидах (1.0 GPU-h)
