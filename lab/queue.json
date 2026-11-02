@@ -1,6 +1,6 @@
 {
  "schema_version": 1,
- "updated_at": "2026-11-02T17:07:12+03:00",
+ "updated_at": "2026-11-02T17:44:00+03:00",
  "note": "Очередь пунктов после E02c. Claim берётся до пре-регистрации, а не перед запуском: lab.py item-claim. Статус running означает занятый GPU-лейн и может быть только у одного пункта. | 25.10: добавлено поле impact (1-5) — приоритет конвейера = impact/max(cost_gpu_h,0.1); для запуска пункту нужны prereg (закоммиченный план) и launch.command+outdir.",
  "items": [
   {
@@ -2181,13 +2181,14 @@
   {
    "id": "X105_dense_logging",
    "title": "Dense logging: ten worlds per inflow at --sample-every 10, so the maze cell stops being a long-lived sample",
-   "status": "planned",
+   "status": "running",
    "owner": "lead",
    "kind": "series",
    "cost_gpu_h": 0,
-   "prereg": null,
+   "prereg": "reports/2026-11-02-x105-dense-logging-plan.md",
    "created_at": "2026-11-02T17:07:12+03:00",
-   "note": "At F = 0.040, 35.3 % of ancestor-daughter pairs have a member that was never logged: median lifetime there is 89 steps and the logging interval is 50, so short-lived structures are invisible (X103's diagnosis). Every maze number in this line is a statement about long-lived structures. Ten worlds per inflow at seeds 301-310, --sample-every 10, the same two inflows, everything else identical to X100's flags; the logging density is fixed for BOTH cells in advance (the X85 rule: logging frequency is a physical parameter, so two cells of one series must share it). CPU only, roughly one to two hours; the anchor must pass bit-for-bit on the old setting first. Register with five sections and a numeric control before running; the null to beat is the 35 % structural loss."
+   "note": "At F = 0.040, 35.3 % of ancestor-daughter pairs have a member that was never logged: median lifetime there is 89 steps and the logging interval is 50, so short-lived structures are invisible (X103's diagnosis). Every maze number in this line is a statement about long-lived structures. Ten worlds per inflow at seeds 301-310, --sample-every 10, the same two inflows, everything else identical to X100's flags; the logging density is fixed for BOTH cells in advance (the X85 rule: logging frequency is a physical parameter, so two cells of one series must share it). CPU only, roughly one to two hours; the anchor must pass bit-for-bit on the old setting first. Register with five sections and a numeric control before running; the null to beat is the 35 % structural loss.",
+   "started_at": "2026-11-02T17:42:00+03:00"
   },
   {
    "id": "X106_crowding",
