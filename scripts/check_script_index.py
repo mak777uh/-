@@ -17,9 +17,32 @@ from __future__ import annotations
 
 import argparse
 import importlib.util
+import subprocess
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+
+
+def _script_names() -> set[str] | None:
+    """Scripts **tracked in git** — the same set CI sees.
+
+    02.11: this gate used to scan the working directory. Two new runners (`x81_series.py`, `x86_series.py`) sat untracked, the index
+    built from disk listed them, the check passed locally and CI failed on a clean checkout. A gate whose source of truth is the
+    local disk cannot catch a file that was never committed; the index ships in git, so the truth is what git tracks.
+    """
+    try:
+        out = subprocess.run(["git", "ls-files", "scripts"], cwd=str(ROOT), capture_output=True, text=True, timeout=60)
+    except Exception:
+        return None
+    if out.returncode != 0:
+        return None
+    names = set()
+    for line in out.stdout.splitlines():
+        parts = line.split("/")
+        # only the direct children of scripts/ (scripts/archive/*.py is archived code, not part of the index)
+        if len(parts) == 2 and parts[0] == "scripts" and parts[1].endswith(".py"):
+            names.add(parts[1][:-3])
+    return names or None
 
 
 def _load_maker():
@@ -37,7 +60,10 @@ def main(argv=None) -> int:
     maker = _load_maker()
     problems: list[str] = []
 
-    on_disk = {p.stem for p in (ROOT / "scripts").glob("*.py")}
+    on_disk = _script_names()
+    if on_disk is None:
+        problems.append("не удалось прочитать список скриптов из git — гейт должен сравнивать индекс с тем, что уедет наружу")
+        on_disk = set()
     current = maker.build()
     out = ROOT / "docs" / "scripts-index.md"
     if not out.is_file():
