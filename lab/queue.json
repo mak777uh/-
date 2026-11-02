@@ -1,6 +1,6 @@
 {
  "schema_version": 1,
- "updated_at": "2026-11-02T16:19:29+03:00",
+ "updated_at": "2026-11-02T16:26:34+03:00",
  "note": "Очередь пунктов после E02c. Claim берётся до пре-регистрации, а не перед запуском: lab.py item-claim. Статус running означает занятый GPU-лейн и может быть только у одного пункта. | 25.10: добавлено поле impact (1-5) — приоритет конвейера = impact/max(cost_gpu_h,0.1); для запуска пункту нужны prereg (закоммиченный план) и launch.command+outdir.",
  "items": [
   {
@@ -2137,6 +2137,16 @@
    "cost_gpu_h": 1,
    "created_at": "2026-11-02T16:19:29+03:00",
    "note": "X100 showed the skirt carries heredity and the core does not, but its boundary was relative to each structure, not absent. A truly boundary-free size needs watershed basins on v (seeded at local maxima, catchment by steepest descent), then area or integral per basin. It reuses the same 20 runs with per-step fields (already on disk) if the implementation reads the saved snapshots, so the cost is analysis only — about an hour of work, no GPU."
+  },
+  {
+   "id": "X102_specificity_under_definition",
+   "title": "Does parent-beats-neighbour survive the weaker size definition? (X91's control under the basin measure)",
+   "status": "planned",
+   "owner": "lead",
+   "waiting_on": null,
+   "cost_gpu_h": 0,
+   "created_at": "2026-11-02T16:26:34+03:00",
+   "note": "X101 established a ladder: the excursion set at 0.20 gives rho1 0.53/0.38, a topological basin 0.30/0.17, a relative core 0.18/0.06. X91 showed the parent beats the nearest non-ancestor by 0.26-0.41 under the strong definition. The open question is whether that SPECIFICITY also shrinks with the definition: if it does, heredity is an excursion-set concept through and through; if it holds, the specificity is robust where the level is not. Analysis only, on X100's snapshots already on disk."
   }
  ]
 }

@@ -2160,3 +2160,34 @@ just a different kind. A truly boundary-free version needs basins defined by the
 registered as X101; it can run on the snapshots already on disk, without new GPU work.
 
 Report: `reports/2026-11-02-x100-core-vs-skirt.md`; aggregate `l1_field_x100_cutfree.json`.
+
+## 10fu. Three definitions of size, one ladder: heredity is strongest where the definition is an excursion set (X101, 02.11)
+
+X100 compared two definitions and found the core weaker than the skirt. X101 added the only definition with no level set at all — basins
+by **steepest ascent**, each cell assigned to the local maximum it drains to — and evaluated all three on the same ancestor-descendant
+pairs (2 165 at `F = 0.030`, 1 761 at 0.040), from the snapshots X100 already saved.
+
+| definition | boundary | rho1 at 0.030 | rho1 at 0.040 | median size (0.030 / 0.040) |
+|---|---|---|---|---|
+| excursion set, `v > 0.20` | an absolute level | **0.531** | **0.384** | 76 / 423 |
+| basin by steepest ascent | the field's own topology | 0.300 | 0.174 | 112 / 81 |
+| basin at half the local maximum | a level relative to each structure | 0.176 | 0.058 | 18 / 17 |
+
+Registered verdict: **heredity needs the cut** (the basin moved rho1 by 0.231 and 0.209). Both controls fired: the threshold-based rho1
+reproduced X100's values within 0.02, and the basins partitioned the field in all twenty worlds.
+
+The three definitions are **not three measurements of one quantity**. The ordering is the same at both inflows and monotone in a single
+property: how much the definition behaves like a fixed absolute excursion. The topological basin — which merges structures across saddles
+and pools neighbours, 112 cells against 76 — keeps about 60 % of the heredity; the relative core keeps a third or less.
+
+That reading also reconciles the whole day. What the medium passes from mother to daughter is **how far the excursion spreads** — an
+extensive property of a fixed-density region. It is not the peak height, and it is not the drainage basin, which is a property of the
+field's topography rather than of the structure. On this reading the definition dependence is not a defect of the instrument: the
+inherited object *is* the excursion set, and a measure that stops being one stops measuring it. The cost is that every heredity number in
+this line is a statement about excursion sets at 0.20, with a known sensitivity of a factor of three in rho1 (X99, X100, X101).
+
+Open, and analysis-only: does the **specificity** of X91 (parent beats nearest non-ancestor by 0.26-0.41) also shrink down the ladder?
+If it does, heredity is an excursion-set concept through and through; if it holds, the specificity is robust where the level is not.
+Registered as X102.
+
+Report: `reports/2026-11-02-x101-definition-ladder.md`; aggregate `l1_field_x101_watershed.json`.

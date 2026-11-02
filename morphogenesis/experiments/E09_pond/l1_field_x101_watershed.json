@@ -1,0 +1,67 @@
+{
+  "kind": "l1_field_x101_watershed",
+  "experiment": "X101",
+  "command": "python scripts/x101_analyse.py --write",
+  "prereg": "reports/2026-11-02-x101-watershed-plan.md",
+  "basin_definition": "each cell assigned to the local maximum reached by steepest ascent (8-neighbourhood, periodic); a structure's size is the area of the basin its centroid drains to; no level set, no free parameter",
+  "cells": {
+    "f030": {
+      "flow": 0.03,
+      "worlds": 10,
+      "pairs": 2165,
+      "partitions_ok": 10,
+      "basin_coverage": 0.952,
+      "rho1_area": 0.531,
+      "rho1_basin": 0.3,
+      "n_pairs_area": 2024,
+      "n_pairs_basin": 1935,
+      "median_area": 76.0,
+      "median_basin": 112.0,
+      "delta": -0.231,
+      "delta_vs_x100": -0.231
+    },
+    "f040": {
+      "flow": 0.04,
+      "worlds": 10,
+      "pairs": 1761,
+      "partitions_ok": 10,
+      "basin_coverage": 0.8,
+      "rho1_area": 0.384,
+      "rho1_basin": 0.174,
+      "n_pairs_area": 1139,
+      "n_pairs_basin": 1013,
+      "median_area": 423.0,
+      "median_basin": 81.0,
+      "delta": -0.209,
+      "delta_vs_x100": -0.21
+    }
+  },
+  "positive_control": {
+    "fires": true,
+    "threshold_vs_x100": {
+      "f030": [
+        0.531,
+        0.531
+      ],
+      "f040": [
+        0.384,
+        0.384
+      ]
+    },
+    "partitions": {
+      "f030": [
+        10,
+        10
+      ],
+      "f040": [
+        10,
+        10
+      ]
+    }
+  },
+  "deltas": {
+    "f030": -0.231,
+    "f040": -0.209
+  },
+  "verdict": "heredity needs the cut: the basin area moves rho1 by at least 0.20 in at least one cell"
+}
