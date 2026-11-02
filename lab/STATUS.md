@@ -4,11 +4,11 @@ One file, one place that says what is actually in work. Machine state lives in `
 `_hourly/log.md`, numbers in artifacts. The Russian sections below the line are **history** and are not rewritten; the top
 part is kept current (new text in English — decision of 31.10).
 
-**Updated:** 2026-11-02, 05:14 MSK.
+**Updated:** 2026-11-02, 12:10 MSK.
 
 ## Running now
 
-- Nothing. No locks. X85 closed at 05:10: **void by its control**, and the control's failure found the cause — `--sample-every` is a
+- Nothing. No locks. X86–X90 closed between 06:45 and 12:00; X90 closed at 12:00: **void by its control**, and the control's failure found the cause — `--sample-every` is a
   physical parameter, not a logging choice (trait mutations are drawn at every sampled step). X82 closed at 05:05, also void by its
   control, with the period confirmed unmoved on 25 fields. X84 (the angular re-read of X71) closed at 04:35 and changed the headline.
 - Closed since the previous update: **X74** (half-life follows the inflow non-monotonically: 1.47 / 0.73 / 1.61 at 0.030 /
@@ -48,11 +48,22 @@ part is kept current (new text in English — decision of 31.10).
 | X84 angular re-read | **one period, two symmetries**: X71's "12.0 vs 8.73 cells" are the stripe axis and the checkerboard forcing diagonal landing in one radial bin; `q'` = 5–9 (10.7–19.2 cells) in all 35 forced worlds and never 11, while the symmetry `s` rises 0.38 → 0.92 with inflow (ρ = 0.687). X71b's flatness is the forcing's, X71c's "band" is a smooth crossover | §10fg, claims 298–299 |
 | X82 reach | **void by its own control**: the radial share of a single-scale world is 0.304 where the plan required below 0.15, because the forcing line sits inside the window. The angular readout on 25 fields: `q'` = 6–9 in every cell (a second line at 16× the power moves no period), and an in-band second line breaks the symmetry lock (0.603 → 0.324) while an off-band one does not (0.710) | §10fh |
 | X85 symmetry × memory | **void by its control**, and that is the finding: `--sample-every` decides how often trait mutations fire, so X71 (1000) and X85 (50) are different regimes and the borrowed band was invalid (verified: same seed, different logging, fields differ by 0.365). Within the 50-step regime `s` = 0.40 / 0.67 / 0.87 and memory has no partial correlation with it (0.00) | §10fi, `docs/design-checks.md` |
+| X86 symmetry curve | **placed**: `s` = 0.421 / 0.674 / 0.848 at 0.025 / 0.030 / 0.035, twenty worlds each, SE 0.025–0.036, control fired (gap 0.427); the 0.030 cell reproduces X85's 0.671 to 0.003. The secondary heredity readout does **not exist** without `--split-new-uid` (0 pairs, 4–7 uids) | §10fj, claims 301–302 |
+| X87 memory × symmetry | **answered, no**: twenty worlds per inflow give within-cell ρ(ρ₁, `s`) = −0.05 / −0.26 / −0.21 and a partial correlation controlling inflow of −0.10; orientation does not carry the memory. Only a negative association stronger than ~0.3 is excluded | §10fk, claims 303–304 |
+| X88 percolating arm | **the U is real**: per-world half-life 2.08 at 0.040 and 1.60 at 0.045 against 1.07 at 0.035; at 0.050 heredity is **undefined** (one component in 20/20 worlds, six pairs). The direction of §10fa is restored, its values are not (inside 1.07–1.16, outside 1.82–2.08) | §10fl, claims 305–306 |
+| X89 lineage edge | **graded disappearance**: pairs per world 31.8 / 13.0 / 6.0 / 2.0 / 1.0 / 0.3 across 0.045…0.050, factor 2.4 per half-step, no 10× step; every world is one component with β₁ > 0 from 0.046 and still divides, so what fades is the rate | §10fm, claim 307 |
+| X90 trickle | **void by its own control** (median 0 events at 0.050 over 12 000 steps), and the descriptive shape is a **transient, not a rate**: at 0.048 the count does not grow with the horizon, at 0.049 it doubles, at 0.050 it is zero. Statement for the text: above 0.049 the medium stops dividing *in practice* | §10fn |
 
 **The headline changed.** "Multistability between two wavelengths at `F = 0.035`" is withdrawn: the medium has one preferred scale
 (~12 cells, the same with and without forcing) and a symmetry coordinate that follows the inflow. The environment can set the
 **orientation** of the pattern; it cannot move the **scale**. Everything X78b–X82 did by imposing a second wavelength was moving the
 forcing line, which is why the weights did so little — the field's morphology never followed.
+
+**And the heredity picture is now a map, not a number.** Memory is a function of place: 1.82 / 1.16 / 1.07 / 2.08 / 1.60 divisions at
+0.025 / 0.030 / 0.035 / 0.040 / 0.045 (U-shaped, minimum at the band's edge), the medium stops dividing in practice above 0.049, and the
+one coordinate the environment controls — orientation — carries none of it. For the life question the two conditions are now measurable
+separately: a medium must **hold** a state longer than a generation and **produce** generations at all.
+
 
 Note on X80's three numbers: they were measured on cells whose *realised* spectra differ by less than the noise (shares 0.27–0.31,
 0.18–0.23, 0.27–0.34), so they are a statement about the composite at three weights, not a graded trend.
