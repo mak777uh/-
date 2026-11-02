@@ -116,6 +116,25 @@
     "date": "2026-11-02",
     "note": "self-review by the lead, recomputed from the .npy fields independently of x84_analyse.py; verdict holds with the caveats already in the rows (single horizon, one box, snapshots not in git)"
    }
+  },
+  {
+   "file": "lab/reviews/2026-11-02-x87-x89-memory-curve.md",
+   "claim": "The half-life is U-shaped across inflow with its minimum at the band edge, the lineages fade geometrically rather than switching off, and the symmetry of the pattern does not carry the memory",
+   "section": "§10fk-§10fl, CLAIMS 303-307",
+   "verdict": "держится с оговоркой",
+   "date": "2026-11-02",
+   "checked_numbers": [
+    "X87 per-cell half-life medians 1.82 / 1.16 / 1.07 (20 worlds each)",
+    "X88 0.040 = 2.08 (3 753 pairs, 20/20 fittable), 0.045 = 1.60 (636 pairs, 17/20), 0.050 unmeasurable (6 pairs, 0/20)",
+    "within-cell rho(memory, symmetry) -0.050 / -0.264 / -0.212; partial controlling inflow -0.103",
+    "X89 chain of pairs per world 31.8 / 13.0 / 6.0 / 2.0 / 1.0 / 0.3 across F 0.045-0.050",
+    "single-component share 1.0 in all 32 X89 worlds and beta1 > 0 in 32/32",
+    "robustness: excluding 0.045 leaves 1.07 against 2.08, a gap of 1.01 at SE ~0.13"
+   ],
+   "checked_by_lead": {
+    "date": "2026-11-02",
+    "note": "health-cycle meta-review: recomputed from the three aggregates (x87, x88, x89), not from the reports; every number in rows 303-307 reproduces; the caveat is that the minimum is a plateau and that 0.045 rests on 636 pairs"
+   }
   }
  ]
 }
