@@ -1895,6 +1895,11 @@ Reports: `reports/2026-11-02-x87-symmetry-does-not-carry-memory.md`; aggregate `
 
 ## 10fl. The U is real, and above the band heredity stops existing (X88, 02.11)
 
+> **17:45 — read this with §10fs.** Every half-life below is a function of peak area, and peak area is defined on `v > 0.20`. X99 moved
+> the cut to 0.15 and 0.25: at `F = 0.030` the half-life ran 0.77 / 1.16 / 2.26 and at 0.040 1.84 / 2.08 / 0.69, so the **levels move by a
+> factor of three and the ordering between inflows reverses at 0.25**. The numbers here are correct at their cut and must be quoted with
+> it; the U is a property of the 0.20 definition as much as of the world.
+
 X88 measured the one arm never measured at power — `F = 0.040 / 0.045 / 0.050`, twenty worlds each, flags identical to X87.
 
 | `F` | half-life, per-world median | ρ₁ | pairs | fittable | components |
