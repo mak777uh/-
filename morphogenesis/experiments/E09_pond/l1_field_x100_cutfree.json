@@ -1,0 +1,78 @@
+{
+  "kind": "l1_field_x100_cutfree",
+  "experiment": "X100",
+  "command": "python scripts/x100_analyse.py --write",
+  "prereg": "reports/2026-11-02-x100-cutfree-plan.md",
+  "definition": "S_cf = sum of v over the 4-connected basin around the uid centroid at its peak, boundary at 0.5 of the local maximum; no global threshold",
+  "reference_rho1_020": {
+    "0.03": 0.549,
+    "0.04": 0.471
+  },
+  "survives": 0.1,
+  "definition_bound": 0.2,
+  "cells": {
+    "f030": {
+      "flow": 0.03,
+      "worlds": 10,
+      "pairs": 2165,
+      "basin_coverage": 0.97,
+      "rho1_area": 0.531,
+      "n_area": 2024,
+      "median_area": 76.0,
+      "rho1_S_cf": 0.176,
+      "n_S_cf": 2024,
+      "median_S_cf": 18.4,
+      "rho1_A_cf": 0.168,
+      "n_A_cf": 2024,
+      "median_A_cf": 67.0,
+      "reference_rho1": 0.549,
+      "delta": -0.373,
+      "paired_delta": -0.355
+    },
+    "f040": {
+      "flow": 0.04,
+      "worlds": 10,
+      "pairs": 1761,
+      "basin_coverage": 0.838,
+      "rho1_area": 0.384,
+      "n_area": 1139,
+      "median_area": 423.0,
+      "rho1_S_cf": 0.058,
+      "n_S_cf": 1139,
+      "median_S_cf": 17.4,
+      "rho1_A_cf": 0.059,
+      "n_A_cf": 1139,
+      "median_A_cf": 59,
+      "reference_rho1": 0.471,
+      "delta": -0.413,
+      "paired_delta": -0.326
+    }
+  },
+  "positive_control": {
+    "fires": false,
+    "detail": {
+      "f030": {
+        "rho1_area": 0.531,
+        "band": [
+          0.5,
+          0.6
+        ],
+        "ok": true
+      },
+      "f040": {
+        "rho1_area": 0.384,
+        "band": [
+          0.42,
+          0.52
+        ],
+        "ok": false
+      }
+    }
+  },
+  "void_cells": [],
+  "deltas": {
+    "f030": -0.373,
+    "f040": -0.413
+  },
+  "verdict": "void: the threshold-based control does not reproduce the committed rho1 — the pairing or the field parsing differs"
+}

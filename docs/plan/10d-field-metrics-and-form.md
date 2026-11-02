@@ -2131,3 +2131,32 @@ Next step is not another cut but a size defined on the continuous field: the int
 maximum. Registered as X100; it can be evaluated on stored fields first, without new runs.
 
 Reports: `reports/2026-11-02-x99-cut-dependent.md`; aggregate `l1_field_x99_threshold_memory.json`.
+
+## 10ft. Heredity lives in the skirt, not in the core (X100, 02.11)
+
+X99 showed the memory map is definition-bound. X100 asked the natural follow-up: does heredity survive a size defined **at each
+structure's own half-maximum** instead of at a global cut? Twenty runs at `F = 0.030` and `0.040` with a field saved at every logged step
+(`--save-fields-every`, anchored), so each structure is measured at its own peak.
+
+| cell | pairs | basin found | rho1, threshold area 0.20 | rho1, half-max basin integral | rho1, half-max basin area | paired delta |
+|---|---|---|---|---|---|---|
+| 0.030 | 2 165 | 97 % | **0.531** | **0.176** | 0.168 | **-0.355** |
+| 0.040 | 1 761 | 84 % | **0.384** | **0.058** | 0.059 | **-0.326** |
+
+Registered verdict: **void**, because the control band was taken from the committed twenty-world value and applied to ten new worlds
+(whose own standard error is 0.10). The paired comparison does not suffer from that — both definitions are evaluated on the same pairs —
+and it is large and consistent.
+
+**The finding is about which part of a structure is inherited.** A basin bounded at half of its own maximum is a **core**: 18 cells
+against a threshold component of 76 at 0.030, and 17 against 423 at 0.040. So the two "sizes" measure different objects — the height of a
+peak versus how far it spreads — and heredity follows the **spread**. Two details sharpen it: the basin's area is as weak as its integral
+(0.168, 0.059), so within the basin it is not mass versus extent that matters; and the effect is the same in a lattice and in a maze,
+which makes it a property of the medium rather than of one regime.
+
+That also explains X99 in one sentence: the excursion cut matters so much because it decides **how much of the skirt counts**.
+
+What the plan promised — a size with no threshold at all — was too strong: a boundary relative to each structure is still a definition,
+just a different kind. A truly boundary-free version needs basins defined by the field's own topology (watershed on `v`, no level set),
+registered as X101; it can run on the snapshots already on disk, without new GPU work.
+
+Report: `reports/2026-11-02-x100-core-vs-skirt.md`; aggregate `l1_field_x100_cutfree.json`.

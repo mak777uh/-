@@ -4,7 +4,7 @@
 
 The curated page — what matters and why — is [`scripts.md`](scripts.md). This file is the complete list, so that every command behind a number in the record can be found.
 
-Scripts: **270**.
+Scripts: **271**.
 
 ## Гейты и проверки (46)
 
@@ -170,7 +170,7 @@ Scripts: **270**.
 | `make_seed_grid_figure.py` | Собрать Figure 4 рукописи: сетка «инициализация × порядок данных» (§4.13). |
 | `make_simple_poster.py` | Простой постер для владельца: что мы узнали, без терминов. |
 
-## Прочее (136)
+## Прочее (137)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -227,6 +227,7 @@ Scripts: **270**.
 | `test_lib_tools.py` | Регрессионные тесты инструментов библиотеки. |
 | `v8_matrix.py` | v8_matrix.py — агрегат серии V8 (размещение инокулята × правило слияния). |
 | `verify.py` | Единый гейт перед отправкой: `python scripts/verify.py` (или `make verify`). |
+| `x100_analyse.py` | x100_analyse.py — does the heredity of size survive a definition that needs no excursion cut? |
 | `x100_series.py` | x100_series.py — heredity with a size that needs no excursion cut (X100). |
 | `x56_matrix.py` | x56_matrix.py — сходимость по шагу: контраст при dt = 1.0, 0.5, 2.0. |
 | `x58_analyse.py` | x58_analyse.py — the same measurement on a 128 grid: β₀, β₁, wavelength, normalised count. |

@@ -25,7 +25,7 @@ FORCING_Q = 8          # per-axis wavenumber of the 12.0-cell checkerboard; its 
 LAGS = (1, 2, 3)
 
 
-def cell_files(series, flow: float) -> list[Path]:
+def cell_files(series, flow: float, filename: str = "pattern") -> list[Path]:
     """Every run artifact of one cell, given its series prefixes and its inflow.
 
     `series` is a prefix or a sequence of prefixes: ('x85', 'x87') for a lattice cell made of both. The flow becomes the three-digit
@@ -34,7 +34,8 @@ def cell_files(series, flow: float) -> list[Path]:
     """
     prefixes = (series,) if isinstance(series, str) else tuple(series)
     tag = f"f{int(round(float(flow) * 1000)):03d}"
-    return sorted(p for pre in prefixes for p in L1.glob(f"{pre}_{tag}_pattern_s*.json"))
+    tail = f"_{filename}_s*.json" if filename else "_s*.json"
+    return sorted(p for pre in prefixes for p in L1.glob(f"{pre}_{tag}{tail}"))
 
 
 def _power_at(spec: np.ndarray, n: int, ky: int, kx: int, rad: int = 1) -> float:
