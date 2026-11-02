@@ -163,3 +163,4 @@ sections were not rewritten, only moved; each one keeps its identifier, so every
 | §10fj | The symmetry curve is placed, and the identity convention turns out to limit which questions a series can be asked (X86, 02.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
 | §10fk | Orientation does not carry the memory, and the U-shaped band does not survive twenty worlds (X87, 02.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
 | §10fl | The U is real, and above the band heredity stops existing (X88, 02.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
+| §10fm | Lineages do not switch off, they fade: a factor 2.4 per half-step (X89, 02.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |

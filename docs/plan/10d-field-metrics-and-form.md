@@ -1922,3 +1922,37 @@ to 0.035, and it is the left branch of a U, not the whole curve. The minimum is 
 
 Report: `reports/2026-11-02-x88-u-restored.md`; aggregate `l1_field_x88_percolating_arm.json`. Open: where exactly between 0.045 and
 0.050 the lineages vanish (636 → 6 pairs over a half-step), and where the minimum actually sits (needs ~50 worlds per cell).
+
+## 10fm. Lineages do not switch off, they fade: a factor 2.4 per half-step (X89, 02.11)
+
+X88 left the sharpest edge in the line unexplained: 636 ancestor-descendant pairs at F = 0.045, six at 0.050. X89 put four half-steps
+between them (eight worlds each, seeds 261-268, flags identical).
+
+| F | pairs per world (median, range) | single-component worlds | beta1 > 0 |
+|---|---|---|---|
+| 0.045 (X88) | 31.8 | 0/20 | - |
+| 0.046 | **13.0** (8-19) | 8/8 | 8/8 |
+| 0.047 | **6.0** (4-11) | 8/8 | 8/8 |
+| 0.048 | **2.0** (0-2) | 8/8 | 8/8 |
+| 0.049 | **1.0** (0-2) | 8/8 | 8/8 |
+| 0.050 (X88) | 0.3 | 20/20 | 20/20 |
+
+Registered verdict: **graded disappearance** — the fall is monotone and no single half-step reaches the 10x bar; the steps are 2.4x,
+2.2x, 3.0x, 2.0x, 3.3x. The control fired (0.046 at 13 pairs per world against a floor of 10).
+
+Two things are worth naming. First, the world is already a maze at 0.046 — every one of the 32 new worlds is a single component with
+holes — and it **still divides**, thirteen times per world at 0.046 and once at 0.049. What disappears across this range is the
+**rate** of division, not the ability. Second, the decay is geometric in inflow: a factor 2.4 per 0.001 of F, i.e. the lineage count
+halves roughly every 0.0008.
+
+So the boundary heredity work needs is a slope, not a wall: the *measurable* edge (four hundred pairs, what an estimate needs) sits near
+F = 0.046, while the *phenomenological* edge (no divisions at all) is above 0.050 or does not exist. A medium whose divisions become
+arbitrarily rare is not a medium without inheritance — it is a medium where inheritance is not observable, and the write-up must keep
+those apart. For the life question this is a quantitative shape: the rate at which a medium creates new individuals is a continuous
+function of its position in the parameter plane.
+
+Report: 
+eports/2026-11-02-x89-lineages-fade.md; aggregate l1_field_x89_lineage_edge.json. Open: whether the trickle reaches zero
+above 0.050 (needs a longer horizon or a bigger box), and whether the lattice-to-maze melt and the fading of divisions are one
+transition or two (same scan at another k).
+

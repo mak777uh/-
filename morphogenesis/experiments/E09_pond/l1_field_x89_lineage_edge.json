@@ -1,0 +1,149 @@
+{
+  "kind": "l1_field_x89_lineage_edge",
+  "experiment": "X89",
+  "command": "python scripts/x89_analyse.py --write",
+  "prereg": "reports/2026-11-02-x89-lineage-edge-plan.md",
+  "endpoints_from_x88": {
+    "0.045": 636,
+    "0.050": 6
+  },
+  "cells": {
+    "f046": {
+      "flow": 0.046,
+      "worlds": 8,
+      "pairs_median": 13.0,
+      "pairs_range": [
+        8,
+        19
+      ],
+      "pairs_per_world": [
+        13,
+        8,
+        19,
+        12,
+        8,
+        13,
+        15,
+        15
+      ],
+      "components_median": 1.0,
+      "single_component_share": 1.0,
+      "b1_positive_worlds": 8
+    },
+    "f047": {
+      "flow": 0.047,
+      "worlds": 8,
+      "pairs_median": 6.0,
+      "pairs_range": [
+        4,
+        11
+      ],
+      "pairs_per_world": [
+        4,
+        6,
+        11,
+        8,
+        6,
+        4,
+        6,
+        6
+      ],
+      "components_median": 1.0,
+      "single_component_share": 1.0,
+      "b1_positive_worlds": 8
+    },
+    "f048": {
+      "flow": 0.048,
+      "worlds": 8,
+      "pairs_median": 2.0,
+      "pairs_range": [
+        0,
+        2
+      ],
+      "pairs_per_world": [
+        2,
+        0,
+        0,
+        2,
+        2,
+        2,
+        2,
+        2
+      ],
+      "components_median": 1.0,
+      "single_component_share": 1.0,
+      "b1_positive_worlds": 8
+    },
+    "f049": {
+      "flow": 0.049,
+      "worlds": 8,
+      "pairs_median": 1.0,
+      "pairs_range": [
+        0,
+        2
+      ],
+      "pairs_per_world": [
+        2,
+        0,
+        2,
+        0,
+        2,
+        2,
+        0,
+        0
+      ],
+      "components_median": 1.0,
+      "single_component_share": 1.0,
+      "b1_positive_worlds": 8
+    }
+  },
+  "chain_pairs_per_world": [
+    [
+      "0.045",
+      31.8
+    ],
+    [
+      "0.046",
+      13.0
+    ],
+    [
+      "0.047",
+      6.0
+    ],
+    [
+      "0.048",
+      2.0
+    ],
+    [
+      "0.049",
+      1.0
+    ],
+    [
+      "0.050",
+      0.3
+    ]
+  ],
+  "steps_factor": [
+    [
+      "0.045->0.046",
+      2.4
+    ],
+    [
+      "0.046->0.047",
+      2.2
+    ],
+    [
+      "0.047->0.048",
+      3.0
+    ],
+    [
+      "0.048->0.049",
+      2.0
+    ],
+    [
+      "0.049->0.050",
+      3.3
+    ]
+  ],
+  "verdict": "graded disappearance: the lineage count falls monotonically across the half-steps without a single 10x step"
+}
