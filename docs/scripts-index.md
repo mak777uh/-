@@ -4,7 +4,7 @@
 
 The curated page — what matters and why — is [`scripts.md`](scripts.md). This file is the complete list, so that every command behind a number in the record can be found.
 
-Scripts: **248**.
+Scripts: **249**.
 
 ## Гейты и проверки (45)
 
@@ -168,7 +168,7 @@ Scripts: **248**.
 | `make_seed_grid_figure.py` | Собрать Figure 4 рукописи: сетка «инициализация × порядок данных» (§4.13). |
 | `make_simple_poster.py` | Простой постер для владельца: что мы узнали, без терминов. |
 
-## Прочее (116)
+## Прочее (117)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -288,3 +288,4 @@ Scripts: **248**.
 | `x81_series.py` | x81_series.py — prescribed spectrum: share of a second peak at fixed dominant (X81). |
 | `x82_analyse.py` | x82_analyse.py — prescribed vs realised spectral share: how far does inflow modulation reach? |
 | `x82_series.py` | x82_series.py — the reach of inflow modulation: prescribed vs realised spectral share (X82). |
+| `x84_analyse.py` | x84_analyse.py — separate the forcing line from the morphology, and re-read X71's branches. |

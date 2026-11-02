@@ -47,6 +47,12 @@ part is kept current (new text in English — decision of 31.10).
 | X79 mix sweep | confounded **by construction**: `Var(G) = (1−w)² + w²` is minimal at `w = 0.5`, so weight and amplitude moved together | §10fe |
 | X80 dip test | **void by manipulation reach**: the registered rule fired slope, but measured as a power share all three cells carry a second peak of 0.18–0.34, so the sweep compared three near-identical spectra (the 0/5 two-peak figure was a local-maximum artefact and is withdrawn) | §10ff, `reports/2026-11-02-x80-correction-two-peak.md` |
 | the ruler | **half-life is aggregation-dependent**: pooled and per-world median disagree in *sign* on X80 (0.86/1.18/1.25 against 1.04/0.52/1.16), and the band contrast is 2.01×/2.58× pooled but 1.37×/1.91× per-world median; at `F = 0.033` only 7 of 10 worlds are fittable | §10ff, claims 296–298 |
+| X84 angular re-read | **one period, two symmetries**: X71's "12.0 vs 8.73 cells" are the stripe axis and the checkerboard forcing diagonal landing in one radial bin; `q'` = 5–9 (10.7–19.2 cells) in all 35 forced worlds and never 11, while the symmetry `s` rises 0.38 → 0.92 with inflow (ρ = 0.687). X71b's flatness is the forcing's, X71c's "band" is a smooth crossover | §10fg, claims 298–299 |
+
+**The headline changed.** "Multistability between two wavelengths at `F = 0.035`" is withdrawn: the medium has one preferred scale
+(~12 cells, the same with and without forcing) and a symmetry coordinate that follows the inflow. The environment can set the
+**orientation** of the pattern; it cannot move the **scale**. Everything X78b–X82 did by imposing a second wavelength was moving the
+forcing line, which is why the weights did so little — the field's morphology never followed.
 
 Note on X80's three numbers: they were measured on cells whose *realised* spectra differ by less than the noise (shares 0.27–0.31,
 0.18–0.23, 0.27–0.34), so they are a statement about the composite at three weights, not a graded trend.

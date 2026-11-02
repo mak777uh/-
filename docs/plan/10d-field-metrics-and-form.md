@@ -1735,3 +1735,40 @@ by manipulation reach**, not slope. Three pilots then measured the channel direc
 4.0 gives 0.31, 16.0 gives 0.28 — the second peak saturates at about a third whatever is prescribed. X81 as registered would have
 been void by its own check, so it is superseded by **X82** (the transfer function measured with worlds, five cells x five worlds).
 Report: `reports/2026-11-02-x80-correction-two-peak.md`; registration: `reports/2026-11-02-x82-reach-plan.md`.
+
+## 10fg. One period and two symmetries: X71's "two wavelengths" was a radial binning artefact (X84, 02.11)
+
+Every spectral number in this line — X71's modes, X78b's two-peak check, X79's and X80's shares — comes from a **radial** profile,
+power binned by `|k|` alone. The forcing is a checkerboard, `G = (sin(qy)cos(qx)+1)/2`, whose power sits on the four **diagonals**
+`(±q, ±q)`: for the 12-cell pattern `|k| = 8√2 = 11.3`, radial bin 11. A stripe morphology of period 8.7 cells sits at `(±11, 0)` and
+`(0, ±11)`, `|k| = 11.0` — also bin 11. **Two different things in one bin, and one of them is the forcing itself.** A control world
+with no imposed second scale shows it directly: its four largest peaks are the diagonals at `|k| = 11.3` (63 123 and 57 209) and its
+next four are the axis peaks at `|k| = 8.0` (35 612 and 35 431).
+
+Re-read of the fields X71, X71b and X71c already saved (65 snapshots, **no new runs**), with `q'` = axis-aligned wavenumber of maximum
+power and `s = P_diag/(P_diag+P_axis)`:
+
+| `F` | `q'` per world | wavelength, cells | `s` median | `s` range |
+|---|---|---|---|---|
+| 0.025 | 6, 8, 8, 7, 8 | 16.0–12.0 | 0.381 | 0.352–0.598 |
+| 0.030 | 8, 8, 9, 9, 8 | 12.0–10.7 | 0.516 | 0.462–0.739 |
+| 0.035 | 8, 7, 8, 7, 8 | 12.0–13.7 | 0.777 | 0.643–0.811 |
+| 0.040 | 8, 7, 7, 7, 7 | 13.7–12.0 | 0.919 | 0.918–0.948 |
+| 0.045 | 8, 7, 7, 7, 7 | 13.7–12.0 | 0.925 | 0.913–0.955 |
+| 0.050 | 8, 7, 7, 7, 7 | 13.7–12.0 | 0.924 | 0.908–0.944 |
+| 0.055 | 8, 8, 5, 7, 8 | 19.2–12.0 | 0.888 | 0.770–0.934 |
+
+- the period **never splits**: `q'` = 5–9 (10.7–19.2 cells) and never 11, the value an 8.7-cell branch would need;
+- the **unforced arm** agrees on the period (`q'` = 7–10) and stays low on symmetry (0.02–0.33); its 0.055 cell is dead (field std 0.0)
+  and its 0.050 cell weak (0.035), so the top of that column is a decay, not a second scale;
+- Spearman(`s`, `F`) = **0.687** over the 35 forced worlds, and Spearman(`s`, X71's radial `q_peak`) = **0.729** — the radial "mode" is
+  the symmetry;
+- X71b's "coexistence stable over 24 000 steps" is `s` = 0.777 → 0.775 over four horizons: flat because the forcing is fixed;
+- X71c's "band width" is the width of a smooth crossover — `s` = 0.663 at `F = 0.033` and 0.901 at 0.037 — so any cut reads a band.
+
+What replaces the old picture: **one period (~12 cells, set by the medium, the same with and without forcing) and one symmetry
+coordinate `s ∈ [0,1]` that rises from ~0.4 at `F = 0.025` to a plateau ~0.92 at `F ≥ 0.040`.** The environment can impose
+**orientation** at the medium's own scale; it cannot move the scale. For the life question this is the cleaner handle: what a
+two-scale world was supposed to test (does imposed structure shorten memory) becomes "does the symmetry carry memory", and the
+readout for that already exists on stored fields. Report: `reports/2026-11-02-x84-one-period-two-symmetries.md`; aggregate
+`l1_field_x84_angular.json`. Registered plan (deviation stated in the report): `reports/2026-11-02-x84-angular-plan.md`.
