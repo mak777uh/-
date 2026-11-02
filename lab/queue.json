@@ -1,6 +1,6 @@
 {
  "schema_version": 1,
- "updated_at": "2026-11-02T21:46:00+03:00",
+ "updated_at": "2026-11-02T22:21:31+03:00",
  "note": "Очередь пунктов после E02c. Claim берётся до пре-регистрации, а не перед запуском: lab.py item-claim. Статус running означает занятый GPU-лейн и может быть только у одного пункта. | 25.10: добавлено поле impact (1-5) — приоритет конвейера = impact/max(cost_gpu_h,0.1); для запуска пункту нужны prereg (закоммиченный план) и launch.command+outdir.",
  "items": [
   {
@@ -2336,20 +2336,32 @@
   {
    "id": "X112b_cuts_series",
    "title": "The ladder and the specificity at cuts 0.15 and 0.25, built at each cut",
-   "status": "running",
+   "status": "closed",
    "owner": "lead",
    "kind": "series",
    "cost_gpu_h": 0,
    "prereg": "reports/2026-11-02-x112b-cuts-series-plan.md",
    "created_at": "2026-11-02T21:41:41+03:00",
-   "note": "X112 voided because areas cannot be re-measured from saved fields: identity is the logger's labeling of the field at the cut under test. Twenty runs at F = 0.030 (ten seeds x --threshold 0.15 and 0.25, X100's flags otherwise) give genealogies, areas and identities at each cut; then the ladder and the gap readouts with X108's 0.548 as the 0.20 reference. Direction to test (from four anchoring schemes, not a result): rho1 is higher at 0.15 and lower at 0.25 than at 0.20 in both cells. ~35 minutes. Register with five sections before running.",
+   "note": "closed: level 0.554 / 0.548 / 0.445 and gap 0.284 / 0.302 / 0.326 at cuts 0.15 / 0.20 / 0.25 — the level is cut-bound by one step, the gap is cut-stable, and a higher cut produces more pairs. Aggregate l1_field_x112b_cuts.json, report reports/2026-11-02-x112b-cuts.md, plan §10gf. Next: X112c (same sweep at 0.040)",
    "started_at": "2026-11-02T21:46:00+03:00",
-   "heartbeat_at": "2026-11-02T21:46:00+03:00",
    "launch": {
     "outdir": "morphogenesis/experiments/L1_field",
     "pattern": "x112b_*.json",
     "runner": "scripts/x112b_series.py"
-   }
+   },
+   "closed_at": "2026-11-02T19:21:31Z",
+   "closed_by": "lead"
+  },
+  {
+   "id": "X112c_cuts_maze",
+   "title": "The same cut sweep at F = 0.040, where X99 found the inflow ordering reversing",
+   "status": "planned",
+   "owner": "lead",
+   "kind": "series",
+   "cost_gpu_h": 0,
+   "prereg": null,
+   "created_at": "2026-11-02T22:21:31+03:00",
+   "note": "X112b showed the specificity gap is cut-stable in the lattice cell (0.284 / 0.302 / 0.326) while the level moves one step (0.554 / 0.548 / 0.445). X99 found the ordering between inflows reversing at the 0.25 cut, so the maze cell may behave differently. Twenty runs: seeds 301-310 at thresholds 0.15 and 0.25, F = 0.040, X108's flags; reference is X108's maze numbers (0.480 / gap from x102b). Register with five sections before running."
   }
  ]
 }

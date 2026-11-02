@@ -1,0 +1,38 @@
+{
+  "kind": "l1_field_x112b_cuts",
+  "experiment": "X112b",
+  "command": "python scripts/x112b_analyse.py --write",
+  "prereg": "reports/2026-11-02-x112b-cuts-series-plan.md",
+  "design": "thresholds 0.15 and 0.25 on seeds 301-310, the same worlds as the 0.20 reference (threshold is an observer parameter)",
+  "reference_x108": {
+    "rho1": 0.548,
+    "gap": 0.302
+  },
+  "cells": {
+    "0.15": {
+      "threshold": "0.15",
+      "worlds": 10,
+      "pairs": 2262,
+      "used": 1874,
+      "coverage": 0.828,
+      "all_alive": true,
+      "rho1": 0.554,
+      "gap": 0.284,
+      "median_area": 118.0,
+      "stranger_pairs": 1874
+    },
+    "0.25": {
+      "threshold": "0.25",
+      "worlds": 10,
+      "pairs": 3161,
+      "used": 2854,
+      "coverage": 0.903,
+      "all_alive": true,
+      "rho1": 0.445,
+      "gap": 0.326,
+      "median_area": 49.0,
+      "stranger_pairs": 2854
+    }
+  },
+  "verdict": "the level is cut-bound; (deltas against 0.548: {'0.15': 0.006, '0.25': -0.103}); the gap is cut-stable; (deltas against 0.302: {'0.15': -0.018, '0.25': 0.024})"
+}

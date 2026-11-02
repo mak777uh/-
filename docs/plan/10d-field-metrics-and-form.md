@@ -2546,3 +2546,35 @@ Caveats: one box, one grid, one k, one Dw for the sweep; gamma_cell is a bracket
 (twelve runs) would turn it into a number.
 
 Report: `reports/2026-11-02-x110-gamma-cell.md`; aggregates `l1_field_x110b_gamma_cell.json`, `l1_field_x110_gamma_cell.json`.
+
+## 10gf. The cut moves the level a little and the specificity not at all (X112b, 02.11)
+
+X112 tried to get a cut sweep for free by re-measuring areas off X108's saved fields and voided: identity is the logger's labeling of the
+field at the cut under test, and no anchoring scheme reproduced the 0.20 numbers (0.771, 0.521, 0.491, 0.410 against 0.548). X112b does it
+the way X99 did — new runs at each threshold — and it is a **paired** design, because `--threshold` is an observer parameter: the ten seeds
+at 0.15 and 0.25 are the same worlds X108 measured at 0.20.
+
+| cut | pairs | rho1 | delta vs 0.20 | specificity gap | delta | median area |
+|---|---|---|---|---|---|---|
+| 0.15 | 2 262 | **0.554** | **+0.006** | 0.284 | −0.018 | 118 |
+| 0.20 (X108) | 2 211 | **0.548** | — | 0.302 | — | 83 |
+| 0.25 | 3 161 | **0.445** | **−0.103** | 0.326 | +0.024 | 49 |
+
+Registered verdict: **the level is cut-bound; the gap is cut-stable** — the level moves one step past the declared 0.10 at the harshest cut
+and nowhere else, while the gap does not move inside 0.10 at either.
+
+The asymmetry is the result. Changing the *kind* of definition (excursion set → drainage basin, X102) collapses the gap from 0.312 / 0.215
+to 0.017 / −0.010; changing the *cut* of the same definition leaves it at 0.284 / 0.302 / 0.326. So specificity is robust to **where** the
+level sits and not robust to **whether the definition is an excursion at all** — a cleaner statement than either result alone.
+
+Second, smaller: **a higher cut produces more pairs, not fewer** (3 161 at 0.25 against 2 262 at 0.15) — cutting higher fragments structures,
+and fragments divide more often than they vanish, with median area falling 118 → 49 cells. Worth remembering whenever a cut is chosen for
+convenience.
+
+The direction X112's failed schemes suggested (higher at 0.15, lower at 0.25) was half right: the 0.25 part held, the 0.15 part did not.
+
+Caveats: one cell, ten worlds per cut, SE 0.019–0.023; the −0.103 is just past the bar; the stranger control comes from the same frame, so a
+higher cut moves both sides of the comparison at once.
+
+Report: `reports/2026-11-02-x112b-cuts.md`; aggregate `l1_field_x112b_cuts.json`; series index
+`morphogenesis/experiments/L1_field/x112b_series_index.json` (20 runs, all ok).
