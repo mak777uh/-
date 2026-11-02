@@ -2349,3 +2349,42 @@ only (X108). Dense logging should be the default for this line: it costs the sam
 
 Report: `reports/2026-11-02-x105-dense-logging.md`; aggregate `l1_field_x105_dense.json`; series index
 `morphogenesis/experiments/L1_field/x105_series_index.json` (20 runs, all ok).
+
+## 10fz. The ladder and the specificity get sharper, not weaker, on dense fields (X108, 02.11)
+
+X101's ladder and X102's specificity were measured on fields saved every 50 steps — one peak in five had a field at its own peak step,
+and basin coverage was 95 % / 80 %. X105 then showed the sparse series understates the maze heredity by a quarter. X108 re-measured
+both on **the same twenty worlds** with a field at every logged step: saving a field draws no randomness, and seed 301's `series` and
+`uid_pairs` are bit-identical to X105's, so this is a re-measurement, not a new sample.
+
+| definition | 0.030 sparse → dense | 0.040 sparse → dense | delta 0.030 | delta 0.040 |
+|---|---|---|---|---|
+| excursion set, `v > 0.20` | 0.531 → **0.548** | 0.384 → **0.480** | — | — |
+| basin by steepest ascent | 0.300 → **0.335** | 0.174 → **0.110** | −0.231 → **−0.213** | −0.209 → **−0.370** |
+
+Basin coverage 0.979 / 0.937, partitions 10/10 in both cells, and the excursion-set coefficient reproduces X105's 0.548 / 0.480 to
+three decimals — both registered controls fired. Registered verdict: **the ladder stands on dense fields**, and at the maze inflow it
+nearly doubles: with every peak measurable, the topological basin stops tracking what the excursion set sees (0.480 against 0.110).
+
+The specificity follows the same pattern:
+
+| inflow | threshold parent / stranger / gap | basin parent / stranger / gap | change |
+|---|---|---|---|
+| 0.030 | 0.548 / 0.246 / **0.302** | 0.334 / 0.245 / **0.089** | **−0.213** |
+| 0.040 | 0.480 / 0.037 / **0.443** | 0.106 / 0.043 / **0.064** | **−0.379** |
+
+The pre-registered criterion (a fall of ≥ 0.15 in at least one cell) is met twice over — −0.213 and −0.379, the latter larger than the
+sparse series' −0.225 — so *specificity is definition-bound too* survives dense logging and gets stronger. The plan's stricter branch
+(basin gap ≤ 0.05 in both cells, i.e. no specificity left at all) did not fire: the basin gaps are 0.089 and 0.064. Under the basin
+definition a mother still beats a neighbour slightly; under the excursion set she beats it by 0.30–0.44.
+
+What changes in the numbers is the maze cell's threshold-level specificity: 0.443 (parent 0.480, stranger 0.037) against 0.215 sparse.
+At dense fields the maze cell is the most lineage-specific cell in the line, where the sparse series had flattened it. The maze is
+therefore **more** lineage-specific and **less** basin-specific than the sparse sample suggested — both pointing the same way: the
+inherited object is an excursion set, and the field's topography is the stage, not the message.
+
+Both aggregate versions stay in git: `l1_field_x101_watershed.json` / `l1_field_x102_specificity_ladder.json` are the registered
+sparse originals, `l1_field_x101b_dense.json` / `l1_field_x102b_dense.json` the corrections. A claim quoting 0.300 / 0.174 at the basin
+definition is quoting a sparse-series number.
+
+Reports: `reports/2026-11-02-x108-ladder-on-dense.md`.
