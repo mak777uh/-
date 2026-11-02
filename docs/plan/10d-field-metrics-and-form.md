@@ -1297,6 +1297,12 @@ the old table's 2607 at the strict cutoff was one draw of the starting blob. Rep
 
 ## 10eq. Is the medium multistable? Two morphologies at one inflow would make heredity discrete (X71, 01.11, идёт)
 
+> **02.11, 09:20 — superseded in part.** X84 re-read X71's own saved fields with an angular spectrum and found that the two "modes"
+> (radial bins 8 and 11) are the **stripe axis** and the **checkerboard forcing diagonal**, which share a radial bin because the
+> forcing line sits at `|k| = q√2`. The morphological period is single (`q'` = 5–9, never 11) and what varies with inflow is the
+> symmetry `s` (0.38 → 0.92). Read this section with §10fg: the experiment ran as registered, its spectral reading does not survive,
+> and the numbers below are the radial ones it produced.
+
 X70 left the size signal graded: a daughter follows her parent at about half strength, so the memory of form lasts one
 generation and cannot accumulate. A **multistable** medium would change that class of answer: if two morphologies are
 stable at the same parameters, a daughter can fall into the parent's branch and the lineage carries a discrete state instead
