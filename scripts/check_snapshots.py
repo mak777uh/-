@@ -72,6 +72,28 @@ def check_checkpoints(root: Path) -> list[str]:
     return problems
 
 
+def _queue_running(root: Path) -> set[str]:
+    """Experiments whose queue item is `running` — a manually claimed lock has no run manifest but is not junk.
+
+    02.11 (X110): `lab.py claim` writes a lock file but not a manifest, so every script-driven series that took a legitimate lock
+    was reported as "junk or lost run". A third category exists: a lock whose experiment the queue lists as running.
+    """
+    path = root / "lab" / "queue.json"
+    if not path.is_file():
+        return set()
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except Exception:
+        return set()
+    out = set()
+    for item in data.get("items") or []:
+        if item.get("status") == "running":
+            out.add(item.get("id"))
+            if item.get("experiment"):
+                out.add(item["experiment"])
+    return out
+
+
 def check_state_locks(root: Path) -> list[str]:
     problems: list[str] = []
     paths = _paths(root)
@@ -80,6 +102,7 @@ def check_state_locks(root: Path) -> list[str]:
     state = json.loads(paths["state"].read_text(encoding="utf-8"))
     locks = {p.stem for p in paths["locks"].glob("*.lock")} if paths["locks"].is_dir() else set()
     active = state.get("active_runs") or []
+    queue_running = _queue_running(root)
     for run_id in active:
         if run_id in locks:
             continue
@@ -98,6 +121,8 @@ def check_state_locks(root: Path) -> list[str]:
             if status == "running":
                 problems.append(f"locks: есть замок {lock}.lock и манифест running, но в state.active_runs его нет")
                 continue
+        if lock in queue_running:
+            continue   # legitimate manual claim for a series the queue says is running
         problems.append(f"locks: замок {lock}.lock без записи в state.active_runs (мусор или потерянный прогон)")
     return problems
 
