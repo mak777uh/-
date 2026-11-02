@@ -1,0 +1,60 @@
+{
+  "kind": "l1_field_x124_coherence",
+  "experiment": "X124",
+  "command": "python scripts/x124_analyse.py --write",
+  "prereg": "reports/2026-11-03-x124-coherence-plan.md",
+  "readout": "paired generation time, subtree depth and rate per sister pair, plus the ratio decomposition",
+  "cells": {
+    "f030": {
+      "pairs": 1142,
+      "gen_time_diff": -412.426,
+      "gen_time_ci": [
+        -517.8984,
+        -310.3765
+      ],
+      "depth_diff": 1.479,
+      "depth_ci": [
+        1.2951,
+        1.6655
+      ],
+      "rate_diff": 36.571,
+      "rate_ci": [
+        -6.916,
+        78.0992
+      ],
+      "mean_ratio_life": 6.0559,
+      "mean_ratio_depth": 1.5325,
+      "implied_rate_ratio": 0.2531,
+      "refs": {
+        "depth": 1.479,
+        "rate": 6.056
+      }
+    },
+    "f040": {
+      "pairs": 1195,
+      "gen_time_diff": -28.226,
+      "gen_time_ci": [
+        -60.4435,
+        6.8954
+      ],
+      "depth_diff": 2.213,
+      "depth_ci": [
+        1.959,
+        2.4745
+      ],
+      "rate_diff": 321.48,
+      "rate_ci": [
+        228.7769,
+        417.2597
+      ],
+      "mean_ratio_life": 47.0114,
+      "mean_ratio_depth": 1.8033,
+      "implied_rate_ratio": 0.0384,
+      "refs": {
+        "depth": 2.213,
+        "rate": 18.96
+      }
+    }
+  },
+  "verdict": "void: f030: rate 36.571 misses X113c's 6.056; f040: rate 321.48 misses X113c's 18.96"
+}

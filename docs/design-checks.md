@@ -310,3 +310,15 @@ predictor — the two are the same event with opposite signs. (3) Lineage statis
 told when a number uses the uid instead. (4) When a tracker's identity rule can retire a parent at a split, the rule is stated next to every survival number it
 touches.
 Report: `reports/2026-11-03-x122-identity-artefact.md`.
+
+**One quantity, one definition, stated with every number (03.11, X124).** A coherence audit of the block's consequence work found the line using the same word
+for different things. "Rate" meant `depth / generation time × 1000` per uid in X113c and the same formula per sister pair in X124 — the two contrasts differ by an
+order of magnitude (6.06 against 36.6). "Generation time" appears both as a raw difference (X124: the larger sister's is **shorter** by 412 steps, CI −518…−310)
+and as a share of the pair's mean (X93: the larger sister's is **longer** by 0.05-0.08), and the two disagree in sign.
+
+Rules. (1) An aggregate names the **unit of aggregation** (uid, pair, world, cell) next to every coefficient, because a mean over uids and a mean over pairs are
+different quantities even when the formula is the same. (2) A "share" and a "raw difference" are different readouts: a claim that says "the larger sister lives
+longer" must say which one it used, and the two must not be quoted interchangeably. (3) When an audit finds two definitions under one word, the affected numbers
+are marked with their definition and the claims cite **directions** until one definition is fixed and the numbers recomputed. (4) A coherence audit that voids is
+still an audit: the void is the finding.
+Report: `reports/2026-11-03-x124-coherence-void.md`.

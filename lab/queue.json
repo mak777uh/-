@@ -1,6 +1,6 @@
 {
  "schema_version": 1,
- "updated_at": "2026-11-03T02:38:44+03:00",
+ "updated_at": "2026-11-03T02:49:34+03:00",
  "note": "Очередь пунктов после E02c. Claim берётся до пре-регистрации, а не перед запуском: lab.py item-claim. Статус running означает занятый GPU-лейн и может быть только у одного пункта. | 25.10: добавлено поле impact (1-5) — приоритет конвейера = impact/max(cost_gpu_h,0.1); для запуска пункту нужны prereg (закоммиченный план) и launch.command+outdir.",
  "items": [
   {
@@ -2542,6 +2542,30 @@
    "note": "closed: the rule is intended (the comment says why), the data agree (4 162 pairs, zero violations), and it is now a gate in make verify. A uid's life is one generation. Report reports/2026-11-03-x123-uid-rule.md, plan §10gr.",
    "closed_at": "2026-11-02T23:38:44Z",
    "closed_by": "lead"
+  },
+  {
+   "id": "X124_coherence",
+   "title": "Are the generation-time and generation-rate results consistent?",
+   "status": "closed",
+   "owner": "lead",
+   "kind": "analysis",
+   "cost_gpu_h": 0,
+   "prereg": "reports/2026-11-03-x124-coherence-plan.md",
+   "created_at": "2026-11-03T02:49:34+03:00",
+   "closed_at": "2026-11-02T23:49:34Z",
+   "closed_by": "lead",
+   "note": "closed as a void by its own control, with two findings: the rate has two definitions differing sixfold, and X93's generation-time sign does not reproduce as a raw difference (−412 steps). Aggregate l1_field_x124_coherence.json, report reports/2026-11-03-x124-coherence-void.md. Next: X125 (fix one definition per quantity and recompute)."
+  },
+  {
+   "id": "X125_definitions",
+   "title": "One definition per quantity: generation time, rate, depth — and recompute the affected numbers",
+   "status": "planned",
+   "owner": "lead",
+   "kind": "analysis",
+   "cost_gpu_h": 0,
+   "prereg": null,
+   "created_at": "2026-11-03T02:49:34+03:00",
+   "note": "X124 found the line using one word for two quantities. Fix: state each definition once with its unit of aggregation (uid / pair / world / cell), recompute X93's generation-time contrast and X113c's rate under the stated definitions on the same pairs, mark every older number with the definition it used, and make the consequence claims cite directions until the recomputation lands. Register with five sections."
   }
  ]
 }
