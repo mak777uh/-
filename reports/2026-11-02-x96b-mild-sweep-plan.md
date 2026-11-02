@@ -20,7 +20,8 @@ components is a regime change and is reported as such, not as a scale result.
 
 ## 2. Positive control fires (numeric)
 
-The w-off control's `q'` must sit inside **5 ≤ q' ≤ 9** — the band every forced world has shown (X84, X82). Measured here on seed 401:
+The w-off control's `q'` must sit inside **5 ≤ q' ≤ 9** — the band every forced world has shown (X84, X82), and **the control fires
+if** that threshold holds. Measured here on seed 401:
 `q' = 9`, `s = 0.702`, 69 components. The control is the same run the first pass used, so the comparison across the two passes is a
 comparison at one control.
 

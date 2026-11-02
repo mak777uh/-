@@ -22,7 +22,7 @@ and 0.800) and at least **100 pairs**.
 
 ## 2. Positive control fires (numeric, both required)
 
-1. **The excursion-set rho1 must reproduce X105 on the same worlds**: `|ρ₁(area) − 0.548| ≤ 0.02` at 0.030 and `|ρ₁(area) − 0.480| ≤
+1. **The excursion-set rho1 must reproduce X105 on the same worlds** (the control fires if the band below is met): `|ρ₁(area) − 0.548| ≤ 0.02` at 0.030 and `|ρ₁(area) − 0.480| ≤
    0.02` at 0.040. This is the check that the pair population has not changed while the field archive got denser.
 2. **The basins partition the field in every world** (`partitions_ok == worlds` in both cells), as in X101.
 

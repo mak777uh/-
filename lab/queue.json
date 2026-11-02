@@ -1,6 +1,6 @@
 {
  "schema_version": 1,
- "updated_at": "2026-11-02T18:50:00+03:00",
+ "updated_at": "2026-11-02T18:54:00+03:00",
  "note": "Очередь пунктов после E02c. Claim берётся до пре-регистрации, а не перед запуском: lab.py item-claim. Статус running означает занятый GPU-лейн и может быть только у одного пункта. | 25.10: добавлено поле impact (1-5) — приоритет конвейера = impact/max(cost_gpu_h,0.1); для запуска пункту нужны prereg (закоммиченный план) и launch.command+outdir.",
  "items": [
   {
@@ -2091,14 +2091,13 @@
   {
    "id": "X96_scale_channel",
    "title": "A channel that can actually move the morphological scale: a second diffusive species (owner decision)",
-   "status": "running",
+   "status": "planned",
    "owner": "lead",
    "waiting_on": null,
    "cost_gpu_h": 2,
    "created_at": "2026-11-02T13:10:52+03:00",
    "note": "owner approved 02.11 18:11; first pass (gamma 0.5-1.5) VOID by liveness: the pattern dies (69 -> 1/0 components), so the coupling was a regime change; anchor passed bit-for-bit against x100_f030_s291.json. Now X96b: mild sweep gamma 0.05-0.20, nine runs, liveness floor 10 components.",
-   "prereg": "reports/2026-11-02-x96-second-species-plan.md",
-   "heartbeat_at": "2026-11-02T18:50:00+03:00"
+   "prereg": "reports/2026-11-02-x96-second-species-plan.md"
   },
   {
    "id": "X97_sibling_deep",

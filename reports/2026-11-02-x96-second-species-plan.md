@@ -38,7 +38,8 @@ Two connectivity facts must hold before any readout is believed:
 
 ## 2. Positive control fires (numeric)
 
-The `w`-off run's `q'` must land in the band the medium has always shown, **5 ≤ q' ≤ 9** (X84/X82: every forced world). If the
+The `w`-off run's `q'` must land in the band the medium has always shown, **5 ≤ q' ≤ 9** (X84/X82: every forced world), and the
+control **fires if** that threshold holds. If the
 unmodified code stops reproducing its own reading on a new seed, the seed is anomalous and the pilot is void.
 
 ## 3. Readout exists and varies
