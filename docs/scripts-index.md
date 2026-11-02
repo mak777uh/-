@@ -4,7 +4,7 @@
 
 The curated page — what matters and why — is [`scripts.md`](scripts.md). This file is the complete list, so that every command behind a number in the record can be found.
 
-Scripts: **257**.
+Scripts: **258**.
 
 ## Гейты и проверки (45)
 
@@ -168,7 +168,7 @@ Scripts: **257**.
 | `make_seed_grid_figure.py` | Собрать Figure 4 рукописи: сетка «инициализация × порядок данных» (§4.13). |
 | `make_simple_poster.py` | Простой постер для владельца: что мы узнали, без терминов. |
 
-## Прочее (125)
+## Прочее (126)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -297,3 +297,4 @@ Scripts: **257**.
 | `x87_series.py` | x87_series.py — memory against symmetry, twelve more worlds per cell (X87). |
 | `x88_analyse.py` | x88_analyse.py — the percolating arm: does memory rise again above the band, or keep declining? |
 | `x88_series.py` | x88_series.py — the high-inflow (percolating) arm at twenty worlds per cell (X88). |
+| `x89_series.py` | x89_series.py — four half-steps between 0.045 and 0.050, to locate where lineages vanish (X89). |
