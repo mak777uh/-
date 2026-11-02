@@ -24,6 +24,7 @@ from x72c_analyse import spearman  # noqa: E402
 from x102_analyse import world_data  # noqa: E402
 from x103_analyse import ancestors_of, torus  # noqa: E402
 
+PREFIX = "x100"   # X109: the same readouts on the dense series need only this to change
 CELLS = {"f030": 0.030, "f040": 0.040}
 MIN_PAIRS = 100
 CONTROL_FLOOR = 0.35
@@ -56,7 +57,7 @@ def cell_stats(flow: float) -> dict:
     d_daughter, d_mother, area_d, area_m, life = [], [], [], [], []
     life_coeffs = []
     pairs = used = worlds = 0
-    for path in cell_files(("x100",), flow, filename=""):
+    for path in cell_files((PREFIX,), flow, filename=""):
         w = world_data(path)
         worlds += 1
         wd, wm, wa, wc, wl = [], [], [], [], []
@@ -145,9 +146,13 @@ def verdict_of(cells: dict) -> str:
 
 
 def main(argv=None) -> int:
+    global PREFIX
     ap = argparse.ArgumentParser(description="X106 crowding term")
     ap.add_argument("--write", action="store_true")
+    ap.add_argument("--prefix", default=PREFIX, help="run-file prefix (x100 by default, x108 for the dense series)")
+    ap.add_argument("--out", default=None, help="aggregate file name inside E09_pond")
     args = ap.parse_args(argv)
+    PREFIX = args.prefix
 
     cells = {tag: cell_stats(flow) for tag, flow in CELLS.items()}
     verdict = verdict_of(cells)

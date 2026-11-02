@@ -2426,3 +2426,29 @@ push `Dw` to 0.64.
 
 Reports: `reports/2026-11-02-x96-void-regime.md`, `reports/2026-11-02-x96bcd-second-species.md`; aggregates
 `l1_field_x96_pilot.json`, `l1_field_x96b_pilot.json`, `l1_field_x96c_pilot.json`.
+
+## 10gb. Both room results survive dense logging, and crowding keeps its domain (X109, 02.11)
+
+X107's answer to the referee question — heredity is not a shared-room effect, the room costs 0.064 of 0.519 — had only been measured on
+the sample X105 showed to be compressed. X108's twenty runs are the same worlds with a field at every logged step, so the two room
+readouts were re-measured there.
+
+| inflow | room coefficient (mother) | control ρ(mother, daughter) | partial given room | both rooms | drop |
+|---|---|---|---|---|---|
+| 0.030 | +0.389 | 0.538 | 0.469 | 0.434 | **0.069** |
+| 0.040 | −0.025 | 0.487 | 0.487 | 0.480 | **0.000** |
+
+Both controls fired: the heredity coefficient reproduces X108's 0.548 / 0.480 within 0.01, and the room coordinate keeps X106's sign and
+size. Registered verdict: **the room result survives** — 0.069 and 0.000 against 0.064 and 0.000 on the sparse series. About 13 % of the
+lattice coefficient is room on both samples, and the room-adjusted heredity values on the better sample are **0.469 / 0.487**.
+
+The crowding coefficient replicates too (+0.360 in the lattice against +0.322 sparse and +0.358 in X103d), and it stays a property of
+places: it predicts the mother's own area at least as well (+0.394 against +0.360) and does nothing in the maze (−0.016). The one thing
+that moved is the lifetime component: +0.171 with 9/10 worlds became **+0.091 with 5/10**, which is what a coin looks like. X106's
+"growth rather than persistence" reading therefore gets stronger on the better sample, not weaker.
+
+Caveat that has to travel with the numbers: `l1_field_x106_crowding.json` was rewritten on the dense prefix, so the sparse values
+(+0.322 / −0.038, lifetime +0.171) live in git history and in X106's report while the aggregate now holds the dense ones. Any quotation
+must name its sample.
+
+Report: `reports/2026-11-02-x109-room-dense.md`; aggregates `l1_field_x109_room_dense.json`, `l1_field_x106_crowding.json`.

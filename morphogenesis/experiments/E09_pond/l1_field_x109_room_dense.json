@@ -1,0 +1,45 @@
+{
+  "kind": "l1_field_x107_shared_room",
+  "experiment": "X107",
+  "command": "python scripts/x107_analyse.py --write",
+  "prereg": "reports/2026-11-02-x107-shared-room-plan.md",
+  "readout": "rho(mother area, daughter area) before and after partialling out the mother's distance to the nearest non-ancestor peak, and after partialling out both rooms",
+  "cells": {
+    "f030": {
+      "flow": 0.03,
+      "worlds": 10,
+      "pairs": 2211,
+      "used": 2143,
+      "coverage": 0.969,
+      "median_room_mother": 11.1,
+      "rho_control": 0.538,
+      "rho_room": 0.389,
+      "rho_partial_mother_room": 0.469,
+      "rho_partial_both_rooms": 0.434,
+      "drop": 0.069
+    },
+    "f040": {
+      "flow": 0.04,
+      "worlds": 10,
+      "pairs": 1951,
+      "used": 1739,
+      "coverage": 0.891,
+      "median_room_mother": 13.97,
+      "rho_control": 0.487,
+      "rho_room": -0.025,
+      "rho_partial_mother_room": 0.487,
+      "rho_partial_both_rooms": 0.48,
+      "drop": -0.0
+    }
+  },
+  "positive_control": {
+    "fires": true,
+    "note": "heredity >= 0.35; the room coefficient reproduces X106 within 0.10"
+  },
+  "references_x106": {
+    "f030": 0.397,
+    "f040": -0.038
+  },
+  "resolution": 0.1,
+  "verdict": "heredity is not a shared-room effect: controlling the room leaves the parent-daughter coefficient within 0.10 of its raw value in both cells"
+}

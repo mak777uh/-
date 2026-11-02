@@ -4,7 +4,7 @@
 
 The curated page — what matters and why — is [`scripts.md`](scripts.md). This file is the complete list, so that every command behind a number in the record can be found.
 
-Scripts: **283**.
+Scripts: **284**.
 
 ## Гейты и проверки (46)
 
@@ -170,7 +170,7 @@ Scripts: **283**.
 | `make_seed_grid_figure.py` | Собрать Figure 4 рукописи: сетка «инициализация × порядок данных» (§4.13). |
 | `make_simple_poster.py` | Простой постер для владельца: что мы узнали, без терминов. |
 
-## Прочее (149)
+## Прочее (150)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -319,6 +319,7 @@ Scripts: **283**.
 | `x93_analyse.py` | x93_analyse.py — do sisters pay for size? Within-family contrast with lifetime as the outcome. |
 | `x96_analyse.py` | x96_analyse.py — X96 pilot: does a second diffusive species move the pattern's scale? |
 | `x96_pilot.py` | x96_pilot.py — X96: the second diffusive species (owner-approved 02.11). |
+| `x96d_analyse.py` | x96d_analyse.py — X96d: does the second species move the orientation, and does it replicate? |
 | `x96d_series.py` | x96d_series.py — X96d: does the second species move the orientation? Three seeds, two cells, four diffusion lengths. |
 | `x98_analyse.py` | x98_analyse.py — is the angular map a property of the world or of the excursion cut? |
 | `x99_analyse.py` | x99_analyse.py — is the memory map a property of the world or of the excursion cut? |

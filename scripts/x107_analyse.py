@@ -23,6 +23,7 @@ from x72c_analyse import spearman  # noqa: E402
 from x102_analyse import world_data  # noqa: E402
 from x106_analyse import nearest_nonancestor  # noqa: E402
 
+PREFIX = "x100"   # X109: the same readouts on the dense series need only this to change
 CELLS = {"f030": 0.030, "f040": 0.040}
 MIN_PAIRS = 100
 MIN_COVERAGE = 0.50
@@ -36,7 +37,7 @@ RESIDUAL_FLOOR = 0.25
 def cell_stats(flow: float) -> dict:
     mother_a, daughter_a, room_m, room_d = [], [], [], []
     pairs = used = worlds = 0
-    for path in cell_files(("x100",), flow, filename=""):
+    for path in cell_files((PREFIX,), flow, filename=""):
         w = world_data(path)
         worlds += 1
         for child, par in w["parent"].items():
@@ -110,9 +111,13 @@ def verdict_of(cells: dict) -> str:
 
 
 def main(argv=None) -> int:
+    global PREFIX
     ap = argparse.ArgumentParser(description="X107 shared room")
     ap.add_argument("--write", action="store_true")
+    ap.add_argument("--prefix", default=PREFIX, help="run-file prefix (x100 by default, x108 for the dense series)")
+    ap.add_argument("--out", default=None, help="aggregate file name inside E09_pond")
     args = ap.parse_args(argv)
+    PREFIX = args.prefix
 
     cells = {tag: cell_stats(flow) for tag, flow in CELLS.items()}
     verdict = verdict_of(cells)
@@ -132,7 +137,9 @@ def main(argv=None) -> int:
         "verdict": verdict,
     }
     if args.write:
-        out = Path(__file__).resolve().parents[1] / "morphogenesis" / "experiments" / "E09_pond" / "l1_field_x107_shared_room.json"
+        name = args.out or ("l1_field_x107_shared_room.json" if PREFIX == "x100"
+                            else f"l1_field_x109_room_{PREFIX}.json")
+        out = Path(__file__).resolve().parents[1] / "morphogenesis" / "experiments" / "E09_pond" / name
         out.write_text(json.dumps(res, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
         print(f"[x107] written: {out.name}")
     for k, v in cells.items():

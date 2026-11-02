@@ -178,3 +178,4 @@ sections were not rewritten, only moved; each one keeps its identifier, so every
 | §10fy | Dense logging: the maternal decay is real, and the maze heredity was underestimated (X105, 02.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
 | §10fz | The ladder and the specificity get sharper, not weaker, on dense fields (X108, 02.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
 | §10ga | A second diffusion length moves the orientation, not the wavelength (X96–X96c, 02.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
+| §10gb | Both room results survive dense logging, and crowding keeps its domain (X109, 02.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
