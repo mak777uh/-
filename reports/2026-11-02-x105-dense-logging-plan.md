@@ -80,6 +80,6 @@ agreement below 6/10; mixed otherwise.
 
 ## Status
 
-Registered 2026-11-02 17:40 MSK, before the series.
+Registered 2026-11-02 17:10 MSK, before the series.
 
 доска: принято 0, отклонено 0, отложено 0.

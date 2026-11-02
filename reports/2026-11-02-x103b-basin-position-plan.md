@@ -79,6 +79,6 @@ control value — position adds a term without replacing the inherited width.
 
 ## Status
 
-Registered 2026-11-02 17:05 MSK, before the re-run. No GPU.
+Registered 2026-11-02 16:59 MSK, before the re-run. No GPU.
 
 доска: принято 0, отклонено 0, отложено 0.
