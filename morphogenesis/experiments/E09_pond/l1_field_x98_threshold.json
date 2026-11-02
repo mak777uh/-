@@ -1,0 +1,376 @@
+{
+  "kind": "l1_field_x98_threshold",
+  "experiment": "X98",
+  "command": "python scripts/x98_analyse.py --write",
+  "prereg": "reports/2026-11-02-x98-threshold-plan.md",
+  "thresholds": [
+    0.15,
+    0.2,
+    0.25,
+    0.3
+  ],
+  "control": {
+    "cut": 0.2,
+    "tol": 0.01,
+    "committed": {
+      "f025": 0.385,
+      "f030": 0.679,
+      "f035": 0.837,
+      "f040": 0.935
+    }
+  },
+  "cells": {
+    "f025": {
+      "flow": 0.025,
+      "fields": 20,
+      "by_threshold": {
+        "0.15": {
+          "symmetry_median": 0.53,
+          "symmetry_iqr": [
+            0.501,
+            0.587
+          ],
+          "q_set": [
+            5,
+            7,
+            8,
+            9,
+            11
+          ],
+          "has_q11": true,
+          "unreadable": 0
+        },
+        "0.20": {
+          "symmetry_median": 0.58,
+          "symmetry_iqr": [
+            0.535,
+            0.622
+          ],
+          "q_set": [
+            5,
+            7,
+            8,
+            9,
+            11
+          ],
+          "has_q11": true,
+          "unreadable": 0
+        },
+        "0.25": {
+          "symmetry_median": 0.609,
+          "symmetry_iqr": [
+            0.568,
+            0.663
+          ],
+          "q_set": [
+            5,
+            7,
+            8,
+            11
+          ],
+          "has_q11": true,
+          "unreadable": 0
+        },
+        "0.30": {
+          "symmetry_median": 0.635,
+          "symmetry_iqr": [
+            0.606,
+            0.67
+          ],
+          "q_set": [
+            7,
+            8,
+            9,
+            10,
+            11
+          ],
+          "has_q11": true,
+          "unreadable": 0
+        }
+      }
+    },
+    "f030": {
+      "flow": 0.03,
+      "fields": 20,
+      "by_threshold": {
+        "0.15": {
+          "symmetry_median": 0.762,
+          "symmetry_iqr": [
+            0.701,
+            0.801
+          ],
+          "q_set": [
+            7,
+            8,
+            9,
+            10
+          ],
+          "has_q11": false,
+          "unreadable": 0
+        },
+        "0.20": {
+          "symmetry_median": 0.772,
+          "symmetry_iqr": [
+            0.71,
+            0.804
+          ],
+          "q_set": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "has_q11": true,
+          "unreadable": 0
+        },
+        "0.25": {
+          "symmetry_median": 0.78,
+          "symmetry_iqr": [
+            0.73,
+            0.809
+          ],
+          "q_set": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "has_q11": true,
+          "unreadable": 0
+        },
+        "0.30": {
+          "symmetry_median": 0.762,
+          "symmetry_iqr": [
+            0.722,
+            0.779
+          ],
+          "q_set": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "has_q11": true,
+          "unreadable": 0
+        }
+      }
+    },
+    "f035": {
+      "flow": 0.035,
+      "fields": 20,
+      "by_threshold": {
+        "0.15": {
+          "symmetry_median": 0.881,
+          "symmetry_iqr": [
+            0.863,
+            0.914
+          ],
+          "q_set": [
+            7,
+            8,
+            9
+          ],
+          "has_q11": false,
+          "unreadable": 0
+        },
+        "0.20": {
+          "symmetry_median": 0.903,
+          "symmetry_iqr": [
+            0.881,
+            0.926
+          ],
+          "q_set": [
+            7,
+            8,
+            9
+          ],
+          "has_q11": false,
+          "unreadable": 0
+        },
+        "0.25": {
+          "symmetry_median": 0.903,
+          "symmetry_iqr": [
+            0.877,
+            0.932
+          ],
+          "q_set": [
+            7,
+            8,
+            9,
+            10
+          ],
+          "has_q11": false,
+          "unreadable": 0
+        },
+        "0.30": {
+          "symmetry_median": 0.885,
+          "symmetry_iqr": [
+            0.846,
+            0.916
+          ],
+          "q_set": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "has_q11": true,
+          "unreadable": 0
+        }
+      }
+    },
+    "f040": {
+      "flow": 0.04,
+      "fields": 20,
+      "by_threshold": {
+        "0.15": {
+          "symmetry_median": 0.95,
+          "symmetry_iqr": [
+            0.945,
+            0.959
+          ],
+          "q_set": [
+            7,
+            8
+          ],
+          "has_q11": false,
+          "unreadable": 0
+        },
+        "0.20": {
+          "symmetry_median": 0.958,
+          "symmetry_iqr": [
+            0.952,
+            0.965
+          ],
+          "q_set": [
+            7,
+            8
+          ],
+          "has_q11": false,
+          "unreadable": 0
+        },
+        "0.25": {
+          "symmetry_median": 0.966,
+          "symmetry_iqr": [
+            0.963,
+            0.971
+          ],
+          "q_set": [
+            5,
+            7,
+            8
+          ],
+          "has_q11": false,
+          "unreadable": 0
+        },
+        "0.30": {
+          "symmetry_median": 0.962,
+          "symmetry_iqr": [
+            0.947,
+            0.974
+          ],
+          "q_set": [
+            7,
+            8,
+            9,
+            11
+          ],
+          "has_q11": true,
+          "unreadable": 0
+        }
+      }
+    }
+  },
+  "positive_control": {
+    "fires": false,
+    "detail": {
+      "f025": {
+        "recomputed": 0.58,
+        "committed": 0.385,
+        "ok": false
+      },
+      "f030": {
+        "recomputed": 0.772,
+        "committed": 0.679,
+        "ok": false
+      },
+      "f035": {
+        "recomputed": 0.903,
+        "committed": 0.837,
+        "ok": false
+      },
+      "f040": {
+        "recomputed": 0.958,
+        "committed": 0.935,
+        "ok": false
+      }
+    }
+  },
+  "checks": {
+    "0.15": {
+      "medians": [
+        0.53,
+        0.762,
+        0.881,
+        0.95
+      ],
+      "ordered": true,
+      "gaps": [
+        0.232,
+        0.119,
+        0.069
+      ],
+      "gaps_ok": true,
+      "q11": true
+    },
+    "0.20": {
+      "medians": [
+        0.58,
+        0.772,
+        0.903,
+        0.958
+      ],
+      "ordered": true,
+      "gaps": [
+        0.192,
+        0.131,
+        0.055
+      ],
+      "gaps_ok": true,
+      "q11": true
+    },
+    "0.25": {
+      "medians": [
+        0.609,
+        0.78,
+        0.903,
+        0.966
+      ],
+      "ordered": true,
+      "gaps": [
+        0.171,
+        0.123,
+        0.063
+      ],
+      "gaps_ok": true,
+      "q11": true
+    },
+    "0.30": {
+      "medians": [
+        0.635,
+        0.762,
+        0.885,
+        0.962
+      ],
+      "ordered": true,
+      "gaps": [
+        0.127,
+        0.123,
+        0.077
+      ],
+      "gaps_ok": true,
+      "q11": true
+    }
+  },
+  "verdict": "void: the 0.20 cut does not reproduce the committed medians within 0.01"
+}

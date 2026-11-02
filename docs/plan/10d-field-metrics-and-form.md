@@ -2071,3 +2071,25 @@ less than nothing, where the pattern percolates.** Together with X92 this is coh
 
 Report: `reports/2026-11-02-x93-sisters-void.md`; aggregate `l1_field_x93_sibling_contrast.json`. The field line now has a reading of all
 three legs, with the consequence leg being the weakest and the only one whose control is still arguable.
+
+## 10fr. The angular map has no threshold, the memory map does — and the check that discovered this voided itself (X98, 02.11)
+
+X71c taught the line that a conclusion can belong to a cut rather than to the world ("the band is 0.002-0.005 wide" turned out to be the
+width of a smooth crossover). The map of §10fg-§10fl rests on the same readout family, so X98 asked whether it survives a different
+excursion threshold, four cuts on stored fields.
+
+Registered verdict: **void**, because the positive control fired against the check: at the 0.20 cut the recomputed medians missed the
+committed ones by 0.02-0.07 in all four cells. The reason is a category error in the design and worth recording: `q'` and `s` are
+computed from the **continuous field**, while the design computed them from a **masked** field, and multiplying by a binary mask
+convolves the spectrum with a window function. The four "thresholds" were therefore four different statistics, not four cuts of one.
+
+So: **the angular map has no threshold** — the cut does not enter it. Running the four variants anyway, the ordering of the cells survives
+in all of them (0.53/0.76/0.88/0.95 at the 0.15 variant up to 0.64/0.76/0.89/0.96 at 0.30, gaps above 0.05 everywhere) and `q' = 11`
+appears only as an occasional world, never as a cell median — weak corroboration, not a control.
+
+**What is genuinely threshold-dependent and untested is the memory map.** Peak areas are defined on `v > 0.2`, and every half-life in
+§10ff-§10fl comes from them; the stored artifacts cannot be re-derived at another cut because the genealogies were built at 0.2 during the
+run. That is the reviewer's obvious question and it has no answer today. Registered as **X99**: two cells at `--threshold 0.15` and
+`0.25`, twenty worlds each (40 runs, ~1 h), waiting on nobody.
+
+Reports: `reports/2026-11-02-x98-threshold-void.md`; aggregate `l1_field_x98_threshold.json`.
