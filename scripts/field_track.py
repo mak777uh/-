@@ -196,6 +196,9 @@ def main(argv=None) -> int:
                     help="X96b: амплитуда стартового узора (0..1): v += fill*pattern, u -= 0.75*fill*pattern")
     ap.add_argument("--init-pattern-binary", action="store_true",
                     help="X96b: бинаризовать узор (полосы 0/1) вместо гладкой синусоиды")
+    # X100: писать поле на каждом N-м логируемом шаге (0 = выключено). Нужно для размера без среза.
+    ap.add_argument("--save-fields-every", type=int, default=0,
+                    help="X100: сохранять поле на каждом N-м логируемом шаге (0 = только --save-fields-at)")
     ap.add_argument("--save-fields-at", default="2000,4000,6000",
                     help="X60: шаги, на которых сохраняется поле (по умолчанию 2000,4000,6000)")
     args = ap.parse_args(argv)
@@ -633,7 +636,9 @@ def main(argv=None) -> int:
             })
             # X60: поле пишется ПОСЛЕ записи среза и не меняет ни порядок, ни ГПСЧ —
             # иначе якорь (сравнение series с прежним прогоном) не сойдётся.
-            if args.save_fields and step in _save_at:
+            # X100: --save-fields-every N пишет поле на каждом N-м логируемом шаге, а не только в перечисленных.
+            # Выключено по умолчанию (0), поэтому старая ветка бит-в-бит прежняя.
+            if args.save_fields and (step in _save_at or (args.save_fields_every and step % int(args.save_fields_every) == 0)):
                 _dir = Path(args.save_fields)
                 _dir.mkdir(parents=True, exist_ok=True)
                 _tag = Path(args.out).stem if args.out else f"seed{args.seed}"
