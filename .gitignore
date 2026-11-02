@@ -199,3 +199,9 @@ morphogenesis/experiments/L1_field/_x71b_fields/
 morphogenesis/experiments/L1_field/_x71c_fields/
 morphogenesis/experiments/L1_field/_x72c_fields/
 morphogenesis/experiments/L1_field/_x78b_fields/
+
+# 02.11 (X105/X108): dense logging costs 2.4 MB per run (49 MB for twenty), so the full logs are not committed — the repository
+# keeps the projection written by scripts/compact_field_series.py, which reproduces every number in the aggregate.
+morphogenesis/experiments/L1_field/x105_*.json
+!morphogenesis/experiments/L1_field/x105_*.compact.json
+morphogenesis/experiments/L1_field/x108_*.json
