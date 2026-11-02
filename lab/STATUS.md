@@ -4,12 +4,15 @@ One file, one place that says what is actually in work. Machine state lives in `
 `_hourly/log.md`, numbers in artifacts. The Russian sections below the line are **history** and are not rewritten; the top
 part is kept current (new text in English — decision of 31.10).
 
-**Updated:** 2026-11-02, 06:55 MSK.
+**Updated:** 2026-11-02, 08:15 MSK.
 
 ## Running now
 
-- Nothing. No locks. The last series closed at 06:10: **X80** (amplitude-normalised weight sweep at `F = 0.030`), and it did
-  not settle the question it was built for — see the table below and §10ff.
+- **X82** (since 08:12): the transfer function from prescribed to realised spectral share — five cells (prescribed power ratio
+  0 / 1 / 4 / 16 at q = 11, and 4 at q = 14), five worlds each, ~40 minutes. Registered in
+  `reports/2026-11-02-x82-reach-plan.md` before the run.
+- Why it exists: three pilots showed the channel **saturates** (prescribed 1 → realised 0.19, 4 → 0.31, 16 → 0.28), which voids
+  X80 (its three cells are spectrally near-identical) and would have voided X81 as registered. X81 is superseded by X82.
 - Closed since the previous update: **X74** (half-life follows the inflow non-monotonically: 1.47 / 0.73 / 1.61 at 0.030 /
   0.035 / 0.040 — the multistable band remembers least), **X76** (the 0.033 cell is ordinary at ten worlds, so the five cells
   fall into two levels), **X77** (patch control has no power: a daughter's patch mean predicts her at 0.01, which excludes the
@@ -42,8 +45,11 @@ part is kept current (new text in English — decision of 31.10).
 | X78 causal | **void**: the matched-scale arm has one component per world, so the manipulation changed the regime, not the scale | §10fc |
 | X78b two scales | imposed second scale shortens memory 1.47 → 1.03 (1.43×) while lag-1 stays 0.498; right direction, third of the band effect | §10fd |
 | X79 mix sweep | confounded **by construction**: `Var(G) = (1−w)² + w²` is minimal at `w = 0.5`, so weight and amplitude moved together | §10fe |
-| X80 dip test | **neither dip nor slope**: the registered rule fires slope, but its positive control failed (0.86 < 1.0) and the middle cell only *ties* on two peaks (5/5 vs 5/5, and 0/5 at w = 0.75), so the sweep compared two mixtures with one single scale at 8.7 cells | §10ff |
-| the ruler | **half-life is aggregation-dependent**: pooled and per-world median disagree in *sign* on X80 (0.86/1.18/1.25 against 1.04/0.52/1.16), and the band contrast is 2.01×/2.58× pooled but 1.37×/1.91× per-world median; at `F = 0.033` only 7 of 10 worlds are fittable | §10ff, claims 296–297 |
+| X80 dip test | **void by manipulation reach**: the registered rule fired slope, but measured as a power share all three cells carry a second peak of 0.18–0.34, so the sweep compared three near-identical spectra (the 0/5 two-peak figure was a local-maximum artefact and is withdrawn) | §10ff, `reports/2026-11-02-x80-correction-two-peak.md` |
+| the ruler | **half-life is aggregation-dependent**: pooled and per-world median disagree in *sign* on X80 (0.86/1.18/1.25 against 1.04/0.52/1.16), and the band contrast is 2.01×/2.58× pooled but 1.37×/1.91× per-world median; at `F = 0.033` only 7 of 10 worlds are fittable | §10ff, claims 296–298 |
+
+Note on X80's three numbers: they were measured on cells whose *realised* spectra differ by less than the noise (shares 0.27–0.31,
+0.18–0.23, 0.27–0.34), so they are a statement about the composite at three weights, not a graded trend.
 
 The estimator note is the one with teeth: every half-life we published (X74, X76, X78b, X79) is **pooled**, and pooling is a
 choice that was never declared. The direction of the band survives it; the size does not.
@@ -62,10 +68,11 @@ choice that was never declared. The direction of the band survives it; the size 
 
 ## Queued compute, not waiting on anyone
 
-- **X81 prescribed spectrum** (registered in §10ff, not yet built): dominant at q = 8, second peak at q = 11 with share
-  0 / 0.5 / 1.0, phases random, amplitude-normalised; ten worlds per cell; `ρ₁` primary, per-world median half-life
-  secondary; the manipulation check is the **measured** share in the saved field. Needs a new generator in
-  `field_track.py` (~40 lines) plus an anchor on the flags-off path. ~70 minutes of GPU.
+- **the mixedness channel that actually reaches** (the open problem after X82): inflow modulation admits an imposed second scale
+  only as a shoulder of about a third, so "two preferred scales of comparable strength" is not reachable through `hetero_G`. The
+  candidates are (a) impose the second scale in the initial condition rather than in the inflow, (b) a second species with its own
+  diffusion length, (c) a spatially varying `F` (X52's design) instead of a temporal-spectral one. Decide after X82's transfer
+  function is in hand; do not build a heredity design on a channel with a 0.3 ceiling.
 - **X58 at grid 192** (the real refinement): `Du = 0.64`, `Dv = 0.32`, `dt = 0.375` (stability `dt·Du = 0.24 ≤ 0.25`),
   16 000 steps, 10 runs, ~2 GPU-hours. Criterion: peak position at 12 units.
 - **X57 stationarity:** one 30 000-unit arm at `dt = 1.0`, 10 seeds, ~2 GPU-hours.

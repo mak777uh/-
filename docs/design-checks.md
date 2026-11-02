@@ -165,3 +165,19 @@ variation: "the proxy must track the quantity across the range where the quantit
 reported as a void: the numbers are recorded, the verdict says "instrument failure", and no claim is made in either
 direction. (4) A surrogate that is measured at the same instant and in the same patch as the target is a measure of spatial
 autocorrelation; it cannot be compared with a control measured one snapshot earlier.
+
+**The manipulation check must be the same number the claim uses (02.11, X80).** X80's check asked whether the radial profile had a
+strict local maximum in one window and another in a second window. Two failures hid behind that sentence: a **count passes on a tie**
+(the rule said "the middle cell must be the most two-peaked", the middle cell tied with a wing, 5/5 against 5/5, and the rule accepted
+it), and a **count fails on a shoulder** (at the third weight the second family sat one bin lower, scored 0/5, while as a power share
+the same field carried 0.27-0.34 — the opposite reading). The claim then spoke about "equal parts" while the check had counted peaks.
+
+Rules. (1) The manipulation is verified by the **same function** that the claim quantifies: if the claim says a share, the check
+returns a share. (2) The tolerance is **numeric and written before the run** ("the realised share must land within 0.15 of the
+prescribed one"), never qualitative ("most X"). (3) A peak count may be reported as a description, never used as a gate. (4) When the
+positive control can fail, the refusal rule says what happens then — X80's control failed (a wing at 0.86 against the required 1.0)
+and the rule did not encode the consequence, so the series closed with a verdict instead of a void.
+
+Consequence for the field line: the transfer function from prescribed to realised spectral share is now measured **before** the design
+(X82), because a design built on a channel that saturates at a third would have measured its own ceiling rather than the world.
+Reports: `reports/2026-11-02-x80-correction-two-peak.md`, `reports/2026-11-02-x82-reach-plan.md`.
