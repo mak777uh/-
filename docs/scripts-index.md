@@ -4,7 +4,7 @@
 
 The curated page — what matters and why — is [`scripts.md`](scripts.md). This file is the complete list, so that every command behind a number in the record can be found.
 
-Scripts: **265**.
+Scripts: **266**.
 
 ## Гейты и проверки (46)
 
@@ -98,7 +98,7 @@ Scripts: **265**.
 | `lit_pressure.py` | Литдавление: нужен ли литературный слот прямо сейчас (триггер вместо календаря). |
 | `lit_search.py` | Поиск свежих публикаций по открытым вопросам библиотеки. |
 
-## Линия поля (11)
+## Линия поля (12)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -107,6 +107,7 @@ Scripts: **265**.
 | `field_inherit.py` | field_inherit.py — L3 в поле: наследуемый состав, который влияет на рост. |
 | `field_lab.py` | field_lab.py — непрерывное поле вместо клеток: пятна, которые делятся сами (Грей–Скотт). |
 | `field_lifetimes.py` | field_lifetimes.py — времена жизни структур: числа статьи 028 §4.9 из артефактов. |
+| `field_metrics.py` | field_metrics.py — the measurement code the field line's analyses share. |
 | `field_track.py` | field_track.py — L3 в поле: отслеживание компонент и наследование состава. |
 | `field_types.py` | field_types.py — два типа структур и скорость роста редкого (правильный прибор для сосуществования). |
 | `ghost_control.py` | ghost_control.py — X50: блокирует ли «призрак» предиктивную зависимость. |

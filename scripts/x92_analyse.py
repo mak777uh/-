@@ -25,6 +25,7 @@ OUT = ROOT / "morphogenesis" / "experiments" / "E09_pond" / "l1_field_x92_pay.js
 
 sys.path.insert(0, str(ROOT / "scripts"))
 from x72c_analyse import spearman  # noqa: E402
+from field_metrics import cell_files, partial_spearman  # noqa: E402
 
 CELLS = {
     # twenty worlds per lattice cell: eight from X85 (191-198) plus twelve from X87 (221-232), as registered
@@ -38,19 +39,10 @@ RESOLUTION = 0.10
 DECORATIVE = 0.05
 
 
-def partial_spearman(x, y, z):
-    rxy, rxz, ryz = spearman(x, y), spearman(x, z), spearman(y, z)
-    if rxy is None or rxz is None or ryz is None:
-        return None
-    den = (1 - rxz ** 2) * (1 - ryz ** 2)
-    return round((rxy - rxz * ryz) / math.sqrt(den), 3) if den > 0 else None
-
-
-def cell_stats(series: str, flow: float) -> dict:
-    tags = [f"{s}_f{int(round(flow * 1000)):03d}" for s in series]
+def cell_stats(series, flow: float) -> dict:
     areas, lifes, daughters, pairs_count = [], [], [], 0
     worlds = 0
-    for path in sorted(p for tag in tags for p in L1.glob(f"{tag}_pattern_s*.json")):
+    for path in cell_files(series, flow):
         d = json.loads(path.read_text(encoding="utf-8"))
         outcomes = d.get("uid_outcomes") or []
         links = d.get("uid_pairs") or []
