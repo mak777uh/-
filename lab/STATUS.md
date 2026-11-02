@@ -4,13 +4,13 @@ One file, one place that says what is actually in work. Machine state lives in `
 `_hourly/log.md`, numbers in artifacts. The Russian sections below the line are **history** and are not rewritten; the top
 part is kept current (new text in English — decision of 31.10).
 
-**Updated:** 2026-11-02, 08:15 MSK.
+**Updated:** 2026-11-02, 05:14 MSK.
 
 ## Running now
 
-- Nothing. No locks. X85 closed at 10:35: **void by its control**, and the control's failure found the cause — `--sample-every` is a
-  physical parameter, not a logging choice (trait mutations are drawn at every sampled step). X82 closed at 10:05, also void by its
-  control, with the period confirmed unmoved on 25 fields. X84 (the angular re-read of X71) closed at 09:20 and changed the headline.
+- Nothing. No locks. X85 closed at 05:10: **void by its control**, and the control's failure found the cause — `--sample-every` is a
+  physical parameter, not a logging choice (trait mutations are drawn at every sampled step). X82 closed at 05:05, also void by its
+  control, with the period confirmed unmoved on 25 fields. X84 (the angular re-read of X71) closed at 04:35 and changed the headline.
 - Closed since the previous update: **X74** (half-life follows the inflow non-monotonically: 1.47 / 0.73 / 1.61 at 0.030 /
   0.035 / 0.040 — the multistable band remembers least), **X76** (the 0.033 cell is ordinary at ten worlds, so the five cells
   fall into two levels), **X77** (patch control has no power: a daughter's patch mean predicts her at 0.01, which excludes the

@@ -82,6 +82,6 @@ wavelength from `|k| = q√2` a second time.
 
 ## Status
 
-Registered 2026-11-02 08:05 MSK, before the series. Fifteen runs, ~28 minutes. Runs after X82 frees the lane.
+Registered 2026-11-02 04:15 MSK, before the series. Fifteen runs, ~28 minutes. Runs after X82 frees the lane.
 
 доска: принято 0, отклонено 0, отложено 0.

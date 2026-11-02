@@ -85,6 +85,6 @@ if at least 7 of 10 worlds are fittable in that cell.
 
 ## Status
 
-Registered 2026-11-02 07:10 MSK, before the series. Forty runs, ~65 minutes.
+Registered 2026-11-02 04:00 MSK, before the series. Forty runs, ~65 minutes.
 
 доска: принято 0, отклонено 0, отложено 0.

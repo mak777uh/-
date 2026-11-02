@@ -72,6 +72,6 @@ coefficients lie in **[-0.3, +0.3]**.
 
 ## Status
 
-Registered 2026-11-02 09:30 MSK, before the series. Twenty-four runs, ~45 minutes. Runs after X82 frees the lane.
+Registered 2026-11-02 04:45 MSK, before the series. Twenty-four runs, ~45 minutes. Runs after X82 frees the lane.
 
 доска: принято 0, отклонено 0, отложено 0.

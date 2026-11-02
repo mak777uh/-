@@ -1297,7 +1297,7 @@ the old table's 2607 at the strict cutoff was one draw of the starting blob. Rep
 
 ## 10eq. Is the medium multistable? Two morphologies at one inflow would make heredity discrete (X71, 01.11, идёт)
 
-> **02.11, 09:20 — superseded in part.** X84 re-read X71's own saved fields with an angular spectrum and found that the two "modes"
+> **02.11, 04:35 — superseded in part.** X84 re-read X71's own saved fields with an angular spectrum and found that the two "modes"
 > (radial bins 8 and 11) are the **stripe axis** and the **checkerboard forcing diagonal**, which share a radial bin because the
 > forcing line sits at `|k| = q√2`. The morphological period is single (`q'` = 5–9, never 11) and what varies with inflow is the
 > symmetry `s` (0.38 → 0.92). Read this section with §10fg: the experiment ran as registered, its spectral reading does not survive,
@@ -1733,7 +1733,7 @@ measured share of the second peak; if instead the effect tracks the *wavelength*
 not the cause. Ten worlds per cell, 6000 steps. Report: `reports/2026-11-02-x80-dip-estimator.md`; aggregate
 `l1_field_x80_dip.json`.
 
-**Correction (02.11, 08:05).** The two-peak count above was a **strict local-maximum** test, and it fails on a shoulder. Measured as
+**Correction (02.11, 03:55).** The two-peak count above was a **strict local-maximum** test, and it fails on a shoulder. Measured as
 a power share over the same fifteen fields, the three X80 cells carry `P2/(P1+P2) = 0.27-0.31`, `0.18-0.23` and `0.27-0.34`: all
 three are two-peaked, and the sweep moved the *prescribed* composition while the *realised* spectrum hardly moved. The "0/5 at
 `w = 0.75`" figure is therefore withdrawn, the registered "slope" compares three near-identical spectra, and X80's verdict is **void

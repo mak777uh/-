@@ -1,7 +1,7 @@
 # X80: dip or slope — the sweep cannot say, because the ruler changes its answer when you change how you average
 
-**Date:** 2026-11-02, 06:40 MSK. **Experiment:** X80 (amplitude-normalised weight sweep at `F = 0.030`).
-**Preregistration:** `reports/2026-11-02-x80-dip-plan.md` (written 05:15, series 05:20-06:10).
+**Date:** 2026-11-02, 03:45 MSK. **Experiment:** X80 (amplitude-normalised weight sweep at `F = 0.030`).
+**Preregistration:** `reports/2026-11-02-x80-dip-plan.md` (written 03:05, series 03:06-03:23).
 **Artifacts:** `morphogenesis/experiments/L1_field/x80_w{025,05,075}_s171-175.json` (15 runs), fields `_x80_fields/` (15 snapshots
 at 6000), aggregate `morphogenesis/experiments/E09_pond/l1_field_x80_dip.json`.
 

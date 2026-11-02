@@ -76,6 +76,6 @@ Anything else is **inconclusive**, printed in full.
 
 ## Status
 
-Registered 2026-11-02 10:55 MSK, before the series. Sixty runs, ~95 minutes.
+Registered 2026-11-02 05:13 MSK, before the series. Sixty runs, ~95 minutes.
 
 доска: принято 0, отклонено 0, отложено 0.

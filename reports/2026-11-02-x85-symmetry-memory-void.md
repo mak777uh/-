@@ -1,6 +1,6 @@
 # X85 — symmetry against memory: void by its own control, and the control's failure is the finding
 
-**Date:** 2026-11-02, 10:35 MSK. **Experiment:** X85 (symmetry `s` against the size memory, three inflows x eight worlds).
+**Date:** 2026-11-02, 05:10 MSK. **Experiment:** X85 (symmetry `s` against the size memory, three inflows x eight worlds).
 **Preregistration:** `reports/2026-11-02-x85-symmetry-memory-plan.md` (committed before the run).
 **Artifacts:** `morphogenesis/experiments/L1_field/x85_f0{25,30,35}_pattern_s191-198.json` (24 runs), fields `_x85_fields/`,
 aggregate `morphogenesis/experiments/E09_pond/l1_field_x85_symmetry_memory.json`.

@@ -1,6 +1,6 @@
 # X84 — the medium has one period and two symmetries: X71's "two wavelengths" was a radial binning artefact
 
-**Date:** 2026-11-02, 09:10 MSK. **Reads:** `_x71_fields` (35 worlds), `_x71b_fields` (20 snapshots), `_x71c_fields` (10 worlds),
+**Date:** 2026-11-02, 04:35 MSK. **Reads:** `_x71_fields` (35 worlds), `_x71b_fields` (20 snapshots), `_x71c_fields` (10 worlds),
 `_x82_fields` (control worlds). **No new runs.** Registered plan: `reports/2026-11-02-x84-angular-plan.md` (deviation from it is
 stated at the end). **Corrects:** §10eq, §10ev, claims 291 and 295.
 

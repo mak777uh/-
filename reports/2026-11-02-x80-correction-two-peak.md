@@ -1,6 +1,6 @@
 # X80, corrected: the two-peak check counted local maxima, and the medium's spectrum hardly moved at all
 
-**Date:** 2026-11-02, 08:05 MSK. **Corrects:** `reports/2026-11-02-x80-dip-estimator.md` (same day, 06:40), §10ff, claims 296–297.
+**Date:** 2026-11-02, 03:55 MSK. **Corrects:** `reports/2026-11-02-x80-dip-estimator.md` (same day, 03:45), §10ff, claims 296–297.
 **Why it is a separate file:** reports are not rewritten after the fact, so the correction is appended here and the earlier text stays
 as it was written.
 
