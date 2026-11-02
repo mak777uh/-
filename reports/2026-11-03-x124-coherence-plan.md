@@ -16,7 +16,7 @@ her **subtree depth** (X113's definition), and her **rate** (depth / generation 
 
 ## 2. Positive control fires (numeric)
 
-Three controls, all required, because this audit checks other results:
+Three controls, all required (the control fires if all three bands hold), because this audit checks other results:
 
 1. **X93's sign reproduces:** the larger sister's generation time must exceed the smaller's with an interval excluding zero in the lattice cell (X93: longer), and
    in the maze it must be shorter or null (X93: reversed).
