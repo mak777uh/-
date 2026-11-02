@@ -1,0 +1,71 @@
+{
+  "kind": "l1_field_x93_sibling_contrast",
+  "experiment": "X93",
+  "command": "python scripts/x93_analyse.py --write",
+  "prereg": "reports/2026-11-02-x93-sibling-plan.md",
+  "readout": "fraction of sister pairs in which the larger sister has the longer lifetime; control is the same question for daughters of different mothers born within one snapshot",
+  "cells": {
+    "f025": {
+      "flow": 0.025,
+      "families": 2437,
+      "pairs_within": 1978,
+      "pairs_cross": 221,
+      "within_fraction": 0.553,
+      "cross_fraction": 0.502,
+      "z_within": 4.68,
+      "difference": 0.05
+    },
+    "f030": {
+      "flow": 0.03,
+      "families": 2364,
+      "pairs_within": 1946,
+      "pairs_cross": 263,
+      "within_fraction": 0.53,
+      "cross_fraction": 0.449,
+      "z_within": 2.67,
+      "difference": 0.082
+    },
+    "f035": {
+      "flow": 0.035,
+      "families": 1987,
+      "pairs_within": 1930,
+      "pairs_cross": 398,
+      "within_fraction": 0.506,
+      "cross_fraction": 0.528,
+      "z_within": 0.55,
+      "difference": -0.021
+    },
+    "f040": {
+      "flow": 0.04,
+      "families": 1708,
+      "pairs_within": 1982,
+      "pairs_cross": 389,
+      "within_fraction": 0.401,
+      "cross_fraction": 0.422,
+      "z_within": -8.85,
+      "difference": -0.021
+    }
+  },
+  "positive_control": {
+    "fires": false,
+    "cross_fractions": {
+      "f025": 0.502,
+      "f030": 0.449,
+      "f035": 0.528,
+      "f040": 0.422
+    },
+    "band": [
+      0.45,
+      0.55
+    ]
+  },
+  "void_cells": [],
+  "pay_cells": [
+    "f025"
+  ],
+  "flat_cells": [
+    "f035",
+    "f040"
+  ],
+  "verdict": "void: the cross-family control is outside [0.45, 0.55], so the pairing machinery itself has a preference"
+}

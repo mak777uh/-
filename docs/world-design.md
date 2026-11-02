@@ -167,3 +167,4 @@ sections were not rewritten, only moved; each one keeps its identifier, so every
 | §10fn | Above 0.049 the medium stops dividing in practice, and the control that says so voids itself (X90, 02.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
 | §10fo | The shoulders' memory is lineage memory, and one cell cannot host the control (X91, 02.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
 | §10fp | Size is not a currency in this medium: weakly good in the lattice, bad in the maze, and the tempting correlation is mechanical (X92, 02.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
+| §10fq | Sisters: a small advantage in the lattice, nothing at the edge, a penalty in the maze (X93, 02.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |

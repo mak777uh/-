@@ -2043,3 +2043,31 @@ moment fixed and cannot be produced by the mechanical link. The stored pairs def
 a longer horizon or a denser log, about one GPU-hour.
 
 Reports: `reports/2026-11-02-x92-pay-mixed.md`; aggregate `l1_field_x92_pay.json`.
+
+## 10fq. Sisters: a small advantage in the lattice, nothing at the edge, a penalty in the maze (X93, 02.11)
+
+The third leg of the heredity claim is consequence, and the two earlier attempts failed for opposite reasons — X29's meter was invalid,
+X92's correlation was mechanical. The clean form is a within-family contrast: daughters of the same mother, born at the same moment, so the
+mother, the place and the time are fixed. The outcome is **lifetime**, which is not mechanically tied to area.
+
+| F | families | sister pairs | larger sister lives longer | cross-family control | difference | z |
+|---|---|---|---|---|---|---|
+| 0.025 | 2 437 | 1 978 | **0.553** | 0.502 | **+0.050** | 4.68 |
+| 0.030 | 2 364 | 1 946 | 0.530 | 0.449 | **+0.082** | 2.67 |
+| 0.035 | 1 987 | 1 930 | 0.506 | 0.528 | -0.021 | 0.55 |
+| 0.040 | 1 708 | 1 982 | **0.401** | 0.422 | -0.021 | **-8.85** |
+
+Registered verdict: **void**, because the cross-family control at 0.040 reads 0.422, outside the [0.45, 0.55] band. The control is right
+to fail and the band was wrong: in a maze a larger structure lives shorter even among strangers (X92: -0.046), so a cross-family fraction
+near 0.5 was never achievable. The lesson is written into the design rules — a control that assumes a null population-level relation must
+be specified as a **difference**, not as an absolute fraction.
+
+Descriptively, with the difference against its own control as the readable quantity: the lattice pays a little (+0.050 at 0.025 with
+z = 4.7; +0.082 at 0.030 with z = 2.7 — the first clears every bar the rule asked for, but only one cell does), the band's edge pays
+nothing (-0.021), and in the maze the larger sister is the *less* durable one (0.401, z = -8.85 on 1 982 pairs).
+
+So the third leg is answered as far as this instrument can: **resemblance buys a small amount of persistence in the lattice and nothing, or
+less than nothing, where the pattern percolates.** Together with X92 this is coherent — in a maze size marks the place about to be cut.
+
+Report: `reports/2026-11-02-x93-sisters-void.md`; aggregate `l1_field_x93_sibling_contrast.json`. The field line now has a reading of all
+three legs, with the consequence leg being the weakest and the only one whose control is still arguable.
