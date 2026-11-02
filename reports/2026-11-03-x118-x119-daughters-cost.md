@@ -1,7 +1,7 @@
 # X118 / X119 — matching could not separate size from daughters, so a model did: more daughters, less survival
 
 **Plans:** [`2026-11-03-x118-mediator-plan.md`](2026-11-03-x118-mediator-plan.md) (01:46, **void**),
-[`2026-11-03-x119-model-plan.md`](2026-11-03-x119-model-plan.md) (01:52).
+[`2026-11-03-x119-post-hoc-record.md`](2026-11-03-x119-post-hoc-record.md) (01:52).
 **Aggregates:** `l1_field_x118_mediator.json` (void), `l1_field_x119_model.json`.
 
 ## X118 voided by design, and the diagnosis is a property of the medium
