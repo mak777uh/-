@@ -1,6 +1,6 @@
 {
  "schema_version": 1,
- "updated_at": "2026-11-03T02:22:29+03:00",
+ "updated_at": "2026-11-03T02:38:44+03:00",
  "note": "Очередь пунктов после E02c. Claim берётся до пре-регистрации, а не перед запуском: lab.py item-claim. Статус running означает занятый GPU-лейн и может быть только у одного пункта. | 25.10: добавлено поле impact (1-5) — приоритет конвейера = impact/max(cost_gpu_h,0.1); для запуска пункту нужны prereg (закоммиченный план) и launch.command+outdir.",
  "items": [
   {
@@ -2533,13 +2533,15 @@
   {
    "id": "X123_uid_rule_check",
    "title": "Does the tracker intend to retire a parent at a split? Check the identity rule against its documentation",
-   "status": "planned",
+   "status": "closed",
    "owner": "lead",
    "kind": "tooling",
    "cost_gpu_h": 0,
    "prereg": null,
    "created_at": "2026-11-03T02:22:29+03:00",
-   "note": "X122 found that with --split-new-uid the parent's uid ends when it divides. If that is intended, every survival number in the line must use the subtree readout; if it is not intended, the tracker and the analyses disagree and every lineage statistic shifts. Read the implementation and the docs, state the rule in one sentence, and add a test that pins it (a parent with a child must or must not be present afterwards)."
+   "note": "closed: the rule is intended (the comment says why), the data agree (4 162 pairs, zero violations), and it is now a gate in make verify. A uid's life is one generation. Report reports/2026-11-03-x123-uid-rule.md, plan §10gr.",
+   "closed_at": "2026-11-02T23:38:44Z",
+   "closed_by": "lead"
   }
  ]
 }

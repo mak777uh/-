@@ -2892,3 +2892,27 @@ Rule earned: an identity convention is part of every survival readout; a model p
 lineage statistic states whether it uses the uid or the subtree.
 
 Report: `reports/2026-11-03-x122-identity-artefact.md`.
+
+## 10gr. A uid's life is one generation: the identity rule, confirmed in code and pinned by a gate (X123, 03.11)
+
+`scripts/field_track.py` gives each surviving component the uid of its best-overlapping predecessor, **unless** it is a split daughter under `--split-new-uid`, in
+which case it gets a fresh uid. At a split every daughter whose best overlap is the mother is such a child, so **no daughter inherits the mother's uid** and her
+identity ends. The comment beside the rule says why: a daughter needs her own identity or her peak is inseparable from the mother's and size inheritance cannot be
+measured. The retirement is a consequence of that choice, and it is now the line's official reading of what a uid means.
+
+Checked on the data, not only in the code: `scripts/check_uid_rule.py` asserts that no parent's last logged appearance comes after its child's first —
+**20 runs, 4 162 pairs, zero violations** — and the check is a gate in `make verify` (1.7 s). A rule that lives only in a comment is a rule nobody enforces.
+
+The vocabulary consequence: a uid's lifetime is **time from birth to first division**, i.e. a **generation time**. Every number the line called "lifetime" is one:
+
+| where | measures | correct name |
+|---|---|---|
+| X88/X89 half-life of size correlations | decay per generation | generation-indexed memory (name stands) |
+| X92 area vs lifetime | area vs time to division | area vs **generation time** |
+| X93/X97 sisters' lifetimes | sisters' generation times | **generation times** |
+| X113/X114 depth and rate | generations per unit time | stands — the same quantity |
+
+The numbers do not change; the words do, and the manuscript must not let "lifetime" mean persistence. X122's withdrawal is now explained by the code as well as by
+the data, and X121 is cancelled rather than fixed: a hazard model on uid presence would model "did not divide", which is not a hazard of death.
+
+Report: `reports/2026-11-03-x123-uid-rule.md`; gate `scripts/check_uid_rule.py`.

@@ -4,9 +4,9 @@
 
 The curated page — what matters and why — is [`scripts.md`](scripts.md). This file is the complete list, so that every command behind a number in the record can be found.
 
-Scripts: **307**.
+Scripts: **308**.
 
-## Гейты и проверки (46)
+## Гейты и проверки (47)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -46,6 +46,7 @@ Scripts: **307**.
 | `check_series_homogeneity.py` | Гейт: серия должна быть снята одним кодом. |
 | `check_single_spec.py` | check_single_spec.py — не должно быть двух документов, объявляющих одну версию требований. |
 | `check_snapshots.py` | check_snapshots.py — снимки лабораторного состояния обязаны совпадать с диском. |
+| `check_uid_rule.py` | check_uid_rule.py — the identity rule of the field tracker, pinned as a data check. |
 | `check_wilson_consistency.py` | check_wilson_consistency.py — все реализации интервала Уилсона должны давать одно и то же. |
 | `claims_lint.py` | Линтер матрицы утверждений (manuscript/CLAIMS.md). |
 | `lean_check.py` | Проверка формальных гипотез: компилирует formal/*.lean и ведёт инвентарь. |

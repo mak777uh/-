@@ -62,6 +62,9 @@ def main() -> int:
         # check_section_refs и не звал check_links. После разбиения плана 83 ссылки в docs/plan/*.md
         # указывали на уровень выше нужного и вели в никуда; нашлись только в CI. Гейт зовётся здесь.
         ("относительные ссылки ведут в существующие файлы", [PY, "scripts/check_links.py", "--all"], None),
+    # 03.11 (X122/X123): the tracker retires a uid when it divides, so no parent may outlive its child. A run that violated it would
+    # silently invalidate every survival number in the line, and the check reads stored runs rather than trusting the flags.
+    ("правило идентичности uid подтверждено на сохранённых прогонах", [PY, "scripts/check_uid_rule.py"], None),
         # 01.11: CI падал на «Text integrity», потому что семь планов были заведены без строки в индексе отчётов,
         # а check_reports_index не входил в локальный набор. Теперь входит: индекс отчётов — часть гейта.
         ("индекс отчётов покрывает все отчёты", [PY, "scripts/check_reports_index.py"], None),
