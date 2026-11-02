@@ -383,6 +383,10 @@ H29-пункт «ядро от цели»).
 | G99 | [Schreiber, 2022, J. Math. Biol. 84](https://doi.org/10.1007/s00285-022-01815-2) | Permanence via invasion graphs: invasibility + граф ⇒ permanence | C5 | построить граф инвазий по нашим артефактам | `open` | [C5](../hypotheses/alife-lineage.md) |
 | G100 | [Barabás et al., 2018, Ecol. Monogr. 88](https://doi.org/10.1002/ecm.1302) | Канон Chesson: equalizing vs stabilizing, инвазивность | C6 | словарь для оговорки «наши механизмы равняющие» | `open` | [C6](../hypotheses/alife-lineage.md) |
 | G101 | [Validation of 3D Grid Refinement for Lattice Boltzmann Methods, 2021](https://doi.org/10.2514/6.2021-2006) | Протокол валидации уточнения сетки: параметры пересчитываются при смене dx | — | сослаться как стандартную практику; оговорка — у нас пересчитана только диффузия | `open` | `library/search-log.md` |
+| G102 | [Fractional CA: memory as a power-law kernel, 2026 (preprint)](https://doi.org/10.2139/ssrn.7150484) | Память как степенное ядро: замораживание и выбор паттерна в CA | — | C1: ожидание закона затухания X89 | `open` | [medium-memory.md](../hypotheses/medium-memory.md#c1) |
+| G103 | [Fractional Gray-Scott: memory-driven pattern selection, 2026 (preprint)](https://doi.org/10.21203/rs.3.rs-11309754/v1) | Капuto-дробный Gray-Scott: память выбирает паттерн | — | **C2: контрпример-кандидат к «величина, а не форма»** | `open` | [medium-memory.md](../hypotheses/medium-memory.md#c2) |
+| G104 | [Transient states in GNCA development, ALIFE 2026](https://doi.org/10.1162/isal.a.991) | Развитие GNCA идёт через переходные перестройки | — | C3: число переходов на траекторию | `open` | [medium-memory.md](../hypotheses/medium-memory.md#c3) |
+| G105 | [BraiNCA: long-range NCA, ALIFE 2026](https://doi.org/10.1162/isal.a.1033) | NCA с дальними связями вместо соседства Мура | — | C4: объяснение X47 через локальность | `open` | [medium-memory.md](../hypotheses/medium-memory.md#c4) |
 
 ## H. ALife: классика, открытая эволюция, рамки, индивидуальность
 
