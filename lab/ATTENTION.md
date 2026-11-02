@@ -11,7 +11,8 @@ Reserved to the owner by `lab/autonomy-rules.json`: publishing anything outward:
 
 ## Running now
 
-- nothing is running
+- **X112b_cuts_series** — The ladder and the specificity at cuts 0.15 and 0.25, built at each cut (owner `lead`)
+- last artifact written 0.8 h ago
 
 ## Waiting, but not on a human
 
