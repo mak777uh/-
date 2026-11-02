@@ -1892,3 +1892,33 @@ shortens as inflow rises in the range where the medium is single-scale. The high
 percolates, remains unmeasured at this power — that is the only place a U could still live, and it is what to run next (~60 runs).
 
 Reports: `reports/2026-11-02-x87-symmetry-does-not-carry-memory.md`; aggregate `l1_field_x87_memory_vs_symmetry.json`.
+
+## 10fl. The U is real, and above the band heredity stops existing (X88, 02.11)
+
+X88 measured the one arm never measured at power — `F = 0.040 / 0.045 / 0.050`, twenty worlds each, flags identical to X87.
+
+| `F` | half-life, per-world median | ρ₁ | pairs | fittable | components |
+|---|---|---|---|---|---|
+| 0.025 (X87) | 1.82 | 0.391 | 4 901 | 20/20 | lattice |
+| 0.030 (X87) | 1.16 | 0.549 | 4 791 | 18/20 | lattice |
+| 0.035 (X87) | **1.07** | 0.470 | 4 115 | 19/20 | lattice |
+| 0.040 | **2.08** | 0.471 | 3 753 | 20/20 | 6.9 |
+| 0.045 | **1.60** | 0.165 | 636 | 17/20 | 1.1 |
+| 0.050 | **undefined** | 0.0 | 6 | 0/20 | 1.0 |
+
+Registered verdict: **void**, on the pair-count clause — the 0.050 cell has six pairs against a floor of 400. But that void is the world:
+at 0.050 the pattern is one component in all twenty worlds, nothing divides, and there are no lineages. Heredity is undefined there, not
+unmeasured.
+
+What the measurable cells say: the curve is a **U with its minimum at 0.035**, 1.82 → 1.16 → 1.07 → 2.08 → 1.60. Memory is longest far
+from the band (0.025), shortest at the band's edge (0.035), long again once the pattern percolates (0.040). The control fired (0.040:
+`ρ₁` 0.471 in [0.42, 0.55], half-life 2.08 in [1.2, 2.3]), and β₁ > 0 in all sixty worlds.
+
+Consequences, stated as corrections rather than quietly: the **two-level direction of §10fa is restored**, but its values are not —
+inside 1.07–1.16 (not 0.56–0.73), outside 1.82–2.08 (not 1.47–1.61), i.e. about 1.5× larger on both sides, because those numbers were
+pooled pairs at five worlds. And the monotone reading I entered at 07:45 in §10fk is **withdrawn**: the decline holds only from 0.025
+to 0.035, and it is the left branch of a U, not the whole curve. The minimum is a plateau: 0.030 and 0.035 differ by 0.09, inside the
+±0.13 standard error.
+
+Report: `reports/2026-11-02-x88-u-restored.md`; aggregate `l1_field_x88_percolating_arm.json`. Open: where exactly between 0.045 and
+0.050 the lineages vanish (636 → 6 pairs over a half-step), and where the minimum actually sits (needs ~50 worlds per cell).
