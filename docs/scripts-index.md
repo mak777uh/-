@@ -4,7 +4,7 @@
 
 The curated page — what matters and why — is [`scripts.md`](scripts.md). This file is the complete list, so that every command behind a number in the record can be found.
 
-Scripts: **284**.
+Scripts: **285**.
 
 ## Гейты и проверки (46)
 
@@ -170,7 +170,7 @@ Scripts: **284**.
 | `make_seed_grid_figure.py` | Собрать Figure 4 рукописи: сетка «инициализация × порядок данных» (§4.13). |
 | `make_simple_poster.py` | Простой постер для владельца: что мы узнали, без терминов. |
 
-## Прочее (150)
+## Прочее (151)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -238,6 +238,7 @@ Scripts: **284**.
 | `x106_analyse.py` | x106_analyse.py — X106: what is the crowding term?  A property of places, of growth, or of persistence. |
 | `x107_analyse.py` | x107_analyse.py — X107: how much of the parent-daughter correlation is a shared room? |
 | `x108_series.py` | x108_series.py — the same twenty worlds as X105, with a field at every logged step (X108). |
+| `x110_series.py` | x110_series.py — X110: gamma_cell by bisection. How large an autocatalysis cut does each cell survive? |
 | `x56_matrix.py` | x56_matrix.py — сходимость по шагу: контраст при dt = 1.0, 0.5, 2.0. |
 | `x58_analyse.py` | x58_analyse.py — the same measurement on a 128 grid: β₀, β₁, wavelength, normalised count. |
 | `x58_series.py` | x60_series.py — X60: the twenty field runs that keep their snapshots. |
