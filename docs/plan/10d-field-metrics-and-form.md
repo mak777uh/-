@@ -2513,3 +2513,36 @@ of size has been demonstrated above the noise floor of this estimator", not "siz
 Caveats: only the two cells the dense series covers; 1 000 within-cell shuffles; lifetimes are `last − first + 1` on logged steps.
 
 Report: `reports/2026-11-02-x111-area-lifetime.md`; aggregate `l1_field_x111b_area_lifetime.json`.
+
+## 10ge. gamma_cell = 0.30 in both cells: a boundary that does not distinguish the habitats (X110–X110b, 02.11)
+
+X96d's by-product — the maze losing its diffusion lengths at gamma = 0.05 while the lattice kept them — looked like a statement about how
+close each cell sits to the edge of existence. X110 measured the coupling ceiling directly: bisect gamma at Dw = 0.16, three seeds per
+cell.
+
+X110's own liveness rule (ten components) was wrong and produced a counter-example immediately: at gamma = 0.50 seed 423 the lattice ends
+with sixteen **23-cell specks**, occupied 0.04 — a shattered field that a count calls alive. X110b was registered while the lattice column
+was complete and the maze column did not exist: alive iff occupied >= 0.05 **and** the largest component >= 50 cells, with two alternative
+threshold sets printed beside the answer.
+
+| cell | gamma = 0.10 | gamma = 0.30 | gamma = 0.50 | gamma_cell |
+|---|---|---|---|---|
+| 0.030 | 49 structures, 25 % occupied | 13 / 18 / 1 structures, 6-13 % | dead (0.004, 37 cells) | **0.30** |
+| 0.040 | one body of 1 333-3 030 cells, 41 % | two bodies of 596-640 cells, 7-10 % | dead (0.008, 37 cells) | **0.30** |
+
+Registered verdict: **the cells do not differ** — gamma_cell is 0.30 under 0.05/50, 0.04/40 and 0.06/60 in both. So `gamma_cell = 0.30`
+means both cells survive a **23 %** cut in the autocatalysis inside a structure (1/1.3 = 0.77) and die by 33 % (1/1.5 = 0.67). That is the
+first quantitative boundary for this world, and it is the same in both habitats — a negative result about "distance to the edge" as a
+property that separates them.
+
+**Correction to §10gc, appended there.** The fragility X96d found belongs to `Dw`, not to `gamma`: at `gamma = 0.05` the maze lost its
+diffusion lengths because they were long (0.32, 0.64), and at a fixed short one both cells share the same ceiling. The correct statement is
+narrower: the maze cell tolerates a **long-range** inhibitor less.
+
+What does differ is morphology under coupling: at gamma 0.10-0.30 the maze is a single percolating body while the lattice is 1-49 separate
+structures. Both pass the amended liveness test by design, and every table prints the largest component so the difference is visible.
+
+Caveats: one box, one grid, one k, one Dw for the sweep; gamma_cell is a bracket on a five-point grid, and a finer grid around 0.30-0.50
+(twelve runs) would turn it into a number.
+
+Report: `reports/2026-11-02-x110-gamma-cell.md`; aggregates `l1_field_x110b_gamma_cell.json`, `l1_field_x110_gamma_cell.json`.

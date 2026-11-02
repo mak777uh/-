@@ -69,3 +69,15 @@ pattern at all. For the maze that threshold is between 0.05 and 0.10 in this par
   thresholds) and X97 (siblings, second generation).
 
 доска: принято 0, отклонено 0, отложено 0.
+
+## Addendum (02.11, 20:52) — the fragility belongs to Dw, not to γ
+
+X110b measured the coupling ceiling at a fixed short second length (Dw = 0.16) and found **γ_cell = 0.30 in both cells**, identical
+under three liveness thresholds. So the sentence above — that the percolating cell lives closer to the edge of existence — is wrong as
+written: at γ = 0.05 the maze lost its diffusion lengths because they were **long** (0.32 and 0.64), not because the coupling alone
+broke it. The correct statement is narrower: *the maze cell tolerates a long-range inhibitor less*, while both cells survive the same
+autocatalytic cut of a short-range one.
+
+The correction is appended, not substituted; the paragraph above stays as written so the road is visible.
+
+доска: принято 0, отклонено 0, отложено 0.

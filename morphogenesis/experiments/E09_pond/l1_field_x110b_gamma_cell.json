@@ -1,0 +1,213 @@
+{
+  "kind": "l1_field_x110b_gamma_cell",
+  "experiment": "X110b",
+  "command": "python scripts/x110b_analyse.py --write",
+  "prereg": "reports/2026-11-02-x110b-liveness-plan.md",
+  "liveness": "occupied >= 0.05 and largest component >= 50 cells; alternatives 0.04/40 and 0.06/60",
+  "rule": "uvv = u*v*v/(1+gamma*w); dw/dt = 0.16*lap(w) + 0.05*(v - w); gamma swept",
+  "grid": [
+    "0.10",
+    "0.15",
+    "0.20",
+    "0.30",
+    "0.50"
+  ],
+  "alive_in_seeds": 2,
+  "cells": {
+    "f030": {
+      "by_gamma": {
+        "0.10": [
+          {
+            "components": 49,
+            "occupied": 0.2534,
+            "max_area": 205
+          },
+          {
+            "components": 31,
+            "occupied": 0.2503,
+            "max_area": 473
+          },
+          {
+            "components": 42,
+            "occupied": 0.2539,
+            "max_area": 245
+          }
+        ],
+        "0.15": [
+          {
+            "components": 29,
+            "occupied": 0.2055,
+            "max_area": 267
+          },
+          {
+            "components": 43,
+            "occupied": 0.245,
+            "max_area": 191
+          },
+          {
+            "components": 36,
+            "occupied": 0.2459,
+            "max_area": 189
+          }
+        ],
+        "0.20": [
+          {
+            "components": 34,
+            "occupied": 0.2093,
+            "max_area": 198
+          },
+          {
+            "components": 9,
+            "occupied": 0.1253,
+            "max_area": 237
+          },
+          {
+            "components": 28,
+            "occupied": 0.225,
+            "max_area": 268
+          }
+        ],
+        "0.30": [
+          {
+            "components": 13,
+            "occupied": 0.1024,
+            "max_area": 185
+          },
+          {
+            "components": 18,
+            "occupied": 0.129,
+            "max_area": 155
+          },
+          {
+            "components": 1,
+            "occupied": 0.0556,
+            "max_area": 512
+          }
+        ],
+        "0.50": [
+          {
+            "components": 1,
+            "occupied": 0.004,
+            "max_area": 37
+          },
+          {
+            "components": 1,
+            "occupied": 0.004,
+            "max_area": 37
+          },
+          {
+            "components": 16,
+            "occupied": 0.0399,
+            "max_area": 23
+          }
+        ]
+      },
+      "gamma_cell_by_threshold": {
+        "0.05/50": "0.30",
+        "0.04/40": "0.30",
+        "0.06/60": "0.30"
+      },
+      "gamma_cell": "0.30"
+    },
+    "f040": {
+      "by_gamma": {
+        "0.10": [
+          {
+            "components": 14,
+            "occupied": 0.4102,
+            "max_area": 1333
+          },
+          {
+            "components": 16,
+            "occupied": 0.3927,
+            "max_area": 2750
+          },
+          {
+            "components": 3,
+            "occupied": 0.406,
+            "max_area": 3030
+          }
+        ],
+        "0.15": [
+          {
+            "components": 2,
+            "occupied": 0.168,
+            "max_area": 1234
+          },
+          {
+            "components": 2,
+            "occupied": 0.168,
+            "max_area": 1234
+          },
+          {
+            "components": 4,
+            "occupied": 0.1687,
+            "max_area": 662
+          }
+        ],
+        "0.20": [
+          {
+            "components": 2,
+            "occupied": 0.1546,
+            "max_area": 1148
+          },
+          {
+            "components": 2,
+            "occupied": 0.1546,
+            "max_area": 1148
+          },
+          {
+            "components": 2,
+            "occupied": 0.0984,
+            "max_area": 638
+          }
+        ],
+        "0.30": [
+          {
+            "components": 2,
+            "occupied": 0.0943,
+            "max_area": 596
+          },
+          {
+            "components": 2,
+            "occupied": 0.0962,
+            "max_area": 618
+          },
+          {
+            "components": 1,
+            "occupied": 0.0694,
+            "max_area": 640
+          }
+        ],
+        "0.50": [
+          {
+            "components": 2,
+            "occupied": 0.008,
+            "max_area": 37
+          },
+          {
+            "components": 2,
+            "occupied": 0.008,
+            "max_area": 37
+          },
+          {
+            "components": 2,
+            "occupied": 0.008,
+            "max_area": 37
+          }
+        ]
+      },
+      "gamma_cell_by_threshold": {
+        "0.05/50": "0.30",
+        "0.04/40": "0.30",
+        "0.06/60": "0.30"
+      },
+      "gamma_cell": "0.30"
+    }
+  },
+  "positive_control": {
+    "gamma_010_alive": true,
+    "gamma_050_dead": true
+  },
+  "verdict": "the cells do not differ: gamma_cell 0.30 in both, under all three threshold sets"
+}

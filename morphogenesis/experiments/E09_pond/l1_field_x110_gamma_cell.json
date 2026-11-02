@@ -1,0 +1,92 @@
+{
+  "kind": "l1_field_x110_gamma_cell",
+  "experiment": "X110",
+  "command": "python scripts/x110_analyse.py --write",
+  "prereg": "reports/2026-11-02-x110-gamma-cell-plan.md",
+  "rule": "uvv = u*v*v/(1+gamma*w); dw/dt = 0.16*lap(w) + 0.05*(v - w); gamma swept",
+  "readout": "components at step 6000 with a liveness floor of 10; q' and symmetry for live runs",
+  "grid": [
+    "0.10",
+    "0.15",
+    "0.20",
+    "0.30",
+    "0.50"
+  ],
+  "min_alive": 10,
+  "alive_in_seeds": 2,
+  "cells": {
+    "f030": {
+      "by_gamma": {
+        "0.10": [
+          {
+            "seed": 421,
+            "components": 49,
+            "v_max": null,
+            "q": 8,
+            "symmetry": 0.642
+          },
+          {
+            "seed": 422,
+            "components": 31,
+            "v_max": null,
+            "q": 8,
+            "symmetry": 0.686
+          }
+        ],
+        "0.15": [
+          {
+            "seed": 421,
+            "components": 29,
+            "v_max": null,
+            "q": 8,
+            "symmetry": 0.696
+          }
+        ],
+        "0.20": [
+          {
+            "seed": 421,
+            "components": 34,
+            "v_max": null,
+            "q": 8,
+            "symmetry": 0.814
+          }
+        ],
+        "0.30": [
+          {
+            "seed": 421,
+            "components": 13,
+            "v_max": null,
+            "q": 4,
+            "symmetry": 0.898
+          }
+        ],
+        "0.50": [
+          {
+            "seed": 421,
+            "components": 1,
+            "v_max": null,
+            "q": 4,
+            "symmetry": 0.101
+          }
+        ]
+      },
+      "gamma_cell": "0.10"
+    },
+    "f040": {
+      "by_gamma": {
+        "0.10": [],
+        "0.15": [],
+        "0.20": [],
+        "0.30": [],
+        "0.50": []
+      },
+      "gamma_cell": null
+    }
+  },
+  "positive_control": {
+    "gamma_010_alive_everywhere": false,
+    "gamma_050_dead_everywhere": true,
+    "note": "the weakest coupling must keep a pattern and the strongest must not"
+  },
+  "verdict": "void: the grid is incomplete — some couplings have no runs yet"
+}

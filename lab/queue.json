@@ -1,6 +1,6 @@
 {
  "schema_version": 1,
- "updated_at": "2026-11-02T20:38:17+03:00",
+ "updated_at": "2026-11-02T20:52:28+03:00",
  "note": "Очередь пунктов после E02c. Claim берётся до пре-регистрации, а не перед запуском: lab.py item-claim. Статус running означает занятый GPU-лейн и может быть только у одного пункта. | 25.10: добавлено поле impact (1-5) — приоритет конвейера = impact/max(cost_gpu_h,0.1); для запуска пункту нужны prereg (закоммиченный план) и launch.command+outdir.",
  "items": [
   {
@@ -2280,20 +2280,21 @@
   {
    "id": "X110_gamma_cell",
    "title": "How close to the edge does each cell sit? gamma_cell by bisection with three seeds",
-   "status": "running",
+   "status": "closed",
    "owner": "lead",
    "kind": "series",
    "cost_gpu_h": 0,
    "prereg": "reports/2026-11-02-x110-gamma-cell-plan.md",
    "created_at": "2026-11-02T20:21:45+03:00",
-   "note": "X96d found the lattice cell keeps all four diffusion lengths live at gamma = 0.05 while the maze keeps three, two and one across seeds — the percolating cell lives closer to the edge of existence. This series measures the boundary: bisect gamma at Dw = 0.16 (gamma 0.10, 0.15, 0.20, 0.30, 0.50) with three seeds per cell and a liveness floor of ten components, then report gamma_cell as the largest surviving coupling. Fifteen to thirty runs, ~40 minutes. Register with five sections before running; the readout is components at step 6000, a count, so the criterion is a bracket, not a coefficient.",
+   "note": "closed through X110b: gamma_cell = 0.30 in both cells under three liveness thresholds (X110's component-count rule was void — sixteen 23-cell specks at gamma 0.50 read as alive). The fragility X96d saw belongs to Dw, not to gamma. Aggregate l1_field_x110b_gamma_cell.json, report reports/2026-11-02-x110-gamma-cell.md, plan §10ge.",
    "started_at": "2026-11-02T20:28:00+03:00",
-   "heartbeat_at": "2026-11-02T20:28:00+03:00",
    "launch": {
     "outdir": "morphogenesis/experiments/L1_field",
     "pattern": "x110_*.json",
     "runner": "scripts/x110_series.py"
-   }
+   },
+   "closed_at": "2026-11-02T17:52:28Z",
+   "closed_by": "lead"
   },
   {
    "id": "X111_area_lifetime_dense",
