@@ -1,0 +1,325 @@
+{
+  "kind": "l1_field_x96d_orientation",
+  "experiment": "X96d",
+  "command": "python scripts/x96d_analyse.py --write",
+  "prereg": "reports/2026-11-02-x96d-orientation-plan.md",
+  "rule": "uvv = u*v*v/(1+gamma*w); dw/dt = Dw*lap(w) + 0.05*(v - w); gamma = 0.05",
+  "readout": "q' and s from field_metrics.angular at Dw = 0.08..0.64, with rho(Dw, s) and rho(Dw, q') per cell",
+  "criteria": {
+    "orientation": "|rho(Dw, s)| >= 0.8 in >= 4 of 6 cells, one sign",
+    "scale": "q' outside [3, 11] at Dw = 0.64 in >= 3 cells",
+    "liveness": ">= 10 components at step 6000"
+  },
+  "cells": {
+    "f030_s411": {
+      "control": {
+        "components_end": 66,
+        "v_max_end": null,
+        "q": 9,
+        "symmetry": 0.644,
+        "field_std": 0.1117
+      },
+      "settings": {
+        "0.08": {
+          "components_end": 48,
+          "v_max_end": null,
+          "q": 8,
+          "symmetry": 0.652,
+          "field_std": 0.1101
+        },
+        "0.16": {
+          "components_end": 60,
+          "v_max_end": null,
+          "q": 8,
+          "symmetry": 0.564,
+          "field_std": 0.1099
+        },
+        "0.32": {
+          "components_end": 45,
+          "v_max_end": null,
+          "q": 8,
+          "symmetry": 0.649,
+          "field_std": 0.1115
+        },
+        "0.64": {
+          "components_end": 41,
+          "v_max_end": null,
+          "q": 8,
+          "symmetry": 0.592,
+          "field_std": 0.1119
+        }
+      },
+      "live_dws": [
+        "0.08",
+        "0.16",
+        "0.32",
+        "0.64"
+      ],
+      "rho_dw_s": -0.4,
+      "rho_dw_q": null,
+      "q_at_max": 8,
+      "scale_opens": false
+    },
+    "f030_s412": {
+      "control": {
+        "components_end": 67,
+        "v_max_end": null,
+        "q": 9,
+        "symmetry": 0.666,
+        "field_std": 0.1065
+      },
+      "settings": {
+        "0.08": {
+          "components_end": 63,
+          "v_max_end": null,
+          "q": 8,
+          "symmetry": 0.548,
+          "field_std": 0.1107
+        },
+        "0.16": {
+          "components_end": 67,
+          "v_max_end": null,
+          "q": 8,
+          "symmetry": 0.656,
+          "field_std": 0.11
+        },
+        "0.32": {
+          "components_end": 45,
+          "v_max_end": null,
+          "q": 8,
+          "symmetry": 0.821,
+          "field_std": 0.1108
+        },
+        "0.64": {
+          "components_end": 44,
+          "v_max_end": null,
+          "q": 8,
+          "symmetry": 0.817,
+          "field_std": 0.1109
+        }
+      },
+      "live_dws": [
+        "0.08",
+        "0.16",
+        "0.32",
+        "0.64"
+      ],
+      "rho_dw_s": 0.8,
+      "rho_dw_q": null,
+      "q_at_max": 8,
+      "scale_opens": false
+    },
+    "f030_s413": {
+      "control": {
+        "components_end": 67,
+        "v_max_end": null,
+        "q": 9,
+        "symmetry": 0.663,
+        "field_std": 0.1082
+      },
+      "settings": {
+        "0.08": {
+          "components_end": 65,
+          "v_max_end": null,
+          "q": 8,
+          "symmetry": 0.668,
+          "field_std": 0.1091
+        },
+        "0.16": {
+          "components_end": 62,
+          "v_max_end": null,
+          "q": 8,
+          "symmetry": 0.689,
+          "field_std": 0.1093
+        },
+        "0.32": {
+          "components_end": 41,
+          "v_max_end": null,
+          "q": 8,
+          "symmetry": 0.642,
+          "field_std": 0.1113
+        },
+        "0.64": {
+          "components_end": 43,
+          "v_max_end": null,
+          "q": 8,
+          "symmetry": 0.698,
+          "field_std": 0.1114
+        }
+      },
+      "live_dws": [
+        "0.08",
+        "0.16",
+        "0.32",
+        "0.64"
+      ],
+      "rho_dw_s": 0.4,
+      "rho_dw_q": null,
+      "q_at_max": 8,
+      "scale_opens": false
+    },
+    "f040_s411": {
+      "control": {
+        "components_end": 7,
+        "v_max_end": null,
+        "q": 7,
+        "symmetry": 0.961,
+        "field_std": 0.1019
+      },
+      "settings": {
+        "0.08": {
+          "components_end": 11,
+          "v_max_end": null,
+          "q": 7,
+          "symmetry": 0.902,
+          "field_std": 0.1094
+        },
+        "0.16": {
+          "components_end": 9,
+          "v_max_end": null,
+          "q": 7,
+          "symmetry": 0.891,
+          "field_std": 0.1094
+        },
+        "0.32": {
+          "components_end": 11,
+          "v_max_end": null,
+          "q": 7,
+          "symmetry": 0.908,
+          "field_std": 0.1246
+        },
+        "0.64": {
+          "components_end": 11,
+          "v_max_end": null,
+          "q": 7,
+          "symmetry": 0.928,
+          "field_std": 0.1251
+        }
+      },
+      "live_dws": [
+        "0.08",
+        "0.32",
+        "0.64"
+      ],
+      "rho_dw_s": 1.0,
+      "rho_dw_q": null,
+      "q_at_max": 7,
+      "scale_opens": false
+    },
+    "f040_s412": {
+      "control": {
+        "components_end": 3,
+        "v_max_end": null,
+        "q": 7,
+        "symmetry": 0.956,
+        "field_std": 0.1024
+      },
+      "settings": {
+        "0.08": {
+          "components_end": 6,
+          "v_max_end": null,
+          "q": 7,
+          "symmetry": 0.906,
+          "field_std": 0.1103
+        },
+        "0.16": {
+          "components_end": 8,
+          "v_max_end": null,
+          "q": 8,
+          "symmetry": 0.869,
+          "field_std": 0.1101
+        },
+        "0.32": {
+          "components_end": 12,
+          "v_max_end": null,
+          "q": 7,
+          "symmetry": 0.918,
+          "field_std": 0.1228
+        },
+        "0.64": {
+          "components_end": 12,
+          "v_max_end": null,
+          "q": 7,
+          "symmetry": 0.914,
+          "field_std": 0.1226
+        }
+      },
+      "live_dws": [
+        "0.32",
+        "0.64"
+      ],
+      "rho_dw_s": null,
+      "rho_dw_q": null,
+      "q_at_max": 7,
+      "scale_opens": false
+    },
+    "f040_s413": {
+      "control": {
+        "components_end": 3,
+        "v_max_end": null,
+        "q": 7,
+        "symmetry": 0.938,
+        "field_std": 0.1045
+      },
+      "settings": {
+        "0.08": {
+          "components_end": 7,
+          "v_max_end": null,
+          "q": 7,
+          "symmetry": 0.918,
+          "field_std": 0.1083
+        },
+        "0.16": {
+          "components_end": 11,
+          "v_max_end": null,
+          "q": 8,
+          "symmetry": 0.92,
+          "field_std": 0.1066
+        },
+        "0.32": {
+          "components_end": 8,
+          "v_max_end": null,
+          "q": 6,
+          "symmetry": 0.951,
+          "field_std": 0.1257
+        },
+        "0.64": {
+          "components_end": 8,
+          "v_max_end": null,
+          "q": 6,
+          "symmetry": 0.951,
+          "field_std": 0.1257
+        }
+      },
+      "live_dws": [
+        "0.16"
+      ],
+      "rho_dw_s": null,
+      "rho_dw_q": null,
+      "q_at_max": 8,
+      "scale_opens": false
+    }
+  },
+  "positive_control": {
+    "fires": true,
+    "control_q": [
+      9,
+      9,
+      9,
+      7,
+      7,
+      7
+    ],
+    "note": "all six w-off controls must sit inside the 5-9 band"
+  },
+  "counts": {
+    "negative": [],
+    "positive": [
+      "f030_s412",
+      "f040_s411"
+    ],
+    "scale": [],
+    "usable": 4
+  },
+  "verdict": "the orientation effect does not replicate: only 2 of 6 cells reach |rho| >= 0.8 (coefficients [-0.4, 0.8, 0.4, 1.0, None, None])"
+}

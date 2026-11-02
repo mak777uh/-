@@ -2452,3 +2452,37 @@ Caveat that has to travel with the numbers: `l1_field_x106_crowding.json` was re
 must name its sample.
 
 Report: `reports/2026-11-02-x109-room-dense.md`; aggregates `l1_field_x109_room_dense.json`, `l1_field_x106_crowding.json`.
+
+## 10gc. The second species moves neither scale nor orientation, and it shows where each cell sits relative to the edge (X96d, 02.11)
+
+Thirty runs (three seeds × two inflows × `Dw` 0.08–0.64 × a control per seed) at `γ = 0.05`, the coupling X96c's pilot showed
+harmless in the lattice.
+
+Registered verdict: **the orientation effect does not replicate** — only two of six cells reach `|ρ(Dw, s)| ≥ 0.8` (the criterion was
+four of six with one sign), and those two disagree: −0.4 and +0.8 in the lattice, +1.0 in the maze on three live diffusion lengths.
+X96c's spread of 0.636–0.837 was a one-seed property, exactly as its plan warned.
+
+| cell | control q' | live Dw of 4 | q' at Dw = 0.64 | rho(Dw, s) |
+|---|---|---|---|---|
+| 0.030 seed 411 | 9 | 4 | 8 | −0.4 |
+| 0.030 seed 412 | 9 | 4 | 8 | +0.8 |
+| 0.030 seed 413 | 9 | 4 | 8 | +0.4 |
+| 0.040 seed 411 | 7 | 3 | 7 | +1.0 |
+| 0.040 seed 412 | 7 | 2 | 7 | — |
+| 0.040 seed 413 | 7 | 1 | 8 | — |
+
+Three facts. **No scale move**: `q'` stays at 7–9 everywhere with `Dw` pushed to eight times `Dv`; the largest change is one unit and the
+criterion was two. **The maze cell is fragile**: at a 5 % cut in the autocatalysis the lattice keeps all four diffusion lengths live in
+all three seeds while the maze keeps three, two and one. **Orientation is not a channel either**: with three seeds the spread is noise.
+
+This closes the last untried channel for scale with a measured negative. Four negatives now stand behind the line's statement about
+scale — inflow (X84, X99), initial condition (X96b), second diffusion length (this series) — and a spatially varying inflow sets
+orientation rather than wavelength (X52). **Wavelength is pinned by the reaction band `(F, k)` and the grid**, the remaining candidate.
+
+The fragility is a condition-of-life statement in its own right: the same perturbation a lattice cell absorbs takes the percolating cell
+apart, so "how close to the edge a medium sits" is measurable as `γ_cell`, the coupling at which a cell stops being a pattern at all.
+In this parameterisation the maze's threshold lies between 0.05 and 0.10, and the lattice's above 0.20 (X96b's first pass survived
+nothing at 0.50, so the gap is at least fourfold). X110 is registered to measure it by bisection.
+
+Report: `reports/2026-11-02-x96d-orientation.md`; aggregate `l1_field_x96d_orientation.json`; series index
+`morphogenesis/experiments/L1_field/x96d_series_index.json` (30 runs, all ok).

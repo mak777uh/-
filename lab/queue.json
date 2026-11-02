@@ -1,6 +1,6 @@
 {
  "schema_version": 1,
- "updated_at": "2026-11-02T20:11:27+03:00",
+ "updated_at": "2026-11-02T20:21:45+03:00",
  "note": "Очередь пунктов после E02c. Claim берётся до пре-регистрации, а не перед запуском: lab.py item-claim. Статус running означает занятый GPU-лейн и может быть только у одного пункта. | 25.10: добавлено поле impact (1-5) — приоритет конвейера = impact/max(cost_gpu_h,0.1); для запуска пункту нужны prereg (закоммиченный план) и launch.command+outdir.",
  "items": [
   {
@@ -2248,20 +2248,21 @@
   {
    "id": "X96d_orientation_series",
    "title": "Does the second species really move the orientation? A three-seed series",
-   "status": "running",
+   "status": "closed",
    "owner": "lead",
    "kind": "series",
    "cost_gpu_h": 0,
    "prereg": "reports/2026-11-02-x96d-orientation-plan.md",
    "created_at": "2026-11-02T19:12:00+03:00",
-   "note": "X96c (one seed) found q-prime 8-9 in six living cells while the symmetry spanned 0.636-0.837 at gamma 0.05-0.10. Register before running: gamma 0.05, Dw in {0.08,0.16,0.32,0.64}, three seeds each, both inflows, w-off control per seed; criterion: the orientation spread must exceed the seed-to-seed scatter by 2x, and q-prime must move two units at Dw = 0.64 for the scale reading. Twenty-eight runs, about an hour on the GPU lane.",
+   "note": "closed: the orientation effect does not replicate (2 of 6 cells at |rho| >= 0.8, opposite signs) and q' never leaves 7-9 with Dw at 8x Dv. The maze cell loses half to three quarters of its diffusion lengths at gamma = 0.05 where the lattice keeps all four. Aggregate l1_field_x96d_orientation.json, report reports/2026-11-02-x96d-orientation.md, plan §10gc. Next: X110 (gamma_cell by bisection)",
    "started_at": "2026-11-02T19:39:00+03:00",
-   "heartbeat_at": "2026-11-02T19:39:00+03:00",
    "launch": {
     "outdir": "morphogenesis/experiments/L1_field",
     "pattern": "x96d_*.json",
     "runner": "scripts/x96d_series.py"
-   }
+   },
+   "closed_at": "2026-11-02T17:21:45Z",
+   "closed_by": "lead"
   },
   {
    "id": "X109_room_dense",
@@ -2275,6 +2276,17 @@
    "closed_at": "2026-11-02T17:11:27Z",
    "closed_by": "lead",
    "note": "closed: room drop 0.069 / 0.000 (sparse 0.064 / 0.000), crowding lattice-only, lifetime component 0.091 (5/10)."
+  },
+  {
+   "id": "X110_gamma_cell",
+   "title": "How close to the edge does each cell sit? gamma_cell by bisection with three seeds",
+   "status": "planned",
+   "owner": "lead",
+   "kind": "series",
+   "cost_gpu_h": 0,
+   "prereg": null,
+   "created_at": "2026-11-02T20:21:45+03:00",
+   "note": "X96d found the lattice cell keeps all four diffusion lengths live at gamma = 0.05 while the maze keeps three, two and one across seeds — the percolating cell lives closer to the edge of existence. This series measures the boundary: bisect gamma at Dw = 0.16 (gamma 0.10, 0.15, 0.20, 0.30, 0.50) with three seeds per cell and a liveness floor of ten components, then report gamma_cell as the largest surviving coupling. Fifteen to thirty runs, ~40 minutes. Register with five sections before running; the readout is components at step 6000, a count, so the criterion is a bracket, not a coefficient."
   }
  ]
 }
