@@ -2615,3 +2615,31 @@ Caveats: coverage at 0.15 is 460 of 882 pairs (the maze is one body of 1 775 cel
 the 0.20 reference is X108's own number.
 
 Report: `reports/2026-11-02-x112c-cuts-maze.md`; aggregate `l1_field_x112c_cuts_maze.json`; series index (20 runs, all ok).
+
+## 10gh. The sister difference is inherited into the second generation, and it grows there (X97, 02.11)
+
+X93 measured sisters in one generation; whether the difference belongs to a **lineage** or to a single structure is decided one generation
+later. X108's dense logs carry `--split-new-uid`, so the three-level genealogy is readable without new runs.
+
+| cell | sister pairs | heredity (control) | first generation: larger - smaller | second generation: granddaughters | bootstrap 95 % CI | z |
+|---|---|---|---|---|---|---|
+| 0.030 | 282 | 0.548 | +4.94 cells (z 2.43) | **+12.90** | **[10.11, 15.80]** | 8.84 |
+| 0.040 | 186 | 0.480 | +88.06 cells (z 2.12) | **+170.91** | **[127.9, 228.9]** | 6.69 |
+
+Registered verdict: **the advantage persists** — both intervals exclude zero, and the difference is larger in the second generation than in the
+first (+12.9 against +4.9 in the lattice, and almost double in the maze). It is the line's first two-generation statement.
+
+The reading is deliberately narrow. This is **exactly what size heredity predicts** (ρ₁ ≈ 0.5 means a larger sister should have larger
+daughters and granddaughters), so the result is a heredity statement, **not** evidence that size pays — X92/X111 put the consequence side at
+the noise floor. What the numbers add beyond the expectation is the direction of change: the advantage **grows** rather than decays, which a
+0.5 coefficient does not require.
+
+Two untested mechanisms can produce that growth: branching arithmetic (a larger structure has more cells that can divide, so its line
+branches more and the mean is pulled up by the number of branches) and a genuine lineage effect. The separating test is registered: compare
+the **median** granddaughter with the mean and count grandchildren per branch.
+
+Caveats: the granddaughter filter leaves 282 and 186 sister pairs; two cells only; the first-generation readout here is area difference, not
+X93's lifetime share, so the two are not interchangeable; areas are threshold-0.20 excursion areas, which X112b puts at about a tenth of cut
+correction.
+
+Report: `reports/2026-11-02-x97-sisters-second-generation.md`; aggregate `l1_field_x97_sisters_second_generation.json`.

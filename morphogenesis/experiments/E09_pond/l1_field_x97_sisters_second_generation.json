@@ -1,0 +1,42 @@
+{
+  "kind": "l1_field_x97_sisters_second_generation",
+  "experiment": "X97",
+  "command": "python scripts/x97_analyse.py --write",
+  "prereg": "reports/2026-11-02-x97-sisters-second-generation-plan.md",
+  "readout": "paired difference in granddaughters' peak area between the larger and the smaller sister, per sister pair, with a bootstrap 95 % interval; the first-generation difference is the positive control",
+  "cells": {
+    "f030": {
+      "pairs_heredity": 2164,
+      "rho_heredity": 0.548,
+      "sister_pairs": 282,
+      "n_first": 282,
+      "n_second": 282,
+      "first_gen_mean": 4.9362,
+      "second_gen_mean": 12.9007,
+      "second_life_mean": null,
+      "first_gen_z": 2.43,
+      "second_gen_z": 8.84,
+      "second_gen_ci": [
+        10.1129,
+        15.7973
+      ]
+    },
+    "f040": {
+      "pairs_heredity": 1779,
+      "rho_heredity": 0.48,
+      "sister_pairs": 186,
+      "n_first": 186,
+      "n_second": 186,
+      "first_gen_mean": 88.0645,
+      "second_gen_mean": 170.9068,
+      "second_life_mean": null,
+      "first_gen_z": 2.12,
+      "second_gen_z": 6.69,
+      "second_gen_ci": [
+        127.9256,
+        228.9122
+      ]
+    }
+  },
+  "verdict": "the sister advantage persists into the second generation: the larger sister's granddaughters are larger by 12.9007 cells on average (bootstrap 95 % CI [10.1129, 15.7973]); maze: first generation 88.0645 (z 2.12), second generation 170.9068 (CI [127.9256, 228.9122])"
+}

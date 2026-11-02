@@ -4,7 +4,7 @@
 
 The curated page — what matters and why — is [`scripts.md`](scripts.md). This file is the complete list, so that every command behind a number in the record can be found.
 
-Scripts: **293**.
+Scripts: **294**.
 
 ## Гейты и проверки (46)
 
@@ -170,7 +170,7 @@ Scripts: **293**.
 | `make_seed_grid_figure.py` | Собрать Figure 4 рукописи: сетка «инициализация × порядок данных» (§4.13). |
 | `make_simple_poster.py` | Простой постер для владельца: что мы узнали, без терминов. |
 
-## Прочее (159)
+## Прочее (160)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -330,6 +330,7 @@ Scripts: **293**.
 | `x96_pilot.py` | x96_pilot.py — X96: the second diffusive species (owner-approved 02.11). |
 | `x96d_analyse.py` | x96d_analyse.py — X96d: does the second species move the orientation, and does it replicate? |
 | `x96d_series.py` | x96d_series.py — X96d: does the second species move the orientation? Three seeds, two cells, four diffusion lengths. |
+| `x97_analyse.py` | x97_analyse.py — X97: does the sister advantage reach the second generation? |
 | `x98_analyse.py` | x98_analyse.py — is the angular map a property of the world or of the excursion cut? |
 | `x99_analyse.py` | x99_analyse.py — is the memory map a property of the world or of the excursion cut? |
 | `x99_series.py` | x99_series.py — the memory map at two other excursion cuts (X99). |

@@ -184,3 +184,4 @@ sections were not rewritten, only moved; each one keeps its identifier, so every
 | §10ge | gamma_cell = 0.30 in both cells: a boundary that does not distinguish the habitats (X110–X110b, 02.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
 | §10gf | The cut moves the level a little and the specificity not at all (X112b, 02.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
 | §10gg | The maze cell is cut-stable too, and the order between cells does not reverse (X112c, 02.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
+| §10gh | The sister difference is inherited into the second generation, and it grows there (X97, 02.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
