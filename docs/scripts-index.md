@@ -4,7 +4,7 @@
 
 The curated page — what matters and why — is [`scripts.md`](scripts.md). This file is the complete list, so that every command behind a number in the record can be found.
 
-Scripts: **347**.
+Scripts: **349**.
 
 ## Гейты и проверки (47)
 
@@ -171,7 +171,7 @@ Scripts: **347**.
 | `make_seed_grid_figure.py` | Собрать Figure 4 рукописи: сетка «инициализация × порядок данных» (§4.13). |
 | `make_simple_poster.py` | Простой постер для владельца: что мы узнали, без терминов. |
 
-## Прочее (212)
+## Прочее (214)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -299,6 +299,8 @@ Scripts: **347**.
 | `x150_series.py` | x150_series.py — X150: a third radius (6.0) at surface gaps 6, 7 and 8. |
 | `x151_analyse.py` | x151_analyse.py — X151: is the stop of the boundary a threshold or a plateau? |
 | `x151_series.py` | x151_series.py — X151: radius 5.25 at surface gaps 7 and 8 (separations 17.5 and 18.5). |
+| `x153_analyse.py` | x153_analyse.py — X153: is the boundary a whole-cell step or does it creep within a cell? |
+| `x153_series.py` | x153_series.py — X153: radius 6.0 at separation 19.5, i.e. a surface gap of 7.5 cells. |
 | `x56_matrix.py` | x56_matrix.py — сходимость по шагу: контраст при dt = 1.0, 0.5, 2.0. |
 | `x58_analyse.py` | x58_analyse.py — the same measurement on a 128 grid: β₀, β₁, wavelength, normalised count. |
 | `x58_series.py` | x60_series.py — X60: the twenty field runs that keep their snapshots. |

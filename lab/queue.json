@@ -1,6 +1,6 @@
 {
  "schema_version": 1,
- "updated_at": "2026-11-03T19:35:00+03:00",
+ "updated_at": "2026-11-03T19:58:00+03:00",
  "note": "Очередь пунктов после E02c. Claim берётся до пре-регистрации, а не перед запуском: lab.py item-claim. Статус running означает занятый GPU-лейн и может быть только у одного пункта. | 25.10: добавлено поле impact (1-5) — приоритет конвейера = impact/max(cost_gpu_h,0.1); для запуска пункту нужны prereg (закоммиченный план) и launch.command+outdir.",
  "items": [
   {
@@ -2876,6 +2876,23 @@
    "note": "PLATEAU CONFIRMED, with two corrections recorded rather than buried. Radius 5.25 (~87 cells) holds 5/5 at gap 7 and breaks at 8, as radius 4.5 and 6 do: the boundary drops one cell between 28 and 64 cells of disc area and is flat from 64 to 113. Correction 1: my registered branch label for the mixed outcome said 'the creep continues' where three radii breaking at one gap means a plateau - the numbers fired that branch, the criterion was used as written, and the reading is fixed in an amendment. Correction 2: 'at gap 8 all radii dissolve at 49 steps' was a median, false per seed - one coalescing seed in three takes 59 at radius 4.5 and above; the law is exact per seed only while coalescence is universal (20 seed-runs at gaps 6 and 7, exactly 29 and 39). Report x151-radius525, section 10hl. Next: X152 (radius 3.75, gaps 8 and 9), X153 (radius 6 at separation 19.5, sub-cell creep), X149 (shape, frames).",
    "closed_at": "2026-11-03T19:35:00+03:00",
    "closed_by": "lead"
+  },
+  {
+   "id": "X153_halfcell",
+   "title": "Is the boundary a whole-cell step, or does it creep within a cell? Radius 6 at a gap of 7.5",
+   "status": "running",
+   "owner": "lead",
+   "kind": "experiment",
+   "cost_gpu_h": 0,
+   "prereg": "reports/2026-11-03-x153-halfcell-plan.md",
+   "created_at": "2026-11-03T19:58:00+03:00",
+   "heartbeat_at": "2026-11-03T19:58:00+03:00",
+   "launch": {
+    "runner": "scripts/x153_series.py",
+    "outdir": "morphogenesis/experiments/L1_field",
+    "pattern": "x153_g*_s*.json"
+   },
+   "note": "Ten runs of `--init-spots 6.0:19.5` at F = 0.030: radius 6 at a surface gap of 7.5 cells, halfway between the last gap at which it coalesces in every seed (7) and the first at which it does not (8). Ten seeds, not five, because with five a 4/5 would be one seed away from 5/5. Registered decision: >=9/10 the whole-cell step stands, <=6/10 the boundary creeps within the cell, 7-8/10 indeterminate, <=3/10 a contradiction of monotonicity. The timing control requires the median inside [39, 49]."
   }
  ]
 }
