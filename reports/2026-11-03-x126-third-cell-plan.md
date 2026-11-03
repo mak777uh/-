@@ -87,3 +87,10 @@ consume the budget the rule protects.
 ## Status
 
 Registered 2026-11-03 03:45 MSK, before the anchor and before the series. Light CPU run, no training.
+
+## Amendment (03:52, before the series started)
+
+Control 1 as written demanded that `params` be identical, which it cannot be: the protocol deliberately drops two field-saving entries. The anchor is therefore
+compared **key by key with the two declared flags excluded** (`save_fields`, `save_fields_every`, plus the `fields_saved` marker), and the comparison prints them.
+The anchor ran, returned `ANCHOR OK`, and the exact statement is: **every top-level key except `fields_saved` is identical, every `params` field except the two
+flags is identical, and `uid_pairs` — the whole genealogy — is identical.** The worlds are the same worlds.
