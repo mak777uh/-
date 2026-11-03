@@ -27,7 +27,7 @@ and whether both are present at the last step. The `SEP = 0` arm has only one se
 
 Five controls. **The control fires if** all five hold:
 
-1. **The anchor still matches**: `_hourly/x134_anchor.json` against `x108_f030_s301.json` key by key, `uid_pairs` identical.
+1. **The anchor still matches**: the anchor run X134 produced (its own scratch copy) against the committed projection `morphogenesis/experiments/L1_field/x108_f030_s301.compact.json`, key by key, `uid_pairs` identical.
 2. **The two-disc arms start as two components** of area ≥ 20 cells at the first logged step (and the `SEP = 0` arm as one).
 3. **Every run is alive** under the structural rule (occupancy ≥ 0.05, largest ≥ 50 cells).
 4. **The single-disc control survives**: in at least 4 of 5 control seeds the seeded uid (or its subtree) is present at the last logged step. If a lone disc does not
