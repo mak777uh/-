@@ -340,3 +340,16 @@ statement disagree in sign, both are printed with their statistic named and the 
 share beyond a stated bound) instead of being resolved by choosing one. (7) A control that reproduces another experiment's number must name that number's unit
 **and** filter; if the plan cannot name them, the control is not ready to run - X125's control asked a uid-level statistic to reproduce a pair-level one.
 Reports: `reports/2026-11-03-x125-definitions-void.md`, `-x125b-statistics-void.md`, `-x125c-ties.md`.
+
+**A refusal rule must contain a "neither" branch (03.11, X127).** X127's pre-registration offered two outcomes - "the maze is homogenising" (absorbed share rises
+by more than 0.10) and "the maze is lethal" (that rise does not happen and vanishing dominates) - and the world answered a third thing: absorption *falls* by
+0.089 while vanishing rises to 16.5 %, far from a majority. The code's `elif` chain fell through to the second label, and the first printed verdict said "the maze
+is lethal" although the second clause of that branch was false. Nothing was published from it, and the numbers never changed, but the failure mode is general: a
+two-sided rule does not become exhaustive because the author thinks the pair is exhaustive.
+
+Rules. (1) Every refusal rule lists, besides its substantive outcomes, at least one branch for "none of the above" - and that branch is **reported as a result**,
+not as a bug. (2) A branch whose condition has several clauses prints which clauses held, so a fall-through cannot borrow a label it did not earn. (3) When the
+registered dichotomy is the wrong question, the report says so in the verdict's own words, because "the question was wrong" is a finding and choosing a side is
+not. (4) Any classification with a residual band (here 7-9 % of deaths between the two thresholds) publishes the band next to the shares; a split of 84.5 / 8.4
+without its 7.1 is a two-category claim in disguise.
+Report: `reports/2026-11-03-x127-absorption.md`.

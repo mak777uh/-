@@ -3001,3 +3001,35 @@ the plan's "non-monotone" label was measuring distance from the chord rather tha
 
 Report: `reports/2026-11-03-x126-third-cell.md`; aggregate `l1_field_x126_third_cell.json`. Next: X127 counts cuts per lineage — the mechanism test for the
 maze's low persistence on logs already on disk — and X128 places the depth threshold between 0.035 and 0.040.
+
+## 10gu. A lineage usually dies by losing its name, not its cells — and the maze kills names more often (X127, 03.11)
+
+X126 left a trade-off without a mechanism. The plan said "count cuts"; reading the tracker first said the useful distinction is narrower: a uid ends either by
+**dividing** or by **disappearing**, and disappearing means either that the cells **vanish** or that they became **part of a neighbour** — absorption. The logged
+areas decide which, with no new runs: absorbed if the surviving uids grow by ≥ 50 % of the dead uid's area at its death step, vanished if by ≤ 10 %, unclear
+between. Thirty worlds, three cells, 2 470 identity deaths, all controlled (end-survival reproducing X126 to four decimals, heredity, an area budget that closes on
+all 18 000 step transitions, and full coverage).
+
+| cell | identity deaths | absorbed | vanished | unclear | median dead area | smaller-sister absorbed | larger-sister absorbed |
+|---|---|---|---|---|---|---|---|
+| 0.030 | 524 | **84.5 %** | 8.4 % | 7.1 % | 27.0 cells | 248 pairs | 183 pairs |
+| 0.035 | 844 | **78.7 %** | 12.4 % | 8.9 % | 55.5 cells | 167 | 168 |
+| 0.040 | 1 102 | **75.7 %** | 16.5 % | 7.8 % | 114.0 cells | 187 | 98 |
+
+**Neither of the two registered outcomes fired, and that is the result.** The plan asked "is the maze lethal or homogenising"; absorption falls rather than rises
+(−8.9 points, under the declared 0.10) and vanishing rises from 8.4 % to 16.5 % without coming close to a majority. What the cells differ in is not the kind of
+death but its **amount**: identity deaths ×2.1 and real vanishings ×4.1 (44 → 182) from the lattice to the maze, with the dead getting larger (median 27 → 114
+cells). In all three habitats — including the percolating one, where one body fills 935 cells — **three of every four lineage deaths are absorptions**, i.e. the
+cells live on and only the name ends. Every persistence number this line has published (X115, X116, X126) is therefore a measure of name-keeping, not of cell
+survival, and the habitats differ in how often a name is lost.
+
+The smaller sister's lineage ends by absorption more often than the larger's in both cells where the effect excludes zero (248:183 and 187:98; paired −0.0569 and
+−0.0745, CI −0.101…−0.047). Read with X92/X93 — in a percolating body the large structure is the one about to be cut for real — the picture is consistent: the
+small one is swallowed, the large one is destroyed.
+
+The manuscript sentence is therefore neither "lethal" nor "homogenising": **across these habitats a lineage's death is usually the death of its name, not of its
+cells — and the maze is where names are lost most often and most expensively.** Two rules came out of the run: a refusal rule must contain a **"neither" branch**
+(my first verdict printed the second branch's label when only its first clause held), and a fate classification is published with its **unclear share** next to it.
+
+Report: `reports/2026-11-03-x127-absorption.md`; aggregate `l1_field_x127_absorption.json`. Next: X128 measures the identity half-life (how long a name outlives
+its own uids), X129 asks whether absorption is a route to takeover, and X130 locates the 182 real vanishings at the body's edge or in its interior.

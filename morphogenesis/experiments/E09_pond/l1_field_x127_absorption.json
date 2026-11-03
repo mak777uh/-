@@ -1,0 +1,131 @@
+{
+  "kind": "l1_field_x127_absorption",
+  "experiment": "X127",
+  "command": "python scripts/x127_analyse.py --write",
+  "prereg": "reports/2026-11-03-x127-absorption-plan.md",
+  "definitions": {
+    "death": "uid present at t, absent at t+1, with no daughters (a divider is not a death)",
+    "absorbed": "surviving uids grow by >= 50% of the dead uid's area at its death step",
+    "vanished": "surviving uids grow by <= 10% of the dead uid's area",
+    "unclear": "between the two thresholds, reported separately and never merged",
+    "branch_absorbed": "more than half of a branch's subtree deaths are absorbed"
+  },
+  "cells": {
+    "f030": {
+      "deaths": 524,
+      "deaths_by_fate": {
+        "absorbed": 443,
+        "vanished": 44,
+        "unclear": 37
+      },
+      "absorbed_share": 0.8454,
+      "vanished_share": 0.084,
+      "unclear_share": 0.0706,
+      "absorbed_share_ci": [
+        0.813,
+        0.874
+      ],
+      "median_dead_area": 27.0,
+      "median_growth_ratio_when_absorbed": 2.278,
+      "adjacent_share": 0.687,
+      "budget_checked": 6000,
+      "budget_fail_share": 0.0,
+      "rho_heredity": 0.548,
+      "pairs": 1142,
+      "survival_mean": 0.2496,
+      "fate_diff_mean": -0.0569,
+      "fate_diff_ci": [
+        -0.0893,
+        -0.0228
+      ],
+      "fates_both_onlybig_onlysmall_neither": [
+        365,
+        183,
+        248,
+        346
+      ],
+      "refs": {
+        "survival": 0.2496,
+        "pairs": 1142
+      }
+    },
+    "f035": {
+      "deaths": 844,
+      "deaths_by_fate": {
+        "absorbed": 664,
+        "vanished": 105,
+        "unclear": 75
+      },
+      "absorbed_share": 0.7867,
+      "vanished_share": 0.1244,
+      "unclear_share": 0.0889,
+      "absorbed_share_ci": [
+        0.7595,
+        0.8128
+      ],
+      "median_dead_area": 55.5,
+      "median_growth_ratio_when_absorbed": 2.075,
+      "adjacent_share": 0.7062,
+      "budget_checked": 6000,
+      "budget_fail_share": 0.0,
+      "rho_heredity": 0.421,
+      "pairs": 1106,
+      "survival_mean": 0.2984,
+      "fate_diff_mean": 0.0009,
+      "fate_diff_ci": [
+        -0.0307,
+        0.0316
+      ],
+      "fates_both_onlybig_onlysmall_neither": [
+        581,
+        168,
+        167,
+        190
+      ],
+      "refs": {
+        "survival": 0.2984,
+        "pairs": 1106
+      }
+    },
+    "f040": {
+      "deaths": 1102,
+      "deaths_by_fate": {
+        "absorbed": 834,
+        "vanished": 182,
+        "unclear": 86
+      },
+      "absorbed_share": 0.7568,
+      "vanished_share": 0.1652,
+      "unclear_share": 0.078,
+      "absorbed_share_ci": [
+        0.7314,
+        0.7822
+      ],
+      "median_dead_area": 114.0,
+      "median_growth_ratio_when_absorbed": 2.07,
+      "adjacent_share": 0.7877,
+      "budget_checked": 6000,
+      "budget_fail_share": 0.0,
+      "rho_heredity": 0.48,
+      "pairs": 1195,
+      "survival_mean": 0.1372,
+      "fate_diff_mean": -0.0745,
+      "fate_diff_ci": [
+        -0.1013,
+        -0.0469
+      ],
+      "fates_both_onlybig_onlysmall_neither": [
+        727,
+        98,
+        187,
+        183
+      ],
+      "refs": {
+        "survival": 0.1372,
+        "pairs": 1195
+      }
+    }
+  },
+  "absorbed_share_delta_maze_minus_lattice": -0.0886,
+  "verdict": "NO REGISTERED OUTCOME FIRED. Absorption dominates in all three cells (84.5% / 78.7% / 75.7% of 524 / 844 / 1102 deaths), the maze moves it by -8.9% (under the declared 0.10) and vanishing rises 8.4% → 16.5% without ever dominating, so neither branch of the pre-registered dichotomy holds. What changes across the cells is the NUMBER of identity deaths (x2.1) and the number of real vanishings (44 → 182), not the kind of death: the dichotomy 'homogenising or lethal' was the wrong question, and the run says so instead of choosing a side."
+}

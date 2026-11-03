@@ -1,6 +1,6 @@
 {
  "schema_version": 1,
- "updated_at": "2026-11-03T00:54:25Z",
+ "updated_at": "2026-11-03T05:32:00+03:00",
  "note": "Очередь пунктов после E02c. Claim берётся до пре-регистрации, а не перед запуском: lab.py item-claim. Статус running означает занятый GPU-лейн и может быть только у одного пункта. | 25.10: добавлено поле impact (1-5) — приоритет конвейера = impact/max(cost_gpu_h,0.1); для запуска пункту нужны prereg (закоммиченный план) и launch.command+outdir.",
  "items": [
   {
@@ -2582,6 +2582,20 @@
    "ttl_minutes": 240,
    "closed_at": "2026-11-03T00:54:25Z",
    "closed_by": "lead"
+  },
+  {
+   "id": "X127_absorption",
+   "title": "Does a lineage end by vanishing or by being absorbed? Three cells, no new worlds",
+   "status": "closed",
+   "owner": "lead",
+   "kind": "analysis",
+   "cost_gpu_h": 0,
+   "prereg": "reports/2026-11-03-x127-absorption-plan.md",
+   "created_at": "2026-11-03T05:06:00+03:00",
+   "heartbeat_at": "2026-11-03T02:06:19Z",
+   "closed_at": "2026-11-03T02:32:00Z",
+   "closed_by": "lead",
+   "note": "No registered outcome fired, and that is the result: absorption dominates in all three cells (84.5 / 78.7 / 75.7 % of 524 / 844 / 1102 identity deaths, survivors growing by a median 2.07-2.28x the dead area), so a lineage usually dies by losing its name, not its cells. The maze differs in amount - identity deaths x2.1, real vanishings 44 -> 105 -> 182, median dead area 27 -> 114 cells - not in kind. The smaller sister is the one swallowed (248:183 in the lattice, 187:98 in the maze). Controls all held: end-survival reproducing X126 to four decimals, heredity 0.548/0.421/0.480, the area budget closing on all 18 000 step transitions, full coverage. The plan's lethal-or-homogenising dichotomy was the wrong question, and the first printed verdict borrowed a label its second clause had not earned; the rule in docs/design-checks.md now requires a 'neither' branch. Reports x127-absorption, section 10gu."
   }
  ]
 }
