@@ -3633,3 +3633,49 @@ on the **effective gap**, because a radius-6 disc on a discrete grid cannot move
 Report: `reports/2026-11-03-x154-mixing-curve.md`; aggregate `l1_field_x154_mixing.json`. Next: X152 (radius 3.75, where the
 outcome step moves between radii), a finer logging quantum at a gap of 7.5 (five steps instead of ten, to see whether the
 two slow seeds are a distribution or one value), X149 (the shape of the product, with frames).
+
+## 10ho. The heredity coefficient is the copying rule's fidelity, measured to one per cent (X155, 03.11)
+
+The line has asserted since 01.11 that heredity in the field is *assigned, not emerged*, on the strength of a correlation between
+division rate and the stored `inheritability_r` (Spearman +0.79) — an argument about a correlation. X155 measured the thing itself
+(plan `reports/2026-11-03-x155-heredity-plan.md`, registered before the analysis and before the ablation).
+
+**The reconstruction is validated first.** With `--split-new-uid` the parent's uid ends at a split, so parent and daughter are never
+logged together; the pairs are read as parent's last logged step before the daughter appears, daughter's first. Against the
+artifact's own coefficient, per world: 0.9092 against 0.9092 at `F = 0.030` (2 164 of 2 211 pairs, difference −0.00001) and 0.8967
+against 0.8989 at `F = 0.040` (1 779 of 1 951, −0.0022). A pooled `r` would read 0.938 / 0.929 — between-world variance entering a
+within-world coefficient — and that is why the control compares means over worlds.
+
+**Then the quantity.**
+
+| readout | `F` = 0.030 | `F` = 0.040 |
+|---|---|---|
+| slope of daughter on parent, 95 % CI (cluster bootstrap over parent uids) | **0.9837** [0.9679, 1.0002] | **0.9931** [0.9756, 1.0103] |
+| same, partialled on the parent's daughter count | 0.9837 | 0.9932 |
+| shuffled-parent null: mean, one-sided p | 0.1895, 0.001 | 0.1490, 0.001 |
+| residual sd of daughter minus parent | **0.1487** | **0.1495** |
+| the rule's own `sigma` | 0.15 | 0.15 |
+| `H²` between lineages at the horizon: mean / median / range | 0.082 / 0.019 / 0.00-0.30 | 0.416 / 0.360 / 0.00-0.93 |
+
+Three statements. The slope is one within the interval, so there is no attenuation to explain. Partialling on the parent's number of
+daughters moves the slope by less than 1e-4, so the stored coefficient's correlation with division rate is two effects of one rule,
+not transmission by rate. And the residual is the mutation to one per cent — 0.1487 and 0.1495 against `sigma = 0.15` — so nothing
+in the medium contributes to what a daughter fails to inherit from its parent.
+
+`H²` in this setting is **not a heritability of a trait**: it counts how many lineages the habitat leaves standing. A lattice world
+with ten lineages gives 0.30, one with two gives 0.00-0.02; the maze's horizon holds 2-11 bodies, so a single root can carry 0.93.
+That is a category error to be avoided in the manuscript, and it is the most useful thing the number says.
+
+**The ablation is degenerate, and stronger than a coefficient.** Two runs with `--mutation 0.0` (seeds 301, 302; anchor bit-identical
+to `x108_f030_s301.json` key-by-key, so the flag is the only difference) give `s = 1.0` everywhere, `s_sd_between_last = 0.0`, and
+100 % of pairs exactly equal: with the rule's noise removed there is no trait variance at all, so `r` and the slope are undefined.
+That is the limit case of perfect transmission, and the plan's amendment records that this fallback was chosen **after** the data.
+
+Verdict **HEREDITY IS THE RULE**: every registered criterion holds under the amended reading of the degenerate arm. Caveats: the
+pairs are displaced by up to one logging quantum; the union-find has no notion of coalescence, so a merged body is a new root, which
+makes `H²` an upper bound; two ablation worlds are few, though both are degenerate.
+
+Report: `reports/2026-11-03-x155-heredity.md`; aggregate `l1_field_x155_heredity.json`; runs `x155_anchor_f030_s301.json`,
+`x155_nomut_f030_s301.json`, `x155_nomut_f030_s302.json`. Next: a trait *measured* from the field rather than written by the rule
+(an excursion width or the local wavelength, inherited through the pattern) — the only route by which this line could produce
+positive heredity; `H²` as a calibration on the lineage count across the five existing cells; X152 and X149 unchanged.

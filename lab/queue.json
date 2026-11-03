@@ -2917,13 +2917,15 @@
   {
    "id": "X155_heredity_H2",
    "title": "Is the field line's heredity mechanical or transmissible? H2 with a shuffled-parent null, R with a sham control",
-   "status": "planned",
+   "status": "closed",
    "owner": "lead",
    "kind": "analysis",
    "cost_gpu_h": 0.1,
    "prereg": null,
    "created_at": "2026-11-03T22:49:01+03:00",
-   "note": "The field line has a transmission correlation (inheritability_r ~ 0.95) that 01.11 showed to be imposed by the copying rule (Spearman(splits, r) = +0.79), so it owns no falsifiable heredity number. The 03.11 deep-research pass supplies the standard protocol: broad-sense H2 = V_G/V_P from parent-daughter pairs, the same slope partialled on division rate, a shuffled-parent null, and a selection response R against a sham/mutation-off control; coalescence stays typed as a merger, never as a birth (X154). Phase 1 is analysis of existing artifacts (0 GPU): the full logs keep per-component s and uid_pairs, but the in-git compact projection drops s, so either a compact v2 keeping s is written for the runs used, or the analysis is recomputed from locally held full artifacts and the aggregate says so. Phase 2 is two runs at --mutation 0 at the same F, radius and horizon (~0.1 GPU-h). Register the refusal rule before Phase 2: transmissible heredity only if the slope CI excludes 0, the shuffle null is rejected at 95 %, the division-rate-partialled slope stays positive with its CI off zero, and the mutation-off arm does not drift beyond its null. Sources: library/hypotheses/heredity-selection-quantitative.md (7 records, metadata verified, full texts not read)."
+   "note": "closed: the heredity coefficient is the copying rule's fidelity, measured. Pairs reconstructed from uid_pairs+components_log (displaced by at most one 10-step quantum) reproduce the stored inheritability_r per world to 1e-5/0.0022. Daughter-on-parent slope 0.9837 [0.9679,1.0002] and 0.9931 [0.9756,1.0103]; partialled on daughters the change is <1e-4; shuffled-parent null p=0.001; residual sd 0.1487/0.1495 against sigma 0.15. With --mutation 0 the trait has no variance at all (s=1.0, 100% of pairs equal) and the anchor is bit-identical. H2 between lineages counts surviving lineages rather than measuring a heritability. Verdict HEREDITY IS THE RULE. Aggregate l1_field_x155_heredity.json, report reports/2026-11-03-x155-heredity.md, plan reports/2026-11-03-x155-heredity-plan.md (amendment written post data), section 10ho. Next: a trait measured from the field rather than written by the rule; H2 predicted from the lineage count across the five existing cells.",
+   "closed_at": "2026-11-03T20:54:18Z",
+   "closed_by": "lead"
   }
  ]
 }

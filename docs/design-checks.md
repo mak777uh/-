@@ -449,3 +449,23 @@ against a "the time widens as the gap grows" reading, not for it. (4) A failed c
 queue note even when the verdict stands — a control that is quietly re-read is indistinguishable from one that was never
 registered.
 Report: `reports/2026-11-03-x154-mixing-curve.md`.
+
+## A "near-perfect" criterion must be written for the degenerate case
+
+03.11 (X155). The pre-registration for the heredity ablation said the mutation-off arm counts as near-perfect if `r ≥ 0.99`
+and the slope `≥ 0.95`. The arm produced **no coefficient at all**: with `--mutation 0` the trait is constant (`s` = 1.0 in
+every component at every step, between-component sd 0.0, 100 % of parent-daughter pairs exactly equal), so both statistics are
+undefined — zero variance in the denominator. The strongest form of perfect transmission is a vanished variance, and the
+registered rule could not express it.
+
+The arm was read under a fallback written in the plan **after** the data and labelled as such: sd 0 in every run, at least
+99 % of pairs exactly equal, and the mutation-on arm's residual within a factor of two of the rule's own `sigma`. All three
+held (0.1487 / 0.1495 against 0.15), so the verdict stands — but a criterion amended after the data is weaker evidence, and
+the report says so in the controls section.
+
+Rules. (1) A threshold on a correlation, ratio or slope is accompanied by its **degenerate case**: what the arm reports when
+the denominator vanishes, and whether that outcome counts for the claim or against it. (2) The degenerate case is registered
+as a branch, not as an excuse: "if the variance is zero, the criterion is X" must appear next to the threshold, because a
+perfect manipulation is exactly the one that destroys the statistic. (3) An amendment written after the data is dated, marked
+post hoc, and quoted in the report's controls section; it may not be folded into the plan as if it had been there.
+Report: `reports/2026-11-03-x155-heredity.md`; plan: `reports/2026-11-03-x155-heredity-plan.md` (§Amendment).

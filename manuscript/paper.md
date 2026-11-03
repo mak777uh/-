@@ -1,7 +1,7 @@
 # Условия поддержания организации в цифровой среде: цена ошибки, неполная информация и границы обучения
 
-**Статус:** draft v3.8 (2026-11-03). Не подана, не рецензирована, цитировать нельзя. Соответствие препринту: v1.2 (Zenodo) — добавлены измеренная цена (−0.374, ДИ [−0.396, −0.266]), канал признака, механизмы сосуществования (асинхронность, смертность) и их синергия (+0.445); v3.6 — плотная лестница наследования и ось порога (§4k.1), третье поле как отрицательный результат (§4k); v3.7 — §4k.3 «Coalescence is a merger, not a birth»; v3.8 — §4k.2 «What makes the end of a lineage an end». Оба новых подраздела написаны сразу по-английски.
-**Данные частичные:** линия поля закрыта до X107; блоки X108–X154 внесены в текст (§4k — второй вид, §4k.2 — идентичность, §4k.3 — слияние); открыт один вопрос линии — фальсифицируемая наследуемость (X155, план). Аудит: `reports/2026-11-03-claims-audit.md`.
+**Статус:** draft v3.9 (2026-11-03). Не подана, не рецензирована, цитировать нельзя. Соответствие препринту: v1.2 (Zenodo) — добавлены измеренная цена (−0.374, ДИ [−0.396, −0.266]), канал признака, механизмы сосуществования (асинхронность, смертность) и их синергия (+0.445); v3.6 — плотная лестница наследования и ось порога (§4k.1), третье поле как отрицательный результат (§4k); v3.7 — §4k.3 «Coalescence is a merger, not a birth»; v3.8 — §4k.2 «What makes the end of a lineage an end»; v3.9 — §4k.4 «The heredity coefficient is the rule's fidelity», измерение наследуемости вместо утверждения. Новые подразделы написаны сразу по-английски.
+**Данные частичные:** линия поля закрыта до X107; блоки X108–X155 внесены в текст (§4k — второй вид, §4k.2 — идентичность, §4k.3 — слияние, §4k.4 — наследуемость). Открытых вопросов линии осталось два: X152/X149 в блоке слияния. Аудит: `reports/2026-11-03-claims-audit.md`.
 
 ## 1. Вопрос
 
@@ -1683,6 +1683,51 @@ the length at which that happens is measurable.
 `l1_field_x136_wall.json`, `l1_field_x138_scale.json`, `l1_field_x140_gap_rule.json`, `l1_field_x142_coalescence.json`,
 `l1_field_x145_lone_disc.json`, `l1_field_x147_radius45.json`, `l1_field_x150_radius6.json`,
 `l1_field_x151_radius525.json`, `l1_field_x153_halfcell.json`, `l1_field_x154_mixing.json`.
+
+### 4k.4 The heredity coefficient is the rule's fidelity
+
+The heredity measured in §4k.1 was reported there with an honest reservation: the coefficient is large, and the line had
+only an argument — a correlation between division rate and the stored coefficient — that this is *assigned* rather than
+*emerged*. This subsection replaces the argument with a measurement, and the measurement says the reservation was right in
+a stronger form than the text claimed.
+
+The pairs are reconstructed from the logs. Because a split creates new uids, a parent and its daughter are never logged
+together: the parent is read at its last logged step before the daughter appears, the daughter at her first, a
+displacement of at most one logging quantum. The reconstruction is validated against the artifact's own coefficient, per
+world, and that comparison is the control on which everything else depends:
+
+| cell | worlds | pairs | per-world `r` | stored `r` | difference |
+|---|---|---|---|---|---|
+| `F` = 0.030 | 10 | 2 164 of 2 211 | **0.9092** | 0.9092 | **−0.00001** |
+| `F` = 0.040 | 10 | 1 779 of 1 951 | **0.8967** | 0.8989 | **−0.0022** |
+
+With the pairs validated, the quantity can be read. The daughter-on-parent slope is **0.9837** [0.9679, 1.0002] in the
+lattice and **0.9931** [0.9756, 1.0103] in the maze — one within the interval, with no attenuation to explain. Partialling
+on the parent's number of daughters changes it by less than 1e-4, so the coefficient's correlation with division rate is
+two effects of one rule rather than transmission by rate. A shuffled-parent null gives 0.19 and 0.15 against the observed
+slope of 0.98, rejected at p = 0.001 in both cells. And the part of a daughter's value that does not come from its parent
+is the mutation, to one per cent: the residual sd is **0.1487** and **0.1495** against the rule's own `sigma` = 0.15.
+
+The ablation settles the provenance. Two runs with the mutation ablated (`--mutation 0`) reproduce the anchor world
+key-by-key apart from that one flag, and in both the trait is **constant**: `s` = 1.0 in every component at every step, a
+between-component sd of 0.0, and 100 % of reconstructed pairs exactly equal. With the rule's noise removed there is no trait
+variance at all, so `r` and the slope are undefined — the degenerate limit of perfect transmission. Nothing in the medium
+contributes a transmissible component; the coefficient is the fidelity of the assignment.
+
+One number in this subsection must not be read as a heritability, and it is worth stating why. The broad-sense share of
+trait variance that sits between lineages at the horizon is 0.082 (median 0.019) in the lattice and 0.416 (median 0.360) in
+the maze — but a lattice world with ten lineages gives 0.30 where a world with two gives 0.00–0.02, and the maze's horizon
+holds only a handful of bodies, so a single root can carry 0.93 of the variance. This `H²` is a **count of surviving
+lineages**, not a property of the trait, and reading it as a heritability would be a category error.
+
+What the line may now say, and what it may not. It may say that the field's heredity is the copying rule's fidelity,
+measured, with its entire error budget accounted for by the mutation parameter — the §4k.1 sentence promoted from assertion
+to result. It may not say anything about whether *another* medium could have genuine heredity: the negative is about the
+Gray–Scott field as coded, and about a trait the rule writes rather than one the field would have to transmit.
+
+Доказательства: раздел 10ho в \docs/world-design.md\; `reports/2026-11-03-x155-heredity.md`,
+`reports/2026-11-03-x155-heredity-plan.md`; агрегат `l1_field_x155_heredity.json`; прогоны `x155_anchor_f030_s301.json`,
+`x155_nomut_f030_s301.json`, `x155_nomut_f030_s302.json`.
 
 ## 5. Методологические находки
 
