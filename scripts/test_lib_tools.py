@@ -530,6 +530,25 @@ def test_pairwise_audit(tmp: Path) -> None:
         shutil.rmtree(work, ignore_errors=True)
 
 
+def test_transition_gate(tmp: Path) -> None:
+    """transition_gate: pending краснеет, review с существующим файлом — зелёный."""
+    work = REPO / "library" / ".transitions-test"
+    import shutil
+    shutil.rmtree(work, ignore_errors=True)
+    work.mkdir(parents=True, exist_ok=True)
+    try:
+        (work / "t.md").write_text(
+            "2026-11-04 | X1 | вид | pending\n2026-11-04 | X2 | вид | не влияет: уточнение\n", encoding="utf-8")
+        bad = run("library/tools/transition_gate.py", "--file", "library/.transitions-test/t.md")
+        check("transition_gate: pending краснеет", bad.returncode == 1 and "L1" in bad.stdout, bad.stdout[:300])
+        (work / "t.md").write_text(
+            "2026-11-04 | X1 | вид | не влияет: уточнение\n2026-11-04 | X2 | вид | не влияет: уточнение\n", encoding="utf-8")
+        ok = run("library/tools/transition_gate.py", "--file", "library/.transitions-test/t.md")
+        check("transition_gate: закрытые проходят", ok.returncode == 0, ok.stdout[:300])
+    finally:
+        shutil.rmtree(work, ignore_errors=True)
+
+
 def main() -> int:
     with tempfile.TemporaryDirectory() as tdir:
         tmp = Path(tdir)
@@ -563,6 +582,8 @@ def main() -> int:
         test_science_digest(tmp)
         print("== topic lit ==")
         test_topic_lit(tmp)
+        print("== transition gate ==")
+        test_transition_gate(tmp)
         print("== pairwise audit ==")
         test_pairwise_audit(tmp)
         print("== params audit ==")
