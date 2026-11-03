@@ -3364,3 +3364,35 @@ The rule is now a ruler rather than a summary: it can be applied to any pair of 
 
 Report: `reports/2026-11-03-x140-gap-rule.md`; aggregate `l1_field_x140_gap_rule.json`. Next: X137 places a pair of relatives at a nine-cell gap, X141 repeats the test at 1-cell spacing with a
 fourth radius, and X139 turns the slowdown into a curve.
+
+## 10hf. The merge has a floor of one quantum, and at a five-cell gap the pair is annihilated (X139, 03.11)
+
+§10hc and §10he found a second signature of the mixing length: the median time to absorption rises towards the crossing. X139 filled the range below 12 cells at one-cell spacing to ask whether that
+rise saturates well inside the length.
+
+| separation | gap | absorbed | both alive | median steps |
+|---|---|---|---|---|
+| 7 | 1 | 5/5 | 0/5 | **1** |
+| 8 | 2 | 5/5 | 0/5 | **1** |
+| 10 | 4 | 5/5 | 0/5 | **10** |
+| **11** | **5** | **0/5** | **0/5** | - |
+| 14 (reused) | 8 | 5/5 | 0/5 | **40** |
+| 15 (reused) | 9 | 5/5 | 0/5 | 50 |
+| 16 (reused) | 10 | 2/5 | 1/5 | 79 |
+
+**The floor is confirmed**: gaps 1, 2 and 4 give medians of 1, 1 and 10 steps - a spread of 9 against the declared 10-step resolution. At contact the pairing is a single unstable structure from the
+first logged step. The rise then belongs to gaps 8-10 (40, 50, 79 steps), roughly doubling towards the crossing.
+
+**And the 11-cell arm is a third fate.** In all five seeds both seeded uids end, neither is absorbed by the other, and each leaves **no descendants** (subtree size 1 for both) while the world stays
+alive. At a five-cell gap the two structures neither merge nor coexist: they **annihilate**. So the outcome is not monotone in kind - merge at gaps 1-4, **annihilation at 5**, merge again at 8-10
+(progressively slower), separate from 11.
+
+Two consequences. First, the readout had a blind spot and the run exposed it: "not absorbed and not both alive" was counted as "kept apart", and the first pass printed the nonsense verdict "crossing
+between 14 and 11, non-monotone at 11". The analysis now has an explicit `unresolved` class and drops such an arm from the crossing, which put the bracket back at **14-16**, where §10hc had it.
+Second, **the inner edge of the mixing length is not where merging becomes gentle - it is where merging turns into mutual destruction**, at least at this one gap: 5 of 12 wavelengths, where the two
+inhibitory halos suppress each other's autocatalysis and neither survives to fuse.
+
+**The band is unmapped**: one point is not a band, and until gaps 3, 5, 6 and 7 are swept at one-cell spacing the report must not say how wide it is.
+
+Report: `reports/2026-11-03-x139-slowing.md`; aggregate `l1_field_x139_slowing.json`. Next: X142 maps the annihilation band, X137 adds kinship at a nine-cell gap (and asks whether kin move the outer
+crossing, the inner edge, or neither), X143 re-measures the floor with a 1-step logging window.

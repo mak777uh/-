@@ -4,7 +4,7 @@
 
 The curated page — what matters and why — is [`scripts.md`](scripts.md). This file is the complete list, so that every command behind a number in the record can be found.
 
-Scripts: **334**.
+Scripts: **336**.
 
 ## Гейты и проверки (47)
 
@@ -171,7 +171,7 @@ Scripts: **334**.
 | `make_seed_grid_figure.py` | Собрать Figure 4 рукописи: сетка «инициализация × порядок данных» (§4.13). |
 | `make_simple_poster.py` | Простой постер для владельца: что мы узнали, без терминов. |
 
-## Прочее (199)
+## Прочее (201)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -284,6 +284,8 @@ Scripts: **334**.
 | `x136_series.py` | x134_series.py — X136: the wall to the cell - separations 14, 16, 17; 12, 15, 18 are reused from X134b. |
 | `x138_analyse.py` | x138_analyse.py — X134: the mixing length, read from the genealogy of the two seeded lineages. |
 | `x138_series.py` | x134_series.py — X138: does the mixing length scale with the structure or with the wavelength? Radius 6, separations 16/24/32/40. |
+| `x139_analyse.py` | x139_analyse.py — X134: the mixing length, read from the genealogy of the two seeded lineages. |
+| `x139_series.py` | x134_series.py — X139: the slowing curve - separations 7, 8, 10, 11 at radius 3; 12/14/15/16 are reused from X136. |
 | `x140_analyse.py` | x140_analyse.py — X134: the mixing length, read from the genealogy of the two seeded lineages. |
 | `x140_series.py` | x134_series.py — X140: the gap rule's prediction - radius 4.5 must cross at 18 cells (2*4.5 + 9). |
 | `x56_matrix.py` | x56_matrix.py — сходимость по шагу: контраст при dt = 1.0, 0.5, 2.0. |
