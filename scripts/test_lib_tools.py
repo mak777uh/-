@@ -513,6 +513,23 @@ def test_params_audit(tmp: Path) -> None:
           "buffer_tau = 0.0" in res.stdout and "не проверялось" in res.stdout, res.stdout[-300:])
 
 
+def test_pairwise_audit(tmp: Path) -> None:
+    """pairwise_audit: находит тест с p-значением без названной поправки."""
+    work = REPO / "library" / ".pairwise-test"
+    import shutil
+    shutil.rmtree(work, ignore_errors=True)
+    work.mkdir(parents=True, exist_ok=True)
+    try:
+        (work / "bad.md").write_text("Mann–Whitney z = 2.57, p = 0.01.\n", encoding="utf-8")
+        res = run("library/tools/pairwise_audit.py", "--paths", "library/.pairwise-test")
+        check("pairwise_audit: тест без поправки найден", res.returncode == 1 and "bad.md" in res.stdout, res.stdout[:300])
+        (work / "bad.md").write_text("Mann–Whitney z = 2.57, p = 0.01, поправка Бонферрони.\n", encoding="utf-8")
+        ok = run("library/tools/pairwise_audit.py", "--paths", "library/.pairwise-test")
+        check("pairwise_audit: с поправкой проходит", ok.returncode == 0, ok.stdout[:300])
+    finally:
+        shutil.rmtree(work, ignore_errors=True)
+
+
 def main() -> int:
     with tempfile.TemporaryDirectory() as tdir:
         tmp = Path(tdir)
@@ -546,6 +563,8 @@ def main() -> int:
         test_science_digest(tmp)
         print("== topic lit ==")
         test_topic_lit(tmp)
+        print("== pairwise audit ==")
+        test_pairwise_audit(tmp)
         print("== params audit ==")
         test_params_audit(tmp)
         print("== lead brief ==")
