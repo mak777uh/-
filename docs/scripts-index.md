@@ -213,6 +213,7 @@ Scripts: **347**.
 | `periodicity.py` | periodicity.py — есть ли у мира СВОЙ ритм, и синхронизирован ли он с петлёй. |
 | `predictions.py` | predictions.py — реестр предсказаний: что мы обещали до данных и что вышло. |
 | `probe_invasion_state.py` | probe_invasion_state.py — проба пути инъекции: где и когда исчезает инвайдер (§10at.1). |
+| `recheck_partial_rho.py` | Independent recount of the C series in `metric_variants.json` (partial rho, trait against cell steps at fixed energy). |
 | `reciprocity.py` | reciprocity.py — двусторонняя связь потока и мира: считается ОБА направления передачи. |
 | `response_independent.py` | Отклик признака, проверенный величиной, независимой от `w`. |
 | `result_scan.py` | Сканер результатов: переходы берутся из данных, а не из таймера. |
@@ -298,7 +299,6 @@ Scripts: **347**.
 | `x150_series.py` | x150_series.py — X150: a third radius (6.0) at surface gaps 6, 7 and 8. |
 | `x151_analyse.py` | x151_analyse.py — X151: is the stop of the boundary a threshold or a plateau? |
 | `x151_series.py` | x151_series.py — X151: radius 5.25 at surface gaps 7 and 8 (separations 17.5 and 18.5). |
-| `x152_partial_recount.py` | Independent recount of the C series in `metric_variants.json` (partial rho, trait against cell steps at fixed energy). |
 | `x56_matrix.py` | x56_matrix.py — сходимость по шагу: контраст при dt = 1.0, 0.5, 2.0. |
 | `x58_analyse.py` | x58_analyse.py — the same measurement on a 128 grid: β₀, β₁, wavelength, normalised count. |
 | `x58_series.py` | x60_series.py — X60: the twenty field runs that keep their snapshots. |
