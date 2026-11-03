@@ -3568,3 +3568,33 @@ do touch - once, at the crossing - which is the first sign that the outcome and 
 
 Report: `reports/2026-11-03-x151-radius525.md`; aggregate `l1_field_x151_radius525.json`. Next: X152 (radius 3.75 at gaps
 8 and 9, to locate the step), X153 (radius 6 at separation 19.5, sub-cell creep), X149 (the shape of the product).
+
+## 10hm. The outcome steps, the time mixes (X153, 03.11)
+
+§10hl closed the width of the boundary in *outcome* (a plateau over 64-113 cells of disc area) but left open whether the
+boundary is a whole-cell step or a line the one-cell sweep sampled coarsely. A half-cell answers it: radius 6 at a surface
+gap of **7.5** cells (separation 19.5), ten seeds, between the last universal gap (7) and the first broken one (8).
+
+| surface gap | seeds coalescing | their dissolution steps |
+|---|---|---|
+| 7.0 | 5 of 5 | 39, 39, 39, 39, 39 |
+| **7.5** | **10 of 10** | **39 x8, 49 x2** |
+| 8.0 | 3 of 5 | 49, 49, 59 |
+
+The half-cell does **not** move the boundary: 10 of 10 still coalesce, so the boundary is a whole-cell step and stays
+where the sweep put it. But the half-cell is visible in the **time**: two of ten seeds dissolve at 49 (gap 8's step) while
+eight keep gap 7's 39, so the median is unchanged and the distribution is not. Combined with §10hl this locates the
+interaction of the two laws on the *early* side of the crossing: the timing tail begins before the outcome weakens.
+
+Two limits are part of the result. The half-cell moved the rasterised discs by one cell each (first frame 110 against 108
+cells), so the arm is a gap plus about 2 % of area - conservative in direction, since a larger disc breaks earlier, but not
+a pure manipulation. And the dissolution step is logged every 10 steps, so 39 and 49 are the only two values a slow-or-not
+seed can take; a four-step shift would be invisible, which makes the outcome count the primary readout of this arm.
+
+**Control lesson.** The registration's control asked the artifact to record a gap of 7.5 rather than a rounded 7 or 8, and
+it passed on `params.init_spots` alone. A parameter is not a field: had the probe rounded the separation internally, the
+final arm would have been a silent duplicate of gap 7. `docs/design-checks.md` gains the rule that a manipulation check
+must read the state, not the request.
+
+Report: `reports/2026-11-03-x153-halfcell.md`; aggregate `l1_field_x153_halfcell.json`. Next: X154 (the mixing curve at
+half-cells in both directions), X152 (radius 3.75 between the radii that disagree), X149 (the shape of the product).

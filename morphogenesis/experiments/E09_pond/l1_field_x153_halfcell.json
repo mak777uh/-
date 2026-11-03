@@ -1,0 +1,296 @@
+{
+  "kind": "l1_field_x153_halfcell",
+  "experiment": "X153",
+  "command": "python scripts/x153_analyse.py --write",
+  "prereg": "reports/2026-11-03-x153-halfcell-plan.md",
+  "definitions": {
+    "unit": "the seed; the arm is one radius and one surface gap of 7.5 cells",
+    "gap": "SEP - 2R in cells, here 19.5 - 12 = 7.5",
+    "M": "mutual coalescence: neither seeded uid has a daughter and both subtrees are gone at the last step",
+    "readout": "x142_analyse.world_row - the same code, no distance tolerance",
+    "decision_rule": ">=9/10 step, <=6/10 creep, 7-8/10 indeterminate, <=3/10 contradiction (registered before)"
+  },
+  "arm": {
+    "radius": 6.0,
+    "separation": 19.5,
+    "gap": 7.5,
+    "runs": 10,
+    "M": 10,
+    "A": 0,
+    "P": 0,
+    "median_t_coalescence": 39.0,
+    "n_timed": 10,
+    "time_histogram": {
+      "39": 8,
+      "49": 2
+    },
+    "seeds": {
+      "601": {
+        "class": "M",
+        "t_dissolve": 39,
+        "daughters": {
+          "1": 0,
+          "2": 0
+        },
+        "live": true
+      },
+      "602": {
+        "class": "M",
+        "t_dissolve": 39,
+        "daughters": {
+          "1": 0,
+          "2": 0
+        },
+        "live": true
+      },
+      "603": {
+        "class": "M",
+        "t_dissolve": 39,
+        "daughters": {
+          "1": 0,
+          "2": 0
+        },
+        "live": true
+      },
+      "604": {
+        "class": "M",
+        "t_dissolve": 39,
+        "daughters": {
+          "1": 0,
+          "2": 0
+        },
+        "live": true
+      },
+      "605": {
+        "class": "M",
+        "t_dissolve": 39,
+        "daughters": {
+          "1": 0,
+          "2": 0
+        },
+        "live": true
+      },
+      "606": {
+        "class": "M",
+        "t_dissolve": 39,
+        "daughters": {
+          "1": 0,
+          "2": 0
+        },
+        "live": true
+      },
+      "607": {
+        "class": "M",
+        "t_dissolve": 49,
+        "daughters": {
+          "1": 0,
+          "2": 0
+        },
+        "live": true
+      },
+      "608": {
+        "class": "M",
+        "t_dissolve": 39,
+        "daughters": {
+          "1": 0,
+          "2": 0
+        },
+        "live": true
+      },
+      "609": {
+        "class": "M",
+        "t_dissolve": 39,
+        "daughters": {
+          "1": 0,
+          "2": 0
+        },
+        "live": true
+      },
+      "610": {
+        "class": "M",
+        "t_dissolve": 49,
+        "daughters": {
+          "1": 0,
+          "2": 0
+        },
+        "live": true
+      }
+    }
+  },
+  "initial_state": {
+    "601": {
+      "gap75": {
+        "areas": [
+          110,
+          110
+        ],
+        "components": 2,
+        "occupied": 0.0239
+      },
+      "gap7": {
+        "areas": [
+          108,
+          108
+        ],
+        "components": 2,
+        "occupied": 0.0234
+      }
+    },
+    "602": {
+      "gap75": {
+        "areas": [
+          110,
+          110
+        ],
+        "components": 2,
+        "occupied": 0.0239
+      },
+      "gap7": {
+        "areas": [
+          108,
+          108
+        ],
+        "components": 2,
+        "occupied": 0.0234
+      }
+    },
+    "603": {
+      "gap75": {
+        "areas": [
+          110,
+          110
+        ],
+        "components": 2,
+        "occupied": 0.0239
+      },
+      "gap7": {
+        "areas": [
+          108,
+          108
+        ],
+        "components": 2,
+        "occupied": 0.0234
+      }
+    },
+    "604": {
+      "gap75": {
+        "areas": [
+          110,
+          110
+        ],
+        "components": 2,
+        "occupied": 0.0239
+      },
+      "gap7": {
+        "areas": [
+          108,
+          108
+        ],
+        "components": 2,
+        "occupied": 0.0234
+      }
+    },
+    "605": {
+      "gap75": {
+        "areas": [
+          110,
+          110
+        ],
+        "components": 2,
+        "occupied": 0.0239
+      },
+      "gap7": {
+        "areas": [
+          108,
+          108
+        ],
+        "components": 2,
+        "occupied": 0.0234
+      }
+    },
+    "606": {
+      "gap75": {
+        "areas": [
+          110,
+          110
+        ],
+        "components": 2,
+        "occupied": 0.0239
+      },
+      "gap7": null
+    },
+    "607": {
+      "gap75": {
+        "areas": [
+          110,
+          110
+        ],
+        "components": 2,
+        "occupied": 0.0239
+      },
+      "gap7": null
+    },
+    "608": {
+      "gap75": {
+        "areas": [
+          110,
+          110
+        ],
+        "components": 2,
+        "occupied": 0.0239
+      },
+      "gap7": null
+    },
+    "609": {
+      "gap75": {
+        "areas": [
+          110,
+          110
+        ],
+        "components": 2,
+        "occupied": 0.0239
+      },
+      "gap7": null
+    },
+    "610": {
+      "gap75": {
+        "areas": [
+          110,
+          110
+        ],
+        "components": 2,
+        "occupied": 0.0239
+      },
+      "gap7": null
+    }
+  },
+  "manipulation_note": "the half-cell separation also moved the rasterised discs by one cell each (areas 110 against 108 at gap 7), so the arm is a gap plus ~2 % of area; the direction is conservative, because a larger disc is the case where the boundary breaks earlier",
+  "neighbours_radius6": {
+    "7": {
+      "arm": "x150_g7_r60",
+      "M": 5,
+      "of": 5,
+      "median_t": 39
+    },
+    "8": {
+      "arm": "x150_g8_r60",
+      "M": 3,
+      "of": 5,
+      "median_t": 49
+    }
+  },
+  "seeds_601_605_only": {
+    "601": "M",
+    "602": "M",
+    "603": "M",
+    "604": "M",
+    "605": "M"
+  },
+  "controls": {
+    "failures": [],
+    "init_spots_recorded": [
+      "6.0:19.5"
+    ]
+  },
+  "verdict": "WHOLE-CELL STEP IN THE OUTCOME, AND A MIX IN THE TIME: 10 of 10 seeds coalesce at a surface gap of 7.5 cells, as they do at 7, so the half-cell does not move the boundary - it stays the last integer gap at which coalescence is universal (8 cells for a 28-cell disc, 7 for the larger ones). But the half-cell is visible in the timing: 2 of 10 seeds dissolve at the later logged step ({'39': 8, '49': 2}) while 8 keep gap 7's step, and at gap 8 the coalescing seeds spread over two later steps too. So the outcome steps and the time mixes - the third time the two laws behave differently"
+}
