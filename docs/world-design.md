@@ -206,3 +206,4 @@ sections were not rewritten, only moved; each one keeps its identifier, so every
 | §10ha | The mixing length is one pattern wavelength, and it is a lever rather than a correlate (X134, 03.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
 | §10hb | The wall is at 15-18 cells, and it survived freeing the placement (X134b, 03.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
 | §10hc | The mixing length is 16 cells with a one-cell transition, and the merge slows towards it (X136, 03.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
+| §10hd | The mixing length is a gap of nine cells, three quarters of a wavelength (X138, 03.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |

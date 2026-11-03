@@ -3299,3 +3299,32 @@ the merge slows to a crawl at the edge of that range.**
 
 Report: `reports/2026-11-03-x136-wall.md`; aggregate `l1_field_x136_wall.json`. Next: X137 repeats the crossover with a controlled genealogy (kin against strangers at 16
 cells), X138 asks whether the length scales with the structure's radius or with the wavelength, and X139 turns the slowing into a curve by sweeping 1-cell steps below 12.
+
+## 10hd. The mixing length is a gap of nine cells, three quarters of a wavelength (X138, 03.11)
+
+§10hc put the crossover at 16 +/- 1 cells for structures of 29 cells of area (radius 3) at a 12-cell wavelength. Two explanations fit and predict differently for a bigger structure: the
+pattern sets the length (crossover stays) or the structure does (crossover doubles). X138 doubled the seeding radius to 6 (113 cells of area) and swept six separations.
+
+| radius | area | crossover (centre distance) | surface gap at the crossover | in wavelengths |
+|---|---|---|---|---|
+| 3 | 29 cells | **16 +/- 1** | 16 - 6 = **10 cells** | 0.83 |
+| 6 | 113 cells | **20 +/- 2** | 20 - 12 = **8 cells** | 0.67 |
+
+Controls: the anchor exact, and the radius-6 seed is **one** component of 113 cells at step 1 and at step 100 in all five control runs - so the lever changed the object's size, not its
+kind. Every two-disc arm starts as two components, every run is alive, and the sweep spans both outcomes.
+
+**Neither hypothesis holds, and the third reading is the useful one.** Doubling the radius moved the crossover by 4 cells, not 16, so the centre distance is not the invariant - but neither
+is the structure's size. The **gap between the two surfaces** is nearly invariant: 10 cells at radius 3 and 8 at radius 6, i.e. **9 +/- 1 cells, about three quarters of a pattern
+wavelength**.
+
+> **Two lineages merge when the gap between their surfaces is smaller than about nine cells, whatever the size of the structures themselves.**
+
+And the slowing returns with the same shape: the median time to absorption rises 9, 19, 39 steps at 16, 18, 20 cells. Two radii produce the same two signatures - a crossover and a
+slowdown - which is why the gap reading is more than a curve fit.
+
+The number in the block's mechanism therefore stops being "16 cells" (a centre distance that depends on the seed) and becomes **a gap of nine cells**, which is scale-free in the right
+way and comparable with the pattern's own length: three quarters of a wavelength. It also explains why the percolating cell has no seeded mixing length at all (§10hb): its structures are
+not separate objects with surfaces nine cells apart - they are one body.
+
+Report: `reports/2026-11-03-x138-scale.md`; aggregate `l1_field_x138_scale.json`. Next: X140 runs a third radius (R = 4.5, 64 cells) whose crossing should be at 2*4.5 + 9 = 18 cells if the
+gap rule holds; X137 repeats the test for kin at the same gap; X139 turns the slowing into a curve at 1-cell spacing below 12.
