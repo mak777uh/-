@@ -3219,12 +3219,17 @@ of area each, the lattice's median dead area - at a chosen separation, and asks 
 | 30 | 0/5 | 5/5 | - |
 | 36 | 0/5 | 5/5 | - |
 
+**Correction of wording (03.11, §10hf).** The column heading "absorbed by the other lineage" is the analyser's old
+label. Read at the merge step, the merged body is a **new uid** and both seeded uids end on the same logged step, so
+what these tables measure is the **first death of the pair** and, below the mixing length, the two bodies **coalesce**
+rather than one swallowing the other. The numbers in §10ha-§10he stand; only the verb changes.
+
 **The mixing length is between 12 and 18 cells, and the transition is a wall, not a crossing**: 10 of 10 seeds merge at 8 and 12 cells, 20 of 20 keep both lineages
 at 18, 24, 30 and 36. The number is not arbitrary - the pattern wavelength here is **12 cells** (`q' = 8`, §10fs) - so two lineages merge inside one wavelength and
 survive as two beyond it. At 12 cells the merge takes a median of 19 steps; at 8 it happens at the first logged step.
 
 **What it settles.** Distance is a **lever**: place two lineages a wavelength apart and the habitat keeps them separate for 6 000 steps in every seed; place them
-closer and one takes the other. The segregation reading of §10gw now has an interventional basis.
+closer and the two become one body. The segregation reading of §10gw now has an interventional basis.
 
 **What it also sharpens.** The two seeded discs are **not kin** - different uids, no common ancestor - so this is the **stranger** case: two unrelated lineages merge
 inside a wavelength. In the lattice a structure's only neighbour is its sibling (§10gw), which is why its absorptions are family events; the percolating body puts
