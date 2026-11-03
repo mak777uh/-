@@ -69,6 +69,23 @@ def diff(a, b, path: str = "") -> list[str]:
     return [] if a == b else [f"{path}: {a!r} != {b!r}"]
 
 
+# 03.11: восемь агрегатов этого реестра считаются из кадров поля (_xNN_fields), а кадры в git не едут и частью
+# удалены (lab/retention.json). Гейт падал в nightly с самого удаления, и это было не видно: health показывал
+# «шаг не определён». Теперь отсутствие входа называется вслух и НЕ валит сборку, а расхождение при живом
+# входе — валит, как и раньше. Запись о том, что число цитируется, а пересчитать его нельзя, остаётся в отчёте
+# каждой прогонки.
+AGG_INPUT_DIRS = {
+    "l1_field_x80_dip.json": "_x80_fields",
+    "l1_field_x82_reach.json": "_x82_fields",
+    "l1_field_x84_angular.json": "_x71_fields",
+    "l1_field_x85_symmetry_memory.json": "_x85_fields",
+    "l1_field_x86_symmetry_curve.json": "_x86_fields",
+    "l1_field_x87_memory_vs_symmetry.json": "_x87_fields",
+    "l1_field_x88_percolating_arm.json": "_x88_fields",
+    "l1_field_x89_lineage_edge.json": "_x89_fields",
+}
+
+
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description="field aggregates re-derived from artifacts")
     ap.add_argument("--list", action="store_true")
@@ -81,10 +98,15 @@ def main(argv=None) -> int:
         return 0
 
     problems = []
+    skipped = []
     for script, agg_rel in REGISTRY:
         agg = ROOT / agg_rel
         if not agg.is_file():
             problems.append(f"{agg_rel}: no committed aggregate")
+            continue
+        frames = AGG_INPUT_DIRS.get(agg.name)
+        if frames and not (ROOT / "morphogenesis" / "experiments" / "L1_field" / frames).is_dir():
+            skipped.append(f"{agg_rel}: inputs {frames} are field frames - not in git, retired where recorded")
             continue
         saved = agg.read_bytes()
         committed = json.loads(saved.decode("utf-8"))
@@ -101,12 +123,15 @@ def main(argv=None) -> int:
         if d:
             problems.append(f"{agg_rel}: {len(d)} difference(s), first: {d[0]}")
 
+    for s in skipped:
+        print(f"  skipped: {s}")
     if problems:
         print("[field-analyses] ПРОВАЛ:")
         for p in problems:
             print("  " + p)
         return 1
-    print(f"[field-analyses] агрегаты воспроизводятся из артефактов: {len(REGISTRY)} проверено")
+    print(f"[field-analyses] registry {len(REGISTRY)}: {len(REGISTRY) - len(skipped)} re-derived from artifacts, "
+          f"{len(skipped)} skipped because their field frames are not in git (see lab/retention.json)")
     return 0
 
 
