@@ -138,3 +138,46 @@ reported per arm as a count** rather than used as a refusal. The refusal itself 
 empties makes "both lineages lost" uninformative, and that is what still voids the arm.
 
 The correction to X139's controls paragraph, made for the same reason, is appended there.
+
+## Amendment 2, 03.11 16:00 — the "annihilation" was the reach test, and the readout is redefined
+
+Disclosed first: at the time of writing, six of the thirty-five arms were complete and their per-seed numbers had been
+looked at (gap 3: the two seeded uids are already gone at the first logged step). The change below does not come from
+that look; it comes from reading the merge event in X139's own logs, and it changes the readout, not the arms.
+
+**What the diagnostic found.** In the annihilation arm (radius 3, separation 11) and in the merging arm at separation
+10 the two seeded uids disappear on the **same** logged step and the next logged step shows **one** component carrying
+about the sum of both areas: two blobs became one body, and the merged body is a new uid (uid 3, from which every
+later uid descends). Nothing distinguishes the two arms in the field. What distinguishes them is the analyser:
+`x139_analyse.py` calls a lineage lost "by absorption" only if the partner's last position is within
+`r_dead + r_other + 2` cells. At separation 10 the two last centroids are 10 cells apart and the threshold is about
+10.8; at separation 11 the centroids are 11 apart and the threshold is about 10.1. The "third fate" was that one
+comparison falling on either side of a 2-cell tolerance in the analyser.
+
+**The classes, defined without the tolerance.** For each seed:
+
+- **M — mutual coalescence.** Neither seeded uid ever has a daughter, and both are gone at the last step: the two
+  discs became one body before either could grow a lineage. Both lineages end in the same object.
+- **A — absorption.** One seeded lineage ends while the other's subtree is still alive at the last step.
+- **P — persistence.** Both seeded subtrees are alive at the last step: the discs split into daughters and the two
+  lineages coexist.
+
+The old "annihilated" and "unresolved" classes are dropped: they were a function of the reach tolerance, not of the
+world. The question changes with them — not *is there a band where the pair is destroyed*, which was an artefact, but
+**how far out does mutual coalescence reach**: at which surface gap do the discs begin to split before they touch.
+
+**Status of the registered outcomes.** The five outcomes written before the run are void as written: "a one-cell
+hole", "a band", "absolute gap", "radius-set" all described the artefact. They are replaced by two, decided the same
+way, on the same arms:
+
+- **M extends to gap 7** if gaps 3, 6 and 7 are all M in ≥ 4/5 seeds. Mutual coalescence then covers the whole inner
+  range measured, and the boundary is the first gap that splits, to be bracketed by a later sweep.
+- **M ends inside the sweep** if some gap ≤ 7 is A or P in ≥ 3/5 seeds. Then the boundary is named at one-cell
+  resolution, and the curve of dissolution times is reported with it.
+
+At radius 4.5 the same two outcomes decide whether M is set by the surface gap or by the structure's size; gap 7
+there is already known to split (X140, 5/5 merged with both lineages surviving), so a radius-4.5 arm in M at gaps
+4–6 says the boundary is not the same surface gap.
+
+The merge-time curve stays as a secondary readout, quoted with its logging quantum, and the floor it showed (gaps 1
+and 2 dissolve at the first logged step after seeding) is unaffected: it was never a reach-test artefact.
