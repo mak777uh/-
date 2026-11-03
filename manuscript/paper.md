@@ -1,7 +1,7 @@
 # Условия поддержания организации в цифровой среде: цена ошибки, неполная информация и границы обучения
 
-**Статус:** draft v3.6 (2026-11-03). Не подана, не рецензирована, цитировать нельзя. Соответствие препринту: v1.2 (Zenodo) — добавлены измеренная цена (−0.374, ДИ [−0.396, −0.266]), канал признака, механизмы сосуществования (асинхронность, смертность) и их синергия (+0.445); v3.6 — плотная лестница наследования и ось порога (§4k.1), третье поле как отрицательный результат (§4k).
-**Данные частичные:** линия поля закрыта до X107; результаты X108–X154 (три блока: второй вид, идентичность, слияние) в текст ещё не внесены — см. `reports/2026-11-03-claims-audit.md`.
+**Статус:** draft v3.7 (2026-11-03). Не подана, не рецензирована, цитировать нельзя. Соответствие препринту: v1.2 (Zenodo) — добавлены измеренная цена (−0.374, ДИ [−0.396, −0.266]), канал признака, механизмы сосуществования (асинхронность, смертность) и их синергия (+0.445); v3.6 — плотная лестница наследования и ось порога (§4k.1), третье поле как отрицательный результат (§4k); v3.7 — §4k.3 «Coalescence is a merger, not a birth», первый раздел, написанный сразу по-английски.
+**Данные частичные:** линия поля закрыта до X107; результаты X108–X154 внесены в текст по блокам (второй вид — в §4k, слияние — в §4k.3, идентичность — ещё нет: см. `reports/2026-11-03-claims-audit.md`).
 
 ## 1. Вопрос
 
@@ -1486,6 +1486,99 @@ X105, покрытие бассейна 0.979 / 0.937, разбиение 10/10.
 `l1_field_x102_specificity_ladder.json`, `l1_field_x103c_birth_distance.json`, `l1_field_x103d_peak_null.json`,
 `l1_field_x106_crowding.json`, `l1_field_x107_shared_room.json`, `l1_field_x101b_dense.json`, `l1_field_x102b_dense.json`,
 `l1_field_x112b_cuts.json`, `l1_field_x112c_cuts_maze.json`.
+
+### 4k.3 Coalescence is a merger, not a birth
+
+Everything above is observational: lineages are two when the world happens to produce two, their separation is whatever
+the initial noise gave them, and the kinship of a neighbour is a fact about a photograph rather than about a mechanism.
+This section is the first **intervention** in the line. A new additive initial condition places **two discs and nothing
+else** — radius 3, 29 cells of area, the lattice's median dead body — at a chosen centre separation, and the question is
+the distance at which the habitat stops keeping two lineages apart. The flags are inert: with them absent,
+`uid_pairs` reproduce the old branch key-by-key, and every arm starts as exactly two components at the requested
+coordinates.
+
+Before the sweep could be read, its vocabulary had to be repaired. The plan was to map an *annihilation band* — gaps at
+which two discs destroy each other — and reading the merge step in the logs of X139 killed the question: at separations
+10 and 11 the two seeded uids die on the **same** logged step and the next step holds **one** component under a **new
+uid**. Both arms are one event; the old labels differed only in whether a partner's last position fell inside a two-cell
+reach tolerance of the observer. Three classes replaced the band, and they are decided from the uid subtrees, not from
+the picture: **M** — mutual coalescence, neither seed grew a daughter and both subtrees are gone; **A** —
+absorption, exactly one subtree is still alive; **P** — persistence, both alive.
+
+**The boundary is a whole cell wide.** With the class fixed, a radius-3 pair at a surface gap of 8 cells coalesces in
+5/5 seeds and both lineages are gone by a median of 50 logged steps; the break is one gap cell wide, not a band:
+
+| separation (cells) | 8 | 12 | 14 | 15 | 16 | 17 | 18 |
+|---|---|---|---|---|---|---|---|
+| mutual coalescence, 5 seeds | 5/5 | 5/5 | 5/5 | 5/5 | **2/5** | **0/5** | 0/5 |
+| median steps, both lineages gone | 0 | 19 | 39 | 49 | 79 | — | — |
+
+The crossing sits at **16 ± 1 cells**, which is **1.3 wavelengths** of the medium's own pattern (12 cells), and the
+merge **slows as the pair approaches the boundary**: 19, 39, 49 and 79 steps at separations 12, 14, 15 and 16. A race
+that is lost narrowly would show a jump at the crossing; the data show a deceleration instead.
+
+**What is invariant is the surface gap, not the structure and not the pattern.** Doubling the seed from radius 3 (29
+cells) to radius 6 (113 cells) moves the crossing from 16 to 20 cells — four cells, not sixteen — so neither the
+centre distance nor the body size is the conserved quantity. The conserved quantity is the distance between the two
+surfaces, and it is nearly the same at all three radii:
+
+| radius | disc area | crossing (centre distance) | surface gap at the crossing | predicted by `2r + 9` |
+|---|---|---|---|---|
+| 3 | 29 | 16 ± 1 | **10** | — |
+| 4.5 | 64 | 18 ± 2 | **9** | 18 |
+| 6 | 113 | 20 ± 2 | **8** | — |
+
+Radius 4.5 was a prediction, not a fit: the rule read off the first two radii, `2r + 9`, put the crossing at 18, and
+the measurement returned 18 ± 1 with the same coin (2 of 5 seeds still merge) that both other radii showed at their
+crossings. The mixing length of this medium is therefore **9 ± 1 surface cells ≈ 0.75 wavelengths**: a property of the
+field, not of the observer and not of the pair.
+
+**Whether and when are two different laws.** At radius 4.5 a surface gap of 8 cells is M 3/5, A 2/5, whereas radius 3
+at the same gap is M 5/5 — so the boundary belongs to the pair and the radius shifts it by about one cell. The **time**,
+however, is untouched: at gap 7 both radii lose both lineages at 39 logged steps and at gap 8 both at 49, identical to
+the step on four arms with ten seeds per radius. The radius changes *whether* a division can intervene, not *when* the
+two bodies meet. And it is not the size of the product that decides the division: within arms where both outcomes
+occur, the seeds that divided are not the larger ones — medians 267 against 268, 297 against 287 and **242 against 290**
+cells, i.e. the sign is inverted in the arm where it is largest.
+
+A lone disc puts the clock in perspective: radius 3 divides for the first time at a median of **180 steps** (320, 160,
+150, 180, 180), radius 4.5 at 190 and radius 6 at 290. So the pair at gaps 1–8 is one body long before either partner
+could have produced a daughter, and the simple story "they meet before either divides" is not the mechanism at the
+boundary — the boundary is where the diffusive fronts stop bridging the gap at all.
+
+**The outcome steps and the time mixes.** Near the boundary the two quantities separate, and that is the sharpest
+result of the block. At radius 6, ten seeds per arm:
+
+| surface gap (cells) | 6.5 | 7.0 | 7.5 | 8.0 |
+|---|---|---|---|---|
+| seeds that coalesce | 10/10 | 10/10 | **10/10** | **5/10** |
+| of those, dissolving at step 39 | 10 | 10 | 8 | 0 |
+| at step 49 | 0 | 0 | **2** | 3 |
+| at step 59 | 0 | 0 | 0 | 2 |
+| slow fraction | 0.0 | 0.0 | **0.2** | **1.0** |
+
+The half-cell at 7.5 does not move the outcome — 10/10 still coalesce — yet two of those ten dissolve at the later
+logged step: the mixing **time** is already a distribution while the outcome is still a step. Three registrations
+guard this reading, and one of them failed honestly. The half-cell also moved the rasterised discs by one cell each
+(110 against 108 and 110 cells per disc), so the arm is a gap *plus* about 2 % of area — conservative in direction,
+not a clean half-cell, and it is recorded as a failed control rather than a clean one. The registered decision rule
+divides by the coalescing seeds, which at gap 8 is five instead of ten: the same rule over all ten seeds keeps the
+verdict (REAL WIDTH) but halves the rise, from +1.00 to +0.50, against a declared bar of 0.3; both readings are quoted.
+And the ten-step logging quantum makes "slow" a single bit, so the table reports which step, not a duration.
+
+The reason this belongs next to the identity block is the class, not the number: a coalescence has **no parent and no
+daughter**. Both subtrees end on the same step and a new body appears under a new uid, which is exactly the case the
+line's own event vocabulary had to grow in order to describe. A world where lineages merge as often as they divide does
+not have a population of replicators; it has a population of bodies whose identities are dissolved by the medium, and
+the length at which that happens is measurable.
+
+Доказательства: разделы 10ha-10hn в \docs/world-design.md\; `reports/2026-11-03-x134-mixing.md`,
+`-x134b-mixing-replicated.md`, `-x136-wall.md`, `-x138-scale.md`, `-x139-void-annihilation.md`, `-x140-gap-rule.md`,
+`-x142-coalescence.md`, `-x145-lone-disc.md`, `-x147-radius45.md`, `-x148-fusion-size.md`, `-x150-radius6.md`,
+`-x151-radius525.md`, `-x153-halfcell.md`, `-x154-mixing-curve.md`; агрегаты `l1_field_x134_mixing.json`,
+`l1_field_x136_wall.json`, `l1_field_x138_scale.json`, `l1_field_x140_gap_rule.json`, `l1_field_x142_coalescence.json`,
+`l1_field_x145_lone_disc.json`, `l1_field_x147_radius45.json`, `l1_field_x150_radius6.json`,
+`l1_field_x151_radius525.json`, `l1_field_x153_halfcell.json`, `l1_field_x154_mixing.json`.
 
 ## 5. Методологические находки
 
