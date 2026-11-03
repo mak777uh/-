@@ -353,3 +353,16 @@ registered dichotomy is the wrong question, the report says so in the verdict's 
 not. (4) Any classification with a residual band (here 7-9 % of deaths between the two thresholds) publishes the band next to the shares; a split of 84.5 / 8.4
 without its 7.1 is a two-category claim in disguise.
 Report: `reports/2026-11-03-x127-absorption.md`.
+
+**The unit of the budget must be the unit of the claim (03.11, X128).** X127 and X128 classified a structure's disappearance with a **world-level** area budget:
+absorbed if the total area of all surviving structures grew by at least half the dead structure's area. In a world of twenty isolated spots that is satisfied by
+growth *elsewhere*, so the lattice's "84.5 % absorbed" described the world's net growth and not a transfer into a neighbour. The local rebuild (survivors within
+r_dead + r_survivor + 2 cells) moved that cell to 55.3 % and produced a category the world-level version could not express - deaths with no live neighbour at all,
+31.3 % of the lattice's endings.
+
+Rules. (1) A budget argument names the **set over which it is summed**, and that set must be the one the claim is about (a neighbour, a patch, a body, a world).
+(2) If the same statistic changes by more than 0.20 when the summation set is narrowed to the claim's own unit, the wide version was measuring something else and is
+withdrawn, not qualified. (3) Any classification by threshold publishes its **residual band** next to the shares; a residual that shrinks from 7-9 % to 1-3 % when
+the instrument is fixed is evidence that the wide version was absorbing real cases. (4) A category that exists only in one habitat ("isolated") is a finding about the
+world and must be a category of the instrument, not a residual of it.
+Report: `reports/2026-11-03-x128b-local.md`.

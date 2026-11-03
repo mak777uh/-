@@ -4,7 +4,7 @@
 
 The curated page — what matters and why — is [`scripts.md`](scripts.md). This file is the complete list, so that every command behind a number in the record can be found.
 
-Scripts: **315**.
+Scripts: **317**.
 
 ## Гейты и проверки (47)
 
@@ -171,7 +171,7 @@ Scripts: **315**.
 | `make_seed_grid_figure.py` | Собрать Figure 4 рукописи: сетка «инициализация × порядок данных» (§4.13). |
 | `make_simple_poster.py` | Простой постер для владельца: что мы узнали, без терминов. |
 
-## Прочее (180)
+## Прочее (182)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -267,6 +267,8 @@ Scripts: **315**.
 | `x126_analyse.py` | x126_analyse.py — X126: the third cell, three cells under one code path. |
 | `x126_series.py` | x126_series.py — the third cell: ten worlds at F = 0.035, the identical protocol of X108. |
 | `x127_analyse.py` | x127_analyse.py — X127: does a lineage end by vanishing, or by being absorbed into a neighbour? |
+| `x128_analyse.py` | x128_analyse.py — X128: when a lineage loses its name, do its cells go to kin? |
+| `x128b_analyse.py` | x128b_analyse.py — X128b: the local budget, then the kinship of whoever took the cells. |
 | `x56_matrix.py` | x56_matrix.py — сходимость по шагу: контраст при dt = 1.0, 0.5, 2.0. |
 | `x58_analyse.py` | x58_analyse.py — the same measurement on a 128 grid: β₀, β₁, wavelength, normalised count. |
 | `x58_series.py` | x60_series.py — X60: the twenty field runs that keep their snapshots. |

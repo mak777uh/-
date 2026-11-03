@@ -1,0 +1,129 @@
+{
+  "kind": "l1_field_x128_kinship",
+  "experiment": "X128",
+  "command": "python scripts/x128_analyse.py --write",
+  "prereg": "reports/2026-11-03-x128-kinship-plan.md",
+  "definitions": {
+    "absorber": "the survivor whose area grew most, provided it holds >= 50% of the total positive survivor growth",
+    "diffuse": "no survivor reaches that share, so no partner is named",
+    "kinship": "read from parent links up to three generations: sibling, aunt, cousin, distant, unrelated"
+  },
+  "cells": {
+    "f030": {
+      "deaths": 489,
+      "absorbed": 443,
+      "absorbed_share": 0.9059,
+      "partnered": 121,
+      "partner_coverage": 0.2731,
+      "classes": {
+        "sibling": 66,
+        "aunt": 15,
+        "cousin": 5,
+        "distant": 15,
+        "unrelated": 20,
+        "diffuse": 322
+      },
+      "shares": {
+        "sibling": 0.5455,
+        "aunt": 0.124,
+        "cousin": 0.0413,
+        "distant": 0.124,
+        "unrelated": 0.1653
+      },
+      "diffuse_share_of_absorbed": 0.7269,
+      "kin_share": 0.8347,
+      "kin_share_ci": [
+        0.7686,
+        0.8926
+      ],
+      "median_swallowed_age": 101,
+      "median_absorber_area": 77.0,
+      "rho_heredity": 0.548,
+      "pairs": 1142,
+      "survival_mean": 0.2496,
+      "refs": {
+        "absorbed": 0.8454,
+        "survival": 0.2496,
+        "pairs": 1142
+      }
+    },
+    "f035": {
+      "deaths": 792,
+      "absorbed": 664,
+      "absorbed_share": 0.8384,
+      "partnered": 336,
+      "partner_coverage": 0.506,
+      "classes": {
+        "sibling": 33,
+        "aunt": 41,
+        "cousin": 13,
+        "distant": 15,
+        "unrelated": 234,
+        "diffuse": 328
+      },
+      "shares": {
+        "sibling": 0.0982,
+        "aunt": 0.122,
+        "cousin": 0.0387,
+        "distant": 0.0446,
+        "unrelated": 0.6964
+      },
+      "diffuse_share_of_absorbed": 0.494,
+      "kin_share": 0.3036,
+      "kin_share_ci": [
+        0.256,
+        0.3571
+      ],
+      "median_swallowed_age": 271.0,
+      "median_absorber_area": 227.5,
+      "rho_heredity": 0.421,
+      "pairs": 1106,
+      "survival_mean": 0.2984,
+      "refs": {
+        "absorbed": 0.7867,
+        "survival": 0.2984,
+        "pairs": 1106
+      }
+    },
+    "f040": {
+      "deaths": 1059,
+      "absorbed": 834,
+      "absorbed_share": 0.7875,
+      "partnered": 573,
+      "partner_coverage": 0.6871,
+      "classes": {
+        "sibling": 62,
+        "aunt": 88,
+        "cousin": 21,
+        "distant": 15,
+        "unrelated": 387,
+        "diffuse": 261
+      },
+      "shares": {
+        "sibling": 0.1082,
+        "aunt": 0.1536,
+        "cousin": 0.0366,
+        "distant": 0.0262,
+        "unrelated": 0.6754
+      },
+      "diffuse_share_of_absorbed": 0.3129,
+      "kin_share": 0.3246,
+      "kin_share_ci": [
+        0.2862,
+        0.363
+      ],
+      "median_swallowed_age": 131,
+      "median_absorber_area": 682.0,
+      "rho_heredity": 0.48,
+      "pairs": 1195,
+      "survival_mean": 0.1372,
+      "refs": {
+        "absorbed": 0.7568,
+        "survival": 0.1372,
+        "pairs": 1195
+      }
+    }
+  },
+  "unrelated_delta_maze_minus_lattice": 0.5101,
+  "verdict": "void: f030: partner coverage 0.2731; f030: diffuse share 0.7269; f030: absorbed share 0.9059 misses X127's 0.8454; f035: partner coverage 0.506; f035: diffuse share 0.494; f035: absorbed share 0.8384 misses X127's 0.7867; f040: partner coverage 0.6871; f040: diffuse share 0.3129; f040: absorbed share 0.7875 misses X127's 0.7568"
+}

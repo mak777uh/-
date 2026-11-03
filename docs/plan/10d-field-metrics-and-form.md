@@ -3033,3 +3033,41 @@ cells — and the maze is where names are lost most often and most expensively.*
 
 Report: `reports/2026-11-03-x127-absorption.md`; aggregate `l1_field_x127_absorption.json`. Next: X128 measures the identity half-life (how long a name outlives
 its own uids), X129 asks whether absorption is a route to takeover, and X130 locates the 182 real vanishings at the body's edge or in its interior.
+
+## 10gv. The budget must be local, and with a local budget the maze is the destructive habitat (X128, X128b, 03.11)
+
+§10gu classified a disappearance with the **world's** area budget: absorbed if total survivor area grew by at least half the dead structure's area. In a world of
+twenty isolated spots that test is satisfied by growth somewhere else, so the lattice's "84.5 % absorbed" measured the world's book-keeping, not a transfer into a
+neighbour. X128 caught it by accident — its own control demanded the absorbed share reproduce X127, and its partner census found no partner at all in 73 % of
+lattice absorptions — and X128b rebuilt the instrument on the dead structure's own neighbourhood: survivors within `r_dead + r_survivor + 2` cells, plus the
+category the lattice needed, a death with **no live neighbour at all**.
+
+| cell | deaths | isolated | absorbed | vanished | unclear | kin of the absorber | unrelated |
+|---|---|---|---|---|---|---|---|
+| 0.030 | 524 | **31.3 %** | 55.3 % (51.2–59.5) | **10.5 %** | 2.9 % | **87.2 %** of 290 | 12.8 % |
+| 0.035 | 844 | 29.4 % | 47.8 % (44.6–51.3) | 21.7 % | 1.2 % | 39.2 % of 403 | 60.8 % |
+| 0.040 | 1 102 | 21.2 % | 48.4 % (45.6–51.2) | **27.4 %** | 3.0 % | **37.7 %** of 531 | 62.3 % |
+
+Controls: end-survival reproduces X126 to four decimals; heredity 0.548 / 0.421 / 0.480; the local and global accounts agree on **all 18 000 step transitions**;
+the fates sum to the deaths; and the pre-declared disagreement with X127 fired (the lattice's absorbed share fell 29.2 points, against the required 20). The unclear
+band collapsed from 7–9 % to 1–3 %, which is the measure of how much the world-level version was hiding in its residual.
+
+**Correction to §10gu.** Absorption is about **half** of all endings everywhere (48–55 %), not three quarters, and the maze is **not** the milder habitat: real
+vanishings rise 10.5 % → 21.7 % → 27.4 %, i.e. **55 → 183 → 302 events**, a factor of 5.5, while the lattice's deaths are three times more often **isolated**
+(31.3 % against 21.2 %). The sentence that survives is narrower and better: *everywhere about half of a lineage's endings are absorptions; what changes is the
+other half — the lattice's structures die alone, the maze's are destroyed.*
+
+**And the kinship answer is decisive.** Where the cells are taken in the lattice, **87.2 %** go to kin and more than half to **siblings**: a split's daughters settle
+next to each other and re-merge, so losing a name there is a family book-keeping event. In both percolating cells, **61–62 %** of absorptions go to **strangers**.
+So the percolating habitat does two things to a lineage at once: it destroys more of them outright, and the ones it spares are **handed to non-relatives** — nothing
+of what the lineage was can continue in the thing that took its cells.
+
+Read with §10gt's trade-off, the three habitats now have characters rather than numbers: the lattice is a **family world** (isolated or sibling-absorbed deaths, the
+slowest generations), the maze is a **market of strangers** (a quarter of endings destroy the cells, the rest change hands outside the family, the deepest lineages
+and the worst persistence), and the middle cell has some of both and the best survival of a large lineage. For the question this line exists to answer that is the
+first condition stated in terms of structure rather than amount: **persistence needs structures close enough to shield each other and separate enough that what
+takes their cells is their own kin.**
+
+Reports: `reports/2026-11-03-x128-kinship-void.md`, `-x128b-local.md`; aggregates `l1_field_x128_kinship.json`, `l1_field_x128b_local.json`. Next: X129 tests
+whether the kin advantage is geometric (a world whose daughters are born further apart), X130 locates the maze's 302 vanishings at the edge or in the interior, X131
+asks whether the absorber inherits the swallowed lineage's size.

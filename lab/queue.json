@@ -1,6 +1,6 @@
 {
  "schema_version": 1,
- "updated_at": "2026-11-03T05:32:00+03:00",
+ "updated_at": "2026-11-03T05:34:00+03:00",
  "note": "Очередь пунктов после E02c. Claim берётся до пре-регистрации, а не перед запуском: lab.py item-claim. Статус running означает занятый GPU-лейн и может быть только у одного пункта. | 25.10: добавлено поле impact (1-5) — приоритет конвейера = impact/max(cost_gpu_h,0.1); для запуска пункту нужны prereg (закоммиченный план) и launch.command+outdir.",
  "items": [
   {
@@ -2596,6 +2596,32 @@
    "closed_at": "2026-11-03T02:32:00Z",
    "closed_by": "lead",
    "note": "No registered outcome fired, and that is the result: absorption dominates in all three cells (84.5 / 78.7 / 75.7 % of 524 / 844 / 1102 identity deaths, survivors growing by a median 2.07-2.28x the dead area), so a lineage usually dies by losing its name, not its cells. The maze differs in amount - identity deaths x2.1, real vanishings 44 -> 105 -> 182, median dead area 27 -> 114 cells - not in kind. The smaller sister is the one swallowed (248:183 in the lattice, 187:98 in the maze). Controls all held: end-survival reproducing X126 to four decimals, heredity 0.548/0.421/0.480, the area budget closing on all 18 000 step transitions, full coverage. The plan's lethal-or-homogenising dichotomy was the wrong question, and the first printed verdict borrowed a label its second clause had not earned; the rule in docs/design-checks.md now requires a 'neither' branch. Reports x127-absorption, section 10gu."
+  },
+  {
+   "id": "X128_kinship",
+   "title": "When a lineage loses its name, do its cells go to kin?",
+   "status": "closed",
+   "owner": "lead",
+   "kind": "analysis",
+   "cost_gpu_h": 0,
+   "prereg": "reports/2026-11-03-x128-kinship-plan.md",
+   "created_at": "2026-11-03T05:14:00+03:00",
+   "closed_at": "2026-11-03T05:21:00+03:00",
+   "closed_by": "lead",
+   "note": "VOID by its own controls: partner coverage 27.3 / 50.6 / 68.7 % against an 80 % floor, diffuse shares 72.7 / 49.4 / 31.3 % against a 20 % ceiling, and the absorbed share missing X127 by 0.06 in every cell (my one-line 'growth <= 0' deviation). The first two failures are the instrument's, not the code's: both X127 and X128 summed the area budget over the whole world while classifying a local event, so in a world of twenty isolated spots 'absorbed' meant 'something somewhere grew'. X127's magnitude is withdrawn and X128b rebuilt the instrument locally."
+  },
+  {
+   "id": "X128b_local",
+   "title": "The local budget: isolated, absorbed, vanished, and only then who takes the cells",
+   "status": "closed",
+   "owner": "lead",
+   "kind": "analysis",
+   "cost_gpu_h": 0,
+   "prereg": "reports/2026-11-03-x128b-local-plan.md",
+   "created_at": "2026-11-03T05:23:00+03:00",
+   "closed_at": "2026-11-03T05:34:00+03:00",
+   "closed_by": "lead",
+   "note": "All five controls held (end-survival to four decimals, heredity 0.548/0.421/0.480, local and global accounts agreeing on all 18 000 step transitions, fates summing to the deaths, and the pre-declared 20-point drop firing at 29.2). Absorption is about half of all endings (55.3 / 47.8 / 48.4 %), isolated deaths are 31.3 / 29.4 / 21.2 %, real vanishings rise 10.5 -> 21.7 -> 27.4 % (55 -> 183 -> 302 events), and the absorber changes family: 87.2 % kin (54.6 % siblings) in the lattice against 37.7-39.2 % kin and 61-62 % strangers in the percolating cells. So the maze destroys more lineages outright and hands the rest's cells to non-relatives. Report x128b-local, section 10gv."
   }
  ]
 }

@@ -1,0 +1,155 @@
+{
+  "kind": "l1_field_x128b_local",
+  "experiment": "X128b",
+  "command": "python scripts/x128b_analyse.py --write",
+  "prereg": "reports/2026-11-03-x128b-local-plan.md",
+  "definitions": {
+    "neighbourhood": "survivors within r_dead + r_survivor + 2.0 cells of the dead centroid, r = sqrt(area/pi)",
+    "isolated": "no live neighbour at all",
+    "absorbed": "local growth >= 50% of the dead uid's area",
+    "vanished": "local growth <= 10% of the dead uid's area",
+    "absorber": "the neighbour with the largest growth, provided it holds >= 50% of the local positive growth"
+  },
+  "cells": {
+    "f030": {
+      "deaths": 524,
+      "fates": {
+        "isolated": 164,
+        "absorbed": 290,
+        "vanished": 55,
+        "unclear": 15
+      },
+      "isolated_share": 0.313,
+      "absorbed_share": 0.5534,
+      "absorbed_share_ci": [
+        0.5115,
+        0.5954
+      ],
+      "vanished_share": 0.105,
+      "unclear_share": 0.0286,
+      "median_neighbourhood": 1.0,
+      "median_dead_area": 27.0,
+      "budget_fail": 0,
+      "budget_steps": 6000,
+      "partnered": 290,
+      "kin_classes": {
+        "sibling": 186,
+        "aunt": 36,
+        "cousin": 4,
+        "distant": 27,
+        "unrelated": 37,
+        "diffuse": 0
+      },
+      "diffuse_share_of_absorbed": 0.0,
+      "kin_share": 0.8724,
+      "kin_share_ci": [
+        0.8345,
+        0.9103
+      ],
+      "unrelated_share": 0.1276,
+      "kinship_answerable": true,
+      "rho_heredity": 0.548,
+      "pairs": 1142,
+      "survival_mean": 0.2496,
+      "refs": {
+        "x127_absorbed": 0.8454,
+        "survival": 0.2496,
+        "pairs": 1142
+      }
+    },
+    "f035": {
+      "deaths": 844,
+      "fates": {
+        "isolated": 248,
+        "absorbed": 403,
+        "vanished": 183,
+        "unclear": 10
+      },
+      "isolated_share": 0.2938,
+      "absorbed_share": 0.4775,
+      "absorbed_share_ci": [
+        0.4455,
+        0.513
+      ],
+      "vanished_share": 0.2168,
+      "unclear_share": 0.0118,
+      "median_neighbourhood": 1.0,
+      "median_dead_area": 55.5,
+      "budget_fail": 0,
+      "budget_steps": 6000,
+      "partnered": 403,
+      "kin_classes": {
+        "sibling": 31,
+        "aunt": 71,
+        "cousin": 18,
+        "distant": 38,
+        "unrelated": 245,
+        "diffuse": 0
+      },
+      "diffuse_share_of_absorbed": 0.0,
+      "kin_share": 0.3921,
+      "kin_share_ci": [
+        0.3449,
+        0.4417
+      ],
+      "unrelated_share": 0.6079,
+      "kinship_answerable": true,
+      "rho_heredity": 0.421,
+      "pairs": 1106,
+      "survival_mean": 0.2984,
+      "refs": {
+        "x127_absorbed": 0.7867,
+        "survival": 0.2984,
+        "pairs": 1106
+      }
+    },
+    "f040": {
+      "deaths": 1102,
+      "fates": {
+        "isolated": 234,
+        "absorbed": 533,
+        "vanished": 302,
+        "unclear": 33
+      },
+      "isolated_share": 0.2123,
+      "absorbed_share": 0.4837,
+      "absorbed_share_ci": [
+        0.4555,
+        0.5118
+      ],
+      "vanished_share": 0.274,
+      "unclear_share": 0.0299,
+      "median_neighbourhood": 1.0,
+      "median_dead_area": 114.0,
+      "budget_fail": 0,
+      "budget_steps": 6000,
+      "partnered": 531,
+      "kin_classes": {
+        "sibling": 57,
+        "aunt": 98,
+        "cousin": 17,
+        "distant": 28,
+        "unrelated": 331,
+        "diffuse": 2
+      },
+      "diffuse_share_of_absorbed": 0.0038,
+      "kin_share": 0.3766,
+      "kin_share_ci": [
+        0.3352,
+        0.4181
+      ],
+      "unrelated_share": 0.6234,
+      "kinship_answerable": true,
+      "rho_heredity": 0.48,
+      "pairs": 1195,
+      "survival_mean": 0.1372,
+      "refs": {
+        "x127_absorbed": 0.7568,
+        "survival": 0.1372,
+        "pairs": 1195
+      }
+    }
+  },
+  "lattice_absorbed_drop_against_x127": 0.292,
+  "verdict": "the local budget changes the picture: isolated deaths are 31.3% / 29.4% / 21.2% of 524 / 844 / 1102, absorbed 55.3% / 47.8% / 48.4% (lattice drop 29.2% against X127), vanished 10.5% / 21.7% / 27.4%, unclear 2.9% / 1.2% / 3.0%; median neighbourhood size 1.0 / 1.0 / 1.0; kinship is answerable in f030, f035, f040: f030 kin 87.2% of 290, f035 kin 39.2% of 403, f040 kin 37.7% of 531"
+}
