@@ -1,6 +1,6 @@
 {
  "schema_version": 1,
- "updated_at": "2026-11-03T16:30:00+03:00",
+ "updated_at": "2026-11-03T16:10:00+03:00",
  "note": "Очередь пунктов после E02c. Claim берётся до пре-регистрации, а не перед запуском: lab.py item-claim. Статус running означает занятый GPU-лейн и может быть только у одного пункта. | 25.10: добавлено поле impact (1-5) — приоритет конвейера = impact/max(cost_gpu_h,0.1); для запуска пункту нужны prereg (закоммиченный план) и launch.command+outdir.",
  "items": [
   {
@@ -2790,6 +2790,23 @@
     "pattern": "x142_g*_s*.json"
    },
    "note": "Registered before the sweep: the five-cell gap annihilates at radius 3 (X139, 5/5), and the two gaps that bracket it at one-cell spacing are unmeasured - 3 and 7. A second radius at the same gaps separates an absolute-gap reading from a radius-3 artefact."
+  },
+  {
+   "id": "X145_lone_disc",
+   "title": "When does a lone radius-3 disc split, and is the mixing length that race?",
+   "status": "planned",
+   "owner": "lead",
+   "kind": "experiment",
+   "cost_gpu_h": 0,
+   "prereg": "reports/2026-11-03-x145-lone-disc-plan.md",
+   "created_at": "2026-11-03T16:10:00+03:00",
+   "heartbeat_at": "2026-11-03T16:10:00+03:00",
+   "launch": {
+    "runner": "scripts/x145_series.py",
+    "outdir": "morphogenesis/experiments/L1_field",
+    "pattern": "x145_*_s*.json"
+   },
+   "note": "Five runs of `--init-spots 3:0` at F = 0.030. A lone radius-4.5 disc splits at 150-280 steps and a radius-6 disc at 210-460, while pairs at gaps 1-8 coalesce at 10-50; the missing number is the radius-3 disc, which is the one the whole mixing-length block uses. If it splits at ~60 steps, the mixing length is a race between touching and splitting."
   }
  ]
 }
