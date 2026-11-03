@@ -1,42 +1,36 @@
 {
  "kind": "article_029_tables",
- "note": "every number printed in article 029 is here, with its aggregate",
+ "note": "every number printed in article 029, with the aggregate it came from",
  "tables": {
-  "m_gap8": {
-   "text": "M 5/5 at a surface gap of 8",
-   "value": 5,
-   "source": "x142 by_arm r30_g8",
-   "note": "mutual coalescence in every seed"
+  "m_wavelength": {
+   "text": "12",
+   "value": 12,
+   "source": "x134/x136 pattern wavelength",
+   "note": "the medium's own period at the spots habitat; measured, not assumed"
   },
-  "m_gap9": {
-   "text": "M 3/5, A 2/5 at a gap of 9",
-   "value": 3,
-   "source": "x142 by_arm r30_g9",
-   "note": ""
+  "m_area_r3": {
+   "text": "29",
+   "value": 29,
+   "source": "x142 by_arm / x145 definitions",
+   "note": "cells in a body of radius 3"
   },
-  "m_lone_r3": {
-   "text": "180",
-   "value": 180,
-   "source": "x145 by_radius first_split_median",
-   "note": ""
+  "m_area_r45": {
+   "text": "| 4.5 | 64 |",
+   "value": null,
+   "source": "x140 definitions",
+   "note": "markdown row, radius 4.5 = 64 cells"
   },
-  "m_lone_r45": {
-   "text": "190",
-   "value": 190,
-   "source": "x145 by_radius first_split_median",
-   "note": ""
-  },
-  "m_lone_r6": {
-   "text": "290",
-   "value": 290,
-   "source": "x145 by_radius first_split_median",
-   "note": ""
+  "m_area_r6": {
+   "text": "113",
+   "value": 113,
+   "source": "x138 definitions",
+   "note": "cells in a body of radius 6"
   },
   "m_cross_r3": {
    "text": "16 ± 1",
    "value": 16,
    "source": "x136 by_separation",
-   "note": "crossing at one-cell width"
+   "note": ""
   },
   "m_cross_r45": {
    "text": "18 ± 2",
@@ -50,6 +44,66 @@
    "source": "x138 by_separation",
    "note": ""
   },
+  "m_rule": {
+   "text": "2r + 9",
+   "value": null,
+   "source": "x138 verdict",
+   "note": "surface gap of 9 ± 1 cells at the crossing, all three radii"
+  },
+  "m_gap8": {
+   "text": "5 of 5",
+   "value": 5,
+   "source": "x142 by_arm r30_g8",
+   "note": ""
+  },
+  "m_gap9": {
+   "text": "M 3/5, A 2/5",
+   "value": 3,
+   "source": "x142 by_arm r30_g9",
+   "note": ""
+  },
+  "m_outer10": {
+   "text": "M 2/5, A 2/5, P 1/5",
+   "value": 2,
+   "source": "x142 by_arm r30_g10",
+   "note": ""
+  },
+  "m_outer11": {
+   "text": "M 2/5, P 3/5",
+   "value": 2,
+   "source": "x142 by_arm r30_g11",
+   "note": ""
+  },
+  "m_lone_r3": {
+   "text": "median of 180 steps",
+   "value": 180,
+   "source": "x145 by_radius first_split_median",
+   "note": ""
+  },
+  "m_lone_r45": {
+   "text": "190 and 290 steps",
+   "value": null,
+   "source": "x145 by_radius first_split_median",
+   "note": ""
+  },
+  "m_lone_r6": {
+   "text": "290 steps",
+   "value": 290,
+   "source": "x145 by_radius first_split_median",
+   "note": ""
+  },
+  "c_size_medians": {
+   "text": "267 / 268, 297 / 287",
+   "value": null,
+   "source": "x142 by_arm fusion medians at gaps 9 and 10",
+   "note": ""
+  },
+  "c_size_medians2": {
+   "text": "242 / 290",
+   "value": null,
+   "source": "x142 by_arm fusion medians at gap 11",
+   "note": ""
+  },
   "w_gaps": {
    "text": "6.5 / 7 / 7.5 / 8",
    "value": [
@@ -59,6 +113,17 @@
     8.0
    ],
    "source": "x154 curve",
+   "note": ""
+  },
+  "w_coal": {
+   "text": "1.0 / 1.0 / 1.0 / 0.5",
+   "value": [
+    1.0,
+    1.0,
+    1.0,
+    0.5
+   ],
+   "source": "x154 curve coalescing_fraction",
    "note": ""
   },
   "w_slow": {
@@ -83,32 +148,15 @@
    "source": "x154 curve slow_fraction_of_all",
    "note": ""
   },
-  "w_coal": {
-   "text": "1.0 / 1.0 / 1.0 / 0.5",
-   "value": [
-    1.0,
-    1.0,
-    1.0,
-    0.5
-   ],
-   "source": "x154 curve coalescing_fraction",
-   "note": ""
-  },
   "w_hist75": {
    "text": "39 ×8, 49 ×2",
-   "value": {
-    "39": 8,
-    "49": 2
-   },
+   "value": null,
    "source": "x154 curve gap 7.5 time_histogram",
    "note": ""
   },
   "w_hist80": {
    "text": "49 ×3, 59 ×2",
-   "value": {
-    "49": 3,
-    "59": 2
-   },
+   "value": null,
    "source": "x154 curve gap 8 time_histogram",
    "note": ""
   },
@@ -155,8 +203,8 @@
   "i_mid_se": {
    "text": "5.99",
    "value": 5.99,
-   "source": "x126 distance_to_midpoint_in_se.survival_mean",
-   "note": "the middle cell sits this many standard errors above the chord between the two outer cells"
+   "source": "x126 distance_to_midpoint_in_se",
+   "note": ""
   },
   "i_sister": {
    "text": "+1.479 [1.289, 1.654] and +2.213 [1.962, 2.489]",
@@ -165,6 +213,12 @@
     2.213
    ],
    "source": "x113 cells sister_diff",
+   "note": ""
+  },
+  "i_sister2": {
+   "text": "+2.213 [1.962, 2.489]",
+   "value": 2.213,
+   "source": "x113 cells f040 sister_diff",
    "note": ""
   },
   "i_partial": {
@@ -177,7 +231,7 @@
    "note": ""
   },
   "i_depth_life": {
-   "text": "-0.185 / -0.070",
+   "text": "−0.185 / −0.070",
    "value": [
     -0.185,
     -0.07
@@ -216,15 +270,15 @@
    "note": ""
   },
   "i_kin_lattice": {
-   "text": "87.2",
+   "text": "87.2 %",
    "value": 87.2,
-   "source": "x128b / x132 kin share, lattice",
+   "source": "x128b / x132 kin share, spots habitat",
    "note": ""
   },
   "i_kin_maze": {
-   "text": "37.7",
+   "text": "37.7 %",
    "value": 37.7,
-   "source": "x128b / x132 kin share, maze",
+   "source": "x128b kin share, connected habitat",
    "note": ""
   },
   "i_remerge": {
@@ -248,7 +302,7 @@
    "note": ""
   },
   "i_x132": {
-   "text": "-0.1323 (-0.1819 … -0.0840)",
+   "text": "−0.1323 (−0.1819 … −0.0840)",
    "value": -0.1323,
    "source": "x132 paired_by_seed survival",
    "note": ""
@@ -260,7 +314,7 @@
    "note": ""
   },
   "i_x132_kin": {
-   "text": "-0.4164",
+   "text": "−0.4164",
    "value": -0.4164,
    "source": "x132 paired_by_seed kin",
    "note": ""
@@ -271,128 +325,23 @@
    "source": "x132 paired_by_seed vanished",
    "note": ""
   },
-  "h_slope": {
-   "text": "0.9837 [0.9680, 1.0002] and 0.9931 [0.9756, 1.0103]",
-   "value": [
-    0.9837151364976248,
-    0.993121555987957
-   ],
-   "source": "x155 cells slope",
+  "i_ten_worlds": {
+   "text": "−0.077",
+   "value": -0.077,
+   "source": "x131 report, connected minus spots",
    "note": ""
   },
-  "h_resid": {
-   "text": "0.1487 and 0.1495",
-   "value": [
-    0.1486818628256999,
-    0.14946006335427106
-   ],
-   "source": "x155 cells residual_sd",
-   "note": ""
-  },
-  "h_sigma": {
-   "text": "0.15",
-   "value": 0.15,
-   "source": "x108_series --mutation 0.15",
-   "note": ""
-  },
-  "h_null_p": {
-   "text": "0.001",
-   "value": 0.000999000999000999,
-   "source": "x155 shuffle_null p",
-   "note": ""
-  },
-  "h_recon": {
-   "text": "0.9092 against 0.9092 and 0.8967 against 0.8989",
-   "value": [
-    0.9091909185875522,
-    0.9091999999999999
-   ],
-   "source": "x155 cells r_per_world_mean / r_stored_mean",
-   "note": ""
-  },
-  "h_pairs": {
-   "text": "2164 of 2211 and 1779 of 1951",
-   "value": [
-    2164,
-    1779
-   ],
-   "source": "x155 cells pairs / pairs_total",
-   "note": ""
-  },
-  "h_h2": {
-   "text": "0.082 / 0.416",
-   "value": [
-    0.08223369405060361,
-    0.4156297506762152
-   ],
-   "source": "x155 cells h2_between_mean",
-   "note": ""
-  },
-  "h_h2b": {
-   "text": "0.082",
-   "value": 0.08223369405060361,
-   "source": "x155 cells h2_between_mean, lattice",
-   "note": ""
-  },
-  "h_ablation_sd": {
-   "text": "0.0",
-   "value": 0.0,
-   "source": "x155 ablation s_sd_between_last",
-   "note": ""
-  },
-  "h_ablation_equal": {
-   "text": "100 %",
-   "value": 100,
-   "source": "x155 ablation identical_pair_share",
-   "note": ""
-  },
-  "m_wavelength": {
-   "text": "12",
-   "value": 12,
-   "source": "x134/x136 pattern wavelength",
-   "note": "the medium's own period at F = 0.030"
-  },
-  "m_area_r3": {
-   "text": "29",
-   "value": 29,
-   "source": "x142 by_arm median area / x145 definitions",
-   "note": ""
-  },
-  "m_area_r45": {
-   "text": "64",
-   "value": 64,
-   "source": "x140 definitions",
-   "note": ""
-  },
-  "m_area_r6": {
-   "text": "113",
-   "value": 113,
-   "source": "x138 definitions",
-   "note": ""
-  },
-  "m_rule": {
-   "text": "2r + 9",
+  "i_ten_worlds_ci": {
+   "text": "−0.166 … +0.012",
    "value": null,
-   "source": "x138 verdict",
-   "note": "surface gap of 9 ± 1 cells at the crossing, all three radii"
-  },
-  "m_outer10": {
-   "text": "M 2/5, A 2/5, P 1/5",
-   "value": 2,
-   "source": "x142 by_arm r30_g10",
+   "source": "x131 report",
    "note": ""
   },
-  "m_outer11": {
-   "text": "M 2/5, P 3/5",
-   "value": 2,
-   "source": "x142 by_arm r30_g11",
-   "note": ""
-  },
-  "c_size_medians": {
-   "text": "267 / 268, 297 / 287, 242 / 290",
+  "i_worlds": {
+   "text": "30–40",
    "value": null,
-   "source": "x142 by_arm fusion medians at gaps 9, 10, 11",
-   "note": "divided / not divided, in cells; the sign inverts at gap 11"
+   "source": "x132 power calculation",
+   "note": ""
   },
   "c_matched": {
    "text": "0.125 and 0.044",
@@ -430,32 +379,104 @@
    "source": "x125c cells p_nt",
    "note": ""
   },
-  "i_ten_worlds": {
-   "text": "-0.077",
-   "value": -0.077,
-   "source": "x131 report, maze minus lattice",
-   "note": "ten worlds: unresolved, the interval covers zero"
-  },
-  "i_ten_worlds_ci": {
-   "text": "-0.166 … +0.012",
-   "value": null,
-   "source": "x131 report",
+  "h_slope": {
+   "text": "0.9837 [0.9680, 1.0002]",
+   "value": 0.9837151364976248,
+   "source": "x155 cells slope",
    "note": ""
   },
-  "i_worlds": {
-   "text": "30-40",
+  "h_slope2": {
+   "text": "0.9931 [0.9756, 1.0103]",
+   "value": 0.993121555987957,
+   "source": "x155 cells slope",
+   "note": ""
+  },
+  "h_resid": {
+   "text": "0.1487 and 0.1495",
+   "value": [
+    0.1486818628256999,
+    0.14946006335427106
+   ],
+   "source": "x155 cells residual_sd",
+   "note": ""
+  },
+  "h_sigma": {
+   "text": "σ = 0.15",
+   "value": 0.15,
+   "source": "x108_series --mutation 0.15",
+   "note": ""
+  },
+  "h_null_p": {
+   "text": "0.001",
+   "value": 0.000999000999000999,
+   "source": "x155 shuffle_null p",
+   "note": ""
+  },
+  "h_null_mean": {
+   "text": "0.19 and 0.15",
    "value": null,
-   "source": "x132 power calculation",
-   "note": "worlds needed for the survival contrast"
+   "source": "x155 shuffle_null null_mean",
+   "note": ""
+  },
+  "h_recon": {
+   "text": "0.9092 against 0.9092",
+   "value": 0.9091909185875522,
+   "source": "x155 cells r_per_world_mean / r_stored_mean",
+   "note": ""
+  },
+  "h_recon2": {
+   "text": "0.8967 against 0.8989",
+   "value": 0.8966900937779384,
+   "source": "x155 cells r_per_world_mean / r_stored_mean",
+   "note": ""
+  },
+  "h_pairs": {
+   "text": "2164 of 2211",
+   "value": 2164,
+   "source": "x155 cells pairs",
+   "note": ""
+  },
+  "h_pairs2": {
+   "text": "1779 of 1951",
+   "value": 1779,
+   "source": "x155 cells pairs",
+   "note": ""
+  },
+  "h_h2": {
+   "text": "0.082 / 0.416",
+   "value": [
+    0.08223369405060361,
+    0.4156297506762152
+   ],
+   "source": "x155 cells h2_between_mean",
+   "note": ""
+  },
+  "h_h2b": {
+   "text": "| 0.416 |",
+   "value": 0.4156297506762152,
+   "source": "x155 cells h2_between_mean",
+   "note": ""
+  },
+  "h_ablation_sd": {
+   "text": "sd 0.0",
+   "value": 0.0,
+   "source": "x155 ablation s_sd_between_last",
+   "note": ""
+  },
+  "h_ablation_equal": {
+   "text": "100 % of pairs exactly equal",
+   "value": 100,
+   "source": "x155 ablation identical_pair_share",
+   "note": ""
   },
   "s_q": {
-   "text": "7-9",
+   "text": "7–9",
    "value": null,
-   "source": "x96c/x96d q-prime range across six living cells",
+   "source": "x96c/x96d wavevector range across six living cells",
    "note": ""
   },
   "s_dw": {
-   "text": "8",
+   "text": "8 ×",
    "value": 8,
    "source": "x96c Dw / Dv = 8",
    "note": ""
@@ -463,13 +484,13 @@
   "s_gamma": {
    "text": "0.30",
    "value": null,
-   "source": "x110b gamma sweep, alive_in_seeds = 2",
+   "source": "x110b gamma sweep",
    "note": ""
   },
   "s_orient": {
-   "text": "0.636-0.837",
+   "text": "0.636 and 0.837",
    "value": null,
-   "source": "x96d orientation measure, not replicated",
+   "source": "x96d orientation measure",
    "note": ""
   },
   "s_alive": {

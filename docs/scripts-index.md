@@ -160,7 +160,7 @@ Scripts: **356**.
 | --- | --- |
 | `aggregate_check.py` | aggregate_check.py — сверка агрегатов с артефактами и внутренняя согласованность. |
 | `build_article_029_package.py` | build_article_029_package.py — assemble the deposit package for article 029. |
-| `make_article_029_figures.py` | make_article_029_package.py — figures and derived tables for article 029. |
+| `make_article_029_figures.py` | make_article_029_figures.py — figures and derived tables for article 029 (v2, plain-language edition). |
 | `make_artifact_table.py` | Собрать приложение-таблицу артефактов с хешами (manuscript/SUPPLEMENT.md). |
 | `make_arxiv_figures.py` | make_arxiv_figures.py — четыре фигуры для черновика (26.10). |
 | `make_carrier_figures.py` | Собрать два рисунка по закрытиям carriers/кластеров из сырых артефактов. |

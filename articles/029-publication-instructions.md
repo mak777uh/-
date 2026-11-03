@@ -1,117 +1,119 @@
-# Publishing instructions — article 029
+# Publishing brief — article 029 "How lineages begin and end in a pattern-forming chemical medium"
 
-Audience: the agent (human or AI) that will upload this package. You are publishing **on behalf of the owner**; the
-owner has reviewed the article and given the go-ahead for the deposit. Nothing below requires you to make scientific
-judgements: where a judgement is needed, the document says "ask the owner" and you must stop.
+You are receiving this brief together with one archive, `029-lineages-v2.0.zip`. The article and its data are final: the
+author has reviewed them and the numbers have been checked mechanically against the data. Your job is to deposit them,
+not to improve them. Where this brief says "ask the author", stop and ask; do not decide on your own.
 
-## What you are publishing
+## 1. What is in the archive
 
-| item | file |
+| file | what it is |
 |---|---|
-| the article (Markdown, English) | `029-lineages-in-a-pattern-forming-field.md` |
-| figures 1-4 | `figures/fig1-mixing-length.{png,pdf}` … `fig4-heredity.{png,pdf}` |
-| data: 28 aggregates | `data/aggregates/l1_field_*.json` |
-| data: derived tables (every printed number + its source) | `data/derived/tables.json`, `data/derived/*.csv` |
-| dataset description | `README.md` |
-| licence | `LICENSE` (CC BY 4.0) |
-| deposit metadata | `zenodo.json` (Zenodo legacy API format) |
-| checksums | `MANIFEST.sha256` |
+| `029-lineages-in-a-pattern-forming-field.md` | the article (Markdown, English, ~5 000 words, 8 sections) |
+| `figures/fig1-what-we-measure.{png,pdf}` | schematic of the measurement (geometry, three outcomes, bookkeeping) |
+| `figures/fig2-mixing-length.{png,pdf}` | the mixing length: outcome against surface gap, time against surface gap |
+| `figures/fig3-the-edge.{png,pdf}` | the edge: a step in the outcome, a spread in the timing |
+| `figures/fig4-endings.{png,pdf}` | how bodies end, and the survival reversal across three habitats |
+| `figures/fig5-heredity.{png,pdf}` | transmission slope against a shuffled null; scatter against the noise parameter |
+| `data/aggregates/*.json` | 27 aggregate files: the numbers behind every table and figure, each with the command line of its runs |
+| `data/derived/tables.json` | every number printed in the article, each entry naming the aggregate it came from |
+| `data/derived/*.csv` | the same values as flat tables (`table-edge`, `table-habitats`, `table-heredity`) |
+| `README.md` | description of the dataset: conventions, units, provenance |
+| `LICENSE` | CC BY 4.0 |
+| `zenodo.json` | deposit metadata in Zenodo's legacy-API format |
+| `MANIFEST.sha256` | sha256 of every file above |
 
-The whole set is also available as a single archive: `_exports/029-lineages-v1.0.zip` (repo root `_exports/`).
+PDF figures are the typesetting versions, PNG the reading versions; both are full page width. The archive has 47 files.
 
-## Before you upload: verify, do not trust
+## 2. Check the archive before you upload anything (5 minutes)
 
-Run these from the repository root. Each must succeed before you touch any external service.
+1. **Integrity.** Unpack and compare every file against `MANIFEST.sha256`:
+   `sha256sum -c MANIFEST.sha256` (Linux/macOS), or `Get-FileHash -Algorithm SHA256` in a loop on Windows. Every line
+   must report OK.
+2. **Nothing missing.** Five figures in two formats (10 files), 27 aggregates, 5 files under `data/derived/`, and the six
+   top-level files listed above.
+3. **Spot-check one number.** In `data/derived/tables.json` take the entry `"h_slope"`; the same string
+   (`0.9837 [0.9680, 1.0002]`) must appear in the article's §4.6 table and in
+   `data/aggregates/l1_field_x155_heredity.json` under `cells[*].slope` / `slope_ci`. If the three disagree, do not
+   upload — tell the author.
+
+The author's own verification, already run (do not re-run, it needs their repository): a checker requires each of the 69
+printed numbers to appear in the article and in the derived table, and the derived table is generated from the
+aggregates. Your job is to confirm that the archive you received is the checked one.
+
+## 3. Fill in the two fields only the author can supply
+
+`zenodo.json` is ready except for two values:
+
+1. `creators[].name` — currently the placeholder `"Morphogenesis laboratory"`. Replace it with the author name(s) and
+   affiliation **exactly as the author gives them**, in the author's order. Do not invent a name, an affiliation, or an
+   ORCID. If the author has an ORCID, add `"orcid"` to the same object.
+2. `related_identifiers[0].identifier` — currently a repository URL. Confirm it with the author. If the data repository is
+   private, remove the entry and put "Data available from the author on request" into `notes` instead.
+
+Everything else in `zenodo.json` (title, abstract, keywords, licence, version `2.0`, date) matches the article. **Do not
+change the title.**
+
+## 4. Deposit on Zenodo (recommended, and enough on its own)
+
+`zenodo.json` is in the legacy API format. With a personal access token in `$ZENODO_TOKEN`:
 
 ```bash
-python scripts/check_article_029_numbers.py --ci      # every printed number -> derived table -> aggregate
-python scripts/verify.py                              # all repository gates, including that checker
-sha256sum -c _exports/029-lineages/MANIFEST.sha256    # run inside _exports/029-lineages (Windows: use `Get-FileHash`)
-```
+# 1. create the deposition (the response gives links.bucket and the deposition id)
+curl -sS -H "Authorization: Bearer $ZENODO_TOKEN" -H "Content-Type: application/json" \
+     -X POST https://zenodo.org/api/deposit/depositions --data-binary @zenodo.json
 
-`sha256sum -c` must print `OK` for every line. On Windows, compare `Get-FileHash -Algorithm SHA256` output against the
-manifest with a script — do not eyeball 40 hashes.
+# 2. upload every file except zenodo.json itself
+for f in $(find . -type f ! -name zenodo.json); do
+  curl -sS -H "Authorization: Bearer $ZENODO_TOKEN" -X PUT --data-binary @"$f" "<links.bucket>/${f#./}"
+done
 
-## Metadata you must fill in, and may not invent
-
-`zenodo.json` is a **template with two placeholders that only the owner can supply**:
-
-1. `creators[].name` currently says `"Morphogenesis laboratory"`. Replace it with the author name(s) and affiliation the
-   owner gives you, in the order the owner gives them. **Do not invent a name, an affiliation, or an ORCID.**
-2. `related_identifiers[0].identifier` points at the public repository. Confirm the URL with the owner; if the repository
-   is private, it must not be listed as a supplement and instead goes in `notes` as "data available on request".
-
-Everything else (title, description, keywords, licence, version, date) is already correct and matches the article.
-Do not change the title: it is the title the owner approved.
-
-The two files that the article's own text calls "hosted in the repository" (the per-run artifacts) stay in the
-repository. You are not uploading them, and you do not need to.
-
-## Upload to Zenodo (the recommended first step)
-
-Use the **legacy API** described in `zenodo.json`; the file is already in that format.
-
-```bash
-# 1. create the deposition (needs ZENODO_TOKEN in the environment; never commit or echo it)
+# 3. publish — irreversible, only after the author confirms the file list
 curl -sS -H "Authorization: Bearer $ZENODO_TOKEN" \
-     -H "Content-Type: application/json" \
-     -X POST https://zenodo.org/api/deposit/depositions \
-     --data-binary @_exports/029-lineages/zenodo.json
+     -X POST https://zenodo.org/api/deposit/depositions/<id>/actions/publish
 ```
 
-The response contains `links.bucket` and the deposition id. Upload every file from `_exports/029-lineages/` (including
-`MANIFEST.sha256` and `PUBLISHING.md`) to the bucket, then publish:
+The web interface works equally well: the fields in `zenodo.json` map one-to-one onto the form, and the file list above is
+the list to drag in. Keep `MANIFEST.sha256`, `README.md` and `LICENSE` in the deposit — they are part of it.
 
-```bash
-# 2. upload (repeat per file, or use the bucket API for a directory)
-curl -sS -H "Authorization: Bearer $ZENODO_TOKEN" \
-     -X PUT --data-binary @<file> "<links.bucket>/<basename>"
-# 3. publish — this is irreversible; only after the owner confirms the file list
-curl -sS -H "Authorization: Bearer $ZENODO_TOKEN" -X POST https://zenodo.org/api/deposit/depositions/<id>/actions/publish
-```
+If the author wants the DOI inside the arXiv version, reserve it first: Zenodo issues a draft DOI at creation and the
+final one at publication.
 
-If the API is unavailable, do it in the web interface with the same file list and the same metadata; the field names in
-`zenodo.json` map one-to-one onto the form.
+## 5. arXiv (optional, and only after Zenodo)
 
-Record the resulting **DOI** in `lab/notices.md` and in `articles/029-…md` (a one-line "DOI:" note) — the deposit is only
-finished when the repository knows its identifier.
+- Category `q-bio.PE` (populations and evolution); `nlin.PS` as a cross-list if the author agrees.
+- Convert the Markdown to PDF **with the figures embedded**, using `figures/*.pdf`. The article references the figures by
+  their `figures/fig1-what-we-measure.png` names — keep those paths or relabel consistently, and check that all five
+  appear.
+- Abstract: copy the article's Abstract verbatim. Title: as in `zenodo.json`.
+- Upload `MANIFEST.sha256` as an ancillary file.
+- Cite the Zenodo DOI in the arXiv comments/DOI field.
+- arXiv's non-exclusive licence is fine; the CC BY 4.0 terms stay with the Zenodo record.
 
-## Upload to arXiv (optional, second step)
+## 6. Journal (only if the author asks for it)
 
-Category: `q-bio.PE` (populations and evolution), cross-list `nlin.PS` if the owner agrees. You need:
+This brief is not a journal submission. If the author asks, the realistic shortlist for this paper is *Artificial Life*
+(MIT Press), *PLOS ONE*, or the ALIFE conference proceedings; each needs reformatting to its template and figures
+re-rendered at its column width. Ask the author before reformatting, and never submit the same text to two venues at once.
 
-- `029-lineages-in-a-pattern-forming-field.md` converted to PDF **with the figures embedded** (`figures/*.pdf`
-  are the typesetting versions; the PNGs are for reading). A plain Markdown-to-PDF tool with `figures/` on the path is
-  enough; the article references the figures by their `figures/fig1-mixing-length.png` names, so keep those filenames.
-- the abstract from the article's Abstract section, verbatim;
-- `MANIFEST.sha256` uploaded as an ancillary file (arXiv accepts ancillary files on the upload form);
-- licence: arXiv's non-exclusive licence (the CC BY 4.0 terms stay with the Zenodo record).
+## 7. What you must not do
 
-Do not submit to arXiv before the Zenodo DOI exists: the preprint should cite the dataset. If the owner prefers one
-venue only, Zenodo alone is a complete deposit.
+1. **Do not edit the article's numbers, claims, or wording of conclusions, and do not touch the figure data.** Every
+   number is machine-checked against the aggregates; a "fix" breaks that chain and misrepresents the data. If something
+   looks wrong, report it to the author.
+2. **Do not publish anything beyond this archive** — no other reports, no raw simulation output, no unrelated files.
+3. **Do not use words the article deliberately avoids**: "life", "consciousness", "intelligence", or "alive" as a claim
+   about the medium. The article says "lineage", "body", "ending", "transmission" for a reason, and that vocabulary is part
+   of the result.
+4. **Do not change the licence** (CC BY 4.0) or the version number.
+5. **Do not upload with the placeholder author name.** If the author has not supplied it, stop.
+6. **Do not publish a repository tag or release** — this deposit is the publication; anything else needs the author's word.
 
-## Journal submission (only if the owner asks)
+## 8. After publishing, report exactly four things
 
-Nothing here is a submission. If the owner asks for a journal, the shortlist with the reason is in
-`articles/029-publication-instructions.md` in the repository. In that case the article must be reformatted to the
-journal's template and the figures re-rendered at the journal's width — ask the owner before reformatting anything.
+1. the DOI and the Zenodo record URL;
+2. the number of files uploaded and their total size;
+3. the sha256 of the uploaded `MANIFEST.sha256`;
+4. the Zenodo version string.
 
-## What you must not do
-
-1. **Do not edit the article's numbers, claims or conclusions.** If something looks wrong, report it to the owner; the
-   numbers are machine-checked against aggregates, and a "fix" breaks that chain.
-2. **Do not publish anything but this package.** No other reports, no repository dumps, no raw fields, no seeds from
-   other lines.
-3. **Do not use words the line forbids**: "life", "consciousness", "intelligence", "alive" as a claim about the medium,
-   "evolving" as a claim about populations. The article says "lineage", "endings", "transmission" for a reason.
-4. **Do not change the licence.** CC BY 4.0 is what the package declares.
-5. **Do not upload with a placeholder author.** If the owner has not supplied the author name, stop and ask.
-6. **Do not mark the repository record as published before the DOI exists**; and do not tag a release without the
-   owner's word (the repository's rule: tags only on a green CI and with the owner's decision).
-
-## After publishing
-
-Reply to the owner with exactly four things: the DOI (or the deposit URL), the number of files uploaded and their total
-size, the sha256 of the uploaded `MANIFEST.sha256`, and the Zenodo version string. Then add the DOI to
-`lab/notices.md`, `articles/029-…md` and the repository's `README.md` row, in one commit, and run
-`python scripts/verify.py` once more.
+If the author later asks for the DOI in the paper, update the article's front matter and re-issue the archive as `v2.1`;
+do not re-upload over a published version — Zenodo versions are additive.

@@ -25,7 +25,7 @@ FIGS = ROOT / "articles" / "029-figures"
 ARTICLE = ROOT / "articles" / "029-lineages-in-a-pattern-forming-field.md"
 INSTRUCTIONS = ROOT / "articles" / "029-publication-instructions.md"
 OUT = ROOT / "_exports" / "029-lineages"
-ZIP = ROOT / "_exports" / "029-lineages-v1.0.zip"
+ZIP = ROOT / "_exports" / "029-lineages-v2.0.zip"
 
 # Every aggregate a number in the article comes from.
 AGGREGATES = [
@@ -69,10 +69,10 @@ public repository, where they are addressable by name.
 | path | what it is |
 |---|---|
 | `029-lineages-in-a-pattern-forming-field.md` | the article (Markdown, English) |
-| `figures/` | Figures 1-4 as PNG (reading) and PDF (typesetting) |
+| `figures/` | Figures 1-5 as PNG (reading) and PDF (typesetting) |
 | `data/aggregates/` | the twenty-eight `l1_field_*.json` aggregates the article cites; each carries its own `command`, `prereg` and `verdict` fields |
 | `data/derived/tables.json` | every number printed in the article, with the aggregate it came from |
-| `data/derived/*.csv` | the same values as flat tables (width curve, identity cells, heredity readouts) |
+| `data/derived/*.csv` | the same values as flat tables (the edge curve, the three habitats, the heredity readouts) |
 | `zenodo.json` | metadata record for the deposit |
 | `MANIFEST.sha256` | checksums of every file above |
 | `PUBLISHING.md` | step-by-step instructions for the publishing agent |
@@ -165,7 +165,7 @@ def main() -> int:
         shutil.copy2(src, OUT / "data" / "aggregates" / name)
         copied += 1
 
-    for name in ("tables.json", "tables.csv", "table-width.csv", "table-identity.csv", "table-heredity.csv"):
+    for name in ("tables.json", "tables.csv", "table-edge.csv", "table-habitats.csv", "table-heredity.csv"):
         shutil.copy2(FIGS / name, OUT / "data" / "derived" / name)
 
     abstract = json.loads((FIGS / "tables.json").read_text(encoding="utf-8"))
@@ -190,7 +190,7 @@ def main() -> int:
         "license": "CC-BY-4.0",
         "access_right": "open",
         "language": "eng",
-        "version": "1.0",
+        "version": "2.0",
         "publication_date": "2026-11-04",
         "related_identifiers": [
             {"identifier": "https://github.com/mak777uh/-", "relation": "isSupplementTo", "scheme": "url"},
