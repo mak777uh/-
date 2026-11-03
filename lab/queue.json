@@ -1,6 +1,6 @@
 {
  "schema_version": 1,
- "updated_at": "2026-11-03T20:15:00+03:00",
+ "updated_at": "2026-11-03T20:30:00+03:00",
  "note": "Очередь пунктов после E02c. Claim берётся до пре-регистрации, а не перед запуском: lab.py item-claim. Статус running означает занятый GPU-лейн и может быть только у одного пункта. | 25.10: добавлено поле impact (1-5) — приоритет конвейера = impact/max(cost_gpu_h,0.1); для запуска пункту нужны prereg (закоммиченный план) и launch.command+outdir.",
  "items": [
   {
@@ -2894,6 +2894,23 @@
    "note": "THE OUTCOME STEPS, THE TIME MIXES. Radius 6 at a surface gap of 7.5 cells (separation 19.5, ten seeds): 10/10 still coalesce, as at gap 7, so the boundary is a whole-cell step and does not move; but 2 of the 10 dissolve at the later logged step (49 rather than 39), so the median is unchanged while the distribution is not - the timing tail begins on the EARLY side of the crossing, before any seed's fate changes. Two limits recorded: the half-cell also moved the rasterised discs by one cell each (110 against 108 cells), so the arm is a gap plus ~2% of area, conservative in direction; and the 10-step logging quantum makes a sub-quantum time shift invisible, so the count is the primary readout. Control lesson: the registration checked params.init_spots, a parameter, not the field - a field check was added and docs/design-checks.md gained the rule. Report x153-halfcell, section 10hm. Next: X154 (mixing curve at half-cells both ways), X152 (radius 3.75), X149 (shape, frames).",
    "closed_at": "2026-11-03T20:15:00+03:00",
    "closed_by": "lead"
+  },
+  {
+   "id": "X154_mixing",
+   "title": "The mixing curve: is the width in the time measurable, or is it noise of ten seeds? Radius 6 at gaps 6.5, 7, 7.5, 8",
+   "status": "running",
+   "owner": "lead",
+   "kind": "experiment",
+   "cost_gpu_h": 0,
+   "prereg": "reports/2026-11-03-x154-mixing-curve-plan.md",
+   "created_at": "2026-11-03T20:30:00+03:00",
+   "heartbeat_at": "2026-11-03T20:30:00+03:00",
+   "launch": {
+    "runner": "scripts/x154_series.py",
+    "outdir": "morphogenesis/experiments/L1_field",
+    "pattern": "x154_g*_s*.json"
+   },
+   "note": "Twenty new runs at radius 6 to give every arm ten seeds: gap 6.5 (separation 18.5, seeds 601-610), plus five seeds each at gaps 7.0 and 8.0 to complete the X150 arms; gap 7.5 comes whole from X153. The readout is the fraction of coalescing seeds that land on the later logged step (>= 49) against the fraction that coalesce at all. Registered: a monotone rise of at least 0.3 with an interior value means a real width in the time; unordered means X153's two slow seeds were ten-seed noise; flat up to 7.5 then 1.0 at 8 means the time shares the outcome's whole-cell threshold."
   }
  ]
 }
