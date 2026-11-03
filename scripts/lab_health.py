@@ -260,7 +260,13 @@ def section_queues() -> tuple[list[str], list[str], str]:
     if new:
         warn.append(f"доска: {len(new)} замечаний без решения")
     if running and not list((ROOT / "lab" / "locks").glob("*.lock")):
-        bad.append("пункт очереди в статусе running, но живого замка нет")
+        # A series that runs many short arms always has gaps without a lock, and a field series takes no lock at all:
+        # the presence of a lock is not the definition of "alive". The audit script is - it accepts a lock, a fresh
+        # artifact under the item's `launch` block, or a live process. Ask it instead of duplicating a coarser rule.
+        code, out = run(["scripts/queue_runner.py", "--audit"])
+        if code != 0:
+            errs = [ln.strip() for ln in out.splitlines() if "ОШИБКА" in ln]
+            bad.append("очередь: " + (errs[0] if errs else "статусы не совпадают с реальностью"))
     text = (f"эксперименты: {len(planned)} в плане, {len(running)} идёт; "
             f"ферма: {len(pending)} ждёт; доска: {len(new)} новых")
     return bad, warn, text
