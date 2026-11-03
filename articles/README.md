@@ -61,6 +61,7 @@
 
 | [028](028-pole-bez-zadannyh-obektov.md) | Поле без заданных объектов: как счётчик компонент выдал себя за разнообразие | v1.0, 31.10.2026 | линия поля: возникновение, наследование, отбор и переписанный вывод о дроблении |
 | [028 (en)](028-field-without-stipulated-objects.md) | A field without stipulated objects: how a component counter passed itself off as diversity | v1.5, 31.10.2026 | English edition of v1.4 with corrected numbers; every number checked against its aggregate |
+| [029](029-lineages-in-a-pattern-forming-field.md) | A mixing length, a merger and a heredity coefficient — what lineages do in a pattern-forming field | v1.0, 04.11.2026 | the field line's three blocks plus the measured heredity coefficient: mixing length 9 ± 1 cells, coalescence as a merger, endings by absorption, the reversal of end-survival, the heredity slope and its ablation; every number tied to an aggregate by `check_article_029_numbers.py` |
 
 ## Научный цикл
 

@@ -56,6 +56,7 @@ def main() -> int:
         ("снимки совпадают с диском", [PY, "scripts/check_snapshots.py", "--ci"], None),
         ("индекс скриптов полон и свеж", [PY, "scripts/check_script_index.py", "--ci"], None),
         ("числа статьи 028 совпадают с агрегатами", [PY, "scripts/check_article_numbers.py", "--ci"], None),
+        ("числа статьи 029 совпадают с таблицами и агрегатами", [PY, "scripts/check_article_029_numbers.py", "--ci"], None),
         ("матрица утверждений (claims_lint --strict)", [PY, "scripts/claims_lint.py", "--strict"], None),
         ("ссылки на разделы рукописи", [PY, "scripts/check_section_refs.py"], None),
         # 01.11: CI падал на шаге «Text integrity», а локальный verify был зелёным, потому что звал

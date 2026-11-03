@@ -1,0 +1,64 @@
+key,value_as_printed,source
+m_gap8,M 5/5 at a surface gap of 8,x142 by_arm r30_g8
+m_gap9,"M 3/5, A 2/5 at a gap of 9",x142 by_arm r30_g9
+m_lone_r3,180,x145 by_radius first_split_median
+m_lone_r45,190,x145 by_radius first_split_median
+m_lone_r6,290,x145 by_radius first_split_median
+m_cross_r3,16 ± 1,x136 by_separation
+m_cross_r45,18 ± 2,x140 by_separation
+m_cross_r6,20 ± 2,x138 by_separation
+w_gaps,6.5 / 7 / 7.5 / 8,x154 curve
+w_slow,0.0 / 0.0 / 0.2 / 1.0,x154 curve slow_fraction
+w_slow_all,0.0 / 0.0 / 0.2 / 0.5,x154 curve slow_fraction_of_all
+w_coal,1.0 / 1.0 / 1.0 / 0.5,x154 curve coalescing_fraction
+w_hist75,"39 ×8, 49 ×2",x154 curve gap 7.5 time_histogram
+w_hist80,"49 ×3, 59 ×2",x154 curve gap 8 time_histogram
+i_below,0.162 / 0.302 / 0.466,x126 cells below_floor_share
+i_depth,1.479 / 1.416 / 2.213,x126 cells depth_mean
+i_rate,6.06 / 9.01 / 18.96,x126 cells rate_filtered
+i_surv,0.2496 / 0.2984 / 0.1372,x126 cells survival_mean
+i_mid_se,5.99,x126 distance_to_midpoint_in_se.survival_mean
+i_sister,"+1.479 [1.289, 1.654] and +2.213 [1.962, 2.489]",x113 cells sister_diff
+i_partial,0.459 / 0.340,x113 rho_partial_life
+i_depth_life,-0.185 / -0.070,x113 rho_depth_life
+i_absorbed,55.3 / 47.8 / 48.4,x128b cells absorbed_share
+i_isolated,31.3 / 29.4 / 21.2,x128b cells isolated_share
+i_vanished,10.5 / 21.7 / 27.4,x128b cells vanished_share
+i_kin_lattice,87.2,"x128b / x132 kin share, lattice"
+i_kin_maze,37.7,"x128b / x132 kin share, maze"
+i_remerge,18.4 / 8.6 / 17.4,x130 cells merge_share
+i_remerge_time,80 / 120 / 60,x130 cells median_time
+i_x132,-0.1323 (-0.1819 … -0.0840),x132 paired_by_seed survival
+i_x132_depth,+1.8340,x132 paired_by_seed depth
+i_x132_kin,-0.4164,x132 paired_by_seed kin
+i_x132_vanished,+0.1419,x132 paired_by_seed vanished
+h_slope,"0.9837 [0.9680, 1.0002] and 0.9931 [0.9756, 1.0103]",x155 cells slope
+h_resid,0.1487 and 0.1495,x155 cells residual_sd
+h_sigma,0.15,x108_series --mutation 0.15
+h_null_p,0.001,x155 shuffle_null p
+h_recon,0.9092 against 0.9092 and 0.8967 against 0.8989,x155 cells r_per_world_mean / r_stored_mean
+h_pairs,2164 of 2211 and 1779 of 1951,x155 cells pairs / pairs_total
+h_h2,0.082 / 0.416,x155 cells h2_between_mean
+h_h2b,0.082,"x155 cells h2_between_mean, lattice"
+h_ablation_sd,0.0,x155 ablation s_sd_between_last
+h_ablation_equal,100 %,x155 ablation identical_pair_share
+m_wavelength,12,x134/x136 pattern wavelength
+m_area_r3,29,x142 by_arm median area / x145 definitions
+m_area_r45,64,x140 definitions
+m_area_r6,113,x138 definitions
+m_rule,2r + 9,x138 verdict
+m_outer10,"M 2/5, A 2/5, P 1/5",x142 by_arm r30_g10
+m_outer11,"M 2/5, P 3/5",x142 by_arm r30_g11
+c_size_medians,"267 / 268, 297 / 287, 242 / 290","x142 by_arm fusion medians at gaps 9, 10, 11"
+c_matched,0.125 and 0.044,x116 cells matched_diff_mean
+c_matched_full,0.2496 / 0.1372,x116 cells full_diff_mean
+c_ties,22.2 % and 21.5 %,x125c cells tie_share
+c_tie_fracs,0.526 and 0.388,x125c cells p_nt
+i_ten_worlds,-0.077,"x131 report, maze minus lattice"
+i_ten_worlds_ci,-0.166 … +0.012,x131 report
+i_worlds,30-40,x132 power calculation
+s_q,7-9,x96c/x96d q-prime range across six living cells
+s_dw,8,x96c Dw / Dv = 8
+s_gamma,0.30,"x110b gamma sweep, alive_in_seeds = 2"
+s_orient,0.636-0.837,"x96d orientation measure, not replicated"
+s_alive,2 of 6,x110b alive_in_seeds
