@@ -115,3 +115,26 @@ declared **unresolved at this resolution** and the next run doubles the seeds, n
 ## Status
 
 Registered 2026-11-03 15:45 MSK, before the sweep. Light field run, no training.
+
+## Amendment, 03.11 16:10 — two arms re-run, and what "alive" is a control for
+
+Written after the probe control and while the first twenty-five arms were running, before any of them was read.
+
+**1. Gaps 6 and 9 are re-run, not reused.** Checking the population before the analysis showed that X136's full
+logs for separations 12 and 15 were retired before the compact projections existed — only 14, 16 and 17 were ever
+compacted and committed. The gap-6 point is the merging neighbour on the other side of the hole and one of the two
+decisive arms, so it cannot rest on a number in an aggregate whose raw artifact is gone. It is re-run here, and so is
+gap 9, which the curve needs to be continuous. That makes **35 new runs** (25 registered plus 10), and it turns
+control 1 into a stronger test than registered: the re-run arms must reproduce the numbers X136 published (5/5
+absorbed, median 19 steps at gap 6; 5/5, median 49 at gap 9).
+
+**2. "Alive" is a control for emptiness, not for fragmentation.** The registered control 4 said every run must be
+alive under the structural rule (total area ≥ 5 % of the grid and a largest component ≥ 50 cells). X139's own
+aggregate shows that rule failing in 2 of its 40 long runs — one seed of the annihilation arm and one at gap 8 —
+where the field ends at a quarter of the grid in sixty-odd small patches. That is fragmentation, not death, and
+requiring it of every arm would void the experiment for a reason unrelated to the claim. Control 4 therefore
+becomes: **the field never empties** (occupancy ≥ 5 % of the grid at the last step), and **fragmentation is
+reported per arm as a count** rather than used as a refusal. The refusal itself is unchanged in force: a world that
+empties makes "both lineages lost" uninformative, and that is what still voids the arm.
+
+The correction to X139's controls paragraph, made for the same reason, is appended there.
