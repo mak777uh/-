@@ -1,0 +1,159 @@
+{
+  "kind": "l1_field_x126_third_cell",
+  "experiment": "X126",
+  "command": "python scripts/x126_analyse.py --write",
+  "prereg": "reports/2026-11-03-x126-third-cell-plan.md",
+  "definitions": {
+    "depth": "mean paired sister difference, generations, no filter",
+    "rate": "paired difference of depth/generation_time*1000, both generation times >= 50 steps, denominator printed",
+    "p_nt": "fraction of non-tied pairs in which the larger sister's generation time is longer",
+    "below_floor_share": "fraction of pairs with a generation time < 50 steps",
+    "survival": "paired difference in 'the branch subtree has a member at the last logged step'",
+    "liveness": "structural rule: occupied >= 0.05 of the grid and largest component >= 50 cells at the last step"
+  },
+  "midpoints": {
+    "depth": 1.846,
+    "p_nt": 0.457,
+    "rate": 12.508,
+    "below": 0.314,
+    "survival": 0.1935
+  },
+  "classes": {
+    "depth_mean": "step",
+    "rate_filtered": "off the chord, bend",
+    "p_nt": "gradient",
+    "below_floor_share": "gradient",
+    "survival_mean": "off the chord, reversal"
+  },
+  "distance_to_midpoint_in_se": {
+    "depth_mean": 4.65,
+    "rate_filtered": 3.19,
+    "p_nt": 0.92,
+    "below_floor_share": 0.9,
+    "survival_mean": 5.99
+  },
+  "position_against_neighbours": {
+    "depth_mean": "below",
+    "rate_filtered": "between",
+    "p_nt": "between",
+    "below_floor_share": "between",
+    "survival_mean": "above"
+  },
+  "cells": {
+    "f030": {
+      "runs": 10,
+      "live_runs": 10,
+      "occupied_frac_mean": 0.267,
+      "largest_area_min": 55,
+      "pairs": 1142,
+      "pairs_kept": 957,
+      "below_floor_share": 0.162,
+      "below_floor_ci": [
+        0.1401,
+        0.183
+      ],
+      "rho_heredity": 0.548,
+      "depth_mean": 1.479,
+      "depth_ci": [
+        1.3012,
+        1.6637
+      ],
+      "rate_filtered": 6.056,
+      "rate_ci": [
+        5.0696,
+        7.1724
+      ],
+      "p_nt": 0.5259,
+      "p_nt_ci": [
+        0.491,
+        0.5597
+      ],
+      "survival_mean": 0.2496,
+      "survival_ci": [
+        0.2207,
+        0.2793
+      ],
+      "both": 641,
+      "only_bigger": 324,
+      "only_smaller": 39,
+      "neither": 138
+    },
+    "f035": {
+      "runs": 10,
+      "live_runs": 10,
+      "occupied_frac_mean": 0.3692,
+      "largest_area_min": 441,
+      "pairs": 1106,
+      "pairs_kept": 772,
+      "below_floor_share": 0.302,
+      "below_floor_ci": [
+        0.2767,
+        0.3291
+      ],
+      "rho_heredity": 0.421,
+      "depth_mean": 1.416,
+      "depth_ci": [
+        1.2333,
+        1.5958
+      ],
+      "rate_filtered": 9.007,
+      "rate_ci": [
+        6.8309,
+        11.1344
+      ],
+      "p_nt": 0.4723,
+      "p_nt_ci": [
+        0.4396,
+        0.5049
+      ],
+      "survival_mean": 0.2984,
+      "survival_ci": [
+        0.2649,
+        0.3336
+      ],
+      "both": 241,
+      "only_bigger": 413,
+      "only_smaller": 83,
+      "neither": 369
+    },
+    "f040": {
+      "runs": 10,
+      "live_runs": 10,
+      "occupied_frac_mean": 0.4715,
+      "largest_area_min": 935,
+      "pairs": 1195,
+      "pairs_kept": 638,
+      "below_floor_share": 0.4661,
+      "below_floor_ci": [
+        0.4377,
+        0.4929
+      ],
+      "rho_heredity": 0.48,
+      "depth_mean": 2.213,
+      "depth_ci": [
+        1.9456,
+        2.4812
+      ],
+      "rate_filtered": 18.96,
+      "rate_ci": [
+        14.8627,
+        23.3734
+      ],
+      "p_nt": 0.3881,
+      "p_nt_ci": [
+        0.3582,
+        0.42
+      ],
+      "survival_mean": 0.1372,
+      "survival_ci": [
+        0.1146,
+        0.1582
+      ],
+      "both": 40,
+      "only_bigger": 178,
+      "only_smaller": 14,
+      "neither": 963
+    }
+  },
+  "verdict": "the third cell, F = 0.035: depth 1.416 (CI [1.2333, 1.5958]), rate 9.007 (CI [6.8309, 11.1344], 772 of 1106 pairs), tie-excluded fraction 0.4723 (CI [0.4396, 0.5049]), below-floor share 0.302, end-survival 0.2984 (CI [0.2649, 0.3336]), heredity 0.421. Mixed: depth_mean: step (4.65 SE from the midpoint, below), rate_filtered: off the chord, bend (3.19 SE from the midpoint, between), p_nt: gradient (0.92 SE from the midpoint, between), below_floor_share: gradient (0.9 SE from the midpoint, between), survival_mean: off the chord, reversal (5.99 SE from the midpoint, above) — 2 of 5 readouts interpolate, and survival_mean reverses (the middle cell is outside the range of its neighbours). The channels are named in the report: the generation clock moves continuously, lineage depth moves in a step, and the rate accelerates below the chord."
+}

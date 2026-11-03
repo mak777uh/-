@@ -196,3 +196,4 @@ sections were not rewritten, only moved; each one keeps its identifier, so every
 | §10gq | The cost of division was the identity convention (X122, 03.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
 | §10gr | A uid's life is one generation: the identity rule, confirmed in code and pinned by a gate (X123, 03.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
 | §10gs | The consequence numbers were three statistics wearing one word — audited, re-derived, and the contradiction retired (X124–X125c, 03.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
+| §10gt | The third cell: the clock is a gradient, lineage depth is a threshold, and the best habitat for a lineage is between them (X126, 03.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |

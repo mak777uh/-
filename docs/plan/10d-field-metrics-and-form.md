@@ -2962,3 +2962,42 @@ the size threshold doing the work — the natural next manipulation being a run 
 
 Reports: `reports/2026-11-03-x124-coherence-void.md`, `-x125-definitions-void.md`, `-x125b-statistics-void.md`, `-x125c-ties.md`; aggregates
 `l1_field_x124_coherence.json`, `l1_field_x125_definitions.json`, `l1_field_x125b_statistics.json`, `l1_field_x125c_ties.json`.
+
+## 10gt. The third cell: the clock is a gradient, lineage depth is a threshold, and the best habitat for a lineage is between them (X126, 03.11)
+
+Every consequence number in this line rested on two cells that differ by nearly a factor of two, so the line could not tell a gradient in inflow from a step at
+percolation. Ten worlds at `F = 0.035` on X108's own seeds make the comparison three-cell and paired by seed. The anchor is exact — the same flags without field
+saving reproduce `x108_f030_s301.json` key for key, `uid_pairs` included — and both known cells re-derive their published numbers to the digit in the same code
+path, which is what licenses reading the new cell at all.
+
+| readout | 0.030 | **0.035** | 0.040 | class of the new cell |
+|---|---|---|---|---|
+| depth, generations | +1.479 | **+1.416** | +2.213 | **step**: inside the lattice's interval, 4.65 SE below the chord |
+| rate per 1 000 steps | 6.056 | **9.007** | 18.96 | bend: between the neighbours, 3.19 SE below the chord |
+| tie-excluded fraction larger | 0.526 | **0.472** | 0.388 | **gradient**: 0.92 SE from the midpoint |
+| below-floor share (`g < 50`) | 0.162 | **0.302** | 0.466 | **gradient**: 0.90 SE from the midpoint |
+| end-survival, larger branch | +0.2496 | **+0.2984** | +0.1372 | **reversal**: 5.99 SE above the chord |
+| pairs / kept | 1 142 / 957 | 1 106 / 772 | 1 195 / 638 | — |
+
+**The clock runs continuously; depth does not.** Generations shorten smoothly as the food rises (16 % → 30 % → 47 % of pairs below the 50-step floor) and the
+larger sister's directional advantage decays smoothly with them (0.526 → 0.472 → 0.388), so the maze is the far end of one axis rather than a different kind of
+world. Lineage depth, by contrast, does not move at all between the lattice and the middle cell (+1.479 → +1.416) and then jumps at the percolating one (+2.213,
+largest component 935 cells against 441). **Half again as much food buys no deeper lineage; percolation does.** The rate behaves as that pair of statements
+requires — flat depth over a shortening generation raises it (6.06 → 9.01, below the chord), and the maze moves both terms at once (18.96).
+
+**And persistence reverses, which is the finding the two-cell design could not have made.** End-survival of the larger branch is +0.2496 → **+0.2984** → +0.1372:
+a maximum in the middle cell, 5.99 SE above the chord, with only-the-larger-alive rising 28 % → 37 % → 15 % and both-alive collapsing 56 % → 22 % → 3 %. The
+rise from the lattice is **not** resolved (the intervals overlap by 0.014); the fall into the maze is.
+
+So the habitat that maximises generations is not the habitat that maximises a lineage's chance of still being there: depth needs percolation and persistence is
+destroyed by it. The intermediate regime — dense enough that a line is not one cut from extinction, not yet a single body that is cut together — is the best of
+the three for a large lineage (0.298 against 0.250 and 0.137) and pays for it in generations (1.416 against 2.213). For the question this line exists to answer,
+that is the first measured trade-off rather than a list of correlates: **the conditions of life here are not "more food" and not "more structure" but a place
+between the two.**
+
+Two things to keep: heredity is lowest exactly where persistence is highest (0.421 against 0.548 / 0.480, a note with ten worlds, and a control for X127), and
+the plan's "non-monotone" label was measuring distance from the chord rather than monotonicity — the script now carries a position tag (`between` / `above` /
+`below`) and the words are `bend` and `reversal`, the fourth vocabulary defect of the night and the same species as the other three.
+
+Report: `reports/2026-11-03-x126-third-cell.md`; aggregate `l1_field_x126_third_cell.json`. Next: X127 counts cuts per lineage — the mechanism test for the
+maze's low persistence on logs already on disk — and X128 places the depth threshold between 0.035 and 0.040.

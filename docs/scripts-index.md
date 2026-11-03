@@ -4,7 +4,7 @@
 
 The curated page — what matters and why — is [`scripts.md`](scripts.md). This file is the complete list, so that every command behind a number in the record can be found.
 
-Scripts: **313**.
+Scripts: **314**.
 
 ## Гейты и проверки (47)
 
@@ -171,7 +171,7 @@ Scripts: **313**.
 | `make_seed_grid_figure.py` | Собрать Figure 4 рукописи: сетка «инициализация × порядок данных» (§4.13). |
 | `make_simple_poster.py` | Простой постер для владельца: что мы узнали, без терминов. |
 
-## Прочее (178)
+## Прочее (179)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -264,6 +264,7 @@ Scripts: **313**.
 | `x125_analyse.py` | x125_analyse.py — X125: one definition per quantity, all five readouts, both weightings. |
 | `x125b_analyse.py` | x125b_analyse.py — X125b: the filter printed with the number, four statistics of one paired difference. |
 | `x125c_analyse.py` | x125c_analyse.py — X125c: is X93's tie-excluded fraction bare once ties are counted? |
+| `x126_analyse.py` | x126_analyse.py — X126: the third cell, three cells under one code path. |
 | `x126_series.py` | x126_series.py — the third cell: ten worlds at F = 0.035, the identical protocol of X108. |
 | `x56_matrix.py` | x56_matrix.py — сходимость по шагу: контраст при dt = 1.0, 0.5, 2.0. |
 | `x58_analyse.py` | x58_analyse.py — the same measurement on a 128 grid: β₀, β₁, wavelength, normalised count. |

@@ -70,19 +70,34 @@ def anchor() -> int:
     HOURLY.mkdir(exist_ok=True)
     out = HOURLY / "x126_anchor.json"
     if out.exists():
-        out.unlink()
-    r = run_one("anchor", 301, out, flow=ANCHOR_FLOW)
-    print(f"[x126] anchor run: {r['status']} {r.get('seconds', '')} {r.get('tail', '')}")
-    if r["status"] != "ok":
-        return 1
+        print("[x126] anchor run: reusing", out.name)
+    else:
+        r = run_one("anchor", 301, out, flow=ANCHOR_FLOW)
+        print(f"[x126] anchor run: {r['status']} {r.get('seconds', '')} {r.get('tail', '')}")
+        if r["status"] != "ok":
+            return 1
     a = json.loads(out.read_text(encoding="utf-8"))
     b = json.loads(ANCHOR_REF.read_text(encoding="utf-8"))
-    diffs = [k for k in sorted(set(a) | set(b)) if k not in VOLATILE and a.get(k) != b.get(k)]
-    identical = all(a.get(k) == b.get(k) for k in ("uid_pairs", "per_step", "params") if k in a or k in b)
-    print(f"[x126] anchor keys differing: {diffs if diffs else 'none'}")
-    print(f"[x126] uid_pairs/per_step/params identical: {identical}")
-    print("[x126] ANCHOR OK" if not diffs and identical else "[x126] ANCHOR FAILED")
-    return 0 if (not diffs and identical) else 1
+    # the only declared difference is the two field-saving flags and their marker
+    declared = {"fields_saved", "params"}   # params is compared field by field below
+    diffs = [k for k in sorted(set(a) | set(b)) if k not in VOLATILE | declared and a.get(k) != b.get(k)]
+    pa, pb = a.get("params", {}), b.get("params", {})
+    flag_keys = {"save_fields", "save_fields_every"}
+    param_diffs = [k for k in sorted(set(pa) | set(pb))
+                   if k not in flag_keys and pa.get(k) != pb.get(k)]
+    alone_a = sorted(set(pa) - set(pb) - flag_keys)
+    alone_b = sorted(set(pb) - set(pa) - flag_keys)
+    ok = (not diffs and not param_diffs and not alone_a and not alone_b
+          and a.get("uid_pairs") == b.get("uid_pairs"))
+    print(f"[x126] keys differing outside the declared flags: {diffs if diffs else 'none'}")
+    print(f"[x126] params differing outside the flags: {param_diffs if param_diffs else 'none'}"
+          f"{' (only-in-anchor ' + str(alone_a) + ')' if alone_a else ''}"
+          f"{' (only-in-ref ' + str(alone_b) + ')' if alone_b else ''}")
+    print(f"[x126] uid_pairs identical: {a.get('uid_pairs') == b.get('uid_pairs')}")
+    print(f"[x126] declared flags: anchor save_fields={pa.get('save_fields')!r}/{pa.get('save_fields_every')!r}"
+          f" vs ref {pb.get('save_fields') is not None}/{pb.get('save_fields_every')!r}")
+    print("[x126] ANCHOR OK" if ok else "[x126] ANCHOR FAILED")
+    return 0 if ok else 1
 
 
 def main(argv=None) -> int:
