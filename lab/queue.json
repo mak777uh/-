@@ -1,6 +1,6 @@
 {
  "schema_version": 1,
- "updated_at": "2026-11-03T13:35:00+03:00",
+ "updated_at": "2026-11-03T14:40:00+03:00",
  "note": "Очередь пунктов после E02c. Claim берётся до пре-регистрации, а не перед запуском: lab.py item-claim. Статус running означает занятый GPU-лейн и может быть только у одного пункта. | 25.10: добавлено поле impact (1-5) — приоритет конвейера = impact/max(cost_gpu_h,0.1); для запуска пункту нужны prereg (закоммиченный план) и launch.command+outdir.",
  "items": [
   {
@@ -2760,6 +2760,19 @@
    "closed_at": "2026-11-03T13:35:00+03:00",
    "closed_by": "lead",
    "note": "The rule survived its own prediction: radius 4.5 crosses at 18 +/- 1, exactly 2*4.5 + 9. 5/5 merge at 16, 2/5 at 18, 0/5 at 20 and 22; gaps 10, 9 and 8 across radii 3, 4.5 and 6; the centre distance moves by exactly 2R; the slowdown returns (29 -> 59 steps at the crossing). Controls: the anchor, the radius-4.5 seed being one component at step 1 and step 100 in all five controls, two components per two-disc arm, liveness, both outcomes. First prediction in the block made before the data and confirmed by it - the rule is now a ruler. Report x140-gap-rule, section 10he. Next: X137 (kin at a nine-cell gap), X141 (fourth radius at 1-cell spacing), X139 (the slowing curve)."
+  },
+  {
+   "id": "X139_slowing",
+   "title": "The slowing curve below the old range: separations 7, 8, 10, 11 at one-cell spacing",
+   "status": "closed",
+   "owner": "lead",
+   "kind": "experiment",
+   "cost_gpu_h": 0,
+   "prereg": "reports/2026-11-03-x139-slowing-plan.md",
+   "created_at": "2026-11-03T13:56:00+03:00",
+   "closed_at": "2026-11-03T14:40:00+03:00",
+   "closed_by": "lead",
+   "note": "Two results, one of them a defect in the readout. The merge has a FLOOR of one logging quantum: gaps of 1, 2 and 4 cells give medians of 1, 1 and 10 steps, then the time climbs towards the crossing (40 at gap 8, 50 at 9, 79 at 10). And the 11-cell arm (gap 5) is a THIRD FATE, not a far separation: in 5/5 seeds both seeded uids end with no descendants at all while the world stays alive, so the pair is annihilated rather than merged or kept apart. The analysis had been counting that arm as 'apart' - it now has an explicit `unresolved` class, and excluding it moved the crossing bracket back to 14-16 where X136 puts it. Controls: the reused X136 arms reproducing its medians and per-seed values exactly, two components at the first step in every new arm, liveness in every run including the annihilation arm. Report x139-slowing, section 10hf. Next: X142 (the annihilation band at gaps 3/5/6/7), X137 (kin at a nine-cell gap), X143 (the floor at 1-step logging)."
   }
  ]
 }
