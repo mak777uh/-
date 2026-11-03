@@ -1,6 +1,6 @@
 {
  "schema_version": 1,
- "updated_at": "2026-11-03T08:30:00+03:00",
+ "updated_at": "2026-11-03T09:40:00+03:00",
  "note": "Очередь пунктов после E02c. Claim берётся до пре-регистрации, а не перед запуском: lab.py item-claim. Статус running означает занятый GPU-лейн и может быть только у одного пункта. | 25.10: добавлено поле impact (1-5) — приоритет конвейера = impact/max(cost_gpu_h,0.1); для запуска пункту нужны prereg (закоммиченный план) и launch.command+outdir.",
  "items": [
   {
@@ -2695,6 +2695,32 @@
    "note": "The mixing length is between 12 and 18 cells and the transition is a wall: 10 of 10 seeds merge at 8 and 12 cells (median 0 and 19 steps to absorption), 20 of 20 keep both lineages at 18, 24, 30 and 36, no seed on the other side of its group. The pattern wavelength here is 12 cells (q'=8), so two lineages merge inside one wavelength and survive as two beyond it - the first interventional support for the segregation reading, and it sharpens it: the two seeded discs are NOT kin, so this is the stranger case, and the block's mechanism reduces to a length (who is within one wavelength of whom). Two defects fixed before reading: the component-count readout is meaningless in a world that fragments into 60-73 spots (replaced by the genealogical absorption rule) and the SEP=6 arm is degenerate because two radius-3 discs touch. Report x134-mixing, section 10ha. Next: X135 (maze), X136 (three inflows at 2-cell spacing), X137 (controlled genealogy).",
    "closed_at": "2026-11-03T08:30:00+03:00",
    "closed_by": "lead"
+  },
+  {
+   "id": "X135_maze_mixing",
+   "title": "The mixing length in the percolating cell, and the single-disc control",
+   "status": "closed",
+   "owner": "lead",
+   "kind": "experiment",
+   "cost_gpu_h": 0,
+   "prereg": "reports/2026-11-03-x135-maze-mixing-plan.md",
+   "created_at": "2026-11-03T08:55:00+03:00",
+   "closed_at": "2026-11-03T09:35:00+03:00",
+   "closed_by": "lead",
+   "note": "VOID by its own control 4: at F = 0.040 a lone seeded disc's lineage ends at step 1290 while the world goes on with six components and 47 % occupancy, so the forcing regenerates the pattern and the seeded identity does not survive - the two-disc arms cannot distinguish merging from being overwritten, and no mixing length is measured in that cell. The control also found the placement defect that made X134's five seeds one world (fixed centres, seed discarded), which was fixed and re-anchored; X134b re-runs the bracket. The maze's mixing length needs a different instrument: seeding at lower forcing (X135b), a trait label that survives, or the observational route."
+  },
+  {
+   "id": "X134b_mixing_replicated",
+   "title": "The mixing length re-run with a seed-dependent placement",
+   "status": "closed",
+   "owner": "lead",
+   "kind": "experiment",
+   "cost_gpu_h": 0,
+   "prereg": "reports/2026-11-03-x134-mixing-plan.md",
+   "created_at": "2026-11-03T09:12:00+03:00",
+   "closed_at": "2026-11-03T09:40:00+03:00",
+   "closed_by": "lead",
+   "note": "The wall is between 15 and 18 cells and it survived freeing the placement: 10 of 10 seeds merge at 12 and 15 cells (median 19 and 49 steps), 5 of 5 keep both lineages at 18, the five placements give five different subtree sizes at 18 and two distinct merge times at 15, and at 12 the merge takes 20 steps in all five placements. The bracket tightens from X134's 12-18 to 15-18 and the equality with the 12-cell wavelength becomes 'slightly above'. Report x134b-mixing-replicated, section 10hb; correction appended to the X134 report."
   }
  ]
 }

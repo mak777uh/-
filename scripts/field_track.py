@@ -275,10 +275,15 @@ def main(argv=None) -> int:
             raise SystemExit("--init-spots expects R:SEP, e.g. 3:12")
         v = torch.zeros_like(v)
         u = torch.ones_like(u)
-        _yses = ((yy - g / 2.0 + g / 2) % g) - g / 2
+        # X134b: размещение зависит от сида, иначе пять «сидов» — один и тот же мир (затравка выбрасывала
+        # m, а динамика при eps=0 детерминирована). Смещение пары сохраняет расстояние SEP.
+        _jr = np.random.default_rng(int(args.seed) + 9187)
+        _jx, _jy = (int(v_) for v_ in _jr.integers(-g // 4, g // 4 + 1, size=2))
+        _cy, _cx = g / 2.0 + _jy, g / 2.0 + _jx
+        _yses = ((yy - _cy + g / 2) % g) - g / 2
         _disc = torch.zeros((g, g), device=dev)
         for _off in (-_sep / 2.0, _sep / 2.0):
-            _xses = ((xx - (g / 2.0 + _off) + g / 2) % g) - g / 2
+            _xses = ((xx - (_cx + _off) + g / 2) % g) - g / 2
             _disc = torch.maximum(_disc, ((_yses ** 2 + _xses ** 2) <= _rad * _rad).to(_disc.dtype))
         v = torch.clamp(v + _disc, 0.0, 1.0)
         u = torch.clamp(u - 0.75 * _disc, 0.0, 1.0)

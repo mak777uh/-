@@ -3240,3 +3240,32 @@ that fragments into 60-73 spots by step 6 000 (replaced by the genealogical abso
 Report: `reports/2026-11-03-x134-mixing.md`; aggregate `l1_field_x134_mixing.json`. Next: X135 repeats the sweep in the maze, where the wavelength is longer - if the
 threshold moves with the wavelength, the habitat's segregation is a **length** rather than a regime; X136 brackets it at 2-cell spacing across three inflows; X137
 seeds a controlled genealogy to separate kinship from distance at the same separation.
+
+## 10hb. The wall is at 15-18 cells, and it survived freeing the placement (X134b, 03.11)
+
+§10ha reported the mixing length as 12-18 cells from a sweep whose five "seeds" turned out to be **one world measured five times**: the `--init-spots` branch placed the
+discs at fixed centres and discarded the seed-dependent mask, and with `eps = 0` the dynamics are deterministic, so every seed at a given separation gave the same
+merge step and the same subtree sizes. X135's single-disc control found it. The probe now places the pair at a **seed-derived offset**, separation preserved, and is
+anchored again key-by-key with the flag absent.
+
+| separation | absorbed | both alive | median steps | per-seed times |
+|---|---|---|---|---|
+| 12 | **5/5** | 0/5 | **19** | 20, 20, 20, 20, 20 |
+| 15 | **5/5** | 0/5 | **49** | 60, 50, 60, 50, 50 |
+| 18 | **0/5** | **5/5** | - | - |
+
+**The wall is between 15 and 18 cells** - a tighter bracket than the earlier 12-18, and it survived a change of placement, which is what a replication is for. The
+seeds now differ where they should: at 18 cells five placements give five different subtree sizes (93, 66, 65/67, 117/127, 117/127), and at 15 cells two distinct
+merge times (50 and 60 steps). At 12 cells the merge takes **20 steps in all five placements** - well inside the wavelength merging is placement-independent, which is
+what a deterministic instability looks like.
+
+The wavelength is 12 cells, so the mixing length is **slightly above one wavelength** rather than exactly one. §10ha's equality was an artefact of a bracket that
+started at 12 and had no point between 12 and 18; the claim now reads "between 15 and 18 cells, slightly above the 12-cell wavelength, replicated across placements".
+
+The lesson is the repo's oldest one in a new place: **a seed is not a replication unit if the manipulation does not depend on it.** `check_seed_replication.py` exists
+because of exactly this, but it reads only tracked files, and the sweep's full logs are gitignored - the gate could not see them, and the control that caught it was the
+one written for a different purpose (does a lone disc survive).
+
+Reports: `reports/2026-11-03-x134b-mixing-replicated.md` (and the correction appended to `-x134-mixing.md`); aggregates `l1_field_x134_mixing.json` (one world per
+point) and `l1_field_x134b_mixing.json` (replicated). Next: X136 brackets the wall at 1-cell spacing at three inflows, X135b repeats the maze sweep at
+`--hetero-amp 0.15` where the seeds survive the forcing, and X137 seeds a controlled genealogy at 12/15/18.
