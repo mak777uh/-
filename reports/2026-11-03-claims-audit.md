@@ -54,10 +54,13 @@ answered: **no scale channel in the living regime** (`q'` stays 7–9 while `Dw`
 (0.636–0.837), and it does not replicate (X96d: 2 of 6 cells at |ρ| ≥ 0.8, opposite signs); `gamma_cell` = **0.30** in
 both cells (X110). The sentence must become a result with a negative in it.
 
-**4. The boundary contrast is resolution-stable but cut-bound.** §4k says the contrast 0.52–0.62 is stable to resolution
-(true, 2 %). X112b/X112c add the other axis: at cuts 0.15 / 0.20 / 0.25 the **level** is cut-bound by one step
-(0.554 / 0.548 / 0.445 lattice; 0.408 / 0.480 / 0.420 maze), while the **gap** is cut-stable (0.284 / 0.302 / 0.326;
-0.322 / 0.443 / 0.347). One clause, otherwise a reviewer will find the missing axis.
+**4. The threshold axis is missing from §4k.1.** §4k's boundary contrast (0.52–0.62, stable to resolution at 2 %) is
+fine and is *not* what the cut sweep measured. The cut sweep measured the heredity coefficient: at cuts 0.15 / 0.20 / 0.25
+`ρ₁` = 0.554 / 0.548 / 0.445 in the lattice and 0.408 / 0.480 / 0.420 in the maze, while the parent-versus-stranger gap
+is cut-stable (deltas −0.018 / +0.024 and within a 0.10 bar; X112b, X112c). So the level is cut-bound by one step and the
+specificity is not — a caveat that belongs next to the ladder in §4k.1, where the threshold is a free parameter of the
+observer. *(This finding corrects the first version of this audit, which put the cut axis on §4k's contrast; those are
+two different quantities.)*
 
 ## What has no home yet: three blocks, 56 items
 
