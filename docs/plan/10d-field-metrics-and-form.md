@@ -3328,3 +3328,39 @@ not separate objects with surfaces nine cells apart - they are one body.
 
 Report: `reports/2026-11-03-x138-scale.md`; aggregate `l1_field_x138_scale.json`. Next: X140 runs a third radius (R = 4.5, 64 cells) whose crossing should be at 2*4.5 + 9 = 18 cells if the
 gap rule holds; X137 repeats the test for kin at the same gap; X139 turns the slowing into a curve at 1-cell spacing below 12.
+
+## 10he. The gap rule survived its own prediction: radius 4.5 crosses at 18 cells (X140, 03.11)
+
+§10hd stated a rule after two radii — two lineages merge when the **gap between their surfaces** is below about nine cells — and that rule makes a prediction for a radius used to build
+neither point. X140 ran radius **4.5** (64 cells of area, halfway between the measured 3 and 6) at four separations.
+
+| separation | absorbed | both alive | median steps |
+|---|---|---|---|
+| 16 | 5/5 | 0/5 | 29 |
+| **18** | **2/5** | 1/5 | 59 |
+| 20 | 0/5 | 5/5 | - |
+| 22 | 0/5 | 5/5 | - |
+
+**The crossing is at 18 +/- 1, exactly where the rule put it**, and the coin at 18 is the same shape the other radii showed at their crossings. Controls: the anchor exact, and the radius-4.5 seed
+is **one** component of 64 cells at step 1 and at step 100 in all five control runs.
+
+| radius | area | crossing | gap at the crossing |
+|---|---|---|---|
+| 3 | 29 cells | 16 +/- 1 | **10** |
+| **4.5** | 64 cells | **18 +/- 1** | **9** |
+| 6 | 113 cells | 20 +/- 2 | **8** |
+
+The gaps are 10, 9 and 8 - a mean of **9 +/- 1 cells**, three quarters of the 12-cell wavelength - and the centre distance moves by exactly `2R` as the radius grows, which is what a
+gap-invariant looks like. The slowdown returns on the third radius too: the median time to absorption is 29 steps at 16 and 59 at 18, the same doubling at the crossing that radius 3
+(19 -> 79) and radius 6 (9 -> 39) showed.
+
+**This is the first prediction in the block that was made before the data and then confirmed by them.** The rule was stated after two radii, used to predict a third, and the third
+agreed to the cell.
+
+> Two lineages merge when the gap between their surfaces is smaller than about **nine cells** - three quarters of the pattern's own wavelength; the centre distance at which this happens is
+> `2R + 9`, and the merge slows to several times its usual duration as the gap approaches that value.
+
+The rule is now a ruler rather than a summary: it can be applied to any pair of structures whose effective radii are known, and X137 uses it to ask whether kin get a bigger clearing.
+
+Report: `reports/2026-11-03-x140-gap-rule.md`; aggregate `l1_field_x140_gap_rule.json`. Next: X137 places a pair of relatives at a nine-cell gap, X141 repeats the test at 1-cell spacing with a
+fourth radius, and X139 turns the slowdown into a curve.
