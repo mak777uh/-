@@ -1,6 +1,6 @@
 {
  "schema_version": 1,
- "updated_at": "2026-11-03T17:20:00+03:00",
+ "updated_at": "2026-11-03T17:45:00+03:00",
  "note": "Очередь пунктов после E02c. Claim берётся до пре-регистрации, а не перед запуском: lab.py item-claim. Статус running означает занятый GPU-лейн и может быть только у одного пункта. | 25.10: добавлено поле impact (1-5) — приоритет конвейера = impact/max(cost_gpu_h,0.1); для запуска пункту нужны prereg (закоммиченный план) и launch.command+outdir.",
  "items": [
   {
@@ -2795,19 +2795,20 @@
   {
    "id": "X145_lone_disc",
    "title": "When does a lone radius-3 disc split, and is the mixing length that race?",
-   "status": "running",
+   "status": "closed",
    "owner": "lead",
    "kind": "experiment",
    "cost_gpu_h": 0,
    "prereg": "reports/2026-11-03-x145-lone-disc-plan.md",
    "created_at": "2026-11-03T16:10:00+03:00",
-   "heartbeat_at": "2026-11-03T16:10:00+03:00",
    "launch": {
     "runner": "scripts/x145_series.py",
     "outdir": "morphogenesis/experiments/L1_field",
     "pattern": "x145_*_s*.json"
    },
-   "note": "Five runs of `--init-spots 3:0` at F = 0.030. A lone radius-4.5 disc splits at 150-280 steps and a radius-6 disc at 210-460, while pairs at gaps 1-8 coalesce at 10-50; the missing number is the radius-3 disc, which is the one the whole mixing-length block uses. If it splits at ~60 steps, the mixing length is a race between touching and splitting."
+   "note": "The lone radius-3 disc first divides at a median of 180 steps (320, 160, 150, 180, 180); radius 4.5 gives 190 and radius 6 gives 290, so the split clock is nearly radius-independent between 3 and 4.5. THE SIMPLE RACE IS REFUTED: a pair at gaps 1-8 is one body by step 10-50, three to four times sooner than any disc divides alone, so those mergers are not narrow losses. What survives: at gaps 9-11 the merge takes 70-115 steps and the seeds that end A or P have a disc dividing at 100-170, EARLIER than a lone disc - the approach advances the division. Controls: both reused radii reproduce their split times seed by seed (4.5: 280,190,230,150,150; 6: 210,460,290,290,290), every run one component at the start, nothing empty, none fragmented. Report x145-lone-disc, section 10hh. Next: X148 (fusion-product size against division, no new runs), X146 (the curve against the wavelength), X147 (the radius-4.5 transition).",
+   "closed_at": "2026-11-03T17:45:00+03:00",
+   "closed_by": "lead"
   }
  ]
 }
