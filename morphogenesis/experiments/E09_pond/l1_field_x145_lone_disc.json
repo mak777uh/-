@@ -1,0 +1,66 @@
+{
+  "kind": "l1_field_x145_lone_disc",
+  "experiment": "X145",
+  "command": "python scripts/x145_analyse.py --write",
+  "prereg": "reports/2026-11-03-x145-lone-disc-plan.md",
+  "definitions": {
+    "unit": "the radius; every count is out of the usable seeds at that radius",
+    "first_split": "the first logged step at which a uid present at the start has a daughter, minus the first logged step",
+    "one_disc": "`--init-spots R:0` places one disc; the flag's two centres coincide"
+  },
+  "by_radius": {
+    "3.0": {
+      "runs": 5,
+      "first_split_median": 180,
+      "first_split_by_seed": {
+        "601": 320,
+        "602": 160,
+        "603": 150,
+        "604": 180,
+        "605": 180
+      },
+      "never_split": 0,
+      "median_components_at_end": 68,
+      "min_occupied": 0.258,
+      "fragmented": 0
+    },
+    "4.5": {
+      "runs": 5,
+      "first_split_median": 190,
+      "first_split_by_seed": {
+        "601": 280,
+        "602": 190,
+        "603": 230,
+        "604": 150,
+        "605": 150
+      },
+      "never_split": 0,
+      "median_components_at_end": 68,
+      "min_occupied": 0.2619,
+      "fragmented": 0
+    },
+    "6.0": {
+      "runs": 5,
+      "first_split_median": 290,
+      "first_split_by_seed": {
+        "601": 210,
+        "602": 460,
+        "603": 290,
+        "604": 290,
+        "605": 290
+      },
+      "never_split": 0,
+      "median_components_at_end": 56,
+      "min_occupied": 0.2552,
+      "fragmented": 0
+    }
+  },
+  "runs": 15,
+  "controls": {
+    "reuse": "radii 4.5 and 6 must reproduce the split times recorded in X140 and X138, seed by seed",
+    "start": "one component of area >= 20 cells at the first logged step",
+    "empty": "no run may end empty",
+    "failures": []
+  },
+  "verdict": "the lone radius-3 disc splits at a median of 180 steps, in line with radii 4.5 and 6, and a pair at gaps 1-8 is one body by step 50: the split time is not what sets the boundary at radius 3"
+}

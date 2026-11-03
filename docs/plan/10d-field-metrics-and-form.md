@@ -3441,3 +3441,29 @@ from both in equal share.
 Report: `reports/2026-11-03-x142-coalescence.md`; aggregate `l1_field_x142_coalescence.json`. Next: X145 (the lone
 radius-3 disc and the split clock), X146 (does the time curve scale with the pattern wavelength instead of the gap),
 X147 (the radius-4.5 transition at gaps 8 and 9).
+
+## 10hh. A lone disc divides at 180 steps, so mutual coalescence is not a race lost narrowly (X145, 03.11)
+
+§10hg left a mechanism on the table: a pair coalesces when the discs reach each other before either grows a daughter.
+X145 measures the missing clock — the radius-3 disc alone (`--init-spots 3:0`, five seeds, `F = 0.030`), with radii 4.5
+and 6 reused from X140 and X138:
+
+| radius | first split, median | per seed |
+|---|---|---|
+| 3 | **180 steps** | 320, 160, 150, 180, 180 |
+| 4.5 | 190 steps | 280, 190, 230, 150, 150 |
+| 6 | 290 steps | 210, 460, 290, 290, 290 |
+
+The simple form of the race is **refuted**: at gaps 1–8 a pair is one body by step 10–50, three to four times sooner
+than a lone disc would divide at all, so those merges are not narrow losses. What survives is that at gaps 9–11 the
+merge takes 70–115 steps and the seeds that end in absorption or persistence have a disc dividing at 100–170 — **earlier
+than the same disc needs alone**, so the approach to another body advances the division. The boundary is a race between
+the merge time and a split time the pair itself sets, and that split time is not a property of the disc.
+
+A control defect is recorded with the result: the reused arms were compared against step numbers while the analyser
+stored offsets from the first logged step, so the control fired on all ten reused runs until both were carried
+(`first_split_step` and `first_split`). The numbers themselves reproduce seed by seed.
+
+Report: `reports/2026-11-03-x145-lone-disc.md`; aggregate `l1_field_x145_lone_disc.json`. Next: X148 (the area of the
+fusion product against whether a seed divided — no new runs), X146 (does the curve follow the wavelength), X147 (the
+radius-4.5 transition).
