@@ -490,7 +490,7 @@
 | [`morphogenesis/experiments/E09_pond/l1_field_x138_scale.json`](../morphogenesis/experiments/E09_pond/l1_field_x138_scale.json) | other | 8482 | `e35f7038793ed32089cedb09b43b67e8e76cb68f30582b1a5e1f2bed2ed88e0f` |
 | [`morphogenesis/experiments/E09_pond/l1_field_x139_slowing.json`](../morphogenesis/experiments/E09_pond/l1_field_x139_slowing.json) | other | 9664 | `0b4a53db5cee1f62b2cfad3a0637efeba9f00f4bcc95c7bd692971df2ebe24e4` |
 | [`morphogenesis/experiments/E09_pond/l1_field_x140_gap_rule.json`](../morphogenesis/experiments/E09_pond/l1_field_x140_gap_rule.json) | other | 5974 | `d750d5cfdbfd17484a4fe341fab66c5e21e81e4f6934216eef0f9d664212d7c0` |
-| [`morphogenesis/experiments/E09_pond/l1_field_x142_coalescence.json`](../morphogenesis/experiments/E09_pond/l1_field_x142_coalescence.json) | other | 37991 | `fa114e8d3bbf105d9446e4ee41226a3167d4376cd003283ac86d35a69daa9e54` |
+| [`morphogenesis/experiments/E09_pond/l1_field_x142_coalescence.json`](../morphogenesis/experiments/E09_pond/l1_field_x142_coalescence.json) | other | 61400 | `fcf68e7d6e20a5e1819d6b71dfd54550be45d49486c40917bf48aaaf8f753b02` |
 | [`morphogenesis/experiments/E09_pond/l1_field_x145_lone_disc.json`](../morphogenesis/experiments/E09_pond/l1_field_x145_lone_disc.json) | other | 1955 | `2b072fb70af05261b574e06218a9f7cf63d9b1feb6d79647df256c7751a96a28` |
 | [`morphogenesis/experiments/E09_pond/l1_field_x37_eas.json`](../morphogenesis/experiments/E09_pond/l1_field_x37_eas.json) | other | 4351 | `9fddc51e4d0fe27a81da3894a0d882b62b921d0d30eba3ba2c0f6095b48bf200` |
 | [`morphogenesis/experiments/E09_pond/l1_field_x56_matrix.json`](../morphogenesis/experiments/E09_pond/l1_field_x56_matrix.json) | other | 2189 | `ce629d57cf2c82b115b48ad9e6e071dcf3d7d49c180476032eeec160d15f277e` |
@@ -3302,6 +3302,8 @@
 | [`reports/figures/e02b_transition_matrix.png`](../reports/figures/e02b_transition_matrix.png) | figure | 152522 | `81f1b4fe50fd819f45411c31fb737a0c232d9c4f993f5233184c8b276779f5b9` |
 | [`reports/figures/e02c_seed_grid.png`](../reports/figures/e02c_seed_grid.png) | figure | 69503 | `a14f0a6eb28fa0675629e539dc863049d97c3a7ef1914c34ebd7348b5c71776f` |
 <!-- artifacts:end -->
+
+
 
 
 

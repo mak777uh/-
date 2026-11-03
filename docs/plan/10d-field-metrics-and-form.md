@@ -3467,3 +3467,25 @@ stored offsets from the first logged step, so the control fired on all ten reuse
 Report: `reports/2026-11-03-x145-lone-disc.md`; aggregate `l1_field_x145_lone_disc.json`. Next: X148 (the area of the
 fusion product against whether a seed divided — no new runs), X146 (does the curve follow the wavelength), X147 (the
 radius-4.5 transition).
+
+## 10hi. The size of the fusion product does not decide whether a seed divides (X148, 03.11)
+
+§10hg and §10hh left two candidate mechanisms for the boundary at a gap of 8–9 cells: a clock (refuted by X145) and a
+threshold — the fusion product divides when it is large enough. X148 asks the second on the artifacts already in git:
+within each arm, the seeds that divided at or before the moment the two seeded uids disappeared against those that did
+not, ordered by the summed area of the field one logged step before that moment.
+
+| arm | divided | not divided | median area, divided | median area, not divided | sign |
+|---|---|---|---|---|---|
+| radius 3, gap 9 | 2 | 3 | 267 | 268 | interleaved |
+| radius 3, gap 10 | 3 | 2 | 297 | 287 | interleaved |
+| radius 3, gap 11 | 3 | 2 | **242** | **290** | divided is **smaller** |
+
+Three arms contain both outcomes and in **none** of them are the dividing seeds the larger ones; at gap 11 the ordering
+is the opposite of the hypothesis. Size is therefore **not supported** as what decides division — and, with three arms,
+this is "no support" rather than "excluded at a given power". What decides it is still open: the shape of the body, the
+timing of the contact, and the local composition of the product are all untouched, and measuring them needs saved
+frames rather than logs.
+
+Report: `reports/2026-11-03-x148-fusion-size.md`; block `fusion` in `l1_field_x142_coalescence.json`. Next: X149 (the
+shape of the product, with frames), X147 (the radius-4.5 transition), X146 (the wavelength).

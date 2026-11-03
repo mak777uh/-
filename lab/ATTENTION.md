@@ -11,8 +11,7 @@ Reserved to the owner by `lab/autonomy-rules.json`: publishing anything outward:
 
 ## Running now
 
-- **X145_lone_disc** — When does a lone radius-3 disc split, and is the mixing length that race? (owner `lead`)
-- last artifact written 0.0 h ago
+- nothing is running
 
 ## Waiting, but not on a human
 

@@ -125,6 +125,25 @@ def world_row(path) -> dict:
             break
     comps_at_dissolve = len(w["per_step"].get(t_dissolve) or []) if t_dissolve is not None else None
 
+    # X148: the area of the fusion product and whether a seeded disc divided before the pair became one body.
+    split_step = None
+    for u in SEED_UIDS:
+        for child in kids.get(u, []):
+            t_child = first_pos.get(child, (None,))[0]
+            if t_child is not None and (split_step is None or t_child < split_step):
+                split_step = t_child
+    area_fusion = None
+    area_before = None
+    if t_dissolve is not None:
+        comps = w["per_step"].get(t_dissolve) or []
+        if len(comps) == 1:
+            area_fusion = float(comps[0].get("area") or 0.0)
+        idx = steps.index(t_dissolve)
+        if idx > 0:
+            area_before = sum(float(c.get("area") or 0.0)
+                              for c in (w["per_step"].get(steps[idx - 1]) or []))
+    divided_before_fusion = bool(split_step is not None and t_dissolve is not None and split_step <= t_dissolve)
+
     if not both_seeded:
         cls = None
     elif alive[1] and alive[2]:
@@ -147,6 +166,11 @@ def world_row(path) -> dict:
         "class": cls,
         "t_dissolve": (t_dissolve - steps[0]) if t_dissolve is not None else None,
         "components_at_dissolve": comps_at_dissolve,
+        "split_step": split_step,
+        "divided_before_fusion": divided_before_fusion,
+        "area_fusion": area_fusion,
+        "area_before": area_before,
+        "area_ratio": (area_fusion / area_before) if (area_fusion and area_before) else None,
         "daughters": {str(u): daughters[u] for u in SEED_UIDS},
         "subtree_alive": {str(u): alive[u] for u in SEED_UIDS},
         "subtree_sizes": {str(u): len(tree[u]) for u in SEED_UIDS},
@@ -157,6 +181,50 @@ def world_row(path) -> dict:
         "steps": len(steps),
     }
 
+
+
+def fusion_block(usable: list[dict]) -> dict:
+    """X148: does the seed that divides have the larger body at the moment the two seeds disappear?
+
+    The size compared is `area_before` — the summed area of the field one logged step **before** neither seeded uid is
+    present — because it is defined for every run. `area_fusion` is reported separately and needs exactly one component
+    at that step, which only the pure coalescences have.
+    """
+    divided = [r for r in usable if r["divided_before_fusion"]]
+    plain = [r for r in usable if not r["divided_before_fusion"]]
+    sized = [r for r in usable if r["area_before"] is not None]
+    out = {
+        "fused": len([r for r in usable if r["area_fusion"] is not None]),
+        "divided": len(divided),
+        "not_divided": len(plain),
+        "median_area_divided": round(st.median([r["area_before"] for r in divided if r["area_before"]]), 1)
+        if any(r["area_before"] for r in divided) else None,
+        "median_area_not_divided": round(st.median([r["area_before"] for r in plain if r["area_before"]]), 1)
+        if any(r["area_before"] for r in plain) else None,
+        "median_fusion_area_divided": round(st.median([r["area_fusion"] for r in divided if r["area_fusion"]]), 1)
+        if any(r["area_fusion"] for r in divided) else None,
+        "median_fusion_area_not_divided": round(st.median([r["area_fusion"] for r in plain if r["area_fusion"]]), 1)
+        if any(r["area_fusion"] for r in plain) else None,
+        "seeds": {str(r["seed"]): {"area_fusion": r["area_fusion"], "area_before": r["area_before"],
+                                   "area_ratio": (round(r["area_ratio"], 3) if r["area_ratio"] else None),
+                                   "split_step": r["split_step"],
+                                   "divided_before_fusion": r["divided_before_fusion"],
+                                   "class": r["class"]} for r in sorted(usable, key=lambda r: r["seed"])},
+    }
+    # the sign: in an arm where both outcomes occur, are the dividing seeds the larger ones?
+    d_sizes = [r["area_before"] for r in divided if r["area_before"]]
+    p_sizes = [r["area_before"] for r in plain if r["area_before"]]
+    if d_sizes and p_sizes:
+        if min(d_sizes) > max(p_sizes):
+            out["sign"] = "divided_is_larger"
+        elif max(d_sizes) < min(p_sizes):
+            out["sign"] = "divided_is_smaller"
+        else:
+            out["sign"] = "interleaved"
+    else:
+        out["sign"] = None
+    out["sized"] = len(sized)
+    return out
 
 def arm_key(radius: float, gap: int) -> str:
     return f"r{int(round(radius * 10))}_g{gap}"
@@ -175,6 +243,7 @@ def summarise(key: str, rows: list[dict]) -> dict:
         "median_mutual_coalescence": round(st.median(m_times), 1) if m_times else None,
         "median_components_at_end": round(st.median([r["components_at_end"] for r in usable]), 1) if usable else None,
         "fragmented": len([r for r in usable if not r["live"]]),
+        "fusion": fusion_block(usable),
         "min_occupied": min((r["occupied"] for r in usable), default=None),
         "seeds": {str(r["seed"]): {"class": r["class"], "t_dissolve": r["t_dissolve"],
                                    "components_at_dissolve": r["components_at_dissolve"],
@@ -235,6 +304,21 @@ def _curve(arms: dict) -> str:
             out.append(f"g{gap}: mixed M{a['M']}A{a['A']}P{a['P']}")
     return ", ".join(out)
 
+
+
+def fusion_verdict(by_arm: dict) -> str:
+    signs = {k: v["fusion"]["sign"] for k, v in sorted(by_arm.items())
+             if v["fusion"].get("sign") in ("divided_is_larger", "divided_is_smaller")}
+    arms = [k for k, v in by_arm.items() if v["fusion"]["divided"] and v["fusion"]["not_divided"]]
+    if len(arms) < 3:
+        return (f"NOT DECIDABLE: only {len(arms)} arm(s) contain both outcomes ({arms}), so there is nothing to order "
+                f"within an arm; the next design must place arms at the boundary, not further out")
+    larger = [k for k, s in signs.items() if s == "divided_is_larger"]
+    if len(larger) == len(arms):
+        return (f"SIZE RULES: in all {len(arms)} arms where both outcomes occur the dividing seeds are the ones with "
+                f"the larger fusion product ({arms})")
+    return (f"SIZE DOES NOT RULE: {len(larger)} of {len(arms)} arms have the dividing seeds larger ({signs}); the "
+            f"sign is inconsistent, so the product's area is not what decides division")
 
 def verdict_for(by_arm: dict, bad: list[str]) -> str:
     if bad:
@@ -318,6 +402,14 @@ def main(argv=None) -> int:
             "probe": "scripts/x142_series.py --probe-control: a fresh repeat of X139's gap-5 arm was identical in "
                      "series, uid_pairs and summary",
             "failures": bad,
+        },
+        "fusion": {
+            "question": "does a seed divide because the fusion product is larger?",
+            "plan": "reports/2026-11-03-x148-fusion-size-plan.md",
+            "per_arm": {k: v["fusion"]["sign"] for k, v in by_arm.items()},
+            "arms_with_both_outcomes": [k for k, v in by_arm.items()
+                                        if v["fusion"]["divided"] and v["fusion"]["not_divided"]],
+            "verdict": fusion_verdict(by_arm),
         },
         "verdict": verdict,
     }
