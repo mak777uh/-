@@ -3398,3 +3398,46 @@ tolerance cannot be published when the sweep step is smaller than the margin to 
 
 Reports: `reports/2026-11-03-x139-void-annihilation.md` (the correction), `reports/2026-11-03-x139-slowing.md` (correction appended); aggregates `l1_field_x139_slowing.json`, `l1_field_x142_coalescence.json`. Next:
 X142 measures how far out mutual coalescence reaches (radius 3 gaps 3, 6, 7 and radius 4.5 gaps 4-6), X143 re-measures the floor with a 1-step logging window, X137 adds kinship at a nine-cell gap.
+
+## 10hg. Mutual coalescence holds in every seed out to a gap of eight cells, and its time is a function of the gap alone (X142, 03.11)
+
+X142 set out to map the "annihilation band" of §10hf and found, before its first arm was analysed, that there was no
+annihilation to map: the readout's reach tolerance had produced the class. With the tolerance-free classes of the
+correction (M — mutual coalescence, A — absorption, P — persistence), 35 new runs and 40 reused give the complete
+radius-3 curve at one-cell spacing from gap 1 to gap 11, and a partial second radius:
+
+| gap (cells) | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| radius 3, class | M 5/5 | M 5/5 | M 5/5 | M 5/5 | M 5/5 | M 5/5 | M 5/5 | **M 5/5** | M 3/5, A 2/5 | M 2/5, A 2/5, P 1/5 | M 2/5, P 3/5 |
+| radius 3, median step both seeds gone | 10 | 10 | 10 | 20 | 20 | 30 | 40 | 50 | 70 | 80 | 115 |
+| radius 4.5, class | – | – | – | M 5/5 | M 5/5 | M 5/5 | M 5/5 | – | – | – | – |
+| radius 4.5, median step | – | – | – | 20 | 20 | 30 | 40 | – | – | – | – |
+
+**Two results.** First, mutual coalescence is not a band and not a hole: it holds in **every seed** from contact out to a
+surface gap of **eight cells**, and the break is a thinning — 3 of 5 at gap 9, 2 of 5 at 10 and 11 — sitting at
+separations 14–15, inside the mixing length of §10hc. Second, and sharper: at every gap measured on **both** radii (4,
+5, 6 and 7) the median time to mutual coalescence is **identical**, 20, 20, 30 and 40 logged steps. Doubling the radius
+from 3 to 4.5 — 29 cells of area to 64 — moves the centre distance by exactly `2R` and leaves the time untouched. The
+gap rule of §10hd, which was a statement about the *crossing*, is therefore a statement about the whole curve: what a
+pair does, and when, is set by the distance between the surfaces, not by the size of the structures.
+
+**The mechanism is a race between two clocks.** Read from the parent links, the arms differ in whether a seeded disc
+ever gets a daughter: at gaps 1–8 neither seed ever splits and both lineages end in the new body, while at gaps 9–11
+some seeds split at steps 100–170 and the daughters carry the lineage into A or P. A lone radius-4.5 disc splits at
+150–280 steps and a lone radius-6 disc at 210–460, while pairs at gaps 1–8 are one body by step 50, so a pair
+coalesces when the discs reach each other before either grows a daughter. The clock that is still missing is the
+radius-3 disc alone — the one this block uses — and that is X145.
+
+**Controls.** The probe repeat of X139's gap-5 arm came out identical in `series`, `uid_pairs` and summary; every arm
+starts as two components; no run ends empty; the two arms re-run because X136's logs for separations 12 and 15 were
+retired reproduce X136's count of seeds with a first death (5 of 5 at both gaps) and split them into M and A exactly as
+the correction predicts. Three of seventy-five runs end structurally fragmented and are reported as fragmentation.
+
+**What is measured and what is not.** Two radii, one inflow (`F = 0.030`), five seeds per arm, 6 000 steps, logging
+every 10 steps, so the times are quantised; the radius-4.5 sweep covers gaps 4–7 only, so its own transition is not
+measured; and "mutual coalescence" is genealogical — that both lineages end in the new body, not that its cells come
+from both in equal share.
+
+Report: `reports/2026-11-03-x142-coalescence.md`; aggregate `l1_field_x142_coalescence.json`. Next: X145 (the lone
+radius-3 disc and the split clock), X146 (does the time curve scale with the pattern wavelength instead of the gap),
+X147 (the radius-4.5 transition at gaps 8 and 9).

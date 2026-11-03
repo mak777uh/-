@@ -209,3 +209,4 @@ sections were not rewritten, only moved; each one keeps its identifier, so every
 | §10hd | The mixing length is a gap of nine cells, three quarters of a wavelength (X138, 03.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
 | §10he | The gap rule survived its own prediction: radius 4.5 crosses at 18 cells (X140, 03.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
 | §10hf | The merge has a floor of one quantum; the "annihilation" at five cells was a 2-cell tolerance in the analyser, and mutual coalescence simply extends inward to contact (X139, corrected 03.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
+| §10hg | Mutual coalescence holds in every seed out to a gap of eight cells, and its time depends on the gap and not on the structure's size (X142, 03.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |

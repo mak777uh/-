@@ -1,0 +1,1694 @@
+{
+  "kind": "l1_field_x142_coalescence",
+  "experiment": "X142",
+  "command": "python scripts/x142_analyse.py --write",
+  "prereg": "reports/2026-11-03-x142-annihilation-plan.md",
+  "definitions": {
+    "unit": "the arm (one radius, one surface gap); every count is out of the usable seeds in that arm",
+    "gap": "SEP - 2R in cells, from the nominal radii",
+    "seed_uids": "the two discs are uid 1 and uid 2; with --split-new-uid a lineage is the subtree",
+    "M": "mutual coalescence: neither seeded uid has a daughter and both subtrees are gone at the last step",
+    "A": "absorption: exactly one seeded subtree is alive at the last step",
+    "P": "persistence: both seeded subtrees are alive at the last step",
+    "t_dissolve": "the logged step at which neither seeded uid is present any more, minus the first logged step",
+    "no_tolerance": "no distance tolerance is used; the reach test of the earlier readout is what amendment 2 removes"
+  },
+  "by_arm": {
+    "r30_g1": {
+      "key": "r30_g1",
+      "radius": 3.0,
+      "gap": 1,
+      "runs": 5,
+      "M": 5,
+      "A": 0,
+      "P": 0,
+      "median_mutual_coalescence": 9,
+      "median_components_at_end": 74,
+      "fragmented": 0,
+      "min_occupied": 0.2555,
+      "seeds": {
+        "601": {
+          "class": "M",
+          "t_dissolve": 9,
+          "components_at_dissolve": 1,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "subtree_alive": {
+            "1": false,
+            "2": false
+          },
+          "subtree_sizes": {
+            "1": 1,
+            "2": 1
+          },
+          "live": true,
+          "source": "X139"
+        },
+        "602": {
+          "class": "M",
+          "t_dissolve": 9,
+          "components_at_dissolve": 1,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "subtree_alive": {
+            "1": false,
+            "2": false
+          },
+          "subtree_sizes": {
+            "1": 1,
+            "2": 1
+          },
+          "live": true,
+          "source": "X139"
+        },
+        "603": {
+          "class": "M",
+          "t_dissolve": 9,
+          "components_at_dissolve": 1,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "subtree_alive": {
+            "1": false,
+            "2": false
+          },
+          "subtree_sizes": {
+            "1": 1,
+            "2": 1
+          },
+          "live": true,
+          "source": "X139"
+        },
+        "604": {
+          "class": "M",
+          "t_dissolve": 9,
+          "components_at_dissolve": 1,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "subtree_alive": {
+            "1": false,
+            "2": false
+          },
+          "subtree_sizes": {
+            "1": 1,
+            "2": 1
+          },
+          "live": true,
+          "source": "X139"
+        },
+        "605": {
+          "class": "M",
+          "t_dissolve": 9,
+          "components_at_dissolve": 1,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "subtree_alive": {
+            "1": false,
+            "2": false
+          },
+          "subtree_sizes": {
+            "1": 1,
+            "2": 1
+          },
+          "live": true,
+          "source": "X139"
+        }
+      }
+    },
+    "r30_g10": {
+      "key": "r30_g10",
+      "radius": 3.0,
+      "gap": 10,
+      "runs": 5,
+      "M": 2,
+      "A": 2,
+      "P": 1,
+      "median_mutual_coalescence": 79.0,
+      "median_components_at_end": 64,
+      "fragmented": 0,
+      "min_occupied": 0.2613,
+      "seeds": {
+        "601": {
+          "class": "P",
+          "t_dissolve": 169,
+          "components_at_dissolve": 4,
+          "daughters": {
+            "1": 2,
+            "2": 2
+          },
+          "subtree_alive": {
+            "1": true,
+            "2": true
+          },
+          "subtree_sizes": {
+            "1": 83,
+            "2": 83
+          },
+          "live": true,
+          "source": "X136"
+        },
+        "602": {
+          "class": "M",
+          "t_dissolve": 69,
+          "components_at_dissolve": 1,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "subtree_alive": {
+            "1": false,
+            "2": false
+          },
+          "subtree_sizes": {
+            "1": 1,
+            "2": 1
+          },
+          "live": true,
+          "source": "X136"
+        },
+        "603": {
+          "class": "M",
+          "t_dissolve": 89,
+          "components_at_dissolve": 1,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "subtree_alive": {
+            "1": false,
+            "2": false
+          },
+          "subtree_sizes": {
+            "1": 1,
+            "2": 1
+          },
+          "live": true,
+          "source": "X136"
+        },
+        "604": {
+          "class": "A",
+          "t_dissolve": 99,
+          "components_at_dissolve": 2,
+          "daughters": {
+            "1": 2,
+            "2": 0
+          },
+          "subtree_alive": {
+            "1": true,
+            "2": false
+          },
+          "subtree_sizes": {
+            "1": 345,
+            "2": 1
+          },
+          "live": true,
+          "source": "X136"
+        },
+        "605": {
+          "class": "A",
+          "t_dissolve": 99,
+          "components_at_dissolve": 2,
+          "daughters": {
+            "1": 2,
+            "2": 0
+          },
+          "subtree_alive": {
+            "1": true,
+            "2": false
+          },
+          "subtree_sizes": {
+            "1": 345,
+            "2": 1
+          },
+          "live": true,
+          "source": "X136"
+        }
+      }
+    },
+    "r30_g11": {
+      "key": "r30_g11",
+      "radius": 3.0,
+      "gap": 11,
+      "runs": 5,
+      "M": 2,
+      "A": 0,
+      "P": 3,
+      "median_mutual_coalescence": 114.0,
+      "median_components_at_end": 72,
+      "fragmented": 0,
+      "min_occupied": 0.2591,
+      "seeds": {
+        "601": {
+          "class": "P",
+          "t_dissolve": 169,
+          "components_at_dissolve": 4,
+          "daughters": {
+            "1": 2,
+            "2": 2
+          },
+          "subtree_alive": {
+            "1": true,
+            "2": true
+          },
+          "subtree_sizes": {
+            "1": 93,
+            "2": 93
+          },
+          "live": true,
+          "source": "X136"
+        },
+        "602": {
+          "class": "M",
+          "t_dissolve": 99,
+          "components_at_dissolve": 1,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "subtree_alive": {
+            "1": false,
+            "2": false
+          },
+          "subtree_sizes": {
+            "1": 1,
+            "2": 1
+          },
+          "live": true,
+          "source": "X136"
+        },
+        "603": {
+          "class": "M",
+          "t_dissolve": 129,
+          "components_at_dissolve": 1,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "subtree_alive": {
+            "1": false,
+            "2": false
+          },
+          "subtree_sizes": {
+            "1": 1,
+            "2": 1
+          },
+          "live": true,
+          "source": "X136"
+        },
+        "604": {
+          "class": "P",
+          "t_dissolve": 169,
+          "components_at_dissolve": 4,
+          "daughters": {
+            "1": 2,
+            "2": 2
+          },
+          "subtree_alive": {
+            "1": true,
+            "2": true
+          },
+          "subtree_sizes": {
+            "1": 89,
+            "2": 135
+          },
+          "live": true,
+          "source": "X136"
+        },
+        "605": {
+          "class": "P",
+          "t_dissolve": 169,
+          "components_at_dissolve": 4,
+          "daughters": {
+            "1": 2,
+            "2": 2
+          },
+          "subtree_alive": {
+            "1": true,
+            "2": true
+          },
+          "subtree_sizes": {
+            "1": 89,
+            "2": 135
+          },
+          "live": true,
+          "source": "X136"
+        }
+      }
+    },
+    "r30_g2": {
+      "key": "r30_g2",
+      "radius": 3.0,
+      "gap": 2,
+      "runs": 5,
+      "M": 5,
+      "A": 0,
+      "P": 0,
+      "median_mutual_coalescence": 9,
+      "median_components_at_end": 71,
+      "fragmented": 0,
+      "min_occupied": 0.2533,
+      "seeds": {
+        "601": {
+          "class": "M",
+          "t_dissolve": 9,
+          "components_at_dissolve": 1,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "subtree_alive": {
+            "1": false,
+            "2": false
+          },
+          "subtree_sizes": {
+            "1": 1,
+            "2": 1
+          },
+          "live": true,
+          "source": "X139"
+        },
+        "602": {
+          "class": "M",
+          "t_dissolve": 9,
+          "components_at_dissolve": 1,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "subtree_alive": {
+            "1": false,
+            "2": false
+          },
+          "subtree_sizes": {
+            "1": 1,
+            "2": 1
+          },
+          "live": true,
+          "source": "X139"
+        },
+        "603": {
+          "class": "M",
+          "t_dissolve": 9,
+          "components_at_dissolve": 1,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "subtree_alive": {
+            "1": false,
+            "2": false
+          },
+          "subtree_sizes": {
+            "1": 1,
+            "2": 1
+          },
+          "live": true,
+          "source": "X139"
+        },
+        "604": {
+          "class": "M",
+          "t_dissolve": 9,
+          "components_at_dissolve": 1,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "subtree_alive": {
+            "1": false,
+            "2": false
+          },
+          "subtree_sizes": {
+            "1": 1,
+            "2": 1
+          },
+          "live": true,
+          "source": "X139"
+        },
+        "605": {
+          "class": "M",
+          "t_dissolve": 9,
+          "components_at_dissolve": 1,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "subtree_alive": {
+            "1": false,
+            "2": false
+          },
+          "subtree_sizes": {
+            "1": 1,
+            "2": 1
+          },
+          "live": true,
+          "source": "X139"
+        }
+      }
+    },
+    "r30_g3": {
+      "key": "r30_g3",
+      "radius": 3.0,
+      "gap": 3,
+      "runs": 5,
+      "M": 5,
+      "A": 0,
+      "P": 0,
+      "median_mutual_coalescence": 9,
+      "median_components_at_end": 68,
+      "fragmented": 0,
+      "min_occupied": 0.2601,
+      "seeds": {
+        "601": {
+          "class": "M",
+          "t_dissolve": 9,
+          "components_at_dissolve": 1,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "subtree_alive": {
+            "1": false,
+            "2": false
+          },
+          "subtree_sizes": {
+            "1": 1,
+            "2": 1
+          },
+          "live": true,
+          "source": "new"
+        },
+        "602": {
+          "class": "M",
+          "t_dissolve": 9,
+          "components_at_dissolve": 1,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "subtree_alive": {
+            "1": false,
+            "2": false
+          },
+          "subtree_sizes": {
+            "1": 1,
+            "2": 1
+          },
+          "live": true,
+          "source": "new"
+        },
+        "603": {
+          "class": "M",
+          "t_dissolve": 9,
+          "components_at_dissolve": 1,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "subtree_alive": {
+            "1": false,
+            "2": false
+          },
+          "subtree_sizes": {
+            "1": 1,
+            "2": 1
+          },
+          "live": true,
+          "source": "new"
+        },
+        "604": {
+          "class": "M",
+          "t_dissolve": 9,
+          "components_at_dissolve": 1,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "subtree_alive": {
+            "1": false,
+            "2": false
+          },
+          "subtree_sizes": {
+            "1": 1,
+            "2": 1
+          },
+          "live": true,
+          "source": "new"
+        },
+        "605": {
+          "class": "M",
+          "t_dissolve": 9,
+          "components_at_dissolve": 1,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "subtree_alive": {
+            "1": false,
+            "2": false
+          },
+          "subtree_sizes": {
+            "1": 1,
+            "2": 1
+          },
+          "live": true,
+          "source": "new"
+        }
+      }
+    },
+    "r30_g4": {
+      "key": "r30_g4",
+      "radius": 3.0,
+      "gap": 4,
+      "runs": 5,
+      "M": 5,
+      "A": 0,
+      "P": 0,
+      "median_mutual_coalescence": 19,
+      "median_components_at_end": 71,
+      "fragmented": 0,
+      "min_occupied": 0.2642,
+      "seeds": {
+        "601": {
+          "class": "M",
+          "t_dissolve": 19,
+          "components_at_dissolve": 1,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "subtree_alive": {
+            "1": false,
+            "2": false
+          },
+          "subtree_sizes": {
+            "1": 1,
+            "2": 1
+          },
+          "live": true,
+          "source": "X139"
+        },
+        "602": {
+          "class": "M",
+          "t_dissolve": 19,
+          "components_at_dissolve": 1,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "subtree_alive": {
+            "1": false,
+            "2": false
+          },
+          "subtree_sizes": {
+            "1": 1,
+            "2": 1
+          },
+          "live": true,
+          "source": "X139"
+        },
+        "603": {
+          "class": "M",
+          "t_dissolve": 19,
+          "components_at_dissolve": 1,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "subtree_alive": {
+            "1": false,
+            "2": false
+          },
+          "subtree_sizes": {
+            "1": 1,
+            "2": 1
+          },
+          "live": true,
+          "source": "X139"
+        },
+        "604": {
+          "class": "M",
+          "t_dissolve": 19,
+          "components_at_dissolve": 1,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "subtree_alive": {
+            "1": false,
+            "2": false
+          },
+          "subtree_sizes": {
+            "1": 1,
+            "2": 1
+          },
+          "live": true,
+          "source": "X139"
+        },
+        "605": {
+          "class": "M",
+          "t_dissolve": 19,
+          "components_at_dissolve": 1,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "subtree_alive": {
+            "1": false,
+            "2": false
+          },
+          "subtree_sizes": {
+            "1": 1,
+            "2": 1
+          },
+          "live": true,
+          "source": "X139"
+        }
+      }
+    },
+    "r30_g5": {
+      "key": "r30_g5",
+      "radius": 3.0,
+      "gap": 5,
+      "runs": 5,
+      "M": 5,
+      "A": 0,
+      "P": 0,
+      "median_mutual_coalescence": 19,
+      "median_components_at_end": 69,
+      "fragmented": 1,
+      "min_occupied": 0.2546,
+      "seeds": {
+        "601": {
+          "class": "M",
+          "t_dissolve": 19,
+          "components_at_dissolve": 1,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "subtree_alive": {
+            "1": false,
+            "2": false
+          },
+          "subtree_sizes": {
+            "1": 1,
+            "2": 1
+          },
+          "live": true,
+          "source": "X139"
+        },
+        "602": {
+          "class": "M",
+          "t_dissolve": 19,
+          "components_at_dissolve": 1,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "subtree_alive": {
+            "1": false,
+            "2": false
+          },
+          "subtree_sizes": {
+            "1": 1,
+            "2": 1
+          },
+          "live": false,
+          "source": "X139"
+        },
+        "603": {
+          "class": "M",
+          "t_dissolve": 19,
+          "components_at_dissolve": 1,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "subtree_alive": {
+            "1": false,
+            "2": false
+          },
+          "subtree_sizes": {
+            "1": 1,
+            "2": 1
+          },
+          "live": true,
+          "source": "X139"
+        },
+        "604": {
+          "class": "M",
+          "t_dissolve": 19,
+          "components_at_dissolve": 1,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "subtree_alive": {
+            "1": false,
+            "2": false
+          },
+          "subtree_sizes": {
+            "1": 1,
+            "2": 1
+          },
+          "live": true,
+          "source": "X139"
+        },
+        "605": {
+          "class": "M",
+          "t_dissolve": 19,
+          "components_at_dissolve": 1,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "subtree_alive": {
+            "1": false,
+            "2": false
+          },
+          "subtree_sizes": {
+            "1": 1,
+            "2": 1
+          },
+          "live": true,
+          "source": "X139"
+        }
+      }
+    },
+    "r30_g6": {
+      "key": "r30_g6",
+      "radius": 3.0,
+      "gap": 6,
+      "runs": 5,
+      "M": 5,
+      "A": 0,
+      "P": 0,
+      "median_mutual_coalescence": 29,
+      "median_components_at_end": 64,
+      "fragmented": 0,
+      "min_occupied": 0.2607,
+      "seeds": {
+        "601": {
+          "class": "M",
+          "t_dissolve": 29,
+          "components_at_dissolve": 1,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "subtree_alive": {
+            "1": false,
+            "2": false
+          },
+          "subtree_sizes": {
+            "1": 1,
+            "2": 1
+          },
+          "live": true,
+          "source": "new"
+        },
+        "602": {
+          "class": "M",
+          "t_dissolve": 29,
+          "components_at_dissolve": 1,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "subtree_alive": {
+            "1": false,
+            "2": false
+          },
+          "subtree_sizes": {
+            "1": 1,
+            "2": 1
+          },
+          "live": true,
+          "source": "new"
+        },
+        "603": {
+          "class": "M",
+          "t_dissolve": 29,
+          "components_at_dissolve": 1,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "subtree_alive": {
+            "1": false,
+            "2": false
+          },
+          "subtree_sizes": {
+            "1": 1,
+            "2": 1
+          },
+          "live": true,
+          "source": "new"
+        },
+        "604": {
+          "class": "M",
+          "t_dissolve": 29,
+          "components_at_dissolve": 1,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "subtree_alive": {
+            "1": false,
+            "2": false
+          },
+          "subtree_sizes": {
+            "1": 1,
+            "2": 1
+          },
+          "live": true,
+          "source": "new"
+        },
+        "605": {
+          "class": "M",
+          "t_dissolve": 29,
+          "components_at_dissolve": 1,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "subtree_alive": {
+            "1": false,
+            "2": false
+          },
+          "subtree_sizes": {
+            "1": 1,
+            "2": 1
+          },
+          "live": true,
+          "source": "new"
+        }
+      }
+    },
+    "r30_g7": {
+      "key": "r30_g7",
+      "radius": 3.0,
+      "gap": 7,
+      "runs": 5,
+      "M": 5,
+      "A": 0,
+      "P": 0,
+      "median_mutual_coalescence": 39,
+      "median_components_at_end": 64,
+      "fragmented": 0,
+      "min_occupied": 0.2622,
+      "seeds": {
+        "601": {
+          "class": "M",
+          "t_dissolve": 39,
+          "components_at_dissolve": 1,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "subtree_alive": {
+            "1": false,
+            "2": false
+          },
+          "subtree_sizes": {
+            "1": 1,
+            "2": 1
+          },
+          "live": true,
+          "source": "new"
+        },
+        "602": {
+          "class": "M",
+          "t_dissolve": 39,
+          "components_at_dissolve": 1,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "subtree_alive": {
+            "1": false,
+            "2": false
+          },
+          "subtree_sizes": {
+            "1": 1,
+            "2": 1
+          },
+          "live": true,
+          "source": "new"
+        },
+        "603": {
+          "class": "M",
+          "t_dissolve": 39,
+          "components_at_dissolve": 1,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "subtree_alive": {
+            "1": false,
+            "2": false
+          },
+          "subtree_sizes": {
+            "1": 1,
+            "2": 1
+          },
+          "live": true,
+          "source": "new"
+        },
+        "604": {
+          "class": "M",
+          "t_dissolve": 39,
+          "components_at_dissolve": 1,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "subtree_alive": {
+            "1": false,
+            "2": false
+          },
+          "subtree_sizes": {
+            "1": 1,
+            "2": 1
+          },
+          "live": true,
+          "source": "new"
+        },
+        "605": {
+          "class": "M",
+          "t_dissolve": 39,
+          "components_at_dissolve": 1,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "subtree_alive": {
+            "1": false,
+            "2": false
+          },
+          "subtree_sizes": {
+            "1": 1,
+            "2": 1
+          },
+          "live": true,
+          "source": "new"
+        }
+      }
+    },
+    "r30_g8": {
+      "key": "r30_g8",
+      "radius": 3.0,
+      "gap": 8,
+      "runs": 5,
+      "M": 5,
+      "A": 0,
+      "P": 0,
+      "median_mutual_coalescence": 49,
+      "median_components_at_end": 68,
+      "fragmented": 1,
+      "min_occupied": 0.2587,
+      "seeds": {
+        "601": {
+          "class": "M",
+          "t_dissolve": 49,
+          "components_at_dissolve": 1,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "subtree_alive": {
+            "1": false,
+            "2": false
+          },
+          "subtree_sizes": {
+            "1": 1,
+            "2": 1
+          },
+          "live": true,
+          "source": "X136"
+        },
+        "602": {
+          "class": "M",
+          "t_dissolve": 49,
+          "components_at_dissolve": 1,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "subtree_alive": {
+            "1": false,
+            "2": false
+          },
+          "subtree_sizes": {
+            "1": 1,
+            "2": 1
+          },
+          "live": false,
+          "source": "X136"
+        },
+        "603": {
+          "class": "M",
+          "t_dissolve": 49,
+          "components_at_dissolve": 1,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "subtree_alive": {
+            "1": false,
+            "2": false
+          },
+          "subtree_sizes": {
+            "1": 1,
+            "2": 1
+          },
+          "live": true,
+          "source": "X136"
+        },
+        "604": {
+          "class": "M",
+          "t_dissolve": 49,
+          "components_at_dissolve": 1,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "subtree_alive": {
+            "1": false,
+            "2": false
+          },
+          "subtree_sizes": {
+            "1": 1,
+            "2": 1
+          },
+          "live": true,
+          "source": "X136"
+        },
+        "605": {
+          "class": "M",
+          "t_dissolve": 49,
+          "components_at_dissolve": 1,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "subtree_alive": {
+            "1": false,
+            "2": false
+          },
+          "subtree_sizes": {
+            "1": 1,
+            "2": 1
+          },
+          "live": true,
+          "source": "X136"
+        }
+      }
+    },
+    "r30_g9": {
+      "key": "r30_g9",
+      "radius": 3.0,
+      "gap": 9,
+      "runs": 5,
+      "M": 3,
+      "A": 2,
+      "P": 0,
+      "median_mutual_coalescence": 69,
+      "median_components_at_end": 71,
+      "fragmented": 0,
+      "min_occupied": 0.2552,
+      "seeds": {
+        "601": {
+          "class": "M",
+          "t_dissolve": 69,
+          "components_at_dissolve": 1,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "subtree_alive": {
+            "1": false,
+            "2": false
+          },
+          "subtree_sizes": {
+            "1": 1,
+            "2": 1
+          },
+          "live": true,
+          "source": "new"
+        },
+        "602": {
+          "class": "M",
+          "t_dissolve": 59,
+          "components_at_dissolve": 1,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "subtree_alive": {
+            "1": false,
+            "2": false
+          },
+          "subtree_sizes": {
+            "1": 1,
+            "2": 1
+          },
+          "live": true,
+          "source": "new"
+        },
+        "603": {
+          "class": "M",
+          "t_dissolve": 69,
+          "components_at_dissolve": 1,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "subtree_alive": {
+            "1": false,
+            "2": false
+          },
+          "subtree_sizes": {
+            "1": 1,
+            "2": 1
+          },
+          "live": true,
+          "source": "new"
+        },
+        "604": {
+          "class": "A",
+          "t_dissolve": 109,
+          "components_at_dissolve": 2,
+          "daughters": {
+            "1": 2,
+            "2": 0
+          },
+          "subtree_alive": {
+            "1": true,
+            "2": false
+          },
+          "subtree_sizes": {
+            "1": 249,
+            "2": 1
+          },
+          "live": true,
+          "source": "new"
+        },
+        "605": {
+          "class": "A",
+          "t_dissolve": 109,
+          "components_at_dissolve": 2,
+          "daughters": {
+            "1": 2,
+            "2": 0
+          },
+          "subtree_alive": {
+            "1": true,
+            "2": false
+          },
+          "subtree_sizes": {
+            "1": 249,
+            "2": 1
+          },
+          "live": true,
+          "source": "new"
+        }
+      }
+    },
+    "r45_g4": {
+      "key": "r45_g4",
+      "radius": 4.5,
+      "gap": 4,
+      "runs": 5,
+      "M": 5,
+      "A": 0,
+      "P": 0,
+      "median_mutual_coalescence": 19,
+      "median_components_at_end": 64,
+      "fragmented": 0,
+      "min_occupied": 0.2617,
+      "seeds": {
+        "601": {
+          "class": "M",
+          "t_dissolve": 19,
+          "components_at_dissolve": 1,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "subtree_alive": {
+            "1": false,
+            "2": false
+          },
+          "subtree_sizes": {
+            "1": 1,
+            "2": 1
+          },
+          "live": true,
+          "source": "new"
+        },
+        "602": {
+          "class": "M",
+          "t_dissolve": 19,
+          "components_at_dissolve": 1,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "subtree_alive": {
+            "1": false,
+            "2": false
+          },
+          "subtree_sizes": {
+            "1": 1,
+            "2": 1
+          },
+          "live": true,
+          "source": "new"
+        },
+        "603": {
+          "class": "M",
+          "t_dissolve": 19,
+          "components_at_dissolve": 1,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "subtree_alive": {
+            "1": false,
+            "2": false
+          },
+          "subtree_sizes": {
+            "1": 1,
+            "2": 1
+          },
+          "live": true,
+          "source": "new"
+        },
+        "604": {
+          "class": "M",
+          "t_dissolve": 19,
+          "components_at_dissolve": 1,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "subtree_alive": {
+            "1": false,
+            "2": false
+          },
+          "subtree_sizes": {
+            "1": 1,
+            "2": 1
+          },
+          "live": true,
+          "source": "new"
+        },
+        "605": {
+          "class": "M",
+          "t_dissolve": 19,
+          "components_at_dissolve": 1,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "subtree_alive": {
+            "1": false,
+            "2": false
+          },
+          "subtree_sizes": {
+            "1": 1,
+            "2": 1
+          },
+          "live": true,
+          "source": "new"
+        }
+      }
+    },
+    "r45_g5": {
+      "key": "r45_g5",
+      "radius": 4.5,
+      "gap": 5,
+      "runs": 5,
+      "M": 5,
+      "A": 0,
+      "P": 0,
+      "median_mutual_coalescence": 19,
+      "median_components_at_end": 66,
+      "fragmented": 0,
+      "min_occupied": 0.2589,
+      "seeds": {
+        "601": {
+          "class": "M",
+          "t_dissolve": 19,
+          "components_at_dissolve": 1,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "subtree_alive": {
+            "1": false,
+            "2": false
+          },
+          "subtree_sizes": {
+            "1": 1,
+            "2": 1
+          },
+          "live": true,
+          "source": "new"
+        },
+        "602": {
+          "class": "M",
+          "t_dissolve": 19,
+          "components_at_dissolve": 1,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "subtree_alive": {
+            "1": false,
+            "2": false
+          },
+          "subtree_sizes": {
+            "1": 1,
+            "2": 1
+          },
+          "live": true,
+          "source": "new"
+        },
+        "603": {
+          "class": "M",
+          "t_dissolve": 19,
+          "components_at_dissolve": 1,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "subtree_alive": {
+            "1": false,
+            "2": false
+          },
+          "subtree_sizes": {
+            "1": 1,
+            "2": 1
+          },
+          "live": true,
+          "source": "new"
+        },
+        "604": {
+          "class": "M",
+          "t_dissolve": 19,
+          "components_at_dissolve": 1,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "subtree_alive": {
+            "1": false,
+            "2": false
+          },
+          "subtree_sizes": {
+            "1": 1,
+            "2": 1
+          },
+          "live": true,
+          "source": "new"
+        },
+        "605": {
+          "class": "M",
+          "t_dissolve": 19,
+          "components_at_dissolve": 1,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "subtree_alive": {
+            "1": false,
+            "2": false
+          },
+          "subtree_sizes": {
+            "1": 1,
+            "2": 1
+          },
+          "live": true,
+          "source": "new"
+        }
+      }
+    },
+    "r45_g6": {
+      "key": "r45_g6",
+      "radius": 4.5,
+      "gap": 6,
+      "runs": 5,
+      "M": 5,
+      "A": 0,
+      "P": 0,
+      "median_mutual_coalescence": 29,
+      "median_components_at_end": 67,
+      "fragmented": 0,
+      "min_occupied": 0.256,
+      "seeds": {
+        "601": {
+          "class": "M",
+          "t_dissolve": 29,
+          "components_at_dissolve": 1,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "subtree_alive": {
+            "1": false,
+            "2": false
+          },
+          "subtree_sizes": {
+            "1": 1,
+            "2": 1
+          },
+          "live": true,
+          "source": "new"
+        },
+        "602": {
+          "class": "M",
+          "t_dissolve": 29,
+          "components_at_dissolve": 1,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "subtree_alive": {
+            "1": false,
+            "2": false
+          },
+          "subtree_sizes": {
+            "1": 1,
+            "2": 1
+          },
+          "live": true,
+          "source": "new"
+        },
+        "603": {
+          "class": "M",
+          "t_dissolve": 29,
+          "components_at_dissolve": 1,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "subtree_alive": {
+            "1": false,
+            "2": false
+          },
+          "subtree_sizes": {
+            "1": 1,
+            "2": 1
+          },
+          "live": true,
+          "source": "new"
+        },
+        "604": {
+          "class": "M",
+          "t_dissolve": 29,
+          "components_at_dissolve": 1,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "subtree_alive": {
+            "1": false,
+            "2": false
+          },
+          "subtree_sizes": {
+            "1": 1,
+            "2": 1
+          },
+          "live": true,
+          "source": "new"
+        },
+        "605": {
+          "class": "M",
+          "t_dissolve": 29,
+          "components_at_dissolve": 1,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "subtree_alive": {
+            "1": false,
+            "2": false
+          },
+          "subtree_sizes": {
+            "1": 1,
+            "2": 1
+          },
+          "live": true,
+          "source": "new"
+        }
+      }
+    },
+    "r45_g7": {
+      "key": "r45_g7",
+      "radius": 4.5,
+      "gap": 7,
+      "runs": 5,
+      "M": 5,
+      "A": 0,
+      "P": 0,
+      "median_mutual_coalescence": 39,
+      "median_components_at_end": 73,
+      "fragmented": 1,
+      "min_occupied": 0.2344,
+      "seeds": {
+        "601": {
+          "class": "M",
+          "t_dissolve": 39,
+          "components_at_dissolve": 1,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "subtree_alive": {
+            "1": false,
+            "2": false
+          },
+          "subtree_sizes": {
+            "1": 1,
+            "2": 1
+          },
+          "live": true,
+          "source": "X140"
+        },
+        "602": {
+          "class": "M",
+          "t_dissolve": 39,
+          "components_at_dissolve": 1,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "subtree_alive": {
+            "1": false,
+            "2": false
+          },
+          "subtree_sizes": {
+            "1": 1,
+            "2": 1
+          },
+          "live": false,
+          "source": "X140"
+        },
+        "603": {
+          "class": "M",
+          "t_dissolve": 39,
+          "components_at_dissolve": 1,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "subtree_alive": {
+            "1": false,
+            "2": false
+          },
+          "subtree_sizes": {
+            "1": 1,
+            "2": 1
+          },
+          "live": true,
+          "source": "X140"
+        },
+        "604": {
+          "class": "M",
+          "t_dissolve": 39,
+          "components_at_dissolve": 1,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "subtree_alive": {
+            "1": false,
+            "2": false
+          },
+          "subtree_sizes": {
+            "1": 1,
+            "2": 1
+          },
+          "live": true,
+          "source": "X140"
+        },
+        "605": {
+          "class": "M",
+          "t_dissolve": 39,
+          "components_at_dissolve": 1,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "subtree_alive": {
+            "1": false,
+            "2": false
+          },
+          "subtree_sizes": {
+            "1": 1,
+            "2": 1
+          },
+          "live": true,
+          "source": "X140"
+        }
+      }
+    }
+  },
+  "runs": 75,
+  "mutual_coalescence_gaps": {
+    "r30": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "r45": [
+      4,
+      5,
+      6,
+      7
+    ]
+  },
+  "controls": {
+    "refinement": "every seed the source series called absorbed must be A here and every both_alive must be P; M is the old 'unresolved' class where the seeds never had daughters",
+    "probe": "scripts/x142_series.py --probe-control: a fresh repeat of X139's gap-5 arm was identical in series, uid_pairs and summary",
+    "failures": []
+  },
+  "verdict": "radius 3 (g1: M 5/5 at 9, g2: M 5/5 at 9, g3: M 5/5 at 9, g4: M 5/5 at 19, g5: M 5/5 at 19, g6: M 5/5 at 29, g7: M 5/5 at 39, g8: M 5/5 at 49, g9: M 3/5 at 69, g10: mixed M2A2P1, g11: P 3/5); MUTUAL COALESCENCE HOLDS IN EVERY SEED from contact out to a gap of 8 cells and breaks at 9; radius 4.5 (g4: M 5/5 at 19, g5: M 5/5 at 19, g6: M 5/5 at 29, g7: M 5/5 at 39); radius 4.5 is mutual coalescence in every seed at gaps [4, 5, 6, 7]; at every gap measured on both radii ([4, 5, 6, 7]) the median time to mutual coalescence is IDENTICAL ([19, 19, 29, 39] steps), so the time is a function of the surface gap and not of the structure's size; dissolution time by gap: 1: 9, 2: 9, 3: 9, 4: 19, 5: 19, 6: 29, 7: 39, 8: 49, 9: 69, 10: 79.0, 11: 114.0"
+}
