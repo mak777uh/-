@@ -4,7 +4,7 @@
 
 The curated page — what matters and why — is [`scripts.md`](scripts.md). This file is the complete list, so that every command behind a number in the record can be found.
 
-Scripts: **328**.
+Scripts: **330**.
 
 ## Гейты и проверки (47)
 
@@ -171,7 +171,7 @@ Scripts: **328**.
 | `make_seed_grid_figure.py` | Собрать Figure 4 рукописи: сетка «инициализация × порядок данных» (§4.13). |
 | `make_simple_poster.py` | Простой постер для владельца: что мы узнали, без терминов. |
 
-## Прочее (193)
+## Прочее (195)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -280,6 +280,8 @@ Scripts: **328**.
 | `x134b_series.py` | x134_series.py — X134b: the X134 sweep re-run with a seed-dependent placement. |
 | `x135_analyse.py` | x135_analyse.py — X135: the mixing length in the percolating cell, plus the single-disc control. |
 | `x135_series.py` | x135_series.py — X135: the X134 sweep at F = 0.040, plus the single-disc control (SEP = 0). |
+| `x136_analyse.py` | x136_analyse.py — X134: the mixing length, read from the genealogy of the two seeded lineages. |
+| `x136_series.py` | x134_series.py — X136: the wall to the cell - separations 14, 16, 17; 12, 15, 18 are reused from X134b. |
 | `x56_matrix.py` | x56_matrix.py — сходимость по шагу: контраст при dt = 1.0, 0.5, 2.0. |
 | `x58_analyse.py` | x58_analyse.py — the same measurement on a 128 grid: β₀, β₁, wavelength, normalised count. |
 | `x58_series.py` | x60_series.py — X60: the twenty field runs that keep their snapshots. |

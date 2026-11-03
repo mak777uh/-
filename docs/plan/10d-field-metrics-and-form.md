@@ -3269,3 +3269,33 @@ one written for a different purpose (does a lone disc survive).
 Reports: `reports/2026-11-03-x134b-mixing-replicated.md` (and the correction appended to `-x134-mixing.md`); aggregates `l1_field_x134_mixing.json` (one world per
 point) and `l1_field_x134b_mixing.json` (replicated). Next: X136 brackets the wall at 1-cell spacing at three inflows, X135b repeats the maze sweep at
 `--hetero-amp 0.15` where the seeds survive the forcing, and X137 seeds a controlled genealogy at 12/15/18.
+
+## 10hc. The mixing length is 16 cells with a one-cell transition, and the merge slows towards it (X136, 03.11)
+
+§10hb bracketed the mixing length at 15-18 cells and said the wall could be at 16 or 17. Three new separations at one-cell spacing fill the gap (the arms at 12, 15 and 18 are
+**reused** from X134b: same probe, same flags, same seeds, and they reproduce its numbers exactly).
+
+| separation | absorbed | both alive | median steps |
+|---|---|---|---|
+| 12 (reused) | 5/5 | 0/5 | 19 |
+| 14 | 5/5 | 0/5 | **39** |
+| 15 (reused) | 5/5 | 0/5 | **49** |
+| **16** | **2/5** | 1/5 | **79** |
+| 17 | **0/5** | 3/5 | - |
+| 18 (reused) | 0/5 | 5/5 | - |
+
+**It is a crossover, not a wall.** The boundary sits at one cell - 5/5 up to 15, **2/5 at 16**, 0/5 from 17 - and inside that cell the outcome is already mixed. So the mixing
+length is **16 cells with a one-cell transition width**: 15 merges, 16 is a coin, 17 does not.
+
+**And the merge slows towards it**: the median time to absorption rises monotonically 19, 39, 49, 79 steps at 12, 14, 15, 16 - just inside the mixing length the two structures
+take five times as long to become one as well inside it. That is a second and independent signature of a threshold, and it was not in the plan, which measured only whether a
+merge happens.
+
+The wavelength is 12 cells, so the mixing length is **about 1.3 wavelengths**, not the "exactly one" that the first, faulty sweep seemed to confirm. The corrected chain of
+numbers is: 12-18 (X134, one world repeated) -> 15-18 (X134b, replicated) -> **16 +/- 1 with a slowing merge** (this run).
+
+For the block's mechanism the sentence is now: **two unrelated lineages merge if they start within 16 +/- 1 cells of each other, the pattern's own wavelength is 12 cells, and
+the merge slows to a crawl at the edge of that range.**
+
+Report: `reports/2026-11-03-x136-wall.md`; aggregate `l1_field_x136_wall.json`. Next: X137 repeats the crossover with a controlled genealogy (kin against strangers at 16
+cells), X138 asks whether the length scales with the structure's radius or with the wavelength, and X139 turns the slowing into a curve by sweeping 1-cell steps below 12.
