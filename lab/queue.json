@@ -1,6 +1,6 @@
 {
  "schema_version": 1,
- "updated_at": "2026-11-03T10:50:00+03:00",
+ "updated_at": "2026-11-03T12:10:00+03:00",
  "note": "Очередь пунктов после E02c. Claim берётся до пре-регистрации, а не перед запуском: lab.py item-claim. Статус running означает занятый GPU-лейн и может быть только у одного пункта. | 25.10: добавлено поле impact (1-5) — приоритет конвейера = impact/max(cost_gpu_h,0.1); для запуска пункту нужны prereg (закоммиченный план) и launch.command+outdir.",
  "items": [
   {
@@ -2734,6 +2734,19 @@
    "closed_at": "2026-11-03T10:50:00+03:00",
    "closed_by": "lead",
    "note": "Crossover at 16 +/- 1 cells with a slowing merge (19, 39, 49, 79 steps); see reports/2026-11-03-x136-wall.md."
+  },
+  {
+   "id": "X138_scale",
+   "title": "Does the mixing length scale with the structure or with the wavelength?",
+   "status": "closed",
+   "owner": "lead",
+   "kind": "experiment",
+   "cost_gpu_h": 0,
+   "prereg": "reports/2026-11-03-x138-scale-plan.md",
+   "created_at": "2026-11-03T11:08:00+03:00",
+   "closed_at": "2026-11-03T12:10:00+03:00",
+   "closed_by": "lead",
+   "note": "Neither rule holds: radius 6 (113 cells) crosses at 20 +/- 2 cells against radius 3's 16 +/- 1, so doubling the structure moved the crossing by 4 cells rather than 16. The invariant is the gap between surfaces - 10 cells at radius 3, 8 at radius 6, i.e. 9 +/- 1 cells, about three quarters of the 12-cell wavelength - and the slowdown returns at the new crossing (9, 19, 39 steps at 16, 18, 20). Controls: the anchor, the radius-6 seed being one component of 113 cells at step 1 and step 100 in all five controls, two components per two-disc arm, liveness, both outcomes. Report x138-scale, section 10hd. Next: X140 (third radius, predicted crossing 18 cells), X137 (kin at the same gap), X139 (the slowing curve)."
   }
  ]
 }
