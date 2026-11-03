@@ -1,6 +1,6 @@
 {
  "schema_version": 1,
- "updated_at": "2026-11-03T06:52:00+03:00",
+ "updated_at": "2026-11-03T07:28:00+03:00",
  "note": "Очередь пунктов после E02c. Claim берётся до пре-регистрации, а не перед запуском: lab.py item-claim. Статус running означает занятый GPU-лейн и может быть только у одного пункта. | 25.10: добавлено поле impact (1-5) — приоритет конвейера = impact/max(cost_gpu_h,0.1); для запуска пункту нужны prereg (закоммиченный план) и launch.command+outdir.",
  "items": [
   {
@@ -2681,6 +2681,18 @@
    "note": "Everything resolves at thirty worlds, and the ten-world estimate was biased LOW: the paired end-survival difference is -0.1323 (CI -0.1819 to -0.0840) against -0.077 on ten seeds, depth +1.8340 (1.0442 to 2.7231) against +1.05, vanished +0.1419, kin -0.4164, absorbed -0.0911, isolated -0.0754 - all intervals away from zero. Controls: exact anchor, the ten old worlds reproducing X131's per-world means and spreads, liveness in all forty new runs, heredity, full coverage. The whole identity block is now confirmed at the world level, and the rule for the line is a power calculation before any cross-habitat claim. Report x132-power, section 10gz.",
    "closed_at": "2026-11-03T06:52:00+03:00",
    "closed_by": "lead"
+  },
+  {
+   "id": "X134_mixing",
+   "title": "The mixing length: two lineages seeded at a controlled separation",
+   "status": "running",
+   "owner": "lead",
+   "kind": "experiment",
+   "cost_gpu_h": 0,
+   "prereg": "reports/2026-11-03-x134-mixing-plan.md",
+   "created_at": "2026-11-03T07:20:00+03:00",
+   "heartbeat_at": "2026-11-03T04:28:00Z",
+   "note": "The first interventional test of the consequence chain: a new additive initial-condition flag on field_track.py places two discs (R=3 cells, ~29 cells of area) at a chosen separation and nothing else, swept over 6/12/18/24/30/36 cells at F=0.030, five seeds each. If segregation is the mechanism there is a threshold near the pattern wavelength (~12 cells) where two structures stop merging into one; if nothing is crossed by 36 cells the segregation reading rests on emergent geometry rather than on distance and the sentence is withdrawn. Anchor exact with the flag absent (declared difference: the inert init_spots param key)."
   }
  ]
 }

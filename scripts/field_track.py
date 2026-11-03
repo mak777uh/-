@@ -197,6 +197,7 @@ def main(argv=None) -> int:
                     help="X60: каталог, куда писать v на выбранных срезах (.npy, float32)")
     ap.add_argument("--init-jitter", action="store_true",
                     help="X70r: сдвинуть стартовую каплю по сиду (реплика нейтрального мира; выключено = прежнее поведение)")
+    ap.add_argument("--init-spots", default="", help="X134: два диска радиуса R на расстоянии SEP клеток; формат R:SEP")
     # X96b: вторая шкала в начальном условии вместо притока. По умолчанию выключено (0), поэтому старая ветка бит-в-бит прежняя.
     ap.add_argument("--init-pattern-cells", type=float, default=0.0,
                     help="X96b: длина волны стартового узора в клетках (0 = выключено, старт с одной капли)")
@@ -263,6 +264,24 @@ def main(argv=None) -> int:
         h_trait = torch.full_like(v, float(args.trait_init))
     v = torch.where(m, torch.full_like(v, 1.0), v)
     u = torch.where(m, torch.full_like(u, 0.25), u)
+
+    # X134: интервенция вместо наблюдения за расколом — два диска на заданном расстоянии и ничего больше.
+    # По умолчанию флага нет, ветка не исполняется, старая инициализация остаётся бит-в-бит (якорь).
+    if args.init_spots:
+        try:
+            _rs, _ss = str(args.init_spots).split(":")
+            _rad, _sep = float(_rs), float(_ss)
+        except ValueError:
+            raise SystemExit("--init-spots expects R:SEP, e.g. 3:12")
+        v = torch.zeros_like(v)
+        u = torch.ones_like(u)
+        _yses = ((yy - g / 2.0 + g / 2) % g) - g / 2
+        _disc = torch.zeros((g, g), device=dev)
+        for _off in (-_sep / 2.0, _sep / 2.0):
+            _xses = ((xx - (g / 2.0 + _off) + g / 2) % g) - g / 2
+            _disc = torch.maximum(_disc, ((_yses ** 2 + _xses ** 2) <= _rad * _rad).to(_disc.dtype))
+        v = torch.clamp(v + _disc, 0.0, 1.0)
+        u = torch.clamp(u - 0.75 * _disc, 0.0, 1.0)
 
     # X96b: вторая шкала не в притоке, а в НАЧАЛЬНОМ УСЛОВИИ. Приток задаёт узор непрерывно, и среда его игнорирует
     # (X82: до 16x мощности период не двигается). Здесь вместо одной капли поле стартует синусоидой заданной длины,
