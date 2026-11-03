@@ -11,8 +11,7 @@ Reserved to the owner by `lab/autonomy-rules.json`: publishing anything outward:
 
 ## Running now
 
-- **X134_mixing** — The mixing length: two lineages seeded at a controlled separation (owner `lead`)
-- last artifact written 0.6 h ago
+- nothing is running
 
 ## Waiting, but not on a human
 

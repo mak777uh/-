@@ -1,0 +1,383 @@
+{
+  "kind": "l1_field_x134_mixing",
+  "experiment": "X134",
+  "command": "python scripts/x134_analyse.py --write",
+  "prereg": "reports/2026-11-03-x134-mixing-plan.md",
+  "definitions": {
+    "seed_uids": "the two discs are uid 1 and uid 2; with --split-new-uid a lineage is the subtree",
+    "absorption": "one seeded uid ends without daughters while the other is present within r_dead + r_other + 2.0 cells of it",
+    "both_alive": "both seeded subtrees have a member at the last logged step",
+    "mixing_length": "between the largest separation absorbed in >= 3 of 5 seeds and the smallest absorbed in <= 2"
+  },
+  "by_separation": {
+    "8": {
+      "runs": 5,
+      "absorbed": 5,
+      "both_alive": 0,
+      "median_time": 0,
+      "median_components_at_end": 72,
+      "seeds": {
+        "601": {
+          "absorbed": true,
+          "step": 1,
+          "both_alive": false,
+          "subtrees": {
+            "1": 1,
+            "2": 1
+          },
+          "live": true
+        },
+        "602": {
+          "absorbed": true,
+          "step": 1,
+          "both_alive": false,
+          "subtrees": {
+            "1": 1,
+            "2": 1
+          },
+          "live": true
+        },
+        "603": {
+          "absorbed": true,
+          "step": 1,
+          "both_alive": false,
+          "subtrees": {
+            "1": 1,
+            "2": 1
+          },
+          "live": true
+        },
+        "604": {
+          "absorbed": true,
+          "step": 1,
+          "both_alive": false,
+          "subtrees": {
+            "1": 1,
+            "2": 1
+          },
+          "live": true
+        },
+        "605": {
+          "absorbed": true,
+          "step": 1,
+          "both_alive": false,
+          "subtrees": {
+            "1": 1,
+            "2": 1
+          },
+          "live": true
+        }
+      }
+    },
+    "12": {
+      "runs": 5,
+      "absorbed": 5,
+      "both_alive": 0,
+      "median_time": 19,
+      "median_components_at_end": 69,
+      "seeds": {
+        "601": {
+          "absorbed": true,
+          "step": 20,
+          "both_alive": false,
+          "subtrees": {
+            "1": 1,
+            "2": 1
+          },
+          "live": true
+        },
+        "602": {
+          "absorbed": true,
+          "step": 20,
+          "both_alive": false,
+          "subtrees": {
+            "1": 1,
+            "2": 1
+          },
+          "live": true
+        },
+        "603": {
+          "absorbed": true,
+          "step": 20,
+          "both_alive": false,
+          "subtrees": {
+            "1": 1,
+            "2": 1
+          },
+          "live": true
+        },
+        "604": {
+          "absorbed": true,
+          "step": 20,
+          "both_alive": false,
+          "subtrees": {
+            "1": 1,
+            "2": 1
+          },
+          "live": true
+        },
+        "605": {
+          "absorbed": true,
+          "step": 20,
+          "both_alive": false,
+          "subtrees": {
+            "1": 1,
+            "2": 1
+          },
+          "live": true
+        }
+      }
+    },
+    "18": {
+      "runs": 5,
+      "absorbed": 0,
+      "both_alive": 5,
+      "median_time": null,
+      "median_components_at_end": 60,
+      "seeds": {
+        "601": {
+          "absorbed": false,
+          "step": null,
+          "both_alive": true,
+          "subtrees": {
+            "1": 65,
+            "2": 67
+          },
+          "live": true
+        },
+        "602": {
+          "absorbed": false,
+          "step": null,
+          "both_alive": true,
+          "subtrees": {
+            "1": 65,
+            "2": 67
+          },
+          "live": true
+        },
+        "603": {
+          "absorbed": false,
+          "step": null,
+          "both_alive": true,
+          "subtrees": {
+            "1": 65,
+            "2": 67
+          },
+          "live": true
+        },
+        "604": {
+          "absorbed": false,
+          "step": null,
+          "both_alive": true,
+          "subtrees": {
+            "1": 65,
+            "2": 67
+          },
+          "live": true
+        },
+        "605": {
+          "absorbed": false,
+          "step": null,
+          "both_alive": true,
+          "subtrees": {
+            "1": 65,
+            "2": 67
+          },
+          "live": true
+        }
+      }
+    },
+    "24": {
+      "runs": 5,
+      "absorbed": 0,
+      "both_alive": 5,
+      "median_time": null,
+      "median_components_at_end": 73,
+      "seeds": {
+        "601": {
+          "absorbed": false,
+          "step": null,
+          "both_alive": true,
+          "subtrees": {
+            "1": 94,
+            "2": 90
+          },
+          "live": true
+        },
+        "602": {
+          "absorbed": false,
+          "step": null,
+          "both_alive": true,
+          "subtrees": {
+            "1": 94,
+            "2": 90
+          },
+          "live": true
+        },
+        "603": {
+          "absorbed": false,
+          "step": null,
+          "both_alive": true,
+          "subtrees": {
+            "1": 94,
+            "2": 90
+          },
+          "live": true
+        },
+        "604": {
+          "absorbed": false,
+          "step": null,
+          "both_alive": true,
+          "subtrees": {
+            "1": 94,
+            "2": 90
+          },
+          "live": true
+        },
+        "605": {
+          "absorbed": false,
+          "step": null,
+          "both_alive": true,
+          "subtrees": {
+            "1": 94,
+            "2": 90
+          },
+          "live": true
+        }
+      }
+    },
+    "30": {
+      "runs": 5,
+      "absorbed": 0,
+      "both_alive": 5,
+      "median_time": null,
+      "median_components_at_end": 62,
+      "seeds": {
+        "601": {
+          "absorbed": false,
+          "step": null,
+          "both_alive": true,
+          "subtrees": {
+            "1": 113,
+            "2": 113
+          },
+          "live": true
+        },
+        "602": {
+          "absorbed": false,
+          "step": null,
+          "both_alive": true,
+          "subtrees": {
+            "1": 113,
+            "2": 113
+          },
+          "live": true
+        },
+        "603": {
+          "absorbed": false,
+          "step": null,
+          "both_alive": true,
+          "subtrees": {
+            "1": 113,
+            "2": 113
+          },
+          "live": true
+        },
+        "604": {
+          "absorbed": false,
+          "step": null,
+          "both_alive": true,
+          "subtrees": {
+            "1": 113,
+            "2": 113
+          },
+          "live": true
+        },
+        "605": {
+          "absorbed": false,
+          "step": null,
+          "both_alive": true,
+          "subtrees": {
+            "1": 113,
+            "2": 113
+          },
+          "live": true
+        }
+      }
+    },
+    "36": {
+      "runs": 5,
+      "absorbed": 0,
+      "both_alive": 5,
+      "median_time": null,
+      "median_components_at_end": 63,
+      "seeds": {
+        "601": {
+          "absorbed": false,
+          "step": null,
+          "both_alive": true,
+          "subtrees": {
+            "1": 70,
+            "2": 70
+          },
+          "live": true
+        },
+        "602": {
+          "absorbed": false,
+          "step": null,
+          "both_alive": true,
+          "subtrees": {
+            "1": 70,
+            "2": 70
+          },
+          "live": true
+        },
+        "603": {
+          "absorbed": false,
+          "step": null,
+          "both_alive": true,
+          "subtrees": {
+            "1": 70,
+            "2": 70
+          },
+          "live": true
+        },
+        "604": {
+          "absorbed": false,
+          "step": null,
+          "both_alive": true,
+          "subtrees": {
+            "1": 70,
+            "2": 70
+          },
+          "live": true
+        },
+        "605": {
+          "absorbed": false,
+          "step": null,
+          "both_alive": true,
+          "subtrees": {
+            "1": 70,
+            "2": 70
+          },
+          "live": true
+        }
+      }
+    }
+  },
+  "degenerate_separations": [
+    6
+  ],
+  "mixing": [
+    8,
+    12
+  ],
+  "apart": [
+    18,
+    24,
+    30,
+    36
+  ],
+  "runs": 35,
+  "verdict": "a mixing length between 12 and 18 cells: one seeded lineage takes the other in at least 3 of 5 seeds up to 12 cells and in at most 2 of 5 from 18 on (8: 5/5 absorbed, 0/5 both alive, 12: 5/5 absorbed, 0/5 both alive, 18: 0/5 absorbed, 5/5 both alive, 24: 0/5 absorbed, 5/5 both alive, 30: 0/5 absorbed, 5/5 both alive, 36: 0/5 absorbed, 5/5 both alive)"
+}

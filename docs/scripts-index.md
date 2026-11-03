@@ -4,7 +4,7 @@
 
 The curated page — what matters and why — is [`scripts.md`](scripts.md). This file is the complete list, so that every command behind a number in the record can be found.
 
-Scripts: **323**.
+Scripts: **324**.
 
 ## Гейты и проверки (47)
 
@@ -171,7 +171,7 @@ Scripts: **323**.
 | `make_seed_grid_figure.py` | Собрать Figure 4 рукописи: сетка «инициализация × порядок данных» (§4.13). |
 | `make_simple_poster.py` | Простой постер для владельца: что мы узнали, без терминов. |
 
-## Прочее (188)
+## Прочее (189)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -274,6 +274,7 @@ Scripts: **323**.
 | `x131_analyse.py` | x131_analyse.py — X131: per-world values, then a bootstrap over WORLDS rather than over pairs. |
 | `x132_analyse.py` | x132_analyse.py — X132: thirty worlds per cell, the paired per-seed test the power calculation asked for. |
 | `x132_series.py` | x132_series.py — X132: twenty new worlds per cell at the two extreme inflows, seeds 311-330. |
+| `x134_analyse.py` | x134_analyse.py — X134: the mixing length, read from the genealogy of the two seeded lineages. |
 | `x134_series.py` | x134_series.py — X134: two structures seeded at a controlled separation, swept. |
 | `x56_matrix.py` | x56_matrix.py — сходимость по шагу: контраст при dt = 1.0, 0.5, 2.0. |
 | `x58_analyse.py` | x58_analyse.py — the same measurement on a 128 grid: β₀, β₁, wavelength, normalised count. |

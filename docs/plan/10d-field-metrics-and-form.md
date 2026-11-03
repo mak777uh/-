@@ -3203,3 +3203,40 @@ worlds is the default only for within-world effects whose inference already runs
 Report: `reports/2026-11-03-x132-power.md`; aggregate `l1_field_x132_power.json`. Next: X133 asks why the maze's depth is heavy-tailed (sd 2.28 against a mean of
 3.32), and X134 is the first interventional test of the chain - two structures seeded at a controlled separation, swept, to find the distance at which the habitat
 stops keeping them apart.
+
+## 10ha. The mixing length is one pattern wavelength, and it is a lever rather than a correlate (X134, 03.11)
+
+Every result in §10gv-§10gx is observational: the separation between lineages and the kinship of a neighbour are whatever the world produces. X134 is the block's first
+**intervention**. A new additive initial condition (`--init-spots R:SEP`, anchored bit-for-bit when absent) places two discs and nothing else - radius 3 cells, 29 cells
+of area each, the lattice's median dead area - at a chosen separation, and asks at what distance the habitat stops keeping two lineages apart.
+
+| separation | absorbed by the other lineage | both lineages alive at the end | median steps to absorption |
+|---|---|---|---|
+| 8 | **5/5** | 0/5 | **0** |
+| 12 | **5/5** | 0/5 | **19** |
+| 18 | **0/5** | **5/5** | - |
+| 24 | 0/5 | 5/5 | - |
+| 30 | 0/5 | 5/5 | - |
+| 36 | 0/5 | 5/5 | - |
+
+**The mixing length is between 12 and 18 cells, and the transition is a wall, not a crossing**: 10 of 10 seeds merge at 8 and 12 cells, 20 of 20 keep both lineages
+at 18, 24, 30 and 36. The number is not arbitrary - the pattern wavelength here is **12 cells** (`q' = 8`, §10fs) - so two lineages merge inside one wavelength and
+survive as two beyond it. At 12 cells the merge takes a median of 19 steps; at 8 it happens at the first logged step.
+
+**What it settles.** Distance is a **lever**: place two lineages a wavelength apart and the habitat keeps them separate for 6 000 steps in every seed; place them
+closer and one takes the other. The segregation reading of §10gw now has an interventional basis.
+
+**What it also sharpens.** The two seeded discs are **not kin** - different uids, no common ancestor - so this is the **stranger** case: two unrelated lineages merge
+inside a wavelength. In the lattice a structure's only neighbour is its sibling (§10gw), which is why its absorptions are family events; the percolating body puts
+strangers within a wavelength, which is why its absorptions are not. The block's mechanism therefore reduces to a length: **who is within one wavelength of whom**.
+
+**What it does not settle.** The mixing length at `F = 0.040`, where the wavelength is longer and the body percolates; one radius, one inflow, five seeds per point, and
+a sweep spacing of 6 cells, so the threshold is bracketed to that spacing rather than resolved to a cell.
+
+Two defects were found and fixed before the sweep was read as a result, both recorded in the plan: the original **component-count** readout is meaningless in a world
+that fragments into 60-73 spots by step 6 000 (replaced by the genealogical absorption rule of §10gv), and the `SEP = 6` arm is degenerate because two radius-3 discs
+**touch** at that separation - and a component count would have read that arm as "apart", the exact opposite of the truth.
+
+Report: `reports/2026-11-03-x134-mixing.md`; aggregate `l1_field_x134_mixing.json`. Next: X135 repeats the sweep in the maze, where the wavelength is longer - if the
+threshold moves with the wavelength, the habitat's segregation is a **length** rather than a regime; X136 brackets it at 2-cell spacing across three inflows; X137
+seeds a controlled genealogy to separate kinship from distance at the same separation.
