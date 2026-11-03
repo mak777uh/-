@@ -1,0 +1,90 @@
+{
+  "kind": "l1_field_x129_geometry",
+  "experiment": "X129",
+  "command": "python scripts/x129_analyse.py --write",
+  "prereg": "reports/2026-11-03-x129-geometry-plan.md",
+  "definitions": {
+    "delta": "centroid distance between the dead component and the absorber, divided by the sum of their radii sqrt(area/pi)",
+    "band": "partnered absorptions with delta <= 1.5 (physical contact)",
+    "kin": "sibling, aunt, cousin or distant within three generations; everything else is a stranger"
+  },
+  "cells": {
+    "f030": {
+      "partnered": 290,
+      "median_delta": 0.666,
+      "median_delta_kin": 0.656,
+      "median_delta_stranger": 0.724,
+      "band": 290,
+      "band_share": 1.0,
+      "band_kin_share": 0.8724,
+      "band_kin_share_ci": [
+        0.831,
+        0.9103
+      ],
+      "out_band_kin_share": null,
+      "kin_share_all": 0.8724,
+      "median_absorber_area_kin": 65.0,
+      "median_absorber_area_stranger": 83.0,
+      "rho_heredity": 0.548,
+      "pairs": 1142,
+      "survival_mean": 0.2496,
+      "refs": {
+        "partners": 290,
+        "survival": 0.2496,
+        "pairs": 1142
+      }
+    },
+    "f035": {
+      "partnered": 403,
+      "median_delta": 0.732,
+      "median_delta_kin": 0.696,
+      "median_delta_stranger": 0.753,
+      "band": 403,
+      "band_share": 1.0,
+      "band_kin_share": 0.3921,
+      "band_kin_share_ci": [
+        0.3424,
+        0.4392
+      ],
+      "out_band_kin_share": null,
+      "kin_share_all": 0.3921,
+      "median_absorber_area_kin": 131.0,
+      "median_absorber_area_stranger": 171.0,
+      "rho_heredity": 0.421,
+      "pairs": 1106,
+      "survival_mean": 0.2984,
+      "refs": {
+        "partners": 403,
+        "survival": 0.2984,
+        "pairs": 1106
+      }
+    },
+    "f040": {
+      "partnered": 531,
+      "median_delta": 0.724,
+      "median_delta_kin": 0.674,
+      "median_delta_stranger": 0.745,
+      "band": 531,
+      "band_share": 1.0,
+      "band_kin_share": 0.3766,
+      "band_kin_share_ci": [
+        0.3352,
+        0.4181
+      ],
+      "out_band_kin_share": null,
+      "kin_share_all": 0.3766,
+      "median_absorber_area_kin": 378.0,
+      "median_absorber_area_stranger": 473.0,
+      "rho_heredity": 0.48,
+      "pairs": 1195,
+      "survival_mean": 0.1372,
+      "refs": {
+        "partners": 531,
+        "survival": 0.1372,
+        "pairs": 1195
+      }
+    }
+  },
+  "band_kin_share_difference_lattice_vs_maze": 0.4958,
+  "verdict": "who lives next door: at the same contact distance the absorber is kin in 87.2% (CI [0.831, 0.9103]) of 290 absorptions in the lattice against 37.7% (CI [0.3352, 0.4181]) of 531 in the maze, a difference of 49.6% — the habitat decides who is adjacent, so kinship is a property of the world and not of the split rule alone; the middle cell sits at 39.2% of 403"
+}

@@ -3071,3 +3071,31 @@ takes their cells is their own kin.**
 Reports: `reports/2026-11-03-x128-kinship-void.md`, `-x128b-local.md`; aggregates `l1_field_x128_kinship.json`, `l1_field_x128b_local.json`. Next: X129 tests
 whether the kin advantage is geometric (a world whose daughters are born further apart), X130 locates the maze's 302 vanishings at the edge or in the interior, X131
 asks whether the absorber inherits the swallowed lineage's size.
+
+## 10gw. Who lives next door: absorption always happens at contact, and the neighbour's genealogy is what the habitat changes (X129, 03.11)
+
+§10gv left the sharpest number of the night unexplained: the absorber is kin in 87.2 % of lattice absorptions and a stranger in 61-62 % of the percolating ones. The
+deflationary reading is geometry — daughters are born adjacent, so in a world of isolated spots the only structure within reach of a dying one is its own sibling.
+Matching on contact distance was the planned test, and it degenerated: **every partnered absorption is a contact event** (100 % inside `delta <= 1.5`, median
+`delta` 0.66-0.72, i.e. the bounding circles overlap), partly because the neighbourhood was itself defined as contact plus two cells. A match on a variable that the
+instrument fixes is a tautology, and the rule is written down.
+
+The degeneracy is more informative than the match would have been. Across all three cells the geometry of absorption is the same: the same contact distance, **one
+neighbour within reach** (median neighbourhood size 1.0), and absorbers of the same order of size whether kin or stranger (65 against 83 cells in the lattice, 378
+against 473 in the maze). What differs is the **genealogy of that one neighbour**: a sibling 87.2 % of the time in the lattice, a stranger 62 % of the time in the
+body, a difference of 49.6 points at identical geometry.
+
+> **The lattice segregates lineages in space; the percolating body mixes them. What breaks a lineage's continuity in the maze is not distance and not destruction
+> alone — it is spatial mixing.**
+
+That is the mechanism under §10gt's trade-off: the maze buys generations (+2.213) by keeping the body cuttable, and pays in persistence (+0.1372) because cuttability
+means mixing, and mixing means a lineage's cells are taken by someone else. It is also the most concrete condition the line has produced for a habitat where a
+lineage can persist: **a structure's neighbour must be its kin**, which requires the habitat to hold families apart, and percolation is precisely the mechanism that
+stops it doing so.
+
+Three tests were run against the kinship result and it survived all three: it is not a distance effect, not a size effect, and not a count-of-neighbours effect. The
+middle cell sits between the endpoints (39.2 % kin) exactly as its survival (+0.2984, the highest of the three) requires.
+
+Report: `reports/2026-11-03-x129-geometry.md`; aggregate `l1_field_x129_geometry.json`. Next: X130 locates the maze's 302 vanishings at the edge or in the interior,
+X131 asks whether the absorber inherits the swallowed lineage's size, and X132 turns "spatial mixing" into a gradient — the share of a structure's neighbours that
+are kin as a function of inflow.

@@ -366,3 +366,16 @@ withdrawn, not qualified. (3) Any classification by threshold publishes its **re
 the instrument is fixed is evidence that the wide version was absorbing real cases. (4) A category that exists only in one habitat ("isolated") is a finding about the
 world and must be a category of the instrument, not a residual of it.
 Report: `reports/2026-11-03-x128b-local.md`.
+
+**A variable the instrument fixes cannot be used to match (03.11, X129).** X129 tested the deflationary explanation of the kinship result - "the absorber is a
+sibling only because siblings are born adjacent" - by matching absorptions on contact distance, the normalised distance between the two centroids. The match
+degenerated: **100 % of partnered absorptions fell inside the contact band**, because the neighbourhood that produced the partners had itself been defined as
+contact plus two cells. A control built on a variable that the instrument's definition already fixes cannot fail, and therefore cannot test anything.
+
+Rules. (1) Before matching, name the variable's range **in the sample** and, if the instrument defines that range, do not call the comparison matched - say it is
+fixed and use the invariance as the statement instead. (2) When a match degenerates, report it as part of the result: "every absorption is a contact event" is
+itself a finding about the medium and it carries the inference that a distance explanation is unavailable rather than refuted. (3) The stronger claim is the one
+that survives the invariance: at the same geometry, the genealogy of the neighbour differs by 49.6 points between habitats. (4) A design that needs a matched
+population must build the matching variable **outside** the instrument's own filter (an independent measurement), otherwise the plan is void by construction and
+should be refused at §3d, not discovered after the run.
+Report: `reports/2026-11-03-x129-geometry.md`.

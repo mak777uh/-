@@ -199,3 +199,4 @@ sections were not rewritten, only moved; each one keeps its identifier, so every
 | §10gt | The third cell: the clock is a gradient, lineage depth is a threshold, and the best habitat for a lineage is between them (X126, 03.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
 | §10gu | A lineage usually dies by losing its name, not its cells — and the maze kills names more often (X127, 03.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
 | §10gv | The budget must be local, and with a local budget the maze is the destructive habitat (X128, X128b, 03.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
+| §10gw | Who lives next door: absorption always happens at contact, and the neighbour's genealogy is what the habitat changes (X129, 03.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
