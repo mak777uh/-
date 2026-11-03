@@ -11,7 +11,8 @@ Reserved to the owner by `lab/autonomy-rules.json`: publishing anything outward:
 
 ## Running now
 
-- nothing is running
+- **X147_radius45** — The radius-4.5 transition: is the boundary at the same surface gap? (owner `lead`)
+- last artifact written 0.0 h ago
 
 ## Waiting, but not on a human
 

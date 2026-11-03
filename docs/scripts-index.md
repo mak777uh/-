@@ -4,7 +4,7 @@
 
 The curated page — what matters and why — is [`scripts.md`](scripts.md). This file is the complete list, so that every command behind a number in the record can be found.
 
-Scripts: **341**.
+Scripts: **342**.
 
 ## Гейты и проверки (47)
 
@@ -171,7 +171,7 @@ Scripts: **341**.
 | `make_seed_grid_figure.py` | Собрать Figure 4 рукописи: сетка «инициализация × порядок данных» (§4.13). |
 | `make_simple_poster.py` | Простой постер для владельца: что мы узнали, без терминов. |
 
-## Прочее (206)
+## Прочее (207)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -292,6 +292,7 @@ Scripts: **341**.
 | `x142_series.py` | x142_series.py — X142: the annihilation band - radius 3 gaps 3 and 7, radius 4.5 gaps 4, 5 and 6. |
 | `x145_analyse.py` | x145_analyse.py — X145: when does a lone disc first split, at each radius? |
 | `x145_series.py` | x145_series.py — X145: one radius-3 disc and nothing else (`--init-spots 3:0`). |
+| `x147_analyse.py` | x147_analyse.py — X147: is the coalescence boundary at the same surface gap for two radii? |
 | `x147_series.py` | x147_series.py — X147: radius 4.5 at surface gap 8 (separation 17), five seeds. |
 | `x56_matrix.py` | x56_matrix.py — сходимость по шагу: контраст при dt = 1.0, 0.5, 2.0. |
 | `x58_analyse.py` | x58_analyse.py — the same measurement on a 128 grid: β₀, β₁, wavelength, normalised count. |

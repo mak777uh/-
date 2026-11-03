@@ -3489,3 +3489,28 @@ frames rather than logs.
 
 Report: `reports/2026-11-03-x148-fusion-size.md`; block `fusion` in `l1_field_x142_coalescence.json`. Next: X149 (the
 shape of the product, with frames), X147 (the radius-4.5 transition), X146 (the wavelength).
+
+## 10hj. The boundary moves inward with the radius, while the time stays the gap's (X147, 03.11)
+
+X142 made the whole coalescence-time curve a function of the surface gap. X147 asks the same of the **boundary** where
+coalescence stops being universal, at a second radius, using one new arm (radius 4.5, gap 8, separation 17) and four
+radius-4.5 arms already in git from X140:
+
+| radius | gap 7 | gap 8 | gap 9 | gap 11 | gap 13 |
+|---|---|---|---|---|---|
+| 4.5 | M 5/5, t 39 | **M 3/5, A 2/5, t 49** | M 2/5, A 2/5, P 1/5, t 89 | P 5/5 | P 5/5 |
+| 3 | M 5/5, t 39 | M 5/5, t 49 | M 3/5, A 2/5, t 69 | M 2/5, P 3/5 | - |
+
+The boundary is **not** a pure function of the gap: radius 4.5 begins to break at a gap of 8 cells and radius 3 at 9, so
+the bigger discs fail one cell earlier in gap. But the **time is untouched**: at gap 7 both radii dissolve at 39 logged
+steps and at gap 8 both at 49 — identical to the step on four arms and ten seeds per radius. The radius therefore changes
+*whether* a division can intervene, not *when* the two bodies meet.
+
+So the block ends with two separate laws: the **time** to mutual coalescence is the gap's, both radii, to the logging
+quantum; the **boundary** where that coalescence stops being universal is the pair's, one cell inside for the larger
+radius. The mechanism (why a seed divides at all) is still open, and it is now constrained from two sides: not a clock
+alone (X145) and not the size of the fusion product (X148), but more likely with a larger radius at the same timing.
+
+Report: 
+eports/2026-11-03-x147-radius45.md; aggregate l1_field_x147_radius45.json. Next: X150 (a third radius at
+gaps 6-8), X149 (the shape of the product, with frames), X146 (the wavelength).

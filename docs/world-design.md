@@ -212,3 +212,4 @@ sections were not rewritten, only moved; each one keeps its identifier, so every
 | §10hg | Mutual coalescence holds in every seed out to a gap of eight cells, and its time depends on the gap and not on the structure's size (X142, 03.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
 | §10hh | A lone disc divides at 180 steps, so mutual coalescence is not a race lost narrowly; the approach to another body advances the division (X145, 03.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
 | §10hi | The size of the fusion product does not decide whether a seed divides (X148, 03.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
+| §10hj | The coalescence boundary shifts one cell inward at the larger radius, while the coalescence time stays the gap's (X147, 03.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |

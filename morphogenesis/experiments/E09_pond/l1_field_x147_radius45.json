@@ -1,0 +1,413 @@
+{
+  "kind": "l1_field_x147_radius45",
+  "experiment": "X147",
+  "command": "python scripts/x147_analyse.py --write",
+  "prereg": "reports/2026-11-03-x147-radius45-plan.md",
+  "definitions": {
+    "unit": "the arm (one radius, one surface gap); counts are out of the usable seeds",
+    "gap": "SEP - 2R in cells",
+    "M": "mutual coalescence: neither seeded uid has a daughter and both subtrees are gone at the last step",
+    "A": "absorption: exactly one seeded subtree is alive at the last step",
+    "P": "persistence: both seeded subtrees are alive at the last step",
+    "readout": "x142_analyse.world_row - the same code, no distance tolerance"
+  },
+  "by_arm": {
+    "r45_g7": {
+      "runs": 5,
+      "M": 5,
+      "A": 0,
+      "P": 0,
+      "median_t_dissolve": 39,
+      "seeds": {
+        "601": {
+          "class": "M",
+          "t_dissolve": 39,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          }
+        },
+        "602": {
+          "class": "M",
+          "t_dissolve": 39,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          }
+        },
+        "603": {
+          "class": "M",
+          "t_dissolve": 39,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          }
+        },
+        "604": {
+          "class": "M",
+          "t_dissolve": 39,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          }
+        },
+        "605": {
+          "class": "M",
+          "t_dissolve": 39,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          }
+        }
+      }
+    },
+    "r45_g8": {
+      "runs": 5,
+      "M": 3,
+      "A": 2,
+      "P": 0,
+      "median_t_dissolve": 49,
+      "seeds": {
+        "601": {
+          "class": "M",
+          "t_dissolve": 49,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          }
+        },
+        "602": {
+          "class": "M",
+          "t_dissolve": 49,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          }
+        },
+        "603": {
+          "class": "M",
+          "t_dissolve": 49,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          }
+        },
+        "604": {
+          "class": "A",
+          "t_dissolve": 89,
+          "daughters": {
+            "1": 2,
+            "2": 0
+          }
+        },
+        "605": {
+          "class": "A",
+          "t_dissolve": 89,
+          "daughters": {
+            "1": 2,
+            "2": 0
+          }
+        }
+      }
+    },
+    "r45_g9": {
+      "runs": 5,
+      "M": 2,
+      "A": 2,
+      "P": 1,
+      "median_t_dissolve": 89,
+      "seeds": {
+        "601": {
+          "class": "P",
+          "t_dissolve": 229,
+          "daughters": {
+            "1": 2,
+            "2": 2
+          }
+        },
+        "602": {
+          "class": "M",
+          "t_dissolve": 59,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          }
+        },
+        "603": {
+          "class": "M",
+          "t_dissolve": 69,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          }
+        },
+        "604": {
+          "class": "A",
+          "t_dissolve": 89,
+          "daughters": {
+            "1": 0,
+            "2": 2
+          }
+        },
+        "605": {
+          "class": "A",
+          "t_dissolve": 89,
+          "daughters": {
+            "1": 0,
+            "2": 2
+          }
+        }
+      }
+    },
+    "r45_g11": {
+      "runs": 5,
+      "M": 0,
+      "A": 0,
+      "P": 5,
+      "median_t_dissolve": 159,
+      "seeds": {
+        "601": {
+          "class": "P",
+          "t_dissolve": 239,
+          "daughters": {
+            "1": 2,
+            "2": 2
+          }
+        },
+        "602": {
+          "class": "P",
+          "t_dissolve": 139,
+          "daughters": {
+            "1": 2,
+            "2": 2
+          }
+        },
+        "603": {
+          "class": "P",
+          "t_dissolve": 189,
+          "daughters": {
+            "1": 2,
+            "2": 2
+          }
+        },
+        "604": {
+          "class": "P",
+          "t_dissolve": 159,
+          "daughters": {
+            "1": 2,
+            "2": 2
+          }
+        },
+        "605": {
+          "class": "P",
+          "t_dissolve": 159,
+          "daughters": {
+            "1": 2,
+            "2": 2
+          }
+        }
+      }
+    },
+    "r45_g13": {
+      "runs": 5,
+      "M": 0,
+      "A": 0,
+      "P": 5,
+      "median_t_dissolve": 159,
+      "seeds": {
+        "601": {
+          "class": "P",
+          "t_dissolve": 279,
+          "daughters": {
+            "1": 2,
+            "2": 2
+          }
+        },
+        "602": {
+          "class": "P",
+          "t_dissolve": 139,
+          "daughters": {
+            "1": 2,
+            "2": 2
+          }
+        },
+        "603": {
+          "class": "P",
+          "t_dissolve": 159,
+          "daughters": {
+            "1": 2,
+            "2": 2
+          }
+        },
+        "604": {
+          "class": "P",
+          "t_dissolve": 159,
+          "daughters": {
+            "1": 2,
+            "2": 2
+          }
+        },
+        "605": {
+          "class": "P",
+          "t_dissolve": 159,
+          "daughters": {
+            "1": 2,
+            "2": 2
+          }
+        }
+      }
+    },
+    "r30_g7": {
+      "runs": 5,
+      "M": 5,
+      "A": 0,
+      "P": 0,
+      "median_t_dissolve": 39,
+      "seeds": {
+        "601": {
+          "class": "M",
+          "t_dissolve": 39,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          }
+        },
+        "602": {
+          "class": "M",
+          "t_dissolve": 39,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          }
+        },
+        "603": {
+          "class": "M",
+          "t_dissolve": 39,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          }
+        },
+        "604": {
+          "class": "M",
+          "t_dissolve": 39,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          }
+        },
+        "605": {
+          "class": "M",
+          "t_dissolve": 39,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          }
+        }
+      }
+    },
+    "r30_g8": {
+      "runs": 5,
+      "M": 5,
+      "A": 0,
+      "P": 0,
+      "median_t_dissolve": 49,
+      "seeds": {
+        "601": {
+          "class": "M",
+          "t_dissolve": 49,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          }
+        },
+        "602": {
+          "class": "M",
+          "t_dissolve": 49,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          }
+        },
+        "603": {
+          "class": "M",
+          "t_dissolve": 49,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          }
+        },
+        "604": {
+          "class": "M",
+          "t_dissolve": 49,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          }
+        },
+        "605": {
+          "class": "M",
+          "t_dissolve": 49,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          }
+        }
+      }
+    },
+    "r30_g9": {
+      "runs": 5,
+      "M": 3,
+      "A": 2,
+      "P": 0,
+      "median_t_dissolve": 69,
+      "seeds": {
+        "601": {
+          "class": "M",
+          "t_dissolve": 69,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          }
+        },
+        "602": {
+          "class": "M",
+          "t_dissolve": 59,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          }
+        },
+        "603": {
+          "class": "M",
+          "t_dissolve": 69,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          }
+        },
+        "604": {
+          "class": "A",
+          "t_dissolve": 109,
+          "daughters": {
+            "1": 2,
+            "2": 0
+          }
+        },
+        "605": {
+          "class": "A",
+          "t_dissolve": 109,
+          "daughters": {
+            "1": 2,
+            "2": 0
+          }
+        }
+      }
+    }
+  },
+  "timing_note": "the reused radius-4.5 arms come from X140, whose series was run for the crossing; their flags and probe are the same, checked key by key when that series closed",
+  "controls": {
+    "failures": []
+  },
+  "verdict": "THE BOUNDARY MOVES INWARD WITH THE RADIUS: radius 4.5 gap 8 is only M 3/5 while radius 3 is M 5/5, so the bigger discs begin to fail a cell earlier in gap"
+}
