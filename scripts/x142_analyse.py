@@ -76,6 +76,9 @@ def parse_arm(name: str) -> tuple[float, int, int, str] | None:
     m = re.match(r"x150_g(\d+)_r(\d+)_s(\d+)\.json$", name)
     if m:
         return int(m.group(2)) / 10.0, int(m.group(1)), int(m.group(3)), "X150"
+    m = re.match(r"x151_g(\d+)_r525_s(\d+)\.json$", name)
+    if m:
+        return 5.25, int(m.group(1)), int(m.group(2)), "X151"
     m = re.match(r"x139_sep(\d+)_s(\d+)\.json$", name)
     if m:
         return 3.0, int(m.group(1)) - 6, int(m.group(2)), "X139"
