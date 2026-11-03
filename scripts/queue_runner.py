@@ -175,12 +175,13 @@ def run_once(data: dict, dry_run: bool, confirmed: bool) -> int:
 
 
 
-def audit(data: dict) -> int:
+def audit(data: dict, ci: bool = False) -> int:
     """Статусы очереди обязаны совпадать с реальностью.
 
     Зачем: 25.10 три серии были закрыты, а в очереди висели как `planned`/`running`;
     нашлось глазами, а не машиной. Проверки:
-      * `running` без живого замка — ошибка (серия не идёт);
+      * `running` без живого замка — ошибка локально и только предупреждение в CI: в клоне нет ни замков, ни
+        артефактов (они в .gitignore), ни процесса, поэтому живая серия там неотличима от забытой;
       * `running` с heartbeat старше ttl — ошибка;
       * `planned`/`running`, у которых в каталоге появления уже есть артефакты —
         предупреждение «вероятно, серия выполнена, статус не обновлён».
@@ -224,8 +225,12 @@ def audit(data: dict) -> int:
                     except Exception:
                         fresh = False
                 if not fresh:
-                    problems.append(f"{iid}: running, но ни замка, ни свежих артефактов, ни процесса — "
-                                    f"статус устарел или серия упала")
+                    message = (f"{iid}: running, но ни замка, ни свежих артефактов, ни процесса — "
+                               f"статус устарел или серия упала")
+                    if ci:
+                        warnings.append(message + " (в клоне это ожидаемо: артефакты серии не коммитятся)")
+                    else:
+                        problems.append(message)
         if status == "planned":
             # 02.11 (X105): the "probably done" warning is for a *planned* item with artifacts.  For a `running` one the rule
             # above already decides whether it is alive, and counting the files it is writing right now reported "вероятно,
@@ -258,13 +263,15 @@ def main(argv: list[str]) -> int:
     ap.add_argument("--plan", action="store_true", help="показать порядок и готовность")
     ap.add_argument("--once", action="store_true", help="выполнить голову очереди")
     ap.add_argument("--audit", action="store_true", help="сверить статусы с замками и артефактами")
+    ap.add_argument("--ci", action="store_true",
+                    help="в клоне живой серии не видно: «running» без признаков жизни — предупреждение, не ошибка")
     ap.add_argument("--dry-run", action="store_true", help="только показать команду")
     ap.add_argument("--yes", action="store_true", help="подтвердить фактический запуск")
     ap.add_argument("--file", default=None, help="путь к очереди (для тестов)")
     args = ap.parse_args(argv)
     data = load_queue(Path(args.file) if args.file else None)
     if args.audit:
-        return audit(data)
+        return audit(data, ci=args.ci)
     if args.once:
         return run_once(data, args.dry_run, args.yes)
     return plan(data)

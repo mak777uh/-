@@ -103,7 +103,7 @@ jobs:
         run: python scripts/check_reviews.py 2>&1
 
       - name: Статусы очереди совпадают с реальностью
-        run: python scripts/queue_runner.py --audit 2>&1
+        run: python scripts/queue_runner.py --audit --ci 2>&1
 
       - name: Витрина не отстаёт от результатов
         run: python scripts/check_readme_fresh.py 2>&1
