@@ -3401,6 +3401,75 @@
           "reports/2026-11-01-x58-lite-grid128-result.md"
         ]
       }
+    },
+    {
+      "id": "B-095",
+      "type": "naming",
+      "target": {
+        "kind": "metric",
+        "id": "inheritability_r",
+        "ref": "scripts/field_track.py"
+      },
+      "statement": "`inheritability_r` is a parent-daughter correlation imposed by the copying rule, and the 03.11 deep-research pass confirms it is a transmission estimate, not a heritability: the field name invites the wrong claim. Measured earlier: Spearman(splits, r) = +0.79 over 24 runs, and the arm difference 0.972 vs 0.812 is division rate, not transmission (reports/2026-11-01-heritability-is-mechanical.md). Proposal: keep the field for continuity, never call it h2 or H2 in prose, README or the manuscript; if a heritability number is wanted, compute H2 = V_G/V_P with a shuffled-parent null (X155) instead of relabelling r.",
+      "evidence": [
+        {
+          "library": "hypotheses/heredity-selection-quantitative.md",
+          "note": "from the 2026-11-03 deep-research pass on heredity/selection protocols (owner-supplied, [A] sources)"
+        }
+      ],
+      "action": {
+        "kind": "text",
+        "detail": "prose rule: r is a transmission estimate, never h2/H2; H2 only via X155"
+      },
+      "status": "accepted",
+      "wave": "current",
+      "owner": "librarian",
+      "created_at": "2026-11-03T22:48:41+03:00",
+      "decided_at": "2026-11-03",
+      "why": "the field keeps its name for continuity; the prose rule is in the new library note and in the X155 proposal, and no closed artifact is rewritten",
+      "links": {
+        "insights": [],
+        "tasks": [],
+        "reports": [
+          "library/hypotheses/heredity-selection-quantitative.md",
+          "reports/2026-11-01-heritability-is-mechanical.md"
+        ]
+      }
+    },
+    {
+      "id": "B-096",
+      "type": "missing_baseline",
+      "target": {
+        "kind": "experiment",
+        "id": "L1_field",
+        "ref": "lab/queue.json"
+      },
+      "statement": "The field line has a transmission correlation (r ~ 0.95) and a merger/time result (X154), but no falsifiable heredity or selection-response number: no broad-sense H2 = V_G/V_P, no shuffled-parent null, no inheritance ablation. The protocol is standard in the literature (Dolson 2019 for metrics, Szathmary 2000 for limited vs unlimited heredity) and computable from what we already log, with one caveat: the in-git compact projection keeps [uid, area, cx, cy] and drops the trait s, so this analysis is not reproducible from the repository alone. Proposal: X155, analysis of existing artifacts first (0 GPU), one mutation-off ablation arm (~0.1 GPU-h), refusal rule registered before the arm.",
+      "evidence": [
+        {
+          "library": "hypotheses/heredity-selection-quantitative.md",
+          "note": "the gap the library note lit-heredity-and-topology.md recorded, now with a concrete protocol"
+        }
+      ],
+      "action": {
+        "kind": "experiment",
+        "detail": "X155: H2 + shuffled-parent null + division-rate-partialled slope + mutation-off arm"
+      },
+      "status": "accepted",
+      "wave": "current",
+      "owner": "librarian",
+      "created_at": "2026-11-03T22:48:41+03:00",
+      "decided_at": "2026-11-03",
+      "why": "taken as X155 in the queue (planned, 0.1 GPU-h): H2 = V_G/V_P with a shuffled-parent null and a division-rate-partialled slope, then one mutation-off arm; refusal rule to be registered before the arm",
+      "links": {
+        "insights": [],
+        "tasks": [
+          "X155_heredity_H2"
+        ],
+        "reports": [
+          "library/hypotheses/heredity-selection-quantitative.md"
+        ]
+      }
     }
   ],
   "updated_at": "2026-10-30T20:30:00+00:00"

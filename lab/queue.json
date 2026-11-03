@@ -1,6 +1,6 @@
 {
  "schema_version": 1,
- "updated_at": "2026-11-03T19:19:53Z",
+ "updated_at": "2026-11-03T22:49:01+03:00",
  "note": "Очередь пунктов после E02c. Claim берётся до пре-регистрации, а не перед запуском: lab.py item-claim. Статус running означает занятый GPU-лейн и может быть только у одного пункта. | 25.10: добавлено поле impact (1-5) — приоритет конвейера = impact/max(cost_gpu_h,0.1); для запуска пункту нужны prereg (закоммиченный план) и launch.command+outdir.",
  "items": [
   {
@@ -2913,6 +2913,17 @@
    "note": "THE WIDTH IS REAL. Radius 6, ten seeds per arm: the fraction of coalescing seeds that dissolve at the later logged step rises 0.0 / 0.0 / 0.2 / 1.0 of coalescing seeds (0.0 / 0.0 / 0.2 / 0.5 of all ten) as the gap goes 6.5 / 7 / 7.5 / 8, so X153's two slow seeds were the shoulder of a curve and not ten-seed noise. The outcome stays a whole-cell step (10/10 at 7.5, 5/10 at 8), so the time crosses first and gradually and the outcome then steps. Limits: one interior arm, so the width is bracketed to [7.0, 8.0] cells and not located; the 7.0->7.5 move is two seeds, below the registered three-seed resolution, so no single step is claimed; the 10-step quantum makes 'slow' one bit. One registered control fails as written - first-frame disc area 110 / 108 / 110 / 113 against a bound of 2 cells - recorded with the effective-gap conversion (6.67 / 7.27 / 7.67 / 8.00, still monotone) and the confound's direction (a larger disc contacts earlier, against the finding); docs/design-checks.md gains the rule to register such a bound on the effective gap. Report x154-mixing-curve, section 10hn. Next: X152 (radius 3.75), a 5-step logging quantum at a gap of 7.5, X149 (shape, frames).",
    "closed_at": "2026-11-03T19:19:53Z",
    "closed_by": "lead"
+  },
+  {
+   "id": "X155_heredity_H2",
+   "title": "Is the field line's heredity mechanical or transmissible? H2 with a shuffled-parent null, R with a sham control",
+   "status": "planned",
+   "owner": "lead",
+   "kind": "analysis",
+   "cost_gpu_h": 0.1,
+   "prereg": null,
+   "created_at": "2026-11-03T22:49:01+03:00",
+   "note": "The field line has a transmission correlation (inheritability_r ~ 0.95) that 01.11 showed to be imposed by the copying rule (Spearman(splits, r) = +0.79), so it owns no falsifiable heredity number. The 03.11 deep-research pass supplies the standard protocol: broad-sense H2 = V_G/V_P from parent-daughter pairs, the same slope partialled on division rate, a shuffled-parent null, and a selection response R against a sham/mutation-off control; coalescence stays typed as a merger, never as a birth (X154). Phase 1 is analysis of existing artifacts (0 GPU): the full logs keep per-component s and uid_pairs, but the in-git compact projection drops s, so either a compact v2 keeping s is written for the runs used, or the analysis is recomputed from locally held full artifacts and the aggregate says so. Phase 2 is two runs at --mutation 0 at the same F, radius and horizon (~0.1 GPU-h). Register the refusal rule before Phase 2: transmissible heredity only if the slope CI excludes 0, the shuffle null is rejected at 95 %, the division-rate-partialled slope stays positive with its CI off zero, and the mutation-off arm does not drift beyond its null. Sources: library/hypotheses/heredity-selection-quantitative.md (7 records, metadata verified, full texts not read)."
   }
  ]
 }
