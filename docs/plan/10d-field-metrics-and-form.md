@@ -3099,3 +3099,36 @@ middle cell sits between the endpoints (39.2 % kin) exactly as its survival (+0.
 Report: `reports/2026-11-03-x129-geometry.md`; aggregate `l1_field_x129_geometry.json`. Next: X130 locates the maze's 302 vanishings at the edge or in the interior,
 X131 asks whether the absorber inherits the swallowed lineage's size, and X132 turns "spatial mixing" into a gradient — the share of a structure's neighbours that
 are kin as a function of inflow.
+
+## 10gx. Sisters rarely merge back, and the ones that do are over in 60-120 steps (X130, 03.11)
+
+§10gv left a dynamic question: the lattice's absorber is a **sibling** in 64 % of partnered absorptions, but does that mean families continuously collapse into each
+other? X130 started a clock at every split with two measurable daughters and asked whether, and when, one daughter's uid ends into the other's. Controls: the
+sibling-absorption census reproduces §10gv **exactly** (186 / 31 / 57, computed independently by the second script), end-survival reproduces X126 to four decimals.
+
+| cell | sister pairs | re-merged | share (95 % CI) | censored | median birth separation | merged / rest | median time (CI) |
+|---|---|---|---|---|---|---|---|
+| 0.030 | 1 142 | 210 | **18.4 %** (16.1-20.8) | 81.6 % | 8.99 cells | 8.06 / 9.27 | **80 steps** (70-90) |
+| 0.035 | 1 106 | 95 | **8.6 %** (7.1-10.3) | 91.4 % | 12.62 cells | 9.46 / 13.35 | 120 steps (90-150) |
+| 0.040 | 1 195 | 208 | **17.4 %** (15.2-19.5) | 82.6 % | 22.30 cells | **11.75 / 24.52** | **60 steps** (50-70) |
+
+**Most sister pairs never meet again** inside the run (82-91 % censored), and **the merge is fast when it happens** — a median of 6-12 logging quanta. The two
+headline numbers therefore do not contradict each other, they carry different denominators and both must be quoted with theirs: **among sister pairs** 18.4 % ever
+re-merge, **among absorptions with a partner** 64 % take a sibling. The reconciliation is that absorption is a rare event concentrated where the daughters were born
+close: in the maze the median birth separation is 22.3 cells, merged pairs were born at 11.75 and unmerged at 24.52 — a factor of two at the same inflow.
+
+So the lattice is not a world of continuously collapsing families. It is a world where the **rare** collision that does happen is a family one, and it is over within
+about eighty steps. Birth separation is the variable that decides it, which gives a future manipulation a handle.
+
+The middle cell is again the outlier in the direction its survival requires: the **lowest** re-merge share (8.6 %) and the **fewest** sibling absorptions (31) in the
+cell where a large lineage survives best (+0.2984). Fewer family collisions, more persistence — the third independent statistic to point that way.
+
+Two defects in the run's own script, both caught by its controls and both worth a rule. The survival readout was first computed on the daughters in **birth order**
+instead of the larger/smaller ordering, so the within-pair differences cancelled and it printed 0.0219 where X126 says 0.2496: when a statistic is a difference inside
+a pair, the ordering must be applied in **every** block that uses the pair. And the interval printed next to the median time was a bootstrap of the **mean** — 80 with
+[127, 211], an interval that does not contain its own point estimate: an interval belongs to the statistic it is printed with, and a bootstrap of a cousin is a
+different claim, not a conservative version of this one.
+
+Report: `reports/2026-11-03-x130-remerge.md`; aggregate `l1_field_x130_remerge.json`. Next: X131 asks whether the absorber inherits the swallowed lineage's size, and
+X132 is the first interventional test of the whole chain — a world whose split distance is set larger, which should remove the family absorptions and, if §10gw is right,
+raise persistence.

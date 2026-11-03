@@ -1,0 +1,98 @@
+{
+  "kind": "l1_field_x130_remerge",
+  "experiment": "X130",
+  "command": "python scripts/x130_analyse.py --write",
+  "prereg": "reports/2026-11-03-x130-remerge-plan.md",
+  "definitions": {
+    "birth_separation": "centroid distance between two sister uids at their first logged step",
+    "re_merge": "one sister's uid ends without daughters while the other is present within r_dead + r_other + 2.0 cells of its last centroid",
+    "censoring": "no re-merge inside the run; reported next to the merge share because it cannot distinguish never from not yet"
+  },
+  "cells": {
+    "f030": {
+      "pairs": 1142,
+      "merged": 210,
+      "censored": 932,
+      "merge_share": 0.1839,
+      "merge_share_ci": [
+        0.1611,
+        0.2075
+      ],
+      "censoring_share": 0.8161,
+      "sibling_absorptions": 186,
+      "median_d0": 8.99,
+      "median_d0_merged": 8.06,
+      "median_d0_unmerged": 9.27,
+      "median_time": 80.0,
+      "median_time_ci": [
+        70.0,
+        90.0
+      ],
+      "rho_heredity": 0.548,
+      "survival_pairs": 1142,
+      "survival_mean": 0.2496,
+      "refs": {
+        "survival": 0.2496,
+        "sister_pairs": 1142
+      },
+      "sibling_absorptions_x128b": 186
+    },
+    "f035": {
+      "pairs": 1106,
+      "merged": 95,
+      "censored": 1011,
+      "merge_share": 0.0859,
+      "merge_share_ci": [
+        0.0714,
+        0.1031
+      ],
+      "censoring_share": 0.9141,
+      "sibling_absorptions": 31,
+      "median_d0": 12.62,
+      "median_d0_merged": 9.46,
+      "median_d0_unmerged": 13.35,
+      "median_time": 120,
+      "median_time_ci": [
+        90,
+        150
+      ],
+      "rho_heredity": 0.421,
+      "survival_pairs": 1106,
+      "survival_mean": 0.2984,
+      "refs": {
+        "survival": 0.2984,
+        "sister_pairs": 1106
+      },
+      "sibling_absorptions_x128b": 31
+    },
+    "f040": {
+      "pairs": 1195,
+      "merged": 208,
+      "censored": 987,
+      "merge_share": 0.1741,
+      "merge_share_ci": [
+        0.1515,
+        0.195
+      ],
+      "censoring_share": 0.8259,
+      "sibling_absorptions": 57,
+      "median_d0": 22.3,
+      "median_d0_merged": 11.75,
+      "median_d0_unmerged": 24.52,
+      "median_time": 60.0,
+      "median_time_ci": [
+        50.0,
+        70.0
+      ],
+      "rho_heredity": 0.48,
+      "survival_pairs": 1195,
+      "survival_mean": 0.1372,
+      "refs": {
+        "survival": 0.1372,
+        "sister_pairs": 1195
+      },
+      "sibling_absorptions_x128b": 57
+    }
+  },
+  "verdict": "sisters separate: only 18.4% of 1142 lattice sister pairs re-merge (CI [0.1611, 0.2075]), so the lattice's 54.6 % sibling absorption comes from a minority of families and the median censoring share is 81.6%"
+}

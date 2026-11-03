@@ -1,6 +1,6 @@
 {
  "schema_version": 1,
- "updated_at": "2026-11-03T05:44:00+03:00",
+ "updated_at": "2026-11-03T05:57:00+03:00",
  "note": "Очередь пунктов после E02c. Claim берётся до пре-регистрации, а не перед запуском: lab.py item-claim. Статус running означает занятый GPU-лейн и может быть только у одного пункта. | 25.10: добавлено поле impact (1-5) — приоритет конвейера = impact/max(cost_gpu_h,0.1); для запуска пункту нужны prereg (закоммиченный план) и launch.command+outdir.",
  "items": [
   {
@@ -2635,6 +2635,19 @@
    "closed_at": "2026-11-03T05:44:00+03:00",
    "closed_by": "lead",
    "note": "The planned match on contact distance degenerated - 100 % of the 1 224 partnered absorptions are contact events (median delta 0.66-0.72), partly because the neighbourhood is itself defined as contact plus two cells - and the degeneracy carried the finding: at identical geometry, with one neighbour within reach (median neighbourhood 1.0), that neighbour is a sibling in 87.2 % of 290 lattice absorptions and a stranger in 62 % of 531 maze ones, a 49.6-point difference. So the lattice segregates lineages in space and percolation mixes them, and mixing is the mechanism under the X126 trade-off. Controls: partner counts reproducing X128b exactly, kin nearer than strangers in the lattice, heredity and survival, band population. Report x129-geometry, section 10gw."
+  },
+  {
+   "id": "X130_remerge",
+   "title": "Do sisters merge back, and how long does it take?",
+   "status": "closed",
+   "owner": "lead",
+   "kind": "analysis",
+   "cost_gpu_h": 0,
+   "prereg": "reports/2026-11-03-x130-remerge-plan.md",
+   "created_at": "2026-11-03T05:35:00+03:00",
+   "closed_at": "2026-11-03T05:57:00+03:00",
+   "closed_by": "lead",
+   "note": "Sisters rarely merge back - 18.4 % of 1 142 lattice pairs (CI 16.1-20.8), 8.6 % of 1 106 in the middle cell, 17.4 % of 1 195 in the maze, with 82-91 % censored - but fast when they do: median 80 / 120 / 60 steps. The two headline numbers (18.4 % of pairs, 64 % of absorptions) carry different denominators and neither explains the other away; birth separation decides a merge (8.06 against 9.27 in the lattice, 11.75 against 24.52 in the maze), which makes it the geometric handle for an interventional test. Controls: the sibling-absorption census reproducing X128b exactly (186/31/57) from an independent script, end-survival reproducing X126, heredity. Two script defects found by those controls (pair ordering in the survival readout, a mean interval printed next to a median) and both rules written. Report x130-remerge, section 10gx."
   }
  ]
 }

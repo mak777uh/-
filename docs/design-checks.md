@@ -379,3 +379,15 @@ that survives the invariance: at the same geometry, the genealogy of the neighbo
 population must build the matching variable **outside** the instrument's own filter (an independent measurement), otherwise the plan is void by construction and
 should be refused at §3d, not discovered after the run.
 Report: `reports/2026-11-03-x129-geometry.md`.
+
+**The pair's ordering must be applied in every block that uses the pair (03.11, X130).** X130's survival readout was copied from X126 but computed on the daughters in
+**birth order** instead of the larger/smaller ordering that defines the claim. Within a pair the two orderings differ on half the pairs, so the differences cancelled:
+the script printed **0.0219** where X126 says **0.2496**, and the end-survival control caught it before the run was read. A second defect in the same script printed a
+median with an interval bootstrapped from the **mean** (median 80, interval [127, 211] - an interval that does not contain its own point estimate).
+
+Rules. (1) When a statistic is a difference inside a pair, the ordering rule is applied in **every** block that touches the pair, not only where it is defined; a helper
+that returns the ordered pair, used everywhere, is cheaper than the bug. (2) An interval belongs to the statistic it is printed with: a bootstrap of a cousin is a
+different claim, not a conservative version of this one. (3) A re-derivation prints the source number it is supposed to reproduce **next to** the recomputed one, so a
+cancellation of the kind above cannot look like a real effect of size 0.02. (4) When two published shares of the same event differ, check the denominators before the
+finding: "18 % of sister pairs re-merge" and "64 % of absorptions take a sibling" are both true and neither explains the other away.
+Report: `reports/2026-11-03-x130-remerge.md`.
