@@ -201,3 +201,4 @@ sections were not rewritten, only moved; each one keeps its identifier, so every
 | §10gv | The budget must be local, and with a local budget the maze is the destructive habitat (X128, X128b, 03.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
 | §10gw | Who lives next door: absorption always happens at contact, and the neighbour's genealogy is what the habitat changes (X129, 03.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
 | §10gx | Sisters rarely merge back, and the ones that do are over in 60-120 steps (X130, 03.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
+| §10gy | Ten worlds separate the death fates and the kinship, and do not separate the survival contrast (X131, 03.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |

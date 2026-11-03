@@ -3132,3 +3132,42 @@ different claim, not a conservative version of this one.
 Report: `reports/2026-11-03-x130-remerge.md`; aggregate `l1_field_x130_remerge.json`. Next: X131 asks whether the absorber inherits the swallowed lineage's size, and
 X132 is the first interventional test of the whole chain — a world whose split distance is set larger, which should remove the family absorptions and, if §10gw is right,
 raise persistence.
+
+## 10gy. Ten worlds separate the death fates and the kinship, and do not separate the survival contrast (X131, 03.11)
+
+Every interval in §10gt-§10gx was bootstrapped over pairs or deaths inside ten worlds. X131 recomputed each statistic **per world** and tested the cell differences
+at the world level, with the three cells paired by seed (301-310). Controls: the pooled value recomputed from the per-world numerators and denominators reproduces
+every published number exactly.
+
+| statistic | lattice - maze | middle - lattice | maze - middle |
+|---|---|---|---|
+| vanished share | **+0.178** (0.128-0.224) | **+0.125** (0.082-0.178) | **+0.053** (0.012-0.095) |
+| kin share | **-0.443** (-0.525 to -0.345) | **-0.427** (-0.527 to -0.311) | -0.016 (ns) |
+| absorbed share | **-0.132** | **-0.136** | +0.004 (ns) |
+| re-merge share | +0.022 (ns) | **-0.068** | **+0.090** |
+| isolated share | -0.067 (ns) | +0.010 (ns) | **-0.077** |
+| depth contrast | **+1.049** (0.114-2.112) | +0.091 (ns) | +0.958 (ns) |
+| survival contrast | **-0.077** (-0.166 to **+0.012**, ns) | +0.074 (ns) | **-0.151** |
+
+**World-level and quantitative:** the percolating cells destroy more (vanished rises monotonically, all three pairs), they hand their absorptions to strangers
+(-0.443, a step), the lattice absorbs more (-0.13 against both), and the middle cell's low collision rate is real (lower than both neighbours).
+
+**Marginal:** the depth contrast lattice-versus-maze survives at +1.049 with a lower bound of 0.114, and it does not resolve the middle cell from either neighbour -
+exactly the step at percolation that §10gt reported.
+
+**Not resolved with ten worlds, and this is a correction to the block's rhetoric.** The survival contrast between the lattice and the maze - +0.2496 against
++0.1372, the number §10gm, §10gn and §10gt all build on - is -0.077 across ten seed pairs with an interval that **crosses zero**. At the pair level it is 17 sigma;
+at the world level the world-to-world spread (sd 0.14) is as large as the effect. What *is* resolved in survival is the fall from the middle cell into the maze
+(-0.151). So the consequence claim has to be stated in two parts: **within a world** the larger sister's lineage survives more often (+0.25 in the lattice, +0.14 in
+the maze), and **between habitats** only the middle-to-maze drop is established.
+
+The practical consequence is a power requirement, not a new design: on the observed spread (sd 0.14 for survival, 0.69-1.67 for depth) a paired test at 80 % power
+needs **30-40 worlds** per cell. That is the price of the next cross-habitat claim, and it is cheaper than a new world.
+
+Two rules came out of the run. **Cells that share seeds must be compared paired** - overlapping marginal intervals is a weaker test of the same hypothesis and must
+not be reported as *the* test, though both results should be printed. And **a pair-level interval is within-world precision**: quoting it as a habitat-level
+statement is the same error as quoting a filtered statistic without its filter.
+
+Report: `reports/2026-11-03-x131-worlds.md`; aggregate `l1_field_x131_worlds.json`. Next: X132 is the power run (thirty worlds per cell, the same flags, new
+seeds), X133 pools the ten worlds with a world random effect to see how much of the within-world effect survives the world-level variance, and X134 asks what makes
+the survival contrast swing between 0.09 and 0.30 across seeds.

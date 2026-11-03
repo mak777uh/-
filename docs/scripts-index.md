@@ -4,7 +4,7 @@
 
 The curated page — what matters and why — is [`scripts.md`](scripts.md). This file is the complete list, so that every command behind a number in the record can be found.
 
-Scripts: **319**.
+Scripts: **320**.
 
 ## Гейты и проверки (47)
 
@@ -171,7 +171,7 @@ Scripts: **319**.
 | `make_seed_grid_figure.py` | Собрать Figure 4 рукописи: сетка «инициализация × порядок данных» (§4.13). |
 | `make_simple_poster.py` | Простой постер для владельца: что мы узнали, без терминов. |
 
-## Прочее (184)
+## Прочее (185)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -271,6 +271,7 @@ Scripts: **319**.
 | `x128b_analyse.py` | x128b_analyse.py — X128b: the local budget, then the kinship of whoever took the cells. |
 | `x129_analyse.py` | x129_analyse.py — X129: is the kin advantage only geometry? Who lives next door at the same distance. |
 | `x130_analyse.py` | x130_analyse.py — X130: do sisters merge back, and how long does it take? |
+| `x131_analyse.py` | x131_analyse.py — X131: per-world values, then a bootstrap over WORLDS rather than over pairs. |
 | `x56_matrix.py` | x56_matrix.py — сходимость по шагу: контраст при dt = 1.0, 0.5, 2.0. |
 | `x58_analyse.py` | x58_analyse.py — the same measurement on a 128 grid: β₀, β₁, wavelength, normalised count. |
 | `x58_series.py` | x60_series.py — X60: the twenty field runs that keep their snapshots. |

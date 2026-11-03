@@ -391,3 +391,16 @@ different claim, not a conservative version of this one. (3) A re-derivation pri
 cancellation of the kind above cannot look like a real effect of size 0.02. (4) When two published shares of the same event differ, check the denominators before the
 finding: "18 % of sister pairs re-merge" and "64 % of absorptions take a sibling" are both true and neither explains the other away.
 Report: `reports/2026-11-03-x130-remerge.md`.
+
+**Cells that share seeds are compared paired (03.11, X131).** X131 tested whether the habitat differences survive resampling worlds. Its registered rule compared
+the **marginal** world-level intervals and called a difference world-level when they did not overlap. The three cells use the same seeds 301-310, so the design is
+paired and the marginal test throws that away: for the absorbed share and for the depth contrast the marginal intervals overlap while the **per-seed difference**
+excludes zero. Both results were printed; the paired one is quoted.
+
+Rules. (1) When two arms share seeds, units or pairs by construction, the test of their difference is the **paired difference**, bootstrapped over those units - the
+overlap of two marginal intervals is a weaker test of the same hypothesis and must never be reported as *the* test. (2) A pair-level interval is **within-world
+precision**: quoting it as a statement about habitats is the same error as quoting a filtered statistic without its filter. (3) Before a cross-habitat claim, compute
+the power from the observed per-world spread: X131 puts 30-40 worlds at the price of the survival contrast, which is worth knowing before the claim is written.
+(4) When a test is replaced by a more powerful one, both results are printed and the replacement is stated in the report - not because the new test is more
+favourable, but because it is the test the design implies.
+Report: `reports/2026-11-03-x131-worlds.md`.
