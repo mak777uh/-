@@ -426,3 +426,26 @@ Report: `reports/2026-11-03-x131-worlds.md`.
 
 Тот же класс, что «реализация расходится с определением», но на уровне входа: проверка на параметре проходит всегда,
 потому что параметр записывается из того же запроса.
+
+## A rasterisation bound must be registered on the effective gap, not on raw cells
+
+03.11 (X154). The pre-registration bounded the first-frame disc area at "at most 2 cells per disc across the four arms" —
+a check on whether the half-cell separation moved the *disc* as well as the gap. The measured areas were **110 / 108 / 110 /
+113** cells per disc: a spread of five, and a 3-cell move into the last arm. The control failed by one cell, in a series whose
+verdict was otherwise clean.
+
+The bound was unsatisfiable, not informative. The nominal radius is 6.0 and pi*6^2 is 113, so the last arm is the fully
+covered disc and the earlier ones are under-covered; a radius-6 disc placed at half-cell separations can only land on cell
+areas 108, 110 or 113, i.e. the *quantisation* of the disc is larger than the bound. Converted to an effective radius
+sqrt(A/pi), the realised surface gaps were 6.67 / 7.27 / 7.67 / 8.00 cells — monotone in the nominal gap, so no arm was a
+duplicate and none was reordered.
+
+Rules. (1) A manipulation bound on a rasterised quantity is registered in the **physical** unit of the claim (here: the
+effective surface gap `separation - 2*sqrt(area/pi)`), with the quantisation step printed next to it; a bound smaller than the
+grid's own quantisation is a guaranteed void and cannot detect anything. (2) When such a bound fails, the report converts the
+rasterised values to the physical unit and says whether the arms keep their order, rather than voiding on the raw number.
+(3) The direction of the confound is stated: a larger disc at a fixed centre separation contacts *earlier*, so it works
+against a "the time widens as the gap grows" reading, not for it. (4) A failed control is printed in the report and in the
+queue note even when the verdict stands — a control that is quietly re-read is indistinguishable from one that was never
+registered.
+Report: `reports/2026-11-03-x154-mixing-curve.md`.

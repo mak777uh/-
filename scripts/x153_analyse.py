@@ -53,6 +53,20 @@ def main(argv=None) -> int:
     counts = {c: len([r for r in usable if r["class"] == c]) for c in ("M", "A", "P")}
     times = [r["t_dissolve"] for r in usable if r["class"] == "M" and r["t_dissolve"] is not None]
     median_t = round(st.median(times), 1) if times else None
+    time_hist = {str(t): times.count(t) for t in sorted(set(times))}
+
+    # The rasterised initial state, against the neighbouring arm at the same radius: a half-cell separation can move
+    # the discs by a cell, so the manipulation has to be checked on the field, not only on the parameter.
+    def step1(stem: str, seed: int) -> dict | None:
+        p = L1 / f"{stem}_s{seed}.json"
+        if not p.exists():
+            return None
+        w = json.loads(p.read_text(encoding="utf-8"))
+        s = (w.get("series") or [{}])[0]
+        return {"areas": s.get("areas"), "components": s.get("components"), "occupied": s.get("occupied")}
+
+    initial = {str(seed): {"gap75": step1("x153_g75_r60", seed), "gap7": step1("x150_g7_r60", seed)}
+               for seed in SEEDS}
 
     bad = []
     if len(usable) != 10:
@@ -74,12 +88,17 @@ def main(argv=None) -> int:
 
     m = counts["M"]
     n = len(usable)
+    slow = int(time_hist.get("49", 0) + time_hist.get("59", 0))
     if bad:
         verdict = "void: " + "; ".join(bad)
     elif m >= 9:
-        verdict = (f"WHOLE-CELL STEP: {m} of {n} seeds coalesce at a surface gap of 7.5 cells, as they do at 7, so the "
-                   f"half-cell changes nothing - the boundary is the last integer gap at which coalescence is universal "
-                   f"(8 cells for a 28-cell disc, 7 for the larger ones), not a line sampled coarsely")
+        verdict = (f"WHOLE-CELL STEP IN THE OUTCOME, AND A MIX IN THE TIME: {m} of {n} seeds coalesce at a surface gap "
+                   f"of 7.5 cells, as they do at 7, so the half-cell does not move the boundary - it stays the last "
+                   f"integer gap at which coalescence is universal (8 cells for a 28-cell disc, 7 for the larger ones). "
+                   f"But the half-cell is visible in the timing: {slow} of {n} seeds dissolve at the later logged step "
+                   f"({time_hist}) while {n - slow} keep gap 7's step, and at gap 8 the coalescing seeds spread over two "
+                   f"later steps too. So the outcome steps and the time mixes - the third time the two laws behave "
+                   f"differently")
     elif m <= 3:
         verdict = (f"CONTRADICTION: only {m} of {n} seeds coalesce at a gap of 7.5, fewer than the 3 of 5 at a gap of 8, "
                    f"which breaks the monotonicity the block rests on - no further radius until this is explained")
@@ -106,9 +125,14 @@ def main(argv=None) -> int:
         "arm": {"radius": 6.0, "separation": 19.5, "gap": 7.5, "runs": n,
                 "M": counts["M"], "A": counts["A"], "P": counts["P"],
                 "median_t_coalescence": median_t, "n_timed": len(times),
+                "time_histogram": time_hist,
                 "seeds": {str(r["seed"]): {"class": r["class"], "t_dissolve": r["t_dissolve"],
                                            "daughters": r["daughters"], "live": r["live"]}
                           for r in sorted(usable, key=lambda r: r["seed"])}},
+        "initial_state": initial,
+        "manipulation_note": ("the half-cell separation also moved the rasterised discs by one cell each (areas 110 "
+                              "against 108 at gap 7), so the arm is a gap plus ~2 % of area; the direction is "
+                              "conservative, because a larger disc is the case where the boundary breaks earlier"),
         "neighbours_radius6": {str(g): {"arm": v[0], "M": v[1], "of": v[2], "median_t": v[3]}
                                for g, v in NEIGHBOURS.items()},
         "seeds_601_605_only": {str(r["seed"]): r["class"] for r in sorted(usable, key=lambda r: r["seed"])

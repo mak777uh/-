@@ -3598,3 +3598,38 @@ must read the state, not the request.
 
 Report: `reports/2026-11-03-x153-halfcell.md`; aggregate `l1_field_x153_halfcell.json`. Next: X154 (the mixing curve at
 half-cells in both directions), X152 (radius 3.75 between the radii that disagree), X149 (the shape of the product).
+
+## 10hn. The outcome steps, the time has a shoulder (X154, 03.11)
+
+§10hm gave one arm with two slow seeds out of ten and could not tell a width from a two-seed accident. X154 fills the curve
+at radius 6 with ten seeds per arm (twenty new runs; the 7.5 arm is X153's, seeds 601-605 at gaps 7 and 8 are X150's):
+
+| surface gap | seeds coalescing | their dissolution steps | slow fraction |
+|---|---|---|---|
+| 6.5 | 10 of 10 | 39 x10 | 0.0 |
+| 7.0 | 10 of 10 | 39 x10 | 0.0 |
+| 7.5 | 10 of 10 | 39 x8, 49 x2 | 0.2 |
+| 8.0 | 5 of 10 | 49 x3, 59 x2 | 1.0 |
+
+The registered branch that fires is a **real width**: monotone, a rise of 1.0 against the declared minimum of 0.3, and an
+interior value strictly between 0 and 1. So X153's two seeds were the shoulder of a curve, not noise. The registered
+denominator is *coalescing* seeds and at 8.0 only five of ten coalesce, so the same rule was also run on all ten seeds
+(a non-coalescing seed counted as not slow): 0.0 / 0.0 / 0.2 / 0.5, rise +0.50, same verdict. The verdict does not depend on
+the denominator; the magnitude does, and both are quoted together.
+
+What the design cannot do: the resolution is three seeds, and the adjacent 7.0 -> 7.5 move is two, so no single step is
+claimed; there is one interior arm, so the width is bracketed to [7.0, 8.0] cells and not located inside it; and with a
+10-step logging quantum "slow" is one bit, so a real shift of a few steps would be invisible. The passage 0.2 -> 1.0 is
+equally consistent with a threshold for "slow" near 8 and with a continuous density, and the report does not choose.
+
+**The one control that does not pass as written.** The plan bounded the first-frame rasterised area at 2 cells per disc
+across the four arms; the measured areas are 110 / 108 / 110 / 113, a spread of 5 and a largest adjacent move of 3. Recorded,
+not glossed: the nominal radius 6.0 is pi*36 ~ 113 cells, so the last arm is the *truest* disc and the earlier ones are
+under-covered; converted to an effective radius the actual surface gaps are 6.67 / 7.27 / 7.67 / 8.00, still monotone in the
+nominal gap; and the direction is against the finding, since a larger disc at a fixed centre separation contacts *earlier*
+while the observed effect is later dissolution. `docs/design-checks.md` gains the rule that such a bound must be registered
+on the **effective gap**, because a radius-6 disc on a discrete grid cannot move by less than 2-3 cells per half-cell step.
+
+Report: `reports/2026-11-03-x154-mixing-curve.md`; aggregate `l1_field_x154_mixing.json`. Next: X152 (radius 3.75, where the
+outcome step moves between radii), a finer logging quantum at a gap of 7.5 (five steps instead of ten, to see whether the
+two slow seeds are a distribution or one value), X149 (the shape of the product, with frames).

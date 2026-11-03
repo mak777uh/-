@@ -1,0 +1,343 @@
+{
+  "kind": "l1_field_x154_mixing",
+  "experiment": "X154",
+  "command": "python scripts/x154_analyse.py --write",
+  "prereg": "reports/2026-11-03-x154-mixing-curve-plan.md",
+  "definitions": {
+    "unit": "the seed; four arms of one radius (6.0), ten seeds each",
+    "slow": "a coalescing seed whose mutual coalescence lands at 49 or later logged steps, i.e. not at gap 7's 39",
+    "slow_fraction": "slow seeds over coalescing seeds in the arm (the time readout)",
+    "coalescing_fraction": "M over all seeds in the arm (the outcome readout)",
+    "decision_rule": "rise of at least 0.3 with an interior value = width; unordered = noise; flat then 1.0 = step"
+  },
+  "curve": [
+    {
+      "gap": 6.5,
+      "separation": 18.5,
+      "runs": 10,
+      "M": 10,
+      "A": 0,
+      "P": 0,
+      "coalescing_fraction": 1.0,
+      "time_histogram": {
+        "39": 10
+      },
+      "median_t": 39.0,
+      "slow": 0,
+      "slow_fraction": 0.0,
+      "slow_fraction_of_all": 0.0,
+      "rasterised_area_per_disc": [
+        110
+      ],
+      "logging_lattice": {
+        "spacing_steps": 10,
+        "first_logged_step": 10,
+        "reported_time_offset": 1
+      },
+      "seeds": {
+        "601": {
+          "class": "M",
+          "t_dissolve": 39,
+          "source": "x154_g65_r60"
+        },
+        "602": {
+          "class": "M",
+          "t_dissolve": 39,
+          "source": "x154_g65_r60"
+        },
+        "603": {
+          "class": "M",
+          "t_dissolve": 39,
+          "source": "x154_g65_r60"
+        },
+        "604": {
+          "class": "M",
+          "t_dissolve": 39,
+          "source": "x154_g65_r60"
+        },
+        "605": {
+          "class": "M",
+          "t_dissolve": 39,
+          "source": "x154_g65_r60"
+        },
+        "606": {
+          "class": "M",
+          "t_dissolve": 39,
+          "source": "x154_g65_r60"
+        },
+        "607": {
+          "class": "M",
+          "t_dissolve": 39,
+          "source": "x154_g65_r60"
+        },
+        "608": {
+          "class": "M",
+          "t_dissolve": 39,
+          "source": "x154_g65_r60"
+        },
+        "609": {
+          "class": "M",
+          "t_dissolve": 39,
+          "source": "x154_g65_r60"
+        },
+        "610": {
+          "class": "M",
+          "t_dissolve": 39,
+          "source": "x154_g65_r60"
+        }
+      }
+    },
+    {
+      "gap": 7.0,
+      "separation": 19.0,
+      "runs": 10,
+      "M": 10,
+      "A": 0,
+      "P": 0,
+      "coalescing_fraction": 1.0,
+      "time_histogram": {
+        "39": 10
+      },
+      "median_t": 39.0,
+      "slow": 0,
+      "slow_fraction": 0.0,
+      "slow_fraction_of_all": 0.0,
+      "rasterised_area_per_disc": [
+        108
+      ],
+      "logging_lattice": {
+        "spacing_steps": 10,
+        "first_logged_step": 10,
+        "reported_time_offset": 1
+      },
+      "seeds": {
+        "601": {
+          "class": "M",
+          "t_dissolve": 39,
+          "source": "x150_g7_r60"
+        },
+        "602": {
+          "class": "M",
+          "t_dissolve": 39,
+          "source": "x150_g7_r60"
+        },
+        "603": {
+          "class": "M",
+          "t_dissolve": 39,
+          "source": "x150_g7_r60"
+        },
+        "604": {
+          "class": "M",
+          "t_dissolve": 39,
+          "source": "x150_g7_r60"
+        },
+        "605": {
+          "class": "M",
+          "t_dissolve": 39,
+          "source": "x150_g7_r60"
+        },
+        "606": {
+          "class": "M",
+          "t_dissolve": 39,
+          "source": "x154_g70_r60"
+        },
+        "607": {
+          "class": "M",
+          "t_dissolve": 39,
+          "source": "x154_g70_r60"
+        },
+        "608": {
+          "class": "M",
+          "t_dissolve": 39,
+          "source": "x154_g70_r60"
+        },
+        "609": {
+          "class": "M",
+          "t_dissolve": 39,
+          "source": "x154_g70_r60"
+        },
+        "610": {
+          "class": "M",
+          "t_dissolve": 39,
+          "source": "x154_g70_r60"
+        }
+      }
+    },
+    {
+      "gap": 7.5,
+      "separation": 19.5,
+      "runs": 10,
+      "M": 10,
+      "A": 0,
+      "P": 0,
+      "coalescing_fraction": 1.0,
+      "time_histogram": {
+        "39": 8,
+        "49": 2
+      },
+      "median_t": 39.0,
+      "slow": 2,
+      "slow_fraction": 0.2,
+      "slow_fraction_of_all": 0.2,
+      "rasterised_area_per_disc": [
+        110
+      ],
+      "logging_lattice": {
+        "spacing_steps": 10,
+        "first_logged_step": 10,
+        "reported_time_offset": 1
+      },
+      "seeds": {
+        "601": {
+          "class": "M",
+          "t_dissolve": 39,
+          "source": "x153_g75_r60"
+        },
+        "602": {
+          "class": "M",
+          "t_dissolve": 39,
+          "source": "x153_g75_r60"
+        },
+        "603": {
+          "class": "M",
+          "t_dissolve": 39,
+          "source": "x153_g75_r60"
+        },
+        "604": {
+          "class": "M",
+          "t_dissolve": 39,
+          "source": "x153_g75_r60"
+        },
+        "605": {
+          "class": "M",
+          "t_dissolve": 39,
+          "source": "x153_g75_r60"
+        },
+        "606": {
+          "class": "M",
+          "t_dissolve": 39,
+          "source": "x153_g75_r60"
+        },
+        "607": {
+          "class": "M",
+          "t_dissolve": 49,
+          "source": "x153_g75_r60"
+        },
+        "608": {
+          "class": "M",
+          "t_dissolve": 39,
+          "source": "x153_g75_r60"
+        },
+        "609": {
+          "class": "M",
+          "t_dissolve": 39,
+          "source": "x153_g75_r60"
+        },
+        "610": {
+          "class": "M",
+          "t_dissolve": 49,
+          "source": "x153_g75_r60"
+        }
+      }
+    },
+    {
+      "gap": 8.0,
+      "separation": 20.0,
+      "runs": 10,
+      "M": 5,
+      "A": 5,
+      "P": 0,
+      "coalescing_fraction": 0.5,
+      "time_histogram": {
+        "49": 3,
+        "59": 2
+      },
+      "median_t": 49,
+      "slow": 5,
+      "slow_fraction": 1.0,
+      "slow_fraction_of_all": 0.5,
+      "rasterised_area_per_disc": [
+        113
+      ],
+      "logging_lattice": {
+        "spacing_steps": 10,
+        "first_logged_step": 10,
+        "reported_time_offset": 1
+      },
+      "seeds": {
+        "601": {
+          "class": "M",
+          "t_dissolve": 59,
+          "source": "x150_g8_r60"
+        },
+        "602": {
+          "class": "M",
+          "t_dissolve": 49,
+          "source": "x150_g8_r60"
+        },
+        "603": {
+          "class": "M",
+          "t_dissolve": 49,
+          "source": "x150_g8_r60"
+        },
+        "604": {
+          "class": "A",
+          "t_dissolve": 79,
+          "source": "x150_g8_r60"
+        },
+        "605": {
+          "class": "A",
+          "t_dissolve": 79,
+          "source": "x150_g8_r60"
+        },
+        "606": {
+          "class": "A",
+          "t_dissolve": 79,
+          "source": "x154_g80_r60"
+        },
+        "607": {
+          "class": "A",
+          "t_dissolve": 99,
+          "source": "x154_g80_r60"
+        },
+        "608": {
+          "class": "A",
+          "t_dissolve": 79,
+          "source": "x154_g80_r60"
+        },
+        "609": {
+          "class": "M",
+          "t_dissolve": 49,
+          "source": "x154_g80_r60"
+        },
+        "610": {
+          "class": "M",
+          "t_dissolve": 59,
+          "source": "x154_g80_r60"
+        }
+      }
+    }
+  ],
+  "controls": {
+    "failures": []
+  },
+  "robustness": {
+    "readout": "slow seeds over all ten seeds; a seed that does not coalesce counts as not slow",
+    "curve": [
+      0.0,
+      0.0,
+      0.2,
+      0.5
+    ],
+    "rise": 0.5,
+    "monotone": true,
+    "interior": [
+      0.2,
+      0.5
+    ],
+    "verdict_under_this_readout": "REAL WIDTH",
+    "same_verdict_as_registered": true,
+    "why": "the registered denominator drops to five seeds at gap 8, where half the seeds do not coalesce"
+  },
+  "verdict": "REAL WIDTH: the slow fraction rises from 0.0 at a gap of 6.5 to 1.0 at 8.0 (['6.5: 0.0', '7.0: 0.0', '7.5: 0.2', '8.0: 1.0']), with interior values strictly between 0 and 1, so the transition has a measurable width in the time while it has none in the outcome ([1.0, 1.0, 1.0, 0.5] coalescing)"
+}

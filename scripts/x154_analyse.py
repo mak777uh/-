@@ -38,8 +38,29 @@ def step1(path: Path) -> dict | None:
     if not path.exists():
         return None
     w = json.loads(path.read_text(encoding="utf-8"))
-    s = (w.get("series") or [{}])[0]
-    return {"areas": s.get("areas"), "components": s.get("components"), "occupied": s.get("occupied")}
+    series = w.get("series") or [{}]
+    s = series[0]
+    steps = sorted(int(r.get("step") or 0) for r in series)
+    return {"areas": s.get("areas"), "components": s.get("components"), "occupied": s.get("occupied"),
+            "steps": steps}
+
+
+def lattice(steps: list[int]) -> tuple[int, int, int] | None:
+    """Return (spacing, first_lattice_step, initial_frame) of the logged steps, else None.
+
+    The artifacts carry one initial-state frame at step 1 and then log every `--sample-every` steps (10, 20, ...),
+    so `steps[0]` is off-lattice by design and the progression starts at `steps[1]`. `world_row` reports
+    `t_dissolve` as the logged step minus that initial frame, which is why the arms read 39/49/59 rather than
+    40/50/60; putting the offset back is the only way to ask whether a time was actually logged.
+    """
+    if len(steps) < 3:
+        return None
+    spacing = steps[2] - steps[1]
+    if spacing <= 0 or any(b - a != spacing for a, b in zip(steps[1:], steps[2:])):
+        return None
+    if any(s == steps[0] for s in steps[1:]) or steps[1] <= steps[0]:
+        return None
+    return spacing, steps[1], steps[0]
 
 
 def main(argv=None) -> int:
@@ -68,9 +89,25 @@ def main(argv=None) -> int:
         per_disc = sorted({x for a in areas for x in a["areas"]})
         if len(usable) != 10:
             problems.append(f"gap {gap}: {len(usable)} usable runs, expected 10")
-        off_grid = [t for t in times if t % 10 != 0]
-        if off_grid:
-            problems.append(f"gap {gap}: dissolution times off the 10-step logging grid: {off_grid}")
+
+        # The readout times are logged steps minus the first logged step, so they sit on the sampling lattice with the
+        # offset put back: raw = reported + first_step. Earlier arms were quoted without saying so ("29/39/49" are
+        # offsets, the raw steps are 30/40/50). Check every reported time maps to a step that was actually logged.
+        grids = {}
+        for r in usable:
+            s = step1(L1 / f"{r['source']}_s{r['seed']}.json") or {}
+            grids[(r["source"], r["seed"])] = (lattice(s.get("steps") or []), set(s.get("steps") or []))
+        seen = {g for g, _ in grids.values() if g is not None}
+        if any(g is None for g, _ in grids.values()):
+            problems.append(f"gap {gap}: a run's logged steps are not an arithmetic progression")
+        elif len(seen) > 1:
+            problems.append(f"gap {gap}: the logging lattice differs between runs: {sorted(seen)}")
+        lat = sorted(seen)[0] if len(seen) == 1 else None
+        if lat:
+            first_frame = lat[2]
+            bad = [t for t in times if (t + first_frame) not in next(iter(grids.values()))[1]]
+            if bad:
+                problems.append(f"gap {gap}: dissolution times that were never logged steps: {bad}")
         for r in usable:
             if r["empty"]:
                 problems.append(f"gap {gap}: {r['world']} ends empty")
@@ -85,12 +122,15 @@ def main(argv=None) -> int:
             "slow_fraction": round(len(slow) / max(1, len(times)), 2) if times else None,
             "slow_fraction_of_all": round(len(slow) / max(1, len(usable)), 2),
             "rasterised_area_per_disc": per_disc,
+            "logging_lattice": ({"spacing_steps": lat[0], "first_logged_step": lat[1],
+                                 "reported_time_offset": lat[2]} if lat else None),
             "seeds": {str(r["seed"]): {"class": r["class"], "t_dissolve": r["t_dissolve"],
                                        "source": r["source"]} for r in sorted(usable, key=lambda r: r["seed"])},
         })
 
     by_gap = {c["gap"]: c for c in curve}
     slow_seq = [by_gap[g]["slow_fraction"] for g in (6.5, 7.0, 7.5, 8.0)]
+    slow_all_seq = [by_gap[g]["slow_fraction_of_all"] for g in (6.5, 7.0, 7.5, 8.0)]
     co_seq = [by_gap[g]["coalescing_fraction"] for g in (6.5, 7.0, 7.5, 8.0)]
 
     if problems:
@@ -117,6 +157,33 @@ def main(argv=None) -> int:
                        f"{slow_seq[-1]} at 8.0, less than the 0.3 the ten-seed design can defend, so the curve does not "
                        f"establish a width and no width is quoted")
 
+    # The registered readout is slow seeds over coalescing seeds, which at gap 8 divides by five instead of ten: a
+    # seed that never coalesces cannot be slow, so dropping it from the denominator flatters the arm. Re-run the very
+    # same decision rule on the conservative denominator (all ten seeds, a non-coalescing seed counted as not slow).
+    # Reported alongside, never instead: the registered readout stays primary, this says whether the verdict survives
+    # the denominator changing.
+    rise_all = (slow_all_seq[-1] or 0) - (slow_all_seq[0] or 0)
+    monotone_all = all(slow_all_seq[i + 1] >= slow_all_seq[i] - 0.1 for i in range(3))
+    interior_all = [s for s in slow_all_seq if 0 < (s or 0) < 1]
+    if not monotone_all:
+        verdict_all = "TEN-SEED NOISE"
+    elif rise_all >= 0.3 and interior_all:
+        verdict_all = "REAL WIDTH"
+    elif all((s or 0) == 0 for s in slow_all_seq[:3]) and (slow_all_seq[3] or 0) == 1:
+        verdict_all = "THE SAME WHOLE-CELL THRESHOLD IN THE TIME"
+    else:
+        verdict_all = "BELOW THE RESOLUTION OF THE DESIGN"
+    robustness = {
+        "readout": "slow seeds over all ten seeds; a seed that does not coalesce counts as not slow",
+        "curve": slow_all_seq,
+        "rise": round(rise_all, 2),
+        "monotone": monotone_all,
+        "interior": interior_all,
+        "verdict_under_this_readout": verdict_all,
+        "same_verdict_as_registered": (not problems) and verdict_all in verdict,
+        "why": "the registered denominator drops to five seeds at gap 8, where half the seeds do not coalesce",
+    }
+
     res = {
         "kind": "l1_field_x154_mixing",
         "experiment": "X154",
@@ -131,6 +198,7 @@ def main(argv=None) -> int:
         },
         "curve": curve,
         "controls": {"failures": problems},
+        "robustness": robustness,
         "verdict": verdict,
     }
     if args.write:
@@ -141,6 +209,8 @@ def main(argv=None) -> int:
         print(f"  gap {c['gap']:>4}: M {c['M']}/{c['runs']}  slow {c['slow']} of {c['M']} "
               f"({c['slow_fraction']})  times {c['time_histogram']}  areas {c['rasterised_area_per_disc']}")
     print("  verdict:", verdict)
+    print(f"  same rule on all ten seeds: {slow_all_seq} rise {rise_all:+.2f} -> "
+          f"{verdict_all} (agrees: {robustness['same_verdict_as_registered']})")
     return 0
 
 

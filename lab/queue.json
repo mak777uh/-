@@ -1,6 +1,6 @@
 {
  "schema_version": 1,
- "updated_at": "2026-11-03T20:30:00+03:00",
+ "updated_at": "2026-11-03T19:19:53Z",
  "note": "Очередь пунктов после E02c. Claim берётся до пре-регистрации, а не перед запуском: lab.py item-claim. Статус running означает занятый GPU-лейн и может быть только у одного пункта. | 25.10: добавлено поле impact (1-5) — приоритет конвейера = impact/max(cost_gpu_h,0.1); для запуска пункту нужны prereg (закоммиченный план) и launch.command+outdir.",
  "items": [
   {
@@ -2898,19 +2898,21 @@
   {
    "id": "X154_mixing",
    "title": "The mixing curve: is the width in the time measurable, or is it noise of ten seeds? Radius 6 at gaps 6.5, 7, 7.5, 8",
-   "status": "running",
+   "status": "closed",
    "owner": "lead",
    "kind": "experiment",
    "cost_gpu_h": 0,
    "prereg": "reports/2026-11-03-x154-mixing-curve-plan.md",
    "created_at": "2026-11-03T20:30:00+03:00",
-   "heartbeat_at": "2026-11-03T20:30:00+03:00",
+   "heartbeat_at": null,
    "launch": {
     "runner": "scripts/x154_series.py",
     "outdir": "morphogenesis/experiments/L1_field",
     "pattern": "x154_g*_s*.json"
    },
-   "note": "Twenty new runs at radius 6 to give every arm ten seeds: gap 6.5 (separation 18.5, seeds 601-610), plus five seeds each at gaps 7.0 and 8.0 to complete the X150 arms; gap 7.5 comes whole from X153. The readout is the fraction of coalescing seeds that land on the later logged step (>= 49) against the fraction that coalesce at all. Registered: a monotone rise of at least 0.3 with an interior value means a real width in the time; unordered means X153's two slow seeds were ten-seed noise; flat up to 7.5 then 1.0 at 8 means the time shares the outcome's whole-cell threshold."
+   "note": "THE WIDTH IS REAL. Radius 6, ten seeds per arm: the fraction of coalescing seeds that dissolve at the later logged step rises 0.0 / 0.0 / 0.2 / 1.0 of coalescing seeds (0.0 / 0.0 / 0.2 / 0.5 of all ten) as the gap goes 6.5 / 7 / 7.5 / 8, so X153's two slow seeds were the shoulder of a curve and not ten-seed noise. The outcome stays a whole-cell step (10/10 at 7.5, 5/10 at 8), so the time crosses first and gradually and the outcome then steps. Limits: one interior arm, so the width is bracketed to [7.0, 8.0] cells and not located; the 7.0->7.5 move is two seeds, below the registered three-seed resolution, so no single step is claimed; the 10-step quantum makes 'slow' one bit. One registered control fails as written - first-frame disc area 110 / 108 / 110 / 113 against a bound of 2 cells - recorded with the effective-gap conversion (6.67 / 7.27 / 7.67 / 8.00, still monotone) and the confound's direction (a larger disc contacts earlier, against the finding); docs/design-checks.md gains the rule to register such a bound on the effective gap. Report x154-mixing-curve, section 10hn. Next: X152 (radius 3.75), a 5-step logging quantum at a gap of 7.5, X149 (shape, frames).",
+   "closed_at": "2026-11-03T19:19:53Z",
+   "closed_by": "lead"
   }
  ]
 }
