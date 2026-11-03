@@ -4,7 +4,7 @@
 
 The curated page — what matters and why — is [`scripts.md`](scripts.md). This file is the complete list, so that every command behind a number in the record can be found.
 
-Scripts: **336**.
+Scripts: **338**.
 
 ## Гейты и проверки (47)
 
@@ -171,7 +171,7 @@ Scripts: **336**.
 | `make_seed_grid_figure.py` | Собрать Figure 4 рукописи: сетка «инициализация × порядок данных» (§4.13). |
 | `make_simple_poster.py` | Простой постер для владельца: что мы узнали, без терминов. |
 
-## Прочее (201)
+## Прочее (203)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -288,6 +288,8 @@ Scripts: **336**.
 | `x139_series.py` | x134_series.py — X139: the slowing curve - separations 7, 8, 10, 11 at radius 3; 12/14/15/16 are reused from X136. |
 | `x140_analyse.py` | x140_analyse.py — X134: the mixing length, read from the genealogy of the two seeded lineages. |
 | `x140_series.py` | x134_series.py — X140: the gap rule's prediction - radius 4.5 must cross at 18 cells (2*4.5 + 9). |
+| `x142_analyse.py` | x142_analyse.py — X142: how far out does mutual coalescence reach? |
+| `x142_series.py` | x142_series.py — X142: the annihilation band - radius 3 gaps 3 and 7, radius 4.5 gaps 4, 5 and 6. |
 | `x56_matrix.py` | x56_matrix.py — сходимость по шагу: контраст при dt = 1.0, 0.5, 2.0. |
 | `x58_analyse.py` | x58_analyse.py — the same measurement on a 128 grid: β₀, β₁, wavelength, normalised count. |
 | `x58_series.py` | x60_series.py — X60: the twenty field runs that keep their snapshots. |

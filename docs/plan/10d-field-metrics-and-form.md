@@ -3365,34 +3365,31 @@ The rule is now a ruler rather than a summary: it can be applied to any pair of 
 Report: `reports/2026-11-03-x140-gap-rule.md`; aggregate `l1_field_x140_gap_rule.json`. Next: X137 places a pair of relatives at a nine-cell gap, X141 repeats the test at 1-cell spacing with a
 fourth radius, and X139 turns the slowdown into a curve.
 
-## 10hf. The merge has a floor of one quantum, and at a five-cell gap the pair is annihilated (X139, 03.11)
+## 10hf. The merge has a floor of one quantum, and the "annihilation" at five cells was a distance tolerance (X139, corrected 03.11)
 
-§10hc and §10he found a second signature of the mixing length: the median time to absorption rises towards the crossing. X139 filled the range below 12 cells at one-cell spacing to ask whether that
-rise saturates well inside the length.
+**Correction, 03.11 16:00.** This section first reported a third fate at a five-cell gap — "the two structures neither merge nor coexist, they annihilate" — and made it the inner edge of the mixing length. Read at
+the merge step, the arm is the same event as its neighbour: at separation 10 and at separation 11 the two seeded uids disappear on the same logged step, the next step holds one component carrying about the sum of
+both areas, and that component is a **new uid** (uid 3, from which every later uid descends; neither seed ever has a daughter). The field does the same thing in both arms.
 
-| separation | gap | absorbed | both alive | median steps |
-|---|---|---|---|---|
-| 7 | 1 | 5/5 | 0/5 | **1** |
-| 8 | 2 | 5/5 | 0/5 | **1** |
-| 10 | 4 | 5/5 | 0/5 | **10** |
-| **11** | **5** | **0/5** | **0/5** | - |
-| 14 (reused) | 8 | 5/5 | 0/5 | **40** |
-| 15 (reused) | 9 | 5/5 | 0/5 | 50 |
-| 16 (reused) | 10 | 2/5 | 1/5 | 79 |
+The labels differed because the analyser counted a lineage as lost "by absorption" only if the partner's last position lay within `r_dead + r_other + 2` cells: at separation 10 the centroids are 10 cells apart
+against a threshold of 10.8, at separation 11 they are 11 against 10.1. A 2-cell tolerance, sitting exactly where a one-cell step of the sweep moves the quantity, produced the "third fate". The old readout also
+reported the **first** death of the pair, so "absorption" never meant that one lineage swallowed the other, only that one ended first — at separation 14 the first uid dies at step 39 and the second ten steps later,
+again into a new uid.
 
-**The floor is confirmed**: gaps 1, 2 and 4 give medians of 1, 1 and 10 steps - a spread of 9 against the declared 10-step resolution. At contact the pairing is a single unstable structure from the
-first logged step. The rise then belongs to gaps 8-10 (40, 50, 79 steps), roughly doubling towards the crossing.
+**What holds, under tolerance-free classes** (M — mutual coalescence: neither seed has a daughter and both subtrees are gone; A — absorption: one subtree alive; P — persistence: both alive):
 
-**And the 11-cell arm is a third fate.** In all five seeds both seeded uids end, neither is absorbed by the other, and each leaves **no descendants** (subtree size 1 for both) while the world stays
-alive. At a five-cell gap the two structures neither merge nor coexist: they **annihilate**. So the outcome is not monotone in kind - merge at gaps 1-4, **annihilation at 5**, merge again at 8-10
-(progressively slower), separate from 11.
+| gap | 1 | 2 | 3 | 4 | 5 | 7 | 8 | 10 | 11 |
+|---|---|---|---|---|---|---|---|---|---|
+| class | M 5/5 | M 5/5 | M 5/5 | M 5/5 | **M 5/5** | M 5/5 | M 5/5 | M 2/5, A 2/5, P 1/5 | M 2/5, P 3/5 |
+| first logged step with neither seed | 10 | 10 | 10 | 20 | **20** | 40 | 50 | 80-170 | 100-170 |
 
-Two consequences. First, the readout had a blind spot and the run exposed it: "not absorbed and not both alive" was counted as "kept apart", and the first pass printed the nonsense verdict "crossing
-between 14 and 11, non-monotone at 11". The analysis now has an explicit `unresolved` class and drops such an arm from the crossing, which put the bracket back at **14-16**, where §10hc had it.
-Second, **the inner edge of the mixing length is not where merging becomes gentle - it is where merging turns into mutual destruction**, at least at this one gap: 5 of 12 wavelengths, where the two
-inhibitory halos suppress each other's autocatalysis and neither survives to fuse.
+Two things survive intact and one does not. **The floor survives**: at gaps 1-3 the pair is one body by the first logged step after seeding, and at gap 4-5 by the second, a spread of one quantum against the declared
+10-step resolution. **The mixing length survives** at 16 ± 1 cells, now named for what is measured — the separation at which two seeded structures stop coalescing within the horizon — with the transition between
+gaps 9 and 10 (separations 15 and 16) where it was. **The inner edge does not survive as a destruction band**: mutual coalescence simply extends inward to contact, and there is no third fate at five cells.
 
-**The band is unmapped**: one point is not a band, and until gaps 3, 5, 6 and 7 are swept at one-cell spacing the report must not say how wide it is.
+What is retracted: the "third fate", the inner edge as a band, and every reading of the form "one seeded lineage takes the other in" — the merged body is a new uid, so the readout observes the end of a lineage,
+not its transfer. The rule this adds is in [`docs/design-checks.md`](../../docs/design-checks.md): a classification threshold may not be compared against the manipulation itself, and a class that depends on a
+tolerance cannot be published when the sweep step is smaller than the margin to that tolerance.
 
-Report: `reports/2026-11-03-x139-slowing.md`; aggregate `l1_field_x139_slowing.json`. Next: X142 maps the annihilation band, X137 adds kinship at a nine-cell gap (and asks whether kin move the outer
-crossing, the inner edge, or neither), X143 re-measures the floor with a 1-step logging window.
+Reports: `reports/2026-11-03-x139-void-annihilation.md` (the correction), `reports/2026-11-03-x139-slowing.md` (correction appended); aggregates `l1_field_x139_slowing.json`, `l1_field_x142_coalescence.json`. Next:
+X142 measures how far out mutual coalescence reaches (radius 3 gaps 3, 6, 7 and radius 4.5 gaps 4-6), X143 re-measures the floor with a 1-step logging window, X137 adds kinship at a nine-cell gap.

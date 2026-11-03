@@ -11,7 +11,8 @@ Reserved to the owner by `lab/autonomy-rules.json`: publishing anything outward:
 
 ## Running now
 
-- nothing is running
+- **X142_annihilation** — The annihilation band: radius 3 gaps 3 and 7, radius 4.5 gaps 4, 5, 6 (owner `lead`)
+- last artifact written 0.0 h ago
 
 ## Waiting, but not on a human
 
