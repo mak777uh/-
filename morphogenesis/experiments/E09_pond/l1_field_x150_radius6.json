@@ -1,0 +1,626 @@
+{
+  "kind": "l1_field_x150_radius6",
+  "experiment": "X150",
+  "command": "python scripts/x150_analyse.py --write",
+  "prereg": "reports/2026-11-03-x150-radius6-plan.md",
+  "definitions": {
+    "unit": "the arm (one radius, one surface gap); counts are out of the usable seeds",
+    "gap": "SEP - 2R in cells",
+    "M": "mutual coalescence: neither seeded uid has a daughter and both subtrees are gone at the last step",
+    "A": "absorption: exactly one seeded subtree is alive at the last step",
+    "P": "persistence: both seeded subtrees are alive at the last step",
+    "boundary": "the largest surface gap measured at which every seed of the arm coalesces"
+  },
+  "by_arm": {
+    "r30_g6": {
+      "runs": 5,
+      "M": 5,
+      "A": 0,
+      "P": 0,
+      "median_t_coalescence": 29,
+      "n_timed": 5,
+      "seeds": {
+        "601": {
+          "class": "M",
+          "t_dissolve": 29,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "live": true
+        },
+        "602": {
+          "class": "M",
+          "t_dissolve": 29,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "live": true
+        },
+        "603": {
+          "class": "M",
+          "t_dissolve": 29,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "live": true
+        },
+        "604": {
+          "class": "M",
+          "t_dissolve": 29,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "live": true
+        },
+        "605": {
+          "class": "M",
+          "t_dissolve": 29,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "live": true
+        }
+      }
+    },
+    "r30_g7": {
+      "runs": 5,
+      "M": 5,
+      "A": 0,
+      "P": 0,
+      "median_t_coalescence": 39,
+      "n_timed": 5,
+      "seeds": {
+        "601": {
+          "class": "M",
+          "t_dissolve": 39,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "live": true
+        },
+        "602": {
+          "class": "M",
+          "t_dissolve": 39,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "live": true
+        },
+        "603": {
+          "class": "M",
+          "t_dissolve": 39,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "live": true
+        },
+        "604": {
+          "class": "M",
+          "t_dissolve": 39,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "live": true
+        },
+        "605": {
+          "class": "M",
+          "t_dissolve": 39,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "live": true
+        }
+      }
+    },
+    "r30_g8": {
+      "runs": 5,
+      "M": 5,
+      "A": 0,
+      "P": 0,
+      "median_t_coalescence": 49,
+      "n_timed": 5,
+      "seeds": {
+        "601": {
+          "class": "M",
+          "t_dissolve": 49,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "live": true
+        },
+        "602": {
+          "class": "M",
+          "t_dissolve": 49,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "live": false
+        },
+        "603": {
+          "class": "M",
+          "t_dissolve": 49,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "live": true
+        },
+        "604": {
+          "class": "M",
+          "t_dissolve": 49,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "live": true
+        },
+        "605": {
+          "class": "M",
+          "t_dissolve": 49,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "live": true
+        }
+      }
+    },
+    "r30_g9": {
+      "runs": 5,
+      "M": 3,
+      "A": 2,
+      "P": 0,
+      "median_t_coalescence": 69,
+      "n_timed": 3,
+      "seeds": {
+        "601": {
+          "class": "M",
+          "t_dissolve": 69,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "live": true
+        },
+        "602": {
+          "class": "M",
+          "t_dissolve": 59,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "live": true
+        },
+        "603": {
+          "class": "M",
+          "t_dissolve": 69,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "live": true
+        },
+        "604": {
+          "class": "A",
+          "t_dissolve": 109,
+          "daughters": {
+            "1": 2,
+            "2": 0
+          },
+          "live": true
+        },
+        "605": {
+          "class": "A",
+          "t_dissolve": 109,
+          "daughters": {
+            "1": 2,
+            "2": 0
+          },
+          "live": true
+        }
+      }
+    },
+    "r45_g7": {
+      "runs": 5,
+      "M": 5,
+      "A": 0,
+      "P": 0,
+      "median_t_coalescence": 39,
+      "n_timed": 5,
+      "seeds": {
+        "601": {
+          "class": "M",
+          "t_dissolve": 39,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "live": true
+        },
+        "602": {
+          "class": "M",
+          "t_dissolve": 39,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "live": false
+        },
+        "603": {
+          "class": "M",
+          "t_dissolve": 39,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "live": true
+        },
+        "604": {
+          "class": "M",
+          "t_dissolve": 39,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "live": true
+        },
+        "605": {
+          "class": "M",
+          "t_dissolve": 39,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "live": true
+        }
+      }
+    },
+    "r45_g8": {
+      "runs": 5,
+      "M": 3,
+      "A": 2,
+      "P": 0,
+      "median_t_coalescence": 49,
+      "n_timed": 3,
+      "seeds": {
+        "601": {
+          "class": "M",
+          "t_dissolve": 49,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "live": true
+        },
+        "602": {
+          "class": "M",
+          "t_dissolve": 49,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "live": true
+        },
+        "603": {
+          "class": "M",
+          "t_dissolve": 49,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "live": true
+        },
+        "604": {
+          "class": "A",
+          "t_dissolve": 89,
+          "daughters": {
+            "1": 2,
+            "2": 0
+          },
+          "live": true
+        },
+        "605": {
+          "class": "A",
+          "t_dissolve": 89,
+          "daughters": {
+            "1": 2,
+            "2": 0
+          },
+          "live": true
+        }
+      }
+    },
+    "r45_g9": {
+      "runs": 5,
+      "M": 2,
+      "A": 2,
+      "P": 1,
+      "median_t_coalescence": 64.0,
+      "n_timed": 2,
+      "seeds": {
+        "601": {
+          "class": "P",
+          "t_dissolve": 229,
+          "daughters": {
+            "1": 2,
+            "2": 2
+          },
+          "live": true
+        },
+        "602": {
+          "class": "M",
+          "t_dissolve": 59,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "live": true
+        },
+        "603": {
+          "class": "M",
+          "t_dissolve": 69,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "live": true
+        },
+        "604": {
+          "class": "A",
+          "t_dissolve": 89,
+          "daughters": {
+            "1": 0,
+            "2": 2
+          },
+          "live": true
+        },
+        "605": {
+          "class": "A",
+          "t_dissolve": 89,
+          "daughters": {
+            "1": 0,
+            "2": 2
+          },
+          "live": true
+        }
+      }
+    },
+    "r60_g6": {
+      "runs": 5,
+      "M": 5,
+      "A": 0,
+      "P": 0,
+      "median_t_coalescence": 29,
+      "n_timed": 5,
+      "seeds": {
+        "601": {
+          "class": "M",
+          "t_dissolve": 29,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "live": true
+        },
+        "602": {
+          "class": "M",
+          "t_dissolve": 29,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "live": true
+        },
+        "603": {
+          "class": "M",
+          "t_dissolve": 29,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "live": true
+        },
+        "604": {
+          "class": "M",
+          "t_dissolve": 29,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "live": true
+        },
+        "605": {
+          "class": "M",
+          "t_dissolve": 29,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "live": true
+        }
+      }
+    },
+    "r60_g7": {
+      "runs": 5,
+      "M": 5,
+      "A": 0,
+      "P": 0,
+      "median_t_coalescence": 39,
+      "n_timed": 5,
+      "seeds": {
+        "601": {
+          "class": "M",
+          "t_dissolve": 39,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "live": true
+        },
+        "602": {
+          "class": "M",
+          "t_dissolve": 39,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "live": true
+        },
+        "603": {
+          "class": "M",
+          "t_dissolve": 39,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "live": true
+        },
+        "604": {
+          "class": "M",
+          "t_dissolve": 39,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "live": true
+        },
+        "605": {
+          "class": "M",
+          "t_dissolve": 39,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "live": true
+        }
+      }
+    },
+    "r60_g8": {
+      "runs": 5,
+      "M": 3,
+      "A": 2,
+      "P": 0,
+      "median_t_coalescence": 49,
+      "n_timed": 3,
+      "seeds": {
+        "601": {
+          "class": "M",
+          "t_dissolve": 59,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "live": true
+        },
+        "602": {
+          "class": "M",
+          "t_dissolve": 49,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "live": true
+        },
+        "603": {
+          "class": "M",
+          "t_dissolve": 49,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "live": true
+        },
+        "604": {
+          "class": "A",
+          "t_dissolve": 79,
+          "daughters": {
+            "1": 0,
+            "2": 2
+          },
+          "live": true
+        },
+        "605": {
+          "class": "A",
+          "t_dissolve": 79,
+          "daughters": {
+            "1": 0,
+            "2": 2
+          },
+          "live": true
+        }
+      }
+    }
+  },
+  "boundary": {
+    "r30": {
+      "radius": 3.0,
+      "gaps_measured": [
+        6,
+        7,
+        8,
+        9
+      ],
+      "largest_gap_all_coalesce": 8
+    },
+    "r45": {
+      "radius": 4.5,
+      "gaps_measured": [
+        7,
+        8,
+        9
+      ],
+      "largest_gap_all_coalesce": 7
+    },
+    "r60": {
+      "radius": 6.0,
+      "gaps_measured": [
+        6,
+        7,
+        8
+      ],
+      "largest_gap_all_coalesce": 7
+    }
+  },
+  "timing_control": {
+    "r30_g6": {
+      "observed": 29,
+      "expected": 29
+    },
+    "r30_g7": {
+      "observed": 39,
+      "expected": 39
+    },
+    "r30_g8": {
+      "observed": 49,
+      "expected": 49
+    },
+    "r45_g7": {
+      "observed": 39,
+      "expected": 39
+    },
+    "r60_g6": {
+      "observed": 29,
+      "expected": 29
+    },
+    "r60_g7": {
+      "observed": 39,
+      "expected": 39
+    }
+  },
+  "controls": {
+    "failures": []
+  },
+  "verdict": "THE SHIFT SATURATES: radius 6 still coalesces in 5/5 seeds at a gap of 7 cells and breaks only at 8, the same place radius 4.5 breaks, so the inward move stops after 4.5 and something other than the radius takes over past that size"
+}

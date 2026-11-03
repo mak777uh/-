@@ -1,6 +1,6 @@
 {
  "schema_version": 1,
- "updated_at": "2026-11-03T18:36:00+03:00",
+ "updated_at": "2026-11-03T19:05:00+03:00",
  "note": "Очередь пунктов после E02c. Claim берётся до пре-регистрации, а не перед запуском: lab.py item-claim. Статус running означает занятый GPU-лейн и может быть только у одного пункта. | 25.10: добавлено поле impact (1-5) — приоритет конвейера = impact/max(cost_gpu_h,0.1); для запуска пункту нужны prereg (закоммиченный план) и launch.command+outdir.",
  "items": [
   {
@@ -2844,19 +2844,20 @@
   {
    "id": "X150_radius6",
    "title": "A third radius: does the boundary keep moving inward, and does the time stay put?",
-   "status": "running",
+   "status": "closed",
    "owner": "lead",
    "kind": "experiment",
    "cost_gpu_h": 0,
    "prereg": "reports/2026-11-03-x150-radius6-plan.md",
    "created_at": "2026-11-03T18:36:00+03:00",
-   "heartbeat_at": "2026-11-03T18:36:00+03:00",
    "launch": {
     "runner": "scripts/x150_series.py",
     "outdir": "morphogenesis/experiments/L1_field",
     "pattern": "x150_g*_s*.json"
    },
-   "note": "Fifteen runs of `--init-spots 6.0:{18,19,20}` (surface gaps 6, 7, 8) at F = 0.030. The prediction, registered before the run: 5/5 mutual coalescence at gap 6, mixed at gap 7 - the boundary moving inward by about half a cell per unit of radius from radius 3 (break at 9) and 4.5 (break at 8) - while the median coalescence time stays 29 / 39 / 49 logged steps, the numbers both earlier radii gave."
+   "note": "SATURATION, and the registered prediction for the boundary failed in the branch the registration provided. Radius 6 coalesces 5/5 at a surface gap of 7 and breaks at 8 - the same place radius 4.5 breaks - so the boundary moves inward once, between 28 and 64 cells of disc area, and then stops; it is not a smooth function of the radius. The timing law held a third time and more sharply than registered: 29, 39 and 49 logged steps at gaps 6, 7 and 8 on all three radii, and at gap 8 all three radii dissolve the pair at 49 steps even though only three of five seeds coalesce at 4.5 and 6. Report x150-radius6, section 10hk. Next: X151 (radius 5.25 at gaps 7 and 8 - threshold or plateau), X149 (shape of the product, frames), X146 (wavelength).",
+   "closed_at": "2026-11-03T19:05:00+03:00",
+   "closed_by": "lead"
   }
  ]
 }

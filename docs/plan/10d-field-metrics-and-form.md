@@ -3514,3 +3514,28 @@ alone (X145) and not the size of the fusion product (X148), but more likely with
 Report: 
 eports/2026-11-03-x147-radius45.md; aggregate l1_field_x147_radius45.json. Next: X150 (a third radius at
 gaps 6-8), X149 (the shape of the product, with frames), X146 (the wavelength).
+
+## 10hk. The inward shift of the boundary saturates, and the time stays the gap's (X150, 03.11)
+
+§10hj read the boundary as moving inward with the radius (radius 3 universal to a gap of 8 cells, radius 4.5 to 7) and
+registered a prediction for a third radius: half a cell per unit of radius, so radius 6 should hold 5/5 at gap 6 and be
+mixed at 7. The third radius says no:
+
+| radius | disc area | gap 6 | gap 7 | gap 8 | gap 9 |
+|---|---|---|---|---|---|
+| 3.0 | ~28 cells | M 5/5, t 29 | M 5/5, t 39 | M 5/5, t 49 | M 3/5, A 2/5, t 69 |
+| 4.5 | ~64 cells | - | M 5/5, t 39 | M 3/5, A 2/5, t 49 | M 2/5, A 2/5, P 1/5, t 64 |
+| 6.0 | ~113 cells | M 5/5, t 29 | M 5/5, t 39 | M 3/5, A 2/5, t 49 | - |
+
+Radius 6 coalesces in 5/5 seeds at gap 7 and breaks at 8, the same place radius 4.5 breaks. The boundary therefore moves
+inward once - between 28 and 64 cells of disc area - and then **stops**; it is not a smooth function of the radius, and
+the registered prediction failed in exactly the branch the registration provided for.
+
+The **timing law** survived a third time and more sharply than it was registered: 29, 39 and 49 logged steps at gaps 6, 7
+and 8 on all three radii, and at gap 8 all three radii dissolve the pair at 49 steps even though only three of five
+seeds coalesce at 4.5 and 6. The radius changes *whether* a division intervenes, never *when* the bodies meet.
+
+Two laws, then, and neither reduces to the other: the time is the gap's; the outcome is the pair's, and the pair's part
+saturates somewhere between 28 and 64 cells. Report: `reports/2026-11-03-x150-radius6.md`; aggregate
+`l1_field_x150_radius6.json`. Next: X151 (radius 5.25 at gaps 7 and 8 — threshold or plateau), X149 (the shape of the
+product, with frames), X146 (the wavelength).
