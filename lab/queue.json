@@ -1,6 +1,6 @@
 {
  "schema_version": 1,
- "updated_at": "2026-11-03T06:22:00+03:00",
+ "updated_at": "2026-11-03T06:40:00+03:00",
  "note": "Очередь пунктов после E02c. Claim берётся до пре-регистрации, а не перед запуском: lab.py item-claim. Статус running означает занятый GPU-лейн и может быть только у одного пункта. | 25.10: добавлено поле impact (1-5) — приоритет конвейера = impact/max(cost_gpu_h,0.1); для запуска пункту нужны prereg (закоммиченный план) и launch.command+outdir.",
  "items": [
   {
@@ -2117,22 +2117,26 @@
   {
    "id": "X99_threshold_memory",
    "title": "Does the memory map depend on the excursion threshold? Two cells at 0.15 and 0.25",
-   "status": "planned",
+   "status": "closed",
    "owner": "lead",
    "waiting_on": null,
    "cost_gpu_h": 1,
    "created_at": "2026-11-02T14:14:37+03:00",
-   "note": "X98 voided because the angular map has no threshold — q' and s come from the continuous field, and masking it changed the statistic (0.02-0.07 per cell). But the MEMORY numbers do depend on the threshold: peak area is defined on v > 0.2, and the stored artifacts cannot be re-derived at another cut because the genealogies were built at 0.2 during the run. Two cells at --threshold 0.15 and 0.25, twenty worlds each (40 runs, ~1 h), would say whether the U and the shoulders survive a different excursion cut. This is the reviewer's obvious question and it currently has no answer."
+   "note": "Closed in the record before this audit and never marked in the queue: section 10fs, report reports/2026-11-02-x99-cut-dependent.md, aggregate l1_field_x99_threshold_memory.json. Two inflows at cuts 0.15 and 0.25 against the committed 0.20: half-life 0.77 / 1.16 / 2.26 in the lattice and 1.84 / 2.08 / in the maze, a factor of three, with the ordering of the cells surviving every cut.",
+   "closed_by": "lead",
+   "closed_at": "2026-11-02T12:00:00+03:00"
   },
   {
    "id": "X100_cut_free_size",
    "title": "A size measure that does not need an excursion threshold: integral of v over a basin, or area at half maximum",
-   "status": "planned",
+   "status": "closed",
    "owner": "lead",
    "waiting_on": null,
    "cost_gpu_h": 1,
    "created_at": "2026-11-02T15:25:18+03:00",
-   "note": "X99 показал, что карта полураспада привязана к определению: разброс втрое по срезам и переворот порядка при 0.25, потому что площадь пика задаётся срезом. Размер без среза (интеграл v по бассейну компоненты или площадь на полувысоте) требует поля в моменты пиков. Раннер это теперь умеет: флаг --save-fields-every N (якорь: 0 даёт бит-в-бит прежний прогон). Осталось решить, нужна ли безсрезовая версия карты, и если да — серия на сохранённых снимках каждого логируемого шага (2 клетки x 10 миров, ~40 минут, поля ~300 МБ локально)."
+   "note": "Closed in the record before this audit and never marked in the queue: section 10ft, reports reports/2026-11-02-x100-cutfree-plan.md and -x100-core-vs-skirt.md, aggregate l1_field_x100_cutfree.json. Heredity lives in the skirt rather than in the core, so the cut-free size measure answers X99's question and does not overturn the memory map.",
+   "closed_by": "lead",
+   "closed_at": "2026-11-02T13:00:00+03:00"
   },
   {
    "id": "X101_watershed",
@@ -2559,13 +2563,15 @@
   {
    "id": "X125_definitions",
    "title": "One definition per quantity: generation time, rate, depth — and recompute the affected numbers",
-   "status": "planned",
+   "status": "closed",
    "owner": "lead",
    "kind": "analysis",
    "cost_gpu_h": 0,
    "prereg": null,
    "created_at": "2026-11-03T02:49:34+03:00",
-   "note": "X124 found the line using one word for two quantities. Fix: state each definition once with its unit of aggregation (uid / pair / world / cell), recompute X93's generation-time contrast and X113c's rate under the stated definitions on the same pairs, mark every older number with the definition it used, and make the consequence claims cite directions until the recomputation lands. Register with five sections."
+   "note": "Closed in the record on 03.11 and reverted to planned by a formatting rewrite of this file. It voided by its own control (the rate missed X113c by a factor of three and eight), the void corrected X124's diagnosis (the gap is the >= 50-step filter, not the weighting), X125b printed the filter and reproduced 6.056 / 18.96 to the digit, and X125c retired the generation-time contradiction (22 % of pairs are ties; with X93's rule the fractions are 0.526 and 0.388). Reports x125-definitions-void, x125b-statistics-void, x125c-ties; section 10gs.",
+   "closed_by": "lead",
+   "closed_at": "2026-11-03T03:30:00+03:00"
   },
   {
    "id": "X126_third_cell",
@@ -2661,6 +2667,18 @@
    "closed_at": "2026-11-03T06:22:00+03:00",
    "closed_by": "lead",
    "note": "Per-world values of seven statistics on the thirty dense worlds, tested as paired per-seed differences over seeds 301-310 (the cells share seeds by protocol). World-level and quantitative: vanished +0.178 (0.128-0.224), kin -0.443 (-0.525 to -0.345), absorbed -0.13 against both percolating cells, the middle cell's re-merge dip -0.068 / +0.090, depth lattice-vs-maze +1.049 (0.114-2.112). NOT resolved: the survival contrast lattice vs maze is -0.077 with CI -0.166 to +0.012, so the cross-habitat form of the consequence claim is a power problem, not a finding - 30-40 worlds per cell on the observed spread. Controls: the pooled value recomputed from per-world numerators and denominators reproduces every published number exactly. The registered marginal-overlap rule was replaced by the paired test, which the design implies; both results are printed. Report x131-worlds, section 10gy."
+  },
+  {
+   "id": "X132_power",
+   "title": "The power run: thirty worlds per cell, because ten could not resolve the survival contrast",
+   "status": "running",
+   "owner": "lead",
+   "kind": "experiment",
+   "cost_gpu_h": 0,
+   "prereg": "reports/2026-11-03-x132-power-plan.md",
+   "created_at": "2026-11-03T06:31:00+03:00",
+   "heartbeat_at": "2026-11-03T03:31:00Z",
+   "note": "X131 left the consequence chain's main contrast unresolved: the survival difference between the lattice and the maze is -0.077 with CI -0.166 to +0.012 over ten seed pairs, sd 0.14 across worlds. A paired test at 80 % power needs n >= (2.8*0.14/0.077)^2 ~ 26, so thirty worlds per cell. Twenty new worlds per cell at F=0.030 and 0.040, seeds 311-330, flags identical to x108/x126; anchor must be exact before the series. Controls: the ten old worlds reproduce X131's per-world values, structural liveness in all forty new runs, heredity >= 0.35. Outcomes are pre-declared as resolved / below resolution / contradicted."
   }
  ]
 }
