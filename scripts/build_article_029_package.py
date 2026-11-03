@@ -99,7 +99,7 @@ Data, figures and article text: CC BY 4.0.
 
 LICENSE = """Creative Commons Attribution 4.0 International Public License
 
-Copyright (c) 2026 Morphogenesis laboratory
+Copyright (c) 2026 Ilya Vladimirov
 
 You are free to share (copy and redistribute the material in any medium or format) and to adapt (remix, transform, and
 build upon the material for any purpose, even commercially), under the following terms: Attribution — you must give
@@ -195,7 +195,7 @@ def main() -> int:
             "is 0.9837 [0.9680, 1.0002] and 0.9931 [0.9756, 1.0103], the residual is the mutation rule's own sigma to "
             "one per cent, and with the mutation ablated the trait has no variance at all.</p>"
         ),
-        "creators": [{"name": "Morphogenesis laboratory"}],
+        "creators": [{"name": "Ilya Vladimirov"}],
         "keywords": ["reaction-diffusion", "lineage tracking", "heredity", "merger", "identity",
                      "negative result", "Gray-Scott"],
         "license": "CC-BY-4.0",

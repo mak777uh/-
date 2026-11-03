@@ -45,16 +45,15 @@ The author's own verification, already run (do not re-run, it needs their reposi
 printed numbers to appear in the article and in the derived table, and the derived table is generated from the
 aggregates. Your job is to confirm that the archive you received is the checked one.
 
-## 3. Fill in the two fields only the author can supply
+## 3. The two author-supplied fields, already filled
 
-`zenodo.json` is ready except for two values:
+`zenodo.json` is complete. Both values that only the author could supply have been given by the owner and are final:
 
-1. `creators[].name` — currently the placeholder `"Morphogenesis laboratory"`. Replace it with the author name(s) and
-   affiliation **exactly as the author gives them**, in the author's order. Do not invent a name, an affiliation, or an
-   ORCID. If the author has an ORCID, add `"orcid"` to the same object. The same name goes into the copyright line of
-   `LICENSE` (currently the same placeholder) — ask the author for the exact wording rather than shortening it.
-2. `related_identifiers[0].identifier` — currently a repository URL. Confirm it with the author. If the data repository is
-   private, remove the entry and put "Data available from the author on request" into `notes` instead.
+1. `creators[0].name` — **Ilya Vladimirov**, exactly as given, and the same name stands in the copyright line of
+   `LICENSE`. There is no affiliation and no ORCID in the record. Do not add either: an invented affiliation is worse
+   than a missing one. If the Zenodo form insists on a field, leave it empty or repeat the name — do not guess.
+2. `related_identifiers[0].identifier` — **https://github.com/mak777uh/-**, confirmed by the author as the public data
+   repository. Keep the entry as it is and add no "available on request" note: the repository is public.
 
 Everything else in `zenodo.json` (title, abstract, keywords, licence, version `2.0`, date) matches the article. **Do not
 change the title.**
@@ -112,7 +111,8 @@ re-rendered at its column width. Ask the author before reformatting, and never s
    about the medium. The article says "lineage", "body", "ending", "transmission" for a reason, and that vocabulary is part
    of the result.
 4. **Do not change the licence** (CC BY 4.0) or the version number.
-5. **Do not upload with the placeholder author name.** If the author has not supplied it, stop.
+5. **Do not change the author name or the copyright line.** Both say `Ilya Vladimirov`; the record is the author's, not
+   yours to improve.
 6. **Do not publish a repository tag or release** — this deposit is the publication; anything else needs the author's word.
 
 ## 8. After publishing, report exactly four things

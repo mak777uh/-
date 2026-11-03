@@ -247,8 +247,21 @@ def add_image(doc, alt: str, target: str) -> None:
 
 # --------------------------------------------------------------------------- markdown driver
 
+def document_properties(doc: Document) -> None:
+    """Fill the metadata a reader sees in a PDF viewer (python-docx defaults to its own name)."""
+    props = doc.core_properties
+    props.author = "Ilya Vladimirov"
+    props.last_modified_by = "Ilya Vladimirov"
+    props.title = "How lineages begin and end in a pattern-forming chemical medium"
+    props.subject = "Lineages in a pattern-forming chemical medium (Gray-Scott), v2.0"
+    props.keywords = "reaction-diffusion; lineage tracking; heredity; merger; Gray-Scott"
+    props.comments = ("Data and figures: CC BY 4.0. Every printed number is checked against the aggregates by "
+                      "scripts/check_article_029_numbers.py.")
+
+
 def render(markdown: str) -> Document:
     doc = new_document()
+    document_properties(doc)
     lines = markdown.split("\n")
     i = 0
     first_paragraph = True
