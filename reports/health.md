@@ -1,11 +1,11 @@
 # Здоровье лаборатории
 
-Обновлено: 2026-11-03 14:35 UTC
+Обновлено: 2026-11-03 15:12 UTC
 
 ## Состояние
 
 - CI (по reports/ci-status.json): lab-contract: success (2026-11-03 01:21); analysis-farm: success (2026-11-02 21:30)
-- CI (живой API): lab-contract: pending (0.0 ч назад); analysis-farm: success (0.7 ч назад); nightly-lab: failure (8.6 ч назад)
+- CI (живой API): lab-contract: pending (0.0 ч назад); analysis-farm: success (1.3 ч назад); nightly-lab: failure (9.2 ч назад)
 - ✅ контракт: counts: {"experiments": 32, "readme_experiments": 32, "manuscript_entries": 25, "lit_board_items": 94, "active
 - ✅ размер контракта: [agents-size] 57834 байт ≤ 60000 — ок
 - ✅ числа разделов: [sections] OK — числа разделов воспроизводятся из агрегатов
@@ -39,5 +39,5 @@
 ## Предупреждения
 
 - ⚠ незакоммиченных изменений: 3 (первое: M library/.result-scan-state.json)
-- ⚠ CI «nightly-lab» упал (8.6 ч назад): https://github.com/mak777uh/-/actions/runs/41586809111 — устарело, следующий прогон покажет
+- ⚠ CI «nightly-lab» упал (9.2 ч назад): https://github.com/mak777uh/-/actions/runs/41586809111 — устарело, следующий прогон покажет
 - ⚠ диск: свободно 5.7 ГБ (< 10) — тяжёлые прогоны лучше не запускать
