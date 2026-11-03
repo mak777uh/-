@@ -1,0 +1,131 @@
+{
+  "kind": "l1_field_x135_maze_mixing",
+  "experiment": "X135",
+  "command": "python scripts/x135_analyse.py --write",
+  "prereg": "reports/2026-11-03-x135-maze-mixing-plan.md",
+  "definitions": {
+    "absorption": "one seeded uid ends without daughters while the other is present within r_dead + r_other + 2.0 cells of it",
+    "control": "SEP = 0 seeds one disc (both offsets coincide); the arm reports whether a lone seeded structure survives",
+    "mixing_length": "between the largest separation absorbed in >= 3 of 5 seeds and the smallest absorbed in <= 2"
+  },
+  "flow": 0.04,
+  "by_separation": {
+    "0": {
+      "runs": 5,
+      "usable": 5,
+      "absorbed": 0,
+      "both_alive": 0,
+      "median_time": null,
+      "median_components_at_end": 6,
+      "seeds": {
+        "601": {
+          "absorbed": false,
+          "step": null,
+          "both_alive": false,
+          "usable": true,
+          "live": true
+        },
+        "602": {
+          "absorbed": false,
+          "step": null,
+          "both_alive": false,
+          "usable": true,
+          "live": true
+        },
+        "603": {
+          "absorbed": false,
+          "step": null,
+          "both_alive": false,
+          "usable": true,
+          "live": true
+        },
+        "604": {
+          "absorbed": false,
+          "step": null,
+          "both_alive": false,
+          "usable": true,
+          "live": true
+        },
+        "605": {
+          "absorbed": false,
+          "step": null,
+          "both_alive": false,
+          "usable": true,
+          "live": true
+        }
+      },
+      "control_alive": 0,
+      "control_subtree_median": 33
+    },
+    "8": {
+      "runs": 5,
+      "usable": 5,
+      "absorbed": 5,
+      "both_alive": 0,
+      "median_time": 0,
+      "median_components_at_end": 6,
+      "seeds": {
+        "601": {
+          "absorbed": true,
+          "step": 1,
+          "both_alive": false,
+          "usable": true,
+          "live": true
+        },
+        "602": {
+          "absorbed": true,
+          "step": 1,
+          "both_alive": false,
+          "usable": true,
+          "live": true
+        },
+        "603": {
+          "absorbed": true,
+          "step": 1,
+          "both_alive": false,
+          "usable": true,
+          "live": true
+        },
+        "604": {
+          "absorbed": true,
+          "step": 1,
+          "both_alive": false,
+          "usable": true,
+          "live": true
+        },
+        "605": {
+          "absorbed": true,
+          "step": 1,
+          "both_alive": false,
+          "usable": true,
+          "live": true
+        }
+      }
+    },
+    "12": {
+      "runs": 1,
+      "usable": 1,
+      "absorbed": 0,
+      "both_alive": 0,
+      "median_time": null,
+      "median_components_at_end": 3,
+      "seeds": {
+        "601": {
+          "absorbed": false,
+          "step": null,
+          "both_alive": false,
+          "usable": true,
+          "live": true
+        }
+      }
+    }
+  },
+  "mixing": [
+    8
+  ],
+  "apart": [
+    12
+  ],
+  "runs": 11,
+  "verdict": "void: 11 runs; the single-disc control survives in only 0 of 5 seeds"
+}

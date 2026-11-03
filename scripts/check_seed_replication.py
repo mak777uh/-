@@ -54,12 +54,37 @@ def tracked_artifacts() -> list[str]:
     return sorted(glob.glob(str(L1 / "*_s[0-9]*.json")))
 
 
+# 03.11: сюда попадают развёртки, чьи полные логи не коммитятся (плотное логирование) и которые поэтому
+# гейт не видел: он читал только tracked full-логи. X134/X135 прошли мимо него именно так - пять "сидов"
+# оказались одним миром (см. reports/2026-11-03-x134-mixing.md, поправка). Теперь читаются и компактные
+# проекции, а известные семейства перечислены здесь с причиной, чтобы ошибка оставалась ВИДНОЙ, а не тихой.
+KNOWN_ONE_WORLD = {
+    "x134_sep6": "degenerate arm: two radius-3 discs touch at SEP=6 (reports/2026-11-03-x134-mixing.md)",
+    "x134_sep8": "placement defect: discs at fixed centres, seed discarded (corrected in X134b)",
+    "x134_sep12": "placement defect: discs at fixed centres, seed discarded (corrected in X134b)",
+    "x134_sep18": "placement defect: discs at fixed centres, seed discarded (corrected in X134b)",
+    "x134_sep24": "placement defect: discs at fixed centres, seed discarded (corrected in X134b)",
+    "x134_sep30": "placement defect: discs at fixed centres, seed discarded (corrected in X134b)",
+    "x134_sep36": "placement defect: discs at fixed centres, seed discarded (corrected in X134b)",
+    "x135_sep0": "same placement defect, in the void maze control (reports/2026-11-03-x135-maze-mixing-void.md)",
+    "x135_sep8": "same placement defect, in the void maze sweep (reports/2026-11-03-x135-maze-mixing-void.md)",
+}
+
+
+def compaction_rows(doc: dict) -> list:
+    """Compact projections carry `series` as [step, [[uid, area, cx, cy], ...]] - enough to compare worlds."""
+    return doc.get("series") or []
+
+
 def build() -> dict:
     fams: dict[str, dict] = {}
     for path in tracked_artifacts():
-        if not re.search(r"_s\d+\.json$", Path(path).name):
-            continue
-        m = re.match(r"(.+)_s(\d+)\.json$", Path(path).name)
+        name = Path(path).name
+        compact = name.endswith(".compact.json")
+        if compact:
+            m = re.match(r"(.+)_s(\d+)\.compact\.json$", name)
+        else:
+            m = re.match(r"(.+)_s(\d+)\.json$", name)
         if not m:
             continue
         fam, seed = m.group(1), int(m.group(2))
@@ -68,6 +93,15 @@ def build() -> dict:
         except (OSError, json.JSONDecodeError):
             continue
         if not doc.get("series"):
+            continue
+        if compact:
+            key = json.dumps({k: v for k, v in (doc.get("params") or {}).items() if k != "seed"}, sort_keys=True)
+            f = fams.setdefault(fam, {"seeds": {}, "params": doc.get("params") or {}, "param_key": key, "mixed_params": False})
+            if f["param_key"] != key:
+                f["mixed_params"] = True
+            h = hashlib.sha256(json.dumps(compaction_rows(doc), sort_keys=True).encode()).hexdigest()[:16]
+            if not f["seeds"].get(seed):     # a full log, if tracked, wins over its projection
+                f["seeds"][seed] = h
             continue
         params = doc.get("params") or {}
         key = json.dumps({k: v for k, v in params.items() if k != "seed"}, sort_keys=True)
@@ -83,13 +117,16 @@ def build() -> dict:
         beta = f["params"].get("beta")
         eps = f["params"].get("eps")
         neutral = (beta in (0, 0.0, None)) and (eps in (0, 0.0, None))
+        one = distinct == 1 and len(hashes) > 1
+        known = KNOWN_ONE_WORLD.get(fam) if one else None
         out[fam] = {
             "seeds": len(hashes),
             "distinct_geometry": distinct,
-            "one_world": distinct == 1 and len(hashes) > 1,
+            "one_world": one,
             "neutral_world": bool(neutral),
             "mixed_params": f["mixed_params"],
-            "defect": bool(distinct == 1 and len(hashes) > 1),
+            "defect": bool(one and not known),
+            "known_reason": known,
         }
     return {"kind": "seed_replication", "method": "sha256 of series rows without trait columns, per seed",
             "families": out}
@@ -104,9 +141,12 @@ def main(argv=None) -> int:
     fresh = build()
     fams = fresh["families"]
     one = [k for k, v in fams.items() if v["defect"]]
-    print(f"[seed-replication] families: {len(fams)}, one-world: {len(one)}")
+    known = [k for k, v in fams.items() if v.get("known_reason")]
+    print(f"[seed-replication] families: {len(fams)}, one-world: {len(one)} open, {len(known)} documented")
     for k in one:
         print(f"    one world: {k} ({fams[k]['seeds']} seeds, neutral={fams[k]['neutral_world']})")
+    for k in known:
+        print(f"    documented one-world: {k} - {fams[k]['known_reason']}")
 
     if args.write:
         OUT.parent.mkdir(parents=True, exist_ok=True)
