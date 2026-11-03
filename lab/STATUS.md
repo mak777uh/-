@@ -4,21 +4,49 @@ One file, one place that says what is actually in work. Machine state lives in `
 `_hourly/log.md`, numbers in artifacts. The Russian sections below the line are **history** and are not rewritten; the top
 part is kept current (new text in English — decision of 31.10).
 
-**Updated:** 2026-11-02, 18:00 MSK.
+**Updated:** 2026-11-03, 06:45 MSK.
 
 ## Running now
 
-- **X108** — the ladder and the specificity re-measured on X105's twenty worlds with a field at every logged step (seeds 301–310,
-  `_x108_fields`; the worlds are bit-identical to X105's, only the field density changed). Analysis only after the series.
-- Nothing else. No locks. X86–X90 closed between 06:45 and 12:00; X90 closed at 12:00: **void by its control**, and the control's failure found the cause — `--sample-every` is a
-  physical parameter, not a logging choice (trait mutations are drawn at every sampled step). X82 closed at 05:05, also void by its
-  control, with the period confirmed unmoved on 25 fields. X84 (the angular re-read of X71) closed at 04:35 and changed the headline.
-- Closed since the previous update: **X74** (half-life follows the inflow non-monotonically: 1.47 / 0.73 / 1.61 at 0.030 /
-  0.035 / 0.040 — the multistable band remembers least), **X76** (the 0.033 cell is ordinary at ten worlds, so the five cells
-  fall into two levels), **X77** (patch control has no power: a daughter's patch mean predicts her at 0.01, which excludes the
-  common-environment reading by measurement), **X78** (void: the matched-scale arm collapsed to one component), **X78b** (an
-  imposed second scale shortens the half-life 1.47 → 1.03 while lag-1 stays 0.498), **X79** (the mix sweep was confounded by
-  its own construction: variance `(1−w)² + w²` is minimal at `w = 0.5`), **X80** (see below).
+- **X132 — the power run.** Twenty new worlds per cell at `F = 0.030` and `0.040` (seeds 311–330, added to the existing ten
+  so each cell has thirty), because X131 showed that ten worlds cannot resolve the survival contrast the whole consequence
+  chain rests on. Anchor exact, series started 05:53, analysis only after it finishes.
+- **X108** — the ladder and the specificity re-measured on X105's twenty worlds with a field at every logged step (seeds
+  301–310), long closed; its logs are the substrate of X113–X131.
+
+## Closed on 03.11 — the identity block (field line)
+
+The consequence chain was re-derived from its own definitions, and its vocabulary was repaired four times over. What the
+block now says, in the order it was established:
+
+| what | verdict | where |
+|---|---|---|
+| **X124** coherence audit | **void by its own control**, and the void named two vocabulary contradictions: "rate" differed sixfold between runs, "generation time" appeared as a raw difference and as a share | §10gs, `reports/2026-11-03-x124-coherence-void.md` |
+| **X125** definitions | **void by its control**; its diagnosis corrected X124 — the rate gap is a **sample filter** (both generation times ≥ 50 steps), not the weighting | §10gs, `-x125-definitions-void.md` |
+| **X125b** filter printed | **void on a pair floor**, and decisive as a diagnostic: with the filter the rate reproduces X113c **to three decimals** (6.056 / 18.96) and the maze's number rests on **638 of 1 195** pairs | §10gs, `-x125b-statistics-void.md` |
+| **X125c** ties | contradiction **retired**: 22 % of pairs are ties, and with X93's rule the fractions are **0.526** (0.493–0.557) and **0.388** (0.356–0.419), X93's values inside both intervals | §10gs, `-x125c-ties.md` |
+| **X126** third cell | **mixed and informative**: the generation clock is a **gradient** (below-floor share 16 → 30 → 47 %), lineage depth is a **threshold** (+1.479 → +1.416 → **+2.213**, a jump only at percolation), rate accelerates, and end-survival **reverses** (+0.2496 → +0.2984 → +0.1372) | §10gt, `-x126-third-cell.md` |
+| **X127** absorption | **void by its dichotomy** (no registered outcome fired) and it found that neither "lethal" nor "homogenising" is the right question | §10gu, `-x127-absorption.md` |
+| **X128** kinship | **void by its controls**, and it took X127's magnitude with it: both summed the budget over the **world** while classifying a **local** event | §10gv, `-x128-kinship-void.md` |
+| **X128b** local budget | absorption is about **half** of all endings (55.3 / 47.8 / 48.4 %), isolated deaths **31 %** in the lattice, real vanishings **10.5 → 21.7 → 27.4 %** (55 → 302 events), and the absorber changes family: **87 % kin** in the lattice, **62 % strangers** in the maze | §10gv, `-x128b-local.md` |
+| **X129** who is next door | the planned distance match **degenerated** (100 % of absorptions are contact events) and the degeneracy is the finding: at identical geometry the one neighbour is a sibling 87.2 % of the time in the lattice and a stranger 62 % in the body — **the lattice segregates lineages, percolation mixes them** | §10gw, `-x129-geometry.md` |
+| **X130** re-merge clock | sisters **rarely** merge back (18.4 % of 1 142 pairs, 82 % censored) and **fast** when they do (median 80 steps); birth separation decides it by a factor of two | §10gx, `-x130-remerge.md` |
+| **X131** world level | the death fates and the kinship separate habitats at the world level (**vanished +0.178**, **kin −0.443**), the **survival contrast does not** (−0.077, CI −0.166…+0.012): 17 σ at the pair level, unresolved at the world level, power price **30–40 worlds** | §10gy, `-x131-worlds.md` |
+
+**One sentence the block earned:** across three habitats a lineage's ending is usually the loss of its **name**, not of its
+cells; the lattice keeps families spatially apart and the percolating body mixes them; and the habitat that maximises
+generations is not the one where a lineage survives.
+
+## Open questions this block handed forward
+
+- **X132** (running) — whether thirty worlds resolve the survival contrast; the outcome is pre-declared as
+  resolved / below resolution / contradicted.
+- **X133** — pool the ten worlds with a world random effect, to see how much of the within-world survival effect survives
+  the world-level variance (cheap, no new runs).
+- **X134** — what makes the survival contrast swing between 0.09 and 0.30 across seeds; if it is the number of live
+  structures at the horizon, that is a state variable to control in every later design.
+- **Owner decisions still open:** X54 (12 canonical weights or a recorded absence), v1.7 of article 028, the host's disk
+  (≈7.4 GB free — heavy runs stay off), permission for the 514 MB canonical weight and for moving `.venv` (4.8 GB).
 
 ## Closed on 01.11 (field line)
 
