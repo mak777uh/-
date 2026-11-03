@@ -4,7 +4,7 @@ The package is written outside the repository (`_exports/029-lineages/`), becaus
 repository artefact; the repository keeps the article, the figures, the derived tables and this script, so the package
 is reproducible from a clean checkout.
 
-Contents: the article, the five figures (PNG for reading, PDF for typesetting), the aggregates the article cites, the
+Contents: the article, the six figures (PNG for reading, PDF for typesetting), the aggregates the article cites, the
 derived tables, a dataset README, the licence, a Zenodo metadata record, a sha256 manifest, and the publication
 instructions for the agent that will upload it. The whole directory is also written as a single zip next to it.
 
@@ -25,7 +25,7 @@ FIGS = ROOT / "articles" / "029-figures"
 ARTICLE = ROOT / "articles" / "029-lineages-in-a-pattern-forming-field.md"
 INSTRUCTIONS = ROOT / "articles" / "029-publication-instructions.md"
 OUT = ROOT / "_exports" / "029-lineages"
-ZIP = ROOT / "_exports" / "029-lineages-v2.0.zip"
+ZIP = ROOT / "_exports" / "029-lineages-v2.1.zip"
 
 # Every aggregate a number in the article comes from.
 AGGREGATES = [
@@ -53,6 +53,8 @@ AGGREGATES = [
     "l1_field_x153_halfcell.json",
     "l1_field_x154_mixing.json",
     "l1_field_x155_heredity.json",
+    "l1_field_x156_shape_heredity.json",
+    "l1_field_x157_gap_geometry.json",
     "l1_field_x96c_pilot.json",
     "l1_field_x96d_orientation.json",
     "l1_field_x110b_gamma_cell.json",
@@ -69,13 +71,14 @@ public repository, where they are addressable by name.
 | path | what it is |
 |---|---|
 | `029-lineages-in-a-pattern-forming-field.md` | the article (Markdown, English) |
-| `029-lineages-in-a-pattern-forming-field.pdf` | the same article as a PDF, with all five figures embedded |
-| `figures/` | Figures 1-5 as PNG (reading) and PDF (typesetting) |
-| `data/aggregates/` | the twenty-seven `l1_field_*.json` aggregates the article cites; each carries its own `command`, `prereg` and `verdict` fields |
+| `029-lineages-in-a-pattern-forming-field.pdf` | the same article as a PDF, with all six figures embedded |
+| `figures/` | Figures 1-6 as PNG (reading) and PDF (typesetting) |
+| `data/aggregates/` | the twenty-nine `l1_field_*.json` aggregates the article cites; each carries its own `command`, `prereg` and `verdict` fields |
 | `data/derived/tables.json` | every number printed in the article, with the aggregate it came from |
-| `data/derived/*.csv` | the same values as flat tables (the edge curve, the three habitats, the heredity readouts) |
+| `data/derived/*.csv` | the same values as flat tables (the edge curve, the three habitats, the heredity readouts, the shape readouts) |
 | `zenodo.json` | metadata record for the deposit |
 | `MANIFEST.sha256` | checksums of every file above |
+| `papers/` | the two analyses behind the 2026-11 revision (shape heredity, contact geometry), their pre-registration, and the independent review that caught the error they correct |
 | `PUBLISHING.md` | step-by-step instructions for the publishing agent |
 
 ## Provenance
@@ -170,7 +173,8 @@ def main() -> int:
         shutil.copy2(src, OUT / "data" / "aggregates" / name)
         copied += 1
 
-    for name in ("tables.json", "tables.csv", "table-edge.csv", "table-habitats.csv", "table-heredity.csv"):
+    for name in ("tables.json", "tables.csv", "table-edge.csv", "table-habitats.csv", "table-heredity.csv",
+                 "table-shape.csv"):
         shutil.copy2(FIGS / name, OUT / "data" / "derived" / name)
 
     pdf_src = ROOT / "articles" / "029-lineages-in-a-pattern-forming-field.pdf"
@@ -186,22 +190,28 @@ def main() -> int:
         "publication_type": "preprint",
         "description": (
             "<p>Lineages in a pattern-forming medium without replicators: the Gray-Scott reaction-diffusion system in "
-            "three habitats. Four measured results. (i) The medium has a mixing length: two lineages merge below a "
-            "surface gap of 9 +/- 1 cells, independent of body size. (ii) A fusion is a merger, not a birth: both "
-            "lineages end on the same step and one body appears under a new identifier. (iii) The outcome is a "
-            "whole-cell step while the dissolution time spreads before it. (iv) A lineage's end is mostly the loss of "
-            "its name rather than of its cells, and the habitat that maximises generations is not the one where a "
-            "lineage survives. The heredity coefficient is measured rather than asserted: the daughter-on-parent slope "
-            "is 0.9837 [0.9680, 1.0002] and 0.9931 [0.9756, 1.0103], the residual is the mutation rule's own sigma to "
-            "one per cent, and with the mutation ablated the trait has no variance at all.</p>"
+            "three habitats. Four measured results. (i) The medium has a mixing length, and it is two numbers: two "
+            "bodies become one when their surfaces are about two cells apart at contact (1.9 cells, median over 132 "
+            "fusing runs, the same at every seeded size), while whether they meet at all is set by the initial gap, "
+            "which stops working between 8 and 11 cells and does not scale with the body's size. (ii) A fusion is a "
+            "merger, not a birth: both lineages end on the same step and one body appears under a new identifier. "
+            "(iii) The outcome is a whole-cell step while the dissolution time spreads before it. (iv) A lineage's end "
+            "is mostly the loss of its name rather than of its cells, and the habitat that maximises generations is not "
+            "the one where a lineage survives. Heredity is measured rather than asserted, and it is a list rather than "
+            "a number: the daughter-on-parent slope of the tracked trait is 0.9837 [0.9680, 1.0002] and 0.9931 "
+            "[0.9756, 1.0103], the residual is the mutation rule's own sigma to one per cent, and with the mutation "
+            "ablated the trait has no variance at all; a shape measured from the field is inherited at about half "
+            "(log elongation 0.6074 in the lattice and log width 0.6238 in the connected mass, with the two swapping "
+            "places between habitats). A negative result closes the chemical route: a third diffusing species does not "
+            "set the pattern's scale.</p>"
         ),
         "creators": [{"name": "Morphogenesis laboratory"}],
         "keywords": ["reaction-diffusion", "lineage tracking", "heredity", "merger", "identity",
-                     "negative result", "Gray-Scott"],
+                     "negative result", "Gray-Scott", "shape inheritance", "morphology"],
         "license": "CC-BY-4.0",
         "access_right": "open",
         "language": "eng",
-        "version": "2.0",
+        "version": "2.1",
         "publication_date": "2026-11-04",
         "related_identifiers": [
             {"identifier": "https://github.com/mak777uh/-", "relation": "isSupplementTo", "scheme": "url"},
@@ -213,9 +223,20 @@ def main() -> int:
     readme = README
     if not pdf_present:
         readme = readme.replace("| `029-lineages-in-a-pattern-forming-field.pdf`"
-                                " | the same article as a PDF, with all five figures embedded |\n", "")
+                                " | the same article as a PDF, with all six figures embedded |\n", "")
     (OUT / "README.md").write_text(readme, encoding="utf-8", newline="\n")
     (OUT / "LICENSE").write_text(LICENSE, encoding="utf-8", newline="\n")
+    papers = OUT / "papers"
+    papers.mkdir(parents=True, exist_ok=True)
+    for name in ("2026-11-04-x156-shape-heredity-plan.md", "2026-11-04-x156-shape-heredity.md",
+                 "2026-11-04-x157-gap-geometry.md"):
+        src = ROOT / "reports" / name
+        if src.exists():
+            shutil.copy2(src, papers / name)
+    review = ROOT / "lab" / "reviews" / "2026-11-04-029-three-numbers.md"
+    if review.exists():
+        shutil.copy2(review, papers / review.name)
+
     if INSTRUCTIONS.exists():
         shutil.copy2(INSTRUCTIONS, OUT / "PUBLISHING.md")
     else:

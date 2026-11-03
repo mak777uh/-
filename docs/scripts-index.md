@@ -4,7 +4,7 @@
 
 The curated page — what matters and why — is [`scripts.md`](scripts.md). This file is the complete list, so that every command behind a number in the record can be found.
 
-Scripts: **356**.
+Scripts: **360**.
 
 ## Гейты и проверки (48)
 
@@ -154,13 +154,14 @@ Scripts: **356**.
 | `w2bud_metric_variants.py` | w2bud_metric_variants.py — инвариантность эффекта к устройству метрики. |
 | `w2bud_quota_matrix.py` | w2bud_quota_matrix.py — агрегат серии с квотой (H-ALIVE-53). |
 
-## Сборка отчётов и таблиц (15)
+## Сборка отчётов и таблиц (16)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
 | `aggregate_check.py` | aggregate_check.py — сверка агрегатов с артефактами и внутренняя согласованность. |
 | `build_article_029_package.py` | build_article_029_package.py — assemble the deposit package for article 029. |
 | `make_article_029_figures.py` | make_article_029_figures.py — figures and derived tables for article 029 (v2, plain-language edition). |
+| `make_article_029_pdf.py` | make_article_029_pdf.py — render article 029 as a self-contained PDF for the deposit. |
 | `make_artifact_table.py` | Собрать приложение-таблицу артефактов с хешами (manuscript/SUPPLEMENT.md). |
 | `make_arxiv_figures.py` | make_arxiv_figures.py — четыре фигуры для черновика (26.10). |
 | `make_carrier_figures.py` | Собрать два рисунка по закрытиям carriers/кластеров из сырых артефактов. |
@@ -174,7 +175,7 @@ Scripts: **356**.
 | `make_seed_grid_figure.py` | Собрать Figure 4 рукописи: сетка «инициализация × порядок данных» (§4.13). |
 | `make_simple_poster.py` | Простой постер для владельца: что мы узнали, без терминов. |
 
-## Прочее (218)
+## Прочее (221)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -308,6 +309,9 @@ Scripts: **356**.
 | `x154_series.py` | x154_series.py — X154: the mixing curve at radius 6, ten seeds per arm. |
 | `x155_ablation.py` | x155_ablation.py — the mutation-off arm of X155, plus its anchor. |
 | `x155_analyse.py` | x155_analyse.py — heredity of the field's trait: is it the medium's or the copying rule's? |
+| `x156_analyse.py` | x156_analyse.py — is a shape measured from the field itself inherited? |
+| `x156_series.py` | x156_series.py — X156: twenty runs with the field-measured shape observer. |
+| `x157_gap_geometry.py` | x157_gap_geometry.py — where does fusion actually happen, in the geometry the bodies have at that moment? |
 | `x56_matrix.py` | x56_matrix.py — сходимость по шагу: контраст при dt = 1.0, 0.5, 2.0. |
 | `x58_analyse.py` | x58_analyse.py — the same measurement on a 128 grid: β₀, β₁, wavelength, normalised count. |
 | `x58_series.py` | x60_series.py — X60: the twenty field runs that keep their snapshots. |

@@ -20,10 +20,11 @@ grow, split, merge and disappear.
 We asked three plain questions. *Does anything pass from one blob to its descendants?* *How close can two lineages get
 before the medium fuses them into one?* *What actually ends a lineage?*
 
-Four answers. (i) The medium has a **mixing length**: two lineages end up as a single blob once the gap between their
-surfaces falls below about nine cells, and this number does not depend on how big the blobs are — bodies of 29, 64 and
-113 cells fuse across gaps of 10, 9 and 8 cells respectively, while their centre-to-centre distances differ by four
-cells, not by sixteen. (ii) A fusion is a **merger of two lineages, not a birth**: both lineages end on the same step and
+Four answers. (i) The medium has a **mixing length**, and it is two numbers rather than one: two lineages become a single
+blob when their surfaces are about **two cells apart at contact** (1.9 cells, median over 132 fusing runs, the same at
+every body size), while whether they ever touch is set by the initial gap, which stops working somewhere between **eight
+and eleven cells** — flat in the body's size instead of scaling with it, and not resolved more tightly than that band
+because the arms between 9 and 11 were never run. (ii) A fusion is a **merger of two lineages, not a birth**: both lineages end on the same step and
 one blob appears under a new name, which forces a three-way classification of close encounters (mutual fusion,
 absorption, persistence). (iii) At the edge of the mixing length the **outcome switches abruptly while the timing spreads**:
 at body radius 6 the share of runs that end as one blob reads 1.0 / 1.0 / 1.0 / 0.5 across surface gaps of
@@ -38,7 +39,9 @@ the scatter around that line equals the model's own noise parameter to within on
 σ = 0.15), and with the noise switched off the trait has no variance at all. The trait is therefore transmitted perfectly
 by the bookkeeping rule and not by the medium. We say this plainly rather than quoting a heritability number, because the
 between-lineage variance we can also compute (0.082 in the lattice, 0.416 in the connected mass) counts lineages that
-happen to still be present at the end, not a property of the trait.
+happen to still be present at the end, not a property of the trait. A second measurement, on a trait computed from the
+field rather than written by the rule, changes the sentence by one clause: **shape is heritable at about half**, and the
+habitat decides whether it is elongation or width that a daughter inherits (§4.8).
 
 Finally, a negative result: adding a third, slowly diffusing chemical — the most natural way to give the pattern a
 heritable scale — does not change the pattern's wavelength at all.
@@ -137,39 +140,54 @@ applied the paired fractions read 0.526 and 0.388.
 
 ## 4. Results
 
-### 4.1 Two lineages fuse when the gap between them is under nine cells
+### 4.1 Fusion happens at contact, and the gap that stops it lies between eight and eleven cells
 
-Put two bodies of radius 3 cells (29 cells of area, the typical size of a body that dies in the lattice) into an empty
-dish at centre separation 15 cells and they fuse in every one of five runs. At 16 cells they fuse in two of five; at 17,
-in none. The switch is one cell wide, at **16 ± 1 cells**, and it is not a race between fusing and dividing: as the pair
-approaches the switch the fusion takes longer and longer, 19, 39, 49 and 79 steps at separations 12, 14, 15 and 16, which
-is deceleration, not a knife-edge coincidence.
+Two numbers describe this, and the first version of this section reported only one of them, wrongly. Both are below.
 
-The interesting part is what stays constant. A body twice as wide has four times the area, and its centre must be much
-further away before the pair stops fusing — but only by four cells:
+**What the medium sets — the distance at contact.** In 132 runs in which two seeded bodies became one, at the last
+logged step before they were one the gap between their surfaces was **1.9 cells** (median; range 0.9 to 4.9). It is the
+same at every size we seeded: 2.07 at radius 3, 1.89 at 4.5, 1.69 at 5.2, 1.93 at 6. That is about a sixth of the
+pattern's 12-cell wavelength, and it is a length belonging to the medium: we did not choose it, and it does not depend on
+the pair.
 
-| body radius | area (cells) | centre separation at which fusion stops | surface gap there |
-|---|---|---|---|
-| 3 | 29 | **16 ± 1** | 10 cells |
-| 4.5 | 64 | **18 ± 2** | 9 cells |
-| 6 | 113 | **20 ± 2** | 8 cells |
+**What the design sets — the gap at which fusion stops being the rule.** Put two bodies of radius 3 cells (29 cells of
+area) at a centre separation that leaves 8 cells between their surfaces, and they end as one body in five runs of five;
+at 9 cells, five of five; at 10, four of five; at 11, two of five, and no arm was run beyond that for this size. At
+radius 6, fifteen runs of fifteen end as one body at a gap of 8 and none of five at 12; at radius 4.5, five of five at 8,
+four of five at 9, none of five at 11. So fusion is the rule at 8 cells or less at every size, it has stopped by 11 or
+12, and the band between 9 and 11 was never run: this paper cannot place the crossing inside that band, and says so
+rather than interpolating.
 
-The conserved quantity is the **gap between the surfaces**, 9 ± 1 cells, which is about three quarters of the pattern's
-12-cell wavelength. The rule `2r + 9` — centre separation equals twice the radius plus nine — was written down after the
-first two rows and predicted the third: it gives 21 for a radius of 6, the measurement returned 20 ± 2, and at the
-boundary the same split appeared (two of five runs still fusing). Nine cells is therefore a length belonging to the medium, not to the pair
-(Fig. 2a).
+| body radius | area (cells) | runs ending as one body at a gap of 8 | 9 | 10 | 11 | 12 |
+|---|---|---|---|---|---|---|
+| 3 | 29 | 5/5 | 5/5 | 4/5 | 2/5 | not run |
+| 4.5 | 64 | 5/5 | 4/5 | not run | 0/5 | not run |
+| 6 | 113 | 15/15 | not run | not run | not run | 0/5 |
 
-Every arm agrees on the near side: at a surface gap of 8 cells, 5 of 5 runs end as one body; at 9 the split is
-M 3/5, A 2/5; at 10 it is M 2/5, A 2/5, P 1/5; at 11 it is M 2/5, P 3/5. ("M" is mutual fusion, "A" absorption of one
-body by the other, "P" the two bodies persisting side by side; §4.2 explains why the three must be told apart.)
+The three outcomes of a close encounter are worth keeping in view here, because "one body" is not the same as "mutual
+fusion": at radius 3 and a gap of 10, the four runs that end as one body split into M 2/5 and A 2/5, with P 1/5; at a gap
+of 11 they are M 2/5, P 3/5. ("M" is mutual fusion, "A" absorption of one body by the other, "P" the two bodies
+persisting side by side; §4.2 explains why the three must be told apart.)
+
+**Why the boundary does not scale with the body.** Because the bodies grow, and grow to the same size. A body seeded at
+radius 3 is 2.9 cells in effective radius at the first logged step and 5.8 at the step before it meets its partner; a
+body seeded at 6 goes from 6.0 to 8.5. By the time two bodies touch they are all between 5.8 and 8.5 cells in radius,
+whatever we started with, so the initial separation and not the initial size decides — which is why the boundary in the
+gap does not move when the seeded bodies are made four times larger (Fig. 2).
+
+**The correction.** An earlier version of this paper put the crossing at "16 ± 1 cells" for radius 3 and the conserved
+quantity at "9 ± 1 cells, the same for bodies of 29, 64 and 113 cells", with the rule `2r + 9`. An independent review
+recomputed the arm counts from the raw worlds and was right on both points: the radius-3 row came from an older test that
+counted a partner as present when its last known position was within two cells, which is why it read "two of five" where
+the classification reads "four of five"; and the third row (`20 ± 2`) was a bound between two arms, not a measured
+crossing. The rule is withdrawn; the two statements above replace it, and the geometry behind them is re-derived from the
+logs of all 171 two-body runs (§7).
 
 Two controls say what the length is *not*. It is not a size rule: among runs where both outcomes occur, the bodies that
 divided are not the larger ones — median areas at fusion 267 / 268 and 297 / 287 cells, and where the pattern reverses,
-242 / 290. And it is not simply the clock running out: a lone body of the same size does not divide at all until a
-**median of 180 steps** (radius 3), while a pair within the mixing length is one body within 50 steps. The other two
-sizes behave the same way — 190 and 290 steps for radii 4.5 and 6 — so the fusing pair is always faster than the
-division time, at every size.
+242 / 290. And it is not simply the clock running out: at radius 6 the median time to a single body is 39 steps at gaps 6.5 to 7.5 and 49 steps at 8, while a lone body of the same size does not divide at all until a **median of 290 steps**;
+the smaller sizes behave the same way — 180 and 190 steps for radii 3 and 4.5 — so the fusing pair is always faster than
+the division time, at every size.
 
 ![Figure 1](029-figures/fig1-what-we-measure.png)
 
@@ -181,9 +199,11 @@ daughters a new name, and every fusion gives the merged body a new name, so no n
 
 ![Figure 2](029-figures/fig2-mixing-length.png)
 
-**Figure 2.** The mixing length. (a) Share of runs that end as a single body against the surface gap, for three body
-sizes; the shaded band marks nine cells. (b) The time to a single body against the same gap: the curves for the three
-sizes lie on top of each other, so the time is set by the gap and not by the body.
+**Figure 2.** The mixing length, in the two quantities that are measured. (a) Share of runs that end as a single body
+against the **initial** surface gap, for three body sizes; a point is drawn only where an arm was run, and the shaded band
+marks the gaps between 9 and 11 that no arm covers. (b) The same runs at the moment of contact: the surface gap between
+the two bodies at the last step before they are one, per seeded size, with the median at 1.9 cells — the first quantity
+does not depend on how large the bodies were seeded.
 
 ### 4.2 A fusion is a merger, not a birth
 
@@ -194,8 +214,8 @@ looked like it was describing a birth only because the analysis counted a partne
 was within two cells.
 
 That is why the results speak of M, A and P rather than of "coalescence". It is also why the mixing length is a property
-of *lineages*: below nine cells, two identities are extinguished at once. Whatever counts as an individual in this
-medium, it cannot survive contact.
+of *lineages*: below the fusion boundary, two identities are extinguished at once. Whatever counts as an individual in
+this medium, it cannot survive contact.
 
 ### 4.3 At the edge, the outcome switches and the timing spreads
 
@@ -335,25 +355,101 @@ that movement does not replicate: 2 of 6 cells show it, in opposite directions. 
 is 0.30 and the field survives in only 2 of 6 seeds. A third diffusing species, in short, is not a scale channel in this
 medium, and the wavelength therefore is not inherited from any chemical the pattern carries.
 
+### 4.8 Shape is inherited, at about half, and the habitat chooses which aspect
+
+Everything above concerns `s`, a number the tracking rule writes into the daughter. That makes it a fair test of the
+bookkeeping and a poor test of the medium. A shape measured *from the field* is the opposite kind of object: nobody
+writes it, and a daughter that resembles her mother's shape is evidence that the medium, not the rule, carried it.
+
+We measured two such traits for every body in twenty fresh worlds (ten in the lattice, ten in the connected mass, 4 111 parent–daughter pairs), from the second moments of each body's pixels: **elongation**, the square root of the ratio of
+the principal axes (1 is round), and **width**, the minor-axis extent in cells. Both were read at every tenth step by an
+observer that draws no random numbers — with the observer switched off, the same run is bit-identical, which is how we
+know it cannot have perturbed the world.
+
+The two controls came out where they should. The assigned trait is transmitted at **0.9959 [0.9790, 1.0126]** and
+**0.9817 [0.9631, 1.0003]** in the two habitats, reproducing §4.6 in a different set of worlds; and area is transmitted at
+**0.4514 [0.4264, 0.4771]** and **0.4481 [0.4193, 0.4723]**, within a hundredth of the geometric expectation of one half,
+because a daughter is a part of her mother and not a copy of her.
+
+Shape sits between the two, and it does not sit in the same place for both habitats:
+
+| trait | lattice (`F` = 0.030) | connected (`F` = 0.040) |
+|---|---|---|
+| `s`, the assigned trait (control) | 0.9959 [0.9790, 1.0126] | 0.9817 [0.9631, 1.0003] |
+| area (control) | 0.4514 [0.4264, 0.4771] | 0.4481 [0.4193, 0.4723] |
+| **log elongation** | **0.6074 [0.5399, 0.6785]** | 0.4260 [0.3585, 0.4924] |
+| **log width** | 0.3384 [0.2877, 0.3850] | **0.6238 [0.5846, 0.6672]** |
+
+Four things follow.
+
+**Shape is not free of heredity, and it is not the tracker's heredity either.** All four shape slopes lie between 0.29 and
+0.68 with shuffled-parent nulls of −0.001 to +0.002 and p = 0.001, and the partial slope given log area stays between
+0.26 and 0.65 — so this is not area in disguise. The gap between 0.98 and 0.5 is the gap between a number the bookkeeping
+copies and a shape the medium has to reproduce.
+
+**The habitat decides which aspect is transmitted.** In the lattice elongation is inherited better than width (0.6074 against 0.3384, intervals disjoint); in the connected mass width is inherited better than elongation (0.6238 against 0.4260, intervals disjoint), and the same trait differs between habitats by more than either interval allows. In a
+lattice of round bodies the orientation of a ridge is the thing a division can pass on; in a connected labyrinth it is the
+local width.
+
+**Nothing relaxes on the timescale we can see.** Reading the daughter one, two and three logged steps after her first
+appearance moves each slope by at most 0.05 (log elongation in the lattice 0.607 to 0.579; log width in the connected
+mass 0.624 to 0.571). The value is set at birth rather than restored afterwards, which is what a copied quantity looks
+like and not what a relaxing shape looks like.
+
+**The level is about half.** Averaged over the two habitats, elongation 0.517 and width 0.481. A slope of 1 would make the
+daughter a scaled copy of her mother; 0.5 makes her, on average, halfway between her mother and the habitat's typical
+shape — which is also where the geometric control sits.
+
+So the sentence from §4.6 needs one clause added: the only *perfectly* heritable character is the one the bookkeeping
+writes; shape is heritable at about half, in a direction the habitat chooses. Both halves matter — the first is what a
+reader of parent–daughter correlations needs to know, since a correlation of 1.0 can be bookkeeping; the second is what
+makes these entities more than labels.
+
+![Figure 6](029-figures/fig6-shape-heredity.png)
+
+**Figure 6.** Shape, measured from the field. (a) The daughter-against-parent slope for four quantities in the same
+worlds, with 95 % intervals: the assigned trait (near 1), the size a daughter must halve (near 0.5), and the two shape
+traits, which swap places between the two habitats. (b) The same shape slopes when the daughter is read one, two or three
+logged steps after birth: the lines are flat, so the shape is set at the division rather than relaxed towards a typical
+value afterwards.
+
 ## 5. What it means
 
 A pattern-forming medium produces entities that look individual and are not: they merge on contact at a length the medium
-sets, they die mostly by being absorbed, and their only heritable character is one our own analysis writes into them.
-None of that makes the system uninteresting — it makes the description precise. Three consequences for anyone using this
-kind of medium as a model of individuality:
+sets, they die mostly by being absorbed, and their only perfectly heritable character is one our own analysis writes into
+them, with shape inherited at about half along a direction the habitat chooses. None of that makes the system
+uninteresting — it makes the description precise. Four consequences for anyone using this kind of medium as a model of
+individuality:
 
 1. **"Inheritance" needs an ablation.** A parent–daughter correlation is not evidence of transmission, because the
    bookkeeping that names the daughter can create the correlation. The test is what happens when the copying rule's own
    noise is removed: if the trait becomes constant, the medium is not transmitting it.
-2. **The mixing length is the boundary of the individual.** Below about nine cells of surface gap there are no two
-   individuals, only one; any statement about a "population" of such bodies has to say what it does about contact.
+2. **The mixing length is the boundary of the individual, and it is measured at contact.** Two bodies whose surfaces come
+   within about two cells become one, whatever their size; whether they get that close is set by the initial gap, which
+   stops working between eight and eleven cells. Any statement about a "population" of such bodies has to say what it does
+   about contact.
 3. **Survival and reproduction are different measurements and can point opposite ways.** In this medium the habitat that
    maximises generations is the one where a lineage is least likely to be present at the end. A study that reports only
    one of the two can be internally consistent and still tell a reader the wrong story.
+4. **Heredity is a property of what you measure.** In the same worlds the trait the rule writes is copied at 0.98, the
+   size at 0.45, and shape at 0.34 to 0.62 depending on which aspect and which habitat. A single "heritability" for a
+   pattern-forming medium is therefore not a number but a list, ordered by how much of the trait the medium has to rebuild
+   at each division.
 
 The negative result closes the most plausible route by which the trait could have become a property of the medium: a
 carrier chemical does not set the scale, so the scale belongs to the interaction of the two original chemicals with the
 imposed supply pattern.
+
+### 5.1 What to measure next
+
+1. **A third habitat.** `F` = 0.035, between the lattice and the connected mass, twenty worlds: it decides whether the swap
+   of §4.8 is a continuum or a switch.
+2. **The fusion crossing inside the band.** Arms at gaps 9, 10 and 11 for radius 4.5 and radius 6, ten seeds each — the
+   only way the "eight to eleven cells" of §4.1 becomes a crossing instead of a bound.
+3. **The shape slopes at another threshold.** A body is the set of pixels above `v` = 0.2; at 0.1 and 0.3 the same
+   analysis says whether the half-inheritance belongs to the field or to the mask.
+4. **Selection on shape.** The heritable part of shape matters only if it changes a daughter's fate: the fate classes of
+   §4.4 are recorded per body, so correlating a daughter's elongation with her ending needs no new simulation.
 
 ## 6. Limits
 
@@ -371,26 +467,47 @@ imposed supply pattern.
    variance, but it is not a distribution; and the criterion for reading a degenerate arm was amended after seeing the
    data, which we state rather than hide.
 6. **World counts.** Thirty per habitat were enough for the contrasts reported; they are the price of admission, not a
-   surplus.
+   surplus. The shape result of §4.8 rests on ten worlds per habitat, twenty in all.
+7. **The fusion crossing is bounded, not located.** At radius 3 the last measured arm is a gap of 11 cells, where two runs
+   of five still ended as one body, and for the two larger radii the arms between 9 and 11 were never run, so §4.1 states
+   a band. The earlier claim of a single number for all three sizes was wrong and is corrected in place rather than
+   quietly replaced: the arms in the old table were the design parameters, not measurements.
+8. **Shape is a thresholded silhouette.** The shape traits are computed from the component above `v` = 0.2, and their
+   primary statistic is a log slope chosen after the tails were seen. A different threshold or transform would move the
+   levels; it is not obvious it would move the swap between elongation and width, which is the part with structure.
+9. **Nothing here explains the shape inheritance.** A daughter could resemble her mother because she buds off the same
+   ridge, or because the supply pattern is locally the same; the experiment that separates these — an imposed supply
+   pattern with a fixed orientation — is not run.
 
 ## 7. Data and code
 
 All data are public. The derived tables behind every figure and every number in this paper are
 [`029-figures/tables.json`](029-figures/tables.json) (each entry names the aggregate it came from),
-[`table-edge.csv`](029-figures/table-edge.csv), [`table-habitats.csv`](029-figures/table-habitats.csv) and
-[`table-heredity.csv`](029-figures/table-heredity.csv). The aggregates themselves, with the command line of every run,
+[`table-edge.csv`](029-figures/table-edge.csv), [`table-habitats.csv`](029-figures/table-habitats.csv),
+[`table-heredity.csv`](029-figures/table-heredity.csv) and [`table-shape.csv`](029-figures/table-shape.csv). The aggregates themselves, with the command line of every run,
 are in [`morphogenesis/experiments/E09_pond/`](../morphogenesis/experiments/E09_pond/) and the per-run artifacts in
 [`morphogenesis/experiments/L1_field/`](../morphogenesis/experiments/L1_field/). The figures are produced by
 [`scripts/make_article_029_figures.py`](../scripts/make_article_029_figures.py); a checker
 ([`scripts/check_article_029_numbers.py`](../scripts/check_article_029_numbers.py)) verifies that every number printed
-above appears in the derived tables, and the tables are built from the aggregates, not typed by hand. The whole
-computation is one consumer GPU: the ablation arm is 0.11 GPU-hours and the entire paper's series under 40.
+above appears in the derived tables, and the tables are built from the aggregates, not typed by hand.
+
+Two analyses behind §4.1 and §4.8 are new in this version and are reported separately, with their pre-registrations and
+controls: the contact geometry of fusion ([`scripts/x157_gap_geometry.py`](../scripts/x157_gap_geometry.py),
+[`reports/2026-11-04-x157-gap-geometry.md`](../reports/2026-11-04-x157-gap-geometry.md)) and the shape-heredity series
+([`scripts/x156_series.py`](../scripts/x156_series.py), [`scripts/x156_analyse.py`](../scripts/x156_analyse.py),
+[`reports/2026-11-04-x156-shape-heredity.md`](../reports/2026-11-04-x156-shape-heredity.md)). The numbers in §4.1 were
+re-derived after an independent review recomputed them from the raw worlds
+([`lab/reviews/2026-11-04-029-three-numbers.md`](../lab/reviews/2026-11-04-029-three-numbers.md)); that review is part of
+the record, not a private correspondence. The whole computation is one consumer GPU: the ablation arm is 0.11
+GPU-hours, the shape series 0.01, and the entire paper's series under 40.
 
 ## 8. Reproduction
 
 ```bash
-python scripts/make_article_029_figures.py --write     # tables and all five figures, from the committed aggregates
+python scripts/make_article_029_figures.py --write     # tables and all six figures, from the committed aggregates
 python scripts/check_article_029_numbers.py --ci       # every number printed above, traced to its aggregate
+python scripts/x156_analyse.py --write                 # the shape results of §4.8, from the twenty shape runs
+python scripts/x157_gap_geometry.py --write            # the contact geometry of §4.1, from 171 two-body runs
 ```
 
 The series behind the results are `scripts/x134_series.py` … `scripts/x154_series.py` (the two-body intervention and its

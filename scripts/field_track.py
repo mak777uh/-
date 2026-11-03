@@ -36,6 +36,30 @@ def laplacian(x):
             torch.roll(x, 1, 1) + torch.roll(x, -1, 1) - 4.0 * x)
 
 
+
+def _shape_of(lab, cid, np):
+    """X156: вытянутость и ширина компоненты по вторым моментам её клеток.
+
+    Чистая функция состояния: не тянет ГПСЧ и не меняет поле, поэтому срез с --shape-log отличается от среза без
+    него только этими двумя ключами. Обёртка вокруг 1-й и 2-й компонент считается по пикселям с учётом периода сетки
+    (компонента не пересекает границу, потому что маска берётся из связной разметки с периодикой).
+    """
+    ys, xs = np.nonzero(lab == cid)
+    if ys.size < 3:
+        return {"elong": None, "width": None}
+    yc, xc = ys.mean(), xs.mean()
+    dy = ys - yc
+    dx = xs - xc
+    cyy = float((dy * dy).mean())
+    cxx = float((dx * dx).mean())
+    cxy = float((dx * dy).mean())
+    tr = cxx + cyy
+    det = cxx * cyy - cxy * cxy
+    disc = max(tr * tr / 4.0 - det, 0.0)
+    l1 = tr / 2.0 + disc ** 0.5
+    l2 = max(tr / 2.0 - disc ** 0.5, 1e-9)
+    return {"elong": round(float((l1 / l2) ** 0.5), 4), "width": round(float(2.0 * l2 ** 0.5), 3)}
+
 def label(mask):
     """Метки компонент 4-связности (numpy, на сетке 96 — быстро)."""
     import numpy as np
@@ -193,6 +217,8 @@ def main(argv=None) -> int:
     # X60: сохранить само поле, а не только счётчики. Без этого нельзя посчитать β0/β1,
     # спектр и длину волны, а значит нельзя ни нормировать число на λ², ни определить
     # время жизни персистентностью вместо правила перекрытия. Флаг не трогает ГПСЧ.
+    ap.add_argument("--shape-log", action="store_true",
+                help="X156: писать форму компоненты (вытянутость и ширина по вторым моментам)")
     ap.add_argument("--save-fields", default=None,
                     help="X60: каталог, куда писать v на выбранных срезах (.npy, float32)")
     ap.add_argument("--init-jitter", action="store_true",
@@ -668,11 +694,14 @@ def main(argv=None) -> int:
                 "pulse_on": bool(pulse_on),   # X49: было ли событие в этом шаге (не зависит от положения среза)
                 "cue_centre": (float(np.argmax(cue_np[0])) if cue_np is not None else None),
                 "components_log": [
-                    {"uid": comp_uid.get(cid), "s": round(float(comp_s[cid]), 4) if cid in comp_s else None,
-                     "area": int((prev_lab == cid).sum()),
-                     # X45: центроид нужен, чтобы считать, где признак относительно полосы-подсказки
-                     "cx": round(float(np.argwhere(prev_lab == cid)[:, 1].mean()), 2),
-                     "cy": round(float(np.argwhere(prev_lab == cid)[:, 0].mean()), 2)}
+                    dict(
+                        {"uid": comp_uid.get(cid), "s": round(float(comp_s[cid]), 4) if cid in comp_s else None,
+                         "area": int((prev_lab == cid).sum()),
+                         # X45: центроид нужен, чтобы считать, где признак относительно полосы-подсказки
+                         "cx": round(float(np.argwhere(prev_lab == cid)[:, 1].mean()), 2),
+                         "cy": round(float(np.argwhere(prev_lab == cid)[:, 0].mean()), 2)},
+                        **(_shape_of(prev_lab, cid, np) if args.shape_log else {}),
+                    )
                     for cid in keep if cid in comp_s
                 ],
             })

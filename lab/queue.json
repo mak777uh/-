@@ -1,6 +1,6 @@
 {
  "schema_version": 1,
- "updated_at": "2026-11-03T22:49:01+03:00",
+ "updated_at": "2026-11-03T22:49:32Z",
  "note": "Очередь пунктов после E02c. Claim берётся до пре-регистрации, а не перед запуском: lab.py item-claim. Статус running означает занятый GPU-лейн и может быть только у одного пункта. | 25.10: добавлено поле impact (1-5) — приоритет конвейера = impact/max(cost_gpu_h,0.1); для запуска пункту нужны prereg (закоммиченный план) и launch.command+outdir.",
  "items": [
   {
@@ -2926,6 +2926,31 @@
    "note": "closed: the heredity coefficient is the copying rule's fidelity, measured. Pairs reconstructed from uid_pairs+components_log (displaced by at most one 10-step quantum) reproduce the stored inheritability_r per world to 1e-5/0.0022. Daughter-on-parent slope 0.9837 [0.9679,1.0002] and 0.9931 [0.9756,1.0103]; partialled on daughters the change is <1e-4; shuffled-parent null p=0.001; residual sd 0.1487/0.1495 against sigma 0.15. With --mutation 0 the trait has no variance at all (s=1.0, 100% of pairs equal) and the anchor is bit-identical. H2 between lineages counts surviving lineages rather than measuring a heritability. Verdict HEREDITY IS THE RULE. Aggregate l1_field_x155_heredity.json, report reports/2026-11-03-x155-heredity.md, plan reports/2026-11-03-x155-heredity-plan.md (amendment written post data), section 10ho. Next: a trait measured from the field rather than written by the rule; H2 predicted from the lineage count across the five existing cells.",
    "closed_at": "2026-11-03T20:54:18Z",
    "closed_by": "lead"
+  },
+  {
+   "id": "X156_shape_heredity",
+   "title": "Is a shape measured from the field itself inherited across divisions? Elongation and width, with s and area as controls",
+   "status": "closed",
+   "owner": "lead",
+   "kind": "experiment",
+   "cost_gpu_h": 0.01,
+   "prereg": "reports/2026-11-04-x156-shape-heredity-plan.md",
+   "created_at": "2026-11-04T02:00:00+03:00",
+   "note": "closed: SHAPE IS PARTIALLY TRANSMITTED, and the habitat decides which aspect. Log elongation 0.6074 [0.5399, 0.6785] in the lattice against 0.4260 [0.3585, 0.4924] in the connected mass; log width the other way, 0.3384 [0.2877, 0.3850] against 0.6238 [0.5846, 0.6672]. Controls in the same 4 111 pairs: s 0.9959 / 0.9817 and area 0.4514 / 0.4481; shuffled-parent nulls -0.001 to +0.002 at p = 0.001; no relaxation over three logging steps. Observer anchored bit-identically. Report reports/2026-11-04-x156-shape-heredity.md, aggregate l1_field_x156_shape_heredity.json, article 029 v2.1 §4.8, manuscript §4k.5. One dated amendment (log slopes, heavy tails). Next: a third habitat (F = 0.035), thresholds 0.1/0.3, imposed supply anisotropy, selection on shape against the X126 fate classes.",
+   "claimed_at": "2026-11-03T22:49:32Z",
+   "heartbeat_at": "2026-11-03T22:49:32Z",
+   "ttl_minutes": 240
+  },
+  {
+   "id": "X157_gap_geometry",
+   "title": "At what surface gap does the medium actually fuse two bodies? Re-derivation from the logged geometry",
+   "status": "closed",
+   "owner": "lead",
+   "kind": "analysis",
+   "cost_gpu_h": 0.0,
+   "prereg": null,
+   "created_at": "2026-11-04T02:35:00+03:00",
+   "note": "closed: the fusion boundary is two quantities, not one. Surfaces are 1.9 cells apart at contact (median, 0.94-4.87 over 132 fusing runs, the same at every seeded size), and the design gap at which fusion stops being the rule lies between 8 and 11 cells (r3: 5/5 at 8 and 9, 4/5 at 10, 2/5 at 11; r4.5: 5/5 at 8, 4/5 at 9, 0/5 at 11; r6: 15/15 at 8, 0/5 at 12). Bodies grow to a common size before meeting (2.88 -> 5.84 at r3; 6.00 -> 8.47 at r6), which is why the boundary does not scale. The 2r + 9 rule and '9 ± 1 for all sizes' are withdrawn; the earlier radius-3 counts were a reach-test artefact. Triggered by the independent review lab/reviews/2026-11-04-029-three-numbers.md. Report reports/2026-11-04-x157-gap-geometry.md, aggregate l1_field_x157_gap_geometry.json, article 029 v2.1 section 4.1, manuscript section 4k.6, docs/eliminations.md. Next: the missing arms at gaps 9-11, and the contact gap at thresholds 0.1 and 0.3."
   }
  ]
 }

@@ -26,44 +26,83 @@
    "source": "x138 definitions",
    "note": "cells in a body of radius 6"
   },
-  "m_cross_r3": {
-   "text": "16 ± 1",
-   "value": 16,
-   "source": "x136 by_separation",
-   "note": ""
-  },
-  "m_cross_r45": {
-   "text": "18 ± 2",
-   "value": 18,
-   "source": "x140 by_separation",
-   "note": ""
-  },
-  "m_cross_r6": {
-   "text": "20 ± 2",
-   "value": 20,
-   "source": "x138 by_separation",
-   "note": ""
-  },
-  "m_rule": {
-   "text": "2r + 9",
+  "m_row_r3": {
+   "text": "| 3 | 29 | 5/5 | 5/5 | 4/5 | 2/5 | not run |",
    "value": null,
-   "source": "x138 verdict",
-   "note": "surface gap of 9 ± 1 cells at the crossing, all three radii"
-  },
-  "m_gap8": {
-   "text": "5 of 5",
-   "value": 5,
-   "source": "x142 by_arm r30_g8",
+   "source": "x157 arms r3.0 (one body = mutual fusion and absorption together)",
    "note": ""
   },
-  "m_gap9": {
-   "text": "M 3/5, A 2/5",
-   "value": 3,
-   "source": "x142 by_arm r30_g9",
+  "m_row_r45": {
+   "text": "| 4.5 | 64 | 5/5 | 4/5 | not run | 0/5 | not run |",
+   "value": null,
+   "source": "x157 arms r4.5",
+   "note": ""
+  },
+  "m_row_r6": {
+   "text": "| 6 | 113 | 15/15 | not run | not run | not run | 0/5 |",
+   "value": null,
+   "source": "x157 arms r6.0",
+   "note": ""
+  },
+  "m_contact": {
+   "text": "1.9 cells",
+   "value": 1.93,
+   "source": "x157 contact_gap_median",
+   "note": "surface gap at the last logged step before two bodies are one"
+  },
+  "m_contact_range": {
+   "text": "range 0.9 to 4.9",
+   "value": [
+    0.94,
+    4.87
+   ],
+   "source": "x157 contact_gap_min/max",
+   "note": ""
+  },
+  "m_contact_by_r": {
+   "text": "2.07 at radius 3, 1.89 at 4.5, 1.69 at 5.2, 1.93 at 6",
+   "value": null,
+   "source": "x157 by_radius g_fusion_median",
+   "note": ""
+  },
+  "m_runs": {
+   "text": "132 runs",
+   "value": 132,
+   "source": "x157 n_fused",
+   "note": "runs in which the two bodies became one"
+  },
+  "m_runs_all": {
+   "text": "171 two-body runs",
+   "value": 171,
+   "source": "x157 n_runs",
+   "note": ""
+  },
+  "m_growth_small": {
+   "text": "2.9 cells in effective radius",
+   "value": 2.88,
+   "source": "x157 by_radius r_at_first_step_median",
+   "note": "a body seeded at radius 3 by the first logged step"
+  },
+  "m_growth_from": {
+   "text": "6.0 to 8.5",
+   "value": [
+    6.0,
+    8.47
+   ],
+   "source": "x157 by_radius r_at_first_step_median and r_at_fusion_median",
+   "note": ""
+  },
+  "m_growth_band": {
+   "text": "5.8 and 8.5 cells",
+   "value": [
+    5.84,
+    8.47
+   ],
+   "source": "x157 by_radius r_at_fusion_median",
    "note": ""
   },
   "m_outer10": {
-   "text": "M 2/5, A 2/5, P 1/5",
+   "text": "M 2/5 and A 2/5, with P 1/5",
    "value": 2,
    "source": "x142 by_arm r30_g10",
    "note": ""
@@ -74,22 +113,28 @@
    "source": "x142 by_arm r30_g11",
    "note": ""
   },
-  "m_lone_r3": {
-   "text": "median of 180 steps",
-   "value": 180,
-   "source": "x145 by_radius first_split_median",
-   "note": ""
-  },
-  "m_lone_r45": {
-   "text": "190 and 290 steps",
-   "value": null,
+  "m_lone_small": {
+   "text": "180 and 190 steps",
+   "value": [
+    180,
+    190
+   ],
    "source": "x145 by_radius first_split_median",
    "note": ""
   },
   "m_lone_r6": {
-   "text": "290 steps",
+   "text": "median of 290 steps",
    "value": 290,
    "source": "x145 by_radius first_split_median",
+   "note": ""
+  },
+  "m_time_x154": {
+   "text": "39 steps at gaps 6.5 to 7.5 and 49 steps at 8",
+   "value": [
+    39.0,
+    49
+   ],
+   "source": "x154 curve median_t",
    "note": ""
   },
   "c_size_medians": {
@@ -497,6 +542,133 @@
    "text": "2 of 6",
    "value": 2,
    "source": "x110b alive_in_seeds",
+   "note": ""
+  },
+  "h2_pairs": {
+   "text": "4111 parent–daughter pairs",
+   "value": 4111,
+   "source": "x156 cells s pairs, both habitats",
+   "note": ""
+  },
+  "h2_s1": {
+   "text": "0.9959 [0.9790, 1.0126]",
+   "value": 0.9959428765500318,
+   "source": "x156 cells f030 s",
+   "note": ""
+  },
+  "h2_s2": {
+   "text": "0.9817 [0.9631, 1.0003]",
+   "value": 0.9817206439500085,
+   "source": "x156 cells f040 s",
+   "note": ""
+  },
+  "h2_area1": {
+   "text": "0.4514 [0.4264, 0.4771]",
+   "value": 0.45138129262799165,
+   "source": "x156 cells f030 area",
+   "note": ""
+  },
+  "h2_area2": {
+   "text": "0.4481 [0.4193, 0.4723]",
+   "value": 0.44808795384501743,
+   "source": "x156 cells f040 area",
+   "note": ""
+  },
+  "h2_elong1": {
+   "text": "0.6074 [0.5399, 0.6785]",
+   "value": 0.6073511335963709,
+   "source": "x156 cells f030 log_elong",
+   "note": ""
+  },
+  "h2_elong2": {
+   "text": "0.4260 [0.3585, 0.4924]",
+   "value": 0.425968965628163,
+   "source": "x156 cells f040 log_elong",
+   "note": ""
+  },
+  "h2_width1": {
+   "text": "0.3384 [0.2877, 0.3850]",
+   "value": 0.33840900963727544,
+   "source": "x156 cells f030 log_width",
+   "note": ""
+  },
+  "h2_width2": {
+   "text": "0.6238 [0.5846, 0.6672]",
+   "value": 0.6237707010459352,
+   "source": "x156 cells f040 log_width",
+   "note": ""
+  },
+  "h2_partial": {
+   "text": "0.26 and 0.65",
+   "value": [
+    0.6469870308627234,
+    0.2575626277796196,
+    0.502598469103563,
+    0.3900105706571486
+   ],
+   "source": "x156 cells partial_given_log_area, range over four trait-cells",
+   "note": ""
+  },
+  "h2_null": {
+   "text": "−0.001 to +0.002",
+   "value": [
+    0.0006613379488799354,
+    -0.0006406406644966556,
+    0.0010920103465946462,
+    0.0017380287895160194
+   ],
+   "source": "x156 cells shuffled_null null_mean, range over four trait-cells",
+   "note": ""
+  },
+  "h2_delay1": {
+   "text": "0.607 to 0.579",
+   "value": [
+    0.6073511335963709,
+    0.5794900203553877
+   ],
+   "source": "x156 cells f030 log_elong by_delay 0 and 3",
+   "note": ""
+  },
+  "h2_delay2": {
+   "text": "0.624 to 0.571",
+   "value": [
+    0.6237707010459352,
+    0.5705224204149174
+   ],
+   "source": "x156 cells f040 log_width by_delay 0 and 3",
+   "note": ""
+  },
+  "h2_mean": {
+   "text": "elongation 0.517 and width 0.481",
+   "value": null,
+   "source": "x156 cells, mean of log_elong and of log_width over the two habitats",
+   "note": ""
+  },
+  "h2_swap1": {
+   "text": "0.6074 against 0.3384",
+   "value": [
+    0.6073511335963709,
+    0.33840900963727544
+   ],
+   "source": "x156 cells f030 log_elong against log_width",
+   "note": ""
+  },
+  "h2_swap2": {
+   "text": "0.6238 against 0.4260",
+   "value": [
+    0.6237707010459352,
+    0.425968965628163
+   ],
+   "source": "x156 cells f040 log_width against log_elong",
+   "note": ""
+  },
+  "h2_band": {
+   "text": "0.34 to 0.62",
+   "value": [
+    0.33840900963727544,
+    0.425968965628163
+   ],
+   "source": "x156 cells, the lowest and highest log-shape slope",
    "note": ""
   }
  }

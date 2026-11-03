@@ -3679,3 +3679,74 @@ Report: `reports/2026-11-03-x155-heredity.md`; aggregate `l1_field_x155_heredity
 `x155_nomut_f030_s301.json`, `x155_nomut_f030_s302.json`. Next: a trait *measured* from the field rather than written by the rule
 (an excursion width or the local wavelength, inherited through the pattern) — the only route by which this line could produce
 positive heredity; `H²` as a calibration on the lineage count across the five existing cells; X152 and X149 unchanged.
+
+## 10hp. Shape measured from the field is inherited at about half, and the habitat chooses the aspect (X156, 04.11)
+
+**Question.** X155 left one clause standing: the trait whose heredity we measured is written into the daughter by the
+tracking rule, so what is inherited is a number, not a property of the medium. A shape computed from the field — nobody
+writes it — is the opposite object, and the question is whether such a shape is inherited, and how well.
+
+**Design.** Twenty worlds (ten at `F` = 0.030, ten at 0.040), seeds 801-810, 6 000 steps, one new observer
+(`--shape-log`) that records each component's **elongation** (`sqrt(lambda1/lambda2)` from the second moments) and
+**width** (`2*sqrt(lambda2)`, cells) at every tenth step. Observer is a pure function of the state: the anchor run with
+and without the flag is bit-identical in every field. Controls in the same runs: `s` (expected 0.98) and area (expected
+0.5, a daughter is part of her parent). Pre-registration: `reports/2026-11-04-x156-shape-heredity-plan.md`, with one dated
+amendment (log slopes, because the raw traits are heavy-tailed: elongation median 1.28, p90 14.7).
+
+**Result — SHAPE IS PARTIALLY TRANSMITTED, and the habitat decides which aspect.** Daughter-on-parent slopes (95 %
+cluster bootstrap over parent uids, 2 249 / 1 862 pairs):
+
+| trait | lattice | connected |
+|---|---|---|
+| `s` (control) | 0.9959 [0.9790, 1.0126] | 0.9817 [0.9631, 1.0003] |
+| area (control) | 0.4514 [0.4264, 0.4771] | 0.4481 [0.4193, 0.4723] |
+| log elongation | **0.6074 [0.5399, 0.6785]** | 0.4260 [0.3585, 0.4924] |
+| log width | 0.3384 [0.2877, 0.3850] | **0.6238 [0.5846, 0.6672]** |
+
+Shuffled-parent nulls -0.001 to +0.002, p = 0.001; the partial slope given log area stays at 0.26-0.65, so it is not area
+in disguise; reading the daughter one, two or three logged steps later moves each slope by at most 0.05, so nothing
+relaxes on the timescale visible at a ten-step quantum.
+
+**What it changes.** X155's "the only heritable character is one our analysis writes into them" becomes "the only
+*perfectly* heritable character"; shape is heritable at about half, in a direction set by the habitat. Heredity in this
+medium is a list ordered by how much of the trait the medium must rebuild at each division.
+
+**Limits.** Shape is a thresholded silhouette (`v` > 0.2); the primary statistic is a log slope chosen after the tails
+were seen; two habitats only; no mechanism separates "buds off the same ridge" from "the local supply is the same".
+
+**Next.** A third habitat (`F` = 0.035) to see whether the swap is a switch or a continuum; the shape slopes at thresholds
+0.1 and 0.3; an imposed supply anisotropy; and selection on shape, correlating a daughter's elongation with her fate class
+from X126 (no new simulation needed).
+
+Report: `reports/2026-11-04-x156-shape-heredity.md`; aggregate `l1_field_x156_shape_heredity.json`; series
+`scripts/x156_series.py`, analysis `scripts/x156_analyse.py`. Literature: `library/hypotheses/shape-heredity-x156.md`
+(12 verified sources; no prior measurement of parent-daughter shape correlation in a pattern-forming medium was found).
+
+## 10hq. Where fusion actually happens: 1.9 cells at contact, a design gap between 8 and 11 (X157, 04.11)
+
+**Question.** Article 029 stated the mixing length as "the gap between the surfaces, 9 ± 1 cells, the same for bodies of
+29, 64 and 113 cells", computed as `separation - 2 x nominal radius`. An independent review recomputed the arm counts and
+reported two problems: the radius-3 counts came from a reach test that counted a same-step partner as present, and the
+discs grow during a run, so the gap at contact is not the gap of the design.
+
+**Method.** 171 two-body runs, 132 of them ending as one body. For each: the last logged step with two components gives
+their areas and centres; `r = sqrt(A/pi)`; the gap at contact is the periodic centre distance minus both radii. No new
+runs.
+
+**Result, two quantities instead of one.**
+1. **At contact the surfaces are 1.9 cells apart** (median; 0.94-4.87), and it is the same at every seeded size: 2.07 at
+   radius 3, 1.89 at 4.5, 1.69 at 5.2, 1.93 at 6.
+2. **The design gap at which fusion stops being the rule lies between 8 and 11 cells**: radius 3 ends as one body 5/5 at
+   gaps 8 and 9, 4/5 at 10, 2/5 at 11; radius 4.5 5/5 at 8, 4/5 at 9, 0/5 at 11; radius 6 15/15 at 8 and 0/5 at 12. The
+   arms between 9 and 11 for the two larger radii do not exist.
+3. **Why the boundary does not scale:** the bodies grow to a common size before they meet (radius 3: 2.88 → 5.84; radius 6:
+   6.00 → 8.47), so the initial separation, not the initial size, decides.
+
+**Withdrawn.** The `2r + 9` rule and the single "9 ± 1 for all sizes" statement; the radius-3 row of the old table
+("16 ± 1", "two of five") was a classification artefact and the third row ("20 ± 2") was a bound between two arms.
+
+**Next.** Run the missing arms (radius 4.5 at gaps 10 and 11, radius 6 at 9, 10, 11, ten seeds each) to turn the band into
+a crossing; recompute the contact gap at thresholds 0.1 and 0.3, because the radius is read from the `v` > 0.2 mask.
+
+Report: `reports/2026-11-04-x157-gap-geometry.md`; aggregate `l1_field_x157_gap_geometry.json`; analysis
+`scripts/x157_gap_geometry.py`; review `lab/reviews/2026-11-04-029-three-numbers.md`.

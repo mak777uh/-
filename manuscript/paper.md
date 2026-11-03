@@ -1,7 +1,7 @@
 # Условия поддержания организации в цифровой среде: цена ошибки, неполная информация и границы обучения
 
-**Статус:** draft v3.9 (2026-11-03). Не подана, не рецензирована, цитировать нельзя. Соответствие препринту: v1.2 (Zenodo) — добавлены измеренная цена (−0.374, ДИ [−0.396, −0.266]), канал признака, механизмы сосуществования (асинхронность, смертность) и их синергия (+0.445); v3.6 — плотная лестница наследования и ось порога (§4k.1), третье поле как отрицательный результат (§4k); v3.7 — §4k.3 «Coalescence is a merger, not a birth»; v3.8 — §4k.2 «What makes the end of a lineage an end»; v3.9 — §4k.4 «The heredity coefficient is the rule's fidelity», измерение наследуемости вместо утверждения. Новые подразделы написаны сразу по-английски.
-**Данные частичные:** линия поля закрыта до X107; блоки X108–X155 внесены в текст (§4k — второй вид, §4k.2 — идентичность, §4k.3 — слияние, §4k.4 — наследуемость). Открытых вопросов линии осталось два: X152/X149 в блоке слияния. Аудит: `reports/2026-11-03-claims-audit.md`.
+**Статус:** draft v4.0 (2026-11-04). Не подана, не рецензирована, цитировать нельзя. Соответствие препринту: v1.2 (Zenodo) — добавлены измеренная цена (−0.374, ДИ [−0.396, −0.266]), канал признака, механизмы сосуществования (асинхронность, смертность) и их синергия (+0.445); v3.6 — плотная лестница наследования и ось порога (§4k.1), третье поле как отрицательный результат (§4k); v3.7 — §4k.3 «Coalescence is a merger, not a birth»; v3.8 — §4k.2 «What makes the end of a lineage an end»; v3.9 — §4k.4 «The heredity coefficient is the rule's fidelity», измерение наследуемости вместо утверждения; v4.0 — §4k.5 «What a daughter inherits when the trait is not written by the rule» (форма наследуется примерно наполовину) и §4k.6 «Where the fusion boundary actually is» (исправление микшинг-длины по независимому ревью). Новые подразделы написаны сразу по-английски.
+**Данные частичные:** линия поля закрыта до X107; блоки X108–X157 внесены в текст (§4k — второй вид, §4k.2 — идентичность, §4k.3 — слияние, §4k.4 — наследуемость, §4k.5 — форма, §4k.6 — исправленная граница слияния). Открытых вопросов линии осталось два: X152/X149 в блоке слияния. Аудит: `reports/2026-11-03-claims-audit.md`.
 
 ## 1. Вопрос
 
@@ -1724,6 +1724,72 @@ What the line may now say, and what it may not. It may say that the field's here
 measured, with its entire error budget accounted for by the mutation parameter — the §4k.1 sentence promoted from assertion
 to result. It may not say anything about whether *another* medium could have genuine heredity: the negative is about the
 Gray–Scott field as coded, and about a trait the rule writes rather than one the field would have to transmit.
+
+### 4k.5 What a daughter inherits when the trait is not written by the rule
+
+§4k.4 ends with a sentence that is too strong by one clause, and this subsection removes the clause. Every quantity
+measured there is *assigned*: the tracking rule copies `s` from mother to daughter, and with the rule's noise ablated the
+trait has no variance at all. That closes the question for `s`. It says nothing about a property the medium would have to
+reproduce by itself, and a reader is entitled to ask whether such a property exists in this world at all.
+
+It does, partly. Twenty fresh worlds (ten at `F` = 0.030, ten at 0.040, seeds 801-810, 6 000 steps) were observed by a
+recorder that computes, from each body's own pixels, two shape traits — **elongation** (the square root of the ratio of
+the principal axes of the second-moment matrix, 1 for a round body) and **width** (the minor-axis extent in cells). The
+recorder draws no random numbers: with it switched off, the same run is bit-identical, which is the anchor that lets the
+shapes be read as a property of the world and not of the observation.
+
+The two controls land where they should, which is what makes the rest readable. The assigned trait reproduces §4k.4 on a
+different set of worlds, at **0.9959** [0.9790, 1.0126] and **0.9817** [0.9631, 1.0003]; area is transmitted at **0.4514**
+[0.4264, 0.4771] and **0.4481** [0.4193, 0.4723], within a hundredth of the geometric expectation of one half, because a
+daughter is a part of her mother and not a copy of her. With 4 111 reconstructed pairs and 95 % intervals clustered over
+parent identifiers:
+
+| trait | lattice (`F` = 0.030) | connected (`F` = 0.040) |
+|---|---|---|
+| `s`, assigned (control) | 0.9959 [0.9790, 1.0126] | 0.9817 [0.9631, 1.0003] |
+| area (control) | 0.4514 [0.4264, 0.4771] | 0.4481 [0.4193, 0.4723] |
+| log elongation | **0.6074 [0.5399, 0.6785]** | 0.4260 [0.3585, 0.4924] |
+| log width | 0.3384 [0.2877, 0.3850] | **0.6238 [0.5846, 0.6672]** |
+
+Three readings. First, shape is not free of heredity: all four shape slopes are between 0.29 and 0.68, the shuffled-parent
+nulls give −0.001 to +0.002 at p = 0.001, and the partial slope given log area stays at 0.26 to 0.65, so the resemblance is
+not size in disguise. Second, the habitat decides **which** aspect is passed on: elongation in a lattice of round bodies,
+width in a connected labyrinth, and the two intervals inside each cell are disjoint. Third, nothing relaxes: reading the
+daughter one, two and three logged steps after her birth moves each slope by at most 0.05, so the value is set at the
+division rather than restored afterwards.
+
+So the honest sentence about heredity in this medium is a list rather than a number. The rule's own quantity is copied at
+0.98; a daughter's size is halved at 0.45; her shape is inherited at about half, in a direction the habitat chooses. The
+first entry is bookkeeping. The second is geometry. The third is the only one the medium has to do any work for, and it
+does about half of it.
+
+### 4k.6 Where the fusion boundary actually is
+
+The coalescence boundary of §4k.3 was stated as a conserved surface gap of 9 ± 1 cells, "the same for bodies of 29, 64 and
+113 cells", with the rule `2r + 9`. That statement was computed as `separation − 2 × nominal radius`, i.e. from the design
+parameters of the arms, and an independent review of the article built on this line recomputed the arm counts from the raw
+worlds and found two errors. The radius-3 row came from a reach test that counted a partner as present when its last known
+position fell within two cells, which is why it read "two of five" where the classification reads "four of five". And the
+third row was a bound between two arms, not a measured crossing.
+
+Re-deriving the geometry from the logs of all 171 two-body runs — the areas and centres of both bodies at the last logged
+step before they are one, with the radius `sqrt(A/pi)` — replaces one number with two, and the second is the measurement
+the first was standing in for:
+
+1. **At contact the surfaces are 1.9 cells apart** (median; 0.94 to 4.87 over 132 fusing runs), and this is the same at
+   every seeded size: 2.07 at radius 3, 1.89 at 4.5, 1.69 at 5.2, 1.93 at 6. That is about a sixth of the 12-cell
+   wavelength.
+2. **The design gap at which fusion stops being the rule lies between 8 and 11 cells.** Radius 3 ends as one body in 5/5
+   runs at gaps 8 and 9, 4/5 at 10 and 2/5 at 11; radius 4.5 in 5/5 at 8, 4/5 at 9 and 0/5 at 11; radius 6 in 15/15 at 8
+   and 0/5 at 12. The arms at gaps 9 to 11 for the two larger radii were never run, so the band cannot be narrowed.
+3. **Why the boundary does not scale with the body:** the bodies grow to a common size before they meet. A body seeded at
+   radius 3 is 2.88 cells at the first logged step and 5.84 when it touches its partner; one seeded at 6 goes from 6.00 to
+   8.47. The initial separation, not the initial size, decides.
+
+The `2r + 9` rule and the single "9 ± 1" are withdrawn. What replaces them is a statement about the medium (fusion at about
+two cells of surface separation, whatever the bodies were seeded as) and a statement about the design (the initial gap that
+still allows it, flat in body size, located only to a four-cell band).
+
 
 Доказательства: раздел 10ho в \docs/world-design.md\; `reports/2026-11-03-x155-heredity.md`,
 `reports/2026-11-03-x155-heredity-plan.md`; агрегат `l1_field_x155_heredity.json`; прогоны `x155_anchor_f030_s301.json`,

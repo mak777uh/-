@@ -1,6 +1,6 @@
 # Publishing brief — article 029 "How lineages begin and end in a pattern-forming chemical medium"
 
-You are receiving this brief together with one archive, `029-lineages-v2.0.zip`. The article and its data are final: the
+You are receiving this brief together with one archive, `029-lineages-v2.1.zip`. The article and its data are final: the
 author has reviewed them and the numbers have been checked mechanically against the data. Your job is to deposit them,
 not to improve them. Where this brief says "ask the author", stop and ask; do not decide on your own.
 
@@ -10,11 +10,12 @@ not to improve them. Where this brief says "ask the author", stop and ask; do no
 |---|---|
 | `029-lineages-in-a-pattern-forming-field.md` | the article (Markdown, English, ~5 000 words, 8 sections) |
 | `figures/fig1-what-we-measure.{png,pdf}` | schematic of the measurement (geometry, three outcomes, bookkeeping) |
-| `figures/fig2-mixing-length.{png,pdf}` | the mixing length: outcome against surface gap, time against surface gap |
+| `figures/fig2-mixing-length.{png,pdf}` | the mixing length in two quantities: outcome against the initial gap, and the surface gap at contact for three body sizes |
 | `figures/fig3-the-edge.{png,pdf}` | the edge: a step in the outcome, a spread in the timing |
 | `figures/fig4-endings.{png,pdf}` | how bodies end, and the survival reversal across three habitats |
 | `figures/fig5-heredity.{png,pdf}` | transmission slope against a shuffled null; scatter against the noise parameter |
-| `data/aggregates/*.json` | 27 aggregate files: the numbers behind every table and figure, each with the command line of its runs |
+| `figures/fig6-shape-heredity.{png,pdf}` | what a daughter inherits: the slope ladder, and the shape slopes read at four daughter ages |
+| `data/aggregates/*.json` | 29 aggregate files: the numbers behind every table and figure, each with the command line of its runs |
 | `data/derived/tables.json` | every number printed in the article, each entry naming the aggregate it came from |
 | `data/derived/*.csv` | the same values as flat tables (`table-edge`, `table-habitats`, `table-heredity`) |
 | `README.md` | description of the dataset: conventions, units, provenance |
@@ -22,10 +23,10 @@ not to improve them. Where this brief says "ask the author", stop and ask; do no
 | `zenodo.json` | deposit metadata in Zenodo's legacy-API format |
 | `MANIFEST.sha256` | sha256 of every file above |
 | `PUBLISHING.md` | this brief, verbatim, so the archive can be handed over on its own |
-| `029-lineages-in-a-pattern-forming-field.pdf` | the article as a PDF, with all five figures embedded |
+| `029-lineages-in-a-pattern-forming-field.pdf` | the article as a PDF, with all six figures embedded |
 
-PDF figures are the typesetting versions, PNG the reading versions; both are full page width. The archive holds 49
-files: the 48 covered by `MANIFEST.sha256` (everything, including this brief and the article PDF) plus the manifest
+PDF figures are the typesetting versions, PNG the reading versions; both are full page width. The archive holds 53
+files: the 57 listed in `MANIFEST.sha256` (everything, including this brief and the article PDF) plus the manifest
 itself, which cannot contain its own hash.
 
 ## 2. Check the archive before you upload anything (5 minutes)
@@ -33,15 +34,15 @@ itself, which cannot contain its own hash.
 1. **Integrity.** Unpack and compare every file against `MANIFEST.sha256`:
    `sha256sum -c MANIFEST.sha256` (Linux/macOS), or `Get-FileHash -Algorithm SHA256` in a loop on Windows. Every line
    must report OK.
-2. **Nothing missing.** Five figures in two formats (10 files), 27 aggregates, 5 files under `data/derived/`, and the
-   seven top-level files: the article in `.md` and `.pdf`, `README.md`, `LICENSE`, `zenodo.json`, `PUBLISHING.md` and
-   `MANIFEST.sha256` — 49 files in all.
+2. **Nothing missing.** Six figures in two formats (12 files), 29 aggregates, 6 files under `data/derived/`, and the
+   7 top-level files: the article in `.md` and `.pdf`, `README.md`, `LICENSE`, `zenodo.json`, `PUBLISHING.md` and
+   `MANIFEST.sha256`, plus 4 files under `papers/` — 58 files in all.
 3. **Spot-check one number.** In `data/derived/tables.json` take the entry `"h_slope"`; the same string
    (`0.9837 [0.9680, 1.0002]`) must appear in the article's §4.6 table and in
    `data/aggregates/l1_field_x155_heredity.json` under `cells[*].slope` / `slope_ci`. If the three disagree, do not
    upload — tell the author.
 
-The author's own verification, already run (do not re-run, it needs their repository): a checker requires each of the 69
+The author's own verification, already run (do not re-run, it needs their repository): a checker requires each of the 91
 printed numbers to appear in the article and in the derived table, and the derived table is generated from the
 aggregates. Your job is to confirm that the archive you received is the checked one.
 
@@ -56,7 +57,7 @@ aggregates. Your job is to confirm that the archive you received is the checked 
 2. `related_identifiers[0].identifier` — currently a repository URL. Confirm it with the author. If the data repository is
    private, remove the entry and put "Data available from the author on request" into `notes` instead.
 
-Everything else in `zenodo.json` (title, abstract, keywords, licence, version `2.0`, date) matches the article. **Do not
+Everything else in `zenodo.json` (title, abstract, keywords, licence, version `2.1`, date) matches the article. **Do not
 change the title.**
 
 ## 4. Deposit on Zenodo (recommended, and enough on its own)
@@ -88,7 +89,7 @@ final one at publication.
 
 - Category `q-bio.PE` (populations and evolution); `nlin.PS` as a cross-list if the author agrees.
 - Convert the Markdown to PDF **with the figures embedded**, using `figures/*.pdf`. The article references the figures by
-  their `figures/fig1-what-we-measure.png` names — keep those paths or relabel consistently, and check that all five
+  their `figures/fig1-what-we-measure.png` names — keep those paths or relabel consistently, and check that all six
   appear.
 - Abstract: copy the article's Abstract verbatim. Title: as in `zenodo.json`.
 - Upload `MANIFEST.sha256` as an ancillary file, and preferably `README.md` and `LICENSE` with it in a single

@@ -1,0 +1,508 @@
+{
+ "kind": "l1_field_x156_shape_heredity",
+ "experiment": "X156",
+ "plan": "reports/2026-11-04-x156-shape-heredity-plan.md",
+ "question": "is a shape measured from the field itself inherited across divisions?",
+ "definitions": {
+  "elong": "sqrt(l1/l2) from the second-moment matrix of the component's pixels; 1 = round",
+  "width": "2*sqrt(l2) in cells, the minor-axis extent",
+  "delay": "logged steps between the daughter's first appearance and the step at which she is read",
+  "partial_given_log_area": "slope of the daughter on the parent, controlling linearly for log area"
+ },
+ "cells": {
+  "f030": {
+   "cell": "f030",
+   "runs": 10,
+   "traits": {
+    "s": {
+     "pairs": 2249,
+     "pairs_total": 2284,
+     "r": 0.9310063481990153,
+     "slope": 0.9959428765500318,
+     "slope_ci": [
+      0.9790273293017626,
+      1.0126401588791558
+     ],
+     "parent_mean": 0.9760522009782125,
+     "parent_sd": 0.39011336837260135,
+     "daughter_mean": 0.9794257447754556,
+     "daughter_sd": 0.41732328789081147,
+     "residual_sd": 0.15232424610699377,
+     "shuffled_null": {
+      "observed": 0.9959428765500318,
+      "null_mean": -0.00027051358681402506,
+      "null_sd": 0.023292400387825898,
+      "p_one_sided": 0.000999000999000999
+     },
+     "partial_given_log_area": 0.9959824695383137,
+     "by_delay": {
+      "0": {
+       "slope": 0.9959428765500318,
+       "pairs": 2249
+      },
+      "1": {
+       "slope": 0.9956604588813084,
+       "pairs": 2211
+      },
+      "2": {
+       "slope": 0.9980417576183694,
+       "pairs": 2179
+      },
+      "3": {
+       "slope": 0.9968756695325992,
+       "pairs": 2148
+      }
+     }
+    },
+    "area": {
+     "pairs": 2249,
+     "pairs_total": 2284,
+     "r": 0.7192560819523719,
+     "slope": 0.45138129262799165,
+     "slope_ci": [
+      0.42636248798934134,
+      0.4771046898422157
+     ],
+     "parent_mean": 80.49444197421076,
+     "parent_sd": 27.67553364485763,
+     "daughter_mean": 38.32636727434415,
+     "daughter_sd": 17.368248200107022,
+     "residual_sd": 12.06650451513241,
+     "shuffled_null": {
+      "observed": 0.45138129262799165,
+      "null_mean": 0.00014152749547779873,
+      "null_sd": 0.013532251748638044,
+      "p_one_sided": 0.000999000999000999
+     },
+     "partial_given_log_area": null,
+     "by_delay": {
+      "0": {
+       "slope": 0.45138129262799165,
+       "pairs": 2249
+      },
+      "1": {
+       "slope": 0.44971367372712057,
+       "pairs": 2211
+      },
+      "2": {
+       "slope": 0.4452426963913594,
+       "pairs": 2179
+      },
+      "3": {
+       "slope": 0.4367470145669615,
+       "pairs": 2148
+      }
+     }
+    },
+    "elong": {
+     "pairs": 2243,
+     "pairs_total": 2284,
+     "r": 0.4122004635610119,
+     "slope": 0.5327852756240856,
+     "slope_ci": [
+      0.4443077950265559,
+      0.6352270552302358
+     ],
+     "parent_mean": 5.5351050824788235,
+     "parent_sd": 5.875994226644277,
+     "daughter_mean": 4.157780650913955,
+     "daughter_sd": 7.594953136545478,
+     "residual_sd": 6.919709985109473,
+     "shuffled_null": {
+      "observed": 0.5327852756240856,
+      "null_mean": -0.0012481960531739412,
+      "null_sd": 0.02712748850886194,
+      "p_one_sided": 0.000999000999000999
+     },
+     "partial_given_log_area": 0.5433268398553923,
+     "by_delay": {
+      "0": {
+       "slope": 0.5327852756240856,
+       "pairs": 2243
+      },
+      "1": {
+       "slope": 0.5121248761049075,
+       "pairs": 2203
+      },
+      "2": {
+       "slope": 0.5210184741348053,
+       "pairs": 2165
+      },
+      "3": {
+       "slope": 0.5154629694220678,
+       "pairs": 2112
+      }
+     }
+    },
+    "width": {
+     "pairs": 2243,
+     "pairs_total": 2284,
+     "r": 0.5520036205045538,
+     "slope": 0.33828211376462325,
+     "slope_ci": [
+      0.2343839029132369,
+      0.428651925198223
+     ],
+     "parent_mean": 5.0154814979937585,
+     "parent_sd": 6.63045738902582,
+     "daughter_mean": 3.320140436914846,
+     "daughter_sd": 4.06331599552872,
+     "residual_sd": 3.3881623716608935,
+     "shuffled_null": {
+      "observed": 0.33828211376462325,
+      "null_mean": 0.0002586069488356949,
+      "null_sd": 0.01276230398592371,
+      "p_one_sided": 0.000999000999000999
+     },
+     "partial_given_log_area": 0.33559596664611024,
+     "by_delay": {
+      "0": {
+       "slope": 0.33828211376462325,
+       "pairs": 2243
+      },
+      "1": {
+       "slope": 0.28968261005526397,
+       "pairs": 2203
+      },
+      "2": {
+       "slope": 0.263222938303233,
+       "pairs": 2165
+      },
+      "3": {
+       "slope": 0.27160109756072154,
+       "pairs": 2112
+      }
+     }
+    },
+    "log_elong": {
+     "pairs": 2243,
+     "pairs_total": 2284,
+     "r": 0.47143189444370853,
+     "slope": 0.6073511335963709,
+     "slope_ci": [
+      0.5399393717722241,
+      0.6784824893429178
+     ],
+     "parent_mean": 1.3687034774426143,
+     "parent_sd": 0.7391142377471422,
+     "daughter_mean": 0.6831045990528398,
+     "daughter_sd": 0.9522093762507317,
+     "residual_sd": 0.8397558021192806,
+     "shuffled_null": {
+      "observed": 0.6073511335963709,
+      "null_mean": 0.0006613379488799354,
+      "null_sd": 0.02658439589831373,
+      "p_one_sided": 0.000999000999000999
+     },
+     "partial_given_log_area": 0.6469870308627234,
+     "by_delay": {
+      "0": {
+       "slope": 0.6073511335963709,
+       "pairs": 2243
+      },
+      "1": {
+       "slope": 0.575602030361877,
+       "pairs": 2203
+      },
+      "2": {
+       "slope": 0.5777731659195515,
+       "pairs": 2165
+      },
+      "3": {
+       "slope": 0.5794900203553877,
+       "pairs": 2112
+      }
+     }
+    },
+    "log_width": {
+     "pairs": 2243,
+     "pairs_total": 2284,
+     "r": 0.5437022899398319,
+     "slope": 0.33840900963727544,
+     "slope_ci": [
+      0.2877273504348621,
+      0.3849837755201475
+     ],
+     "parent_mean": 1.398855197495369,
+     "parent_sd": 0.5109270883532989,
+     "daughter_mean": 1.0947048071587846,
+     "daughter_sd": 0.3180091994566194,
+     "residual_sd": 0.26689817390007864,
+     "shuffled_null": {
+      "observed": 0.33840900963727544,
+      "null_mean": -0.0006406406644966556,
+      "null_sd": 0.012549392419854926,
+      "p_one_sided": 0.000999000999000999
+     },
+     "partial_given_log_area": 0.2575626277796196,
+     "by_delay": {
+      "0": {
+       "slope": 0.33840900963727544,
+       "pairs": 2243
+      },
+      "1": {
+       "slope": 0.32407784150632835,
+       "pairs": 2203
+      },
+      "2": {
+       "slope": 0.3091336836566431,
+       "pairs": 2165
+      },
+      "3": {
+       "slope": 0.3140383696841693,
+       "pairs": 2112
+      }
+     }
+    }
+   }
+  },
+  "f040": {
+   "cell": "f040",
+   "runs": 10,
+   "traits": {
+    "s": {
+     "pairs": 1862,
+     "pairs_total": 2022,
+     "r": 0.9328154163883219,
+     "slope": 0.9817206439500085,
+     "slope_ci": [
+      0.9631304936629378,
+      1.0002696476005082
+     ],
+     "parent_mean": 1.045319387755102,
+     "parent_sd": 0.4012444409472015,
+     "daughter_mean": 1.0523738990332976,
+     "daughter_sd": 0.4222807042289135,
+     "residual_sd": 0.15217077153045433,
+     "shuffled_null": {
+      "observed": 0.9817206439500085,
+      "null_mean": 0.0013897967314567684,
+      "null_sd": 0.024533753092363962,
+      "p_one_sided": 0.000999000999000999
+     },
+     "partial_given_log_area": 0.980815305498629,
+     "by_delay": {
+      "0": {
+       "slope": 0.9817206439500085,
+       "pairs": 1862
+      },
+      "1": {
+       "slope": 0.9843298187006598,
+       "pairs": 1714
+      },
+      "2": {
+       "slope": 0.9860514913006065,
+       "pairs": 1589
+      },
+      "3": {
+       "slope": 0.9914950230713088,
+       "pairs": 1480
+      }
+     }
+    },
+    "area": {
+     "pairs": 1862,
+     "pairs_total": 2022,
+     "r": 0.6904527390649298,
+     "slope": 0.44808795384501743,
+     "slope_ci": [
+      0.41925882691272603,
+      0.4722799846100016
+     ],
+     "parent_mean": 652.0187969924812,
+     "parent_sd": 782.2951327518482,
+     "daughter_mean": 288.8533834586466,
+     "daughter_sd": 507.69155585133774,
+     "residual_sd": 367.25265111385426,
+     "shuffled_null": {
+      "observed": 0.44808795384501743,
+      "null_mean": -0.00030294177669872014,
+      "null_sd": 0.014900419796864661,
+      "p_one_sided": 0.000999000999000999
+     },
+     "partial_given_log_area": null,
+     "by_delay": {
+      "0": {
+       "slope": 0.44808795384501743,
+       "pairs": 1862
+      },
+      "1": {
+       "slope": 0.4481347384407165,
+       "pairs": 1714
+      },
+      "2": {
+       "slope": 0.43770034170371014,
+       "pairs": 1589
+      },
+      "3": {
+       "slope": 0.43005859772530075,
+       "pairs": 1480
+      }
+     }
+    },
+    "elong": {
+     "pairs": 1851,
+     "pairs_total": 2022,
+     "r": 0.3407803456374067,
+     "slope": 0.7483576468188523,
+     "slope_ci": [
+      0.6310987471734738,
+      0.8701411279140313
+     ],
+     "parent_mean": 2.5546976769313883,
+     "parent_sd": 1.8311293267578916,
+     "daughter_mean": 3.313810750945435,
+     "daughter_sd": 4.021181536835396,
+     "residual_sd": 3.780485450268572,
+     "shuffled_null": {
+      "observed": 0.7483576468188523,
+      "null_mean": -0.000749447834452695,
+      "null_sd": 0.05186698472237859,
+      "p_one_sided": 0.000999000999000999
+     },
+     "partial_given_log_area": 0.8120789380102948,
+     "by_delay": {
+      "0": {
+       "slope": 0.7483576468188523,
+       "pairs": 1851
+      },
+      "1": {
+       "slope": 0.7111921956425902,
+       "pairs": 1708
+      },
+      "2": {
+       "slope": 0.6969944015408325,
+       "pairs": 1586
+      },
+      "3": {
+       "slope": 0.6660512625635268,
+       "pairs": 1479
+      }
+     }
+    },
+    "width": {
+     "pairs": 1851,
+     "pairs_total": 2022,
+     "r": 0.6082702795223361,
+     "slope": 0.4734856121079988,
+     "slope_ci": [
+      0.43376668697945164,
+      0.5150968620069571
+     ],
+     "parent_mean": 19.64775580767153,
+     "parent_sd": 15.553518177099765,
+     "daughter_mean": 10.419290653700703,
+     "daughter_sd": 12.107063787992525,
+     "residual_sd": 9.609739390758227,
+     "shuffled_null": {
+      "observed": 0.4734856121079988,
+      "null_mean": 0.0001369476645920832,
+      "null_sd": 0.018472276864385368,
+      "p_one_sided": 0.000999000999000999
+     },
+     "partial_given_log_area": 0.36186025683958767,
+     "by_delay": {
+      "0": {
+       "slope": 0.4734856121079988,
+       "pairs": 1851
+      },
+      "1": {
+       "slope": 0.4663002009708284,
+       "pairs": 1708
+      },
+      "2": {
+       "slope": 0.44829491721464093,
+       "pairs": 1586
+      },
+      "3": {
+       "slope": 0.42749744962863695,
+       "pairs": 1479
+      }
+     }
+    },
+    "log_elong": {
+     "pairs": 1851,
+     "pairs_total": 2022,
+     "r": 0.3103749170975874,
+     "slope": 0.425968965628163,
+     "slope_ci": [
+      0.35847865316420996,
+      0.4923785867371346
+     ],
+     "parent_mean": 0.7771937035390951,
+     "parent_sd": 0.524299895803356,
+     "daughter_mean": 0.8487623991762183,
+     "daughter_sd": 0.7195667948389288,
+     "residual_sd": 0.684030433306732,
+     "shuffled_null": {
+      "observed": 0.425968965628163,
+      "null_mean": 0.0010920103465946462,
+      "null_sd": 0.033140416252098764,
+      "p_one_sided": 0.000999000999000999
+     },
+     "partial_given_log_area": 0.502598469103563,
+     "by_delay": {
+      "0": {
+       "slope": 0.425968965628163,
+       "pairs": 1851
+      },
+      "1": {
+       "slope": 0.3924606128853221,
+       "pairs": 1708
+      },
+      "2": {
+       "slope": 0.38729371495657794,
+       "pairs": 1586
+      },
+      "3": {
+       "slope": 0.3639129373918914,
+       "pairs": 1479
+      }
+     }
+    },
+    "log_width": {
+     "pairs": 1851,
+     "pairs_total": 2022,
+     "r": 0.5861290870964072,
+     "slope": 0.6237707010459352,
+     "slope_ci": [
+      0.5846328169755974,
+      0.6671917706303846
+     ],
+     "parent_mean": 2.6872859040486525,
+     "parent_sd": 0.7576814487111444,
+     "daughter_mean": 1.938681193603187,
+     "daughter_sd": 0.8063402735621504,
+     "residual_sd": 0.6533111478633367,
+     "shuffled_null": {
+      "observed": 0.6237707010459352,
+      "null_mean": 0.0017380287895160194,
+      "null_sd": 0.024590923191919953,
+      "p_one_sided": 0.000999000999000999
+     },
+     "partial_given_log_area": 0.3900105706571486,
+     "by_delay": {
+      "0": {
+       "slope": 0.6237707010459352,
+       "pairs": 1851
+      },
+      "1": {
+       "slope": 0.6168812756205336,
+       "pairs": 1708
+      },
+      "2": {
+       "slope": 0.593300281466138,
+       "pairs": 1586
+      },
+      "3": {
+       "slope": 0.5705224204149174,
+       "pairs": 1479
+      }
+     }
+    }
+   }
+  }
+ },
+ "series": "scripts/x156_series.py",
+ "verdict": "SHAPE IS PARTIALLY TRANSMITTED, and the habitat decides which aspect: f030 elong, f040 width; elongation 0.517 and width 0.481 on average, both far below the tracked trait's 1.0 and both unaffected by the daughter's age. Controls: f030: s 0.996, area 0.451, elong 0.607 (null 0.001), width 0.338 | f040: s 0.982, area 0.448, elong 0.426 (null 0.001), width 0.624"
+}

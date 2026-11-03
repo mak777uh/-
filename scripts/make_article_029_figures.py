@@ -27,7 +27,7 @@ OUT = ROOT / "articles" / "029-figures"
 
 TABLES: dict[str, dict] = {}
 
-BLUE, ORANGE, GREEN, PURPLE, GREY = "#0072B2", "#D55E00", "#009E73", "#CC79A7", "#6E6E6E"
+BLUE, ORANGE, GREEN, PURPLE, GREY, RED = "#0072B2", "#D55E00", "#009E73", "#CC79A7", "#6E6E6E", "#B2182B"
 
 
 def agg(name: str) -> dict:
@@ -76,6 +76,8 @@ def main(argv=None) -> int:
     x128b = agg("l1_field_x128b_local.json")
     x113 = agg("l1_field_x113_depth.json")
     x155 = agg("l1_field_x155_heredity.json")
+    x157 = agg("l1_field_x157_gap_geometry.json")
+    x156 = agg("l1_field_x156_shape_heredity.json")
 
     by_arm = x142["by_arm"]
     r30 = sorted((v["gap"], v["M"], v["runs"], v["median_mutual_coalescence"]) for v in by_arm.values() if v["radius"] == 3.0)
@@ -89,27 +91,55 @@ def main(argv=None) -> int:
     put("m_area_r3", "29", 29, "x142 by_arm / x145 definitions", "cells in a body of radius 3")
     put("m_area_r45", "| 4.5 | 64 |", None, "x140 definitions", "markdown row, radius 4.5 = 64 cells")
     put("m_area_r6", "113", 113, "x138 definitions", "cells in a body of radius 6")
-    put("m_cross_r3", "16 ± 1", 16, "x136 by_separation")
-    put("m_cross_r45", "18 ± 2", 18, "x140 by_separation")
-    put("m_cross_r6", "20 ± 2", 20, "x138 by_separation")
-    put("m_rule", "2r + 9", None, "x138 verdict", "surface gap of 9 ± 1 cells at the crossing, all three radii")
-    g8 = [v for v in r30 if v[0] == 8][0]
-    g9 = [v for v in r30 if v[0] == 9][0]
-    put("m_gap8", f"{g8[1]} of 5", g8[1], "x142 by_arm r30_g8")
-    put("m_gap9", "M 3/5, A 2/5", g9[1], "x142 by_arm r30_g9")
+    # X157: the corrected mixing length, in two quantities rather than one
+    arms = x157["arms"]
+
+    def arm_of(radius: float, gap: int) -> dict | None:
+        for v in arms.values():
+            if abs(v["radius"] - radius) < 1e-6 and int(round(v["nominal_gap"])) == gap:
+                return v
+        return None
+
+    def cell(radius: float, gap: int) -> str:
+        v = arm_of(radius, gap)
+        return "not run" if v is None else f"{v['fused']}/{v['runs']}"
+
+    put("m_row_r3", f"| 3 | 29 | {cell(3.0, 8)} | {cell(3.0, 9)} | {cell(3.0, 10)} | {cell(3.0, 11)} | not run |",
+        None, "x157 arms r3.0 (one body = mutual fusion and absorption together)")
+    put("m_row_r45", f"| 4.5 | 64 | {cell(4.5, 8)} | {cell(4.5, 9)} | not run | {cell(4.5, 11)} | not run |",
+        None, "x157 arms r4.5")
+    put("m_row_r6", f"| 6 | 113 | {cell(6.0, 8)} | not run | not run | not run | {cell(6.0, 12)} |",
+        None, "x157 arms r6.0")
+
+    by_r = x157["by_radius"]
+    put("m_contact", f"{x157['contact_gap_median']:.1f} cells", x157["contact_gap_median"],
+        "x157 contact_gap_median", "surface gap at the last logged step before two bodies are one")
+    put("m_contact_range", f"range {x157['contact_gap_min']:.1f} to {x157['contact_gap_max']:.1f}",
+        [x157["contact_gap_min"], x157["contact_gap_max"]], "x157 contact_gap_min/max")
+    put("m_contact_by_r",
+        f"{by_r['r3.0']['g_fusion_median']:.2f} at radius 3, {by_r['r4.5']['g_fusion_median']:.2f} at 4.5, "
+        f"{by_r['r5.2']['g_fusion_median']:.2f} at 5.2, {by_r['r6.0']['g_fusion_median']:.2f} at 6",
+        None, "x157 by_radius g_fusion_median")
+    put("m_runs", f"{x157['n_fused']} runs", x157["n_fused"], "x157 n_fused", "runs in which the two bodies became one")
+    put("m_runs_all", f"{x157['n_runs']} two-body runs", x157["n_runs"], "x157 n_runs")
+    put("m_growth_small", "2.9 cells in effective radius", by_r["r3.0"]["r_at_first_step_median"],
+        "x157 by_radius r_at_first_step_median", "a body seeded at radius 3 by the first logged step")
+    put("m_growth_from", "6.0 to 8.5", [by_r["r6.0"]["r_at_first_step_median"], by_r["r6.0"]["r_at_fusion_median"]],
+        "x157 by_radius r_at_first_step_median and r_at_fusion_median")
+    put("m_growth_band", "5.8 and 8.5 cells", [by_r["r3.0"]["r_at_fusion_median"], by_r["r6.0"]["r_at_fusion_median"]],
+        "x157 by_radius r_at_fusion_median")
+
     g10 = by_arm["r30_g10"]
     g11 = by_arm["r30_g11"]
-
-    def classes(row) -> str:
-        return ", ".join(f"{n} {row[k]}/5" for n, k in (("M", "M"), ("A", "A"), ("P", "P")) if row[k])
-
-    put("m_outer10", classes(g10), g10["M"], "x142 by_arm r30_g10")
-    put("m_outer11", classes(g11), g11["M"], "x142 by_arm r30_g11")
+    put("m_outer10", f"M {g10['M']}/5 and A {g10['A']}/5, with P {g10['P']}/5", g10["M"], "x142 by_arm r30_g10")
+    put("m_outer11", f"M {g11['M']}/5, P {g11['P']}/5", g11["M"], "x142 by_arm r30_g11")
 
     lone = x145["by_radius"]
-    put("m_lone_r3", "median of 180 steps", lone["3.0"]["first_split_median"], "x145 by_radius first_split_median")
-    put("m_lone_r45", "190 and 290 steps", None, "x145 by_radius first_split_median")
-    put("m_lone_r6", "290 steps", lone["6.0"]["first_split_median"], "x145 by_radius first_split_median")
+    put("m_lone_small", "180 and 190 steps", [lone["3.0"]["first_split_median"], lone["4.5"]["first_split_median"]],
+        "x145 by_radius first_split_median")
+    put("m_lone_r6", "median of 290 steps", lone["6.0"]["first_split_median"], "x145 by_radius first_split_median")
+    put("m_time_x154", "39 steps at gaps 6.5 to 7.5 and 49 steps at 8", [curve[6.5]["median_t"], curve[8.0]["median_t"]],
+        "x154 curve median_t")
 
     fus9, fus10, fus11 = by_arm["r30_g9"]["fusion"], by_arm["r30_g10"]["fusion"], by_arm["r30_g11"]["fusion"]
     put("c_size_medians", f"{fus9['median_area_divided']:.0f} / {fus9['median_area_not_divided']:.0f}, "
@@ -275,31 +305,48 @@ def main(argv=None) -> int:
     ax.set_title("(c) how a lineage is written down", fontsize=9.5, loc="left")
     save(fig, "fig1-what-we-measure")
 
-    # ------------------------------------------------------------------ figure 2: mixing length
-    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(7.2, 2.9))
-    ax1.axvspan(8, 9, color="0.90", zorder=0)
-    series = [(r30, "bodies of 29 cells (radius 3)", BLUE, "o", "-"),
-              (r45, "bodies of 64 cells (radius 4.5)", ORANGE, "s", "--")]
-    for rows, label, colour, marker, ls in series:
-        ax1.plot([v[0] for v in rows], [v[1] / v[2] for v in rows], marker=marker, ls=ls, color=colour, ms=4.5,
-                 lw=1.3, label=label)
-    ax1.plot(gaps, coal, marker="^", ls=":", color=GREEN, ms=4.5, lw=1.3, label="bodies of 113 cells (radius 6)")
-    ax1.text(8.5, 0.06, "9 cells\n≈ ¾ wavelength", ha="center", fontsize=8, color="0.25")
-    ax1.set_xlabel("surface gap between the two bodies (cells)")
+    # ------------------------------------------------------------------ figure 2: mixing length, two quantities
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(7.4, 3.0))
+    ax1.axvspan(9, 11, color="0.92", zorder=0, lw=0)
+    for radius, colour, marker, ls in ((3.0, BLUE, "o", "-"), (4.5, ORANGE, "s", "--"), (6.0, GREEN, "^", ":")):
+        rows = [v for v in arms.values() if abs(v["radius"] - radius) < 1e-6]
+        rows.sort(key=lambda v: v["nominal_gap"])
+        xs = [v["nominal_gap"] for v in rows]
+        ys = [v["fused_share"] for v in rows]
+        ax1.plot(xs, ys, marker=marker, ls=ls, color=colour, ms=5, lw=1.3,
+                 label=f"seeded radius {radius:g}")
+    ax1.text(10.0, 0.06, "no arm was run\nbetween 9 and 11", ha="center", fontsize=7.5, color="0.25")
+    ax1.set_xlabel("initial surface gap between the two bodies (cells)")
     ax1.set_ylabel("share of runs that ended as one body")
-    ax1.set_ylim(-0.06, 1.08)
-    ax1.legend(frameon=False, loc="lower left")
-    ax1.set_title("(a) the outcome flips between eight and nine cells", fontsize=9.5, loc="left")
+    ax1.set_ylim(-0.08, 1.10)
+    ax1.set_xlim(2, 14)
+    ax1.legend(frameon=False, loc="lower left", fontsize=7.5)
+    ax1.set_title("(a) where fusion stops being the rule", fontsize=9.5, loc="left")
 
-    for rows, label, colour, marker, ls in series:
-        ax2.plot([v[0] for v in rows], [v[3] for v in rows], marker=marker, ls=ls, color=colour, ms=4.5, lw=1.3,
-                 label=label.split(" (")[0])
-    ax2.plot(gaps, [curve[g]["median_t"] for g in gaps], marker="^", ls=":", color=GREEN, ms=4.5, lw=1.3,
-             label="113 cells")
-    ax2.set_xlabel("surface gap (cells)")
-    ax2.set_ylabel("typical time to a single body (steps)")
-    ax2.legend(frameon=False, loc="upper left", title="body size", title_fontsize=8.5)
-    ax2.set_title("(b) the time follows the gap, not the body", fontsize=9.5, loc="left")
+    bands = []
+    labels = []
+    for radius in (3.0, 4.5, 6.0):
+        gaps_r = [g["g_fusion"] for g in x157["runs_geometry"]
+                  if abs(g["radius"] - radius) < 1e-6 and g["g_fusion"] is not None]
+        bands.append(gaps_r)
+        labels.append(f"{radius:g}")
+    bp = ax2.boxplot(bands, widths=0.55, patch_artist=True, showfliers=False)
+    for patch, colour in zip(bp["boxes"], (BLUE, ORANGE, GREEN)):
+        patch.set_facecolor(colour)
+        patch.set_alpha(0.25)
+        patch.set_edgecolor(colour)
+    for i, vals in enumerate(bands):
+        xs = np.full(len(vals), i + 1.0)
+        ax2.scatter(xs + np.random.default_rng(7).normal(0, 0.05, len(vals)), vals, s=9, color="0.25", alpha=0.6,
+                    zorder=3, linewidths=0)
+    ax2.axhline(x157["contact_gap_median"], color=RED, lw=1.1, ls="--")
+    ax2.text(3.42, x157["contact_gap_median"] + 0.18, f"median {x157['contact_gap_median']:.1f}",
+             fontsize=7.5, color=RED, ha="right")
+    ax2.set_xticks([1, 2, 3])
+    ax2.set_xticklabels(labels)
+    ax2.set_xlabel("seeded radius of the bodies (cells)")
+    ax2.set_ylabel("surface gap at contact (cells)")
+    ax2.set_title("(b) the same distance at every size", fontsize=9.5, loc="left")
     save(fig, "fig2-mixing-length")
 
     # ------------------------------------------------------------------ figure 3: the edge
@@ -392,6 +439,86 @@ def main(argv=None) -> int:
     ax2.set_title("(b) what is not inherited is the noise", fontsize=9.5, loc="left")
     save(fig, "fig5-heredity")
 
+    # ------------------------------------------------------------------ figure 6: shape heredity
+    cells156 = x156["cells"]
+    order = (("s", "assigned trait\n(control)"), ("area", "area\n(control)"),
+             ("log_elong", "log elongation"), ("log_width", "log width"))
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(7.4, 3.0))
+    xs = np.arange(len(order))
+    for j, (cell_name, colour, label, dx) in enumerate((("f030", BLUE, "lattice", -0.16),
+                                                        ("f040", ORANGE, "connected", 0.16))):
+        rows = cells156[cell_name]["traits"]
+        lows, highs, vals = [], [], []
+        for key, _ in order:
+            row = rows[key]
+            lo, hi = row["slope_ci"]
+            lows.append(row["slope"] - lo)
+            highs.append(hi - row["slope"])
+            vals.append(row["slope"])
+        ax1.errorbar(xs + dx, vals, yerr=[lows, highs], fmt="o", ms=5.5, color=colour, capsize=3, lw=1.2,
+                     label=label)
+    ax1.axhline(1.0, color="0.5", lw=0.9, ls="--")
+    ax1.axhline(0.5, color="0.75", lw=0.9, ls=":")
+    ax1.set_xticks(xs)
+    ax1.set_xticklabels([label for _, label in order], fontsize=8)
+    ax1.set_ylabel("daughter-against-parent slope")
+    ax1.set_ylim(0, 1.15)
+    ax1.legend(frameon=False, loc="lower left", fontsize=8)
+    ax1.set_title("(a) what a daughter inherits", fontsize=9.5, loc="left")
+
+    for cell_name, colour, label, ls in (("f030", BLUE, "lattice", "-"), ("f040", ORANGE, "connected", "--")):
+        rows = cells156[cell_name]["traits"]
+        for key, marker in (("log_elong", "o"), ("log_width", "s")):
+            by = rows[key]["by_delay"]
+            ds = sorted(int(k) for k in by)
+            ax2.plot(ds, [by[str(d)]["slope"] for d in ds], marker=marker, ls=ls, color=colour, ms=4.5, lw=1.2,
+                     label=f"{label}: {'elongation' if key == 'log_elong' else 'width'}")
+    ax2.set_xlabel("logged steps between the daughter's birth and the reading")
+    ax2.set_ylabel("slope at that reading")
+    ax2.set_xticks([0, 1, 2, 3])
+    ax2.legend(frameon=False, fontsize=7.5, loc="lower left")
+    ax2.set_title("(b) set at birth, not restored later", fontsize=9.5, loc="left")
+    save(fig, "fig6-shape-heredity")
+
+    # ------------------------------------------------------------------ the shape numbers
+    sh = cells156["f030"]["traits"]
+    sh2 = cells156["f040"]["traits"]
+    pairs_all = sh["s"]["pairs"] + sh2["s"]["pairs"]
+
+    def ci(row: dict) -> str:
+        return f"{row['slope']:.4f} [{row['slope_ci'][0]:.4f}, {row['slope_ci'][1]:.4f}]"
+
+    put("h2_pairs", f"{pairs_all} parent–daughter pairs", pairs_all, "x156 cells s pairs, both habitats")
+    put("h2_s1", ci(sh["s"]), sh["s"]["slope"], "x156 cells f030 s")
+    put("h2_s2", ci(sh2["s"]), sh2["s"]["slope"], "x156 cells f040 s")
+    put("h2_area1", ci(sh["area"]), sh["area"]["slope"], "x156 cells f030 area")
+    put("h2_area2", ci(sh2["area"]), sh2["area"]["slope"], "x156 cells f040 area")
+    put("h2_elong1", ci(sh["log_elong"]), sh["log_elong"]["slope"], "x156 cells f030 log_elong")
+    put("h2_elong2", ci(sh2["log_elong"]), sh2["log_elong"]["slope"], "x156 cells f040 log_elong")
+    put("h2_width1", ci(sh["log_width"]), sh["log_width"]["slope"], "x156 cells f030 log_width")
+    put("h2_width2", ci(sh2["log_width"]), sh2["log_width"]["slope"], "x156 cells f040 log_width")
+    partials = [sh["log_elong"]["partial_given_log_area"], sh["log_width"]["partial_given_log_area"],
+                sh2["log_elong"]["partial_given_log_area"], sh2["log_width"]["partial_given_log_area"]]
+    put("h2_partial", "0.26 and 0.65", partials, "x156 cells partial_given_log_area, range over four trait-cells")
+    nulls = [sh["log_elong"]["shuffled_null"]["null_mean"], sh["log_width"]["shuffled_null"]["null_mean"],
+             sh2["log_elong"]["shuffled_null"]["null_mean"], sh2["log_width"]["shuffled_null"]["null_mean"]]
+    put("h2_null", "−0.001 to +0.002", nulls, "x156 cells shuffled_null null_mean, range over four trait-cells")
+    d1 = sh["log_elong"]["by_delay"]
+    d2 = sh2["log_width"]["by_delay"]
+    put("h2_delay1", f"{d1['0']['slope']:.3f} to {d1['3']['slope']:.3f}", [d1["0"]["slope"], d1["3"]["slope"]],
+        "x156 cells f030 log_elong by_delay 0 and 3")
+    put("h2_delay2", f"{d2['0']['slope']:.3f} to {d2['3']['slope']:.3f}", [d2["0"]["slope"], d2["3"]["slope"]],
+        "x156 cells f040 log_width by_delay 0 and 3")
+    put("h2_mean", f"elongation {(sh['log_elong']['slope'] + sh2['log_elong']['slope']) / 2:.3f} and width "
+                   f"{(sh['log_width']['slope'] + sh2['log_width']['slope']) / 2:.3f}",
+        None, "x156 cells, mean of log_elong and of log_width over the two habitats")
+    put("h2_swap1", f"{sh['log_elong']['slope']:.4f} against {sh['log_width']['slope']:.4f}",
+        [sh["log_elong"]["slope"], sh["log_width"]["slope"]], "x156 cells f030 log_elong against log_width")
+    put("h2_swap2", f"{sh2['log_width']['slope']:.4f} against {sh2['log_elong']['slope']:.4f}",
+        [sh2["log_width"]["slope"], sh2["log_elong"]["slope"]], "x156 cells f040 log_width against log_elong")
+    put("h2_band", "0.34 to 0.62", [sh["log_width"]["slope"], sh2["log_elong"]["slope"]],
+        "x156 cells, the lowest and highest log-shape slope")
+
     # ------------------------------------------------------------------ derived tables
     with (OUT / "tables.csv").open("w", encoding="utf-8", newline="") as fh:
         w = csv.writer(fh)
@@ -434,12 +561,23 @@ def main(argv=None) -> int:
                         "null_p": cell["shuffle_null"]["p_one_sided"], "residual_sd": cell["residual_sd"],
                         "between_lineage_share": cell["h2_between_mean"]})
 
+    with (OUT / "table-shape.csv").open("w", encoding="utf-8", newline="") as fh:
+        w = csv.writer(fh)
+        w.writerow(["habitat", "trait", "pairs", "slope", "ci_low", "ci_high", "partial_given_log_area",
+                    "shuffled_null_mean", "parent_sd", "residual_sd"])
+        for cell_name in ("f030", "f040"):
+            for key in ("s", "area", "log_elong", "log_width"):
+                row = cells156[cell_name]["traits"][key]
+                w.writerow([cell_name, key, row["pairs"], row["slope"], row["slope_ci"][0], row["slope_ci"][1],
+                            row["partial_given_log_area"], row["shuffled_null"]["null_mean"], row["parent_sd"],
+                            row["residual_sd"]])
+
     payload = {"kind": "article_029_tables",
                "note": "every number printed in article 029, with the aggregate it came from",
                "tables": TABLES}
     (OUT / "tables.json").write_text(json.dumps(payload, ensure_ascii=False, indent=1) + "\n", encoding="utf-8",
                                      newline="\n")
-    print(f"[029] figures: 5 x 2 formats; values: {len(TABLES)}")
+    print(f"[029] figures: 6 x 2 formats; values: {len(TABLES)}")
     return 0
 
 
