@@ -3171,3 +3171,35 @@ statement is the same error as quoting a filtered statistic without its filter.
 Report: `reports/2026-11-03-x131-worlds.md`; aggregate `l1_field_x131_worlds.json`. Next: X132 is the power run (thirty worlds per cell, the same flags, new
 seeds), X133 pools the ten worlds with a world random effect to see how much of the within-world effect survives the world-level variance, and X134 asks what makes
 the survival contrast swing between 0.09 and 0.30 across seeds.
+
+## 10gz. Thirty worlds: the survival contrast is real, and larger than ten worlds said (X132, 03.11)
+
+§10gy left the block's central contrast unresolved: with ten worlds the difference between the lattice and the maze in end-survival was -0.077 with an interval
+crossing zero, and the power calculation put the requirement at `n >= 26`. X132 ran twenty new worlds per cell (seeds 311-330, added to the existing ten), anchor
+exact key-by-key, all forty runs alive, every control held.
+
+| statistic | lattice | maze | maze - lattice (paired, 30 seeds) | outcome |
+|---|---|---|---|---|
+| end-survival contrast | 0.2960 (sd 0.1023) | 0.1636 (sd 0.1010) | **-0.1323** (-0.1819 to -0.0840) | **resolved** |
+| depth contrast | 1.4889 (sd 0.5885) | 3.3229 (sd 2.2803) | **+1.8340** (1.0442 to 2.7231) | **resolved** |
+| absorbed share | 0.5386 | 0.4430 | -0.0911 | resolved |
+| isolated share | 0.2708 | 0.1930 | -0.0754 | resolved |
+| vanished share | 0.0929 | 0.2347 | **+0.1419** | resolved |
+| kin share | 0.8058 | 0.3894 | **-0.4164** | resolved |
+
+**The ten-world estimate was biased low, not merely imprecise.** The paired difference grows from -0.077 to **-0.132** when the twenty new seeds are added, and the
+per-world mean survival rises in both cells (lattice 0.222 to 0.296, maze 0.146 to 0.164). A ten-world estimate of a cross-habitat quantity is therefore not a
+noisy version of the thirty-world one - it can sit a factor of 1.7 away from it - and the correction came from adding worlds, not from re-reading them.
+
+**What this restores and what it costs.** §10gy's method stands and its conclusion is superseded: the survival contrast **is** a property of the habitat, at -0.132
+with the interval comfortably away from zero, and the depth contrast is larger than the ten-world estimate (+1.83 against +1.05) with a per-world spread in the maze
+(sd 2.28) four times the lattice's (0.59) - the maze is deeper **and** far more variable. The whole identity block is confirmed at the world level in the same run:
+the lattice absorbs more (0.539 against 0.443), dies alone more often (0.271 against 0.193), loses fewer cells outright (0.093 against 0.235) and keeps its
+absorptions in the family (0.806 against 0.389).
+
+The run cost forty worlds and fifty minutes, which makes the rule affordable: **any cross-habitat claim carries a power calculation before it is written**, and ten
+worlds is the default only for within-world effects whose inference already runs over thousands of pairs.
+
+Report: `reports/2026-11-03-x132-power.md`; aggregate `l1_field_x132_power.json`. Next: X133 asks why the maze's depth is heavy-tailed (sd 2.28 against a mean of
+3.32), and X134 is the first interventional test of the chain - two structures seeded at a controlled separation, swept, to find the distance at which the habitat
+stops keeping them apart.

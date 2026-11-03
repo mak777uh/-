@@ -1,6 +1,6 @@
 {
  "schema_version": 1,
- "updated_at": "2026-11-03T06:40:00+03:00",
+ "updated_at": "2026-11-03T06:52:00+03:00",
  "note": "Очередь пунктов после E02c. Claim берётся до пре-регистрации, а не перед запуском: lab.py item-claim. Статус running означает занятый GPU-лейн и может быть только у одного пункта. | 25.10: добавлено поле impact (1-5) — приоритет конвейера = impact/max(cost_gpu_h,0.1); для запуска пункту нужны prereg (закоммиченный план) и launch.command+outdir.",
  "items": [
   {
@@ -2671,14 +2671,16 @@
   {
    "id": "X132_power",
    "title": "The power run: thirty worlds per cell, because ten could not resolve the survival contrast",
-   "status": "running",
+   "status": "closed",
    "owner": "lead",
    "kind": "experiment",
    "cost_gpu_h": 0,
    "prereg": "reports/2026-11-03-x132-power-plan.md",
    "created_at": "2026-11-03T06:31:00+03:00",
    "heartbeat_at": "2026-11-03T03:31:00Z",
-   "note": "X131 left the consequence chain's main contrast unresolved: the survival difference between the lattice and the maze is -0.077 with CI -0.166 to +0.012 over ten seed pairs, sd 0.14 across worlds. A paired test at 80 % power needs n >= (2.8*0.14/0.077)^2 ~ 26, so thirty worlds per cell. Twenty new worlds per cell at F=0.030 and 0.040, seeds 311-330, flags identical to x108/x126; anchor must be exact before the series. Controls: the ten old worlds reproduce X131's per-world values, structural liveness in all forty new runs, heredity >= 0.35. Outcomes are pre-declared as resolved / below resolution / contradicted."
+   "note": "Everything resolves at thirty worlds, and the ten-world estimate was biased LOW: the paired end-survival difference is -0.1323 (CI -0.1819 to -0.0840) against -0.077 on ten seeds, depth +1.8340 (1.0442 to 2.7231) against +1.05, vanished +0.1419, kin -0.4164, absorbed -0.0911, isolated -0.0754 - all intervals away from zero. Controls: exact anchor, the ten old worlds reproducing X131's per-world means and spreads, liveness in all forty new runs, heredity, full coverage. The whole identity block is now confirmed at the world level, and the rule for the line is a power calculation before any cross-habitat claim. Report x132-power, section 10gz.",
+   "closed_at": "2026-11-03T06:52:00+03:00",
+   "closed_by": "lead"
   }
  ]
 }
