@@ -1,9 +1,9 @@
-# 029: How lineages begin and end in a pattern-forming chemical medium
+# How lineages begin and end in a pattern-forming chemical medium
 
 - **Type:** research article (measurement and one negative result)
-- **Version:** v2.0 — plain-language edition for an outside reader (draft for the owner's review; not submitted)
+- **Version:** v2.0 — plain-language edition for an outside reader
 - **Date:** 2026-11-04
-- **Status:** draft, awaiting the owner's decision to publish
+- **Status:** v2.0, released as a preprint together with its data package
 - **Figures:** [`029-figures/`](029-figures/)
 - **Data behind every number:** [`029-figures/tables.json`](029-figures/tables.json)
 
@@ -156,8 +156,8 @@ further away before the pair stops fusing — but only by four cells:
 
 The conserved quantity is the **gap between the surfaces**, 9 ± 1 cells, which is about three quarters of the pattern's
 12-cell wavelength. The rule `2r + 9` — centre separation equals twice the radius plus nine — was written down after the
-first two rows and predicted the third: the measurement returned 18 ± 2, and at the boundary the same split appeared
-(two of five runs still fusing). Nine cells is therefore a length belonging to the medium, not to the pair
+first two rows and predicted the third: it gives 21 for a radius of 6, the measurement returned 20 ± 2, and at the
+boundary the same split appeared (two of five runs still fusing). Nine cells is therefore a length belonging to the medium, not to the pair
 (Fig. 2a).
 
 Every arm agrees on the near side: at a surface gap of 8 cells, 5 of 5 runs end as one body; at 9 the split is
@@ -179,8 +179,11 @@ leave a surface gap `g = d − 2r`; the results are stated in the gap because th
 lineage ends inside the other) and persistence (both continue). (c) The identifier bookkeeping: every split gives both
 daughters a new name, and every fusion gives the merged body a new name, so no name spans a division or a fusion.
 
-
 ![Figure 2](029-figures/fig2-mixing-length.png)
+
+**Figure 2.** The mixing length. (a) Share of runs that end as a single body against the surface gap, for three body
+sizes; the shaded band marks nine cells. (b) The time to a single body against the same gap: the curves for the three
+sizes lie on top of each other, so the time is set by the gap and not by the body.
 
 ### 4.2 A fusion is a merger, not a birth
 
@@ -215,6 +218,10 @@ One control failed and we keep it in the record: the half-cell arm at 7.5 also m
 finding, not for it.
 
 ![Figure 3](029-figures/fig3-the-edge.png)
+
+**Figure 3.** At the edge of the mixing length. (a) Ten runs per gap at body radius 6: the share ending as one body is a
+step between 7.5 and 8 cells, while the share that merge slowly has already left zero at 7.5. (b) The same runs by
+dissolution time; the arms are staircase-shaped rather than spread out.
 
 ### 4.4 Most lineages end by being absorbed by a relative
 
@@ -272,10 +279,6 @@ advantage at +1.8340, the share of lineages that fade away at +0.1419 and the sh
 The ten-world estimate was not merely imprecise: it was biased low by about 40 %. Contrasts of this kind now cost
 30–40 worlds, and we say so before quoting one.
 
-**Figure 2.** The mixing length. (a) Share of runs that end as a single body against the surface gap, for three body
-sizes; the shaded band marks nine cells. (b) The time to a single body against the same gap: the curves for the three
-sizes lie on top of each other, so the time is set by the gap and not by the body.
-
 ![Figure 4](029-figures/fig4-endings.png)
 
 **Figure 4.** Endings and the reversal. (a) Composition of endings in the three habitats: absorption dominates everywhere, while dying alone and fading away trade places as the habitat becomes more connected. (b) The size advantage in generations (blue, left axis) rises only at percolation, while the advantage a large sister has in still being present at the end (orange, right axis) peaks in the mixed habitat and collapses in the connected one.
@@ -298,7 +301,7 @@ Then the transmission itself (Fig. 5):
 | parents shuffled (mean, one-sided p) | 0.19, **0.001** | 0.15, **0.001** |
 | scatter of daughter minus parent | **0.1487** | **0.1495** |
 | the model's own noise | σ = 0.15 | σ = 0.15 |
-| share of variance between surviving lineages | 0.082 | | 0.416 |
+| share of variance between surviving lineages | 0.082 | 0.416 |
 
 Three readings. The slope is one: daughters are their parents, up to noise. Partialling out how often a body divides does
 not move it, so the apparent correlation between the trait and the division rate is one rule seen twice. And the part of
@@ -315,10 +318,6 @@ lineages at the end of a run is 0.082 in the lattice and 0.416 in the connected 
 ten lineages gives 0.30 where a world with two gives 0.00–0.02, and the connected habitat's horizon can be a handful of
 bodies, so one surviving root can carry 0.93. That number counts **surviving lineages**; it is not a property of the
 trait. Reporting it as a heritability would be the exact error this section exists to prevent.
-
-**Figure 3.** At the edge of the mixing length. (a) Ten runs per gap at body radius 6: the share ending as one body is a
-step between 7.5 and 8 cells, while the share that merge slowly has already left zero at 7.5. (b) The same runs by
-dissolution time; the arms are staircase-shaped rather than spread out.
 
 ![Figure 5](029-figures/fig5-heredity.png)
 

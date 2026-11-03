@@ -4,7 +4,7 @@ The package is written outside the repository (`_exports/029-lineages/`), becaus
 repository artefact; the repository keeps the article, the figures, the derived tables and this script, so the package
 is reproducible from a clean checkout.
 
-Contents: the article, the four figures (PNG for reading, PDF for typesetting), the aggregates the article cites, the
+Contents: the article, the five figures (PNG for reading, PDF for typesetting), the aggregates the article cites, the
 derived tables, a dataset README, the licence, a Zenodo metadata record, a sha256 manifest, and the publication
 instructions for the agent that will upload it. The whole directory is also written as a single zip next to it.
 
@@ -58,7 +58,7 @@ AGGREGATES = [
     "l1_field_x110b_gamma_cell.json",
 ]
 
-README = """# Dataset — A mixing length, a merger and a heredity coefficient
+README = """# Dataset — How lineages begin and end in a pattern-forming chemical medium
 
 This directory is the deposit for article 029 (`029-lineages-in-a-pattern-forming-field.md`). It contains
 aggregates, not raw fields: the run-level JSON artifacts of the field line are several megabytes each and live in the
@@ -69,8 +69,9 @@ public repository, where they are addressable by name.
 | path | what it is |
 |---|---|
 | `029-lineages-in-a-pattern-forming-field.md` | the article (Markdown, English) |
+| `029-lineages-in-a-pattern-forming-field.pdf` | the same article as a PDF, with all five figures embedded |
 | `figures/` | Figures 1-5 as PNG (reading) and PDF (typesetting) |
-| `data/aggregates/` | the twenty-eight `l1_field_*.json` aggregates the article cites; each carries its own `command`, `prereg` and `verdict` fields |
+| `data/aggregates/` | the twenty-seven `l1_field_*.json` aggregates the article cites; each carries its own `command`, `prereg` and `verdict` fields |
 | `data/derived/tables.json` | every number printed in the article, with the aggregate it came from |
 | `data/derived/*.csv` | the same values as flat tables (the edge curve, the three habitats, the heredity readouts) |
 | `zenodo.json` | metadata record for the deposit |
@@ -93,7 +94,7 @@ claim is stated in.
 
 ## Licence
 
-Data and figures: CC BY 4.0. The article text: CC BY 4.0 unless the owner chooses otherwise at deposit time.
+Data, figures and article text: CC BY 4.0.
 """
 
 LICENSE = """Creative Commons Attribution 4.0 International Public License
@@ -132,6 +133,10 @@ LINK_REWRITES = [
 def rewrite_links(text: str) -> str:
     for old, new in LINK_REWRITES:
         text = text.replace(f"]({old}", f"]({new}")
+    # The labels of the two front-matter links name a repository directory that does not exist in the
+    # package; print the packaged path instead, so the PDF does not point the reader at `029-figures/`.
+    text = text.replace("`029-figures/tables.json`", "`data/derived/tables.json`")
+    text = text.replace("`029-figures/`", "`figures/`")
     return text
 
 
@@ -168,15 +173,21 @@ def main() -> int:
     for name in ("tables.json", "tables.csv", "table-edge.csv", "table-habitats.csv", "table-heredity.csv"):
         shutil.copy2(FIGS / name, OUT / "data" / "derived" / name)
 
-    abstract = json.loads((FIGS / "tables.json").read_text(encoding="utf-8"))
+    pdf_src = ROOT / "articles" / "029-lineages-in-a-pattern-forming-field.pdf"
+    pdf_present = pdf_src.exists()
+    if pdf_present:
+        shutil.copy2(pdf_src, OUT / pdf_src.name)
+    else:
+        print("[029-package] ВНИМАНИЕ: нет PDF статьи — депозит соберётся без него")
+
     zenodo = {
-        "title": "A mixing length, a merger and a heredity coefficient: what lineages do in a pattern-forming field",
+        "title": "How lineages begin and end in a pattern-forming chemical medium",
         "upload_type": "publication",
         "publication_type": "preprint",
         "description": (
             "<p>Lineages in a pattern-forming medium without replicators: the Gray-Scott reaction-diffusion system in "
-            "three habitats. Four measured results. (i) The medium has a mixing length: two lineages coalesce below a "
-            "surface gap of 9 +/- 1 cells, independent of body size. (ii) Coalescence is a merger, not a birth: both "
+            "three habitats. Four measured results. (i) The medium has a mixing length: two lineages merge below a "
+            "surface gap of 9 +/- 1 cells, independent of body size. (ii) A fusion is a merger, not a birth: both "
             "lineages end on the same step and one body appears under a new identifier. (iii) The outcome is a "
             "whole-cell step while the dissolution time spreads before it. (iv) A lineage's end is mostly the loss of "
             "its name rather than of its cells, and the habitat that maximises generations is not the one where a "
@@ -185,7 +196,7 @@ def main() -> int:
             "one per cent, and with the mutation ablated the trait has no variance at all.</p>"
         ),
         "creators": [{"name": "Morphogenesis laboratory"}],
-        "keywords": ["reaction-diffusion", "lineage tracking", "heredity", "coalescence", "identity",
+        "keywords": ["reaction-diffusion", "lineage tracking", "heredity", "merger", "identity",
                      "negative result", "Gray-Scott"],
         "license": "CC-BY-4.0",
         "access_right": "open",
@@ -196,11 +207,14 @@ def main() -> int:
             {"identifier": "https://github.com/mak777uh/-", "relation": "isSupplementTo", "scheme": "url"},
         ],
         "notes": "Derived tables: data/derived/tables.json lists every printed number with the aggregate it came from.",
-        "table_count": len(abstract["tables"]),
     }
     (OUT / "zenodo.json").write_text(json.dumps(zenodo, ensure_ascii=False, indent=2) + "\n", encoding="utf-8",
                                      newline="\n")
-    (OUT / "README.md").write_text(README, encoding="utf-8", newline="\n")
+    readme = README
+    if not pdf_present:
+        readme = readme.replace("| `029-lineages-in-a-pattern-forming-field.pdf`"
+                                " | the same article as a PDF, with all five figures embedded |\n", "")
+    (OUT / "README.md").write_text(readme, encoding="utf-8", newline="\n")
     (OUT / "LICENSE").write_text(LICENSE, encoding="utf-8", newline="\n")
     if INSTRUCTIONS.exists():
         shutil.copy2(INSTRUCTIONS, OUT / "PUBLISHING.md")

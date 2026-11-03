@@ -21,16 +21,21 @@ not to improve them. Where this brief says "ask the author", stop and ask; do no
 | `LICENSE` | CC BY 4.0 |
 | `zenodo.json` | deposit metadata in Zenodo's legacy-API format |
 | `MANIFEST.sha256` | sha256 of every file above |
+| `PUBLISHING.md` | this brief, verbatim, so the archive can be handed over on its own |
+| `029-lineages-in-a-pattern-forming-field.pdf` | the article as a PDF, with all five figures embedded |
 
-PDF figures are the typesetting versions, PNG the reading versions; both are full page width. The archive has 47 files.
+PDF figures are the typesetting versions, PNG the reading versions; both are full page width. The archive holds 49
+files: the 48 covered by `MANIFEST.sha256` (everything, including this brief and the article PDF) plus the manifest
+itself, which cannot contain its own hash.
 
 ## 2. Check the archive before you upload anything (5 minutes)
 
 1. **Integrity.** Unpack and compare every file against `MANIFEST.sha256`:
    `sha256sum -c MANIFEST.sha256` (Linux/macOS), or `Get-FileHash -Algorithm SHA256` in a loop on Windows. Every line
    must report OK.
-2. **Nothing missing.** Five figures in two formats (10 files), 27 aggregates, 5 files under `data/derived/`, and the six
-   top-level files listed above.
+2. **Nothing missing.** Five figures in two formats (10 files), 27 aggregates, 5 files under `data/derived/`, and the
+   seven top-level files: the article in `.md` and `.pdf`, `README.md`, `LICENSE`, `zenodo.json`, `PUBLISHING.md` and
+   `MANIFEST.sha256` — 49 files in all.
 3. **Spot-check one number.** In `data/derived/tables.json` take the entry `"h_slope"`; the same string
    (`0.9837 [0.9680, 1.0002]`) must appear in the article's §4.6 table and in
    `data/aggregates/l1_field_x155_heredity.json` under `cells[*].slope` / `slope_ci`. If the three disagree, do not
@@ -46,7 +51,8 @@ aggregates. Your job is to confirm that the archive you received is the checked 
 
 1. `creators[].name` — currently the placeholder `"Morphogenesis laboratory"`. Replace it with the author name(s) and
    affiliation **exactly as the author gives them**, in the author's order. Do not invent a name, an affiliation, or an
-   ORCID. If the author has an ORCID, add `"orcid"` to the same object.
+   ORCID. If the author has an ORCID, add `"orcid"` to the same object. The same name goes into the copyright line of
+   `LICENSE` (currently the same placeholder) — ask the author for the exact wording rather than shortening it.
 2. `related_identifiers[0].identifier` — currently a repository URL. Confirm it with the author. If the data repository is
    private, remove the entry and put "Data available from the author on request" into `notes` instead.
 
@@ -85,7 +91,8 @@ final one at publication.
   their `figures/fig1-what-we-measure.png` names — keep those paths or relabel consistently, and check that all five
   appear.
 - Abstract: copy the article's Abstract verbatim. Title: as in `zenodo.json`.
-- Upload `MANIFEST.sha256` as an ancillary file.
+- Upload `MANIFEST.sha256` as an ancillary file, and preferably `README.md` and `LICENSE` with it in a single
+  `.zip` — one ancillary archive is accepted more reliably than loose files.
 - Cite the Zenodo DOI in the arXiv comments/DOI field.
 - arXiv's non-exclusive licence is fine; the CC BY 4.0 terms stay with the Zenodo record.
 
