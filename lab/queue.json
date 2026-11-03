@@ -1,6 +1,6 @@
 {
  "schema_version": 1,
- "updated_at": "2026-11-03T19:02:00+03:00",
+ "updated_at": "2026-11-03T19:35:00+03:00",
  "note": "Очередь пунктов после E02c. Claim берётся до пре-регистрации, а не перед запуском: lab.py item-claim. Статус running означает занятый GPU-лейн и может быть только у одного пункта. | 25.10: добавлено поле impact (1-5) — приоритет конвейера = impact/max(cost_gpu_h,0.1); для запуска пункту нужны prereg (закоммиченный план) и launch.command+outdir.",
  "items": [
   {
@@ -2862,19 +2862,20 @@
   {
    "id": "X151_radius525",
    "title": "Is the stop of the boundary a threshold or a plateau? Radius 5.25 at gaps 7 and 8",
-   "status": "running",
+   "status": "closed",
    "owner": "lead",
    "kind": "experiment",
    "cost_gpu_h": 0,
    "prereg": "reports/2026-11-03-x151-radius525-plan.md",
    "created_at": "2026-11-03T19:02:00+03:00",
-   "heartbeat_at": "2026-11-03T19:02:00+03:00",
    "launch": {
     "runner": "scripts/x151_series.py",
     "outdir": "morphogenesis/experiments/L1_field",
     "pattern": "x151_g*_s*.json"
    },
-   "note": "Ten runs of `--init-spots 5.25:{17.5,18.5}` (surface gaps 7 and 8) at F = 0.030, a radius of ~87 cells between the two that disagree about where the boundary stops. 5/5 at gap 8 means the boundary is a threshold crossed before 64 cells; at most 3/5 means the creep continues and the agreement of 4.5 and 6 is not a plateau. The timing law must repeat 39 and 49 logged steps, as on all three earlier radii."
+   "note": "PLATEAU CONFIRMED, with two corrections recorded rather than buried. Radius 5.25 (~87 cells) holds 5/5 at gap 7 and breaks at 8, as radius 4.5 and 6 do: the boundary drops one cell between 28 and 64 cells of disc area and is flat from 64 to 113. Correction 1: my registered branch label for the mixed outcome said 'the creep continues' where three radii breaking at one gap means a plateau - the numbers fired that branch, the criterion was used as written, and the reading is fixed in an amendment. Correction 2: 'at gap 8 all radii dissolve at 49 steps' was a median, false per seed - one coalescing seed in three takes 59 at radius 4.5 and above; the law is exact per seed only while coalescence is universal (20 seed-runs at gaps 6 and 7, exactly 29 and 39). Report x151-radius525, section 10hl. Next: X152 (radius 3.75, gaps 8 and 9), X153 (radius 6 at separation 19.5, sub-cell creep), X149 (shape, frames).",
+   "closed_at": "2026-11-03T19:35:00+03:00",
+   "closed_by": "lead"
   }
  ]
 }

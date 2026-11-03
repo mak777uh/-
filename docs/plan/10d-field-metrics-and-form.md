@@ -3539,3 +3539,32 @@ Two laws, then, and neither reduces to the other: the time is the gap's; the out
 saturates somewhere between 28 and 64 cells. Report: `reports/2026-11-03-x150-radius6.md`; aggregate
 `l1_field_x150_radius6.json`. Next: X151 (radius 5.25 at gaps 7 and 8 — threshold or plateau), X149 (the shape of the
 product, with frames), X146 (the wavelength).
+
+## 10hl. The plateau is confirmed, and the two laws touch once (X151, 03.11)
+
+§10hk left the stop of the boundary bracketed between 28 and 64 cells of disc area, with a commit-level ambiguity: was it
+a threshold or a plateau the sweep could not resolve? Radius 5.25 (≈87 cells) at surface gaps 7 and 8 answers it:
+
+| radius | disc area | gap 6 | gap 7 | gap 8 | gap 9 | boundary |
+|---|---|---|---|---|---|---|
+| 3.0 | ~28 | M 5/5, t 29 | M 5/5, t 39 | M 5/5, t 49 | M 3/5, t 69 | 8 |
+| 4.5 | ~64 | - | M 5/5, t 39 | M 3/5, t 49 | M 2/5, A 2/5, P 1/5, t 64 | 7 |
+| 5.25 | ~87 | - | M 5/5, t 39 | M 3/5, t 49 | - | 7 |
+| 6.0 | ~113 | M 5/5, t 29 | M 5/5, t 39 | M 3/5, t 49 | - | 7 |
+
+Radius 5.25 breaks where 4.5 and 6 break: the boundary drops one cell between 28 and 64 cells of disc area and is flat
+from 64 to 113. A plateau, at three sizes.
+
+Two corrections are recorded with this result rather than buried. First, the registered branch labels were mis-specified:
+"the creep continues" was attached to the mixed-at-gap-8 outcome even though three radii breaking at one gap is a
+plateau; the numbers fired that branch and the reading is corrected in an amendment, with the criterion untouched.
+Second, §10hk said the pair is one body by step 49 at gap 8 on all three radii - true of the median, false per seed: one
+coalescing seed in three takes 59 steps at radius 4.5 and above. At gaps 6 and 7 the law is exact per seed, twenty
+seed-runs across four radii, every one at 29 or 39.
+
+That gives the sharpest form of the block: while coalescence is universal the time belongs to the gap to the step; at
+the gap where the boundary is crossed the median still does, but a third of the seeds are ten steps late. So the two laws
+do touch - once, at the crossing - which is the first sign that the outcome and the timing are not fully independent.
+
+Report: `reports/2026-11-03-x151-radius525.md`; aggregate `l1_field_x151_radius525.json`. Next: X152 (radius 3.75 at gaps
+8 and 9, to locate the step), X153 (radius 6 at separation 19.5, sub-cell creep), X149 (the shape of the product).

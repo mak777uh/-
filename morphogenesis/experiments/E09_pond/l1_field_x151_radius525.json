@@ -1,0 +1,172 @@
+{
+  "kind": "l1_field_x151_radius525",
+  "experiment": "X151",
+  "command": "python scripts/x151_analyse.py --write",
+  "prereg": "reports/2026-11-03-x151-radius525-plan.md",
+  "definitions": {
+    "unit": "the arm (one radius, one surface gap); counts are out of the usable seeds",
+    "gap": "SEP - 2R in cells",
+    "boundary": "the largest surface gap measured at which every seed of the arm coalesces",
+    "readout": "x142_analyse.world_row - the same code, no distance tolerance"
+  },
+  "by_arm": {
+    "r525_g7": {
+      "runs": 5,
+      "M": 5,
+      "A": 0,
+      "P": 0,
+      "median_t_coalescence": 39,
+      "n_timed": 5,
+      "seeds": {
+        "601": {
+          "class": "M",
+          "t_dissolve": 39,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "live": true
+        },
+        "602": {
+          "class": "M",
+          "t_dissolve": 39,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "live": true
+        },
+        "603": {
+          "class": "M",
+          "t_dissolve": 39,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "live": true
+        },
+        "604": {
+          "class": "M",
+          "t_dissolve": 39,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "live": true
+        },
+        "605": {
+          "class": "M",
+          "t_dissolve": 39,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "live": true
+        }
+      }
+    },
+    "r525_g8": {
+      "runs": 5,
+      "M": 3,
+      "A": 2,
+      "P": 0,
+      "median_t_coalescence": 49,
+      "n_timed": 3,
+      "seeds": {
+        "601": {
+          "class": "M",
+          "t_dissolve": 59,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "live": true
+        },
+        "602": {
+          "class": "M",
+          "t_dissolve": 49,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "live": true
+        },
+        "603": {
+          "class": "M",
+          "t_dissolve": 49,
+          "daughters": {
+            "1": 0,
+            "2": 0
+          },
+          "live": true
+        },
+        "604": {
+          "class": "A",
+          "t_dissolve": 89,
+          "daughters": {
+            "1": 0,
+            "2": 2
+          },
+          "live": true
+        },
+        "605": {
+          "class": "A",
+          "t_dissolve": 89,
+          "daughters": {
+            "1": 0,
+            "2": 2
+          },
+          "live": true
+        }
+      }
+    }
+  },
+  "ladder": {
+    "r30": {
+      "radius": 3.0,
+      "gaps_measured": [
+        6,
+        7,
+        8,
+        9
+      ],
+      "largest_gap_all_coalesce": 8
+    },
+    "r45": {
+      "radius": 4.5,
+      "gaps_measured": [
+        7,
+        8,
+        9
+      ],
+      "largest_gap_all_coalesce": 7
+    },
+    "r60": {
+      "radius": 6.0,
+      "gaps_measured": [
+        6,
+        7,
+        8
+      ],
+      "largest_gap_all_coalesce": 7
+    },
+    "r525": {
+      "radius": 5.25,
+      "gaps_measured": [
+        7,
+        8
+      ],
+      "largest_gap_all_coalesce": 7
+    }
+  },
+  "timing_control": {
+    "r525_g7": {
+      "observed": 39,
+      "expected": 39
+    }
+  },
+  "controls": {
+    "failures": []
+  },
+  "verdict": "THE CREEP CONTINUES: radius 5.25 breaks at a gap of 8 (M 3/5) and holds 5/5 at 7, so the boundary is still moving at 87 cells and the agreement of radius 4.5 and 6 at gap 7 is not a plateau - the next run is the same radius at gap 7 with sub-cell gaps"
+}
