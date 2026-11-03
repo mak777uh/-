@@ -1,7 +1,7 @@
 # Условия поддержания организации в цифровой среде: цена ошибки, неполная информация и границы обучения
 
-**Статус:** draft v3.7 (2026-11-03). Не подана, не рецензирована, цитировать нельзя. Соответствие препринту: v1.2 (Zenodo) — добавлены измеренная цена (−0.374, ДИ [−0.396, −0.266]), канал признака, механизмы сосуществования (асинхронность, смертность) и их синергия (+0.445); v3.6 — плотная лестница наследования и ось порога (§4k.1), третье поле как отрицательный результат (§4k); v3.7 — §4k.3 «Coalescence is a merger, not a birth», первый раздел, написанный сразу по-английски.
-**Данные частичные:** линия поля закрыта до X107; результаты X108–X154 внесены в текст по блокам (второй вид — в §4k, слияние — в §4k.3, идентичность — ещё нет: см. `reports/2026-11-03-claims-audit.md`).
+**Статус:** draft v3.8 (2026-11-03). Не подана, не рецензирована, цитировать нельзя. Соответствие препринту: v1.2 (Zenodo) — добавлены измеренная цена (−0.374, ДИ [−0.396, −0.266]), канал признака, механизмы сосуществования (асинхронность, смертность) и их синергия (+0.445); v3.6 — плотная лестница наследования и ось порога (§4k.1), третье поле как отрицательный результат (§4k); v3.7 — §4k.3 «Coalescence is a merger, not a birth»; v3.8 — §4k.2 «What makes the end of a lineage an end». Оба новых подраздела написаны сразу по-английски.
+**Данные частичные:** линия поля закрыта до X107; блоки X108–X154 внесены в текст (§4k — второй вид, §4k.2 — идентичность, §4k.3 — слияние); открыт один вопрос линии — фальсифицируемая наследуемость (X155, план). Аудит: `reports/2026-11-03-claims-audit.md`.
 
 ## 1. Вопрос
 
@@ -1486,6 +1486,110 @@ X105, покрытие бассейна 0.979 / 0.937, разбиение 10/10.
 `l1_field_x102_specificity_ladder.json`, `l1_field_x103c_birth_distance.json`, `l1_field_x103d_peak_null.json`,
 `l1_field_x106_crowding.json`, `l1_field_x107_shared_room.json`, `l1_field_x101b_dense.json`, `l1_field_x102b_dense.json`,
 `l1_field_x112b_cuts.json`, `l1_field_x112c_cuts_maze.json`.
+
+### 4k.2 What makes the end of a lineage an end
+
+Until X113 the line had a heredity coefficient and a specificity argument, and no measured consequence: the numbers said
+that size is inherited and nothing said why that matters. The obvious currency — lifetime — had already failed, because
+it is entangled with size and sits at the noise floor (X92, X93). The block replaces it with **depth**: how many
+generations a lineage reaches, which is neither a size, nor a lifetime, nor a count of daughters at one moment. With
+depth as the currency the consequence appears, and everything that follows is about how far it travels and what an
+ending actually is.
+
+**Size buys generations.** The comparison is between sisters — two lineages born from the same parent in the same
+place, so the habitat and the moment are held — and the contrast is in generations:
+
+| cell | uids with descendants | `ρ`(area, depth) | partial given lifetime | `ρ`(depth, lifetime) | sister contrast in depth | 95 % CI |
+|---|---|---|---|---|---|---|
+| `F` = 0.030 | 1 073 | **0.467** | **0.459** | −0.185 | **+1.479** | [1.289, 1.654] |
+| `F` = 0.040 | 832 | **0.332** | **0.340** | −0.070 | **+2.213** | [1.962, 2.489] |
+
+Two controls are what make this readable. Heredity on these very pairs is 0.548 / 0.480, so the pairs are the ones the
+earlier section measured; and depth is **not** lifetime in disguise — the two correlate **negatively** (−0.185, −0.070),
+so the readout is doing different work rather than re-describing the same thing. Median depth is three generations in
+both cells and the horizon truncates the tail, which is a caveat on every number in this block.
+
+The advantage survives three re-statements, which is why it is treated as a consequence rather than a correlation of
+the moment. As a **rate** it is +6.06 and +18.96 generations per 1 000 steps (X113c; the first version, X113b, was
+voided on a control band borrowed from another series, and the void is part of the record). As an **equal window** — the
+first 3 000 steps of each lineage rather than its whole run — it is +0.407 [0.362, 0.453] and +0.638 [0.561, 0.720]
+(X114). As **persistence** — did the larger sister's line still exist at the horizon — it is +0.250 [0.220, 0.279] and
++0.137 [0.116, 0.159], on counts of 324 against 39 and 178 against 14 (X115).
+
+**How much of it is parenthood, and how much is exposure.** Matching sisters on the **number of daughters** halves the
+survival advantage — 0.250 → 0.125 and 0.137 → 0.044, with a residual of 104:25 and 39:11 (X116). A two-term model on
+the same pairs puts area at +0.363 / +0.052 and daughters at −0.429 / −0.051, both intervals excluding zero (X119) —
+so the two act in opposite directions and the size effect is not simply a proxy for family size. What that model cannot
+do is rule out **age**: within a run, an early division and a late one are not exchangeable, and the attempt to control
+it (X120) was voided by its own check (early-versus-late daughter correlation 0.868 / 0.983). The hazard route never got
+off the floor either — the per-snapshot death rate is 0.58 % against a 1 % floor (X121), and X122 showed the daughters
+column could not become non-zero for a structural reason. Three of the block's numbers were withdrawn for exactly this
+kind of reason, and they are named here rather than dropped: X124 (the rate had two definitions differing sixfold),
+X125 (the rate gap was a **sample filter** — both generation times ≥ 50 steps — not a weighting), X125b (the filter
+reproduces the rate to three decimals, 6.056 / 18.96, but leaves 638 of 1 195 pairs standing). X125c then retired the
+contradiction underneath all three: 22 % of pairs are **ties**, and with the tie rule the fractions are 0.526
+(0.493–0.557) and 0.388 (0.356–0.419), with the values the earlier result had published sitting inside both intervals.
+
+**Three habitats, and a reversal.** A third cell at `F` = 0.035 makes the habitat comparison a gradient rather than a
+two-point contrast, and it separates three things that the two-cell design had merged:
+
+| readout | 0.030 | 0.035 | 0.040 | what it is |
+|---|---|---|---|---|
+| share below the generation floor | 0.162 | 0.302 | **0.466** | a **gradient** in inflow |
+| depth contrast (sister) | +1.479 | +1.416 | **+2.213** | a **threshold**: the jump comes only at percolation |
+| generation rate | 6.056 | 9.007 | 18.96 | accelerating |
+| end-survival contrast | +0.2496 | **+0.2984** | +0.1372 | **reverses**, the middle cell 5.99 SE above the chord |
+
+The sentence this table earns is the block's sharpest: **the habitat that maximises generations is not the one where a
+lineage survives.** A world can be generous with generations and hostile to lineages at the same time, and a design
+that optimised the first would be measuring the wrong thing.
+
+**What an end is.** X127 asked what ends a structure and no registered outcome fired — the dichotomy it offered
+("lethal" or "homogenising") was the wrong question, and its "absorption" share (84.5 / 78.7 / 75.7 %) was later
+withdrawn. X128 then classified a **local** event with a **world-level** budget and was voided by its own controls
+(partner coverage 27.3 / 50.6 / 68.7 % against an 80 % floor). X128b restricted the budget to the dead structure's own
+neighbourhood and added the category the lattice needs — a death with no live neighbour at all — and the picture became
+four fates:
+
+| cell | deaths | isolated | absorbed | vanished | absorber is kin |
+|---|---|---|---|---|---|
+| 0.030 | 524 | **31.3 %** | 55.3 % (51.2–59.5) | 10.5 % | **87.2 %** of 290 |
+| 0.035 | 844 | 29.4 % | 47.8 % (44.6–51.3) | 21.7 % | 39.2 % of 403 |
+| 0.040 | 1 102 | 21.2 % | 48.4 % (45.6–51.2) | **27.4 %** | **37.7 %** of 531 |
+
+So the commonest fate is absorption — **about half** of all endings, not the three quarters X127 reported — and the
+absorber changes family with the habitat: in the lattice it is kin in 87.2 % of cases, in the percolating body in
+37.7 %. X129 made the same point spatially: matching absorptions on contact distance degenerated, because 100 % of
+1 224 partnered absorptions are contact events, and the degeneracy **is** the finding — at identical geometry the one
+neighbour is a sibling 87.2 % of the time in the lattice and a stranger 62 % of the time in the body. The lattice
+segregates lineages; percolation mixes them. And sisters rarely merge back: 18.4 % of 1 142 lattice pairs re-merge
+inside a run (8.6 % of 1 106 in the middle cell, 17.4 % of 1 195 in the maze), 82 % are censored, and when they do it
+takes a median of 80 steps (120 and 60 in the other two cells). The birth **separation** decides it by a factor of two
+— merged pairs are born 8.06 cells apart against 9.27 for the rest in the lattice, and 11.75 against 24.52 in the maze.
+
+**The load-bearing number needed thirty worlds.** Every interval above is within-world precision, and the cross-habitat
+claim the chain rests on was not: on ten worlds the paired end-survival difference was −0.077 with an interval of
+−0.166 … +0.012, unresolved, because the world-to-world spread (sd 0.14) was as large as the effect. A power calculation
+said `n ≥ 26`; forty new worlds (twenty per cell) were run, and at thirty worlds per cell every contrast resolves — the
+survival difference at **−0.1323** (−0.1819 … −0.0840), depth at +1.8340 (1.0442 … 2.7231), vanished share +0.1419,
+kin share −0.4164, absorbed −0.0911, isolated −0.0754. The ten-world estimate was not merely imprecise: it was biased
+**low** by about 40 %, which is the design lesson of the block and the reason the price of similar contrasts is quoted
+at 30–40 worlds from now on.
+
+What this section cannot do is the last step of its own argument: the contrast is **correlational**, size is never
+randomised, age is the uncontrolled confound, and the horizon truncates depth. What it can do is say what an ending is:
+across three habitats, a lineage's ending is usually the loss of its **name** rather than its cells; the lattice keeps
+families apart and the percolating body mixes them; and the habitat that maximises generations is not the one where a
+lineage survives.
+
+Доказательства: разделы 10gj-10gz в \docs/world-design.md\; `reports/2026-11-03-x113-depth.md`, `-x113bcd-depth-rate.md`,
+`-x114-window.md`, `-x115-persistence.md`, `-x116-matched.md`, `-x118-x119-daughters-cost.md`, `-x120-window-daughters-void.md`,
+`-x121-hazard-void.md`, `-x122-identity-artefact.md`, `-x123-uid-rule.md`, `-x124-coherence-void.md`, `-x125-definitions-void.md`,
+`-x125b-statistics-void.md`, `-x125c-ties.md`, `-x126-third-cell.md`, `-x127-absorption.md`, `-x128-kinship-void.md`,
+`-x128b-local.md`, `-x129-geometry.md`, `-x130-remerge.md`, `-x131-worlds.md`, `-x132-power.md`; агрегаты
+`l1_field_x113_depth.json`, `l1_field_x113c_depth_rate.json`, `l1_field_x114_window.json`, `l1_field_x115_persistence.json`,
+`l1_field_x116_matched.json`, `l1_field_x119_model.json`, `l1_field_x126_third_cell.json`, `l1_field_x128b_local.json`,
+`l1_field_x130_remerge.json`, `l1_field_x132_power.json`.
 
 ### 4k.3 Coalescence is a merger, not a birth
 
