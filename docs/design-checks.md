@@ -322,3 +322,21 @@ longer" must say which one it used, and the two must not be quoted interchangeab
 are marked with their definition and the claims cite **directions** until one definition is fixed and the numbers recomputed. (4) A coherence audit that voids is
 still an audit: the void is the finding.
 Report: `reports/2026-11-03-x124-coherence-void.md`.
+
+**An undeclared sample rule is not a definition (03.11, X125-X125c).** Three times in one night a published pair statistic differed from its recomputation
+only by a sample rule nobody had printed. X113c kept a sister pair only when **both** generation times were at least 50 steps, and that filter - not any unit of
+aggregation - is what turned a rate of 36.6 into 6.06: 185 short-lived pairs out of 1 142. X93 skipped pairs whose generation times were **equal**, and that tie
+rule is what turned a fraction of 0.409 into 0.526: 22 % of pairs. X125 averaged the ratio `g_big / g_small` over pairs (12.0), a mean of ratios whose
+denominator approaches zero for short-lived uids, where a ratio of means belonged. In each case the recomputation was right and the published sentence was
+unqualified, and in each case the *first* diagnosis was wrong: X124 blamed the unit of aggregation for a gap that a filter produced.
+
+Rules. (1) A filtered statistic names its filter and its **denominator** in the same sentence as the number - "+18.96 on 638 of 1 195 pairs", not "18.96".
+(2) Ties are a sample rule: a proportion with ties excluded and a proportion with ties counted are two statistics, and swapping one for the other is not a
+correction, it is a substitution. (3) A ratio of two paired quantities is published as a **ratio of means** or a **median of ratios**, never as a mean of ratios.
+(4) A filter can only change a published number through the pairs it removes, so the removed count is printed next to the filtered result. (5) For a
+definitional audit the sensitivity condition is the **interval width**, not a count of pairs: X125b voided at 638 pairs whose rate interval was +/-22 %, which
+was ample for the question it asked - a floor carried over from another design is not a power calculation. (6) When a majority statement and a magnitude
+statement disagree in sign, both are printed with their statistic named and the discrepancy is decomposed (mean of the positive part, mean of the negative part,
+share beyond a stated bound) instead of being resolved by choosing one. (7) A control that reproduces another experiment's number must name that number's unit
+**and** filter; if the plan cannot name them, the control is not ready to run - X125's control asked a uid-level statistic to reproduce a pair-level one.
+Reports: `reports/2026-11-03-x125-definitions-void.md`, `-x125b-statistics-void.md`, `-x125c-ties.md`.

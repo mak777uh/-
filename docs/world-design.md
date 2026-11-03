@@ -191,7 +191,8 @@ sections were not rewritten, only moved; each one keeps its identifier, so every
 | §10gl | The generation advantage survives an equal observation window (X114, 03.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
 | §10gm | Faster lines persist: the consequence acquires a survival currency (X115, 03.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
 | §10gn | Half to two-thirds of the survival advantage is branch count (X116, 03.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
-| §10go | Matching cannot separate size from daughters, and a model finds a cost of division (X118–X119, 03.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
+| §10go | X118–X119: matching cannot separate size from daughters, and a model finds a cost of division (03.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
 | §10gp | Daughters are an early-life property, and the time confound is weaker than assumed (X120, 03.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
 | §10gq | The cost of division was the identity convention (X122, 03.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
 | §10gr | A uid's life is one generation: the identity rule, confirmed in code and pinned by a gate (X123, 03.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
+| §10gs | The consequence numbers were three statistics wearing one word — audited, re-derived, and the contradiction retired (X124–X125c, 03.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |

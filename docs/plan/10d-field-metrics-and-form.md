@@ -2916,3 +2916,49 @@ The numbers do not change; the words do, and the manuscript must not let "lifeti
 the data, and X121 is cancelled rather than fixed: a hazard model on uid presence would model "did not divide", which is not a hazard of death.
 
 Report: `reports/2026-11-03-x123-uid-rule.md`; gate `scripts/check_uid_rule.py`.
+
+## 10gs. The consequence numbers were three statistics wearing one word — audited, re-derived, and the contradiction retired (X124–X125c, 03.11)
+
+Four runs in one night, three of them void, and the net effect is that the block's consequence claims can now be printed with their units. X124 audited the
+coherence of the generation-time, depth and rate results, voided by its own control, and named two contradictions of vocabulary. X125 was to fix the definitions
+and voided too — its control fired at a factor of three and eight. X125b printed the missing filter and reproduced X113c to three decimals, then voided on a
+pair-count floor. X125c closed the last rule — ties. The numbers below are from X108's twenty dense runs, the same pairs every time.
+
+| quantity | definition | filter, printed with the number | published statistic |
+|---|---|---|---|
+| generation time | uid's last logged step − first + 1, logged steps | none; ties reported | fraction of **non-tied** pairs, with the mean and its tail decomposition |
+| depth | longest descendant chain below the uid, generations | none | **mean** paired difference |
+| rate | `depth / generation time × 1000`, generations per 1 000 steps | both sisters ≥ 50 steps | **pair-weighted mean**, with its denominator |
+
+| cell | pairs | ties | fraction larger, ties removed | X93 | fraction larger, ties counted | mean difference | rate, filtered (denominator) | rate, unfiltered | depth |
+|---|---|---|---|---|---|---|---|---|---|
+| 0.030 | 1 142 | 22.2 % | **0.526** (0.493–0.557) | 0.530 | 0.409 | −530 over non-tied, −412 over all | **6.056** (957 of 1 142) | 36.571 | +1.479 |
+| 0.040 | 1 195 | 21.5 % | **0.388** (0.356–0.419) | 0.401 | 0.305 | −36 (CI −79…+7) | **18.96** (638 of 1 195) | 321.48 | +2.213 |
+
+**The rate gap was a filter, not a weighting.** X124's diagnosis — that X113c averaged per uid while X124 averaged per pair — is **withdrawn**: reading
+`x113c_analyse.py` back, `rate_diff` is accumulated inside the sister-pair loop, exactly as in X124. X113c also kept a pair only when both generation times were
+≥ 50 steps, and that rule alone takes 36.6 to 6.06 and 321.5 to 18.96, to the digit. The filter also qualifies the published number: at `F = 0.040` the rate rests
+on **638 of 1 195** pairs, because in the maze half of all sister pairs have a generation time too short to measure a rate on. The lattice keeps 84 %.
+
+**The generation-time contradiction was ties.** X93 skipped pairs whose generation times were equal — 22 % of them — and reported 0.530 / 0.401. X125b counted
+ties as "not larger" and reported 0.409 / 0.305. With X93's rule restored on X108's pairs the fractions are **0.526** and **0.388**, and X93's values sit inside
+both intervals; the identity `p_all = p_nt × (1 − t)` closes to 1e-13. The two series never disagreed. What the line had done was compare a tie-excluded proportion
+with a tie-counted one and call the difference a contradiction.
+
+**And both signs were true, for different questions.** In the lattice the larger sister's generation time is the longer one in a bare majority of non-tied pairs
+(0.526, interval lower end 0.493), while in magnitude her generation time is **shorter** — 1 038 against 1 450 steps, 28 % of pairs differing by more than
+±1 000 steps, the average positive difference +752 and the negative −1 952. The majority statement is frequent and small; the magnitude statement is a tail. In the
+maze both point the same way (0.388, mean −36): the larger sister divides sooner there, and her line still reaches +2.213 generations, because her generation is
+short *and* her subtree deep.
+
+**Depth never moved.** Three independent recomputations of the depth contrast give +1.479 and +2.213 to the digit. It is the one consequence number that has
+survived every definitional check, and it is what the manuscript may state first: *the larger sister's line reaches more generations, +1.5 in the lattice and +2.2
+in the maze, and the claim does not depend on which generation-time statistic is quoted.*
+
+Two claims are withdrawn and one is restricted: the mean of the ratios `g_big/g_small` (12.0 / 13.7) as unusable; "the larger sister lives longer" as unqualified
+(it depends on the statistic); and the rate quoted without its filter and denominator. Next hypotheses are the ones this audit opened: whether the maze's 47 % of
+short generations is a property of the cell or of the twenty seeds (a `g < 50` census across the ladder), and whether the generation-time excess in the lattice is
+the size threshold doing the work — the natural next manipulation being a run whose split rule is area-based.
+
+Reports: `reports/2026-11-03-x124-coherence-void.md`, `-x125-definitions-void.md`, `-x125b-statistics-void.md`, `-x125c-ties.md`; aggregates
+`l1_field_x124_coherence.json`, `l1_field_x125_definitions.json`, `l1_field_x125b_statistics.json`, `l1_field_x125c_ties.json`.

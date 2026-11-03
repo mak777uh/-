@@ -1,0 +1,85 @@
+{
+  "kind": "l1_field_x125b_statistics",
+  "experiment": "X125b",
+  "command": "python scripts/x125b_analyse.py --write",
+  "prereg": "reports/2026-11-03-x125b-definitions-plan.md",
+  "definitions": {
+    "generation_time": "uid last logged step - first + 1, in logged steps; no filter; statistic: median and fraction of pairs",
+    "depth": "longest descendant chain below the uid, in generations; no filter; statistic: mean",
+    "rate": "depth / generation_time * 1000, generations per 1 000 steps; filter: both sisters >= 50 steps; statistic: pair-weighted mean",
+    "withdrawn": "mean of the ratio g_big/g_small (denominator near zero for short-lived uids)"
+  },
+  "cells": {
+    "f030": {
+      "pairs": 1142,
+      "pairs_after_filter": 957,
+      "pairs_dropped_by_filter": 185,
+      "g_mean": -412.426,
+      "g_mean_ci": [
+        -509.799,
+        -313.669
+      ],
+      "g_median": 0.0,
+      "g_fraction_larger": 0.4089,
+      "g_ratio_of_means": 0.7156,
+      "g_mean_big": 1037.7,
+      "g_mean_small": 1450.1,
+      "g_tail_beyond_1000": 0.2802,
+      "g_mean_positive_part": 751.5,
+      "g_mean_negative_part": -1952.3,
+      "d_mean": 1.479,
+      "d_mean_ci": [
+        1.288,
+        1.68
+      ],
+      "r_filtered": 6.056,
+      "r_filtered_ci": [
+        5.052,
+        7.038
+      ],
+      "r_unfiltered": 36.571,
+      "rho_heredity": 0.548,
+      "x93_fraction": 0.53,
+      "refs": {
+        "depth": 1.479,
+        "rate": 6.056
+      }
+    },
+    "f040": {
+      "pairs": 1195,
+      "pairs_after_filter": 638,
+      "pairs_dropped_by_filter": 557,
+      "g_mean": -28.226,
+      "g_mean_ci": [
+        -60.569,
+        5.649
+      ],
+      "g_median": 0.0,
+      "g_fraction_larger": 0.3046,
+      "g_ratio_of_means": 0.889,
+      "g_mean_big": 226.0,
+      "g_mean_small": 254.3,
+      "g_tail_beyond_1000": 0.0444,
+      "g_mean_positive_part": 303.6,
+      "g_mean_negative_part": -251.3,
+      "d_mean": 2.213,
+      "d_mean_ci": [
+        1.946,
+        2.483
+      ],
+      "r_filtered": 18.96,
+      "r_filtered_ci": [
+        14.608,
+        23.044
+      ],
+      "r_unfiltered": 321.48,
+      "rho_heredity": 0.48,
+      "x93_fraction": 0.401,
+      "refs": {
+        "depth": 2.213,
+        "rate": 18.96
+      }
+    }
+  },
+  "verdict": "void: f030: 957 pairs survive the filter; f040: 638 pairs survive the filter"
+}

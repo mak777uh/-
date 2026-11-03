@@ -46,4 +46,15 @@ used. Until then, the consequence claims cite **directions** (the larger sister'
 - Generation times are quantised by the 10-step logging interval, so a 412-step difference is 41 logging units — well above quantisation.
 - One seed set, one box, the 0.20 cut.
 
+## Correction (03:12, by X125 and X125b) — point 1 above is wrong
+
+The rate gap of an order of magnitude is **not** a unit of aggregation. Reading `x113c_analyse.py` back: `rate_diff` is accumulated inside the sister-pair loop
+and averaged over pairs, exactly as this audit does. What X113c also does is keep a pair only when **both** sisters' generation times are ≥ 50 steps, and printing
+that filter reproduces its 6.056 / 18.96 to three decimals (`l1_field_x125b_statistics.json`). The obstacle was a silent **sample filter**, not a weighting.
+
+Point 2 stands with its own correction: X93's `0.530 / 0.401` are **tie-excluded proportions of pairs** (the routine skips pairs with equal lifetimes), not shares
+of the pair's mean, and this audit's `0.409 / 0.305` are the same pairs with ties counted. Restoring X93's rule gives 0.526 (CI 0.493–0.557) and 0.388
+(0.356–0.419), i.e. inside X93's intervals — the contradiction is retired in `2026-11-03-x125c-ties.md`. This report is left as written, per the rule that
+corrections are appended and not rewritten.
+
 доска: принято 0, отклочено 0, отложено 0.

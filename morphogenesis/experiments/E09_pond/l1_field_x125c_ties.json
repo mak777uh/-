@@ -1,0 +1,73 @@
+{
+  "kind": "l1_field_x125c_ties",
+  "experiment": "X125c",
+  "command": "python scripts/x125c_analyse.py --write",
+  "prereg": "reports/2026-11-03-x125c-ties-plan.md",
+  "definitions": {
+    "tie_share": "fraction of sister pairs with identical generation times, in logged steps",
+    "p_nt": "fraction of non-tied pairs in which the larger sister's generation time is longer (X93's rule)",
+    "p_all": "the same fraction with ties in the denominator counted as 'not larger' (X125b's rule)",
+    "identity": "p_all = p_nt * (1 - tie_share), checked to 1e-9"
+  },
+  "cells": {
+    "f030": {
+      "pairs": 1142,
+      "ties": 254,
+      "tie_share": 0.2224,
+      "non_tied": 888,
+      "p_nt": 0.5259,
+      "p_nt_ci": [
+        0.4932,
+        0.5574
+      ],
+      "p_all": 0.4089,
+      "identity_p_nt_x_1_minus_t": 0.408931698774,
+      "identity_gap": 8.060219158778636e-14,
+      "mean_diff_non_tied": -530.394,
+      "mean_diff_non_tied_ci": [
+        -664.6734,
+        -405.3604
+      ],
+      "d_mean": 1.479,
+      "d_mean_ci": [
+        1.2942,
+        1.6559
+      ],
+      "rho_heredity": 0.548,
+      "x93_fraction": 0.53,
+      "refs": {
+        "depth": 1.479
+      }
+    },
+    "f040": {
+      "pairs": 1195,
+      "ties": 257,
+      "tie_share": 0.2151,
+      "non_tied": 938,
+      "p_nt": 0.3881,
+      "p_nt_ci": [
+        0.3561,
+        0.419
+      ],
+      "p_all": 0.3046,
+      "identity_p_nt_x_1_minus_t": 0.30460251046,
+      "identity_gap": 2.5107693701897915e-13,
+      "mean_diff_non_tied": -35.959,
+      "mean_diff_non_tied_ci": [
+        -79.1471,
+        6.5885
+      ],
+      "d_mean": 2.213,
+      "d_mean_ci": [
+        1.9523,
+        2.4787
+      ],
+      "rho_heredity": 0.48,
+      "x93_fraction": 0.401,
+      "refs": {
+        "depth": 2.213
+      }
+    }
+  },
+  "verdict": "the tie rule was the whole gap: ties are 22.2% / 21.5% of pairs, and with ties removed the larger sister's generation time is longer in 52.6% (CI [0.4932, 0.5574]) / 38.8% (CI [0.3561, 0.419]) of pairs, which brackets X93's 0.53 / 0.401. Counting ties as 'not larger' gives 40.9% / 30.5% — the same pairs, two statistics, and the earlier comparison set the tie-excluded proportion against the tie-counted one. Tie-excluded mean difference: -530.394 (CI [-664.6734, -405.3604]) / -35.959 (CI [-79.1471, 6.5885])."
+}

@@ -4,7 +4,7 @@
 
 The curated page — what matters and why — is [`scripts.md`](scripts.md). This file is the complete list, so that every command behind a number in the record can be found.
 
-Scripts: **309**.
+Scripts: **312**.
 
 ## Гейты и проверки (47)
 
@@ -171,7 +171,7 @@ Scripts: **309**.
 | `make_seed_grid_figure.py` | Собрать Figure 4 рукописи: сетка «инициализация × порядок данных» (§4.13). |
 | `make_simple_poster.py` | Простой постер для владельца: что мы узнали, без терминов. |
 
-## Прочее (174)
+## Прочее (177)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -261,6 +261,9 @@ Scripts: **309**.
 | `x120_analyse.py` | x120_analyse.py — X120: cost of division or time to divide? Daughters counted in a fixed early window. |
 | `x121_analyse.py` | x121_analyse.py — X121: discrete-time hazard of disappearing, given age and daughters. |
 | `x124_analyse.py` | x124_analyse.py — X124: do the generation-time and generation-rate results agree? |
+| `x125_analyse.py` | x125_analyse.py — X125: one definition per quantity, all five readouts, both weightings. |
+| `x125b_analyse.py` | x125b_analyse.py — X125b: the filter printed with the number, four statistics of one paired difference. |
+| `x125c_analyse.py` | x125c_analyse.py — X125c: is X93's tie-excluded fraction bare once ties are counted? |
 | `x56_matrix.py` | x56_matrix.py — сходимость по шагу: контраст при dt = 1.0, 0.5, 2.0. |
 | `x58_analyse.py` | x58_analyse.py — the same measurement on a 128 grid: β₀, β₁, wavelength, normalised count. |
 | `x58_series.py` | x60_series.py — X60: the twenty field runs that keep their snapshots. |
