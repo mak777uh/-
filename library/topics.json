@@ -333,7 +333,7 @@
     {
       "id": "medium-memory-scales",
       "ru": "Память среды: величина против формы, предпочитаемый масштаб, симметрия",
-      "status": "current",
+      "status": "next",
       "links": [
         "docs/world-design.md",
         "library/lit-elephant-fulltexts.md",
@@ -359,6 +359,34 @@
       ],
       "min_score": 4,
       "implication": "Проверить, есть ли в литературе различение «среда хранит величину, а не форму» и зависимость памяти от числа предпочитаемых масштабов — иначе это наша формулировка без основания."
+    },
+    {
+      "id": "power-and-replicates",
+      "ru": "Мощность и число прогонов: когда 10 миров занижают контраст, а 30 разрешают",
+      "status": "current",
+      "links": [
+        "docs/world-design.md",
+        "library/reviews/igr-methods.md"
+      ],
+      "queries": [
+        "pseudoreplication simulation experiments replicates number",
+        "statistical power individual-based model replicates",
+        "how many replicates agent-based model comparison"
+      ],
+      "terms": [
+        "power",
+        "replicates",
+        "pseudoreplication",
+        "sample size",
+        "simulation"
+      ],
+      "must": [
+        "replicate",
+        "power",
+        "simulation"
+      ],
+      "min_score": 4,
+      "implication": "Проверить канон: сколько прогонов нужно, чтобы контраст разрешался, и как отличать псевдорепликацию (один мир, много сидов) от настоящих миров — прямо к X132."
     }
   ]
 }

@@ -387,6 +387,7 @@ H29-пункт «ядро от цели»).
 | G103 | [Fractional Gray-Scott: memory-driven pattern selection, 2026 (preprint)](https://doi.org/10.21203/rs.3.rs-11309754/v1) | Капuto-дробный Gray-Scott: память выбирает паттерн | — | **C2: контрпример-кандидат к «величина, а не форма»** | `open` | [medium-memory.md](../hypotheses/medium-memory.md#c2) |
 | G104 | [Transient states in GNCA development, ALIFE 2026](https://doi.org/10.1162/isal.a.991) | Развитие GNCA идёт через переходные перестройки | — | C3: число переходов на траекторию | `open` | [medium-memory.md](../hypotheses/medium-memory.md#c3) |
 | G105 | [BraiNCA: long-range NCA, ALIFE 2026](https://doi.org/10.1162/isal.a.1033) | NCA с дальними связями вместо соседства Мура | — | C4: объяснение X47 через локальность | `open` | [medium-memory.md](../hypotheses/medium-memory.md#c4) |
+| G106 | [Bonferroni, not Tukey, for false positives at low replicate numbers, 2025 (preprint)](https://doi.org/10.1101/2025.05.01.651705) | При малом n Тьюки не держит число ложных срабатываний, Бонферрони держит | — | назвать поправку в попарных сравнениях плеч; цена — потеря мощности | `open` | `library/search-log.md` |
 
 ## H. ALife: классика, открытая эволюция, рамки, индивидуальность
 

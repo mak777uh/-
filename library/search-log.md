@@ -130,3 +130,16 @@ scales», «symmetry breaking memory size pattern».
 - **отброшено:** `10.3390/sym12122037` — *Spontaneous Symmetry Breaking and Its Pattern of Scales* (Symmetry,
   2020). Предмет — **два массовых масштаба в λΦ⁴ и SSB в квантовой теории поля**, не память среды и не
   масштаб паттерна в классических системах. Совпали слова «pattern of scales», а не предмет.
+
+## 2026-11-03, 09:05 — тема `power-and-replicates`
+
+Искал: псевдорепликация в симуляционных экспериментах; мощность и число прогонов в individual-based моделях;
+сколько реплик нужно для сравнения плеч.
+
+- **принято:** `10.1101/2025.05.01.651705` — *Bonferroni's correction, not Tukey's, should be used to control the
+  total number of false positives* (2025, **preprint** `posted-content`). Симуляционное исследование: при
+  **малом числе реплик** (как у нас, 5–10 сидов на плечо) поправка Тьюки **не держит** контроль числа ложных
+  срабатываний, а Бонферрони держит. Прямое следствие для наших попарных сравнений плеч.
+- **отброшено:** `10.53846/goediss-2930` — *Symmetry Breaking and Pattern Selection in Models of Visual
+  Development* (диссертация). Симметрия и выбор паттерна — тема вчерашняя, а не мощность; предмет —
+  карты зрительной коры. Держу в виду для темы `medium-memory-scales`, но в этот слот не вношу.
