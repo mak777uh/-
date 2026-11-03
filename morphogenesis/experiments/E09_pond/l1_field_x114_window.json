@@ -1,0 +1,39 @@
+{
+  "kind": "l1_field_x114_window",
+  "experiment": "X114",
+  "command": "python scripts/x114_analyse.py --write",
+  "prereg": "reports/2026-11-03-x114-window-plan.md",
+  "window_steps": 3000,
+  "readout": "paired sister contrast in generations reached inside a fixed 3 000-step window per branch, and the same as a rate per 1 000 windowed steps",
+  "cells": {
+    "f030": {
+      "pairs_heredity": 2164,
+      "rho_heredity": 0.548,
+      "median_depth_all": 3,
+      "median_depth_window": 2,
+      "sister_pairs": 1142,
+      "window_exact": 458,
+      "depth_diff_mean": 1.22,
+      "rate_diff_mean": 0.407,
+      "rate_diff_ci": [
+        0.362,
+        0.453
+      ]
+    },
+    "f040": {
+      "pairs_heredity": 1779,
+      "rho_heredity": 0.48,
+      "median_depth_all": 3.0,
+      "median_depth_window": 2.0,
+      "sister_pairs": 1195,
+      "window_exact": 448,
+      "depth_diff_mean": 1.915,
+      "rate_diff_mean": 0.638,
+      "rate_diff_ci": [
+        0.561,
+        0.72
+      ]
+    }
+  },
+  "verdict": "the advantage survives the equal window: the larger sister gains 0.407 generations per 1 000 windowed steps (CI [0.362, 0.453]) and 0.638 in the maze (CI [0.561, 0.72]); windowed median depth 2 against whole-run 3"
+}
