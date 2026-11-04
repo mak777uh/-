@@ -4,7 +4,7 @@
 
 The curated page — what matters and why — is [`scripts.md`](scripts.md). This file is the complete list, so that every command behind a number in the record can be found.
 
-Scripts: **368**.
+Scripts: **371**.
 
 ## Гейты и проверки (48)
 
@@ -175,7 +175,7 @@ Scripts: **368**.
 | `make_seed_grid_figure.py` | Собрать Figure 4 рукописи: сетка «инициализация × порядок данных» (§4.13). |
 | `make_simple_poster.py` | Простой постер для владельца: что мы узнали, без терминов. |
 
-## Прочее (229)
+## Прочее (232)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -318,6 +318,9 @@ Scripts: **368**.
 | `x160_analyse.py` | x160_analyse.py — X160: does a mortality buffer on an external signal hold diversity? |
 | `x160_series.py` | X160: does an external signal hold diversity through a mortality buffer? |
 | `x162_local_scale.py` | X162: is the local scale inherited? Parent-daughter reconstruction from the X156 compact logs, with area and shape |
+| `x162b_neighbour_decay.py` | x162b_neighbour_decay.py — how far does the medium remember? |
+| `x164_analyse.py` | x164_analyse.py — X164: does the fusion crossing depend on the size RATIO? |
+| `x164_series.py` | x164_series.py — X164: does the fusion crossing depend on the size RATIO? |
 | `x166_analyse.py` | x166_analyse.py — X166: the contact threshold at one-step resolution. |
 | `x166_series.py` | x166_series.py — X166: the contact threshold at one-step resolution. |
 | `x56_matrix.py` | x56_matrix.py — сходимость по шагу: контраст при dt = 1.0, 0.5, 2.0. |

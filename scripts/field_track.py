@@ -295,10 +295,15 @@ def main(argv=None) -> int:
     # По умолчанию флага нет, ветка не исполняется, старая инициализация остаётся бит-в-бит (якорь).
     if args.init_spots:
         try:
-            _rs, _ss = str(args.init_spots).split(":")
-            _rad, _sep = float(_rs), float(_ss)
+            _parts = str(args.init_spots).split(":")
+            if len(_parts) == 3:
+                _rad, _sep, _rad2 = float(_parts[0]), float(_parts[1]), float(_parts[2])
+            else:
+                _rs, _ss = _parts
+                _rad, _sep = float(_rs), float(_ss)
+                _rad2 = _rad
         except ValueError:
-            raise SystemExit("--init-spots expects R:SEP, e.g. 3:12")
+            raise SystemExit("--init-spots expects R:SEP or R1:SEP:R2, e.g. 3:12 or 3:15:6")
         v = torch.zeros_like(v)
         u = torch.ones_like(u)
         # X134b: размещение зависит от сида, иначе пять «сидов» — один и тот же мир (затравка выбрасывала
@@ -308,9 +313,9 @@ def main(argv=None) -> int:
         _cy, _cx = g / 2.0 + _jy, g / 2.0 + _jx
         _yses = ((yy - _cy + g / 2) % g) - g / 2
         _disc = torch.zeros((g, g), device=dev)
-        for _off in (-_sep / 2.0, _sep / 2.0):
+        for _off, _rr in ((-_sep / 2.0, _rad), (_sep / 2.0, _rad2)):
             _xses = ((xx - (_cx + _off) + g / 2) % g) - g / 2
-            _disc = torch.maximum(_disc, ((_yses ** 2 + _xses ** 2) <= _rad * _rad).to(_disc.dtype))
+            _disc = torch.maximum(_disc, ((_yses ** 2 + _xses ** 2) <= _rr * _rr).to(_disc.dtype))
         v = torch.clamp(v + _disc, 0.0, 1.0)
         u = torch.clamp(u - 0.75 * _disc, 0.0, 1.0)
 

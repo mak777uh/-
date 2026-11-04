@@ -1778,6 +1778,21 @@ weak - the null arm went extinct in fourteen of twenty runs, so the diversity re
 and the result is a direction rather than a measured effect size. What it does establish is where the buffer fails and why:
 the channel is not the problem, the world's margin is.
 
+### 4k.5b The ladder is ordered by how much body each quantity still contains
+
+A body's distance to its k-th neighbour is not a free measure of the space around it: in a cluster it is dominated by the
+body's own radius, `g_k ≈ k·d − 2r`, so the higher orders mostly re-measure the area. The measurement agrees. On the same
+2 222 parent-daughter pairs, the slope of the daughter's k-th gap on her mother's rises with k — 0.205 [0.170, 0.238] for
+the nearest neighbour, 0.236 for the second, 0.408 for the third, 0.568 for the fourth — and the fourth approaches the
+elongation slope (0.586) while every order clears its shuffled-parent null.
+
+A remembered scale would decay with distance; this grows, and the growth is the body returning. The ladder of §4k.5a is
+therefore not ordered by distance from the body but by how much body each quantity still contains, and the order-1 gap is
+the only member of the family that is nearly free of the body's own size - which makes it the weakest inherited quantity
+measured anywhere in this line, and the answer to whether the medium transmits a scale of its own: it does not. The decay
+length that this measurement was designed to find does not exist, and the experiment that would have measured it is
+cancelled by its own result.
+
 ### 4k.6a The contact gap, measured every step
 
 The 1.9-cell reading of §4k.6 is bounded by our own sampling, and a one-step log settles what that bound was hiding. Five
