@@ -1,0 +1,450 @@
+{
+ "kind": "x182_local_inflow",
+ "flow": 0.03,
+ "radius": 3.0,
+ "gap": 10,
+ "steps": 2000,
+ "prediction": {
+  "bottom_share": [
+   0.5,
+   1.0
+  ],
+  "top_share": [
+   0.0,
+   0.35
+  ],
+  "p_threshold": 0.05
+ },
+ "levels": [
+  {
+   "level": 0.08,
+   "target_G": 0.08,
+   "runs": 6,
+   "fused": 6,
+   "share": 1.0,
+   "wilson": [
+    0.6097,
+    1.0
+   ],
+   "G_actual_mean": 0.0863,
+   "F_local_mean": 0.00518,
+   "runs_with_recomputed_G": 6,
+   "corridor_median": 0.4913,
+   "corridor_sd": 0.0086,
+   "contacts": 6
+  },
+  {
+   "level": 0.28,
+   "target_G": 0.28,
+   "runs": 6,
+   "fused": 6,
+   "share": 1.0,
+   "wilson": [
+    0.6097,
+    1.0
+   ],
+   "G_actual_mean": 0.2667,
+   "F_local_mean": 0.016,
+   "runs_with_recomputed_G": 6,
+   "corridor_median": 0.4584,
+   "corridor_sd": 0.0261,
+   "contacts": 6
+  },
+  {
+   "level": 0.5,
+   "target_G": 0.5,
+   "runs": 6,
+   "fused": 3,
+   "share": 0.5,
+   "wilson": [
+    0.1876,
+    0.8124
+   ],
+   "G_actual_mean": 0.5,
+   "F_local_mean": 0.03,
+   "runs_with_recomputed_G": 6,
+   "corridor_median": 0.4803,
+   "corridor_sd": 0.0092,
+   "contacts": 3
+  },
+  {
+   "level": 0.7,
+   "target_G": 0.7,
+   "runs": 6,
+   "fused": 1,
+   "share": 0.1667,
+   "wilson": [
+    0.0301,
+    0.5635
+   ],
+   "G_actual_mean": 0.7277,
+   "F_local_mean": 0.04366,
+   "runs_with_recomputed_G": 6,
+   "corridor_median": 0.3993,
+   "corridor_sd": null,
+   "contacts": 1
+  },
+  {
+   "level": 0.9,
+   "target_G": 0.9,
+   "runs": 6,
+   "fused": 0,
+   "share": 0.0,
+   "wilson": [
+    0.0,
+    0.3903
+   ],
+   "G_actual_mean": 0.8943,
+   "F_local_mean": 0.05366,
+   "runs_with_recomputed_G": 6,
+   "corridor_median": null,
+   "corridor_sd": null,
+   "contacts": 0
+  }
+ ],
+ "runs": [
+  {
+   "level": 0.08,
+   "target_G": 0.08,
+   "seed": 3030,
+   "G_actual": 0.067,
+   "fused": true,
+   "final_count": 50,
+   "corridor": {
+    "step": 70,
+    "corridor": 0.195,
+    "normalised": 0.5
+   }
+  },
+  {
+   "level": 0.08,
+   "target_G": 0.08,
+   "seed": 3046,
+   "G_actual": 0.125,
+   "fused": true,
+   "final_count": 47,
+   "corridor": {
+    "step": 70,
+    "corridor": 0.1889,
+    "normalised": 0.479
+   }
+  },
+  {
+   "level": 0.08,
+   "target_G": 0.08,
+   "seed": 3050,
+   "G_actual": 0.125,
+   "fused": true,
+   "final_count": 47,
+   "corridor": {
+    "step": 70,
+    "corridor": 0.1889,
+    "normalised": 0.479
+   }
+  },
+  {
+   "level": 0.08,
+   "target_G": 0.08,
+   "seed": 3053,
+   "G_actual": 0.067,
+   "fused": true,
+   "final_count": 50,
+   "corridor": {
+    "step": 70,
+    "corridor": 0.1943,
+    "normalised": 0.4913
+   }
+  },
+  {
+   "level": 0.08,
+   "target_G": 0.08,
+   "seed": 3060,
+   "G_actual": 0.067,
+   "fused": true,
+   "final_count": 50,
+   "corridor": {
+    "step": 70,
+    "corridor": 0.1943,
+    "normalised": 0.4913
+   }
+  },
+  {
+   "level": 0.08,
+   "target_G": 0.08,
+   "seed": 3063,
+   "G_actual": 0.067,
+   "fused": true,
+   "final_count": 50,
+   "corridor": {
+    "step": 70,
+    "corridor": 0.195,
+    "normalised": 0.5
+   }
+  },
+  {
+   "level": 0.28,
+   "target_G": 0.28,
+   "seed": 3002,
+   "G_actual": 0.25,
+   "fused": true,
+   "final_count": 52,
+   "corridor": {
+    "step": 80,
+    "corridor": 0.197,
+    "normalised": 0.5083
+   }
+  },
+  {
+   "level": 0.28,
+   "target_G": 0.28,
+   "seed": 3003,
+   "G_actual": 0.25,
+   "fused": true,
+   "final_count": 46,
+   "corridor": {
+    "step": 70,
+    "corridor": 0.1769,
+    "normalised": 0.4584
+   }
+  },
+  {
+   "level": 0.28,
+   "target_G": 0.28,
+   "seed": 3004,
+   "G_actual": 0.2835,
+   "fused": true,
+   "final_count": 49,
+   "corridor": {
+    "step": 70,
+    "corridor": 0.1736,
+    "normalised": 0.4519
+   }
+  },
+  {
+   "level": 0.28,
+   "target_G": 0.28,
+   "seed": 3005,
+   "G_actual": 0.2835,
+   "fused": true,
+   "final_count": 49,
+   "corridor": {
+    "step": 70,
+    "corridor": 0.1736,
+    "normalised": 0.4519
+   }
+  },
+  {
+   "level": 0.28,
+   "target_G": 0.28,
+   "seed": 3006,
+   "G_actual": 0.2835,
+   "fused": true,
+   "final_count": 53,
+   "corridor": {
+    "step": 80,
+    "corridor": 0.1985,
+    "normalised": 0.5122
+   }
+  },
+  {
+   "level": 0.28,
+   "target_G": 0.28,
+   "seed": 3010,
+   "G_actual": 0.25,
+   "fused": true,
+   "final_count": 46,
+   "corridor": {
+    "step": 70,
+    "corridor": 0.1769,
+    "normalised": 0.4584
+   }
+  },
+  {
+   "level": 0.5,
+   "target_G": 0.5,
+   "seed": 3008,
+   "G_actual": 0.5,
+   "fused": false,
+   "final_count": 49,
+   "corridor": null
+  },
+  {
+   "level": 0.5,
+   "target_G": 0.5,
+   "seed": 3011,
+   "G_actual": 0.5,
+   "fused": true,
+   "final_count": 43,
+   "corridor": {
+    "step": 80,
+    "corridor": 0.179,
+    "normalised": 0.4998
+   }
+  },
+  {
+   "level": 0.5,
+   "target_G": 0.5,
+   "seed": 3012,
+   "G_actual": 0.5,
+   "fused": false,
+   "final_count": 49,
+   "corridor": null
+  },
+  {
+   "level": 0.5,
+   "target_G": 0.5,
+   "seed": 3014,
+   "G_actual": 0.5,
+   "fused": true,
+   "final_count": 56,
+   "corridor": {
+    "step": 80,
+    "corridor": 0.1786,
+    "normalised": 0.4803
+   }
+  },
+  {
+   "level": 0.5,
+   "target_G": 0.5,
+   "seed": 3017,
+   "G_actual": 0.5,
+   "fused": true,
+   "final_count": 56,
+   "corridor": {
+    "step": 80,
+    "corridor": 0.1786,
+    "normalised": 0.4803
+   }
+  },
+  {
+   "level": 0.5,
+   "target_G": 0.5,
+   "seed": 3018,
+   "G_actual": 0.5,
+   "fused": false,
+   "final_count": 56,
+   "corridor": null
+  },
+  {
+   "level": 0.7,
+   "target_G": 0.7,
+   "seed": 3013,
+   "G_actual": 0.7165,
+   "fused": false,
+   "final_count": 47,
+   "corridor": null
+  },
+  {
+   "level": 0.7,
+   "target_G": 0.7,
+   "seed": 3028,
+   "G_actual": 0.7165,
+   "fused": false,
+   "final_count": 49,
+   "corridor": null
+  },
+  {
+   "level": 0.7,
+   "target_G": 0.7,
+   "seed": 3033,
+   "G_actual": 0.75,
+   "fused": false,
+   "final_count": 55,
+   "corridor": null
+  },
+  {
+   "level": 0.7,
+   "target_G": 0.7,
+   "seed": 3045,
+   "G_actual": 0.7165,
+   "fused": false,
+   "final_count": 47,
+   "corridor": null
+  },
+  {
+   "level": 0.7,
+   "target_G": 0.7,
+   "seed": 3047,
+   "G_actual": 0.75,
+   "fused": true,
+   "final_count": 46,
+   "corridor": {
+    "step": 100,
+    "corridor": 0.1517,
+    "normalised": 0.3993
+   }
+  },
+  {
+   "level": 0.7,
+   "target_G": 0.7,
+   "seed": 3052,
+   "G_actual": 0.7165,
+   "fused": false,
+   "final_count": 47,
+   "corridor": null
+  },
+  {
+   "level": 0.9,
+   "target_G": 0.9,
+   "seed": 3000,
+   "G_actual": 0.875,
+   "fused": false,
+   "final_count": 50,
+   "corridor": null
+  },
+  {
+   "level": 0.9,
+   "target_G": 0.9,
+   "seed": 3009,
+   "G_actual": 0.875,
+   "fused": false,
+   "final_count": 50,
+   "corridor": null
+  },
+  {
+   "level": 0.9,
+   "target_G": 0.9,
+   "seed": 3036,
+   "G_actual": 0.875,
+   "fused": false,
+   "final_count": 50,
+   "corridor": null
+  },
+  {
+   "level": 0.9,
+   "target_G": 0.9,
+   "seed": 3037,
+   "G_actual": 0.875,
+   "fused": false,
+   "final_count": 50,
+   "corridor": null
+  },
+  {
+   "level": 0.9,
+   "target_G": 0.9,
+   "seed": 3039,
+   "G_actual": 0.933,
+   "fused": false,
+   "final_count": 44,
+   "corridor": null
+  },
+  {
+   "level": 0.9,
+   "target_G": 0.9,
+   "seed": 3058,
+   "G_actual": 0.933,
+   "fused": false,
+   "final_count": 49,
+   "corridor": null
+  }
+ ],
+ "trend": {
+  "z": -4.446,
+  "p_negative_direction": 0.0,
+  "p_two_sided": 0.0
+ },
+ "bottom_predicted": true,
+ "top_predicted": true,
+ "trend_predicted": true,
+ "verdict": "THE MIDPOINT PHASE CONTROLS THE OUTCOME, AND NEGATIVELY: with the pattern value at the pair's midpoint chosen in advance, the share falls from 1.00 at local G 0.09 (F_local 0.0052) to 0.00 at G 0.89 (F_local 0.0537); Cochran-Armitage z = -4.446, one-sided p = 0.0000. All of the block's crossing statements should be re-read in the midpoint reading. X183 puts the ladder on the colder body's inflow and reads the same data the other way round - the two are one law, which X185 demonstrates."
+}

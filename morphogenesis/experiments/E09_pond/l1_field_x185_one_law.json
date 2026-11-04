@@ -1,0 +1,869 @@
+{
+ "kind": "x185_one_law",
+ "flow": 0.03,
+ "runs": 60,
+ "x182_runs": 30,
+ "x184_runs": 30,
+ "bands_by_cold_inflow_pooled": [
+  {
+   "f_local_from": 0.0,
+   "f_local_to": 0.019,
+   "runs": 22,
+   "fused": 0,
+   "share": 0.0,
+   "wilson": [
+    0.0,
+    0.1487
+   ],
+   "from_x182": 10,
+   "from_x184": 12
+  },
+  {
+   "f_local_from": 0.019,
+   "f_local_to": 0.024,
+   "runs": 11,
+   "fused": 5,
+   "share": 0.4545,
+   "wilson": [
+    0.2127,
+    0.7199
+   ],
+   "from_x182": 6,
+   "from_x184": 5
+  },
+  {
+   "f_local_from": 0.024,
+   "f_local_to": 0.028,
+   "runs": 2,
+   "fused": 1,
+   "share": 0.5,
+   "wilson": [
+    0.0945,
+    0.9055
+   ],
+   "from_x182": 1,
+   "from_x184": 1
+  },
+  {
+   "f_local_from": 0.028,
+   "f_local_to": 0.032,
+   "runs": 15,
+   "fused": 15,
+   "share": 1.0,
+   "wilson": [
+    0.7961,
+    1.0
+   ],
+   "from_x182": 9,
+   "from_x184": 6
+  },
+  {
+   "f_local_from": 0.032,
+   "f_local_to": 0.04,
+   "runs": 10,
+   "fused": 10,
+   "share": 1.0,
+   "wilson": [
+    0.7225,
+    1.0
+   ],
+   "from_x182": 4,
+   "from_x184": 6
+  }
+ ],
+ "bands_by_cold_inflow_per_experiment": {
+  "x182": [
+   {
+    "from": 0.0,
+    "to": 0.019,
+    "runs": 10,
+    "fused": 0,
+    "share": 0.0
+   },
+   {
+    "from": 0.019,
+    "to": 0.024,
+    "runs": 6,
+    "fused": 2,
+    "share": 0.3333
+   },
+   {
+    "from": 0.024,
+    "to": 0.028,
+    "runs": 1,
+    "fused": 1,
+    "share": 1.0
+   },
+   {
+    "from": 0.028,
+    "to": 0.032,
+    "runs": 9,
+    "fused": 9,
+    "share": 1.0
+   },
+   {
+    "from": 0.032,
+    "to": 0.04,
+    "runs": 4,
+    "fused": 4,
+    "share": 1.0
+   }
+  ],
+  "x184": [
+   {
+    "from": 0.0,
+    "to": 0.019,
+    "runs": 12,
+    "fused": 0,
+    "share": 0.0
+   },
+   {
+    "from": 0.019,
+    "to": 0.024,
+    "runs": 5,
+    "fused": 3,
+    "share": 0.6
+   },
+   {
+    "from": 0.024,
+    "to": 0.028,
+    "runs": 1,
+    "fused": 0,
+    "share": 0.0
+   },
+   {
+    "from": 0.028,
+    "to": 0.032,
+    "runs": 6,
+    "fused": 6,
+    "share": 1.0
+   },
+   {
+    "from": 0.032,
+    "to": 0.04,
+    "runs": 6,
+    "fused": 6,
+    "share": 1.0
+   }
+  ]
+ },
+ "each_experiment_on_its_own_variable": {
+  "x182_by_midpoint": [
+   {
+    "g_mid": 0.067,
+    "runs": 4,
+    "fused": 4,
+    "share": 1.0
+   },
+   {
+    "g_mid": 0.125,
+    "runs": 2,
+    "fused": 2,
+    "share": 1.0
+   },
+   {
+    "g_mid": 0.25,
+    "runs": 3,
+    "fused": 3,
+    "share": 1.0
+   },
+   {
+    "g_mid": 0.283,
+    "runs": 3,
+    "fused": 3,
+    "share": 1.0
+   },
+   {
+    "g_mid": 0.5,
+    "runs": 6,
+    "fused": 3,
+    "share": 0.5
+   },
+   {
+    "g_mid": 0.717,
+    "runs": 4,
+    "fused": 0,
+    "share": 0.0
+   },
+   {
+    "g_mid": 0.75,
+    "runs": 2,
+    "fused": 1,
+    "share": 0.5
+   },
+   {
+    "g_mid": 0.875,
+    "runs": 4,
+    "fused": 0,
+    "share": 0.0
+   },
+   {
+    "g_mid": 0.933,
+    "runs": 2,
+    "fused": 0,
+    "share": 0.0
+   }
+  ],
+  "x184_by_cold_inflow": [
+   {
+    "f_local_cold": 0.015,
+    "runs": 3,
+    "fused": 0,
+    "share": 0.0
+   },
+   {
+    "f_local_cold": 0.017,
+    "runs": 3,
+    "fused": 0,
+    "share": 0.0
+   },
+   {
+    "f_local_cold": 0.0187,
+    "runs": 2,
+    "fused": 0,
+    "share": 0.0
+   },
+   {
+    "f_local_cold": 0.0188,
+    "runs": 4,
+    "fused": 0,
+    "share": 0.0
+   },
+   {
+    "f_local_cold": 0.0235,
+    "runs": 5,
+    "fused": 3,
+    "share": 0.6
+   },
+   {
+    "f_local_cold": 0.0262,
+    "runs": 1,
+    "fused": 0,
+    "share": 0.0
+   },
+   {
+    "f_local_cold": 0.03,
+    "runs": 6,
+    "fused": 6,
+    "share": 1.0
+   },
+   {
+    "f_local_cold": 0.0365,
+    "runs": 3,
+    "fused": 3,
+    "share": 1.0
+   },
+   {
+    "f_local_cold": 0.0375,
+    "runs": 3,
+    "fused": 3,
+    "share": 1.0
+   }
+  ]
+ },
+ "bands_agree_within_0.35": true,
+ "insufficient_bands": 1,
+ "runs_detail": [
+  {
+   "experiment": "X182 (midpoint levels)",
+   "file": "x182_L008_s3030",
+   "g_mid": 0.067,
+   "g_cold": 0.7165,
+   "g_warm": 0.7165,
+   "f_local_cold": 0.0365,
+   "f_local_warm": 0.0365,
+   "fused": true
+  },
+  {
+   "experiment": "X182 (midpoint levels)",
+   "file": "x182_L008_s3046",
+   "g_mid": 0.125,
+   "g_cold": 0.5,
+   "g_warm": 0.875,
+   "f_local_cold": 0.03,
+   "f_local_warm": 0.0412,
+   "fused": true
+  },
+  {
+   "experiment": "X182 (midpoint levels)",
+   "file": "x182_L008_s3050",
+   "g_mid": 0.125,
+   "g_cold": 0.5,
+   "g_warm": 0.875,
+   "f_local_cold": 0.03,
+   "f_local_warm": 0.0413,
+   "fused": true
+  },
+  {
+   "experiment": "X182 (midpoint levels)",
+   "file": "x182_L008_s3053",
+   "g_mid": 0.067,
+   "g_cold": 0.5,
+   "g_warm": 0.933,
+   "f_local_cold": 0.03,
+   "f_local_warm": 0.043,
+   "fused": true
+  },
+  {
+   "experiment": "X182 (midpoint levels)",
+   "file": "x182_L008_s3060",
+   "g_mid": 0.067,
+   "g_cold": 0.5,
+   "g_warm": 0.933,
+   "f_local_cold": 0.03,
+   "f_local_warm": 0.043,
+   "fused": true
+  },
+  {
+   "experiment": "X182 (midpoint levels)",
+   "file": "x182_L008_s3063",
+   "g_mid": 0.067,
+   "g_cold": 0.7165,
+   "g_warm": 0.7165,
+   "f_local_cold": 0.0365,
+   "f_local_warm": 0.0365,
+   "fused": true
+  },
+  {
+   "experiment": "X182 (midpoint levels)",
+   "file": "x182_L028_s3002",
+   "g_mid": 0.25,
+   "g_cold": 0.25,
+   "g_warm": 1.0,
+   "f_local_cold": 0.0225,
+   "f_local_warm": 0.045,
+   "fused": true
+  },
+  {
+   "experiment": "X182 (midpoint levels)",
+   "file": "x182_L028_s3003",
+   "g_mid": 0.25,
+   "g_cold": 0.625,
+   "g_warm": 0.625,
+   "f_local_cold": 0.0337,
+   "f_local_warm": 0.0338,
+   "fused": true
+  },
+  {
+   "experiment": "X182 (midpoint levels)",
+   "file": "x182_L028_s3004",
+   "g_mid": 0.2835,
+   "g_cold": 0.5,
+   "g_warm": 0.7165,
+   "f_local_cold": 0.03,
+   "f_local_warm": 0.0365,
+   "fused": true
+  },
+  {
+   "experiment": "X182 (midpoint levels)",
+   "file": "x182_L028_s3005",
+   "g_mid": 0.2835,
+   "g_cold": 0.5,
+   "g_warm": 0.7165,
+   "f_local_cold": 0.03,
+   "f_local_warm": 0.0365,
+   "fused": true
+  },
+  {
+   "experiment": "X182 (midpoint levels)",
+   "file": "x182_L028_s3006",
+   "g_mid": 0.2835,
+   "g_cold": 0.2835,
+   "g_warm": 0.933,
+   "f_local_cold": 0.0235,
+   "f_local_warm": 0.043,
+   "fused": true
+  },
+  {
+   "experiment": "X182 (midpoint levels)",
+   "file": "x182_L028_s3010",
+   "g_mid": 0.25,
+   "g_cold": 0.625,
+   "g_warm": 0.625,
+   "f_local_cold": 0.0338,
+   "f_local_warm": 0.0338,
+   "fused": true
+  },
+  {
+   "experiment": "X182 (midpoint levels)",
+   "file": "x182_L050_s3008",
+   "g_mid": 0.5,
+   "g_cold": 0.067,
+   "g_warm": 0.933,
+   "f_local_cold": 0.017,
+   "f_local_warm": 0.043,
+   "fused": false
+  },
+  {
+   "experiment": "X182 (midpoint levels)",
+   "file": "x182_L050_s3011",
+   "g_mid": 0.5,
+   "g_cold": 0.5,
+   "g_warm": 0.5,
+   "f_local_cold": 0.03,
+   "f_local_warm": 0.03,
+   "fused": true
+  },
+  {
+   "experiment": "X182 (midpoint levels)",
+   "file": "x182_L050_s3012",
+   "g_mid": 0.5,
+   "g_cold": 0.067,
+   "g_warm": 0.933,
+   "f_local_cold": 0.017,
+   "f_local_warm": 0.043,
+   "fused": false
+  },
+  {
+   "experiment": "X182 (midpoint levels)",
+   "file": "x182_L050_s3014",
+   "g_mid": 0.5,
+   "g_cold": 0.5,
+   "g_warm": 0.5,
+   "f_local_cold": 0.03,
+   "f_local_warm": 0.03,
+   "fused": true
+  },
+  {
+   "experiment": "X182 (midpoint levels)",
+   "file": "x182_L050_s3017",
+   "g_mid": 0.5,
+   "g_cold": 0.5,
+   "g_warm": 0.5,
+   "f_local_cold": 0.03,
+   "f_local_warm": 0.03,
+   "fused": true
+  },
+  {
+   "experiment": "X182 (midpoint levels)",
+   "file": "x182_L050_s3018",
+   "g_mid": 0.5,
+   "g_cold": 0.125,
+   "g_warm": 0.875,
+   "f_local_cold": 0.0188,
+   "f_local_warm": 0.0412,
+   "fused": false
+  },
+  {
+   "experiment": "X182 (midpoint levels)",
+   "file": "x182_L070_s3013",
+   "g_mid": 0.7165,
+   "g_cold": 0.2835,
+   "g_warm": 0.5,
+   "f_local_cold": 0.0235,
+   "f_local_warm": 0.03,
+   "fused": false
+  },
+  {
+   "experiment": "X182 (midpoint levels)",
+   "file": "x182_L070_s3028",
+   "g_mid": 0.7165,
+   "g_cold": 0.067,
+   "g_warm": 0.7165,
+   "f_local_cold": 0.017,
+   "f_local_warm": 0.0365,
+   "fused": false
+  },
+  {
+   "experiment": "X182 (midpoint levels)",
+   "file": "x182_L070_s3033",
+   "g_mid": 0.75,
+   "g_cold": 0.0,
+   "g_warm": 0.75,
+   "f_local_cold": 0.015,
+   "f_local_warm": 0.0375,
+   "fused": false
+  },
+  {
+   "experiment": "X182 (midpoint levels)",
+   "file": "x182_L070_s3045",
+   "g_mid": 0.7165,
+   "g_cold": 0.2835,
+   "g_warm": 0.5,
+   "f_local_cold": 0.0235,
+   "f_local_warm": 0.03,
+   "fused": false
+  },
+  {
+   "experiment": "X182 (midpoint levels)",
+   "file": "x182_L070_s3047",
+   "g_mid": 0.75,
+   "g_cold": 0.375,
+   "g_warm": 0.375,
+   "f_local_cold": 0.0262,
+   "f_local_warm": 0.0263,
+   "fused": true
+  },
+  {
+   "experiment": "X182 (midpoint levels)",
+   "file": "x182_L070_s3052",
+   "g_mid": 0.7165,
+   "g_cold": 0.2835,
+   "g_warm": 0.5,
+   "f_local_cold": 0.0235,
+   "f_local_warm": 0.03,
+   "fused": false
+  },
+  {
+   "experiment": "X182 (midpoint levels)",
+   "file": "x182_L090_s3000",
+   "g_mid": 0.875,
+   "g_cold": 0.125,
+   "g_warm": 0.5,
+   "f_local_cold": 0.0187,
+   "f_local_warm": 0.03,
+   "fused": false
+  },
+  {
+   "experiment": "X182 (midpoint levels)",
+   "file": "x182_L090_s3009",
+   "g_mid": 0.875,
+   "g_cold": 0.125,
+   "g_warm": 0.5,
+   "f_local_cold": 0.0188,
+   "f_local_warm": 0.03,
+   "fused": false
+  },
+  {
+   "experiment": "X182 (midpoint levels)",
+   "file": "x182_L090_s3036",
+   "g_mid": 0.875,
+   "g_cold": 0.125,
+   "g_warm": 0.5,
+   "f_local_cold": 0.0187,
+   "f_local_warm": 0.03,
+   "fused": false
+  },
+  {
+   "experiment": "X182 (midpoint levels)",
+   "file": "x182_L090_s3037",
+   "g_mid": 0.875,
+   "g_cold": 0.125,
+   "g_warm": 0.5,
+   "f_local_cold": 0.0187,
+   "f_local_warm": 0.03,
+   "fused": false
+  },
+  {
+   "experiment": "X182 (midpoint levels)",
+   "file": "x182_L090_s3039",
+   "g_mid": 0.933,
+   "g_cold": 0.2835,
+   "g_warm": 0.2835,
+   "f_local_cold": 0.0235,
+   "f_local_warm": 0.0235,
+   "fused": false
+  },
+  {
+   "experiment": "X182 (midpoint levels)",
+   "file": "x182_L090_s3058",
+   "g_mid": 0.933,
+   "g_cold": 0.067,
+   "g_warm": 0.5,
+   "f_local_cold": 0.017,
+   "f_local_warm": 0.03,
+   "fused": false
+  },
+  {
+   "experiment": "X184 (colder-body levels)",
+   "file": "x184_F016_s8014",
+   "g_mid": 0.933,
+   "g_cold": 0.067,
+   "g_warm": 0.5,
+   "f_local_cold": 0.017,
+   "f_local_warm": 0.03,
+   "fused": false
+  },
+  {
+   "experiment": "X184 (colder-body levels)",
+   "file": "x184_F016_s8025",
+   "g_mid": 0.75,
+   "g_cold": 0.0,
+   "g_warm": 0.75,
+   "f_local_cold": 0.015,
+   "f_local_warm": 0.0375,
+   "fused": false
+  },
+  {
+   "experiment": "X184 (colder-body levels)",
+   "file": "x184_F016_s8026",
+   "g_mid": 0.75,
+   "g_cold": 0.0,
+   "g_warm": 0.75,
+   "f_local_cold": 0.015,
+   "f_local_warm": 0.0375,
+   "fused": false
+  },
+  {
+   "experiment": "X184 (colder-body levels)",
+   "file": "x184_F016_s8034",
+   "g_mid": 0.7165,
+   "g_cold": 0.067,
+   "g_warm": 0.7165,
+   "f_local_cold": 0.017,
+   "f_local_warm": 0.0365,
+   "fused": false
+  },
+  {
+   "experiment": "X184 (colder-body levels)",
+   "file": "x184_F016_s8049",
+   "g_mid": 0.7165,
+   "g_cold": 0.067,
+   "g_warm": 0.7165,
+   "f_local_cold": 0.017,
+   "f_local_warm": 0.0365,
+   "fused": false
+  },
+  {
+   "experiment": "X184 (colder-body levels)",
+   "file": "x184_F016_s8051",
+   "g_mid": 0.75,
+   "g_cold": 0.0,
+   "g_warm": 0.75,
+   "f_local_cold": 0.015,
+   "f_local_warm": 0.0375,
+   "fused": false
+  },
+  {
+   "experiment": "X184 (colder-body levels)",
+   "file": "x184_F020_s8000",
+   "g_mid": 0.5,
+   "g_cold": 0.125,
+   "g_warm": 0.875,
+   "f_local_cold": 0.0188,
+   "f_local_warm": 0.0412,
+   "fused": false
+  },
+  {
+   "experiment": "X184 (colder-body levels)",
+   "file": "x184_F020_s8008",
+   "g_mid": 0.5,
+   "g_cold": 0.125,
+   "g_warm": 0.875,
+   "f_local_cold": 0.0188,
+   "f_local_warm": 0.0413,
+   "fused": false
+  },
+  {
+   "experiment": "X184 (colder-body levels)",
+   "file": "x184_F020_s8009",
+   "g_mid": 0.5,
+   "g_cold": 0.125,
+   "g_warm": 0.875,
+   "f_local_cold": 0.0188,
+   "f_local_warm": 0.0412,
+   "fused": false
+  },
+  {
+   "experiment": "X184 (colder-body levels)",
+   "file": "x184_F020_s8023",
+   "g_mid": 0.875,
+   "g_cold": 0.125,
+   "g_warm": 0.5,
+   "f_local_cold": 0.0187,
+   "f_local_warm": 0.03,
+   "fused": false
+  },
+  {
+   "experiment": "X184 (colder-body levels)",
+   "file": "x184_F020_s8053",
+   "g_mid": 0.875,
+   "g_cold": 0.125,
+   "g_warm": 0.5,
+   "f_local_cold": 0.0187,
+   "f_local_warm": 0.03,
+   "fused": false
+  },
+  {
+   "experiment": "X184 (colder-body levels)",
+   "file": "x184_F020_s8055",
+   "g_mid": 0.875,
+   "g_cold": 0.125,
+   "g_warm": 0.5,
+   "f_local_cold": 0.0188,
+   "f_local_warm": 0.03,
+   "fused": false
+  },
+  {
+   "experiment": "X184 (colder-body levels)",
+   "file": "x184_F025_s8011",
+   "g_mid": 0.2835,
+   "g_cold": 0.2835,
+   "g_warm": 0.933,
+   "f_local_cold": 0.0235,
+   "f_local_warm": 0.043,
+   "fused": true
+  },
+  {
+   "experiment": "X184 (colder-body levels)",
+   "file": "x184_F025_s8020",
+   "g_mid": 0.2835,
+   "g_cold": 0.2835,
+   "g_warm": 0.933,
+   "f_local_cold": 0.0235,
+   "f_local_warm": 0.043,
+   "fused": true
+  },
+  {
+   "experiment": "X184 (colder-body levels)",
+   "file": "x184_F025_s8021",
+   "g_mid": 0.5,
+   "g_cold": 0.2835,
+   "g_warm": 0.7165,
+   "f_local_cold": 0.0235,
+   "f_local_warm": 0.0365,
+   "fused": false
+  },
+  {
+   "experiment": "X184 (colder-body levels)",
+   "file": "x184_F025_s8027",
+   "g_mid": 0.375,
+   "g_cold": 0.375,
+   "g_warm": 0.75,
+   "f_local_cold": 0.0262,
+   "f_local_warm": 0.0375,
+   "fused": false
+  },
+  {
+   "experiment": "X184 (colder-body levels)",
+   "file": "x184_F025_s8029",
+   "g_mid": 0.2835,
+   "g_cold": 0.2835,
+   "g_warm": 0.933,
+   "f_local_cold": 0.0235,
+   "f_local_warm": 0.043,
+   "fused": true
+  },
+  {
+   "experiment": "X184 (colder-body levels)",
+   "file": "x184_F025_s8032",
+   "g_mid": 0.933,
+   "g_cold": 0.2835,
+   "g_warm": 0.2835,
+   "f_local_cold": 0.0235,
+   "f_local_warm": 0.0235,
+   "fused": false
+  },
+  {
+   "experiment": "X184 (colder-body levels)",
+   "file": "x184_F030_s8001",
+   "g_mid": 0.5,
+   "g_cold": 0.5,
+   "g_warm": 0.5,
+   "f_local_cold": 0.03,
+   "f_local_warm": 0.03,
+   "fused": true
+  },
+  {
+   "experiment": "X184 (colder-body levels)",
+   "file": "x184_F030_s8002",
+   "g_mid": 0.5,
+   "g_cold": 0.5,
+   "g_warm": 0.5,
+   "f_local_cold": 0.03,
+   "f_local_warm": 0.03,
+   "fused": true
+  },
+  {
+   "experiment": "X184 (colder-body levels)",
+   "file": "x184_F030_s8004",
+   "g_mid": 0.067,
+   "g_cold": 0.5,
+   "g_warm": 0.933,
+   "f_local_cold": 0.03,
+   "f_local_warm": 0.043,
+   "fused": true
+  },
+  {
+   "experiment": "X184 (colder-body levels)",
+   "file": "x184_F030_s8005",
+   "g_mid": 0.5,
+   "g_cold": 0.5,
+   "g_warm": 0.5,
+   "f_local_cold": 0.03,
+   "f_local_warm": 0.03,
+   "fused": true
+  },
+  {
+   "experiment": "X184 (colder-body levels)",
+   "file": "x184_F030_s8006",
+   "g_mid": 0.067,
+   "g_cold": 0.5,
+   "g_warm": 0.933,
+   "f_local_cold": 0.03,
+   "f_local_warm": 0.043,
+   "fused": true
+  },
+  {
+   "experiment": "X184 (colder-body levels)",
+   "file": "x184_F030_s8007",
+   "g_mid": 0.2835,
+   "g_cold": 0.5,
+   "g_warm": 0.7165,
+   "f_local_cold": 0.03,
+   "f_local_warm": 0.0365,
+   "fused": true
+  },
+  {
+   "experiment": "X184 (colder-body levels)",
+   "file": "x184_F036_s8018",
+   "g_mid": 0.067,
+   "g_cold": 0.7165,
+   "g_warm": 0.7165,
+   "f_local_cold": 0.0365,
+   "f_local_warm": 0.0365,
+   "fused": true
+  },
+  {
+   "experiment": "X184 (colder-body levels)",
+   "file": "x184_F036_s8087",
+   "g_mid": 0.0,
+   "g_cold": 0.75,
+   "g_warm": 0.75,
+   "f_local_cold": 0.0375,
+   "f_local_warm": 0.0375,
+   "fused": true
+  },
+  {
+   "experiment": "X184 (colder-body levels)",
+   "file": "x184_F036_s8134",
+   "g_mid": 0.067,
+   "g_cold": 0.7165,
+   "g_warm": 0.7165,
+   "f_local_cold": 0.0365,
+   "f_local_warm": 0.0365,
+   "fused": true
+  },
+  {
+   "experiment": "X184 (colder-body levels)",
+   "file": "x184_F036_s8166",
+   "g_mid": 0.067,
+   "g_cold": 0.7165,
+   "g_warm": 0.7165,
+   "f_local_cold": 0.0365,
+   "f_local_warm": 0.0365,
+   "fused": true
+  },
+  {
+   "experiment": "X184 (colder-body levels)",
+   "file": "x184_F036_s8169",
+   "g_mid": 0.0,
+   "g_cold": 0.75,
+   "g_warm": 0.75,
+   "f_local_cold": 0.0375,
+   "f_local_warm": 0.0375,
+   "fused": true
+  },
+  {
+   "experiment": "X184 (colder-body levels)",
+   "file": "x184_F036_s8224",
+   "g_mid": 0.0,
+   "g_cold": 0.75,
+   "g_warm": 0.75,
+   "f_local_cold": 0.0375,
+   "f_local_warm": 0.0375,
+   "fused": true
+  }
+ ],
+ "verdict": "ONE LAW, TWO WINDOWS: X182 controlled the pattern value at the pair's midpoint and X184 controlled the local inflow at the colder body, with opposite signs in the manipulated variable and both pre-registered. Read on the single axis the second experiment identified, the colder body's inflow, the two experiments land on the same curve: F_local 0.000-0.019 gives 0 of 22 = 0.00; F_local 0.019-0.024 gives 5 of 11 = 0.45; F_local 0.028-0.032 gives 15 of 15 = 1.00; F_local 0.032-0.040 gives 10 of 10 = 1.00. The design's own reason is geometric: the bodies are 16 cells apart, 120 degrees of the pattern's 12-cell period, so a cold midpoint implies warm bodies - which is why X182's bottom level (midpoint G 0.067) fused 1.00 while its top level (midpoint G 0.933) fused 0.00. Line by line the two windows agree, and the bands that are too thin (0.024-0.028) carry no weight."
+}

@@ -4391,3 +4391,120 @@ X158 дал радиусу 6 долю 3/10 при зазоре 9, X176 — 0 и�
 семей — семьи не обмениваемы и каждой объединённой доле нужен разброс; (2) скрытая переменная может быть в способе посева
 (строки 4.4 и 4.7): проверить одну геометрию двумя хелперами; (3) высота обрыва может задаваться размером тела — таблица это
 уже позволяет прочитать.
+
+
+## 10io. X180 — the nominal rate is a site average, and the phase one picks decides the sign
+
+**Question.** X179's table left three cells whose seed families disagree by more than 0.4, and radius 3 at gap 10 pools six
+families from 0.20 to 0.80. Where does that come from?
+
+**Mechanism.** `field_track.py` modulates the inflow spatially: `F_eff = F*(1 + hetero_amp*(2G-1)*(2S-1))` with `S = 1` and
+`G = (sin(2*pi*y/12)*cos(2*pi*x/12)+1)/2`, a pattern **fixed for every seed**. With `hetero_amp` = 0.5 the inflow a pair actually
+sees at its seeded site is `F_local = F*(1 + 0.5*(2G-1))`, between 0.5 and 1.5 of nominal, and `--init-spots` places the pair at
+a site jittered by `default_rng(seed+9187)`. The nominal rate is therefore a site average, not a per-run rate.
+
+**What was measured.** Over 376 runs in the 17 cells where both outcomes occur, the pattern value at the pair's **midpoint** is
+strongly and *negatively* related to the outcome (fused runs higher in 1 of 17 cells, mean point-biserial -0.561; among 381
+runs in non-saturated cells -0.578; the bottom midpoint quartile coalesces 88 % against 14 %, z = -9.691). By itself this reads
+as "a cold gap fuses more", which is the wrong way round for inflow — and it is what made the choice of phase an explicit
+question rather than a convenience.
+
+**Second, geometric finding.** The seeded bodies are not the size they are asked for: `--init-spots R:SEP` rasterises a disc
+whose centre sits at `+/-SEP/2` from an integer point, so an integer versus a half-integer offset changes the cell count —
+R = 3 gives 29 cells (r_eff 3.038) against 26 (2.877), R = 4.5 gives 69 (4.687) against 62 (4.442), R = 6 gives 113 (5.997)
+against 108 (5.863). Nominally identical arms therefore differ by up to a quarter of a cell of radius, which is the same order
+as the local-inflow range and is the reason X179's 4.4 and 4.7 rows are real rather than noise.
+
+**Limits.** The midpoint correlation is observational and the covariate's sign depends on which phase is used, which is exactly
+why X183 and then X182/X184 exist. The readout is a transient coalescence, not a terminal single body (review, see §10is).
+
+**Next hypotheses.** Control the phase instead of observing it; re-read the radius-6 cliff and the X170 ladder in `F_local`.
+
+Артефакт: `l1_field_x180_dispersion.json`; отчёт `reports/2026-11-04-x180-dispersion.md`.
+
+## 10ip. X181 — the worst cell, drawn again
+
+**Question.** X179's own protocol named it: redraw radius 3, gap 10, `F` = 0.030 with thirty fresh seeds and see whether the
+new family lands near the pooled 0.41 (dispersion is sampling) or near one of the existing families (families are not
+exchangeable). Registered interval [0.23, 0.59].
+
+**Result.** **12 of 30 = 0.40**, Wilson [0.2459, 0.5768] — inside the registered interval and inside the range the six existing
+families already spanned (0.20-0.80); the cell pools to **32 of 79 = 0.4051**. The dispersion is a consequence of the sites the
+families drew, and a fresh family averages over them.
+
+**Limits.** Thirty runs bound the family spread to about ±0.18, so a second factor smaller than that would not show. The
+comparison uses the six families as they were pooled in X179, not a re-derivation of each one's arm.
+
+Артефакт: `l1_field_x181_worst_cell.json`.
+
+## 10iq. X182 — the midpoint phase, chosen in advance
+
+**Question.** X180's midpoint reading is observational. This item selects seeds **by** the pattern value at the pair's midpoint
+(computable before the run from `default_rng(seed+9187)`), five levels, six seeds each, radius 3, gap 10, `F` = 0.030.
+Preregistration: `reports/2026-11-04-x182-local-inflow-plan.md` (negative trend predicted, from X180).
+
+**Result.** The share falls **1.00, 1.00, 0.50, 0.17, 0.00** as the midpoint value rises (Cochran-Armitage z = -4.446,
+one-sided p ≈ 1.4e-6). The pre-registered prediction holds: the midpoint phase controls the outcome, and the sign is negative —
+a cold gap is what lets the pair become one component.
+
+**Limits.** Each level is six runs, so the individual shares are coarse (Wilson intervals span ≈0.4); the trend, not any single
+level, is the result. The design says nothing about the bodies' own sites, which X183 and X184 handle.
+
+Артефакт: `l1_field_x182_local_inflow.json`; пре-регистрация `reports/2026-11-04-x182-local-inflow-plan.md`.
+
+## 10ir. X183 — which local reading organises the ladder (settles the phase by evidence)
+
+**Question.** The block's own rate ladder is already in the corpus: radius 3, surface gap 10 (SEP 16, r = 3.03825), `F` = 0.026,
+0.030, 0.033, 0.036, shares 0.30, 0.41, 0.40, 0.65. Which reading of "the rate a run had" organises it — nominal, midpoint,
+body mean, colder body, warmer body?
+
+**Result (139 ladder runs).** The nominal rate discriminates with AUC 0.587 and, being constant inside a level, not at all
+within one (0.5 by construction). The local readings at the two seeded sites do discriminate within levels: colder body 0.866
+(mean within levels 0.895), body mean 0.840 (within 0.857), midpoint 0.215. A one-parameter logistic fit costs **185.0** for the
+nominal rate against **129.3** for the colder body.
+
+**Limits, stated rather than smoothed.** The ladder does not separate the colder body from the body mean (their AUCs differ by
+0.026; the reviewer's paired bootstrap interval for the difference crosses zero, and dropping the `F` = 0.036 level flips which
+of the two wins), so the supported claim is **the local inflow at the seeded sites**, with the colder body as the reading
+X183 chose and X184 then tested prospectively. Permutation test: the local-reading *family* is well above chance (p = 0.0005),
+the single winner is not. Runs whose seeds were chosen by the phase (X182, X184) are excluded from this observational pool, and
+the exclusion is counted in the aggregate.
+
+Артефакт: `l1_field_x183_local_collapse.json`; ревью `lab/reviews/2026-11-04-x183-local-inflow-law.md` (держится с оговоркой).
+
+## 10is. X184 — the colder body's inflow, chosen in advance
+
+**Question.** X183 identified the colder body's local inflow as the reading that organises the ladder. This item controls it:
+seeds are selected by the **minimum** of the two bodies' pattern values, five levels over the range the geometry allows
+(0.0155-0.0375 of `F_local`, a factor of 2.4), six seeds each, radius 3, gap 10, `F` = 0.030. Preregistration:
+`reports/2026-11-04-x184-cold-body-plan.md`, amended **before** the run because the registered span (0.015-0.045) is
+unreachable: the bodies are 120 degrees apart in phase, so when one is cold the other is middling.
+
+**Result.** The share rises **0.00, 0.00, 0.50, 1.00, 1.00** with the colder body's inflow (Cochran-Armitage z = +4.638,
+one-sided p = 1.7e-6), monotone across the five levels. The coldest level landed on 0 of 6 rather than inside the registered
+[0.05, 0.40] — a saturated level, which the preregistration named in advance as carrying no information — so the interval is
+recorded as missed and the trend as confirmed. Independent recomputation of the raw runs by the reviewer gives the same
+z = +4.6386, p = 1.75e-6, AUC 0.982.
+
+**Limits.** The design selects on the colder body by construction, so it cannot separate that reading from the body mean
+(which scores 0.94 on the same runs); what it confirms prospectively is the family of local readings at the seeded sites. Six
+runs per level make the individual shares coarse.
+
+Артефакт: `l1_field_x184_cold_body.json`; пре-регистрация `reports/2026-11-04-x184-cold-body-plan.md`.
+
+## 10it. X185 — one law, two windows
+
+**Question.** X182 (midpoint) and X184 (colder body) are both controlled, both highly significant, and have **opposite signs**
+in the manipulated variable. Are they two laws or one?
+
+**Result.** One. Put both experiments on the colder body's inflow, which X184 identified, and they agree line by line: below
+`F_local` 0.019 nothing coalesces (0 of 10 in X182, 0 of 12 in X184); 0.019-0.024 gives 2 of 6 against 3 of 5; 0.028-0.032
+gives 9 of 9 against 6 of 6; 0.032-0.040 gives 4 of 4 against 6 of 6. The geometric reason is in the design: `--init-spots`
+puts the bodies 16 cells apart, which is 120 degrees of the pattern's 12-cell period, so a cold midpoint implies warm bodies.
+That is why X182's coldest midpoint level coalesced 1.00 while its warmest coalesced 0.00.
+
+**Limits.** X185 pools two experiments that were each designed on a different variable, so it demonstrates consistency, not a
+new measurement; three of its bins rest on 1-6 runs from one experiment and carry no weight on their own. It also inherits the
+min-versus-mean ambiguity: the axis it uses is one of the readings X183 could not separate from the body mean.
+
+Артефакт: `l1_field_x185_one_law.json`.

@@ -161,6 +161,29 @@
    "date": "2026-11-04",
    "reviewer": "reviewer (subagent)",
    "note": "numbers reproduce; the inference is corrected in the report and the claims row: difference 0.01 was a script bug, power is 15 % not 80 %, ordered-trend p = 0.052, and min==1 means a coalescence rather than a final state"
+  },
+  {
+   "file": "lab/reviews/2026-11-04-x183-local-inflow-law.md",
+   "target": "morphogenesis/experiments/E09_pond/l1_field_x183_local_collapse.json",
+   "claim": "The seeded pair's fusion is governed by the local inflow at its site, not by the nominal rate F; the X181 gap-10 cell share reproduces",
+   "section": "X180/X183 aggregates, X184 pre-registration, X181 cell",
+   "verdict": "держится с оговоркой",
+   "date": "2026-11-04",
+   "reviewer": "reviewer (subagent)",
+   "checked_numbers": [
+    "ladder runs = 109 (1005 compacts -> 742 with 2-component first sample -> 157 gap==10 -> 109 in r0 band)",
+    "shares 6/20=0.3000, 20/49=0.4082, 8/20=0.4000, 13/20=0.6500",
+    "AUC nominal 0.6055, mid 0.2129, mean 0.8504, min 0.8778, max 0.6615 — all exact",
+    "mean within-level AUC G_min 0.8984 (0.9643/0.8707/0.7917/0.9670)",
+    "deviance nominal 144.6 vs G_min 96.9 (stated grid); 144.6 vs 96.2 under a 2-parameter MLE; null 149.0, LRT p 0.035 vs 5.2e-13",
+    "attack a: AUC(min)-AUC(mean) = +0.0275, bootstrap 95% [-0.048,+0.106]; mean wins within 4 of 6 computable families; permutation p=0.0005 for best-of-4",
+    "attack b: r0 = 3.03825 and dist-2r0 = 9.92349 constant in all 109 — no confound possible, but 'measured r0/gap' are design constants",
+    "attack c: dropping F=0.036 -> nominal 0.5369, G_mean 0.8572 beats G_min 0.8449 (mean-within 0.8788 vs 0.8755)",
+    "attack d: 0/109 one component at series[0]; but 47/47 fused runs rebound above 1 (transient coalescence, 12/12 in X181)",
+    "attack e: exactly 109",
+    "X181 12/30=0.4000, Wilson [0.2459,0.5768], pooled 20/49+12/30=32/79=0.4051",
+    "X184 (provisional, untracked raw runs, no aggregate yet): 0/6 at F_local 0.016, 0/6 at 0.0188, 3/6 at 0.0240, 6/6 at 0.030, 6/6 at 0.037; Cochran-Armitage one-sided z=+4.6386 p=1.75e-06; AUC(F_local_cold)=0.9822; midpoint AUC 0.0622; positive controls 0.00151<0.002 and separation 0.0225>0.018; registered extreme intervals missed in the strong direction"
+   ]
   }
  ]
 }

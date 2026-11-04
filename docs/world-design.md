@@ -242,3 +242,9 @@ sections were not rewritten, only moved; each one keeps its identifier, so every
 | §10il | X177 — верхняя кромка полосы недостижима: радиус 4.5 не слипается при зазоре 11 (04.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
 | §10im | X178 — переход у радиуса 6 резкий, а не пологий (04.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
 | §10in | X179 — таблица переходов с интервалами и аудит неоднородности (04.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
+| §10io | X180 — the nominal rate is a site average, and the phase one picks decides the sign | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
+| §10ip | X181 — the worst cell, drawn again | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
+| §10iq | X182 — the midpoint phase, chosen in advance | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
+| §10ir | X183 — which local reading organises the ladder (settles the phase by evidence) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
+| §10is | X184 — the colder body's inflow, chosen in advance | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
+| §10it | X185 — one law, two windows | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |

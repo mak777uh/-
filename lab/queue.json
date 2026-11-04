@@ -1,6 +1,6 @@
 {
  "schema_version": 1,
- "updated_at": "2026-11-03T23:49:19Z",
+ "updated_at": "2026-11-04T19:40:00+03:00",
  "note": "Очередь пунктов после E02c. Claim берётся до пре-регистрации, а не перед запуском: lab.py item-claim. Статус running означает занятый GPU-лейн и может быть только у одного пункта. | 25.10: добавлено поле impact (1-5) — приоритет конвейера = impact/max(cost_gpu_h,0.1); для запуска пункту нужны prereg (закоммиченный план) и launch.command+outdir.",
  "items": [
   {
@@ -3253,6 +3253,78 @@
    "created_at": "2026-11-04T18:30:00+03:00",
    "priority": 8,
    "note": "closed: 57 cells and 722 runs rebuilt from the committed projections alone, cells identified from the data (radius from the seeded area, gap from the centre separation). The protocol's three control cells reproduce, the fusing range is saturated far below each crossing, the rate moves the crossing more than the radius does, and 3 of 57 cells have seed families that disagree by more than 0.4 - so a pooled share is a compromise, not a point. Next: re-run the worst cell with thirty fresh seeds; test whether the seeding helper is the hidden variable."
+  },
+  {
+   "id": "X180_dispersion",
+   "title": "Where does the between-family dispersion come from?",
+   "status": "closed",
+   "owner": "lead",
+   "kind": "analysis",
+   "cost_gpu_h": 0.0,
+   "priority": 9,
+   "prereg": "reports/2026-11-04-x180-dispersion.md",
+   "note": "closed: the medium's inflow is modulated by a pattern fixed for every seed, F_local = F*(1+0.5*(2G-1)) at the seeded site, so the nominal rate is a site average; the review established that r0 = 3.03825 and the surface gap 9.923 are design constants and that the readout is a transient coalescence. The midpoint reading is anti-predictive (mean point-biserial -0.561 over 376 runs in 17 mixed cells, z = -9.691), and the seeding helper's rasterisation gives arms of different effective radius (R=3: 29 cells at an integer centre, 26 at a half-integer one). Next: choose the phase in advance (X182) and identify the reading that organises the ladder (X183).",
+   "created_at": "2026-11-04T19:40:00+03:00"
+  },
+  {
+   "id": "X181_worst_cell_redraw",
+   "title": "Redraw the worst-heterogeneity cell with thirty fresh seeds",
+   "status": "closed",
+   "owner": "lead",
+   "kind": "experiment",
+   "cost_gpu_h": 0.0,
+   "priority": 9,
+   "prereg": "reports/2026-11-04-x181-worst-cell-plan.md",
+   "note": "closed: 12 of 30 = 0.40, Wilson [0.2459, 0.5768], inside the registered 0.23-0.59 and inside the six families' existing range 0.20-0.80; the cell pools to 32 of 79 = 0.4051. Family dispersion is the sites the families drew, not a second hidden variable. Next: the phase is the hidden variable (X183, X184).",
+   "created_at": "2026-11-04T19:40:00+03:00"
+  },
+  {
+   "id": "X182_midpoint_control",
+   "title": "Select seeds by the pattern value at the pair's midpoint",
+   "status": "closed",
+   "owner": "lead",
+   "kind": "experiment",
+   "cost_gpu_h": 0.0,
+   "priority": 8,
+   "prereg": "reports/2026-11-04-x182-local-inflow-plan.md",
+   "note": "closed: the share falls 1.00, 1.00, 0.50, 0.17, 0.00 as the midpoint value rises (Cochran-Armitage z = -4.446, one-sided p = 1.4e-6), so the pre-registered midpoint prediction holds and its sign is negative. Next: reconcile with X184 (X185).",
+   "created_at": "2026-11-04T19:40:00+03:00"
+  },
+  {
+   "id": "X183_local_collapse",
+   "title": "Which local reading organises the block's rate ladder?",
+   "status": "closed",
+   "owner": "lead",
+   "kind": "analysis",
+   "cost_gpu_h": 0.0,
+   "priority": 9,
+   "prereg": "reports/2026-11-04-x183-local-collapse.md",
+   "note": "closed: over 139 ladder runs the nominal rate has AUC 0.587 and cannot discriminate inside a level (0.5 by construction), while the local inflow at the seeded sites does (colder body 0.866, within-level 0.895; body mean 0.840; midpoint 0.215); deviance 185.0 against 129.3. The ladder does not separate the colder body from the body mean (dAUC 0.026, the review's bootstrap interval crosses zero), so the supported claim is the local inflow at the seeded sites. Reviewed independently: lab/reviews/2026-11-04-x183-local-inflow-law.md, держится с оговоркой. Next: control the colder body prospectively (X184).",
+   "created_at": "2026-11-04T19:40:00+03:00"
+  },
+  {
+   "id": "X184_cold_body_control",
+   "title": "Select seeds by the local inflow at the colder of the two bodies",
+   "status": "closed",
+   "owner": "lead",
+   "kind": "experiment",
+   "cost_gpu_h": 0.0,
+   "priority": 9,
+   "prereg": "reports/2026-11-04-x184-cold-body-plan.md",
+   "note": "closed: the share rises 0.00, 0.00, 0.50, 1.00, 1.00 with the colder body's inflow (Cochran-Armitage z = +4.638, one-sided p = 1.7e-6); the coldest level saturated at 0 of 6 instead of the registered [0.05, 0.40], which the preregistration named in advance as carrying no information, so the interval is recorded as missed and the trend as confirmed. The design cannot separate the colder body from the body mean (0.982 against 0.94). Next: put X182 and X184 on one axis (X185).",
+   "created_at": "2026-11-04T19:40:00+03:00"
+  },
+  {
+   "id": "X185_one_law",
+   "title": "Do the midpoint control and the colder-body control describe one law?",
+   "status": "closed",
+   "owner": "lead",
+   "kind": "analysis",
+   "cost_gpu_h": 0.0,
+   "priority": 8,
+   "prereg": "reports/2026-11-04-x185-one-law.md",
+   "note": "closed: on the colder body's inflow the two controlled experiments agree line by line (0/10 against 0/12 below F_local 0.019; 2/6 against 3/5 at 0.019-0.024; 9/9 against 6/6 at 0.028-0.032; 4/4 against 6/6 above 0.032). The reason is geometric: the bodies are 16 cells apart, 120 degrees of the pattern's 12-cell period, so a cold midpoint implies warm bodies. Next: the mechanism behind the two signs at once, and the radius-6 cliff re-read in the local inflow.",
+   "created_at": "2026-11-04T19:40:00+03:00"
   }
  ]
 }

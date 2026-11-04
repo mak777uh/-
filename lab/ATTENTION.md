@@ -230,6 +230,7 @@ Reserved to the owner by `lab/autonomy-rules.json`: publishing anything outward:
 - `lab/reviews/2026-11-02-x87-x89-memory-curve.md`
 - `lab/reviews/2026-11-04-029-three-numbers.md`
 - `lab/reviews/2026-11-04-x168d-review.md`
+- `lab/reviews/2026-11-04-x183-local-inflow-law.md`
 
 ## Literature board
 

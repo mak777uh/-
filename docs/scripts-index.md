@@ -4,7 +4,7 @@
 
 The curated page — what matters and why — is [`scripts.md`](scripts.md). This file is the complete list, so that every command behind a number in the record can be found.
 
-Scripts: **407**.
+Scripts: **416**.
 
 ## Гейты и проверки (48)
 
@@ -175,7 +175,7 @@ Scripts: **407**.
 | `make_seed_grid_figure.py` | Собрать Figure 4 рукописи: сетка «инициализация × порядок данных» (§4.13). |
 | `make_simple_poster.py` | Простой постер для владельца: что мы узнали, без терминов. |
 
-## Прочее (268)
+## Прочее (277)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -359,6 +359,15 @@ Scripts: **407**.
 | `x178_cliff.py` | x178_cliff.py — X178: radius 6 at surface gap 9, F = 0.030 — thirty seeds on the cell that decides plateau or cliff. |
 | `x178_cliff_analyse.py` | x178_cliff_analyse.py — X178: is the crossing a plateau or a cliff? Radius 6, gap 9, thirty seeds. |
 | `x179_crossing_table.py` | x179_crossing_table.py — X179: every two-body cell this line has run, with intervals, from the committed projections. |
+| `x180_dispersion.py` | x180_dispersion.py — X180: is the between-family dispersion the fixed spatial pattern's phase at the seeded site? |
+| `x181_worst_cell.py` | x181_worst_cell.py — X181: radius 3 at surface gap 10, F = 0.030 — thirty fresh seeds on X179's worst-heterogeneity cell. |
+| `x181_worst_cell_analyse.py` | x181_worst_cell_analyse.py — X181: X179's worst-heterogeneity cell (radius 3, gap 10, F = 0.030) on thirty fresh seeds. |
+| `x182_local_inflow.py` | x182_local_inflow.py — X182: the same arm run at five chosen levels of the seeded site's local inflow. |
+| `x182_local_inflow_analyse.py` | x182_local_inflow_analyse.py — X182: five chosen levels of the seeded site's local inflow, same arm. |
+| `x183_local_collapse.py` | x183_local_collapse.py — X183: does the crossing collapse when the rate is read locally instead of nominally? |
+| `x184_cold_body.py` | x184_cold_body.py — X184: the same arm run at five chosen levels of the local inflow at the colder body. |
+| `x184_cold_body_analyse.py` | x184_cold_body_analyse.py — X184: five chosen levels of the local inflow at the colder body, same arm. |
+| `x185_one_law.py` | x185_one_law.py — X185: do X182 (midpoint control) and X184 (colder-body control) read one law? |
 | `x56_matrix.py` | x56_matrix.py — сходимость по шагу: контраст при dt = 1.0, 0.5, 2.0. |
 | `x58_analyse.py` | x58_analyse.py — the same measurement on a 128 grid: β₀, β₁, wavelength, normalised count. |
 | `x58_series.py` | x60_series.py — X60: the twenty field runs that keep their snapshots. |

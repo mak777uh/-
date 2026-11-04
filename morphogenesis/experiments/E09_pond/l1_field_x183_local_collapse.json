@@ -1,0 +1,164 @@
+{
+ "kind": "x183_local_collapse",
+ "hetero_amp": 0.5,
+ "hetero_scale": 12.0,
+ "ladder_runs": 139,
+ "ladder_by_F": {
+  "0.026": {
+   "runs": 20,
+   "share": 0.3
+  },
+  "0.03": {
+   "runs": 79,
+   "share": 0.405
+  },
+  "0.033": {
+   "runs": 20,
+   "share": 0.4
+  },
+  "0.036": {
+   "runs": 20,
+   "share": 0.65
+  }
+ },
+ "candidates": {
+  "F_nominal": {
+   "auc_overall": 0.5874,
+   "auc_within_levels": {
+    "0.026": {
+     "runs": 20,
+     "share": 0.3,
+     "auc": 0.5
+    },
+    "0.03": {
+     "runs": 79,
+     "share": 0.405,
+     "auc": 0.5
+    },
+    "0.033": {
+     "runs": 20,
+     "share": 0.4,
+     "auc": 0.5
+    },
+    "0.036": {
+     "runs": 20,
+     "share": 0.65,
+     "auc": 0.5
+    }
+   },
+   "mean_auc_within": 0.5,
+   "deviance": 185.0
+  },
+  "F_local_mid": {
+   "auc_overall": 0.2149,
+   "auc_within_levels": {
+    "0.026": {
+     "runs": 20,
+     "share": 0.3,
+     "auc": 0.125
+    },
+    "0.03": {
+     "runs": 79,
+     "share": 0.405,
+     "auc": 0.141
+    },
+    "0.033": {
+     "runs": 20,
+     "share": 0.4,
+     "auc": 0.1667
+    },
+    "0.036": {
+     "runs": 20,
+     "share": 0.65,
+     "auc": 0.1868
+    }
+   },
+   "mean_auc_within": 0.1549,
+   "deviance": 160.7
+  },
+  "F_local_mean": {
+   "auc_overall": 0.8396,
+   "auc_within_levels": {
+    "0.026": {
+     "runs": 20,
+     "share": 0.3,
+     "auc": 0.8929
+    },
+    "0.03": {
+     "runs": 79,
+     "share": 0.405,
+     "auc": 0.8664
+    },
+    "0.033": {
+     "runs": 20,
+     "share": 0.4,
+     "auc": 0.8333
+    },
+    "0.036": {
+     "runs": 20,
+     "share": 0.65,
+     "auc": 0.8352
+    }
+   },
+   "mean_auc_within": 0.8569,
+   "deviance": 135.5
+  },
+  "F_local_min": {
+   "auc_overall": 0.8656,
+   "auc_within_levels": {
+    "0.026": {
+     "runs": 20,
+     "share": 0.3,
+     "auc": 0.9643
+    },
+    "0.03": {
+     "runs": 79,
+     "share": 0.405,
+     "auc": 0.8574
+    },
+    "0.033": {
+     "runs": 20,
+     "share": 0.4,
+     "auc": 0.7917
+    },
+    "0.036": {
+     "runs": 20,
+     "share": 0.65,
+     "auc": 0.967
+    }
+   },
+   "mean_auc_within": 0.8951,
+   "deviance": 129.3
+  },
+  "F_local_max": {
+   "auc_overall": 0.6359,
+   "auc_within_levels": {
+    "0.026": {
+     "runs": 20,
+     "share": 0.3,
+     "auc": 0.5476
+    },
+    "0.03": {
+     "runs": 79,
+     "share": 0.405,
+     "auc": 0.6423
+    },
+    "0.033": {
+     "runs": 20,
+     "share": 0.4,
+     "auc": 0.5729
+    },
+    "0.036": {
+     "runs": 20,
+     "share": 0.65,
+     "auc": 0.533
+    }
+   },
+   "mean_auc_within": 0.5739,
+   "deviance": 181.0
+  }
+ },
+ "best_local": "F_local_min",
+ "excluded_phase_selected_runs": 60,
+ "verdict": "THE NOMINAL RATE IS A SITE AVERAGE, AND THE INFLOW AT THE SEEDED SITES ORGANISES THE LADDER: over 139 ladder runs (radius 3 by construction, surface gap 10 as SEP - 2r = 16 - 2*3.03825 = 9.923, rates [0.026, 0.03, 0.033, 0.036]), the nominal rate discriminates with AUC 0.5874 and, being constant inside a level, not at all within one (0.5 by construction), while the inflow read at the a pair's two seeded sites does: colder body 0.8656 (mean within levels 0.8951), body mean 0.8396 (within 0.8569), midpoint 0.2149. A one-parameter logistic fit costs 185.0 for the nominal rate against 129.3 for the colder body. Two limits are recorded rather than smoothed: the ladder does NOT separate the colder body from the body mean (their AUCs differ by 0.026, and the reviewed bootstrap interval for that difference crosses zero), so the supported claim is \"the local inflow at the seeded sites\"; and the readout is a transient coalescence - every run flagged as fused rebounds above one component, none ends on one - so these numbers describe contact, not a terminal single body."
+}
