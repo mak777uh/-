@@ -321,3 +321,7 @@ canonical E02b weight (514 MB) and tracked artifacts — none of them mine to re
 
 Consequences while this holds: **no heavy series** (the policy's own < 10 GB rule), analysis-only work continues, and commits stay small. If the
 free space keeps dropping, the host itself needs attention — the lab can free at most a few hundred more megabytes from its own derived files.
+
+**Disk:** 13.0 GB free on 04.11 22:00 - above the 10 GB floor for heavy runs, but the field line's five
+sweeps this evening wrote their slices locally (all gitignored, ~40 MB each). Nothing needs owner attention yet; the next heavy series
+should not start below 10 GB.

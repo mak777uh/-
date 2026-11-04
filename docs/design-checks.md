@@ -514,3 +514,14 @@ values per level beside the number of runs. A
 group whose within-group spread is exactly zero has one world in it, however many seeds it lists; a design that wants more worlds has
 to vary the site, the phase or the noise, not the seed. The check belongs beside check 3: it is not that the readout failed to vary, it
 is that the *sample* did.
+
+## When the manipulation is discrete, count the runs and the value means separately (04.11)
+
+The local inflow of a pair takes nine distinct values across the 144 phase classes, and within one value the phase moves the bridge
+by up to 0.45 — more than the step between values. A trend test over individual runs then reports the within-value scatter as if it
+were noise around the trend and can miss the trend entirely: X192 gives Spearman -0.378 over 144 classes but -0.833 over the nine
+value means, on the same data. The habit: when a manipulation has few distinct values, report the association **both** over the units
+that carry the hidden variable (here the classes) and over the value means, and say which one the claim rests on; and when the hidden
+variable is identifiable — a phase, a lattice site, a batch — hold it fixed and contrast inside one value (X192's within-value
+contrast: 1.0 against 0.111 fusion above and below the median bridge at a single inflow).
+

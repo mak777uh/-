@@ -169,10 +169,22 @@ def main(argv=None) -> int:
         proposals.append(("эскалировать просроченные запросы",
                           f"{stale_requests} запросов старше суток",
                           "вынести в чат первым блоком и, если решение за ведущим, — на доску"))
-    if transitions_today and len(closed_today) == 0:
-        proposals.append(("переходы есть, а мини-обзоры не закрывались",
-                          f"переходов за день: {transitions_today}",
-                          "сначала мини-обзор перехода, потом остальная работа"))
+    # С 03.11 переходы закрываются журналом + гейтом, а не закрытием пунктов очереди.
+    # Прежняя эвристика (transitions_today и closed_today) давала ложную тревогу: 04.11 обзоры были написаны
+    # (transition-x166, transition-x171-x176), а предложение всё равно появлялось.
+    gate_unclosed = 0
+    try:
+        gate = subprocess.run([sys.executable, str(REPO / "library" / "tools" / "transition_gate.py")],
+                              capture_output=True, text=True, encoding="utf-8", timeout=60)
+        if gate.returncode != 0:
+            line = (gate.stdout or "").splitlines()[0] if gate.stdout else "гейт переходов красный"
+            gate_unclosed = 1
+            gate_note = line[:90]
+            proposals.append(("переходы не закрыты по гейту",
+                              gate_note,
+                              "мини-обзор по library/reviews/_mini-template.md либо строка «не влияет: <причина>» в library/transitions.md"))
+    except Exception:
+        pass
     proposals = proposals[:3]
 
     lines = [f"# Самоаудит за {day}", "",

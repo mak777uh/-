@@ -254,3 +254,4 @@ sections were not rewritten, only moved; each one keeps its identifier, so every
 | §10ix | X189 — мост между телами по локальному притоку и размеру (04.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
 | §10iy | X190 — мост при выборке из площадок, а не сидов (04.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
 | §10iz | X191 — мост как дозовая зависимость от локального притока (04.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
+| §10ja | X192 — ценз фаз при наибольшем размере (04.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |

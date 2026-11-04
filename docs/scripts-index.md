@@ -4,7 +4,7 @@
 
 The curated page — what matters and why — is [`scripts.md`](scripts.md). This file is the complete list, so that every command behind a number in the record can be found.
 
-Scripts: **426**.
+Scripts: **428**.
 
 ## Гейты и проверки (48)
 
@@ -175,7 +175,7 @@ Scripts: **426**.
 | `make_seed_grid_figure.py` | Собрать Figure 4 рукописи: сетка «инициализация × порядок данных» (§4.13). |
 | `make_simple_poster.py` | Простой постер для владельца: что мы узнали, без терминов. |
 
-## Прочее (287)
+## Прочее (289)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -378,6 +378,8 @@ Scripts: **426**.
 | `x190_bridge_sites_analyse.py` | x190_bridge_sites_analyse.py — X190: the bridge measured over five distinct SITES per level. |
 | `x191_site_sweep.py` | x191_site_sweep.py — X191: the bridge as a dose-response in the local inflow, five sites per level, one seed per site. |
 | `x191_site_sweep_analyse.py` | x191_site_sweep_analyse.py — X191: the bridge as a dose-response in the local inflow. |
+| `x192_phase_census.py` | x192_phase_census.py — X192: one world per phase class, the whole population at radius 6 gap 9. |
+| `x192_phase_census_analyse.py` | x192_phase_census_analyse.py — X192: the phase census at radius 6 gap 9. |
 | `x56_matrix.py` | x56_matrix.py — сходимость по шагу: контраст при dt = 1.0, 0.5, 2.0. |
 | `x58_analyse.py` | x58_analyse.py — the same measurement on a 128 grid: β₀, β₁, wavelength, normalised count. |
 | `x58_series.py` | x60_series.py — X60: the twenty field runs that keep their snapshots. |
