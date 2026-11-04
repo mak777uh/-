@@ -16,3 +16,5 @@
 2026-11-03 | X138 mixing length = surface gap of nine cells | новый замер (масштаб), не смена вывода | не влияет: масштабная величина, выводы §10hc не меняет
 2026-11-04 | X166 contact band real, 'same at every size' withdrawn | отозвано утверждение о постоянстве зазора | review:library/reviews/transition-x166.md
 2026-11-04 | X160 mortality buffer does not hold diversity | третье независимое отрицание по storage effect | не влияет: подтверждает уже записанное (E12/E12b), новых утверждений не вводит
+2026-11-04 | X171-X176 corridor per-contact fraction: narrowed to band 0.37-0.52 with two inputs | сужение утверждения: один фактор оказался смесью двух | review:library/reviews/transition-x171-x176.md
+2026-11-04 | X161 nothing discrete crosses a division | новое отрицание (нет ratchet по линии) | не влияет: отрицание уже поддержано нулями перестановок, мини-обзор не требуется
