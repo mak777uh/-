@@ -3002,13 +3002,13 @@
   {
    "id": "X162_local_scale_heredity",
    "title": "Is the local scale of the pattern inherited? Neighbour spacing as a heritable quantity",
-   "status": "planned",
+   "status": "closed",
    "owner": null,
    "kind": "analysis",
    "cost_gpu_h": 0.0,
    "prereg": null,
    "created_at": "2026-11-04T03:55:00+03:00",
-   "note": "channel 2 of the substrate-neutral list. The local wavelength (distance to the nearest neighbour body, or the mean spacing inside a radius) is a property of the medium rather than of the body, and it is measurable from the logs we already keep (component centres and areas, no new runs): for every parent-daughter pair of the X156 series, correlate the spacing around the parent at her last logged step with the spacing around the daughter at her first, and compare the slope with the shape ladder (0.61 log elongation, 0.45 area, 0.34-0.62 range) and against a shuffled-parent null. Kill condition: if the slope is indistinguishable from the null, the medium's scale is not inherited and this channel is closed with a number. Cost: analysis only, ~1 hour. Preregistration needed before it runs: the readout is a distance, so the logging quantum must be quoted."
+   "note": "closed: the local scale is inherited in the lattice at 0.203 [0.167, 0.238] against a null of [−0.020, 0.030], partial on the mother's radius 0.2025, run-level 0.217 [0.146, 0.262]. On the same pairs shape is 0.586 and area 0.394, so the ladder is shape > area > spacing. In the connected mass the readout is undefined (median gap -3.1 cells), not weak. Report reports/2026-11-04-x162-local-scale.md, aggregate l1_field_x162_local_scale.json. Next: a spacing definition that survives a connected mass, and the decay across the 2nd/3rd/4th neighbour."
   },
   {
    "id": "X163_lamarckian_rule",

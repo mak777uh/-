@@ -1763,6 +1763,25 @@ So the honest sentence about heredity in this medium is a list rather than a num
 first entry is bookkeeping. The second is geometry. The third is the only one the medium has to do any work for, and it
 does about half of it.
 
+### 4k.5a What else a division transmits: the object first, the surroundings last
+
+The same reconstruction, applied to a quantity that belongs to the place rather than to the body, gives the ordering the
+ladder was missing. The quantity is the surface gap from a body to its nearest neighbour, `g = |c − c_n| − r − r_n` with
+`r = sqrt(area/π)` and periodic boundaries — the same convention as §4k.6, so "gap" means one thing in the whole paper. On
+2 281 parent-daughter pairs in the lattice habitat, the daughter's spacing on her mother's has a slope of **0.203**
+[0.167, 0.238], against a shuffled-parent null of [−0.020, 0.030]; the run-level median is 0.217 [0.146, 0.262], and
+partialling out the mother's radius leaves 0.2025, so the number is not her size in disguise.
+
+Set beside the two controls measured on the very same pairs — log elongation 0.586, area 0.394 — this orders the ladder:
+**shape 0.59 > area 0.39 > spacing 0.20**. The further a quantity sits from the body and the closer to its surroundings,
+the weaker its transmission. The medium is not a channel that carries itself; a division transmits mostly the object, and
+the surroundings only in part.
+
+In the connected-mass habitat the same computation returns 0.478, but the readout fails its pre-registered condition there
+and the number is not reported: the median surface gap is **−3.1 cells**, because the bodies of a connected mass overlap as
+convex silhouettes. A quantity whose median is negative is not a spacing. The finding is not that the channel is weak in
+the connected mass but that it is **undefined**: bodies that are not separated have no separation to inherit.
+
 ### 4k.6 Where the fusion boundary actually is
 
 The coalescence boundary of §4k.3 was stated as a conserved surface gap of 9 ± 1 cells, "the same for bodies of 29, 64 and

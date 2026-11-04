@@ -72,3 +72,24 @@ already exist, including the phase-randomised and IAAFT surrogates, so no new da
 
 Pre-registration written before any run; the run waits for the world freeze to lift (X158 still writing artifacts) and for
 the anchor of the new path on the old seed.
+
+## 8. Amendment 1 (2026-11-04 04:35, before any result was read)
+
+The arithmetic of §4 assumed 0.4 GPU-hours for 180 runs, i.e. about eight seconds per run, extrapolated from the 600-step
+anchor run at 2.5 s. The first four probe runs at 1800 steps took three to five minutes each and produced about a megabyte
+of log apiece. The full 3 x 20 x 3 grid would therefore be twelve hours of wall time, not twenty-five minutes.
+
+**Change, made before any outcome was inspected** (only the run count and the artifact size had been looked at, not a
+single population or lineage number): the primary test is **one memory band, tau = 300, three arms, twenty paired seeds**
+(60 runs, about four hours). The bands at tau = 1000 and 3000 become a separate queue item with the same design, to be run
+if the primary test shows anything at all — comparing three bands against each other only makes sense after the primary
+comparison has a direction.
+
+Unchanged: the three arms and their normalisation (zero mean, unit standard deviation, so the mean of `m` is the same in
+all of them), the positive controls (gate 0 bit-identical; a gain large enough to move the population), the readouts, the
+readout-variation requirement, and the refusal rule (real inside the surrogate's interval at tau = 300 means the structure
+of the signal does not matter in the mortality channel either).
+
+The 600-step anchor did pass: the old code and the new code with `--memory-tau 0 --mortality-gain 0` agree in 131 of 131
+summary fields, with `wall_seconds` the only difference (2.49 s against 2.74 s).
+

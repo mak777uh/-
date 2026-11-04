@@ -4,7 +4,7 @@
 
 The curated page — what matters and why — is [`scripts.md`](scripts.md). This file is the complete list, so that every command behind a number in the record can be found.
 
-Scripts: **363**.
+Scripts: **365**.
 
 ## Гейты и проверки (48)
 
@@ -175,7 +175,7 @@ Scripts: **363**.
 | `make_seed_grid_figure.py` | Собрать Figure 4 рукописи: сетка «инициализация × порядок данных» (§4.13). |
 | `make_simple_poster.py` | Простой постер для владельца: что мы узнали, без терминов. |
 
-## Прочее (224)
+## Прочее (226)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -315,6 +315,8 @@ Scripts: **363**.
 | `x157_quantum.py` | x157_quantum.py — is the 1.9-cell contact gap a threshold, or a logging artefact? |
 | `x158_analyse.py` | x158_analyse.py — X158: turn the X157 band into a measured crossing. |
 | `x158_series.py` | x158_series.py — X158: the missing arms that turn the X157 band into a measured crossing. |
+| `x160_series.py` | X160: does an external signal hold diversity through a mortality buffer? |
+| `x162_local_scale.py` | X162: is the local scale inherited? Parent-daughter reconstruction from the X156 compact logs, with area and shape |
 | `x56_matrix.py` | x56_matrix.py — сходимость по шагу: контраст при dt = 1.0, 0.5, 2.0. |
 | `x58_analyse.py` | x58_analyse.py — the same measurement on a 128 grid: β₀, β₁, wavelength, normalised count. |
 | `x58_series.py` | x60_series.py — X60: the twenty field runs that keep their snapshots. |

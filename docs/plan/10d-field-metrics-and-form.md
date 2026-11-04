@@ -3750,3 +3750,8 @@ a crossing; recompute the contact gap at thresholds 0.1 and 0.3, because the rad
 
 Report: `reports/2026-11-04-x157-gap-geometry.md`; aggregate `l1_field_x157_gap_geometry.json`; analysis
 `scripts/x157_gap_geometry.py`; review `lab/reviews/2026-11-04-029-three-numbers.md`.
+
+## 10hr. Локальный масштаб наследуется втрое слабее формы (X162, 04.11)
+
+См. [`../../reports/2026-11-04-x162-local-scale.md`](../../reports/2026-11-04-x162-local-scale.md) и [`../world-design.md`](../world-design.md) §10hr. Коротко: наклон 0.203 [0.167, 0.238] в решётке против нуля [−0.020, 0.030], частный по радиусу матери 0.2025, порядок на одной реконструкции форма 0.59 > площадь 0.39 > масштаб 0.20; в связной массе медиана зазора −3.1 клетки, канал не определён.
+

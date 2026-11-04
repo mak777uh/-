@@ -123,6 +123,11 @@ class PondConfig:
     kill_winner: float = 0.0            # H-ALIVE-54: смертность ∝ превышению доли линии над средней
                                         # (0 = выключено, бит-в-бит со старым миром)
     trait_effect_mode: str = "invest"   # H-ALIVE-56: invest (по умолчанию, бит-в-бит) | update
+    # X160: медленная переменная, интегрирующая внешний сигнал и модулирующая смертность.
+    # tau <= 0 или gain <= 0 — выключено, старый мир бит-в-бит.
+    memory_tau: float = 0.0          # X160: постоянная утечки в шагах (0 = выключено)
+    mortality_gain: float = 0.0      # X160: сила модуляции смертности (0 = выключено)
+    memory_stream: str = ""          # X160: путь к JSON-массиву чисел (lab/streams/*.json)
     inflow_coupling: float = 0.0        # H-ALIVE-59: сила связи с внешним потоком (0 = выключено)
     inflow_stream_mode: str = ""        # H-ALIVE-59: global | spatial
     inflow_target: str = "income"       # H-ALIVE-60: income | rhythm
@@ -775,6 +780,56 @@ class Pond:
             self.killed_by_kill_winner = int(getattr(self, "killed_by_kill_winner", 0)) + killed
             s.died += killed
 
+    def _memory_mortality_step(self) -> None:
+        """X160: смертность, модулированная медленной переменной внешнего сигнала.
+
+        Зачем: буфер на приток уже дважды дал монополию (§10cg), потому что умножение притока
+        всегда где-то накапливается. Storage effect требует, чтобы «запас» помогал редкому типу
+        пережить плохую фазу, то есть должен действовать на СМЕРТНОСТЬ. Здесь это самый простой
+        носитель: скаляр m, утечка с tau, вычитается среднее по плечу (m_ref), поэтому ни одно
+        плечо не получает систематического преимущества в числе клеток.
+
+        Бит-в-бит при выключении: при gain <= 0 или tau <= 0 ранний выход ДО обращения к
+        генератору, поэтому старая ветка мира не меняется.
+        """
+        gain = float(getattr(self.cfg, "mortality_gain", 0.0) or 0.0)
+        tau = float(getattr(self.cfg, "memory_tau", 0.0) or 0.0)
+        if gain <= 0.0 or tau <= 0.0:
+            return
+        values = getattr(self, "_memory_values", None)
+        if not values:
+            return
+        idx = int(getattr(self, "_memory_idx", 0))
+        sample = float(values[idx % len(values)])
+        self._memory_idx = idx + 1
+        m_prev = float(getattr(self, "_memory_value", sample))
+        m = m_prev + (sample - m_prev) / tau
+        self._memory_value = m
+        self._memory_sum = float(getattr(self, "_memory_sum", 0.0)) + m
+        self._memory_n = int(getattr(self, "_memory_n", 0)) + 1
+        m_ref = self._memory_sum / float(self._memory_n)
+        dev = m - m_ref
+        if dev <= 0.0:
+            return
+        s = self.state
+        alive = s.alive
+        n = int(alive.sum())
+        if n <= 0:
+            return
+        want = int(gain * dev * float(n))
+        if want <= 0:
+            return
+        take = min(want, n)
+        idx_alive = alive.nonzero(as_tuple=False)
+        perm = torch.randperm(idx_alive.shape[0], generator=self.gen_sel)[:take]
+        pick = idx_alive[perm]
+        kill_mask = torch.zeros_like(alive)
+        kill_mask[pick[:, 0], pick[:, 1]] = True
+        s.energy = torch.where(kill_mask, torch.zeros_like(s.energy), s.energy)
+        s.alive = s.alive & ~kill_mask
+        s.died += take
+        self.killed_by_memory = int(getattr(self, "killed_by_memory", 0)) + take
+
     def step_cells(self) -> dict:
         """Один шаг бюджета: доход, плата, ремонт, повреждения, смерть."""
         cfg = self.cfg
@@ -957,6 +1012,7 @@ class Pond:
         s.alive = alive & ~dies
         s.died += died_now
         self._kill_winner_step()
+        self._memory_mortality_step()
         if cfg.learn_w and self._pending:
             still = []
             for entry in self._pending:

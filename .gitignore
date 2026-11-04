@@ -259,3 +259,9 @@ morphogenesis/experiments/L1_field/x158_*.json
 !morphogenesis/experiments/L1_field/x158_*.compact.json
 !morphogenesis/experiments/L1_field/x158_series_index*.json
 _exports/
+
+# X160 (04.11): pond runs of the memory-buffer series are ~1 MB each (60 runs = 60 MB), so only the aggregate
+# is committed; the per-run artifacts stay on the lab machine.
+morphogenesis/experiments/E09_pond/x160_memory/x160_*.json
+morphogenesis/experiments/E09_pond/x160_memory/_stream_*.json
+!morphogenesis/experiments/E09_pond/x160_memory/x160_memory.json

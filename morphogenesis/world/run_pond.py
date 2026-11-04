@@ -1140,6 +1140,12 @@ def build_parser() -> argparse.ArgumentParser:
                     help="global: всё поле; spatial: полосы по Y (мир видит градиент)")
     ap.add_argument("--kill-winner", type=float, default=0.0,
                     help="H-ALIVE-54: смертность пропорциональна превышению доли линии над средней (0 = выкл.)")
+    ap.add_argument("--memory-tau", type=float, default=0.0,
+                    help="X160: постоянная утечки медленной переменной в шагах (0 = выключено)")
+    ap.add_argument("--mortality-gain", type=float, default=0.0,
+                    help="X160: сила модуляции смертности медленной переменной (0 = выключено)")
+    ap.add_argument("--memory-stream", default=None,
+                    help="X160: JSON с массивом values — внешний сигнал для медленной переменной")
     ap.add_argument("--bud-refractory", type=int, default=0,
                     help="H-ALIVE-54: линия почкуется не чаще, чем раз в K шагов (0 = выключено)")
     ap.add_argument("--quota-share", type=float, default=1.0,
@@ -1243,6 +1249,19 @@ def main(argv: list[str] | None = None) -> int:
     world.quota_share = float(args.quota_share)
     world.bud_refractory = int(args.bud_refractory)
     world.kill_winner = float(args.kill_winner)
+    # X160: медленная переменная на смертности. Ноль в любом из двух флагов = выключено.
+    world.memory_tau = float(args.memory_tau)
+    world.mortality_gain = float(args.mortality_gain)
+    if args.memory_stream:
+        import json as _json
+        from pathlib import Path as _Path
+        raw = _json.loads(_Path(args.memory_stream).read_text(encoding="utf-8"))
+        vals = [float(v) for v in (raw.get("values") if isinstance(raw, dict) else raw)]
+        if not vals:
+            raise SystemExit(f"поток памяти пуст: {args.memory_stream}")
+        world.memory_stream = str(args.memory_stream)
+        world.memory_values = vals
+        world.memory_ref = float(sum(vals) / len(vals))
     # здесь `world` — это PondConfig, а не объект прогона (проверено ошибкой AttributeError)
     if hasattr(world, "inflow_coupling"):
         world.inflow_coupling = float(args.inflow_coupling)
@@ -1469,6 +1488,12 @@ def main(argv: list[str] | None = None) -> int:
             summary["niche_levels"] = {str(k): v for k, v in sorted(run.pond.niche_levels.items())}
     if getattr(run.pond.cfg, "budding_unit", "") == "pair":
         summary["pair_degenerate_k"] = int(getattr(run.pond, "pair_degenerate", 0))
+    if float(getattr(run.pond.cfg, "mortality_gain", 0.0) or 0.0) > 0.0:
+        summary["memory_tau"] = float(getattr(run.pond.cfg, "memory_tau", 0.0) or 0.0)
+        summary["mortality_gain"] = float(getattr(run.pond.cfg, "mortality_gain", 0.0) or 0.0)
+        summary["memory_stream"] = str(getattr(run.pond.cfg, "memory_stream", ""))
+        summary["killed_by_memory"] = int(getattr(run.pond, "killed_by_memory", 0))
+        summary["memory_final"] = float(getattr(run.pond, "_memory_value", 0.0) or 0.0)
     if float(getattr(run.pond.cfg, "kill_winner", 0.0) or 0.0) > 0.0:
         killed_kw = int(getattr(run.pond, "killed_by_kill_winner", 0))
         died_all = int(getattr(run.pond.state, "died", 0) or 0)
