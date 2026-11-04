@@ -1,6 +1,6 @@
 {
  "schema_version": 1,
- "updated_at": "2026-11-04T20:45:00+03:00",
+ "updated_at": "2026-11-05T00:36:00+03:00",
  "note": "Очередь пунктов после E02c. Claim берётся до пре-регистрации, а не перед запуском: lab.py item-claim. Статус running означает занятый GPU-лейн и может быть только у одного пункта. | 25.10: добавлено поле impact (1-5) — приоритет конвейера = impact/max(cost_gpu_h,0.1); для запуска пункту нужны prereg (закоммиченный план) и launch.command+outdir.",
  "items": [
   {
@@ -3469,6 +3469,19 @@
    "prereg": "reports/2026-11-04-x196-gap-or-size-plan.md",
    "created_at": "2026-11-04T23:55:00+03:00",
    "note": "closed, 3 of 3 criteria: ordering the measured arms by the surface-to-surface gap is monotone (0.00 at gap 12, 0.1883 at 10, 0.402 at 9, 0.8338 at 8 for radius 6, 0.9607 at 8 for radius 4) while ordering by radius is not, so X195's size window is corrected to a gap window; at a matched gap of 8 the smaller body fuses 0.9607 against 0.8338 (a size shift of that order, not the on/off variable). Consistent with X158's boundary at about 10 cells. Entered in docs/eliminations.md; 10jd annotated. Next: a controlled size contrast at a fixed gap of 8, and the gap boundary on a finer grid of gaps over all phase classes."
+  },
+  {
+   "id": "PUB030_submission",
+   "title": "Article 030: submission decisions (creators, licence, related identifier) and the go-ahead",
+   "status": "planned",
+   "owner": "lead",
+   "kind": "publication",
+   "cost_gpu_h": 0.0,
+   "priority": 10,
+   "prereg": "articles/030-the-gap-between-surfaces-decides-fusion.md",
+   "created_at": "2026-11-05T00:36:00+03:00",
+   "waiting_on": "owner",
+   "note": "the article is prepared for submission and NOTHING has gone outward. Ready: 45 numbers checked against the aggregates by check_article_030_numbers.py (in verify), an independent recomputation of all six result groups in lab/reviews/2026-11-04-030-numbers.md (1008/1008 per-world rows matched), a verified reference list of 20 entries, five figures built from committed artifacts, and the deposit package under _exports/030-gap-switches-fusion-v1.0.zip (32 files, sha256 manifest, brief). Waiting on the owner: (1) the creator list, order and ORCIDs; (2) the licence choice (default in the package is CC-BY-4.0); (3) any related identifier/DOI to carry; (4) an explicit go. The article PDF is built by make_article_030_pdf.py through the bundled LibreOffice kit and is in the package."
   }
  ]
 }
