@@ -4,7 +4,7 @@ One file, one place that says what is actually in work. Machine state lives in `
 `_hourly/log.md`, numbers in artifacts. The Russian sections below the line are **history** and are not rewritten; the top
 part is kept current (new text in English — decision of 31.10).
 
-**Updated:** 2026-11-04, 11:05 MSK.
+**Updated:** 2026-11-04, 16:10 MSK.
 
 ## Running now
 
@@ -30,9 +30,13 @@ numbers are in `docs/plan/10d-field-metrics-and-form.md` (10hv–10id).
 | **X169** the seam | the pre-registered probe **failed its own control** (the single body reads 0.047 against a 0.9 floor, because a cross-section is a ring); auxiliary and not pre-registered: the merged body is a **dumbbell**, waist ratio 0.36, and the field dies inside 300 steps | §10ic, `-x169-seam.md` |
 | **X156 / X162 / X160** | already closed earlier in the block: shape heritable at about half, the local-scale slope inside its null once area is partialled out | see the README ledger |
 
-**One sentence the block earned:** everything the fusion work measured is the **medium's** length rather than the pair's —
-the same ten-cell crossing for a body twice the size, for an unequal pair, per contact in a row of three, and across a third
-of the source's range — while what a blob passes to its daughters is the field's shape and not its own history.
+**One sentence the block earned, corrected at the end of it:** everything the fusion work measured about *size and
+geometry* is the **medium's** length rather than the pair's — the same ten-cell crossing for a body twice the size, for an
+unequal pair, per contact in a row of three — while the **source** does move it: at gap 10, fifteen seeds per rate, the fusion
+share rises 4/15 → 7/15 → 10/15 as the inflow rises (Cochran–Armitage z = 2.20, one-sided p = 0.014) and the field between the
+bodies at contact is less filled the stronger the source (0.52 / 0.48 / 0.39 of the body peak). X170 measured that in the last
+hour of the block, against the block's own expectation, and it withdrew a sentence this page had already printed. What a blob
+passes to its daughters is still the field's shape and not its own history.
 
 **The one question it could not close:** whether a merge keeps the two bodies' structure. Components cannot say (any
 elongated blob divides at its ends), and the field probe built to say it needs a world whose pattern outlives the merge.
@@ -144,6 +148,20 @@ choice that was never declared. The direction of the band survives it; the size 
   the field line's pattern is gone in 300 steps. Designing that world is a block of its own.
 - **Any outward step.** Nothing was published, no tag moved, no deposit changed. The publication decisions stay where they
   were.
+
+## The last hour: a review that changed a claim
+
+An independent reviewer recomputed X168d from its sixty raw runs and found the table exact but the inference wrong, plus a
+script bug (`difference` subtracted flow values instead of shares, which made the "trend is real" branch unreachable for any
+data), a power claim of 80 % where the exact figure is 15 %, and an ordered-trend test at p = 0.052 rather than the extreme
+pair's p = 0.21. Then X170, run for a different purpose, produced fifteen seeds per rate at gap 10 and showed the crossing
+**does** move with the source. Both corrections are in the reports, the claims table (with a retraction row rather than a
+deletion), the article and the README.
+
+The general lesson, for the next block: **a negative at the cell where the effect is marginal is not a negative about the
+effect.** X168d was correctly powered to say "nothing here" and was read as "nothing anywhere"; the cost was one sentence in
+the paper, corrected within the hour by a reviewer and a by-product of an unrelated run. Keep the reviewer in the loop before
+a sentence that strong is written, not after.
 
 ## Waiting for the owner — only two items, both small
 
