@@ -176,3 +176,48 @@ Two qualifications to record rather than accept:
 - **The flip is designed but not statistically strong on its own.** The r3_g10 contrast (0/6 → 4/6) gives a one-sided Fisher p ≈ 0.030; the r6_g9 contrast (6/6 → 4/6) gives p ≈ 0.39. So X187 supports the flip as a *designed reproduction of the qualitative sign* — which is what makes it stronger than X186's per-cell observation, since it removes the pooling choice — but six runs per group cannot make the radius-6 direction significant, and the report says so.
 
 **Net effect on the claim under review: favourable.** X186's pooled deviance contrast (28.0 over the bar of 20, robust to the fit) and its 9-of-11 positive per-cell direction are a genuine extension of the local-inflow law to the whole crossing table, and X187 shows the radius-6 sign inversion is reproducible under selection while correctly refusing to explain it. Neither item adds a number that the local-inflow reading fails to reproduce.
+
+---
+
+## Addendum 3 — X188 and X189, and where the pre-analysis amendments sit (2026-11-04 21:15, commit `e2fe8cb5`)
+
+Readers: `lab/reviews/_scratch_x188_x189_check.py`, `_scratch_x189_peaks.py` (own field maths, nothing imported). Verdict above unchanged.
+
+### X188 — the numbers reproduce; the amendment is legitimate; the readout is fragile
+
+All committed numbers come out exactly: window means **1.033 / 1.267** (r6 cold/warm) and **0.961 / 1.803** (r3), so warm-minus-cold **+0.234** at radius 6 (bar 0.5) and **+0.842** at radius 3; positivity **24/24**; cross-tab 14 fused-positive / 10 unfused-positive; 60 fixed samples per run. (The plan's "49 fixed samples" is an arithmetic slip — the series runs 1, 10, 20, …, 3 000, so `step % 50 == 0` selects 50…3 000, i.e. 60.)
+
+**The amendment is a measurement repair, not a goalpost move.** I verified the premise on `x187_r6_g9_cold_s40006`: uids 1, 2 through step 30, the merge at step 70 leaves **uid 2**, and step 90 already carries **3 and 4**. Identity cannot trace the pair, so the original readout was impossible; the replacement is disclosed in plan §8 before analysis and leaves the bars and predictions untouched. That is the right way to amend.
+
+**But "the warm level carries more, just not enough" is not secure.** The continuation readout has three unregistered free parameters, and the radius-6 estimate moves across them — I varied one at a time:
+
+| variant | r6 warm−cold | r3 warm−cold |
+|---|---|---|
+| match 2 cells | +0.395 | +0.734 |
+| **registered (match 4, near 3, window 24, current centre)** | **+0.234** | **+0.842** |
+| match 6 cells | +0.206 | −0.095 |
+| match 8 cells | +0.111 | −0.016 |
+| frame at the **initial** midpoint | **−0.781** | +0.500 |
+| window widened to 32 cells | **−0.225** | +0.689 |
+
+The radius-6 sign **flips** under two defensible choices (initial frame, wider window) and the magnitude spans −0.78 to +0.40. The refusal rule still fires in every variant (no variant reaches +0.5), so the item's *conclusion* — "not nucleation by continuation" — is safe and I accept it. The *description* is not: the sentence should read "the difference at radius 6 is small and its sign is not stable to the readout's free parameters", not "warm carries more". The instability has a mechanical cause worth fixing: greedy matching lets the tracked set grow from 2 to **7** components, so up to five nearby bodies are absorbed into "the pair" and excluded from the count. Cap the tracked set (2 while separate, 1 after the merge) and register the matching parameters before the next item.
+
+**On the validity claim.** Yes, this is *not* the X187 degeneracy, and the code's test is the right one: a constant-positive readout cannot track a mixed outcome (`all(a==b) or all(a!=b)` is false), so "not a function of the outcome" is correct. It is worth saying what that costs: the window mean's point-biserial against `fused` is only **+0.089**, so the readout is a weak, parameter-dependent discriminator rather than an informative one. "Not a logical degeneracy" is fair; "a valid measure" would be too strong.
+
+### X189 — the numbers reproduce; one correction is mis-justified, one is sound, and the three readings are not three
+
+All committed numbers reproduce to the digit: contact means **0.38304 / 0.18146** (r6) and **0.22686 / 0.31649** (r3), differences **−0.20158** and **+0.08963**; registered tightest means 0.19168 / 0.10513 / 0.08428 / 0.08815 with differences **−0.08654** (r6) and **+0.00387** (r3); min-over-central-half **−0.06745** / **+0.00387**; tightest slice at step 40 in **9/12**; dropping the lowest warm r6 run leaves **−0.11448**.
+
+**Correction 2 (ring, radius-10 peak) is sound.** My own radial profile around a body centre at step 40 reads 0.184 at r = 0, rising to **0.391 at r = 7**, then 0.054 at r = 10 — a genuine hollow centre with the mass on a ring, so a radius-3 disc measures the hole. The radius-10 peak is 0.362–0.457 over all slices. One precision: "with radius 3 everything read 0.10–0.15" is only the lower half — over the 44 two-component slices the radius-3 peak spans **0.100–0.387, median 0.230, and 10/44 are ≥ 0.3**. So radius 3 is not uniformly below the floor, but it is unstable and biased by the hollow, which is enough to justify the change.
+
+**Correction 1 (follow the current centres) is mis-justified.** I matched each saved slice's components back to the seeded centres (best of the two pairings) and the logged centroids move **median 0.21 cells, p75 1.72, max 3.25 over the whole run**. They do not drift "about five cells by step 40": that would need 0.12 cells/step and I measure ≈0.005. The five-cell offset is the **ring radius** (the field maximum sits at r ≈ 7), i.e. it is an artefact of correction 2 misread as motion. The correction is harmless (current ≈ initial, median 0.2 cells), but the sentence in the plan and the report should be corrected to say the maximum is far from the *centroid* because the body is a ring, not because the body moved.
+
+**The three "agreeing readings" are one and a half.** The registered tightest-slice number and the min-over-central-half number are computed on the **same tightest slice** (9/12 of them at step 40, the seed-independent initial profile) and differ only in the numerator estimator (midpoint vs min over the central half). The contact reading uses a different, later slice. Pearson r across the 12 runs: contact vs tightest **+0.673**, tightest vs min-central **+0.672**, contact vs min-central **+0.940**. So there are two slice selections, not three measurements, and the two that share the step-40 slice must not be counted as independent corroboration of the contact number.
+
+**On the post-hoc switch.** It is properly flagged, and it is not load-bearing for the *direction*: the registered tightest-slice reading gives **−0.08654** at radius 6, same sign and still beyond the 0.05 bar, and **+0.00387** at radius 3, which refutes the registered radius-3 half exactly as the contact reading does. The switch changes the **magnitude** by a factor of 2.3 (−0.087 registered vs −0.202 contact) and the headline number should therefore be the registered one, with the contact moment as the labelled secondary. As written ("bridge ratio at contact" in the result table, bar applied to it) the paper's headline number is the unregistered one.
+
+**Message vs artifacts.** The message says radius 3 has "1 site replicated 3 times per level"; the report and aggregate say **2 cold sites against 1 warm** at radius 3 (g_cold 0.067 twice and 0.125 once) and the same at radius 6 (0.0 twice, 0.067 once). The artifacts are right and the message is not. The three r3-warm runs are *not* bit-identical fields (three distinct sha256), but they return identical ratios to five decimals because the seed moves them to pattern-equivalent positions — so for the ratio their effective replication is one, which is the caveat you already state.
+
+**Is "supported with a caveat" still too strong?** For the *direction*, no: the registered reading carries it, the sign survives dropping the lowest warm run (−0.114), and the radius-3 half is fairly reported as refuted. For the *magnitude*, yes: the aggregate's verdict sentence ("a warm site leaves a **markedly** weaker bridge at the largest size") rests on n = 3 per level with **one** warm site against two cold ones, and the within-warm-site spread 0.0073–0.3992 is as wide as the between-group difference. I would keep your own report's register — **candidate mechanism, direction supported, magnitude not established (needs X190's site replication)** — and soften the aggregate's verdict line to match; "supported" alone in the report's first line reads stronger than the design can carry.
+
+**Where the line is, in one sentence per item.** X188: a forced, disclosed pre-analysis readout replacement — measurement repair, but it left the new readout's parameters unregistered and they matter; X189 corrections 1–2: one sound repair (ring) and one unnecessary correction with a wrong reason (drift) that happens to be harmless; X189's switch from the registered tightest slice to the contact moment: a disclosed post-hoc choice that preserves the sign but carries the headline magnitude, so the magnitude is exploratory even though the direction is not.

@@ -3373,6 +3373,18 @@
    "prereg": "reports/2026-11-04-x189-bridge-plan.md",
    "created_at": "2026-11-04T21:20:00+03:00",
    "note": "closed: at the contact-moment reading warmth thins the bridge at radius 6 (-0.20158, bar 0.05) and thickens it slightly at radius 3 (+0.08963), so the bridge is a candidate mechanism for the flip; the registered tightest-slice summary is contaminated by the initial profile in 9 of 12 runs, and the level IS the site, so three seeds give one to two distinct sites and the within-site spread covers the effect. Next: X190, site-replicated (five sites per level)."
+  },
+  {
+   "id": "X190_bridge_sites",
+   "title": "Bridge measured over five distinct sites per level",
+   "status": "closed",
+   "owner": "lead",
+   "kind": "experiment",
+   "cost_gpu_h": 0.0,
+   "priority": 8,
+   "prereg": "reports/2026-11-04-x190-bridge-sites-plan.md",
+   "created_at": "2026-11-04T21:30:00+03:00",
+   "note": "closed: the bridge difference survives at the site level (-0.16949 over five sites per level, bar -0.05, exact Mann-Whitney p = 0.0159, four of five warm sites below every cold site), and radius 3 moves the other way (+0.07086, p = 0.9246); the registered within-site-spread check failed because the three seeds of a site are the SAME world (spread 0.0000 at all 20 sites, seed enters only through the initial condition at eps=0). Consequence recorded in docs/design-checks.md: replication in this line is by world/site, not by seed, and X187-X189 seed-level groups held one to two distinct worlds. Next: a six-level site sweep of F_local at the largest radius."
   }
  ]
 }

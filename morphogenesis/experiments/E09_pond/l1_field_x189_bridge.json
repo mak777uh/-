@@ -1551,7 +1551,7 @@
    ]
   }
  ],
- "verdict": "SUPPORTED WITH A CAVEAT. At the last saved slice on which the bodies are still separate - the moment closest to contact - the bridge ratio is 0.18146 in the warm level against 0.38304 in the cold at radius 6 gap 9 (difference -0.20158, registered bar -0.05), while at radius 3 gap 10 warmth moves it +0.08963, the opposite sign: there warmth *strengthens* the bridge and the pair coalesces more. The mechanism of the flip is therefore a property of the bridge between the bodies rather than of the bodies around the pair, in the direction X170's reading predicts. The registered primary summary, the *tightest* saved slice, is reported but not relied on: it lands on step 40 in 9 of 12 runs (6 of them at radius 3) where the field is still the seed-independent initial profile, so it measures the initial condition rather than the bridge (-0.08655 at radius 6, +0.00387 at radius 3).",
+ "verdict": "SUPPORTED WITH A CAVEAT, DIRECTIONS ONLY. At the registered reading the warm level's bridge at the tightest two-component slice is -0.08654 below the cold at radius 6 (bar 0.05) and +0.00387 at radius 3, so the direction of the candidate mechanism holds on the registered number and the radius-3 half of the prediction is refuted. The magnitude is not established: the contact-moment reading gives -0.20158, but it is unregistered and carries the headline, the three 'agreeing readings' are one and a half (the tightest and the min-over-central-half share the same step-40-dominated slice, correlations 0.673/0.672/0.940), and the sample is one to two distinct sites per level. The rings justify the radius-10 peak (mass at r = 7), but the drift correction's stated reason was wrong: matched centroid drift is median 0.4 cells (p75 2.4, max 21.6), not five cells by step 40 - the five-cell offset was the ring radius misread as motion. X190's site-level sample is the test that decides.",
  "caveats": [
   "three runs per group and the level IS the lattice site: radius 6 has 2 distinct cold sites against 1 distinct warm site, radius 3 has 2 against 1",
   "within one site the contact ratio still spans 0.0073 to 0.3992 (radius 6 warm), so the between-group difference (-0.20158) is not larger than the within-site spread and rests on three runs",
@@ -1559,5 +1559,19 @@
   "the registered primary summary (tightest saved slice) is contaminated by the initial profile in 9 of 12 runs and is not evidence either way",
   "the radius-3 half of the registered prediction (same direction, smaller) is refuted: warmth moves the contact ratio +0.08963, the opposite sign, and that group is a single lattice site replicated three times",
   "the two arms' outcomes are as registered (radius 6 cold 6/6 fused against warm 2/6; radius 3 cold 0/3 against warm 3/3), so the bridge ratio and the outcome do move together within each arm"
- ]
+ ],
+ "drift_stats_cells": {
+  "median": 0.4,
+  "p75": 2.4,
+  "max": 21.6,
+  "n": 88
+ },
+ "peak_distribution_radius3_reader_note": "the reviewer's independent radial profile puts the body's mass at r = 7 (0.184 at r = 0, 0.391 at r = 7, 0.054 at r = 10); over the 44 two-component slices the radius-3 peak spans 0.1 to 0.387 (median 0.23, 10 of 44 at or above the 0.3 floor), so the radius-3 denominator was biased low rather than uniformly unusable - the floor rejected about three quarters of the slices rather than all of them",
+ "reading_correlations": {
+  "contact_vs_tightest": 0.673,
+  "tightest_vs_min_central": 0.672,
+  "contact_vs_min_central": 0.94
+ },
+ "peer_readings_note": "the three readings are one and a half, not three: the registered tightest slice and the min-over-central-half are computed on the same (step-40-dominated) slice, and the correlations are {'contact_vs_tightest': 0.673, 'tightest_vs_min_central': 0.672, 'contact_vs_min_central': 0.94}; the direction is carried by the registered reading as well (-0.0865 at radius 6, +0.0039 at radius 3), and the headline magnitude is exploratory",
+ "headline_ordering": "registered primary: tightest-slice warm-minus-cold -0.08654 at radius 6 (direction, past the bar) and +0.00387 at radius 3 (refutes that half); secondary and exploratory: contact-moment -0.20158 at radius 6. The scaled 2.3x headline is the unregistered one and is labelled as such."
 }

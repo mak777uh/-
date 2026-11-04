@@ -8,7 +8,7 @@ same question with a readout that is not a function of the outcome. Preregistrat
 two seeded bodies carry 1 and 2, the merge leaves 2, the next sample already shows 3 and 4), so identity cannot trace the pair and
 the test counts bodies by **spatial continuation** instead.
 
-**Result: the flip is not nucleation by continuation either.** At radius 6 gap 9 the warm level carries
+**Result: not nucleation by continuation — but only the refusal is robust.** At radius 6 gap 9 the warm level carries
 **1.267** other bodies inside the 24-cell window per fixed sample against **1.033** for the cold level — a
 difference of **+0.234**, below the registered bar of 0.5 — so the warm level coalesces less there without holding more bodies
 around the pair. At radius 3 gap 10 the same manipulation moves the count **+0.842**, i.e. more, while it coalesces
@@ -31,6 +31,20 @@ which the field holds thirty bodies, so the interval 50-250 steps (around contac
 window read 0.0 (radius 6 cold) against 0.167 (radius 6 warm), and
 0.087 against 0.643 at radius 3, with field-wide means of 1.36-1.57 bodies. If
 anything the local signature of a warm site is stronger in the arm where the law keeps its sign.
+
+**The readout's free parameters were not registered, and they move the estimate** (added after independent review). One at a time at
+radius 6: registered_match4_near3_window24_current: +0.234 r6 / +0.842 r3  match2: +0.394 r6 / +0.734 r3  match6: +0.206 r6 / -0.095 r3  match8: +0.111 r6 / -0.017 r3  window32: -0.225 r6 / +0.689 r3  frame_initial_midpoint: -0.781 r6 / +0.5 r3. The sign flips under two defensible choices and the magnitude spans −0.78 to +0.40, so "warm carries more, just not
+enough" is **withdrawn** and only the refusal survives. The mechanical cause is named: greedy matching grows the tracked set from 2
+components to **2.83** on average at the registered 4-cell radius (20.6 at 6 cells, 39.2 at 8), so up to five
+nearby bodies are absorbed into "the pair". The next version caps the tracked set at two components while separate and one while merged.
+
+**The readout's free parameters were not registered, and they move the estimate** (added after independent review). One at a
+time at radius 6: registered match 4 / window 24 / current frame **+0.234**; match 2 **+0.394**; match 6 **+0.206**; match 8
+**+0.111**; window 32 **−0.225**; frame at the initial midpoint **−0.781**. The sign flips under two defensible choices and the
+magnitude spans −0.78 to +0.40, so "warm carries more, just not enough" is **withdrawn** and only the refusal survives. The mechanical
+cause is named: greedy matching grows the tracked set from 2 components to **2.83** on average at the registered 4-cell radius (20.6 at
+6 cells, 39.2 at 8), so up to five nearby bodies are absorbed into "the pair". The next version caps the tracked set at two components
+while separate and one while merged.
 
 **Limits.** The window is centred on the pair's current centre, so a nucleated body the pair carries along is counted while one
 that drifts off is not; the two counts (window and field-wide) are both reported. Three-seed groups, integer counts of 0-3, and

@@ -37,7 +37,8 @@ recorded as "no readout" rather than as a result.
 
 ## 4. Sensitivity arithmetic, and the prediction
 
-24 runs (2 arms × 2 levels × 6), 301 samples each, 49 fixed samples per run at the primary grid; the window is 24 cells across so
+24 runs (2 arms × 2 levels × 6), 3 001 samples each at every 10 steps, 60 fixed samples per run at the primary grid (the plan first said 49 - a slip;
+step % 50 == 0 over 1..3000 gives 60); the window is 24 cells across so
 a body within a body-radius or two of the pair is inside it. Registered **before the run**, from X186/X187:
 
 - in the **radius 6** arm the warm level (the one that coalesces less) shows a **higher** mean count of non-pair bodies at the

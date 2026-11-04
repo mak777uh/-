@@ -252,3 +252,4 @@ sections were not rewritten, only moved; each one keeps its identifier, so every
 | §10iv | X187 — почему знак закона переворачивается на крупном размере (04.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
 | §10iw | X188 — нуклеация как счёт тел, а не как пересказ исхода (04.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
 | §10ix | X189 — мост между телами по локальному притоку и размеру (04.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
+| §10iy | X190 — мост при выборке из площадок, а не сидов (04.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |

@@ -508,5 +508,75 @@
    "fixed_samples": 60
   }
  ],
- "verdict": "THE FLIP IS NOT NUCLEATION BY CONTINUATION EITHER: at radius 6 gap 9 the warm level carries 1.267 other bodies inside the window per fixed sample against 1.033 for the cold level (difference +0.234, below the registered bar 0.5), so the bodies counted around the pair do not explain why the warm level coalesces less there; the mechanism question moves to the field level, as the refusal rule of section 5 says."
+ "verdict": "NOT NUCLEATION BY CONTINUATION, AND NOT A READOUT THAT CAN CARRY A DIRECTION. The warm level coalesces less at radius 6 without holding more bodies around the pair under the registered parameters (+0.234 against a bar of 0.5), and the refusal rule therefore fires; but the readout has free parameters that were not registered and they move the estimate from -0.781 (frame at the initial midpoint) to +0.395 (match 2 cells), with the sign flipping, so the quantitative claim 'warm carries more' is withdrawn and only the refusal survives. The mechanical cause is named: greedy matching grows the tracked set from 2 to 7 components and absorbs up to five nearby bodies into 'the pair'.",
+ "sensitivity": {
+  "registered_match4_near3_window24_current": {
+   "groups": {
+    "r6_g9_cold": 1.033,
+    "r6_g9_warm": 1.267,
+    "r3_g10_cold": 0.961,
+    "r3_g10_warm": 1.803
+   },
+   "radius6_warm_minus_cold": 0.234,
+   "radius3_warm_minus_cold": 0.842,
+   "max_tracked_set_mean": 2.83
+  },
+  "match2": {
+   "groups": {
+    "r6_g9_cold": 0.906,
+    "r6_g9_warm": 1.3,
+    "r3_g10_cold": 1.197,
+    "r3_g10_warm": 1.931
+   },
+   "radius6_warm_minus_cold": 0.394,
+   "radius3_warm_minus_cold": 0.734,
+   "max_tracked_set_mean": 2.04
+  },
+  "match6": {
+   "groups": {
+    "r6_g9_cold": 0.319,
+    "r6_g9_warm": 0.525,
+    "r3_g10_cold": 0.853,
+    "r3_g10_warm": 0.758
+   },
+   "radius6_warm_minus_cold": 0.206,
+   "radius3_warm_minus_cold": -0.095,
+   "max_tracked_set_mean": 20.62
+  },
+  "match8": {
+   "groups": {
+    "r6_g9_cold": 0.114,
+    "r6_g9_warm": 0.225,
+    "r3_g10_cold": 0.031,
+    "r3_g10_warm": 0.014
+   },
+   "radius6_warm_minus_cold": 0.111,
+   "radius3_warm_minus_cold": -0.017,
+   "max_tracked_set_mean": 39.21
+  },
+  "window32": {
+   "groups": {
+    "r6_g9_cold": 2.747,
+    "r6_g9_warm": 2.522,
+    "r3_g10_cold": 2.839,
+    "r3_g10_warm": 3.528
+   },
+   "radius6_warm_minus_cold": -0.225,
+   "radius3_warm_minus_cold": 0.689,
+   "max_tracked_set_mean": 2.83
+  },
+  "frame_initial_midpoint": {
+   "groups": {
+    "r6_g9_cold": 3.9,
+    "r6_g9_warm": 3.119,
+    "r3_g10_cold": 2.697,
+    "r3_g10_warm": 3.197
+   },
+   "radius6_warm_minus_cold": -0.781,
+   "radius3_warm_minus_cold": 0.5,
+   "max_tracked_set_mean": 2.83
+  }
+ },
+ "sensitivity_note": "the continuation readout has free parameters that were not registered, and one-at-a-time they move the radius-6 estimate from -0.781 to +0.395 (the registered setting gives +0.234); the refusal rule fires in every variant, so 'not nucleation by continuation' holds, but 'warm carries more, just not enough' does not and is withdrawn. Mechanical cause: greedy matching grows the tracked set from 2 to 7 components, so up to five nearby bodies are absorbed into 'the pair'; the next version caps it at 2 separate / 1 merged.",
+ "readout_discrimination_note": "the readout is not a function of the outcome (a constant-positive readout cannot track a mixed outcome), but it discriminates weakly: the point-biserial of the window mean against `fused` is 0.089 in this pool."
 }

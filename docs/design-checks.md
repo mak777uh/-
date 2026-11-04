@@ -495,3 +495,19 @@ Two habits follow, and both are cheap before a run:
 
 The general form: check 3 covers *variance*, this rule covers *independence*. A readout that is a deterministic function of the
 outcome is not evidence, however much it varies.
+
+## Replication is by world, not by seed (04.11)
+
+X190 registered three seeds per lattice site and found that the three give **identical** contact ratios — within-site spread 0.0000 at
+all twenty sites. At `eps = 0` the seed of these runs enters only through the initial condition, so seeds that land on the same site are
+the same world repeated; "six seeds" is then six copies of one or two worlds. The line had already written this down in the runner
+(X134b's comment: at `eps = 0` the dynamics is deterministic, so placement must depend on the seed), but the consequence was not turned
+into a check, and X187's Fisher p of 0.39 at radius 6 and X189's single warm site were both read as if six and three independent runs
+had spoken.
+
+The habit: whenever a manipulation *is* a position, a site, or a phase — anything the seed maps onto — **count the distinct values of
+that quantity inside a group before counting runs**, and report the within-group spread of the readout as a check in its own right. A
+group whose within-group spread is exactly zero has one world in it, however many seeds it lists; a design that wants more worlds has
+to vary the site, the phase or the noise, not the seed. The check belongs beside check 3: it is not that the readout failed to vary, it
+is that the *sample* did.
+
