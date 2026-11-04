@@ -363,7 +363,7 @@
     {
       "id": "power-and-replicates",
       "ru": "Мощность и число прогонов: когда 10 миров занижают контраст, а 30 разрешают",
-      "status": "current",
+      "status": "next",
       "links": [
         "docs/world-design.md",
         "library/reviews/igr-methods.md"
@@ -387,6 +387,34 @@
       ],
       "min_score": 4,
       "implication": "Проверить канон: сколько прогонов нужно, чтобы контраст разрешался, и как отличать псевдорепликацию (один мир, много сидов) от настоящих миров — прямо к X132."
+    },
+    {
+      "id": "storage-effect-limits",
+      "ru": "Storage effect: когда буфер НЕ удерживает разнообразие",
+      "status": "current",
+      "links": [
+        "library/claims-evidence.md",
+        "library/hypotheses/alife-lineage.md"
+      ],
+      "queries": [
+        "storage effect does not maintain diversity conditions fail",
+        "rescue effect buffer mortality coexistence insufficient",
+        "storage effect empirical evidence weak"
+      ],
+      "terms": [
+        "storage effect",
+        "buffer",
+        "rescue",
+        "dormancy",
+        "coexistence",
+        "fail"
+      ],
+      "must": [
+        "storage effect",
+        "diversity"
+      ],
+      "min_score": 4,
+      "implication": "Наши три отрицательных (E12, E12b, X160) — приток и смертность не дают storage effect. Нужен канон: какие условия storage effect обязательны, чтобы мы могли сказать, какого из них у нас нет."
     }
   ]
 }

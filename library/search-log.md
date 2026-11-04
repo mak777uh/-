@@ -143,3 +143,15 @@ scales», «symmetry breaking memory size pattern».
 - **отброшено:** `10.53846/goediss-2930` — *Symmetry Breaking and Pattern Selection in Models of Visual
   Development* (диссертация). Симметрия и выбор паттерна — тема вчерашняя, а не мощность; предмет —
   карты зрительной коры. Держу в виду для темы `medium-memory-scales`, но в этот слот не вношу.
+
+## 2026-11-04, 09:05 — тема `storage-effect-limits`
+
+Искал: когда storage effect не удерживает разнообразие; rescue effect через смертность; слабые эмпирические
+подтверждения storage effect.
+
+- **принято (с оговоркой):** `10.1002/ecy.3926` — Clark & D'Amato, 2023, *Ecology*: *Seedbed, not rescue effect,
+  buffer the role of extreme precipitation on temperate forest regeneration*. Эмпирика (полевой эксперимент в
+  лесных прогалинах): буфер даёт **субстрат (место)**, а не механизм спасения. Это **концептуальный якорь** для
+  наших трёх отрицательных (E12, E12b, X160), а не метод.
+- **чего не даёт:** другой масштаб и система (сеянцы деревьев, поле); «rescue effect» там — демографический
+  механизм, не наш буфер; чисел, переносимых в наши миры, нет.
