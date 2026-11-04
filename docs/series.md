@@ -31,29 +31,30 @@ without the reader having to reconstruct them.
 |---|---|---|---|
 | **1** | [029 — How lineages begin and end in a pattern-forming chemical medium](../articles/029-lineages-in-a-pattern-forming-field.md), **v2.0** | X96–X155: the mixing length (9 ± 1 cells), a fusion as a merger, the whole-cell step with a spread in the timing, the end of a lineage as the loss of a name, the habitat reversal, the measured heredity slope | **published**: Zenodo, 04.11.2026, DOI [10.5281/zenodo.23933440](https://doi.org/10.5281/zenodo.23933440); the deposited archive carries aggregates up to X155 |
 | **2** | 029 **v2.1** (the same file in the repository) | adds X161 (discrete trait), X164 (unequal pairs), X165 (three bodies), X166 (contact threshold at one-step resolution), X168/X169 (crossing against inflow, and the seam), X170 (what a daughter inherits) | **prepared, not deposited.** The published version is v2.0; v2.1 exists only in the repository and must go out as a *new version of the same Zenodo record* |
-| **3** | [030 — The gap between surfaces, not the body size, switches fusion](../articles/030-the-gap-between-surfaces-decides-fusion.md), **v1.1** | X158 (the ~10-cell crossing), X184–X187 (the local inflow at the seeded sites, and its sign flip at the largest bodies), X190–X193 (the bridge over sites, and the two phase censuses), X194 (how many worlds a pool holds), X195/X196 (the sign sweep and the gap-versus-size correction), X197 (the deviance drop against the unit of observation) | **prepared, not deposited.** Package `_exports/030-gap-switches-fusion-v1.1.zip`; waiting only on the owner's go |
-| **4** | 030 **v1.2** (in progress) | X198: the fusion share as a curve in the gap (five gaps at radius 4, three at radius 6, 1152 worlds) | **running**; pre-registration `reports/2026-11-05-x198-gap-curve-plan.md` |
-| **5** | **031** — the corridor at contact and what it forecasts | X171, X172, X174, X175, X176 (the corridor and the forecast at an unrun supply), X177, X178, X179 (the band's upper edge, the radius-6 cliff, the full two-body crossing table), X180, X181 (how much between-family dispersion is real), X183 (the local reading that orders the rate ladder), X188/X189 (nucleation identity and the bridge by local inflow) | **not written.** Named as the next article in 030's section 8; tracked as the queue item `ART031_corridor` |
+| **3** | [030 — The gap between surfaces, not the body size, switches fusion](../articles/030-the-gap-between-surfaces-decides-fusion.md), **v2.0** | **one article for the whole path after the published step**: X156–X159 (shape heredity and the geometry of the contact), X158 (the ~10-cell crossing), X162/X162b (local-scale heredity and the neighbour order), X164–X170 (unequal pairs, three bodies, the one-step threshold, reversibility and its control, the inflow-corrected crossing, the seam, the corridor against the source), X171–X183 (the corridor, the forecast, the edge, the cliff, the crossing table, dispersion, the ladder), X184–X197 (the local inflow at the seeded sites and its sign flip, the bridge over sites, the two phase censuses, the pool count, the gap-versus-size correction, the deviance drop against the unit of observation), X188/X189 (nucleation identity, withdrawn, and the bridge by local inflow) | **prepared, not deposited.** The owner decided on 05.11 that the continuation is one enlarged article rather than four; package `_exports/030-gap-switches-fusion-v2.0.zip`; waiting only on the owner's go |
+| **4** | 030 **v2.1** (in progress) | X198: the fusion share as a curve in the gap (five gaps at radius 4, three at radius 6, 1152 worlds) | **running**; pre-registration `reports/2026-11-05-x198-gap-curve-plan.md` |
+| **5** | the next article, still unnamed | making the local reading **predictive rather than descriptive**: fit the corridor/inflow reading on part of the crossing table and forecast cells that were not part of the fit (named as the next article in 030's section 8) | **not written.** The corridor block is no longer a separate article: the queue item `ART031_corridor` is superseded and its experiments are described in 030 v2.0 |
 
-## The gap this map makes visible
+## The gap this map made visible, and what closed it
 
-The experiments that have run and closed but are described to an outside reader **nowhere** — neither in the published 029
-v2.0, nor in the un-deposited 029 v2.1, nor in 030 — are:
+Until 05.11 the experiments that had run and closed but were described to an outside reader **nowhere** — neither in the
+published 029 v2.0, nor in the un-deposited 029 v2.1, nor in the then-narrow 030 — were:
 
 | block | experiments | where it is today |
 |---|---|---|
-| shape heredity and the geometry of the crossing before the census line | X156, X157, X159, X160 | reports and `docs/world-design.md` sections only |
-| local-scale heredity and the memory of the medium | X162, X162b | reports and plan sections only |
-| the reversibility of a merge (and its control) | X167, X167b | reports and plan sections only |
-| the inflow-corrected crossing and the ten-seed gap-11 check | X168c, X168d | reports and plan sections only |
-| the corridor, the forecast, the edge, the cliff, the crossing table, dispersion | X171–X183 | reports and plan sections only; this is article 031 |
-| nucleation identity and the bridge read by local inflow | X188, X189 | reports and plan sections only |
+| shape heredity and the geometry of the crossing before the census line | X156, X157, X159, X160 | **written into 030 v2.0** §5.1–§5.2 |
+| local-scale heredity and the memory of the medium | X162, X162b | **written into 030 v2.0** §5.2 |
+| the reversibility of a merge (and its control) | X167, X167b | **written into 030 v2.0** §5.2 |
+| the inflow-corrected crossing and the ten-seed gap-11 check | X168c, X168d | **written into 030 v2.0** §5.1, with X168 withdrawn |
+| the corridor, the forecast, the edge, the cliff, the crossing table, dispersion | X171–X183 | **written into 030 v2.0** §5.6–§5.7 |
+| nucleation identity and the bridge read by local inflow | X188, X189 | **written into 030 v2.0** §5.8, with X188 withdrawn |
 
-Two consequences, stated plainly. First, the published record is **not** the whole path: the outward sequence jumps from the
-aggregates up to X155 (step 1) to the census line (step 3), and step 2 — which is written and checked — has not been
-deposited. Second, 030 is *logically* the continuation of 029: it needs the mixing length, the definition of a body, and the
-distinction between a run and a world, all of which 029 supplies; and 029 supplies them for a reader of that article alone,
-which is why 030 restates its own definitions instead of assuming them.
+Two consequences, stated plainly. First, the published record is still **not** the whole path: the outward sequence jumps from
+the aggregates up to X155 (step 1) to whatever is deposited next, and step 2 — written and checked — has not been deposited.
+The repository text no longer has a hole; the outward record does, and closing it is the owner's decision to make. Second, 030
+is *logically* the continuation of 029: it needs the mixing length, the definition of a body, and the distinction between a run
+and a world, all of which 029 supplies; and 029 supplies them for a reader of that article alone, which is why 030 restates its
+own definitions instead of assuming them.
 
 ## What keeps the articles connected
 

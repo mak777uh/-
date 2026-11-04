@@ -9,7 +9,7 @@ changed. The short version of the same information travels inside the archive as
 - **Author (and the only person to ask):** Ilya Vladimirov.
 - **Licence:** CC BY 4.0 (the standing default; if the author names another licence, change it in `zenodo.json` and `LICENSE`
   first).
-- **Version of the article:** v1.2. **Version of the archive:** v1.2.
+- **Version of the article:** v2.0. **Version of the archive:** v2.0.
 
 ## 1. Where everything lies
 
@@ -17,15 +17,15 @@ Built on this machine, in the repository `C:\Users\Admin\Documents\Qoder\2026-10
 
 | what | where |
 |---|---|
-| **the data archive to upload** | `_exports\030-gap-switches-fusion-v1.2.zip` (1.20 MB, 33 files inside) |
+| **the data archive to upload** | `_exports\030-gap-switches-fusion-v2.0.zip` (1.87 MB, 70 files inside) |
 | the same archive, already unpacked for inspection | `_exports\030-gap-switches-fusion\` |
 | the article (Markdown, the source of the PDF) | `articles\030-the-gap-between-surfaces-decides-fusion.md` |
-| the article as PDF, 16 pages, five figures embedded | `articles\030-the-gap-between-surfaces-decides-fusion.pdf` |
-| the five figures, PNG (reading) and PDF (typesetting) | `articles\030-figures\` |
+| the article as PDF, eight figures embedded | `articles\030-the-gap-between-surfaces-decides-fusion.pdf` |
+| the eight figures, PNG (reading) and PDF (typesetting) | `articles\030-figures\` |
 | every number printed in the article, with its source | `articles\030-figures\tables.json` |
 | the verified reference list (20 entries, one rejected) | `articles\030-references.md` |
-| the aggregates the article cites (13 files) | `morphogenesis\experiments\E09_pond\l1_field_x18*.json`, `l1_field_x19*.json` |
-| the independent review of the article's numbers | `lab\reviews\2026-11-04-030-numbers.md` |
+| the aggregates the article cites (44 files) | `morphogenesis\experiments\E09_pond\l1_field_x15*.json` ... `l1_field_x19*.json` |
+| the independent reviews of the article's numbers | `lab\reviews\2026-11-04-030-numbers.md` (the earlier, narrower edition) and `lab\reviews\2026-11-05-030-v20-numbers.md` (the blocks added in v2.0) |
 | the machine check that every printed number is real | `scripts\check_article_030_numbers.py` |
 | the script that rebuilds the archive | `scripts\build_article_030_package.py` |
 | the script that rebuilds the article PDF | `scripts\make_article_030_pdf.py` |
@@ -36,11 +36,11 @@ figures, the tables and the build scripts, so the archive can be rebuilt at any 
 ```bash
 python scripts/make_article_030_figures.py     # figures and tables.json, from committed artifacts only
 python scripts/make_article_030_pdf.py         # the article PDF (needs the bundled LibreOffice kit)
-python scripts/build_article_030_package.py    # _exports\030-gap-switches-fusion-v1.2.zip
-python scripts/check_article_030_numbers.py    # re-derives all 45 printed numbers and compares them with the text
+python scripts/build_article_030_package.py    # _exports\030-gap-switches-fusion-v2.0.zip
+python scripts/check_article_030_numbers.py    # re-derives all 138 printed numbers and compares them with the text
 ```
 
-## 2. What is inside the archive (33 files)
+## 2. What is inside the archive (70 files)
 
 ```text
 030-the-gap-between-surfaces-decides-fusion.md     the article, Markdown
@@ -52,13 +52,13 @@ zenodo.json                                        deposit metadata, ready to up
 PUBLISHING.md                                      the short publication brief
 INSTRUCTIONS.md                                    this document, so the archive carries its own instructions
 MANIFEST.sha256                                    sha256 of every file above
-figures/fig1..fig5 .png and .pdf                   the five figures in both formats (10 files)
+figures/fig1..fig8 .png and .pdf                   the eight figures in both formats (16 files)
 data/derived/tables.json                           every number plotted in the article
-data/aggregates/*.json                             the 13 aggregates the article cites (original files, unchanged)
+data/aggregates/*.json                             the 44 aggregates the article cites (original files, unchanged)
 ```
 
 The raw field arrays (96 × 96 float32 per world) are **not** in the archive: they are regenerable from the committed scripts
-and they are tens of megabytes. The 13 aggregates carry one row per world, which is what the outcomes and the tables are built
+and they are tens of megabytes. The 44 aggregates carry one row per world, which is what the outcomes and the tables are built
 from.
 
 ## 3. Check the archive before uploading (about 5 minutes)
@@ -66,20 +66,21 @@ from.
 1. **Integrity.** Unpack the zip and check every file against its checksum:
    `sha256sum -c MANIFEST.sha256` (Linux/macOS) or, on Windows, `Get-FileHash -Algorithm SHA256` for each line of the
    manifest. Every line must report OK.
-2. **Nothing missing.** Count the files: 33 in the archive; five figures × two formats = 10; 13 aggregates; `tables.json`;
-   and the 8 top-level files listed above.
+2. **Nothing missing.** Count the files: 70 in the archive; eight figures × two formats = 16; 44 aggregates; `tables.json`;
+   and the 9 top-level files listed above.
 3. **Spot-check one number end to end.** In `data/derived/tables.json` open `fig4.by_gap[1]`: it reads
    `{"radius": 4.0, "gap": 10.0, "fused": 34, "share": 0.1883, ...}`. The same 34 must appear in the article's table in
    section 5.3 (row "radius 4, gap 10", column "fused") and in the aggregate
    `data/aggregates/l1_field_x196_gap_or_size.json` at `gap_table.r4_g10.fused_worlds`. If the three disagree, stop and tell
    the author — do not "fix" anything.
 
-The author's own checks, already run and not to be repeated (they need the repository): 45 printed numbers are compared with
-the aggregates by `scripts/check_article_030_numbers.py`, and an independent reviewer recomputed all six result groups,
-matching 1008 per-world rows (`lab/reviews/2026-11-04-030-numbers.md`, in the repository). Your job is to confirm that the
+The author's own checks, already run and not to be repeated (they need the repository): 138 printed numbers are compared with
+the aggregates by `scripts/check_article_030_numbers.py`, the earlier edition's six result groups were recomputed over 1008
+per-world rows (`lab/reviews/2026-11-04-030-numbers.md`), and the blocks added in v2.0 were recomputed independently in
+`lab/reviews/2026-11-05-030-v20-numbers.md`. Your job is to confirm that the
 archive you received is the checked one.
 
-Every field of `zenodo.json` is already filled in: title, description, keywords, licence `CC-BY-4.0`, version `v1.2`,
+Every field of `zenodo.json` is already filled in: title, description, keywords, licence `CC-BY-4.0`, version `v2.0`,
 language, and one creator, `Vladimirov, Ilya`. The single related identifier points at the previous article of the series (DOI 10.5281/zenodo.23933440) with the
 relation `references`, and the article itself opens by summarising that previous step. **Do not add an author, an affiliation, an ORCID or a
 link that the author did not give.**
@@ -104,13 +105,13 @@ curl -sS -H "Authorization: Bearer $ZENODO_TOKEN" \
 ```
 
 The web interface works equally well: the fields map one-to-one onto the form, and the file list above is the list to drag in.
-Settings: upload type **publication**, publication type **preprint**, access **open**, version **v1.2**. Keep
+Settings: upload type **publication**, publication type **preprint**, access **open**, version **v2.0**. Keep
 `MANIFEST.sha256`, `README.md` and `LICENSE` in the deposit.
 
 ## 5. arXiv (optional, only after Zenodo, only if the author asks)
 
 - **Category:** `q-bio.PE` (populations and evolution); `nlin.PS` (pattern formation) as a cross-list if the author agrees.
-- **Files:** the PDF in the archive already has all five figures embedded and can be uploaded as the main file. arXiv also
+- **Files:** the PDF in the archive already has all eight figures embedded and can be uploaded as the main file. arXiv also
   wants the source: if the author wants a LaTeX source, it has to be converted from the Markdown first — say so and ask,
   rather than uploading a half-converted package.
 - **Abstract and title:** copy verbatim from the article and from `zenodo.json`.

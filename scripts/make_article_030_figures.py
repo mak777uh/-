@@ -332,5 +332,161 @@ fig.suptitle("Figure 5 — the unit of observation has to be checked for each st
 fig.tight_layout()
 save(fig, "fig5-the-unit-of-observation")
 
+# ---------------------------------------------------------------- fig 6 (v2.0)
+x157, x159 = agg("x157_gap_geometry"), agg("x157_quantum")
+x158, x168c = agg("x158_crossing"), agg("x168c_inflow")
+radii = ["r3.0", "r4.5", "r5.2", "r6.0"]
+tables["fig6"] = {"contact_gap": {"by_radius": {r: x157["by_radius"][r]["g_fusion_median"] for r in radii},
+                                  "median": x157["contact_gap_median"], "min": x157["contact_gap_min"],
+                                  "max": x157["contact_gap_max"], "n": x157["contact_gap_n"]},
+                  "window": {"median": x159["window_width_median"], "lower": x159["threshold_low_median"]},
+                  "crossing": {r: {g: x158["arms"][f"{r}_g{g}.0"]["share"] for g in ("7", "8", "9", "10", "11")
+                                   if f"{r}_g{g}.0" in x158["arms"]} for r in ("r3.0", "r4.5", "r6.0")},
+                  "gap11_by_rate": x168c["share_at_gap11_by_rate"]}
+
+fig, ax = plt.subplots(1, 3, figsize=(11.4, 3.7))
+vals = [x157["by_radius"][r]["g_fusion_median"] for r in radii]
+ax[0].bar(range(4), vals, color=[GREY, GREY, GREY, BLUE], width=0.6)
+ax[0].axhline(x157["contact_gap_median"], color=RED, ls="--", lw=1.2)
+ax[0].annotate(f"pooled median {x157['contact_gap_median']:.2f}", (3.4, x157["contact_gap_median"] + 0.08),
+               fontsize=8, color=RED, ha="right")
+for i, v in enumerate(vals):
+    ax[0].annotate(f"{v:.2f}", (i, v), textcoords="offset points", xytext=(0, 3), ha="center", fontsize=8.5)
+ax[0].set_xticks(range(4))
+ax[0].set_xticklabels(["r 3", "r 4.5", "r 5.25", "r 6"])
+ax[0].set_ylabel("surface gap at contact (cells)")
+ax[0].set_ylim(0, 2.6)
+ax[0].set_title(f"(a) the medium's own distance ({x157['contact_gap_n']} runs)")
+
+for r, col, mk in (("r3.0", RED, "o"), ("r4.5", ORANGE, "^"), ("r6.0", BLUE, "s")):
+    gs = sorted(int(k.split("_g")[1].split(".")[0]) for k in x158["arms"] if k.startswith(r + "_g"))
+    ys = [x158["arms"][f"{r}_g{g}.0"]["share"] for g in gs]
+    ax[1].plot(gs, ys, mk + "-", color=col, lw=1.5, label=f"radius {r[1:]}")
+ax[1].invert_xaxis()
+ax[1].axhline(0.5, color=INK, ls=":", lw=1.0)
+ax[1].set_xlabel("design surface gap (cells)")
+ax[1].set_ylabel("share that fused")
+ax[1].set_ylim(-0.05, 1.08)
+ax[1].legend(fontsize=8)
+ax[1].annotate("the crossing: where the curve\npasses one half", (10, 0.52), fontsize=8, ha="left")
+ax[1].set_title("(b) the crossing is one cell wide")
+
+g11 = x168c["share_at_gap11_by_rate"]
+rates = ["0.026", "0.03", "0.036"]
+ax[2].bar(range(3), [g11[r] for r in rates], color=GREEN, width=0.55)
+for i, r in enumerate(rates):
+    ax[2].annotate(f"{g11[r]:.1f}", (i, g11[r]), textcoords="offset points", xytext=(0, 3), ha="center", fontsize=8.5)
+ax[2].set_xticks(range(3))
+ax[2].set_xticklabels(["F 0.026", "F 0.030", "F 0.036"])
+ax[2].set_ylabel("share that fused at gap 11")
+ax[2].set_ylim(0, 0.6)
+ax[2].set_title("(c) and it does not move with the inflow\n(the withdrawn X168 reading replaced)")
+fig.suptitle("Figure 6 — the distance the medium uses, the crossing, and what does not move it",
+             fontsize=12, fontweight="bold", y=1.03)
+fig.tight_layout()
+save(fig, "fig6-the-crossing-and-its-geometry")
+
+# ---------------------------------------------------------------- fig 7 (v2.0)
+x171, x174, x176, x178, x180 = agg("x171_corridor_sizes"), agg("x174_gap_corridor"), agg("x176_past_crossing"), \
+    agg("x178_cliff"), agg("x180_dispersion")
+tables["fig7"] = {"corridor_by_radius": x171["medians"], "corridor_by_gap": {g: x174["by_gap"][g]["median"] for g in ("8", "9", "10")},
+                  "shares_by_gap": {g: x174["by_gap"][g]["share"] for g in ("8", "9", "10")},
+                  "cliff": {"x158_r6_g9": x158["arms"]["r6.0_g9.0"]["share"], "x178": x178["observed"]["share"],
+                            "x178_wilson": x178["observed"]["wilson"], "x176_gap10": x176["observed"]["share"]},
+                  "bands": [{"g_to": b["g_to"], "share": b["share"], "runs": b["runs"],
+                             "F_local_mean": b["F_local_mean"]} for b in x180["local_inflow_bands"]]}
+
+fig, ax = plt.subplots(1, 3, figsize=(11.4, 3.7))
+xs = [3, 4.5, 6]
+ax[0].plot(xs, [x171["medians"][str(k)] for k in ("3", "4.5", "6")], "o-", color=BLUE, lw=1.5, label="by body size")
+ax[0].axhline(x171["medians"]["3"], color=BLUE, ls=":", lw=1.0)
+gaps = [10, 9, 8]
+ax[0].plot(gaps, [x174["by_gap"][str(g)]["median"] for g in gaps], "s--", color=RED, lw=1.5, label="by design gap")
+ax[0].set_xlabel("body radius (circles) / design gap (squares)")
+ax[0].set_ylabel("corridor at contact / peak")
+ax[0].set_ylim(0.3, 0.55)
+ax[0].legend(fontsize=8)
+ax[0].set_title("(a) the corridor is flat in size, not in gap")
+
+labels = ["gap 7", "gap 8", "gap 9", "gap 9\n(X178)", "gap 10\n(X176)"]
+vals2 = [x158["arms"]["r6.0_g7.0"]["share"], x158["arms"]["r6.0_g8.0"]["share"],
+         x158["arms"]["r6.0_g9.0"]["share"], x178["observed"]["share"], x176["observed"]["share"]]
+cols2 = [BLUE, BLUE, BLUE, ORANGE, RED]
+ax[1].bar(range(5), vals2, color=cols2, width=0.6)
+for i, v in enumerate(vals2):
+    ax[1].annotate(f"{v:.2f}", (i, v), textcoords="offset points", xytext=(0, 3), ha="center", fontsize=8.5)
+ax[1].set_xticks(range(5))
+ax[1].set_xticklabels(labels, fontsize=8)
+ax[1].set_ylabel("share that fused, radius 6")
+ax[1].set_ylim(0, 1.05)
+ax[1].set_title("(b) the edge is a cliff, not a slope")
+
+bands = x180["local_inflow_bands"]
+ax[2].plot([b["F_local_mean"] for b in bands], [b["share"] for b in bands], "o-", color=GREEN, lw=1.6)
+for b in bands:
+    ax[2].annotate(f"{b['share']:.2f}", (b["F_local_mean"], b["share"]), textcoords="offset points",
+                   xytext=(0, 4), ha="center", fontsize=8.5)
+ax[2].set_xlabel("measured inflow at the pair (F_local)")
+ax[2].set_ylabel("share that fused")
+ax[2].set_ylim(-0.05, 1.05)
+ax[2].set_title("(c) the dispersion is the local inflow")
+fig.suptitle("Figure 7 — what the corridor reads, and the edge where reading stops",
+             fontsize=12, fontweight="bold", y=1.03)
+fig.tight_layout()
+save(fig, "fig7-the-corridor-and-the-edge")
+
+# ---------------------------------------------------------------- fig 8 (v2.0)
+x179, x181, x183 = agg("x179_crossing_table"), agg("x181_worst_cell"), agg("x183_local_collapse")
+worst = next(c for c in x179["two_body_cells"] if c["radius"] == 3.0 and c["gap"] == 10.0 and abs(c["F"] - 0.03) < 1e-9)
+tables["fig8"] = {"table": {"cells": len(x179["two_body_cells"]), "runs": x179["two_body_runs"],
+                            "scanned": x179["files_scanned"], "other_cells": len(x179["other_cells"]),
+                            "worst": {"fused": worst["fused"], "runs": worst["runs"], "share": round(worst["share"], 4),
+                                      "source_spread": worst["source_spread"]}},
+                  "redraw": {"before": x181["references"]["pooled_before"], "after": x181["references"]["pooled_after"],
+                             "observed": x181["observed"]},
+                  "ladder": {k: {"auc": x183["candidates"][k]["auc_overall"], "deviance": x183["candidates"][k]["deviance"]}
+                             for k in ("F_nominal", "F_local_mid", "F_local_max", "F_local_mean", "F_local_min")}}
+
+fig, ax = plt.subplots(1, 3, figsize=(11.4, 3.7))
+spread = [c["source_spread"] for c in x179["two_body_cells"] if c["source_spread"] is not None]
+share = [c["share"] for c in x179["two_body_cells"] if c["source_spread"] is not None]
+ax[0].scatter(spread, share, s=22, color=GREY, alpha=0.8)
+ax[0].scatter([worst["source_spread"]], [worst["share"]], s=70, color=RED, zorder=3)
+ax[0].annotate(f"worst cell: {worst['fused']}/{worst['runs']} = {worst['share']:.2f}", (worst["source_spread"], worst["share"]),
+               textcoords="offset points", xytext=(-6, 8), fontsize=8, color=RED, ha="right")
+ax[0].set_xlabel("spread in share between families (a cell)")
+ax[0].set_ylabel("pooled share of that cell")
+ax[0].set_ylim(-0.05, 1.05)
+ax[0].set_title(f"(a) {len(x179['two_body_cells'])} cells, {x179['two_body_runs']} runs")
+
+before, after, obs = x181["references"]["pooled_before"], x181["references"]["pooled_after"], x181["observed"]
+ax[1].bar([0, 1, 2], [before["share"], after["share"], obs["share"]], color=[GREY, ORANGE, RED], width=0.55)
+for i, (v, n, d) in enumerate(((before["share"], before["fused"], before["runs"]), (after["share"], after["fused"], after["runs"]),
+                               (obs["share"], obs["fused"], obs["runs"]))):
+    ax[1].annotate(f"{v:.3f}\n{n}/{d}", (i, v), textcoords="offset points", xytext=(0, 3), ha="center", fontsize=8)
+ax[1].set_xticks([0, 1, 2])
+ax[1].set_xticklabels(["six families\nbefore", "pooled\nbefore+after", "fresh family\n(redraw)"], fontsize=8)
+ax[1].set_ylim(0, 0.62)
+ax[1].set_ylabel("share that fused, worst cell")
+ax[1].set_title("(b) the worst cell reproduces itself")
+
+order = ["F_nominal", "F_local_mid", "F_local_max", "F_local_mean", "F_local_min"]
+nice = ["nominal F", "pair midpoint", "warmer body", "both bodies (mean)", "colder body"]
+vals3 = [x183["candidates"][k]["auc_overall"] for k in order]
+cols3 = [GREY, RED, ORANGE, GREEN, BLUE]
+ax[2].barh(range(5), vals3, color=cols3, height=0.6)
+ax[2].axvline(0.5, color=INK, ls=":", lw=1.0)
+for i, v in enumerate(vals3):
+    ax[2].annotate(f"{v:.3f}", (v, i), textcoords="offset points", xytext=(4, -3), fontsize=8.5)
+ax[2].set_yticks(range(5))
+ax[2].set_yticklabels(nice, fontsize=8)
+ax[2].set_xlim(0, 1.0)
+ax[2].set_xlabel("AUC: reading → fusion")
+ax[2].set_title("(c) the colder body is the reading")
+fig.suptitle("Figure 8 — the whole table, the dispersion, and which number on the ladder is real",
+             fontsize=12, fontweight="bold", y=1.03)
+fig.tight_layout()
+save(fig, "fig8-the-table-and-the-ladder")
+
 (OUT / "tables.json").write_text(json.dumps(tables, ensure_ascii=False, indent=1) + "\n", encoding="utf-8", newline="\n")
 print(f"[figures] tables.json written with {len(tables)} groups")

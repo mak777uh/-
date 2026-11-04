@@ -8,7 +8,7 @@ README, the licence, a Zenodo metadata record, a sha256 manifest and the publica
     python scripts/build_article_030_package.py
     python scripts/build_article_030_package.py --no-zip     # leave the directory for inspection
 
-Output: `_exports/030-gap-switches-fusion/` and `_exports/030-gap-switches-fusion-v1.2.zip` (both ignored by git).
+Output: `_exports/030-gap-switches-fusion/` and `_exports/030-gap-switches-fusion-v2.0.zip` (both ignored by git).
 
 One author is set (Vladimirov, Ilya — given by the owner on 05.11; no ORCID, no related identifiers); the licence is CC BY
 4.0, the standing default, and the brief says where to change it. Nothing is uploaded by this script.
@@ -28,14 +28,45 @@ FIGDIR = ROOT / "articles" / "030-figures"
 REFS = ROOT / "articles" / "030-references.md"
 POND = ROOT / "morphogenesis" / "experiments" / "E09_pond"
 OUT = ROOT / "_exports" / "030-gap-switches-fusion"
-ZIP = ROOT / "_exports" / "030-gap-switches-fusion-v1.2.zip"
+ZIP = ROOT / "_exports" / "030-gap-switches-fusion-v2.0.zip"
 STEM = "030-the-gap-between-surfaces-decides-fusion"
 
 AGGREGATES = [
+    "l1_field_x156_shape_heredity.json",
+    "l1_field_x157_gap_geometry.json",
+    "l1_field_x157_quantum.json",
+    "l1_field_x158_crossing.json",
+    "l1_field_x161_discrete.json",
+    "l1_field_x162_local_scale.json",
+    "l1_field_x162b_decay.json",
+    "l1_field_x164_asymmetric.json",
+    "l1_field_x165_three_bodies.json",
+    "l1_field_x166_threshold.json",
+    "l1_field_x167_reversibility.json",
+    "l1_field_x167b_reversibility.json",
+    "l1_field_x168_inflow.json",
+    "l1_field_x168c_inflow.json",
+    "l1_field_x168d_gap11.json",
+    "l1_field_x169_seam.json",
+    "l1_field_x170_corridor.json",
+    "l1_field_x171_corridor_sizes.json",
+    "l1_field_x172_forecast.json",
+    "l1_field_x173_bridge.json",
+    "l1_field_x174_gap_corridor.json",
+    "l1_field_x175_interior.json",
+    "l1_field_x176_past_crossing.json",
+    "l1_field_x177_edge.json",
+    "l1_field_x178_cliff.json",
+    "l1_field_x179_crossing_table.json",
+    "l1_field_x180_dispersion.json",
+    "l1_field_x181_worst_cell.json",
+    "l1_field_x182_local_inflow.json",
+    "l1_field_x183_local_collapse.json",
     "l1_field_x184_cold_body.json",
     "l1_field_x185_one_law.json",
     "l1_field_x186_table_local.json",
     "l1_field_x187_nucleation.json",
+    "l1_field_x188_nucleation_identity.json",
     "l1_field_x189_bridge.json",
     "l1_field_x190_bridge_sites.json",
     "l1_field_x191_site_sweep.json",
@@ -95,13 +126,14 @@ arrays are not part of the deposit (they are regenerable with the committed scri
 
 Every number is computed from the aggregates by `scripts/make_article_030_figures.py` in the repository, written into
 `data/derived/tables.json`, and checked against the article text by `scripts/check_article_030_numbers.py --ci`. The
-aggregates carry their own command lines and pre-registrations. The independent recomputation of the headline numbers is
-`lab/reviews/2026-11-04-030-numbers.md` in the repository.
+aggregates carry their own command lines and pre-registrations. The independent recomputations behind the numbers are
+`lab/reviews/2026-11-04-030-numbers.md` (the earlier, narrower edition) and `lab/reviews/2026-11-05-030-v20-numbers.md`
+(the blocks added in v2.0), both in the repository.
 """
 
 BRIEF = """# Publishing brief — article 030 "{title}"
 
-You are receiving this brief together with one archive, `030-gap-switches-fusion-v1.2.zip`. The article and its data are
+You are receiving this brief together with one archive, `030-gap-switches-fusion-v2.0.zip`. The article and its data are
 final: the numbers have been checked mechanically against the data and independently recomputed by a reviewer. Your job is
 to deposit them, not to improve them. Where this brief says "ask the author", stop and ask; do not decide on your own.
 
@@ -110,7 +142,7 @@ to deposit them, not to improve them. Where this brief says "ask the author", st
 | file | what it is |
 |---|---|
 | `{stem}.md` | the article (Markdown, English) |
-| `figures/fig1..fig5.png` and `.pdf` | the five figures, reading and typesetting versions |
+| `figures/fig1..fig8.png` and `.pdf` | the eight figures, reading and typesetting versions |
 | `data/derived/tables.json` | every number plotted in the article |
 | `data/aggregates/*.json` | the aggregates the article cites |
 | `references.md` | the verified reference list (20 entries, one rejected and not cited) |
@@ -124,8 +156,8 @@ to deposit them, not to improve them. Where this brief says "ask the author", st
 
 1. **Creators.** `zenodo.json -> creators` carries `Vladimirov, Ilya` — the author list the owner gave on 05.11 (one author,
    no ORCID, no other identifiers). Do not add names.
-2. **Related identifiers.** The owner states there are none; `related_identifiers` is empty. If a DOI of its own or a
-   companion deposit appears, the owner supplies it. *(OWNER)*
+2. **Related identifiers.** The archive carries exactly one: `{{relation: references, identifier: 10.5281/zenodo.23933440}}`,
+   the published previous step of this line. The owner supplied it on 05.11. Add nothing else unless the owner names it. *(OWNER)*
 3. **Licence.** The archive carries CC BY 4.0, which is the standing default. If the owner names another licence it must be
    changed here first. *(OWNER)*
 4. **The PDF.** If the article PDF is absent from the archive, the machine that built it had no PDF renderer: run
@@ -138,7 +170,7 @@ to deposit them, not to improve them. Where this brief says "ask the author", st
 - **Title and description:** copy from `zenodo.json` verbatim.
 - **Keywords:** from `zenodo.json` (`keywords`).
 - **Access:** open.
-- **Version:** v1.2.
+- **Version:** v2.0.
 - After the deposit, record the DOI back in the repository (`lab/notices.md`) so the line's own artifacts can cite it.
 
 ## 4. What this archive does NOT contain
@@ -221,7 +253,7 @@ def main() -> int:
         "creators": [{"name": "Vladimirov, Ilya"}],
         "license": "CC-BY-4.0",
         "access_right": "open",
-        "version": "v1.2",
+        "version": "v2.0",
         "language": "eng",
         "keywords": ["reaction-diffusion", "pattern formation", "neural cellular automata", "coalescence", "bridge",
                      "pre-registration", "unit of observation"],

@@ -47,12 +47,24 @@ locates the transition between adjacent gaps, finer than X196 could), the radius
 and is higher by at least 0.10 somewhere, the phase still decides the bridge in every arm, and the re-run arms reproduce their
 committed values (0.00 / 0.40 / 0.96) within ±0.05.
 
-**Article 030 is finished and stopped at the boundary.** An outside-reader edition of the phase-census line, in English, with
-five figures, a verified reference list of 20 entries and the numbers gated by `scripts/check_article_030_numbers.py` (45
-needles, inside `verify`); independently recomputed in `lab/reviews/2026-11-04-030-numbers.md` (1008/1008 per-world rows
-matched, two caveats folded in, one number in my own task brief corrected). The deposit package is built
-(`_exports/030-gap-switches-fusion-v1.0.zip`, 32 files with a sha256 manifest and a brief). **Nothing has gone outward.**
-Waiting on the owner: the creator list with ORCIDs, the licence choice, any related identifier, and an explicit go.
+**Article 030 is finished as v2.0 and stopped at the boundary.** On 05.11 the owner asked whether the continuation after the
+published step could be a single article and then confirmed it; the article was enlarged in place from the census-line edition
+to **one article for the whole path after the published 029 v2.0** (X156–X197). It now carries the line it continues (the
+published DOI), six falsifiable questions instead of four, and its results in nine subsections: the distance the medium uses
+and the crossing it makes (the surfaces touch at a median of 1.93 cells, an upper bound with the threshold's lower bound at
+0.7, with the crossing one cell wide at 10/10/9 and unmoved by the inflow rate), what a daughter keeps (0.5167 elongation,
+0.4811 width) and what it does not (the discrete state is re-drawn; a merge divides after 25 steps against 40), the corridor
+at contact (0.479/0.4918/0.4701) with the cliff at its edge (10 of 30 against 3 of 10), the full crossing table (57 cells,
+772 runs) whose dispersion is the phase of the medium at the colder body (mean point-biserial −0.552, z −7.807; AUC 0.8656
+against 0.5874 nominal and 0.2149 midpoint), the bridge at a fixed supply (slope 6.09, z 5.8) with the opposite sign at a
+smaller body, and the unit of observation. Two readings are **withdrawn** in the text and in `docs/eliminations.md`: X168 as
+a units artefact and X188 because its observable contains the outcome; §9 lists six places where a report's prose disagrees
+with the stored field, with the artifact quoted in each. Eight figures and `tables.json` come from
+`scripts/make_article_030_figures.py`; **138 needles** are gated by `scripts/check_article_030_numbers.py --ci` (it now
+normalises whitespace, so a needle spans a line break); the PDF is rebuilt; the deposit package is
+`_exports/030-gap-switches-fusion-v2.0.zip`; the added numbers are independently reviewed in
+`lab/reviews/2026-11-05-030-v20-numbers.md`; the sequence is mapped in `docs/series.md`, and the two queue items that would
+have made separate articles of the corridor block and of 029 v2.1 are marked **superseded**. **Nothing has gone outward.**
 
 ## Closed on 04.11 — the fusion and heredity block (field line)
 
@@ -206,8 +218,12 @@ effect.** X168d was correctly powered to say "nothing here" and was read as "not
 the paper, corrected within the hour by a reviewer and a by-product of an unrelated run. Keep the reviewer in the loop before
 a sentence that strong is written, not after.
 
-## Waiting for the owner — only two items, both small
+## Waiting for the owner — three items, all small
 
+1. **Which deposit goes out first.** 029 v2.1 (written and checked, adds X161–X170) and 030 v2.0 (one article for everything
+   after the published 029 v2.0, package built) are both prepared and neither has gone anywhere. The choice is the owner's:
+   deposit 029 v2.1 as a new version of the same record `23933440` and then 030 as a new record, or let 030 carry the path
+   alone. Licence defaults to CC BY 4.0; the author list is settled (Ilya Vladimirov). Cost once approved: minutes.
 1. **X54, canonical weights:** the snapshot is honest now (`ready 1 / missing 11`, `weights_tracked: false`), but the choice
    remains: (a) restore the 12 `nca_final.pt` from Zenodo `10.5281/zenodo.23654174` (6.47 GB), or (b) record the local
    absence in `docs/deposit.md` and drop the 12-file requirement. Option (b) costs 15 minutes and unblocks the retention

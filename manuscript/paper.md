@@ -2052,6 +2052,43 @@ conclusions: the unit has to be checked **per statistic**, and X186's conclusion
    «нет специфики точки смерти» там, где соседей много — **закрыто 27.10**: пересъёмка на одном коде
    дала 5/10, медиана −0.0092, p = 0.62 (специфики нет; см. §4j).
 
+### 4k.5 The census line: the gap between surfaces switches fusion (article 030, v2.0)
+
+The published preprint of this line stopped at X155. Everything the line has measured since then is written up as **one
+article** — [`articles/030-the-gap-between-surfaces-decides-fusion.md`](../articles/030-the-gap-between-surfaces-decides-fusion.md),
+v2.0, prepared and not deposited — so that the sequence reads as steps rather than as fragments: last time we found this and
+decided to check that; here are the results; here is where we move next.
+
+The part that belongs in this manuscript's argument is the **conditional** reading of the mixing length. The distance that
+matters is the one the medium uses, not the one the design names: from 132 merging runs the two **surfaces** touch at a median
+of **1.93 cells**, the same at every body size, and because the log is one snapshot per ten steps that value is an upper bound
+which places the true threshold's lower bound at a median of **0.7 cells** — a window, not a point. The crossing is one cell
+wide (fusion falls below one half at gaps 10, 10 and 9 for radii 3, 4.5 and 6; a (3, 6) pair crosses between 8 and 10) and it
+does not move with the inflow rate over the three rates tested. An earlier reading of the crossing against the inflow rate is
+**withdrawn** as a units artefact (a surface gap was passed where a centre separation was expected).
+
+What decides the outcome at a fixed distance is the measured chemical state of the space between the bodies. Holding the local
+supply fixed, the logistic slope of fusion on the bridge ratio is **6.09** (z 5.8) at radius 6 and **4.85** (z 2.7) at radius
+3, with the sign of the supply–fusion association **reversed** between the two sizes (Spearman −0.378/−0.833 against
++0.413/+0.515). Ordered by the surface gap the shares run 0.00, 0.19, 0.40, 0.83, 0.96 from 12 cells to 8 at two sizes; a
+matched-gap contrast at gap 8 gives 0.96 against 0.83, a shift rather than a switch. The best single reading of "the rate this
+run had" is the measured inflow **at the colder of the two bodies** (AUC **0.8656**), not the nominal rate the experiment set
+(0.5874) and not the pair's midpoint (0.2149, anti-predictive); the enumeration behind that reading is 57 two-body cells and
+772 runs, in which the between-family dispersion is the phase of the medium where the pair sits (midpoint point-biserial
+−0.552, z −7.807 over 316 runs) and the worst cell reproduces under a fresh family (12 of 30 against 20 of 49 before).
+
+Two negative results belong here as limits. Shape is inherited about half (daughter-on-parent slope **0.5167** elongation,
+**0.4811** width) while the **discrete** state is re-drawn at every division; and the unit of observation is not safe per
+paper but **per statistic** — regrouping 757 runs into 633 worlds leaves a rank statistic alone (AUC 0.652 → 0.660) while
+moving a likelihood-based deviance drop from 20.7 to 14.3, across its own bar of 20.
+
+Evidence: aggregates `morphogenesis/experiments/E09_pond/l1_field_x15*.json`, `l1_field_x16*.json`, `l1_field_x17*.json`,
+`l1_field_x18*.json`, `l1_field_x19*.json`; figures and every plotted number in
+[`articles/030-figures/`](../articles/030-figures/) (`tables.json`); pre-registrations in `reports/`; the machine check
+`scripts/check_article_030_numbers.py` requires each of the **138** printed numbers to appear in the article and to carry the
+artifact's value. The sequence itself, including what is published outward and what is not, is mapped in
+[`docs/series.md`](../docs/series.md).
+
 ## 8. Data and code
 
 **Препринт этапа:** [10.5281/zenodo.23669738](https://doi.org/10.5281/zenodo.23669738)
