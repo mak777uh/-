@@ -556,3 +556,12 @@ resamples against 0.517 for runs. Two statistics, one pool, opposite conclusions
 **each** published statistic with it and report the pair; a unit check that passes for one statistic licenses nothing for another,
 because pooling changes the weight of the rows differently for a rank statistic and for a likelihood.
 
+## Hold the derived variable fixed, not the nominal one (04.11)
+
+X195 varied the radius at a fixed **centre separation** and concluded a window of body sizes; X196 varied radius at a fixed **gap**
+between the surfaces and the conclusion vanished - at a matched gap of 8 both sizes fuse (0.96 and 0.83), and the "window" was the far
+end of the gap range (12 and 10 at a separation of 20) rather than a property of the size. The habit: when a manipulation has a nominal
+form and a derived form that the dynamics actually sees - separation versus gap, concentration versus local concentration, dose versus
+exposure - fix the derived one, and report the table ordered by it as well as by the nominal one. X193's own reversal between radii is
+not affected, but its "size sets the sign" phrase is now read with the gap beside it.
+

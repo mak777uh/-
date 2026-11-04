@@ -1928,12 +1928,13 @@ sign of the inflow–outcome relation (Spearman +0.413 over classes against −0
 of the inflow's association with fusion is set by the body size: a stronger inflow thickens the bridge between small bodies and thins
 it between large ones.
 
-That statement has a boundary. At radius 4 gap 12 and radius 5 gap 10, with the centre separation held at 20 cells, **not one of the
-288 worlds fuses**, although every one of them keeps a measurable bridge whose association with the inflow runs in the radius-6
-direction (Spearman −0.686 and −0.492 over classes). The outcome over size is therefore not a monotone sign change but non-monotone
-in **existence**: present at radius 3, absent at 4 and 5, partly present again at 6. A follow-up that varies the separation at fixed
-radius is what separates "too far apart" from "wrong size", and the radius-6 arm's partial fusion at a 21-cell separation against the
-zero at 20 cells points at the separation.
+That statement has a boundary, and the boundary is the **gap between the surfaces**, not the body size. At radius 4 gap 12 and radius 5
+gap 10 — a centre separation of 20 cells — **not one of the 288 worlds fuses**, although every one keeps a measurable bridge. Moving the
+same radius-4 bodies to gaps of 10 and 8 turns fusion back on (0.19 then 0.96 of phase classes), and radius 6 at the **same** separation
+of 20 fuses 0.83 of its classes because its gap there is 8 rather than 12. Ordered by the surface-to-surface gap the fusion share is
+monotone — 0.00, 0.19, 0.40, 0.83, 0.96 as the surfaces come from 12 cells apart to 8 — while ordered by radius it is not. At a matched
+gap of 8 the smaller body fuses slightly more often than the larger (0.96 against 0.83), so the size shifts the outcome by about a
+tenth while the gap switches it, which is also where the earlier boundary work (X158) placed the transition, at about 10 cells.
 
 Finally, the unit of observation. The line's pooled numbers were computed over runs, and the same worlds that fix the censuses let one
 ask how many independent worlds a pool actually contains. In the natural (observational) pool 757 runs collapse to **633 arm-held
