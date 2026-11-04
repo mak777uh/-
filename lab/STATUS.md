@@ -4,15 +4,38 @@ One file, one place that says what is actually in work. Machine state lives in `
 `_hourly/log.md`, numbers in artifacts. The Russian sections below the line are **history** and are not rewritten; the top
 part is kept current (new text in English — decision of 31.10).
 
-**Updated:** 2026-11-03, 06:45 MSK.
+**Updated:** 2026-11-04, 11:05 MSK.
 
 ## Running now
 
-- **X132 — the power run.** Twenty new worlds per cell at `F = 0.030` and `0.040` (seeds 311–330, added to the existing ten
-  so each cell has thirty), because X131 showed that ten worlds cannot resolve the survival contrast the whole consequence
-  chain rests on. Anchor exact, series started 05:53, analysis only after it finishes.
-- **X108** — the ladder and the specificity re-measured on X105's twenty worlds with a field at every logged step (seeds
-  301–310), long closed; its logs are the substrate of X113–X131.
+Nothing. No series is running, no lock is held, and the last ten hours were a single block of small items on the field
+line whose results are below. `lab/state.json` reports `active_runs: 0`.
+
+## Closed on 04.11 — the fusion and heredity block (field line)
+
+Thirteen items, in the order they were run. Each has a report, an aggregate and a row in the README ledger; the section
+numbers are in `docs/plan/10d-field-metrics-and-form.md` (10hv–10id).
+
+| what | verdict | where |
+|---|---|---|
+| **X164** unequal pairs | an (3, 6) pair fuses 5/5 at surface gaps 4, 6 and 8 and 2/5 at 10, so the **size ratio does not move the crossing**; the contact gap rises with the initial gap (1.84 / 2.21 / 2.60 / 4.38) | §10hw, `reports/2026-11-04-x164-asymmetric-pairs.md` |
+| **X165** three bodies | a row of three coalesces 5/5, 1/5, 0/5 at gaps 8, 10, 12 — the **square of the pairwise share** (22 %), so the length is **additive per contact** | §10hy, `-x165-three-bodies.md` |
+| **X161** discrete traits | division order −0.163 and lifespan 0.101, both **inside** their shuffled-parent nulls, area 0.546 as the control: a digital medium gives a **notation, not a ratchet**; fertility is untestable by construction | §10hz, `-x161-discrete-heredity.md` |
+| **X162b** neighbour decay | a neighbour's trait decays with distance over **one body radius**, faster than the trait's own spread | §10hu, `-x162b-neighbour-decay.md` |
+| **X166** one-step threshold | the contact gap's residual window shrinks from 1.3 cells to **0.06** while the spread stays at 2.07, so "about two cells" is a **band by right** (1 to 5 across arms), not a sampling artefact | §10hx, `-x166-one-step.md` |
+| **X167 / X167b** reversibility | eight fusions re-divide in place (median 25 steps, area ratio 0.867, offset 1.25 cells) but sit **1.12 sd** from a single body's growth phase: reversible, and **not distinguishable from a blob** | §10hv, `-x167-reversibility-exploratory.md`, `-x167b-reversibility.md` |
+| **X168** inflow, first attempt | **withdrawn**: the gap was passed as a centre separation, so every arm fused and the "dependence" was an artefact; the withdrawal is kept as a section and the incident is recorded | §10ia, `-x168-inflow-crossing.md`, `docs/incidents.md` §15 |
+| **X168c** corrected | the crossing between ten and eleven cells reproduces at `F` = 0.026 / 0.030 / 0.036 | §10ib, `-x168c-inflow-corrected.md` |
+| **X168d** ten seeds | gap-11 shares 0/10, 1/10, 3/10; the extreme contrast gives Fisher **p = 0.21**, so the **trend was noise** and the insensitivity is measured rather than power-limited | §10id, `-x168d-gap11.md` |
+| **X169** the seam | the pre-registered probe **failed its own control** (the single body reads 0.047 against a 0.9 floor, because a cross-section is a ring); auxiliary and not pre-registered: the merged body is a **dumbbell**, waist ratio 0.36, and the field dies inside 300 steps | §10ic, `-x169-seam.md` |
+| **X156 / X162 / X160** | already closed earlier in the block: shape heritable at about half, the local-scale slope inside its null once area is partialled out | see the README ledger |
+
+**One sentence the block earned:** everything the fusion work measured is the **medium's** length rather than the pair's —
+the same ten-cell crossing for a body twice the size, for an unequal pair, per contact in a row of three, and across a third
+of the source's range — while what a blob passes to its daughters is the field's shape and not its own history.
+
+**The one question it could not close:** whether a merge keeps the two bodies' structure. Components cannot say (any
+elongated blob divides at its ends), and the field probe built to say it needs a world whose pattern outlives the merge.
 
 ## Closed on 03.11 — the identity block (field line)
 
@@ -110,6 +133,17 @@ Note on X80's three numbers: they were measured on cells whose *realised* spectr
 The estimator note is the one with teeth: every half-life we published (X74, X76, X78b, X79) is **pooled**, and pooling is a
 choice that was never declared. The direction of the band survives it; the size does not.
 
+
+## Deliberately not doing in this block
+
+- **X163 (a Lamarckian rule).** It is the one item left in the queue and it is the wrong next experiment: the trait `s` is
+  read from the field (`comp_s` is the mean of the trait channel over a component's cells), so "copy the parent's trait to the
+  daughter" is not a manipulation of the world but a rewrite of the readout. Making it real needs a rule that writes into the
+  daughter's *cells*, and that is a `world/` edit with its own anchor — not a thing to bolt on at the end of a block.
+- **The seam in the pond regime.** It is the right follow-up to X169, and it needs a world whose pattern outlives the merge;
+  the field line's pattern is gone in 300 steps. Designing that world is a block of its own.
+- **Any outward step.** Nothing was published, no tag moved, no deposit changed. The publication decisions stay where they
+  were.
 
 ## Waiting for the owner — only two items, both small
 
