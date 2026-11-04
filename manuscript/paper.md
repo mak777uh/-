@@ -1,6 +1,6 @@
 # Условия поддержания организации в цифровой среде: цена ошибки, неполная информация и границы обучения
 
-**Статус:** draft v4.0 (2026-11-04). Не подана, не рецензирована, цитировать нельзя. Соответствие препринту: v1.2 (Zenodo) — добавлены измеренная цена (−0.374, ДИ [−0.396, −0.266]), канал признака, механизмы сосуществования (асинхронность, смертность) и их синергия (+0.445); v3.6 — плотная лестница наследования и ось порога (§4k.1), третье поле как отрицательный результат (§4k); v3.7 — §4k.3 «Coalescence is a merger, not a birth»; v3.8 — §4k.2 «What makes the end of a lineage an end»; v3.9 — §4k.4 «The heredity coefficient is the rule's fidelity», измерение наследуемости вместо утверждения; v4.0 — §4k.5 «What a daughter inherits when the trait is not written by the rule» (форма наследуется примерно наполовину) и §4k.6 «Where the fusion boundary actually is» (исправление микшинг-длины по независимому ревью). Новые подразделы написаны сразу по-английски.
+**Статус:** draft v4.1 (2026-11-04). Не подана, не рецензирована, цитировать нельзя. Соответствие препринту: v1.2 (Zenodo) — добавлены измеренная цена (−0.374, ДИ [−0.396, −0.266]), канал признака, механизмы сосуществования (асинхронность, смертность) и их синергия (+0.445); v3.6 — плотная лестница наследования и ось порога (§4k.1), третье поле как отрицательный результат (§4k); v3.7 — §4k.3 «Coalescence is a merger, not a birth»; v3.8 — §4k.2 «What makes the end of a lineage an end»; v3.9 — §4k.4 «The heredity coefficient is the rule's fidelity», измерение наследуемости вместо утверждения; v4.0 — §4k.5 «What a daughter inherits when the trait is not written by the rule» (форма наследуется примерно наполовину) и §4k.6 «Where the fusion boundary actually is» (исправление микшинг-длины по независимому ревью); v4.1 — §4k.6 получает измеренный переход 10 ± 1 клетки вместо полосы 8–11 и вторую поправку: 1.9 клетки при контакте — верхняя граница порога, а не порог (окно 1.3 клетки, X159). Новые подразделы написаны сразу по-английски.
 **Данные частичные:** линия поля закрыта до X107; блоки X108–X157 внесены в текст (§4k — второй вид, §4k.2 — идентичность, §4k.3 — слияние, §4k.4 — наследуемость, §4k.5 — форма, §4k.6 — исправленная граница слияния). Открытых вопросов линии осталось два: X152/X149 в блоке слияния. Аудит: `reports/2026-11-03-claims-audit.md`.
 
 ## 1. Вопрос
@@ -1773,23 +1773,32 @@ position fell within two cells, which is why it read "two of five" where the cla
 third row was a bound between two arms, not a measured crossing.
 
 Re-deriving the geometry from the logs of all 171 two-body runs — the areas and centres of both bodies at the last logged
-step before they are one, with the radius `sqrt(A/pi)` — replaces one number with two, and the second is the measurement
-the first was standing in for:
+step before they are one, with the radius `sqrt(A/pi)` — and then running the arms that had never been run, replaces one
+number with three measurements:
 
-1. **At contact the surfaces are 1.9 cells apart** (median; 0.94 to 4.87 over 132 fusing runs), and this is the same at
-   every seeded size: 2.07 at radius 3, 1.89 at 4.5, 1.69 at 5.2, 1.93 at 6. That is about a sixth of the 12-cell
-   wavelength.
-2. **The design gap at which fusion stops being the rule lies between 8 and 11 cells.** Radius 3 ends as one body in 5/5
-   runs at gaps 8 and 9, 4/5 at 10 and 2/5 at 11; radius 4.5 in 5/5 at 8, 4/5 at 9 and 0/5 at 11; radius 6 in 15/15 at 8
-   and 0/5 at 12. The arms at gaps 9 to 11 for the two larger radii were never run, so the band cannot be narrowed.
+1. **At the last logged step before fusion the surfaces are 1.9 cells apart** (median; 0.94 to 4.87 over 132 fusing runs),
+   the same at every seeded size: 2.07 at radius 3, 1.89 at 4.5, 1.69 at 5.2, 1.93 at 6. That is about a sixth of the
+   12-cell wavelength. **This is an upper bound, not a threshold.** The log samples every tenth integration step and the
+   bodies grow inside that quantum, so the reading only says the pair is still two bodies at 1.9 cells and one body ten
+   steps later. Measured from the growth the log itself shows, the window is 1.3 cells wide: the threshold lies between 0.7
+   and 1.9 cells at the median, its lower bound stays above two cells in only 21 % of runs, and at radius 4.5 it crosses
+   zero. The honest sentence is "fusion happens when the surfaces are within about two cells", and turning the bound into a
+   threshold needs a one-step log, not more seeds.
+2. **The design gap at which fusion stops being the rule is 10 ± 1 cells.** With ten fresh seeds per unmeasured cell, the
+   share of runs that end as one body is 5/5, 5/5, 7/15 and 2/15 at gaps 8, 9, 10 and 11 for radius 3; 5/5, 4/5, 2/10 and
+   0/15 for radius 4.5; and 10/10, 3/10, 0/10 and 0/10 for radius 6. The crossing — the first gap below one half — is at 10
+   for radii 3 and 4.5 and at 9 for radius 6, so the spread is the one cell that ten seeds per arm resolve. The transition
+   is gradual over two cells rather than a step, and the larger bodies are *not* more tolerant: the withdrawn `2r + 9`
+   rule would have put the crossing at 9, 13.5 and 21 cells.
 3. **Why the boundary does not scale with the body:** the bodies grow to a common size before they meet. A body seeded at
    radius 3 is 2.88 cells at the first logged step and 5.84 when it touches its partner; one seeded at 6 goes from 6.00 to
    8.47. The initial separation, not the initial size, decides.
 
-The `2r + 9` rule and the single "9 ± 1" are withdrawn. What replaces them is a statement about the medium (fusion at about
-two cells of surface separation, whatever the bodies were seeded as) and a statement about the design (the initial gap that
-still allows it, flat in body size, located only to a four-cell band).
-
+The `2r + 9` rule and the single "9 ± 1" are withdrawn. What replaces them is a statement about the medium (fusion when the
+surfaces are within about two cells, with the threshold itself inside a window set by our logging quantum) and a statement
+about the design (the initial gap that still allows fusion, 10 ± 1 cells, flat in body size to within one cell). Both
+corrections are of one kind — a number read off the design rather than off the medium — which is why the second was found
+by turning the same scrutiny on the first: the bound on the threshold came from asking what our own sampling hides.
 
 Доказательства: раздел 10ho в \docs/world-design.md\; `reports/2026-11-03-x155-heredity.md`,
 `reports/2026-11-03-x155-heredity-plan.md`; агрегат `l1_field_x155_heredity.json`; прогоны `x155_anchor_f030_s301.json`,

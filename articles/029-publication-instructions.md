@@ -1,6 +1,6 @@
 # Publishing brief — article 029 "How lineages begin and end in a pattern-forming chemical medium"
 
-You are receiving this brief together with one archive, `029-lineages-v2.1.zip`. The article and its data are final: the
+You are receiving this brief together with one archive, `029-lineages-v2.2.zip`. The article and its data are final: the
 author has reviewed them and the numbers have been checked mechanically against the data. Your job is to deposit them,
 not to improve them. Where this brief says "ask the author", stop and ask; do not decide on your own.
 
@@ -15,7 +15,7 @@ not to improve them. Where this brief says "ask the author", stop and ask; do no
 | `figures/fig4-endings.{png,pdf}` | how bodies end, and the survival reversal across three habitats |
 | `figures/fig5-heredity.{png,pdf}` | transmission slope against a shuffled null; scatter against the noise parameter |
 | `figures/fig6-shape-heredity.{png,pdf}` | what a daughter inherits: the slope ladder, and the shape slopes read at four daughter ages |
-| `data/aggregates/*.json` | 29 aggregate files: the numbers behind every table and figure, each with the command line of its runs |
+| `data/aggregates/*.json` | 31 aggregate files: the numbers behind every table and figure, each with the command line of its runs |
 | `data/derived/tables.json` | every number printed in the article, each entry naming the aggregate it came from |
 | `data/derived/*.csv` | the same values as flat tables (`table-edge`, `table-habitats`, `table-heredity`) |
 | `README.md` | description of the dataset: conventions, units, provenance |
@@ -26,7 +26,7 @@ not to improve them. Where this brief says "ask the author", stop and ask; do no
 | `029-lineages-in-a-pattern-forming-field.pdf` | the article as a PDF, with all six figures embedded |
 
 PDF figures are the typesetting versions, PNG the reading versions; both are full page width. The archive holds 53
-files: the 57 listed in `MANIFEST.sha256` (everything, including this brief and the article PDF) plus the manifest
+files: the 59 listed in `MANIFEST.sha256` (everything, including this brief and the article PDF) plus the manifest
 itself, which cannot contain its own hash.
 
 ## 2. Check the archive before you upload anything (5 minutes)
@@ -34,9 +34,9 @@ itself, which cannot contain its own hash.
 1. **Integrity.** Unpack and compare every file against `MANIFEST.sha256`:
    `sha256sum -c MANIFEST.sha256` (Linux/macOS), or `Get-FileHash -Algorithm SHA256` in a loop on Windows. Every line
    must report OK.
-2. **Nothing missing.** Six figures in two formats (12 files), 29 aggregates, 6 files under `data/derived/`, and the
+2. **Nothing missing.** Six figures in two formats (12 files), 31 aggregates, 6 files under `data/derived/`, and the
    7 top-level files: the article in `.md` and `.pdf`, `README.md`, `LICENSE`, `zenodo.json`, `PUBLISHING.md` and
-   `MANIFEST.sha256`, plus 4 files under `papers/` — 58 files in all.
+   `MANIFEST.sha256`, plus 4 files under `papers/` — 60 files in all.
 3. **Spot-check one number.** In `data/derived/tables.json` take the entry `"h_slope"`; the same string
    (`0.9837 [0.9680, 1.0002]`) must appear in the article's §4.6 table and in
    `data/aggregates/l1_field_x155_heredity.json` under `cells[*].slope` / `slope_ci`. If the three disagree, do not

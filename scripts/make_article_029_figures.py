@@ -77,6 +77,8 @@ def main(argv=None) -> int:
     x113 = agg("l1_field_x113_depth.json")
     x155 = agg("l1_field_x155_heredity.json")
     x157 = agg("l1_field_x157_gap_geometry.json")
+    x158 = agg("l1_field_x158_crossing.json")
+    x159 = agg("l1_field_x157_quantum.json")
     x156 = agg("l1_field_x156_shape_heredity.json")
 
     by_arm = x142["by_arm"]
@@ -104,12 +106,36 @@ def main(argv=None) -> int:
         v = arm_of(radius, gap)
         return "not run" if v is None else f"{v['fused']}/{v['runs']}"
 
-    put("m_row_r3", f"| 3 | 29 | {cell(3.0, 8)} | {cell(3.0, 9)} | {cell(3.0, 10)} | {cell(3.0, 11)} | not run |",
-        None, "x157 arms r3.0 (one body = mutual fusion and absorption together)")
-    put("m_row_r45", f"| 4.5 | 64 | {cell(4.5, 8)} | {cell(4.5, 9)} | not run | {cell(4.5, 11)} | not run |",
-        None, "x157 arms r4.5")
-    put("m_row_r6", f"| 6 | 113 | {cell(6.0, 8)} | not run | not run | not run | {cell(6.0, 12)} |",
-        None, "x157 arms r6.0")
+    c_arms = x158["arms"]
+
+    def ccell(radius: float, gap: float) -> str:
+        v = c_arms.get(f"r{radius:.1f}_g{gap:.1f}")
+        return "not run" if v is None else f"{v['fused']}/{v['runs']}"
+
+    put("m_row_r3", f"| 3 | 29 | {ccell(3.0, 8)} | {ccell(3.0, 9)} | {ccell(3.0, 10)} | {ccell(3.0, 11)} | not run |",
+        None, "x158 arms r3.0 (all runs of the block at that cell)")
+    put("m_row_r45", f"| 4.5 | 64 | {ccell(4.5, 8)} | {ccell(4.5, 9)} | {ccell(4.5, 10)} | {ccell(4.5, 11)} | not run |",
+        None, "x158 arms r4.5")
+    put("m_row_r6", f"| 6 | 113 | {ccell(6.0, 8)} | {ccell(6.0, 9)} | {ccell(6.0, 10)} | {ccell(6.0, 11)} | not run |",
+        None, "x158 arms r6.0")
+
+    x_r3 = x158["by_radius"]["r3.0"]
+    x_r45 = x158["by_radius"]["r4.5"]
+    x_r6 = x158["by_radius"]["r6.0"]
+    put("m_cross", "10 ± 1 cells", [x_r3["crossing_gap"], x_r45["crossing_gap"], x_r6["crossing_gap"]],
+        "x158 by_radius crossing_gap", "the first design gap at which the fusion share falls below one half")
+    put("m_cross_r3", f"{x_r3['crossing_gap']:.0f} cells", x_r3["crossing_gap"], "x158 by_radius r3.0 crossing_gap")
+    put("m_cross_r6", f"{x_r6['crossing_gap']:.0f} cells", x_r6["crossing_gap"], "x158 by_radius r6.0 crossing_gap")
+    put("m_cross_spread", "one cell", x158["sensitivity"]["crossing_spread_cells"], "x158 sensitivity crossing_spread_cells")
+    put("m_r3_g10", f"{c_arms['r3.0_g10.0']['fused']}/{c_arms['r3.0_g10.0']['runs']}",
+        c_arms["r3.0_g10.0"]["fused"], "x158 arms r3.0 g10")
+    put("m_r3_g11", f"{c_arms['r3.0_g11.0']['fused']}/{c_arms['r3.0_g11.0']['runs']}",
+        c_arms["r3.0_g11.0"]["fused"], "x158 arms r3.0 g11")
+    put("m_r6_g9", f"{c_arms['r6.0_g9.0']['fused']}/{c_arms['r6.0_g9.0']['runs']}",
+        c_arms["r6.0_g9.0"]["fused"], "x158 arms r6.0 g9")
+    put("m_r45_g10", f"{c_arms['r4.5_g10.0']['fused']}/{c_arms['r4.5_g10.0']['runs']}",
+        c_arms["r4.5_g10.0"]["fused"], "x158 arms r4.5 g10")
+
 
     by_r = x157["by_radius"]
     put("m_contact", f"{x157['contact_gap_median']:.1f} cells", x157["contact_gap_median"],
@@ -120,6 +146,14 @@ def main(argv=None) -> int:
         f"{by_r['r3.0']['g_fusion_median']:.2f} at radius 3, {by_r['r4.5']['g_fusion_median']:.2f} at 4.5, "
         f"{by_r['r5.2']['g_fusion_median']:.2f} at 5.2, {by_r['r6.0']['g_fusion_median']:.2f} at 6",
         None, "x157 by_radius g_fusion_median")
+    put("m_window", f"{x159['window_width_median']:.1f} cells", x159["window_width_median"],
+        "x159 window_width_median", "how much the two radii grow inside one logging quantum")
+    put("m_window_low", f"{x159['threshold_low_median']:.1f}", x159["threshold_low_median"],
+        "x159 threshold_low_median")
+    put("m_window_high", f"{x159['threshold_median']:.1f}", x159["threshold_median"],
+        "x159 threshold_median")
+    put("m_window_share", f"{x159['share_above_two_cells_at_low_bound'] * 100:.0f} %",
+        x159["share_above_two_cells_at_low_bound"], "x159 share_above_two_cells_at_low_bound")
     put("m_runs", f"{x157['n_fused']} runs", x157["n_fused"], "x157 n_fused", "runs in which the two bodies became one")
     put("m_runs_all", f"{x157['n_runs']} two-body runs", x157["n_runs"], "x157 n_runs")
     put("m_growth_small", "2.9 cells in effective radius", by_r["r3.0"]["r_at_first_step_median"],
@@ -307,15 +341,17 @@ def main(argv=None) -> int:
 
     # ------------------------------------------------------------------ figure 2: mixing length, two quantities
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(7.4, 3.0))
-    ax1.axvspan(9, 11, color="0.92", zorder=0, lw=0)
     for radius, colour, marker, ls in ((3.0, BLUE, "o", "-"), (4.5, ORANGE, "s", "--"), (6.0, GREEN, "^", ":")):
-        rows = [v for v in arms.values() if abs(v["radius"] - radius) < 1e-6]
-        rows.sort(key=lambda v: v["nominal_gap"])
-        xs = [v["nominal_gap"] for v in rows]
-        ys = [v["fused_share"] for v in rows]
-        ax1.plot(xs, ys, marker=marker, ls=ls, color=colour, ms=5, lw=1.3,
-                 label=f"seeded radius {radius:g}")
-    ax1.text(10.0, 0.06, "no arm was run\nbetween 9 and 11", ha="center", fontsize=7.5, color="0.25")
+        rows = [v for v in x158["arms"].values() if abs(v["radius"] - radius) < 1e-6]
+        rows.sort(key=lambda v: v["design_gap"])
+        xs = [v["design_gap"] for v in rows]
+        ys = [v["share"] for v in rows]
+        los = [v["share"] - v["ci"][0] for v in rows]
+        his = [v["ci"][1] - v["share"] for v in rows]
+        ax1.errorbar(xs, ys, yerr=[los, his], marker=marker, ls=ls, color=colour, ms=5, lw=1.3, capsize=2.5,
+                     elinewidth=0.9, label=f"seeded radius {radius:g}")
+    ax1.axhline(0.5, color="0.55", lw=0.9, ls="-.")
+    ax1.text(13.7, 0.53, "one half", fontsize=7.5, color="0.35", ha="right")
     ax1.set_xlabel("initial surface gap between the two bodies (cells)")
     ax1.set_ylabel("share of runs that ended as one body")
     ax1.set_ylim(-0.08, 1.10)
@@ -340,13 +376,18 @@ def main(argv=None) -> int:
         ax2.scatter(xs + np.random.default_rng(7).normal(0, 0.05, len(vals)), vals, s=9, color="0.25", alpha=0.6,
                     zorder=3, linewidths=0)
     ax2.axhline(x157["contact_gap_median"], color=RED, lw=1.1, ls="--")
-    ax2.text(3.42, x157["contact_gap_median"] + 0.18, f"median {x157['contact_gap_median']:.1f}",
+    ax2.text(3.42, x157["contact_gap_median"] + 0.18, f"median reading {x157['contact_gap_median']:.1f}",
              fontsize=7.5, color=RED, ha="right")
+    ax2.axhline(x159["threshold_low_median"], color=RED, lw=0.9, ls=":", alpha=0.8)
+    ax2.annotate("", xy=(0.62, x159["threshold_low_median"]), xytext=(0.62, x157["contact_gap_median"]),
+                 arrowprops=dict(arrowstyle="<->", color=RED, lw=0.9, alpha=0.8))
+    ax2.text(0.70, (x159["threshold_low_median"] + x157["contact_gap_median"]) / 2,
+             f"window {x159['window_width_median']:.1f}", fontsize=7.2, color=RED, va="center")
     ax2.set_xticks([1, 2, 3])
     ax2.set_xticklabels(labels)
     ax2.set_xlabel("seeded radius of the bodies (cells)")
     ax2.set_ylabel("surface gap at contact (cells)")
-    ax2.set_title("(b) the same distance at every size", fontsize=9.5, loc="left")
+    ax2.set_title("(b) a bound, not a threshold", fontsize=9.5, loc="left")
     save(fig, "fig2-mixing-length")
 
     # ------------------------------------------------------------------ figure 3: the edge

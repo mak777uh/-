@@ -2955,13 +2955,13 @@
   {
    "id": "X158_crossing",
    "title": "Where exactly does fusion stop being the rule? The missing arms at three radii",
-   "status": "claimed",
+   "status": "closed",
    "owner": "lead",
    "kind": "experiment",
    "cost_gpu_h": 0.0,
    "prereg": "reports/2026-11-04-x158-crossing-plan.md",
    "created_at": "2026-11-04T02:55:00+03:00",
-   "note": "X157 left the crossing as a band (8-11 cells) because the arms at gaps 9-11 for radii 4.5 and 6 were never run and the radius-3 arms at 10/11 rest on five seeds. Sixty runs, ten seeds per arm, seeds 701-710, CPU. Positive control: gap 8 must give at least 4/5 at radii 3 and 6. Refusal rule: a radius that does not fall inside 9-11 is reported as not crossing, without extrapolation.",
+   "note": "closed: the crossing is measured at 10 +/- 1 cells with ten fresh seeds per unmeasured cell - 10 for radii 3 and 4.5, 9 for radius 6, so the spread is one cell and the transition is gradual over two cells. The larger bodies cross EARLIER, the opposite of the withdrawn 2r+9 rule. The X157 band 8-11 is withdrawn; the contact reading of 1.9 cells becomes an upper bound with a 1.3-cell window (X159). Report reports/2026-11-04-x158-crossing.md, aggregate l1_field_x158_crossing.json. Left for a revisit: ten fresh seeds at radius 6 gaps 9-10 and radius 4.5 gap 9 (a one-cell shift would break the flatness sentence).",
    "claimed_at": "2026-11-03T23:49:19Z",
    "heartbeat_at": "2026-11-03T23:49:19Z",
    "ttl_minutes": 240
@@ -2987,6 +2987,61 @@
    "prereg": null,
    "created_at": "2026-11-04T03:25:00+03:00",
    "note": "closed: the 1.9-cell reading of X157 is an upper bound. Measured window over 119 fusing runs: 1.33 cells wide (median), threshold in [0.70, 1.94], lower bound above two cells in only 21 % of runs, and negative at radius 4.5. Changes the article's sentence from 'fusion at 1.9 cells' to 'two bodies at 1.9 cells, merged within the next logged step'. Report reports/2026-11-04-x159-quantum.md, aggregate l1_field_x157_quantum.json, amendment 1 in the X157 report. Next: a one-step log of five arms (2 000 steps, five seeds) to pin the threshold to a tenth of a cell; a seeded size-ratio pair; the threshold against F."
+  },
+  {
+   "id": "X161_discrete_heredity",
+   "title": "Is a discrete trait inherited better than a continuous shape? The ratchet test",
+   "status": "planned",
+   "owner": null,
+   "kind": "experiment",
+   "cost_gpu_h": 0.2,
+   "prereg": null,
+   "created_at": "2026-11-04T03:40:00+03:00",
+   "note": "follows the X156 result (continuous shape inherited at about half) and the X155 result (a scalar the tracking rule writes is inherited at 0.98). Hypothesis: a DISCRETE trait computed from the field (lobe count of a body, or the winding number of the phase around its centre) survives division with fidelity near one, because a discrete label is robust to small perturbations of the boundary, while a continuous shape is re-derived and loses half. Design sketch: 10 worlds per habitat with --save-fields at every logged step, extract the discrete trait at each division, reconstruct parent-daughter pairs as in X155/X156, compare slopes and the exact-match rate against the shape ladder. Needs a field-dump series (~1 GB on disk, not committed) and a pre-registration; the world is frozen until X158 closes. Why it matters: if the ratchet holds, heredity in this medium depends on the KIND of state, not on the medium alone, and that is the cheapest route towards a heritable quantity the medium itself preserves."
+  },
+  {
+   "id": "X162_local_scale_heredity",
+   "title": "Is the local scale of the pattern inherited? Neighbour spacing as a heritable quantity",
+   "status": "planned",
+   "owner": null,
+   "kind": "analysis",
+   "cost_gpu_h": 0.0,
+   "prereg": null,
+   "created_at": "2026-11-04T03:55:00+03:00",
+   "note": "channel 2 of the substrate-neutral list. The local wavelength (distance to the nearest neighbour body, or the mean spacing inside a radius) is a property of the medium rather than of the body, and it is measurable from the logs we already keep (component centres and areas, no new runs): for every parent-daughter pair of the X156 series, correlate the spacing around the parent at her last logged step with the spacing around the daughter at her first, and compare the slope with the shape ladder (0.61 log elongation, 0.45 area, 0.34-0.62 range) and against a shuffled-parent null. Kill condition: if the slope is indistinguishable from the null, the medium's scale is not inherited and this channel is closed with a number. Cost: analysis only, ~1 hour. Preregistration needed before it runs: the readout is a distance, so the logging quantum must be quoted."
+  },
+  {
+   "id": "X163_lamarckian_rule",
+   "title": "Inheritance of the process itself: a spatially varying rule as the heritable state",
+   "status": "planned",
+   "owner": null,
+   "kind": "experiment",
+   "cost_gpu_h": 0.3,
+   "prereg": null,
+   "created_at": "2026-11-04T03:56:00+03:00",
+   "note": "channel 4 of the substrate-neutral list, and the one with no biological analogue. Make the medium's own parameters spatially varying and slowly updated by what happens locally (e.g. the feed rate F or the diffusion ratio relaxing towards a local value set by the density of bodies), then ask whether a daughter inherits the LOCAL parameter of her mother's site rather than her shape. This is Lamarckian inheritance: what is transmitted is a property of the rule, not of the body. Design sketch: two cells (F = 0.030 / 0.040) with a relaxation of the local feed towards a target with time constant tau; controls: tau -> 0 must be bit-identical to the frozen world, and a shuffled-site null must destroy the parent-daughter correlation. Needs a world change and therefore the freeze to lift. Why it matters: if a medium can inherit its own parameters, heredity no longer needs a body at all, which is the strongest version of the non-biological route."
+  },
+  {
+   "id": "X164_asymmetric_pairs",
+   "title": "Does the fusion crossing depend on the size RATIO rather than on the size?",
+   "status": "planned",
+   "owner": null,
+   "kind": "experiment",
+   "cost_gpu_h": 0.2,
+   "prereg": null,
+   "created_at": "2026-11-04T03:57:00+03:00",
+   "note": "follow-up 2 of the X158 report. Pair a body seeded at radius 3 with one seeded at 6 at the crossing gaps 9 and 10, ten seeds each (20 runs of 6000 steps, CPU). Question: is the boundary set by the initial separation (X158's answer for equal pairs: 10 +/- 1 cells, flat in size) or by the ratio of the two bodies? Prediction from the growth argument: the boundary stays at the same separation, because both grow to 5.8-8.5 cells before meeting. If the boundary instead moves with the ratio, the 'medium length' sentence of the article needs a qualification. Preregistration: five sections, positive control = the equal pair at gap 8 fusing 5/5."
+  },
+  {
+   "id": "X165_three_bodies",
+   "title": "Three bodies in a row: does the pairwise fusion boundary survive many-body contact?",
+   "status": "planned",
+   "owner": null,
+   "kind": "experiment",
+   "cost_gpu_h": 0.3,
+   "prereg": null,
+   "created_at": "2026-11-04T03:58:00+03:00",
+   "note": "follow-up 4 of the X158 report. Three bodies of radius 3 at separations that put 9 cells between neighbours: does the middle one fuse with both, does the pair-wise boundary hold, and does the merged body keep a lineage at all? 10 seeds, 6000 steps, CPU. This is the first many-body test of a claim measured on pairs, and the honest risk is that a chain behaves differently from a pair - which would matter, because the article's mixing-length sentence is about interactions in general. Preregistration with the paired arm as the positive control (the same separation, two bodies, 5/5 expected)."
   }
  ]
 }

@@ -25,7 +25,7 @@ FIGS = ROOT / "articles" / "029-figures"
 ARTICLE = ROOT / "articles" / "029-lineages-in-a-pattern-forming-field.md"
 INSTRUCTIONS = ROOT / "articles" / "029-publication-instructions.md"
 OUT = ROOT / "_exports" / "029-lineages"
-ZIP = ROOT / "_exports" / "029-lineages-v2.1.zip"
+ZIP = ROOT / "_exports" / "029-lineages-v2.2.zip"
 
 # Every aggregate a number in the article comes from.
 AGGREGATES = [
@@ -54,7 +54,7 @@ AGGREGATES = [
     "l1_field_x154_mixing.json",
     "l1_field_x155_heredity.json",
     "l1_field_x156_shape_heredity.json",
-    "l1_field_x157_gap_geometry.json",
+    "l1_field_x157_gap_geometry.json", "l1_field_x158_crossing.json", "l1_field_x157_quantum.json",
     "l1_field_x96c_pilot.json",
     "l1_field_x96d_orientation.json",
     "l1_field_x110b_gamma_cell.json",
@@ -211,7 +211,7 @@ def main() -> int:
         "license": "CC-BY-4.0",
         "access_right": "open",
         "language": "eng",
-        "version": "2.1",
+        "version": "2.2",
         "publication_date": "2026-11-04",
         "related_identifiers": [
             {"identifier": "https://github.com/mak777uh/-", "relation": "isSupplementTo", "scheme": "url"},

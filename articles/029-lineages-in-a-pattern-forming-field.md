@@ -140,54 +140,68 @@ applied the paired fractions read 0.526 and 0.388.
 
 ## 4. Results
 
-### 4.1 Fusion happens at contact, and the gap that stops it lies between eight and eleven cells
+### 4.1 Fusion happens at contact, and the gap that stops it is ten cells at every size
 
-Two numbers describe this, and the first version of this section reported only one of them, wrongly. Both are below.
+Two numbers describe this, and the first version of this section reported one of them wrongly and the other as a single
+figure rather than a bound. All three statements below are measured, and the corrections are recorded where they belong.
 
-**What the medium sets — the distance at contact.** In 132 runs in which two seeded bodies became one, at the last
-logged step before they were one the gap between their surfaces was **1.9 cells** (median; range 0.9 to 4.9). It is the
-same at every size we seeded: 2.07 at radius 3, 1.89 at 4.5, 1.69 at 5.2, 1.93 at 6. That is about a sixth of the
-pattern's 12-cell wavelength, and it is a length belonging to the medium: we did not choose it, and it does not depend on
-the pair.
+**What the medium sets — the distance at contact.** In 132 runs in which two seeded bodies became one, at the last logged
+step before they were one the gap between their surfaces was **1.9 cells** (median; range 0.9 to 4.9), and it is the same
+at every size we seeded: 2.07 at radius 3, 1.89 at 4.5, 1.69 at 5.2, 1.93 at 6. That is about a sixth of the pattern's
+12-cell wavelength — a length belonging to the medium rather than to the pair.
 
-**What the design sets — the gap at which fusion stops being the rule.** Put two bodies of radius 3 cells (29 cells of
-area) at a centre separation that leaves 8 cells between their surfaces, and they end as one body in five runs of five;
-at 9 cells, five of five; at 10, four of five; at 11, two of five, and no arm was run beyond that for this size. At
-radius 6, fifteen runs of fifteen end as one body at a gap of 8 and none of five at 12; at radius 4.5, five of five at 8,
-four of five at 9, none of five at 11. So fusion is the rule at 8 cells or less at every size, it has stopped by 11 or
-12, and the band between 9 and 11 was never run: this paper cannot place the crossing inside that band, and says so
-rather than interpolating.
+That 1.9 is an *upper bound*, not the threshold, and the difference matters at this resolution. The log samples every tenth
+integration step and the bodies grow inside that quantum, so the pair is known to be two bodies at 1.9 cells and one body
+ten steps later; the threshold itself lies inside the window the growth opens. Measured from the growth the log shows, the
+window is **1.3 cells** wide: the threshold lies between **0.7 and 1.9 cells** at the median, its lower bound stays above
+two cells in only **21 %** of runs, and at radius 4.5 the lower bound crosses zero. So the defensible sentence is "fusion
+happens when the surfaces are within about two cells", not "at 1.9 cells" — and to turn the bound into a threshold needs a
+one-step log, not more seeds.
 
-| body radius | area (cells) | runs ending as one body at a gap of 8 | 9 | 10 | 11 | 12 |
-|---|---|---|---|---|---|---|
-| 3 | 29 | 5/5 | 5/5 | 4/5 | 2/5 | not run |
-| 4.5 | 64 | 5/5 | 4/5 | not run | 0/5 | not run |
-| 6 | 113 | 15/15 | not run | not run | not run | 0/5 |
+**What the design sets — the gap at which fusion stops being the rule.** Two bodies were placed at a series of initial
+separations and followed for six thousand steps; the outcome is the share of runs that ended as one body, with ten fresh
+seeds (701-710) at every cell that had not been run before. The crossing — the first gap at which that share falls below
+one half — is at **10 cells** for radii 3 and 4.5 and at **9 cells** for radius 6, i.e. **10 ± 1 cells**, flat in the seeded size to
+within the one cell that ten seeds per arm can resolve.
 
-The three outcomes of a close encounter are worth keeping in view here, because "one body" is not the same as "mutual
-fusion": at radius 3 and a gap of 10, the four runs that end as one body split into M 2/5 and A 2/5, with P 1/5; at a gap
-of 11 they are M 2/5, P 3/5. ("M" is mutual fusion, "A" absorption of one body by the other, "P" the two bodies
-persisting side by side; §4.2 explains why the three must be told apart.)
+| body radius | area (cells) | gap 8 | gap 9 | gap 10 | gap 11 |
+|---|---|---|---|---|---|
+| 3 | 29 | 5/5 | 5/5 | 7/15 | 2/15 |
+| 4.5 | 64 | 5/5 | 4/5 | 2/10 | 0/15 |
+| 6 | 113 | 10/10 | 3/10 | 0/10 | 0/10 |
+
+Two features of that table are as informative as the crossing itself. The transition is **gradual over two cells**, not a
+step: radius 6 goes 1.00 → 0.30 → 0.00 and radius 3 goes 1.00 → 0.47 → 0.13. And the larger bodies are **not** more
+tolerant, which is what the withdrawn `2r + 9` rule predicted (it would have put the crossing at 9, 13.5 and 21 cells): a
+body seeded at radius 6 crosses one cell *earlier*, not later.
 
 **Why the boundary does not scale with the body.** Because the bodies grow, and grow to the same size. A body seeded at
-radius 3 is 2.9 cells in effective radius at the first logged step and 5.8 at the step before it meets its partner; a
-body seeded at 6 goes from 6.0 to 8.5. By the time two bodies touch they are all between 5.8 and 8.5 cells in radius,
-whatever we started with, so the initial separation and not the initial size decides — which is why the boundary in the
-gap does not move when the seeded bodies are made four times larger (Fig. 2).
+radius 3 is 2.9 cells in effective radius at the first logged step and 5.8 at the step before it meets its partner; a body
+seeded at 6 goes from 6.0 to 8.5. By the time two bodies touch they are all between 5.8 and 8.5 cells in radius, whatever
+we started with, so the initial separation and not the initial size decides (Fig. 2).
 
-**The correction.** An earlier version of this paper put the crossing at "16 ± 1 cells" for radius 3 and the conserved
-quantity at "9 ± 1 cells, the same for bodies of 29, 64 and 113 cells", with the rule `2r + 9`. An independent review
-recomputed the arm counts from the raw worlds and was right on both points: the radius-3 row came from an older test that
-counted a partner as present when its last known position was within two cells, which is why it read "two of five" where
-the classification reads "four of five"; and the third row (`20 ± 2`) was a bound between two arms, not a measured
-crossing. The rule is withdrawn; the two statements above replace it, and the geometry behind them is re-derived from the
-logs of all 171 two-body runs (§7).
+The three outcomes of a close encounter are worth keeping in view here, because "one body" is not the same as "mutual
+fusion": at radius 3 and a gap of 10 the runs that end as one body split into M 2/5 and A 2/5, with P 1/5; at a gap of 11
+they are M 2/5, P 3/5, and the shares of M and A are what the crossing table counts together. ("M" is mutual fusion, "A"
+absorption of one body by the other, "P" the two bodies persisting side by side; §4.2 explains why the three must be told
+apart.)
+
+**The correction, twice.** An earlier version of this paper put the crossing at "16 ± 1 cells" for radius 3 and the
+conserved quantity at "9 ± 1 cells, the same for bodies of 29, 64 and 113 cells", with the rule `2r + 9`. An independent
+review recomputed the arm counts from the raw worlds and was right on both points: the radius-3 row came from an older test
+that counted a partner as present when its last known position was within two cells, which is why it read "two of five"
+where the classification reads "four of five"; and the third row (`20 ± 2`) was a bound between two arms, not a measured
+crossing. That correction produced the band "between 8 and 11 cells", which was honest but weak; the arms that could narrow
+it were then run (§7), and the band became the crossing above. The second correction is the one in this section's first
+paragraph: the 1.9 cells of the same review-corrected analysis turned out to be a bound set by our own sampling, and it is
+now reported as a window. Both errors are of the same kind — a number read off a design rather than off the medium — which
+is why they are stated here rather than in a footnote.
 
 Two controls say what the length is *not*. It is not a size rule: among runs where both outcomes occur, the bodies that
 divided are not the larger ones — median areas at fusion 267 / 268 and 297 / 287 cells, and where the pattern reverses,
-242 / 290. And it is not simply the clock running out: at radius 6 the median time to a single body is 39 steps at gaps 6.5 to 7.5 and 49 steps at 8, while a lone body of the same size does not divide at all until a **median of 290 steps**;
-the smaller sizes behave the same way — 180 and 190 steps for radii 3 and 4.5 — so the fusing pair is always faster than
-the division time, at every size.
+242 / 290. And it is not simply the clock running out: at radius 6 the median time to a single body is 39 steps at gaps 6.5 to 7.5 and 49 steps at 8, while a lone body of the same size does not divide at all until a **median of 290 steps**; the
+smaller sizes behave the same way — 180 and 190 steps for radii 3 and 4.5 — so the fusing pair is always faster than the
+division time, at every size.
 
 ![Figure 1](029-figures/fig1-what-we-measure.png)
 
@@ -200,10 +214,11 @@ daughters a new name, and every fusion gives the merged body a new name, so no n
 ![Figure 2](029-figures/fig2-mixing-length.png)
 
 **Figure 2.** The mixing length, in the two quantities that are measured. (a) Share of runs that end as a single body
-against the **initial** surface gap, for three body sizes; a point is drawn only where an arm was run, and the shaded band
-marks the gaps between 9 and 11 that no arm covers. (b) The same runs at the moment of contact: the surface gap between
-the two bodies at the last step before they are one, per seeded size, with the median at 1.9 cells — the first quantity
-does not depend on how large the bodies were seeded.
+against the **initial** surface gap, for three seeded sizes, with 95 % Wilson intervals; the crossing is where the curve
+falls through one half, at 10 cells for radii 3 and 4.5 and at 9 for radius 6. (b) The same runs at the moment of contact:
+the surface gap between the two bodies at the last logged step before they are one, per seeded size, with the median
+reading of 1.9 cells and the window that the ten-step logging quantum opens beneath it — the reading bounds the threshold,
+and the threshold lies inside the window.
 
 ### 4.2 A fusion is a merger, not a birth
 
