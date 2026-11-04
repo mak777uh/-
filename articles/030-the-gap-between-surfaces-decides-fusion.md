@@ -272,9 +272,9 @@ fusion share falls below one half first at gaps 10, 10 and 9 cells for radii 3, 
 **0.467 (7 of 15)** — the half-way point that the previous article's table and this article's §5.5 both lean on. Asymmetric
 pairs do not move it: a pair with sizes (3, 6) crosses between 8 and 10 cells ([A15]), with the surface gap at contact
 rising from 2.60 cells at gap 8 to 4.38 at gap 10, inside the symmetric 10 ± 1 band, so
-the law is about surfaces and not about matched sizes. Three bodies behave like pairs: a three-body row at gap 8 coalesces in
-100 % of runs, at gap 10 in 20 %, at gap 12 in 0 % ([A15]) — near the pairwise 0.47 at gap 10, as a many-body extension of the
-pairwise law would predict.
+the law is about surfaces and not about matched sizes. Three bodies behave like pairs: a three-body row at gap 8 coalesces in 100 % of runs, at gap 10 in 20 %, at gap 12 in 0 %
+([A15]) — and the gap-10 share is close to the **square** of the pairwise 0.467 measured at that gap (0.467² = 0.22), not to
+0.467 itself, as a many-body extension of the pairwise law would predict.
 
 ![Figure 6](030-figures/fig6-the-crossing-and-its-geometry.png)
 
