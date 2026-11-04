@@ -3041,13 +3041,13 @@
   {
    "id": "X165_three_bodies",
    "title": "Three bodies in a row: does the pairwise fusion boundary survive many-body contact?",
-   "status": "planned",
+   "status": "closed",
    "owner": null,
    "kind": "experiment",
    "cost_gpu_h": 0.3,
    "prereg": null,
    "created_at": "2026-11-04T03:58:00+03:00",
-   "note": "follow-up 4 of the X158 report. Three bodies of radius 3 at separations that put 9 cells between neighbours: does the middle one fuse with both, does the pair-wise boundary hold, and does the merged body keep a lineage at all? 10 seeds, 6000 steps, CPU. This is the first many-body test of a claim measured on pairs, and the honest risk is that a chain behaves differently from a pair - which would matter, because the article's mixing-length sentence is about interactions in general. Preregistration with the paired arm as the positive control (the same separation, two bodies, 5/5 expected).",
+   "note": "closed: the crossing is additive over contacts. A row of three at surface gaps 8, 10 and 12 coalesced into one component in 5/5, 1/5 and 0/5 runs, against the 0.47 squared = 22 % that independent pairwise events predict at gap 10. A third body neither helps nor prevents the fusion the pairwise gap already predicts. The pre-registered readout (component count at the end) was unusable - every run grows to 69-82 components - and was replaced after the runs by the minimum count, recorded in the aggregate. Report reports/2026-11-04-x165-three-bodies.md. Next: ten seeds at gap 10, four bodies in a row (0.47^3 = 10 %), and a bent row.",
    "priority": 6
   },
   {

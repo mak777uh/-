@@ -4,7 +4,7 @@
 
 The curated page — what matters and why — is [`scripts.md`](scripts.md). This file is the complete list, so that every command behind a number in the record can be found.
 
-Scripts: **374**.
+Scripts: **376**.
 
 ## Гейты и проверки (48)
 
@@ -175,7 +175,7 @@ Scripts: **374**.
 | `make_seed_grid_figure.py` | Собрать Figure 4 рукописи: сетка «инициализация × порядок данных» (§4.13). |
 | `make_simple_poster.py` | Простой постер для владельца: что мы узнали, без терминов. |
 
-## Прочее (235)
+## Прочее (237)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -321,6 +321,8 @@ Scripts: **374**.
 | `x162b_neighbour_decay.py` | x162b_neighbour_decay.py — how far does the medium remember? |
 | `x164_analyse.py` | x164_analyse.py — X164: does the fusion crossing depend on the size RATIO? |
 | `x164_series.py` | x164_series.py — X164: does the fusion crossing depend on the size RATIO? |
+| `x165_analyse.py` | x165_analyse.py — X165: does the pairwise crossing survive many-body contact? |
+| `x165_series.py` | x165_series.py — X165: three bodies in a row, at gaps 8, 10 and 12. |
 | `x166_analyse.py` | x166_analyse.py — X166: the contact threshold at one-step resolution. |
 | `x166_series.py` | x166_series.py — X166: the contact threshold at one-step resolution. |
 | `x167_fusion_reversibility.py` | x167_fusion_reversibility.py — is a merged body a new object, or the old pair that can come apart? |

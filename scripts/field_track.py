@@ -224,6 +224,8 @@ def main(argv=None) -> int:
     ap.add_argument("--init-jitter", action="store_true",
                     help="X70r: сдвинуть стартовую каплю по сиду (реплика нейтрального мира; выключено = прежнее поведение)")
     ap.add_argument("--init-spots", default="", help="X134: два диска радиуса R на расстоянии SEP клеток; формат R:SEP")
+    ap.add_argument("--init-row", default="",
+                    help="X165: N дисков радиуса R в ряд с зазором GAP по поверхности; формат N:R:GAP")
     # X96b: вторая шкала в начальном условии вместо притока. По умолчанию выключено (0), поэтому старая ветка бит-в-бит прежняя.
     ap.add_argument("--init-pattern-cells", type=float, default=0.0,
                     help="X96b: длина волны стартового узора в клетках (0 = выключено, старт с одной капли)")
@@ -293,6 +295,30 @@ def main(argv=None) -> int:
 
     # X134: интервенция вместо наблюдения за расколом — два диска на заданном расстоянии и ничего больше.
     # По умолчанию флага нет, ветка не исполняется, старая инициализация остаётся бит-в-бит (якорь).
+    if getattr(args, "init_row", ""):
+        try:
+            _n, _rr, _gg = (float(x) for x in str(args.init_row).split(":"))
+            _n = int(_n)
+        except ValueError:
+            raise SystemExit("--init-row expects N:R:GAP, e.g. 3:3:10")
+        if _n < 2:
+            raise SystemExit("--init-row needs at least two bodies")
+        _sep = 2.0 * _rr + _gg
+        v = torch.zeros_like(v)
+        u = torch.ones_like(u)
+        _jr = np.random.default_rng(int(args.seed) + 16511)
+        _jy = int(_jr.integers(-g // 6, g // 6 + 1))
+        _cy = g / 2.0 + _jy
+        _yses = ((yy - _cy + g / 2) % g) - g / 2
+        _disc = torch.zeros((g, g), device=dev)
+        _x0 = g / 2.0 - (_n - 1) * _sep / 2.0
+        for _i in range(_n):
+            _cx = _x0 + _i * _sep
+            _xses = ((xx - _cx + g / 2) % g) - g / 2
+            _disc = torch.maximum(_disc, ((_yses ** 2 + _xses ** 2) <= _rr * _rr).to(_disc.dtype))
+        v = torch.clamp(v + _disc, 0.0, 1.0)
+        u = torch.clamp(u - 0.75 * _disc, 0.0, 1.0)
+
     if args.init_spots:
         try:
             _parts = str(args.init_spots).split(":")
