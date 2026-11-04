@@ -4,7 +4,7 @@
 
 The curated page — what matters and why — is [`scripts.md`](scripts.md). This file is the complete list, so that every command behind a number in the record can be found.
 
-Scripts: **416**.
+Scripts: **419**.
 
 ## Гейты и проверки (48)
 
@@ -175,7 +175,7 @@ Scripts: **416**.
 | `make_seed_grid_figure.py` | Собрать Figure 4 рукописи: сетка «инициализация × порядок данных» (§4.13). |
 | `make_simple_poster.py` | Простой постер для владельца: что мы узнали, без терминов. |
 
-## Прочее (277)
+## Прочее (280)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -368,6 +368,9 @@ Scripts: **416**.
 | `x184_cold_body.py` | x184_cold_body.py — X184: the same arm run at five chosen levels of the local inflow at the colder body. |
 | `x184_cold_body_analyse.py` | x184_cold_body_analyse.py — X184: five chosen levels of the local inflow at the colder body, same arm. |
 | `x185_one_law.py` | x185_one_law.py — X185: do X182 (midpoint control) and X184 (colder-body control) read one law? |
+| `x186_table_local.py` | x186_table_local.py — X186: re-read the 57-cell crossing table in the local inflow. |
+| `x187_large_radius.py` | x187_large_radius.py — X187: why do the largest bodies read the opposite sign? |
+| `x187_nucleation_analyse.py` | x187_nucleation_analyse.py — X187: bodies that appear besides the seeded pair, by the pair's local inflow. |
 | `x56_matrix.py` | x56_matrix.py — сходимость по шагу: контраст при dt = 1.0, 0.5, 2.0. |
 | `x58_analyse.py` | x58_analyse.py — the same measurement on a 128 grid: β₀, β₁, wavelength, normalised count. |
 | `x58_series.py` | x60_series.py — X60: the twenty field runs that keep their snapshots. |

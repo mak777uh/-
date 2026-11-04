@@ -248,3 +248,4 @@ sections were not rewritten, only moved; each one keeps its identifier, so every
 | §10ir | X183 — which local reading organises the ladder (settles the phase by evidence) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
 | §10is | X184 — the colder body's inflow, chosen in advance | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
 | §10it | X185 — one law, two windows | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
+| §10iu | X186 — таблица переходов, прочитанная в локальном притоке (04.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |

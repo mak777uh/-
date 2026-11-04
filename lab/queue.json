@@ -1,6 +1,6 @@
 {
  "schema_version": 1,
- "updated_at": "2026-11-04T19:40:00+03:00",
+ "updated_at": "2026-11-04T19:55:00+03:00",
  "note": "Очередь пунктов после E02c. Claim берётся до пре-регистрации, а не перед запуском: lab.py item-claim. Статус running означает занятый GPU-лейн и может быть только у одного пункта. | 25.10: добавлено поле impact (1-5) — приоритет конвейера = impact/max(cost_gpu_h,0.1); для запуска пункту нужны prereg (закоммиченный план) и launch.command+outdir.",
  "items": [
   {
@@ -3325,6 +3325,18 @@
    "prereg": "reports/2026-11-04-x185-one-law.md",
    "note": "closed: on the colder body's inflow the two controlled experiments agree line by line (0/10 against 0/12 below F_local 0.019; 2/6 against 3/5 at 0.019-0.024; 9/9 against 6/6 at 0.028-0.032; 4/4 against 6/6 above 0.032). The reason is geometric: the bodies are 16 cells apart, 120 degrees of the pattern's 12-cell period, so a cold midpoint implies warm bodies. Next: the mechanism behind the two signs at once, and the radius-6 cliff re-read in the local inflow.",
    "created_at": "2026-11-04T19:40:00+03:00"
+  },
+  {
+   "id": "X186_table_local",
+   "title": "Re-read the crossing table in the local inflow",
+   "status": "closed",
+   "owner": "lead",
+   "kind": "analysis",
+   "cost_gpu_h": 0.0,
+   "priority": 9,
+   "prereg": "reports/2026-11-04-x186-table-local-plan.md",
+   "created_at": "2026-11-04T19:55:00+03:00",
+   "note": "closed: on 341 runs of mixed cells the pooled model's deviance falls 464.5 -> 436.5 (drop 28.0, bar 20.0), and the per-cell association is positive in 9 of 11 cells with spread. The radius-6 cliff is not a site draw (arms' mean local inflow differs by 0.00272, bar 0.004), but the arms' measured radii differ (5.863 against 5.997) and the larger body is the one that did not fuse, so the fall is conservative. Next: the two radius-5.9 cells read the opposite sign - a mechanism item (warm medium nucleating its own bodies) is the registered follow-up."
   }
  ]
 }

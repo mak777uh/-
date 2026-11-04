@@ -4403,9 +4403,12 @@ families from 0.20 to 0.80. Where does that come from?
 sees at its seeded site is `F_local = F*(1 + 0.5*(2G-1))`, between 0.5 and 1.5 of nominal, and `--init-spots` places the pair at
 a site jittered by `default_rng(seed+9187)`. The nominal rate is therefore a site average, not a per-run rate.
 
-**What was measured.** Over 376 runs in the 17 cells where both outcomes occur, the pattern value at the pair's **midpoint** is
-strongly and *negatively* related to the outcome (fused runs higher in 1 of 17 cells, mean point-biserial -0.561; among 381
-runs in non-saturated cells -0.578; the bottom midpoint quartile coalesces 88 % against 14 %, z = -9.691). By itself this reads
+**What was measured.** Over 316 runs in the 17 cells where both outcomes occur, the pattern value at the pair's **midpoint** is
+strongly and *negatively* related to the outcome (fused runs higher in 1 of 17 cells, mean point-biserial -0.552; among 321
+runs in non-saturated cells -0.527; the bottom midpoint quartile coalesces 84 % against 16 %, z = -7.807). The 60 runs whose seeds
+X182 and X184 chose by that same value are excluded here — independent review (04.11) caught that the first version of this
+aggregate pooled them, which is circular where the covariate is the selection rule; the direction is unchanged and the numbers
+above are the regenerated ones. By itself this reads
 as "a cold gap fuses more", which is the wrong way round for inflow — and it is what made the choice of phase an explicit
 question rather than a convenience.
 
@@ -4508,3 +4511,30 @@ new measurement; three of its bins rest on 1-6 runs from one experiment and carr
 min-versus-mean ambiguity: the axis it uses is one of the readings X183 could not separate from the body mean.
 
 Артефакт: `l1_field_x185_one_law.json`.
+
+## 10iu. X186 — таблица переходов, прочитанная в локальном притоке (04.11)
+
+**Вопрос.** X183 показал, что номинальный приток — среднее по площадке, а X184 сдвинул локальный приток заранее. Остаётся
+вопрос к собственной таблице линии: каждая доля в 57 клетках X179 — это среднее по локальным притокам, которые вытянули её
+сиды. Значит, и «обрыв» X178 (0.33 при зазоре 9 против 0.00 при зазоре 10) может быть частично вытянут площадкой.
+
+**Итог.** На 341 прогонах смешанных клеток одна и та же логистическая модель стоит
+**464.5** девиансы на номинальном притоке и **436.5** на притоке у холодного тела —
+падение **28.0** при зарегистрированной планке 20.0; знак ассоциации внутри клеток
+положительный, как и предсказывает закон, в **9 из 11** клеток с разбросом
+локальной переменной (в плане правило отказа было записано с обратным знаком — ошибка зафиксирована в агрегате, а не
+переистолкована задним числом).
+
+**Обрыв — не вытянутая площадка, но его плечи разного размера.** Средний локальный приток плеч зазора 9 и 10 различается
+на 0.00272 при планке 0.004: обе сели в одну среду. А вот измеренные радиусы — 5.863 и
+5.997: растеризация диска зависит от чётности SEP, и **большее** тело — это то, которое не слиплось,
+поэтому обрыв не артефакт этой разницы, а сама разница делает наблюдаемое падение консервативным.
+
+**Ограничения.** Выигрыш по девиансе может быть пересказом X183 по клеткам, различающимся притоком по построению, поэтому
+колонка внутриклеточных наклонов идёт рядом; наклон по 15–79 прогонам — описание, не тест.
+
+**Следующие гипотезы:** две клетки наибольшего радиуса дают **обратный** знак (5.9/7 и 5.9/9), чего закон пока не объясняет:
+у крупной пары тёплая среда может рождать собственные тела, и число компонент не доходит до единицы, даже когда фронты
+встретились.
+
+Артефакт: `l1_field_x186_table_local.json`.

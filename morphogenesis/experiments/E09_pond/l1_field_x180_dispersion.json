@@ -1,49 +1,50 @@
 {
  "kind": "x180_dispersion",
- "runs_scanned": 832,
+ "runs_scanned": 772,
+ "excluded_phase_selected_runs": 60,
  "hetero_scale": 12.0,
  "hetero_amp": 0.5,
  "model": "F_eff = F * (1 + amp*(2G-1)*(2S-1)); with S = 1 and amp = 0.5 this is F*2G at the seeded site",
  "cells_with_both_outcomes": 17,
  "fused_higher_g": 1,
- "mean_point_biserial": -0.561,
- "informative_runs": 381,
- "pooled_point_biserial": -0.578,
+ "mean_point_biserial": -0.552,
+ "informative_runs": 321,
+ "pooled_point_biserial": -0.527,
  "local_inflow_bands": [
   {
    "g_from": -0.0,
    "g_to": 0.2835,
-   "runs": 72,
-   "fused": 63,
-   "share": 0.875,
-   "F_local_mean": 0.00789
+   "runs": 55,
+   "fused": 46,
+   "share": 0.836,
+   "F_local_mean": 0.00858
   },
   {
    "g_from": 0.2835,
    "g_to": 0.5,
-   "runs": 64,
-   "fused": 43,
-   "share": 0.672,
-   "F_local_mean": 0.01899
+   "runs": 56,
+   "fused": 36,
+   "share": 0.643,
+   "F_local_mean": 0.01918
   },
   {
    "g_from": 0.5,
    "g_to": 0.7165,
-   "runs": 142,
-   "fused": 38,
-   "share": 0.268,
-   "F_local_mean": 0.03139
+   "runs": 129,
+   "fused": 32,
+   "share": 0.248,
+   "F_local_mean": 0.03153
   },
   {
    "g_from": 0.7165,
    "g_to": 1.0,
-   "runs": 103,
-   "fused": 14,
-   "share": 0.136,
-   "F_local_mean": 0.04866
+   "runs": 81,
+   "fused": 13,
+   "share": 0.16,
+   "F_local_mean": 0.04862
   }
  ],
- "z_top_vs_bottom": -9.691,
+ "z_top_vs_bottom": -7.807,
  "p_top_vs_bottom": 0.0,
  "cells": [
   {
@@ -135,13 +136,13 @@
    "gap": 10,
    "F": 0.03,
    "steps": 2000,
-   "runs": 110,
-   "fused": 52,
-   "share": 0.473,
-   "g_fused_mean": 0.2839,
-   "g_unfused_mean": 0.6646,
-   "g_difference": -0.3807,
-   "point_biserial": -0.702,
+   "runs": 50,
+   "fused": 21,
+   "share": 0.42,
+   "g_fused_mean": 0.3536,
+   "g_unfused_mean": 0.604,
+   "g_difference": -0.2503,
+   "point_biserial": -0.551,
    "fused_higher_g": false
   },
   {
@@ -285,5 +286,5 @@
    "fused_higher_g": false
   }
  ],
- "verdict": "THE SEEDED SITE'S PHASE DECIDES THE OUTCOME, AND THE PHASE ONE PICKS MATTERS: the inflow a pair sees is F*(1+0.5*(2G-1)) at the site it is seeded at, so the nominal rate is only a site average. Across 376 runs in 17 cells where both outcomes occur, the pair's **midpoint** phase is anti-predictive of fusion (1 of the cells have the fused runs higher, mean point-biserial -0.561); among the 381 runs whose cell is not saturated the same reading holds (point-biserial -0.578; the bottom midpoint-G quartile fuses 88% against 14% in the top, z = -9.691, p = 0.0). X183 settles which phase is the informative one: the inflow at the **colder of the two bodies** organises the block's rate ladder (AUC 0.878 over the ladder, 0.898 within nominal levels, deviance 96.9 against 144.6 for the nominal rate), while the midpoint reading is anti-predictive (AUC 0.213). The midpoint table in this aggregate is kept as the record of why the phase question had to be asked."
+ "verdict": "THE SEEDED SITE'S PHASE DECIDES THE OUTCOME, AND THE PHASE ONE PICKS MATTERS: the inflow a pair sees is F*(1+0.5*(2G-1)) at the site it is seeded at, so the nominal rate is only a site average. Across 316 runs in 17 cells where both outcomes occur, the pair's **midpoint** phase is anti-predictive of fusion (1 of the cells have the fused runs higher, mean point-biserial -0.552); among the 321 runs whose cell is not saturated the same reading holds (point-biserial -0.527; the bottom midpoint-G quartile fuses 84% against 16% in the top, z = -7.807, p = 0.0). X183 settles which phase is the informative one: the inflow at the **colder of the two bodies** organises the block's rate ladder (AUC 0.8656 over the ladder, 0.8951 within nominal levels, deviance 129.3 against 185.0 for the nominal rate), while the midpoint reading is anti-predictive (AUC 0.2149). The midpoint table in this aggregate is kept as the record of why the phase question had to be asked."
 }

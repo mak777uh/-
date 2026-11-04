@@ -100,3 +100,34 @@ Also worth fixing before this goes into the manuscript: the readout is a coalesc
 - The `min == 1` frames come from the projections' component lists; the raw `.npy` fields are gitignored, so whether the single-component frame is a true saddle-bridging merge or a threshold artefact of the component tracker at `threshold = 0.2` cannot be settled from the committed artifacts.
 - The between-family correlation of a family's mean `G_min` with its share is `+0.77` over 11 families, but those families differ in F and horizon, so this is descriptive only and I do not treat it as evidence of a within-cell effect.
 - This review has been added to `lab/reviews/index.json` (only writable scope used), so `scripts/check_reviews.py` passes.
+
+---
+
+## Addendum — recheck of the committed 139-run ladder and X185 (2026-11-04 19:50, commits `1bdf78bc`/`6cfabfaf`)
+
+Follow-up requested by the lead after the 139-run regeneration. Verdict above is unchanged (`держится с оговоркой`); this addendum only re-runs the numbers and records one new discrepancy. Independent reader: `lab/reviews/_scratch_x183_recheck.py`, plus `lab/reviews/_scratch_x180_exclusion_check.py` for the last item.
+
+**139-run ladder reproduces, and the exclusion is complete there.** 1 095 compact artifacts; 832 runs pass the two-component-first-sample gate; excluding `x182_*`/`x184_*` leaves 772; **60 runs excluded** exactly, matching `excluded_phase_selected_runs: 60`. The ladder filter (`round(gap)==10`, `2.7 ≤ r0 ≤ 3.1`) then gives **139** runs, and **no x182/x184 file is inside it** (all 60 phase-selected runs *would* enter without the guard, so the guard is doing real work: 199 → 139). The 30 new `x181_*` compacts are inside, taking F = 0.030 from 49 to 79 runs.
+
+| quantity | committed | my reader |
+|---|---|---|
+| ladder runs / excluded | 139 / 60 | **139 / 60** |
+| F = 0.030 level | 79 runs, share 0.405 | **79 runs, 32 fused, 0.4051** |
+| nominal AUC / deviance | 0.5874 / 185.0 | **0.5874 / 185.0** (2-param MLE 185.0) |
+| colder body AUC / mean-within / dev | 0.8656 / 0.8951 / 129.3 | **0.8656 / 0.8951 / 129.3** (MLE 128.6) |
+| body mean AUC / mean-within / dev | 0.8396 / 0.8569 / 135.5 | **0.8396 / 0.8569 / 135.5** (MLE 134.8) |
+| midpoint AUC | 0.2149 | **0.2149** |
+
+Within-level AUCs also match to the digit (colder body 0.9643 / 0.8574 / 0.7917 / 0.9670; body mean 0.8929 / 0.8664 / 0.8333 / 0.8352). As before, an unconstrained two-parameter logistic moves the two deviances by ≤ 0.7 without changing the ordering.
+
+**X185 pooled bands reproduce exactly.** From the 60 `x182_*`/`x184_*` compacts: `[0,0.019)` **0/22**; `[0.019,0.024)` **5/11 = 0.4545**; `[0.024,0.028)` **1/2 = 0.500** (the thin band the message did not quote); `[0.028,0.032)` **15/15 = 1.0**; `[0.032,0.040)` **10/10 = 1.0**. A run-by-run cross-check of my recomputed `g_cold`, `F_local_cold` and `fused` against all **60** entries of `l1_field_x185_one_law.json → runs_detail` gives **0 mismatches**.
+
+**The X184 caveat in the body is now closed.** `l1_field_x184_cold_body.json` is committed and I read it directly: levels 0/6, 0/6, 3/6, 6/6, 6/6 with Wilson `[0,0.3903]`, `[0,0.3903]`, `[0.1876,0.8124]`, `[0.6097,1.0]`, and `G_cold_mean` 0.0335 / 0.125 / 0.2988 / 0.5 / (0.7333) and `F_local_mean` 0.016 / 0.01875 / 0.02396 / 0.030 / (0.037) — every one identical to what I read off the raw runs before the aggregate existed, and `trend.z = 4.638` matches my 4.6386. So the X184 section above stands as committed, not provisional.
+
+**The 109-run caveats all survive on 139.**
+- *min vs mean still unresolved:* `ΔAUC = +0.0260`, paired-bootstrap 95 % CI **`[−0.047, +0.103]`** (was +0.0275, [−0.048, +0.106]); the body mean wins inside 4 of the 7 families where the AUC is computable, with the new `x181` family favouring the colder body (0.8495 vs 0.8102); leave-one-family-out stays positive in all 11 folds (+0.012 to +0.039); permutation null for the best of the four local readings gives **p = 0.0005**. So the added family nudges the point estimate but does not identify the colder body.
+- *coalescence, not terminal fusion:* **59 fused runs, 0 end on one component, 59/59 rebound** above one (same as 47/47 before).
+- *r0 / gap are design constants:* `r0 = 3.03825` and `dist − 2r0 = 9.92349` on all 139, with `dx = 16`, `dy = 0`.
+- Horizon control (`steps == 2000`, n = 110): nominal 0.6025, body mean 0.8167, colder body 0.8656 — the ordering holds.
+
+**New discrepancy — the x180 exclusion is NOT in the code.** The message says `x179_crossing_table.py`, `x180_dispersion.py` and `x183_local_collapse.py` now all exclude the 60 phase-selected runs. `x179` does (its radius-3/gap-10/F-0.030 cell reads 79 runs = 49 + 30 x181, `per_source` lists x181 and no x182/x184) and `x183` does (above; `x186` too). **`x180_dispersion.py` does not** — there is no `startswith(("x182_", "x184_"))` guard anywhere in the file, and the committed `l1_field_x180_dispersion.json` has `runs_scanned: 832`, i.e. my full-corpus count, not the 772 of the exclusion. The 60 phase-selected runs land in the cell `(radius 3.0, gap 10, F 0.03, steps 2000)`: committed **110 runs / 52 fused / share 0.473**, of which 60 are phase-selected; dropping them makes that cell **50 runs / 21 fused / 0.42**. Why it matters here and not elsewhere: X182 selects seeds *by the midpoint pattern value*, which is exactly the covariate X180 tests, so keeping it in X180's cells is circular for that item. Replicating X180's whole pipeline reproduces the committed top line exactly with all runs (`17` cells, mean point-biserial **−0.561**, `fused_higher_g 1`, `informative_runs 381`, pooled point-biserial **−0.578**) and gives `17` cells, **−0.552**, **321** informative runs, **−0.527** pooled without the phase-selected runs. The direction of X180's conclusion is unchanged, but its committed numbers still pool runs it was meant to drop. Fix in scope for the owner: add the same guard to `x180_dispersion.py` and regenerate `l1_field_x180_dispersion.json`.

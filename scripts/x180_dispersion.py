@@ -59,7 +59,15 @@ def two_sided_p_from_z(z: float) -> float:
 
 
 runs = []
+excluded_phase_selected = 0
 for f in sorted(L1.glob("*.compact.json")):
+    # X182 selects seeds BY the pattern value at the pair's midpoint and X184 by the local inflow at the colder body. The first
+    # of those is this item's own covariate, so a run admitted because of its value on it cannot then be used to measure that
+    # value's association without circularity; the second spans the local-inflow range by construction. Both are dropped, and
+    # the count is written into the aggregate (reviewer, 04.11: without this guard the committed numbers pooled all 60).
+    if f.stem.startswith(("x182_", "x184_")):
+        excluded_phase_selected += 1
+        continue
     try:
         d = json.loads(f.read_text(encoding="utf-8"))
     except Exception:
@@ -157,10 +165,11 @@ verdict = (f"THE SEEDED SITE'S PHASE DECIDES THE OUTCOME, AND THE PHASE ONE PICK
            + (f"; the bottom midpoint-G quartile fuses {(bands[0]['share'] * 100):.0f}% against "
               f"{(bands[-1]['share'] * 100):.0f}% in the top, z = {z}, p = {two_sided_p_from_z(z) if z else None}" if z else "")
            + "). X183 settles which phase is the informative one: the inflow at the **colder of the two bodies** organises the "
-             "block's rate ladder (AUC 0.878 over the ladder, 0.898 within nominal levels, deviance 96.9 against 144.6 for the "
-             "nominal rate), while the midpoint reading is anti-predictive (AUC 0.213). The midpoint table in this aggregate is "
+             "block's rate ladder (AUC 0.8656 over the ladder, 0.8951 within nominal levels, deviance 129.3 against 185.0 for the "
+             "nominal rate), while the midpoint reading is anti-predictive (AUC 0.2149). The midpoint table in this aggregate is "
              "kept as the record of why the phase question had to be asked.")
-agg = {"kind": "x180_dispersion", "runs_scanned": len(runs), "hetero_scale": HETERO_SCALE, "hetero_amp": HETERO_AMP,
+agg = {"kind": "x180_dispersion", "runs_scanned": len(runs), "excluded_phase_selected_runs": excluded_phase_selected,
+       "hetero_scale": HETERO_SCALE, "hetero_amp": HETERO_AMP,
        "model": "F_eff = F * (1 + amp*(2G-1)*(2S-1)); with S = 1 and amp = 0.5 this is F*2G at the seeded site",
        "cells_with_both_outcomes": len(per_cell), "fused_higher_g": higher, "mean_point_biserial": mean_pb,
        "informative_runs": len(infl), "pooled_point_biserial": pooled_pb, "local_inflow_bands": bands,

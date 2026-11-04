@@ -182,7 +182,12 @@
     "attack d: 0/109 one component at series[0]; but 47/47 fused runs rebound above 1 (transient coalescence, 12/12 in X181)",
     "attack e: exactly 109",
     "X181 12/30=0.4000, Wilson [0.2459,0.5768], pooled 20/49+12/30=32/79=0.4051",
-    "X184 (provisional, untracked raw runs, no aggregate yet): 0/6 at F_local 0.016, 0/6 at 0.0188, 3/6 at 0.0240, 6/6 at 0.030, 6/6 at 0.037; Cochran-Armitage one-sided z=+4.6386 p=1.75e-06; AUC(F_local_cold)=0.9822; midpoint AUC 0.0622; positive controls 0.00151<0.002 and separation 0.0225>0.018; registered extreme intervals missed in the strong direction"
+    "X184 (provisional, untracked raw runs, no aggregate yet): 0/6 at F_local 0.016, 0/6 at 0.0188, 3/6 at 0.0240, 6/6 at 0.030, 6/6 at 0.037; Cochran-Armitage one-sided z=+4.6386 p=1.75e-06; AUC(F_local_cold)=0.9822; midpoint AUC 0.0622; positive controls 0.00151<0.002 and separation 0.0225>0.018; registered extreme intervals missed in the strong direction",
+    "ADDENDUM (139-run regeneration, commit 1bdf78bc): ladder = 139 exactly; 60 excluded x182/x184; no x182/x184 inside the ladder (199 without the guard); x181 30 runs inside, F=0.030 level 79 runs share 0.4051",
+    "ADDENDUM numbers: nominal AUC 0.5874 dev 185.0; colder body 0.8656 / within 0.8951 / dev 129.3 (2-param MLE 128.6); body mean 0.8396 / within 0.8569 / dev 135.5; midpoint 0.2149 — all reproduce",
+    "ADDENDUM x185 bands: 0/22, 5/11, 1/2, 15/15, 10/10; run-by-run cross-check against runs_detail: 60 entries, 0 mismatches",
+    "ADDENDUM 109-run caveats on 139: min-mean diff +0.0260 bootstrap [-0.047,+0.103]; mean wins 4 of 7 families; permutation p=0.0005; coalescence 59/59 rebound; r0=3.03825 and gap_raw=9.92349 constant",
+    "ADDENDUM DISCREPANCY: x180_dispersion.py does NOT exclude x182/x184 despite the claim; committed runs_scanned=832 (772 with exclusion); its cell (3.0,10,0.03,2000) is 110 runs/52 fused/0.473 => 50/21/0.42 without the 60 phase-selected runs; mean point-biserial -0.561=>-0.552, informative 381=>321, pooled -0.578=>-0.527"
    ]
   }
  ]
