@@ -3089,14 +3089,14 @@
   {
    "id": "X168_crossing_vs_inflow",
    "title": "Is the ten-cell crossing a property of the medium or of this inflow?",
-   "status": "planned",
+   "status": "closed",
    "owner": null,
    "kind": "experiment",
    "cost_gpu_h": 0.3,
    "prereg": null,
    "created_at": "2026-11-04T05:00:00+03:00",
    "priority": 8,
-   "note": "everything in the fusion block is measured at F = 0.030. Repeat the crossing at F = 0.035 and 0.040 for radius 3 (gaps 9, 10, 11) and radius 6 (gaps 8, 9), ten seeds. If the crossing moves with F, the 'length belonging to the medium' sentence of §4.1 has to be qualified to 'at this inflow'; if it does not move, the length is a property of the pattern rather than of its chemistry."
+   "note": "closed: the crossing moves with the inflow rate, non-monotonically. At F = 0.026 and F = 0.036 a pair at a surface gap of 11 fused 5/5, against 2/15 at F = 0.030 (X158), so both a lower and a higher inflow push the crossing past eleven cells; gap-8 controls fired 5/5 in both arms and no run went extinct. The design bounds the new positions from below only, so a minimum near 0.030 is raised as a hypothesis; the X158 baseline differs in seeds and run length (6000 vs 2000 steps), which is a real confound. Report reports/2026-11-04-x168-inflow-crossing.md. Next: brackets at 12/14/16, a fine F sweep at gap 11, and F = 0.030 on the same seeds and 2000 steps."
   },
   {
    "id": "X167b_reversibility_control",

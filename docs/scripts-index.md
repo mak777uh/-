@@ -4,7 +4,7 @@
 
 The curated page — what matters and why — is [`scripts.md`](scripts.md). This file is the complete list, so that every command behind a number in the record can be found.
 
-Scripts: **377**.
+Scripts: **379**.
 
 ## Гейты и проверки (48)
 
@@ -175,7 +175,7 @@ Scripts: **377**.
 | `make_seed_grid_figure.py` | Собрать Figure 4 рукописи: сетка «инициализация × порядок данных» (§4.13). |
 | `make_simple_poster.py` | Простой постер для владельца: что мы узнали, без терминов. |
 
-## Прочее (238)
+## Прочее (240)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -329,6 +329,8 @@ Scripts: **377**.
 | `x167_fusion_reversibility.py` | x167_fusion_reversibility.py — is a merged body a new object, or the old pair that can come apart? |
 | `x167b_analyse.py` | x167b_analyse.py — X167b: does a merge preserve anything? |
 | `x167b_series.py` | x167b_series.py — arm (b) of X167b: single bodies, for the matched comparison with merged ones. |
+| `x168_analyse.py` | x168_analyse.py — X168: does the crossing move with the inflow rate? |
+| `x168_series.py` | x168_series.py — X168: does the fusion crossing move with the inflow rate F? |
 | `x56_matrix.py` | x56_matrix.py — сходимость по шагу: контраст при dt = 1.0, 0.5, 2.0. |
 | `x58_analyse.py` | x58_analyse.py — the same measurement on a 128 grid: β₀, β₁, wavelength, normalised count. |
 | `x58_series.py` | x60_series.py — X60: the twenty field runs that keep their snapshots. |
