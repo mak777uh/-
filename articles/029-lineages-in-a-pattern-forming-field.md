@@ -1,9 +1,10 @@
 # How lineages begin and end in a pattern-forming chemical medium
 
 - **Type:** research article (measurement and one negative result)
-- **Version:** v2.0 — plain-language edition for an outside reader
+- **Version:** v2.1 — plain-language edition for an outside reader; adds the unequal-pair, three-body, discrete-trait,
+  seed-count and field-probe results of 04.11
 - **Date:** 2026-11-04
-- **Status:** v2.0, released as a preprint together with its data package
+- **Status:** v2.1, released as a preprint together with its data package
 - **Figures:** [`029-figures/`](029-figures/)
 - **Data behind every number:** [`029-figures/tables.json`](029-figures/tables.json)
 
@@ -21,10 +22,11 @@ We asked three plain questions. *Does anything pass from one blob to its descend
 before the medium fuses them into one?* *What actually ends a lineage?*
 
 Four answers. (i) The medium has a **mixing length**, and it is two numbers rather than one: two lineages become a single
-blob when their surfaces are about **two cells apart at contact** (1.9 cells, median over 132 fusing runs, the same at
-every body size), while whether they ever touch is set by the initial gap, which stops working somewhere between **eight
-and eleven cells** — flat in the body's size instead of scaling with it, and not resolved more tightly than that band
-because the arms between 9 and 11 were never run. (ii) A fusion is a **merger of two lineages, not a birth**: both lineages end on the same step and
+blob when their surfaces are about **two cells apart at contact** (1.9 cells, median over 132 fusing runs; at one-step
+resolution this is a band from about one to five cells rather than a single value), while whether they ever touch is set by
+the initial gap, which stops working between **ten and eleven cells** — flat in the body's size, flat in the size *ratio*
+(two bodies of radius 3 and 6 cross in the same band), additive over contacts (a row of three coalesces at the square of the
+pairwise share), and flat in the chemical inflow across the range this world allows. (ii) A fusion is a **merger of two lineages, not a birth**: both lineages end on the same step and
 one blob appears under a new name, which forces a three-way classification of close encounters (mutual fusion,
 absorption, persistence). (iii) At the edge of the mixing length the **outcome switches abruptly while the timing spreads**:
 at body radius 6 the share of runs that end as one blob reads 1.0 / 1.0 / 1.0 / 0.5 across surface gaps of
@@ -43,8 +45,26 @@ happen to still be present at the end, not a property of the trait. A second mea
 field rather than written by the rule, changes the sentence by one clause: **shape is heritable at about half**, and the
 habitat decides whether it is elongation or width that a daughter inherits (§4.8).
 
-Finally, a negative result: adding a third, slowly diffusing chemical — the most natural way to give the pattern a
-heritable scale — does not change the pattern's wavelength at all.
+Two further negatives and one open question. Adding a third, slowly diffusing chemical — the most natural way to
+give the pattern a heritable scale — does not change the pattern's wavelength at all. Nothing **discrete** crosses a
+division: division order and lifespan have parent-daughter slopes of −0.163 and 0.101, both inside their shuffled-parent
+nulls, while area as a positive control reproduces 0.546, so the medium offers a digital notation and not a ratchet. And
+whether a merge erases the two bodies' structure is **open**: the field probe built to see a seam failed its own control,
+though it showed the merged body is a dumbbell (a bridge four to five cells wide) for as long as the pattern lasts, which in
+this world is about three hundred steps.
+
+## What changed in v2.1
+
+v2.0 was the plain-language edition. v2.1 adds the results of one working block and corrects two sentences that block made
+false. The crossing's band is now measured rather than bounded: gap 10 and gap 11 were run at three inflow rates with ten
+seeds per cell (X168c, X168d), so the earlier sentence "the arms between 9 and 11 were never run" no longer holds, and the
+insensitivity to the source is stated with the seed count that can support it. The contact gap is no longer described as
+"the same at every body size": a one-step log (X166) shows a band from about one to five cells across arms. Three new
+results are folded into §4.1 and §4.8 — an unequal pair crossing in the same band (X164), a three-body row coalescing at the
+square of the pairwise share (X165), and no inheritance of discrete traits (X161) — and one question is recorded as open
+rather than answered, the seam a merge may or may not leave behind (X169). Every number in this version is in
+`029-figures/tables.json` with the aggregate it came from, and `scripts/check_article_029_numbers.py --ci` requires each of
+them to appear verbatim.
 
 ## 1. What this paper asks
 
@@ -155,9 +175,9 @@ step 60; 7.8 at step 108 against 3.0 at step 68). The one-step log also settles 
 window shrinks from 1.3 cells to **0.06 cells**, twenty-three times smaller, while the spread stays at 2.07, so the
 "about two cells" is a band by right and not because of our sampling. A pair that takes longer to merge does so from
 further away, which is what one expects if the merge is driven by a field bridge that has time to build. And it is not the
-pair's own geometry: a body of radius 3 against one of radius 6 fuses at every gap up to 8 and stops by 10 (X164, 5/5 at
-gaps 4, 6 and 8, 2/5 at 10), so a twofold difference between the two bodies does not move the crossing out of the same band
-of ten — the length belongs to the medium and not to the pair. Nor is it a property of an isolated pair: a row of three bodies with the same surface gaps coalesces into one component at exactly the share that independent pairwise events predict — 5/5 at a gap of 8, 1/5 at a gap of 10 against the 22 % that 0.47 squared gives, and 0/5 at a gap of 12 (X165) — so the length applies per contact, and a third body neither helps nor prevents. The crossing is also insensitive to the source: at inflow rates 13 % below and 20 % above the one it was measured at, a pair separates between ten and eleven cells just the same (gap 10 fuses 2/5, 2/5 and 3/5 at `F` = 0.026, 0.030 and 0.036; gap 11 fuses 0/5, 1/5 and 2/5 — X168c) — a length that does not move when the source changes by a third belongs to the pattern-former, not to the source. With ten seeds per rate the gap-11 shares are 0/10, 1/10 and 3/10, and no contrast clears a thirty-point difference at p < 0.05 (the extreme rates give p = 0.21 — X168d), so the insensitivity is measured rather than power-limited; the hint that it might rise with the source is recorded and not claimed. Nor is anything discrete carried across: read from 2 778 parent-daughter pairs in the lineage trees the runs already contain, the number of children a body produces has a parent-daughter slope of -0.16 (per-run median exactly zero, ranging from -1.01 to +0.86) and lifespan 0.10, both inside their shuffled-parent nulls, while peak area reproduces 0.55 (X161). A digital medium offers a discrete notation, not a ratchet.
+pair's own geometry: a body of radius 3 against one of radius 6 fuses 5/5 at gaps 4, 6 and 8 and 2/5 at 10 (X164), so a
+twofold difference between the two bodies does not move the crossing out of the same band of ten — the length belongs to the
+medium and not to the pair; the gap at the last two-body step rises with the initial gap, 1.84 / 2.21 / 2.60 / 4.38 cells, because a pair with further to travel merges later and from further apart. Nor is it a property of an isolated pair: a row of three bodies with the same surface gaps coalesces into one component at exactly the share that independent pairwise events predict — 5/5, 1/5 and 0/5 at surface gaps of 8, 10 and 12, against the 22 % that 0.47 squared gives (X165) — so the length applies per contact, and a third body neither helps nor prevents. The crossing is also insensitive to the source: at inflow rates 13 % below and 20 % above the one it was measured at, a pair separates between ten and eleven cells just the same (gap 10 fuses 2/5, 2/5 and 3/5 at `F` = 0.026, 0.030 and 0.036; gap 11 fuses 0/5, 1/5 and 2/5 — X168c) — a length that does not move when the source changes by a third belongs to the pattern-former, not to the source. With ten seeds per rate the gap-11 shares are 0/10, 1/10, 3/10, and no contrast clears a thirty-point difference at p < 0.05 (the extreme rates give p = 0.21 — X168d), so the insensitivity is measured rather than power-limited; the hint that it might rise with the source is recorded and not claimed. Nor is anything discrete carried across: read from 2 778 parent-daughter pairs in the lineage trees the runs already contain, the number of children a body produces has a parent-daughter slope of −0.163 (per-run median exactly zero, ranging from −1.01 to +0.86) and lifespan 0.101, both inside their shuffled-parent nulls (−0.240 to 0.136 for division order and −0.007 to 0.199 for lifespan), while peak area reproduces 0.546 (X161). A digital medium offers a discrete notation, not a ratchet.
 
 That 1.9 is an *upper bound*, not the threshold, and the difference matters at this resolution. The log samples every tenth
 integration step and the bodies grow inside that quantum, so the pair is known to be two bodies at 1.9 cells and one body
@@ -231,7 +251,7 @@ and the threshold lies inside the window.
 
 
 
-What a merge does to the merged body's insides remains open, and it is worth saying why rather than implying an answer: the field-level probe that would settle it (does a seam survive between the parents' positions?) failed its own control, because a body's cross-section is a ring and any intensity profile has a central dip whether there is a seam or not (X169); what the probe did show is that a merged body is a dumbbell — a bridge four to five cells wide between lobes of ten to fourteen — while the pattern lasts, and that this world's field fades within about three hundred steps, so the neck never gets the time to close or to persist. The question therefore needs a long-lived field, not a finer measurement of this one.
+What a merge does to the merged body's insides remains open, and it is worth saying why rather than implying an answer: the field-level probe that would settle it (does a seam survive between the parents' positions?) failed its own control, because a body's cross-section is a ring and any intensity profile has a central dip whether there is a seam or not — the single body reads 0.047 against the 0.9 floor the pre-registration set (X169). What the probe did show is that a merged body is a dumbbell: the bridge between the parents' positions is four to five cells wide against lobes of ten to fourteen, a median waist ratio of 0.36 while the pattern lasts, and this world's field fades within about three hundred steps, so the neck never gets the time to close or to persist. The question therefore needs a long-lived field, not a finer measurement of this one.
 
 ### 4.2 A fusion is a merger, not a birth
 

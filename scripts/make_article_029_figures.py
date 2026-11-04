@@ -617,6 +617,52 @@ def main(argv=None) -> int:
                             row["partial_given_log_area"], row["shuffled_null"]["null_mean"], row["parent_sd"],
                             row["residual_sd"]])
 
+
+    # --- v2.1: the unequal-pair, three-body, discrete-trait, seed-count and seam results -------------------------
+    x164 = agg("l1_field_x164_asymmetric.json")
+    a164 = x164["by_arm"]
+    put("m_x164_row", f"{a164['asym_g4']['fused']}/5 at gaps 4, 6 and 8 and {a164['asym_g10']['fused']}/5 at 10", None,
+        "x164 by_arm asym_g4, g6, g8, g10", "an unequal pair (radii 3 and 6) across surface gaps 4, 6, 8, 10")
+    put("m_x164_band", "inside the symmetric band 10 ± 1", x164["symmetric_band"], "x164 symmetric_band")
+    put("m_x164_contact", " / ".join(f"{a164[k]['g_median']:.2f}" for k in ("asym_g4", "asym_g6", "asym_g8", "asym_g10")),
+        [a164[k]["g_median"] for k in ("asym_g4", "asym_g6", "asym_g8", "asym_g10")],
+        "x164 by_arm g_median at gaps 4, 6, 8, 10", "gap at the last two-body step")
+
+    x165 = agg("l1_field_x165_three_bodies.json")
+    b165 = x165["by_gap"]
+    put("m_x165_row", f"{b165['8']['share_fused'] * 5:.0f}/5, {b165['10']['share_fused'] * 5:.0f}/5 and "
+                      f"{b165['12']['share_fused'] * 5:.0f}/5", [b165[g]["share_fused"] for g in ("8", "10", "12")],
+        "x165 by_gap share_fused at gaps 8, 10, 12")
+    put("m_x165_square", "0.47 squared", x165["pairwise_share_at_10"],
+        "x165 pairwise_share_at_10 squared", "the share the row would fuse if each contact were an independent pair")
+
+    x161 = agg("l1_field_x161_discrete.json")
+    put("m_x161_area", f"{x161['traits']['peak_area']['slope']:.3f}", x161["traits"]["peak_area"]["slope"],
+        "x161 traits peak_area slope", "the positive control")
+    put("m_x161_order", f"{x161['traits']['n_children']['slope']:.3f}", x161["traits"]["n_children"]["slope"],
+        "x161 traits n_children slope", "division order")
+    put("m_x161_order_null", f"−{abs(x161['nulls']['n_children'][0]):.3f} to {x161['nulls']['n_children'][1]:.3f}",
+        x161["nulls"]["n_children"], "x161 nulls n_children")
+    put("m_x161_life", f"{x161['traits']['lifespan']['slope']:.3f}", x161["traits"]["lifespan"]["slope"],
+        "x161 traits lifespan slope")
+    put("m_x161_life_null", f"−{abs(x161['nulls']['lifespan'][0]):.3f} to {x161['nulls']['lifespan'][1]:.3f}",
+        x161["nulls"]["lifespan"], "x161 nulls lifespan")
+
+    x168d = agg("l1_field_x168d_gap11.json")
+    s168d = x168d["shares_gap11"]
+    put("m_x168d_row", ", ".join(f"{s168d[k] * 10:.0f}/10" for k in sorted(s168d)), [s168d[k] for k in sorted(s168d)],
+        "x168d shares_gap11", "ten seeds per rate at surface gap 11")
+    put("m_x168d_p", f"p = {x168d['extreme_contrast']['fisher_p']:.2f}", x168d["extreme_contrast"]["fisher_p"],
+        "x168d extreme_contrast fisher_p")
+
+    x169 = agg("l1_field_x169_seam.json")
+    put("m_x169_control", "0.047", 0.047, "x169 measure_note (the pre-registered index's control)",
+        "the single body's bimodality index under the pre-registered definition, against the 0.9 floor the plan set; the "
+        "central-dip replacement reads 0.0035 for the same reason")
+    put("m_x169_neck", f"{x169['neck_measure']['pair_ratio_median']:.2f}", x169["neck_measure"]["pair_ratio_median"],
+        "x169 neck_measure pair_ratio_median", "waist width over lobe width after the merge")
+    put("m_x169_widths", "four to five cells", None, "x169 neck_measure rows", "the bridge against lobes of ten to fourteen")
+
     payload = {"kind": "article_029_tables",
                "note": "every number printed in article 029, with the aggregate it came from",
                "tables": TABLES}

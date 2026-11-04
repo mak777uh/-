@@ -130,6 +130,22 @@ NEEDLES: dict[str, str] = {
     "s_gamma": "0.30",
     "s_orient": "0.636 and 0.837",
     "s_alive": "2 of 6",
+    # v2.1 results
+    "m_x164_row": "5/5 at gaps 4, 6 and 8 and 2/5 at 10",
+    "m_x164_band": "out of the same band of ten",
+    "m_x164_contact": "1.84 / 2.21 / 2.60 / 4.38",
+    "m_x165_row": "5/5, 1/5 and 0/5",
+    "m_x165_square": "0.47 squared",
+    "m_x161_area": "0.546",
+    "m_x161_order": "−0.163",
+    "m_x161_order_null": "−0.240 to 0.136",
+    "m_x161_life": "0.101",
+    "m_x161_life_null": "−0.007 to 0.199",
+    "m_x168d_row": "0/10, 1/10, 3/10",
+    "m_x168d_p": "p = 0.21",
+    "m_x169_control": "0.047",
+    "m_x169_neck": "0.36",
+    "m_x169_widths": "four to five cells",
 }
 
 # values kept in the tables but quoted only in a figure rather than in the prose
