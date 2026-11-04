@@ -1,7 +1,8 @@
 # The gap between surfaces, not the body size, switches fusion in a pattern-forming chemical medium
 
 - **Type:** research article (measurement, one correction, one methodological result)
-- **Version:** v1.0 — first edition, written for a reader who does not know this line of work
+- **Version:** v1.1 — plain-language edition for a reader who does not know this line of work; adds a glossary of terms and a
+  next-step section
 - **Date:** 2026-11-04
 - **Status:** draft, prepared for submission; NOT yet submitted, deposited or published anywhere
 - **Authors:** Ilya Vladimirov
@@ -53,7 +54,7 @@ narrow space.
 Three concrete questions, each with a way to lose:
 
 1. **Does the local supply decide fusion?** Answer "yes" means: at the same nominal supply, blobs placed at different
-   positions within the stripe stripe fuse at different rates, and the rate follows the local supply. The claim dies if the
+   positions within the stripe fuse at different rates, and the rate follows the local supply. The claim dies if the
    rates are all the same, or if they follow the nominal supply just as well.
 2. **At a fixed supply, does the bridge decide the outcome?** Answer "yes" means: within one supply value, the worlds whose
    bridge is thicker fuse more often. The claim dies if the outcome does not follow the bridge within a value, or if the
@@ -125,6 +126,16 @@ whatever statistic is computed from it [15]. Whenever we compare arms, the compa
 gaps.
 
 ![Figure 1](030-figures/fig1-what-we-measure.png)
+
+**The words of this article, in one place.** A *world* is one run with a given geometry and seed; a *phase class* is a pair of
+seeded positions counted modulo the stripe period of 12 cells; the *local supply* is the value of the striped supply function at
+the seeded positions; the *nominal supply* `F` is its average over the whole field, the number an experimenter sets; the *gap* is
+the shortest distance between the two bodies' surfaces, which differs from the distance between their centres by twice the body
+radius; *fused* is 1 when the two bodies are exactly one connected component at any recorded step and 0 otherwise; and the
+*bridge ratio* is the field value at the midpoint between the bodies divided by the strongest value within 10 cells of that
+midpoint, read at the last step before they touch. Later sections use short experiment names like "X184" or "radius 4, gap 8";
+those are identifiers of runs in the project's own records, listed in the references, and nothing in the argument depends on
+knowing them in advance.
 
 ## 4. Methods: the census, and the two kinds of replication
 
@@ -294,7 +305,31 @@ inflated by the unit of observation — and that the size of the inflation depen
 5. **A different neck observable.** Replace the midpoint ratio with a flux through the neck. If the supply–fusion sign
    reversal at small bodies disappears, the bridge is not the deciding variable.
 
-## 8. Reproducibility
+## 8. The next step, and the step after that
+
+This article is one step of a sequence, and the sequence is the point: each step is a set of runs, a pre-registered question, a
+result written down whether or not it is convenient, and a new question that the result creates. The steps leave a trail in the
+project's own records — every arm has a dated plan written before its run — and **each step is written up as its own article**
+rather than folded silently into the next one. This step's trail is the census line of §5; the step before it is a separate
+article about how lineages begin and end in the same medium.
+
+Two of the five questions in §7 have left the drawing board:
+
+- **the gap boundary on a finer grid** (§7, item 2) is running now: five gaps at radius 4 and three at radius 6, every phase
+  class, 1152 worlds. It turns the five-row table of §5.3 into a curve and replaces "at some point between 9 and 8 cells" with
+  the pair of adjacent gaps the switch falls between. It is registered with its own criteria — monotone share, a single-cell
+  step of at least 0.4, the size shift reproduced at matched gaps — and its refusal rules are written down as well;
+- **the controlled size contrast at one fixed gap** (§7, item 1) is the same curve read vertically: at a gap of 8 the smaller
+  body fuses 0.96 and the larger 0.83, and the finer grid will say whether that difference is a shift or the beginning of a
+  second switch.
+
+The step after that is already named by what is *not* in this article. Three earlier blocks of the same line are still described
+only in the project's internal records: the corridor at contact and what it forecasts about fusion at an unrun supply; the band's
+upper edge, its cliff and the full crossing table of every two-body geometry with intervals; and how much of the between-family
+dispersion is real variation rather than redrawing noise. They are the natural next article, because the reader who has followed
+this one has every definition needed to read them.
+
+## 9. Reproducibility
 
 Every number in this article is written into `030-figures/tables.json` by `scripts/make_article_030_figures.py`, which reads
 only committed artifacts. The figures are rebuilt by the same script:
@@ -349,12 +384,16 @@ cited here. Two entries rest on corpus documents at manifest status `partial` (n
 - **[A8]** X194: `l1_field_x194_phase_clusters.json`; report `reports/2026-11-04-x194-phase-clusters.md`.
 - **[A9]** X197: `l1_field_x197_deviance_worlds.json`; report `reports/2026-11-04-x197-deviance-worlds.md`.
 - **[A10]** X190, X191 (the clone and phase spreads behind the world unit): reports `reports/2026-11-04-x19{0,1}-*.md`.
+- **[A11]** X198 (the finer gap grid of §8, running while this edition was written): pre-registration `reports/2026-11-05-x198-gap-curve-plan.md`; aggregate `l1_field_x198_gap_curve.json`.
 
 ## Changelog
 
 - **v1.0** (2026-11-04): first edition. Consolidates the phase-census line X184–X197 for an outside reader. Includes the
   correction of the "size window" reading (X195) to a **gap** reading (X196), and the unit-of-observation result (X194,
   X197) including the fact that the published deviance drop falls from 20.7 to 14.3 when the world replaces the run.
+- **v1.1** (2026-11-05): a glossary of the article's own terms in one place (§3), so that the definitions do not have to be
+  collected while reading; an explicit next-step section (§8) naming what is already running and what the following article
+  will be; the author line set from the owner's answer (Ilya Vladimirov); a repeated word fixed. No number changed.
 
 ## Verification
 

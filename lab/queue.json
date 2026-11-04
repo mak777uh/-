@@ -1,6 +1,6 @@
 {
  "schema_version": 1,
- "updated_at": "2026-11-05T01:05:00+03:00",
+ "updated_at": "2026-11-05T01:20:00+03:00",
  "note": "Очередь пунктов после E02c. Claim берётся до пре-регистрации, а не перед запуском: lab.py item-claim. Статус running означает занятый GPU-лейн и может быть только у одного пункта. | 25.10: добавлено поле impact (1-5) — приоритет конвейера = impact/max(cost_gpu_h,0.1); для запуска пункту нужны prereg (закоммиченный план) и launch.command+outdir.",
  "items": [
   {
@@ -3481,8 +3481,8 @@
    "prereg": "articles/030-the-gap-between-surfaces-decides-fusion.md",
    "created_at": "2026-11-05T00:36:00+03:00",
    "waiting_on": "owner",
-   "note": "the article is prepared for submission and NOTHING has gone outward. Ready: 45 numbers checked against the aggregates by check_article_030_numbers.py (in verify), an independent recomputation of all six result groups in lab/reviews/2026-11-04-030-numbers.md (1008/1008 per-world rows matched), a verified reference list of 20 entries, five figures built from committed artifacts, and the deposit package under _exports/030-gap-switches-fusion-v1.0.zip (32 files, sha256 manifest, brief). The author list is settled: one author, Vladimirov Ilya, from the owner on 05.11; no ORCID and no related identifiers (both stated by the owner). The licence remains CC BY 4.0, the standing default. The only thing still missing is the owner's explicit go.",
-   "heartbeat_at": "2026-11-05T01:05:00+03:00"
+   "note": "the article is prepared for submission and NOTHING has gone outward. Ready: 45 numbers checked against the aggregates by check_article_030_numbers.py (in verify), an independent recomputation of all six result groups in lab/reviews/2026-11-04-030-numbers.md (1008/1008 per-world rows matched), a verified reference list of 20 entries, five figures built from committed artifacts, and the deposit package under _exports/030-gap-switches-fusion-v1.1.zip (32 files, sha256 manifest, brief). The article itself is at v1.1: a glossary of its own terms in one place, an explicit next-step section (what is running now and what the following article will be), and the author line the owner gave. No number changed between v1.0 and v1.1. The author list is settled: one author, Vladimirov Ilya, from the owner on 05.11; no ORCID and no related identifiers (both stated by the owner). The licence remains CC BY 4.0, the standing default. The only thing still missing is the owner's explicit go.",
+   "heartbeat_at": "2026-11-05T01:20:00+03:00"
   },
   {
    "id": "X198_gap_curve",

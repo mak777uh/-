@@ -8,7 +8,7 @@ README, the licence, a Zenodo metadata record, a sha256 manifest and the publica
     python scripts/build_article_030_package.py
     python scripts/build_article_030_package.py --no-zip     # leave the directory for inspection
 
-Output: `_exports/030-gap-switches-fusion/` and `_exports/030-gap-switches-fusion-v1.0.zip` (both ignored by git).
+Output: `_exports/030-gap-switches-fusion/` and `_exports/030-gap-switches-fusion-v1.1.zip` (both ignored by git).
 
 One author is set (Vladimirov, Ilya — given by the owner on 05.11; no ORCID, no related identifiers); the licence is CC BY
 4.0, the standing default, and the brief says where to change it. Nothing is uploaded by this script.
@@ -28,7 +28,7 @@ FIGDIR = ROOT / "articles" / "030-figures"
 REFS = ROOT / "articles" / "030-references.md"
 POND = ROOT / "morphogenesis" / "experiments" / "E09_pond"
 OUT = ROOT / "_exports" / "030-gap-switches-fusion"
-ZIP = ROOT / "_exports" / "030-gap-switches-fusion-v1.0.zip"
+ZIP = ROOT / "_exports" / "030-gap-switches-fusion-v1.1.zip"
 STEM = "030-the-gap-between-surfaces-decides-fusion"
 
 AGGREGATES = [
@@ -100,7 +100,7 @@ aggregates carry their own command lines and pre-registrations. The independent 
 
 BRIEF = """# Publishing brief — article 030 "{title}"
 
-You are receiving this brief together with one archive, `030-gap-switches-fusion-v1.0.zip`. The article and its data are
+You are receiving this brief together with one archive, `030-gap-switches-fusion-v1.1.zip`. The article and its data are
 final: the numbers have been checked mechanically against the data and independently recomputed by a reviewer. Your job is
 to deposit them, not to improve them. Where this brief says "ask the author", stop and ask; do not decide on your own.
 
@@ -136,7 +136,7 @@ to deposit them, not to improve them. Where this brief says "ask the author", st
 - **Title and description:** copy from `zenodo.json` verbatim.
 - **Keywords:** from `zenodo.json` (`keywords`).
 - **Access:** open.
-- **Version:** v1.0.
+- **Version:** v1.1.
 - After the deposit, record the DOI back in the repository (`lab/notices.md`) so the line's own artifacts can cite it.
 
 ## 4. What this archive does NOT contain
@@ -216,7 +216,7 @@ def main() -> int:
         "creators": [{"name": "Vladimirov, Ilya"}],
         "license": "CC-BY-4.0",
         "access_right": "open",
-        "version": "v1.0",
+        "version": "v1.1",
         "language": "eng",
         "keywords": ["reaction-diffusion", "pattern formation", "neural cellular automata", "coalescence", "bridge",
                      "pre-registration", "unit of observation"],

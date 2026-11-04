@@ -53,6 +53,13 @@
 
 Конкретный следующий эксперимент/решение, с критерием успеха и провала.
 
+**Rule added 05.11 (owner's wording: describe the steps and what we find, then take new steps, then a new article).** An
+article is *one step*, not a running report: it fixes the question and the answer of this step, and it ends by naming the step
+that the answer has created. The next step is written up as its own article — this text is not extended into it — so that each
+article can be read on its own by someone who does not know the earlier ones. Two things follow for the section above: it names
+what is already running (with the pre-registration it was claimed under), and it names what the *next* article will be. A step
+with no named successor is a step that has not been thought through.
+
 ## 8. Воспроизведение
 
 ```bash
