@@ -4,7 +4,7 @@
 
 The curated page — what matters and why — is [`scripts.md`](scripts.md). This file is the complete list, so that every command behind a number in the record can be found.
 
-Scripts: **389**.
+Scripts: **395**.
 
 ## Гейты и проверки (48)
 
@@ -175,7 +175,7 @@ Scripts: **389**.
 | `make_seed_grid_figure.py` | Собрать Figure 4 рукописи: сетка «инициализация × порядок данных» (§4.13). |
 | `make_simple_poster.py` | Простой постер для владельца: что мы узнали, без терминов. |
 
-## Прочее (250)
+## Прочее (256)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -341,6 +341,12 @@ Scripts: **389**.
 | `x169_seam_analyse.py` | x169_seam_analyse.py — X169: is there a seam in the field after a fusion? |
 | `x170_corridor.py` | x170_corridor.py — X170: the field between two bodies at contact, at three inflow rates. |
 | `x170_corridor_analyse.py` | x170_corridor_analyse.py — X170: the corridor concentration at contact, at three inflow rates. |
+| `x171_corridor_sizes.py` | x171_corridor_sizes.py — X171: the corridor at contact at three body sizes, reference rate. |
+| `x171_corridor_sizes_analyse.py` | x171_corridor_sizes_analyse.py — X171: is the corridor at contact the same at every body size? |
+| `x172_forecast.py` | x172_forecast.py — X172: an unrun rate, F = 0.033, against two registered predictions. |
+| `x172_forecast_analyse.py` | x172_forecast_analyse.py — X172: did the two registered predictions at F = 0.033 land? |
+| `x173_bridge.py` | x173_bridge.py — X173: does the maximum the bridge reaches separate the runs that fuse from those that do not? |
+| `x173_bridge_analyse.py` | x173_bridge_analyse.py — X173: does the bridge's maximum separate the runs that fuse from those that do not? |
 | `x56_matrix.py` | x56_matrix.py — сходимость по шагу: контраст при dt = 1.0, 0.5, 2.0. |
 | `x58_analyse.py` | x58_analyse.py — the same measurement on a 128 grid: β₀, β₁, wavelength, normalised count. |
 | `x58_series.py` | x60_series.py — X60: the twenty field runs that keep their snapshots. |

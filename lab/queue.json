@@ -3145,6 +3145,42 @@
    "created_at": "2026-11-04T10:20:00+03:00",
    "priority": 8,
    "note": "closed: the trend was noise. Gap-11 fusion shares at F = 0.026, 0.030, 0.036 are 0/10, 1/10 and 3/10 (Wilson [0, 0.28], [0.02, 0.40], [0.11, 0.60]); Fisher's exact tests give 0.026 vs 0.036 p = 0.21, and no contrast clears the pre-registered 0.3 difference at p < 0.05. Gap-8 controls fired 10/10 at every rate. So the crossing's insensitivity to the inflow rate is measured rather than power-limited. Report reports/2026-11-04-x168d-gap11.md. Next: gap 10 at ten seeds, the corridor concentration as a function of F, and forty seeds at gap 11 only if the hint is worth it."
+  },
+  {
+   "id": "X171_corridor_sizes",
+   "title": "Is the corridor at contact a size-independent criterion?",
+   "status": "closed",
+   "owner": "lead",
+   "kind": "experiment",
+   "cost_gpu_h": 0.4,
+   "prereg": "reports/2026-11-04-x171-corridor-sizes-plan.md",
+   "created_at": "2026-11-04T16:20:00+03:00",
+   "priority": 8,
+   "note": "closed with the predicted answer: 0.479 / 0.492 / 0.470 at radii 3 / 4.5 / 6, difference 0.02 against a pooled spread of 0.040, so a merge happens at a roughly constant fraction of the body peak and X170's description becomes a rule. Next: predict the crossing for an unrun size (5.2); separate size from gap with three arms at a fixed radius; repeat the three-size measurement at F = 0.036."
+  },
+  {
+   "id": "X172_forecast",
+   "title": "Predict the fusion share and the corridor at an unrun rate",
+   "status": "closed",
+   "owner": "lead",
+   "kind": "experiment",
+   "cost_gpu_h": 0.4,
+   "prereg": "reports/2026-11-04-x172-forecast-plan.md",
+   "created_at": "2026-11-04T16:20:00+03:00",
+   "priority": 8,
+   "note": "closed partially: the corridor landed (0.442 against a registered 0.436 ± 0.08) and the share missed by one run (8/20 against 9-15, Wilson [0.22, 0.61] containing the prediction), so twenty seeds cannot resolve the share - it needs about a hundred per cell. Next: a hundred-seed share prediction; the corridor across sizes at F = 0.036; interpolate the crossing rather than the share."
+  },
+  {
+   "id": "X173_bridge",
+   "title": "Does the bridge's maximum predict which pairs fuse?",
+   "status": "closed",
+   "owner": "lead",
+   "kind": "experiment",
+   "cost_gpu_h": 0.4,
+   "prereg": "reports/2026-11-04-x173-bridge-plan.md",
+   "created_at": "2026-11-04T16:20:00+03:00",
+   "priority": 8,
+   "note": "closed negative on design grounds: the two readouts misclassify 7 of 30, and the reason is that the world's proliferation buries the seeded pair after ~150 of 3 000 steps, so the non-fusing arm's maximum is censored rather than negative. Next: a 192x192 grid, a marker carried through divisions, or a prediction read at contact time instead of over the build-up."
   }
  ]
 }

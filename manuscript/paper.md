@@ -1907,7 +1907,7 @@ intensity profile has a central dip whether there is a seam or not; what it did 
 bridge four to five cells wide between lobes of ten to fourteen, for as long as the pattern lasts — which in this world is about
 three hundred steps (X169). The question needs a world whose pattern outlives the merge, not a finer measurement of this one.
 
-Доказательства: §10hw, §10hy, §10hz, §10hv, §10ic, §10id, §10ie в `docs/world-design.md`; `reports/2026-11-04-x164-asymmetric-pairs.md`,
+Доказательства: разделы 10hw, 10hy, 10hz, 10hv, 10ic, 10id, 10ie, 10if, 10ig, 10ih индекса `docs/world-design.md` (тела разделов — в `docs/plan/`); `reports/2026-11-04-x164-asymmetric-pairs.md`,
 `-x165-three-bodies.md`, `-x161-discrete-heredity.md`, `-x167-reversibility-exploratory.md`, `-x167b-reversibility.md`,
 `-x169-seam.md`, `-x168d-gap11.md`, `-x170-corridor.md`; агрегаты `l1_field_x164_asymmetric.json`, `l1_field_x165_three_bodies.json`,
 `l1_field_x161_discrete.json`, `l1_field_x167_reversibility.json`, `l1_field_x167b_reversibility.json`,

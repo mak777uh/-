@@ -1,0 +1,378 @@
+{
+ "kind": "x173_bridge",
+ "flow": 0.03,
+ "radius": 3.0,
+ "samples_per_profile": 21,
+ "definition": "per-step corridor between the two largest components, normalised by the peak; per-run readout is the maximum",
+ "by_gap": {
+  "8": {
+   "fused": 10,
+   "runs": 10,
+   "c_max_median": 0.4446,
+   "c_max_min": 0.3744,
+   "c_max_max": 0.5026,
+   "censored": 0
+  },
+  "10": {
+   "fused": 2,
+   "runs": 10,
+   "c_max_median": 0.4253,
+   "c_max_min": 0.3067,
+   "c_max_max": 0.5307,
+   "censored": 0
+  },
+  "11": {
+   "fused": 1,
+   "runs": 10,
+   "c_max_median": 0.3497,
+   "c_max_min": 0.2333,
+   "c_max_max": 0.4767,
+   "censored": 0
+  }
+ },
+ "split": {
+  "threshold": 0.4284,
+  "misclassified": 7,
+  "of": 30
+ },
+ "sd_all": 0.0756,
+ "controls": {
+  "gap8_fused": 10,
+  "gap11_fused": 1,
+  "control_fired": true,
+  "readout_varies": true
+ },
+ "runs": [
+  {
+   "gap": 8,
+   "seed": 1011,
+   "fused": true,
+   "min": 1,
+   "final": 65,
+   "c_max": 0.4388,
+   "c_max_step": 100,
+   "last_usable_step": 300,
+   "censored": false
+  },
+  {
+   "gap": 8,
+   "seed": 1012,
+   "fused": true,
+   "min": 1,
+   "final": 67,
+   "c_max": 0.4876,
+   "c_max_step": 90,
+   "last_usable_step": 260,
+   "censored": false
+  },
+  {
+   "gap": 8,
+   "seed": 1013,
+   "fused": true,
+   "min": 1,
+   "final": 62,
+   "c_max": 0.3744,
+   "c_max_step": 110,
+   "last_usable_step": 350,
+   "censored": false
+  },
+  {
+   "gap": 8,
+   "seed": 1014,
+   "fused": true,
+   "min": 1,
+   "final": 64,
+   "c_max": 0.4315,
+   "c_max_step": 50,
+   "last_usable_step": 350,
+   "censored": false
+  },
+  {
+   "gap": 8,
+   "seed": 1015,
+   "fused": true,
+   "min": 1,
+   "final": 64,
+   "c_max": 0.4747,
+   "c_max_step": 90,
+   "last_usable_step": 290,
+   "censored": false
+  },
+  {
+   "gap": 8,
+   "seed": 1016,
+   "fused": true,
+   "min": 1,
+   "final": 68,
+   "c_max": 0.4088,
+   "c_max_step": 40,
+   "last_usable_step": 240,
+   "censored": false
+  },
+  {
+   "gap": 8,
+   "seed": 1017,
+   "fused": true,
+   "min": 1,
+   "final": 66,
+   "c_max": 0.5026,
+   "c_max_step": 90,
+   "last_usable_step": 250,
+   "censored": false
+  },
+  {
+   "gap": 8,
+   "seed": 1018,
+   "fused": true,
+   "min": 1,
+   "final": 63,
+   "c_max": 0.3827,
+   "c_max_step": 100,
+   "last_usable_step": 290,
+   "censored": false
+  },
+  {
+   "gap": 8,
+   "seed": 1019,
+   "fused": true,
+   "min": 1,
+   "final": 64,
+   "c_max": 0.4747,
+   "c_max_step": 90,
+   "last_usable_step": 290,
+   "censored": false
+  },
+  {
+   "gap": 8,
+   "seed": 1020,
+   "fused": true,
+   "min": 1,
+   "final": 47,
+   "c_max": 0.4504,
+   "c_max_step": 90,
+   "last_usable_step": 150,
+   "censored": false
+  },
+  {
+   "gap": 10,
+   "seed": 1011,
+   "fused": false,
+   "min": 2,
+   "final": 61,
+   "c_max": 0.5307,
+   "c_max_step": 90,
+   "last_usable_step": 260,
+   "censored": false
+  },
+  {
+   "gap": 10,
+   "seed": 1012,
+   "fused": false,
+   "min": 2,
+   "final": 67,
+   "c_max": 0.4414,
+   "c_max_step": 90,
+   "last_usable_step": 220,
+   "censored": false
+  },
+  {
+   "gap": 10,
+   "seed": 1013,
+   "fused": false,
+   "min": 2,
+   "final": 63,
+   "c_max": 0.4124,
+   "c_max_step": 90,
+   "last_usable_step": 310,
+   "censored": false
+  },
+  {
+   "gap": 10,
+   "seed": 1014,
+   "fused": false,
+   "min": 2,
+   "final": 59,
+   "c_max": 0.3374,
+   "c_max_step": 90,
+   "last_usable_step": 300,
+   "censored": false
+  },
+  {
+   "gap": 10,
+   "seed": 1015,
+   "fused": false,
+   "min": 2,
+   "final": 66,
+   "c_max": 0.4253,
+   "c_max_step": 90,
+   "last_usable_step": 270,
+   "censored": false
+  },
+  {
+   "gap": 10,
+   "seed": 1016,
+   "fused": true,
+   "min": 1,
+   "final": 64,
+   "c_max": 0.5,
+   "c_max_step": 70,
+   "last_usable_step": 180,
+   "censored": false
+  },
+  {
+   "gap": 10,
+   "seed": 1017,
+   "fused": true,
+   "min": 1,
+   "final": 56,
+   "c_max": 0.5181,
+   "c_max_step": 100,
+   "last_usable_step": 210,
+   "censored": false
+  },
+  {
+   "gap": 10,
+   "seed": 1018,
+   "fused": false,
+   "min": 2,
+   "final": 55,
+   "c_max": 0.3742,
+   "c_max_step": 90,
+   "last_usable_step": 260,
+   "censored": false
+  },
+  {
+   "gap": 10,
+   "seed": 1019,
+   "fused": false,
+   "min": 2,
+   "final": 66,
+   "c_max": 0.4253,
+   "c_max_step": 90,
+   "last_usable_step": 270,
+   "censored": false
+  },
+  {
+   "gap": 10,
+   "seed": 1020,
+   "fused": false,
+   "min": 2,
+   "final": 66,
+   "c_max": 0.3067,
+   "c_max_step": 80,
+   "last_usable_step": 170,
+   "censored": false
+  },
+  {
+   "gap": 11,
+   "seed": 1011,
+   "fused": false,
+   "min": 2,
+   "final": 62,
+   "c_max": 0.4159,
+   "c_max_step": 110,
+   "last_usable_step": 260,
+   "censored": false
+  },
+  {
+   "gap": 11,
+   "seed": 1012,
+   "fused": false,
+   "min": 2,
+   "final": 57,
+   "c_max": 0.329,
+   "c_max_step": 100,
+   "last_usable_step": 200,
+   "censored": false
+  },
+  {
+   "gap": 11,
+   "seed": 1013,
+   "fused": false,
+   "min": 2,
+   "final": 59,
+   "c_max": 0.457,
+   "c_max_step": 370,
+   "last_usable_step": 420,
+   "censored": false
+  },
+  {
+   "gap": 11,
+   "seed": 1014,
+   "fused": false,
+   "min": 2,
+   "final": 62,
+   "c_max": 0.2541,
+   "c_max_step": 100,
+   "last_usable_step": 290,
+   "censored": false
+  },
+  {
+   "gap": 11,
+   "seed": 1015,
+   "fused": false,
+   "min": 2,
+   "final": 62,
+   "c_max": 0.3497,
+   "c_max_step": 110,
+   "last_usable_step": 270,
+   "censored": false
+  },
+  {
+   "gap": 11,
+   "seed": 1016,
+   "fused": true,
+   "min": 1,
+   "final": 55,
+   "c_max": 0.4767,
+   "c_max_step": 90,
+   "last_usable_step": 170,
+   "censored": false
+  },
+  {
+   "gap": 11,
+   "seed": 1017,
+   "fused": false,
+   "min": 2,
+   "final": 66,
+   "c_max": 0.4352,
+   "c_max_step": 110,
+   "last_usable_step": 190,
+   "censored": false
+  },
+  {
+   "gap": 11,
+   "seed": 1018,
+   "fused": false,
+   "min": 2,
+   "final": 65,
+   "c_max": 0.2929,
+   "c_max_step": 100,
+   "last_usable_step": 220,
+   "censored": false
+  },
+  {
+   "gap": 11,
+   "seed": 1019,
+   "fused": false,
+   "min": 2,
+   "final": 62,
+   "c_max": 0.3497,
+   "c_max_step": 110,
+   "last_usable_step": 270,
+   "censored": false
+  },
+  {
+   "gap": 11,
+   "seed": 1020,
+   "fused": false,
+   "min": 2,
+   "final": 74,
+   "c_max": 0.2333,
+   "c_max_step": 100,
+   "last_usable_step": 380,
+   "censored": false
+  }
+ ],
+ "verdict": "THE CORRIDOR IS A READOUT OF CONTACT, NOT A PREDICTOR OF IT: the best single threshold on the bridge's maximum misclassifies 7 of 30 runs (gap 8 median 0.44, gap 10 0.43, gap 11 0.35), so the maximum the bridge reaches does not by itself decide which pairs merge."
+}

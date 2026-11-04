@@ -233,3 +233,6 @@ sections were not rewritten, only moved; each one keeps its identifier, so every
 | §10ic | X169 — проба шва провалила собственный контроль; тело — гантель, пока живёт поле (04.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
 | §10id | X168d — десять сидов при зазоре 11: тренд по притоку был шумом (04.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
 | §10ie | X170 — граница зависит от притока, и коридор говорит как (04.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
+| §10if | X171 — коридор при контакте одинаков при любом размере тела (04.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
+| §10ig | X172 — предсказание на непроведённом притоке: коридор попадает, доля — нет (04.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
+| §10ih | X173 — не решается: размножение мира закрывает окно (04.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
