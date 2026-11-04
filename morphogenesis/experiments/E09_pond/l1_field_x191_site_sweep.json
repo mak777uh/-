@@ -1,0 +1,1822 @@
+{
+ "kind": "x191_site_sweep",
+ "flow": 0.03,
+ "radius": 6.0,
+ "gap": 9.0,
+ "dropped_levels": [
+  {
+   "level": 0.041,
+   "sites_reaching_contact": 0,
+   "available_sites": 0,
+   "why": "fewer than four sites reached the contact moment, so the level is dropped and said so (the plan's refusal rule for an unattainable level)"
+  }
+ ],
+ "note": "the highest registered level (F_local 0.041) has no site within 0.0025 anywhere in the seed map, because the top of the pattern's band is sparse; it is dropped as the plan provides, so the sweep is five levels spanning about 0.017 to 0.0375",
+ "ring_radius": 10,
+ "levels": [
+  {
+   "level": 0.016,
+   "runs": 5,
+   "sites_reaching_contact": 5,
+   "f_local_mean": 0.01621,
+   "ratio_contact_mean": 0.36295,
+   "ratio_contact_values": [
+    0.18418,
+    0.19247,
+    0.47313,
+    0.49182,
+    0.47313
+   ],
+   "ratio_contact_sd": 0.14276,
+   "distinct_phases": 5,
+   "distinct_ratios": 4,
+   "fused": 5,
+   "share": 1.0,
+   "ratio_fixed_100_mean": 0.47471
+  },
+  {
+   "level": 0.021,
+   "runs": 5,
+   "sites_reaching_contact": 5,
+   "f_local_mean": 0.0225,
+   "ratio_contact_mean": 0.27178,
+   "ratio_contact_values": [
+    0.44325,
+    0.01271,
+    0.45354,
+    0.44325,
+    0.00616
+   ],
+   "ratio_contact_sd": 0.21425,
+   "distinct_phases": 5,
+   "distinct_ratios": 4,
+   "fused": 2,
+   "share": 0.4,
+   "ratio_fixed_100_mean": 0.46658
+  },
+  {
+   "level": 0.026,
+   "runs": 5,
+   "sites_reaching_contact": 5,
+   "f_local_mean": 0.0246,
+   "ratio_contact_mean": 0.16727,
+   "ratio_contact_values": [
+    0.40341,
+    0.40341,
+    0.00598,
+    0.01178,
+    0.01178
+   ],
+   "ratio_contact_sd": 0.19282,
+   "distinct_phases": 5,
+   "distinct_ratios": 3,
+   "fused": 0,
+   "share": 0.0,
+   "ratio_fixed_100_mean": 0.41767
+  },
+  {
+   "level": 0.031,
+   "runs": 5,
+   "sites_reaching_contact": 5,
+   "f_local_mean": 0.03,
+   "ratio_contact_mean": 0.29468,
+   "ratio_contact_values": [
+    0.39916,
+    0.39916,
+    0.39916,
+    0.13796,
+    0.13796
+   ],
+   "ratio_contact_sd": 0.12796,
+   "distinct_phases": 5,
+   "distinct_ratios": 2,
+   "fused": 3,
+   "share": 0.6,
+   "ratio_fixed_100_mean": 0.39893
+  },
+  {
+   "level": 0.036,
+   "runs": 5,
+   "sites_reaching_contact": 5,
+   "f_local_mean": 0.03525,
+   "ratio_contact_mean": 0.0318,
+   "ratio_contact_values": [
+    0.06174,
+    0.04216,
+    0.00287,
+    0.01008,
+    0.04216
+   ],
+   "ratio_contact_sd": 0.022,
+   "distinct_phases": 5,
+   "distinct_ratios": 4,
+   "fused": 1,
+   "share": 0.2,
+   "ratio_fixed_100_mean": 0.33911
+  }
+ ],
+ "level_means": [
+  0.36295,
+  0.27178,
+  0.16727,
+  0.29468,
+  0.0318
+ ],
+ "spearman_site_ratio_vs_f_local": -0.509,
+ "point_biserial_ratio_vs_outcome": 0.441,
+ "inversions_between_level_means": 1,
+ "top_level_share": 0.2,
+ "bars": {
+  "spearman": -0.5,
+  "outcome_rho": 0.5,
+  "top_share": 0.6
+ },
+ "checks": {
+  "sites_per_level_ok": true,
+  "peak_ok": true,
+  "spacing_ok": true,
+  "available_sites_per_level": {
+   "0.016": 5,
+   "0.021": 5,
+   "0.026": 5,
+   "0.031": 5,
+   "0.036": 5,
+   "0.041": 0
+  }
+ },
+ "runs_detail": [
+  {
+   "level_index": 0,
+   "level": 0.016,
+   "site": 0,
+   "jitter": [
+    8,
+    15
+   ],
+   "phase": [
+    8,
+    3
+   ],
+   "seed": 2,
+   "f_local": 0.015,
+   "fused": 1,
+   "min_count": 1,
+   "usable_slices": 4,
+   "contact_step": 140,
+   "ratio_contact": 0.18418,
+   "ratio_contact_min": 0.03596,
+   "ratio_fixed_100": 0.48498,
+   "peak_min": 0.3798,
+   "per_slice": [
+    {
+     "step": 40,
+     "n_components": 2,
+     "peak": 0.42673,
+     "ratio": 0.18655,
+     "ratio_min": 0.18655
+    },
+    {
+     "step": 60,
+     "n_components": 2,
+     "peak": 0.3798,
+     "ratio": 0.4832,
+     "ratio_min": 0.4832
+    },
+    {
+     "step": 80,
+     "n_components": 1
+    },
+    {
+     "step": 100,
+     "n_components": 2,
+     "peak": 0.39184,
+     "ratio": 0.48498,
+     "ratio_min": 0.11814
+    },
+    {
+     "step": 140,
+     "n_components": 2,
+     "peak": 0.39567,
+     "ratio": 0.18418,
+     "ratio_min": 0.03596
+    },
+    {
+     "step": 200,
+     "n_components": 3
+    },
+    {
+     "step": 300,
+     "n_components": 3
+    }
+   ]
+  },
+  {
+   "level_index": 0,
+   "level": 0.016,
+   "site": 1,
+   "jitter": [
+    4,
+    14
+   ],
+   "phase": [
+    4,
+    2
+   ],
+   "seed": 8,
+   "f_local": 0.01701,
+   "fused": 1,
+   "min_count": 1,
+   "usable_slices": 4,
+   "contact_step": 140,
+   "ratio_contact": 0.19247,
+   "ratio_contact_min": 0.03479,
+   "ratio_fixed_100": 0.45049,
+   "peak_min": 0.38614,
+   "per_slice": [
+    {
+     "step": 40,
+     "n_components": 2,
+     "peak": 0.42303,
+     "ratio": 0.18562,
+     "ratio_min": 0.18562
+    },
+    {
+     "step": 60,
+     "n_components": 2,
+     "peak": 0.38815,
+     "ratio": 0.46577,
+     "ratio_min": 0.46577
+    },
+    {
+     "step": 80,
+     "n_components": 1
+    },
+    {
+     "step": 100,
+     "n_components": 2,
+     "peak": 0.38614,
+     "ratio": 0.45049,
+     "ratio_min": 0.12349
+    },
+    {
+     "step": 140,
+     "n_components": 2,
+     "peak": 0.42091,
+     "ratio": 0.19247,
+     "ratio_min": 0.03479
+    },
+    {
+     "step": 200,
+     "n_components": 4
+    },
+    {
+     "step": 300,
+     "n_components": 4
+    }
+   ]
+  },
+  {
+   "level_index": 0,
+   "level": 0.016,
+   "site": 2,
+   "jitter": [
+    -19,
+    2
+   ],
+   "phase": [
+    5,
+    2
+   ],
+   "seed": 11,
+   "f_local": 0.01701,
+   "fused": 1,
+   "min_count": 1,
+   "usable_slices": 3,
+   "contact_step": 100,
+   "ratio_contact": 0.47313,
+   "ratio_contact_min": 0.11359,
+   "ratio_fixed_100": 0.47313,
+   "peak_min": 0.39276,
+   "per_slice": [
+    {
+     "step": 40,
+     "n_components": 2,
+     "peak": 0.42521,
+     "ratio": 0.19279,
+     "ratio_min": 0.19279
+    },
+    {
+     "step": 60,
+     "n_components": 2,
+     "peak": 0.39276,
+     "ratio": 0.5045,
+     "ratio_min": 0.5045
+    },
+    {
+     "step": 80,
+     "n_components": 1
+    },
+    {
+     "step": 100,
+     "n_components": 2,
+     "peak": 0.39597,
+     "ratio": 0.47313,
+     "ratio_min": 0.11359
+    },
+    {
+     "step": 140,
+     "n_components": 3
+    },
+    {
+     "step": 200,
+     "n_components": 4
+    },
+    {
+     "step": 300,
+     "n_components": 4
+    }
+   ]
+  },
+  {
+   "level_index": 0,
+   "level": 0.016,
+   "site": 3,
+   "jitter": [
+    5,
+    -21
+   ],
+   "phase": [
+    5,
+    3
+   ],
+   "seed": 19,
+   "f_local": 0.015,
+   "fused": 1,
+   "min_count": 1,
+   "usable_slices": 2,
+   "contact_step": 100,
+   "ratio_contact": 0.49182,
+   "ratio_contact_min": 0.11133,
+   "ratio_fixed_100": 0.49182,
+   "peak_min": 0.38808,
+   "per_slice": [
+    {
+     "step": 40,
+     "n_components": 2,
+     "peak": 0.42232,
+     "ratio": 0.19806,
+     "ratio_min": 0.19806
+    },
+    {
+     "step": 60,
+     "n_components": 1
+    },
+    {
+     "step": 80,
+     "n_components": 1
+    },
+    {
+     "step": 100,
+     "n_components": 2,
+     "peak": 0.38808,
+     "ratio": 0.49182,
+     "ratio_min": 0.11133
+    },
+    {
+     "step": 140,
+     "n_components": 3
+    },
+    {
+     "step": 200,
+     "n_components": 3
+    },
+    {
+     "step": 300,
+     "n_components": 3
+    }
+   ]
+  },
+  {
+   "level_index": 0,
+   "level": 0.016,
+   "site": 4,
+   "jitter": [
+    11,
+    -4
+   ],
+   "phase": [
+    11,
+    8
+   ],
+   "seed": 20,
+   "f_local": 0.01701,
+   "fused": 1,
+   "min_count": 1,
+   "usable_slices": 3,
+   "contact_step": 100,
+   "ratio_contact": 0.47313,
+   "ratio_contact_min": 0.11359,
+   "ratio_fixed_100": 0.47313,
+   "peak_min": 0.39276,
+   "per_slice": [
+    {
+     "step": 40,
+     "n_components": 2,
+     "peak": 0.42521,
+     "ratio": 0.19279,
+     "ratio_min": 0.19279
+    },
+    {
+     "step": 60,
+     "n_components": 2,
+     "peak": 0.39276,
+     "ratio": 0.5045,
+     "ratio_min": 0.5045
+    },
+    {
+     "step": 80,
+     "n_components": 1
+    },
+    {
+     "step": 100,
+     "n_components": 2,
+     "peak": 0.39597,
+     "ratio": 0.47313,
+     "ratio_min": 0.11359
+    },
+    {
+     "step": 140,
+     "n_components": 3
+    },
+    {
+     "step": 200,
+     "n_components": 4
+    },
+    {
+     "step": 300,
+     "n_components": 4
+    }
+   ]
+  },
+  {
+   "level_index": 1,
+   "level": 0.021,
+   "site": 0,
+   "jitter": [
+    8,
+    1
+   ],
+   "phase": [
+    8,
+    1
+   ],
+   "seed": 10,
+   "f_local": 0.0225,
+   "fused": 0,
+   "min_count": 2,
+   "usable_slices": 4,
+   "contact_step": 100,
+   "ratio_contact": 0.44325,
+   "ratio_contact_min": 0.21173,
+   "ratio_fixed_100": 0.44325,
+   "peak_min": 0.37559,
+   "per_slice": [
+    {
+     "step": 40,
+     "n_components": 2,
+     "peak": 0.42477,
+     "ratio": 0.17833,
+     "ratio_min": 0.17833
+    },
+    {
+     "step": 60,
+     "n_components": 2,
+     "peak": 0.39002,
+     "ratio": 0.44319,
+     "ratio_min": 0.44319
+    },
+    {
+     "step": 80,
+     "n_components": 2,
+     "peak": 0.38045,
+     "ratio": 0.51489,
+     "ratio_min": 0.33263
+    },
+    {
+     "step": 100,
+     "n_components": 2,
+     "peak": 0.37559,
+     "ratio": 0.44325,
+     "ratio_min": 0.21173
+    },
+    {
+     "step": 140,
+     "n_components": 3
+    },
+    {
+     "step": 200,
+     "n_components": 5
+    },
+    {
+     "step": 300,
+     "n_components": 7
+    }
+   ]
+  },
+  {
+   "level_index": 1,
+   "level": 0.021,
+   "site": 1,
+   "jitter": [
+    0,
+    -15
+   ],
+   "phase": [
+    0,
+    9
+   ],
+   "seed": 21,
+   "f_local": 0.0225,
+   "fused": 1,
+   "min_count": 1,
+   "usable_slices": 5,
+   "contact_step": 300,
+   "ratio_contact": 0.01271,
+   "ratio_contact_min": 0.01271,
+   "ratio_fixed_100": 0.52116,
+   "peak_min": 0.35075,
+   "per_slice": [
+    {
+     "step": 40,
+     "n_components": 2,
+     "peak": 0.42402,
+     "ratio": 0.20044,
+     "ratio_min": 0.20044
+    },
+    {
+     "step": 60,
+     "n_components": 1
+    },
+    {
+     "step": 80,
+     "n_components": 1
+    },
+    {
+     "step": 100,
+     "n_components": 2,
+     "peak": 0.37329,
+     "ratio": 0.52116,
+     "ratio_min": 0.17578
+    },
+    {
+     "step": 140,
+     "n_components": 2,
+     "peak": 0.35584,
+     "ratio": 0.26249,
+     "ratio_min": 0.03229
+    },
+    {
+     "step": 200,
+     "n_components": 2,
+     "peak": 0.37487,
+     "ratio": 0.00514,
+     "ratio_min": 0.00514
+    },
+    {
+     "step": 300,
+     "n_components": 2,
+     "peak": 0.35075,
+     "ratio": 0.01271,
+     "ratio_min": 0.01271
+    }
+   ]
+  },
+  {
+   "level_index": 1,
+   "level": 0.021,
+   "site": 2,
+   "jitter": [
+    -23,
+    -13
+   ],
+   "phase": [
+    1,
+    11
+   ],
+   "seed": 24,
+   "f_local": 0.0225,
+   "fused": 1,
+   "min_count": 1,
+   "usable_slices": 3,
+   "contact_step": 100,
+   "ratio_contact": 0.45354,
+   "ratio_contact_min": 0.19725,
+   "ratio_fixed_100": 0.45354,
+   "peak_min": 0.38835,
+   "per_slice": [
+    {
+     "step": 40,
+     "n_components": 2,
+     "peak": 0.42567,
+     "ratio": 0.18232,
+     "ratio_min": 0.18232
+    },
+    {
+     "step": 60,
+     "n_components": 2,
+     "peak": 0.38871,
+     "ratio": 0.47015,
+     "ratio_min": 0.47015
+    },
+    {
+     "step": 80,
+     "n_components": 1
+    },
+    {
+     "step": 100,
+     "n_components": 2,
+     "peak": 0.38835,
+     "ratio": 0.45354,
+     "ratio_min": 0.19725
+    },
+    {
+     "step": 140,
+     "n_components": 4
+    },
+    {
+     "step": 200,
+     "n_components": 5
+    },
+    {
+     "step": 300,
+     "n_components": 6
+    }
+   ]
+  },
+  {
+   "level_index": 1,
+   "level": 0.021,
+   "site": 3,
+   "jitter": [
+    4,
+    17
+   ],
+   "phase": [
+    4,
+    5
+   ],
+   "seed": 27,
+   "f_local": 0.0225,
+   "fused": 0,
+   "min_count": 2,
+   "usable_slices": 4,
+   "contact_step": 100,
+   "ratio_contact": 0.44325,
+   "ratio_contact_min": 0.21173,
+   "ratio_fixed_100": 0.44325,
+   "peak_min": 0.37559,
+   "per_slice": [
+    {
+     "step": 40,
+     "n_components": 2,
+     "peak": 0.42477,
+     "ratio": 0.17833,
+     "ratio_min": 0.17833
+    },
+    {
+     "step": 60,
+     "n_components": 2,
+     "peak": 0.39002,
+     "ratio": 0.44319,
+     "ratio_min": 0.44319
+    },
+    {
+     "step": 80,
+     "n_components": 2,
+     "peak": 0.38045,
+     "ratio": 0.51489,
+     "ratio_min": 0.33263
+    },
+    {
+     "step": 100,
+     "n_components": 2,
+     "peak": 0.37559,
+     "ratio": 0.44325,
+     "ratio_min": 0.21173
+    },
+    {
+     "step": 140,
+     "n_components": 3
+    },
+    {
+     "step": 200,
+     "n_components": 5
+    },
+    {
+     "step": 300,
+     "n_components": 7
+    }
+   ]
+  },
+  {
+   "level_index": 1,
+   "level": 0.021,
+   "site": 4,
+   "jitter": [
+    -21,
+    -21
+   ],
+   "phase": [
+    3,
+    3
+   ],
+   "seed": 28,
+   "f_local": 0.0225,
+   "fused": 0,
+   "min_count": 2,
+   "usable_slices": 6,
+   "contact_step": 200,
+   "ratio_contact": 0.00616,
+   "ratio_contact_min": 0.00456,
+   "ratio_fixed_100": 0.47169,
+   "peak_min": 0.36269,
+   "per_slice": [
+    {
+     "step": 40,
+     "n_components": 2,
+     "peak": 0.42311,
+     "ratio": 0.17377,
+     "ratio_min": 0.17377
+    },
+    {
+     "step": 60,
+     "n_components": 2,
+     "peak": 0.37965,
+     "ratio": 0.41731,
+     "ratio_min": 0.41731
+    },
+    {
+     "step": 80,
+     "n_components": 2,
+     "peak": 0.36269,
+     "ratio": 0.48817,
+     "ratio_min": 0.35963
+    },
+    {
+     "step": 100,
+     "n_components": 2,
+     "peak": 0.36562,
+     "ratio": 0.47169,
+     "ratio_min": 0.14382
+    },
+    {
+     "step": 140,
+     "n_components": 2,
+     "peak": 0.4076,
+     "ratio": 0.16538,
+     "ratio_min": 0.02667
+    },
+    {
+     "step": 200,
+     "n_components": 2,
+     "peak": 0.39263,
+     "ratio": 0.00616,
+     "ratio_min": 0.00456
+    },
+    {
+     "step": 300,
+     "n_components": 3
+    }
+   ]
+  },
+  {
+   "level_index": 2,
+   "level": 0.026,
+   "site": 0,
+   "jitter": [
+    9,
+    11
+   ],
+   "phase": [
+    9,
+    11
+   ],
+   "seed": 0,
+   "f_local": 0.02625,
+   "fused": 0,
+   "min_count": 2,
+   "usable_slices": 4,
+   "contact_step": 100,
+   "ratio_contact": 0.40341,
+   "ratio_contact_min": 0.22467,
+   "ratio_fixed_100": 0.40341,
+   "peak_min": 0.36944,
+   "per_slice": [
+    {
+     "step": 40,
+     "n_components": 2,
+     "peak": 0.42527,
+     "ratio": 0.17119,
+     "ratio_min": 0.17119
+    },
+    {
+     "step": 60,
+     "n_components": 2,
+     "peak": 0.38802,
+     "ratio": 0.41308,
+     "ratio_min": 0.41308
+    },
+    {
+     "step": 80,
+     "n_components": 2,
+     "peak": 0.36944,
+     "ratio": 0.48931,
+     "ratio_min": 0.35206
+    },
+    {
+     "step": 100,
+     "n_components": 2,
+     "peak": 0.37572,
+     "ratio": 0.40341,
+     "ratio_min": 0.22467
+    },
+    {
+     "step": 140,
+     "n_components": 3
+    },
+    {
+     "step": 200,
+     "n_components": 3
+    },
+    {
+     "step": 300,
+     "n_components": 9
+    }
+   ]
+  },
+  {
+   "level_index": 2,
+   "level": 0.026,
+   "site": 1,
+   "jitter": [
+    3,
+    19
+   ],
+   "phase": [
+    3,
+    7
+   ],
+   "seed": 1,
+   "f_local": 0.02625,
+   "fused": 0,
+   "min_count": 2,
+   "usable_slices": 4,
+   "contact_step": 100,
+   "ratio_contact": 0.40341,
+   "ratio_contact_min": 0.22467,
+   "ratio_fixed_100": 0.40341,
+   "peak_min": 0.36944,
+   "per_slice": [
+    {
+     "step": 40,
+     "n_components": 2,
+     "peak": 0.42527,
+     "ratio": 0.17119,
+     "ratio_min": 0.17119
+    },
+    {
+     "step": 60,
+     "n_components": 2,
+     "peak": 0.38802,
+     "ratio": 0.41308,
+     "ratio_min": 0.41308
+    },
+    {
+     "step": 80,
+     "n_components": 2,
+     "peak": 0.36944,
+     "ratio": 0.48931,
+     "ratio_min": 0.35206
+    },
+    {
+     "step": 100,
+     "n_components": 2,
+     "peak": 0.37572,
+     "ratio": 0.40341,
+     "ratio_min": 0.22467
+    },
+    {
+     "step": 140,
+     "n_components": 3
+    },
+    {
+     "step": 200,
+     "n_components": 3
+    },
+    {
+     "step": 300,
+     "n_components": 9
+    }
+   ]
+  },
+  {
+   "level_index": 2,
+   "level": 0.026,
+   "site": 2,
+   "jitter": [
+    -9,
+    8
+   ],
+   "phase": [
+    3,
+    8
+   ],
+   "seed": 4,
+   "f_local": 0.0235,
+   "fused": 0,
+   "min_count": 2,
+   "usable_slices": 6,
+   "contact_step": 200,
+   "ratio_contact": 0.00598,
+   "ratio_contact_min": 0.00473,
+   "ratio_fixed_100": 0.45454,
+   "peak_min": 0.36482,
+   "per_slice": [
+    {
+     "step": 40,
+     "n_components": 2,
+     "peak": 0.4271,
+     "ratio": 0.17158,
+     "ratio_min": 0.17158
+    },
+    {
+     "step": 60,
+     "n_components": 2,
+     "peak": 0.38155,
+     "ratio": 0.41683,
+     "ratio_min": 0.41683
+    },
+    {
+     "step": 80,
+     "n_components": 2,
+     "peak": 0.36482,
+     "ratio": 0.48871,
+     "ratio_min": 0.35498
+    },
+    {
+     "step": 100,
+     "n_components": 2,
+     "peak": 0.3757,
+     "ratio": 0.45454,
+     "ratio_min": 0.14163
+    },
+    {
+     "step": 140,
+     "n_components": 2,
+     "peak": 0.39306,
+     "ratio": 0.16437,
+     "ratio_min": 0.05291
+    },
+    {
+     "step": 200,
+     "n_components": 2,
+     "peak": 0.40361,
+     "ratio": 0.00598,
+     "ratio_min": 0.00473
+    },
+    {
+     "step": 300,
+     "n_components": 5
+    }
+   ]
+  },
+  {
+   "level_index": 2,
+   "level": 0.026,
+   "site": 3,
+   "jitter": [
+    14,
+    -10
+   ],
+   "phase": [
+    2,
+    2
+   ],
+   "seed": 6,
+   "f_local": 0.0235,
+   "fused": 0,
+   "min_count": 2,
+   "usable_slices": 6,
+   "contact_step": 200,
+   "ratio_contact": 0.01178,
+   "ratio_contact_min": 0.00586,
+   "ratio_fixed_100": 0.41349,
+   "peak_min": 0.3603,
+   "per_slice": [
+    {
+     "step": 40,
+     "n_components": 2,
+     "peak": 0.42554,
+     "ratio": 0.15906,
+     "ratio_min": 0.15906
+    },
+    {
+     "step": 60,
+     "n_components": 2,
+     "peak": 0.37931,
+     "ratio": 0.36692,
+     "ratio_min": 0.36692
+    },
+    {
+     "step": 80,
+     "n_components": 2,
+     "peak": 0.3603,
+     "ratio": 0.42651,
+     "ratio_min": 0.37607
+    },
+    {
+     "step": 100,
+     "n_components": 2,
+     "peak": 0.36064,
+     "ratio": 0.41349,
+     "ratio_min": 0.16813
+    },
+    {
+     "step": 140,
+     "n_components": 2,
+     "peak": 0.37807,
+     "ratio": 0.13584,
+     "ratio_min": 0.06196
+    },
+    {
+     "step": 200,
+     "n_components": 2,
+     "peak": 0.40395,
+     "ratio": 0.01178,
+     "ratio_min": 0.00586
+    },
+    {
+     "step": 300,
+     "n_components": 6
+    }
+   ]
+  },
+  {
+   "level_index": 2,
+   "level": 0.026,
+   "site": 4,
+   "jitter": [
+    -2,
+    14
+   ],
+   "phase": [
+    10,
+    2
+   ],
+   "seed": 12,
+   "f_local": 0.0235,
+   "fused": 0,
+   "min_count": 2,
+   "usable_slices": 6,
+   "contact_step": 200,
+   "ratio_contact": 0.01178,
+   "ratio_contact_min": 0.00586,
+   "ratio_fixed_100": 0.41349,
+   "peak_min": 0.3603,
+   "per_slice": [
+    {
+     "step": 40,
+     "n_components": 2,
+     "peak": 0.42554,
+     "ratio": 0.15906,
+     "ratio_min": 0.15906
+    },
+    {
+     "step": 60,
+     "n_components": 2,
+     "peak": 0.37931,
+     "ratio": 0.36692,
+     "ratio_min": 0.36692
+    },
+    {
+     "step": 80,
+     "n_components": 2,
+     "peak": 0.3603,
+     "ratio": 0.42651,
+     "ratio_min": 0.37607
+    },
+    {
+     "step": 100,
+     "n_components": 2,
+     "peak": 0.36064,
+     "ratio": 0.41349,
+     "ratio_min": 0.16813
+    },
+    {
+     "step": 140,
+     "n_components": 2,
+     "peak": 0.37807,
+     "ratio": 0.13584,
+     "ratio_min": 0.06196
+    },
+    {
+     "step": 200,
+     "n_components": 2,
+     "peak": 0.40395,
+     "ratio": 0.01178,
+     "ratio_min": 0.00586
+    },
+    {
+     "step": 300,
+     "n_components": 6
+    }
+   ]
+  },
+  {
+   "level_index": 3,
+   "level": 0.031,
+   "site": 0,
+   "jitter": [
+    -1,
+    6
+   ],
+   "phase": [
+    11,
+    6
+   ],
+   "seed": 3,
+   "f_local": 0.03,
+   "fused": 1,
+   "min_count": 1,
+   "usable_slices": 3,
+   "contact_step": 100,
+   "ratio_contact": 0.39916,
+   "ratio_contact_min": 0.21964,
+   "ratio_fixed_100": 0.39916,
+   "peak_min": 0.38479,
+   "per_slice": [
+    {
+     "step": 40,
+     "n_components": 2,
+     "peak": 0.42339,
+     "ratio": 0.17018,
+     "ratio_min": 0.17018
+    },
+    {
+     "step": 60,
+     "n_components": 2,
+     "peak": 0.38479,
+     "ratio": 0.41937,
+     "ratio_min": 0.41937
+    },
+    {
+     "step": 80,
+     "n_components": 1
+    },
+    {
+     "step": 100,
+     "n_components": 2,
+     "peak": 0.3925,
+     "ratio": 0.39916,
+     "ratio_min": 0.21964
+    },
+    {
+     "step": 140,
+     "n_components": 3
+    },
+    {
+     "step": 200,
+     "n_components": 4
+    },
+    {
+     "step": 300,
+     "n_components": 7
+    }
+   ]
+  },
+  {
+   "level_index": 3,
+   "level": 0.031,
+   "site": 1,
+   "jitter": [
+    -5,
+    12
+   ],
+   "phase": [
+    7,
+    0
+   ],
+   "seed": 5,
+   "f_local": 0.03,
+   "fused": 1,
+   "min_count": 1,
+   "usable_slices": 3,
+   "contact_step": 100,
+   "ratio_contact": 0.39916,
+   "ratio_contact_min": 0.21964,
+   "ratio_fixed_100": 0.39916,
+   "peak_min": 0.38479,
+   "per_slice": [
+    {
+     "step": 40,
+     "n_components": 2,
+     "peak": 0.42339,
+     "ratio": 0.17018,
+     "ratio_min": 0.17018
+    },
+    {
+     "step": 60,
+     "n_components": 2,
+     "peak": 0.38479,
+     "ratio": 0.41937,
+     "ratio_min": 0.41937
+    },
+    {
+     "step": 80,
+     "n_components": 1
+    },
+    {
+     "step": 100,
+     "n_components": 2,
+     "peak": 0.3925,
+     "ratio": 0.39916,
+     "ratio_min": 0.21964
+    },
+    {
+     "step": 140,
+     "n_components": 3
+    },
+    {
+     "step": 200,
+     "n_components": 4
+    },
+    {
+     "step": 300,
+     "n_components": 7
+    }
+   ]
+  },
+  {
+   "level_index": 3,
+   "level": 0.031,
+   "site": 2,
+   "jitter": [
+    -17,
+    18
+   ],
+   "phase": [
+    7,
+    6
+   ],
+   "seed": 15,
+   "f_local": 0.03,
+   "fused": 1,
+   "min_count": 1,
+   "usable_slices": 3,
+   "contact_step": 100,
+   "ratio_contact": 0.39916,
+   "ratio_contact_min": 0.21964,
+   "ratio_fixed_100": 0.39916,
+   "peak_min": 0.38479,
+   "per_slice": [
+    {
+     "step": 40,
+     "n_components": 2,
+     "peak": 0.42339,
+     "ratio": 0.17018,
+     "ratio_min": 0.17018
+    },
+    {
+     "step": 60,
+     "n_components": 2,
+     "peak": 0.38479,
+     "ratio": 0.41937,
+     "ratio_min": 0.41937
+    },
+    {
+     "step": 80,
+     "n_components": 1
+    },
+    {
+     "step": 100,
+     "n_components": 2,
+     "peak": 0.3925,
+     "ratio": 0.39916,
+     "ratio_min": 0.21964
+    },
+    {
+     "step": 140,
+     "n_components": 3
+    },
+    {
+     "step": 200,
+     "n_components": 4
+    },
+    {
+     "step": 300,
+     "n_components": 7
+    }
+   ]
+  },
+  {
+   "level_index": 3,
+   "level": 0.031,
+   "site": 3,
+   "jitter": [
+    -8,
+    0
+   ],
+   "phase": [
+    4,
+    0
+   ],
+   "seed": 39,
+   "f_local": 0.03,
+   "fused": 0,
+   "min_count": 2,
+   "usable_slices": 5,
+   "contact_step": 140,
+   "ratio_contact": 0.13796,
+   "ratio_contact_min": 0.04703,
+   "ratio_fixed_100": 0.39859,
+   "peak_min": 0.38014,
+   "per_slice": [
+    {
+     "step": 40,
+     "n_components": 2,
+     "peak": 0.42326,
+     "ratio": 0.17103,
+     "ratio_min": 0.17103
+    },
+    {
+     "step": 60,
+     "n_components": 2,
+     "peak": 0.38648,
+     "ratio": 0.41674,
+     "ratio_min": 0.41674
+    },
+    {
+     "step": 80,
+     "n_components": 2,
+     "peak": 0.38014,
+     "ratio": 0.48157,
+     "ratio_min": 0.34379
+    },
+    {
+     "step": 100,
+     "n_components": 2,
+     "peak": 0.38626,
+     "ratio": 0.39859,
+     "ratio_min": 0.22133
+    },
+    {
+     "step": 140,
+     "n_components": 2,
+     "peak": 0.38946,
+     "ratio": 0.13796,
+     "ratio_min": 0.04703
+    },
+    {
+     "step": 200,
+     "n_components": 3
+    },
+    {
+     "step": 300,
+     "n_components": 7
+    }
+   ]
+  },
+  {
+   "level_index": 3,
+   "level": 0.031,
+   "site": 4,
+   "jitter": [
+    22,
+    -12
+   ],
+   "phase": [
+    10,
+    0
+   ],
+   "seed": 46,
+   "f_local": 0.03,
+   "fused": 0,
+   "min_count": 2,
+   "usable_slices": 5,
+   "contact_step": 140,
+   "ratio_contact": 0.13796,
+   "ratio_contact_min": 0.04703,
+   "ratio_fixed_100": 0.39859,
+   "peak_min": 0.38014,
+   "per_slice": [
+    {
+     "step": 40,
+     "n_components": 2,
+     "peak": 0.42326,
+     "ratio": 0.17103,
+     "ratio_min": 0.17103
+    },
+    {
+     "step": 60,
+     "n_components": 2,
+     "peak": 0.38648,
+     "ratio": 0.41674,
+     "ratio_min": 0.41674
+    },
+    {
+     "step": 80,
+     "n_components": 2,
+     "peak": 0.38014,
+     "ratio": 0.48157,
+     "ratio_min": 0.34379
+    },
+    {
+     "step": 100,
+     "n_components": 2,
+     "peak": 0.38626,
+     "ratio": 0.39859,
+     "ratio_min": 0.22133
+    },
+    {
+     "step": 140,
+     "n_components": 2,
+     "peak": 0.38946,
+     "ratio": 0.13796,
+     "ratio_min": 0.04703
+    },
+    {
+     "step": 200,
+     "n_components": 3
+    },
+    {
+     "step": 300,
+     "n_components": 7
+    }
+   ]
+  },
+  {
+   "level_index": 4,
+   "level": 0.036,
+   "site": 0,
+   "jitter": [
+    24,
+    -23
+   ],
+   "phase": [
+    0,
+    1
+   ],
+   "seed": 7,
+   "f_local": 0.03375,
+   "fused": 1,
+   "min_count": 1,
+   "usable_slices": 4,
+   "contact_step": 200,
+   "ratio_contact": 0.06174,
+   "ratio_contact_min": 0.02197,
+   "ratio_fixed_100": null,
+   "peak_min": 0.3727,
+   "per_slice": [
+    {
+     "step": 40,
+     "n_components": 2,
+     "peak": 0.42273,
+     "ratio": 0.1561,
+     "ratio_min": 0.1561
+    },
+    {
+     "step": 60,
+     "n_components": 2,
+     "peak": 0.3727,
+     "ratio": 0.36879,
+     "ratio_min": 0.36879
+    },
+    {
+     "step": 80,
+     "n_components": 1
+    },
+    {
+     "step": 100,
+     "n_components": 1
+    },
+    {
+     "step": 140,
+     "n_components": 2,
+     "peak": 0.39471,
+     "ratio": 0.22003,
+     "ratio_min": 0.0596
+    },
+    {
+     "step": 200,
+     "n_components": 2,
+     "peak": 0.40279,
+     "ratio": 0.06174,
+     "ratio_min": 0.02197
+    },
+    {
+     "step": 300,
+     "n_components": 8
+    }
+   ]
+  },
+  {
+   "level_index": 4,
+   "level": 0.036,
+   "site": 1,
+   "jitter": [
+    -23,
+    1
+   ],
+   "phase": [
+    1,
+    1
+   ],
+   "seed": 9,
+   "f_local": 0.03375,
+   "fused": 0,
+   "min_count": 2,
+   "usable_slices": 5,
+   "contact_step": 200,
+   "ratio_contact": 0.04216,
+   "ratio_contact_min": 0.01447,
+   "ratio_fixed_100": 0.35617,
+   "peak_min": 0.36527,
+   "per_slice": [
+    {
+     "step": 40,
+     "n_components": 2,
+     "peak": 0.42477,
+     "ratio": 0.15761,
+     "ratio_min": 0.15761
+    },
+    {
+     "step": 60,
+     "n_components": 2,
+     "peak": 0.37587,
+     "ratio": 0.37345,
+     "ratio_min": 0.37345
+    },
+    {
+     "step": 80,
+     "n_components": 2,
+     "peak": 0.36527,
+     "ratio": 0.43364,
+     "ratio_min": 0.37298
+    },
+    {
+     "step": 100,
+     "n_components": 2,
+     "peak": 0.37039,
+     "ratio": 0.35617,
+     "ratio_min": 0.2595
+    },
+    {
+     "step": 140,
+     "n_components": 3
+    },
+    {
+     "step": 200,
+     "n_components": 2,
+     "peak": 0.39134,
+     "ratio": 0.04216,
+     "ratio_min": 0.01447
+    },
+    {
+     "step": 300,
+     "n_components": 7
+    }
+   ]
+  },
+  {
+   "level_index": 4,
+   "level": 0.036,
+   "site": 2,
+   "jitter": [
+    -12,
+    15
+   ],
+   "phase": [
+    0,
+    3
+   ],
+   "seed": 13,
+   "f_local": 0.0375,
+   "fused": 0,
+   "min_count": 2,
+   "usable_slices": 6,
+   "contact_step": 200,
+   "ratio_contact": 0.00287,
+   "ratio_contact_min": 0.00287,
+   "ratio_fixed_100": 0.28765,
+   "peak_min": 0.33114,
+   "per_slice": [
+    {
+     "step": 40,
+     "n_components": 2,
+     "peak": 0.41468,
+     "ratio": 0.14592,
+     "ratio_min": 0.14592
+    },
+    {
+     "step": 60,
+     "n_components": 2,
+     "peak": 0.35604,
+     "ratio": 0.32348,
+     "ratio_min": 0.32348
+    },
+    {
+     "step": 80,
+     "n_components": 2,
+     "peak": 0.33581,
+     "ratio": 0.3625,
+     "ratio_min": 0.3625
+    },
+    {
+     "step": 100,
+     "n_components": 2,
+     "peak": 0.33114,
+     "ratio": 0.28765,
+     "ratio_min": 0.28765
+    },
+    {
+     "step": 140,
+     "n_components": 2,
+     "peak": 0.35517,
+     "ratio": 0.08995,
+     "ratio_min": 0.08995
+    },
+    {
+     "step": 200,
+     "n_components": 2,
+     "peak": 0.38561,
+     "ratio": 0.00287,
+     "ratio_min": 0.00287
+    },
+    {
+     "step": 300,
+     "n_components": 6
+    }
+   ]
+  },
+  {
+   "level_index": 4,
+   "level": 0.036,
+   "site": 3,
+   "jitter": [
+    -11,
+    15
+   ],
+   "phase": [
+    1,
+    3
+   ],
+   "seed": 16,
+   "f_local": 0.0375,
+   "fused": 0,
+   "min_count": 2,
+   "usable_slices": 6,
+   "contact_step": 200,
+   "ratio_contact": 0.01008,
+   "ratio_contact_min": 0.00397,
+   "ratio_fixed_100": 0.35644,
+   "peak_min": 0.34437,
+   "per_slice": [
+    {
+     "step": 40,
+     "n_components": 2,
+     "peak": 0.42186,
+     "ratio": 0.14761,
+     "ratio_min": 0.14761
+    },
+    {
+     "step": 60,
+     "n_components": 2,
+     "peak": 0.37086,
+     "ratio": 0.32491,
+     "ratio_min": 0.32491
+    },
+    {
+     "step": 80,
+     "n_components": 2,
+     "peak": 0.34819,
+     "ratio": 0.36944,
+     "ratio_min": 0.36944
+    },
+    {
+     "step": 100,
+     "n_components": 2,
+     "peak": 0.34437,
+     "ratio": 0.35644,
+     "ratio_min": 0.20278
+    },
+    {
+     "step": 140,
+     "n_components": 2,
+     "peak": 0.36324,
+     "ratio": 0.10882,
+     "ratio_min": 0.07776
+    },
+    {
+     "step": 200,
+     "n_components": 2,
+     "peak": 0.39633,
+     "ratio": 0.01008,
+     "ratio_min": 0.00397
+    },
+    {
+     "step": 300,
+     "n_components": 6
+    }
+   ]
+  },
+  {
+   "level_index": 4,
+   "level": 0.036,
+   "site": 4,
+   "jitter": [
+    5,
+    -17
+   ],
+   "phase": [
+    5,
+    7
+   ],
+   "seed": 17,
+   "f_local": 0.03375,
+   "fused": 0,
+   "min_count": 2,
+   "usable_slices": 5,
+   "contact_step": 200,
+   "ratio_contact": 0.04216,
+   "ratio_contact_min": 0.01447,
+   "ratio_fixed_100": 0.35617,
+   "peak_min": 0.36527,
+   "per_slice": [
+    {
+     "step": 40,
+     "n_components": 2,
+     "peak": 0.42477,
+     "ratio": 0.15761,
+     "ratio_min": 0.15761
+    },
+    {
+     "step": 60,
+     "n_components": 2,
+     "peak": 0.37587,
+     "ratio": 0.37345,
+     "ratio_min": 0.37345
+    },
+    {
+     "step": 80,
+     "n_components": 2,
+     "peak": 0.36527,
+     "ratio": 0.43364,
+     "ratio_min": 0.37298
+    },
+    {
+     "step": 100,
+     "n_components": 2,
+     "peak": 0.37039,
+     "ratio": 0.35617,
+     "ratio_min": 0.2595
+    },
+    {
+     "step": 140,
+     "n_components": 3
+    },
+    {
+     "step": 200,
+     "n_components": 2,
+     "peak": 0.39134,
+     "ratio": 0.04216,
+     "ratio_min": 0.01447
+    },
+    {
+     "step": 300,
+     "n_components": 7
+    }
+   ]
+  }
+ ],
+ "verdict": "ONE OF THREE REGISTERED CRITERIA PASSES, AND THAT ONE AT THE MARGIN: the bridge is a weak dose-response in the local inflow. The level means fall from 0.36295 at F_local 0.01621 to 0.0318 at 0.03525 with 1 inversion (the 0.03 level rises to 0.29468), and the Spearman correlation over the 30 sites is -0.509, just past the registered bar of -0.5. The outcome side does not reach its bars: the fusion share over the levels is [1.0, 0.4, 0.0, 0.6, 0.2] rather than rising to 0.6 at the top (the top level reads 0.2), and the site-level correlation between the bridge ratio and the outcome is 0.441 - the right sign, thinner bridge with less coalescence, but below the registered 0.5. So the trend is supported in direction and the link to the outcome is not established at this power: five sites per level with within-level spreads of [0.14276, 0.21425, 0.19282, 0.12796, 0.022] cannot resolve single steps, exactly as the plan's sensitivity arithmetic said. The first run of this item is kept in the aggregate as a phase artefact: its picker required distinct jitters but not distinct phases, so the F_local 0.030 level's five sites were one phase and gave the identical ratio 0.39916. Every level here has [5, 5, 5, 5, 5] distinct phases and [4, 4, 3, 2, 4] distinct ratios.",
+ "registered_criteria": {
+  "monotone_le_one_inversion_and_spearman": {
+   "inversions": 1,
+   "spearman": -0.509,
+   "bar": -0.5,
+   "passes": true
+  },
+  "top_level_share_at_least_0_6": {
+   "top_share": 0.2,
+   "bar": 0.6,
+   "passes": false
+  },
+  "outcome_correlation_at_least_0_5": {
+   "rho": 0.441,
+   "bar": 0.5,
+   "sign_expected": "positive (thicker bridge, more coalescence)",
+   "passes": false
+  }
+ },
+ "criteria_passed": 1
+}

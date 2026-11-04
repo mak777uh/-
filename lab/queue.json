@@ -3385,6 +3385,18 @@
    "prereg": "reports/2026-11-04-x190-bridge-sites-plan.md",
    "created_at": "2026-11-04T21:30:00+03:00",
    "note": "closed: the bridge difference survives at the site level (-0.16949 over five sites per level, bar -0.05, exact Mann-Whitney p = 0.0159, four of five warm sites below every cold site), and radius 3 moves the other way (+0.07086, p = 0.9246); the registered within-site-spread check failed because the three seeds of a site are the SAME world (spread 0.0000 at all 20 sites, seed enters only through the initial condition at eps=0). Consequence recorded in docs/design-checks.md: replication in this line is by world/site, not by seed, and X187-X189 seed-level groups held one to two distinct worlds. Next: a six-level site sweep of F_local at the largest radius."
+  },
+  {
+   "id": "X191_site_sweep",
+   "title": "Bridge as a dose-response over five levels of the local inflow",
+   "status": "closed",
+   "owner": "lead",
+   "kind": "experiment",
+   "cost_gpu_h": 0.0,
+   "priority": 8,
+   "prereg": "reports/2026-11-04-x191-site-sweep-plan.md",
+   "created_at": "2026-11-04T21:45:00+03:00",
+   "note": "closed, one of three registered criteria passed: the level means fall from 0.36295 to 0.0318 with 1 inversion and Spearman -0.509 (bar -0.5) - the trend is graded along the band - but the top level's share is 0.2 (bar 0.6) and the bridge-vs-outcome correlation is 0.441 (bar 0.5), so the link to the outcome is not established at five sites per level. The first run is kept as a phase artefact (its picker stratified jitters but not phases, and one level's five sites were one phase with the identical ratio 0.39916); the phase rule is written into docs/design-checks.md. Next: fifteen phases per level."
   }
  ]
 }

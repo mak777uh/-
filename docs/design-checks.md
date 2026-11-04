@@ -506,8 +506,11 @@ into a check, and X187's Fisher p of 0.39 at radius 6 and X189's single warm sit
 had spoken.
 
 The habit: whenever a manipulation *is* a position, a site, or a phase — anything the seed maps onto — **count the distinct values of
-that quantity inside a group before counting runs**, and report the within-group spread of the readout as a check in its own right. A
+that quantity inside a group before counting runs**, and report the within-group spread of the readout as a check in its own right.
+And count the right quantity: X191 required five distinct *sites* per level (distinct jitters) and found all five to be one **phase** —
+the identical ratio 0.39916 five times, because what sets `G`, `F_local` and the bridge is the position modulo the pattern's 12-cell
+period, not the jitter. A level's site list has to stratify the phase, and the aggregate reports distinct phases and distinct readout
+values per level beside the number of runs. A
 group whose within-group spread is exactly zero has one world in it, however many seeds it lists; a design that wants more worlds has
 to vary the site, the phase or the noise, not the seed. The check belongs beside check 3: it is not that the readout failed to vary, it
 is that the *sample* did.
-
