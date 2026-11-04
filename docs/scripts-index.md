@@ -4,7 +4,7 @@
 
 The curated page — what matters and why — is [`scripts.md`](scripts.md). This file is the complete list, so that every command behind a number in the record can be found.
 
-Scripts: **431**.
+Scripts: **433**.
 
 ## Гейты и проверки (48)
 
@@ -175,7 +175,7 @@ Scripts: **431**.
 | `make_seed_grid_figure.py` | Собрать Figure 4 рукописи: сетка «инициализация × порядок данных» (§4.13). |
 | `make_simple_poster.py` | Простой постер для владельца: что мы узнали, без терминов. |
 
-## Прочее (292)
+## Прочее (294)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -383,6 +383,8 @@ Scripts: **431**.
 | `x193_phase_census_r3.py` | x193_phase_census_r3.py — X193: the phase census at radius 3 gap 10, the smaller-body arm. |
 | `x193_phase_census_r3_analyse.py` | x193_phase_census_r3_analyse.py — X193: the phase census at radius 3 gap 10. |
 | `x194_phase_clusters.py` | x194_phase_clusters.py — X194: how many worlds do the line's published pools actually contain? |
+| `x195_sign_sweep.py` | x195_sign_sweep.py — X195: the phase census at two intermediate radii, to locate the change of sign. |
+| `x195_sign_sweep_analyse.py` | x195_sign_sweep_analyse.py — X195: the sign of the inflow-outcome relation at four body sizes. |
 | `x56_matrix.py` | x56_matrix.py — сходимость по шагу: контраст при dt = 1.0, 0.5, 2.0. |
 | `x58_analyse.py` | x58_analyse.py — the same measurement on a 128 grid: β₀, β₁, wavelength, normalised count. |
 | `x58_series.py` | x60_series.py — X60: the twenty field runs that keep their snapshots. |

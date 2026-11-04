@@ -536,3 +536,14 @@ runs into worlds, and an arm laid out on purpose legitimately keeps its run coun
 period **times** the arm: counting the position alone over-counts (227 positions against 633 worlds here, and 64 positions held runs
 from different arms).
 
+## An absent outcome is not a failed criterion, and not a missing experiment (04.11)
+
+X195 registered "the outcome follows the bridge at fixed inflow" for two intermediate radii and measured **zero** fusion events in 288
+worlds. The honest record has three states for a criterion, not two: passed, failed, and **not testable because the outcome does not
+vary** — and the third must be written as untestable with the count that shows why (0 fused of 288 measured), because "failed" would
+claim a contrast was read where none exists and "passed" would claim evidence the arm cannot give. The other half of the habit: an
+absent outcome is not an absent experiment. Those arms measured a bridge in every world and placed its association with the inflow,
+so they constrain the mechanism's bridge term even while they are silent about its outcome term — the report says which term each arm
+speaks to. X195's arms therefore restrict a previous conclusion (X193's "size sets the sign") to the sizes where the outcome exists,
+and the restriction is recorded as a numbered claim beside the original rather than by editing the closed aggregate.
+
