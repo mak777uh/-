@@ -59,10 +59,10 @@ def main() -> int:
     for f in files:
         src = f.stem.replace(".compact", "")
         # Families whose seeds were CHOSEN by the phase of the medium's fixed pattern (X182 selected on the pattern value at
-        # the pair's midpoint, X184 on the local inflow at the colder body) are not draws from their nominal arm: pooling them
-        # into a cell would move that cell's share by the selection, not by the arm. They stay out of the table, and the count
-        # is reported so the exclusion is visible rather than silent.
-        chosen_by_phase = src.startswith("x182_") or src.startswith("x184_")
+        # the pair's midpoint, X184 on the local inflow at the colder body, X187 on the same variable at two levels and two arms)
+        # are not draws from their nominal arm: pooling them into a cell would move that cell's share by the selection, not by the
+        # arm. They stay out of the table, and the count is reported so the exclusion is visible rather than silent.
+        chosen_by_phase = src.startswith(("x182_", "x184_", "x187_"))
         if chosen_by_phase:
             skipped[src.split("_s")[0] if "_s" in src else src] = skipped.get(
                 src.split("_s")[0] if "_s" in src else src, 0) + 1

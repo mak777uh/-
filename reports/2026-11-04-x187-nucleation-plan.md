@@ -67,3 +67,18 @@ Runner `scripts/x187_large_radius.py` selects seeds by the colder body's pattern
 four groups. Analysis `scripts/x187_nucleation_analyse.py` recomputes the levels from the logged centres, counts extra bodies
 around the pair at the minimum-count sample, and reports the two arms' levels side by side. Aggregate
 `morphogenesis/experiments/E09_pond/l1_field_x187_nucleation.json`. Cost about fifteen minutes of CPU.
+
+## 8. Post-hoc amendment (04.11, after the run) — the registered readout failed check 3
+
+The registered primary readout is **invalid**, and this is recorded rather than repaired in place. It excluded components within
+three cells of the **seeded** centres, but the merged body drifts beyond that, so on the sample of minimum count it counted the
+pair's own single component as "a body besides the pair": the readout came out at 1 exactly when the pair fused and 0 exactly when
+it did not, in 24 of 24 runs — the outcome restated, not a nucleation count. Check 3 (the readout exists and varies) therefore
+fails in its *new* form: the quantity varied, and it varied because it was a function of the outcome. The mechanism is
+consequently **untested**, not refuted, and the plan's refusal branches are applied as written (the "not nucleation" branch fires
+on a readout that cannot fire on anything). What the run does establish — that the sign flip reproduces under selection — was not
+part of the registered readout and is reported as an addition, not as the primary result.
+
+One number in this plan moved after the run, mechanically: the section-4 arithmetic assumed 60 phase-selected runs to
+exclude, and because X187 itself selects its seeds by the colder body's inflow its own 24 runs join that set, so the
+observational pools now exclude 84. The pools' sizes and every number computed from them are unchanged.

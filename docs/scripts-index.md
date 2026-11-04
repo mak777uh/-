@@ -370,7 +370,7 @@ Scripts: **419**.
 | `x185_one_law.py` | x185_one_law.py — X185: do X182 (midpoint control) and X184 (colder-body control) read one law? |
 | `x186_table_local.py` | x186_table_local.py — X186: re-read the 57-cell crossing table in the local inflow. |
 | `x187_large_radius.py` | x187_large_radius.py — X187: why do the largest bodies read the opposite sign? |
-| `x187_nucleation_analyse.py` | x187_nucleation_analyse.py — X187: bodies that appear besides the seeded pair, by the pair's local inflow. |
+| `x187_nucleation_analyse.py` | x187_nucleation_analyse.py — X187: why do the largest bodies read the opposite sign? |
 | `x56_matrix.py` | x56_matrix.py — сходимость по шагу: контраст при dt = 1.0, 0.5, 2.0. |
 | `x58_analyse.py` | x58_analyse.py — the same measurement on a 128 grid: β₀, β₁, wavelength, normalised count. |
 | `x58_series.py` | x60_series.py — X60: the twenty field runs that keep their snapshots. |

@@ -96,7 +96,7 @@ def slope(rows: list[dict], key) -> float | None:
 runs = []
 excluded = 0
 for f in sorted(L1.glob("*.compact.json")):
-    if f.stem.startswith(("x182_", "x184_")):
+    if f.stem.startswith(("x182_", "x184_", "x187_")):
         excluded += 1
         continue
     try:

@@ -98,7 +98,7 @@ for f in sorted(L1.glob("*.compact.json")):
         d = json.loads(f.read_text(encoding="utf-8"))
     except Exception:
         continue
-    if f.stem.startswith(("x182_", "x184_")):
+    if f.stem.startswith(("x182_", "x184_", "x187_")):
         excluded += 1
         continue
     series = d.get("series") or []

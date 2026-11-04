@@ -32,7 +32,7 @@ body mean 0.8396 (within 0.8569), midpoint
 0.026, the independent review's paired
 bootstrap interval for that difference crosses zero, and dropping the `F` = 0.036 level flips which of the two wins. The supported
 claim is therefore the local inflow *at the seeded sites*, with the colder body as the reading this item chose and X184 tested.
-Runs whose seeds were chosen by phase (X182, X184, 60 runs) are excluded from this pool. And the outcome is a transient
+Runs whose seeds were chosen by phase (X182, X184, 84 runs) are excluded from this pool. And the outcome is a transient
 coalescence: every run flagged as coalesced rebounds above one component, none ends on one.
 
 **Independent review.** `lab/reviews/2026-11-04-x183-local-inflow-law.md` — verdict **держится с оговоркой**; it reproduced the

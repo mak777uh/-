@@ -4405,8 +4405,8 @@ a site jittered by `default_rng(seed+9187)`. The nominal rate is therefore a sit
 
 **What was measured.** Over 316 runs in the 17 cells where both outcomes occur, the pattern value at the pair's **midpoint** is
 strongly and *negatively* related to the outcome (fused runs higher in 1 of 17 cells, mean point-biserial -0.552; among 321
-runs in non-saturated cells -0.527; the bottom midpoint quartile coalesces 84 % against 16 %, z = -7.807). The 60 runs whose seeds
-X182 and X184 chose by that same value are excluded here — independent review (04.11) caught that the first version of this
+runs in non-saturated cells -0.527; the bottom midpoint quartile coalesces 84 % against 16 %, z = -7.807). The 84 runs whose seeds
+X182, X184 and X187 chose by that same value are excluded here — independent review (04.11) caught that the first version of this
 aggregate pooled them, which is circular where the covariate is the selection rule; the direction is unchanged and the numbers
 above are the regenerated ones. By itself this reads
 as "a cold gap fuses more", which is the wrong way round for inflow — and it is what made the choice of phase an explicit
@@ -4470,8 +4470,8 @@ nominal rate against **129.3** for the colder body.
 0.026; the reviewer's paired bootstrap interval for the difference crosses zero, and dropping the `F` = 0.036 level flips which
 of the two wins), so the supported claim is **the local inflow at the seeded sites**, with the colder body as the reading
 X183 chose and X184 then tested prospectively. Permutation test: the local-reading *family* is well above chance (p = 0.0005),
-the single winner is not. Runs whose seeds were chosen by the phase (X182, X184) are excluded from this observational pool, and
-the exclusion is counted in the aggregate.
+the single winner is not. Runs whose seeds were chosen by the phase or by the local inflow itself (X182, X184, X187) are excluded from this
+observational pool, and the exclusion is counted in the aggregate.
 
 Артефакт: `l1_field_x183_local_collapse.json`; ревью `lab/reviews/2026-11-04-x183-local-inflow-law.md` (держится с оговоркой).
 
@@ -4538,3 +4538,39 @@ min-versus-mean ambiguity: the axis it uses is one of the readings X183 could no
 встретились.
 
 Артефакт: `l1_field_x186_table_local.json`.
+
+## 10iv. X187 — почему знак закона переворачивается на крупном размере (04.11)
+
+**Вопрос.** X186 нашёл положительную внутриклеточную связь в 9 из 11 клеток — как и предсказывает закон X183/X184, — а оба
+исключения пришлись на наибольший измеренный радиус (5.86 при зазорах 7 и 9, наклон −0.478 по 54 прогонам). Зарегистрированная
+гипотеза: тёплая среда **рождает собственные тела**, поэтому крупная пара в тёплой точке не доходит до одной компоненты даже
+после встречи фронтов, и знак закона там переворачивается.
+
+**Дизайн.** Два плеча (радиус 6 зазор 9 и радиус 3 зазор 10), в каждом два уровня локального притока у **холодного** тела
+(0.0170 и 0.0300), по шесть сидов, 3 000 шагов. Один прогон упал на
+транзиентной ошибке загрузки DLL и был перезапущен; завершились 24 из 24.
+
+**Зарегистрированная переменная оказалась не переменной.** «Тела помимо пары в пределах 8 клеток от её середины на срезе с
+минимальным числом компонент» дала **1 ровно тогда, когда пара слиплась, и 0 ровно тогда, когда нет — в
+24/24 прогонах**: она исключала компоненты в трёх клетках от **посеянных** центров, а
+слипшееся тело уходит дальше, и его собственная компонента засчитывалась как «тело помимо пары». При одной компоненте на поле
+помимо неё ничего нет — величина есть пересказ исхода, и о нуклеации она говорить не может. Итог: **переменная невалидна,
+механизм не проверен** (не опровергнут).
+
+**Что опыт всё-таки устанавливает: переворот воспроизводится по дизайну.** Одна и та же манипуляция одним и тем же
+переменным сдвигает долю в одну сторону в одном плече и в другую — в другом: радиус 3 зазор 10 даёт
+0.00 → 0.67 (+0.67, направление закона), радиус 6 зазор 9 даёт
+1.00 → 0.67 (-0.33, обратное). Значит, переворот X186 — не артефакт
+объединения клеток, а свойство того же самого переменного; механизм остаётся открытым.
+
+**Что не зависит от исхода.** Среднее минимальное число компонент: 2.0 (радиус 3, холодный) против
+1.33 (тёплый) и 1.0 против 1.33 (радиус 6); доля срезов с одной
+компонентой — около 0.000/0.007 и
+0.008/0.010, что согласуется с транзиентной коалесценцией ревью: слипшаяся пара
+держит одну компоненту меньше процента прогона.
+
+**Следующие гипотезы:** (1) нуклеация как uid-тест на фиксированных срезах по этим же 24 прогонам; (2) зафиксировать чётность
+разделения, чтобы плечи имели один эффективный радиус; (3) знак закона по всей лестнице радиусов — теперь это вопрос дизайна,
+а не наблюдение по клеткам.
+
+Артефакт: `l1_field_x187_nucleation.json`.

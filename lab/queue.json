@@ -1,6 +1,6 @@
 {
  "schema_version": 1,
- "updated_at": "2026-11-04T19:55:00+03:00",
+ "updated_at": "2026-11-04T20:20:00+03:00",
  "note": "Очередь пунктов после E02c. Claim берётся до пре-регистрации, а не перед запуском: lab.py item-claim. Статус running означает занятый GPU-лейн и может быть только у одного пункта. | 25.10: добавлено поле impact (1-5) — приоритет конвейера = impact/max(cost_gpu_h,0.1); для запуска пункту нужны prereg (закоммиченный план) и launch.command+outdir.",
  "items": [
   {
@@ -3337,6 +3337,18 @@
    "prereg": "reports/2026-11-04-x186-table-local-plan.md",
    "created_at": "2026-11-04T19:55:00+03:00",
    "note": "closed: on 341 runs of mixed cells the pooled model's deviance falls 464.5 -> 436.5 (drop 28.0, bar 20.0), and the per-cell association is positive in 9 of 11 cells with spread. The radius-6 cliff is not a site draw (arms' mean local inflow differs by 0.00272, bar 0.004), but the arms' measured radii differ (5.863 against 5.997) and the larger body is the one that did not fuse, so the fall is conservative. Next: the two radius-5.9 cells read the opposite sign - a mechanism item (warm medium nucleating its own bodies) is the registered follow-up."
+  },
+  {
+   "id": "X187_nucleation",
+   "title": "Why does the local-inflow law flip sign at the largest size?",
+   "status": "closed",
+   "owner": "lead",
+   "kind": "experiment",
+   "cost_gpu_h": 0.0,
+   "priority": 9,
+   "prereg": "reports/2026-11-04-x187-nucleation-plan.md",
+   "created_at": "2026-11-04T20:20:00+03:00",
+   "note": "closed: the registered readout was invalid - it excluded components near the seeded centres, so the merged body drifted out of that radius and was counted as a body besides the pair (24/24 runs track the outcome exactly), and the mechanism is untested, not refuted. The run does establish that the sign flip reproduces under selection: radius 3 gap 10 reads 0.00 -> 0.67 (+0.67), radius 6 gap 9 reads 1.00 -> 0.67 (-0.33). Next: a uid-based nucleation count at fixed samples on the same 24 runs; hold the separation parity fixed so the arms share an effective radius."
   }
  ]
 }

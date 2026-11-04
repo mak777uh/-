@@ -469,3 +469,29 @@ as a branch, not as an excuse: "if the variance is zero, the criterion is X" mus
 perfect manipulation is exactly the one that destroys the statistic. (3) An amendment written after the data is dated, marked
 post hoc, and quoted in the report's controls section; it may not be folded into the plan as if it had been there.
 Report: `reports/2026-11-03-x155-heredity.md`; plan: `reports/2026-11-03-x155-heredity-plan.md` (§Amendment).
+
+## The readout must not be a function of the outcome (04.11)
+
+Check 3 asks whether the readout exists and varies. X187 showed that a readout can pass that check and still be worthless,
+because it varied **with the outcome and for that reason**:
+
+*Counter-example.* The pre-registered quantity was "components other than the two seeded ones within 8 cells of the pair's
+midpoint, at the sample where the total component count is smallest". It excluded components within three cells of the **seeded**
+centres — but the merged body drifts further than that and the unfused pair does not, so on the sample of minimum count the
+readout came out at 1 exactly when the pair had fused and 0 exactly when it had not: **24 of 24 runs**, and it cannot be
+otherwise, because with one component on the field there is nothing besides it. The hypothesis the item was built to test
+(whether a warm medium nucleates bodies of its own) was therefore not tested at all, and the honest verdict is "readout invalid,
+mechanism untested" rather than "mechanism refuted".
+
+Two habits follow, and both are cheap before a run:
+
+1. **Write the readout's value out for the degenerate states of the outcome.** "Nothing else is on the field" must give 0 on the
+   field-wide count, not a value that turns out to equal the outcome. For X187 that would have been immediate: a count of bodies
+   *besides the pair* is undefined when there is one body, so the design has to name what it counts against — identities (uids),
+   not distances from the initial positions, because positions move and identities do not.
+2. **Cross-tabulate the readout against the outcome before spending runs.** If the two tables are copies of each other (here
+   `readout = 1 ⟺ fused`), the readout is the outcome restated. `scripts/x187_nucleation_analyse.py` now carries that check as
+   `registered_readout_tracks_outcome`, so the same mistake names itself in the aggregate instead of needing a reviewer.
+
+The general form: check 3 covers *variance*, this rule covers *independence*. A readout that is a deterministic function of the
+outcome is not evidence, however much it varies.

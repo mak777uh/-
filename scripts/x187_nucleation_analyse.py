@@ -1,8 +1,15 @@
-"""x187_nucleation_analyse.py — X187: bodies that appear besides the seeded pair, by the pair's local inflow.
+"""x187_nucleation_analyse.py — X187: why do the largest bodies read the opposite sign?
 
-Reads the component log of each run (positions at every sample), recomputes the local inflow at the colder body from the logged
-centres of the first sample, and counts components other than the two seeded ones whose centres lie within 8 cells of the pair's
-midpoint at the sample where the total component count is smallest. Compares the cold and warm levels within each arm.
+Registered readout: the number of components other than the two seeded ones within 8 cells of the pair's midpoint at the sample
+where the total component count is smallest. Secondary: the share, and the final component count.
+
+The registered readout turned out to be **degenerate with the outcome**: at the sample of minimum count there is one merged pair,
+so "bodies besides the pair" is `min_count - 1` by definition. The item is therefore recorded as **readout invalid, mechanism
+untested** rather than as evidence about nucleation, and the corrected packet reports the quantities that are not functions of
+the outcome: the minimum count, its mean over the run, the share of samples spent at one component, and whether the minimum sits
+at the very first sample (which means "never met" rather than "met and rebounded").
+
+What the experiment does establish is that the sign flip of X186 reproduces under a designed manipulation of the same variable.
 
 Writes morphogenesis/experiments/E09_pond/l1_field_x187_nucleation.json.
 """
@@ -41,6 +48,10 @@ def xy(c):
     return (float(c["cx"]), float(c["cy"])) if isinstance(c, dict) else (float(c[2]), float(c[3]))
 
 
+def area_of(c):
+    return float(c["area"]) if isinstance(c, dict) else float(c[1])
+
+
 def sep_cells(a, b) -> float:
     dx = abs(a[0] - b[0]) % GRID
     dx = min(dx, GRID - dx)
@@ -62,7 +73,6 @@ def wilson(k, n, z=1.96):
 index = json.loads((L1 / "x187_series_index.json").read_text(encoding="utf-8"))
 F = float(index["flow"])
 rows = []
-missed = 0
 for r in index["runs"]:
     if r["status"] not in ("ok", "skipped (exists)"):
         continue
@@ -78,7 +88,6 @@ for r in index["runs"]:
     mid = (statistics.fmean([p[0] for p in seeds_xy]), statistics.fmean([p[1] for p in seeds_xy]))
     g_cold = min(G_at(*p) for p in seeds_xy)
     f_local = F * (1 + AMP * (2 * g_cold - 1))
-    target = index["arms"][r["arm"]]["groups"] and None
     counts = [len(comps(x)) for x in series]
     if not counts:
         continue
@@ -90,6 +99,11 @@ for r in index["runs"]:
     rows.append({"arm": r["arm"], "level": r["level"], "seed": r["seed"], "f_local_cold": round(f_local, 5),
                  "g_cold": round(g_cold, 4), "fused": int(k_min == 1), "min_count": k_min,
                  "final_count": counts[-1], "extra_at_min": len(extra), "extra_near_mid_at_min": len(near),
+                 "min_at_first_sample": int(i_min == 0),
+                 "share_of_samples_at_one": round(sum(1 for c in counts if c == 1) / len(counts), 4),
+                 "mean_count_over_run": round(statistics.fmean(counts), 2),
+                 "area_at_min": round(area_of(max(comps(row_min), key=area_of)), 1) if comps(row_min) else None,
+                 "seeds_area_sum": round(sum(area_of(c) for c in cs0), 1),
                  "step_at_min": int(row_min[0]) if isinstance(row_min, list) else int(row_min.get("step")),
                  "samples": len(counts)})
 
@@ -100,18 +114,30 @@ for arm in index["arms"]:
         if not sel:
             groups[f"{arm}_{lvl}"] = None
             continue
-        gs = [x["g_cold"] for x in sel]
         groups[f"{arm}_{lvl}"] = {
             "runs": len(sel), "fused": sum(x["fused"] for x in sel),
-            "share": round(statistics.fmean(x["fused"] for x in sel), 4), "wilson": wilson(sum(x["fused"] for x in sel), len(sel)),
+            "share": round(statistics.fmean(x["fused"] for x in sel), 4),
+            "wilson": wilson(sum(x["fused"] for x in sel), len(sel)),
             "f_local_cold_mean": round(statistics.fmean([x["f_local_cold"] for x in sel]), 5),
             "extra_near_mid_median": statistics.median([x["extra_near_mid_at_min"] for x in sel]),
-            "extra_near_mid_mean": round(statistics.fmean([x["extra_near_mid_at_min"] for x in sel]), 2),
-            "extra_all_median": statistics.median([x["extra_at_min"] for x in sel]),
             "min_count_median": statistics.median([x["min_count"] for x in sel]),
+            "min_count_mean": round(statistics.fmean([x["min_count"] for x in sel]), 2),
+            "mean_count_over_run": round(statistics.fmean([x["mean_count_over_run"] for x in sel]), 2),
+            "share_of_samples_at_one": round(statistics.fmean([x["share_of_samples_at_one"] for x in sel]), 4),
             "final_count_mean": round(statistics.fmean([x["final_count"] for x in sel]), 1),
-            "runs_with_count_le_2": sum(1 for x in sel if x["min_count"] <= 2),
+            "runs_min_at_first_sample": sum(x["min_at_first_sample"] for x in sel),
+            "area_at_min_vs_seeds": round(statistics.fmean(
+                [(x["area_at_min"] or 0) / (x["seeds_area_sum"] or 1) for x in sel]), 3),
             "step_at_min_median": statistics.median([x["step_at_min"] for x in sel])}
+
+pairs = [(x["extra_near_mid_at_min"], x["min_count"] - 1) for x in rows]
+identical = sum(1 for a, b in pairs if a == b)
+# the real failure mode: on this design the readout tracks the OUTCOME, not nucleation - in every run whose minimum count is one
+# it reports a body besides the pair (impossible: there is only one component), and in every run whose minimum count is two it
+# reports none. It is the outcome restated, inverted.
+as_outcome = sum(1 for x in rows if x["extra_near_mid_at_min"] == (1 if x["fused"] else 0))
+n_fused = sum(1 for x in rows if x["fused"])
+degenerate = as_outcome == len(rows)
 
 res = {}
 for arm in ("r6_g9", "r3_g10"):
@@ -122,46 +148,38 @@ for arm in ("r6_g9", "r3_g10"):
     res[arm] = {"cold": cold, "warm": warm,
                 "share_difference_warm_minus_cold": round(warm["share"] - cold["share"], 4),
                 "extra_difference_median": (warm["extra_near_mid_median"] - cold["extra_near_mid_median"]),
+                "min_count_difference_mean": round(warm["min_count_mean"] - cold["min_count_mean"], 2),
                 "level_separation": round(warm["f_local_cold_mean"] - cold["f_local_cold_mean"], 5)}
 
-wanted = {}
-for arm in ("r6_g9", "r3_g10"):
-    r = res.get(arm)
-    wanted[arm] = None if not r else {
-        "warm_coalesces_less": r["share_difference_warm_minus_cold"] < 0,
-        "warm_has_more_extra": r["extra_difference_median"] >= 1,
-        "level_separation_ok": r["level_separation"] >= 0.008,
-        "three_runs_measurable": min(r["cold"]["runs_with_count_le_2"], r["warm"]["runs_with_count_le_2"]) >= 3}
-
 r6, r3 = res.get("r6_g9"), res.get("r3_g10")
+flip_reproduced = bool(r3 and r6 and r3["share_difference_warm_minus_cold"] > 0 > r6["share_difference_warm_minus_cold"])
+
 if not r6 or not r3:
     verdict = "NOT REPORTABLE: one of the arms has no runs."
-elif wanted["r6_g9"]["warm_coalesces_less"] and wanted["r6_g9"]["warm_has_more_extra"] and \
-        (not wanted["r3_g10"]["warm_has_more_extra"]):
-    verdict = (f"A WARM MEDIUM NUCLEATES BODIES OF ITS OWN AT THE LARGEST SIZE: at radius 6 gap 9 the warm level coalesces "
-               f"{r6['warm']['share']:.2f} against the cold level's {r6['cold']['share']:.2f} "
-               f"(difference {r6['share_difference_warm_minus_cold']:+.2f}) while carrying a median of "
-               f"{r6['warm']['extra_near_mid_median']} extra bodies within {RADIUS_OF_INTEREST:.0f} cells of the pair against "
-               f"{r6['cold']['extra_near_mid_median']} for the cold level; at radius 3 gap 10 the same manipulation moves the "
-               f"share by {r3['share_difference_warm_minus_cold']:+.2f} and the extra-body median by "
-               f"{r3['extra_difference_median']:+g}, so the signature is specific to the largest bodies. The local-inflow law's "
-               "sign is therefore size-dependent, and the radius-5.9 cells of X186 should be read with the nucleation count "
-               "beside the share.")
-elif not wanted["r6_g9"]["warm_has_more_extra"]:
-    verdict = (f"THE FLIP IS NOT NUCLEATION AT THIS SAMPLING: at radius 6 gap 9 the warm level's extra-body median is "
-               f"{r6['warm']['extra_near_mid_median']} against the cold level's {r6['cold']['extra_near_mid_median']} "
-               f"(difference {r6['extra_difference_median']:+g}) while the shares differ by "
-               f"{r6['share_difference_warm_minus_cold']:+.2f}, so the flipped cells of X186 stand unexplained by bodies "
-               "appearing around the pair; the next attack is to hold the site fixed and vary the gap.")
 else:
-    verdict = (f"NUCLEATION IS GENERAL, NOT SIZE-SPECIFIC: at radius 6 gap 9 the warm level shows more extra bodies "
-               f"({r6['extra_difference_median']:+g}) and coalesces less ({r6['share_difference_warm_minus_cold']:+.2f}), but at "
-               f"radius 3 gap 10 it also shows more ({r3['extra_difference_median']:+g}) and coalesces "
-               f"{r3['share_difference_warm_minus_cold']:+.2f}; the law's sign at small radius then needs re-deriving.")
+    verdict = (f"THE REGISTERED READOUT IS NOT A READOUT, SO THE MECHANISM IS UNTESTED: 'bodies besides the pair at the sample of "
+               f"minimum count' comes out at 1 exactly when the pair fused and 0 exactly when it did not - in {as_outcome} of "
+               f"{len(rows)} runs, because the merged body drifts more than three cells from the seeded centres and is then counted "
+               f"as a body besides the pair, while an unfused pair sits inside that radius and counts as none. With one component "
+               f"on the field there is nothing besides it, so the quantity is the outcome restated and cannot speak about "
+               f"nucleation; its two levels differ by {r6['extra_difference_median']:+g} at radius 6, which is that identity rather "
+               f"than a measurement. What the experiment DOES establish is that X186's sign "
+               f"flip reproduces under a designed manipulation of one variable: the colder body's inflow moves the share "
+               f"{r3['share_difference_warm_minus_cold']:+.2f} at radius 3 ({r3['cold']['fused']} of {r3['cold']['runs']} cold "
+               f"against {r3['warm']['fused']} of {r3['warm']['runs']} warm - the law's direction) and "
+               f"{r6['share_difference_warm_minus_cold']:+.2f} at radius 6 ({r6['cold']['fused']} of {r6['cold']['runs']} cold "
+               f"against {r6['warm']['fused']} of {r6['warm']['runs']} warm - the flipped direction), so the flip is not a per-cell "
+               f"selection artefact of X186; its mechanism is still open and the registered readout cannot find it. The plan's third "
+               f"branch ('nucleation is general') is not taken either: at radius 3 the warm level 'shows more extra bodies' only "
+               f"because the cold level never reached one component, which is the same degeneracy.")
 
 agg = {"kind": "x187_nucleation", "flow": F, "steps": index["steps"], "radius_of_interest": RADIUS_OF_INTEREST,
-       "prediction": PREDICTION, "groups": groups, "arms": res, "checks": wanted, "runs_detail": rows,
-       "excluded_or_missed": missed, "verdict": verdict}
+       "prediction": PREDICTION, "registered_readout_degenerate": degenerate,
+       "registered_readout_identity_count": f"{identical}/{len(rows)}",
+       "registered_readout_tracks_outcome": f"{as_outcome}/{len(rows)}",
+       "runs_whose_minimum_is_one": n_fused,
+       "flip_reproduced_by_design": flip_reproduced, "groups": groups, "arms": res,
+       "runs_detail": rows, "verdict": verdict}
 OUT.write_text(json.dumps(agg, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
 
 for arm in ("r6_g9", "r3_g10"):
@@ -169,7 +187,9 @@ for arm in ("r6_g9", "r3_g10"):
     if not r:
         continue
     print(f"[x187] {arm}: cold F_local {r['cold']['f_local_cold_mean']} share {r['cold']['share']:.2f} "
-          f"extra {r['cold']['extra_near_mid_median']} | warm F_local {r['warm']['f_local_cold_mean']} "
-          f"share {r['warm']['share']:.2f} extra {r['warm']['extra_near_mid_median']} "
-          f"(d share {r['share_difference_warm_minus_cold']:+.2f}, d extra {r['extra_difference_median']:+g})")
+          f"min_count {r['cold']['min_count_mean']} samples-at-one {r['cold']['share_of_samples_at_one']} | "
+          f"warm F_local {r['warm']['f_local_cold_mean']} share {r['warm']['share']:.2f} "
+          f"min_count {r['warm']['min_count_mean']} samples-at-one {r['warm']['share_of_samples_at_one']} "
+          f"(d share {r['share_difference_warm_minus_cold']:+.2f})")
+print(f"[x187] registered readout tracks the outcome in {as_outcome}/{len(rows)} runs; flip reproduced: {flip_reproduced}")
 print(f"[x187] verdict: {verdict}")

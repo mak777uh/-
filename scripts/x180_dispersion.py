@@ -65,7 +65,7 @@ for f in sorted(L1.glob("*.compact.json")):
     # of those is this item's own covariate, so a run admitted because of its value on it cannot then be used to measure that
     # value's association without circularity; the second spans the local-inflow range by construction. Both are dropped, and
     # the count is written into the aggregate (reviewer, 04.11: without this guard the committed numbers pooled all 60).
-    if f.stem.startswith(("x182_", "x184_")):
+    if f.stem.startswith(("x182_", "x184_", "x187_")):
         excluded_phase_selected += 1
         continue
     try:
