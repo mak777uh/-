@@ -224,4 +224,8 @@ sections were not rewritten, only moved; each one keeps its identifier, so every
 | §10hs | Зазор контакта на шаге 1: полоса настоящая, «одинаково при любом размере» — нет (X166, 04.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
 | §10ht | Буфер смертности на внешнем сигнале не держит разнообразие (X160, 04.11) | [`plan/10c-field-heterogeneity.md`](plan/10c-field-heterogeneity.md) |
 | §10hu | Среда не помнит свой масштаб, она перемеряет тело (X162b, 04.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
+| §10hv | X167 — слитое тело снова делится; но это может быть и «большой комок делится надвое» (04.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
 | §10hw | Неравные тела не сдвигают границу слияния (X164, 04.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
+| §10hy | X165 — третье тело не помогает и не мешает: граница аддитивна по контактам (04.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
+| §10hz | X161 — дискретное состояние перерисовывается при каждом делении (04.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
+| §10ia | X168 — ОТОЗВАНО: зазор был передан в неверных единицах (04.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
