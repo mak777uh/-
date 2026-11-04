@@ -239,3 +239,6 @@ sections were not rewritten, only moved; each one keeps its identifier, so every
 | §10ii | X174 — коридор при контакте зависит от зазора, а переменная за обоими — доля слияний (04.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
 | §10ij | X175 — девятая клетка ломает единую кривую (04.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
 | §10ik | X176 — два фактора предсказывают неподогнанную клетку (04.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
+| §10il | X177 — верхняя кромка полосы недостижима: радиус 4.5 не слипается при зазоре 11 (04.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
+| §10im | X178 — переход у радиуса 6 резкий, а не пологий (04.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
+| §10in | X179 — таблица переходов с интервалами и аудит неоднородности (04.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |

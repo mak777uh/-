@@ -3217,6 +3217,42 @@
    "created_at": "2026-11-04T17:20:00+03:00",
    "priority": 8,
    "note": "closed undecided, with the premise sharpened: radius 6 at gap 10 fuses 0 of 15, so with X158's 0 of 10 that cell is 0 of 25 and the arm has no contact events to read a corridor from. The two-factor picture is therefore untested at the band's upper edge, which now rests on the three arms at share 0.27 (0.437 / 0.492 / 0.516). Next: radius 4.5 at gap 11 (marginal but alive); the share's floor at radius 6 gap 9 on more seeds; the band measured by geometry."
+  },
+  {
+   "id": "X177_edge",
+   "title": "Is the band's upper edge reachable one cell past radius 4.5's crossing?",
+   "status": "closed",
+   "owner": "lead",
+   "kind": "experiment",
+   "cost_gpu_h": 0.3,
+   "prereg": "reports/2026-11-04-x177-edge-plan.md",
+   "created_at": "2026-11-04T18:30:00+03:00",
+   "priority": 8,
+   "note": "closed undecided: radius 4.5 at gap 11 fuses 0 of 20 (0 of 35 with X158), so there is no contact event and no corridor. Together with X176 this makes the reason structural - arms one cell past a crossing never fuse, so marginality and fusion are not both available at the same cell. The band's upper edge (0.37-0.52) stays untested beyond the three arms at share 0.27. Next: reach the edge through the rate (F = 0.026) or the bridge's geometry, not through the gap."
+  },
+  {
+   "id": "X178_cliff",
+   "title": "Is radius 6's crossing a cliff or a floor?",
+   "status": "closed",
+   "owner": "lead",
+   "kind": "experiment",
+   "cost_gpu_h": 0.3,
+   "prereg": "reports/2026-11-04-x178-cliff-plan.md",
+   "created_at": "2026-11-04T18:30:00+03:00",
+   "priority": 8,
+   "note": "closed on the cliff side: ten of thirty fresh seeds fuse at gap 9 (0.33, Wilson [0.19, 0.51]), thirteen of forty with X158, and the gap-10 control is 0 of 25. The corridor at contact read 0.419 against X171's 0.470 on the same cell, which with radius 3 gap 9 (0.411 at share 0.88) and radius 4.5 gap 10 (0.492 at share 0.25) is a second, independent counterexample to X174's ordering by share. Next: the same test at the other sizes; where the cliff's height comes from."
+  },
+  {
+   "id": "X179_crossing_table",
+   "title": "Every two-body cell in one table, with intervals and a heterogeneity audit",
+   "status": "closed",
+   "owner": "lead",
+   "kind": "experiment",
+   "cost_gpu_h": 0.0,
+   "prereg": "reports/2026-11-04-x179-crossing-table-plan.md",
+   "created_at": "2026-11-04T18:30:00+03:00",
+   "priority": 8,
+   "note": "closed: 57 cells and 722 runs rebuilt from the committed projections alone, cells identified from the data (radius from the seeded area, gap from the centre separation). The protocol's three control cells reproduce, the fusing range is saturated far below each crossing, the rate moves the crossing more than the radius does, and 3 of 57 cells have seed families that disagree by more than 0.4 - so a pooled share is a compromise, not a point. Next: re-run the worst cell with thirty fresh seeds; test whether the seeding helper is the hidden variable."
   }
  ]
 }

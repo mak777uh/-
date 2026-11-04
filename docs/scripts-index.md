@@ -4,7 +4,7 @@
 
 The curated page — what matters and why — is [`scripts.md`](scripts.md). This file is the complete list, so that every command behind a number in the record can be found.
 
-Scripts: **402**.
+Scripts: **407**.
 
 ## Гейты и проверки (48)
 
@@ -175,7 +175,7 @@ Scripts: **402**.
 | `make_seed_grid_figure.py` | Собрать Figure 4 рукописи: сетка «инициализация × порядок данных» (§4.13). |
 | `make_simple_poster.py` | Простой постер для владельца: что мы узнали, без терминов. |
 
-## Прочее (263)
+## Прочее (268)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -354,6 +354,11 @@ Scripts: **402**.
 | `x175_interior_analyse.py` | x175_interior_analyse.py — X175: does the arm land where X174's curve said it would? |
 | `x176_past_crossing.py` | x176_past_crossing.py — X176: radius 6 at surface gap 10, F = 0.030 — past that size's crossing (9). |
 | `x176_past_crossing_analyse.py` | x176_past_crossing_analyse.py — X176: radius 6 at gap 10, past that size's crossing. |
+| `x177_edge.py` | x177_edge.py — X177: radius 4.5 at surface gap 11, F = 0.030 — one cell past that size's crossing (10). |
+| `x177_edge_analyse.py` | x177_edge_analyse.py — X177: the band's upper edge, radius 4.5 at gap 11. |
+| `x178_cliff.py` | x178_cliff.py — X178: radius 6 at surface gap 9, F = 0.030 — thirty seeds on the cell that decides plateau or cliff. |
+| `x178_cliff_analyse.py` | x178_cliff_analyse.py — X178: is the crossing a plateau or a cliff? Radius 6, gap 9, thirty seeds. |
+| `x179_crossing_table.py` | x179_crossing_table.py — X179: every two-body cell this line has run, with intervals, from the committed projections. |
 | `x56_matrix.py` | x56_matrix.py — сходимость по шагу: контраст при dt = 1.0, 0.5, 2.0. |
 | `x58_analyse.py` | x58_analyse.py — the same measurement on a 128 grid: β₀, β₁, wavelength, normalised count. |
 | `x58_series.py` | x60_series.py — X60: the twenty field runs that keep their snapshots. |
