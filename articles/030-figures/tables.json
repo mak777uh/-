@@ -1,0 +1,241 @@
+{
+ "fig1": {
+  "fused_world": "x193_c000",
+  "separate_world": "x193_c002",
+  "bodies_at_step_1": [
+   [
+    40.0,
+    24.0
+   ],
+   [
+    56.0,
+    24.0
+   ]
+  ],
+  "bodies_at_step_200": [
+   [
+    37.4,
+    24.0
+   ],
+   [
+    58.6,
+    24.0
+   ]
+  ],
+  "bridge_midpoint_value": 0.022,
+  "along_line_peak": 0.11902,
+  "bridge_ratio_demo": 0.18482,
+  "sample_steps": [
+   40,
+   200
+  ],
+  "grid": 96,
+  "stripe_period": 12
+ },
+ "fig2": {
+  "r6": {
+   "radius": 6.0,
+   "gap": 9.0,
+   "worlds": 144,
+   "f_local_values": [
+    0.015,
+    0.01701,
+    0.0225,
+    0.0235,
+    0.02625,
+    0.03,
+    0.03375,
+    0.0365,
+    0.0375
+   ]
+  },
+  "r3": {
+   "radius": 3.0,
+   "gap": 10.0,
+   "worlds": 144,
+   "f_local_values": [
+    0.015,
+    0.01701,
+    0.01875,
+    0.0225,
+    0.0235,
+    0.02625,
+    0.03,
+    0.03375,
+    0.0365,
+    0.0375
+   ]
+  }
+ },
+ "fig3": {
+  "r6": {
+   "slope": {
+    "slope": 6.094,
+    "se": 1.058,
+    "z": 5.76
+   },
+   "bins": [
+    [
+     0.005884545454545454,
+     0.0,
+     22
+    ],
+    [
+     0.011159090909090912,
+     0.09090909090909091,
+     22
+    ],
+    [
+     0.03184285714285715,
+     0.2857142857142857,
+     28
+    ],
+    [
+     0.16655333333333333,
+     0.6666666666666666,
+     24
+    ],
+    [
+     0.4152733333333333,
+     0.3333333333333333,
+     24
+    ],
+    [
+     0.47123166666666666,
+     1.0,
+     24
+    ]
+   ]
+  },
+  "r3": {
+   "slope": {
+    "slope": 4.854,
+    "se": 1.792,
+    "z": 2.71
+   },
+   "bins": [
+    [
+     0.04084090909090909,
+     0.5454545454545454,
+     22
+    ],
+    [
+     0.20819400000000005,
+     0.0,
+     20
+    ],
+    [
+     0.2550685714285714,
+     0.0,
+     28
+    ],
+    [
+     0.282396,
+     0.0,
+     20
+    ],
+    [
+     0.32719666666666664,
+     1.0,
+     24
+    ],
+    [
+     0.3813626666666667,
+     0.7333333333333333,
+     30
+    ]
+   ]
+  }
+ },
+ "fig4": {
+  "by_gap": [
+   {
+    "name": "r4_g12_reference",
+    "radius": 4.0,
+    "gap": 12.0,
+    "share": 0.0,
+    "fused": 0,
+    "worlds": 144
+   },
+   {
+    "name": "r4_g10",
+    "radius": 4.0,
+    "gap": 10.0,
+    "share": 0.1883,
+    "fused": 34,
+    "worlds": 144
+   },
+   {
+    "name": "r6_g9_reference",
+    "radius": 6.0,
+    "gap": 9.0,
+    "share": 0.402,
+    "fused": 58,
+    "worlds": 144
+   },
+   {
+    "name": "r6_g8",
+    "radius": 6.0,
+    "gap": 8.0,
+    "share": 0.8338,
+    "fused": 126,
+    "worlds": 144
+   },
+   {
+    "name": "r4_g8",
+    "radius": 4.0,
+    "gap": 8.0,
+    "share": 0.9607,
+    "fused": 138,
+    "worlds": 144
+   }
+  ],
+  "note": "share is the mean over the arm's inflow values; worlds = 144 per arm"
+ },
+ "fig5": {
+  "auc": {
+   "by_runs": 0.65169,
+   "by_worlds": 0.65962,
+   "ci_runs": [
+    0.611,
+    0.6931,
+    0.0207
+   ],
+   "ci_worlds": [
+    0.617,
+    0.7015,
+    0.0219
+   ],
+   "sd_ratio": 1.06
+  },
+  "deviance_drop": {
+   "nominal_runs": 424.0,
+   "local_runs": 403.3,
+   "drop_runs": 20.7,
+   "nominal_worlds": 352.9,
+   "local_worlds": 338.6,
+   "drop_worlds": 14.3,
+   "x186_published_drop": 28.0
+  },
+  "bootstrap": {
+   "iterations": 120,
+   "bar": 20.0,
+   "share_above_bar_runs": 0.517,
+   "share_above_bar_worlds": 0.208,
+   "median_drop_runs": 20.75,
+   "median_drop_worlds": 13.149999999999999
+  },
+  "pool": {
+   "runs": 742,
+   "excluded_selected_pools": 787,
+   "mixed_cell_runs": 311,
+   "cells": 57,
+   "mixed_cells": 11
+  },
+  "worlds": {
+   "count": 258,
+   "with_both_outcomes": 4,
+   "runs_per_world": 1.205
+  }
+ }
+}

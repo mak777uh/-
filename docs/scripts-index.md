@@ -4,9 +4,9 @@
 
 The curated page — what matters and why — is [`scripts.md`](scripts.md). This file is the complete list, so that every command behind a number in the record can be found.
 
-Scripts: **436**.
+Scripts: **439**.
 
-## Гейты и проверки (48)
+## Гейты и проверки (49)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -15,6 +15,7 @@ Scripts: **436**.
 | `check_aggregate_coverage.py` | check_aggregate_coverage.py — каждый научный артефакт обязан входить хотя бы в один агрегат. |
 | `check_aggregates_fresh.py` | check_aggregates_fresh.py — агрегаты в git обязаны совпадать с пересборкой. |
 | `check_article_029_numbers.py` | check_article_029_numbers.py — every number printed in article 029 must trace to an aggregate. |
+| `check_article_030_numbers.py` | check_article_030_numbers.py — every number printed in article 030 must trace to an aggregate. |
 | `check_article_numbers.py` | check_article_numbers.py — числа статьи 028 обязаны воспроизводиться из агрегатов. |
 | `check_autonomy.py` | check_autonomy.py — the autonomy policy has to be machine-readable, and its protected paths have to be enforced. |
 | `check_claim_artifacts.py` | check_claim_artifacts.py — an artifact cited by a claim must exist in git. |
@@ -154,7 +155,7 @@ Scripts: **436**.
 | `w2bud_metric_variants.py` | w2bud_metric_variants.py — инвариантность эффекта к устройству метрики. |
 | `w2bud_quota_matrix.py` | w2bud_quota_matrix.py — агрегат серии с квотой (H-ALIVE-53). |
 
-## Сборка отчётов и таблиц (16)
+## Сборка отчётов и таблиц (18)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -162,6 +163,8 @@ Scripts: **436**.
 | `build_article_029_package.py` | build_article_029_package.py — assemble the deposit package for article 029. |
 | `make_article_029_figures.py` | make_article_029_figures.py — figures and derived tables for article 029 (v2, plain-language edition). |
 | `make_article_029_pdf.py` | make_article_029_pdf.py — render article 029 as a self-contained PDF for the deposit. |
+| `make_article_030_figures.py` | make_article_030_figures.py — figures for articles/030 (the gap between surfaces switches fusion). |
+| `make_article_030_pdf.py` | make_article_030_pdf.py — render article 030 as a self-contained PDF for the deposit. |
 | `make_artifact_table.py` | Собрать приложение-таблицу артефактов с хешами (manuscript/SUPPLEMENT.md). |
 | `make_arxiv_figures.py` | make_arxiv_figures.py — четыре фигуры для черновика (26.10). |
 | `make_carrier_figures.py` | Собрать два рисунка по закрытиям carriers/кластеров из сырых артефактов. |
