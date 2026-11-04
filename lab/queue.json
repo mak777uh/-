@@ -1,6 +1,6 @@
 {
  "schema_version": 1,
- "updated_at": "2026-11-05T00:36:00+03:00",
+ "updated_at": "2026-11-05T00:50:00+03:00",
  "note": "Очередь пунктов после E02c. Claim берётся до пре-регистрации, а не перед запуском: lab.py item-claim. Статус running означает занятый GPU-лейн и может быть только у одного пункта. | 25.10: добавлено поле impact (1-5) — приоритет конвейера = impact/max(cost_gpu_h,0.1); для запуска пункту нужны prereg (закоммиченный план) и launch.command+outdir.",
  "items": [
   {
@@ -3482,6 +3482,19 @@
    "created_at": "2026-11-05T00:36:00+03:00",
    "waiting_on": "owner",
    "note": "the article is prepared for submission and NOTHING has gone outward. Ready: 45 numbers checked against the aggregates by check_article_030_numbers.py (in verify), an independent recomputation of all six result groups in lab/reviews/2026-11-04-030-numbers.md (1008/1008 per-world rows matched), a verified reference list of 20 entries, five figures built from committed artifacts, and the deposit package under _exports/030-gap-switches-fusion-v1.0.zip (32 files, sha256 manifest, brief). Waiting on the owner: (1) the creator list, order and ORCIDs; (2) the licence choice (default in the package is CC-BY-4.0); (3) any related identifier/DOI to carry; (4) an explicit go. The article PDF is built by make_article_030_pdf.py through the bundled LibreOffice kit and is in the package."
+  },
+  {
+   "id": "X198_gap_curve",
+   "title": "The fusion share as a function of the surface-to-surface gap (five gaps at radius 4, three at radius 6)",
+   "status": "running",
+   "owner": "lead",
+   "kind": "field",
+   "cost_gpu_h": 0.0,
+   "priority": 8,
+   "prereg": "reports/2026-11-05-x198-gap-curve-plan.md",
+   "created_at": "2026-11-05T00:50:00+03:00",
+   "note": "claim taken before the pre-registration. X196 settled the either-or with three arms and a five-row table whose middle was interpolated; this runs the switch at a fixed size (radius 4, gaps 8-12) and repeats the three largest gaps at radius 6, so the size shift is a curve-to-curve comparison at matched gaps. Cost about 100 minutes of CPU for 1152 worlds.",
+   "heartbeat_at": "2026-11-05T00:52:00+03:00"
   }
  ]
 }

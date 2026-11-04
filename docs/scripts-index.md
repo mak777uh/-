@@ -4,7 +4,7 @@
 
 The curated page — what matters and why — is [`scripts.md`](scripts.md). This file is the complete list, so that every command behind a number in the record can be found.
 
-Scripts: **440**.
+Scripts: **442**.
 
 ## Гейты и проверки (49)
 
@@ -179,7 +179,7 @@ Scripts: **440**.
 | `make_seed_grid_figure.py` | Собрать Figure 4 рукописи: сетка «инициализация × порядок данных» (§4.13). |
 | `make_simple_poster.py` | Простой постер для владельца: что мы узнали, без терминов. |
 
-## Прочее (297)
+## Прочее (299)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -392,6 +392,8 @@ Scripts: **440**.
 | `x196_gap_or_size.py` | x196_gap_or_size.py — X196: is the fusion window set by the body size or by the gap? |
 | `x196_gap_or_size_analyse.py` | x196_gap_or_size_analyse.py — X196: is the fusion window set by the body size or by the gap? |
 | `x197_deviance_worlds.py` | x197_deviance_worlds.py — X197: does X186's published deviance drop survive counting worlds instead of runs? |
+| `x198_gap_curve.py` | X196 answered the either-or: the gap switches fusion, the size shifts it. It did so with three arms and a five-row table whose two |
+| `x198_gap_curve_analyse.py` | x198_gap_curve_analyse.py — X198: the fusion share as a function of the surface-to-surface gap. |
 | `x56_matrix.py` | x56_matrix.py — сходимость по шагу: контраст при dt = 1.0, 0.5, 2.0. |
 | `x58_analyse.py` | x58_analyse.py — the same measurement on a 128 grid: β₀, β₁, wavelength, normalised count. |
 | `x58_series.py` | x60_series.py — X60: the twenty field runs that keep their snapshots. |

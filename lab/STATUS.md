@@ -4,7 +4,7 @@ One file, one place that says what is actually in work. Machine state lives in `
 `_hourly/log.md`, numbers in artifacts. The Russian sections below the line are **history** and are not rewritten; the top
 part is kept current (new text in English — decision of 31.10).
 
-**Updated:** 2026-11-04, 20:35 MSK.
+**Updated:** 2026-11-05, 00:55 MSK.
 
 ## Where we are, in one page (asked for in plain language on 04.11)
 
@@ -39,8 +39,20 @@ we have seen something alive.
 
 ## Running now
 
-Nothing. No series is running, no lock is held, and the last ten hours were a single block of small items on the field
-line whose results are below. `lab/state.json` reports `active_runs: 0`.
+**X198 — the fusion share as a function of the surface-to-surface gap** (eight arms, 1152 worlds, claimed before its
+pre-registration `reports/2026-11-05-x198-gap-curve-plan.md`): five gaps at radius 4 (8, 9, 10, 11, 12) and three at radius 6
+(8, 9, 10), so the switch X196 found with three arms becomes a curve, and the size shift becomes a curve-to-curve comparison at
+matched gaps. Registered before the run: the share is monotone in the gap, one neighbouring pair differs by at least 0.4 (which
+locates the transition between adjacent gaps, finer than X196 could), the radius-6 curve is not to the right of the radius-4 one
+and is higher by at least 0.10 somewhere, the phase still decides the bridge in every arm, and the re-run arms reproduce their
+committed values (0.00 / 0.40 / 0.96) within ±0.05.
+
+**Article 030 is finished and stopped at the boundary.** An outside-reader edition of the phase-census line, in English, with
+five figures, a verified reference list of 20 entries and the numbers gated by `scripts/check_article_030_numbers.py` (45
+needles, inside `verify`); independently recomputed in `lab/reviews/2026-11-04-030-numbers.md` (1008/1008 per-world rows
+matched, two caveats folded in, one number in my own task brief corrected). The deposit package is built
+(`_exports/030-gap-switches-fusion-v1.0.zip`, 32 files with a sha256 manifest and a brief). **Nothing has gone outward.**
+Waiting on the owner: the creator list with ORCIDs, the licence choice, any related identifier, and an explicit go.
 
 ## Closed on 04.11 — the fusion and heredity block (field line)
 
