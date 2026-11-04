@@ -255,3 +255,5 @@ sections were not rewritten, only moved; each one keeps its identifier, so every
 | §10iy | X190 — мост при выборке из площадок, а не сидов (04.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
 | §10iz | X191 — мост как дозовая зависимость от локального притока (04.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
 | §10ja | X192 — ценз фаз при наибольшем размере (04.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
+| §10jb | X193 — ценз фаз при меньших телах (04.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
+| §10jc | X194 — сколько миров в опубликованных пулах (04.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |

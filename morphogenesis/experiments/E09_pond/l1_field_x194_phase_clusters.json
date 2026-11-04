@@ -1,0 +1,152 @@
+{
+ "kind": "x194_phase_clusters",
+ "period": 12,
+ "composition": {
+  "runs": 757,
+  "distinct_worlds": 633,
+  "distinct_positions": 227,
+  "excluded_phase_selected_runs": 355,
+  "distinct_positions_note": "the position alone over-counts as a world: 64 positions hold runs from different arms, so the world here is the position times the arm (r0 bin, gap, F, steps)",
+  "largest_phase": 5,
+  "phases_with_one_run": 549,
+  "runs_in_singleton_phases": 549,
+  "phase_size_histogram": {
+   "5": 7,
+   "3": 19,
+   "2": 58,
+   "1": 549
+  },
+  "phases_with_consistent_outcome": 631,
+  "phases_with_mixed_outcome": 2,
+  "note": "a phase with a mixed outcome is a phase whose single world is not enough: the same positions gave both outcomes, which prices the class unit directly and is reported rather than hidden"
+ },
+ "auc_by_runs": 0.65169,
+ "auc_by_phases_homogeneous": 0.65962,
+ "homogeneous_phase_runs_share": 0.9947,
+ "bootstrap": {
+  "iterations": 1000,
+  "seed": 194,
+  "by_runs": {
+   "ci95": [
+    0.611,
+    0.6931,
+    0.0207
+   ]
+  },
+  "by_phases": {
+   "ci95": [
+    0.617,
+    0.7015,
+    0.0219
+   ]
+  },
+  "sd_ratio_phases_over_runs": 1.06
+ },
+ "x187_groups": {
+  "r3_g10_cold": {
+   "runs": 6,
+   "distinct_phases": 6,
+   "fused_runs": 0,
+   "fused_phases": 0,
+   "phase_sizes": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+   ],
+   "consistent": 6,
+   "mixed": 0
+  },
+  "r3_g10_warm": {
+   "runs": 6,
+   "distinct_phases": 5,
+   "fused_runs": 4,
+   "fused_phases": 3,
+   "phase_sizes": [
+    2,
+    1,
+    1,
+    1,
+    1
+   ],
+   "consistent": 5,
+   "mixed": 0
+  },
+  "r6_g9_cold": {
+   "runs": 6,
+   "distinct_phases": 4,
+   "fused_runs": 6,
+   "fused_phases": 4,
+   "phase_sizes": [
+    2,
+    2,
+    1,
+    1
+   ],
+   "consistent": 4,
+   "mixed": 0
+  },
+  "r6_g9_warm": {
+   "runs": 6,
+   "distinct_phases": 5,
+   "fused_runs": 4,
+   "fused_phases": 3,
+   "phase_sizes": [
+    2,
+    1,
+    1,
+    1,
+    1
+   ],
+   "consistent": 5,
+   "mixed": 0
+  }
+ },
+ "x187_fisher_by_runs_and_worlds": {
+  "note": "these are X194's own groups and its own outcome definition (one component at any sample), not a re-computation of X187's published tests, which used their own readout; they are reported to show how the counts change when worlds replace runs, and any claim about X187's numbers has to be made against X187's aggregate",
+  "r3_g10": {
+   "by_runs": {
+    "cold": "0/6",
+    "warm": "4/6",
+    "fisher_p": 0.0606
+   },
+   "by_worlds": {
+    "cold": "0/6",
+    "warm": "3/5",
+    "fisher_p": 0.0606
+   }
+  },
+  "r6_g9": {
+   "by_runs": {
+    "cold": "6/6",
+    "warm": "4/6",
+    "fisher_p": 0.2273
+   },
+   "by_worlds": {
+    "cold": "4/4",
+    "warm": "3/5",
+    "fisher_p": 0.2778
+   }
+  }
+ },
+ "headline": "the run count is an upper bound on the number of worlds in every pooled statistic of the line",
+ "verdict": "REFUSAL FIRED, AND THE FEAR WAS UNFOUNDED FOR THE OBSERVATIONAL POOL: the line's natural pools are nearly all singletons. The pool holds 757 runs in 633 worlds (227 positions), the largest world carries 5 runs and 549 worlds are singletons, so a run count is a fine denominator here. Resampling worlds widens the interval only 1.06-fold (sd 0.0219 against 0.0207), and the pooled AUC is 0.65169 over runs against 0.65962 over the homogeneous worlds. What does matter is where the selection happened: X187's groups fall from 6 runs to 5 or 4 worlds each when the arm is held (by runs {'cold': '0/6', 'warm': '4/6', 'fisher_p': 0.0606} and {'cold': '6/6', 'warm': '4/6', 'fisher_p': 0.2273}, by worlds {'cold': '0/6', 'warm': '3/5', 'fisher_p': 0.0606} and {'cold': '4/4', 'warm': '3/5', 'fisher_p': 0.2778}), so the clone and phase findings are local to the selected arms and do not require widening the published intervals of the ladder. X192's hypothesis that the published numbers needed re-expression over phases is therefore withdrawn for the observational pool and stands only for the arm-selected designs.",
+ "registered_criteria": {
+  "worlds at most a third of runs": {
+   "value": "633 worlds for 757 runs",
+   "passes": false
+  },
+  "at least 20 worlds hold more than one run": {
+   "value": "84 such worlds",
+   "passes": true
+  },
+  "the world bootstrap is at least 1.3x wider": {
+   "value": "sd 0.0219 against 0.0207 (ratio 1.06)",
+   "passes": false
+  }
+ },
+ "criteria_passed": 1,
+ "criteria_note": "the fourth registered prediction, that excluding the selected pools shifts the pooled AUC by at least 0.05, has no like-for-like comparator: the line's 0.982 AUC was measured on a purpose-built arm (0.00 to 1.00) rather than on this pool, so it is recorded as not testable in this form rather than as a failure"
+}

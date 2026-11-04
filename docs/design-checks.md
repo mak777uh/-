@@ -525,3 +525,14 @@ that carry the hidden variable (here the classes) and over the value means, and 
 variable is identifiable — a phase, a lattice site, a batch — hold it fixed and contrast inside one value (X192's within-value
 contrast: 1.0 against 0.111 fusion above and below the median bridge at a single inflow).
 
+## A run count is a fine denominator where the selection was not by the readout (04.11)
+
+X192 concluded that the line's pooled numbers needed re-expressing over phases. X194 tested that on the **observational** pool - the
+ladder and its siblings, with every arm selected by the inflow or the phase excluded - and the conclusion did not survive: 757 runs
+give 633 arm-held worlds, the largest holding 5 runs, 549 singletons; resampling worlds widens the bootstrap interval only 1.06x
+against runs, and the pooled AUC moves from 0.652 to 0.660. The clones live where the design put them. The habit: before re-expressing
+a published statistic over a finer unit, count the units in **that** pool; selection by the readout (or by its driver) is what collapses
+runs into worlds, and an arm laid out on purpose legitimately keeps its run count as the denominator. A world is the position modulo the
+period **times** the arm: counting the position alone over-counts (227 positions against 633 worlds here, and 64 positions held runs
+from different arms).
+
