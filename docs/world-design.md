@@ -250,3 +250,5 @@ sections were not rewritten, only moved; each one keeps its identifier, so every
 | §10it | X185 — one law, two windows | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
 | §10iu | X186 — таблица переходов, прочитанная в локальном притоке (04.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
 | §10iv | X187 — почему знак закона переворачивается на крупном размере (04.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
+| §10iw | X188 — нуклеация как счёт тел, а не как пересказ исхода (04.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
+| §10ix | X189 — мост между телами по локальному притоку и размеру (04.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |

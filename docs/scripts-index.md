@@ -4,7 +4,7 @@
 
 The curated page — what matters and why — is [`scripts.md`](scripts.md). This file is the complete list, so that every command behind a number in the record can be found.
 
-Scripts: **419**.
+Scripts: **422**.
 
 ## Гейты и проверки (48)
 
@@ -175,7 +175,7 @@ Scripts: **419**.
 | `make_seed_grid_figure.py` | Собрать Figure 4 рукописи: сетка «инициализация × порядок данных» (§4.13). |
 | `make_simple_poster.py` | Простой постер для владельца: что мы узнали, без терминов. |
 
-## Прочее (280)
+## Прочее (283)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -371,6 +371,9 @@ Scripts: **419**.
 | `x186_table_local.py` | x186_table_local.py — X186: re-read the 57-cell crossing table in the local inflow. |
 | `x187_large_radius.py` | x187_large_radius.py — X187: why do the largest bodies read the opposite sign? |
 | `x187_nucleation_analyse.py` | x187_nucleation_analyse.py — X187: why do the largest bodies read the opposite sign? |
+| `x188_nucleation_identity.py` | x188_nucleation_identity.py — X188: are there bodies besides the pair, by spatial continuation rather than by uid? |
+| `x189_bridge.py` | x189_bridge.py — X189: is the bridge between the bodies weaker when the site is warm? |
+| `x189_bridge_analyse.py` | x189_bridge_analyse.py — X189: the bridge between two bodies, by local inflow and size. |
 | `x56_matrix.py` | x56_matrix.py — сходимость по шагу: контраст при dt = 1.0, 0.5, 2.0. |
 | `x58_analyse.py` | x58_analyse.py — the same measurement on a 128 grid: β₀, β₁, wavelength, normalised count. |
 | `x58_series.py` | x60_series.py — X60: the twenty field runs that keep their snapshots. |

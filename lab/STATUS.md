@@ -4,7 +4,38 @@ One file, one place that says what is actually in work. Machine state lives in `
 `_hourly/log.md`, numbers in artifacts. The Russian sections below the line are **history** and are not rewritten; the top
 part is kept current (new text in English — decision of 31.10).
 
-**Updated:** 2026-11-04, 16:10 MSK.
+**Updated:** 2026-11-04, 20:35 MSK.
+
+## Where we are, in one page (asked for in plain language on 04.11)
+
+**Nothing is running and no lock is held.** `lab/state.json` reports `active_runs: 0`; the items below are analysis over
+committed projections or short CPU series that have finished.
+
+**On the "see the living" plan (`docs/plan-alive.md`, stages P0–P4) we are at P0, and the lab never claims life** — the
+contract allows only "an observable class of behaviour and its boundaries", so progress is scored by rulers, not by words.
+
+| stage | what it needs | where we are |
+|---|---|---|
+| **P0** deadly price + behaviour metric | an error must have a price, then survival has to differ between the right and wrong zone, before and after the environment flips | the **price exists** (503 alive and 0 deaths before; 59 deaths and 50 alive with the deadly cost, richness bias 1.39), the **metric is the open part** |
+| **P1** lifetime plasticity | one internal prediction updated by its error, modulating behaviour | not started; Lean's `F-ADAPT` already bounds when it can matter (learning must be faster than dying) |
+| **P2** family of environments + transfer | train/select in one environment, test in three others | not started |
+| **P3** meta-learning | learning speed itself under selection | not started |
+| **P4** multi-level individuality | components with identity over time, group reproduction | where the field line has been working; it now has facts, one law and its boundary |
+
+**What today's field line added to P4** (items X180–X187, all closed, sections 10io–10iv of the `docs/world-design.md` index):
+the rate a run "has" is not the nominal rate but the **local inflow at the sites where the
+pair was seeded**, which organises the block's whole rate ladder (AUC 0.866, 0.895 within a nominal level, against 0.587 nominal
+and 0.215 for the midpoint reading); two pre-registered controls moved that variable instead of observing it (X182 falls
+1.00 → 0.00, X184 rises 0.00 → 1.00, z = +4.638) and are one law because the bodies are 120° apart in the pattern; the crossing
+table collapses in the same variable, and the radius-6 cliff survives a site audit; and **the law's sign flips at the largest
+bodies**, which reproduces under selection (X187: +0.67 at radius 3, −0.33 at radius 6) with its mechanism **untested**. The
+honest negatives are part of this map: heredity through divisions is a notation rather than a ratchet (X161), a merge reappears
+in place and is not distinguishable from a blob (X167), and what a blob passes to its daughters is the field's shape rather than
+its own history (X170).
+
+**So, in one sentence:** the environment now charges for error, the ruler is being calibrated (P0 unclosed), the learning stages
+have not begun, and "signs of life" so far means one predictable law of contact with a honestly drawn boundary — not a claim that
+we have seen something alive.
 
 ## Running now
 

@@ -1,6 +1,6 @@
 {
  "schema_version": 1,
- "updated_at": "2026-11-04T20:20:00+03:00",
+ "updated_at": "2026-11-04T20:45:00+03:00",
  "note": "Очередь пунктов после E02c. Claim берётся до пре-регистрации, а не перед запуском: lab.py item-claim. Статус running означает занятый GPU-лейн и может быть только у одного пункта. | 25.10: добавлено поле impact (1-5) — приоритет конвейера = impact/max(cost_gpu_h,0.1); для запуска пункту нужны prereg (закоммиченный план) и launch.command+outdir.",
  "items": [
   {
@@ -3349,6 +3349,30 @@
    "prereg": "reports/2026-11-04-x187-nucleation-plan.md",
    "created_at": "2026-11-04T20:20:00+03:00",
    "note": "closed: the registered readout was invalid - it excluded components near the seeded centres, so the merged body drifted out of that radius and was counted as a body besides the pair (24/24 runs track the outcome exactly), and the mechanism is untested, not refuted. The run does establish that the sign flip reproduces under selection: radius 3 gap 10 reads 0.00 -> 0.67 (+0.67), radius 6 gap 9 reads 1.00 -> 0.67 (-0.33). Next: a uid-based nucleation count at fixed samples on the same 24 runs; hold the separation parity fixed so the arms share an effective radius."
+  },
+  {
+   "id": "X188_nucleation_identity",
+   "title": "Count bodies around the pair by spatial continuation",
+   "status": "closed",
+   "owner": "lead",
+   "kind": "analysis",
+   "cost_gpu_h": 0.0,
+   "priority": 9,
+   "prereg": "reports/2026-11-04-x188-nucleation-identity-plan.md",
+   "created_at": "2026-11-04T20:45:00+03:00",
+   "note": "closed: the readout is not a function of the outcome (unlike X187's) and it does not explain the flip - the warm level holds +0.234 other bodies in the window at radius 6 (bar 0.5) while coalescing less, and +0.842 at radius 3 while coalescing more. The plan was amended before running because uids are re-issued at every division and cannot trace the pair. Next: the field-level bridge test (X189)."
+  },
+  {
+   "id": "X189_bridge",
+   "title": "Bridge between the bodies by local inflow and size",
+   "status": "closed",
+   "owner": "lead",
+   "kind": "experiment",
+   "cost_gpu_h": 0.0,
+   "priority": 8,
+   "prereg": "reports/2026-11-04-x189-bridge-plan.md",
+   "created_at": "2026-11-04T21:20:00+03:00",
+   "note": "closed: at the contact-moment reading warmth thins the bridge at radius 6 (-0.20158, bar 0.05) and thickens it slightly at radius 3 (+0.08963), so the bridge is a candidate mechanism for the flip; the registered tightest-slice summary is contaminated by the initial profile in 9 of 12 runs, and the level IS the site, so three seeds give one to two distinct sites and the within-site spread covers the effect. Next: X190, site-replicated (five sites per level)."
   }
  ]
 }

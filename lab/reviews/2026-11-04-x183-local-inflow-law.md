@@ -131,3 +131,48 @@ Within-level AUCs also match to the digit (colder body 0.9643 / 0.8574 / 0.7917 
 - Horizon control (`steps == 2000`, n = 110): nominal 0.6025, body mean 0.8167, colder body 0.8656 — the ordering holds.
 
 **New discrepancy — the x180 exclusion is NOT in the code.** The message says `x179_crossing_table.py`, `x180_dispersion.py` and `x183_local_collapse.py` now all exclude the 60 phase-selected runs. `x179` does (its radius-3/gap-10/F-0.030 cell reads 79 runs = 49 + 30 x181, `per_source` lists x181 and no x182/x184) and `x183` does (above; `x186` too). **`x180_dispersion.py` does not** — there is no `startswith(("x182_", "x184_"))` guard anywhere in the file, and the committed `l1_field_x180_dispersion.json` has `runs_scanned: 832`, i.e. my full-corpus count, not the 772 of the exclusion. The 60 phase-selected runs land in the cell `(radius 3.0, gap 10, F 0.03, steps 2000)`: committed **110 runs / 52 fused / share 0.473**, of which 60 are phase-selected; dropping them makes that cell **50 runs / 21 fused / 0.42**. Why it matters here and not elsewhere: X182 selects seeds *by the midpoint pattern value*, which is exactly the covariate X180 tests, so keeping it in X180's cells is circular for that item. Replicating X180's whole pipeline reproduces the committed top line exactly with all runs (`17` cells, mean point-biserial **−0.561**, `fused_higher_g 1`, `informative_runs 381`, pooled point-biserial **−0.578**) and gives `17` cells, **−0.552**, **321** informative runs, **−0.527** pooled without the phase-selected runs. The direction of X180's conclusion is unchanged, but its committed numbers still pool runs it was meant to drop. Fix in scope for the owner: add the same guard to `x180_dispersion.py` and regenerate `l1_field_x180_dispersion.json`.
+
+---
+
+## Addendum 2 — X180 fix confirmed, X186 and X187 rechecked (2026-11-04 20:40, commits `2c82b4f8`/`b5b9590c`)
+
+Reader: `lab/reviews/_scratch_x186_x187_check.py`. Verdict above unchanged.
+
+**The X180 fix is in and my replication matches the regenerated aggregate exactly.** `x180_dispersion.py:68` now carries `startswith(("x182_", "x184_", "x187_"))`; the aggregate reads `runs_scanned: 772`, `excluded_phase_selected_runs: 84` (60 + X187's 24), and my independent reader gives 772 runs, 84 excluded, **57 cells**, 11 usable, **341 mixed runs**. X180's regenerated numbers are the ones my earlier replication predicted: **316 runs across 17 mixed cells, mean point-biserial −0.552, 321 non-saturated runs at −0.527**, quartile band shares 0.836 → 0.160, and `z = -7.807` (I reproduce that z from the band counts: 59/136 pooled, denom 0.0866). The catch is closed.
+
+**X186 reproduces on every number I checked.**
+
+| quantity | committed | my reader |
+|---|---|---|
+| pool | 772 runs, 84 excluded, 57 cells, 341 mixed | **772 / 84 / 57 / 341** |
+| deviance nominal → colder body (drop, bar 20) | 464.5 → 436.5 (28.0) | **464.5 → 436.5 (28.0)** |
+| body-mean deviance | 459.2 | **459.2** |
+| usable cells / positive / negative | 11 / 9 / 2 | **11 / 9 / 2** |
+| exceptions | r5.9 g7 −0.132, r5.9 g9 −0.478 | **−0.132, −0.478** (spreads 0.00541 / 0.00608) |
+| cliff gap-9 | 54 runs, 20 fused, r 5.863, mean 0.02535 | **54 / 20 / 5.863 / 0.02535** |
+| cliff gap-10 | 24 runs, 0 fused, r 5.997, mean 0.02807 | **24 / 0 / 5.997 / 0.02807** |
+| inflow difference (bar 0.004) | 0.00272 | **0.00272** |
+
+One check worth recording: the committed deviance uses a **coarse intercept grid** (`b = logit(base) + shift/20`, 13 values) plus a slope grid, so its numbers are an upper bound on the fitted deviance. I refit both models as a **free two-parameter logistic** on `log(value)` and get *identical* values, 464.5 / 436.5 / 459.2 — the grid landed on the minimum, so the drop of 28.0 (bar 20) is not a grid artefact.
+
+On the sign convention: the plan's §6 refusal rule really does ask for **negative** per-cell slopes in the local variable ("counts a pooled win as supporting evidence only if the per-cell slopes are negative…"), while the law predicts a positive association. The aggregate's `preregistration_note` states this plainly, names it an error, and reports the measured (positive) direction; the report repeats it. That is a faithful record, not a silent reinterpretation — the only thing to change is the rule text in a future plan. Note also that the two negative cells are exactly the two the law does not yet explain (r5.9 g7 and g9), so the refusal rule's wrong sign did not smuggle a null result past the reader.
+
+**X187 — the degeneracy is exactly as reported.**
+
+| quantity | committed | my reader (24 compacts) |
+|---|---|---|
+| registered readout: 1 iff fused, 0 iff not | 24/24 | **24/24** |
+| `extra == min_count − 1` | 0/24 | **0/24** |
+| runs with minimum count one | 14 | **14** |
+| r6_g9 cold → warm share | 6/6 → 4/6 (−0.33) | **1.0000 → 0.6667 (−0.3333)** |
+| r3_g10 cold → warm share | 0/6 → 4/6 (+0.67) | **0.0000 → 0.6667 (+0.6667)** |
+| min-count means (r3 cold/warm, r6 cold/warm) | 2.0 / 1.33, 1.0 / 1.33 | **2.0 / 1.33, 1.0 / 1.33** |
+| `F_local_cold` group means | 0.01701, 0.0300, 0.0173, 0.0300 | **identical** |
+
+The mechanism is confirmed by construction: the single component of every fused run sits **more than 3 cells from both seeded centres** (otherwise `extra` would be 0), so the proximity-based identity test counts the pair's own merged body as "a body besides the pair"; in all 10 unfused runs no component is beyond that radius. The readout therefore carries **zero** information independent of the outcome, and the item is right to call it invalid rather than evidence against nucleation. The report's own correction — a **uid-based** count of components neither of the pair nor descended from it, at a *fixed* sample rather than at the minimum — is the right replacement and is available from these same 24 runs.
+
+Two qualifications to record rather than accept:
+- **"Samples at one component under 0.01 everywhere" is true of the group means but not of individual runs.** Group means are 0.0000 / 0.0072 (radius 3) and 0.0083 / **0.00997** (radius 6) — the last one rounds to the committed `0.01`, so the aggregate's own printed value is not literally below 0.01. At run level the share reaches **0.0166** (three of the r6_g9 warm runs) and 0.0133, i.e. **4 of 24 runs are ≥ 0.01**. The descriptive claim "well under one per cent" holds for the group means and needs the run-level max named (1.7 %).
+- **The flip is designed but not statistically strong on its own.** The r3_g10 contrast (0/6 → 4/6) gives a one-sided Fisher p ≈ 0.030; the r6_g9 contrast (6/6 → 4/6) gives p ≈ 0.39. So X187 supports the flip as a *designed reproduction of the qualitative sign* — which is what makes it stronger than X186's per-cell observation, since it removes the pooling choice — but six runs per group cannot make the radius-6 direction significant, and the report says so.
+
+**Net effect on the claim under review: favourable.** X186's pooled deviance contrast (28.0 over the bar of 20, robust to the fit) and its 9-of-11 positive per-cell direction are a genuine extension of the local-inflow law to the whole crossing table, and X187 shows the radius-6 sign inversion is reproducible under selection while correctly refusing to explain it. Neither item adds a number that the local-inflow reading fails to reproduce.

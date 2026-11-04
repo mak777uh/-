@@ -1,0 +1,129 @@
+{
+ "kind": "x189_bridge",
+ "flow": "0.030",
+ "steps": 400,
+ "save_at": "40,60,80,100,140,200,300",
+ "prediction": "at radius 6 the warm level leaves a weaker bridge at contact (lower waist ratio) than the cold level; at radius 3 the same direction with a smaller difference",
+ "arms": {
+  "r6_g9": {
+   "radius": 6.0,
+   "gap": 9.0,
+   "sep": 21.0,
+   "groups": {
+    "cold": [
+     60005,
+     60006,
+     60008
+    ],
+    "warm": [
+     60003,
+     60004,
+     60010
+    ]
+   }
+  },
+  "r3_g10": {
+   "radius": 3.0,
+   "gap": 10.0,
+   "sep": 16.0,
+   "groups": {
+    "cold": [
+     70000,
+     70004,
+     70006
+    ],
+    "warm": [
+     70001,
+     70002,
+     70003
+    ]
+   }
+  }
+ },
+ "runs": [
+  {
+   "arm": "r6_g9",
+   "level": "cold",
+   "seed": 60005,
+   "status": "ok",
+   "seconds": 4.6
+  },
+  {
+   "arm": "r6_g9",
+   "level": "cold",
+   "seed": 60006,
+   "status": "ok",
+   "seconds": 5.1
+  },
+  {
+   "arm": "r6_g9",
+   "level": "cold",
+   "seed": 60008,
+   "status": "ok",
+   "seconds": 4.8
+  },
+  {
+   "arm": "r6_g9",
+   "level": "warm",
+   "seed": 60003,
+   "status": "ok",
+   "seconds": 5.3
+  },
+  {
+   "arm": "r6_g9",
+   "level": "warm",
+   "seed": 60004,
+   "status": "ok",
+   "seconds": 4.9
+  },
+  {
+   "arm": "r6_g9",
+   "level": "warm",
+   "seed": 60010,
+   "status": "ok",
+   "seconds": 5.2
+  },
+  {
+   "arm": "r3_g10",
+   "level": "cold",
+   "seed": 70000,
+   "status": "ok",
+   "seconds": 4.7
+  },
+  {
+   "arm": "r3_g10",
+   "level": "cold",
+   "seed": 70004,
+   "status": "ok",
+   "seconds": 5.0
+  },
+  {
+   "arm": "r3_g10",
+   "level": "cold",
+   "seed": 70006,
+   "status": "ok",
+   "seconds": 4.7
+  },
+  {
+   "arm": "r3_g10",
+   "level": "warm",
+   "seed": 70001,
+   "status": "ok",
+   "seconds": 5.4
+  },
+  {
+   "arm": "r3_g10",
+   "level": "warm",
+   "seed": 70002,
+   "status": "ok",
+   "seconds": 4.6
+  },
+  {
+   "arm": "r3_g10",
+   "level": "warm",
+   "seed": 70003,
+   "status": "ok",
+   "seconds": 4.7
+  }
+ ]
+}
