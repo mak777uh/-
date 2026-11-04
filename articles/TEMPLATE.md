@@ -54,11 +54,13 @@
 Конкретный следующий эксперимент/решение, с критерием успеха и провала.
 
 **Rule added 05.11 (owner's wording: describe the steps and what we find, then take new steps, then a new article).** An
-article is *one step*, not a running report: it fixes the question and the answer of this step, and it ends by naming the step
-that the answer has created. The next step is written up as its own article — this text is not extended into it — so that each
-article can be read on its own by someone who does not know the earlier ones. Two things follow for the section above: it names
-what is already running (with the pre-registration it was claimed under), and it names what the *next* article will be. A step
-with no named successor is a step that has not been thought through.
+article is *one step*, not a running report, and it has a fixed shape: **(1)** last time we found this — briefly, with the
+previous article cited by DOI once it has one — and so we decided to check that; **(2)** here are the results of those checks;
+**(3)** here is where we try to move next, with the next step named, and the following step is written up as its own article
+rather than folded into this one. Each article restates every definition it needs, so that someone who has not read the earlier
+ones can read it alone. Two consequences for the sections below: section 7 ("what comes next") is not optional and names what is
+already running with the pre-registration it was claimed under; and a step with no named successor is a step that has not been
+thought through.
 
 ## 8. Воспроизведение
 

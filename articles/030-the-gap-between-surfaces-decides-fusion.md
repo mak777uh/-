@@ -1,8 +1,8 @@
 # The gap between surfaces, not the body size, switches fusion in a pattern-forming chemical medium
 
 - **Type:** research article (measurement, one correction, one methodological result)
-- **Version:** v1.1 — plain-language edition for a reader who does not know this line of work; adds a glossary of terms and a
-  next-step section
+- **Version:** v1.2 — plain-language edition for a reader who does not know this line of work; opens with the previous step,
+  what it left open and what this article checked, and closes with where we move next
 - **Date:** 2026-11-04
 - **Status:** draft, prepared for submission; NOT yet submitted, deposited or published anywhere
 - **Authors:** Ilya Vladimirov
@@ -38,6 +38,28 @@ the unit of observation has to be checked **per statistic**, not once per paper.
 
 **Keywords:** reaction–diffusion, neural cellular automata, pattern formation, coalescence, bridge, stripe heterogeneity,
 unit of observation, pre-registration
+
+## The line this article continues
+
+**Last time.** In the previous article of this series — *How lineages begin and end in a pattern-forming chemical medium*
+(Zenodo, DOI 10.5281/zenodo.23933440) — we followed bodies of pattern in the same medium and measured four things: the medium
+has a **mixing length**, two bodies merge when their surfaces come within about 9 ± 1 cells whatever their size; a fusion is a
+**merger**, both bodies ending on the same step with one body left under a new name; a lineage usually ends by **losing its
+name** rather than its cells; and the habit that maximises generations is not the one in which a lineage survives. That work
+treated the medium as uniform and asked how far apart two bodies can be before they merge.
+
+**The two things it left open, and what we decided to check.** First, a real medium is not uniform: our supply varies in
+stripes, so "how far apart" is an average over positions, and two pairs at the same distance may sit in different local
+supplies. We decided to check whether the outcome at a fixed distance is decided by the **local supply where the bodies sit**
+rather than by the nominal one. Second, if the supply does matter, the distance reading should disappear once it is held fixed
+— so we decided to check what actually switches fusion at a fixed supply: the **bridge of chemical** between the bodies, or the
+geometry of the pair. The plan was to enumerate every position instead of sampling it, so that the two explanations could be
+separated on the same data.
+
+**What follows.** Section 2 places the checks against what is known; sections 3 and 4 define the medium, the outcome and the
+census; **section 5 gives the results of the checks** — what the local supply does, what the bridge does, which geometric
+variable switches fusion, and how the unit of observation changes a number; sections 6 and 7 are the limits and what would
+overturn the answers; and **section 8 says where we try to move next** and what the following article will report.
 
 ## 1. The question
 
@@ -305,13 +327,13 @@ inflated by the unit of observation — and that the size of the inflation depen
 5. **A different neck observable.** Replace the midpoint ratio with a flux through the neck. If the supply–fusion sign
    reversal at small bodies disappears, the bridge is not the deciding variable.
 
-## 8. The next step, and the step after that
+## 8. Where we move next, and the article after this one
 
 This article is one step of a sequence, and the sequence is the point: each step is a set of runs, a pre-registered question, a
 result written down whether or not it is convenient, and a new question that the result creates. The steps leave a trail in the
-project's own records — every arm has a dated plan written before its run — and **each step is written up as its own article**
-rather than folded silently into the next one. This step's trail is the census line of §5; the step before it is a separate
-article about how lineages begin and end in the same medium.
+project's own records — every arm has a dated plan written before its run — and the whole sequence is mapped in one place, with
+the published and un-deposited steps distinguished. This step's trail is the census line of §5; the step before it is the
+article of the previous section, whose published version is the DOI quoted there.
 
 Two of the five questions in §7 have left the drawing board:
 
@@ -372,6 +394,13 @@ cited here. Two entries rest on corpus documents at manifest status `partial` (n
 19. Y. Benjamini, Y. Hochberg. "Controlling the False Discovery Rate: A Practical and Powerful Approach to Multiple Testing". *Journal of the Royal Statistical Society B*, 1995. DOI: 10.1111/j.2517-6161.1995.tb02031.x.
 20. G. K. Sandve, A. Nekrutenko, J. Taylor, E. Hovig, et al. "Ten Simple Rules for Reproducible Computational Research". *PLoS Computational Biology*, 2013. DOI: 10.1371/journal.pcbi.1003285.
 
+**This line's own published articles** (the step before this one, and its own versions):
+
+- **[P1]** I. Vladimirov. *How lineages begin and end in a pattern-forming chemical medium*. Zenodo, 2026. DOI:
+  10.5281/zenodo.23933440 — the published previous step (version 2.0; the repository holds a v2.1 with the X161–X170 additions,
+  not yet deposited as a new version of the same record). The whole sequence, with what is published and what is not, is mapped
+  in [`../docs/series.md`](../docs/series.md).
+
 **This line's own artifacts** (each with its pre-registration and its aggregate; see the reports for the numbers).
 
 - **[A1]** X158 boundary measurement: `reports/2026-11-04-x158-crossing.md` (a gap of about 10 cells at radii 3, 4.5 and 6).
@@ -394,6 +423,11 @@ cited here. Two entries rest on corpus documents at manifest status `partial` (n
 - **v1.1** (2026-11-05): a glossary of the article's own terms in one place (§3), so that the definitions do not have to be
   collected while reading; an explicit next-step section (§8) naming what is already running and what the following article
   will be; the author line set from the owner's answer (Ilya Vladimirov); a repeated word fixed. No number changed.
+- **v1.2** (2026-11-05): the article now opens with the shape the owner asked for — **last time we found this, so we decided to
+  check that, here are the results, and here is where we move next**. A new opening section states what the previous article in
+  the series found and the two questions it left open; the published previous step is now cited by DOI, and the un-deposited
+  v2.1 of that article is named as part of the same record; the sequence is mapped in `docs/series.md`; §8 is retitled to
+  "Where we move next". No number changed.
 
 ## Verification
 

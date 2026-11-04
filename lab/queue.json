@@ -1,6 +1,6 @@
 {
  "schema_version": 1,
- "updated_at": "2026-11-05T01:25:00+03:00",
+ "updated_at": "2026-11-05T01:42:00+03:00",
  "note": "Очередь пунктов после E02c. Claim берётся до пре-регистрации, а не перед запуском: lab.py item-claim. Статус running означает занятый GPU-лейн и может быть только у одного пункта. | 25.10: добавлено поле impact (1-5) — приоритет конвейера = impact/max(cost_gpu_h,0.1); для запуска пункту нужны prereg (закоммиченный план) и launch.command+outdir.",
  "items": [
   {
@@ -3481,8 +3481,8 @@
    "prereg": "articles/030-the-gap-between-surfaces-decides-fusion.md",
    "created_at": "2026-11-05T00:36:00+03:00",
    "waiting_on": "owner",
-   "note": "the article is prepared for submission and NOTHING has gone outward. Ready: 45 numbers checked against the aggregates by check_article_030_numbers.py (in verify), an independent recomputation of all six result groups in lab/reviews/2026-11-04-030-numbers.md (1008/1008 per-world rows matched), a verified reference list of 20 entries, five figures built from committed artifacts, and the deposit package under _exports/030-gap-switches-fusion-v1.1.zip (32 files, sha256 manifest, brief). The article itself is at v1.1: a glossary of its own terms in one place, an explicit next-step section (what is running now and what the following article will be), and the author line the owner gave. No number changed between v1.0 and v1.1. The author list is settled: one author, Vladimirov Ilya, from the owner on 05.11; no ORCID and no related identifiers (both stated by the owner). The licence remains CC BY 4.0, the standing default. The only thing still missing is the owner's explicit go.",
-   "heartbeat_at": "2026-11-05T01:20:00+03:00"
+   "note": "the article is prepared for submission and NOTHING has gone outward. Ready: 45 numbers checked against the aggregates by check_article_030_numbers.py (in verify), an independent recomputation of all six result groups in lab/reviews/2026-11-04-030-numbers.md (1008/1008 per-world rows matched), a verified reference list of 20 entries, five figures built from committed artifacts, and the deposit package under _exports/030-gap-switches-fusion-v1.2.zip (33 files, sha256 manifest, brief and the full publishing map). The article is at v1.2 and has the shape the owner asked for: it opens with what the previous article found and the two questions that left open, then the results of those checks, then where we move next. It cites the previous article of the series by DOI (10.5281/zenodo.23933440, relation 'references'), which is also the single related identifier in the deposit metadata. The author list is settled: one author, Vladimirov Ilya, from the owner on 05.11; no ORCID. The licence remains CC BY 4.0, the standing default. The only thing still missing is the owner's explicit go.",
+   "heartbeat_at": "2026-11-05T01:42:00+03:00"
   },
   {
    "id": "X198_gap_curve",
@@ -3507,6 +3507,19 @@
    "priority": 7,
    "created_at": "2026-11-05T01:25:00+03:00",
    "note": "the owner's format, written down: one step, one article. Three blocks of this line have run and closed but are described only in the project's internal records and reports, never for an outside reader - (1) the corridor at contact and the forecast of fusion at an unrun supply (X171, X172, X174, X175, X176), (2) the band's upper edge, the radius-6 cliff and the full two-body crossing table with intervals (X177, X178, X179), (3) how much of the between-family dispersion is real variation rather than redrawing noise (X180, X181), together with the local reading that organises the rate ladder (X183) and the nucleation/bridge identity pair (X188, X189). Article 030 already names this as the next article in its section 8. X167's reversibility result also has no outside-reader write-up yet and is a candidate for the same piece."
+  },
+  {
+   "id": "PUB029_v21",
+   "title": "Article 029 v2.1: deposit as a new version of the Zenodo record 23933440 (X161-X170)",
+   "status": "planned",
+   "owner": "lead",
+   "kind": "publication",
+   "cost_gpu_h": 0.0,
+   "priority": 9,
+   "prereg": "articles/029-publication-instructions.md",
+   "created_at": "2026-11-05T01:40:00+03:00",
+   "waiting_on": "owner",
+   "note": "the published version is v2.0 (DOI 10.5281/zenodo.23933440, 04.11.2026), whose deposited archive carries aggregates up to X155. The repository holds v2.1, which adds X161, X164, X165, X166, X168/X169 and X170 and corrects two sentences of v2.0; it has never been deposited. The outward record therefore misses a whole step between the published paper and the census line (article 030). The step is ready - v2.1's 122 numbers are gated by check_article_029_numbers.py and the package builder exists - and the deposit must be a new version of the same record, not a new record, so the series keeps one DOI. Waiting on the owner's go."
   }
  ]
 }

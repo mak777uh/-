@@ -8,7 +8,7 @@ README, the licence, a Zenodo metadata record, a sha256 manifest and the publica
     python scripts/build_article_030_package.py
     python scripts/build_article_030_package.py --no-zip     # leave the directory for inspection
 
-Output: `_exports/030-gap-switches-fusion/` and `_exports/030-gap-switches-fusion-v1.1.zip` (both ignored by git).
+Output: `_exports/030-gap-switches-fusion/` and `_exports/030-gap-switches-fusion-v1.2.zip` (both ignored by git).
 
 One author is set (Vladimirov, Ilya — given by the owner on 05.11; no ORCID, no related identifiers); the licence is CC BY
 4.0, the standing default, and the brief says where to change it. Nothing is uploaded by this script.
@@ -28,7 +28,7 @@ FIGDIR = ROOT / "articles" / "030-figures"
 REFS = ROOT / "articles" / "030-references.md"
 POND = ROOT / "morphogenesis" / "experiments" / "E09_pond"
 OUT = ROOT / "_exports" / "030-gap-switches-fusion"
-ZIP = ROOT / "_exports" / "030-gap-switches-fusion-v1.1.zip"
+ZIP = ROOT / "_exports" / "030-gap-switches-fusion-v1.2.zip"
 STEM = "030-the-gap-between-surfaces-decides-fusion"
 
 AGGREGATES = [
@@ -77,6 +77,7 @@ computed from, and the verified reference list.
 | `zenodo.json` | deposit metadata (Zenodo legacy API format) |
 | `MANIFEST.sha256` | checksums of every file above |
 | `PUBLISHING.md` | the brief for whoever performs the deposit |
+| `INSTRUCTIONS.md` | the longer publishing map: where everything lies, what is in here, how to check it |
 
 ## What the data are
 
@@ -100,7 +101,7 @@ aggregates carry their own command lines and pre-registrations. The independent 
 
 BRIEF = """# Publishing brief — article 030 "{title}"
 
-You are receiving this brief together with one archive, `030-gap-switches-fusion-v1.1.zip`. The article and its data are
+You are receiving this brief together with one archive, `030-gap-switches-fusion-v1.2.zip`. The article and its data are
 final: the numbers have been checked mechanically against the data and independently recomputed by a reviewer. Your job is
 to deposit them, not to improve them. Where this brief says "ask the author", stop and ask; do not decide on your own.
 
@@ -117,6 +118,7 @@ to deposit them, not to improve them. Where this brief says "ask the author", st
 | `zenodo.json` | deposit metadata |
 | `MANIFEST.sha256` | sha256 of every file above |
 | `PUBLISHING.md` | this brief, verbatim |
+| `INSTRUCTIONS.md` | the longer publishing map: where everything lies, how to check it before uploading |
 
 ## 2. Before uploading — confirm, do not decide
 
@@ -136,7 +138,7 @@ to deposit them, not to improve them. Where this brief says "ask the author", st
 - **Title and description:** copy from `zenodo.json` verbatim.
 - **Keywords:** from `zenodo.json` (`keywords`).
 - **Access:** open.
-- **Version:** v1.1.
+- **Version:** v1.2.
 - After the deposit, record the DOI back in the repository (`lab/notices.md`) so the line's own artifacts can cite it.
 
 ## 4. What this archive does NOT contain
@@ -179,6 +181,9 @@ def main() -> int:
     else:
         print("[package-030] article PDF absent — run scripts/make_article_030_pdf.py before depositing")
     shutil.copy2(REFS, OUT / "references.md")
+    instr = ROOT / "articles" / "030-publishing-instructions.md"
+    if instr.exists():
+        shutil.copy2(instr, OUT / "INSTRUCTIONS.md")
     for fig in sorted(FIGDIR.glob("fig*.png")) + sorted(FIGDIR.glob("fig*.pdf")):
         shutil.copy2(fig, OUT / "figures" / fig.name)
     shutil.copy2(FIGDIR / "tables.json", OUT / "data" / "derived" / "tables.json")
@@ -216,13 +221,18 @@ def main() -> int:
         "creators": [{"name": "Vladimirov, Ilya"}],
         "license": "CC-BY-4.0",
         "access_right": "open",
-        "version": "v1.1",
+        "version": "v1.2",
         "language": "eng",
         "keywords": ["reaction-diffusion", "pattern formation", "neural cellular automata", "coalescence", "bridge",
                      "pre-registration", "unit of observation"],
-        "related_identifiers": [],
-        "notes": ("author list as given by the owner on 2026-11-05: one author, no ORCID, no related identifiers. Nothing "
-                  "has been uploaded by the build script."),
+        "related_identifiers": [
+            {"relation": "references", "identifier": "10.5281/zenodo.23933440", "scheme": "doi",
+             "resource_type": "publication-preprint"}
+        ],
+        "notes": ("the previous article in the series (Vladimirov, 'How lineages begin and end in a pattern-forming chemical "
+                  "medium', Zenodo 2026) is cited by DOI as the step this one continues; its repository copy at v2.1 is not yet "
+                  "deposited and is not a separate record. Author list as given by the owner on 2026-11-05: one author, no ORCID. "
+                  "Nothing has been uploaded by the build script."),
     }
     (OUT / "zenodo.json").write_text(json.dumps(zenodo, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n")
 

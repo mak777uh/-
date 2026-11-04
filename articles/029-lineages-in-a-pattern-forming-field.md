@@ -4,7 +4,9 @@
 - **Version:** v2.1 — plain-language edition for an outside reader; adds the unequal-pair, three-body, discrete-trait,
   seed-count and field-probe results of 04.11
 - **Date:** 2026-11-04
-- **Status:** v2.1, released as a preprint together with its data package
+- **Status:** v2.1 prepared in the repository; the version published outward is **v2.0** (Zenodo, 04.11.2026, DOI
+  10.5281/zenodo.23933440), whose deposited archive carries aggregates up to X155. v2.1 is not yet deposited — it must go out
+  as a new version of that same record. The series map is [`../docs/series.md`](../docs/series.md).
 - **Figures:** [`029-figures/`](029-figures/)
 - **Data behind every number:** [`029-figures/tables.json`](029-figures/tables.json)
 
@@ -54,6 +56,12 @@ though it showed the merged body is a dumbbell (a bridge four to five cells wide
 this world is about three hundred steps.
 
 ## What changed in v2.1
+
+**Where this version sits.** The published version of this article is v2.0 (Zenodo, 04.11.2026, DOI 10.5281/zenodo.23933440); its
+archive carries the aggregates up to X155. This repository copy is v2.1, which has not been deposited: depositing it means
+publishing a **new version of the same record**, so that the DOI of the series stays one and only the version number grows. The
+step that follows this article — the census line — is article 030, and the whole sequence is mapped in
+[`../docs/series.md`](../docs/series.md).
 
 v2.0 was the plain-language edition. v2.1 adds the results of one working block and corrects two sentences that block made
 false. The crossing's band is now measured rather than bounded: gap 10 and gap 11 were run at three inflow rates with ten
