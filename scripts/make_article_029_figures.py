@@ -79,6 +79,9 @@ def main(argv=None) -> int:
     x157 = agg("l1_field_x157_gap_geometry.json")
     x158 = agg("l1_field_x158_crossing.json")
     x159 = agg("l1_field_x157_quantum.json")
+    x166 = agg("l1_field_x166_threshold.json")
+    values = {k: x166["by_arm"][k]["g_last_median"] for k in
+              ("r3.0_g8", "r3.0_g9", "r5.2_g7", "r4.5_g9", "r6.0_g8")}
     x156 = agg("l1_field_x156_shape_heredity.json")
 
     by_arm = x142["by_arm"]
@@ -143,9 +146,10 @@ def main(argv=None) -> int:
     put("m_contact_range", f"range {x157['contact_gap_min']:.1f} to {x157['contact_gap_max']:.1f}",
         [x157["contact_gap_min"], x157["contact_gap_max"]], "x157 contact_gap_min/max")
     put("m_contact_by_r",
-        f"{by_r['r3.0']['g_fusion_median']:.2f} at radius 3, {by_r['r4.5']['g_fusion_median']:.2f} at 4.5, "
-        f"{by_r['r5.2']['g_fusion_median']:.2f} at 5.2, {by_r['r6.0']['g_fusion_median']:.2f} at 6",
-        None, "x157 by_radius g_fusion_median")
+        f"{values['r3.0_g8']:.2f} at radius 3 at a gap of 8, {values['r3.0_g9']:.2f} at radius 3 at a gap of 9, "
+        f"{values['r5.2_g7']:.2f} at radius 5.2, {values['r4.5_g9']:.2f} at radius 4.5 and {values['r6.0_g8']:.2f} at "
+        f"radius 6",
+        None, "x166 by_arm g_last_median at one-step resolution", )
     put("m_window", f"{x159['window_width_median']:.1f} cells", x159["window_width_median"],
         "x159 window_width_median", "how much the two radii grow inside one logging quantum")
     put("m_window_low", f"{x159['threshold_low_median']:.1f}", x159["threshold_low_median"],

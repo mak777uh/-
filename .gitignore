@@ -265,3 +265,8 @@ _exports/
 morphogenesis/experiments/E09_pond/x160_memory/x160_*.json
 morphogenesis/experiments/E09_pond/x160_memory/_stream_*.json
 !morphogenesis/experiments/E09_pond/x160_memory/x160_memory.json
+
+# X166 (04.11): one-step logs are ~45 MB per run, so only the compact projection and the index are committed.
+morphogenesis/experiments/L1_field/x166_*.json
+!morphogenesis/experiments/L1_field/x166_*.compact.json
+!morphogenesis/experiments/L1_field/x166_series_index.json

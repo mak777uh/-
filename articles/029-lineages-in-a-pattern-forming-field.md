@@ -146,9 +146,15 @@ Two numbers describe this, and the first version of this section reported one of
 figure rather than a bound. All three statements below are measured, and the corrections are recorded where they belong.
 
 **What the medium sets — the distance at contact.** In 132 runs in which two seeded bodies became one, at the last logged
-step before they were one the gap between their surfaces was **1.9 cells** (median; range 0.9 to 4.9), and it is the same
-at every size we seeded: 2.07 at radius 3, 1.89 at 4.5, 1.69 at 5.2, 1.93 at 6. That is about a sixth of the pattern's
-12-cell wavelength — a length belonging to the medium rather than to the pair.
+step before they were one the gap between their surfaces was **1.9 cells** (median; range 0.9 to 4.9) — about a sixth of
+the pattern's 12-cell wavelength, a length belonging to the medium rather than to the pair. That figure came from a log
+that samples every tenth integration step, and re-running five arms at **one-step resolution** (X166, 2 000 steps, five
+fresh seeds each) shows what the coarse log had flattened: the typical gap is about one to two cells, but it is not the
+same at every size — 1.27 at radius 3 at a gap of 8, 1.86 at radius 3 at a gap of 9, 1.07 at radius 5.2, 3.14 at radius 4.5 and 3.01 at radius 6 — and within each arm the widest value belongs to the slowest fusion (2.9 at step 85 against 1.7 at
+step 60; 7.8 at step 108 against 3.0 at step 68). The one-step log also settles the resolution question: the residual
+window shrinks from 1.3 cells to **0.06 cells**, twenty-three times smaller, while the spread stays at 2.07, so the
+"about two cells" is a band by right and not because of our sampling. A pair that takes longer to merge does so from
+further away, which is what one expects if the merge is driven by a field bridge that has time to build.
 
 That 1.9 is an *upper bound*, not the threshold, and the difference matters at this resolution. The log samples every tenth
 integration step and the bodies grow inside that quantum, so the pair is known to be two bodies at 1.9 cells and one body

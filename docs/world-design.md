@@ -221,3 +221,4 @@ sections were not rewritten, only moved; each one keeps its identifier, so every
 | §10hp | Shape measured from the field is inherited at about half, and the habitat chooses the aspect (X156, 04.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
 | §10hq | Where fusion actually happens: 1.9 cells at contact, a design gap between 8 and 11 (X157, 04.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
 | §10hr | Локальный масштаб наследуется втрое слабее формы (X162, 04.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
+| §10hs | Зазор контакта на шаге 1: полоса настоящая, «одинаково при любом размере» — нет (X166, 04.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |

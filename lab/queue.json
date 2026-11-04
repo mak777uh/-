@@ -3053,14 +3053,14 @@
   {
    "id": "X166_one_step_threshold",
    "title": "The contact threshold at one-step resolution: bound or port?",
-   "status": "planned",
+   "status": "closed",
    "owner": null,
    "kind": "experiment",
    "cost_gpu_h": 0.1,
    "prereg": null,
    "created_at": "2026-11-04T05:00:00+03:00",
    "priority": 2,
-   "note": "decides the second headline number of the fusion block. X159 showed that the 1.9-cell reading is an upper bound whose window (1.3 cells) comes from the ten-step logging quantum. Five arms with `--sample-every 1` for 2 000 steps and five seeds each (radius 3 at gaps 8 and 9, radius 6 at gap 8, radius 4.5 at gap 9, radius 5.2 at gap 7): if the threshold lands within 0.2 cells of the same value across arms, 1.9 was a threshold and the window was our resolution; if it scatters, the honest statement is the band. Also separates 'gradual transition' (X158: shares fall over two cells) from 'soft threshold': if the 15 runs at gap 10 differ in their approach times, the gradualness is a distribution of times, not a blur. Cheap: one hour of wall time."
+   "note": "closed: the one-step log settles the resolution question in favour of the band. The residual window falls to 0.056 cells while the spread between arms stays 2.07 and within-arm scatter 0.44, so 'about two cells' is a band by right. The gap is 1.27 / 1.86 / 3.14 / 1.07 / 3.01 for r3g8 / r3g9 / r4.5g9 / r5.2g7 / r6g8, so 'the same at every size' is withdrawn; the later the fusion, the wider the gap. Report reports/2026-11-04-x166-threshold.md, aggregate l1_field_x166_threshold.json. Next: ten seeds on r4.5 and r6, and the corridor field."
   },
   {
    "id": "X162b_neighbour_decay",

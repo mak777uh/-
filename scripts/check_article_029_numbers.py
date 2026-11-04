@@ -43,7 +43,7 @@ NEEDLES: dict[str, str] = {
     "m_window_share": "21 %",
     "m_contact": "1.9 cells",
     "m_contact_range": "range 0.9 to 4.9",
-    "m_contact_by_r": "2.07 at radius 3, 1.89 at 4.5, 1.69 at 5.2, 1.93 at 6",
+    "m_contact_by_r": "1.27 at radius 3 at a gap of 8, 1.86 at radius 3 at a gap of 9, 1.07 at radius 5.2, 3.14 at radius 4.5 and 3.01 at radius 6",
     "m_runs": "132 runs",
     "m_runs_all": "171 two-body runs",
     "m_growth_small": "2.9 cells in effective radius",

@@ -1763,6 +1763,21 @@ So the honest sentence about heredity in this medium is a list rather than a num
 first entry is bookkeeping. The second is geometry. The third is the only one the medium has to do any work for, and it
 does about half of it.
 
+### 4k.6a The contact gap, measured every step
+
+The 1.9-cell reading of §4k.6 is bounded by our own sampling, and a one-step log settles what that bound was hiding. Five
+arms were re-run with `--sample-every 1` (2 000 steps, five fresh seeds each): the residual window falls from 1.3 cells to
+**0.056**, twenty-three times smaller, while the spread between arms stays at **2.07** and the scatter within an arm at
+0.44. The band is therefore real, not a resolution artefact, and "about two cells" is the correct phrasing by right.
+
+What the coarse log had flattened is the trend: at one-step resolution the gap at the last two-body step is **1.27** at
+radius 3 (gap 8), **1.86** at radius 3 (gap 9), **1.07** at radius 5.2, **3.14** at radius 4.5 and **3.01** at radius 6,
+where the ten-step log had reported 2.07 / 1.89 / 1.69 / 1.93 and concluded that the reading is the same at every size.
+That conclusion is withdrawn. The structure that replaces it is that **the later the fusion, the wider the gap**: within
+every arm the widest value belongs to the slowest run (2.9 at step 85 against 1.7-1.9 at 60-65; 7.8 at step 108 against
+2.9-3.2 at 67-69; 4.7 at step 68 against 2.9-3.1 at 48-51). A pair that takes longer to merge does so from further away,
+which is what a field-bridge mechanism predicts and what a fixed trigger distance forbids.
+
 ### 4k.5a What else a division transmits: the object first, the surroundings last
 
 The same reconstruction, applied to a quantity that belongs to the place rather than to the body, gives the ordering the
