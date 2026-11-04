@@ -1,7 +1,7 @@
 # Условия поддержания организации в цифровой среде: цена ошибки, неполная информация и границы обучения
 
-**Статус:** draft v4.1 (2026-11-04). Не подана, не рецензирована, цитировать нельзя. Соответствие препринту: v1.2 (Zenodo) — добавлены измеренная цена (−0.374, ДИ [−0.396, −0.266]), канал признака, механизмы сосуществования (асинхронность, смертность) и их синергия (+0.445); v3.6 — плотная лестница наследования и ось порога (§4k.1), третье поле как отрицательный результат (§4k); v3.7 — §4k.3 «Coalescence is a merger, not a birth»; v3.8 — §4k.2 «What makes the end of a lineage an end»; v3.9 — §4k.4 «The heredity coefficient is the rule's fidelity», измерение наследуемости вместо утверждения; v4.0 — §4k.5 «What a daughter inherits when the trait is not written by the rule» (форма наследуется примерно наполовину) и §4k.6 «Where the fusion boundary actually is» (исправление микшинг-длины по независимому ревью); v4.1 — §4k.6 получает измеренный переход 10 ± 1 клетки вместо полосы 8–11 и вторую поправку: 1.9 клетки при контакте — верхняя граница порога, а не порог (окно 1.3 клетки, X159). Новые подразделы написаны сразу по-английски.
-**Данные частичные:** линия поля закрыта до X107; блоки X108–X157 внесены в текст (§4k — второй вид, §4k.2 — идентичность, §4k.3 — слияние, §4k.4 — наследуемость, §4k.5 — форма, §4k.6 — исправленная граница слияния). Открытых вопросов линии осталось два: X152/X149 в блоке слияния. Аудит: `reports/2026-11-03-claims-audit.md`.
+**Статус:** draft v4.2 (2026-11-04). Не подана, не рецензирована, цитировать нельзя. Соответствие препринту: v1.2 (Zenodo) — добавлены измеренная цена (−0.374, ДИ [−0.396, −0.266]), канал признака, механизмы сосуществования (асинхронность, смертность) и их синергия (+0.445); v3.6 — плотная лестница наследования и ось порога (§4k.1), третье поле как отрицательный результат (§4k); v3.7 — §4k.3 «Coalescence is a merger, not a birth»; v3.8 — §4k.2 «What makes the end of a lineage an end»; v3.9 — §4k.4 «The heredity coefficient is the rule's fidelity», измерение наследуемости вместо утверждения; v4.0 — §4k.5 «What a daughter inherits when the trait is not written by the rule» (форма наследуется примерно наполовину) и §4k.6 «Where the fusion boundary actually is» (исправление микшинг-длины по независимому ревью); v4.1 — §4k.6 получает измеренный переход 10 ± 1 клетки вместо полосы 8–11 и вторую поправку: 1.9 клетки при контакте — верхняя граница порога, а не порог (окно 1.3 клетки, X159). Новые подразделы написаны сразу по-английски.
+**Данные частичные:** линия поля закрыта до X107; блоки X108–X170 внесены в текст (§4k — второй вид, §4k.2 — идентичность, §4k.3 — слияние, §4k.4 — наследуемость, §4k.5 — форма, §4k.6 — исправленная граница слияния). Открытых вопросов линии осталось два: X152/X149 в блоке слияния. Аудит: `reports/2026-11-03-claims-audit.md`.
 
 ## 1. Вопрос
 
@@ -1867,6 +1867,51 @@ by turning the same scrutiny on the first: the bound on the threshold came from 
 Доказательства: раздел 10ho в \docs/world-design.md\; `reports/2026-11-03-x155-heredity.md`,
 `reports/2026-11-03-x155-heredity-plan.md`; агрегат `l1_field_x155_heredity.json`; прогоны `x155_anchor_f030_s301.json`,
 `x155_nomut_f030_s301.json`, `x155_nomut_f030_s302.json`.
+
+### 4k.8 The fusion length belongs to the geometry; the source moves it, and the state that moves is the bridge
+
+§4k.6 ended with two statements about the medium — fusion when the surfaces are within about two cells, and a design gap that
+stops the rule at 10 ± 1 cells, flat in body size. One working block took that apart on both axes: what the length does *not*
+depend on, what it does, and which state of the field carries the dependence.
+
+**It is not the pair's geometry.** A body of radius 3 against one of radius 6 fuses 5/5 at surface gaps 4, 6 and 8 and 2/5 at
+10 (X164, five seeds per arm), so a twofold size difference does not move the crossing out of the same band; the last two-body
+gap rises with the initial gap — 1.84, 2.21, 2.60 and 4.38 cells — which is what a merge driven by a growing bridge looks like.
+Nor is it the body alone: a row of three bodies at the same surface gaps coalesces into one component at 5/5, 1/5 and 0/5 for
+gaps 8, 10 and 12, and the pairwise share at a gap of 10 is 0.47, so the row's share is the **square** of the pair's
+(0.47² = 22 %). The length therefore applies **per contact**, and a third body neither helps nor prevents (X165).
+
+**It is not the inflow rate — or rather, that was the wrong reading of the right experiment.** Ten seeds per rate at a
+surface gap of 11 gave 0/10, 1/10 and 3/10 at `F` = 0.026, 0.030 and 0.036, no contrast significant, and ten seeds would have
+caught a thirty-point effect fifteen times in a hundred (X168d, corrected after `lab/reviews/2026-11-04-x168d-review.md`). Read
+as "the crossing ignores the source", that was wrong. The same design at gap 10, where the crossing actually sits, with fifteen
+seeds per rate, gives **4/15, 7/15 and 10/15** — Cochran–Armitage z = 2.20, one-sided p = 0.014 (X170). The source moves the
+crossing by about a cell across the range this world allows, and the error is worth recording as a method: a negative in the
+cell where the effect is marginal is not a negative about the effect.
+
+**The state that moves is the bridge.** At the moment two bodies become one, the field on the segment between their centres,
+over the middle third of it and divided by the body peak, reads 0.52, 0.48 and 0.39 at those three rates (X170). A stronger
+source lets the bodies coalesce while the bridge between them is **less** built. Nothing in the measurement says the bridge
+must reach a fixed fill before a merge is counted — that is the hypothesis the same readout now tests at two other body sizes.
+
+**Nothing discrete crosses a division.** From 2 778 parent-daughter pairs already in the lineage trees, the division order has a
+parent-daughter slope of −0.163 and lifespan 0.101, both inside their shuffled-parent nulls (−0.240 to 0.136 and −0.007 to
+0.199), while peak area reproduces 0.546 as the positive control; fertility is untestable by construction, because a sterile
+body leaves no descendants to compare with (X161). A digital medium gives a discrete **notation** and not a ratchet.
+
+**And what a merge does to the merged body's insides stays open.** A fusion is reversible in place — eight merged bodies divide
+again after a median of 25 steps at 0.867 of the parents' area and 1.25 cells from their old centres — but that is 1.12 standard
+deviations from what a single body does on its own, so components cannot tell "the same object" from "a blob that grew"
+(X167, X167b). The field probe built to tell them apart failed its own control, because a body's cross-section is a ring and any
+intensity profile has a central dip whether there is a seam or not; what it did show is that a merged body is a dumbbell, a
+bridge four to five cells wide between lobes of ten to fourteen, for as long as the pattern lasts — which in this world is about
+three hundred steps (X169). The question needs a world whose pattern outlives the merge, not a finer measurement of this one.
+
+Доказательства: §10hw, §10hy, §10hz, §10hv, §10ic, §10id, §10ie в `docs/world-design.md`; `reports/2026-11-04-x164-asymmetric-pairs.md`,
+`-x165-three-bodies.md`, `-x161-discrete-heredity.md`, `-x167-reversibility-exploratory.md`, `-x167b-reversibility.md`,
+`-x169-seam.md`, `-x168d-gap11.md`, `-x170-corridor.md`; агрегаты `l1_field_x164_asymmetric.json`, `l1_field_x165_three_bodies.json`,
+`l1_field_x161_discrete.json`, `l1_field_x167_reversibility.json`, `l1_field_x167b_reversibility.json`,
+`l1_field_x169_seam.json`, `l1_field_x168d_gap11.json`, `l1_field_x170_corridor.json`.
 
 ## 5. Методологические находки
 
