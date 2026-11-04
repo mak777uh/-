@@ -4,7 +4,7 @@
 
 The curated page — what matters and why — is [`scripts.md`](scripts.md). This file is the complete list, so that every command behind a number in the record can be found.
 
-Scripts: **382**.
+Scripts: **383**.
 
 ## Гейты и проверки (48)
 
@@ -175,7 +175,7 @@ Scripts: **382**.
 | `make_seed_grid_figure.py` | Собрать Figure 4 рукописи: сетка «инициализация × порядок данных» (§4.13). |
 | `make_simple_poster.py` | Простой постер для владельца: что мы узнали, без терминов. |
 
-## Прочее (243)
+## Прочее (244)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -333,6 +333,7 @@ Scripts: **382**.
 | `x168_series.py` | x168_series.py — X168: does the fusion crossing move with the inflow rate F? |
 | `x168b_analyse.py` | x168b_analyse.py — X168b: fusion share per (inflow, gap) cell, the crossing per rate, and the matched baseline. |
 | `x168b_series.py` | x168b_series.py — X168b: the inflow matrix on one seed set and one run length. |
+| `x168c_analyse.py` | x168c_analyse.py — the inflow test with the gap converted correctly. |
 | `x168c_series.py` | X168c: the inflow test again, with the gap converted to a centre separation correctly. |
 | `x56_matrix.py` | x56_matrix.py — сходимость по шагу: контраст при dt = 1.0, 0.5, 2.0. |
 | `x58_analyse.py` | x58_analyse.py — the same measurement on a 128 grid: β₀, β₁, wavelength, normalised count. |

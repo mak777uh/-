@@ -229,3 +229,4 @@ sections were not rewritten, only moved; each one keeps its identifier, so every
 | §10hy | X165 — третье тело не помогает и не мешает: граница аддитивна по контактам (04.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
 | §10hz | X161 — дискретное состояние перерисовывается при каждом делении (04.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
 | §10ia | X168 — ОТОЗВАНО: зазор был передан в неверных единицах (04.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
+| §10ib | X168c — граница слияния не зависит от скорости притока (04.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |

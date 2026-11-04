@@ -3096,7 +3096,7 @@
    "prereg": null,
    "created_at": "2026-11-04T05:00:00+03:00",
    "priority": 8,
-   "note": "closed: the crossing moves with the inflow rate, non-monotonically. At F = 0.026 and F = 0.036 a pair at a surface gap of 11 fused 5/5, against 2/15 at F = 0.030 (X158), so both a lower and a higher inflow push the crossing past eleven cells; gap-8 controls fired 5/5 in both arms and no run went extinct. The design bounds the new positions from below only, so a minimum near 0.030 is raised as a hypothesis; the X158 baseline differs in seeds and run length (6000 vs 2000 steps), which is a real confound. Report reports/2026-11-04-x168-inflow-crossing.md. Next: brackets at 12/14/16, a fine F sweep at gap 11, and F = 0.030 on the same seeds and 2000 steps."
+   "note": "closed as WITHDRAWN (units error: --init-spots takes a centre separation, so '3:11' was a surface gap of 5) and REPLACED by X168c, which converted correctly (SEP = 2R + gap) and found NO detectable dependence of the crossing on the inflow rate: at F = 0.026, 0.030 and 0.036 the crossing lies between 10 and 11 cells (gap 10: 2/5, 2/5, 3/5; gap 11: 0/5, 1/5, 2/5), and the F = 0.030 row reproduces X158 on different seeds, length and runner. Report reports/2026-11-04-x168c-inflow-corrected.md and the withdrawal in reports/2026-11-04-x168-inflow-crossing.md."
   },
   {
    "id": "X167b_reversibility_control",
@@ -3109,6 +3109,18 @@
    "created_at": "2026-11-04T07:40:00+03:00",
    "priority": 5,
    "note": "closed: the merge is reversible in place - 8/8 merged bodies divide again after a median of 25 steps, products at 0.867 of the parents' area and 1.25 cells from their old centres - but a single body's growth phase is 40 steps, so the arms differ by only 1.12 sd on a ten-step grid, and 'a merged body is different from a blob of the same size' is NOT shown. The refusal rule fired. Two readout faults were found and fixed (a degenerate arm (b) and 1->3 splits counted as nothing). The only remaining discriminator is the seam from the field. Report reports/2026-11-04-x167b-reversibility.md."
+  },
+  {
+   "id": "X168c_inflow_corrected",
+   "title": "Does the crossing move with the inflow rate? Corrected conversion",
+   "status": "closed",
+   "owner": "lead",
+   "kind": "experiment",
+   "cost_gpu_h": 0.3,
+   "prereg": null,
+   "created_at": "2026-11-04T09:55:00+03:00",
+   "priority": 8,
+   "note": "closed: no detectable dependence. F = 0.026/0.030/0.036 at surface gaps 8, 10, 11 (separations 14, 16, 17), five seeds, 2000 steps: gap 8 fuses 5/5 everywhere, gap 10 fuses 2/5, 2/5, 3/5, gap 11 fuses 0/5, 1/5, 2/5, so the crossing lies between 10 and 11 cells at every rate and matches X158 (7/15 and 2/15) on other seeds and another length. Next: ten seeds at gap 11, a fine F sweep (0.024-0.040), and the corridor field at the moment of fusion."
   }
  ]
 }
