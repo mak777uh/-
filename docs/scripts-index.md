@@ -4,7 +4,7 @@
 
 The curated page — what matters and why — is [`scripts.md`](scripts.md). This file is the complete list, so that every command behind a number in the record can be found.
 
-Scripts: **367**.
+Scripts: **368**.
 
 ## Гейты и проверки (48)
 
@@ -175,7 +175,7 @@ Scripts: **367**.
 | `make_seed_grid_figure.py` | Собрать Figure 4 рукописи: сетка «инициализация × порядок данных» (§4.13). |
 | `make_simple_poster.py` | Простой постер для владельца: что мы узнали, без терминов. |
 
-## Прочее (228)
+## Прочее (229)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -315,6 +315,7 @@ Scripts: **367**.
 | `x157_quantum.py` | x157_quantum.py — is the 1.9-cell contact gap a threshold, or a logging artefact? |
 | `x158_analyse.py` | x158_analyse.py — X158: turn the X157 band into a measured crossing. |
 | `x158_series.py` | x158_series.py — X158: the missing arms that turn the X157 band into a measured crossing. |
+| `x160_analyse.py` | x160_analyse.py — X160: does a mortality buffer on an external signal hold diversity? |
 | `x160_series.py` | X160: does an external signal hold diversity through a mortality buffer? |
 | `x162_local_scale.py` | X162: is the local scale inherited? Parent-daughter reconstruction from the X156 compact logs, with area and shape |
 | `x166_analyse.py` | x166_analyse.py — X166: the contact threshold at one-step resolution. |

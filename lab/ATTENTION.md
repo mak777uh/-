@@ -11,8 +11,7 @@ Reserved to the owner by `lab/autonomy-rules.json`: publishing anything outward:
 
 ## Running now
 
-- **X160_mortality_buffer** — Does an external signal hold diversity through a mortality buffer? Real signal against its IAAFT surrogate at equal tempo (owner `None`)
-- last artifact written 0.1 h ago
+- nothing is running
 
 ## Waiting, but not on a human
 
@@ -20,7 +19,6 @@ Reserved to the owner by `lab/autonomy-rules.json`: publishing anything outward:
 - **P9_numbers_everywhere** — Проверка чисел во всех публикуемых текстах, а не только в статье 028 (no GPU)
 - **provenance_rule_sha** — Write rule_sha256 into every row of the pond aggregators (no GPU)
 - **X162b_neighbour_decay** — How far does the medium remember? Spacing inheritance at the 2nd, 3rd and 4th neighbour (no GPU)
-- **X166_one_step_threshold** — The contact threshold at one-step resolution: bound or port? (0.1 GPU-h)
 - **X167_fusion_reversibility** — Is a merged body the same object? Does it divide again along the old seam? (0.1 GPU-h)
 - **X161_discrete_heredity** — Is a discrete trait inherited better than a continuous shape? The ratchet test (0.2 GPU-h)
 - **X164_asymmetric_pairs** — Does the fusion crossing depend on the size RATIO rather than on the size? (0.2 GPU-h)

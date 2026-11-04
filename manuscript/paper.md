@@ -1763,6 +1763,21 @@ So the honest sentence about heredity in this medium is a list rather than a num
 first entry is bookkeeping. The second is geometry. The third is the only one the medium has to do any work for, and it
 does about half of it.
 
+### 4k.7a A mortality buffer does not hold diversity either
+
+The last channel tried in §4k.7 was the inflow; the storage effect says the buffer must act on **mortality**. Three arms of
+twenty runs each (`tau` = 300, `gain` = 0.02, 1 800 steps) compare a flat signal, a real recording and its tempo-matched
+IAAFT surrogate: the null finishes with 6/20 survivors and `clonal_fraction` 0.834, the real arm with 3/20 and 0.809 after
+11 220 signal-driven kills (buffer deviation 0.74 above its long-run mean), the surrogate with 6/20 and 0.836 after 13 618
+kills (deviation 0.04). The real signal does not beat its own surrogate — it is worse on both readouts.
+
+That is the third independent negative on the same hypothesis and it closes the "resonant medium" route for this world with
+a named mechanism: there is no slow variable to integrate into, and adding one does not help, because a structured buffer
+at this scale delivers its mortality in clumps and a world already near its margin dies rather than shelters. The power is
+weak - the null arm went extinct in fourteen of twenty runs, so the diversity readout rests on six survivors against three,
+and the result is a direction rather than a measured effect size. What it does establish is where the buffer fails and why:
+the channel is not the problem, the world's margin is.
+
 ### 4k.6a The contact gap, measured every step
 
 The 1.9-cell reading of §4k.6 is bounded by our own sampling, and a one-step log settles what that bound was hiding. Five

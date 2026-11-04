@@ -93,3 +93,54 @@ of the signal does not matter in the mortality channel either).
 The 600-step anchor did pass: the old code and the new code with `--memory-tau 0 --mortality-gain 0` agree in 131 of 131
 summary fields, with `wall_seconds` the only difference (2.49 s against 2.74 s).
 
+---
+
+## Amendment 2 (written 04.11, before any arm comparison was read)
+
+The first grid ran and produced **nothing**: three arms with identical `pop_time` (742.0) and `killed_by_memory` = 0 in all
+sixty runs. That is not a null result, it is a manipulation that never reached the dynamics, and the positive control of
+§2 caught it. Three independent faults, all fixed, all recorded in `docs/incidents.md` §14:
+
+1. the signal values were loaded onto the config while the hook read the instance, so the hook returned at its first line;
+2. the kill count was truncated to an integer (`int(gain·dev·n)`), which is zero while the population is small;
+3. the reference was the buffer's own running mean, so `dev` was ≈ 0 by construction — measured −1.06 with a kill
+   probability of 4.6·10⁻⁸.
+
+With the reference taken from the stream's long-run mean and per-cell Bernoulli killing, a one-step probe kills cells
+(8 in 900 steps), and the summary now reports `memory_calls`, `memory_dev_mean`, `memory_prob_mean` and
+`killed_by_memory` for every run.
+
+## Second defect, found by the same probe: the design was insensitive by construction
+
+At `income = 0.02` against `update_cost = 0.03` the pond goes extinct at step 21 in a single probe and at step 109 in a
+seeded run with four start cells (`alive_cells = 0` in the final block). A world that is empty cannot express a storage
+effect, so the whole grid was insensitive **regardless of the buffer** — the §3c failure, not a code failure. A sweep at
+600 steps is running to choose an income at which the control arm survives in at least four of five seeds.
+
+## What changes, and what is fixed before the data
+
+1. **Reference.** `dev = m − mean(stream)`, where the mean is the one written by the loader from the signal file, not a
+   running mean of `m`. Fixed before any arm was compared.
+2. **Killing.** Per cell with probability `min(1, gain·dev)`, expectation unchanged for large populations.
+3. **Income.** Set to the lowest level of the sweep at which the control survives in ≥ 4/5 seeds at 600 steps, and the
+   number is recorded in this amendment before the grid starts: **income = 0.030**. The sweep (600 steps, five seeds, no
+   buffer) gave 4/5 survivors at 0.030, 0.034 and 0.038 with `alive_cells` in the final block of 0/891/560/244/899,
+   0/878/570/274/905 and 0/870/585/314/914 — i.e. **income is not the lever**: seed 801 goes extinct at step 109 at every
+   level, and `clonal_fraction` sits at 0.98-0.99 everywhere. That is recorded here as a property of the world at grid 32
+   with four start cells (near-monoculture with a one-in-five extinction risk), not as a reason to look for another knob.
+   The buffer's room is therefore narrow by construction, and the readout that decides is `clonal_fraction`, not survival.
+4. **Grid.** Three arms (`const`, `real`, `surrogate`) × **twenty** seeds (801-820), 1 200 steps (the runner's
+   `STEPS` is 1 800 and the step count is therefore 1 800, not 1 200), `tau = 300`, `gain = 0.02`, grid 32, income 0.030.
+   Sixty runs, about two and a half hours. The seeds and the step count are those of the runner that is actually
+   executing; the ten-seed figure earlier in this amendment was written before checking the runner and is corrected here
+   while the const arm - the null arm - is the only one that has run.
+5. **Positive control (b), sharpened.** Not merely "the active arms die differently": `killed_by_memory > 0` in both
+   active arms, and `memory_dev_mean` non-zero. A run that reports zero kills is a failed run, reported as such.
+6. **Readout.** `clonal_fraction` at the end and the survival of both types; the buffer is supposed to slow the loss of
+   diversity, so the statistic that decides is the between-arm difference in `clonal_fraction` at step 1 200, with the
+   `const` arm as the reference.
+
+## What would make this amendment dishonest
+
+Choosing the income by looking at the *difference between arms* rather than at *whether the control survives*. Only the
+latter was looked at: the sweep runs no buffer at all, so it cannot show an arm difference.

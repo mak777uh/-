@@ -1493,6 +1493,10 @@ def main(argv: list[str] | None = None) -> int:
         summary["mortality_gain"] = float(getattr(run.pond.cfg, "mortality_gain", 0.0) or 0.0)
         summary["memory_stream"] = str(getattr(run.pond.cfg, "memory_stream", ""))
         summary["killed_by_memory"] = int(getattr(run.pond, "killed_by_memory", 0))
+        _calls = int(getattr(run.pond, "memory_calls", 0))
+        summary["memory_calls"] = _calls
+        summary["memory_dev_mean"] = float(getattr(run.pond, "memory_dev_sum", 0.0)) / max(1, _calls)
+        summary["memory_prob_mean"] = float(getattr(run.pond, "memory_prob_sum", 0.0)) / max(1, _calls)
         summary["memory_final"] = float(getattr(run.pond, "_memory_value", 0.0) or 0.0)
     if float(getattr(run.pond.cfg, "kill_winner", 0.0) or 0.0) > 0.0:
         killed_kw = int(getattr(run.pond, "killed_by_kill_winner", 0))

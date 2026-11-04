@@ -2969,13 +2969,13 @@
   {
    "id": "X160_mortality_buffer",
    "title": "Does an external signal hold diversity through a mortality buffer? Real signal against its IAAFT surrogate at equal tempo",
-   "status": "running",
+   "status": "closed",
    "owner": "lead",
    "kind": "experiment",
    "cost_gpu_h": 0.0,
    "prereg": "reports/2026-11-04-x160-mortality-buffer-plan.md",
    "created_at": "2026-11-04T03:30:00+03:00",
-   "note": "third independent test of the idea that the structure of an external signal matters. The buffer is a slow variable m (leaky integrator, tau 300/1000/3000) that modulates per-step death probability; three arms at equal realised tempo: constant, real microphone (lab/streams/mic-2026-10-28.json), IAAFT surrogate (mic_iaaft-2026-10-29.json, same spectrum and amplitude, phase destroyed). 3 arms x 20 paired seeds x 3 tau = 180 runs of 1800 steps, CPU. Positive control: gain 0 must be bit-identical, gain 3.0 must drop the population by at least 20 %. Refusal rule: if real sits inside the surrogate interval at every tau, the structure does not matter in the mortality channel either and the route closes with a named mechanism. BLOCKED on the world freeze: needs --memory-tau and --mortality-gain in morphogenesis/world/run_pond.py, which cannot be edited while X158 writes artifacts; then anchor, then run.",
+   "note": "closed: negative. Three arms x 20 seeds, tau 300, gain 0.02, 1800 steps, income 0.030. const 6/20 survivors and clonal 0.834; real 3/20 and 0.809 after 11 220 kills (dev 0.74); surrogate 6/20 and 0.836 after 13 618 kills (dev 0.04). The real stream does not beat its tempo-matched surrogate, so the structure of the signal does not matter in the mortality channel either - the third independent negative. Weak power: 14/20 extinctions in the null. Three code faults and one insensitivity defect are recorded in docs/incidents.md 14. Next: the same buffer in a world that survives (patch mode, 12 start cells), and a local per-patch buffer.",
    "priority": 1,
    "heartbeat_at": "2026-11-04T05:02:00+03:00",
    "started_at": "2026-11-04T05:02:00+03:00"

@@ -796,7 +796,7 @@ class Pond:
         tau = float(getattr(self.cfg, "memory_tau", 0.0) or 0.0)
         if gain <= 0.0 or tau <= 0.0:
             return
-        values = getattr(self, "_memory_values", None)
+        values = getattr(self, "_memory_values", None) or getattr(self.cfg, "memory_values", None)
         if not values:
             return
         idx = int(getattr(self, "_memory_idx", 0))
@@ -807,8 +807,11 @@ class Pond:
         self._memory_value = m
         self._memory_sum = float(getattr(self, "_memory_sum", 0.0)) + m
         self._memory_n = int(getattr(self, "_memory_n", 0)) + 1
-        m_ref = self._memory_sum / float(self._memory_n)
+        fixed_ref = getattr(self.cfg, "memory_ref", None)
+        m_ref = float(fixed_ref) if fixed_ref is not None else self._memory_sum / float(self._memory_n)
         dev = m - m_ref
+        self.memory_calls = int(getattr(self, "memory_calls", 0)) + 1
+        self.memory_dev_sum = float(getattr(self, "memory_dev_sum", 0.0)) + dev
         if dev <= 0.0:
             return
         s = self.state
@@ -816,13 +819,17 @@ class Pond:
         n = int(alive.sum())
         if n <= 0:
             return
-        want = int(gain * dev * float(n))
-        if want <= 0:
+        prob = min(1.0, gain * dev)
+        self.memory_prob_sum = float(getattr(self, "memory_prob_sum", 0.0)) + prob
+        if prob <= 0.0:
             return
-        take = min(want, n)
         idx_alive = alive.nonzero(as_tuple=False)
-        perm = torch.randperm(idx_alive.shape[0], generator=self.gen_sel)[:take]
-        pick = idx_alive[perm]
+        draws = torch.rand(idx_alive.shape[0], generator=self.gen_sel)
+        pick = idx_alive[draws < prob]
+        take = int(pick.shape[0])
+        if take == 0:
+            return
+        self.killed_by_memory = int(getattr(self, "killed_by_memory", 0)) + int(take)
         kill_mask = torch.zeros_like(alive)
         kill_mask[pick[:, 0], pick[:, 1]] = True
         s.energy = torch.where(kill_mask, torch.zeros_like(s.energy), s.energy)
