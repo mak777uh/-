@@ -4,7 +4,7 @@
 
 The curated page — what matters and why — is [`scripts.md`](scripts.md). This file is the complete list, so that every command behind a number in the record can be found.
 
-Scripts: **376**.
+Scripts: **377**.
 
 ## Гейты и проверки (48)
 
@@ -175,7 +175,7 @@ Scripts: **376**.
 | `make_seed_grid_figure.py` | Собрать Figure 4 рукописи: сетка «инициализация × порядок данных» (§4.13). |
 | `make_simple_poster.py` | Простой постер для владельца: что мы узнали, без терминов. |
 
-## Прочее (237)
+## Прочее (238)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -317,6 +317,7 @@ Scripts: **376**.
 | `x158_series.py` | x158_series.py — X158: the missing arms that turn the X157 band into a measured crossing. |
 | `x160_analyse.py` | x160_analyse.py — X160: does a mortality buffer on an external signal hold diversity? |
 | `x160_series.py` | X160: does an external signal hold diversity through a mortality buffer? |
+| `x161_discrete.py` | x161_discrete.py — is a DISCRETE trait inherited? Division order, fertility and lifespan from the lineage trees. |
 | `x162_local_scale.py` | X162: is the local scale inherited? Parent-daughter reconstruction from the X156 compact logs, with area and shape |
 | `x162b_neighbour_decay.py` | x162b_neighbour_decay.py — how far does the medium remember? |
 | `x164_analyse.py` | x164_analyse.py — X164: does the fusion crossing depend on the size RATIO? |

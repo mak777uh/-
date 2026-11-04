@@ -2994,13 +2994,13 @@
   {
    "id": "X161_discrete_heredity",
    "title": "Is a discrete trait inherited better than a continuous shape? The ratchet test",
-   "status": "planned",
+   "status": "closed",
    "owner": null,
    "kind": "experiment",
    "cost_gpu_h": 0.2,
    "prereg": null,
    "created_at": "2026-11-04T03:40:00+03:00",
-   "note": "follows the X156 result (continuous shape inherited at about half) and the X155 result (a scalar the tracking rule writes is inherited at 0.98). Hypothesis: a DISCRETE trait computed from the field (lobe count of a body, or the winding number of the phase around its centre) survives division with fidelity near one, because a discrete label is robust to small perturbations of the boundary, while a continuous shape is re-derived and loses half. Design sketch: 10 worlds per habitat with --save-fields at every logged step, extract the discrete trait at each division, reconstruct parent-daughter pairs as in X155/X156, compare slopes and the exact-match rate against the shape ladder. Needs a field-dump series (~1 GB on disk, not committed) and a pre-registration; the world is frozen until X158 closes. Why it matters: if the ratchet holds, heredity in this medium depends on the KIND of state, not on the medium alone, and that is the cheapest route towards a heritable quantity the medium itself preserves.",
+   "note": "closed: the discrete state is re-drawn at every division. From 2778 parent-daughter pairs in the lineage trees of 15 existing runs: division order slope -0.163 (per-run median 0.000, range -1.01 to +0.86) and lifespan 0.101 both sit inside their shuffled-parent nulls, while the peak-area positive control reproduces 0.546 against X156 0.39-0.45. Fertility is not testable from lineage trees by construction. Report reports/2026-11-04-x161-discrete-heredity.md. Next: a discrete trait with a real range, and the world own binned score class.",
    "priority": 7
   },
   {

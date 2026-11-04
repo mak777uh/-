@@ -1,0 +1,131 @@
+{
+ "kind": "x161_discrete",
+ "per_run_slopes": {
+  "x167b_single_s951": {
+   "peak_area": 0.3123,
+   "n_children": -0.5863,
+   "lifespan": 0.0762
+  },
+  "x167b_single_s952": {
+   "peak_area": 0.7029,
+   "n_children": -1.0062,
+   "lifespan": -0.3853
+  },
+  "x167b_single_s953": {
+   "peak_area": 0.4294,
+   "n_children": 0.0809,
+   "lifespan": 0.4154
+  },
+  "x167b_single_s954": {
+   "peak_area": 0.7081,
+   "n_children": 0.5014,
+   "lifespan": 0.2161
+  },
+  "x167b_single_s955": {
+   "peak_area": 0.4294,
+   "n_children": 0.0809,
+   "lifespan": 0.4154
+  },
+  "x167b_single_s956": {
+   "peak_area": 0.6974,
+   "n_children": 0.0,
+   "lifespan": 0.1692
+  },
+  "x167b_single_s957": {
+   "peak_area": 0.7493,
+   "n_children": 0.0,
+   "lifespan": 0.0981
+  },
+  "x167b_single_s958": {
+   "peak_area": 0.5108,
+   "n_children": 0.0,
+   "lifespan": -0.0832
+  },
+  "x167b_single_s959": {
+   "peak_area": 0.6954,
+   "n_children": 0.8604,
+   "lifespan": -0.2478
+  },
+  "x167b_single_s960": {
+   "peak_area": 0.7862,
+   "n_children": 0.0,
+   "lifespan": 0.1163
+  },
+  "x164_sym_r3_g8_s931": {
+   "peak_area": 0.5596,
+   "n_children": 0.0,
+   "lifespan": 0.0395
+  },
+  "x164_sym_r3_g8_s932": {
+   "peak_area": 0.5272,
+   "n_children": 0.0,
+   "lifespan": 0.0037
+  },
+  "x164_sym_r3_g8_s933": {
+   "peak_area": 0.5315,
+   "n_children": 0.0,
+   "lifespan": 0.0362
+  },
+  "x164_sym_r3_g8_s934": {
+   "peak_area": 0.4238,
+   "n_children": -0.6462,
+   "lifespan": 0.741
+  },
+  "x164_sym_r3_g8_s935": {
+   "peak_area": 0.512,
+   "n_children": 0.0,
+   "lifespan": -0.1433
+  }
+ },
+ "question": "is a discrete trait inherited across a division?",
+ "runs": 15,
+ "pairs": 2778,
+ "traits": {
+  "peak_area": {
+   "slope": 0.5455352830791388,
+   "corr": 0.4901166542382203,
+   "n": 2778
+  },
+  "n_children": {
+   "slope": -0.1628797336662505,
+   "corr": -0.03130053242122997,
+   "n": 2778
+  },
+  "lifespan": {
+   "slope": 0.1010201930714728,
+   "corr": 0.04658614783154189,
+   "n": 2778
+  },
+  "fertile": {
+   "slope": null,
+   "corr": null,
+   "n": 2778,
+   "note": "not testable from a lineage tree: every parent appears in uid_pairs because it divided, so the parent side of the comparison has no variance, and a sterile body leaves no descendants to inherit anything. Fertility is invisible to this design by construction - it would need bodies tracked that never divide at all."
+  }
+ },
+ "nulls": {
+  "n_children": [
+   -0.23995,
+   0.135768
+  ],
+  "lifespan": [
+   -0.007367,
+   0.198821
+  ]
+ },
+ "division_orders": [
+  0,
+  2,
+  3
+ ],
+ "sterile_share": 0.5259,
+ "controls": {
+  "positive_control_fires": true,
+  "readout_exists": true,
+  "area_slope_expected": [
+   0.2,
+   0.7
+  ]
+ },
+ "verdict": "THE DISCRETE STATE IS RE-DRAWN AT EVERY DIVISION: division order and lifespan both sit inside their shuffled-parent nulls while the continuous peak area reproduces X156 (0.55 against 0.39-0.45), so integers are no more heritable than real numbers in this medium and the ratchet the literature promises does not exist here. Fertility is not testable from lineage trees at all: a sterile body has no descendants, so the trait cannot be transmitted and its absence is a matter of definition, not of measurement."
+}
