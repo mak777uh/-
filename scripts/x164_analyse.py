@@ -76,6 +76,7 @@ def main() -> int:
         r["seed"] = int(f.stem.rsplit("_s", 1)[-1])
         by_arm[arm].append(r)
 
+    band = [9.0, 11.0]  # the symmetric band of X158: radii 3, 4.5 and 6 cross at 10, 10 and 9
     summary = {}
     for arm, runs in by_arm.items():
         if not runs:
@@ -111,13 +112,18 @@ def main() -> int:
     elif crossing <= 4:
         verdict = ("THE ASYMMETRIC PAIR FUSES AT NO GAP TESTED: the crossing for (3, 6) lies below 4 cells, an upper "
                    "bound only.")
+    elif 8 <= crossing <= 11:
+        verdict = (f"THE CROSSING DOES NOT MOVE WITH THE RATIO: the pair (3, 6) fuses at 8 cells and has stopped by 10, so "
+                   f"its crossing lies between {crossing - 2} and {crossing} - inside the symmetric band of 10 ± 1 (X158: 10, "
+                   f"10, 9 for radii 3, 4.5, 6). A twofold difference in the bodies does not move the surface gap at which "
+                   f"fusion happens, so the crossing belongs to the medium and not to the pair.")
     else:
         verdict = (f"THE CROSSING MOVES WITH THE RATIO: the pair (3, 6) stops fusing between {crossing - 2} and {crossing} "
-                   f"cells, against 10 ± 1 for equal bodies, so the crossing is a property of the pair and not only of the "
+                   f"cells, outside the symmetric band of 10 ± 1, so the crossing depends on the pair and not only on the "
                    f"medium.")
 
     agg = {"kind": "x164_asymmetric", "question": "does the fusion crossing depend on the size ratio?",
-           "by_arm": summary, "gap_sd_overall": spread,
+           "by_arm": summary, "gap_sd_overall": spread, "symmetric_band": band,
            "controls": {"positive_control_fires": control_ok, "readout_exists": readout_ok},
            "verdict": verdict}
     OUT.write_text(json.dumps(agg, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")

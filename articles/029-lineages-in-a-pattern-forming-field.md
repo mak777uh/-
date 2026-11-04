@@ -154,7 +154,10 @@ same at every size — 1.27 at radius 3 at a gap of 8, 1.86 at radius 3 at a gap
 step 60; 7.8 at step 108 against 3.0 at step 68). The one-step log also settles the resolution question: the residual
 window shrinks from 1.3 cells to **0.06 cells**, twenty-three times smaller, while the spread stays at 2.07, so the
 "about two cells" is a band by right and not because of our sampling. A pair that takes longer to merge does so from
-further away, which is what one expects if the merge is driven by a field bridge that has time to build.
+further away, which is what one expects if the merge is driven by a field bridge that has time to build. And it is not the
+pair's own geometry: a body of radius 3 against one of radius 6 fuses at every gap up to 8 and stops by 10 (X164, 5/5 at
+gaps 4, 6 and 8, 2/5 at 10), so a twofold difference between the two bodies does not move the crossing out of the same band
+of ten — the length belongs to the medium and not to the pair.
 
 That 1.9 is an *upper bound*, not the threshold, and the difference matters at this resolution. The log samples every tenth
 integration step and the bodies grow inside that quantum, so the pair is known to be two bodies at 1.9 cells and one body

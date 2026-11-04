@@ -4,7 +4,7 @@
 
 The curated page — what matters and why — is [`scripts.md`](scripts.md). This file is the complete list, so that every command behind a number in the record can be found.
 
-Scripts: **371**.
+Scripts: **372**.
 
 ## Гейты и проверки (48)
 
@@ -175,7 +175,7 @@ Scripts: **371**.
 | `make_seed_grid_figure.py` | Собрать Figure 4 рукописи: сетка «инициализация × порядок данных» (§4.13). |
 | `make_simple_poster.py` | Простой постер для владельца: что мы узнали, без терминов. |
 
-## Прочее (232)
+## Прочее (233)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -323,6 +323,7 @@ Scripts: **371**.
 | `x164_series.py` | x164_series.py — X164: does the fusion crossing depend on the size RATIO? |
 | `x166_analyse.py` | x166_analyse.py — X166: the contact threshold at one-step resolution. |
 | `x166_series.py` | x166_series.py — X166: the contact threshold at one-step resolution. |
+| `x167_fusion_reversibility.py` | x167_fusion_reversibility.py — is a merged body a new object, or the old pair that can come apart? |
 | `x56_matrix.py` | x56_matrix.py — сходимость по шагу: контраст при dt = 1.0, 0.5, 2.0. |
 | `x58_analyse.py` | x58_analyse.py — the same measurement on a 128 grid: β₀, β₁, wavelength, normalised count. |
 | `x58_series.py` | x60_series.py — X60: the twenty field runs that keep their snapshots. |

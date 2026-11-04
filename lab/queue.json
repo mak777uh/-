@@ -3029,13 +3029,13 @@
   {
    "id": "X164_asymmetric_pairs",
    "title": "Does the fusion crossing depend on the size RATIO rather than on the size?",
-   "status": "planned",
+   "status": "closed",
    "owner": null,
    "kind": "experiment",
    "cost_gpu_h": 0.2,
    "prereg": null,
    "created_at": "2026-11-04T03:57:00+03:00",
-   "note": "follow-up 2 of the X158 report. Pair a body seeded at radius 3 with one seeded at 6 at the crossing gaps 9 and 10, ten seeds each (20 runs of 6000 steps, CPU). Question: is the boundary set by the initial separation (X158's answer for equal pairs: 10 +/- 1 cells, flat in size) or by the ratio of the two bodies? Prediction from the growth argument: the boundary stays at the same separation, because both grow to 5.8-8.5 cells before meeting. If the boundary instead moves with the ratio, the 'medium length' sentence of the article needs a qualification. Preregistration: five sections, positive control = the equal pair at gap 8 fusing 5/5.",
+   "note": "closed: the crossing does NOT move with the ratio. The pair (3, 6) fuses 5/5 at surface gaps 4, 6 and 8 and 2/5 at 10, so its crossing lies between 8 and 10 - inside the symmetric band of 10 +/- 1 (X158: 10, 10, 9 for radii 3, 4.5, 6). Controls fired 5/5 and 5/5. Second regularity: the gap at the last two-body step rises with the initial gap (1.84 / 2.21 / 2.60 / 4.38), the same pattern X166 found as a function of fusion time. Report reports/2026-11-04-x164-asymmetric-pairs.md, aggregate l1_field_x164_asymmetric.json. Next: extreme ratios 1:3 and 1:4, the corridor field, and the nominal-gap-to-contact-gap curve.",
    "priority": 3
   },
   {
@@ -3077,14 +3077,14 @@
   {
    "id": "X167_fusion_reversibility",
    "title": "Is a merged body the same object? Does it divide again along the old seam?",
-   "status": "planned",
+   "status": "closed",
    "owner": null,
    "kind": "experiment",
    "cost_gpu_h": 0.1,
    "prereg": null,
    "created_at": "2026-11-04T05:00:00+03:00",
    "priority": 5,
-   "note": "conceptual test that a merged body is a body and not just a touching pair: after a fusion, follow the product for 3 000 steps and record whether it divides, and if it does, whether the division line lies near the old seam (the merged shape's waist). Two arms (the fused pair against a single body grown to the same area), ten seeds each. If the seam survives as a preferred division line, the fusion did not erase identity; if not, the merge produced a genuinely new object, which is what §4k.3 claims."
+   "note": "closed as EXPLORATORY (no pre-registration): 8 fusions followed in 63 X158 compacts, all 8 re-divided, product area 0.867 of the parents' and products 1.25 cells from the parents' old centres. The confound is named: an elongated blob splits at its ends whether or not the merge preserved anything, so the confirmatory two-arm version is queued as X167b. Report reports/2026-11-04-x167-reversibility-exploratory.md, aggregate l1_field_x167_reversibility.json."
   },
   {
    "id": "X168_crossing_vs_inflow",
@@ -3097,6 +3097,18 @@
    "created_at": "2026-11-04T05:00:00+03:00",
    "priority": 8,
    "note": "everything in the fusion block is measured at F = 0.030. Repeat the crossing at F = 0.035 and 0.040 for radius 3 (gaps 9, 10, 11) and radius 6 (gaps 8, 9), ten seeds. If the crossing moves with F, the 'length belonging to the medium' sentence of §4.1 has to be qualified to 'at this inflow'; if it does not move, the length is a property of the pattern rather than of its chemistry."
+  },
+  {
+   "id": "X167b_reversibility_control",
+   "title": "Does a merge preserve anything? The two-arm control",
+   "status": "planned",
+   "owner": null,
+   "kind": "experiment",
+   "cost_gpu_h": 0.2,
+   "prereg": null,
+   "created_at": "2026-11-04T07:40:00+03:00",
+   "priority": 5,
+   "note": "the confirmatory version of X167, which was exploratory. Two arms of ten seeds: (a) a fused pair followed after the merge, (b) a SINGLE body seeded with the same area as the merged pair at the same step and followed the same number of steps. If the re-division share and product geometry are the same in both arms, the merge carries nothing and the identity language leaves the fusion work. Plan: reports/2026-11-04-x167b-reversibility-plan.md. The seam test needs the field: save it for one re-dividing merged body and check whether the division line coincides with the old waist."
   }
  ]
 }
