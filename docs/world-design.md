@@ -232,3 +232,4 @@ sections were not rewritten, only moved; each one keeps its identifier, so every
 | §10ib | X168c — граница слияния не зависит от скорости притока (04.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
 | §10ic | X169 — проба шва провалила собственный контроль; тело — гантель, пока живёт поле (04.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
 | §10id | X168d — десять сидов при зазоре 11: тренд по притоку был шумом (04.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
+| §10ie | X170 — граница зависит от притока, и коридор говорит как (04.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |

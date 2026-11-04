@@ -141,11 +141,15 @@ NEEDLES: dict[str, str] = {
     "m_x161_order_null": "−0.240 to 0.136",
     "m_x161_life": "0.101",
     "m_x161_life_null": "−0.007 to 0.199",
-    "m_x168d_row": "0/10, 1/10, 3/10",
+    "m_x168d_row": "0/10, 1/10 and 3/10",
     "m_x168d_p": "p = 0.21",
     "m_x169_control": "0.047",
     "m_x169_neck": "0.36",
     "m_x169_widths": "four to five cells",
+    "m_x170_row": "4/15, 7/15 and 10/15",
+    "m_x170_z": "z = 2.20",
+    "m_x170_p": "p = 0.014",
+    "m_x170_corridor": "0.52, 0.48 and 0.39",
 }
 
 # values kept in the tables but quoted only in a figure rather than in the prose

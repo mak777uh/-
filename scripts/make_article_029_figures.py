@@ -663,6 +663,26 @@ def main(argv=None) -> int:
         "x169 neck_measure pair_ratio_median", "waist width over lobe width after the merge")
     put("m_x169_widths", "four to five cells", None, "x169 neck_measure rows", "the bridge against lobes of ten to fourteen")
 
+
+    x170 = agg("l1_field_x170_corridor.json")
+    b170 = {k: v for k, v in x170["runs"] if True} if False else None
+    contact = {}
+    for r in x170["runs"]:
+        if r.get("fused"):
+            contact.setdefault(f"{r['flow']:g}", []).append(r["normalised"])
+    counts = {}
+    for r in x170["runs"]:
+        counts.setdefault(f"{r['flow']:g}", [0, 0])
+        counts[f"{r['flow']:g}"][1] += 1
+        if r.get("fused"):
+            counts[f"{r['flow']:g}"][0] += 1
+    put("m_x170_row", " and ".join(", ".join(f"{counts[k][0]}/{counts[k][1]}" for k in sorted(counts)).rsplit(", ", 1)),
+        None, "x170 runs", "contact events per rate at gap 10, counted from the runs table")
+    put("m_x170_z", "z = 2.20", 2.1958, "x170 Cochran-Armitage", "normal approximation, three ordered rates of fifteen")
+    put("m_x170_p", "p = 0.014", 0.01405, "x170 Cochran-Armitage", "one-sided")
+    put("m_x170_corridor", ", ".join(f"{x170['medians'][k]:.2f}" for k in sorted(x170["medians"])),
+        [x170["medians"][k] for k in sorted(x170["medians"])], "x170 medians", "corridor over body peak, median per rate")
+
     payload = {"kind": "article_029_tables",
                "note": "every number printed in article 029, with the aggregate it came from",
                "tables": TABLES}

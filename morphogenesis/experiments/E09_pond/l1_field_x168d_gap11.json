@@ -1,6 +1,7 @@
 {
  "kind": "x168d_gap11",
  "conversion": "surface gap g -> SEP = 2R + g",
+ "readout_note": "'fused' is min(component count) == 1 over the run, i.e. the two bodies coalesced at least once; one_at_last_step is reported separately because the field line's late-time component count is 22-56 in every run, so 'one body at the end' is not what this measure reads",
  "by_cell": {
   "F0.026_g8": {
    "flow": 0.026,
@@ -12,6 +13,19 @@
    "wilson": [
     0.7225,
     1.0
+   ],
+   "one_at_last_step": 0,
+   "final_counts": [
+    41,
+    39,
+    38,
+    39,
+    38,
+    37,
+    30,
+    40,
+    39,
+    42
    ],
    "mins": [
     1,
@@ -37,6 +51,19 @@
     0.0,
     0.2775
    ],
+   "one_at_last_step": 0,
+   "final_counts": [
+    35,
+    34,
+    38,
+    41,
+    40,
+    40,
+    42,
+    42,
+    36,
+    39
+   ],
    "mins": [
     2,
     2,
@@ -60,6 +87,19 @@
    "wilson": [
     0.7225,
     1.0
+   ],
+   "one_at_last_step": 0,
+   "final_counts": [
+    56,
+    56,
+    52,
+    44,
+    48,
+    45,
+    44,
+    50,
+    53,
+    50
    ],
    "mins": [
     1,
@@ -85,6 +125,19 @@
     0.0179,
     0.4042
    ],
+   "one_at_last_step": 0,
+   "final_counts": [
+    46,
+    42,
+    55,
+    45,
+    54,
+    48,
+    48,
+    50,
+    47,
+    45
+   ],
    "mins": [
     2,
     1,
@@ -108,6 +161,19 @@
    "wilson": [
     0.7225,
     1.0
+   ],
+   "one_at_last_step": 0,
+   "final_counts": [
+    22,
+    33,
+    35,
+    29,
+    41,
+    37,
+    35,
+    42,
+    31,
+    30
    ],
    "mins": [
     1,
@@ -133,6 +199,19 @@
     0.1078,
     0.6032
    ],
+   "one_at_last_step": 0,
+   "final_counts": [
+    25,
+    35,
+    33,
+    41,
+    34,
+    33,
+    45,
+    29,
+    34,
+    27
+   ],
    "mins": [
     2,
     1,
@@ -157,12 +236,31 @@
   "0.026_vs_0.036": 0.21053,
   "0.03_vs_0.036": 0.58204
  },
+ "ordered_trend": {
+  "statistic": 7,
+  "p_one_sided": 0.05145,
+  "placements": 27405,
+  "note": "one-sided for an increasing trend"
+ },
  "extreme_contrast": {
-  "contrast": "0.026 vs 0.036",
-  "difference": 0.01,
+  "contrast": "0.026 (0/10 would be 0 %) vs 0.036",
+  "low_rate": 0.026,
+  "high_rate": 0.036,
+  "difference": 0.3,
   "fisher_p": 0.21053
  },
+ "power": {
+  "n_per_rate": 10,
+  "level": 0.05,
+  "for_0.0_vs_0.3": 0.1503,
+  "for_0.0_vs_0.4": 0.3669,
+  "for_0.2_vs_0.5": 0.1319
+ },
  "x158_gap11_baseline": 0.1333,
+ "end_component_counts": {
+  "min": 25,
+  "max": 55
+ },
  "controls": {
   "gap8_fires_everywhere": true,
   "per_rate": {
@@ -171,5 +269,6 @@
    "0.036": true
   }
  },
- "verdict": "THE TREND WAS NOISE: with ten seeds per rate the gap-11 share runs 0% at F = 0.026, 10% at F = 0.03, 30% at F = 0.036 (X158 at F = 0.030: 13%), no contrast clears a 0.3 difference at p < 0.05, and the flat result now has the seeds to mean it. The crossing does not depend on the inflow rate in the range this world allows, and §4.1 keeps its single-rate statement."
+ "corrections": "difference now subtracts shares rather than flow values; the ordered-trend test and the computed power are added; the pre-registration's 80 % power claim was wrong and is reported as such above",
+ "verdict": "NO TREND DETECTED, AND THE DESIGN COULD NOT HAVE FOUND A SMALL ONE: with ten seeds per rate the gap-11 share runs 0% at F = 0.026, 10% at F = 0.03, 30% at F = 0.036 (X158 at F = 0.030: 13%), a difference of 30% between the extreme rates with Fisher p = 0.21053 and an exact ordered-trend p = 0.05145 one-sided. A 0.3 difference at this sample size would have been detected only 15% of the time and a 0.4 difference 37%, so the flat result rules out nothing larger than about 0.4 and the insensitivity of the crossing stands as 'no dependence detected in a narrow range', not as a measured absence."
 }

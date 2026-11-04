@@ -4,7 +4,7 @@
 
 The curated page — what matters and why — is [`scripts.md`](scripts.md). This file is the complete list, so that every command behind a number in the record can be found.
 
-Scripts: **387**.
+Scripts: **389**.
 
 ## Гейты и проверки (48)
 
@@ -175,7 +175,7 @@ Scripts: **387**.
 | `make_seed_grid_figure.py` | Собрать Figure 4 рукописи: сетка «инициализация × порядок данных» (§4.13). |
 | `make_simple_poster.py` | Простой постер для владельца: что мы узнали, без терминов. |
 
-## Прочее (248)
+## Прочее (250)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -339,6 +339,8 @@ Scripts: **387**.
 | `x168d_series.py` | x168d_series.py — X168d: ten seeds at gap 11 (and a gap-8 control) at three inflow rates. |
 | `x169_seam.py` | x169_seam.py — X169: sample the field around a fusing pair, to look for a seam. |
 | `x169_seam_analyse.py` | x169_seam_analyse.py — X169: is there a seam in the field after a fusion? |
+| `x170_corridor.py` | x170_corridor.py — X170: the field between two bodies at contact, at three inflow rates. |
+| `x170_corridor_analyse.py` | x170_corridor_analyse.py — X170: the corridor concentration at contact, at three inflow rates. |
 | `x56_matrix.py` | x56_matrix.py — сходимость по шагу: контраст при dt = 1.0, 0.5, 2.0. |
 | `x58_analyse.py` | x58_analyse.py — the same measurement on a 128 grid: β₀, β₁, wavelength, normalised count. |
 | `x58_series.py` | x60_series.py — X60: the twenty field runs that keep their snapshots. |
