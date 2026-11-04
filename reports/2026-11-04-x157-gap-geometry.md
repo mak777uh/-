@@ -75,3 +75,16 @@ run next if anyone challenges the 1.9. The design-gap rows are five seeds per ar
    the only way the "8–11 cells" band becomes a crossing.
 3. Ask whether the 1.9-cell contact gap is set by the wavelength (12 cells) or by the diffusion ratio, by repeating at a
    second wavelength (`F` = 0.030 against 0.040 changes the wavelength of the lattice as well as the shape of the docs).
+
+## Amendment 1 (2026-11-04, after the report) — the 1.9 cells is a bound, not the threshold
+
+The number in this report is read at the last logged step at which the two bodies are still separate, and the log samples
+every tenth integration step. The bodies therefore grow inside one unlogged quantum, and the reading is an **upper bound**
+on the gap at which fusion becomes possible. X159 measures that window from the growth the log itself shows
+(`scripts/x157_quantum.py`, aggregate `l1_field_x157_quantum.json`): over 119 fusing runs the window is 1.33 cells wide
+(median), so the threshold lies between 0.70 and 1.94 cells at the median, and only 21 % of runs keep the lower bound above
+two cells; at radius 4.5 the bound crosses zero. The sentence to be read from this report is consequently "the pair remains
+two bodies at 1.9 cells and is merged within the next logging step", not "fusion happens at 1.9 cells". The other half of
+the report — the design gap at which fusion stops being the rule, between 8 and 11 cells — is unaffected, because it is a
+property of the initial condition. See `reports/2026-11-04-x159-quantum.md`.
+
