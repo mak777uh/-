@@ -4,7 +4,7 @@
 
 The curated page — what matters and why — is [`scripts.md`](scripts.md). This file is the complete list, so that every command behind a number in the record can be found.
 
-Scripts: **360**.
+Scripts: **362**.
 
 ## Гейты и проверки (48)
 
@@ -175,7 +175,7 @@ Scripts: **360**.
 | `make_seed_grid_figure.py` | Собрать Figure 4 рукописи: сетка «инициализация × порядок данных» (§4.13). |
 | `make_simple_poster.py` | Простой постер для владельца: что мы узнали, без терминов. |
 
-## Прочее (221)
+## Прочее (223)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -312,6 +312,8 @@ Scripts: **360**.
 | `x156_analyse.py` | x156_analyse.py — is a shape measured from the field itself inherited? |
 | `x156_series.py` | x156_series.py — X156: twenty runs with the field-measured shape observer. |
 | `x157_gap_geometry.py` | x157_gap_geometry.py — where does fusion actually happen, in the geometry the bodies have at that moment? |
+| `x158_analyse.py` | x158_analyse.py — X158: turn the X157 band into a measured crossing. |
+| `x158_series.py` | x158_series.py — X158: the missing arms that turn the X157 band into a measured crossing. |
 | `x56_matrix.py` | x56_matrix.py — сходимость по шагу: контраст при dt = 1.0, 0.5, 2.0. |
 | `x58_analyse.py` | x58_analyse.py — the same measurement on a 128 grid: β₀, β₁, wavelength, normalised count. |
 | `x58_series.py` | x60_series.py — X60: the twenty field runs that keep their snapshots. |
