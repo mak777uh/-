@@ -1,0 +1,140 @@
+{
+ "kind": "x175_interior",
+ "flow": 0.03,
+ "radius": 4.5,
+ "gap": 9,
+ "samples_per_profile": 21,
+ "predictions": {
+  "corridor": [
+   0.42,
+   0.46
+  ],
+  "share": [
+   0.45,
+   0.72
+  ]
+ },
+ "observed": {
+  "fused": 4,
+  "runs": 15,
+  "share": 0.2667,
+  "corridor_median": 0.4373,
+  "corridor_sd": 0.045,
+  "contact": 4
+ },
+ "controls": {
+  "peak_in_band": true,
+  "corridor_below_peak_share": 1.0,
+  "readout_varies": true,
+  "enough_contacts": true
+ },
+ "runs": [
+  {
+   "seed": 1061,
+   "fused": true,
+   "min": 1,
+   "final": 60,
+   "step": 50,
+   "peak": 0.4133,
+   "corridor": 0.1456,
+   "normalised": 0.3523
+  },
+  {
+   "seed": 1062,
+   "fused": false,
+   "min": 2,
+   "final": 59
+  },
+  {
+   "seed": 1063,
+   "fused": false,
+   "min": 2,
+   "final": 50
+  },
+  {
+   "seed": 1064,
+   "fused": false,
+   "min": 2,
+   "final": 55
+  },
+  {
+   "seed": 1065,
+   "fused": true,
+   "min": 1,
+   "final": 55,
+   "step": 60,
+   "peak": 0.4044,
+   "corridor": 0.1856,
+   "normalised": 0.459
+  },
+  {
+   "seed": 1066,
+   "fused": false,
+   "min": 2,
+   "final": 52
+  },
+  {
+   "seed": 1067,
+   "fused": false,
+   "min": 2,
+   "final": 52
+  },
+  {
+   "seed": 1068,
+   "fused": false,
+   "min": 2,
+   "final": 51
+  },
+  {
+   "seed": 1069,
+   "fused": false,
+   "min": 2,
+   "final": 51
+  },
+  {
+   "seed": 1070,
+   "fused": false,
+   "min": 2,
+   "final": 56
+  },
+  {
+   "seed": 1071,
+   "fused": false,
+   "min": 2,
+   "final": 51
+  },
+  {
+   "seed": 1072,
+   "fused": true,
+   "min": 1,
+   "final": 53,
+   "step": 60,
+   "peak": 0.3935,
+   "corridor": 0.1635,
+   "normalised": 0.4156
+  },
+  {
+   "seed": 1073,
+   "fused": false,
+   "min": 2,
+   "final": 54
+  },
+  {
+   "seed": 1074,
+   "fused": false,
+   "min": 2,
+   "final": 56
+  },
+  {
+   "seed": 1075,
+   "fused": true,
+   "min": 1,
+   "final": 55,
+   "step": 60,
+   "peak": 0.3978,
+   "corridor": 0.1849,
+   "normalised": 0.4648
+  }
+ ],
+ "verdict": "PLACEMENT MISS: the corridor lands (0.44, predicted 0.42-0.46) but the share reads 4/15 = 0.27, outside 0.45-0.72, so the arm sits elsewhere on the curve than intended and the corridor agreement is not evidence about the slope."
+}

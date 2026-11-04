@@ -4,7 +4,7 @@
 
 The curated page — what matters and why — is [`scripts.md`](scripts.md). This file is the complete list, so that every command behind a number in the record can be found.
 
-Scripts: **395**.
+Scripts: **402**.
 
 ## Гейты и проверки (48)
 
@@ -175,7 +175,7 @@ Scripts: **395**.
 | `make_seed_grid_figure.py` | Собрать Figure 4 рукописи: сетка «инициализация × порядок данных» (§4.13). |
 | `make_simple_poster.py` | Простой постер для владельца: что мы узнали, без терминов. |
 
-## Прочее (256)
+## Прочее (263)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -347,6 +347,13 @@ Scripts: **395**.
 | `x172_forecast_analyse.py` | x172_forecast_analyse.py — X172: did the two registered predictions at F = 0.033 land? |
 | `x173_bridge.py` | x173_bridge.py — X173: does the maximum the bridge reaches separate the runs that fuse from those that do not? |
 | `x173_bridge_analyse.py` | x173_bridge_analyse.py — X173: does the bridge's maximum separate the runs that fuse from those that do not? |
+| `x174_gap_corridor.py` | x174_gap_corridor.py — X174: the corridor at contact at three surface gaps, one size, one rate. |
+| `x174_gap_corridor_analyse.py` | x174_gap_corridor_analyse.py — X174: corridor at contact across three gaps, one size, one rate. |
+| `x174b_curve.py` | Extend X174's aggregate with the relation the three gaps suggest: the corridor at contact is monotone in the arm's fusion |
+| `x175_interior.py` | x175_interior.py — X175: radius 4.5 at surface gap 9, F = 0.030 — an interior point of X174's curve. |
+| `x175_interior_analyse.py` | x175_interior_analyse.py — X175: does the arm land where X174's curve said it would? |
+| `x176_past_crossing.py` | x176_past_crossing.py — X176: radius 6 at surface gap 10, F = 0.030 — past that size's crossing (9). |
+| `x176_past_crossing_analyse.py` | x176_past_crossing_analyse.py — X176: radius 6 at gap 10, past that size's crossing. |
 | `x56_matrix.py` | x56_matrix.py — сходимость по шагу: контраст при dt = 1.0, 0.5, 2.0. |
 | `x58_analyse.py` | x58_analyse.py — the same measurement on a 128 grid: β₀, β₁, wavelength, normalised count. |
 | `x58_series.py` | x60_series.py — X60: the twenty field runs that keep their snapshots. |

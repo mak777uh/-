@@ -236,3 +236,6 @@ sections were not rewritten, only moved; each one keeps its identifier, so every
 | §10if | X171 — коридор при контакте одинаков при любом размере тела (04.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
 | §10ig | X172 — предсказание на непроведённом притоке: коридор попадает, доля — нет (04.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
 | §10ih | X173 — не решается: размножение мира закрывает окно (04.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
+| §10ii | X174 — коридор при контакте зависит от зазора, а переменная за обоими — доля слияний (04.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
+| §10ij | X175 — девятая клетка ломает единую кривую (04.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
+| §10ik | X176 — два фактора предсказывают неподогнанную клетку (04.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |

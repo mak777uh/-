@@ -1,0 +1,124 @@
+{
+ "kind": "x176_past_crossing",
+ "flow": 0.03,
+ "radius": 6.0,
+ "gap": 10,
+ "samples_per_profile": 21,
+ "predictions": {
+  "share": [
+   0.05,
+   0.25
+  ],
+  "corridor": [
+   0.5,
+   0.55
+  ]
+ },
+ "observed": {
+  "fused": 0,
+  "runs": 15,
+  "share": 0.0,
+  "corridor_median": null,
+  "corridor_sd": null,
+  "contact": 0
+ },
+ "controls": {
+  "peak_in_band": true,
+  "corridor_below_peak_share": null,
+  "readout_varies": false,
+  "enough_contacts": false
+ },
+ "runs": [
+  {
+   "seed": 1081,
+   "fused": false,
+   "min": 2,
+   "final": 47
+  },
+  {
+   "seed": 1082,
+   "fused": false,
+   "min": 2,
+   "final": 56
+  },
+  {
+   "seed": 1083,
+   "fused": false,
+   "min": 2,
+   "final": 52
+  },
+  {
+   "seed": 1084,
+   "fused": false,
+   "min": 2,
+   "final": 53
+  },
+  {
+   "seed": 1085,
+   "fused": false,
+   "min": 2,
+   "final": 55
+  },
+  {
+   "seed": 1086,
+   "fused": false,
+   "min": 2,
+   "final": 56
+  },
+  {
+   "seed": 1087,
+   "fused": false,
+   "min": 2,
+   "final": 57
+  },
+  {
+   "seed": 1088,
+   "fused": false,
+   "min": 2,
+   "final": 55
+  },
+  {
+   "seed": 1089,
+   "fused": false,
+   "min": 2,
+   "final": 53
+  },
+  {
+   "seed": 1090,
+   "fused": false,
+   "min": 2,
+   "final": 53
+  },
+  {
+   "seed": 1091,
+   "fused": false,
+   "min": 2,
+   "final": 58
+  },
+  {
+   "seed": 1092,
+   "fused": false,
+   "min": 2,
+   "final": 56
+  },
+  {
+   "seed": 1093,
+   "fused": false,
+   "min": 2,
+   "final": 57
+  },
+  {
+   "seed": 1094,
+   "fused": false,
+   "min": 2,
+   "final": 53
+  },
+  {
+   "seed": 1095,
+   "fused": false,
+   "min": 2,
+   "final": 52
+  }
+ ],
+ "verdict": "UNDECIDED, AND THE PREMISE IS CONFIRMED THE OTHER WAY: only 0 contact events in 15 runs (share 0.00), so there is no corridor to compare with 0.50-0.55. The arm is not merely past radius 6's crossing, it never crosses: 0 of 15 here against 0 of 10 in X158, i.e. 0 of 25 at gap 10. The prediction of a low share was right in kind (it registered 0.05-0.25) and slightly wrong in fact (0.00), and the corridor half of it cannot be tested at this cell at all."
+}

@@ -3181,6 +3181,42 @@
    "created_at": "2026-11-04T16:20:00+03:00",
    "priority": 8,
    "note": "closed negative on design grounds: the two readouts misclassify 7 of 30, and the reason is that the world's proliferation buries the seeded pair after ~150 of 3 000 steps, so the non-fusing arm's maximum is censored rather than negative. Next: a 192x192 grid, a marker carried through divisions, or a prediction read at contact time instead of over the build-up."
+  },
+  {
+   "id": "X174_gap_corridor",
+   "title": "Does the corridor at contact depend on the gap at a fixed size?",
+   "status": "closed",
+   "owner": "lead",
+   "kind": "experiment",
+   "cost_gpu_h": 0.3,
+   "prereg": "reports/2026-11-04-x174-gap-corridor-plan.md",
+   "created_at": "2026-11-04T17:20:00+03:00",
+   "priority": 8,
+   "note": "closed with the negative branch: 0.367 / 0.411 / 0.479 at gaps 8 / 9 / 10, a difference of 0.11 against a pooled spread of 0.059, so the criterion depends on the initial gap and X171's confound was real. The three gaps plus the size and rate arms then ordered themselves by the arm's fusion share (Pearson -0.95 over eight cells) - a relation X175 later broke. Next: an interior cell (X175); separating selection from mechanism; the band as the physical object."
+  },
+  {
+   "id": "X175_interior",
+   "title": "Test the share-corridor curve at an interior point",
+   "status": "closed",
+   "owner": "lead",
+   "kind": "experiment",
+   "cost_gpu_h": 0.3,
+   "prereg": "reports/2026-11-04-x175-interior-plan.md",
+   "created_at": "2026-11-04T17:20:00+03:00",
+   "priority": 8,
+   "note": "closed as a placement miss that refuted the curve: the corridor landed (0.437 against 0.42-0.46) but the share read 0.27 against a predicted 0.45-0.72, and three arms at share 0.27 read 0.437 / 0.492 / 0.516, so the corridor is not a function of the share alone. Left a two-factor picture (marginality and bridge span) and the claim that a merge happens inside a band of 0.37-0.52 of the body peak. Next: radius 6 at gap 10 (X176); the share may have a plateau rather than a point crossing; measure the band directly."
+  },
+  {
+   "id": "X176_past_crossing",
+   "title": "Two factors, one prediction: radius 6 at gap 10",
+   "status": "closed",
+   "owner": "lead",
+   "kind": "experiment",
+   "cost_gpu_h": 0.3,
+   "prereg": "reports/2026-11-04-x176-past-crossing-plan.md",
+   "created_at": "2026-11-04T17:20:00+03:00",
+   "priority": 8,
+   "note": "closed undecided, with the premise sharpened: radius 6 at gap 10 fuses 0 of 15, so with X158's 0 of 10 that cell is 0 of 25 and the arm has no contact events to read a corridor from. The two-factor picture is therefore untested at the band's upper edge, which now rests on the three arms at share 0.27 (0.437 / 0.492 / 0.516). Next: radius 4.5 at gap 11 (marginal but alive); the share's floor at radius 6 gap 9 on more seeds; the band measured by geometry."
   }
  ]
 }
