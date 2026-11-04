@@ -194,6 +194,23 @@
     "ADDENDUM 3 X188 (commit e2fe8cb5): window means 1.033/1.267 (r6) and 0.961/1.803 (r3); d6 +0.234 (bar 0.5), d3 +0.842; positivity 24/24; 60 fixed samples (plan said 49). Amendment premise verified (uids 1,2 -> merge leaves 2 -> step 90 uids 3,4) so the replacement is forced, NOT a goalpost move. BUT the readout is fragile: match 2 +0.395, match 6 +0.206, match 8 +0.111, initial-midpoint frame -0.781, window 32 -0.225 — r6 sign flips and magnitude spans -0.78..+0.40; refusal fires in all variants so the conclusion holds but 'warm carries more' is not robust. Cause: greedy matching grows the tracked set to 7 components. Readout point-biserial vs fused only +0.089",
     "ADDENDUM 3 X189: contact means 0.38304/0.18146 (r6) and 0.22686/0.31649 (r3), d6c -0.20158, d3c +0.08963; registered tightest d6 -0.08654, d3 +0.00387; min-central -0.06745/+0.00387; tightest at step 40 in 9/12; drop-lowest warm r6 -0.11448 — all reproduce. Ring correction SOUND (radial profile 0.184 at r=0, peak 0.391 at r=7) but radius-3 peaks span 0.100-0.387 median 0.230 with 10/44 >= 0.3, so 'radius 3 read 0.10-0.15' is only the lower half. Drift correction MIS-JUSTIFIED: matched centroid drift median 0.21, p75 1.72, max 3.25 cells, not ~5 by step 40; the 5-cell offset is the ring radius. The three readings are 1.5: tightest and min-central share the same (step-40-dominated) slice; r contact-tightest +0.673, tightest-mincentral +0.672, contact-mincentral +0.940. Registered tightest preserves the sign (-0.087) so the direction is not goalpost-driven, but the 2.3x headline magnitude is unregistered. Message says r3 '1 site x3 per level'; artifacts say 2 cold vs 1 warm, artifacts correct. Verdict register: direction supported, magnitude not established (aggregate's 'markedly weaker' too strong at n=3, 1 warm site)"
    ]
+  },
+  {
+   "file": "lab/reviews/2026-11-04-030-numbers.md",
+   "claim": "Article 030 headline numbers: the X192/X193 phase censuses, the X195/X196 gap window, and the X194/X197 unit-of-observation collapse",
+   "section": "abstract, 5.2-5.4",
+   "verdict": "держится с оговоркой",
+   "date": "2026-11-04",
+   "reviewer": "referee (subagent)",
+   "checked_numbers": [
+    "X192: 144 classes, 9 supplies, 26 at 0.0225, spread 0.44799, above 8/8 vs below 2/18, difference 0.8889, one-sided Fisher exact p=2.88e-5 (aggregate stores 0.0 by 4-dp rounding), slope 6.094 (se 1.058, z 5.76), Spearman -0.378/-0.833",
+    "X193: 144 classes, crowded 0.03 with 44, spread 0.40074, contrast 0.5, Fisher exact p=1.282e-4, slope 4.854 (se 1.792, z 2.71), Spearman +0.413/+0.515, 4/4 criteria",
+    "X195: r4_g12 spread 0.13926, r5_g10 0.17997; 0/144 fused in each; Spearman -0.686/-0.939 and -0.492/-0.43",
+    "X196: five-arm shares (mean over nine supply values) 0.0000, 0.1883, 0.4020, 0.8338, 0.9607 with fused 0/34/58/126/138; 3/3 criteria; caveat: fused/worlds is 0.236 and 0.875, not 0.19 and 0.83",
+    "X194: 757 runs -> 633 worlds, largest 5, 549 singletons, 2 mixed, AUC 0.65169/0.65962, bootstrap sd 0.0207/0.0219 (ratio 1.06); the task's '577 excluded' matches no artifact (aggregate 355, X197 787, current disk 1219)",
+    "X197: 311 mixed of 742 runs -> 258 worlds, 1.205 runs/world, deviance drop 20.7 over runs vs 14.3 over worlds (424.0->403.3, 352.9->338.6), bootstrap above 20: 0.517 vs 0.208",
+    "row-by-row: 1008/1008 worlds match the aggregates in fused, f_local and ratio_contact (max |delta ratio| = 0), ratios re-derived from untracked _hourly/x19*_fields/"
+   ]
   }
  ]
 }

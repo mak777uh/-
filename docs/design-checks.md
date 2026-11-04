@@ -565,3 +565,13 @@ form and a derived form that the dynamics actually sees - separation versus gap,
 exposure - fix the derived one, and report the table ordered by it as well as by the nominal one. X193's own reversal between radii is
 not affected, but its "size sets the sign" phrase is now read with the gap beside it.
 
+## A number that cannot be recomputed from the committed tree is not a checked number (04.11)
+
+The reviewer of article 030 recomputed every per-world outcome and bridge ratio from the raw field arrays and matched all 1008
+of them - outcomes and ratios, exactly. But those arrays are untracked scratch: what git carries is the compact slice, which
+holds only the component list (step, id, area, centre). So an outside reader can re-derive the outcomes and every table built
+from them, and cannot re-derive the bridge itself; the independent check exists only because the reviewer had this machine.
+The rule: any quantity a published claim rests on must travel in a committed artifact, at the level of the unit it is measured
+on - per world, not only as a summary in the aggregate - or the claim carries the explicit sentence that it cannot be checked
+from the repository. Summaries are for reading, rows are for checking.
+

@@ -67,31 +67,32 @@ we count how many independent replicates a pool of runs really holds.
 
 ## 2. What is already known, and what this adds
 
-Spontaneous pattern formation in a two-component reaction–diffusion system was described by Turing [1], and the two-species
-system we use is the standard Gray–Scott kinetics [2]. Learned local update rules — neural cellular automata [3] — are a
+Spontaneous pattern formation in a two-component reaction–diffusion system was described by Turing [4], and the two-species
+system we use is the standard Gray–Scott kinetics [5, 6]. Learned local update rules — neural cellular automata [1, 2, 3] — are a
 modern addition to the same family and are the reason the line of work this article belongs to exists at all: a local rule
-trained on a pattern-forming medium reproduces much of its phenomenology [4]. In all of these, the objects one sees —
+trained on a pattern-forming medium reproduces much of its phenomenology [2, 3]. In all of these, the objects one sees —
 spots, blobs, "individuals" — are local maxima of a continuous field, not entities, and their merge is a topological event:
 two connected components of a level set become one.
 
 The merger of two such objects has been studied mostly in droplets and bubbles, where coalescence is controlled by the
-distance between surfaces, the curvature of the necks and the drainage of the film between them [5, 6, 7]. In
-reaction–diffusion, the distance at which two spots merge has been treated as a property of the pattern's wavelength [8] and
+distance between surfaces, the curvature of the necks and the drainage of the film between them [12, 9, 10]. In
+reaction–diffusion, the distance at which two spots merge has been treated as a property of the pattern's wavelength [11] and
 as a boundary in the parameters of the reaction, and our own earlier work located the transition at about 10 cells from the
-seed side [9].
+seed side [A1].
 
 What is missing, and what this article supplies, is the **conditional** question. "How far apart can two spots be before
 they merge?" averages over where the spots sit. If the medium's supply is uneven, the position is a hidden variable: two
 pairs at the same distance can differ in whether the space between them fills with chemical at all. We treat that space as
 the measured state — the *bridge* — and ask whether the bridge, not the distance, decides the outcome. The answer is that
 the bridge does decide, and that the geometric variable that switches fusion is the surface-to-surface gap, with the body
-size acting as a small shift on top of it.
+size acting as a small shift on top of it. Spatially varying media have been analysed before [7, 8]; what is new here is
+turning the position into a *measured* state rather than a nuisance.
 
 The methodological part belongs to a different literature. Pooling runs as if each were independent is pseudo-replication
-[10]; when observations are clustered, a cluster bootstrap gives the honest interval [11]; and the general lesson that a
-statistic's interval depends on the unit of observation is standard in ecology and epidemiology [12]. We measure the size of
+[17]; when observations are clustered, a cluster bootstrap gives the honest interval [16]; and the general lesson that a
+statistic's value depends on the unit of observation is standard in ecology and epidemiology [16, 17]. We measure the size of
 that dependence in our own pool and find that it is not uniform across statistics. Pre-registration and multiplicity control
-are the other half of the method [13, 14].
+are the other half of the method [18, 19].
 
 ## 3. The medium and the measurement
 
@@ -117,8 +118,11 @@ strong as the bodies themselves, and near 0 when the space between them is empty
 ratio; a value above about 0.4 means a neck is present.
 
 **Everything is one number, and the lattice matters.** The measured ratio is a rasterised quantity: the grid is 96 × 96, the
-bodies are discs rasterised on it, and a "gap" of 8 cells is 8 cells as the raster sees them, not as a continuum would.
-Whenever we compare arms, the comparison is between measured radii and measured gaps.
+bodies are discs rasterised on it, and a "gap" of 8 cells is 8 cells as the raster sees them, not as a continuum would. On a
+discrete lattice the *existence* of a pattern can depend on the discretisation alone [13], the integration step is a
+consequential parameter rather than a resolution knob [14], and rounding error in a simulated physical quantity leaks into
+whatever statistic is computed from it [15]. Whenever we compare arms, the comparison is between measured radii and measured
+gaps.
 
 ![Figure 1](030-figures/fig1-what-we-measure.png)
 
@@ -156,7 +160,7 @@ reach contact) were fixed in the pre-registration, not after the numbers.
 
 ## 5. Results
 
-### 5.1 The supply that matters is the local one, and it decides fusion ([15], [16])
+### 5.1 The supply that matters is the local one, and it decides fusion ([A2], [A3])
 
 In a purpose-built arm where the nominal supply was held fixed and the position varied, the local supply at the seeded
 positions separated the outcomes completely: worlds whose local supply was below the arm's median fused 0.00 of the time and
@@ -165,10 +169,10 @@ construction that licenses calling the local quantity the driver; it was measure
 pooled natural data.
 
 Over the natural pool, the same comparison was made with a binomial deviance: predicting the outcome from the nominal supply
-gives a deviance of 464.5, from the local supply 436.5, a drop of 28.0 ([15]). That number is one of the three headline
+gives a deviance of 464.5, from the local supply 436.5, a drop of 28.0 ([A2]). That number is one of the three headline
 numbers of this line; §5.4 shows what happens to it when the unit of observation is changed.
 
-### 5.2 At a fixed supply, the phase decides the bridge — and the sign of the supply's effect depends on size ([17], [18])
+### 5.2 At a fixed supply, the phase decides the bridge — and the sign of the supply's effect depends on size ([A4], [A5])
 
 Two censuses were run, one at a body radius of 6 with a gap of 9, one at a radius of 3 with a gap of 10. Each is 144 worlds:
 the full population of positions at that geometry.
@@ -193,7 +197,7 @@ size of the bodies (Figure 3, right; Figure 2b).
 
 ![Figure 3](030-figures/fig3-the-bridge-decides.png)
 
-### 5.3 The gap between surfaces switches fusion; the body size shifts it ([18], [19])
+### 5.3 The gap between surfaces switches fusion; the body size shifts it ([A6])
 
 The two censuses above sit at different sizes *and* different separations, so the sign reversal cannot be attributed to one
 of them. Two further arms closed that gap — radius 4 gap 12 and radius 5 gap 10, both with a centre separation of 20 cells —
@@ -213,20 +217,24 @@ radius:
 | 6 | 8 | 20 | 144 | 126 | **0.83** |
 | 4 | 8 | 16 | 144 | 138 | **0.96** |
 
+The share column is the **mean over the nine supply values** of the per-value fusion share (the arms differ in how the 144
+classes distribute over those values), not the raw fraction of fused worlds; the fused column gives that raw count on the
+same rows (34/144 = 0.24 and 126/144 = 0.88 for the two arms where the two differ most), and the two orderings agree.
+
 ![Figure 4](030-figures/fig4-the-gap-switches.png)
 
 Radius 4 fuses nothing at a separation of 20 and 0.96 when the surfaces come to 8 cells apart; radius 6 fuses 0.83 at the
 *same* separation of 20 where radius 4 fuses nothing, because its gap there is 8 rather than 12. Ordered by gap the share
 rises monotonically as the surfaces approach, at both sizes. The size is not absent — at a matched gap of 8 the smaller body
 fuses 0.96 and the larger 0.83 — but it shifts the outcome by about a tenth while the gap switches it. This agrees with the
-earlier seed-side boundary work, which placed the transition at about 10 cells [9]. All three pre-registered criteria of the
+earlier seed-side boundary work, which placed the transition at about 10 cells [A1]. All three pre-registered criteria of the
 gap experiment passed, and the earlier reading of the fusion-free arms as a *size* window is withdrawn in favour of the gap
 reading (see the Changelog).
 
-### 5.4 The unit of observation, and a published effect that does not survive it ([20], [21])
+### 5.4 The unit of observation, and a published effect that does not survive it ([A8], [A9])
 
 The line's pools mix runs, and runs are not independent: seeds at one position are clones, and so are jitters inside one
-phase. We counted the independent units in the largest natural pool — the runs accumulated for the deviance comparison of
+phase [A10]. We counted the independent units in the largest natural pool — the runs accumulated for the deviance comparison of
 §5.1, none of them laid out to study a chosen phase. The 757 runs collapse to **633 worlds**: the largest world holds 5 runs,
 549 of them hold exactly one run, and only 2 worlds contain both outcomes. Replacing runs by worlds
 therefore should barely change a pooled statistic — and for one statistic it does not:
@@ -241,11 +249,11 @@ therefore should barely change a pooled statistic — and for one statistic it d
 For the rank statistic the intervals differ by 6 % (0.0207 → 0.0219; the pre-registered refusal was a ratio of 1.3). For the
 deviance — the statistic behind §5.1's headline drop — the same regrouping moves the number from 20.7 to 14.3, from **above**
 the test's own bar of 20 to **below** it, and the phase-clustered bootstrap clears that bar in only 21 % of resamples against
-52 % for runs (Figure 5). The pool here is not
-
-![Figure 5](030-figures/fig5-the-unit-of-observation.png) identical to the one the published 28.0 came from (later arms selected on
+52 % for runs (Figure 5). The pool here is not identical to the one the published 28.0 came from (later arms selected on
 supply are excluded), so the like-for-like comparison is the pair in the table above; even so, the conclusion is that the
 deviance drop is carried partly by repeated runs.
+
+![Figure 5](030-figures/fig5-the-unit-of-observation.png)
 
 This is not a contradiction of the local-supply law. That law rests on the designed arm of §5.1 (0.00 → 1.00 by
 construction) and on the two windows of the censuses, not on this deviance. What it shows is that a pooled effect can be
@@ -267,6 +275,11 @@ inflated by the unit of observation — and that the size of the inflation depen
   within 10 steps.
 - **The deviance comparison is within our own pool**, with the test's own bar of 20 kept for comparability rather than
   re-derived.
+- **The bridge ratios cannot be re-derived from the committed tree.** An independent reviewer recomputed every per-world
+  outcome and ratio from the raw field arrays and matched all 1008 of them, but those arrays are not committed (the compact
+  slices carry only the component list: step, id, area, centre). A reader outside this machine can verify the outcomes and the
+  tables, not the bridge itself. Fixing that requires the contact-step field (or the contact ratio) to travel with the
+  aggregate, which the next census will do.
 
 ## 7. What would change the answer
 
@@ -299,34 +312,43 @@ compacted JSON under `morphogenesis/experiments/L1_field/`.
 
 ## References
 
-Numbering follows the verified list in [`030-references.md`](030-references.md), which records for each entry the command or
-manifest key by which its existence was checked.
+**External literature.** Numbering follows the verified list in [`030-references.md`](030-references.md), which records for
+each entry the command or manifest key by which its existence was checked; entries that could not be verified there are not
+cited here. Two entries rest on corpus documents at manifest status `partial` (not read end to end): [3] and [20].
 
-1. A. M. Turing. "The Chemical Basis of Morphogenesis". *Philosophical Transactions of the Royal Society B*, 1952.
-2. P. Gray, S. K. Scott. "Autocatalytic reactions in the isothermal, continuous stirred tank reactor". *Chemical Engineering
-   Science*, 1983.
-3. A. Mordvintsev, E. Randazzo, E. Niklasson, M. Levin. "Growing Neural Cellular Automata". *Distill*, 2020.
-4. (Neural cellular automata on reaction–diffusion targets — corpus entry; see `030-references.md`.)
-5. J. C. M. Lee, T. Hodgson. "Film flow and coalescence". *Chemical Engineering Science*, 1968.
-6. A. K. Chesters. "The modelling of coalescence processes in fluid-liquid dispersions". *Chemical Engineering Research and
-   Design*, 1991.
-7. (Droplet coalescence: drainage of the film between surfaces — see `030-references.md`.)
-8. (Wavelength-limited spacing of reaction–diffusion spots — see `030-references.md`.)
-9. This line's own boundary measurement: `reports/2026-11-04-x158-crossing.md` (a gap of about 10 cells at radii 3, 4.5, 6).
-10. S. H. Hurlbert. "Pseudoreplication and the design of ecological field experiments". *Ecological Monographs*, 1984.
-11. A. C. Cameron, J. B. Gelbach, D. L. Miller. "Bootstrap-based improvements for inference with clustered errors". *Review
-    of Economics and Statistics*, 2008.
-12. (Unit of observation and clustered data in ecology — see `030-references.md`.)
-13. (Pre-registration in computational biology — see `030-references.md`.)
-14. (Multiplicity control — see `030-references.md`.)
-15. X184, X186: `l1_field_x184_*.json`, `l1_field_x186_*.json`; reports `reports/2026-11-04-x18{4,6}-*.md`.
-16. X185: `reports/2026-11-04-x185-*.md` (one law, two windows).
-17. X192: `morphogenesis/experiments/E09_pond/l1_field_x192_phase_census.json`; report `reports/2026-11-04-x192-phase-census.md`.
-18. X193: `l1_field_x193_phase_census_r3.json`; report `reports/2026-11-04-x193-phase-census-r3.md`.
-19. X195, X196: `l1_field_x195_sign_sweep.json`, `l1_field_x196_gap_or_size.json`; reports
-    `reports/2026-11-04-x195-sign-sweep.md`, `reports/2026-11-04-x196-gap-or-size.md`.
-20. X194: `l1_field_x194_phase_clusters.json`; report `reports/2026-11-04-x194-phase-clusters.md`.
-21. X197: `l1_field_x197_deviance_worlds.json`; report `reports/2026-11-04-x197-deviance-worlds.md`.
+1. A. Mordvintsev, E. Randazzo, E. Niklasson, M. Levin. "Growing Neural Cellular Automata". *Distill*, 2020. DOI: 10.23915/distill.00023.
+2. W. Gilpin. "Cellular automata as convolutional neural networks". *Physical Review E*, 2019. DOI: 10.1103/PhysRevE.100.032402.
+3. H. Kojima, T. Ikegami. "Implementation of Lenia as a Reaction-Diffusion System". *The 2023 Conference on Artificial Life*, 2023. DOI: 10.1162/isal_a_00638.
+4. A. M. Turing. "The chemical basis of morphogenesis". *Philosophical Transactions of the Royal Society B*, 1952. DOI: 10.1098/rstb.1952.0012.
+5. P. Gray, S. K. Scott. "Autocatalytic reactions in the isothermal, continuous stirred tank reactor". *Chemical Engineering Science*, 1984. DOI: 10.1016/0009-2509(84)87017-7.
+6. J. E. Pearson. "Complex Patterns in a Simple System". *Science*, 1993. DOI: 10.1126/science.261.5118.189.
+7. D. L. Benson, P. K. Maini, J. A. Sherratt. "Unravelling the Turing bifurcation using spatially varying diffusion coefficients". *Journal of Mathematical Biology*, 1998. DOI: 10.1007/s002850050135.
+8. T. Biancalani, D. Fanelli, F. Di Patti. "Stochastic Turing patterns in the Brusselator model". *Physical Review E*, 2010. DOI: 10.1103/PhysRevE.81.046215.
+9. H.-G. Purwins, H. U. Bödeker, Sh. Amiranashvili. "Dissipative solitons". *Advances in Physics*, 2010. DOI: 10.1080/00018732.2010.498228.
+10. H. U. Bödeker, A. W. Liehr, T. D. Frank, R. Friedrich, et al. "Measuring the interaction law of dissipative solitons". *New Journal of Physics*, 2004. DOI: 10.1088/1367-2630/6/1/062.
+11. W. N. Reynolds, S. Ponce-Dawson, J. E. Pearson. "Self-replicating spots in reaction-diffusion systems". *Physical Review E*, 1997. DOI: 10.1103/PhysRevE.56.185.
+12. J. Eggers, J. R. Lister, H. A. Stone. "Coalescence of liquid drops". *Journal of Fluid Mechanics*, 1999. DOI: 10.1017/S002211209900662X.
+13. Q. T. Davis. "Discretization-Dependent Dissolution of Gliders in (Dis)Continuous Systems: Non-Platonic Self-Organization in Complex Systems". *Innovations in Machine Intelligence*, 2023. DOI: 10.54854/imi2023.01.
+14. Q. T. Davis, J. Bongard. "Step Size is a Consequential Parameter in Continuous Cellular Automata". *The 2022 Conference on Artificial Life*, 2022. DOI: 10.1162/isal_a_00526.
+15. M. L. Pilat, R. Suzuki, T. Arita. "Dealing with rounding error problems in evolutionary physical simulation". *Artificial Life and Robotics*, 2012. DOI: 10.1007/s10015-012-0038-0.
+16. A. C. Cameron, J. B. Gelbach, D. L. Miller. "Bootstrap-Based Improvements for Inference with Clustered Errors". *Review of Economics and Statistics*, 2008. DOI: 10.1162/rest.90.3.414.
+17. S. H. Hurlbert. "Pseudoreplication and the Design of Ecological Field Experiments". *Ecological Monographs*, 1984. DOI: 10.2307/1942661.
+18. B. A. Nosek, C. R. Ebersole, A. C. DeHaven, D. T. Mellor, et al. "The preregistration revolution". *Proceedings of the National Academy of Sciences*, 2018. DOI: 10.1073/pnas.1708274114.
+19. Y. Benjamini, Y. Hochberg. "Controlling the False Discovery Rate: A Practical and Powerful Approach to Multiple Testing". *Journal of the Royal Statistical Society B*, 1995. DOI: 10.1111/j.2517-6161.1995.tb02031.x.
+20. G. K. Sandve, A. Nekrutenko, J. Taylor, E. Hovig, et al. "Ten Simple Rules for Reproducible Computational Research". *PLoS Computational Biology*, 2013. DOI: 10.1371/journal.pcbi.1003285.
+
+**This line's own artifacts** (each with its pre-registration and its aggregate; see the reports for the numbers).
+
+- **[A1]** X158 boundary measurement: `reports/2026-11-04-x158-crossing.md` (a gap of about 10 cells at radii 3, 4.5 and 6).
+- **[A2]** X184, X186: `morphogenesis/experiments/E09_pond/l1_field_x184_*.json`, `l1_field_x186_*.json`; reports `reports/2026-11-04-x18{4,6}-*.md`.
+- **[A3]** X185: `reports/2026-11-04-x185-*.md` (one law, two windows).
+- **[A4]** X192: `l1_field_x192_phase_census.json`; report `reports/2026-11-04-x192-phase-census.md`.
+- **[A5]** X193: `l1_field_x193_phase_census_r3.json`; report `reports/2026-11-04-x193-phase-census-r3.md`.
+- **[A6]** X195, X196: `l1_field_x195_sign_sweep.json`, `l1_field_x196_gap_or_size.json`; reports `reports/2026-11-04-x195-sign-sweep.md`, `reports/2026-11-04-x196-gap-or-size.md`.
+- **[A7]** X187 (the arm-held grouping used in §5.4): report `reports/2026-11-04-x187-*.md`.
+- **[A8]** X194: `l1_field_x194_phase_clusters.json`; report `reports/2026-11-04-x194-phase-clusters.md`.
+- **[A9]** X197: `l1_field_x197_deviance_worlds.json`; report `reports/2026-11-04-x197-deviance-worlds.md`.
+- **[A10]** X190, X191 (the clone and phase spreads behind the world unit): reports `reports/2026-11-04-x19{0,1}-*.md`.
 
 ## Changelog
 
