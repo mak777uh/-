@@ -2085,7 +2085,7 @@ moving a likelihood-based deviance drop from 20.7 to 14.3, across its own bar of
 Evidence: aggregates `morphogenesis/experiments/E09_pond/l1_field_x15*.json`, `l1_field_x16*.json`, `l1_field_x17*.json`,
 `l1_field_x18*.json`, `l1_field_x19*.json`; figures and every plotted number in
 [`articles/030-figures/`](../articles/030-figures/) (`tables.json`); pre-registrations in `reports/`; the machine check
-`scripts/check_article_030_numbers.py` requires each of the **138** printed numbers to appear in the article and to carry the
+`scripts/check_article_030_numbers.py` requires each of the **145** printed numbers to appear in the article and to carry the
 artifact's value. The sequence itself, including what is published outward and what is not, is mapped in
 [`docs/series.md`](../docs/series.md).
 

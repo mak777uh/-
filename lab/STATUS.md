@@ -60,7 +60,7 @@ against 0.5874 nominal and 0.2149 midpoint), the bridge at a fixed supply (slope
 smaller body, and the unit of observation. Two readings are **withdrawn** in the text and in `docs/eliminations.md`: X168 as
 a units artefact and X188 because its observable contains the outcome; §9 lists six places where a report's prose disagrees
 with the stored field, with the artifact quoted in each. Eight figures and `tables.json` come from
-`scripts/make_article_030_figures.py`; **138 needles** are gated by `scripts/check_article_030_numbers.py --ci` (it now
+`scripts/make_article_030_figures.py`; **145 needles** are gated by `scripts/check_article_030_numbers.py --ci` (it now
 normalises whitespace, so a needle spans a line break); the PDF is rebuilt; the deposit package is
 `_exports/030-gap-switches-fusion-v2.0.zip`; the added numbers are independently reviewed in
 `lab/reviews/2026-11-05-030-v20-numbers.md`; the sequence is mapped in `docs/series.md`, and the two queue items that would

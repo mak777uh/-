@@ -37,7 +37,8 @@ earlier reading of the crossing — five of five fusions at "gap 11" — is **wi
 **What a daughter keeps.** Shape is inherited about half: the daughter-on-parent slope is **0.5167** for elongation and
 **0.4811** for width. The discrete state of a body is **re-drawn at every division**, not inherited. The medium adds no length
 of its own: the distance to the k-th neighbour is set by the body's inherited radius. A merge comes apart again — a merged body
-that divides gives two bodies of the parents' combined area — and it divides after 25 steps against a single body's 40.
+that divides gives two bodies whose combined area is 0.867 of the parents' — and it divides after 25 steps against a single
+body's 40.
 
 **What decides fusion.** Holding the local supply fixed, the outcome is decided by the **bridge** of chemical between the
 blobs: across 144 positions at one supply, the bridge ratio spans 0.006 to 0.454 and the logistic slope of fusion on that
@@ -284,8 +285,8 @@ than a ten-step grid. Per-arm medians then differ by **2.07 cells** and the with
 **One reading was withdrawn here, and the correction is part of the result.** X168 asked whether the crossing moves with the
 inflow rate, and its aggregate still reports five fusions out of five at "gap 11". The report withdraws the whole item as a
 **units artefact**: a surface gap was passed where a centre separation was expected, so those runs were really at a surface
-gap of 5. The corrected series ([A17]) runs gap 11 at three rates with ten seeds per cell and finds shares of **0.0, 0.2 and
-0.4** at F = 0.026, 0.030 and 0.036 — no dependence detected — and its companion at ten seeds ([A17]) gives 0.0, 0.1 and 0.3,
+gap of 5. The corrected series ([A17]) runs gap 11 at three rates with five seeds per cell and finds shares of **0.0, 0.2 and
+0.4** at F = 0.026, 0.030 and 0.036 — no dependence detected — and its companion at ten seeds per cell ([A17]) gives 0.0, 0.1 and 0.3,
 with a Fisher p of **0.21053** on the extreme pair and a power of only **15 %** for a 0.3 difference. The honest reading is
 therefore *no trend detected, and this design could not have found a small one*; the old five-of-five number is not quoted in
 this article without that sentence.
@@ -297,11 +298,12 @@ is what survives the copying. The previous article measured one quantitative tra
 over its own range — and this article asked the same question of **shape**, of a **discrete** state, and of the **medium's own
 length**.
 
-**Shape is inherited about half, and the value is stable across inflow rates.** X156 ([A18]) regressed each daughter's
-profile on its parent's for two traits and two rates: the mean slope is **0.5167** for elongation and **0.4811** for width.
-A slope near one half means the daughter is pulled half-way back towards the population's shape at each division; it is
-neither a copy nor a fresh draw, and the same value at the two rates says the medium's rate does not set how much shape is
-kept.
+**Shape is inherited about half, and the two habitats exchange which aspect survives.** X156 ([A18]) regressed each
+daughter's profile on its parent's for two traits in two habitats: the mean slope is **0.5167** for elongation and
+**0.4811** for width, but the habitats do not agree — elongation 0.6074 against 0.4260 and width 0.3384 against 0.6238,
+with disjoint intervals. The mean is therefore a summary of two opposite trades rather than a rate-invariant value, and a
+slope near one half says the daughter is pulled half-way back towards its population's shape at each division: neither a
+copy nor a fresh draw.
 
 **The discrete state is not inherited at all.** X161 ([A18]) asked whether the *class* of a body — its integer-valued state,
 not its shape — passes from parent to daughter. Division order and lifespan sit inside their shuffled-parent nulls, and the
@@ -316,7 +318,7 @@ probe of the spacing in a maze habitat had too little spread to read at all, and
 as a null result.
 
 **A merge comes apart, and the daughters look like the parents.** X167 ([A19]) followed every merged body that divided again:
-each divides into two bodies whose combined area is the parents' combined area, near the parents' old positions — so the
+each divides into two bodies whose combined area is **0.867** of the parents' area, near the parents' old positions — so the
 operation is reversible in the weak sense that the material returns to two bodies, not in the sense that the two original
 lineages resume. Its control ([A19]) compares a merged body with a single body: the merged one divides after **25 steps**
 against the single one's **40** (1.12 standard deviations apart; both are two to four logged steps on a ten-step grid), a
@@ -447,11 +449,11 @@ from a third to zero.
 **The best single threshold on the bridge misclassifies a quarter of the runs.** X173 ([A22]) asked whether the bridge's
 maximum, read before contact, can separate fusing from non-fusing pairs. Its best threshold, 0.4284, misclassifies **7 of 30**
 runs. The item's own registration declines to call this decidable, because the world's proliferation closes the window in
-which the seeded pair is identifiable: the pair can be followed for only 13–18 of 301 sampled steps, up to step 120–170 of
+which the seeded pair is identifiable: the pair can be followed for only 10–27 of 301 sampled steps, up to step 90–260 of
 3000.
 
 **Finally, the rate ladder — and which number on it is the real one.** The nominal supply F is what the experiment sets; the
-census gives every body a measured local supply. X183 ([A22]) put seven candidate readings of "the rate this run had" against
+census gives every body a measured local supply. X183 ([A22]) put 5 candidate readings of "the rate this run had" against
 the outcome over 139 ladder runs. The nominal rate gives an AUC of **0.5874** (indistinguishable from chance within a level,
 mean within-level AUC **0.5**, deviance **185.0**); the inflow at the **colder** of the two bodies gives **0.8656** (within
 levels 0.8951, deviance **129.3**); the inflow at the warmer body gives 0.6359; the mean of the two sites gives 0.8396; and the
@@ -511,7 +513,7 @@ is site versus site at n = 3.
 **The nucleation reading was withdrawn outright.** X188 ([A25]) asked the same question of a different observable — how much
 material accumulates near a body — with a registered window. Its registered value gives warm minus cold of **+0.234** at
 radius 6 against a refusal bar of 0.5, i.e. a refusal; but its own free parameters move the same estimate from **−0.781** to
-**+0.395** and flip its sign, and the readout is positive in all 24 runs regardless of outcome. The claim "warm carries more"
+**+0.394** and flip its sign, and the readout is positive in all 24 runs regardless of outcome. The claim "warm carries more"
 is therefore **withdrawn**, and the item is kept in the record as a design lesson: the observable was not a function of the
 thing it was supposed to measure.
 
@@ -673,6 +675,20 @@ reports five fusions of five at "gap 11", while the report withdraws the item as
 corrected X168c/X168d instead and never the withdrawn number as evidence (§5.1). And **X159 has no aggregate of its own**: its
 values are stored in `l1_field_x157_quantum.json`, as the X159 report states; [A13] names that file.
 
+**What the independent review of the added blocks changed.** The forty-two numbers added in v2.0 were recomputed item by item in
+`lab/reviews/2026-11-05-030-v20-numbers.md` (36 items, with an explicit list of what could not be checked from the stored
+aggregates). It found **six places where this article's prose was wrong**, and all six are corrected here rather than argued
+with: X168c runs five seeds per cell and only its companion X168d runs ten (§5.1); X173's followable window is 10–27 of 301
+sampled steps and reaches step 90–260, not 13–18 and 120–170 (that window exists only in the report's prose — the aggregate
+stores no field for it, so this article quotes the reviewer's recomputation from the ten committed compact slices); X156's two
+habitats **exchange** which aspect survives (0.6074 against 0.4260 for elongation, 0.3384 against 0.6238 for width, disjoint
+intervals), so the mean 0.5167/0.4811 is a summary of two opposite trades and not a rate-invariant value (§5.2); X183 tested
+**5** candidate readings, not seven (§5.6); the free-parameter sensitivity of the X188 reading runs from −0.781 to **+0.394**
+as stored, the aggregate's own note writing 0.395 (§5.8); and the daughters' combined area is **0.867** of the parents', not
+equal to it (§5.2, §5.3). One item the review flagged without counting it as an error is kept as it stands: X171's stored
+`pooled_sd` 0.036 is exactly the radius-3 spread, so it may not be pooled at all — the article quotes the stored field and
+names the report's 0.040 beside it.
+
 ## References
 
 **External literature.** Numbering follows the verified list in [`030-references.md`](030-references.md), which records for
@@ -762,12 +778,15 @@ cited here. Two entries rest on corpus documents at manifest status `partial` (n
   §2, §6, §7, §8 and §9 are rewritten to match, the references gain [A12]–[A26] for the added artifacts, and §9 now lists the
   six places where a report's prose disagrees with the stored field, with the artifact quoted in every case. Section numbering
   of the earlier results moved: the local supply is §5.3, the bridge §5.4, the gap §5.5 and the unit of observation §5.9.
+  After the independent review of the added blocks (`lab/reviews/2026-11-05-030-v20-numbers.md`) six sentences of this article
+  were corrected — the seed count of X168c, X173's followable window, the two-habitat trade behind X156's mean slopes, the
+  number of X183's candidate readings, the X188 sensitivity end and the X167 area ratio — and the gate grew to **145** needles.
 
 ## Verification
 
 - **Numbers.** Every number quoted above is re-derived from committed artifacts by
-  `python scripts/check_article_030_numbers.py` (run before submission); the table behind them is
-  [`030-figures/tables.json`](030-figures/tables.json).
+  `python scripts/check_article_030_numbers.py --ci` — **145** needles, each of which must also appear verbatim in this text
+  (run before submission); the table behind them is [`030-figures/tables.json`](030-figures/tables.json).
 - **References.** Existence of every reference is checked in [`030-references.md`](030-references.md) via the corpus
   manifest or Crossref/DataCite; entries that could not be verified are marked there and are not cited here.
 - **Independent review.** `lab/reviews/2026-11-04-030-numbers.md` — an independent recomputation of the headline numbers by

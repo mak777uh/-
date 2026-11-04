@@ -211,6 +211,26 @@
     "X197: 311 mixed of 742 runs -> 258 worlds, 1.205 runs/world, deviance drop 20.7 over runs vs 14.3 over worlds (424.0->403.3, 352.9->338.6), bootstrap above 20: 0.517 vs 0.208",
     "row-by-row: 1008/1008 worlds match the aggregates in fused, f_local and ratio_contact (max |delta ratio| = 0), ratios re-derived from untracked _hourly/x19*_fields/"
    ]
+  },
+  {
+   "file": "lab/reviews/2026-11-05-030-v20-numbers.md",
+   "claim": "Article 030 v2.0 numbers added in §5.1, §5.2, §5.6-§5.8 (X156-X189): contact geometry, shape heredity, the corridor/forecast/edge and the ladder, the crossing table and the dispersion, the bridge and the withdrawn nucleation reading",
+   "section": "5.1, 5.2, 5.6, 5.7, 5.8",
+   "verdict": "держится с оговоркой",
+   "date": "2026-11-05",
+   "reviewer": "referee (subagent)",
+   "checked_numbers": [
+    "X157 contact gap 1.93 (0.94-4.87, n=132) and per-radius 2.07/1.89/1.69/1.93; X159 window 1.325/0.7/p90 2.341; X158 crossing 10/10/9; X164 (3,6) 2.60->4.38; X165 100/20/0; X166 2.07/0.44 - all reproduce",
+    "X168: shares 0.0/0.2/0.4 (x168c) and 0.0/0.1/0.3 (x168d), Fisher 0.21053, power 0.1503 reproduce, but the article calls the 0.0/0.2/0.4 series 'ten seeds per cell' while x168c stores 5 runs per arm (x168d is the ten-seed one)",
+    "X156 means 0.5167 (log elongation) and 0.4811 (log width) reproduce, but per cell 0.6074/0.4259 and 0.3384/0.6238 with disjoint intervals; the article's 'same value at the two rates' is not supported (the report says the inherited aspect swaps with the habitat)",
+    "X162b 0.205/0.236/0.408/0.568; X167b 25 vs 40 steps (recomputed 1.116 sd); X169 0.357 auxiliary; X170 0.52/0.48/0.39, diff 0.12 vs sd 0.04 - all reproduce",
+    "X171 0.479/0.4918/0.4701, diff 0.0217; X174 0.3666/0.4107/0.479, Pearson -0.9492, Spearman -0.881, and (3,10,0.03) entered twice (7 distinct arms); X175 0.4373, 4/15=0.2667; X178 10/30, Wilson [0.1923,0.5122] recomputed - all reproduce",
+    "X173 threshold 0.4284 misclassifies 7/30; but the identifiability window is quoted as 13-18 of 301 steps while the ten committed x173_g11 compacts give 10-27 of 301 (per run 15,15,27,14,18,10,14,15,18,13)",
+    "X179 57 cells / 772 runs / 1119 files / 18 other cells (263 runs), 3 heterogeneous cells, radii 2.9-6.0; X180 17 cells / 316 runs, mean point-biserial -0.552 (recomputed -0.5518), bands 0.836/0.643/0.248/0.16; X181 12/30, pooled 20/49 -> 32/79; X182 z=-4.446 recomputed - all reproduce",
+    "X183 ladder AUCs 0.5874/0.2149/0.8396/0.8656/0.6359 and deviances 185.0/160.7/135.5/129.3/181.0 match the stored scalars, but the article's 'seven candidate readings' is five in the aggregate and the report, and the AUCs/deviances carry no run-level pool to recompute",
+    "X189 -0.08655 / +0.00387 / -0.20158, 9 of 12 at step 40, 2 cold vs 1 warm site per level; X188 +0.234 against bar 0.5, sensitivity -0.781 to +0.394 (article writes +0.395), all 24 runs positive",
+    "not independently checkable: X180 pooled point-biserial -0.527 and z -7.807, X183 AUC/deviance scalars, X172 predicted 0.436+/-0.08 and 9-15 of 20, and the field-derived corridor/bridge ratios themselves"
+   ]
   }
  ]
 }

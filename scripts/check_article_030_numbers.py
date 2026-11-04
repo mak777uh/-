@@ -244,6 +244,19 @@ CHECKS.update({
     "v20_188_registered": ("warm minus cold of **+0.234**", X188["radius6_warm_minus_cold"]),
     "v20_188_flip_lo": ("from **−0.781** to", X188["sensitivity"]["frame_initial_midpoint"]["radius6_warm_minus_cold"]),
     "v20_188_runs": ("positive in all 24 runs", sum(X188["outcome_crosstab"].values())),
+    "v20_156_rate_elong_f030": ("elongation 0.6074 against 0.4260",
+                               round(X156["cells"]["f030"]["traits"]["log_elong"]["slope"], 4)),
+    "v20_156_rate_elong_f040": ("elongation 0.6074 against 0.4260",
+                                round(X156["cells"]["f040"]["traits"]["log_elong"]["slope"], 4)),
+    "v20_156_rate_width_f030": ("width 0.3384 against 0.6238",
+                                round(X156["cells"]["f030"]["traits"]["log_width"]["slope"], 4)),
+    "v20_156_rate_width_f040": ("width 0.3384 against 0.6238",
+                                round(X156["cells"]["f040"]["traits"]["log_width"]["slope"], 4)),
+    "v20_167_area": ("combined area is **0.867** of the parents' area",
+                     round(X167B["merged"]["area_ratio_median"], 3)),
+    "v20_183_candidates": ("put 5 candidate readings", len(X183["candidates"])),
+    "v20_188_flip_hi": ("**+0.394** and flip its sign",
+                        round(X188["sensitivity"]["match2"]["radius6_warm_minus_cold"], 3)),
 })
 
 

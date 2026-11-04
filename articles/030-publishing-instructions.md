@@ -37,7 +37,7 @@ figures, the tables and the build scripts, so the archive can be rebuilt at any 
 python scripts/make_article_030_figures.py     # figures and tables.json, from committed artifacts only
 python scripts/make_article_030_pdf.py         # the article PDF (needs the bundled LibreOffice kit)
 python scripts/build_article_030_package.py    # _exports\030-gap-switches-fusion-v2.0.zip
-python scripts/check_article_030_numbers.py    # re-derives all 138 printed numbers and compares them with the text
+python scripts/check_article_030_numbers.py    # re-derives all 145 printed numbers and compares them with the text
 ```
 
 ## 2. What is inside the archive (70 files)
@@ -74,7 +74,7 @@ from.
    `data/aggregates/l1_field_x196_gap_or_size.json` at `gap_table.r4_g10.fused_worlds`. If the three disagree, stop and tell
    the author — do not "fix" anything.
 
-The author's own checks, already run and not to be repeated (they need the repository): 138 printed numbers are compared with
+The author's own checks, already run and not to be repeated (they need the repository): 145 printed numbers are compared with
 the aggregates by `scripts/check_article_030_numbers.py`, the earlier edition's six result groups were recomputed over 1008
 per-world rows (`lab/reviews/2026-11-04-030-numbers.md`), and the blocks added in v2.0 were recomputed independently in
 `lab/reviews/2026-11-05-030-v20-numbers.md`. Your job is to confirm that the
