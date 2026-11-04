@@ -1,0 +1,175 @@
+{
+ "kind": "x168d_gap11",
+ "conversion": "surface gap g -> SEP = 2R + g",
+ "by_cell": {
+  "F0.026_g8": {
+   "flow": 0.026,
+   "gap": 8,
+   "runs": 10,
+   "fused": 10,
+   "died": 0,
+   "share": 1.0,
+   "wilson": [
+    0.7225,
+    1.0
+   ],
+   "mins": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+   ]
+  },
+  "F0.026_g11": {
+   "flow": 0.026,
+   "gap": 11,
+   "runs": 10,
+   "fused": 0,
+   "died": 0,
+   "share": 0.0,
+   "wilson": [
+    0.0,
+    0.2775
+   ],
+   "mins": [
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2
+   ]
+  },
+  "F0.03_g8": {
+   "flow": 0.03,
+   "gap": 8,
+   "runs": 10,
+   "fused": 10,
+   "died": 0,
+   "share": 1.0,
+   "wilson": [
+    0.7225,
+    1.0
+   ],
+   "mins": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+   ]
+  },
+  "F0.03_g11": {
+   "flow": 0.03,
+   "gap": 11,
+   "runs": 10,
+   "fused": 1,
+   "died": 0,
+   "share": 0.1,
+   "wilson": [
+    0.0179,
+    0.4042
+   ],
+   "mins": [
+    2,
+    1,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2
+   ]
+  },
+  "F0.036_g8": {
+   "flow": 0.036,
+   "gap": 8,
+   "runs": 10,
+   "fused": 10,
+   "died": 0,
+   "share": 1.0,
+   "wilson": [
+    0.7225,
+    1.0
+   ],
+   "mins": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1
+   ]
+  },
+  "F0.036_g11": {
+   "flow": 0.036,
+   "gap": 11,
+   "runs": 10,
+   "fused": 3,
+   "died": 0,
+   "share": 0.3,
+   "wilson": [
+    0.1078,
+    0.6032
+   ],
+   "mins": [
+    2,
+    1,
+    2,
+    1,
+    2,
+    2,
+    2,
+    2,
+    2,
+    1
+   ]
+  }
+ },
+ "shares_gap11": {
+  "0.026": 0.0,
+  "0.03": 0.1,
+  "0.036": 0.3
+ },
+ "fisher_tests": {
+  "0.026_vs_0.03": 1.0,
+  "0.026_vs_0.036": 0.21053,
+  "0.03_vs_0.036": 0.58204
+ },
+ "extreme_contrast": {
+  "contrast": "0.026 vs 0.036",
+  "difference": 0.01,
+  "fisher_p": 0.21053
+ },
+ "x158_gap11_baseline": 0.1333,
+ "controls": {
+  "gap8_fires_everywhere": true,
+  "per_rate": {
+   "0.026": true,
+   "0.03": true,
+   "0.036": true
+  }
+ },
+ "verdict": "THE TREND WAS NOISE: with ten seeds per rate the gap-11 share runs 0% at F = 0.026, 10% at F = 0.03, 30% at F = 0.036 (X158 at F = 0.030: 13%), no contrast clears a 0.3 difference at p < 0.05, and the flat result now has the seeds to mean it. The crossing does not depend on the inflow rate in the range this world allows, and §4.1 keeps its single-rate statement."
+}
