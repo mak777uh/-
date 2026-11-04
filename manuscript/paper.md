@@ -1913,6 +1913,36 @@ three hundred steps (X169). The question needs a world whose pattern outlives th
 `l1_field_x161_discrete.json`, `l1_field_x167_reversibility.json`, `l1_field_x167b_reversibility.json`,
 `l1_field_x169_seam.json`, `l1_field_x168d_gap11.json`, `l1_field_x170_corridor.json`.
 
+
+
+### 4k.9 The bridge at a fixed inflow decides the outcome, and the unit of observation decides the strength
+
+The population of phases is finite. The local inflow of a body pair is a function of the bodies' positions modulo the pattern's
+12-cell period, and enumerating that map gives **144 phase classes** whose inflow takes only **nine** distinct values, up to 26 classes
+to a value. Running one world per class — the population instead of a sample — shows that at a **fixed** inflow the bridge between the
+bodies decides the outcome: at the most crowded value (F_local = 0.0225, 26 classes) the contact-moment bridge ratio spans
+0.0056–0.4535, and the worlds above that value's median ratio fuse 1.0 of the time against 0.111 below (Fisher p < 0.001); over all 144
+worlds the logistic slope of fusion on the ratio is 6.094 (se 1.058, z = 5.76). The same census at radius 3 gap 10 passes all four of
+its own registered criteria (spread 0.4007, above-median contrast 0.5, p = 0.0001, slope 4.854, z = 2.71) and carries the **opposite**
+sign of the inflow–outcome relation (Spearman +0.413 over classes against −0.378 at radius 6). So the mechanism is one, and the sign
+of the inflow's association with fusion is set by the body size: a stronger inflow thickens the bridge between small bodies and thins
+it between large ones.
+
+That statement has a boundary. At radius 4 gap 12 and radius 5 gap 10, with the centre separation held at 20 cells, **not one of the
+288 worlds fuses**, although every one of them keeps a measurable bridge whose association with the inflow runs in the radius-6
+direction (Spearman −0.686 and −0.492 over classes). The outcome over size is therefore not a monotone sign change but non-monotone
+in **existence**: present at radius 3, absent at 4 and 5, partly present again at 6. A follow-up that varies the separation at fixed
+radius is what separates "too far apart" from "wrong size", and the radius-6 arm's partial fusion at a 21-cell separation against the
+zero at 20 cells points at the separation.
+
+Finally, the unit of observation. The line's pooled numbers were computed over runs, and the same worlds that fix the censuses let one
+ask how many independent worlds a pool actually contains. In the natural (observational) pool 757 runs collapse to **633 arm-held
+worlds**, the largest holding 5 runs, 549 of them singletons, and replacing runs by worlds moves an AUC of the inflow–fusion
+association only from 0.652 to 0.660 — the natural pools are not carried by a handful of worlds, and the clone structure lives in the
+arms that were laid out on purpose (holding the arm fixed, X187's groups fall from 6 runs to 5 or 4 worlds). But the same replacement
+applied to **X186's deviance** moves its drop from 20.7 to 14.3, from above that test's bar of 20 to below it, with the
+phase-clustered bootstrap clearing the bar in 0.208 of resamples against 0.517 for runs. Two statistics, one pool, opposite
+conclusions: the unit has to be checked **per statistic**, and X186's conclusion is stated here with the world as its unit.
 ## 5. Методологические находки
 
 **Условие E в W1 не проверяемо по конструкции — и это структурный результат.** Попытка измерить

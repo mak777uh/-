@@ -3445,6 +3445,18 @@
    "prereg": "reports/2026-11-04-x195-sign-sweep-plan.md",
    "created_at": "2026-11-04T23:10:00+03:00",
    "note": "closed, one criterion passed and one is not testable: at radius 4 gap 12 and radius 5 gap 10 (288 worlds, separation 20) the phase decides the bridge (spreads 0.13926 and 0.17997) and the ratio falls with the inflow in the radius-6 direction (-0.686 and -0.492), but NOT ONE world fuses in either arm, so the inflow-outcome sign is undefined there and the monotone-change prediction fails. The outcome over size is non-monotone in existence: present at 3, absent at 4 and 5, partly present at 6 - a window, not a sign change; 10jb carries the annotation. Next: vary the gap at fixed radius 4 (12/14/16) and run radius 6 with a 20-cell separation to separate size from gap."
+  },
+  {
+   "id": "X197_deviance_worlds",
+   "title": "Does X186's deviance drop survive counting worlds",
+   "status": "closed",
+   "owner": "lead",
+   "kind": "analysis",
+   "cost_gpu_h": 0.0,
+   "priority": 9,
+   "prereg": "reports/2026-11-04-x197-deviance-worlds-plan.md",
+   "created_at": "2026-11-04T23:20:00+03:00",
+   "note": "closed, 1 of 3 predictions: the mixed pool collapses to 258 worlds for 311 mixed runs (1.205 runs per world), and X186's deviance drop falls from 20.7 to 14.3 with the phase bootstrap above the bar 20 in only 0.208 of resamples against 0.517 - so the effect lands inside X186's own bar when the world is the unit. X194's 'intervals stand' is restricted to its AUC. Entered in docs/eliminations.md; manuscript now carries the unit requirement. Next: two seeds per world, the same pair for X183's AUC, and a world random effect."
   }
  ]
 }

@@ -547,3 +547,12 @@ so they constrain the mechanism's bridge term even while they are silent about i
 speaks to. X195's arms therefore restrict a previous conclusion (X193's "size sets the sign") to the sizes where the outcome exists,
 and the restriction is recorded as a numbered claim beside the original rather than by editing the closed aggregate.
 
+## The unit of observation is checked per statistic, not per paper (04.11)
+
+X194 replaced runs by arm-held worlds across the observational pool and found an AUC that barely moved (0.652 to 0.660), so it
+concluded the published intervals stand. X197 then applied the same replacement to **X186's own deviance** over the same pool and the
+drop fell from 20.7 to 14.3 - from above X186's bar of 20 to below it - with the phase-clustered bootstrap clearing the bar in 0.208 of
+resamples against 0.517 for runs. Two statistics, one pool, opposite conclusions. The habit: when a finer unit is available, re-run
+**each** published statistic with it and report the pair; a unit check that passes for one statistic licenses nothing for another,
+because pooling changes the weight of the rows differently for a rank statistic and for a likelihood.
+

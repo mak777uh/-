@@ -258,3 +258,4 @@ sections were not rewritten, only moved; each one keeps its identifier, so every
 | §10jb | X193 — ценз фаз при меньших телах (04.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
 | §10jc | X194 — сколько миров в опубликованных пулах (04.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
 | §10jd | X195 — где меняется знак (04.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
+| §10je | X197 — переживает ли опубликованное число X186 счёт миров (04.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
