@@ -2969,13 +2969,16 @@
   {
    "id": "X160_mortality_buffer",
    "title": "Does an external signal hold diversity through a mortality buffer? Real signal against its IAAFT surrogate at equal tempo",
-   "status": "planned",
-   "owner": null,
+   "status": "running",
+   "owner": "lead",
    "kind": "experiment",
    "cost_gpu_h": 0.0,
    "prereg": "reports/2026-11-04-x160-mortality-buffer-plan.md",
    "created_at": "2026-11-04T03:30:00+03:00",
-   "note": "third independent test of the idea that the structure of an external signal matters. The buffer is a slow variable m (leaky integrator, tau 300/1000/3000) that modulates per-step death probability; three arms at equal realised tempo: constant, real microphone (lab/streams/mic-2026-10-28.json), IAAFT surrogate (mic_iaaft-2026-10-29.json, same spectrum and amplitude, phase destroyed). 3 arms x 20 paired seeds x 3 tau = 180 runs of 1800 steps, CPU. Positive control: gain 0 must be bit-identical, gain 3.0 must drop the population by at least 20 %. Refusal rule: if real sits inside the surrogate interval at every tau, the structure does not matter in the mortality channel either and the route closes with a named mechanism. BLOCKED on the world freeze: needs --memory-tau and --mortality-gain in morphogenesis/world/run_pond.py, which cannot be edited while X158 writes artifacts; then anchor, then run."
+   "note": "third independent test of the idea that the structure of an external signal matters. The buffer is a slow variable m (leaky integrator, tau 300/1000/3000) that modulates per-step death probability; three arms at equal realised tempo: constant, real microphone (lab/streams/mic-2026-10-28.json), IAAFT surrogate (mic_iaaft-2026-10-29.json, same spectrum and amplitude, phase destroyed). 3 arms x 20 paired seeds x 3 tau = 180 runs of 1800 steps, CPU. Positive control: gain 0 must be bit-identical, gain 3.0 must drop the population by at least 20 %. Refusal rule: if real sits inside the surrogate interval at every tau, the structure does not matter in the mortality channel either and the route closes with a named mechanism. BLOCKED on the world freeze: needs --memory-tau and --mortality-gain in morphogenesis/world/run_pond.py, which cannot be edited while X158 writes artifacts; then anchor, then run.",
+   "priority": 1,
+   "heartbeat_at": "2026-11-04T05:02:00+03:00",
+   "started_at": "2026-11-04T05:02:00+03:00"
   },
   {
    "id": "X159_quantum",
@@ -2997,7 +3000,8 @@
    "cost_gpu_h": 0.2,
    "prereg": null,
    "created_at": "2026-11-04T03:40:00+03:00",
-   "note": "follows the X156 result (continuous shape inherited at about half) and the X155 result (a scalar the tracking rule writes is inherited at 0.98). Hypothesis: a DISCRETE trait computed from the field (lobe count of a body, or the winding number of the phase around its centre) survives division with fidelity near one, because a discrete label is robust to small perturbations of the boundary, while a continuous shape is re-derived and loses half. Design sketch: 10 worlds per habitat with --save-fields at every logged step, extract the discrete trait at each division, reconstruct parent-daughter pairs as in X155/X156, compare slopes and the exact-match rate against the shape ladder. Needs a field-dump series (~1 GB on disk, not committed) and a pre-registration; the world is frozen until X158 closes. Why it matters: if the ratchet holds, heredity in this medium depends on the KIND of state, not on the medium alone, and that is the cheapest route towards a heritable quantity the medium itself preserves."
+   "note": "follows the X156 result (continuous shape inherited at about half) and the X155 result (a scalar the tracking rule writes is inherited at 0.98). Hypothesis: a DISCRETE trait computed from the field (lobe count of a body, or the winding number of the phase around its centre) survives division with fidelity near one, because a discrete label is robust to small perturbations of the boundary, while a continuous shape is re-derived and loses half. Design sketch: 10 worlds per habitat with --save-fields at every logged step, extract the discrete trait at each division, reconstruct parent-daughter pairs as in X155/X156, compare slopes and the exact-match rate against the shape ladder. Needs a field-dump series (~1 GB on disk, not committed) and a pre-registration; the world is frozen until X158 closes. Why it matters: if the ratchet holds, heredity in this medium depends on the KIND of state, not on the medium alone, and that is the cheapest route towards a heritable quantity the medium itself preserves.",
+   "priority": 7
   },
   {
    "id": "X162_local_scale_heredity",
@@ -3019,7 +3023,8 @@
    "cost_gpu_h": 0.3,
    "prereg": null,
    "created_at": "2026-11-04T03:56:00+03:00",
-   "note": "channel 4 of the substrate-neutral list, and the one with no biological analogue. Make the medium's own parameters spatially varying and slowly updated by what happens locally (e.g. the feed rate F or the diffusion ratio relaxing towards a local value set by the density of bodies), then ask whether a daughter inherits the LOCAL parameter of her mother's site rather than her shape. This is Lamarckian inheritance: what is transmitted is a property of the rule, not of the body. Design sketch: two cells (F = 0.030 / 0.040) with a relaxation of the local feed towards a target with time constant tau; controls: tau -> 0 must be bit-identical to the frozen world, and a shuffled-site null must destroy the parent-daughter correlation. Needs a world change and therefore the freeze to lift. Why it matters: if a medium can inherit its own parameters, heredity no longer needs a body at all, which is the strongest version of the non-biological route."
+   "note": "channel 4 of the substrate-neutral list, and the one with no biological analogue. Make the medium's own parameters spatially varying and slowly updated by what happens locally (e.g. the feed rate F or the diffusion ratio relaxing towards a local value set by the density of bodies), then ask whether a daughter inherits the LOCAL parameter of her mother's site rather than her shape. This is Lamarckian inheritance: what is transmitted is a property of the rule, not of the body. Design sketch: two cells (F = 0.030 / 0.040) with a relaxation of the local feed towards a target with time constant tau; controls: tau -> 0 must be bit-identical to the frozen world, and a shuffled-site null must destroy the parent-daughter correlation. Needs a world change and therefore the freeze to lift. Why it matters: if a medium can inherit its own parameters, heredity no longer needs a body at all, which is the strongest version of the non-biological route.",
+   "priority": 9
   },
   {
    "id": "X164_asymmetric_pairs",
@@ -3030,7 +3035,8 @@
    "cost_gpu_h": 0.2,
    "prereg": null,
    "created_at": "2026-11-04T03:57:00+03:00",
-   "note": "follow-up 2 of the X158 report. Pair a body seeded at radius 3 with one seeded at 6 at the crossing gaps 9 and 10, ten seeds each (20 runs of 6000 steps, CPU). Question: is the boundary set by the initial separation (X158's answer for equal pairs: 10 +/- 1 cells, flat in size) or by the ratio of the two bodies? Prediction from the growth argument: the boundary stays at the same separation, because both grow to 5.8-8.5 cells before meeting. If the boundary instead moves with the ratio, the 'medium length' sentence of the article needs a qualification. Preregistration: five sections, positive control = the equal pair at gap 8 fusing 5/5."
+   "note": "follow-up 2 of the X158 report. Pair a body seeded at radius 3 with one seeded at 6 at the crossing gaps 9 and 10, ten seeds each (20 runs of 6000 steps, CPU). Question: is the boundary set by the initial separation (X158's answer for equal pairs: 10 +/- 1 cells, flat in size) or by the ratio of the two bodies? Prediction from the growth argument: the boundary stays at the same separation, because both grow to 5.8-8.5 cells before meeting. If the boundary instead moves with the ratio, the 'medium length' sentence of the article needs a qualification. Preregistration: five sections, positive control = the equal pair at gap 8 fusing 5/5.",
+   "priority": 3
   },
   {
    "id": "X165_three_bodies",
@@ -3041,7 +3047,56 @@
    "cost_gpu_h": 0.3,
    "prereg": null,
    "created_at": "2026-11-04T03:58:00+03:00",
-   "note": "follow-up 4 of the X158 report. Three bodies of radius 3 at separations that put 9 cells between neighbours: does the middle one fuse with both, does the pair-wise boundary hold, and does the merged body keep a lineage at all? 10 seeds, 6000 steps, CPU. This is the first many-body test of a claim measured on pairs, and the honest risk is that a chain behaves differently from a pair - which would matter, because the article's mixing-length sentence is about interactions in general. Preregistration with the paired arm as the positive control (the same separation, two bodies, 5/5 expected)."
+   "note": "follow-up 4 of the X158 report. Three bodies of radius 3 at separations that put 9 cells between neighbours: does the middle one fuse with both, does the pair-wise boundary hold, and does the merged body keep a lineage at all? 10 seeds, 6000 steps, CPU. This is the first many-body test of a claim measured on pairs, and the honest risk is that a chain behaves differently from a pair - which would matter, because the article's mixing-length sentence is about interactions in general. Preregistration with the paired arm as the positive control (the same separation, two bodies, 5/5 expected).",
+   "priority": 6
+  },
+  {
+   "id": "X166_one_step_threshold",
+   "title": "The contact threshold at one-step resolution: bound or port?",
+   "status": "planned",
+   "owner": null,
+   "kind": "experiment",
+   "cost_gpu_h": 0.1,
+   "prereg": null,
+   "created_at": "2026-11-04T05:00:00+03:00",
+   "priority": 2,
+   "note": "decides the second headline number of the fusion block. X159 showed that the 1.9-cell reading is an upper bound whose window (1.3 cells) comes from the ten-step logging quantum. Five arms with `--sample-every 1` for 2 000 steps and five seeds each (radius 3 at gaps 8 and 9, radius 6 at gap 8, radius 4.5 at gap 9, radius 5.2 at gap 7): if the threshold lands within 0.2 cells of the same value across arms, 1.9 was a threshold and the window was our resolution; if it scatters, the honest statement is the band. Also separates 'gradual transition' (X158: shares fall over two cells) from 'soft threshold': if the 15 runs at gap 10 differ in their approach times, the gradualness is a distribution of times, not a blur. Cheap: one hour of wall time."
+  },
+  {
+   "id": "X162b_neighbour_decay",
+   "title": "How far does the medium remember? Spacing inheritance at the 2nd, 3rd and 4th neighbour",
+   "status": "planned",
+   "owner": null,
+   "kind": "analysis",
+   "cost_gpu_h": 0.0,
+   "prereg": null,
+   "created_at": "2026-11-04T05:00:00+03:00",
+   "priority": 4,
+   "note": "direct extension of X162, analysis only on the same compact logs. X162 gave 0.203 for the nearest neighbour; the same reconstruction at the 2nd, 3rd and 4th neighbour gives a decay length, which is a direct measure of 'how far the medium remembers'. Kill condition: if all four slopes are equal the medium has no length scale and the 0.203 is a density effect; if only the first is above the null, the transmission is strictly local."
+  },
+  {
+   "id": "X167_fusion_reversibility",
+   "title": "Is a merged body the same object? Does it divide again along the old seam?",
+   "status": "planned",
+   "owner": null,
+   "kind": "experiment",
+   "cost_gpu_h": 0.1,
+   "prereg": null,
+   "created_at": "2026-11-04T05:00:00+03:00",
+   "priority": 5,
+   "note": "conceptual test that a merged body is a body and not just a touching pair: after a fusion, follow the product for 3 000 steps and record whether it divides, and if it does, whether the division line lies near the old seam (the merged shape's waist). Two arms (the fused pair against a single body grown to the same area), ten seeds each. If the seam survives as a preferred division line, the fusion did not erase identity; if not, the merge produced a genuinely new object, which is what §4k.3 claims."
+  },
+  {
+   "id": "X168_crossing_vs_inflow",
+   "title": "Is the ten-cell crossing a property of the medium or of this inflow?",
+   "status": "planned",
+   "owner": null,
+   "kind": "experiment",
+   "cost_gpu_h": 0.3,
+   "prereg": null,
+   "created_at": "2026-11-04T05:00:00+03:00",
+   "priority": 8,
+   "note": "everything in the fusion block is measured at F = 0.030. Repeat the crossing at F = 0.035 and 0.040 for radius 3 (gaps 9, 10, 11) and radius 6 (gaps 8, 9), ten seeds. If the crossing moves with F, the 'length belonging to the medium' sentence of §4.1 has to be qualified to 'at this inflow'; if it does not move, the length is a property of the pattern rather than of its chemistry."
   }
  ]
 }
