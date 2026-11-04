@@ -1,6 +1,6 @@
 {
  "schema_version": 1,
- "updated_at": "2026-11-05T01:20:00+03:00",
+ "updated_at": "2026-11-05T01:25:00+03:00",
  "note": "Очередь пунктов после E02c. Claim берётся до пре-регистрации, а не перед запуском: lab.py item-claim. Статус running означает занятый GPU-лейн и может быть только у одного пункта. | 25.10: добавлено поле impact (1-5) — приоритет конвейера = impact/max(cost_gpu_h,0.1); для запуска пункту нужны prereg (закоммиченный план) и launch.command+outdir.",
  "items": [
   {
@@ -3496,6 +3496,17 @@
    "created_at": "2026-11-05T00:50:00+03:00",
    "note": "claim taken before the pre-registration. X196 settled the either-or with three arms and a five-row table whose middle was interpolated; this runs the switch at a fixed size (radius 4, gaps 8-12) and repeats the three largest gaps at radius 6, so the size shift is a curve-to-curve comparison at matched gaps. Cost about 100 minutes of CPU for 1152 worlds.",
    "heartbeat_at": "2026-11-05T00:52:00+03:00"
+  },
+  {
+   "id": "ART031_corridor",
+   "title": "Article 031: the corridor at contact and what it forecasts (the block X171-X183, X188-X189)",
+   "status": "planned",
+   "owner": "lead",
+   "kind": "article",
+   "cost_gpu_h": 0.0,
+   "priority": 7,
+   "created_at": "2026-11-05T01:25:00+03:00",
+   "note": "the owner's format, written down: one step, one article. Three blocks of this line have run and closed but are described only in the project's internal records and reports, never for an outside reader - (1) the corridor at contact and the forecast of fusion at an unrun supply (X171, X172, X174, X175, X176), (2) the band's upper edge, the radius-6 cliff and the full two-body crossing table with intervals (X177, X178, X179), (3) how much of the between-family dispersion is real variation rather than redrawing noise (X180, X181), together with the local reading that organises the rate ladder (X183) and the nucleation/bridge identity pair (X188, X189). Article 030 already names this as the next article in its section 8. X167's reversibility result also has no outside-reader write-up yet and is a candidate for the same piece."
   }
  ]
 }
