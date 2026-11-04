@@ -229,6 +229,10 @@ the surface gap between the two bodies at the last logged step before they are o
 reading of 1.9 cells and the window that the ten-step logging quantum opens beneath it — the reading bounds the threshold,
 and the threshold lies inside the window.
 
+
+
+What a merge does to the merged body's insides remains open, and it is worth saying why rather than implying an answer: the field-level probe that would settle it (does a seam survive between the parents' positions?) failed its own control, because a body's cross-section is a ring and any intensity profile has a central dip whether there is a seam or not (X169); what the probe did show is that a merged body is a dumbbell — a bridge four to five cells wide between lobes of ten to fourteen — while the pattern lasts, and that this world's field fades within about three hundred steps, so the neck never gets the time to close or to persist. The question therefore needs a long-lived field, not a finer measurement of this one.
+
 ### 4.2 A fusion is a merger, not a birth
 
 Our first plan was to map a band of distances at which two bodies "annihilate". Reading the logs killed the word. At

@@ -230,3 +230,4 @@ sections were not rewritten, only moved; each one keeps its identifier, so every
 | §10hz | X161 — дискретное состояние перерисовывается при каждом делении (04.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
 | §10ia | X168 — ОТОЗВАНО: зазор был передан в неверных единицах (04.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
 | §10ib | X168c — граница слияния не зависит от скорости притока (04.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
+| §10ic | X169 — проба шва провалила собственный контроль; тело — гантель, пока живёт поле (04.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
