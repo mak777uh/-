@@ -10,8 +10,8 @@ README, the licence, a Zenodo metadata record, a sha256 manifest and the publica
 
 Output: `_exports/030-gap-switches-fusion/` and `_exports/030-gap-switches-fusion-v1.0.zip` (both ignored by git).
 
-Two fields in the Zenodo record are the owner's to decide and are marked `OWNER` in the brief: the creator name(s) and any
-related identifier. Nothing is uploaded by this script.
+One author is set (Vladimirov, Ilya — given by the owner on 05.11; no ORCID, no related identifiers); the licence is CC BY
+4.0, the standing default, and the brief says where to change it. Nothing is uploaded by this script.
 """
 from __future__ import annotations
 
@@ -118,13 +118,14 @@ to deposit them, not to improve them. Where this brief says "ask the author", st
 | `MANIFEST.sha256` | sha256 of every file above |
 | `PUBLISHING.md` | this brief, verbatim |
 
-## 2. Before uploading — ask the author (do not decide)
+## 2. Before uploading — confirm, do not decide
 
-1. **Creators.** `zenodo.json -> creators` currently reads `Morphogenesis laboratory`. The owner must supply the exact
-   author list, order and ORCIDs. *(OWNER)*
-2. **Related identifiers.** `zenodo.json -> related_identifiers` points at the repository. If the article has a DOI of its
-   own or a companion deposit, the owner supplies it. *(OWNER)*
-3. **Licence.** The archive carries CC BY 4.0. If the owner wants another licence, it must be changed here first. *(OWNER)*
+1. **Creators.** `zenodo.json -> creators` carries `Vladimirov, Ilya` — the author list the owner gave on 05.11 (one author,
+   no ORCID, no other identifiers). Do not add names.
+2. **Related identifiers.** The owner states there are none; `related_identifiers` is empty. If a DOI of its own or a
+   companion deposit appears, the owner supplies it. *(OWNER)*
+3. **Licence.** The archive carries CC BY 4.0, which is the standing default. If the owner names another licence it must be
+   changed here first. *(OWNER)*
 4. **The PDF.** If the article PDF is absent from the archive, the machine that built it had no PDF renderer: run
    `python scripts/make_article_030_pdf.py` (needs the bundled LibreOffice kit) before uploading, or deposit the Markdown
    alone and say so in the description.
@@ -212,18 +213,16 @@ def main() -> int:
             "worlds leaves an AUC at 0.652 to 0.660 but moves a deviance drop from 20.7 to 14.3, inside that test's own bar "
             "of 20, so the unit of observation has to be checked per statistic."
         ),
-        "creators": [{"name": "Morphogenesis laboratory"}],
+        "creators": [{"name": "Vladimirov, Ilya"}],
         "license": "CC-BY-4.0",
         "access_right": "open",
         "version": "v1.0",
         "language": "eng",
         "keywords": ["reaction-diffusion", "pattern formation", "neural cellular automata", "coalescence", "bridge",
                      "pre-registration", "unit of observation"],
-        "related_identifiers": [
-            {"relation": "isSupplementTo", "identifier": "https://github.com/morphogenesis-lab/repo", "scheme": "url"}
-        ],
-        "notes": ("creators and related_identifiers are placeholders: the owner supplies the author list, order and ORCIDs "
-                  "before any upload (see PUBLISHING.md section 2)."),
+        "related_identifiers": [],
+        "notes": ("author list as given by the owner on 2026-11-05: one author, no ORCID, no related identifiers. Nothing "
+                  "has been uploaded by the build script."),
     }
     (OUT / "zenodo.json").write_text(json.dumps(zenodo, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n")
 

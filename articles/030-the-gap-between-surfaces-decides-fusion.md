@@ -4,7 +4,7 @@
 - **Version:** v1.0 — first edition, written for a reader who does not know this line of work
 - **Date:** 2026-11-04
 - **Status:** draft, prepared for submission; NOT yet submitted, deposited or published anywhere
-- **Authors:** Morphogenesis Laboratory (author list to be confirmed by the owner)
+- **Authors:** Ilya Vladimirov
 - **Figures:** [`030-figures/`](030-figures/)
 - **Data behind every number:** [`030-figures/tables.json`](030-figures/tables.json)
 - **Primary artifacts:** `morphogenesis/experiments/E09_pond/l1_field_x1{84,86,90,91,92,93,94,95,96,97}*.json`,
