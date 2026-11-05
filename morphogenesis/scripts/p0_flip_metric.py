@@ -70,11 +70,16 @@ def run_one(seed, args):
     post = {"alive_rich": 0, "alive_poor": 0, "alive_mid": 0, "steps": 0, "deaths_rich": 0, "deaths_poor": 0, "deaths_mid": 0,
             "alive_correct": 0, "alive_wrong": 0, "deaths_correct": 0, "deaths_wrong": 0}
     last_dz = {"rich": 0, "poor": 0, "mid": 0}
+    pre_mv = post_mv = None
     t0 = time.perf_counter()
     for _ in range(args.steps):
         alive_before = run.pond.state.alive.clone()
         run.step()
         pond = run.pond
+        if change_at and pond.state.step == change_at and pre_mv is None:
+            pre_mv = (int(getattr(pond, "plastic_move_upgrad", 0)),
+                      int(getattr(pond, "plastic_move_downgrad", 0)),
+                      int(getattr(pond, "plastic_move_lateral", 0)))
         rich, mid, poor = zone_masks(pond)
         corr = correct_mask(pond)
         a = pond.state.alive
@@ -93,6 +98,17 @@ def run_one(seed, args):
             d = int(dz.get(z, 0)) - last_dz[z]
             bucket[f"deaths_{z}"] += max(d, 0)
             last_dz[z] = int(dz.get(z, 0))
+    tot = (int(getattr(run.pond, "plastic_move_upgrad", 0)),
+           int(getattr(run.pond, "plastic_move_downgrad", 0)),
+           int(getattr(run.pond, "plastic_move_lateral", 0)))
+    if pre_mv is None:
+        pre_mv = tot
+    post_mv = (tot[0]-pre_mv[0], tot[1]-pre_mv[1], tot[2]-pre_mv[2])
+    def _ci(udl):
+        n = udl[0]+udl[1]+udl[2]
+        return round((udl[0]-udl[1])/n, 4) if n else None
+    move_ci = {"before": _ci(pre_mv), "after": _ci(post_mv), "all": _ci(tot),
+               "before_n": sum(pre_mv), "after_n": sum(post_mv)}
     elapsed = time.perf_counter() - t0
     # "correct" = rich zone relative to resource (post-flip the gradient inverts via _gradient_position,
     # so 'rich' by resource level remains the favorable zone; metric compares rich-share before vs after).
@@ -125,9 +141,11 @@ def run_one(seed, args):
                    "drift_steps": args.drift_steps, "steps": args.steps, "layout": "gradient",
                    "income_mode": args.income_mode, "seed_cells": args.seed_cells,
                    "seed_energy": args.seed_energy, "plastic_eta": args.plastic_eta,
-                   "plastic_move_cost": args.plastic_move_cost, "plastic_gate": args.plastic_gate},
+                   "plastic_move_cost": args.plastic_move_cost, "plastic_gate": args.plastic_gate,
+                   "plastic_direction": args.plastic_direction},
         "before_flip": pre_p,
         "after_flip": post_p,
+        "move_ci": move_ci,
         "final": {"alive": final.get("alive_cells"), "born": final.get("born"), "died": final.get("died")},
         "deaths_by_zone_total": dict(run.pond.state.deaths_by_zone),
         "wall_seconds": round(elapsed, 2),
@@ -169,10 +187,12 @@ def main(argv=None):
             for k in keypath: v = v[k]
             if v is not None: vals.append(v)
         return (sum(vals) / len(vals)) if vals else None
+    move_ci_before = mean(("move_ci","before"), rows)
+    move_ci_after = mean(("move_ci","after"), rows)
     agg = {
         "kind": "p0_flip_behavior_metric",
         "plan": "docs/plan-alive.md P0",
-        "metric_note": "resource-threshold zones (rich/poor) + gradient-half 'correct' zone that flips with environment; primary P0 read uses alive_correct_share before/after.",
+        "metric_note": "resource-threshold zones (rich/poor) + gradient-half 'correct' zone that flips with environment; primary P0 read uses alive_correct_share before/after. move_ci=(up-dn)/moves aligned to CURRENT gradient (flips).",
         "n_seeds": len(rows),
         "alive_final_mean": mean(("final","alive"), rows),
         "died_total_mean": mean(("final","died"), rows),
@@ -180,12 +200,14 @@ def main(argv=None):
         "rich_share_after_mean": mean(("after_flip","alive_rich_share"), rows),
         "correct_share_before_mean": mean(("before_flip","alive_correct_share"), rows),
         "correct_share_after_mean": mean(("after_flip","alive_correct_share"), rows),
+        "move_ci_before_mean": move_ci_before,
+        "move_ci_after_mean": move_ci_after,
         "rows": rows,
     }
     os.makedirs(os.path.dirname(os.path.abspath(args.out)), exist_ok=True)
     with open(args.out, "w", encoding="utf-8") as fh:
         json.dump(agg, fh, ensure_ascii=False, indent=1)
-    print(json.dumps({k: agg[k] for k in ("kind","n_seeds","alive_final_mean","died_total_mean","correct_share_before_mean","correct_share_after_mean")}, ensure_ascii=False))
+    print(json.dumps({k: agg[k] for k in ("kind","n_seeds","alive_final_mean","died_total_mean","correct_share_before_mean","correct_share_after_mean","move_ci_before_mean","move_ci_after_mean")}, ensure_ascii=False))
     return 0
 
 if __name__ == "__main__":

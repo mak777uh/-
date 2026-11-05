@@ -218,6 +218,9 @@ class Pond:
         self.organism_moves = 0    # сколько шагов сделали организмы по жизни (I-023)
         self.plastic_shift = 0.0   # L2: сдвиг предсказания после переключения среды
         self.plastic_updates = 0
+        self.plastic_move_upgrad = 0
+        self.plastic_move_downgrad = 0
+        self.plastic_move_lateral = 0
         self.invested_energy = 0.0
         self.invest_map: torch.Tensor | None = None
         self.thr_e: torch.Tensor | None = None
@@ -1326,6 +1329,16 @@ class Pond:
                 target = best
             taken[target[0], target[1]] = True
             moves.append((y, x, target[0], target[1]))
+        # A2 process metric: alignment of moves with current row-gradient (toward higher gradient_position)
+        pos = self._gradient_position()
+        for sy, sx, ty, tx in moves:
+            d = float(pos[ty] - pos[sy])
+            if d > 1e-12:
+                self.plastic_move_upgrad += 1
+            elif d < -1e-12:
+                self.plastic_move_downgrad += 1
+            else:
+                self.plastic_move_lateral += 1
         return moves
 
     # ---------- размножение ----------
