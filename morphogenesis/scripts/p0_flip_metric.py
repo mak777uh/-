@@ -33,7 +33,7 @@ def run_one(seed, args):
     cfg = PondConfig(
         grid=args.grid,
         resource_layout="gradient",
-        income_mode="proportional",
+        income_mode=args.income_mode,
         init_resource_fill=args.init_resource_fill,
         baseline_income=args.income,
         update_cost=args.update_cost,
@@ -45,7 +45,7 @@ def run_one(seed, args):
         flip_at=args.flip_at,
     )
     run = PondRun(world_cfg=cfg, seed=seed, device=args.device, rule_checkpoint=args.checkpoint)
-    run.seed(cells=4, energy=8.0)
+    run.seed(cells=args.seed_cells, energy=args.seed_energy)
     flip = args.flip_at
     pre = {"alive_rich": 0, "alive_poor": 0, "alive_mid": 0, "steps": 0, "deaths_rich": 0, "deaths_poor": 0, "deaths_mid": 0}
     post = {"alive_rich": 0, "alive_poor": 0, "alive_mid": 0, "steps": 0, "deaths_rich": 0, "deaths_poor": 0, "deaths_mid": 0}
@@ -88,7 +88,8 @@ def run_one(seed, args):
         "config": {"grid": args.grid, "income": args.income, "update_cost": args.update_cost,
                    "repair_cost": args.repair_cost, "init_resource_fill": args.init_resource_fill,
                    "resource_regen": args.resource_regen, "flip_at": args.flip_at, "steps": args.steps,
-                   "layout": "gradient", "income_mode": "proportional"},
+                   "layout": "gradient", "income_mode": args.income_mode, "seed_cells": args.seed_cells,
+                   "seed_energy": args.seed_energy},
         "before_flip": pre_p,
         "after_flip": post_p,
         "final": {"alive": final.get("alive_cells"), "born": final.get("born"), "died": final.get("died")},
@@ -108,6 +109,9 @@ def main(argv=None):
     ap.add_argument("--repair-cost", type=float, default=0.04)
     ap.add_argument("--init-resource-fill", type=float, default=0.9)
     ap.add_argument("--resource-regen", type=float, default=0.02)
+    ap.add_argument("--income-mode", default="proportional", choices=["cap", "proportional"])
+    ap.add_argument("--seed-cells", type=int, default=4)
+    ap.add_argument("--seed-energy", type=float, default=8.0)
     ap.add_argument("--device", default="cuda" if torch.cuda.is_available() else "cpu")
     ap.add_argument("--checkpoint", default=os.path.join(_MORPH, "checkpoints", "world_base_rule.pt"))
     ap.add_argument("--out", required=True)
