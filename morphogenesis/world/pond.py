@@ -88,7 +88,8 @@ class PondConfig:
     plastic_eta: float = 0.0           # L2: скорость обновления предсказания ресурса
     plastic_move_cost: float = 0.05    # L2: цена шага по ошибке предсказания
     plastic_gate: str = "pred"         # pred | random: чем гейтится шаг
-    plastic_direction: str = "gradient" # gradient=к макс. ресурсу; random=случ.сосед(A1); gradpos=к макс. gradient_position(B1); gradpos_free=gradpos-скученность(B1c)
+    plastic_direction: str = "gradient" # gradient|random|gradpos|gradpos_free|gradpos_improve|tumble(B2: persist if improving else reorient)
+    plastic_tumble_p: float = 0.6      # B2: вероятность переориентации при падении сигнала
     plastic_prob: float = 0.5          # доля клеток за шаг при gate=random
     plastic_nomove: bool = False       # ablation: предсказание без перемещений
     invest_rate: float = 0.0           # B2: энергия на подъём ресурса в своей клетке
@@ -184,6 +185,8 @@ class PondState:
     founder: torch.Tensor | None = None     # (H, W) int64: ID линии-основателя (не мутирует)
     tag_trait: torch.Tensor | None = None   # (H, W) float: признак линии (наследуемый)
     pred: torch.Tensor | None = None    # (H, W) L2: предсказание локального ресурса
+    res_prev: torch.Tensor | None = None # (H, W) B2: ресурс на прошлом шаге решения (run-tumble)
+    heading: torch.Tensor | None = None  # (H, W) int8: -1/0/+1 курс по строке (персистентность)
     w_cell: torch.Tensor | None = None  # (H, W) локальный вес политики (учится)
     step: int = 0
     born: int = 0
@@ -267,6 +270,8 @@ class Pond:
         # два типа ресурса и частотная зависимость (I-030)
         if self.cfg.plastic_eta > 0.0:
             self.state.pred = self.state.resource.clone()
+            self.state.res_prev = self.state.resource.clone()
+            self.state.heading = torch.zeros((n, n), dtype=torch.int8, device=self.device)
         if self.cfg.freq_dep > 0.0 or self.cfg.type_mode != "fixed":
             self.state.resource_b = self.state.resource.clone()
             self.state.cell_type = torch.zeros((n, n), dtype=torch.int64, device=self.device)
@@ -1255,6 +1260,12 @@ class Pond:
             s.age[sy, sx] = 0
             s.membrane[dy, dx] = s.membrane[sy, sx]
             s.membrane[sy, sx] = 0.0
+            if s.pred is not None:
+                s.pred[dy, dx] = s.pred[sy, sx]; s.pred[sy, sx] = 0.0
+            if s.res_prev is not None:
+                s.res_prev[dy, dx] = s.res_prev[sy, sx]; s.res_prev[sy, sx] = 0.0
+            if s.heading is not None:
+                s.heading[dy, dx] = s.heading[sy, sx]; s.heading[sy, sx] = 0
         self.organism_moves += len(moves)
 
     # ---------- L2: пластичность в течение жизни ----------
@@ -1264,12 +1275,15 @@ class Pond:
         У каждой клетки есть предсказание `pred` локального ресурса; оно
         подтягивается к фактическому ресурсу с шагом `plastic_eta`. Это не
         обучение веса политики (там сигнал не работал, §10n), а адаптация
-        внутреннего состояния клетки, одинаковая во всех средах.
+        внутреннего состояния клетки, одинаковая во всех средах. B2: сохраняем
+        res_prev (ресурс на момент решения) для временного сравнения run-tumble.
         """
         cfg = self.cfg
         s = self.state
         if cfg.plastic_eta <= 0.0 or s.pred is None:
             return
+        if s.res_prev is not None:
+            s.res_prev = s.resource.clone()
         s.pred = s.pred + cfg.plastic_eta * (s.resource - s.pred)
         self.plastic_updates += 1
 
@@ -1301,7 +1315,9 @@ class Pond:
         taken = torch.zeros_like(s.alive)
         moves: list[tuple[int, int, int, int]] = []
         direction = str(getattr(cfg, "plastic_direction", "gradient") or "gradient")
-        pos = self._gradient_position() if direction in ("gradpos", "gradpos_free") else None
+        need_pos = direction in ("gradpos", "gradpos_free", "gradpos_improve", "tumble")
+        pos = self._gradient_position() if need_pos else None
+        tumble_p = float(getattr(cfg, "plastic_tumble_p", 0.6))
         for k in order.tolist():
             y, x = int(candidates[k, 0]), int(candidates[k, 1])
             if not bool(s.alive[y, x]) or bool(taken[y, x]):
@@ -1315,31 +1331,54 @@ class Pond:
                     continue
                 res = float(s.resource[ny, nx])
                 pv = float(pos[ny]) if pos is not None else 0.0
-                free.append((ny, nx, res, pv))
+                free.append((ny, nx, res, pv, dy, dx))
             if not free:
                 continue
             if direction == "random":
                 j = int(torch.randint(0, len(free), (1,), generator=self.gen_sel).item())
-                ny, nx, _, _ = free[j]
+                ny, nx, _, _, _, _ = free[j]
                 target = (ny, nx)
             elif direction == "gradpos":
                 target = max(free, key=lambda t: t[3])[:2]
             elif direction == "gradpos_free":
-                # B1c: toward favorable side but prefer less-crowded rows (density-aware), keep directed drift
-                occ = (s.alive | taken).float().sum(dim=1) / max(n, 1)  # (n,) row occupancy incl. reserved
-                # score = gradient_position - crowding (both ~[0,1]); break ties by higher pos
+                occ = (s.alive | taken).float().sum(dim=1) / max(n, 1)
                 target = max(free, key=lambda t: (t[3] - float(occ[t[0]]), t[3]))[:2]
             elif direction == "gradpos_improve":
-                # B2-lite: move toward favorable side but only to a neighbor with resource >= current (no downhill/resource drop)
                 cur_res = float(s.resource[y, x])
                 ok = [t for t in free if t[2] >= cur_res - 1e-9]
                 if not ok:
+                    if s.heading is not None: s.heading[y, x] = 0
                     continue
                 target = max(ok, key=lambda t: t[3])[:2]
+            elif direction == "tumble":
+                # B2: temporal comparison (run-tumble). improving (resource >= prev) -> persist heading;
+                # worsening -> with prob tumble_p reorient toward current favorable side (gradpos), else persist.
+                # Uses CHANGE, not absolute level; memory 1 decision step (res_prev), << death time (F-ADAPT).
+                cur_res = float(s.resource[y, x])
+                prev = float(s.res_prev[y, x]) if s.res_prev is not None else cur_res
+                improving = cur_res >= prev - 1e-9
+                hd = int(s.heading[y, x]) if s.heading is not None else 0
+                def _persist_or(tie, fb):
+                    if hd != 0:
+                        pr = [t for t in free if (1 if t[4] < 0 else (-1 if t[4] > 0 else 0)) == hd]
+                        if pr: return max(pr, key=tie)[:2]
+                    return fb()
+                to_favor = lambda: max(free, key=lambda t: t[3])[:2]
+                if improving:
+                    target = _persist_or(lambda t: t[3], to_favor)
+                else:
+                    if float(torch.rand((), generator=self.gen_sel).item()) < tumble_p or hd == 0:
+                        target = to_favor()  # tumble: reorient to current favorable side
+                    else:
+                        target = _persist_or(lambda t: t[3], to_favor)
             else:
                 target = max(free, key=lambda t: t[2])[:2]
             taken[target[0], target[1]] = True
             moves.append((y, x, target[0], target[1]))
+            # update heading (row direction: toward smaller row index = up = +1 in gradient_position terms)
+            if s.heading is not None and direction == "tumble":
+                dy = target[0] - y
+                s.heading[target[0], target[1]] = (1 if dy < 0 else (-1 if dy > 0 else int(s.heading[y, x])))
         # A2 process metric: alignment of moves with current row-gradient (toward higher gradient_position)
         pos = self._gradient_position()
         for sy, sx, ty, tx in moves:

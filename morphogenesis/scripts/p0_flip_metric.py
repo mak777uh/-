@@ -59,6 +59,7 @@ def run_one(seed, args):
         plastic_direction=args.plastic_direction,
         plastic_nomove=args.plastic_nomove,
         plastic_prob=args.plastic_prob,
+        plastic_tumble_p=args.plastic_tumble_p,
     )
     run = PondRun(world_cfg=cfg, seed=seed, device=args.device, rule_checkpoint=args.checkpoint)
     run.seed(cells=args.seed_cells, energy=args.seed_energy)
@@ -171,9 +172,10 @@ def main(argv=None):
     ap.add_argument("--plastic-eta", type=float, default=0.0)
     ap.add_argument("--plastic-move-cost", type=float, default=0.05)
     ap.add_argument("--plastic-gate", default="pred", choices=["pred","random"])
-    ap.add_argument("--plastic-direction", default="gradient", choices=["gradient","random","gradpos","gradpos_free","gradpos_improve"])
+    ap.add_argument("--plastic-direction", default="gradient", choices=["gradient","random","gradpos","gradpos_free","gradpos_improve","tumble"])
     ap.add_argument("--plastic-nomove", action="store_true")
     ap.add_argument("--plastic-prob", type=float, default=0.5)
+    ap.add_argument("--plastic-tumble-p", type=float, default=0.6)
     ap.add_argument("--device", default="cuda" if torch.cuda.is_available() else "cpu")
     ap.add_argument("--checkpoint", default=os.path.join(_MORPH, "checkpoints", "world_base_rule.pt"))
     ap.add_argument("--out", required=True)
