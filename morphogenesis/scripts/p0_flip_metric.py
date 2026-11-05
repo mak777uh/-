@@ -56,6 +56,7 @@ def run_one(seed, args):
         plastic_eta=args.plastic_eta,
         plastic_move_cost=args.plastic_move_cost,
         plastic_gate=args.plastic_gate,
+        plastic_direction=args.plastic_direction,
         plastic_nomove=args.plastic_nomove,
         plastic_prob=args.plastic_prob,
     )
@@ -152,6 +153,7 @@ def main(argv=None):
     ap.add_argument("--plastic-eta", type=float, default=0.0)
     ap.add_argument("--plastic-move-cost", type=float, default=0.05)
     ap.add_argument("--plastic-gate", default="pred", choices=["pred","random"])
+    ap.add_argument("--plastic-direction", default="gradient", choices=["gradient","random"])
     ap.add_argument("--plastic-nomove", action="store_true")
     ap.add_argument("--plastic-prob", type=float, default=0.5)
     ap.add_argument("--device", default="cuda" if torch.cuda.is_available() else "cpu")

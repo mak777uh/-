@@ -88,6 +88,7 @@ class PondConfig:
     plastic_eta: float = 0.0           # L2: скорость обновления предсказания ресурса
     plastic_move_cost: float = 0.05    # L2: цена шага по ошибке предсказания
     plastic_gate: str = "pred"         # pred | random: чем гейтится шаг
+    plastic_direction: str = "gradient" # gradient = к макс. ресурсу; random = случайный сосед (A1)
     plastic_prob: float = 0.5          # доля клеток за шаг при gate=random
     plastic_nomove: bool = False       # ablation: предсказание без перемещений
     invest_rate: float = 0.0           # B2: энергия на подъём ресурса в своей клетке
@@ -1270,7 +1271,12 @@ class Pond:
         self.plastic_updates += 1
 
     def plastic_moves(self) -> list[tuple[int, int, int, int]]:
-        """Клетки, у которых ресурс ХУЖЕ предсказания, пробуют шаг к соседу."""
+        """Клетки, у которых ресурс ХУЖЕ предсказания, пробуют шаг к соседу.
+
+        plastic_gate: pred = отбор по ошибке предсказания, random = случайная доля (plastic_prob).
+        plastic_direction (additive, default 'gradient'): 'gradient' = шаг к соседу с макс. ресурсом
+        (локальный градиент); 'random' = случайный свободный сосед (нуль-модель дисперсии, S0/A1).
+        """
         cfg = self.cfg
         s = self.state
         if cfg.plastic_eta <= 0.0 or s.pred is None or not bool(s.alive.any()):
@@ -1291,10 +1297,12 @@ class Pond:
         order = torch.randperm(candidates.shape[0], generator=self.gen_sel)
         taken = torch.zeros_like(s.alive)
         moves: list[tuple[int, int, int, int]] = []
+        direction = str(getattr(cfg, "plastic_direction", "gradient") or "gradient")
         for k in order.tolist():
             y, x = int(candidates[k, 0]), int(candidates[k, 1])
             if not bool(s.alive[y, x]) or bool(taken[y, x]):
                 continue
+            free = []
             best, best_res = None, float(s.resource[y, x])
             for dy, dx in ((1, 0), (-1, 0), (0, 1), (0, -1)):
                 ny, nx = y + dy, x + dx
@@ -1303,12 +1311,21 @@ class Pond:
                 if bool(s.alive[ny, nx]) or bool(taken[ny, nx]):
                     continue
                 res = float(s.resource[ny, nx])
+                free.append((ny, nx, res))
                 if res > best_res:
                     best, best_res = (ny, nx), res
-            if best is None:
+            if not free:
                 continue
-            taken[best[0], best[1]] = True
-            moves.append((y, x, best[0], best[1]))
+            if direction == "random":
+                j = int(torch.randint(0, len(free), (1,), generator=self.gen_sel).item())
+                ny, nx, _ = free[j]
+                target = (ny, nx)
+            else:
+                if best is None:
+                    continue
+                target = best
+            taken[target[0], target[1]] = True
+            moves.append((y, x, target[0], target[1]))
         return moves
 
     # ---------- размножение ----------
