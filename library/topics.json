@@ -391,7 +391,7 @@
     {
       "id": "storage-effect-limits",
       "ru": "Storage effect: когда буфер НЕ удерживает разнообразие",
-      "status": "current",
+      "status": "next",
       "links": [
         "library/claims-evidence.md",
         "library/hypotheses/alife-lineage.md"
@@ -415,6 +415,34 @@
       ],
       "min_score": 4,
       "implication": "Наши три отрицательных (E12, E12b, X160) — приток и смертность не дают storage effect. Нужен канон: какие условия storage effect обязательны, чтобы мы могли сказать, какого из них у нас нет."
+    },
+    {
+      "id": "many-body-pairwise-rule",
+      "ru": "Многовстречная доля как квадрат попарной: контактная модель или независимость",
+      "status": "current",
+      "links": [
+        "library/claims-evidence.md",
+        "articles/030-mnogotela-dolya.md"
+      ],
+      "queries": [
+        "coalescence probability multiple particles pairwise independent product rule",
+        "many-body contact process independent contacts multiplicative probability",
+        "Smoluchowski coagulation discrete lattice cluster fusion probability"
+      ],
+      "terms": [
+        "pairwise",
+        "independent",
+        "coalescence",
+        "fusion",
+        "many-body",
+        "contact process"
+      ],
+      "must": [
+        "coalescence",
+        "probability"
+      ],
+      "min_score": 4,
+      "implication": "У нас доля многовстречной конфигурации = квадрат попарной (0.47^2 = 22%). Либо это независимость контактов, либо закон сложения. Нужен канон, чтобы сказать, какой из двух."
     }
   ]
 }
