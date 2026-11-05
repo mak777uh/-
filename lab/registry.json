@@ -899,8 +899,17 @@
     "id": "H-FIELD-CLUSTER-1",
     "statement": "The unit X199 calls a world (arm geometry x phase) is not a cluster: two seeds that share the geometry and the phase but differ in position disagree in outcome far more often than a random-intercept model with the reported ICC predicts.",
     "test": "X200: over design groups with identical parameter vectors, count the worlds that received two or more runs and disagree, compare with the beta-binomial prediction at ICC = 0.955, and refit the ICC on that pool. Refutation: fewer than 10 % of the eligible worlds disagree, or the recomputed ICC interval contains 0.955.",
-    "status": "running",
+    "status": "rejected",
     "origin": "reports/2026-11-05-x199-mixed-model.md (the test X199 registered as decisive and could not run); reports/2026-11-05-x200-clone-pairs-plan.md",
+    "depends_on": [],
+    "refutation": "X200 refuted this statement as written: the world is nearly a cluster (0.052 of eligible worlds with repeats disagree, and the ICC refitted on that pool is 0.9816, above X199's 0.955). What survives is the narrower reading: the label fixes the local inflow and leaves the distance to the edge free, and that free coordinate carries the disagreement - H-FIELD-EDGE-1."
+   },
+   {
+    "id": "H-FIELD-EDGE-1",
+    "statement": "The distance from the seeded pair to the boundary of the domain moves the fusion outcome at a fixed phase and fixed parameters: the free coordinate X200 found in the world label is causal, not a confound of the two arms where it was observed.",
+    "test": "X201: at one phase and one geometry, place the same pair at several distances from the edge and read the share. Refutation: the share does not move with the distance, or it moves only in the two arms where X200 saw the association.",
+    "status": "planned",
+    "origin": "reports/2026-11-05-x200-clone-pairs.md (next hypothesis 1), docs/plan/10d-field-metrics-and-form.md §10ji",
     "depends_on": []
    }
   ]

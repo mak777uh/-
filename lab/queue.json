@@ -1,6 +1,6 @@
 {
  "schema_version": 1,
- "updated_at": "2026-11-05T10:10:00+03:00",
+ "updated_at": "2026-11-05T10:35:00+03:00",
  "note": "Очередь пунктов после E02c. Claim берётся до пре-регистрации, а не перед запуском: lab.py item-claim. Статус running означает занятый GPU-лейн и может быть только у одного пункта. | 25.10: добавлено поле impact (1-5) — приоритет конвейера = impact/max(cost_gpu_h,0.1); для запуска пункту нужны prereg (закоммиченный план) и launch.command+outdir.",
  "items": [
   {
@@ -3554,12 +3554,12 @@
   },
   {
    "id": "X200_clone_pairs",
-   "status": "running",
+   "status": "closed",
    "owner": "lead",
    "created_at": "2026-11-05T10:05:00+03:00",
    "hypothesis": "H-FIELD-CLUSTER-1",
-   "note": "claim taken before the pre-registration (written first, as the contract asks). X199's own report named the decisive test it could not run: two seeds at one (cell, phase). X198 turns out to contain those clone pairs at identical parameters, and a reconnaissance scan (disclosed in the pre-registration) shows the outcomes disagreeing in 30 of 72 phases at radius 4 gap 10 and 12 of 36 at gap 9. The registered analysis pins the sample definition (design groups with identical parameter vectors), the criteria C1-C4 and the refusal rules R1-R3. Zero GPU: committed compact slices only.",
-   "heartbeat_at": "2026-11-05T10:10:00+03:00"
+   "note": "closed; the registered criteria C1 and C2 fail and that is the result. Loaded 3113 two-body compact slices in 9 design groups with identical parameter vectors; 841 worlds received two or more seeds and 44 disagree (0.052, Wilson [0.0392, 0.0695]) - below the registered 10 % and 2.15x the beta-binomial prediction at ICC 0.955, while the ICC refitted on that pool is 0.9816 (sigma 13.26), so X199's 0.955 is NOT overturned. The disagreement is concentrated: 30 of 72 worlds at radius 3.9 gap 10, 12 of 36 at gap 9, zero among the other 733 - exactly the two arms where 144 seeds fall into 108 and 72 phases, so each phase is covered by two seeds one to two stripe periods apart. In a disagreeing world the two runs differ in distance to the nearest edge by a median of 6.0 cells against 0 in an agreeing one, and only 2.3 % of the disagreeing worlds have equal edge distances. Verdict: (cell, phase) fixes the local inflow (which is why X199's R4 holds) and leaves the position free, and that free coordinate moves the outcome - a LABELLED world, not a sealed environment. Artifact l1_field_x200_clone_pairs.json; report reports/2026-11-05-x200-clone-pairs.md; card 10ji; X201 (H-FIELD-EDGE-1) is the registered interventional version.",
+   "closed_at": "2026-11-05T10:35:00+03:00"
   }
  ]
 }

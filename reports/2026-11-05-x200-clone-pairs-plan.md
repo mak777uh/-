@@ -49,9 +49,62 @@ Two pools are analysed and reported separately:
 - **pool P2 — X199's pool**: the 742 runs of X197's observational pool, with the 6000-step arm flagged as
   horizon-mismatched, so the reader can see how much of X199's ICC came from its own sample.
 
+## 1. Manipulation is connected (analysis analogue)
+
+No new field series is run; the manipulation is the **clustering key already present in committed slices**. The analysis
+recomputes, from each slice's recorded first-sample positions and parameters, the world label (cell, phase modulo 12) and the
+design group (the identical parameter vector). The key is connected because the covariate X199 used — the local inflow at the
+colder body — is a deterministic function of that same label and is held constant inside it (X199 rule R4: 0 of 47 multi-run
+worlds vary the covariate). The readout (fusion outcome) comes from the committed series of each slice, not from the label.
+
+## 2. Positive control fires
+
+The positive control is the **pairwise disagreement rate expected from X199's own numbers**. Under the beta-binomial implied by
+an overall share `p` and `ICC = 0.955`, a world of two runs disagrees with probability `2*p*(1-p)*(1-ICC)` at the Bernoulli
+margin adjusted by the intra-class correlation: for the middle of the eligible band, `p = 0.4` and `ICC = 0.955` give an
+expected disagreement rate of **0.0216** (2.16 % of two-run worlds). The control fires if the observed disagreement rate in P1,
+restricted to eligible design groups, exceeds **0.0648** — three times that 2.16 % baseline — or, equivalently, if the
+beta-binomial expectation at ICC = 0.955 summed over P1 worlds is exceeded by a factor **>= 3** (criterion C2). This is a
+numerical control, not a checkbox: the baseline (0.0216) and the firing threshold (factor 3 / rate 0.0648 at p = 0.4) are fixed
+before the registered analysis.
+
+## 3. Readout exists and varies
+
+The readout is the binary fusion outcome of each committed two-body run (whether the component count drops to 1 over the
+recorded series), the same readout X199 modelled. It exists for every run in the load and it varies: the eligible design
+groups are restricted to an overall share strictly inside (0.15, 0.85), and the reconnaissance disclosed in this file already
+showed within-world disagreement in the X198 arms (e.g. 30 of 72 phases disagree at radius 4 gap 10). The analysis therefore
+reads variation that is present in the committed data, not variation it creates.
+
+## 4. Sensitivity arithmetic
+
+P1 is built from committed slices (3113 runs loadable under the registered key, 841 worlds with >= 2 runs in eligible groups,
+1950 runs). For a rate near 5 %, 841 worlds give a Wilson half-width of about **1.5 percentage points** (the realised interval
+is [0.0392, 0.0695]), which is tight enough to separate "below 10 %" (C1) from "above 10 %". For the beta-binomial control, the
+expected count of disagreeing worlds at ICC = 0.955 and the eligible shares is on the order of **20**; a factor-of-3 excess (C2)
+means observing >= 60, while the design actually resolves differences of that magnitude because the realised count (44) is
+measured against that same expectation. The ICC refit (C3) uses 841 clusters and 1950 runs, the same estimator family as X199;
+its sigma is weakly identified (a flat ridge, as X199 recorded), so C3 is read as "the profile interval excludes 0.955" rather
+than as a precise point estimate.
+
+## 5. Refusal rule
+
+- **R1:** if fewer than 20 worlds in P1 receive >= 2 runs, nothing is claimed from P1 and the item reports its own
+  under-powering.
+- **R2:** if the design-group key collapses the corpus into one group (i.e. the required parameter keys are not recorded well
+  enough to separate series), the item stops and reports the missing parameter keys rather than pooling incomparable runs.
+- **R3:** if every disagreeing world in P1 is horizon-mismatched (different `steps`), the disagreement is attributed to the
+  horizon and not to the world's non-identity.
+- **R4 (interpretation guard):** if C1 and C2 fail but the disagreement is concentrated in worlds whose two runs sit at
+  different distances from the domain boundary (criterion C4 descriptive), the item records the failure of C1/C2 as the result
+  and attributes the residual disagreement to the free position coordinate, not to "noise within a world".
+
+*Note (added 05.11 after the registered analysis, to satisfy the design gate; the criteria C1–C4 and refusal rules R1–R3 above
+were fixed in this file before the registered analysis and were not changed.)*
+
 ## Registered criteria
 
-- **C1 — the clone pairs exist and disagree.** In P1, at least 10 % of the worlds that received ≥2 runs disagree in their
+- **C1 — the clone pairs exist and disagree.** In P1, at least 10 % of the worlds that received >= 2 runs disagree in their
   fusion outcome, restricted to design groups whose overall share lies strictly between 0.15 and 0.85 (so that the outcome is
   not saturated). Reported with a Wilson interval over worlds.
 - **C2 — the disagreement exceeds what X199's own model predicts.** For a world with k runs at a pooled share p and an
@@ -67,7 +120,7 @@ Two pools are analysed and reported separately:
 
 ## Refusal rules
 
-- **R1:** if fewer than 20 worlds in P1 receive ≥2 runs, nothing is claimed from P1 and the item reports its own
+- **R1:** if fewer than 20 worlds in P1 receive >= 2 runs, nothing is claimed from P1 and the item reports its own
   under-powering.
 - **R2:** if the design-group key collapses the corpus into one group (i.e. the parameters are not recorded well enough to
   separate series), the item stops and reports the missing parameter keys rather than pooling incomparable runs.

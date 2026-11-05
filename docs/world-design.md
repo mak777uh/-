@@ -262,3 +262,4 @@ sections were not rewritten, only moved; each one keeps its identifier, so every
 | §10jf | X196 — зазор или размер (04.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
 | §10jg | X198 — кривая по зазору на восьми плечах (05.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
 | §10jh | X199 — переживает ли локальная связь случайный эффект мира (05.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
+| §10ji | X200 — клон-пары: мир почти кластер, а расходится там, где сиды стоят на разном расстоянии от края (05.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |

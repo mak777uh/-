@@ -4,7 +4,7 @@ One file, one place that says what is actually in work. Machine state lives in `
 `_hourly/log.md`, numbers in artifacts. The Russian sections below the line are **history** and are not rewritten; the top
 part is kept current (new text in English — decision of 31.10).
 
-**Updated:** 2026-11-05, 00:55 MSK.
+**Updated:** 2026-11-05, 10:35 MSK.
 
 ## Where we are, in one page (asked for in plain language on 04.11)
 
@@ -39,14 +39,27 @@ we have seen something alive.
 
 ## Running now
 
-**X199 — the mixed-effects check of the local-inflow reading** (`task-7`, analyst-a; analysis of committed aggregates,
-zero GPU, claimed before its pre-registration `reports/2026-11-05-x199-mixed-model-plan.md`): logistic fusion on the standardised
-local inflow with a **random intercept per world** and, in a second variant, per phase class, so the fixed-effect slope, its
-interval and the intra-class correlation are reported instead of a point estimate averaged over worlds. This is the falsifier
-article 030 registers as its first next step, and the one the independent review of the added blocks could not check at all
-(X180's pooled point-biserial and z, X183's five AUCs are stored scalars with no run-level data in the aggregate). Refusal rule
-in the plan: if the between-world variance is not identifiable from the committed data, that is the result and the design
-limitation is reported as such.
+**X200 is closed, and it is a result about our own unit of observation** (analysis of committed slices only, zero GPU,
+claimed before its pre-registration `reports/2026-11-05-x200-clone-pairs-plan.md`; report
+`reports/2026-11-05-x200-clone-pairs.md`, card §10ji, aggregate `l1_field_x200_clone_pairs.json`). X199 had named the test it
+could not run: two seeds at one (cell, phase). X200 ran it over **3113** two-body slices in 9 design groups with identical
+parameter vectors. **841 worlds received two or more seeds and 44 disagree** (0.052, Wilson [0.0392, 0.0695]) — below the
+pre-registered 10 % and 2.15x the beta-binomial prediction at ICC 0.955 — while the ICC refitted on that pool is **0.9816**,
+so **X199's 0.955 stands**. The disagreement is concentrated: **30 of 72** worlds at radius 3.9 gap 10, **12 of 36** at gap 9,
+**zero** among the other 733 — exactly the two arms where 144 seeds fall into 108 and 72 phases, so each phase is covered by
+two seeds one to two stripe periods apart; and in a disagreeing world the two runs differ in their distance to the nearest
+edge by a median of **6.0 cells** against **0** in an agreeing one. Verdict: the label fixes the local inflow (which is why
+X199's R4 holds) and leaves the position free — a **labelled** world, not a sealed environment. The registered criteria C1
+and C2 fail and are recorded as such.
+
+**X199 is closed** (`task-7`, analyst-a): logistic fusion on the standardised local inflow with a random intercept per world,
+slope **+2.477 per sd** (profile [1.127, 3.093], LR 19.02, p 1.29e-05), between-world σ 8.368, ICC **0.955**; card §10jh. The
+falsifier article 030 registers as its first next step; X200 above is the cluster test its report named, and the pair
+together says the slope is real and the world is a labelled world rather than a sealed one.
+
+**X201 is registered as the interventional version of X200** (`H-FIELD-EDGE-1`, planned, not started): at one phase and one
+geometry, place the same pair at several distances from the edge and read the share, so the free coordinate X200 found becomes
+a cause or is discarded.
 
 **X198 is closed (3 of 3 criteria).** The gap curve ran eight arms over 1152 worlds and is now section 5.5 of article 030
 v2.1: monotone in the gap at both sizes, with the crossing of the fusion share across one half between gaps **9 and 10**

@@ -1,0 +1,3207 @@
+{
+ "kind": "x200_clone_pairs",
+ "prereg": "reports/2026-11-05-x200-clone-pairs-plan.md",
+ "command": "python scripts/x200_clone_pairs.py --write",
+ "design": {
+  "design_keys": [
+   "F",
+   "steps",
+   "grid",
+   "dt",
+   "Du",
+   "Dv",
+   "k",
+   "eps",
+   "threshold",
+   "sample_every",
+   "hetero_amp",
+   "hetero_scale",
+   "hetero_period",
+   "freq_dep",
+   "beta",
+   "bin_width",
+   "mutation",
+   "s_ref",
+   "overlap"
+  ],
+  "world": "cell (radius 0.1, gap, F) x phase (sorted seeded positions mod 12)",
+  "icc_registered": 0.955,
+  "pool_p1": "inside one design group (identical parameter vector)",
+  "pool_p2": "X199's observational pool, phase-selected arms excluded",
+  "eligible": "design groups with overall share strictly inside (0.15, 0.85)"
+ },
+ "load": {
+  "runs_loaded": 3113,
+  "design_groups": 9,
+  "skipped": {
+   "not_two_body_at_first_sample": 263,
+   "optional_keys_absent": 3113
+  }
+ },
+ "p1_designs": [
+  {
+   "design": "3100589930dd",
+   "runs": 2257,
+   "cells": 10,
+   "worlds": 1296,
+   "share": 0.4005,
+   "eligible": true,
+   "steps": 400,
+   "F": 0.03
+  },
+  {
+   "design": "9918ff112e27",
+   "runs": 323,
+   "cells": 41,
+   "worlds": 276,
+   "share": 0.6409,
+   "eligible": true,
+   "steps": 6000,
+   "F": 0.03
+  },
+  {
+   "design": "a93e74ffaad3",
+   "runs": 295,
+   "cells": 13,
+   "worlds": 240,
+   "share": 0.461,
+   "eligible": true,
+   "steps": 2000,
+   "F": 0.03
+  },
+  {
+   "design": "93ffdedf8fd0",
+   "runs": 75,
+   "cells": 6,
+   "worlds": 55,
+   "share": 0.6133,
+   "eligible": true,
+   "steps": 2000,
+   "F": 0.026
+  },
+  {
+   "design": "e568c6fef45f",
+   "runs": 75,
+   "cells": 6,
+   "worlds": 55,
+   "share": 0.7733,
+   "eligible": true,
+   "steps": 2000,
+   "F": 0.036
+  },
+  {
+   "design": "5afeb7427aad",
+   "runs": 54,
+   "cells": 4,
+   "worlds": 48,
+   "share": 0.5,
+   "eligible": true,
+   "steps": 3000,
+   "F": 0.03
+  },
+  {
+   "design": "f021d5c6b21b",
+   "runs": 25,
+   "cells": 2,
+   "worlds": 25,
+   "share": 0.52,
+   "eligible": true,
+   "steps": 2000,
+   "F": 0.033
+  },
+  {
+   "design": "9614ac795145",
+   "runs": 3,
+   "cells": 1,
+   "worlds": 3,
+   "share": 1.0,
+   "eligible": false,
+   "steps": 1500,
+   "F": 0.03
+  },
+  {
+   "design": "e7554c352e27",
+   "runs": 6,
+   "cells": 2,
+   "worlds": 2,
+   "share": 1.0,
+   "eligible": false,
+   "steps": 6000,
+   "F": 0.04
+  }
+ ],
+ "c1_worlds": {
+  "eligible": 841,
+  "disagreeing": 44
+ },
+ "by_design_group": [
+  {
+   "design": "3100589930dd",
+   "steps": 400,
+   "F": 0.03,
+   "group_share": 0.4005,
+   "eligible": true,
+   "worlds_with_repeats": 736,
+   "disagreeing": 42,
+   "rate": 0.0571,
+   "median_edge_diff_disagreeing": 6.0,
+   "median_edge_diff_agreeing": 0.0
+  },
+  {
+   "design": "a93e74ffaad3",
+   "steps": 2000,
+   "F": 0.03,
+   "group_share": 0.461,
+   "eligible": true,
+   "worlds_with_repeats": 40,
+   "disagreeing": 2,
+   "rate": 0.05,
+   "median_edge_diff_disagreeing": 10.0,
+   "median_edge_diff_agreeing": 3.0
+  },
+  {
+   "design": "9918ff112e27",
+   "steps": 6000,
+   "F": 0.03,
+   "group_share": 0.6409,
+   "eligible": true,
+   "worlds_with_repeats": 29,
+   "disagreeing": 0,
+   "rate": 0.0,
+   "median_edge_diff_disagreeing": null,
+   "median_edge_diff_agreeing": 0
+  },
+  {
+   "design": "93ffdedf8fd0",
+   "steps": 2000,
+   "F": 0.026,
+   "group_share": 0.6133,
+   "eligible": true,
+   "worlds_with_repeats": 15,
+   "disagreeing": 0,
+   "rate": 0.0,
+   "median_edge_diff_disagreeing": null,
+   "median_edge_diff_agreeing": 0
+  },
+  {
+   "design": "e568c6fef45f",
+   "steps": 2000,
+   "F": 0.036,
+   "group_share": 0.7733,
+   "eligible": true,
+   "worlds_with_repeats": 15,
+   "disagreeing": 0,
+   "rate": 0.0,
+   "median_edge_diff_disagreeing": null,
+   "median_edge_diff_agreeing": 0
+  },
+  {
+   "design": "5afeb7427aad",
+   "steps": 3000,
+   "F": 0.03,
+   "group_share": 0.5,
+   "eligible": true,
+   "worlds_with_repeats": 6,
+   "disagreeing": 0,
+   "rate": 0.0,
+   "median_edge_diff_disagreeing": null,
+   "median_edge_diff_agreeing": 10.5
+  },
+  {
+   "design": "e7554c352e27",
+   "steps": 6000,
+   "F": 0.04,
+   "group_share": 1.0,
+   "eligible": false,
+   "worlds_with_repeats": 1,
+   "disagreeing": 0,
+   "rate": 0.0,
+   "median_edge_diff_disagreeing": null,
+   "median_edge_diff_agreeing": 0
+  }
+ ],
+ "by_cell": [
+  {
+   "cell": [
+    5.9,
+    9,
+    0.03
+   ],
+   "worlds_with_repeats": 151,
+   "disagreeing": 0,
+   "rate": 0.0,
+   "design_groups": 3
+  },
+  {
+   "cell": [
+    6.0,
+    8,
+    0.03
+   ],
+   "worlds_with_repeats": 149,
+   "disagreeing": 0,
+   "rate": 0.0,
+   "design_groups": 2
+  },
+  {
+   "cell": [
+    3.9,
+    12,
+    0.03
+   ],
+   "worlds_with_repeats": 144,
+   "disagreeing": 0,
+   "rate": 0.0,
+   "design_groups": 1
+  },
+  {
+   "cell": [
+    3.9,
+    8,
+    0.03
+   ],
+   "worlds_with_repeats": 144,
+   "disagreeing": 0,
+   "rate": 0.0,
+   "design_groups": 1
+  },
+  {
+   "cell": [
+    3.9,
+    10,
+    0.03
+   ],
+   "worlds_with_repeats": 72,
+   "disagreeing": 30,
+   "rate": 0.4167,
+   "design_groups": 1
+  },
+  {
+   "cell": [
+    3.0,
+    10,
+    0.03
+   ],
+   "worlds_with_repeats": 40,
+   "disagreeing": 0,
+   "rate": 0.0,
+   "design_groups": 3
+  },
+  {
+   "cell": [
+    3.9,
+    11,
+    0.03
+   ],
+   "worlds_with_repeats": 36,
+   "disagreeing": 0,
+   "rate": 0.0,
+   "design_groups": 1
+  },
+  {
+   "cell": [
+    3.9,
+    9,
+    0.03
+   ],
+   "worlds_with_repeats": 36,
+   "disagreeing": 12,
+   "rate": 0.3333,
+   "design_groups": 1
+  },
+  {
+   "cell": [
+    3.0,
+    6,
+    0.03
+   ],
+   "worlds_with_repeats": 6,
+   "disagreeing": 0,
+   "rate": 0.0,
+   "design_groups": 1
+  },
+  {
+   "cell": [
+    2.9,
+    9,
+    0.03
+   ],
+   "worlds_with_repeats": 5,
+   "disagreeing": 0,
+   "rate": 0.0,
+   "design_groups": 1
+  },
+  {
+   "cell": [
+    6.0,
+    6,
+    0.03
+   ],
+   "worlds_with_repeats": 5,
+   "disagreeing": 0,
+   "rate": 0.0,
+   "design_groups": 1
+  },
+  {
+   "cell": [
+    3.0,
+    2,
+    0.026
+   ],
+   "worlds_with_repeats": 5,
+   "disagreeing": 0,
+   "rate": 0.0,
+   "design_groups": 1
+  },
+  {
+   "cell": [
+    3.0,
+    8,
+    0.026
+   ],
+   "worlds_with_repeats": 5,
+   "disagreeing": 0,
+   "rate": 0.0,
+   "design_groups": 1
+  },
+  {
+   "cell": [
+    2.9,
+    11,
+    0.026
+   ],
+   "worlds_with_repeats": 5,
+   "disagreeing": 0,
+   "rate": 0.0,
+   "design_groups": 1
+  },
+  {
+   "cell": [
+    3.0,
+    2,
+    0.036
+   ],
+   "worlds_with_repeats": 5,
+   "disagreeing": 0,
+   "rate": 0.0,
+   "design_groups": 1
+  },
+  {
+   "cell": [
+    3.0,
+    8,
+    0.036
+   ],
+   "worlds_with_repeats": 5,
+   "disagreeing": 0,
+   "rate": 0.0,
+   "design_groups": 1
+  },
+  {
+   "cell": [
+    2.9,
+    11,
+    0.036
+   ],
+   "worlds_with_repeats": 5,
+   "disagreeing": 0,
+   "rate": 0.0,
+   "design_groups": 1
+  },
+  {
+   "cell": [
+    2.9,
+    11,
+    0.03
+   ],
+   "worlds_with_repeats": 5,
+   "disagreeing": 0,
+   "rate": 0.0,
+   "design_groups": 1
+  },
+  {
+   "cell": [
+    3.0,
+    8,
+    0.03
+   ],
+   "worlds_with_repeats": 5,
+   "disagreeing": 0,
+   "rate": 0.0,
+   "design_groups": 1
+  },
+  {
+   "cell": [
+    4.7,
+    9,
+    0.03
+   ],
+   "worlds_with_repeats": 4,
+   "disagreeing": 2,
+   "rate": 0.5,
+   "design_groups": 1
+  },
+  {
+   "cell": [
+    5.9,
+    7,
+    0.03
+   ],
+   "worlds_with_repeats": 3,
+   "disagreeing": 0,
+   "rate": 0.0,
+   "design_groups": 1
+  },
+  {
+   "cell": [
+    3.0,
+    12,
+    0.03
+   ],
+   "worlds_with_repeats": 1,
+   "disagreeing": 0,
+   "rate": 0.0,
+   "design_groups": 1
+  },
+  {
+   "cell": [
+    3.0,
+    18,
+    0.03
+   ],
+   "worlds_with_repeats": 1,
+   "disagreeing": 0,
+   "rate": 0.0,
+   "design_groups": 1
+  },
+  {
+   "cell": [
+    3.0,
+    24,
+    0.03
+   ],
+   "worlds_with_repeats": 1,
+   "disagreeing": 0,
+   "rate": 0.0,
+   "design_groups": 1
+  },
+  {
+   "cell": [
+    3.0,
+    30,
+    0.03
+   ],
+   "worlds_with_repeats": 1,
+   "disagreeing": 0,
+   "rate": 0.0,
+   "design_groups": 1
+  },
+  {
+   "cell": [
+    3.0,
+    2,
+    0.03
+   ],
+   "worlds_with_repeats": 1,
+   "disagreeing": 0,
+   "rate": 0.0,
+   "design_groups": 1
+  },
+  {
+   "cell": [
+    3.0,
+    2,
+    0.04
+   ],
+   "worlds_with_repeats": 1,
+   "disagreeing": 0,
+   "rate": 0.0,
+   "design_groups": 1
+  },
+  {
+   "cell": [
+    4.7,
+    11,
+    0.03
+   ],
+   "worlds_with_repeats": 1,
+   "disagreeing": 0,
+   "rate": 0.0,
+   "design_groups": 1
+  }
+ ],
+ "p1_disagreeing_worlds": [
+  {
+   "design": "a93e74ffaad3",
+   "cell": [
+    4.7,
+    9,
+    0.03
+   ],
+   "phase": [
+    [
+     2,
+     8
+    ],
+    [
+     8,
+     8
+    ]
+   ],
+   "outcomes": [
+    1,
+    0
+   ],
+   "files": [
+    "x175_s1061",
+    "x175_s1074"
+   ],
+   "abs": [
+    [
+     62,
+     32,
+     80,
+     32
+    ],
+    [
+     56,
+     44,
+     74,
+     44
+    ]
+   ],
+   "edge": [
+    15,
+    21
+   ]
+  },
+  {
+   "design": "a93e74ffaad3",
+   "cell": [
+    4.7,
+    9,
+    0.03
+   ],
+   "phase": [
+    [
+     5,
+     3
+    ],
+    [
+     11,
+     3
+    ]
+   ],
+   "outcomes": [
+    1,
+    0
+   ],
+   "files": [
+    "x175_s1065",
+    "x175_s1069"
+   ],
+   "abs": [
+    [
+     59,
+     39,
+     77,
+     39
+    ],
+    [
+     41,
+     63,
+     59,
+     63
+    ]
+   ],
+   "edge": [
+    18,
+    32
+   ]
+  },
+  {
+   "design": "3100589930dd",
+   "cell": [
+    3.9,
+    10,
+    0.03
+   ],
+   "phase": [
+    [
+     3,
+     1
+    ],
+    [
+     9,
+     1
+    ]
+   ],
+   "outcomes": [
+    0,
+    1,
+    0,
+    1
+   ],
+   "files": [
+    "x196_r4_g10_c001",
+    "x196_r4_g10_c073",
+    "x198_r4_g10_c001",
+    "x198_r4_g10_c073"
+   ],
+   "abs": [
+    [
+     63,
+     25,
+     81,
+     25
+    ],
+    [
+     33,
+     25,
+     51,
+     25
+    ],
+    [
+     63,
+     25,
+     81,
+     25
+    ],
+    [
+     33,
+     25,
+     51,
+     25
+    ]
+   ],
+   "edge": [
+    14,
+    25,
+    14,
+    25
+   ]
+  },
+  {
+   "design": "3100589930dd",
+   "cell": [
+    3.9,
+    10,
+    0.03
+   ],
+   "phase": [
+    [
+     3,
+     2
+    ],
+    [
+     9,
+     2
+    ]
+   ],
+   "outcomes": [
+    0,
+    1,
+    0,
+    1
+   ],
+   "files": [
+    "x196_r4_g10_c002",
+    "x196_r4_g10_c074",
+    "x198_r4_g10_c002",
+    "x198_r4_g10_c074"
+   ],
+   "abs": [
+    [
+     15,
+     38,
+     33,
+     38
+    ],
+    [
+     21,
+     50,
+     39,
+     50
+    ],
+    [
+     15,
+     38,
+     33,
+     38
+    ],
+    [
+     21,
+     50,
+     39,
+     50
+    ]
+   ],
+   "edge": [
+    15,
+    21,
+    15,
+    21
+   ]
+  },
+  {
+   "design": "3100589930dd",
+   "cell": [
+    3.9,
+    10,
+    0.03
+   ],
+   "phase": [
+    [
+     3,
+     3
+    ],
+    [
+     9,
+     3
+    ]
+   ],
+   "outcomes": [
+    0,
+    1,
+    0,
+    1
+   ],
+   "files": [
+    "x196_r4_g10_c003",
+    "x196_r4_g10_c075",
+    "x198_r4_g10_c003",
+    "x198_r4_g10_c075"
+   ],
+   "abs": [
+    [
+     27,
+     63,
+     45,
+     63
+    ],
+    [
+     45,
+     63,
+     63,
+     63
+    ],
+    [
+     27,
+     63,
+     45,
+     63
+    ],
+    [
+     45,
+     63,
+     63,
+     63
+    ]
+   ],
+   "edge": [
+    27,
+    32,
+    27,
+    32
+   ]
+  },
+  {
+   "design": "3100589930dd",
+   "cell": [
+    3.9,
+    10,
+    0.03
+   ],
+   "phase": [
+    [
+     3,
+     4
+    ],
+    [
+     9,
+     4
+    ]
+   ],
+   "outcomes": [
+    0,
+    1,
+    0,
+    1
+   ],
+   "files": [
+    "x196_r4_g10_c004",
+    "x196_r4_g10_c076",
+    "x198_r4_g10_c004",
+    "x198_r4_g10_c076"
+   ],
+   "abs": [
+    [
+     51,
+     64,
+     69,
+     64
+    ],
+    [
+     33,
+     40,
+     51,
+     40
+    ],
+    [
+     51,
+     64,
+     69,
+     64
+    ],
+    [
+     33,
+     40,
+     51,
+     40
+    ]
+   ],
+   "edge": [
+    26,
+    33,
+    26,
+    33
+   ]
+  },
+  {
+   "design": "3100589930dd",
+   "cell": [
+    3.9,
+    10,
+    0.03
+   ],
+   "phase": [
+    [
+     3,
+     5
+    ],
+    [
+     9,
+     5
+    ]
+   ],
+   "outcomes": [
+    0,
+    1,
+    0,
+    1
+   ],
+   "files": [
+    "x196_r4_g10_c005",
+    "x196_r4_g10_c077",
+    "x198_r4_g10_c005",
+    "x198_r4_g10_c077"
+   ],
+   "abs": [
+    [
+     63,
+     65,
+     81,
+     65
+    ],
+    [
+     33,
+     65,
+     51,
+     65
+    ],
+    [
+     63,
+     65,
+     81,
+     65
+    ],
+    [
+     33,
+     65,
+     51,
+     65
+    ]
+   ],
+   "edge": [
+    14,
+    30,
+    14,
+    30
+   ]
+  },
+  {
+   "design": "3100589930dd",
+   "cell": [
+    3.9,
+    10,
+    0.03
+   ],
+   "phase": [
+    [
+     3,
+     7
+    ],
+    [
+     9,
+     7
+    ]
+   ],
+   "outcomes": [
+    1,
+    0,
+    1,
+    0
+   ],
+   "files": [
+    "x196_r4_g10_c007",
+    "x196_r4_g10_c079",
+    "x198_r4_g10_c007",
+    "x198_r4_g10_c079"
+   ],
+   "abs": [
+    [
+     63,
+     67,
+     81,
+     67
+    ],
+    [
+     21,
+     55,
+     39,
+     55
+    ],
+    [
+     63,
+     67,
+     81,
+     67
+    ],
+    [
+     21,
+     55,
+     39,
+     55
+    ]
+   ],
+   "edge": [
+    14,
+    21,
+    14,
+    21
+   ]
+  },
+  {
+   "design": "3100589930dd",
+   "cell": [
+    3.9,
+    10,
+    0.03
+   ],
+   "phase": [
+    [
+     3,
+     8
+    ],
+    [
+     9,
+     8
+    ]
+   ],
+   "outcomes": [
+    1,
+    0,
+    1,
+    0
+   ],
+   "files": [
+    "x196_r4_g10_c008",
+    "x196_r4_g10_c080",
+    "x198_r4_g10_c008",
+    "x198_r4_g10_c080"
+   ],
+   "abs": [
+    [
+     51,
+     32,
+     69,
+     32
+    ],
+    [
+     57,
+     56,
+     75,
+     56
+    ],
+    [
+     51,
+     32,
+     69,
+     32
+    ],
+    [
+     57,
+     56,
+     75,
+     56
+    ]
+   ],
+   "edge": [
+    26,
+    20,
+    26,
+    20
+   ]
+  },
+  {
+   "design": "3100589930dd",
+   "cell": [
+    3.9,
+    10,
+    0.03
+   ],
+   "phase": [
+    [
+     3,
+     9
+    ],
+    [
+     9,
+     9
+    ]
+   ],
+   "outcomes": [
+    1,
+    0,
+    1,
+    0
+   ],
+   "files": [
+    "x196_r4_g10_c009",
+    "x196_r4_g10_c081",
+    "x198_r4_g10_c009",
+    "x198_r4_g10_c081"
+   ],
+   "abs": [
+    [
+     39,
+     33,
+     57,
+     33
+    ],
+    [
+     33,
+     45,
+     51,
+     45
+    ],
+    [
+     39,
+     33,
+     57,
+     33
+    ],
+    [
+     33,
+     45,
+     51,
+     45
+    ]
+   ],
+   "edge": [
+    33,
+    33,
+    33,
+    33
+   ]
+  },
+  {
+   "design": "3100589930dd",
+   "cell": [
+    3.9,
+    10,
+    0.03
+   ],
+   "phase": [
+    [
+     3,
+     10
+    ],
+    [
+     9,
+     10
+    ]
+   ],
+   "outcomes": [
+    1,
+    0,
+    1,
+    0
+   ],
+   "files": [
+    "x196_r4_g10_c010",
+    "x196_r4_g10_c082",
+    "x198_r4_g10_c010",
+    "x198_r4_g10_c082"
+   ],
+   "abs": [
+    [
+     63,
+     34,
+     81,
+     34
+    ],
+    [
+     57,
+     70,
+     75,
+     70
+    ],
+    [
+     63,
+     34,
+     81,
+     34
+    ],
+    [
+     57,
+     70,
+     75,
+     70
+    ]
+   ],
+   "edge": [
+    14,
+    20,
+    14,
+    20
+   ]
+  },
+  {
+   "design": "3100589930dd",
+   "cell": [
+    3.9,
+    10,
+    0.03
+   ],
+   "phase": [
+    [
+     3,
+     11
+    ],
+    [
+     9,
+     11
+    ]
+   ],
+   "outcomes": [
+    1,
+    0,
+    1,
+    0
+   ],
+   "files": [
+    "x196_r4_g10_c011",
+    "x196_r4_g10_c083",
+    "x198_r4_g10_c011",
+    "x198_r4_g10_c083"
+   ],
+   "abs": [
+    [
+     27,
+     71,
+     45,
+     71
+    ],
+    [
+     57,
+     47,
+     75,
+     47
+    ],
+    [
+     27,
+     71,
+     45,
+     71
+    ],
+    [
+     57,
+     47,
+     75,
+     47
+    ]
+   ],
+   "edge": [
+    24,
+    20,
+    24,
+    20
+   ]
+  },
+  {
+   "design": "3100589930dd",
+   "cell": [
+    3.9,
+    10,
+    0.03
+   ],
+   "phase": [
+    [
+     4,
+     1
+    ],
+    [
+     10,
+     1
+    ]
+   ],
+   "outcomes": [
+    0,
+    1,
+    0,
+    1
+   ],
+   "files": [
+    "x196_r4_g10_c013",
+    "x196_r4_g10_c085",
+    "x198_r4_g10_c013",
+    "x198_r4_g10_c085"
+   ],
+   "abs": [
+    [
+     16,
+     49,
+     34,
+     49
+    ],
+    [
+     46,
+     49,
+     64,
+     49
+    ],
+    [
+     16,
+     49,
+     34,
+     49
+    ],
+    [
+     46,
+     49,
+     64,
+     49
+    ]
+   ],
+   "edge": [
+    16,
+    31,
+    16,
+    31
+   ]
+  },
+  {
+   "design": "3100589930dd",
+   "cell": [
+    3.9,
+    10,
+    0.03
+   ],
+   "phase": [
+    [
+     4,
+     2
+    ],
+    [
+     10,
+     2
+    ]
+   ],
+   "outcomes": [
+    0,
+    1,
+    0,
+    1
+   ],
+   "files": [
+    "x196_r4_g10_c014",
+    "x196_r4_g10_c086",
+    "x198_r4_g10_c014",
+    "x198_r4_g10_c086"
+   ],
+   "abs": [
+    [
+     52,
+     26,
+     70,
+     26
+    ],
+    [
+     46,
+     62,
+     64,
+     62
+    ],
+    [
+     52,
+     26,
+     70,
+     26
+    ],
+    [
+     46,
+     62,
+     64,
+     62
+    ]
+   ],
+   "edge": [
+    25,
+    31,
+    25,
+    31
+   ]
+  },
+  {
+   "design": "3100589930dd",
+   "cell": [
+    3.9,
+    10,
+    0.03
+   ],
+   "phase": [
+    [
+     4,
+     3
+    ],
+    [
+     10,
+     3
+    ]
+   ],
+   "outcomes": [
+    0,
+    1,
+    0,
+    1
+   ],
+   "files": [
+    "x196_r4_g10_c015",
+    "x196_r4_g10_c087",
+    "x198_r4_g10_c015",
+    "x198_r4_g10_c087"
+   ],
+   "abs": [
+    [
+     28,
+     63,
+     46,
+     63
+    ],
+    [
+     22,
+     39,
+     40,
+     39
+    ],
+    [
+     28,
+     63,
+     46,
+     63
+    ],
+    [
+     22,
+     39,
+     40,
+     39
+    ]
+   ],
+   "edge": [
+    28,
+    22,
+    28,
+    22
+   ]
+  },
+  {
+   "design": "3100589930dd",
+   "cell": [
+    3.9,
+    10,
+    0.03
+   ],
+   "phase": [
+    [
+     4,
+     4
+    ],
+    [
+     10,
+     4
+    ]
+   ],
+   "outcomes": [
+    0,
+    1,
+    0,
+    1
+   ],
+   "files": [
+    "x196_r4_g10_c016",
+    "x196_r4_g10_c088",
+    "x198_r4_g10_c016",
+    "x198_r4_g10_c088"
+   ],
+   "abs": [
+    [
+     16,
+     28,
+     34,
+     28
+    ],
+    [
+     58,
+     28,
+     76,
+     28
+    ],
+    [
+     16,
+     28,
+     34,
+     28
+    ],
+    [
+     58,
+     28,
+     76,
+     28
+    ]
+   ],
+   "edge": [
+    16,
+    19,
+    16,
+    19
+   ]
+  },
+  {
+   "design": "3100589930dd",
+   "cell": [
+    3.9,
+    10,
+    0.03
+   ],
+   "phase": [
+    [
+     4,
+     5
+    ],
+    [
+     10,
+     5
+    ]
+   ],
+   "outcomes": [
+    0,
+    1,
+    0,
+    1
+   ],
+   "files": [
+    "x196_r4_g10_c017",
+    "x196_r4_g10_c089",
+    "x198_r4_g10_c017",
+    "x198_r4_g10_c089"
+   ],
+   "abs": [
+    [
+     52,
+     29,
+     70,
+     29
+    ],
+    [
+     22,
+     29,
+     40,
+     29
+    ],
+    [
+     52,
+     29,
+     70,
+     29
+    ],
+    [
+     22,
+     29,
+     40,
+     29
+    ]
+   ],
+   "edge": [
+    25,
+    22,
+    25,
+    22
+   ]
+  },
+  {
+   "design": "3100589930dd",
+   "cell": [
+    3.9,
+    10,
+    0.03
+   ],
+   "phase": [
+    [
+     4,
+     7
+    ],
+    [
+     10,
+     7
+    ]
+   ],
+   "outcomes": [
+    1,
+    0,
+    1,
+    0
+   ],
+   "files": [
+    "x196_r4_g10_c019",
+    "x196_r4_g10_c091",
+    "x198_r4_g10_c019",
+    "x198_r4_g10_c091"
+   ],
+   "abs": [
+    [
+     28,
+     67,
+     46,
+     67
+    ],
+    [
+     22,
+     43,
+     40,
+     43
+    ],
+    [
+     28,
+     67,
+     46,
+     67
+    ],
+    [
+     22,
+     43,
+     40,
+     43
+    ]
+   ],
+   "edge": [
+    28,
+    22,
+    28,
+    22
+   ]
+  },
+  {
+   "design": "3100589930dd",
+   "cell": [
+    3.9,
+    10,
+    0.03
+   ],
+   "phase": [
+    [
+     4,
+     8
+    ],
+    [
+     10,
+     8
+    ]
+   ],
+   "outcomes": [
+    1,
+    0,
+    1,
+    0
+   ],
+   "files": [
+    "x196_r4_g10_c020",
+    "x196_r4_g10_c092",
+    "x198_r4_g10_c020",
+    "x198_r4_g10_c092"
+   ],
+   "abs": [
+    [
+     40,
+     68,
+     58,
+     68
+    ],
+    [
+     22,
+     32,
+     40,
+     32
+    ],
+    [
+     40,
+     68,
+     58,
+     68
+    ],
+    [
+     22,
+     32,
+     40,
+     32
+    ]
+   ],
+   "edge": [
+    27,
+    22,
+    27,
+    22
+   ]
+  },
+  {
+   "design": "3100589930dd",
+   "cell": [
+    3.9,
+    10,
+    0.03
+   ],
+   "phase": [
+    [
+     4,
+     9
+    ],
+    [
+     10,
+     9
+    ]
+   ],
+   "outcomes": [
+    1,
+    0,
+    1,
+    0
+   ],
+   "files": [
+    "x196_r4_g10_c021",
+    "x196_r4_g10_c093",
+    "x198_r4_g10_c021",
+    "x198_r4_g10_c093"
+   ],
+   "abs": [
+    [
+     52,
+     45,
+     70,
+     45
+    ],
+    [
+     58,
+     33,
+     76,
+     33
+    ],
+    [
+     52,
+     45,
+     70,
+     45
+    ],
+    [
+     58,
+     33,
+     76,
+     33
+    ]
+   ],
+   "edge": [
+    25,
+    19,
+    25,
+    19
+   ]
+  },
+  {
+   "design": "3100589930dd",
+   "cell": [
+    3.9,
+    10,
+    0.03
+   ],
+   "phase": [
+    [
+     4,
+     10
+    ],
+    [
+     10,
+     10
+    ]
+   ],
+   "outcomes": [
+    1,
+    0,
+    1,
+    0
+   ],
+   "files": [
+    "x196_r4_g10_c022",
+    "x196_r4_g10_c094",
+    "x198_r4_g10_c022",
+    "x198_r4_g10_c094"
+   ],
+   "abs": [
+    [
+     16,
+     70,
+     34,
+     70
+    ],
+    [
+     58,
+     34,
+     76,
+     34
+    ],
+    [
+     16,
+     70,
+     34,
+     70
+    ],
+    [
+     58,
+     34,
+     76,
+     34
+    ]
+   ],
+   "edge": [
+    16,
+    19,
+    16,
+    19
+   ]
+  },
+  {
+   "design": "3100589930dd",
+   "cell": [
+    3.9,
+    10,
+    0.03
+   ],
+   "phase": [
+    [
+     4,
+     11
+    ],
+    [
+     10,
+     11
+    ]
+   ],
+   "outcomes": [
+    1,
+    0,
+    1,
+    0
+   ],
+   "files": [
+    "x196_r4_g10_c023",
+    "x196_r4_g10_c095",
+    "x198_r4_g10_c023",
+    "x198_r4_g10_c095"
+   ],
+   "abs": [
+    [
+     16,
+     35,
+     34,
+     35
+    ],
+    [
+     34,
+     59,
+     52,
+     59
+    ],
+    [
+     16,
+     35,
+     34,
+     35
+    ],
+    [
+     34,
+     59,
+     52,
+     59
+    ]
+   ],
+   "edge": [
+    16,
+    34,
+    16,
+    34
+   ]
+  },
+  {
+   "design": "3100589930dd",
+   "cell": [
+    3.9,
+    10,
+    0.03
+   ],
+   "phase": [
+    [
+     2,
+     1
+    ],
+    [
+     8,
+     1
+    ]
+   ],
+   "outcomes": [
+    1,
+    0,
+    1,
+    0
+   ],
+   "files": [
+    "x196_r4_g10_c061",
+    "x196_r4_g10_c133",
+    "x198_r4_g10_c061",
+    "x198_r4_g10_c133"
+   ],
+   "abs": [
+    [
+     20,
+     25,
+     38,
+     25
+    ],
+    [
+     62,
+     49,
+     80,
+     49
+    ],
+    [
+     20,
+     25,
+     38,
+     25
+    ],
+    [
+     62,
+     49,
+     80,
+     49
+    ]
+   ],
+   "edge": [
+    20,
+    15,
+    20,
+    15
+   ]
+  },
+  {
+   "design": "3100589930dd",
+   "cell": [
+    3.9,
+    10,
+    0.03
+   ],
+   "phase": [
+    [
+     2,
+     2
+    ],
+    [
+     8,
+     2
+    ]
+   ],
+   "outcomes": [
+    1,
+    0,
+    1,
+    0
+   ],
+   "files": [
+    "x196_r4_g10_c062",
+    "x196_r4_g10_c134",
+    "x198_r4_g10_c062",
+    "x198_r4_g10_c134"
+   ],
+   "abs": [
+    [
+     20,
+     50,
+     38,
+     50
+    ],
+    [
+     38,
+     62,
+     56,
+     62
+    ],
+    [
+     20,
+     50,
+     38,
+     50
+    ],
+    [
+     38,
+     62,
+     56,
+     62
+    ]
+   ],
+   "edge": [
+    20,
+    33,
+    20,
+    33
+   ]
+  },
+  {
+   "design": "3100589930dd",
+   "cell": [
+    3.9,
+    10,
+    0.03
+   ],
+   "phase": [
+    [
+     2,
+     3
+    ],
+    [
+     8,
+     3
+    ]
+   ],
+   "outcomes": [
+    1,
+    0,
+    1,
+    0
+   ],
+   "files": [
+    "x196_r4_g10_c063",
+    "x196_r4_g10_c135",
+    "x198_r4_g10_c063",
+    "x198_r4_g10_c135"
+   ],
+   "abs": [
+    [
+     44,
+     27,
+     62,
+     27
+    ],
+    [
+     62,
+     63,
+     80,
+     63
+    ],
+    [
+     44,
+     27,
+     62,
+     27
+    ],
+    [
+     62,
+     63,
+     80,
+     63
+    ]
+   ],
+   "edge": [
+    27,
+    15,
+    27,
+    15
+   ]
+  },
+  {
+   "design": "3100589930dd",
+   "cell": [
+    3.9,
+    10,
+    0.03
+   ],
+   "phase": [
+    [
+     2,
+     4
+    ],
+    [
+     8,
+     4
+    ]
+   ],
+   "outcomes": [
+    1,
+    0,
+    1,
+    0
+   ],
+   "files": [
+    "x196_r4_g10_c064",
+    "x196_r4_g10_c136",
+    "x198_r4_g10_c064",
+    "x198_r4_g10_c136"
+   ],
+   "abs": [
+    [
+     44,
+     64,
+     62,
+     64
+    ],
+    [
+     38,
+     52,
+     56,
+     52
+    ],
+    [
+     44,
+     64,
+     62,
+     64
+    ],
+    [
+     38,
+     52,
+     56,
+     52
+    ]
+   ],
+   "edge": [
+    31,
+    38,
+    31,
+    38
+   ]
+  },
+  {
+   "design": "3100589930dd",
+   "cell": [
+    3.9,
+    10,
+    0.03
+   ],
+   "phase": [
+    [
+     2,
+     5
+    ],
+    [
+     8,
+     5
+    ]
+   ],
+   "outcomes": [
+    1,
+    0,
+    1,
+    0
+   ],
+   "files": [
+    "x196_r4_g10_c065",
+    "x196_r4_g10_c137",
+    "x198_r4_g10_c065",
+    "x198_r4_g10_c137"
+   ],
+   "abs": [
+    [
+     32,
+     53,
+     50,
+     53
+    ],
+    [
+     62,
+     65,
+     80,
+     65
+    ],
+    [
+     32,
+     53,
+     50,
+     53
+    ],
+    [
+     62,
+     65,
+     80,
+     65
+    ]
+   ],
+   "edge": [
+    32,
+    15,
+    32,
+    15
+   ]
+  },
+  {
+   "design": "3100589930dd",
+   "cell": [
+    3.9,
+    10,
+    0.03
+   ],
+   "phase": [
+    [
+     2,
+     7
+    ],
+    [
+     8,
+     7
+    ]
+   ],
+   "outcomes": [
+    0,
+    1,
+    0,
+    1
+   ],
+   "files": [
+    "x196_r4_g10_c067",
+    "x196_r4_g10_c139",
+    "x198_r4_g10_c067",
+    "x198_r4_g10_c139"
+   ],
+   "abs": [
+    [
+     44,
+     31,
+     62,
+     31
+    ],
+    [
+     26,
+     43,
+     44,
+     43
+    ],
+    [
+     44,
+     31,
+     62,
+     31
+    ],
+    [
+     26,
+     43,
+     44,
+     43
+    ]
+   ],
+   "edge": [
+    31,
+    26,
+    31,
+    26
+   ]
+  },
+  {
+   "design": "3100589930dd",
+   "cell": [
+    3.9,
+    10,
+    0.03
+   ],
+   "phase": [
+    [
+     2,
+     8
+    ],
+    [
+     8,
+     8
+    ]
+   ],
+   "outcomes": [
+    0,
+    1,
+    0,
+    1
+   ],
+   "files": [
+    "x196_r4_g10_c068",
+    "x196_r4_g10_c140",
+    "x198_r4_g10_c068",
+    "x198_r4_g10_c140"
+   ],
+   "abs": [
+    [
+     56,
+     56,
+     74,
+     56
+    ],
+    [
+     50,
+     44,
+     68,
+     44
+    ],
+    [
+     56,
+     56,
+     74,
+     56
+    ],
+    [
+     50,
+     44,
+     68,
+     44
+    ]
+   ],
+   "edge": [
+    21,
+    27,
+    21,
+    27
+   ]
+  },
+  {
+   "design": "3100589930dd",
+   "cell": [
+    3.9,
+    10,
+    0.03
+   ],
+   "phase": [
+    [
+     2,
+     9
+    ],
+    [
+     8,
+     9
+    ]
+   ],
+   "outcomes": [
+    0,
+    1,
+    0,
+    1
+   ],
+   "files": [
+    "x196_r4_g10_c069",
+    "x196_r4_g10_c141",
+    "x198_r4_g10_c069",
+    "x198_r4_g10_c141"
+   ],
+   "abs": [
+    [
+     44,
+     57,
+     62,
+     57
+    ],
+    [
+     38,
+     69,
+     56,
+     69
+    ],
+    [
+     44,
+     57,
+     62,
+     57
+    ],
+    [
+     38,
+     69,
+     56,
+     69
+    ]
+   ],
+   "edge": [
+    33,
+    26,
+    33,
+    26
+   ]
+  },
+  {
+   "design": "3100589930dd",
+   "cell": [
+    3.9,
+    10,
+    0.03
+   ],
+   "phase": [
+    [
+     2,
+     10
+    ],
+    [
+     8,
+     10
+    ]
+   ],
+   "outcomes": [
+    0,
+    1,
+    0,
+    1
+   ],
+   "files": [
+    "x196_r4_g10_c070",
+    "x196_r4_g10_c142",
+    "x198_r4_g10_c070",
+    "x198_r4_g10_c142"
+   ],
+   "abs": [
+    [
+     20,
+     34,
+     38,
+     34
+    ],
+    [
+     62,
+     58,
+     80,
+     58
+    ],
+    [
+     20,
+     34,
+     38,
+     34
+    ],
+    [
+     62,
+     58,
+     80,
+     58
+    ]
+   ],
+   "edge": [
+    20,
+    15,
+    20,
+    15
+   ]
+  },
+  {
+   "design": "3100589930dd",
+   "cell": [
+    3.9,
+    10,
+    0.03
+   ],
+   "phase": [
+    [
+     2,
+     11
+    ],
+    [
+     8,
+     11
+    ]
+   ],
+   "outcomes": [
+    0,
+    1,
+    0,
+    1
+   ],
+   "files": [
+    "x196_r4_g10_c071",
+    "x196_r4_g10_c143",
+    "x198_r4_g10_c071",
+    "x198_r4_g10_c143"
+   ],
+   "abs": [
+    [
+     20,
+     59,
+     38,
+     59
+    ],
+    [
+     62,
+     47,
+     80,
+     47
+    ],
+    [
+     20,
+     59,
+     38,
+     59
+    ],
+    [
+     62,
+     47,
+     80,
+     47
+    ]
+   ],
+   "edge": [
+    20,
+    15,
+    20,
+    15
+   ]
+  },
+  {
+   "design": "3100589930dd",
+   "cell": [
+    3.9,
+    9,
+    0.03
+   ],
+   "phase": [
+    [
+     4,
+     2
+    ],
+    [
+     10,
+     2
+    ]
+   ],
+   "outcomes": [
+    0,
+    1
+   ],
+   "files": [
+    "x198_r4_g9_c014",
+    "x198_r4_g9_c086"
+   ],
+   "abs": [
+    [
+     52,
+     26,
+     70,
+     26
+    ],
+    [
+     46,
+     62,
+     64,
+     62
+    ]
+   ],
+   "edge": [
+    25,
+    31
+   ]
+  },
+  {
+   "design": "3100589930dd",
+   "cell": [
+    3.9,
+    9,
+    0.03
+   ],
+   "phase": [
+    [
+     4,
+     3
+    ],
+    [
+     10,
+     3
+    ]
+   ],
+   "outcomes": [
+    0,
+    1
+   ],
+   "files": [
+    "x198_r4_g9_c015",
+    "x198_r4_g9_c087"
+   ],
+   "abs": [
+    [
+     28,
+     63,
+     46,
+     63
+    ],
+    [
+     22,
+     39,
+     40,
+     39
+    ]
+   ],
+   "edge": [
+    28,
+    22
+   ]
+  },
+  {
+   "design": "3100589930dd",
+   "cell": [
+    3.9,
+    9,
+    0.03
+   ],
+   "phase": [
+    [
+     4,
+     4
+    ],
+    [
+     10,
+     4
+    ]
+   ],
+   "outcomes": [
+    0,
+    1
+   ],
+   "files": [
+    "x198_r4_g9_c016",
+    "x198_r4_g9_c088"
+   ],
+   "abs": [
+    [
+     16,
+     28,
+     34,
+     28
+    ],
+    [
+     58,
+     28,
+     76,
+     28
+    ]
+   ],
+   "edge": [
+    16,
+    19
+   ]
+  },
+  {
+   "design": "3100589930dd",
+   "cell": [
+    3.9,
+    9,
+    0.03
+   ],
+   "phase": [
+    [
+     4,
+     8
+    ],
+    [
+     10,
+     8
+    ]
+   ],
+   "outcomes": [
+    1,
+    0
+   ],
+   "files": [
+    "x198_r4_g9_c020",
+    "x198_r4_g9_c092"
+   ],
+   "abs": [
+    [
+     40,
+     68,
+     58,
+     68
+    ],
+    [
+     22,
+     32,
+     40,
+     32
+    ]
+   ],
+   "edge": [
+    27,
+    22
+   ]
+  },
+  {
+   "design": "3100589930dd",
+   "cell": [
+    3.9,
+    9,
+    0.03
+   ],
+   "phase": [
+    [
+     4,
+     9
+    ],
+    [
+     10,
+     9
+    ]
+   ],
+   "outcomes": [
+    1,
+    0
+   ],
+   "files": [
+    "x198_r4_g9_c021",
+    "x198_r4_g9_c093"
+   ],
+   "abs": [
+    [
+     52,
+     45,
+     70,
+     45
+    ],
+    [
+     58,
+     33,
+     76,
+     33
+    ]
+   ],
+   "edge": [
+    25,
+    19
+   ]
+  },
+  {
+   "design": "3100589930dd",
+   "cell": [
+    3.9,
+    9,
+    0.03
+   ],
+   "phase": [
+    [
+     4,
+     10
+    ],
+    [
+     10,
+     10
+    ]
+   ],
+   "outcomes": [
+    1,
+    0
+   ],
+   "files": [
+    "x198_r4_g9_c022",
+    "x198_r4_g9_c094"
+   ],
+   "abs": [
+    [
+     16,
+     70,
+     34,
+     70
+    ],
+    [
+     58,
+     34,
+     76,
+     34
+    ]
+   ],
+   "edge": [
+    16,
+    19
+   ]
+  },
+  {
+   "design": "3100589930dd",
+   "cell": [
+    3.9,
+    9,
+    0.03
+   ],
+   "phase": [
+    [
+     2,
+     2
+    ],
+    [
+     8,
+     2
+    ]
+   ],
+   "outcomes": [
+    1,
+    0
+   ],
+   "files": [
+    "x198_r4_g9_c062",
+    "x198_r4_g9_c134"
+   ],
+   "abs": [
+    [
+     20,
+     50,
+     38,
+     50
+    ],
+    [
+     38,
+     62,
+     56,
+     62
+    ]
+   ],
+   "edge": [
+    20,
+    33
+   ]
+  },
+  {
+   "design": "3100589930dd",
+   "cell": [
+    3.9,
+    9,
+    0.03
+   ],
+   "phase": [
+    [
+     2,
+     3
+    ],
+    [
+     8,
+     3
+    ]
+   ],
+   "outcomes": [
+    1,
+    0
+   ],
+   "files": [
+    "x198_r4_g9_c063",
+    "x198_r4_g9_c135"
+   ],
+   "abs": [
+    [
+     44,
+     27,
+     62,
+     27
+    ],
+    [
+     62,
+     63,
+     80,
+     63
+    ]
+   ],
+   "edge": [
+    27,
+    15
+   ]
+  },
+  {
+   "design": "3100589930dd",
+   "cell": [
+    3.9,
+    9,
+    0.03
+   ],
+   "phase": [
+    [
+     2,
+     4
+    ],
+    [
+     8,
+     4
+    ]
+   ],
+   "outcomes": [
+    1,
+    0
+   ],
+   "files": [
+    "x198_r4_g9_c064",
+    "x198_r4_g9_c136"
+   ],
+   "abs": [
+    [
+     44,
+     64,
+     62,
+     64
+    ],
+    [
+     38,
+     52,
+     56,
+     52
+    ]
+   ],
+   "edge": [
+    31,
+    38
+   ]
+  },
+  {
+   "design": "3100589930dd",
+   "cell": [
+    3.9,
+    9,
+    0.03
+   ],
+   "phase": [
+    [
+     2,
+     8
+    ],
+    [
+     8,
+     8
+    ]
+   ],
+   "outcomes": [
+    0,
+    1
+   ],
+   "files": [
+    "x198_r4_g9_c068",
+    "x198_r4_g9_c140"
+   ],
+   "abs": [
+    [
+     56,
+     56,
+     74,
+     56
+    ],
+    [
+     50,
+     44,
+     68,
+     44
+    ]
+   ],
+   "edge": [
+    21,
+    27
+   ]
+  },
+  {
+   "design": "3100589930dd",
+   "cell": [
+    3.9,
+    9,
+    0.03
+   ],
+   "phase": [
+    [
+     2,
+     9
+    ],
+    [
+     8,
+     9
+    ]
+   ],
+   "outcomes": [
+    0,
+    1
+   ],
+   "files": [
+    "x198_r4_g9_c069",
+    "x198_r4_g9_c141"
+   ],
+   "abs": [
+    [
+     44,
+     57,
+     62,
+     57
+    ],
+    [
+     38,
+     69,
+     56,
+     69
+    ]
+   ],
+   "edge": [
+    33,
+    26
+   ]
+  },
+  {
+   "design": "3100589930dd",
+   "cell": [
+    3.9,
+    9,
+    0.03
+   ],
+   "phase": [
+    [
+     2,
+     10
+    ],
+    [
+     8,
+     10
+    ]
+   ],
+   "outcomes": [
+    0,
+    1
+   ],
+   "files": [
+    "x198_r4_g9_c070",
+    "x198_r4_g9_c142"
+   ],
+   "abs": [
+    [
+     20,
+     34,
+     38,
+     34
+    ],
+    [
+     62,
+     58,
+     80,
+     58
+    ]
+   ],
+   "edge": [
+    20,
+    15
+   ]
+  }
+ ],
+ "p2_x199_pool": {
+  "multi_run_worlds": 108,
+  "disagreeing": 4,
+  "horizon_mismatched": 36,
+  "disagreeing_and_horizon_mismatched": 2,
+  "worlds": [
+   {
+    "cell": [
+     4.4,
+     10,
+     0.03
+    ],
+    "phase": [
+     [
+      4,
+      7
+     ],
+     [
+      10,
+      7
+     ]
+    ],
+    "outcomes": [
+     0,
+     1
+    ],
+    "files": [
+     "x158_g10_r45_s703",
+     "x171_r4.5_g10_s979"
+    ],
+    "steps": [
+     6000,
+     2000
+    ]
+   },
+   {
+    "cell": [
+     4.4,
+     10,
+     0.03
+    ],
+    "phase": [
+     [
+      2,
+      2
+     ],
+     [
+      8,
+      2
+     ]
+    ],
+    "outcomes": [
+     0,
+     1
+    ],
+    "files": [
+     "x158_g10_r45_s704",
+     "x171_r4.5_g10_s976"
+    ],
+    "steps": [
+     6000,
+     2000
+    ]
+   },
+   {
+    "cell": [
+     4.7,
+     9,
+     0.03
+    ],
+    "phase": [
+     [
+      2,
+      8
+     ],
+     [
+      8,
+      8
+     ]
+    ],
+    "outcomes": [
+     1,
+     0
+    ],
+    "files": [
+     "x175_s1061",
+     "x175_s1074"
+    ],
+    "steps": [
+     2000,
+     2000
+    ]
+   },
+   {
+    "cell": [
+     4.7,
+     9,
+     0.03
+    ],
+    "phase": [
+     [
+      5,
+      3
+     ],
+     [
+      11,
+      3
+     ]
+    ],
+    "outcomes": [
+     1,
+     0
+    ],
+    "files": [
+     "x175_s1065",
+     "x175_s1069"
+    ],
+    "steps": [
+     2000,
+     2000
+    ]
+   }
+  ]
+ },
+ "criteria": {
+  "C1_disagreement_exists_and_is_common": {
+   "worlds_with_repeats": 841,
+   "worlds_disagreeing": 44,
+   "rate": 0.0523,
+   "wilson": [
+    0.0392,
+    0.0695
+   ],
+   "pass": false,
+   "registered": "at least 10 % of eligible worlds disagree"
+  },
+  "C2_exceeds_beta_binomial_at_icc_0_955": {
+   "observed_disagreeing": 44,
+   "expected_at_icc_0_955": 20.476,
+   "factor": 2.149,
+   "pass": false,
+   "registered": "observed >= 3x the beta-binomial prediction at ICC = 0.955"
+  },
+  "C3_icc_refitted_on_p1": {
+   "pass": true,
+   "slope": 0.55102,
+   "sigma": 13.264,
+   "icc": 0.9816,
+   "icc_at_profile_mode_sigma": 0.6903,
+   "sigma_interval": [
+    13.239,
+    15.031
+   ],
+   "icc_interval": [
+    0.6698,
+    0.6906
+   ],
+   "n_worlds": 841,
+   "n_runs": 1950,
+   "registered": "the ICC interval excludes 0.955"
+  },
+  "C4_not_an_edge_effect": {
+   "median_edge_difference_disagreeing": 6.0,
+   "median_edge_difference_agreeing": 0,
+   "share_disagreeing_with_equal_edge": 0.0227,
+   "pass": null,
+   "note": "descriptive: if the boundary drove the disagreement, worlds with equal edge distances would agree"
+  }
+ },
+ "refusal_rule": {
+  "R1_fewer_than_20_eligible_worlds": {
+   "triggered": false,
+   "counts": {
+    "eligible": 841
+   }
+  },
+  "R2_design_key_collapses": {
+   "triggered": false,
+   "counts": {
+    "design_groups": 9,
+    "runs": 3113
+   }
+  },
+  "R3_all_disagreeing_worlds_horizon_mismatched": {
+   "triggered": false,
+   "counts": {
+    "steps_seen": [
+     400,
+     2000,
+     3000,
+     6000
+    ]
+   }
+  }
+ },
+ "verdict": "THE REGISTERED CRITERIA FAIL: the world is *nearly* a cluster, and where it stops being one the reason is the position, not noise. In design groups with identical parameters, 44 of 841 worlds that received two or more seeds disagree in outcome (0.052, Wilson [0.0392, 0.0695]) - below the registered 10 % and only 2.149x the beta-binomial prediction at ICC = 0.955 (registered: >= 3x). The ICC refitted on this pool is 0.9816 (95 % interval [0.6698, 0.6906] around the sigma profile mode; the joint sigma puts it higher), so X199's 0.955 is not overturned: on a pool with many repeats the label predicts a lot. What the clone pairs do expose is the other half of R4: 42 of 736 at F=0.03 steps=400, 2 of 40 at F=0.03 steps=2000, i.e. almost all disagreement sits in the arrays where two seeds of one phase are far apart in the domain. The descriptive check agrees: the median distance difference to the nearest edge is 6.0 cells in a disagreeing world against 0 in an agreeing one, and only 0.0227 of the disagreeing worlds have both runs at the same edge distance. So the label (cell, phase) is not a sufficient statistic for the world: it fixes the local inflow and leaves the distance to the boundary free, and that free coordinate moves the outcome. C1-C3: partly hold: C3_icc_refitted_on_p1."
+}
