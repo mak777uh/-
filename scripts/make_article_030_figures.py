@@ -1,7 +1,7 @@
 """make_article_030_figures.py — figures for articles/030 (the gap between surfaces switches fusion).
 
 Reads only committed aggregates and the per-world compact slices; writes
-articles/030-figures/fig1..fig5 .png (200 dpi) and .pdf, plus tables.json with every number plotted.
+articles/030-figures/fig1..fig9 .png (200 dpi) and .pdf, plus tables.json with every number plotted.
 
 Run from the repository root:  python scripts/make_article_030_figures.py
 """
@@ -153,7 +153,7 @@ save(fig, "fig1-what-we-measure")
 x192, x193 = agg("x192_phase_census"), agg("x193_phase_census_r3")
 r6 = [(r["f_local"], r["ratio_contact"], r["fused"]) for r in x192["runs_detail"] if r["ratio_contact"] is not None]
 r3 = [(r["f_local"], r["ratio_contact"], r["fused"]) for r in x193["runs_detail"] if r["ratio_contact"] is not None]
-tables["fig2"] = {"r6": {"radius": x192["radius"], "gap": x192["gap"], "worlds": len(r6),
+tables["fig3"] = {"r6": {"radius": x192["radius"], "gap": x192["gap"], "worlds": len(r6),
                          "f_local_values": sorted({p[0] for p in r6})},
                   "r3": {"radius": x193["radius"], "gap": x193["gap"], "worlds": len(r3),
                          "f_local_values": sorted({p[0] for p in r3})}}
@@ -182,10 +182,10 @@ ax[1].set_xlabel("local inflow at the bodies (F_local)")
 ax[1].set_ylabel("bridge ratio at contact")
 ax[1].set_title("(b) the phase moves the bridge " + r"(144 worlds per radius)")
 ax[1].legend(loc="upper right", fontsize=8)
-fig.suptitle("Figure 2 — the population of phases and the bridge at a fixed inflow", fontsize=12,
+fig.suptitle("Figure 3 — the population of phases and the bridge at a fixed inflow", fontsize=12,
              fontweight="bold", y=1.02)
 fig.tight_layout()
-save(fig, "fig2-phase-and-the-bridge")
+save(fig, "fig3-phase-and-the-bridge")
 
 # ---------------------------------------------------------------- fig 3
 def bins_for(pts, nbins=6):
@@ -219,7 +219,7 @@ def logistic_curve(pts, grid=200):
 
 slope6 = x192["logistic_slope_fusion_on_ratio"]
 slope3 = x193["logistic_slope_fusion_on_ratio"]
-tables["fig3"] = {"r6": {"slope": slope6, "bins": bins_for(r6)},
+tables["fig4"] = {"r6": {"slope": slope6, "bins": bins_for(r6)},
                   "r3": {"slope": slope3, "bins": bins_for(r3)}}
 
 fig, ax = plt.subplots(1, 2, figsize=(9.2, 3.9), sharey=True)
@@ -235,9 +235,9 @@ for a, pts, colour, sl, name, ref in ((ax[0], r6, BLUE, slope6, f"radius {x192['
 ax[0].set_ylabel("share of worlds that fused")
 ax[0].legend(["binned share", "logistic fit"], fontsize=8, loc="lower right")
 ax[0].text(0.02, 0.95, "above the median bridge,\nthe outcome flips", transform=ax[0].transAxes, fontsize=8.5, va="top")
-fig.suptitle("Figure 3 — at a fixed inflow, the bridge decides the outcome", fontsize=12, fontweight="bold", y=1.02)
+fig.suptitle("Figure 4 — at a fixed inflow, the bridge decides the outcome", fontsize=12, fontweight="bold", y=1.02)
 fig.tight_layout()
-save(fig, "fig3-the-bridge-decides")
+save(fig, "fig4-the-bridge-decides")
 
 # ---------------------------------------------------------------- fig 4
 gap_table = agg("x196_gap_or_size")["gap_table"]
@@ -253,7 +253,7 @@ arms.append({"name": "r6_g9_reference", "radius": refs["r6_g9"]["radius"], "gap"
              "share": refs["r6_g9"]["share_over_values"], "fused": refs["r6_g9"]["fused_worlds"],
              "worlds": refs["r6_g9"]["worlds"]})
 by_gap = sorted(arms, key=lambda a: (-a["gap"], -a["radius"]))
-tables["fig4"] = {"by_gap": by_gap, "note": "share is the mean over the arm's inflow values; worlds = 144 per arm"}
+tables["fig5"] = {"by_gap": by_gap, "note": "share is the mean over the arm's inflow values; worlds = 144 per arm"}
 
 fig, ax = plt.subplots(1, 2, figsize=(9.2, 3.9))
 cols = [RED if a["radius"] == 4.0 else BLUE for a in by_gap]
@@ -277,17 +277,17 @@ ax[1].set_title("(b) both sizes rise as the gap closes")
 ax[1].legend(fontsize=8.5)
 ax[1].annotate("radius 4 at a separation of 20\n(gap 12) fuses nothing", (12, 0.0), textcoords="offset points",
                xytext=(-8, 26), fontsize=8, color=RED)
-fig.suptitle("Figure 4 — the gap between the surfaces switches fusion; the size only shifts it",
+fig.suptitle("Figure 5 — the gap between the surfaces switches fusion; the size only shifts it",
              fontsize=12, fontweight="bold", y=1.02)
 fig.tight_layout()
-save(fig, "fig4-the-gap-switches")
+save(fig, "fig5-the-gap-switches")
 
 # ---------------------------------------------------------------- fig 5
 x194, x197 = agg("x194_phase_clusters"), agg("x197_deviance_worlds")
 bs = x194["bootstrap"]
 dev = x197["deviance"]
 tab = x197["bootstrap"]
-tables["fig5"] = {"auc": {"by_runs": x194["auc_by_runs"], "by_worlds": x194["auc_by_phases_homogeneous"],
+tables["fig9"] = {"auc": {"by_runs": x194["auc_by_runs"], "by_worlds": x194["auc_by_phases_homogeneous"],
                           "ci_runs": bs["by_runs"]["ci95"], "ci_worlds": bs["by_phases"]["ci95"],
                           "sd_ratio": bs["sd_ratio_phases_over_runs"]},
                   "deviance_drop": dev, "bootstrap": tab,
@@ -327,16 +327,16 @@ ax[2].set_xticklabels(["per run", "per world"])
 ax[2].set_ylabel("bootstrap resamples with drop > 20")
 ax[2].set_ylim(0, 0.7)
 ax[2].set_title("(c) and the interval widens")
-fig.suptitle("Figure 5 — the unit of observation has to be checked for each statistic",
+fig.suptitle("Figure 9 — the unit of observation has to be checked for each statistic",
              fontsize=12, fontweight="bold", y=1.03)
 fig.tight_layout()
-save(fig, "fig5-the-unit-of-observation")
+save(fig, "fig9-the-unit-of-observation")
 
 # ---------------------------------------------------------------- fig 6 (v2.0)
 x157, x159 = agg("x157_gap_geometry"), agg("x157_quantum")
 x158, x168c = agg("x158_crossing"), agg("x168c_inflow")
 radii = ["r3.0", "r4.5", "r5.2", "r6.0"]
-tables["fig6"] = {"contact_gap": {"by_radius": {r: x157["by_radius"][r]["g_fusion_median"] for r in radii},
+tables["fig2"] = {"contact_gap": {"by_radius": {r: x157["by_radius"][r]["g_fusion_median"] for r in radii},
                                   "median": x157["contact_gap_median"], "min": x157["contact_gap_min"],
                                   "max": x157["contact_gap_max"], "n": x157["contact_gap_n"]},
                   "window": {"median": x159["window_width_median"], "lower": x159["threshold_low_median"]},
@@ -381,10 +381,10 @@ ax[2].set_xticklabels(["F 0.026", "F 0.030", "F 0.036"])
 ax[2].set_ylabel("share that fused at gap 11")
 ax[2].set_ylim(0, 0.6)
 ax[2].set_title("(c) and it does not move with the inflow\n(the withdrawn X168 reading replaced)")
-fig.suptitle("Figure 6 — the distance the medium uses, the crossing, and what does not move it",
+fig.suptitle("Figure 2 — the distance the medium uses, the crossing, and what does not move it",
              fontsize=12, fontweight="bold", y=1.03)
 fig.tight_layout()
-save(fig, "fig6-the-crossing-and-its-geometry")
+save(fig, "fig2-the-crossing-and-its-geometry")
 
 # ---------------------------------------------------------------- fig 7 (v2.0)
 x171, x174, x176, x178, x180 = agg("x171_corridor_sizes"), agg("x174_gap_corridor"), agg("x176_past_crossing"), \
@@ -490,7 +490,7 @@ save(fig, "fig8-the-table-and-the-ladder")
 
 
 x198 = agg("x198_gap_curve")
-tables["fig9"] = {"gap_table": x198["gap_table"], "criteria_passed": x198["criteria_passed"],
+tables["fig6"] = {"gap_table": x198["gap_table"], "criteria_passed": x198["criteria_passed"],
                   "spreads": {a["name"]: a["crowded_value"]["ratio_spread"] for a in x198["arms"]},
                   "correction_to_x195": x198["correction_to_x195"]}
 
@@ -518,10 +518,10 @@ ax[1].set_xticklabels([a["name"].replace("_", "\n") for a in arms198], fontsize=
 ax[1].set_ylabel("spread of the bridge between phases")
 ax[1].set_ylim(0, max(spreads) * 1.25)
 ax[1].set_title("(b) the phase still moves the bridge everywhere")
-fig.suptitle("Figure 9 — the gap curve on the finer grid: the switch, and a bridge that is not enough",
+fig.suptitle("Figure 6 — the gap curve on the finer grid: the switch, and a bridge that is not enough",
              fontsize=11.5, fontweight="bold", y=1.02)
 fig.tight_layout()
-save(fig, "fig9-the-gap-curve")
+save(fig, "fig6-the-gap-curve")
 
 (OUT / "tables.json").write_text(json.dumps(tables, ensure_ascii=False, indent=1) + "\n", encoding="utf-8", newline="\n")
 print(f"[figures] tables.json written with {len(tables)} groups")

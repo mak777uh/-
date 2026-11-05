@@ -17,7 +17,7 @@ Built on this machine, in the repository `C:\Users\Admin\Documents\Qoder\2026-10
 
 | what | where |
 |---|---|
-| **the data archive to upload** | `_exports\030-gap-switches-fusion-v2.1.zip` (2.13 MB, 73 files inside) |
+| **the data archive to upload** | `_exports\030-gap-switches-fusion-v2.1.zip` (about 2.2 MB, 73 files inside) |
 | the same archive, already unpacked for inspection | `_exports\030-gap-switches-fusion\` |
 | the article (Markdown, the source of the PDF) | `articles\030-the-gap-between-surfaces-decides-fusion.md` |
 | the article as PDF, nine figures embedded | `articles\030-the-gap-between-surfaces-decides-fusion.pdf` |
@@ -88,12 +88,12 @@ from.
    manifest. Every line must report OK.
 2. **Nothing missing.** Count the files: 73 in the archive; nine figures × two formats = 18; 45 aggregates; `tables.json`;
    and the 9 top-level files listed above.
-3. **Spot-check one number end to end.** In `data/derived/tables.json` open `fig4.by_gap[1]`: it reads
+3. **Spot-check one number end to end.** In `data/derived/tables.json` open `fig5.by_gap[1]`: it reads
    `{"radius": 4.0, "gap": 10.0, "fused": 34, "share": 0.1883, ...}`. The same 34 must appear in the article's table in
    section 5.5 (row "radius 4, gap 10", column "fused") and in the aggregate
    `data/aggregates/l1_field_x196_gap_or_size.json` at `gap_table.r4_g10.fused_worlds`. If the three disagree, stop and tell
    the author — do not "fix" anything.
-4. **Spot-check the newest block as well.** In `data/derived/tables.json` open `fig9.gap_table.r4_g8`: it reads
+4. **Spot-check the newest block as well.** In `data/derived/tables.json` open `fig6.gap_table.r4_g8`: it reads
    `{"radius": 4.0, "gap": 8.0, "sep": 16.0, "share": 0.9607, "fused_worlds": 138, "worlds": 144}`. The same 138
    and 0.9607 must appear in the article's section 5.5 table (row "radius 4, gap 8") and in the aggregate
    `data/aggregates/l1_field_x198_gap_curve.json` at `gap_table.r4_g8`.
@@ -111,26 +111,35 @@ link that the author did not give.**
 
 ## 4. Deposit on Zenodo (enough on its own)
 
-`zenodo.json` is in Zenodo's legacy API format. With a personal access token in `$ZENODO_TOKEN`:
+The archive has **folders** — `figures/`, `data/aggregates/`, `data/derived/`. Zenodo's *legacy* deposition API cannot store a
+file name that contains a slash: `PUT <bucket>/data/aggregates/x.json` answers **404**, and a client that loops over
+`find . -type f` therefore fails at the first data file. Flattening the names instead would break `MANIFEST.sha256` and every
+path the README gives. The **records API keeps the tree**, so deposit with it.
+
+**The script (in the repository, not in the archive).** It reads `zenodo.json` from the unpacked archive, translates the fields
+to the records API, uploads all 73 entries, and checks every uploaded file against the local copy before it will publish:
 
 ```bash
-# 1. create the deposition (the response gives links.bucket and the deposition id)
-curl -sS -H "Authorization: Bearer $ZENODO_TOKEN" -H "Content-Type: application/json" \
-     -X POST https://zenodo.org/api/deposit/depositions --data-binary @zenodo.json
+export ZENODO_TOKEN=<personal access token with deposit:write>
 
-# 2. upload every file except zenodo.json itself
-for f in $(find . -type f ! -name zenodo.json); do
-  curl -sS -H "Authorization: Bearer $ZENODO_TOKEN" -X PUT --data-binary @"$f" "<links.bucket>/${f#./}"
-done
+# 1. create the draft, upload, and verify — prints the record id, the reserved DOI and a per-file check
+python scripts/zenodo_deposit_030.py --archive _exports/030-gap-switches-fusion
 
-# 3. publish — irreversible, only after the author confirms the file list
-curl -sS -H "Authorization: Bearer $ZENODO_TOKEN" \
-     -X POST https://zenodo.org/api/deposit/depositions/<id>/actions/publish
+# 2. re-check what the server holds at any time (size and md5 of every file)
+python scripts/zenodo_deposit_030.py --archive _exports/030-gap-switches-fusion --verify
+
+# 3. publish — irreversible, only after the author confirms the file list in writing
+python scripts/zenodo_deposit_030.py --archive _exports/030-gap-switches-fusion --publish
 ```
 
-The web interface works equally well: the fields map one-to-one onto the form, and the file list above is the list to drag in.
-Settings: upload type **publication**, publication type **preprint**, access **open**, version **v2.1**. Keep
-`MANIFEST.sha256`, `README.md` and `LICENSE` in the deposit.
+**By hand, in the same order:** `POST /api/records` with the metadata; `POST /api/records/<id>/draft/files` with the list of
+keys (`[{"key": "figures/fig1-what-we-measure.png"}, ...]`); `PUT` each file's bytes to the `links.content` URL the response
+gives; `POST /api/records/<id>/draft/files/<url-encoded key>/commit` for each file; then
+`POST /api/records/<id>/draft/actions/publish`. Leave the legacy `/api/deposit/depositions` endpoint alone for this archive.
+
+**Web interface.** The fields map one-to-one onto the form: upload type **publication**, publication type **preprint**, access
+**open**, version **v2.1**. Drag in the whole unpacked folder and then check the record page: `figures/` and `data/` must still
+be folders, not names like `data_aggregates_...`. Keep `MANIFEST.sha256`, `README.md` and `LICENSE` in the deposit.
 
 ## 5. arXiv (optional, only after Zenodo, only if the author asks)
 
@@ -175,3 +184,49 @@ width. Ask the author before reformatting, and never submit the same text to two
 Every question goes to the author, **Ilya Vladimirov**. The three things only the author can answer are: the licence, the
 author list, and whether the paper goes to Zenodo only (recommended, one step) or also to arXiv (a second step, after the
 deposit).
+
+## 10. The article's own version history and verification notes
+
+Both sections used to close the article. They are provenance, not results, so they travel here instead of into the deposited
+text; the version history is in chronological order and the counts are the final ones.
+
+### Version history
+
+- **v1.0** (2026-11-04): first edition. Consolidates the phase-census line X184–X197 for an outside reader, including the
+  correction of the "size window" reading (X195) to a **gap** reading (X196) and the unit-of-observation result (X194, X197),
+  with the published deviance drop falling from 20.7 to 14.3 when the world replaces the run.
+- **v1.1** (2026-11-05): a glossary of the article's own terms in §3; an explicit next-step section (§8); the author line set
+  from the owner's answer (Ilya Vladimirov); a repeated word fixed. No number changed.
+- **v1.2** (2026-11-05): the article opens with the shape the owner asked for — last time we found this, so we checked that,
+  here are the results, here is where we move next. A new opening section states what the previous article found and the two
+  questions it left open; the published previous step is cited by DOI; the sequence is mapped in `docs/series.md`; §8 is
+  retitled. No number changed.
+- **v2.0** (2026-11-05): one article for the whole path after the published previous step, rather than four. Adds §5.1 (the
+  crossing and its geometry), §5.2 (what a daughter keeps), §5.6 (the corridor, its failed sharp prediction, the edge and the
+  cliff, the rate ladder), §5.7 (the full crossing table and the between-family dispersion) and §5.8 (the bridge against the
+  local inflow); the abstract and §1, §2, §6–§9 are rewritten to match; §9 lists the six places where a report's prose
+  disagrees with the stored field. After the independent review of the added blocks, six sentences were corrected (X168c's seed
+  count, X173's followable window, the two-habitat trade behind X156's mean slopes, X183's five candidate readings, X188's
+  sensitivity end, X167's area ratio), and the gate then held **145** needles.
+- **v2.1** (2026-11-05, the version deposited): the curve the v2.0 edition could only announce. X198 finished after v2.0 was
+  written, so §5.5 gains the eight-arm curve (1152 worlds) with the crossing of one half between gaps 9 and 10, the two empty
+  cells that were previously inferred, four arms that reproduce an earlier cell exactly, and the observation that the bridge
+  keeps varying where nothing fuses (gaps 11 and 12); §8 records the answer instead of the running question; the artifact is
+  [A27], the result card is §10jg of the field plan. The final build also renumbers the nine figures in reading order (they had
+  been numbered in the order the analyses were done) and gives each one a caption, moves this history and the verification
+  notes out of the article, fixes the two links that pointed at `figures/tables.json` (the table lives in `data/derived/`), and
+  cites [20] in §9. No number changed: the build that leaves this machine passes **164 of 164**.
+
+### Verification
+
+- **Numbers.** Every number quoted in the article is re-derived from the committed artifacts by
+  `python scripts/check_article_030_numbers.py --ci` — **164** needles, each of which must also appear verbatim in the text.
+  The table behind them is `030-figures/tables.json` in the repository, `data/derived/tables.json` in the archive.
+- **References.** Existence of every reference is checked in `030-references.md` (in the archive: `references.md`) via the
+  corpus manifest or Crossref/DataCite; the one entry that could not be verified is marked there and is not cited.
+- **Independent review.** `lab/reviews/2026-11-04-030-numbers.md` — the headline numbers of the earlier edition, including the
+  two statistics whose interval depends on the unit of observation; `lab/reviews/2026-11-05-030-v20-numbers.md` — the blocks
+  added in v2.0, whose six corrections are all applied.
+- **Not published.** Nothing has been submitted, deposited or posted anywhere. The deposit is the publication and needs the
+  author's written go-ahead. The author is fixed — one author, Ilya Vladimirov, no affiliation and no ORCID — and so is the
+  licence (CC BY 4.0).

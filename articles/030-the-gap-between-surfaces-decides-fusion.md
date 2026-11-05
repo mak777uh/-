@@ -204,6 +204,8 @@ gaps.
 
 ![Figure 1](030-figures/fig1-what-we-measure.png)
 
+**Figure 1.** What the article measures: two ring-shaped bodies of pattern on the striped supply, the gap between their surfaces, and the bridge ratio read at the midpoint between them.
+
 **The words of this article, in one place.** A *world* is one run with a given geometry and seed; a *phase class* is a pair of
 seeded positions counted modulo the stripe period of 12 cells; the *local supply* is the value of the striped supply function at
 the seeded positions; the *nominal supply* `F` is its average over the whole field, the number an experimenter sets; the *gap* is
@@ -221,7 +223,7 @@ takes only nine distinct values. Enumerating the positions of a pair with a fixe
 **144 phase classes** (a "phase" is the pair of positions modulo 12). We run **one world per class** — the whole population
 of positions, not a sample — at a fixed separation and body size. This is what makes the conditional question answerable: at
 each of the nine supply values we have between 4 and 26 worlds, all at nominally identical settings, differing only in the
-hidden phase (Figure 2a).
+hidden phase (Figure 3a).
 
 **Pre-registration.** Every arm of this line was pre-registered before its run, with its positive control, its readout, its
 sensitivity arithmetic and its refusal rule written into `reports/*-plan.md` and into the plan sections of
@@ -276,7 +278,9 @@ the law is about surfaces and not about matched sizes. Three bodies behave like 
 ([A15]) — and the gap-10 share is close to the **square** of the pairwise 0.467 measured at that gap (0.467² = 0.22), not to
 0.467 itself, as a many-body extension of the pairwise law would predict.
 
-![Figure 6](030-figures/fig6-the-crossing-and-its-geometry.png)
+![Figure 2](030-figures/fig2-the-crossing-and-its-geometry.png)
+
+**Figure 2.** The distance the medium actually uses: the gap at contact for each body size, the crossing it produces, and the inflow that does not move it.
 
 **A band, not a threshold, once the observation is finer.** X166 ([A16]) repeated the contact probe on a one-step log rather
 than a ten-step grid. Per-arm medians then differ by **2.07 cells** and the within-arm scatter is **0.44 cells**, so the
@@ -350,24 +354,28 @@ Two censuses were run, one at a body radius of 6 with a gap of 9, one at a radiu
 the full population of positions at that geometry.
 
 **The bridge is not a restatement of the supply.** At the most crowded supply value in the radius-6 census — 26 of the 144
-phases share it — the bridge ratio spans 0.0056 to 0.4535, a spread of **0.448** (Figure 2b). Since the supply is identical
+phases share it — the bridge ratio spans 0.0056 to 0.4535, a spread of **0.448** (Figure 3b). Since the supply is identical
 by construction, that spread is the phase's own doing.
 
 **The outcome follows the bridge.** Among those same 26 worlds, the 8 whose bridge is above the value's median fused
 **1.00** of the time and the 18 below it fused **0.111**; the difference is 0.889 with a one-sided Fisher p < 0.001. Over all
 144 worlds the logistic slope of fusion on the bridge ratio is **6.09** (se 1.06, z = 5.8) — a steep dependence: a bridge
-ratio moving from about 0.1 to about 0.5 takes the fusion probability from nearly 0 to nearly 1 (Figure 3, left).
+ratio moving from about 0.1 to about 0.5 takes the fusion probability from nearly 0 to nearly 1 (Figure 4, left).
 
 **The same census at a smaller body carries the opposite sign.** At radius 3, the crowded value holds 44 classes with a
 bridge spread of **0.401**, the above/below-median contrast is **0.5** (Fisher p = 0.0001), and the logistic slope is
 **4.85** (se 1.79, z = 2.7). But the *association between supply and fusion* runs the other way: over classes, Spearman's
 rank correlation between bridge ratio and local supply is **−0.378** at radius 6 and **+0.413** at radius 3 (−0.833 and
 +0.515 over the nine value means). The bridge explains the outcome in both; what the supply does to the bridge flips with the
-size of the bodies (Figure 3, right; Figure 2b).
+size of the bodies (Figure 4, right; Figure 3b).
 
-![Figure 2](030-figures/fig2-phase-and-the-bridge.png)
+![Figure 3](030-figures/fig3-phase-and-the-bridge.png)
 
-![Figure 3](030-figures/fig3-the-bridge-decides.png)
+**Figure 3.** The population of phases at a fixed inflow, and how the phase moves the bridge ratio that decides the outcome.
+
+![Figure 4](030-figures/fig4-the-bridge-decides.png)
+
+**Figure 4.** At a fixed inflow, the bridge ratio at contact predicts fusion: near 1 the bodies meet through a neck, near 0 they meet across an empty stretch.
 
 ### 5.5 The gap between surfaces switches fusion; the body size shifts it ([A6])
 
@@ -378,7 +386,7 @@ and 0.180). Read naively, that is a window of body sizes in which fusion never h
 
 The window moves when the gap is varied instead. The next experiment changed the surface-to-surface gap at two sizes: radius
 4 with the gap closed from 12 to 10 and to 8, and radius 6 at the very centre separation of 20 where radius 4 fuses nothing
-— which for radius 6 is a gap of 8. The result (Figure 4) is a monotone table in the gap and a non-monotone table in the
+— which for radius 6 is a gap of 8. The result (Figure 5) is a monotone table in the gap and a non-monotone table in the
 radius:
 
 | radius | gap (cells) | centre separation | worlds | fused | fusion share |
@@ -393,7 +401,9 @@ The share column is the **mean over the nine supply values** of the per-value fu
 classes distribute over those values), not the raw fraction of fused worlds; the fused column gives that raw count on the
 same rows (34/144 = 0.24 and 126/144 = 0.88 for the two arms where the two differ most), and the two orderings agree.
 
-![Figure 4](030-figures/fig4-the-gap-switches.png)
+![Figure 5](030-figures/fig5-the-gap-switches.png)
+
+**Figure 5.** Ordered by the gap between surfaces the fusion share falls monotonically; ordered by separation it does not, because the body size shifts the same curve.
 
 Radius 4 fuses nothing at a separation of 20 and 0.96 when the surfaces come to 8 cells apart; radius 6 fuses 0.83 at the
 *same* separation of 20 where radius 4 fuses nothing, because its gap there is 8 rather than 12. Ordered by gap the share
@@ -426,7 +436,9 @@ radius 4 the bridge still varies with phase (spreads 0.254 and 0.139) and **no w
 sufficient; at radius 6, gap 10 the same holds. What the finer grid adds is the shape of the switch — a fall from 0.96 to 0.19
 across two cells of gap — and the two empty cells that were previously inferred.
 
-![Figure 9](030-figures/fig9-the-gap-curve.png)
+![Figure 6](030-figures/fig6-the-gap-curve.png)
+
+**Figure 6.** The gap curve on the finer grid: the switch sits between gaps 9 and 10, and the bridge keeps varying where nothing fuses.
 
 ### 5.6 The corridor at contact, and what it does and does not forecast ([A22])
 
@@ -443,6 +455,8 @@ stores 0.036 for that pooled spread while the report and the plan prose say 0.04
 and the discrepancy is listed in the verification section rather than smoothed over.)
 
 ![Figure 7](030-figures/fig7-the-corridor-and-the-edge.png)
+
+**Figure 7.** What the corridor at contact forecasts, the edge where the forecast stops, and the local inflow that explains the dispersion between phases.
 
 **But the criterion depends on the initial gap, and the two axes are the same variable.** X174 ([A22]) fixed the size and
 varied the initial gap: the corridor medians are **0.3666**, **0.4107** and **0.479** at gaps 8, 9 and 10, a difference of
@@ -505,6 +519,8 @@ nominally identical "radius 4.5" arms split into two rows — the size axis is s
 
 ![Figure 8](030-figures/fig8-the-table-and-the-ladder.png)
 
+**Figure 8.** The whole crossing table over many bodies, the dispersion between phase families, and which number on the rate ladder is the informative one.
+
 **Why 57 cells disagree with themselves.** X180 ([A24]) asked what varies *within* a cell. In the 17 cells where both outcomes
 occur, over **316 runs**, the phase of the **midpoint** between the bodies is anti-predictive of fusion: the mean point-biserial
 correlation is **−0.552** (pooled **−0.527** over the 321 non-saturated runs), only **1 of 17** cells has its fusing runs at the
@@ -560,11 +576,13 @@ therefore should barely change a pooled statistic — and for one statistic it d
 For the rank statistic the intervals differ by 6 % (0.0207 → 0.0219; the pre-registered refusal was a ratio of 1.3). For the
 deviance — the statistic behind §5.3's headline drop — the same regrouping moves the number from 20.7 to 14.3, from **above**
 the test's own bar of 20 to **below** it, and the phase-clustered bootstrap clears that bar in only 21 % of resamples against
-52 % for runs (Figure 5). The pool here is not identical to the one the published 28.0 came from (later arms selected on
+52 % for runs (Figure 9). The pool here is not identical to the one the published 28.0 came from (later arms selected on
 supply are excluded), so the like-for-like comparison is the pair in the table above; even so, the conclusion is that the
 deviance drop is carried partly by repeated runs.
 
-![Figure 5](030-figures/fig5-the-unit-of-observation.png)
+![Figure 9](030-figures/fig9-the-unit-of-observation.png)
+
+**Figure 9.** The unit of observation: a rank statistic stays put when the world replaces the run, a likelihood statistic does not, and its interval widens.
 
 This is not a contradiction of the local-supply law. That law rests on the designed arm of §5.3 (0.00 → 1.00 by
 construction) and on the two windows of the censuses, not on this deviance. What it shows is that a pooled effect can be
@@ -657,10 +675,12 @@ the two units the whole article rests on.
 ## 9. Reproducibility
 
 Every number in this article is written into `030-figures/tables.json` by `scripts/make_article_030_figures.py`, which reads
-only committed artifacts. The figures are rebuilt by the same script:
+only committed artifacts. No number is typed by hand: the prose is checked against the generated table, never the other way
+round, and the table is rebuilt from the aggregates on demand — the practice the ten simple rules for reproducible
+computational research ask for [20]. The figures are rebuilt by the same script:
 
 ```bash
-python scripts/make_article_030_figures.py     # writes 030-figures/fig1..fig8 and tables.json
+python scripts/make_article_030_figures.py     # writes 030-figures/fig1..fig9 and tables.json
 python scripts/check_article_030_numbers.py    # re-derives every number and checks it against the article text
 ```
 
@@ -776,51 +796,3 @@ cited here. Two entries rest on corpus documents at manifest status `partial` (n
 - **[A25]** X188, X189 (the nucleation and bridge readings against the local inflow, §5.8): `l1_field_x188_nucleation_identity.json`, `l1_field_x189_bridge.json`.
 - **[A27]** X198, the finer gap grid of §5.5 added in v2.1 (the curve over eight arms and its criteria): `l1_field_x198_gap_curve.json`; pre-registration `reports/2026-11-05-x198-gap-curve-plan.md`.
 - **[A26]** The number digest behind the added sections: every value added in v2.0 was transcribed from the aggregates by a separate reading pass, with the file and JSON path recorded per number; the pass found six disagreements between the reports' prose and the stored fields (X171's pooled spread 0.036 against 0.040, X179's 1119/772 against 985/722, X174's duplicated arm, X156's pair denominators, X160's mean-versus-median clonal fraction, X169's waist median 0.357 against 0.345 from its own list). The stored fields are quoted in this article and the disagreements are listed in §9 and in `docs/series.md`.
-
-## Changelog
-
-- **v1.0** (2026-11-04): first edition. Consolidates the phase-census line X184–X197 for an outside reader. Includes the
-  correction of the "size window" reading (X195) to a **gap** reading (X196), and the unit-of-observation result (X194,
-  X197) including the fact that the published deviance drop falls from 20.7 to 14.3 when the world replaces the run.
-- **v1.1** (2026-11-05): a glossary of the article's own terms in one place (§3), so that the definitions do not have to be
-  collected while reading; an explicit next-step section (§8) naming what is already running and what the following article
-  will be; the author line set from the owner's answer (Ilya Vladimirov); a repeated word fixed. No number changed.
-- **v1.2** (2026-11-05): the article now opens with the shape the owner asked for — **last time we found this, so we decided to
-  check that, here are the results, and here is where we move next**. A new opening section states what the previous article in
-  the series found and the two questions it left open; the published previous step is now cited by DOI, and the un-deposited
-  v2.1 of that article is named as part of the same record; the sequence is mapped in `docs/series.md`; §8 is retitled to
-  "Where we move next". No number changed.
-- **v2.1** (2026-11-05): **the curve the v2.0 edition could only announce.** X198 finished after v2.0 was written, so the
-  finer gap grid is now a result and not a "running" note: §5.5 gains the eight-arm curve (1152 worlds) with the crossing of one
-  half between gaps 9 and 10, the two empty cells that were previously inferred, the four arms that reproduce an earlier cell
-  exactly, and the bridge-still-varies-but-nothing-fuses observation at gaps 11 and 12; §8 records the answer instead of the
-  running question; the artifact is [A27] and the result card is §10jg of the field plan. The version of the article needed no
-  other change, and no earlier number moved.
-- **v2.0** (2026-11-05): **one article for the whole path after the published previous article.** The owner's decision, taken
-  after asking whether the continuation could be a single piece: yes, and the step is one article rather than four. v1.x
-  described only the census line (X158, X184–X197); v2.0 opens with the four groups of questions the previous article left
-  open and answers them in one place, adding **§5.1** (the crossing and its geometry: the contact gap 1.93 cells and the
-  window it is bounded to, the crossing per radius, the withdrawn X168 and its corrected replacement), **§5.2** (what a
-  daughter keeps: shape heredity 0.5167/0.4811, the re-drawn discrete state, the absence of a medium-supplied ruler, and the
-  reversibility of a merge), **§5.6** (the corridor, its failed sharp prediction, the edge and the cliff, and the rate ladder
-  whose informative reading is the inflow at the colder body, AUC 0.8656 against the nominal 0.5874), **§5.7** (the full
-  crossing table — 57 two-body cells, 772 runs — and the between-family dispersion, with the worst cell reproduced by a fresh
-  draw), and **§5.8** (the bridge measured against the local inflow, what held and what was withdrawn). The abstract, §1,
-  §2, §6, §7, §8 and §9 are rewritten to match, the references gain [A12]–[A26] for the added artifacts, and §9 now lists the
-  six places where a report's prose disagrees with the stored field, with the artifact quoted in every case. Section numbering
-  of the earlier results moved: the local supply is §5.3, the bridge §5.4, the gap §5.5 and the unit of observation §5.9.
-  After the independent review of the added blocks (`lab/reviews/2026-11-05-030-v20-numbers.md`) six sentences of this article
-  were corrected — the seed count of X168c, X173's followable window, the two-habitat trade behind X156's mean slopes, the
-  number of X183's candidate readings, the X188 sensitivity end and the X167 area ratio — and the gate grew to **145** needles.
-
-## Verification
-
-- **Numbers.** Every number quoted above is re-derived from committed artifacts by
-  `python scripts/check_article_030_numbers.py --ci` — **145** needles, each of which must also appear verbatim in this text
-  (run before submission); the table behind them is [`030-figures/tables.json`](030-figures/tables.json).
-- **References.** Existence of every reference is checked in [`030-references.md`](030-references.md) via the corpus
-  manifest or Crossref/DataCite; entries that could not be verified are marked there and are not cited here.
-- **Independent review.** `lab/reviews/2026-11-04-030-numbers.md` — an independent recomputation of the headline numbers by
-  the reviewer role, including the two statistics whose intervals depend on the unit (date of review in that file).
-- **Not published.** No part of this article has been submitted, deposited or posted anywhere. Submission requires the
-  owner's explicit approval, and the author list is not yet fixed.

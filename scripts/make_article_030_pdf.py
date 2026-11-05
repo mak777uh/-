@@ -35,6 +35,18 @@ PDF = ROOT / "articles" / "030-the-gap-between-surfaces-decides-fusion.pdf"
 WORK = ROOT / "_exports" / "030-pdf"
 DOCX = WORK / "030-the-gap-between-surfaces-decides-fusion.docx"
 
+def set_document_properties(doc: Document) -> None:
+    """Fill the metadata a reader sees in a PDF viewer (python-docx otherwise signs the file with its own name)."""
+    p = doc.core_properties
+    p.author = "Ilya Vladimirov"
+    p.last_modified_by = "Ilya Vladimirov"
+    p.title = ("The gap between surfaces, not the body size, switches fusion in a pattern-forming chemical medium")
+    p.subject = "Reaction-diffusion medium with a striped supply; fusion as a function of the gap between surfaces; v2.1"
+    p.keywords = "reaction-diffusion; pattern-formation; coalescence; pre-registration; unit-of-observation"
+    p.comments = ("Data and figures: CC BY 4.0. Every printed number is checked against the aggregates by "
+                  "scripts/check_article_030_numbers.py.")
+
+
 BODY_FONT = "Georgia"
 HEAD_FONT = "Cambria"
 MONO_FONT = "Consolas"
@@ -105,6 +117,7 @@ def add_table(doc, rows: list[list[str]]) -> None:
 
 def render(md: str) -> Document:
     doc = Document()
+    set_document_properties(doc)
     style = doc.styles["Normal"]
     style.font.name = BODY_FONT
     style.font.size = Pt(BODY_SIZE)

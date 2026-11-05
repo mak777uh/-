@@ -100,8 +100,8 @@ computed from, and the verified reference list.
 | path | what it is |
 |---|---|
 | `{stem}.md` | the article (Markdown, English) |
-| `{stem}.pdf` | the article as a PDF (if the build machine had a PDF renderer; see PUBLISHING.md) |
-| `figures/` | Figures 1-5 as PNG (reading) and PDF (typesetting) |
+| `{stem}.pdf` | the article as a PDF, with all nine figures embedded |
+| `figures/` | figures 1-9 as PNG (reading) and PDF (typesetting) |
 | `data/derived/tables.json` | every number plotted in the article, with the artifact it came from |
 | `data/aggregates/` | the aggregates the article cites, verbatim from the repository |
 | `references.md` | the verified reference list, with the verification command or manifest key per entry |
@@ -190,10 +190,20 @@ def sha256(path: Path) -> str:
 
 
 def rewrite_links(text: str) -> str:
-    """The package has its own layout: point the article's links at it."""
+    """The package has its own layout: point the article's links at it.
+
+    Order matters: `tables.json` lives at `data/derived/` in the package although the repository keeps it beside the
+    figures, and links into `docs/` or `reports/` leave the archive, so they become absolute GitHub URLs (a dead relative
+    link in a deposit is worse than a link to the repository).
+    """
     return (text
+            .replace("](030-figures/tables.json)", "](data/derived/tables.json)")
+            .replace("`030-figures/tables.json`](", "`data/derived/tables.json`](")
             .replace("](030-figures/", "](figures/")
-            .replace("](030-references.md)", "](references.md)"))
+            .replace("`030-figures/`](", "`figures/`](")
+            .replace("](030-references.md)", "](references.md)")
+            .replace("](../reports/)", "](https://github.com/mak777uh/-/tree/main/reports/)")
+            .replace("](../", "](https://github.com/mak777uh/-/blob/main/"))
 
 
 def main() -> int:
