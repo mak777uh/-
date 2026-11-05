@@ -808,6 +808,7 @@
 | [`morphogenesis/experiments/E09_pond/s3_d2_patches_steady_base.json`](../morphogenesis/experiments/E09_pond/s3_d2_patches_steady_base.json) | other | 6615 | `f616b2cc0c8b921da323f5b838a7816006912c8b6671ecdf7de96e994ced0f5a` |
 | [`morphogenesis/experiments/E09_pond/s3_d2_patches_steady_gradpos.json`](../morphogenesis/experiments/E09_pond/s3_d2_patches_steady_gradpos.json) | other | 6634 | `3ed94f61118e87938a42f0522164c8c66f33bb405fb3b50d6d0aa4f5ac5e7516` |
 | [`morphogenesis/experiments/E09_pond/s3_d2_patches_steady_localres.json`](../morphogenesis/experiments/E09_pond/s3_d2_patches_steady_localres.json) | other | 6632 | `60d8537e8ef74a7e3b2c8dbd22d342b4f9dfa1383b5a9d5d02b96302168e823b` |
+| [`morphogenesis/experiments/E09_pond/s3_d2_patches_steady_randdir.json`](../morphogenesis/experiments/E09_pond/s3_d2_patches_steady_randdir.json) | other | 6624 | `c08733d477a91d0a662c3cc6ed6ed4d223903523f8c0c819c19949d26f40c7aa` |
 | [`morphogenesis/experiments/E09_pond/s3_d_grad_flip_gradpos_clean.json`](../morphogenesis/experiments/E09_pond/s3_d_grad_flip_gradpos_clean.json) | other | 7032 | `1ebc22865a4acc9e774c5191181d62e6c016fe043a5b57fb75a7c7ee2bdf8065` |
 | [`morphogenesis/experiments/E09_pond/s3_d_grad_flip_gradpos_v2.json`](../morphogenesis/experiments/E09_pond/s3_d_grad_flip_gradpos_v2.json) | other | 7032 | `947c9ad8a6658f00352a9984f4bc90d47edc2032b2a61e911ae4c1a2410509ce` |
 | [`morphogenesis/experiments/E09_pond/s3_d_grad_recheck_gradpos.json`](../morphogenesis/experiments/E09_pond/s3_d_grad_recheck_gradpos.json) | other | 7038 | `e2359ef05aa88ee3260f283f47eac28e017a530977d583210b5d61df56554d38` |
@@ -6440,6 +6441,7 @@
 | [`reports/figures/e02b_transition_matrix.png`](../reports/figures/e02b_transition_matrix.png) | figure | 152522 | `81f1b4fe50fd819f45411c31fb737a0c232d9c4f993f5233184c8b276779f5b9` |
 | [`reports/figures/e02c_seed_grid.png`](../reports/figures/e02c_seed_grid.png) | figure | 69503 | `a14f0a6eb28fa0675629e539dc863049d97c3a7ef1914c34ebd7348b5c71776f` |
 <!-- artifacts:end -->
+
 
 
 
