@@ -40,6 +40,26 @@ python scripts/build_article_030_package.py    # _exports\030-gap-switches-fusio
 python scripts/check_article_030_numbers.py    # re-derives all 164 printed numbers and compares them with the text
 ```
 
+## 1b. Links (for the depositor)
+
+| what | link |
+|---|---|
+| the repository (branch `main`, the article's home) | https://github.com/mak777uh/- |
+| the article, Markdown source | https://github.com/mak777uh/-/blob/main/articles/030-the-gap-between-surfaces-decides-fusion.md |
+| these instructions, in the repository | https://github.com/mak777uh/-/blob/main/articles/030-publishing-instructions.md |
+| the verified reference list | https://github.com/mak777uh/-/blob/main/articles/030-references.md |
+| the article's figures and `tables.json` | https://github.com/mak777uh/-/tree/main/articles/030-figures |
+| the independent review of the added numbers | https://github.com/mak777uh/-/blob/main/lab/reviews/2026-11-05-030-v20-numbers.md |
+| the review of the earlier edition | https://github.com/mak777uh/-/blob/main/lab/reviews/2026-11-04-030-numbers.md |
+| the previous article of the series (published, cited by DOI) | https://doi.org/10.5281/zenodo.23933440 |
+| the project's sequence map (which article is which step) | https://github.com/mak777uh/-/blob/main/docs/series.md |
+| Zenodo: start a new upload | https://zenodo.org/uploads/new |
+| Zenodo: the API documentation (the commands in section 4) | https://developers.zenodo.org/ |
+| arXiv: submit (only if the author asks, only after Zenodo) | https://arxiv.org/submit |
+
+The data archive itself is **not** in the repository (it is rebuilt by `scripts/build_article_030_package.py`); it is the file
+named in section 1 and it is what you upload.
+
 ## 2. What is inside the archive (73 files)
 
 ```text
@@ -70,9 +90,13 @@ from.
    and the 9 top-level files listed above.
 3. **Spot-check one number end to end.** In `data/derived/tables.json` open `fig4.by_gap[1]`: it reads
    `{"radius": 4.0, "gap": 10.0, "fused": 34, "share": 0.1883, ...}`. The same 34 must appear in the article's table in
-   section 5.3 (row "radius 4, gap 10", column "fused") and in the aggregate
+   section 5.5 (row "radius 4, gap 10", column "fused") and in the aggregate
    `data/aggregates/l1_field_x196_gap_or_size.json` at `gap_table.r4_g10.fused_worlds`. If the three disagree, stop and tell
    the author — do not "fix" anything.
+4. **Spot-check the newest block as well.** In `data/derived/tables.json` open `fig9.gap_table.r4_g8`: it reads
+   `{"radius": 4.0, "gap": 8.0, "sep": 16.0, "share": 0.9607, "fused_worlds": 138, "worlds": 144}`. The same 138
+   and 0.9607 must appear in the article's section 5.5 table (row "radius 4, gap 8") and in the aggregate
+   `data/aggregates/l1_field_x198_gap_curve.json` at `gap_table.r4_g8`.
 
 The author's own checks, already run and not to be repeated (they need the repository): 164 printed numbers are compared with
 the aggregates by `scripts/check_article_030_numbers.py`, the earlier edition's six result groups were recomputed over 1008
@@ -80,7 +104,7 @@ per-world rows (`lab/reviews/2026-11-04-030-numbers.md`), and the blocks added i
 `lab/reviews/2026-11-05-030-v20-numbers.md`. Your job is to confirm that the
 archive you received is the checked one.
 
-Every field of `zenodo.json` is already filled in: title, description, keywords, licence `CC-BY-4.0`, version `v2.0`,
+Every field of `zenodo.json` is already filled in: title, description, keywords, licence `CC-BY-4.0`, version `v2.1`,
 language, and one creator, `Vladimirov, Ilya`. The single related identifier points at the previous article of the series (DOI 10.5281/zenodo.23933440) with the
 relation `references`, and the article itself opens by summarising that previous step. **Do not add an author, an affiliation, an ORCID or a
 link that the author did not give.**
@@ -143,7 +167,7 @@ width. Ask the author before reformatting, and never submit the same text to two
    own deposit; and, if the author wants the DOI in the metadata, add it to `zenodo.json -> related_identifiers` (the field is
    empty on purpose today).
 2. If a journal or arXiv version follows, the Zenodo DOI belongs in its data-availability statement.
-3. Nothing in the repository changes by itself at this point: the article stays at v1.1 with its status line "deposited, DOI
+3. Nothing in the repository changes by itself at this point: the article stays at v2.1 with its status line "deposited, DOI
    …", which the author updates.
 
 ## 9. Questions
