@@ -261,3 +261,4 @@ sections were not rewritten, only moved; each one keeps its identifier, so every
 | §10je | X197 — переживает ли опубликованное число X186 счёт миров (04.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
 | §10jf | X196 — зазор или размер (04.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
 | §10jg | X198 — кривая по зазору на восьми плечах (05.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
+| §10jh | X199 — переживает ли локальная связь случайный эффект мира (05.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |

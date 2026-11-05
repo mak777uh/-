@@ -1,6 +1,6 @@
 {
  "schema_version": 1,
- "updated_at": "2026-11-05T09:10:00+03:00",
+ "updated_at": "2026-11-05T10:00:00+03:00",
  "note": "Очередь пунктов после E02c. Claim берётся до пре-регистрации, а не перед запуском: lab.py item-claim. Статус running означает занятый GPU-лейн и может быть только у одного пункта. | 25.10: добавлено поле impact (1-5) — приоритет конвейера = impact/max(cost_gpu_h,0.1); для запуска пункту нужны prereg (закоммиченный план) и launch.command+outdir.",
  "items": [
   {
@@ -3538,11 +3538,12 @@
   },
   {
    "id": "X199_mixed_model",
-   "status": "planned",
+   "status": "closed",
    "owner": "lead",
    "created_at": "2026-11-05T07:35:00+03:00",
    "hypothesis": "H-FIELD-MIXED-1",
-   "note": "the mixed-effects check the article 030 registers as its first next step: logistic fusion on the local inflow with the world (and, in a second variant, the phase class) as a random intercept, so the fixed-effect slope and the intra-class correlation are reported instead of a point estimate averaged over worlds. Preregistration reports/2026-11-05-x199-mixed-model-plan.md written before the fit by analyst-a (task-7); zero GPU, an analysis of committed aggregates only."
+   "note": "closed, 5 of 5 registered criteria (C1-C5) with one registered limitation: over 311 runs of the 11 mixed cells (135 fused, share 0.4341) collapsed into 258 worlds (143 phase classes), the logistic slope of fusion on the standardised local inflow at the colder body is +2.477 per sd under a random intercept per world, profile [1.127, 3.093], LR 19.02 on 1 df (p = 1.29e-05), sigma 8.368, ICC 0.955 (0.924 at the sigma profile mode) - the article's opening falsifier fails in its own terms, and the conditional slope is larger than the fixed-effects one (0.590 [0.345, 0.835], ratio 4.20), which is the required direction and not attenuation. The phase-class variant agrees (+0.983 [0.589, 1.527], ICC 0.660). R4 is triggered and binding: the covariate is constant within every multi-run world (0 of 47 vary), so the slope is between-world only; sigma is weakly identified (slope-sigma ridge flat; point_estimate_inside_interval and interval_warnings in the aggregate); the registered Laplace estimator was fitted and is inadequate (2.33 log-likelihood units low at sigma = 2, 187.6 at sigma = 8), so the estimator of record is adaptive Gauss-Hermite with the Laplace fit carried beside it and no criterion changed. Artifact l1_field_x199_mixed_model.json, report reports/2026-11-05-x199-mixed-model.md, card docs/plan/10d-field-metrics-and-form.md 10jh. The frozen article text v2.1 is not edited (it is the deposited file): the result and the model disclaimer go into v2.2, a new version of concept DOI 10.5281/zenodo.23970710.",
+   "closed_at": "2026-11-05T10:00:00+03:00"
   },
   {
    "id": "TXT030_disclaimer",

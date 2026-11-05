@@ -2081,6 +2081,8 @@ run had" is the measured inflow **at the colder of the two bodies** (AUC **0.865
 772 runs, in which the between-family dispersion is the phase of the medium where the pair sits (midpoint point-biserial
 −0.552, z −7.807 over 316 runs) and the worst cell reproduces under a fresh family (12 of 30 against 20 of 49 before).
 
+The falsifier this line registers against itself has now been run. If the dispersion were only noise between families, a random intercept per site would absorb it; over 311 runs of the 11 mixed cells collapsed into 258 worlds the logistic slope of fusion on the local inflow at the colder body stays at **+2.48 per sd** (profile interval [1.13, 3.09], likelihood ratio 19.0 on one degree of freedom) with a between-world sd of **8.37** and an intra-class correlation of **0.955**, and the conditional slope is *larger* than the fixed-effects reading (0.590, ratio 4.20), which is the direction a logistic mixed model requires rather than evidence of attenuation. Two limits are registered with it: the covariate is a deterministic function of the cell and the phase, so this design estimates a **between-world** slope only, and the slope–σ ridge is flat enough that the sign and the non-zero-ness of the slope are robust while its magnitude and σ are not.
+
 Two negative results belong here as limits. Shape is inherited about half (daughter-on-parent slope **0.5167** elongation,
 **0.4811** width) while the **discrete** state is re-drawn at every division; and the unit of observation is not safe per
 paper but **per statistic** — regrouping 757 runs into 633 worlds leaves a rank statistic alone (AUC 0.652 → 0.660) while
@@ -2089,7 +2091,7 @@ moving a likelihood-based deviance drop from 20.7 to 14.3, across its own bar of
 Evidence: aggregates `morphogenesis/experiments/E09_pond/l1_field_x15*.json`, `l1_field_x16*.json`, `l1_field_x17*.json`,
 `l1_field_x18*.json`, `l1_field_x19*.json`; figures and every plotted number in
 [`articles/030-figures/`](../articles/030-figures/) (`tables.json`); pre-registrations in `reports/`; the machine check
-`scripts/check_article_030_numbers.py` requires each of the **145** printed numbers to appear in the article and to carry the
+`scripts/check_article_030_numbers.py` requires each of the **164** printed numbers to appear in the article and to carry the
 artifact's value. The sequence itself, including what is published outward and what is not, is mapped in
 [`docs/series.md`](../docs/series.md).
 

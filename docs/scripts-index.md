@@ -4,7 +4,7 @@
 
 The curated page — what matters and why — is [`scripts.md`](scripts.md). This file is the complete list, so that every command behind a number in the record can be found.
 
-Scripts: **442**.
+Scripts: **444**.
 
 ## Гейты и проверки (49)
 
@@ -60,7 +60,7 @@ Scripts: **442**.
 | `verify_references.py` | verify_references.py — проверить ссылку по названию, не доверяя памяти и не имея веб-поиска. |
 | `verify_sections_numbers.py` | verify_sections_numbers.py — числа в рукописи обязаны воспроизводиться из агрегатов. |
 
-## Лабораторный контур (18)
+## Лабораторный контур (19)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -80,6 +80,7 @@ Scripts: **442**.
 | `retention_sweep.py` | Уборка локальных весов по правилу AGENTS §5a. |
 | `triage_queue.py` | Триаж очереди: оставить работающее, остальное — в пул с условием возврата. |
 | `wake_plan.py` | Когда будить ведущего: вместо «каждый час» — по состоянию работы. |
+| `zenodo_deposit_030.py` | zenodo_deposit_030.py — deposit the article 030 archive on Zenodo through the records API. |
 | `zenodo_link.py` | zenodo_link.py — вставить DOI депозита во все места репозитория одной командой. |
 | `zenodo_upload.py` | zenodo_upload.py — депозит новой версии в Zenodo одной командой (без ручной загрузки в браузере). |
 
@@ -179,7 +180,7 @@ Scripts: **442**.
 | `make_seed_grid_figure.py` | Собрать Figure 4 рукописи: сетка «инициализация × порядок данных» (§4.13). |
 | `make_simple_poster.py` | Простой постер для владельца: что мы узнали, без терминов. |
 
-## Прочее (299)
+## Прочее (300)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -394,6 +395,7 @@ Scripts: **442**.
 | `x197_deviance_worlds.py` | x197_deviance_worlds.py — X197: does X186's published deviance drop survive counting worlds instead of runs? |
 | `x198_gap_curve.py` | X196 answered the either-or: the gap switches fusion, the size shifts it. It did so with three arms and a five-row table whose two |
 | `x198_gap_curve_analyse.py` | x198_gap_curve_analyse.py — X198: the fusion share as a function of the surface-to-surface gap. |
+| `x199_mixed_model.py` | x199_mixed_model.py — X199: does the local-inflow association survive a random intercept per world / per phase class? |
 | `x56_matrix.py` | x56_matrix.py — сходимость по шагу: контраст при dt = 1.0, 0.5, 2.0. |
 | `x58_analyse.py` | x58_analyse.py — the same measurement on a 128 grid: β₀, β₁, wavelength, normalised count. |
 | `x58_series.py` | x60_series.py — X60: the twenty field runs that keep their snapshots. |
