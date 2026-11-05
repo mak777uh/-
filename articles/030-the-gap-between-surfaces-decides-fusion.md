@@ -411,7 +411,7 @@ rises monotonically as the surfaces approach, at both sizes. The size is not abs
 fuses 0.96 and the larger 0.83 — but it shifts the outcome by about a tenth while the gap switches it. This agrees with the
 earlier seed-side boundary work, which placed the transition at about 10 cells [A1]. All three pre-registered criteria of the
 gap experiment passed, and the earlier reading of the fusion-free arms as a *size* window is withdrawn in favour of the gap
-reading (see the Changelog).
+reading (the version history in the publishing instructions records when and why).
 
 **The same axis measured again on a finer grid, and the switch is between gaps 9 and 10.** X198 ([A27]) repeated the gap axis
 over every phase class — 5 gaps at radius 4 (12, 11, 10, 9, 8) and 3 at radius 6 (10, 9, 8), **1152 worlds** — with its
