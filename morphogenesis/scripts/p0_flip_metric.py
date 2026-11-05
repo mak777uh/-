@@ -28,19 +28,27 @@ def zone_masks(pond):
 
 
 def correct_mask(pond):
-    """Behaviorally meaningful zone: favorable half by current gradient position (flips with the environment).
-    gradient_position is per row (1.0 = rich end now). Correct = top half now (pos >= 0.5)."""
-    pos = pond._gradient_position()  # (grid,)
-    grid = pond.cfg.grid
-    # row mask broadcast to (grid,grid)
-    return (pos >= 0.5)[:, None].expand(grid, grid)
+    """Behaviorally meaningful favorable zone (D/P2 transfer).
+    - gradient + flip/drift: favorable HALF by current gradient_position (flips with environment) — keeps P0/P1 comparability.
+    - other layouts (patches/uniform/catastrophe-shift): favorable = cells in the richer half by CURRENT resource
+      (resource >= median resource of the whole grid). Layout-agnostic, responds to environment changes.
+    """
+    cfg = pond.cfg
+    if cfg.resource_layout == "gradient" and (cfg.flip_at or cfg.drift_at or cfg.drift_steps):
+        pos = pond._gradient_position()  # (grid,)
+        grid = cfg.grid
+        return (pos >= 0.5)[:, None].expand(grid, grid)
+    # resource-based favorable half (top 50% of grid cells by current resource)
+    res = pond.state.resource
+    thr = torch.median(res)
+    return res >= thr
 
 
 def run_one(seed, args):
     # lethal-ish: proportional income, prefilled, high upkeep (calibratable). gradient+flip.
     cfg = PondConfig(
         grid=args.grid,
-        resource_layout="gradient",
+        resource_layout=args.layout,
         income_mode=args.income_mode,
         init_resource_fill=args.init_resource_fill,
         baseline_income=args.income,
@@ -50,9 +58,14 @@ def run_one(seed, args):
         budding_cost=0.2,
         resource_max=1.0,
         resource_regen=args.resource_regen,
+        patch_inflow_base=args.patch_inflow_base,
+        patch_inflow_rich=args.patch_inflow_rich,
         flip_at=args.flip_at,
         drift_at=args.drift_at,
         drift_steps=args.drift_steps,
+        catastrophe_rate=args.catastrophe_rate,
+        catastrophe_duration=args.catastrophe_duration,
+        catastrophe_mode=args.catastrophe_mode,
         plastic_eta=args.plastic_eta,
         plastic_move_cost=args.plastic_move_cost,
         plastic_gate=args.plastic_gate,
@@ -139,11 +152,13 @@ def run_one(seed, args):
         "config": {"grid": args.grid, "income": args.income, "update_cost": args.update_cost,
                    "repair_cost": args.repair_cost, "init_resource_fill": args.init_resource_fill,
                    "resource_regen": args.resource_regen, "flip_at": args.flip_at, "drift_at": args.drift_at,
-                   "drift_steps": args.drift_steps, "steps": args.steps, "layout": "gradient",
+                   "drift_steps": args.drift_steps, "steps": args.steps, "layout": args.layout,
+                   "catastrophe_rate": args.catastrophe_rate, "catastrophe_duration": args.catastrophe_duration,
+                   "catastrophe_mode": args.catastrophe_mode,
                    "income_mode": args.income_mode, "seed_cells": args.seed_cells,
                    "seed_energy": args.seed_energy, "plastic_eta": args.plastic_eta,
                    "plastic_move_cost": args.plastic_move_cost, "plastic_gate": args.plastic_gate,
-                   "plastic_direction": args.plastic_direction},
+                   "plastic_direction": args.plastic_direction, "plastic_tumble_p": args.plastic_tumble_p},
         "before_flip": pre_p,
         "after_flip": post_p,
         "move_ci": move_ci,
@@ -166,6 +181,12 @@ def main(argv=None):
     ap.add_argument("--repair-cost", type=float, default=0.04)
     ap.add_argument("--init-resource-fill", type=float, default=0.9)
     ap.add_argument("--resource-regen", type=float, default=0.02)
+    ap.add_argument("--layout", default="gradient", choices=["uniform","gradient","patches"])
+    ap.add_argument("--patch-inflow-base", type=float, default=0.1)
+    ap.add_argument("--patch-inflow-rich", type=float, default=4.0)
+    ap.add_argument("--catastrophe-rate", type=float, default=0.0)
+    ap.add_argument("--catastrophe-duration", type=int, default=0)
+    ap.add_argument("--catastrophe-mode", default="shift", choices=["shift","drop"])
     ap.add_argument("--income-mode", default="proportional", choices=["cap", "proportional"])
     ap.add_argument("--seed-cells", type=int, default=4)
     ap.add_argument("--seed-energy", type=float, default=8.0)
