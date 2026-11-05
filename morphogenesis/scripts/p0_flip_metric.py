@@ -171,7 +171,7 @@ def main(argv=None):
     ap.add_argument("--plastic-eta", type=float, default=0.0)
     ap.add_argument("--plastic-move-cost", type=float, default=0.05)
     ap.add_argument("--plastic-gate", default="pred", choices=["pred","random"])
-    ap.add_argument("--plastic-direction", default="gradient", choices=["gradient","random","gradpos","gradpos_free"])
+    ap.add_argument("--plastic-direction", default="gradient", choices=["gradient","random","gradpos","gradpos_free","gradpos_improve"])
     ap.add_argument("--plastic-nomove", action="store_true")
     ap.add_argument("--plastic-prob", type=float, default=0.5)
     ap.add_argument("--device", default="cuda" if torch.cuda.is_available() else "cpu")

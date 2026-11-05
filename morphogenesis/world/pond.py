@@ -1329,6 +1329,13 @@ class Pond:
                 occ = (s.alive | taken).float().sum(dim=1) / max(n, 1)  # (n,) row occupancy incl. reserved
                 # score = gradient_position - crowding (both ~[0,1]); break ties by higher pos
                 target = max(free, key=lambda t: (t[3] - float(occ[t[0]]), t[3]))[:2]
+            elif direction == "gradpos_improve":
+                # B2-lite: move toward favorable side but only to a neighbor with resource >= current (no downhill/resource drop)
+                cur_res = float(s.resource[y, x])
+                ok = [t for t in free if t[2] >= cur_res - 1e-9]
+                if not ok:
+                    continue
+                target = max(ok, key=lambda t: t[3])[:2]
             else:
                 target = max(free, key=lambda t: t[2])[:2]
             taken[target[0], target[1]] = True
