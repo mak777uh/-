@@ -1,6 +1,6 @@
 {
  "schema_version": 1,
- "updated_at": "2026-11-05T11:30:00+03:00",
+ "updated_at": "2026-11-05T11:55:00+03:00",
  "note": "Очередь пунктов после E02c. Claim берётся до пре-регистрации, а не перед запуском: lab.py item-claim. Статус running означает занятый GPU-лейн и может быть только у одного пункта. | 25.10: добавлено поле impact (1-5) — приоритет конвейера = impact/max(cost_gpu_h,0.1); для запуска пункту нужны prereg (закоммиченный план) и launch.command+outdir.",
  "items": [
   {
@@ -3578,6 +3578,15 @@
    "hypothesis": "H-FIELD-EDGE-1",
    "note": "closed. 6 reproducible X200 worlds, ~24 CPU reruns. C1 FAIL: original pairs did not reliably reproduce historical 0/1 (some became 0/0). C3 descriptive: clean clones (fixed phase+edge) still disagreed in cases (e.g. alts [1,0]) => residual variance beyond phase and edge. Sharpens X200; edge not sole free coordinate. Next X203: larger-n clean clones on verified non-zero-baseline strata.",
    "closed_at": "2026-11-05T11:30:00+03:00"
+  },
+  {
+   "id": "X203_clean_clone",
+   "status": "closed",
+   "owner": "lead",
+   "created_at": "2026-11-05T11:35:00+03:00",
+   "hypothesis": "H-FIELD-EDGE-1",
+   "note": "closed (R2). Pilot 6 strata fixed(phase+edge) => all 0/4, no non-zero baseline. Targeted X203t (phase((3,2),(9,2)) r4g10 edge15, n=8 fixed phase+edge) => 0/8; X202 alt [1,0] not reproduced. Residual variance beyond phase+edge NOT confirmed at these n (upper-bound only). Labelled-world finding stands; needs stable non-zero-baseline strata or shift to P0.",
+   "closed_at": "2026-11-05T11:55:00+03:00"
   }
  ]
 }
