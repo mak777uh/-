@@ -5083,3 +5083,8 @@ and/or clean clone-pairs holding edge distance fixed.
 
 Artifact: `morphogenesis/experiments/E09_pond/l1_field_x201_edge_intervention.json`; report/pre-reg:
 `reports/2026-11-05-x201-edge-intervention.md`, `reports/2026-11-05-x201-edge-intervention-plan.md`.
+
+## 10jl — X202 — clone-pair reproduction and clean clones (05.11)
+
+Pre-registered reruns on X200's reproducible disagreeing worlds (r4 g10, 6 worlds, ~24 CPU runs, field_track/X198, F=0.030, 400 steps): (1) original-seed pairs **did not reliably reproduce** historical 0/1 disagreements (C1 fails; several became 0/0) — a fragile sensitive signal; (2) **clean clones** (same phase AND same edge distance) still showed outcome disagreement in cases (e.g. alternates [1,0]), so variance remains **beyond phase and beyond the edge metric**. (geometry,phase,edge) not sufficient; edge not the sole free coordinate. Motivates larger-n clean clones (X203) and a position-aware mixed model.
+Artifacts: `morphogenesis/experiments/E09_pond/l1_field_x202_clone_repro.json`; `reports/2026-11-05-x202-clone-repro.md`.

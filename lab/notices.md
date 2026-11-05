@@ -6392,3 +6392,5 @@ Correia, Dee & Ferraro, 2025, *Biol. Rev.*,
 **Отложено:** Levin 2025 (OSF preprint, `10.31234/osf.io/st4vk_v1`) — позиционная, прямого следствия сейчас нет.
 
 Артефакт: `library/hypotheses/method-mediation-pseudoreplication.md`, G110/G111, `library/search-log.md`.
+
+- **05.11 (lead, X202):** repro of X200 clone-pairs fragile (C1 fail; some 0/0 on rerun); clean clones at fixed phase+edge still disagree in cases => variance beyond edge. Next: X203 larger-n clean clones on verified non-zero-baseline strata.

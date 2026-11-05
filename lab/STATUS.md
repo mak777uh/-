@@ -39,6 +39,9 @@ we have seen something alive.
 
 ## Running now
 
+**X202 — clone-pair reproduction + clean clones (closed).** 6 reproducible X200 worlds, ~24 CPU reruns (pre-reg). C1 fail: original pairs did not reliably reproduce historical 0/1 (several 0/0). Clean clones (fixed phase+edge) still disagreed in cases (e.g. [1,0]) => residual variance beyond phase and edge. Edge not the sole free coordinate. Next: **X203 larger-n clean clones on verified non-zero-baseline strata** (sensitive), then position-aware mixed model. §10jl.
+
+
 **X201 — edge-distance intervention (closed, insensitive).** Pre-registered causal test (80 CPU runs, field_track): fixed
 geometry+phase, same pair at near/mid/far edge bins. **All 80 unfused (0.0 every bin)**; r4_g9 near infeasible (R1/R2). C1/C2
 fail; the design is insensitive at these phases (saturated at 0), so edge distance is not established as a general cause. X200's

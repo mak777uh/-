@@ -264,3 +264,4 @@ sections were not rewritten, only moved; each one keeps its identifier, so every
 | §10jh | X199 — переживает ли локальная связь случайный эффект мира (05.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
 | §10ji | X200 — клон-пары: мир почти кластер, а расходится там, где сиды стоят на разном расстоянии от края (05.11) | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
 | §10jk | X201 — edge-distance intervention at fixed phase (05.11) | insensitive (all 0 at chosen strata); edge not established as cause; X200 labelled-world stands | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
+| §10jl | X202 — clone-pair reproduction + clean clones (05.11) | C1 fail (fragile repro); clean clones disagree at fixed phase+edge => variance beyond edge | [`plan/10d-field-metrics-and-form.md`](plan/10d-field-metrics-and-form.md) |
