@@ -1,0 +1,101 @@
+{
+ "kind": "p0_flip_behavior_metric",
+ "plan": "docs/plan-alive.md P0",
+ "metric_note": "favorable zone: gradient flip/drift = current gradient half (P0/P1 comparable); else = top-50% cells by current resource (layout-agnostic, D/P2). move_ci=(up-dn)/moves aligned to CURRENT gradient_position.",
+ "n_seeds": 1,
+ "alive_final_mean": 0.0,
+ "died_total_mean": 2753.0,
+ "rich_share_before_mean": 0.28195643238799833,
+ "rich_share_after_mean": 0.005650593241834118,
+ "correct_share_before_mean": 0.9972142302598529,
+ "correct_share_after_mean": 0.587687565554295,
+ "move_ci_before_mean": 0.2228,
+ "move_ci_after_mean": 0.5296,
+ "rows": [
+  {
+   "seed": 1,
+   "config": {
+    "grid": 32,
+    "income": 0.04,
+    "update_cost": 0.038,
+    "repair_cost": 0.022,
+    "init_resource_fill": 1.0,
+    "resource_regen": 0.05,
+    "flip_at": 200,
+    "drift_at": 0,
+    "drift_steps": 0,
+    "steps": 600,
+    "layout": "gradient",
+    "catastrophe_rate": 0.0,
+    "catastrophe_duration": 0,
+    "catastrophe_mode": "shift",
+    "income_mode": "proportional",
+    "seed_cells": 32,
+    "seed_energy": 12.0,
+    "plastic_eta": 0.2,
+    "plastic_move_cost": 0.03,
+    "plastic_gate": "pred",
+    "plastic_direction": "gradpos",
+    "plastic_tumble_p": 0.6
+   },
+   "before_flip": {
+    "alive_rich": 2744,
+    "alive_poor": 6988,
+    "alive_mid": 12165,
+    "steps": 199,
+    "deaths_rich": 0,
+    "deaths_poor": 10,
+    "deaths_mid": 0,
+    "alive_correct": 21836,
+    "alive_wrong": 61,
+    "deaths_correct": 6350,
+    "deaths_wrong": 62,
+    "alive_rich_share": 0.28195643238799833,
+    "deaths_rich_share": 0.0,
+    "alive_rich_per_step": 13.78894472361809,
+    "alive_poor_per_step": 35.11557788944724,
+    "alive_correct_share": 0.9972142302598529,
+    "deaths_correct_share": 0.9903306300686213,
+    "alive_correct_per_step": 109.7286432160804
+   },
+   "after_flip": {
+    "alive_rich": 401,
+    "alive_poor": 70565,
+    "alive_mid": 22468,
+    "steps": 401,
+    "deaths_rich": 0,
+    "deaths_poor": 2743,
+    "deaths_mid": 0,
+    "alive_correct": 54910,
+    "alive_wrong": 38524,
+    "deaths_correct": 20584,
+    "deaths_wrong": 9420,
+    "alive_rich_share": 0.005650593241834118,
+    "deaths_rich_share": 0.0,
+    "alive_rich_per_step": 1.0,
+    "alive_poor_per_step": 175.97256857855362,
+    "alive_correct_share": 0.587687565554295,
+    "deaths_correct_share": 0.6860418610851886,
+    "alive_correct_per_step": 136.93266832917706
+   },
+   "move_ci": {
+    "before": 0.2228,
+    "after": 0.5296,
+    "all": 0.4728,
+    "before_n": 5803,
+    "after_n": 25536
+   },
+   "final": {
+    "alive": 0,
+    "born": 848,
+    "died": 2753
+   },
+   "deaths_by_zone_total": {
+    "poor": 2753,
+    "mid": 0,
+    "rich": 0
+   },
+   "wall_seconds": 32.4
+  }
+ ]
+}
