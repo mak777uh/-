@@ -55,7 +55,7 @@ v2.1: monotone in the gap at both sizes, with the crossing of the fusion share a
 nothing fuses (spreads 0.254 and 0.139), so a bridge is necessary and not sufficient. Result card
 `docs/plan/10d-field-metrics-and-form.md` §10jg.
 
-**Article 030 is finished as v2.1 and stopped at the boundary.** On 05.11 the owner asked whether the continuation after the
+**Article 030 v2.1 is deposited and stopped, with the DOI returned.** The record is [10.5281/zenodo.23970711](https://doi.org/10.5281/zenodo.23970711) (concept DOI `10.5281/zenodo.23970710`, 72 files, 3 678 545 bytes, manifest sha256 `12B6DD24…`, one author, CC BY 4.0, type preprint, related identifier — the previous step of the series). It was deposited on 05.11 after the owner's written «ок», downloaded anonymously and verified; a later v2.2 goes out as a **new version of the concept record**, not as a separate deposit. Two small items remain for that next version: the text's own disclaimer that this is a numerical model and not a test tube, and the mixed-effects result of X199. On 05.11 the owner asked whether the continuation after the
 published step could be a single article and then confirmed it; the article was enlarged in place from the census-line edition
 to **one article for the whole path after the published 029 v2.0** (X156–X198, where X198 is the curve the v2.0 edition could only announce as running). It now carries the line it continues (the
 published DOI), six falsifiable questions instead of four, and its results in nine subsections: the distance the medium uses
@@ -72,7 +72,7 @@ with the stored field, with the artifact quoted in each. Nine figures and `table
 normalises whitespace, so a needle spans a line break); the PDF is rebuilt; the deposit package is
 `_exports/030-gap-switches-fusion-v2.1.zip`; the added numbers are independently reviewed in
 `lab/reviews/2026-11-05-030-v20-numbers.md`; the sequence is mapped in `docs/series.md`, and the two queue items that would
-have made separate articles of the corridor block and of 029 v2.1 are marked **superseded**. **Nothing has gone outward.**
+have made separate articles of the corridor block and of 029 v2.1 are marked **superseded**. **The only outward step taken is this deposit** — no tag moved, no other record changed.
 
 ## Closed on 04.11 — the fusion and heredity block (field line)
 
@@ -209,8 +209,7 @@ choice that was never declared. The direction of the band survives it; the size 
   daughter's *cells*, and that is a `world/` edit with its own anchor — not a thing to bolt on at the end of a block.
 - **The seam in the pond regime.** It is the right follow-up to X169, and it needs a world whose pattern outlives the merge;
   the field line's pattern is gone in 300 steps. Designing that world is a block of its own.
-- **Any outward step.** Nothing was published, no tag moved, no deposit changed. The publication decisions stay where they
-  were.
+- **Any outward step.** No longer nothing: article 030 v2.1 was deposited on 05.11 (DOI 10.5281/zenodo.23970711) and that was the only outward step. The deposit of a *new version* (v2.2), an arXiv preprint or a journal submission still needs the owner's written «ок».
 
 ## The last hour: a review that changed a claim
 
@@ -228,11 +227,10 @@ a sentence that strong is written, not after.
 
 ## Waiting for the owner — three items, all small
 
-1. **Which deposit goes out first.** 029 v2.1 (written and checked, adds X161–X170) and 030 **v2.1** (one article for everything
-   after the published 029 v2.0, including the X198 curve, package built) are both prepared and neither has gone anywhere. The
-   choice is the owner's: deposit 029 v2.1 as a new version of the same record `23933440` and then 030 as a new record, or let
-   030 carry the path alone. Licence defaults to CC BY 4.0; the author list is settled (Ilya Vladimirov). Cost once approved:
-   minutes.
+1. ~~**Which deposit goes out first.**~~ **Resolved 05.11**: the owner said «ок» and the depositor published 030 **v2.1**
+   ([10.5281/zenodo.23970711](https://doi.org/10.5281/zenodo.23970711)) as its own record; 029 v2.1 stays in the repository and
+   is not planned as a separate deposit, because its material now sits inside 030. A future v2.2 is a new version of concept
+   DOI `10.5281/zenodo.23970710`.
 1. **X54, canonical weights:** the snapshot is honest now (`ready 1 / missing 11`, `weights_tracked: false`), but the choice
    remains: (a) restore the 12 `nca_final.pt` from Zenodo `10.5281/zenodo.23654174` (6.47 GB), or (b) record the local
    absence in `docs/deposit.md` and drop the 12-file requirement. Option (b) costs 15 minutes and unblocks the retention
