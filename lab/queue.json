@@ -1,6 +1,6 @@
 {
  "schema_version": 1,
- "updated_at": "2026-11-05T10:00:00+03:00",
+ "updated_at": "2026-11-05T10:05:00+03:00",
  "note": "Очередь пунктов после E02c. Claim берётся до пре-регистрации, а не перед запуском: lab.py item-claim. Статус running означает занятый GPU-лейн и может быть только у одного пункта. | 25.10: добавлено поле impact (1-5) — приоритет конвейера = impact/max(cost_gpu_h,0.1); для запуска пункту нужны prereg (закоммиченный план) и launch.command+outdir.",
  "items": [
   {
@@ -3551,6 +3551,14 @@
    "owner": "lead",
    "created_at": "2026-11-05T09:10:00+03:00",
    "note": "the owner's standing remark: article 030 carries no explicit 'this is a numerical model, not a test tube' disclaimer. It is a text change, not packaging, and 030 v2.1 is already deposited, so the sentence goes into the next version (v2.2) of the concept record 10.5281/zenodo.23970710 together with the next result block, unless the owner asks for a standalone version sooner."
+  },
+  {
+   "id": "X200_clone_pairs",
+   "status": "running",
+   "owner": "lead",
+   "created_at": "2026-11-05T10:05:00+03:00",
+   "hypothesis": "H-FIELD-CLUSTER-1",
+   "note": "claim taken before the pre-registration (written first, as the contract asks). X199's own report named the decisive test it could not run: two seeds at one (cell, phase). X198 turns out to contain those clone pairs at identical parameters, and a reconnaissance scan (disclosed in the pre-registration) shows the outcomes disagreeing in 30 of 72 phases at radius 4 gap 10 and 12 of 36 at gap 9. The registered analysis pins the sample definition (design groups with identical parameter vectors), the criteria C1-C4 and the refusal rules R1-R3. Zero GPU: committed compact slices only."
   }
  ]
 }

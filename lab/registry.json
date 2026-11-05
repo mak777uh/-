@@ -894,6 +894,14 @@
     "status": "planned",
     "origin": "articles/030-the-gap-between-surfaces-decides-fusion.md section 8 (the falsifier the article registers); lab/reviews/2026-11-05-030-v20-numbers.md (the reviewer could not check the stored scalars); preregistration reports/2026-11-05-x199-mixed-model-plan.md",
     "depends_on": []
+   },
+   {
+    "id": "H-FIELD-CLUSTER-1",
+    "statement": "The unit X199 calls a world (arm geometry x phase) is not a cluster: two seeds that share the geometry and the phase but differ in position disagree in outcome far more often than a random-intercept model with the reported ICC predicts.",
+    "test": "X200: over design groups with identical parameter vectors, count the worlds that received two or more runs and disagree, compare with the beta-binomial prediction at ICC = 0.955, and refit the ICC on that pool. Refutation: fewer than 10 % of the eligible worlds disagree, or the recomputed ICC interval contains 0.955.",
+    "status": "running",
+    "origin": "reports/2026-11-05-x199-mixed-model.md (the test X199 registered as decisive and could not run); reports/2026-11-05-x200-clone-pairs-plan.md",
+    "depends_on": []
    }
   ]
  },
