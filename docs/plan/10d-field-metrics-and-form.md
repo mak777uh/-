@@ -5069,3 +5069,17 @@ r6: 0.2273 → 0.2778; это собственные группы X194 и его
 
 Артефакт: `l1_field_x200_clone_pairs.json`; отчёт: `reports/2026-11-05-x200-clone-pairs.md`; пре-регистрация:
 `reports/2026-11-05-x200-clone-pairs-plan.md`; код: `scripts/x200_clone_pairs.py`.
+
+
+## 10jk. X201 — edge-distance intervention at fixed phase (insensitive at chosen strata) (05.11)
+
+**Question.** X200 showed clone-world disagreements concentrate where two seeds of one phase sit at different distances from the
+domain edge. Is edge distance a *cause*? **Intervention (pre-registered):** at fixed geometry and fixed phase (mod 12), place the
+same pair in near/mid/far edge bins (identical params, field_track/X198, F=0.030, 400 steps). 80 runs: r4_g10 16/16/16; r4_g9
+mid/far 16/16 (near infeasible for selected phases, R1/R2). **Result:** all 80 unfused — share 0.0 in every bin; C1/C2 fail,
+C3 holds. **Verdict:** the test is **insensitive** at these phase/position choices (saturated at 0), so edge distance is not
+established as a general cause here; X200's labelled-world finding stands. Next: a sensitive version on non-zero-baseline strata,
+and/or clean clone-pairs holding edge distance fixed.
+
+Artifact: `morphogenesis/experiments/E09_pond/l1_field_x201_edge_intervention.json`; report/pre-reg:
+`reports/2026-11-05-x201-edge-intervention.md`, `reports/2026-11-05-x201-edge-intervention-plan.md`.

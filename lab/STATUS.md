@@ -39,6 +39,13 @@ we have seen something alive.
 
 ## Running now
 
+**X201 — edge-distance intervention (closed, insensitive).** Pre-registered causal test (80 CPU runs, field_track): fixed
+geometry+phase, same pair at near/mid/far edge bins. **All 80 unfused (0.0 every bin)**; r4_g9 near infeasible (R1/R2). C1/C2
+fail; the design is insensitive at these phases (saturated at 0), so edge distance is not established as a general cause. X200's
+labelled-world result stands. Next in line (by impact): **sensitive edge/clone test on non-zero-baseline strata** (screen for
+~0.3–0.7 baseline before running), and/or clean clone-pairs holding edge distance fixed. Card §10jk.
+
+
 **X200 is closed, and it is a result about our own unit of observation** (analysis of committed slices only, zero GPU,
 claimed before its pre-registration `reports/2026-11-05-x200-clone-pairs-plan.md`; report
 `reports/2026-11-05-x200-clone-pairs.md`, card §10ji, aggregate `l1_field_x200_clone_pairs.json`). X199 had named the test it

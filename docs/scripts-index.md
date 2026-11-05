@@ -4,7 +4,7 @@
 
 The curated page — what matters and why — is [`scripts.md`](scripts.md). This file is the complete list, so that every command behind a number in the record can be found.
 
-Scripts: **445**.
+Scripts: **446**.
 
 ## Гейты и проверки (49)
 
@@ -180,7 +180,7 @@ Scripts: **445**.
 | `make_seed_grid_figure.py` | Собрать Figure 4 рукописи: сетка «инициализация × порядок данных» (§4.13). |
 | `make_simple_poster.py` | Простой постер для владельца: что мы узнали, без терминов. |
 
-## Прочее (301)
+## Прочее (302)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -397,6 +397,7 @@ Scripts: **445**.
 | `x198_gap_curve_analyse.py` | x198_gap_curve_analyse.py — X198: the fusion share as a function of the surface-to-surface gap. |
 | `x199_mixed_model.py` | x199_mixed_model.py — X199: does the local-inflow association survive a random intercept per world / per phase class? |
 | `x200_clone_pairs.py` | x200_clone_pairs.py — X200: is the "world" of X199 a cluster? Clone pairs at one (cell, phase). |
+| `x201_edge_intervention.py` | X201 — edge-distance intervention (pre-registration: reports/2026-11-05-x201-edge-intervention-plan.md). |
 | `x56_matrix.py` | x56_matrix.py — сходимость по шагу: контраст при dt = 1.0, 0.5, 2.0. |
 | `x58_analyse.py` | x58_analyse.py — the same measurement on a 128 grid: β₀, β₁, wavelength, normalised count. |
 | `x58_series.py` | x60_series.py — X60: the twenty field runs that keep their snapshots. |
