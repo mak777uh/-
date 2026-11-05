@@ -51,6 +51,11 @@ def run_one(seed, args):
         resource_max=1.0,
         resource_regen=args.resource_regen,
         flip_at=args.flip_at,
+        plastic_eta=args.plastic_eta,
+        plastic_move_cost=args.plastic_move_cost,
+        plastic_gate=args.plastic_gate,
+        plastic_nomove=args.plastic_nomove,
+        plastic_prob=args.plastic_prob,
     )
     run = PondRun(world_cfg=cfg, seed=seed, device=args.device, rule_checkpoint=args.checkpoint)
     run.seed(cells=args.seed_cells, energy=args.seed_energy)
@@ -113,7 +118,8 @@ def run_one(seed, args):
                    "repair_cost": args.repair_cost, "init_resource_fill": args.init_resource_fill,
                    "resource_regen": args.resource_regen, "flip_at": args.flip_at, "steps": args.steps,
                    "layout": "gradient", "income_mode": args.income_mode, "seed_cells": args.seed_cells,
-                   "seed_energy": args.seed_energy},
+                   "seed_energy": args.seed_energy, "plastic_eta": args.plastic_eta,
+                   "plastic_move_cost": args.plastic_move_cost, "plastic_gate": args.plastic_gate},
         "before_flip": pre_p,
         "after_flip": post_p,
         "final": {"alive": final.get("alive_cells"), "born": final.get("born"), "died": final.get("died")},
@@ -136,6 +142,11 @@ def main(argv=None):
     ap.add_argument("--income-mode", default="proportional", choices=["cap", "proportional"])
     ap.add_argument("--seed-cells", type=int, default=4)
     ap.add_argument("--seed-energy", type=float, default=8.0)
+    ap.add_argument("--plastic-eta", type=float, default=0.0)
+    ap.add_argument("--plastic-move-cost", type=float, default=0.05)
+    ap.add_argument("--plastic-gate", default="pred", choices=["pred","random"])
+    ap.add_argument("--plastic-nomove", action="store_true")
+    ap.add_argument("--plastic-prob", type=float, default=0.5)
     ap.add_argument("--device", default="cuda" if torch.cuda.is_available() else "cpu")
     ap.add_argument("--checkpoint", default=os.path.join(_MORPH, "checkpoints", "world_base_rule.pt"))
     ap.add_argument("--out", required=True)
