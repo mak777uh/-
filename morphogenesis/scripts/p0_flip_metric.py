@@ -38,9 +38,13 @@ def correct_mask(pond):
         pos = pond._gradient_position()  # (grid,)
         grid = cfg.grid
         return (pos >= 0.5)[:, None].expand(grid, grid)
-    # resource-based favorable half (top 50% of grid cells by current resource)
+    # resource-based favorable half (top 50% of grid cells by current resource value)
     res = pond.state.resource
-    thr = torch.median(res)
+    flat = res.reshape(-1)
+    k = flat.numel() // 2
+    # threshold at rank (n-k): cells with resource >= this value are the top half (handles ties by count approx)
+    topk_vals, _ = torch.topk(flat, k=k, largest=True)
+    thr = float(topk_vals.min()) if k > 0 else float(flat.max())
     return res >= thr
 
 
@@ -79,6 +83,9 @@ def run_one(seed, args):
     flip = args.flip_at
     # drift: treat completion (drift_at+drift_steps) as the change point for before/after split
     change_at = flip if flip else (args.drift_at + args.drift_steps if args.drift_at and args.drift_steps else 0)
+    # catastrophe-shift relocates resources (left half -> right half): treat duration end as change point (D/P2 transfer)
+    if not change_at and args.catastrophe_rate and args.catastrophe_mode == "shift" and args.catastrophe_duration:
+        change_at = args.catastrophe_duration
     pre = {"alive_rich": 0, "alive_poor": 0, "alive_mid": 0, "steps": 0, "deaths_rich": 0, "deaths_poor": 0, "deaths_mid": 0,
            "alive_correct": 0, "alive_wrong": 0, "deaths_correct": 0, "deaths_wrong": 0}
     post = {"alive_rich": 0, "alive_poor": 0, "alive_mid": 0, "steps": 0, "deaths_rich": 0, "deaths_poor": 0, "deaths_mid": 0,
@@ -172,7 +179,7 @@ def main(argv=None):
     ap = argparse.ArgumentParser()
     ap.add_argument("--seeds", type=int, nargs="+", default=[1, 2, 3])
     ap.add_argument("--steps", type=int, default=300)
-    ap.add_argument("--flip-at", type=int, default=150)
+    ap.add_argument("--flip-at", type=int, default=0)
     ap.add_argument("--drift-at", type=int, default=0)
     ap.add_argument("--drift-steps", type=int, default=0)
     ap.add_argument("--grid", type=int, default=32)
@@ -215,7 +222,7 @@ def main(argv=None):
     agg = {
         "kind": "p0_flip_behavior_metric",
         "plan": "docs/plan-alive.md P0",
-        "metric_note": "resource-threshold zones (rich/poor) + gradient-half 'correct' zone that flips with environment; primary P0 read uses alive_correct_share before/after. move_ci=(up-dn)/moves aligned to CURRENT gradient (flips).",
+        "metric_note": "favorable zone: gradient flip/drift = current gradient half (P0/P1 comparable); else = top-50% cells by current resource (layout-agnostic, D/P2). move_ci=(up-dn)/moves aligned to CURRENT gradient_position.",
         "n_seeds": len(rows),
         "alive_final_mean": mean(("final","alive"), rows),
         "died_total_mean": mean(("final","died"), rows),
