@@ -51,6 +51,8 @@ def run_one(seed, args):
         resource_max=1.0,
         resource_regen=args.resource_regen,
         flip_at=args.flip_at,
+        drift_at=args.drift_at,
+        drift_steps=args.drift_steps,
         plastic_eta=args.plastic_eta,
         plastic_move_cost=args.plastic_move_cost,
         plastic_gate=args.plastic_gate,
@@ -60,6 +62,8 @@ def run_one(seed, args):
     run = PondRun(world_cfg=cfg, seed=seed, device=args.device, rule_checkpoint=args.checkpoint)
     run.seed(cells=args.seed_cells, energy=args.seed_energy)
     flip = args.flip_at
+    # drift: treat completion (drift_at+drift_steps) as the change point for before/after split
+    change_at = flip if flip else (args.drift_at + args.drift_steps if args.drift_at and args.drift_steps else 0)
     pre = {"alive_rich": 0, "alive_poor": 0, "alive_mid": 0, "steps": 0, "deaths_rich": 0, "deaths_poor": 0, "deaths_mid": 0,
            "alive_correct": 0, "alive_wrong": 0, "deaths_correct": 0, "deaths_wrong": 0}
     post = {"alive_rich": 0, "alive_poor": 0, "alive_mid": 0, "steps": 0, "deaths_rich": 0, "deaths_poor": 0, "deaths_mid": 0,
@@ -74,7 +78,7 @@ def run_one(seed, args):
         corr = correct_mask(pond)
         a = pond.state.alive
         died = alive_before & ~a
-        bucket = post if (flip and pond.state.step >= flip) else pre
+        bucket = post if (change_at and pond.state.step >= change_at) else pre
         bucket["steps"] += 1
         bucket["alive_rich"] += int((a & rich).sum())
         bucket["alive_poor"] += int((a & poor).sum())
@@ -116,8 +120,9 @@ def run_one(seed, args):
         "seed": seed,
         "config": {"grid": args.grid, "income": args.income, "update_cost": args.update_cost,
                    "repair_cost": args.repair_cost, "init_resource_fill": args.init_resource_fill,
-                   "resource_regen": args.resource_regen, "flip_at": args.flip_at, "steps": args.steps,
-                   "layout": "gradient", "income_mode": args.income_mode, "seed_cells": args.seed_cells,
+                   "resource_regen": args.resource_regen, "flip_at": args.flip_at, "drift_at": args.drift_at,
+                   "drift_steps": args.drift_steps, "steps": args.steps, "layout": "gradient",
+                   "income_mode": args.income_mode, "seed_cells": args.seed_cells,
                    "seed_energy": args.seed_energy, "plastic_eta": args.plastic_eta,
                    "plastic_move_cost": args.plastic_move_cost, "plastic_gate": args.plastic_gate},
         "before_flip": pre_p,
@@ -133,6 +138,8 @@ def main(argv=None):
     ap.add_argument("--seeds", type=int, nargs="+", default=[1, 2, 3])
     ap.add_argument("--steps", type=int, default=300)
     ap.add_argument("--flip-at", type=int, default=150)
+    ap.add_argument("--drift-at", type=int, default=0)
+    ap.add_argument("--drift-steps", type=int, default=0)
     ap.add_argument("--grid", type=int, default=32)
     ap.add_argument("--income", type=float, default=0.04)
     ap.add_argument("--update-cost", type=float, default=0.06)
