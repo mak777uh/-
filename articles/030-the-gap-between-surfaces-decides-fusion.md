@@ -1,7 +1,7 @@
 # The gap between surfaces, not the body size, switches fusion in a pattern-forming chemical medium
 
 - **Type:** research article (measurement, one correction, one methodological result)
-- **Version:** v2.0 — one article for the whole path taken after the published previous article (DOI 10.5281/zenodo.23933440,
+- **Version:** v2.1 — one article for the whole path taken after the published previous article (DOI 10.5281/zenodo.23933440,
   whose archive carries aggregates up to X155): the crossing and its geometry, what a daughter keeps and whether a merge comes
   apart, the local supply, the bridge, the gap that switches fusion, what the corridor forecasts, the full crossing table with
   the dispersion it hides, and the unit of observation. It follows the sequence's shape: last time we found this and decided to
@@ -403,6 +403,31 @@ earlier seed-side boundary work, which placed the transition at about 10 cells [
 gap experiment passed, and the earlier reading of the fusion-free arms as a *size* window is withdrawn in favour of the gap
 reading (see the Changelog).
 
+**The same axis measured again on a finer grid, and the switch is between gaps 9 and 10.** X198 ([A27]) repeated the gap axis
+over every phase class — 5 gaps at radius 4 (12, 11, 10, 9, 8) and 3 at radius 6 (10, 9, 8), **1152 worlds** — with its
+criteria registered before it ran. The share is monotone in the gap at both sizes, and the finer grid places the crossing of
+one half between gaps 9 and 10 rather than holding the earlier "somewhere between 9 and 8":
+
+| radius | gap (cells) | centre separation | worlds | fused | fusion share |
+|---:|---:|---:|---:|---:|---:|
+| 4 | 12 | 20 | 144 | 0 | **0.00** |
+| 4 | 11 | 19 | 144 | 0 | **0.00** |
+| 4 | 10 | 18 | 144 | 34 | **0.1883** |
+| 4 | 9 | 17 | 144 | 86 | **0.646** |
+| 4 | 8 | 16 | 144 | 138 | **0.9607** |
+| 6 | 10 | 22 | 144 | 0 | **0.00** |
+| 6 | 9 | 21 | 144 | 58 | **0.402** |
+| 6 | 8 | 20 | 144 | 126 | **0.8338** |
+
+The share column is the mean over the nine supply values, as in the five-arm table above. The four arms that repeat an earlier
+cell land on it exactly (0.1883, 0.9607, 0.402, 0.8338), so the curve is a replication and not a new measurement in disguise,
+and all **3 of 3** pre-registered criteria pass. The phase spreads separate the mechanism from the outcome: at gaps 11 and 12 of
+radius 4 the bridge still varies with phase (spreads 0.254 and 0.139) and **no world fuses**, so a bridge is necessary and not
+sufficient; at radius 6, gap 10 the same holds. What the finer grid adds is the shape of the switch — a fall from 0.96 to 0.19
+across two cells of gap — and the two empty cells that were previously inferred.
+
+![Figure 9](030-figures/fig9-the-gap-curve.png)
+
 ### 5.6 The corridor at contact, and what it does and does not forecast ([A22])
 
 Everything above measured fusion **after** it happened. The corridor is an attempt to read the outcome **before** it happens:
@@ -613,13 +638,12 @@ project's own records — every arm has a dated plan written before its run — 
 with the published and un-deposited steps distinguished. This step's trail is §5; the step before it is the article of the
 previous section, whose published version is the DOI quoted there.
 
-**One question from §7 is running now, and it is the one this step created.** The finer gap grid (item 2) runs five gaps at
-radius 4 and three at radius 6 over every phase class — 1152 worlds — and turns the five-row table of §5.5 into a curve,
-replacing "at some point between 9 and 8 cells" with the pair of adjacent gaps the switch falls between. Its criteria were
-registered before it ran: the share must fall monotonically, at least one neighbouring pair must differ by 0.4 with intervals
-that miss the bar, the radius-6 curve must not lie to the right of the radius-4 curve and must be at least 0.10 higher somewhere,
-the phase spreads must exceed 0.05, and the three arms that repeat an earlier measurement must land within ±0.05 of it. Its
-refusal rules are written down in the same file, so a flat curve is a result and not a failure to report.
+**The question §7 registered first has now been answered.** The finer gap grid (item 2) ran five gaps at radius 4 and three
+at radius 6 over every phase class — 1152 worlds — and its curve is §5.5: the five-row table became eight rows, the switch of
+the fusion share across one half sits between gaps 9 and 10 (0.646 against 0.1883), and the four arms that repeat an earlier
+cell reproduce it exactly. The measurement also confirms that a bridge is not sufficient: at gaps 11 and 12 the phase still
+moves the bridge and no world fuses. Its result card is §10jg of `docs/plan/10d-field-metrics-and-form.md`; its
+pre-registration is `reports/2026-11-05-x198-gap-curve-plan.md`.
 
 **What the next article will be.** The result that reorders the work is the one in §5.7 and §5.8: the outcome at a site is
 decided by the *inflow at the colder body*, and everything else about that site — the midpoint phase, the family a run belongs
@@ -735,7 +759,7 @@ cited here. Two entries rest on corpus documents at manifest status `partial` (n
 - **[A8]** X194: `l1_field_x194_phase_clusters.json`; report `reports/2026-11-04-x194-phase-clusters.md`.
 - **[A9]** X197: `l1_field_x197_deviance_worlds.json`; report `reports/2026-11-04-x197-deviance-worlds.md`.
 - **[A10]** X190, X191 (the clone and phase spreads behind the world unit): reports `reports/2026-11-04-x19{0,1}-*.md`.
-- **[A11]** X198 (the finer gap grid of §8, running while this edition was written): pre-registration `reports/2026-11-05-x198-gap-curve-plan.md`; aggregate `l1_field_x198_gap_curve.json`.
+- **[A11]** X198 (the finer gap grid of §8, completed in v2.1): pre-registration `reports/2026-11-05-x198-gap-curve-plan.md`; aggregate `l1_field_x198_gap_curve.json`; result card `docs/plan/10d-field-metrics-and-form.md` §10jg.
 - **[A12]** X157 (the contact gap, §5.1): `l1_field_x157_gap_geometry.json`; report `reports/2026-11-04-x157-gap-geometry.md`.
 - **[A13]** X159 (the unlogged-growth bound on that gap, §5.1): numbers stored in `l1_field_x157_quantum.json` (the X159 amendment of X157); report `reports/2026-11-04-x159-quantum.md`.
 - **[A14]** X158 (the crossing per radius, §5.1 and §5.5): `l1_field_x158_crossing.json`; report `reports/2026-11-04-x158-crossing.md`.
@@ -750,6 +774,7 @@ cited here. Two entries rest on corpus documents at manifest status `partial` (n
 - **[A23]** X179 (the full crossing table, §5.7): `l1_field_x179_crossing_table.json`; report `reports/2026-11-04-x179-crossing-table.md`.
 - **[A24]** X180, X181 (the dispersion and its redraw, §5.7): `l1_field_x180_dispersion.json`, `l1_field_x181_worst_cell.json`.
 - **[A25]** X188, X189 (the nucleation and bridge readings against the local inflow, §5.8): `l1_field_x188_nucleation_identity.json`, `l1_field_x189_bridge.json`.
+- **[A27]** X198, the finer gap grid of §5.5 added in v2.1 (the curve over eight arms and its criteria): `l1_field_x198_gap_curve.json`; pre-registration `reports/2026-11-05-x198-gap-curve-plan.md`.
 - **[A26]** The number digest behind the added sections: every value added in v2.0 was transcribed from the aggregates by a separate reading pass, with the file and JSON path recorded per number; the pass found six disagreements between the reports' prose and the stored fields (X171's pooled spread 0.036 against 0.040, X179's 1119/772 against 985/722, X174's duplicated arm, X156's pair denominators, X160's mean-versus-median clonal fraction, X169's waist median 0.357 against 0.345 from its own list). The stored fields are quoted in this article and the disagreements are listed in §9 and in `docs/series.md`.
 
 ## Changelog
@@ -765,6 +790,12 @@ cited here. Two entries rest on corpus documents at manifest status `partial` (n
   the series found and the two questions it left open; the published previous step is now cited by DOI, and the un-deposited
   v2.1 of that article is named as part of the same record; the sequence is mapped in `docs/series.md`; §8 is retitled to
   "Where we move next". No number changed.
+- **v2.1** (2026-11-05): **the curve the v2.0 edition could only announce.** X198 finished after v2.0 was written, so the
+  finer gap grid is now a result and not a "running" note: §5.5 gains the eight-arm curve (1152 worlds) with the crossing of one
+  half between gaps 9 and 10, the two empty cells that were previously inferred, the four arms that reproduce an earlier cell
+  exactly, and the bridge-still-varies-but-nothing-fuses observation at gaps 11 and 12; §8 records the answer instead of the
+  running question; the artifact is [A27] and the result card is §10jg of the field plan. The version of the article needed no
+  other change, and no earlier number moved.
 - **v2.0** (2026-11-05): **one article for the whole path after the published previous article.** The owner's decision, taken
   after asking whether the continuation could be a single piece: yes, and the step is one article rather than four. v1.x
   described only the census line (X158, X184–X197); v2.0 opens with the four groups of questions the previous article left

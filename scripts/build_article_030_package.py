@@ -8,7 +8,7 @@ README, the licence, a Zenodo metadata record, a sha256 manifest and the publica
     python scripts/build_article_030_package.py
     python scripts/build_article_030_package.py --no-zip     # leave the directory for inspection
 
-Output: `_exports/030-gap-switches-fusion/` and `_exports/030-gap-switches-fusion-v2.0.zip` (both ignored by git).
+Output: `_exports/030-gap-switches-fusion/` and `_exports/030-gap-switches-fusion-v2.1.zip` (both ignored by git).
 
 One author is set (Vladimirov, Ilya — given by the owner on 05.11; no ORCID, no related identifiers); the licence is CC BY
 4.0, the standing default, and the brief says where to change it. Nothing is uploaded by this script.
@@ -28,7 +28,7 @@ FIGDIR = ROOT / "articles" / "030-figures"
 REFS = ROOT / "articles" / "030-references.md"
 POND = ROOT / "morphogenesis" / "experiments" / "E09_pond"
 OUT = ROOT / "_exports" / "030-gap-switches-fusion"
-ZIP = ROOT / "_exports" / "030-gap-switches-fusion-v2.0.zip"
+ZIP = ROOT / "_exports" / "030-gap-switches-fusion-v2.1.zip"
 STEM = "030-the-gap-between-surfaces-decides-fusion"
 
 AGGREGATES = [
@@ -76,6 +76,7 @@ AGGREGATES = [
     "l1_field_x195_sign_sweep.json",
     "l1_field_x196_gap_or_size.json",
     "l1_field_x197_deviance_worlds.json",
+    "l1_field_x198_gap_curve.json",
 ]
 
 LICENSE = """Creative Commons Attribution 4.0 International Public License
@@ -128,12 +129,12 @@ Every number is computed from the aggregates by `scripts/make_article_030_figure
 `data/derived/tables.json`, and checked against the article text by `scripts/check_article_030_numbers.py --ci`. The
 aggregates carry their own command lines and pre-registrations. The independent recomputations behind the numbers are
 `lab/reviews/2026-11-04-030-numbers.md` (the earlier, narrower edition) and `lab/reviews/2026-11-05-030-v20-numbers.md`
-(the blocks added in v2.0), both in the repository.
+(the blocks added in v2.0 and the gap curve added in v2.1), both in the repository.
 """
 
 BRIEF = """# Publishing brief — article 030 "{title}"
 
-You are receiving this brief together with one archive, `030-gap-switches-fusion-v2.0.zip`. The article and its data are
+You are receiving this brief together with one archive, `030-gap-switches-fusion-v2.1.zip`. The article and its data are
 final: the numbers have been checked mechanically against the data and independently recomputed by a reviewer. Your job is
 to deposit them, not to improve them. Where this brief says "ask the author", stop and ask; do not decide on your own.
 
@@ -142,7 +143,7 @@ to deposit them, not to improve them. Where this brief says "ask the author", st
 | file | what it is |
 |---|---|
 | `{stem}.md` | the article (Markdown, English) |
-| `figures/fig1..fig8.png` and `.pdf` | the eight figures, reading and typesetting versions |
+| `figures/fig1..fig9.png` and `.pdf` | the nine figures, reading and typesetting versions |
 | `data/derived/tables.json` | every number plotted in the article |
 | `data/aggregates/*.json` | the aggregates the article cites |
 | `references.md` | the verified reference list (20 entries, one rejected and not cited) |
@@ -170,7 +171,7 @@ to deposit them, not to improve them. Where this brief says "ask the author", st
 - **Title and description:** copy from `zenodo.json` verbatim.
 - **Keywords:** from `zenodo.json` (`keywords`).
 - **Access:** open.
-- **Version:** v2.0.
+- **Version:** v2.1.
 - After the deposit, record the DOI back in the repository (`lab/notices.md`) so the line's own artifacts can cite it.
 
 ## 4. What this archive does NOT contain
@@ -253,7 +254,7 @@ def main() -> int:
         "creators": [{"name": "Vladimirov, Ilya"}],
         "license": "CC-BY-4.0",
         "access_right": "open",
-        "version": "v2.0",
+        "version": "v2.1",
         "language": "eng",
         "keywords": ["reaction-diffusion", "pattern formation", "neural cellular automata", "coalescence", "bridge",
                      "pre-registration", "unit of observation"],

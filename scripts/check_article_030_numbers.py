@@ -62,6 +62,7 @@ X182 = agg("x182_local_inflow")
 X183 = agg("x183_local_collapse")
 X188 = agg("x188_nucleation_identity")
 X189 = agg("x189_bridge")
+X198 = agg("x198_gap_curve")
 
 
 def _worst179():
@@ -281,6 +282,30 @@ def _decimals(needle: str, n: float) -> int:
             return len(tok.split(".")[1])
     return 4
 
+
+CHECKS.update({
+    "v21_x198_worlds": ("**1152 worlds**", sum(a["worlds"] for a in X198["arms"])),
+    "v21_x198_gaps_r4": ("5 gaps at radius 4 (12, 11, 10, 9, 8)", len([a for a in X198["arms"] if a["radius"] == 4.0])),
+    "v21_x198_gaps_r6": ("3 at radius 6 (10, 9, 8)", len([a for a in X198["arms"] if a["radius"] == 6.0])),
+    "v21_x198_r4g12_share": ("| 4 | 12 | 20 | 144 | 0 | **0.00** |", X198["gap_table"]["r4_g12"]["share"]),
+    "v21_x198_r4g11_share": ("| 4 | 11 | 19 | 144 | 0 | **0.00** |", X198["gap_table"]["r4_g11"]["share"]),
+    "v21_x198_r4g10_fused": ("| 4 | 10 | 18 | 144 | 34 | **0.1883** |", X198["gap_table"]["r4_g10"]["fused_worlds"]),
+    "v21_x198_r4g10_share": ("| 4 | 10 | 18 | 144 | 34 | **0.1883** |", X198["gap_table"]["r4_g10"]["share"]),
+    "v21_x198_r4g9_fused": ("| 4 | 9 | 17 | 144 | 86 | **0.646** |", X198["gap_table"]["r4_g9"]["fused_worlds"]),
+    "v21_x198_r4g9_share": ("| 4 | 9 | 17 | 144 | 86 | **0.646** |", X198["gap_table"]["r4_g9"]["share"]),
+    "v21_x198_r4g8_fused": ("| 4 | 8 | 16 | 144 | 138 | **0.9607** |", X198["gap_table"]["r4_g8"]["fused_worlds"]),
+    "v21_x198_r4g8_share": ("| 4 | 8 | 16 | 144 | 138 | **0.9607** |", X198["gap_table"]["r4_g8"]["share"]),
+    "v21_x198_r6g10_share": ("| 6 | 10 | 22 | 144 | 0 | **0.00** |", X198["gap_table"]["r6_g10"]["share"]),
+    "v21_x198_r6g9_fused": ("| 6 | 9 | 21 | 144 | 58 | **0.402** |", X198["gap_table"]["r6_g9"]["fused_worlds"]),
+    "v21_x198_r6g9_share": ("| 6 | 9 | 21 | 144 | 58 | **0.402** |", X198["gap_table"]["r6_g9"]["share"]),
+    "v21_x198_r6g8_fused": ("| 6 | 8 | 20 | 144 | 126 | **0.8338** |", X198["gap_table"]["r6_g8"]["fused_worlds"]),
+    "v21_x198_r6g8_share": ("| 6 | 8 | 20 | 144 | 126 | **0.8338** |", X198["gap_table"]["r6_g8"]["share"]),
+    "v21_x198_criteria": ("all **3 of 3** pre-registered criteria pass", X198["criteria_passed"]),
+    "v21_x198_spread_g11": ("spreads 0.254 and 0.139",
+                            round({a["name"]: a["crowded_value"]["ratio_spread"] for a in X198["arms"]}["r4_g11"], 3)),
+    "v21_x198_spread_g12": ("spreads 0.254 and 0.139",
+                            round({a["name"]: a["crowded_value"]["ratio_spread"] for a in X198["arms"]}["r4_g12"], 3)),
+})
 
 def main() -> int:
     ap = argparse.ArgumentParser()

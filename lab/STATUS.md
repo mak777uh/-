@@ -8,8 +8,8 @@ part is kept current (new text in English — decision of 31.10).
 
 ## Where we are, in one page (asked for in plain language on 04.11)
 
-**Nothing is running and no lock is held.** `lab/state.json` reports `active_runs: 0`; the items below are analysis over
-committed projections or short CPU series that have finished.
+**Nothing is running and no lock is held.** `lab/state.json` reports `active_runs: 0`; the X198 series finished on 05.11 and
+the block of analysis around it (X199) reads committed projections only, so no lane is occupied and no GPU lock is held.
 
 **On the "see the living" plan (`docs/plan-alive.md`, stages P0–P4) we are at P0, and the lab never claims life** — the
 contract allows only "an observable class of behaviour and its boundaries", so progress is scored by rulers, not by words.
@@ -39,17 +39,25 @@ we have seen something alive.
 
 ## Running now
 
-**X198 — the fusion share as a function of the surface-to-surface gap** (eight arms, 1152 worlds, claimed before its
-pre-registration `reports/2026-11-05-x198-gap-curve-plan.md`): five gaps at radius 4 (8, 9, 10, 11, 12) and three at radius 6
-(8, 9, 10), so the switch X196 found with three arms becomes a curve, and the size shift becomes a curve-to-curve comparison at
-matched gaps. Registered before the run: the share is monotone in the gap, one neighbouring pair differs by at least 0.4 (which
-locates the transition between adjacent gaps, finer than X196 could), the radius-6 curve is not to the right of the radius-4 one
-and is higher by at least 0.10 somewhere, the phase still decides the bridge in every arm, and the re-run arms reproduce their
-committed values (0.00 / 0.40 / 0.96) within ±0.05.
+**X199 — the mixed-effects check of the local-inflow reading** (`task-7`, analyst-a; analysis of committed aggregates,
+zero GPU, claimed before its pre-registration `reports/2026-11-05-x199-mixed-model-plan.md`): logistic fusion on the standardised
+local inflow with a **random intercept per world** and, in a second variant, per phase class, so the fixed-effect slope, its
+interval and the intra-class correlation are reported instead of a point estimate averaged over worlds. This is the falsifier
+article 030 registers as its first next step, and the one the independent review of the added blocks could not check at all
+(X180's pooled point-biserial and z, X183's five AUCs are stored scalars with no run-level data in the aggregate). Refusal rule
+in the plan: if the between-world variance is not identifiable from the committed data, that is the result and the design
+limitation is reported as such.
 
-**Article 030 is finished as v2.0 and stopped at the boundary.** On 05.11 the owner asked whether the continuation after the
+**X198 is closed (3 of 3 criteria).** The gap curve ran eight arms over 1152 worlds and is now section 5.5 of article 030
+v2.1: monotone in the gap at both sizes, with the crossing of the fusion share across one half between gaps **9 and 10**
+(0.646 against 0.1883) instead of between 9 and 8, the two empty cells measured (gap 11 and 12 at radius 4, gap 10 at radius 6
+— nothing fuses), the four arms that repeat an earlier cell landing on it exactly, and the phase still moving the bridge where
+nothing fuses (spreads 0.254 and 0.139), so a bridge is necessary and not sufficient. Result card
+`docs/plan/10d-field-metrics-and-form.md` §10jg.
+
+**Article 030 is finished as v2.1 and stopped at the boundary.** On 05.11 the owner asked whether the continuation after the
 published step could be a single article and then confirmed it; the article was enlarged in place from the census-line edition
-to **one article for the whole path after the published 029 v2.0** (X156–X197). It now carries the line it continues (the
+to **one article for the whole path after the published 029 v2.0** (X156–X198, where X198 is the curve the v2.0 edition could only announce as running). It now carries the line it continues (the
 published DOI), six falsifiable questions instead of four, and its results in nine subsections: the distance the medium uses
 and the crossing it makes (the surfaces touch at a median of 1.93 cells, an upper bound with the threshold's lower bound at
 0.7, with the crossing one cell wide at 10/10/9 and unmoved by the inflow rate), what a daughter keeps (0.5167 elongation,
@@ -59,10 +67,10 @@ at contact (0.479/0.4918/0.4701) with the cliff at its edge (10 of 30 against 3 
 against 0.5874 nominal and 0.2149 midpoint), the bridge at a fixed supply (slope 6.09, z 5.8) with the opposite sign at a
 smaller body, and the unit of observation. Two readings are **withdrawn** in the text and in `docs/eliminations.md`: X168 as
 a units artefact and X188 because its observable contains the outcome; §9 lists six places where a report's prose disagrees
-with the stored field, with the artifact quoted in each. Eight figures and `tables.json` come from
-`scripts/make_article_030_figures.py`; **145 needles** are gated by `scripts/check_article_030_numbers.py --ci` (it now
+with the stored field, with the artifact quoted in each. Nine figures and `tables.json` come from
+`scripts/make_article_030_figures.py`; **164 needles** are gated by `scripts/check_article_030_numbers.py --ci` (it now
 normalises whitespace, so a needle spans a line break); the PDF is rebuilt; the deposit package is
-`_exports/030-gap-switches-fusion-v2.0.zip`; the added numbers are independently reviewed in
+`_exports/030-gap-switches-fusion-v2.1.zip`; the added numbers are independently reviewed in
 `lab/reviews/2026-11-05-030-v20-numbers.md`; the sequence is mapped in `docs/series.md`, and the two queue items that would
 have made separate articles of the corridor block and of 029 v2.1 are marked **superseded**. **Nothing has gone outward.**
 
@@ -220,10 +228,11 @@ a sentence that strong is written, not after.
 
 ## Waiting for the owner — three items, all small
 
-1. **Which deposit goes out first.** 029 v2.1 (written and checked, adds X161–X170) and 030 v2.0 (one article for everything
-   after the published 029 v2.0, package built) are both prepared and neither has gone anywhere. The choice is the owner's:
-   deposit 029 v2.1 as a new version of the same record `23933440` and then 030 as a new record, or let 030 carry the path
-   alone. Licence defaults to CC BY 4.0; the author list is settled (Ilya Vladimirov). Cost once approved: minutes.
+1. **Which deposit goes out first.** 029 v2.1 (written and checked, adds X161–X170) and 030 **v2.1** (one article for everything
+   after the published 029 v2.0, including the X198 curve, package built) are both prepared and neither has gone anywhere. The
+   choice is the owner's: deposit 029 v2.1 as a new version of the same record `23933440` and then 030 as a new record, or let
+   030 carry the path alone. Licence defaults to CC BY 4.0; the author list is settled (Ilya Vladimirov). Cost once approved:
+   minutes.
 1. **X54, canonical weights:** the snapshot is honest now (`ready 1 / missing 11`, `weights_tracked: false`), but the choice
    remains: (a) restore the 12 `nca_final.pt` from Zenodo `10.5281/zenodo.23654174` (6.47 GB), or (b) record the local
    absence in `docs/deposit.md` and drop the 12-file requirement. Option (b) costs 15 minutes and unblocks the retention

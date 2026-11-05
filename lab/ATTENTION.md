@@ -12,14 +12,14 @@ Reserved to the owner by `lab/autonomy-rules.json`: publishing anything outward:
 
 ## Running now
 
-- **X198_gap_curve** — The fusion share as a function of the surface-to-surface gap (five gaps at radius 4, three at radius 6) (owner `lead`)
-- last artifact written 0.0 h ago
+- nothing is running
 
 ## Waiting, but not on a human
 
 - **P6_reports_catalogue** — Каталог отчётов по темам и архивный ярус (no GPU)
 - **P9_numbers_everywhere** — Проверка чисел во всех публикуемых текстах, а не только в статье 028 (no GPU)
 - **provenance_rule_sha** — Write rule_sha256 into every row of the pond aggregators (no GPU)
+- **X199_mixed_model** — None (no GPU)
 - **X163_lamarckian_rule** — Inheritance of the process itself: a spatially varying rule as the heritable state (0.3 GPU-h)
 - **X28_factorial_F** — Факторный дизайн: состав × конфигурация при фиксированном реализованном притоке (1.0 GPU-h)
 - **X30_env_without_constructors** — Среда без конструкторов: решающий опыт наследования (1.0 GPU-h)
@@ -272,6 +272,7 @@ Reserved to the owner by `lab/autonomy-rules.json`: publishing anything outward:
 - `lab/reviews/2026-11-04-030-numbers.md`
 - `lab/reviews/2026-11-04-x168d-review.md`
 - `lab/reviews/2026-11-04-x183-local-inflow-law.md`
+- `lab/reviews/2026-11-05-030-v20-numbers.md`
 
 ## Literature board
 

@@ -1,6 +1,6 @@
 # Условия поддержания организации в цифровой среде: цена ошибки, неполная информация и границы обучения
 
-**Статус:** draft v4.2 (2026-11-04). Не подана, не рецензирована, цитировать нельзя. Соответствие препринту: v1.2 (Zenodo) — добавлены измеренная цена (−0.374, ДИ [−0.396, −0.266]), канал признака, механизмы сосуществования (асинхронность, смертность) и их синергия (+0.445); v3.6 — плотная лестница наследования и ось порога (§4k.1), третье поле как отрицательный результат (§4k); v3.7 — §4k.3 «Coalescence is a merger, not a birth»; v3.8 — §4k.2 «What makes the end of a lineage an end»; v3.9 — §4k.4 «The heredity coefficient is the rule's fidelity», измерение наследуемости вместо утверждения; v4.0 — §4k.5 «What a daughter inherits when the trait is not written by the rule» (форма наследуется примерно наполовину) и §4k.6 «Where the fusion boundary actually is» (исправление микшинг-длины по независимому ревью); v4.1 — §4k.6 получает измеренный переход 10 ± 1 клетки вместо полосы 8–11 и вторую поправку: 1.9 клетки при контакте — верхняя граница порога, а не порог (окно 1.3 клетки, X159). Новые подразделы написаны сразу по-английски.
+**Статус:** draft v4.6 (2026-11-05). Не подана, не рецензирована, цитировать нельзя. Соответствие препринту: v1.2 (Zenodo) — добавлены измеренная цена (−0.374, ДИ [−0.396, −0.266]), канал признака, механизмы сосуществования (асинхронность, смертность) и их синергия (+0.445); v3.6 — плотная лестница наследования и ось порога (§4k.1), третье поле как отрицательный результат (§4k); v3.7 — §4k.3 «Coalescence is a merger, not a birth»; v3.8 — §4k.2 «What makes the end of a lineage an end»; v3.9 — §4k.4 «The heredity coefficient is the rule's fidelity», измерение наследуемости вместо утверждения; v4.0 — §4k.5 «What a daughter inherits when the trait is not written by the rule» (форма наследуется примерно наполовину) и §4k.6 «Where the fusion boundary actually is» (исправление микшинг-длины по независимому ревью); v4.1 — §4k.6 получает измеренный переход 10 ± 1 клетки вместо полосы 8–11 и вторую поправку: 1.9 клетки при контакте — верхняя граница порога, а не порог (окно 1.3 клетки, X159). Новые подразделы написаны сразу по-английски.
 **Данные частичные:** линия поля закрыта до X107; блоки X108–X170 внесены в текст (§4k — второй вид, §4k.2 — идентичность, §4k.3 — слияние, §4k.4 — наследуемость, §4k.5 — форма, §4k.6 — исправленная граница слияния). Открытых вопросов линии осталось два: X152/X149 в блоке слияния. Аудит: `reports/2026-11-03-claims-audit.md`.
 
 ## 1. Вопрос
@@ -2052,7 +2052,7 @@ conclusions: the unit has to be checked **per statistic**, and X186's conclusion
    «нет специфики точки смерти» там, где соседей много — **закрыто 27.10**: пересъёмка на одном коде
    дала 5/10, медиана −0.0092, p = 0.62 (специфики нет; см. §4j).
 
-### 4k.5 The census line: the gap between surfaces switches fusion (article 030, v2.0)
+### 4k.5 The census line: the gap between surfaces switches fusion (article 030, v2.1)
 
 The published preprint of this line stopped at X155. Everything the line has measured since then is written up as **one
 article** — [`articles/030-the-gap-between-surfaces-decides-fusion.md`](../articles/030-the-gap-between-surfaces-decides-fusion.md),
@@ -2070,8 +2070,12 @@ does not move with the inflow rate over the three rates tested. An earlier readi
 What decides the outcome at a fixed distance is the measured chemical state of the space between the bodies. Holding the local
 supply fixed, the logistic slope of fusion on the bridge ratio is **6.09** (z 5.8) at radius 6 and **4.85** (z 2.7) at radius
 3, with the sign of the supply–fusion association **reversed** between the two sizes (Spearman −0.378/−0.833 against
-+0.413/+0.515). Ordered by the surface gap the shares run 0.00, 0.19, 0.40, 0.83, 0.96 from 12 cells to 8 at two sizes; a
-matched-gap contrast at gap 8 gives 0.96 against 0.83, a shift rather than a switch. The best single reading of "the rate this
++0.413/+0.515). Ordered by the surface gap the shares run 0.00, 0.19, 0.40, 0.83, 0.96 from 12 cells to 8 at two sizes, and the finer
+grid (eight arms, 1152 worlds, X198) places the crossing of one half between gaps **9 and 10** — 0.646 against 0.1883 —
+with the two empty cells that the coarser design could only infer; a matched-gap contrast at gap 8 gives 0.96 against
+0.83, a shift rather than a switch. The same curve shows what is *not* sufficient: at gaps 11 and 12 the phase still
+moves the bridge between the bodies (spreads 0.254 and 0.139) and no world fuses, so a bridge is necessary and not
+enough. The best single reading of "the rate this
 run had" is the measured inflow **at the colder of the two bodies** (AUC **0.8656**), not the nominal rate the experiment set
 (0.5874) and not the pair's midpoint (0.2149, anti-predictive); the enumeration behind that reading is 57 two-body cells and
 772 runs, in which the between-family dispersion is the phase of the medium where the pair sits (midpoint point-biserial

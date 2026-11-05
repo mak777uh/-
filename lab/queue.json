@@ -1,6 +1,6 @@
 {
  "schema_version": 1,
- "updated_at": "2026-11-05T01:20:00+03:00",
+ "updated_at": "2026-11-05T07:40:00+03:00",
  "note": "Очередь пунктов после E02c. Claim берётся до пре-регистрации, а не перед запуском: lab.py item-claim. Статус running означает занятый GPU-лейн и может быть только у одного пункта. | 25.10: добавлено поле impact (1-5) — приоритет конвейера = impact/max(cost_gpu_h,0.1); для запуска пункту нужны prereg (закоммиченный план) и launch.command+outdir.",
  "items": [
   {
@@ -3487,15 +3487,16 @@
   {
    "id": "X198_gap_curve",
    "title": "The fusion share as a function of the surface-to-surface gap (five gaps at radius 4, three at radius 6)",
-   "status": "running",
+   "status": "closed",
    "owner": "lead",
    "kind": "field",
    "cost_gpu_h": 0.0,
    "priority": 8,
    "prereg": "reports/2026-11-05-x198-gap-curve-plan.md",
    "created_at": "2026-11-05T00:50:00+03:00",
-   "note": "claim taken before the pre-registration. X196 settled the either-or with three arms and a five-row table whose middle was interpolated; this runs the switch at a fixed size (radius 4, gaps 8-12) and repeats the three largest gaps at radius 6, so the size shift is a curve-to-curve comparison at matched gaps. Cost about 100 minutes of CPU for 1152 worlds.",
-   "heartbeat_at": "2026-11-05T00:52:00+03:00"
+   "note": "closed, 3 of 3 registered criteria: the gap curve over eight arms and 1152 worlds (five gaps at radius 4, three at radius 6) is monotone in the gap at both sizes, and the finer grid places the crossing of the fusion share across one half between gaps 9 and 10 (0.646 against 0.1883) rather than between 9 and 8; the two empty cells (gap 11 and 12 at radius 4, gap 10 at radius 6) are now measured and fusing nothing, while the phase still moves the bridge there (spreads 0.254, 0.139, 0.324) - so a bridge is necessary and not sufficient; the four arms that repeat an earlier cell land on it exactly (0.1883, 0.9607, 0.402, 0.8338). The correction of X195's size window to a gap window is confirmed by direct measurement. Artifact l1_field_x198_gap_curve.json, result card docs/plan/10d-field-metrics-and-form.md 10jg, pre-registration reports/2026-11-05-x198-gap-curve-plan.md, and the curve is section 5.5 of article 030 v2.1.",
+   "heartbeat_at": "2026-11-05T00:52:00+03:00",
+   "closed_at": "2026-11-05T07:40:00+03:00"
   },
   {
    "id": "ART031_corridor",
@@ -3532,6 +3533,14 @@
    "created_at": "2026-11-05T01:20:00+03:00",
    "note": "owner's decision on 05.11, after the question whether the continuation could be one article: the whole path after the published 029 v2.0 (X156-X197) is one article instead of four. Closed 05.11: article 030 v2.0 is in the repository - header, the line it continues, six falsifiable questions, sections 5.1-5.9 with the added blocks, ten falsifiers, a rewritten next-step section and a number-disagreement list; eight figures and tables.json from scripts/make_article_030_figures.py; 138 needles under scripts/check_article_030_numbers.py --ci; PDF rebuilt; package _exports/030-gap-switches-fusion-v2.0.zip; independent review lab/reviews/2026-11-05-030-v20-numbers.md. X198 (the gap curve, running) would make it v2.1.",
    "closed_at": "2026-11-05T01:50:00+03:00"
+  },
+  {
+   "id": "X199_mixed_model",
+   "status": "planned",
+   "owner": "lead",
+   "created_at": "2026-11-05T07:35:00+03:00",
+   "hypothesis": "H-FIELD-MIXED-1",
+   "note": "the mixed-effects check the article 030 registers as its first next step: logistic fusion on the local inflow with the world (and, in a second variant, the phase class) as a random intercept, so the fixed-effect slope and the intra-class correlation are reported instead of a point estimate averaged over worlds. Preregistration reports/2026-11-05-x199-mixed-model-plan.md written before the fit by analyst-a (task-7); zero GPU, an analysis of committed aggregates only."
   }
  ]
 }

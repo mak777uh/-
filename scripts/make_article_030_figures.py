@@ -488,5 +488,40 @@ fig.suptitle("Figure 8 — the whole table, the dispersion, and which number on 
 fig.tight_layout()
 save(fig, "fig8-the-table-and-the-ladder")
 
+
+x198 = agg("x198_gap_curve")
+tables["fig9"] = {"gap_table": x198["gap_table"], "criteria_passed": x198["criteria_passed"],
+                  "spreads": {a["name"]: a["crowded_value"]["ratio_spread"] for a in x198["arms"]},
+                  "correction_to_x195": x198["correction_to_x195"]}
+
+fig, ax = plt.subplots(1, 2, figsize=(9.8, 3.9))
+arms198 = sorted(x198["arms"], key=lambda a: (a["radius"], -a["gap"]))
+for radius, col, lab in ((4.0, BLUE, "radius 4"), (6.0, ORANGE, "radius 6")):
+    sel = [a for a in arms198 if a["radius"] == radius]
+    ax[0].plot([a["gap"] for a in sel], [x198["gap_table"][a["name"]]["share"] for a in sel], "o-", color=col, label=lab)
+ax[0].axhline(0.5, color=INK, ls=":", lw=1.0)
+ax[0].set_xlabel("surface-to-surface gap (cells)")
+ax[0].set_ylabel("fusion share (mean over the nine supplies)")
+ax[0].invert_xaxis()
+ax[0].legend(fontsize=8)
+ax[0].set_ylim(-0.05, 1.05)
+ax[0].set_title("(a) the switch is between gaps 9 and 10")
+
+spreads = [a["crowded_value"]["ratio_spread"] for a in arms198]
+ax[1].bar(range(len(arms198)), spreads, color=GREY, width=0.62)
+for i, a in enumerate(arms198):
+    gt = x198["gap_table"][a["name"]]
+    ax[1].annotate(f"{gt['fused_worlds']}/{gt['worlds']}", (i, spreads[i]), textcoords="offset points", xytext=(0, 3),
+                   ha="center", fontsize=7.5)
+ax[1].set_xticks(range(len(arms198)))
+ax[1].set_xticklabels([a["name"].replace("_", "\n") for a in arms198], fontsize=7.5)
+ax[1].set_ylabel("spread of the bridge between phases")
+ax[1].set_ylim(0, max(spreads) * 1.25)
+ax[1].set_title("(b) the phase still moves the bridge everywhere")
+fig.suptitle("Figure 9 — the gap curve on the finer grid: the switch, and a bridge that is not enough",
+             fontsize=11.5, fontweight="bold", y=1.02)
+fig.tight_layout()
+save(fig, "fig9-the-gap-curve")
+
 (OUT / "tables.json").write_text(json.dumps(tables, ensure_ascii=False, indent=1) + "\n", encoding="utf-8", newline="\n")
 print(f"[figures] tables.json written with {len(tables)} groups")
