@@ -1036,7 +1036,7 @@ def build_parser() -> argparse.ArgumentParser:
     ap.add_argument("--abiotic", action="store_true",
                     help="контроль: без организмов (только среда)")
     ap.add_argument("--plastic-gate", default="pred", choices=["pred", "random"])
-    ap.add_argument("--plastic-direction", default="gradient", choices=["gradient", "random"])
+    ap.add_argument("--plastic-direction", default="gradient", choices=["gradient", "random", "gradpos"])
     ap.add_argument("--plastic-prob", type=float, default=0.5)
     ap.add_argument("--plastic-nomove", action="store_true")
     ap.add_argument("--plastic-move-cost", type=float, default=0.05,

@@ -88,7 +88,7 @@ class PondConfig:
     plastic_eta: float = 0.0           # L2: скорость обновления предсказания ресурса
     plastic_move_cost: float = 0.05    # L2: цена шага по ошибке предсказания
     plastic_gate: str = "pred"         # pred | random: чем гейтится шаг
-    plastic_direction: str = "gradient" # gradient = к макс. ресурсу; random = случайный сосед (A1)
+    plastic_direction: str = "gradient" # gradient=к макс. ресурсу; random=случ.сосед(A1); gradpos=к макс. gradient_position(B1, направл.таксис)
     plastic_prob: float = 0.5          # доля клеток за шаг при gate=random
     plastic_nomove: bool = False       # ablation: предсказание без перемещений
     invest_rate: float = 0.0           # B2: энергия на подъём ресурса в своей клетке
@@ -1301,12 +1301,13 @@ class Pond:
         taken = torch.zeros_like(s.alive)
         moves: list[tuple[int, int, int, int]] = []
         direction = str(getattr(cfg, "plastic_direction", "gradient") or "gradient")
+        pos = self._gradient_position() if direction == "gradpos" else None
         for k in order.tolist():
             y, x = int(candidates[k, 0]), int(candidates[k, 1])
             if not bool(s.alive[y, x]) or bool(taken[y, x]):
                 continue
             free = []
-            best, best_res = None, float(s.resource[y, x])
+            best, best_res, best_pos = None, float(s.resource[y, x]), -1e9
             for dy, dx in ((1, 0), (-1, 0), (0, 1), (0, -1)):
                 ny, nx = y + dy, x + dx
                 if not (0 <= ny < n and 0 <= nx < n):
@@ -1314,14 +1315,27 @@ class Pond:
                 if bool(s.alive[ny, nx]) or bool(taken[ny, nx]):
                     continue
                 res = float(s.resource[ny, nx])
-                free.append((ny, nx, res))
+                pv = float(pos[ny]) if pos is not None else 0.0
+                free.append((ny, nx, res, pv))
                 if res > best_res:
-                    best, best_res = (ny, nx), res
+                    best_res = res
+                if pv > best_pos:
+                    best_pos = pv
+                    if direction == "gradpos":
+                        best = (ny, nx)
+                elif direction != "gradpos" and res >= best_res:
+                    best = (ny, nx)
+            # recompute best for gradient(resource-argmax) cleanly
+            if direction != "gradpos":
+                best, best_res = None, float(s.resource[y, x])
+                for ny, nx, res, _pv in free:
+                    if res > best_res:
+                        best, best_res = (ny, nx), res
             if not free:
                 continue
             if direction == "random":
                 j = int(torch.randint(0, len(free), (1,), generator=self.gen_sel).item())
-                ny, nx, _ = free[j]
+                ny, nx, _, _ = free[j]
                 target = (ny, nx)
             else:
                 if best is None:
