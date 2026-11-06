@@ -68,6 +68,8 @@ class PondConfig:
     patch_inflow_base: float = 0.1
     patch_inflow_rich: float = 4.0
     flip_at: int = 0                  # если > 0: на этом шаге градиент переворачивается
+    flip2_at: int = 0                 # S6/C3: если > 0: на этом шаге градиент переворачивается ОБРАТНО
+                                      # (0 = выключено, бит-в-бит со старым миром)
     drift_at: int = 0                  # если > 0: с этого шага градиент дрейфует
     drift_steps: int = 0               # за сколько шагов дрейф переворачивает верх и низ
     income_mode: str = "cap"           # cap (min(ресурс, доход)) | proportional (доход*ресурс)
@@ -632,6 +634,9 @@ class Pond:
             progress = min(1.0, max(0.0, progress))
             return (1.0 - progress) * up + progress * (1.0 - up)
         if cfg.flip_at and self.state.step >= cfg.flip_at:
+            # S6/C3: второй переворот возвращает исходную ориентацию (A -> B -> A)
+            if cfg.flip2_at and self.state.step >= cfg.flip2_at:
+                return up
             return 1.0 - up
         return up
 
