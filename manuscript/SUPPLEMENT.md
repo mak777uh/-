@@ -819,6 +819,8 @@
 | [`morphogenesis/experiments/E09_pond/s26_anchor_check.json`](../morphogenesis/experiments/E09_pond/s26_anchor_check.json) | other | 2759 | `34503c1b1723d9561ffb483a2a5e7c12d681699ef1e925b7becb67617dfaad48` |
 | [`morphogenesis/experiments/E09_pond/s26_h2_full.json`](../morphogenesis/experiments/E09_pond/s26_h2_full.json) | other | 14250 | `e110edc663012c51b3bd61c51ea796756b1848a070ee9d62458b5b28121bba0d` |
 | [`morphogenesis/experiments/E09_pond/s26_probe.json`](../morphogenesis/experiments/E09_pond/s26_probe.json) | other | 3013 | `118eb1fc690af8d468ec7af56536f9a53cbcde1fefd37f9763d92beaf1a4d51d` |
+| [`morphogenesis/experiments/E09_pond/s27_h4_full.json`](../morphogenesis/experiments/E09_pond/s27_h4_full.json) | other | 16255 | `db41ca369b163f500537790073c1bd865f8a2af92f8be8942a9765976d969da0` |
+| [`morphogenesis/experiments/E09_pond/s27_probe.json`](../morphogenesis/experiments/E09_pond/s27_probe.json) | other | 3313 | `2e6cea352f6115cb26c7f9591e612dfd7faf7de5506f716621f6bc92e6e7b691` |
 | [`morphogenesis/experiments/E09_pond/s2_b1_gradpos_drift.json`](../morphogenesis/experiments/E09_pond/s2_b1_gradpos_drift.json) | other | 6655 | `7b25c1c2f5d5181dfb2e00e2326d0d2349256607942a38f76f583722ea1074e4` |
 | [`morphogenesis/experiments/E09_pond/s2_b1_gradpos_flip200.json`](../morphogenesis/experiments/E09_pond/s2_b1_gradpos_flip200.json) | other | 6728 | `d81e8a2b522435cb3dac2d89efb41fd1f819e3e25c9ef9f9eeba3e211c5737dd` |
 | [`morphogenesis/experiments/E09_pond/s2_b1b_gradpos_cheap01.json`](../morphogenesis/experiments/E09_pond/s2_b1b_gradpos_cheap01.json) | other | 6698 | `96379ca8ba5fda1581526c6ec1dc4fed4b56f5a8e835dd16e6a00997062e6462` |
@@ -6506,6 +6508,7 @@
 | [`reports/figures/e02b_transition_matrix.png`](../reports/figures/e02b_transition_matrix.png) | figure | 152522 | `81f1b4fe50fd819f45411c31fb737a0c232d9c4f993f5233184c8b276779f5b9` |
 | [`reports/figures/e02c_seed_grid.png`](../reports/figures/e02c_seed_grid.png) | figure | 69503 | `a14f0a6eb28fa0675629e539dc863049d97c3a7ef1914c34ebd7348b5c71776f` |
 <!-- artifacts:end -->
+
 
 
 

@@ -1,0 +1,171 @@
+{
+ "kind": "s27_h4_external_rhythm",
+ "steps": 300,
+ "window": 100,
+ "diffusion": 0.05,
+ "decay": 0.02,
+ "external": 1.0,
+ "period": 40,
+ "mode": "wave",
+ "mean_eta": 0.02,
+ "note": "external source is not created by the cells; phase arm follows the instantaneous gradient, level arm follows the deviation from its own running mean (habituation)",
+ "n_seeds": 1,
+ "rows": [
+  {
+   "seed": 1,
+   "arm": "no_field",
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "favourable_share": 0.3501,
+     "stability_sd": 0.0733,
+     "field_amplitude": 0.0,
+     "moves_per_step": 0.0,
+     "alive_mean": 68.0
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "favourable_share": 0.2176,
+     "stability_sd": 0.0813,
+     "field_amplitude": 0.0,
+     "moves_per_step": 0.0,
+     "alive_mean": 82.1
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "favourable_share": 0.1242,
+     "stability_sd": 0.0155,
+     "field_amplitude": 0.0,
+     "moves_per_step": 0.0,
+     "alive_mean": 159.5
+    }
+   ],
+   "final": {
+    "alive": 260,
+    "born": 323,
+    "died": 1466
+   },
+   "R1": true
+  },
+  {
+   "seed": 1,
+   "arm": "phase",
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "favourable_share": 0.4243,
+     "stability_sd": 0.0784,
+     "field_amplitude": 4.2439,
+     "moves_per_step": 3.1,
+     "alive_mean": 60.3
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "favourable_share": 0.2769,
+     "stability_sd": 0.0984,
+     "field_amplitude": 4.0546,
+     "moves_per_step": 5.7,
+     "alive_mean": 74.5
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "favourable_share": 0.1551,
+     "stability_sd": 0.0284,
+     "field_amplitude": 4.0497,
+     "moves_per_step": 23.2,
+     "alive_mean": 274.9
+    }
+   ],
+   "final": {
+    "alive": 372,
+    "born": 389,
+    "died": 1531
+   },
+   "R1": true
+  },
+  {
+   "seed": 1,
+   "arm": "level",
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "favourable_share": 0.4227,
+     "stability_sd": 0.0691,
+     "field_amplitude": 4.2439,
+     "moves_per_step": 2.8,
+     "alive_mean": 60.3
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "favourable_share": 0.255,
+     "stability_sd": 0.0662,
+     "field_amplitude": 4.0546,
+     "moves_per_step": 7.6,
+     "alive_mean": 98.9
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "favourable_share": 0.1673,
+     "stability_sd": 0.0228,
+     "field_amplitude": 4.0497,
+     "moves_per_step": 16.9,
+     "alive_mean": 194.9
+    }
+   ],
+   "final": {
+    "alive": 268,
+    "born": 353,
+    "died": 1309
+   },
+   "R1": true
+  },
+  {
+   "seed": 1,
+   "arm": "static_ext",
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "favourable_share": 0.4561,
+     "stability_sd": 0.0662,
+     "field_amplitude": 17.1424,
+     "moves_per_step": 3.0,
+     "alive_mean": 53.1
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "favourable_share": 0.3855,
+     "stability_sd": 0.1336,
+     "field_amplitude": 27.0134,
+     "moves_per_step": 3.8,
+     "alive_mean": 46.5
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "favourable_share": 0.1688,
+     "stability_sd": 0.0412,
+     "field_amplitude": 28.0796,
+     "moves_per_step": 20.2,
+     "alive_mean": 239.2
+    }
+   ],
+   "final": {
+    "alive": 374,
+    "born": 308,
+    "died": 1234
+   },
+   "R1": true
+  }
+ ]
+}

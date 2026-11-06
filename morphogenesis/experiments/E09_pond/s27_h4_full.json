@@ -1,0 +1,807 @@
+{
+ "kind": "s27_h4_external_rhythm",
+ "steps": 600,
+ "window": 100,
+ "diffusion": 0.05,
+ "decay": 0.02,
+ "external": 1.0,
+ "period": 40,
+ "mode": "wave",
+ "mean_eta": 0.02,
+ "note": "external source is not created by the cells; phase arm follows the instantaneous gradient, level arm follows the deviation from its own running mean (habituation)",
+ "n_seeds": 3,
+ "rows": [
+  {
+   "seed": 1,
+   "arm": "no_field",
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "favourable_share": 0.3501,
+     "stability_sd": 0.0733,
+     "field_amplitude": 0.0,
+     "moves_per_step": 0.0,
+     "alive_mean": 68.0
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "favourable_share": 0.2176,
+     "stability_sd": 0.0813,
+     "field_amplitude": 0.0,
+     "moves_per_step": 0.0,
+     "alive_mean": 82.1
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "favourable_share": 0.1242,
+     "stability_sd": 0.0155,
+     "field_amplitude": 0.0,
+     "moves_per_step": 0.0,
+     "alive_mean": 159.5
+    },
+    {
+     "start": 301,
+     "end": 400,
+     "favourable_share": 0.2068,
+     "stability_sd": 0.0554,
+     "field_amplitude": 0.0,
+     "moves_per_step": 0.0,
+     "alive_mean": 405.0
+    },
+    {
+     "start": 401,
+     "end": 500,
+     "favourable_share": 0.3043,
+     "stability_sd": 0.0224,
+     "field_amplitude": 0.0,
+     "moves_per_step": 0.0,
+     "alive_mean": 533.0
+    },
+    {
+     "start": 501,
+     "end": 600,
+     "favourable_share": 0.3194,
+     "stability_sd": 0.0149,
+     "field_amplitude": 0.0,
+     "moves_per_step": 0.0,
+     "alive_mean": 550.5
+    }
+   ],
+   "final": {
+    "alive": 546,
+    "born": 1610,
+    "died": 8225
+   },
+   "R1": true
+  },
+  {
+   "seed": 1,
+   "arm": "phase",
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "favourable_share": 0.4243,
+     "stability_sd": 0.0784,
+     "field_amplitude": 4.2439,
+     "moves_per_step": 3.1,
+     "alive_mean": 60.3
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "favourable_share": 0.2769,
+     "stability_sd": 0.0984,
+     "field_amplitude": 4.0546,
+     "moves_per_step": 5.7,
+     "alive_mean": 74.5
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "favourable_share": 0.1551,
+     "stability_sd": 0.0284,
+     "field_amplitude": 4.0497,
+     "moves_per_step": 23.2,
+     "alive_mean": 274.9
+    },
+    {
+     "start": 301,
+     "end": 400,
+     "favourable_share": 0.2084,
+     "stability_sd": 0.0497,
+     "field_amplitude": 4.0502,
+     "moves_per_step": 35.0,
+     "alive_mean": 389.9
+    },
+    {
+     "start": 401,
+     "end": 500,
+     "favourable_share": 0.3132,
+     "stability_sd": 0.0213,
+     "field_amplitude": 4.0501,
+     "moves_per_step": 44.3,
+     "alive_mean": 515.3
+    },
+    {
+     "start": 501,
+     "end": 600,
+     "favourable_share": 0.3313,
+     "stability_sd": 0.0149,
+     "field_amplitude": 4.0501,
+     "moves_per_step": 46.0,
+     "alive_mean": 555.0
+    }
+   ],
+   "final": {
+    "alive": 558,
+    "born": 1574,
+    "died": 6991
+   },
+   "R1": true
+  },
+  {
+   "seed": 1,
+   "arm": "level",
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "favourable_share": 0.4227,
+     "stability_sd": 0.0691,
+     "field_amplitude": 4.2439,
+     "moves_per_step": 2.8,
+     "alive_mean": 60.3
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "favourable_share": 0.255,
+     "stability_sd": 0.0662,
+     "field_amplitude": 4.0546,
+     "moves_per_step": 7.6,
+     "alive_mean": 98.9
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "favourable_share": 0.1673,
+     "stability_sd": 0.0228,
+     "field_amplitude": 4.0497,
+     "moves_per_step": 16.9,
+     "alive_mean": 194.9
+    },
+    {
+     "start": 301,
+     "end": 400,
+     "favourable_share": 0.1792,
+     "stability_sd": 0.0692,
+     "field_amplitude": 4.0502,
+     "moves_per_step": 32.8,
+     "alive_mean": 362.9
+    },
+    {
+     "start": 401,
+     "end": 500,
+     "favourable_share": 0.2922,
+     "stability_sd": 0.0279,
+     "field_amplitude": 4.0501,
+     "moves_per_step": 43.0,
+     "alive_mean": 474.3
+    },
+    {
+     "start": 501,
+     "end": 600,
+     "favourable_share": 0.3296,
+     "stability_sd": 0.0164,
+     "field_amplitude": 4.0501,
+     "moves_per_step": 46.2,
+     "alive_mean": 549.1
+    }
+   ],
+   "final": {
+    "alive": 545,
+    "born": 1430,
+    "died": 6273
+   },
+   "R1": true
+  },
+  {
+   "seed": 1,
+   "arm": "static_ext",
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "favourable_share": 0.4561,
+     "stability_sd": 0.0662,
+     "field_amplitude": 17.1424,
+     "moves_per_step": 3.0,
+     "alive_mean": 53.1
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "favourable_share": 0.3855,
+     "stability_sd": 0.1336,
+     "field_amplitude": 27.0134,
+     "moves_per_step": 3.8,
+     "alive_mean": 46.5
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "favourable_share": 0.1688,
+     "stability_sd": 0.0412,
+     "field_amplitude": 28.0796,
+     "moves_per_step": 20.2,
+     "alive_mean": 239.2
+    },
+    {
+     "start": 301,
+     "end": 400,
+     "favourable_share": 0.2131,
+     "stability_sd": 0.0357,
+     "field_amplitude": 28.1994,
+     "moves_per_step": 31.9,
+     "alive_mean": 399.4
+    },
+    {
+     "start": 401,
+     "end": 500,
+     "favourable_share": 0.3055,
+     "stability_sd": 0.0232,
+     "field_amplitude": 28.2131,
+     "moves_per_step": 42.2,
+     "alive_mean": 505.0
+    },
+    {
+     "start": 501,
+     "end": 600,
+     "favourable_share": 0.3142,
+     "stability_sd": 0.0192,
+     "field_amplitude": 28.2147,
+     "moves_per_step": 44.0,
+     "alive_mean": 513.6
+    }
+   ],
+   "final": {
+    "alive": 543,
+    "born": 1495,
+    "died": 6506
+   },
+   "R1": true
+  },
+  {
+   "seed": 2,
+   "arm": "no_field",
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "favourable_share": 0.354,
+     "stability_sd": 0.0864,
+     "field_amplitude": 0.0,
+     "moves_per_step": 0.0,
+     "alive_mean": 69.5
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "favourable_share": 0.2325,
+     "stability_sd": 0.0446,
+     "field_amplitude": 0.0,
+     "moves_per_step": 0.0,
+     "alive_mean": 74.3
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "favourable_share": 0.1229,
+     "stability_sd": 0.0194,
+     "field_amplitude": 0.0,
+     "moves_per_step": 0.0,
+     "alive_mean": 241.8
+    },
+    {
+     "start": 301,
+     "end": 400,
+     "favourable_share": 0.235,
+     "stability_sd": 0.0487,
+     "field_amplitude": 0.0,
+     "moves_per_step": 0.0,
+     "alive_mean": 442.6
+    },
+    {
+     "start": 401,
+     "end": 500,
+     "favourable_share": 0.3016,
+     "stability_sd": 0.0235,
+     "field_amplitude": 0.0,
+     "moves_per_step": 0.0,
+     "alive_mean": 522.7
+    },
+    {
+     "start": 501,
+     "end": 600,
+     "favourable_share": 0.3207,
+     "stability_sd": 0.0167,
+     "field_amplitude": 0.0,
+     "moves_per_step": 0.0,
+     "alive_mean": 556.3
+    }
+   ],
+   "final": {
+    "alive": 569,
+    "born": 1778,
+    "died": 8761
+   },
+   "R1": true
+  },
+  {
+   "seed": 2,
+   "arm": "phase",
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "favourable_share": 0.4472,
+     "stability_sd": 0.0768,
+     "field_amplitude": 4.2439,
+     "moves_per_step": 2.9,
+     "alive_mean": 59.9
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "favourable_share": 0.2645,
+     "stability_sd": 0.0698,
+     "field_amplitude": 4.0546,
+     "moves_per_step": 5.5,
+     "alive_mean": 75.2
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "favourable_share": 0.1233,
+     "stability_sd": 0.0151,
+     "field_amplitude": 4.0497,
+     "moves_per_step": 20.4,
+     "alive_mean": 248.4
+    },
+    {
+     "start": 301,
+     "end": 400,
+     "favourable_share": 0.2343,
+     "stability_sd": 0.0737,
+     "field_amplitude": 4.0502,
+     "moves_per_step": 37.6,
+     "alive_mean": 434.2
+    },
+    {
+     "start": 401,
+     "end": 500,
+     "favourable_share": 0.3274,
+     "stability_sd": 0.0166,
+     "field_amplitude": 4.0501,
+     "moves_per_step": 45.8,
+     "alive_mean": 530.6
+    },
+    {
+     "start": 501,
+     "end": 600,
+     "favourable_share": 0.3341,
+     "stability_sd": 0.0159,
+     "field_amplitude": 4.0501,
+     "moves_per_step": 46.2,
+     "alive_mean": 547.9
+    }
+   ],
+   "final": {
+    "alive": 552,
+    "born": 1743,
+    "died": 7144
+   },
+   "R1": true
+  },
+  {
+   "seed": 2,
+   "arm": "level",
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "favourable_share": 0.4331,
+     "stability_sd": 0.0757,
+     "field_amplitude": 4.2439,
+     "moves_per_step": 2.9,
+     "alive_mean": 61.6
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "favourable_share": 0.2424,
+     "stability_sd": 0.0646,
+     "field_amplitude": 4.0546,
+     "moves_per_step": 5.7,
+     "alive_mean": 79.6
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "favourable_share": 0.1377,
+     "stability_sd": 0.0208,
+     "field_amplitude": 4.0497,
+     "moves_per_step": 21.3,
+     "alive_mean": 250.8
+    },
+    {
+     "start": 301,
+     "end": 400,
+     "favourable_share": 0.221,
+     "stability_sd": 0.0483,
+     "field_amplitude": 4.0502,
+     "moves_per_step": 36.4,
+     "alive_mean": 415.1
+    },
+    {
+     "start": 401,
+     "end": 500,
+     "favourable_share": 0.3314,
+     "stability_sd": 0.0152,
+     "field_amplitude": 4.0501,
+     "moves_per_step": 46.1,
+     "alive_mean": 542.0
+    },
+    {
+     "start": 501,
+     "end": 600,
+     "favourable_share": 0.3277,
+     "stability_sd": 0.0162,
+     "field_amplitude": 4.0501,
+     "moves_per_step": 46.6,
+     "alive_mean": 535.6
+    }
+   ],
+   "final": {
+    "alive": 576,
+    "born": 1701,
+    "died": 6794
+   },
+   "R1": true
+  },
+  {
+   "seed": 2,
+   "arm": "static_ext",
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "favourable_share": 0.4624,
+     "stability_sd": 0.0695,
+     "field_amplitude": 17.1424,
+     "moves_per_step": 3.2,
+     "alive_mean": 58.2
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "favourable_share": 0.4021,
+     "stability_sd": 0.1488,
+     "field_amplitude": 27.0134,
+     "moves_per_step": 4.4,
+     "alive_mean": 53.8
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "favourable_share": 0.143,
+     "stability_sd": 0.0222,
+     "field_amplitude": 28.0796,
+     "moves_per_step": 19.9,
+     "alive_mean": 237.0
+    },
+    {
+     "start": 301,
+     "end": 400,
+     "favourable_share": 0.2097,
+     "stability_sd": 0.0609,
+     "field_amplitude": 28.1994,
+     "moves_per_step": 35.2,
+     "alive_mean": 411.2
+    },
+    {
+     "start": 401,
+     "end": 500,
+     "favourable_share": 0.3258,
+     "stability_sd": 0.0177,
+     "field_amplitude": 28.2131,
+     "moves_per_step": 44.0,
+     "alive_mean": 537.1
+    },
+    {
+     "start": 501,
+     "end": 600,
+     "favourable_share": 0.3296,
+     "stability_sd": 0.0171,
+     "field_amplitude": 28.2147,
+     "moves_per_step": 44.8,
+     "alive_mean": 547.1
+    }
+   ],
+   "final": {
+    "alive": 541,
+    "born": 1674,
+    "died": 6826
+   },
+   "R1": true
+  },
+  {
+   "seed": 3,
+   "arm": "no_field",
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "favourable_share": 0.3684,
+     "stability_sd": 0.0776,
+     "field_amplitude": 0.0,
+     "moves_per_step": 0.0,
+     "alive_mean": 68.2
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "favourable_share": 0.1654,
+     "stability_sd": 0.0596,
+     "field_amplitude": 0.0,
+     "moves_per_step": 0.0,
+     "alive_mean": 126.2
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "favourable_share": 0.1202,
+     "stability_sd": 0.0336,
+     "field_amplitude": 0.0,
+     "moves_per_step": 0.0,
+     "alive_mean": 308.6
+    },
+    {
+     "start": 301,
+     "end": 400,
+     "favourable_share": 0.3,
+     "stability_sd": 0.0312,
+     "field_amplitude": 0.0,
+     "moves_per_step": 0.0,
+     "alive_mean": 534.6
+    },
+    {
+     "start": 401,
+     "end": 500,
+     "favourable_share": 0.3188,
+     "stability_sd": 0.0196,
+     "field_amplitude": 0.0,
+     "moves_per_step": 0.0,
+     "alive_mean": 556.9
+    },
+    {
+     "start": 501,
+     "end": 600,
+     "favourable_share": 0.324,
+     "stability_sd": 0.0149,
+     "field_amplitude": 0.0,
+     "moves_per_step": 0.0,
+     "alive_mean": 556.9
+    }
+   ],
+   "final": {
+    "alive": 567,
+    "born": 1869,
+    "died": 9782
+   },
+   "R1": true
+  },
+  {
+   "seed": 3,
+   "arm": "phase",
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "favourable_share": 0.4443,
+     "stability_sd": 0.0753,
+     "field_amplitude": 4.2439,
+     "moves_per_step": 2.8,
+     "alive_mean": 59.8
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "favourable_share": 0.2548,
+     "stability_sd": 0.0989,
+     "field_amplitude": 4.0546,
+     "moves_per_step": 7.0,
+     "alive_mean": 92.7
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "favourable_share": 0.1376,
+     "stability_sd": 0.0157,
+     "field_amplitude": 4.0497,
+     "moves_per_step": 20.4,
+     "alive_mean": 230.8
+    },
+    {
+     "start": 301,
+     "end": 400,
+     "favourable_share": 0.2439,
+     "stability_sd": 0.0695,
+     "field_amplitude": 4.0502,
+     "moves_per_step": 39.3,
+     "alive_mean": 449.3
+    },
+    {
+     "start": 401,
+     "end": 500,
+     "favourable_share": 0.3238,
+     "stability_sd": 0.0181,
+     "field_amplitude": 4.0501,
+     "moves_per_step": 45.3,
+     "alive_mean": 534.4
+    },
+    {
+     "start": 501,
+     "end": 600,
+     "favourable_share": 0.3314,
+     "stability_sd": 0.0177,
+     "field_amplitude": 4.0501,
+     "moves_per_step": 46.4,
+     "alive_mean": 538.6
+    }
+   ],
+   "final": {
+    "alive": 530,
+    "born": 1731,
+    "died": 6865
+   },
+   "R1": true
+  },
+  {
+   "seed": 3,
+   "arm": "level",
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "favourable_share": 0.4344,
+     "stability_sd": 0.0746,
+     "field_amplitude": 4.2439,
+     "moves_per_step": 2.9,
+     "alive_mean": 60.3
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "favourable_share": 0.2481,
+     "stability_sd": 0.1025,
+     "field_amplitude": 4.0546,
+     "moves_per_step": 7.5,
+     "alive_mean": 101.5
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "favourable_share": 0.1293,
+     "stability_sd": 0.024,
+     "field_amplitude": 4.0497,
+     "moves_per_step": 21.0,
+     "alive_mean": 242.7
+    },
+    {
+     "start": 301,
+     "end": 400,
+     "favourable_share": 0.2379,
+     "stability_sd": 0.0388,
+     "field_amplitude": 4.0502,
+     "moves_per_step": 36.6,
+     "alive_mean": 434.2
+    },
+    {
+     "start": 401,
+     "end": 500,
+     "favourable_share": 0.3202,
+     "stability_sd": 0.0264,
+     "field_amplitude": 4.0501,
+     "moves_per_step": 45.0,
+     "alive_mean": 536.2
+    },
+    {
+     "start": 501,
+     "end": 600,
+     "favourable_share": 0.3317,
+     "stability_sd": 0.0153,
+     "field_amplitude": 4.0501,
+     "moves_per_step": 45.7,
+     "alive_mean": 554.6
+    }
+   ],
+   "final": {
+    "alive": 523,
+    "born": 1650,
+    "died": 7232
+   },
+   "R1": true
+  },
+  {
+   "seed": 3,
+   "arm": "static_ext",
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "favourable_share": 0.46,
+     "stability_sd": 0.0732,
+     "field_amplitude": 17.1424,
+     "moves_per_step": 3.4,
+     "alive_mean": 58.9
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "favourable_share": 0.3275,
+     "stability_sd": 0.0848,
+     "field_amplitude": 27.0134,
+     "moves_per_step": 4.7,
+     "alive_mean": 59.7
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "favourable_share": 0.1267,
+     "stability_sd": 0.0297,
+     "field_amplitude": 28.0796,
+     "moves_per_step": 19.1,
+     "alive_mean": 228.9
+    },
+    {
+     "start": 301,
+     "end": 400,
+     "favourable_share": 0.2991,
+     "stability_sd": 0.0438,
+     "field_amplitude": 28.1994,
+     "moves_per_step": 41.4,
+     "alive_mean": 508.0
+    },
+    {
+     "start": 401,
+     "end": 500,
+     "favourable_share": 0.3184,
+     "stability_sd": 0.0191,
+     "field_amplitude": 28.2131,
+     "moves_per_step": 43.0,
+     "alive_mean": 532.7
+    },
+    {
+     "start": 501,
+     "end": 600,
+     "favourable_share": 0.3156,
+     "stability_sd": 0.0193,
+     "field_amplitude": 28.2147,
+     "moves_per_step": 44.3,
+     "alive_mean": 523.8
+    }
+   ],
+   "final": {
+    "alive": 541,
+    "born": 1590,
+    "died": 7411
+   },
+   "R1": true
+  }
+ ]
+}

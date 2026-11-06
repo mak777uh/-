@@ -106,6 +106,11 @@ class PondConfig:
     signal_oscillate: float = 0.0      # амплитуда колебаний глобального источника
     signal_period: int = 0             # период колебаний в шагах (0 = нет колебаний)
     signal_move: float = 0.0           # вес градиента поля при выборе направления шага (0 = выкл)
+    # H4: ВНЕШНИЙ источник — поле, которое клетки не создают, а только читают.
+    # Он несёт информацию, которой у клетки нет: фазу внешнего ритма.
+    signal_external: float = 0.0       # амплитуда внешнего источника (0 = выкл)
+    signal_external_period: int = 0    # период внешнего ритма в шагах (0 = постоянно)
+    signal_external_mode: str = "wave"  # wave (бегущая волна) | pulse (вспышка целиком)
     plastic_prob: float = 0.5          # доля клеток за шаг при gate=random
     plastic_nomove: bool = False       # ablation: предсказание без перемещений
     invest_rate: float = 0.0           # B2: энергия на подъём ресурса в своей клетке
@@ -667,11 +672,12 @@ class Pond:
                     and self.state.step >= cfg.flip2_at)
 
     def signal_enabled(self) -> bool:
-        """H2: включено ли непрерывное поле. False при нулевых параметрах (мир бит-в-бит)."""
+        """H2/H4: включено ли непрерывное поле. False при нулевых параметрах (мир бит-в-бит)."""
         cfg = self.cfg
         return bool(getattr(cfg, "signal_diffusion", 0.0) > 0.0
                     or getattr(cfg, "signal_source", 0.0) > 0.0
-                    or getattr(cfg, "signal_noise", 0.0) > 0.0)
+                    or getattr(cfg, "signal_noise", 0.0) > 0.0
+                    or getattr(cfg, "signal_external", 0.0) > 0.0)
 
     def update_signal(self) -> None:
         """H2: шаг непрерывного поля h: диффузия + распад + источник от клеток (+ шум/колебания).
@@ -712,6 +718,25 @@ class Pond:
         if cfg.signal_noise > 0.0:
             src = src + cfg.signal_noise * torch.randn_like(h)
         h = h + src
+        # H4: внешний источник — клетки его НЕ создают, только читают.
+        # wave: бегущая волна по строкам (фаза зависит от места и времени);
+        # pulse: вся сетка вспыхивает целиком.
+        ext = float(getattr(cfg, "signal_external", 0.0) or 0.0)
+        if ext > 0.0:
+            period = int(getattr(cfg, "signal_external_period", 0) or 0)
+            mode = str(getattr(cfg, "signal_external_mode", "wave") or "wave")
+            n = cfg.grid
+            if period > 0:
+                t = 2.0 * math.pi * float(s.step) / float(period)
+            else:
+                t = 0.0
+            if mode == "wave":
+                rows = torch.arange(n, device=self.device, dtype=torch.float32)
+                phase = t - 2.0 * math.pi * rows / max(n, 1)
+                ext_field = torch.sin(phase)[:, None].expand(n, n)
+            else:
+                ext_field = torch.full_like(h, math.sin(t))
+            h = h + ext * ext_field
         s.signal = h
 
     def signal_gradient_step(self, y: int, x: int, taken: torch.Tensor,
