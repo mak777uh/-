@@ -124,14 +124,21 @@ The sign flips: −0.174 becomes +0.338. But two controls demolish the natural r
 more cells move (338 against 22 per step). With the number of moving cells held equal, the gain falls from +0.338 to
 +0.094, and with an **absolute** equal budget the two references are indistinguishable:
 
-| arm (equal absolute budget, 20 cells/step) | favourable share |
-|---|---|
-| control | 0.340 |
-| adaptive reference | 0.238 |
-| fixed reference | 0.246 |
+| arm (near-equal absolute budget) | favourable share | moves per step (last window) |
+|---|---|---|
+| control | 0.340 | 0 |
+| adaptive reference | 0.238 | 13.5 |
+| fixed reference | 0.246 | 16.1 |
 
 **The dominant variable is how much the cell moves, not what it compares with.** The "adaptation trap" is a trap of
 inaction.
+
+**A limitation of that control, stated plainly.** The budget was set to 20 cells per step for both reference arms, but the
+adaptive arm never reached it: its own qualifying count is lower, so it moved 13.5 cells per step against 16.1 in the
+fixed arm. The two arms are therefore *near*-equal, not exactly equal, and the fixed arm still moves about 19% more. That
+residual difference works **against** the article's claim (the arm that moves more does not do better), so the conclusion
+is not an artefact of the imbalance — but the control does not isolate the reference as cleanly as "equal budget" would
+suggest.
 
 ### 4.4 A continuous signal field: four designs, one conclusion
 
