@@ -121,6 +121,10 @@ class PondConfig:
     # 0 = выключено (еда от волны не зависит, как в H4).
     signal_food_coupling: float = 0.0  # сила влияния волны на приток еды
     signal_food_lag: int = 0           # насколько волна опережает еду (шагов)
+    # H14: волна, ПРОСТРАНСТВЕННО связанная с едой. Фаза зависит от расстояния до ближайшего
+    # пятна, а не от номера строки — тогда гребень проходит ЧЕРЕЗ ПЯТНА по очереди, и
+    # предсказание указывает на конкретное место, а не на «сейчас хорошее время».
+    signal_food_spatial: bool = False  # True = фаза от расстояния до пятен (H14)
     plastic_prob: float = 0.5          # доля клеток за шаг при gate=random
     plastic_nomove: bool = False       # ablation: предсказание без перемещений
     invest_rate: float = 0.0           # B2: энергия на подъём ресурса в своей клетке
@@ -779,6 +783,31 @@ class Pond:
                 best, best_v = (ny, nx), v
         return best
 
+    def _spatial_wave(self, t: float) -> torch.Tensor:
+        """H14: волна, фаза которой зависит от расстояния до ближайшего пятна.
+
+        Гребень проходит через пятна по очереди: в точке рядом с пятном фаза сдвинута так,
+        что гребень приходит туда раньше/позже, чем в пустой середине. Это делает волну
+        ПРОСТРАНСТВЕННО связанной с едой, а не только временно.
+        """
+        cfg = self.cfg
+        n = cfg.grid
+        third = n // 3
+        centres = [
+            (third // 2, third // 2),
+            (n - third, n - third),
+            (third // 2, n - third),
+        ]
+        yy = torch.arange(n, device=self.device, dtype=torch.float32).view(-1, 1).expand(n, n)
+        xx = torch.arange(n, device=self.device, dtype=torch.float32).view(1, -1).expand(n, n)
+        d = torch.full((n, n), 1e9, device=self.device)
+        for (cy, cx) in centres:
+            dist = torch.sqrt((yy - cy) ** 2 + (xx - cx) ** 2)
+            d = torch.minimum(d, dist)
+        # фаза = t - k*d: гребень бежит ОТ пятен наружу (или к ним), а не по строкам
+        k = 2.0 * math.pi / max(float(n), 1.0)
+        return torch.sin(t - k * d)
+
     def regenerate(self) -> None:
         """Ресурс прибывает с ограниченной скоростью; в катастрофу — падает."""
         cfg = self.cfg
@@ -836,9 +865,13 @@ class Pond:
                 lag = int(getattr(cfg, "signal_food_lag", 0) or 0)
                 # фаза волны в момент (t - lag): волна опережает еду на `lag` шагов
                 t = 2.0 * math.pi * (float(self.state.step) - float(lag)) / float(period)
-                rows = torch.arange(cfg.grid, device=self.device, dtype=torch.float32)
-                phase = t - 2.0 * math.pi * rows / max(cfg.grid, 1)
-                wave = torch.sin(phase)[:, None].expand(cfg.grid, cfg.grid)
+                if bool(getattr(cfg, "signal_food_spatial", False)):
+                    # H14: фаза от расстояния до ближайшего пятна — гребень проходит через пятна
+                    wave = self._spatial_wave(t)
+                else:
+                    rows = torch.arange(cfg.grid, device=self.device, dtype=torch.float32)
+                    phase = t - 2.0 * math.pi * rows / max(cfg.grid, 1)
+                    wave = torch.sin(phase)[:, None].expand(cfg.grid, cfg.grid)
                 # гребень волны (wave > 0) добавляет приток, впадина отнимает
                 inflow = inflow * (1.0 + food_coupling * wave).clamp_min(0.0)
         # потолок зависит от раскладки: иначе ресурс насыщается везде одинаково

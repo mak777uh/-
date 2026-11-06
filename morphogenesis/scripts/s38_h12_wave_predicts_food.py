@@ -116,6 +116,7 @@ def run_one(seed, args, arm, lag, coupling):
         signal_external_period=args.period,
         signal_food_coupling=coupling,
         signal_food_lag=lag,
+        signal_food_spatial=bool(getattr(args, "spatial", False)),
     )
     run = PondRun(world_cfg=cfg, seed=seed, device=args.device, rule_checkpoint=args.checkpoint)
     seed_on_patch(run, args.seed_cells, args.seed_energy, (args.patch_y, args.patch_x))
@@ -183,6 +184,8 @@ def main(argv=None):
     ap.add_argument("--plastic-move-cost", type=float, default=0.03)
     ap.add_argument("--period", type=int, default=40)
     ap.add_argument("--coupling", type=float, default=0.8)
+    ap.add_argument("--spatial", action="store_true",
+                    help="H14: wave phase from distance to patches, not from row index")
     ap.add_argument("--lags", type=int, nargs="+", default=[-20, -10, 0, 10, 20])
     ap.add_argument("--device", default="cuda" if torch.cuda.is_available() else "cpu")
     ap.add_argument("--checkpoint", default=os.path.join(_MORPH, "checkpoints", "world_base_rule.pt"))
