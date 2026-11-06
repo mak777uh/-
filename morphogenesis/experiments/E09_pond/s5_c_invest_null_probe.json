@@ -1,0 +1,106 @@
+{
+ "kind": "s5_lineage_selection_windows",
+ "flip_at": 200,
+ "steps": 300,
+ "window": 50,
+ "mutation_rate": 0.05,
+ "mutation_trait_sigma": 0.05,
+ "trait_effect": 0.0,
+ "trait_effect_mode": "invest",
+ "invest_rate": 0.02,
+ "invest_efficiency": 2.0,
+ "invest_mode": "fixed",
+ "n_seeds": 1,
+ "agg_windows": [
+  {
+   "window_idx": 0,
+   "alive": 479.2,
+   "n_lineages_alive": 19.68,
+   "top_lineage_share": 0.9609,
+   "I_opportunity": 17.1582,
+   "postflip_lineage_correct_share": 0.315,
+   "preflip_lineage_correct_share": 0.3739,
+   "postflip_alive": 1.76,
+   "preflip_alive": 477.44
+  },
+  {
+   "window_idx": 1,
+   "alive": 561.62,
+   "n_lineages_alive": 21.12,
+   "top_lineage_share": 0.9642,
+   "I_opportunity": 18.6265,
+   "postflip_lineage_correct_share": 0.4102,
+   "preflip_lineage_correct_share": 0.486,
+   "postflip_alive": 9.18,
+   "preflip_alive": 552.44
+  },
+  {
+   "window_idx": 2,
+   "alive": 572.0,
+   "n_lineages_alive": 22.0,
+   "top_lineage_share": 0.9633,
+   "I_opportunity": 19.4157,
+   "postflip_lineage_correct_share": 0.6,
+   "preflip_lineage_correct_share": 0.5089,
+   "postflip_alive": 10.0,
+   "preflip_alive": 562.0
+  }
+ ],
+ "rows": [
+  {
+   "seed": 1,
+   "windows_post_flip": [
+    {
+     "start": 200,
+     "end": 249,
+     "n": 50,
+     "alive": 479.2,
+     "n_lineages_alive": 19.68,
+     "top_lineage_share": 0.9609,
+     "I_opportunity": 17.1582,
+     "mean_lineage_size": 24.5972,
+     "postflip_lineage_correct_share": 0.315,
+     "preflip_lineage_correct_share": 0.3739,
+     "postflip_alive": 1.76,
+     "preflip_alive": 477.44
+    },
+    {
+     "start": 250,
+     "end": 299,
+     "n": 50,
+     "alive": 561.62,
+     "n_lineages_alive": 21.12,
+     "top_lineage_share": 0.9642,
+     "I_opportunity": 18.6265,
+     "mean_lineage_size": 26.7332,
+     "postflip_lineage_correct_share": 0.4102,
+     "preflip_lineage_correct_share": 0.486,
+     "postflip_alive": 9.18,
+     "preflip_alive": 552.44
+    },
+    {
+     "start": 300,
+     "end": 300,
+     "n": 1,
+     "alive": 572.0,
+     "n_lineages_alive": 22.0,
+     "top_lineage_share": 0.9633,
+     "I_opportunity": 19.4157,
+     "mean_lineage_size": 26.0,
+     "postflip_lineage_correct_share": 0.6000000238418579,
+     "preflip_lineage_correct_share": 0.5088967680931091,
+     "postflip_alive": 10.0,
+     "preflip_alive": 562.0
+    }
+   ],
+   "mutation_events": 72,
+   "n_lineages_total": 73,
+   "final": {
+    "alive": 572,
+    "born": 615,
+    "died": 1029
+   },
+   "R1": true
+  }
+ ]
+}

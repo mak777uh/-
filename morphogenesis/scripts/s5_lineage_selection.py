@@ -88,6 +88,11 @@ def run_one(seed, args):
         plastic_direction="gradient",
         mutation_rate=args.mutation_rate, mutation_trait_sigma=args.mutation_trait_sigma,
         trait_effect=args.trait_effect, trait_effect_mode=args.trait_effect_mode,
+        # NOTE (S5/C design check): trait_effect is only read inside `if invest_rate > 0`
+        # (pond.py:924-952). With invest_rate=0 the trait never reaches the dynamics and
+        # null == selection bit-for-bit (caught 06.11). Keep invest_rate>0 in the selection arm.
+        invest_rate=args.invest_rate, invest_efficiency=args.invest_efficiency,
+        invest_mode=args.invest_mode,
     )
     run = PondRun(world_cfg=cfg, seed=seed, device=args.device, rule_checkpoint=args.checkpoint)
     run.seed(cells=args.seed_cells, energy=args.seed_energy)
@@ -157,6 +162,10 @@ def main(argv=None):
     ap.add_argument("--mutation-trait-sigma", type=float, default=0.05)
     ap.add_argument("--trait-effect", type=float, default=0.0)
     ap.add_argument("--trait-effect-mode", default="invest", choices=["invest", "update"])
+    ap.add_argument("--invest-rate", type=float, default=0.0,
+                    help="must be >0 for trait_effect to reach dynamics (design check)")
+    ap.add_argument("--invest-efficiency", type=float, default=2.0)
+    ap.add_argument("--invest-mode", default="fixed", choices=["fixed", "learn", "surplus", "none"])
     ap.add_argument("--device", default="cuda" if torch.cuda.is_available() else "cpu")
     ap.add_argument("--checkpoint", default=os.path.join(_MORPH, "checkpoints", "world_base_rule.pt"))
     ap.add_argument("--out", required=True)
@@ -177,6 +186,8 @@ def main(argv=None):
            "window": args.window, "mutation_rate": args.mutation_rate,
            "mutation_trait_sigma": args.mutation_trait_sigma,
            "trait_effect": args.trait_effect, "trait_effect_mode": args.trait_effect_mode,
+           "invest_rate": args.invest_rate, "invest_efficiency": args.invest_efficiency,
+           "invest_mode": args.invest_mode,
            "n_seeds": len(rows), "agg_windows": agg, "rows": rows}
     os.makedirs(os.path.dirname(os.path.abspath(args.out)), exist_ok=True)
     with open(args.out, "w", encoding="utf-8") as fh:
