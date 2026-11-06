@@ -1,0 +1,124 @@
+{
+ "kind": "s32_h9_distance_curve",
+ "steps": 400,
+ "move_at": 300,
+ "lags": [
+  0,
+  10,
+  40
+ ],
+ "separations": {
+  "near": [
+   12,
+   12
+  ],
+  "mid": [
+   17,
+   17
+  ],
+  "far": [
+   24,
+   24
+  ]
+ },
+ "note": "prediction: optimal_lag ~ distance/mobility, so the best lag should grow with the separation between the old and the new patch",
+ "n_seeds": 1,
+ "rows": [
+  {
+   "seed": 1,
+   "lag": 0,
+   "new_patch": [
+    12,
+    12
+   ],
+   "overall": 0.2251,
+   "final": {
+    "alive": 454,
+    "born": 651,
+    "died": 3232
+   },
+   "R1": true,
+   "separation": "near"
+  },
+  {
+   "seed": 1,
+   "lag": 10,
+   "new_patch": [
+    12,
+    12
+   ],
+   "overall": 0.2816,
+   "final": {
+    "alive": 490,
+    "born": 706,
+    "died": 2846
+   },
+   "R1": true,
+   "separation": "near"
+  },
+  {
+   "seed": 1,
+   "lag": 40,
+   "new_patch": [
+    12,
+    12
+   ],
+   "overall": 0.2618,
+   "final": {
+    "alive": 447,
+    "born": 722,
+    "died": 2585
+   },
+   "R1": true,
+   "separation": "near"
+  },
+  {
+   "seed": 1,
+   "lag": 0,
+   "new_patch": [
+    24,
+    24
+   ],
+   "overall": 0.2131,
+   "final": {
+    "alive": 376,
+    "born": 578,
+    "died": 3018
+   },
+   "R1": true,
+   "separation": "far"
+  },
+  {
+   "seed": 1,
+   "lag": 10,
+   "new_patch": [
+    24,
+    24
+   ],
+   "overall": 0.2831,
+   "final": {
+    "alive": 436,
+    "born": 723,
+    "died": 2870
+   },
+   "R1": true,
+   "separation": "far"
+  },
+  {
+   "seed": 1,
+   "lag": 40,
+   "new_patch": [
+    24,
+    24
+   ],
+   "overall": 0.2555,
+   "final": {
+    "alive": 492,
+    "born": 713,
+    "died": 2577
+   },
+   "R1": true,
+   "separation": "far"
+  }
+ ]
+}
