@@ -1,0 +1,159 @@
+{
+ "kind": "s15_e1_refresh",
+ "steps": 300,
+ "window": 100,
+ "regimes": {
+  "depleted": {
+   "patch_inflow_rich": 0.5,
+   "patch_inflow_per_step": 0.025
+  },
+  "base": {
+   "patch_inflow_rich": 4.0,
+   "patch_inflow_per_step": 0.2
+  },
+  "refreshed": {
+   "patch_inflow_rich": 12.0,
+   "patch_inflow_per_step": 0.6
+  }
+ },
+ "sensitivity_note": "income(1.0)=0.160, spent=0.060 -> net +0.100 at a full patch; the refresh rate decides how long that persists after being eaten",
+ "n_seeds": 1,
+ "rows": [
+  {
+   "seed": 1,
+   "arm": "baseline",
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "favourable_share": 0.0959,
+     "rich_occupancy": 0.0051,
+     "rich_resource": 0.2458,
+     "alive_mean": 67.3
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "favourable_share": 0.054,
+     "rich_occupancy": 0.0041,
+     "rich_resource": 0.249,
+     "alive_mean": 74.4
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "favourable_share": 0.0488,
+     "rich_occupancy": 0.0118,
+     "rich_resource": 0.2487,
+     "alive_mean": 179.8
+    }
+   ],
+   "final": {
+    "alive": 265,
+    "born": 331,
+    "died": 1693
+   },
+   "R1": true,
+   "regime": "depleted",
+   "patch_inflow_rich": 0.5
+  },
+  {
+   "seed": 1,
+   "arm": "local1",
+   "windows": [
+    {
+     "start": 1,
+     "end": 300,
+     "favourable_share": 0.1498,
+     "rich_occupancy": 0.0064,
+     "rich_resource": 0.2483,
+     "alive_mean": 30.4
+    }
+   ],
+   "final": {
+    "alive": 0,
+    "born": 40,
+    "died": 115
+   },
+   "R1": false,
+   "regime": "depleted",
+   "patch_inflow_rich": 0.5
+  },
+  {
+   "seed": 1,
+   "arm": "baseline",
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "favourable_share": 0.3501,
+     "rich_occupancy": 0.0246,
+     "rich_resource": 0.26,
+     "alive_mean": 68.0
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "favourable_share": 0.2176,
+     "rich_occupancy": 0.0174,
+     "rich_resource": 0.2644,
+     "alive_mean": 82.1
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "favourable_share": 0.1242,
+     "rich_occupancy": 0.0281,
+     "rich_resource": 0.2775,
+     "alive_mean": 159.5
+    }
+   ],
+   "final": {
+    "alive": 260,
+    "born": 323,
+    "died": 1466
+   },
+   "R1": true,
+   "regime": "refreshed",
+   "patch_inflow_rich": 12.0
+  },
+  {
+   "seed": 1,
+   "arm": "local1",
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "favourable_share": 0.4671,
+     "rich_occupancy": 0.0281,
+     "rich_resource": 0.2593,
+     "alive_mean": 58.0
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "favourable_share": 0.2521,
+     "rich_occupancy": 0.027,
+     "rich_resource": 0.2659,
+     "alive_mean": 103.2
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "favourable_share": 0.1581,
+     "rich_occupancy": 0.073,
+     "rich_resource": 0.2914,
+     "alive_mean": 267.7
+    }
+   ],
+   "final": {
+    "alive": 370,
+    "born": 427,
+    "died": 1285
+   },
+   "R1": true,
+   "regime": "refreshed",
+   "patch_inflow_rich": 12.0
+  }
+ ]
+}
