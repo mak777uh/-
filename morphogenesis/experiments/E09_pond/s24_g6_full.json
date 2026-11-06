@@ -1,0 +1,670 @@
+{
+ "kind": "s24_g6_mobility_control",
+ "steps": 600,
+ "window": 100,
+ "resource_regen": 0.01,
+ "sensitivity_note": "fixed_capped takes its per-step mobility budget from the ema arm's own qualifying count at the same step, so the two arms differ only in the REFERENCE, not in how much they move",
+ "n_seeds": 3,
+ "rows": [
+  {
+   "seed": 1,
+   "arm": "baseline",
+   "resource_regen": 0.01,
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "favourable_share": 0.3588,
+     "moves_per_step": 0.0,
+     "alive_mean": 68.1
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "favourable_share": 0.2089,
+     "moves_per_step": 0.0,
+     "alive_mean": 84.7
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "favourable_share": 0.1374,
+     "moves_per_step": 0.0,
+     "alive_mean": 234.5
+    },
+    {
+     "start": 301,
+     "end": 400,
+     "favourable_share": 0.2397,
+     "moves_per_step": 0.0,
+     "alive_mean": 233.3
+    },
+    {
+     "start": 401,
+     "end": 500,
+     "favourable_share": 0.2792,
+     "moves_per_step": 0.0,
+     "alive_mean": 146.7
+    },
+    {
+     "start": 501,
+     "end": 600,
+     "favourable_share": 0.292,
+     "moves_per_step": 0.0,
+     "alive_mean": 146.8
+    }
+   ],
+   "final": {
+    "alive": 135,
+    "born": 832,
+    "died": 5835
+   },
+   "R1": true
+  },
+  {
+   "seed": 1,
+   "arm": "ema",
+   "resource_regen": 0.01,
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "favourable_share": 0.4181,
+     "moves_per_step": 5.0,
+     "alive_mean": 53.8
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "favourable_share": 0.4243,
+     "moves_per_step": 3.0,
+     "alive_mean": 25.2
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "favourable_share": 0.3316,
+     "moves_per_step": 4.8,
+     "alive_mean": 40.7
+    },
+    {
+     "start": 301,
+     "end": 400,
+     "favourable_share": 0.2111,
+     "moves_per_step": 11.3,
+     "alive_mean": 92.7
+    },
+    {
+     "start": 401,
+     "end": 500,
+     "favourable_share": 0.183,
+     "moves_per_step": 18.5,
+     "alive_mean": 155.2
+    },
+    {
+     "start": 501,
+     "end": 600,
+     "favourable_share": 0.1538,
+     "moves_per_step": 24.0,
+     "alive_mean": 201.2
+    }
+   ],
+   "final": {
+    "alive": 237,
+    "born": 455,
+    "died": 2031
+   },
+   "R1": true
+  },
+  {
+   "seed": 1,
+   "arm": "fixed_all",
+   "resource_regen": 0.01,
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "favourable_share": 0.5072,
+     "moves_per_step": 56.7,
+     "alive_mean": 99.1
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "favourable_share": 0.2806,
+     "moves_per_step": 145.9,
+     "alive_mean": 238.9
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "favourable_share": 0.5197,
+     "moves_per_step": 283.6,
+     "alive_mean": 488.8
+    },
+    {
+     "start": 301,
+     "end": 400,
+     "favourable_share": 0.6643,
+     "moves_per_step": 329.7,
+     "alive_mean": 588.3
+    },
+    {
+     "start": 401,
+     "end": 500,
+     "favourable_share": 0.6778,
+     "moves_per_step": 333.9,
+     "alive_mean": 596.3
+    },
+    {
+     "start": 501,
+     "end": 600,
+     "favourable_share": 0.6689,
+     "moves_per_step": 333.9,
+     "alive_mean": 594.4
+    }
+   ],
+   "final": {
+    "alive": 611,
+    "born": 1508,
+    "died": 3656
+   },
+   "R1": true
+  },
+  {
+   "seed": 1,
+   "arm": "fixed_capped",
+   "resource_regen": 0.01,
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "favourable_share": 0.3943,
+     "moves_per_step": 13.8,
+     "alive_mean": 72.0
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "favourable_share": 0.1902,
+     "moves_per_step": 24.3,
+     "alive_mean": 126.3
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "favourable_share": 0.2821,
+     "moves_per_step": 73.6,
+     "alive_mean": 379.8
+    },
+    {
+     "start": 301,
+     "end": 400,
+     "favourable_share": 0.424,
+     "moves_per_step": 92.2,
+     "alive_mean": 526.6
+    },
+    {
+     "start": 401,
+     "end": 500,
+     "favourable_share": 0.4257,
+     "moves_per_step": 92.3,
+     "alive_mean": 543.3
+    },
+    {
+     "start": 501,
+     "end": 600,
+     "favourable_share": 0.4291,
+     "moves_per_step": 93.1,
+     "alive_mean": 545.4
+    }
+   ],
+   "final": {
+    "alive": 541,
+    "born": 1918,
+    "died": 6608
+   },
+   "R1": true
+  },
+  {
+   "seed": 2,
+   "arm": "baseline",
+   "resource_regen": 0.01,
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "favourable_share": 0.3655,
+     "moves_per_step": 0.0,
+     "alive_mean": 66.3
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "favourable_share": 0.2311,
+     "moves_per_step": 0.0,
+     "alive_mean": 63.6
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "favourable_share": 0.4594,
+     "moves_per_step": 0.0,
+     "alive_mean": 22.3
+    },
+    {
+     "start": 301,
+     "end": 400,
+     "favourable_share": 0.3371,
+     "moves_per_step": 0.0,
+     "alive_mean": 48.9
+    },
+    {
+     "start": 401,
+     "end": 500,
+     "favourable_share": 0.3502,
+     "moves_per_step": 0.0,
+     "alive_mean": 39.8
+    },
+    {
+     "start": 501,
+     "end": 600,
+     "favourable_share": 0.2807,
+     "moves_per_step": 0.0,
+     "alive_mean": 54.2
+    }
+   ],
+   "final": {
+    "alive": 48,
+    "born": 257,
+    "died": 1786
+   },
+   "R1": true
+  },
+  {
+   "seed": 2,
+   "arm": "ema",
+   "resource_regen": 0.01,
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "favourable_share": 0.3974,
+     "moves_per_step": 5.8,
+     "alive_mean": 63.3
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "favourable_share": 0.2844,
+     "moves_per_step": 6.8,
+     "alive_mean": 57.6
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "favourable_share": 0.1903,
+     "moves_per_step": 10.6,
+     "alive_mean": 87.3
+    },
+    {
+     "start": 301,
+     "end": 400,
+     "favourable_share": 0.1801,
+     "moves_per_step": 11.4,
+     "alive_mean": 94.6
+    },
+    {
+     "start": 401,
+     "end": 500,
+     "favourable_share": 0.1633,
+     "moves_per_step": 14.3,
+     "alive_mean": 118.9
+    },
+    {
+     "start": 501,
+     "end": 600,
+     "favourable_share": 0.1758,
+     "moves_per_step": 22.1,
+     "alive_mean": 185.4
+    }
+   ],
+   "final": {
+    "alive": 196,
+    "born": 417,
+    "died": 2175
+   },
+   "R1": true
+  },
+  {
+   "seed": 2,
+   "arm": "fixed_all",
+   "resource_regen": 0.01,
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "favourable_share": 0.5045,
+     "moves_per_step": 50.3,
+     "alive_mean": 94.8
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "favourable_share": 0.2893,
+     "moves_per_step": 138.7,
+     "alive_mean": 219.2
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "favourable_share": 0.4723,
+     "moves_per_step": 269.7,
+     "alive_mean": 466.6
+    },
+    {
+     "start": 301,
+     "end": 400,
+     "favourable_share": 0.6564,
+     "moves_per_step": 331.1,
+     "alive_mean": 596.4
+    },
+    {
+     "start": 401,
+     "end": 500,
+     "favourable_share": 0.6792,
+     "moves_per_step": 340.4,
+     "alive_mean": 590.3
+    },
+    {
+     "start": 501,
+     "end": 600,
+     "favourable_share": 0.686,
+     "moves_per_step": 340.4,
+     "alive_mean": 590.6
+    }
+   ],
+   "final": {
+    "alive": 594,
+    "born": 1726,
+    "died": 3629
+   },
+   "R1": true
+  },
+  {
+   "seed": 2,
+   "arm": "fixed_capped",
+   "resource_regen": 0.01,
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "favourable_share": 0.4081,
+     "moves_per_step": 13.6,
+     "alive_mean": 72.3
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "favourable_share": 0.2233,
+     "moves_per_step": 18.5,
+     "alive_mean": 96.5
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "favourable_share": 0.1747,
+     "moves_per_step": 41.9,
+     "alive_mean": 221.2
+    },
+    {
+     "start": 301,
+     "end": 400,
+     "favourable_share": 0.2906,
+     "moves_per_step": 72.5,
+     "alive_mean": 396.7
+    },
+    {
+     "start": 401,
+     "end": 500,
+     "favourable_share": 0.431,
+     "moves_per_step": 95.2,
+     "alive_mean": 553.4
+    },
+    {
+     "start": 501,
+     "end": 600,
+     "favourable_share": 0.4363,
+     "moves_per_step": 93.4,
+     "alive_mean": 549.5
+    }
+   ],
+   "final": {
+    "alive": 541,
+    "born": 1739,
+    "died": 5708
+   },
+   "R1": true
+  },
+  {
+   "seed": 3,
+   "arm": "baseline",
+   "resource_regen": 0.01,
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "favourable_share": 0.3656,
+     "moves_per_step": 0.0,
+     "alive_mean": 65.8
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "favourable_share": 0.2752,
+     "moves_per_step": 0.0,
+     "alive_mean": 56.2
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "favourable_share": 0.3689,
+     "moves_per_step": 0.0,
+     "alive_mean": 46.7
+    },
+    {
+     "start": 301,
+     "end": 400,
+     "favourable_share": 0.2872,
+     "moves_per_step": 0.0,
+     "alive_mean": 48.2
+    },
+    {
+     "start": 401,
+     "end": 500,
+     "favourable_share": 0.518,
+     "moves_per_step": 0.0,
+     "alive_mean": 32.9
+    },
+    {
+     "start": 501,
+     "end": 600,
+     "favourable_share": 0.4468,
+     "moves_per_step": 0.0,
+     "alive_mean": 32.1
+    }
+   ],
+   "final": {
+    "alive": 28,
+    "born": 278,
+    "died": 1634
+   },
+   "R1": true
+  },
+  {
+   "seed": 3,
+   "arm": "ema",
+   "resource_regen": 0.01,
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "favourable_share": 0.4002,
+     "moves_per_step": 5.9,
+     "alive_mean": 63.4
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "favourable_share": 0.2403,
+     "moves_per_step": 10.4,
+     "alive_mean": 84.1
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "favourable_share": 0.209,
+     "moves_per_step": 21.3,
+     "alive_mean": 175.5
+    },
+    {
+     "start": 301,
+     "end": 400,
+     "favourable_share": 0.1635,
+     "moves_per_step": 21.8,
+     "alive_mean": 190.7
+    },
+    {
+     "start": 401,
+     "end": 500,
+     "favourable_share": 0.1845,
+     "moves_per_step": 18.6,
+     "alive_mean": 164.4
+    },
+    {
+     "start": 501,
+     "end": 600,
+     "favourable_share": 0.1686,
+     "moves_per_step": 19.8,
+     "alive_mean": 167.0
+    }
+   ],
+   "final": {
+    "alive": 134,
+    "born": 645,
+    "died": 3302
+   },
+   "R1": true
+  },
+  {
+   "seed": 3,
+   "arm": "fixed_all",
+   "resource_regen": 0.01,
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "favourable_share": 0.4905,
+     "moves_per_step": 49.5,
+     "alive_mean": 91.6
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "favourable_share": 0.3195,
+     "moves_per_step": 136.9,
+     "alive_mean": 205.1
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "favourable_share": 0.4643,
+     "moves_per_step": 266.1,
+     "alive_mean": 448.9
+    },
+    {
+     "start": 301,
+     "end": 400,
+     "favourable_share": 0.6679,
+     "moves_per_step": 333.3,
+     "alive_mean": 586.8
+    },
+    {
+     "start": 401,
+     "end": 500,
+     "favourable_share": 0.6807,
+     "moves_per_step": 338.5,
+     "alive_mean": 590.4
+    },
+    {
+     "start": 501,
+     "end": 600,
+     "favourable_share": 0.6806,
+     "moves_per_step": 339.0,
+     "alive_mean": 592.4
+    }
+   ],
+   "final": {
+    "alive": 574,
+    "born": 1700,
+    "died": 3305
+   },
+   "R1": true
+  },
+  {
+   "seed": 3,
+   "arm": "fixed_capped",
+   "resource_regen": 0.01,
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "favourable_share": 0.3989,
+     "moves_per_step": 14.5,
+     "alive_mean": 77.4
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "favourable_share": 0.2019,
+     "moves_per_step": 20.5,
+     "alive_mean": 107.9
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "favourable_share": 0.2142,
+     "moves_per_step": 59.7,
+     "alive_mean": 314.8
+    },
+    {
+     "start": 301,
+     "end": 400,
+     "favourable_share": 0.3981,
+     "moves_per_step": 88.4,
+     "alive_mean": 504.2
+    },
+    {
+     "start": 401,
+     "end": 500,
+     "favourable_share": 0.4348,
+     "moves_per_step": 93.5,
+     "alive_mean": 545.1
+    },
+    {
+     "start": 501,
+     "end": 600,
+     "favourable_share": 0.4368,
+     "moves_per_step": 93.3,
+     "alive_mean": 562.6
+    }
+   ],
+   "final": {
+    "alive": 553,
+    "born": 1872,
+    "died": 6518
+   },
+   "R1": true
+  }
+ ]
+}

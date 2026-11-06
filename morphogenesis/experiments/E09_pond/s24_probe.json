@@ -1,0 +1,146 @@
+{
+ "kind": "s24_g6_mobility_control",
+ "steps": 300,
+ "window": 100,
+ "resource_regen": 0.01,
+ "sensitivity_note": "fixed_capped takes its per-step mobility budget from the ema arm's own qualifying count at the same step, so the two arms differ only in the REFERENCE, not in how much they move",
+ "n_seeds": 1,
+ "rows": [
+  {
+   "seed": 1,
+   "arm": "baseline",
+   "resource_regen": 0.01,
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "favourable_share": 0.3588,
+     "moves_per_step": 0.0,
+     "alive_mean": 68.1
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "favourable_share": 0.2089,
+     "moves_per_step": 0.0,
+     "alive_mean": 84.7
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "favourable_share": 0.1374,
+     "moves_per_step": 0.0,
+     "alive_mean": 234.5
+    }
+   ],
+   "final": {
+    "alive": 303,
+    "born": 412,
+    "died": 2030
+   },
+   "R1": true
+  },
+  {
+   "seed": 1,
+   "arm": "ema",
+   "resource_regen": 0.01,
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "favourable_share": 0.4181,
+     "moves_per_step": 5.0,
+     "alive_mean": 53.8
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "favourable_share": 0.4243,
+     "moves_per_step": 3.0,
+     "alive_mean": 25.2
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "favourable_share": 0.3316,
+     "moves_per_step": 4.8,
+     "alive_mean": 40.7
+    }
+   ],
+   "final": {
+    "alive": 41,
+    "born": 84,
+    "died": 338
+   },
+   "R1": true
+  },
+  {
+   "seed": 1,
+   "arm": "fixed_all",
+   "resource_regen": 0.01,
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "favourable_share": 0.5072,
+     "moves_per_step": 56.7,
+     "alive_mean": 99.1
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "favourable_share": 0.2806,
+     "moves_per_step": 145.9,
+     "alive_mean": 238.9
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "favourable_share": 0.5197,
+     "moves_per_step": 283.6,
+     "alive_mean": 488.8
+    }
+   ],
+   "final": {
+    "alive": 566,
+    "born": 496,
+    "died": 1016
+   },
+   "R1": true
+  },
+  {
+   "seed": 1,
+   "arm": "fixed_capped",
+   "resource_regen": 0.01,
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "favourable_share": 0.3943,
+     "moves_per_step": 13.8,
+     "alive_mean": 72.0
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "favourable_share": 0.1902,
+     "moves_per_step": 24.3,
+     "alive_mean": 126.3
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "favourable_share": 0.2821,
+     "moves_per_step": 73.6,
+     "alive_mean": 379.8
+    }
+   ],
+   "final": {
+    "alive": 523,
+    "born": 502,
+    "died": 1650
+   },
+   "R1": true
+  }
+ ]
+}

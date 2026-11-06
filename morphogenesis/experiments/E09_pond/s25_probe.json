@@ -1,0 +1,112 @@
+{
+ "kind": "s24_g6_mobility_control",
+ "steps": 300,
+ "window": 100,
+ "resource_regen": 0.01,
+ "sensitivity_note": "fixed_capped takes its per-step mobility budget from the ema arm's own qualifying count at the same step, so the two arms differ only in the REFERENCE, not in how much they move",
+ "n_seeds": 1,
+ "rows": [
+  {
+   "seed": 1,
+   "arm": "baseline",
+   "resource_regen": 0.01,
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "favourable_share": 0.3588,
+     "moves_per_step": 0.0,
+     "alive_mean": 68.1
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "favourable_share": 0.2089,
+     "moves_per_step": 0.0,
+     "alive_mean": 84.7
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "favourable_share": 0.1374,
+     "moves_per_step": 0.0,
+     "alive_mean": 234.5
+    }
+   ],
+   "final": {
+    "alive": 303,
+    "born": 412,
+    "died": 2030
+   },
+   "R1": true
+  },
+  {
+   "seed": 1,
+   "arm": "ema_abs",
+   "resource_regen": 0.01,
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "favourable_share": 0.4086,
+     "moves_per_step": 5.4,
+     "alive_mean": 60.0
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "favourable_share": 0.2752,
+     "moves_per_step": 8.3,
+     "alive_mean": 74.3
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "favourable_share": 0.1652,
+     "moves_per_step": 11.6,
+     "alive_mean": 100.2
+    }
+   ],
+   "final": {
+    "alive": 66,
+    "born": 213,
+    "died": 889
+   },
+   "R1": true
+  },
+  {
+   "seed": 1,
+   "arm": "fixed_abs",
+   "resource_regen": 0.01,
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "favourable_share": 0.4103,
+     "moves_per_step": 13.3,
+     "alive_mean": 73.0
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "favourable_share": 0.1873,
+     "moves_per_step": 17.3,
+     "alive_mean": 123.3
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "favourable_share": 0.1641,
+     "moves_per_step": 16.6,
+     "alive_mean": 238.8
+    }
+   ],
+   "final": {
+    "alive": 206,
+    "born": 417,
+    "died": 2028
+   },
+   "R1": true
+  }
+ ]
+}
