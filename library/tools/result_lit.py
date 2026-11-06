@@ -76,7 +76,7 @@ def query_for(rec: dict) -> str:
 
 def search(query: str, limit: int = 2) -> list[dict]:
     out = subprocess.run([sys.executable, str(LIT), "search", "--query", query,
-                          "--sources", "openalex,crossref", "--limit", str(limit), "--json"],
+                          "--sources", "openalex,crossref,arxiv,europepmc", "--limit", str(limit), "--json"],
                          capture_output=True, text=True, encoding="utf-8", cwd=REPO)
     if out.returncode != 0:
         return []
@@ -139,10 +139,22 @@ def main(argv=None) -> int:
         print("новых результатов нет")
         return 0
 
+    # DOI, уже известные библиотеке, не предлагаем повторно
+    known_dois = set()
+    for f in ("library/publications/README.md", "library/search-log.md"):
+        try:
+            known_dois |= set(re.findall(r"10\.\d{4,9}/[A-Za-z0-9._;()/:-]+", (REPO / f).read_text(encoding="utf-8")))
+        except Exception:
+            pass
+    known_dois = {d.rstrip(".,;)") for d in known_dois}
+    seen_doi = set()
     blocks = []
     for k, r in recs:
         q = query_for(r)
-        hits = search(q, args.limit)
+        hits = [h for h in search(q, args.limit * 3)
+                if h.get("doi") and h["doi"] not in known_dois and h["doi"] not in seen_doi][:args.limit]
+        for h in hits:
+            seen_doi.add(h["doi"])
         name = (r.get("file") or "?").split("/")[-1]
         lines = [f"- **{name}** (`{r.get('at')}`) — искал: «{q}»"]
         if hits:

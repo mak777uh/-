@@ -564,6 +564,13 @@ def test_result_lit(tmp: Path) -> None:
     check("result_lit: пустой вход не падает", res.returncode == 0, res.stdout[:300])
 
 
+def test_lit_comment(tmp: Path) -> None:
+    """lit_comment: строит комментарий или честно пишет «канона не нашлось» (сеть)."""
+    res = run("library/tools/lit_comment.py", "--query", "ideal free distribution resource competition", "--limit", "1")
+    ok = res.returncode == 0 and ("→ в сводку:" in res.stdout or "канона не нашлось" in res.stdout)
+    check("lit_comment: комментарий или честный отказ", ok, res.stdout[:300])
+
+
 def main() -> int:
     with tempfile.TemporaryDirectory() as tdir:
         tmp = Path(tdir)
@@ -597,6 +604,8 @@ def main() -> int:
         test_science_digest(tmp)
         print("== topic lit ==")
         test_topic_lit(tmp)
+        print("== lit_comment ==")
+        test_lit_comment(tmp)
         print("== result_lit ==")
         test_result_lit(tmp)
         print("== transition gate ==")
