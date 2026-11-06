@@ -33,6 +33,7 @@ INBOX = REPO / "library" / "result-inbox.jsonl"
 STATE = REPO / "library" / ".result-lit-state.json"
 NOTICES = REPO / "lab" / "notices.md"
 LIT = REPO / "library" / "tools" / "lit_find.py"
+RESULT_MAP = REPO / "library" / "result-map.json"
 
 # серия → ключевые слова для запроса (по имени файла)
 SERIES = [
@@ -65,8 +66,33 @@ def save(p, obj):
     p.write_text(json.dumps(obj, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
 
-def query_for(rec: dict) -> str:
-    key = (rec.get("file") or "") + " " + (rec.get("claim") or "")
+def claim_questions() -> dict:
+    """id заявки -> запрос для поиска.
+
+    Приоритет: `lit_query` (короткий, для поисковика) -> `question` (длинный, для человека).
+    Зачем: поиск по ИМЕНИ файла давал шум (на «w1niche_matrix.json» прилетали работы по
+    reaction-diffusion Тьюринга), а длинный вопрос цепляет общие слова («Generative AI»).
+    Короткий запрос из 5-8 терминов даёт осмысленные попадания.
+    """
+    try:
+        data = json.loads(RESULT_MAP.read_text(encoding="utf-8"))
+    except Exception:
+        return {}
+    out = {}
+    for c in data.get("claims", []):
+        q = (c.get("lit_query") or c.get("question") or "").strip()
+        if c.get("id") and q:
+            out[c["id"]] = q
+    return out
+
+
+def query_for(rec: dict, questions: dict | None = None) -> str:
+    # приоритет 1: вопрос заявки (осмысленный запрос)
+    claim = rec.get("claim") or ""
+    if questions and claim in questions:
+        return questions[claim]
+    # приоритет 2: серия по имени файла (старое поведение, оставлено как фолбэк)
+    key = (rec.get("file") or "") + " " + claim
     low = key.lower()
     for pat, q in SERIES:
         if re.search(pat, low):
@@ -147,10 +173,11 @@ def main(argv=None) -> int:
         except Exception:
             pass
     known_dois = {d.rstrip(".,;)") for d in known_dois}
+    questions = claim_questions()
     seen_doi = set()
     blocks = []
     for k, r in recs:
-        q = query_for(r)
+        q = query_for(r, questions)
         hits = [h for h in search(q, args.limit * 3)
                 if h.get("doi") and h["doi"] not in known_dois and h["doi"] not in seen_doi][:args.limit]
         for h in hits:

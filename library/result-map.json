@@ -1,71 +1,123 @@
 {
-  "claims": [
-    {
-      "id": "C1",
-      "title": "в мире с полной информацией учиться нечему",
-      "globs": [
-        "morphogenesis/experiments/E09_pond/frequency_matrix_v2.json",
-        "docs/world-design.md"
-      ],
-      "question": "как измеряют выигрыш обучения при неполной информации (шум/задержка)?"
-    },
-    {
-      "id": "C2",
-      "title": "выигрыш даёт affordance, а не обучение",
-      "globs": [
-        "morphogenesis/experiments/E09_pond/b2_matrix.json"
-      ],
-      "question": "как отделяют affordance от «больше действий» при равном бюджете (йокед-контроль)?"
-    },
-    {
-      "id": "C3",
-      "title": "строительство: механизм — подъём потолка",
-      "globs": [
-        "morphogenesis/experiments/E09_pond/b2_matrix.json"
-      ],
-      "question": "как ставят placebo-контроль в нишевом строительстве?"
-    },
-    {
-      "id": "C4",
-      "title": "адаптивный порог: механизм есть, выгоды нет",
-      "globs": [
-        "morphogenesis/experiments/E09_pond/b2d_*adapt*.json"
-      ],
-      "question": "как проверяют пользу обучения против жёсткого базлайна при равном бюджете?"
-    },
-    {
-      "id": "C5",
-      "title": "наследие короткое",
-      "globs": [
-        "morphogenesis/experiments/E09_pond/inherit*.json"
-      ],
-      "question": "как меряют экологическое наследие и нормируют его на поколение?"
-    },
-    {
-      "id": "C6",
-      "title": "редкая линия под наследованием исчезает",
-      "globs": [
-        "morphogenesis/experiments/E09_pond/colinv3_*.json",
-        "morphogenesis/experiments/E09_pond/colony_type_matrix.json"
-      ],
-      "question": "какие критерии инвазии/фиксации считаются достаточными в пространственных моделях?"
-    }
-  ],
-  "arms": [
-    "control",
-    "fixed",
-    "fixed2",
-    "mobile",
-    "both",
-    "surplus",
-    "placebo",
-    "learn",
-    "random",
-    "inherit"
-  ],
-  "rules": {
-    "C6_min_start": 0.05,
-    "C5_generation": 165,
-    "C3_placebo_vs_control": 1.0
+ "claims": [
+  {
+   "id": "C1",
+   "title": "в мире с полной информацией учиться нечему",
+   "globs": [
+    "morphogenesis/experiments/E09_pond/frequency_matrix_v2.json",
+    "docs/world-design.md"
+   ],
+   "question": "как измеряют выигрыш обучения при неполной информации (шум/задержка)?"
+  },
+  {
+   "id": "C2",
+   "title": "выигрыш даёт affordance, а не обучение",
+   "globs": [
+    "morphogenesis/experiments/E09_pond/b2_matrix.json"
+   ],
+   "question": "как отделяют affordance от «больше действий» при равном бюджете (йокед-контроль)?"
+  },
+  {
+   "id": "C3",
+   "title": "строительство: механизм — подъём потолка",
+   "globs": [
+    "morphogenesis/experiments/E09_pond/b2_matrix.json"
+   ],
+   "question": "как ставят placebo-контроль в нишевом строительстве?"
+  },
+  {
+   "id": "C4",
+   "title": "адаптивный порог: механизм есть, выгоды нет",
+   "globs": [
+    "morphogenesis/experiments/E09_pond/b2d_*adapt*.json"
+   ],
+   "question": "как проверяют пользу обучения против жёсткого базлайна при равном бюджете?"
+  },
+  {
+   "id": "C5",
+   "title": "наследие короткое",
+   "globs": [
+    "morphogenesis/experiments/E09_pond/inherit*.json"
+   ],
+   "question": "как меряют экологическое наследие и нормируют его на поколение?"
+  },
+  {
+   "id": "C6",
+   "title": "редкая линия под наследованием исчезает",
+   "globs": [
+    "morphogenesis/experiments/E09_pond/colinv3_*.json",
+    "morphogenesis/experiments/E09_pond/colony_type_matrix.json"
+   ],
+   "question": "какие критерии инвазии/фиксации считаются достаточными в пространственных моделях?"
+  },
+  {
+   "id": "POND_DIRECTIONALITY",
+   "title": "directionality: does local resource-greedy movement pay, and when does it stop",
+   "globs": [
+    "morphogenesis/experiments/E09_pond/s19_*.json",
+    "morphogenesis/experiments/E09_pond/s2[2-9]_*.json",
+    "morphogenesis/experiments/E09_pond/s3[0-9]_*.json",
+    "morphogenesis/experiments/E09_pond/s41_*.json"
+   ],
+   "question": "at what density, resource-recovery rate and agent mobility does directed movement outperform staying put, and where is the sign of the gain reversed?",
+   "lit_query": "density dependent dispersal directed movement fitness agent model"
+  },
+  {
+   "id": "POND_INHERITANCE",
+   "title": "inherited adaptation: does a heritable behavioural trait get selected",
+   "globs": [
+    "morphogenesis/experiments/E09_pond/s[5-9]_c*.json",
+    "morphogenesis/experiments/E09_pond/s1[0-8]_*.json"
+   ],
+   "question": "what heritability, selection strength and number of independent lineages are needed before selection on a behavioural trait becomes visible in an agent model?",
+   "lit_query": "heritability selection response behavioural trait agent-based model"
+  },
+  {
+   "id": "POND_FIELD",
+   "title": "continuous signal field: does a diffusing field carry usable information",
+   "globs": [
+    "morphogenesis/experiments/E09_pond/s2[6-9]_h*.json",
+    "morphogenesis/experiments/E09_pond/s3[0-9]_h*.json",
+    "morphogenesis/experiments/E09_pond/s4[0-9]_h*.json"
+   ],
+   "question": "when does an environmental signal (diffusing field, external rhythm, memory of food) carry information an agent can actually use, and when is it equivalent to local smoothing?",
+   "lit_query": "environmental signal use by organisms spatial memory foraging"
+  },
+  {
+   "id": "POND_NICHE",
+   "title": "niche construction: does a feedback loop stabilise or destabilise a population",
+   "globs": [
+    "morphogenesis/experiments/E09_pond/*niche*.json"
+   ],
+   "question": "how is niche construction measured in agent models, and what distinguishes a working feedback loop from a population that simply died out?",
+   "lit_query": "niche construction ecological inheritance agent-based model extinction"
+  },
+  {
+   "id": "POND_ALL",
+   "title": "catch-all: any pond run artifact not covered by a specific claim",
+   "globs": [
+    "morphogenesis/experiments/E09_pond/*.json"
+   ],
+   "question": "does this result reproduce or contradict a known mechanism in spatial ecology (density dependence, resource renewal, dispersal, niche construction)?",
+   "lit_query": "spatial ecology agent-based model resource competition dispersal density dependence",
+   "catch_all": true
   }
+ ],
+ "arms": [
+  "control",
+  "fixed",
+  "fixed2",
+  "mobile",
+  "both",
+  "surplus",
+  "placebo",
+  "learn",
+  "random",
+  "inherit"
+ ],
+ "rules": {
+  "C6_min_start": 0.05,
+  "C5_generation": 165,
+  "C3_placebo_vs_control": 1.0
+ }
 }

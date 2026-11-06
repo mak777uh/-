@@ -6825,3 +6825,49 @@ arXiv, **Europe PMC** (было две). Semantic Scholar у нас отдаёт
 Автомат, который «понимает» абстракт, я бы не строил: он будет уверенно ошибаться.
 
 Тесты: `lit_comment` и `result_lit` покрыты (+2), 0 провалов; индекс 454.
+
+
+### 2026-11-07 02:20 — библиотекарь → **главному**: литература под новые результаты (авто)
+
+- **l1_field_e6q_niches.json** (`2026-11-07 02:19`) — искал: «reaction diffusion pattern formation resource agent model»
+  - Spatial heterogeneity and nonlinear transmission drive tuberculosis hotspots: a reaction–diffusion modeling st (2026, статья), [`10.3934/math.2026788`](https://doi.org/10.3934/math.2026788)
+  - Reaction Diffusion and Chemotaxis for Decentralized Gathering on FPGAs (2009, статья), [`10.1155/2009/639249`](https://doi.org/10.1155/2009/639249)
+  - Parameter identification in reaction-diffusion-chemotaxis systems from single turing pattern amplitudes (2026, статья), [`10.3934/ipi.2026061`](https://doi.org/10.3934/ipi.2026061)
+  → в сводку: канон по этому классу результатов найден; проверить, совпадает ли направление эффекта с литературой или расходится.
+- **w1niche5_matrix.json** (`2026-11-07 02:19`) — искал: «reaction diffusion pattern formation resource agent model»
+  - Kernel-Dependent Pattern Formation in a Population Model with Nonlocal Facilitation and Competition (2026, preprint), [`10.48550/arxiv.2608.23964`](https://doi.org/10.48550/arxiv.2608.23964)
+  - Pattern formation in stochastic reaction diffusion models with application to Levin Segel population model (2026, статья), [`10.61951/sciencepaperonline.202603.0177`](https://doi.org/10.61951/sciencepaperonline.202603.0177)
+  - Modeling Natural Root Branching with Geometric and Reaction Diffusion Approaches (2025, preprint), [`10.21203/rs.3.rs-7814859/v1`](https://doi.org/10.21203/rs.3.rs-7814859/v1)
+  → в сводку: канон по этому классу результатов найден; проверить, совпадает ли направление эффекта с литературой или расходится.
+- **w1niche_free_matrix.json** (`2026-11-07 02:19`) — искал: «reaction diffusion pattern formation resource agent model»
+  - Pattern formation in reaction-diffusion information propagation model on multiplex simplicial complexes (2023, preprint), [`10.21203/rs.3.rs-3024570/v1`](https://doi.org/10.21203/rs.3.rs-3024570/v1)
+  - Bifurcation and Periodic Triangular Pattern Formation in Reaction-Diffusion with Anisotropic Diffusion (2023, статья), [`10.5772/intechopen.113295`](https://doi.org/10.5772/intechopen.113295)
+  - A contraction-reaction-diffusion model for circular pattern formation in embryogenesis (2021, preprint), [`10.1101/2021.05.14.444097`](https://doi.org/10.1101/2021.05.14.444097)
+  → в сводку: канон по этому классу результатов найден; проверить, совпадает ли направление эффекта с литературой или расходится.
+- **w1niche_matrix.json** (`2026-11-07 02:19`) — искал: «reaction diffusion pattern formation resource agent model»
+  → в сводку: канона по этому запросу не нашлось — результат остаётся нашим наблюдением, в тексте нельзя называть его механизмом.
+
+
+### 2026-11-07 02:22 — библиотекарь → **главному**: литература под новые результаты (авто)
+
+- **w1niche5_matrix.json** (`2026-11-07 02:19`) — искал: «how is niche construction measured in agent models, and what distinguishes a working feedback loop from a population that simply died out?»
+  - Generative AI and Large Language Models: Transformers, Prompt Engineering, and AI Agents (2026, статья), [`10.70593/978-81-6632-134-4`](https://doi.org/10.70593/978-81-6632-134-4)
+  - The feedback loop: A systematic review of how evaluation practices inform conversational agent design (2025, preprint), [`10.21203/rs.3.rs-7235054/v1`](https://doi.org/10.21203/rs.3.rs-7235054/v1)
+  → в сводку: канон по этому классу результатов найден; проверить, совпадает ли направление эффекта с литературой или расходится.
+- **w1niche_free_matrix.json** (`2026-11-07 02:19`) — искал: «how is niche construction measured in agent models, and what distinguishes a working feedback loop from a population that simply died out?»
+  - Theory Choice as Niche Construction: The Feedback Loop between Scientific Theories and Epistemic Values (2023, статья), [`10.1017/psa.2023.160`](https://doi.org/10.1017/psa.2023.160)
+  → в сводку: канон по этому классу результатов найден; проверить, совпадает ли направление эффекта с литературой или расходится.
+- **w1niche_matrix.json** (`2026-11-07 02:19`) — искал: «how is niche construction measured in agent models, and what distinguishes a working feedback loop from a population that simply died out?»
+  → в сводку: канона по этому запросу не нашлось — результат остаётся нашим наблюдением, в тексте нельзя называть его механизмом.
+
+
+### 2026-11-07 02:22 — библиотекарь → **главному**: литература под новые результаты (авто)
+
+- **w1niche_free_matrix.json** (`2026-11-07 02:19`) — искал: «niche construction ecological inheritance agent-based model extinction»
+  - Expansion, Exploitation and Extinction: Niche Construction in Ephemeral Landscapes (2019, preprint), [`10.21203/rs.2.12121/v1`](https://doi.org/10.21203/rs.2.12121/v1)
+  - Expansion, Exploitation and Extinction: Niche Construction in Ephemeral Landscapes (2018, preprint), [`10.1101/489096`](https://doi.org/10.1101/489096)
+  → в сводку: канон по этому классу результатов найден; проверить, совпадает ли направление эффекта с литературой или расходится.
+- **w1niche_matrix.json** (`2026-11-07 02:19`) — искал: «niche construction ecological inheritance agent-based model extinction»
+  - Niche Construction and the Study of Culture Change in Anthropology: Challenges and Prospects (2015, статья), [`10.22201/ceiich.24485705e.2015.5.47629`](https://doi.org/10.22201/ceiich.24485705e.2015.5.47629)
+  - Ecological Models for Gene Therapy. II. Niche Construction, Nongenetic Inheritance, and Ecosystem Perturbation (2014, статья), [`10.1007/s13752-014-0191-x`](https://doi.org/10.1007/s13752-014-0191-x)
+  → в сводку: канон по этому классу результатов найден; проверить, совпадает ли направление эффекта с литературой или расходится.
