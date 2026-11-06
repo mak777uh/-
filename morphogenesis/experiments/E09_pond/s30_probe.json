@@ -1,0 +1,89 @@
+{
+ "kind": "s30_h7_lifetime_curve",
+ "steps": 300,
+ "lags": [
+  0,
+  10,
+  40
+ ],
+ "decays": [
+  0.15,
+  0.01
+ ],
+ "note": "decay sets the field's lifetime (~1/decay steps): 0.15 -> ~7, 0.05 -> ~20, 0.01 -> ~100. If the optimal lag tracks the lifetime, the best lag moves right as decay falls.",
+ "n_seeds": 1,
+ "rows": [
+  {
+   "seed": 1,
+   "lag": 0,
+   "decay": 0.15,
+   "overall": 0.2306,
+   "final": {
+    "alive": 260,
+    "born": 323,
+    "died": 1466
+   },
+   "R1": true
+  },
+  {
+   "seed": 1,
+   "lag": 10,
+   "decay": 0.15,
+   "overall": 0.2978,
+   "final": {
+    "alive": 313,
+    "born": 341,
+    "died": 1152
+   },
+   "R1": true
+  },
+  {
+   "seed": 1,
+   "lag": 40,
+   "decay": 0.15,
+   "overall": 0.2724,
+   "final": {
+    "alive": 304,
+    "born": 338,
+    "died": 1209
+   },
+   "R1": true
+  },
+  {
+   "seed": 1,
+   "lag": 0,
+   "decay": 0.01,
+   "overall": 0.2306,
+   "final": {
+    "alive": 260,
+    "born": 323,
+    "died": 1466
+   },
+   "R1": true
+  },
+  {
+   "seed": 1,
+   "lag": 10,
+   "decay": 0.01,
+   "overall": 0.2691,
+   "final": {
+    "alive": 413,
+    "born": 515,
+    "died": 1728
+   },
+   "R1": true
+  },
+  {
+   "seed": 1,
+   "lag": 40,
+   "decay": 0.01,
+   "overall": 0.2502,
+   "final": {
+    "alive": 324,
+    "born": 401,
+    "died": 1463
+   },
+   "R1": true
+  }
+ ]
+}
