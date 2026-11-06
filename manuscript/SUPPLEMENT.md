@@ -809,6 +809,8 @@
 | [`morphogenesis/experiments/E09_pond/s1_a2_ci_baseline.json`](../morphogenesis/experiments/E09_pond/s1_a2_ci_baseline.json) | other | 6652 | `db7ee4cced0087d743a64f8df181c2f7d45421fbb4b9c6abf410564378ad78b4` |
 | [`morphogenesis/experiments/E09_pond/s1_a2_ci_predgrad.json`](../morphogenesis/experiments/E09_pond/s1_a2_ci_predgrad.json) | other | 6753 | `ca62234e424cb853af8f928475780a5faf95b3486a9e852c712c2bc51d361b37` |
 | [`morphogenesis/experiments/E09_pond/s1_a2_ci_predrand.json`](../morphogenesis/experiments/E09_pond/s1_a2_ci_predrand.json) | other | 6777 | `56528c12806e1d0867b83de9b3438a43519eee81585e66c506597993fa64cd3c` |
+| [`morphogenesis/experiments/E09_pond/s22_g3_full.json`](../morphogenesis/experiments/E09_pond/s22_g3_full.json) | other | 11077 | `a57077bccfb8438f0c0d67a8549fcdab1bc0ccfda500b132771a78d9f8b56afe` |
+| [`morphogenesis/experiments/E09_pond/s22_probe.json`](../morphogenesis/experiments/E09_pond/s22_probe.json) | other | 2343 | `be384376e599fe415167d4c494cbe5fa5ef761613902b72a9e147c7098318e87` |
 | [`morphogenesis/experiments/E09_pond/s2_b1_gradpos_drift.json`](../morphogenesis/experiments/E09_pond/s2_b1_gradpos_drift.json) | other | 6655 | `7b25c1c2f5d5181dfb2e00e2326d0d2349256607942a38f76f583722ea1074e4` |
 | [`morphogenesis/experiments/E09_pond/s2_b1_gradpos_flip200.json`](../morphogenesis/experiments/E09_pond/s2_b1_gradpos_flip200.json) | other | 6728 | `d81e8a2b522435cb3dac2d89efb41fd1f819e3e25c9ef9f9eeba3e211c5737dd` |
 | [`morphogenesis/experiments/E09_pond/s2_b1b_gradpos_cheap01.json`](../morphogenesis/experiments/E09_pond/s2_b1b_gradpos_cheap01.json) | other | 6698 | `96379ca8ba5fda1581526c6ec1dc4fed4b56f5a8e835dd16e6a00997062e6462` |
@@ -6496,6 +6498,7 @@
 | [`reports/figures/e02b_transition_matrix.png`](../reports/figures/e02b_transition_matrix.png) | figure | 152522 | `81f1b4fe50fd819f45411c31fb737a0c232d9c4f993f5233184c8b276779f5b9` |
 | [`reports/figures/e02c_seed_grid.png`](../reports/figures/e02c_seed_grid.png) | figure | 69503 | `a14f0a6eb28fa0675629e539dc863049d97c3a7ef1914c34ebd7348b5c71776f` |
 <!-- artifacts:end -->
+
 
 
 

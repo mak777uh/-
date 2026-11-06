@@ -1,0 +1,122 @@
+{
+ "kind": "s22_g3_adaptation_trap",
+ "steps": 300,
+ "window": 100,
+ "resource_regen": 0.01,
+ "depleted_threshold": 0.3,
+ "sensitivity_note": "regen 0.010 -> patch inflow 0.040/step vs 0.160 eaten, i.e. the depleting regime where S19/G1 found the trap",
+ "n_seeds": 1,
+ "rows": [
+  {
+   "seed": 1,
+   "arm": "baseline",
+   "resource_regen": 0.01,
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "favourable_share": 0.3588,
+     "on_depleted_share": 0.9338,
+     "qualify_to_move": 0.0,
+     "alive_mean": 68.1
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "favourable_share": 0.2089,
+     "on_depleted_share": 0.949,
+     "qualify_to_move": 0.0,
+     "alive_mean": 84.7
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "favourable_share": 0.1374,
+     "on_depleted_share": 0.951,
+     "qualify_to_move": 0.0,
+     "alive_mean": 234.5
+    }
+   ],
+   "final": {
+    "alive": 303,
+    "born": 412,
+    "died": 2030
+   },
+   "R1": true
+  },
+  {
+   "seed": 1,
+   "arm": "greedy_ema",
+   "resource_regen": 0.01,
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "favourable_share": 0.4181,
+     "on_depleted_share": 0.9153,
+     "qualify_to_move": 15.8,
+     "alive_mean": 53.8
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "favourable_share": 0.4243,
+     "on_depleted_share": 0.8656,
+     "qualify_to_move": 3.2,
+     "alive_mean": 25.2
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "favourable_share": 0.3316,
+     "on_depleted_share": 0.8988,
+     "qualify_to_move": 6.4,
+     "alive_mean": 40.7
+    }
+   ],
+   "final": {
+    "alive": 41,
+    "born": 84,
+    "died": 338
+   },
+   "R1": true
+  },
+  {
+   "seed": 1,
+   "arm": "greedy_fix",
+   "resource_regen": 0.01,
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "favourable_share": 0.5072,
+     "on_depleted_share": 0.9041,
+     "qualify_to_move": 97.5,
+     "alive_mean": 99.1
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "favourable_share": 0.2806,
+     "on_depleted_share": 0.9329,
+     "qualify_to_move": 236.2,
+     "alive_mean": 238.9
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "favourable_share": 0.5197,
+     "on_depleted_share": 0.9401,
+     "qualify_to_move": 484.3,
+     "alive_mean": 488.8
+    }
+   ],
+   "final": {
+    "alive": 566,
+    "born": 496,
+    "died": 1016
+   },
+   "R1": true
+  }
+ ]
+}
