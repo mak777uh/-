@@ -419,7 +419,7 @@
     {
       "id": "many-body-pairwise-rule",
       "ru": "Многовстречная доля как квадрат попарной: контактная модель или независимость",
-      "status": "current",
+      "status": "next",
       "links": [
         "library/claims-evidence.md",
         "articles/030-mnogotela-dolya.md"
@@ -443,6 +443,34 @@
       ],
       "min_score": 4,
       "implication": "У нас доля многовстречной конфигурации = квадрат попарной (0.47^2 = 22%). Либо это независимость контактов, либо закон сложения. Нужен канон, чтобы сказать, какой из двух."
+    },
+    {
+      "id": "lineage-selection-windows",
+      "ru": "Отбор по линиям: неравенство репродуктивного успеха и потеря линий",
+      "status": "current",
+      "links": [
+        "library/search-log.md",
+        "reports/2026-11-06-s4-reproducibility.md"
+      ],
+      "queries": [
+        "lineage loss reproductive variance effective population size",
+        "variance in reproductive success selection strength lineage",
+        "pedigree lineage extinction simulation selection"
+      ],
+      "terms": [
+        "lineage",
+        "variance",
+        "reproductive success",
+        "extinction",
+        "selection",
+        "Ne"
+      ],
+      "must": [
+        "lineage",
+        "variance"
+      ],
+      "min_score": 4,
+      "implication": "S5/C меряет I = Var(w)/mean(w)^2. Нужен канон: что этот индекс предсказывает и какие условия обязательны, чтобы он не был артефактом малого числа линий."
     }
   ]
 }
