@@ -1,0 +1,173 @@
+{
+ "kind": "s13_d3_crowding_vs_drift",
+ "steps": 300,
+ "window": 100,
+ "regimes": {
+  "low_density": {
+   "update_cost": 0.07,
+   "repair_cost": 0.04,
+   "spent": 0.11000000000000001,
+   "net_at_patch": 0.05
+  },
+  "base": {
+   "update_cost": 0.038,
+   "repair_cost": 0.022,
+   "spent": 0.06,
+   "net_at_patch": 0.1
+  },
+  "high_density": {
+   "update_cost": 0.02,
+   "repair_cost": 0.01,
+   "spent": 0.03,
+   "net_at_patch": 0.13
+  }
+ },
+ "sensitivity_note": "spent = update+repair; income(1.0) = 0.160; all three regimes keep net positive at a patch so the colony stays viable",
+ "n_seeds": 1,
+ "rows": [
+  {
+   "seed": 1,
+   "arm": "baseline",
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "favourable_share": 0.4534,
+     "alive_mean": 53.8,
+     "resource_under_alive": 0.4049
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "favourable_share": 0.4445,
+     "alive_mean": 44.6,
+     "resource_under_alive": 0.4079
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "favourable_share": 0.1674,
+     "alive_mean": 126.7,
+     "resource_under_alive": 0.1924
+    }
+   ],
+   "final": {
+    "alive": 228,
+    "born": 281,
+    "died": 2158
+   },
+   "R1": true,
+   "regime": "low_density",
+   "update_cost": 0.07,
+   "repair_cost": 0.04
+  },
+  {
+   "seed": 1,
+   "arm": "local1",
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "favourable_share": 0.6798,
+     "alive_mean": 39.4,
+     "resource_under_alive": 0.5629
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "favourable_share": 0.466,
+     "alive_mean": 48.2,
+     "resource_under_alive": 0.3977
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "favourable_share": 0.2044,
+     "alive_mean": 92.0,
+     "resource_under_alive": 0.2035
+    }
+   ],
+   "final": {
+    "alive": 114,
+    "born": 272,
+    "died": 1480
+   },
+   "R1": true,
+   "regime": "low_density",
+   "update_cost": 0.07,
+   "repair_cost": 0.04
+  },
+  {
+   "seed": 1,
+   "arm": "baseline",
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "favourable_share": 0.2682,
+     "alive_mean": 101.6,
+     "resource_under_alive": 0.2504
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "favourable_share": 0.1079,
+     "alive_mean": 165.5,
+     "resource_under_alive": 0.1315
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "favourable_share": 0.1591,
+     "alive_mean": 408.0,
+     "resource_under_alive": 0.132
+    }
+   ],
+   "final": {
+    "alive": 475,
+    "born": 566,
+    "died": 1151
+   },
+   "R1": true,
+   "regime": "high_density",
+   "update_cost": 0.02,
+   "repair_cost": 0.01
+  },
+  {
+   "seed": 1,
+   "arm": "local1",
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "favourable_share": 0.3258,
+     "alive_mean": 97.8,
+     "resource_under_alive": 0.2647
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "favourable_share": 0.1518,
+     "alive_mean": 226.7,
+     "resource_under_alive": 0.1322
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "favourable_share": 0.2312,
+     "alive_mean": 488.4,
+     "resource_under_alive": 0.118
+    }
+   ],
+   "final": {
+    "alive": 581,
+    "born": 657,
+    "died": 503
+   },
+   "R1": true,
+   "regime": "high_density",
+   "update_cost": 0.02,
+   "repair_cost": 0.01
+  }
+ ]
+}
