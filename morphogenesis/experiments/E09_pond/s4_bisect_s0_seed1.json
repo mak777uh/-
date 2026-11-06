@@ -1,0 +1,87 @@
+{
+ "kind": "p0_flip_behavior_metric",
+ "plan": "docs/plan-alive.md P0",
+ "metric_note": "resource-threshold zones (rich/poor) + gradient-half 'correct' zone that flips with environment; primary P0 read uses alive_correct_share before/after.",
+ "n_seeds": 1,
+ "alive_final_mean": 384.0,
+ "died_total_mean": 741.0,
+ "rich_share_before_mean": 0.28195643238799833,
+ "rich_share_after_mean": 0.011714838795808024,
+ "correct_share_before_mean": 0.9972142302598529,
+ "correct_share_after_mean": 0.46948495114646244,
+ "rows": [
+  {
+   "seed": 1,
+   "config": {
+    "grid": 32,
+    "income": 0.04,
+    "update_cost": 0.038,
+    "repair_cost": 0.022,
+    "init_resource_fill": 1.0,
+    "resource_regen": 0.05,
+    "flip_at": 200,
+    "drift_at": 0,
+    "drift_steps": 0,
+    "steps": 300,
+    "layout": "gradient",
+    "income_mode": "proportional",
+    "seed_cells": 32,
+    "seed_energy": 12.0,
+    "plastic_eta": 0.2,
+    "plastic_move_cost": 0.03,
+    "plastic_gate": "pred"
+   },
+   "before_flip": {
+    "alive_rich": 2744,
+    "alive_poor": 6988,
+    "alive_mid": 12165,
+    "steps": 199,
+    "deaths_rich": 0,
+    "deaths_poor": 10,
+    "deaths_mid": 0,
+    "alive_correct": 21836,
+    "alive_wrong": 61,
+    "deaths_correct": 6350,
+    "deaths_wrong": 62,
+    "alive_rich_share": 0.28195643238799833,
+    "deaths_rich_share": 0.0,
+    "alive_rich_per_step": 13.78894472361809,
+    "alive_poor_per_step": 35.11557788944724,
+    "alive_correct_share": 0.9972142302598529,
+    "deaths_correct_share": 0.9903306300686213,
+    "alive_correct_per_step": 109.7286432160804
+   },
+   "after_flip": {
+    "alive_rich": 351,
+    "alive_poor": 29611,
+    "alive_mid": 10772,
+    "steps": 101,
+    "deaths_rich": 0,
+    "deaths_poor": 731,
+    "deaths_mid": 0,
+    "alive_correct": 19124,
+    "alive_wrong": 21610,
+    "deaths_correct": 6614,
+    "deaths_wrong": 5131,
+    "alive_rich_share": 0.011714838795808024,
+    "deaths_rich_share": 0.0,
+    "alive_rich_per_step": 3.4752475247524752,
+    "alive_poor_per_step": 293.1782178217822,
+    "alive_correct_share": 0.46948495114646244,
+    "deaths_correct_share": 0.5631332481907194,
+    "alive_correct_per_step": 189.34653465346534
+   },
+   "final": {
+    "alive": 384,
+    "born": 578,
+    "died": 741
+   },
+   "deaths_by_zone_total": {
+    "poor": 741,
+    "mid": 0,
+    "rich": 0
+   },
+   "wall_seconds": 16.88
+  }
+ ]
+}
