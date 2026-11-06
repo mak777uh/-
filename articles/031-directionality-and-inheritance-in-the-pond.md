@@ -43,7 +43,10 @@ result is one positive finding with a measured limit, one consistent null, and a
 The world: a 32×32 grid, a resource in the cells, organisms with energy on the cells. An organism spends energy on
 upkeep, takes it from the resource of its own cell, reproduces when it accumulates mass, and dies when its energy runs
 out. The resource arrives at a limited rate and has a ceiling. Nothing in the world is trained: the organisms follow a
-fixed local rule, and what changes between our experiments is that rule and the environment, not a learned network.
+fixed local rule, and what changes between our experiments is that rule and the environment, not a learned network. This is
+the standard construction of an individual-based model — an agent with state, a resource it consumes, mortality and
+reproduction, and stochasticity that has to be reported rather than assumed away [4] — and we use its vocabulary rather than
+invent one.
 
 The question we were interested in: **does behaviour appear in such a world that helps survive a change of environment —
 and does it become fixed in descendants?**
@@ -57,7 +60,10 @@ late lineages do not differ from early ones.
 Two things in the literature set the frame. First: plasticity is useful only if the adaptation time is shorter than the
 death time — otherwise the organism does not live long enough to use what it "understood" (this is our formal hypothesis
 F-ADAPT in `formal/Survival.lean`). Second: selection on lineages requires that the variation of the trait be heritable and
-that there be enough lineages — otherwise demographic noise is indistinguishable from selection.
+that there be enough lineages — otherwise demographic noise is indistinguishable from selection. The literature separates two
+kinds of noise that our design has to name: demographic stochasticity (sampling error in the number of offspring) and
+environmental stochasticity (variation in the conditions themselves) [6], and it treats an observed response to selection as
+something to be separated quantitatively from the stochastic part rather than tested as a bare significance [7].
 
 **Competition for space as a subject in its own right.** Our result "cells compete for space, not for food" is not new as a
 setup: the literature treats space itself as a limiting resource with locally density-dependent payoffs, and shows that the
@@ -65,6 +71,11 @@ inefficiency of space use has a transition at one density and a peak at another 
 of directionality is largest at low density and falls when the zone fills. An important difference: in our world one grid
 cell holds one organism (S17/F1), whereas in forager-mobility models several agents may occupy a site [2] — which is exactly
 what allows the competition for food that we structurally lack.
+
+**Where moving stops paying.** The Ideal Free Distribution is the classical answer to "when does moving stop helping": foragers
+should settle so that no individual gains by moving, which equalises intake across occupied sites [5]. Our rich zone filling
+until the greedy and control arms converge is that prediction in a discrete world — with one difference that matters here,
+that our agents cannot share a site, so the equalisation happens by exclusion rather than by matching intake.
 
 **Searching along a resource gradient.** Our mechanism — local greed towards the neighbour with more resource — is a special
 case of searching along a gradient. A known result: local search behaviour keyed to density-dependent fitness limits the
@@ -79,6 +90,20 @@ behaviour is not an agent's strategy but a step rule that we switch on and off.
 self-organization among a group of crowd-avoiding agents.* arXiv:2407.21537.
 [2] *Food Income and the Evolution of Forager Mobility.* Scientific Reports 9 (2019), s41598-019-42006-2.
 [3] Rowell J.T. *The limitation of species range: a consequence of searching along resource gradients.* PMC2760341 (2009).
+[4] Zhang B., DeAngelis D.L. *An overview of agent-based models in plant biology and ecology.* Annals of Botany 126 (2020).
+DOI: 10.1093/aob/mcaa043.
+[5] Tyler J.A., Hargrove W.W. *Predicting Spatial Distribution of Foragers over Large Resource Landscapes: A Modeling
+Analysis of the Ideal Free Distribution.* Oikos 80 (1997). DOI: 10.2307/3546022.
+[6] Xu L., Vision T.J., Servedio M.R. *Evolutionary rescue under demographic and environmental stochasticity.* Journal of
+Evolutionary Biology 36 (2023). DOI: 10.1111/jeb.14224.
+[7] Vriend S.J.G., Engen S., Gustafsson L. *Quantitative analyses of stochastic influences on the response to phenotypic
+selection.* Evolution (2025). DOI: 10.1093/evolut/qpaf108.
+[8] Ponzi E., Keller L.F., Bonnet T. *Heritability, selection, and the response to selection in the presence of phenotypic
+measurement error.* Evolution 72 (2018). DOI: 10.1111/evo.13573.
+
+These works are not our world: the agent-based review and the Ideal Free Distribution concern plants and foragers, and the
+evolutionary literature concerns populations with sexual reproduction. What transfers is the language and the frame, not the
+numbers.
 
 ## 3. Methods
 
@@ -190,6 +215,10 @@ another world.
 | S10/C2b | heritable directionality + transplant | 0.429 / 0.431 / 0.427 — all arms coincide. **The transplant arm is invalid**: swapping the traits of the top and bottom deciles collapsed the trait's spread (std 0.069 → 0.000), so it never tested what it claimed |
 | S18/C4 | lineage monopoly removed (quota 0.25, refractory 20) | lineages double (28.3 → 57.4), the top share falls (0.938 → 0.798); the mean high-minus-low trait difference stays ≤ 0.02 **but per-window it reaches 0.165 with signs both ways at n = 3** — underpowered, not null |
 
+**In the literature's terms.** What the four tests manipulate is heritability — the part of phenotypic variation that is
+transmitted, which measurement error alone can inflate or hide [8]. Our arms are built so that the transmitted part is set by
+the engine, which is why the null is about selection acting on it rather than about the trait being unmeasurable.
+
 **Conclusion.** In this setup inherited adaptation does not arise. What is observed after an environment change is
 dispersal and survival, not selection on a trait. One lineage holds 95–97% of the population, late lineages stay at 1–5%,
 and their share in the favourable zone does not grow.
@@ -235,7 +264,9 @@ full.
 
 **A limitation of the method.** Some early results (B1/B1b) were taken on different hardware, and on CPU they do not
 reproduce bit-for-bit: plastic runs depend on the backend. We mark such numbers as hardware-dependent and do not rely on
-them as "stable recovery".
+them as "stable recovery". The noise that remains in our own comparisons is demographic rather than environmental — the
+same world, the same conditions, a different draw of births and deaths [6] — which is why the null in §4.2 is stated as a
+limit of power and not as a property of the world.
 
 ## 6. What this does not show
 

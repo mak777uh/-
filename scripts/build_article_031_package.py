@@ -169,17 +169,34 @@ def main(argv=None) -> int:
 
     references = """# References cited in article 031
 
-The article cites three works in §2 and §8. Each line gives the identifier the existence was checked against.
+Eight works are cited. Each line gives the identifier its existence was checked against and the reading status in the
+project's corpus (`read` = read end to end, `partial` = abstract or bibliographic record only).
 
 1. Mathew A.M., Sasidevan V. *Modelling competition for space: Emergent inefficiency and inequality due to spatial
    self-organization among a group of crowd-avoiding agents.* arXiv:2407.21537 (2024). Verified: arXiv identifier.
-2. *Food Income and the Evolution of Forager Mobility.* Scientific Reports 9 (2019), article s41598-019-42006-2.
-   Verified: DOI 10.1038/s41598-019-42006-2.
+   Status: partial. Preprint; the journal overview below supports the frame it introduces.
+2. *Food Income and the Evolution of Forager Mobility.* Scientific Reports 9 (2019), s41598-019-42006-2.
+   Verified: DOI 10.1038/s41598-019-42006-2. Status: partial.
 3. Rowell J.T. *The limitation of species range: a consequence of searching along resource gradients.*
-   PMC2760341 (2009). Verified: PubMed Central identifier.
+   PMC2760341 (2009). Verified: PubMed Central identifier. Status: partial.
+4. Zhang B., DeAngelis D.L. *An overview of agent-based models in plant biology and ecology.* Annals of Botany 126 (2020).
+   Verified: DOI 10.1093/aob/mcaa043. Status: read.
+5. Tyler J.A., Hargrove W.W. *Predicting Spatial Distribution of Foragers over Large Resource Landscapes: A Modeling
+   Analysis of the Ideal Free Distribution.* Oikos 80 (1997). Verified: DOI 10.2307/3546022. Status: partial.
+6. Xu L., Vision T.J., Servedio M.R. *Evolutionary rescue under demographic and environmental stochasticity.*
+   Journal of Evolutionary Biology 36 (2023). Verified: DOI 10.1111/jeb.14224. Status: read.
+7. Vriend S.J.G., Engen S., Gustafsson L. *Quantitative analyses of stochastic influences on the response to phenotypic
+   selection.* Evolution (2025). Verified: DOI 10.1093/evolut/qpaf108. Status: read.
+8. Ponzi E., Keller L.F., Bonnet T. *Heritability, selection, and the response to selection in the presence of phenotypic
+   measurement error.* Evolution 72 (2018). Verified: DOI 10.1111/evo.13573. Status: read.
 
-The article also cites its own previous step, *How lineages begin and end in a pattern-forming chemical medium*,
-Zenodo, DOI 10.5281/zenodo.23933440.
+The article also cites its own previous steps, *How lineages begin and end in a pattern-forming chemical medium*
+(DOI 10.5281/zenodo.23933440) and *The gap between surfaces, not the body size, switches fusion*
+(DOI 10.5281/zenodo.23970711).
+
+These works are not our world: the agent-based review and the Ideal Free Distribution concern plants and foragers, and the
+evolutionary literature concerns populations with sexual reproduction. What transfers is the language and the frame, not the
+numbers.
 """
     (OUT / "references.md").write_text(references, encoding="utf-8")
 

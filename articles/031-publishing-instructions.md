@@ -107,7 +107,7 @@ form, and check afterwards that the folders survived.
 | item | state |
 |---|---|
 | **independent review** | **done** — `lab/reviews/2026-11-06-031-independent.md`, verdict "holds with caveats"; its four corrections are applied in the article (S18 underpowered rather than null, the S13 ordering is a first-window effect, the shared runs behind "four tests", the S10 transplant is invalid) |
-| **reference list** | **done** — `references.md` in the archive, three context references with the identifier each was checked against |
+| **reference list** | **done** — `references.md` in the archive: eight works (five added on the librarian's 06.11 answer to B-Q051…B-Q055), each with the identifier it was checked against and its reading status |
 | **PDF** | **done** — 8 pages, three figures embedded, serif body, justified and hyphenated, running head and page numbers |
 | **data archive** | **done** — 38 files, 23 artifacts, sha256 manifest verified, verifier runs inside it |
 
@@ -120,6 +120,7 @@ form, and check afterwards that the folders survived.
 | these instructions, in the repository | https://github.com/mak777uh/-/blob/main/articles/031-publishing-instructions.md |
 | the article's figures | https://github.com/mak777uh/-/tree/main/articles/031-figures |
 | the machine check of the numbers | https://github.com/mak777uh/-/blob/main/scripts/check_article_031_numbers.py |
+| the literature answer behind the references | https://github.com/mak777uh/-/blob/main/lab/notices.md |
 | the previous article of the series (published, cited by DOI) | https://doi.org/10.5281/zenodo.23970711 |
 | Zenodo: start a new upload | https://zenodo.org/uploads/new |
 | arXiv: submit (only if the author asks, only after Zenodo) | https://arxiv.org/submit |
