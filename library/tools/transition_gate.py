@@ -41,6 +41,11 @@ def main(argv=None) -> int:
             target = REPO / status.split(":", 1)[1].strip()
             if not target.exists():
                 bad.append((i, f"обзор не найден: {target.name}"))
+            else:
+                # 06.11: обзор без строки «→ в сводку:» до ведущего не доходит — гейт это ловит.
+                body = target.read_text(encoding="utf-8", errors="replace")
+                if "→ в сводку:" not in body:
+                    bad.append((i, f"обзор без строки для ведущего (→ в сводку:): {target.name}"))
 
     if bad:
         print(f"переходов: {total} | незакрытых: {len(bad)}")

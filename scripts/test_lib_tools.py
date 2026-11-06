@@ -545,6 +545,15 @@ def test_transition_gate(tmp: Path) -> None:
             "2026-11-04 | X1 | вид | не влияет: уточнение\n2026-11-04 | X2 | вид | не влияет: уточнение\n", encoding="utf-8")
         ok = run("library/tools/transition_gate.py", "--file", "library/.transitions-test/t.md")
         check("transition_gate: закрытые проходят", ok.returncode == 0, ok.stdout[:300])
+        # 06.11: обзор без строки для ведущего — красный
+        (work / "rev.md").write_text("# обзор без строки\n", encoding="utf-8")
+        (work / "t.md").write_text("2026-11-04 | X1 | вид | review:library/.transitions-test/rev.md\n", encoding="utf-8")
+        nolead = run("library/tools/transition_gate.py", "--file", "library/.transitions-test/t.md")
+        check("transition_gate: обзор без строки ведущему краснеет",
+              nolead.returncode == 1 and "без строки для ведущего" in nolead.stdout, nolead.stdout[:300])
+        (work / "rev.md").write_text("# обзор\n\n→ в сводку: меняет шаг X\n", encoding="utf-8")
+        lead_ok = run("library/tools/transition_gate.py", "--file", "library/.transitions-test/t.md")
+        check("transition_gate: обзор со строкой ведущему проходит", lead_ok.returncode == 0, lead_ok.stdout[:300])
     finally:
         shutil.rmtree(work, ignore_errors=True)
 
