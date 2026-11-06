@@ -272,6 +272,29 @@
     "s12_d2_full.json has alive_mean = null in all 9 runs x 6 windows, so R1 mean living >= 10 cannot be verified window-by-window from that artifact",
     "s16 full arms are bit-identical to s14 base arms, so S14 and S16 share runs rather than replicating each other"
    ]
+  },
+  {
+   "file": "lab/reviews/2026-11-06-032-independent.md",
+   "claim": "Article 032: the sign of the greedy-movement advantage depends on the resource recovery rate (slow -0.174, fast +0.036) and the cause is a trap of inaction; removing the adaptation flips the sign (+0.338) but under an equal mobility budget the two references are indistinguishable (0.238 vs 0.246, both below the 0.340 control), so what matters is how much the cell moves, not what it compares with; a continuous signal field was tested in four designs (cells-field and external rhythm inert, memory field +0.038..+0.045 but plain smoothing matches it 0.299 vs 0.297, because a cell moves 0.14 cells in a lifetime); and the memory optimum responds to cell mobility and to nothing else tested (reviewed against the amended text, 231 lines, commit 0257b44d5)",
+   "section": "Abstract, 4.1, 4.2, 4.3, 4.4, 4.5, 4.6, 9",
+   "verdict": "не держится",
+   "date": "2026-11-06",
+   "reviewer": "independent referee (subagent)",
+   "checked_numbers": [
+    "4.1 reproduces exactly from s19_g1_full.json last window: slow ctrl 0.3398 / greedy 0.1661 gap -0.1738, fast ctrl 0.3253 / greedy 0.3609 gap +0.0356; per-seed slow gaps -0.1382/-0.1049/-0.2782",
+    "4.2 DOES NOT reproduce: the trap numbers 3 of 45 at step 300 and 102 of 108 at step 400 are absent from every artifact; s22_g3_full.json stores only 100-step window aggregates with no per-step data and no window has alive_mean 45 or 108; the source is reports/2026-11-06-s21-g2-adaptation-trap.md, and S21 has neither an artifact nor a script (no s21* in E09_pond/ or morphogenesis/scripts/)",
+    "4.3 values reproduce: s22 fix-ctrl +0.3387, s23 +0.3500, s24 capped-ctrl +0.0942, window table 0.363/0.405/0.501, 0.288/0.185/0.663, 0.340/0.166/0.678, s25 ctrl 0.3398 / ema_abs 0.2379 / fixed_abs 0.2455",
+    "4.3 budget imbalance is larger than the current text admits: the amended article states 13.5 vs 16.1 moves/step last window and calls it about 19% more, which is correct (19.3%), but over the whole run ema_abs averages 10.35 moves/step (6210 total) against fixed_abs 15.87 (9520 total), i.e. 1.53x or +53%; 19% is only the last window where ema_abs is closest to the cap. Cause in code (s24_g6_mobility_control.py:77-113): order[:budget] caps but moves everyone when n_qualify < budget, and ema never reaches 20 candidates (max 14.7) while fixed saturates at 16-17",
+    "4.3 fixed_capped is 4.2x not equal either: ema 22.0 moves/step vs capped 93.3 last window, ratio 2.5 to 5.7 by window, yet the artifact sensitivity_note claims the two arms differ only in the REFERENCE",
+    "4.4 reproduces: s26 field_static 0.3181, s27 phase 0.3323 / level 0.3297, s34 mem_field 0.2969 / smooth_r5 0.2987 / no_field 0.2603; per-seed mem-r5 differences +0.0082/+0.0297/-0.0324 change sign, so it is a tie within scatter, not a match; smooth_r1 is also within 0.0047 of mem_field, so the conclusion does not depend on the radius",
+    "4.5 reproduces numerically (s33 last window mean_displacement 0.1450 at mobility 1 and 0.1933 at mobility 3, p90 1.0) but the metric is a mean over living cells at one instant, not a lifetime total; max_displacement in the same window reaches 3.2-4.5 (mob 1) and 5.1-6.3 (mob 3)",
+    "4.6 numbers reproduce (s29 0.2969/0.2992/0.2917, s30 0.3004/0.2969/0.2945, s32 0.2982/0.2996/0.2992) but the conclusion does not: at move_every=100 the argmax is lag 40 (0.3019) not lag 10 (0.2917), and 2 of 3 seeds peak at 40, so the environment rate DOES shift the optimum on the same basis used to declare mobility a lever",
+    "4.6 mobility optimum is 2-of-3 seeds at best: mob1 argmax 10,10,40 and mob3 argmax 40,40,10; lag40-lag10 per seed at mob3 is +0.0108/+0.0327/-0.0217, the same order as the effect; decay arms show the identical 2-of-3 pattern (argmax 10,40,10 at every decay), so mobility and lifetime are not distinguished by structure",
+    "duplicated runs: s31_h8_full.json at moves_per_step=1 is bit-identical to s30_h7_full.json at decay=0.05 (12/12 shared lag cells, identical final); also s34 mem_field = s33 mob1 lag10, s26/s27/s34 no_field are one run, s28 no_field = s32 far lag0, s29 move_every=0 = s30 decay 0.05 (13/15), s24/s25 baseline are one run, s28 mem_lag0 = s28 no_field",
+    "R1 holds: recomputed over all 231 rows of the 14 artifacts, R1 is true everywhere and matches died>=10 and alive>=10 with 0 mismatches; min died 1634, min final alive 28; but s29/s30/s31/s32/s34 carry no windows/alive_mean so the mean-living arm of R1 is unverifiable there",
+    "section 9 anchor s26_anchor_check.json gives alive 489.0 / died 5093.0 / correct_after 0.47229 as stated, but it is a p0_flip_behavior_metric run on layout=gradient with plastic_eta=0.0 and 1 seed, so it does not validate the E09_pond field additions",
+    "the article cites reports/2026-11-06-s22-g3-adaptation-trap.md which does not exist; the report is 2026-11-06-s22-g3-fixed-reference.md"
+   ]
   }
  ]
 }

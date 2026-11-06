@@ -1,9 +1,9 @@
 # 032: What decides whether behaviour pays — movement, not the signal it follows
 
 - **Type:** research article (two negative results that reorder an earlier positive one, plus one refuted mechanism)
-- **Version:** v1.0
+- **Version:** v1.1
 - **Date:** 2026-11-06
-- **Status:** draft; not submitted, not deposited
+- **Status:** draft v1.1; not submitted, not deposited. v1.1 applies the independent referee verdict ("does not hold as written"): the two unverifiable trap counts were withdrawn, the G7 budget imbalance restated at +53% over the run, the memory-optimum table corrected to show that the change rate DOES shift it under six jumps, the displacement metric described as instantaneous rather than per-lifetime, the anchor scope narrowed, and the duplicated-run structure disclosed
 - **Authors:** Ilya Vladimirov
 - **Related reports:** [S19/G1](../reports/2026-11-06-s19-g1-recovery-rate.md),
   [S21/G2](../reports/2026-11-06-s21-g2-adaptation-trap.md), [S22/G3](../reports/2026-11-06-s22-g3-fixed-reference.md),
@@ -96,18 +96,30 @@ is viable in every regime used; the patch inflow was checked against one cell's 
 With slow recovery the greedy rule **loses**. All three seeds are negative by the end (−0.138, −0.105, −0.278). This is the
 first place in the series where the behaviour is actively harmful rather than merely useless.
 
-### 4.2 The cause is a trap of inaction, not crowding
+### 4.2 The cause is a trap of inaction
 
 The step rule fires only when `resource < pred`, and `pred` is an exponential average of the resource. When the resource
-falls, the prediction falls with it, the error goes to zero, and the cell stops qualifying to move:
+falls, the prediction falls with it, the error goes to zero, and the cell stops qualifying to move. The mechanism is
+visible in the qualifying counts recorded by the runs:
 
-| step | living | on depleted cells (resource < 0.3) | cells qualifying to move |
+| window | cells qualifying to move | living cells | fraction able to act |
 |---|---|---|---|
-| 100 | 19 | 14 | — |
-| 300 | 45 | 43 | **3** |
-| 400 | 108 | **102** | — |
+| 0–100 | 18.6 | 60.2 | 0.31 |
+| 100–200 | 8.6 | 55.6 | 0.16 |
+| 200–300 | 17.3 | 101.2 | 0.17 |
+| 300–400 | 21.8 | 126.0 | 0.17 |
+| 400–500 | 25.5 | 146.2 | 0.17 |
+| 500–600 | 32.1 | 184.5 | **0.17** |
 
-A cell that has adapted to a bad place no longer notices that it is in one.
+The absolute number of cells able to move rises with the population, but the *fraction* falls from 0.31 to 0.17 and then
+sticks there: four cells in five can no longer act on their situation. The consequence is visible in the same runs: by the
+last window the adaptive arm keeps **94.6 %** of its living cells on depleted cells (resource < 0.3), against **90.8 %**
+for the non-moving control.
+
+**A limitation, stated plainly.** An earlier version of this section quoted two counts — "3 of 45 cells at step 300" and
+"102 of 108 cells on depleted cells at step 400" — taken from a diagnostic exploration that was never saved as an artifact
+and has no script in the repository. Those two numbers are therefore **withdrawn**; the mechanism now rests only on the
+per-window quantities above, which are stored in `s22_g3_full.json` and can be recomputed.
 
 ### 4.3 Removing the adaptation fixes it — but not for the reason it looks like
 
@@ -133,12 +145,14 @@ more cells move (338 against 22 per step). With the number of moving cells held 
 **The dominant variable is how much the cell moves, not what it compares with.** The "adaptation trap" is a trap of
 inaction.
 
-**A limitation of that control, stated plainly.** The budget was set to 20 cells per step for both reference arms, but the
-adaptive arm never reached it: its own qualifying count is lower, so it moved 13.5 cells per step against 16.1 in the
-fixed arm. The two arms are therefore *near*-equal, not exactly equal, and the fixed arm still moves about 19% more. That
-residual difference works **against** the article's claim (the arm that moves more does not do better), so the conclusion
-is not an artefact of the imbalance — but the control does not isolate the reference as cleanly as "equal budget" would
-suggest.
+**A limitation of that control, stated plainly — and it is serious.** The budget was set to 20 cells per step for both
+reference arms, but the cap only binds from above: the adaptive arm never produced 20 candidates, so it moved **10.4 cells
+per step over the whole run against 15.9 in the fixed arm (+53 %)**, and 13.5 against 16.1 in the last window alone. The
+two arms therefore differ in **both** the reference and the amount of movement, so this control does **not** separate the
+two contributions. What it does show is that the fixed reference's large gain (+0.338) does not survive being brought
+close to the adaptive arm's mobility, which is consistent with movement dominating — but it is not the clean isolation the
+title claim needs. A control with a budget below both arms' candidate counts (so that it binds for both) has not yet been
+run.
 
 ### 4.4 A continuous signal field: four designs, one conclusion
 
@@ -158,17 +172,24 @@ The memory field is the only variant with a gain, and it is worth +0.038…+0.04
 resource over a neighbourhood, with no field, no diffusion and no memory. What helps is looking at a *neighbourhood* rather
 than at a single cell.
 
-### 4.5 Why: the cell barely moves
+### 4.5 Why: the cell stays near where it was born
 
-Tagging each living cell with its birth position gives the direct answer:
+Tagging each living cell with its birth position gives the answer. The quantity below is the mean, **at each instant**,
+of the distance between a living cell and its own birth cell:
 
-| mobility | mean displacement from birth | 90th percentile |
-|---|---|---|
-| 1 | **0.14 cells** | 1.0 |
-| 3 | **0.19 cells** | 1.0 |
+| mobility | mean displacement (last window) | 90th percentile | maximum |
+|---|---|---|---|
+| 1 | **0.15 cells** | 1.0 | 4.1 |
+| 3 | **0.19 cells** | 1.0 | 5.1 |
 
-A cell lives and dies within about one cell of where it was born. It cannot use long-range information, which is why the
-field's "distance to the food" does not matter, and why the field is equivalent to local smoothing.
+At any moment, nine cells in ten stand on their birth cell or next to it. A few individuals do travel further — the
+maximum reaches 4–5 cells — so the population is not strictly sedentary, but the typical cell never gets far. That is why
+the field's "distance to the food" does not matter and why the field is equivalent to local smoothing.
+
+**A correction.** An earlier version of this section called the same quantity "0.14 cells in a lifetime". That was a
+misreading: the metric is an instantaneous mean over living cells, not a per-cell lifetime total, and the maxima in the
+same windows show that some cells do travel several cells. The conclusion (the typical cell stays local) is unchanged, but
+the wording is now what the data actually says.
 
 ### 4.6 The memory optimum: one lever works, three do not
 
@@ -176,7 +197,7 @@ The memory length has a clear optimum (lag 10–40 beats no memory by +0.035…+
 
 | lever | shifts the optimum? |
 |---|---|
-| rate of environmental change | no (0.297 / 0.299 / 0.292) |
+| rate of environmental change | **partly**: no change and one jump peak at lag 10, but six jumps peak at lag **40** (0.302 against 0.292 at lag 10) |
 | lifetime of the field (decay) | no (0.300 / 0.297 / 0.294) |
 | distance to the food | no (0.298 / 0.300 / 0.299) |
 | **cell mobility** | **yes** (best lag 10 at mobility 1, 40 at mobility 3) |
@@ -184,6 +205,11 @@ The memory length has a clear optimum (lag 10–40 beats no memory by +0.035…+
 The simple formula "optimal lag ≈ distance / mobility" was tested and **refuted**: the distance half does not hold. The
 mechanism behind the mobility half is the same as in §4.5 — a faster cell reads a wider neighbourhood, so it can use a
 longer memory.
+
+**An honest correction.** An earlier version of this table said the rate of environmental change does not shift the
+optimum, quoting only the lag-10 value. The full curve says otherwise: under six jumps the best lag is 40, and two of the
+three seeds peak there. The optimum does move with the change rate — in the direction the original hypothesis predicted —
+but only when the environment changes often enough for memory to be a liability.
 
 ## 5. Discussion
 
@@ -226,6 +252,18 @@ Every number comes from artifacts under `morphogenesis/experiments/E09_pond/`; t
 `morphogenesis/scripts/s{19,22,23,24,25,26,27,28,29,30,31,32,33,34}_*.py`. Runs were on CPU (the environment has no CUDA
 build of PyTorch), 3 seeds, 600 steps, with R1 checked in every run and reported alongside each result.
 
-The engine additions made for this article (the continuous field, the second flip, the environment rotation) are additive:
-with every new parameter at zero the world reproduces the previous one bit-for-bit, checked by an anchor run after each
-addition (`alive 489 / died 5093 / correct_after 0.47229`).
+The engine additions made for this article (the continuous field) and for the previous one (the second flip, the
+environment rotation) are additive: with every new parameter at zero the world reproduces the previous one bit-for-bit.
+
+**What the anchor does and does not cover.** The anchor run (`s26_anchor_check.json`: `alive 489 / died 5093 /
+correct_after 0.47229`) is the baseline of the *gradient* world with plasticity off, one seed. It shows that adding the
+field code did not change the existing world. It does **not** validate the field machinery itself, which is exercised only
+by the S26–S34 runs.
+
+**Duplicated runs across experiments.** Several arms in this article are the same underlying run reused in a different
+sweep, because the sweeps share their control configuration. Specifically: `s31` mobility 1 is bit-identical to `s30`
+decay 0.05 (12 of 12 shared cells); `s34`'s memory arm equals `s33`'s mobility-1 lag-10 run; the `no_field` arms of
+`s26`, `s27` and `s34` are one run; `s28`'s `no_field` equals `s32`'s far-distance lag-0 run; and `s24`/`s25` share their
+baseline. This is not an error — the runs are deterministic and the shared arms *should* coincide — but it means the
+apparent number of independent observations is smaller than the number of arms, and any claim that rests on two arms
+being independent must be read with that in mind.
