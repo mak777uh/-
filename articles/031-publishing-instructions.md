@@ -14,7 +14,9 @@ writing.**
 
 ## 1. What this article is
 
-A research article with one negative and one positive result, both about the same pond world:
+A research article with one negative and one positive result, both about the same pond world. Its published title is
+**"Directionality works but does not scale, and inherited adaptation does not appear, in a resource-limited pond
+world"** (the file name keeps the `031-` prefix for navigation; the number is not part of the title):
 
 - **Positive, with a measured limit:** local resource-greedy movement does help (0.475 against 0.357 baseline on a patchy
   environment), but the gain decays as the rich zone fills (advantage vs rich-zone occupancy, r = −0.57 over 18 points).

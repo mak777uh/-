@@ -1,4 +1,4 @@
-# 031: Directionality and inheritance in the pond — what works, where the boundary is
+# Directionality works but does not scale, and inherited adaptation does not appear, in a resource-limited pond world
 
 **Ilya Vladimirov** · [10.5281/zenodo.23970711](https://doi.org/10.5281/zenodo.23970711) · 6 November 2026 · v2.0 · CC BY 4.0
 

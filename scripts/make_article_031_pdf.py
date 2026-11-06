@@ -67,7 +67,7 @@ def set_document_properties(doc: Document) -> None:
     p = doc.core_properties
     p.author = "Ilya Vladimirov"
     p.last_modified_by = "Ilya Vladimirov"
-    p.title = "Directionality and inheritance in the pond: what works, where the boundary is"
+    p.title = "Directionality works but does not scale, and inherited adaptation does not appear, in a resource-limited pond world"
     p.subject = ("A pond world with resource, death and reproduction; directionality transfers to patchy "
                  "environments but decays with crowding; four tests of inherited adaptation give null; v2.0")
     p.keywords = "pond; directionality; taxis; inheritance; lineage-selection; crowding; boundary-of-the-setup"
@@ -212,7 +212,7 @@ def _style_document(doc: Document) -> None:
     header = sec.header.paragraphs[0]
     header.text = ""
     header.alignment = WD_ALIGN_PARAGRAPH.RIGHT
-    run = header.add_run("Directionality and inheritance in the pond  ·  031")
+    run = header.add_run("Directionality does not scale  ·  inherited adaptation does not appear  ·  031")
     run.font.size = Pt(8)
     run.font.name = HEAD_FONT
     run.font.color.rgb = RULE

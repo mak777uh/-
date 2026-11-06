@@ -71,7 +71,7 @@ This work is licensed under the Creative Commons Attribution 4.0 International L
 To view a copy of this license, visit https://creativecommons.org/licenses/by/4.0/
 """
 
-DATASET_README = """# Dataset for article 031 — directionality and inheritance in the pond
+DATASET_README = """# Dataset for article 031 — directionality works but does not scale, and inherited adaptation does not appear, in a resource-limited pond world
 
 This package contains the article, its figures, and the machine-readable artifacts behind every number in it.
 
@@ -184,7 +184,7 @@ Zenodo, DOI 10.5281/zenodo.23933440.
     (OUT / "references.md").write_text(references, encoding="utf-8")
 
     zenodo = {
-        "title": "Directionality and inheritance in the pond: what works, where the boundary is",
+        "title": "Directionality works but does not scale, and inherited adaptation does not appear, in a resource-limited pond world",
         "upload_type": "publication",
         "publication_type": "preprint",
         "publication_date": "2026-11-06",
