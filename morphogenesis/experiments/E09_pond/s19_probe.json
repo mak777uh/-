@@ -1,0 +1,178 @@
+{
+ "kind": "s19_g1_recovery_rate",
+ "steps": 300,
+ "window": 100,
+ "regimes": {
+  "slow": {
+   "resource_regen": 0.01,
+   "patch_inflow_per_step": 0.04,
+   "one_cell_consumption": 0.16
+  },
+  "base": {
+   "resource_regen": 0.02,
+   "patch_inflow_per_step": 0.08,
+   "one_cell_consumption": 0.16
+  },
+  "fast": {
+   "resource_regen": 0.04,
+   "patch_inflow_per_step": 0.16,
+   "one_cell_consumption": 0.16
+  }
+ },
+ "sensitivity_note": "income(1.0)=0.160 regardless of regen, so the colony stays viable at a patch; what changes is refill speed: 0.040/0.080/0.160 per step vs 0.160 eaten, i.e. this sweep spans 'patches deplete' to 'patches hold'",
+ "n_seeds": 1,
+ "rows": [
+  {
+   "seed": 1,
+   "arm": "baseline",
+   "resource_regen": 0.01,
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "favourable_share": 0.3588,
+     "rich_occupancy": 0.0442,
+     "rich_resource": 0.2778,
+     "alive_mean": 68.1
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "favourable_share": 0.2089,
+     "rich_occupancy": 0.0313,
+     "rich_resource": 0.2893,
+     "alive_mean": 84.7
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "favourable_share": 0.1374,
+     "rich_occupancy": 0.0635,
+     "rich_resource": 0.2686,
+     "alive_mean": 234.5
+    }
+   ],
+   "final": {
+    "alive": 303,
+    "born": 412,
+    "died": 2030
+   },
+   "R1": true,
+   "regime": "slow"
+  },
+  {
+   "seed": 1,
+   "arm": "local1",
+   "resource_regen": 0.01,
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "favourable_share": 0.4181,
+     "rich_occupancy": 0.0405,
+     "rich_resource": 0.2825,
+     "alive_mean": 53.8
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "favourable_share": 0.4243,
+     "rich_occupancy": 0.0203,
+     "rich_resource": 0.2991,
+     "alive_mean": 25.2
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "favourable_share": 0.3316,
+     "rich_occupancy": 0.0259,
+     "rich_resource": 0.2959,
+     "alive_mean": 40.7
+    }
+   ],
+   "final": {
+    "alive": 41,
+    "born": 84,
+    "died": 338
+   },
+   "R1": true,
+   "regime": "slow"
+  },
+  {
+   "seed": 1,
+   "arm": "baseline",
+   "resource_regen": 0.04,
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "favourable_share": 0.3632,
+     "rich_occupancy": 0.0267,
+     "rich_resource": 0.2608,
+     "alive_mean": 69.7
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "favourable_share": 0.2037,
+     "rich_occupancy": 0.0205,
+     "rich_resource": 0.2674,
+     "alive_mean": 97.4
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "favourable_share": 0.1302,
+     "rich_occupancy": 0.0578,
+     "rich_resource": 0.2879,
+     "alive_mean": 248.6
+    }
+   ],
+   "final": {
+    "alive": 380,
+    "born": 416,
+    "died": 2091
+   },
+   "R1": true,
+   "regime": "fast"
+  },
+  {
+   "seed": 1,
+   "arm": "local1",
+   "resource_regen": 0.04,
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "favourable_share": 0.4502,
+     "rich_occupancy": 0.0288,
+     "rich_resource": 0.2605,
+     "alive_mean": 60.6
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "favourable_share": 0.2298,
+     "rich_occupancy": 0.0281,
+     "rich_resource": 0.2691,
+     "alive_mean": 112.8
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "favourable_share": 0.1524,
+     "rich_occupancy": 0.094,
+     "rich_resource": 0.294,
+     "alive_mean": 311.5
+    }
+   ],
+   "final": {
+    "alive": 331,
+    "born": 488,
+    "died": 1627
+   },
+   "R1": true,
+   "regime": "fast"
+  }
+ ]
+}

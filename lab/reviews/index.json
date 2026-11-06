@@ -248,6 +248,30 @@
     "four nulls reproduce: S6 0.6479/0.3559, S7 0.6086, S9 0.4587/0.5327, S10 0.4291/0.4311/0.4267",
     "caveats recorded: favourable zone is a relative top-50% definition; the +0.036 last-window gap is within seed scatter; the -0.57 correlation has no p-value and its points are serially dependent; the four nulls share one world and are independent by mechanism, not by data"
    ]
+  },
+  {
+   "file": "lab/reviews/2026-11-06-031-independent.md",
+   "claim": "Article 031: local resource-greedy movement transfers to a patchy environment (0.475 vs 0.357) but its advantage decays as the rich zone fills (r = -0.57 with rich-zone occupancy over 18 points), and four tests of inherited adaptation all give null, with the null surviving removal of the lineage monopoly",
+   "section": "Abstract, 4.1, 4.2, 4.3, 9",
+   "verdict": "держится с оговоркой",
+   "date": "2026-11-06",
+   "reviewer": "independent referee (subagent)",
+   "checked_numbers": [
+    "S12 first window local1 0.4753 / baseline 0.3575 reproduce; per-window gaps 0.1178/0.0678/0.0396/0.0217/0.0446/0.0352 reproduce; last-window gap is NOT noise (sd across seeds 0.0036, all three seeds 0.0311/0.0377/0.0368) so the article scatter of order 0.02-0.03 understates its own precision",
+    "S13 first-window gaps 0.2214/0.1178/0.0568 reproduce and do not overlap across seeds; but density is set via update_cost/repair_cost at identical 32-cell seeding, so the monotonicity is a difference in the STARTING window, not in dynamics",
+    "S13 LAST-window gaps break the monotonicity: low 0.0197 / base 0.0352 / high 0.0204, so the sparsest regime has the SMALLEST residual gain, contradicting at low density the gap is largest",
+    "S14 pearson gap vs BASELINE rich_occupancy = -0.5676 (stored -0.5675); vs greedy-arm occupancy -0.4968; vs mean of arms -0.5352; Spearman -0.7083; windows 3-6 only -0.3767; drop any one regime -0.593...-0.620; drop any one window -0.528...-0.601",
+    "S16 R1 FAILS in 6/18 rows: all of drain_slow / depleted (patch_inflow_rich 0.5) have R1=false with final alive 0,0,0,0,0,2, and their windows are truncated (1,2,2,5,5,6 of 6) - the article 0.117 -> -0.022 comes only from drain_mid (R1 true); this contradicts the lead review claim that R1 holds in all 9 S16 runs",
+    "S16 rich_resource last window drain_mid 0.1933 vs full 0.2177 reproduce; baseline arm is bit-identical between the two regimes (expected, greed off)",
+    "S6 0.6479 vs 0.3559 reproduce; per-window sd of the control at that window is 0.129 and all three seeds positive (0.4885/0.2306/0.3486 vs 0.5236/0.7833/0.6369)",
+    "S7 0.6086 reproduces (double_new window 6); s7 control and double arms are BIT-IDENTICAL to s6 control and double (9 windows, 3 seeds) - same run, not an independent test",
+    "S9 0.4587 vs 0.5327 reproduce, but arms already diverge BEFORE the flip (window 2, flip_at=200): heritable-neutral = +0.106/+0.114/+0.053 per seed, so the effect is not a response to the environment change",
+    "S10 0.4291/0.4311/0.4267 reproduce; transplant arm is BIT-IDENTICAL to heritable at seeds 1 and 3 (all correct_share and final), so the transplant control never reached the dynamics",
+    "S18 28.3 -> 57.4 and 0.938 -> 0.798 reproduce (last-window means of n_lineages and top_lineage_share); s18 monopoly arm is BIT-IDENTICAL to s10 heritable",
+    "S18 high vs low trait still differ by <= 0.02 is a 3-seed MEAN hiding opposite signs: diverse hi-lo windows 3-6 = +0.0093/+0.0619/-0.0215, last window -0.016/+0.1653/-0.0919; |hi-lo| mean 0.0422 max 0.165 vs monopoly mean 0.0022 max 0.0051",
+    "s12_d2_full.json has alive_mean = null in all 9 runs x 6 windows, so R1 mean living >= 10 cannot be verified window-by-window from that artifact",
+    "s16 full arms are bit-identical to s14 base arms, so S14 and S16 share runs rather than replicating each other"
+   ]
   }
  ]
 }

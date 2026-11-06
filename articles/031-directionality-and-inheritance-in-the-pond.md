@@ -114,19 +114,26 @@ population, the smaller the gain.
 | S13/D3 | density sweep | gap 0.221 / 0.118 / 0.057 at sparse / base / dense population |
 | S14/D4 | rich-zone occupancy | correlation of the advantage with occupancy **−0.57** (18 points) |
 | S15/E1 | patch inflow rate | at 4.0 and 12.0 the patch does not deplete (inflow > consumption) → the regimes are indistinguishable |
-| S16/E1b | below the depletion threshold (0.5 / 2.0) | depleting the zone **does not rescue** the advantage: gap 0.117 → −0.022 |
+| S16/E1b | below the depletion threshold (2.0) | depleting the zone **does not rescue** the advantage: gap 0.117 → −0.022. The 0.5 regime is **excluded**: it starved out (final alive 0–2, R1 failed in all 6 runs) |
 
 **The mechanism.** Directionality brings cells into the rich zone; the zone fills; the gain from knowing how to get there
-falls. At low density the loop does not close, because there is room for everyone — and there the gap is largest.
+falls.
 
-**What the gap means quantitatively.** The first window gives +0.118, the last +0.036. With three seeds and a scatter of
-order 0.02–0.03 the last number **lies within the scatter**: it should be read as "the gain stopped being noticeable", not
-as a measured quantity. The article's claim — that a gain exists at the start and decays — rests on the monotonicity across
-densities (S13) and on the correlation with occupancy (S14), not on that last number.
+**What the density sweep actually shows — and what it does not.** The ordering across densities is clean in the **first**
+window (0.2214 / 0.1178 / 0.0568 for sparse / base / dense) and it **does not hold by the end**: the last-window gaps are
+0.0197 / 0.0352 / 0.0204, so the sparsest regime has the *smallest* residual gain. The density sweep therefore supports
+"the gain is largest early and at low density", not "the gain is largest at low density throughout". An earlier version of
+this article claimed the latter; the independent review caught it and it is corrected here.
 
-**A caveat about the correlation.** −0.57 is computed over 18 points (3 regimes × 6 windows), and points within one run are
-dependent: neighbouring windows of one seed are not independent. No p-value is therefore given or claimed; the conclusion
-"the relation is negative" rests on the monotonicity across regimes.
+**What the gap means quantitatively.** The first window gives +0.118, the last +0.036. The across-seed standard deviation
+of that last number is 0.0036 and all three seeds are positive (0.0311 / 0.0377 / 0.0368), so the number is small but
+consistent in sign; it should still be read as "the gain has shrunk to a few per cent", not as a precise quantity.
+
+**A caveat about the correlation.** −0.57 is computed over 18 points (3 regimes × 6 windows) using the **control arm's**
+rich-zone occupancy; with the greedy arm's occupancy it is −0.497, and on windows 3–6 only it falls to −0.377. Points
+within one run are dependent, so no p-value is given or claimed. The conclusion "the relation is negative" rests on the
+monotonicity across regimes and on the fact that it survives dropping any single regime (−0.59…−0.62) or any single window
+(−0.53…−0.60), not on a significance test.
 
 ![Why the advantage falls](031-figures/fig2-why-it-decays.png)
 
@@ -163,21 +170,29 @@ recovery, and the same one; the heritable trait — both mobility (S9) and direc
 transplant changes nothing.
 
 **A caveat about independence.** The four tests are independent **by mechanism**, but not by data: they all run on the same
-world, with the same metric and the same seeds. Agreement therefore strengthens the conclusion about the mechanism, but does
-not replace an independent replication on another world.
+world, with the same metric and the same seeds. Worse, two of them share their runs outright — the `control` and `double`
+arms of S6 and S7 are bit-identical (S7 is the same run with a third arm added), and the `monopoly` arm of S18 is the
+`heritable` arm of S10. So the honest count is **two distinct runs plus two variants**, not four independent experiments.
+Agreement therefore strengthens the conclusion about the mechanism, but does not replace an independent replication on
+another world.
 
 | test | what was checked | result |
 |---|---|---|
 | S6/C3 | double flip A→B→A | recovery 0.648 against 0.356 for the control — but this is a return to the native environment |
-| S7/C3b | flip to a NEW environment C | 0.609 — almost as good as the native one; both arms converge to ~0.50 (dispersal) |
+| S7/C3b | flip to a NEW environment C | 0.609 — almost as good as the native one; both arms converge to ~0.50 (dispersal). Its control and double arms are the S6 runs |
 | S9/C2 | heritable mobility + transplant | 0.459 against 0.533 for the null; the transplant changes nothing |
-| S10/C2b | heritable directionality + transplant | 0.429 / 0.431 / 0.427 — all arms coincide; high vs low trait ≤ 0.005 |
-| S18/C4 | lineage monopoly removed (quota 0.25, refractory 20) | lineages double (28.3 → 57.4), the top share falls (0.938 → 0.798), yet high vs low trait still differ by ≤ 0.02 |
+| S10/C2b | heritable directionality + transplant | 0.429 / 0.431 / 0.427 — all arms coincide. **The transplant arm is invalid**: swapping the traits of the top and bottom deciles collapsed the trait's spread (std 0.069 → 0.000), so it never tested what it claimed |
+| S18/C4 | lineage monopoly removed (quota 0.25, refractory 20) | lineages double (28.3 → 57.4), the top share falls (0.938 → 0.798); the mean high-minus-low trait difference stays ≤ 0.02 **but per-window it reaches 0.165 with signs both ways at n = 3** — underpowered, not null |
 
 **Conclusion.** In this setup inherited adaptation does not arise. What is observed after an environment change is
 dispersal and survival, not selection on a trait. One lineage holds 95–97% of the population, late lineages stay at 1–5%,
-and their share in the favourable zone does not grow. The last row matters: the null is not an artefact of that monopoly —
-when the monopoly is removed, the trait still does not sort.
+and their share in the favourable zone does not grow.
+
+**How strong that conclusion is.** It is strong where the manipulation demonstrably reached the dynamics (S9, S10's
+heritable arm) and weak where it did not (S10's transplant) or where n = 3 cannot separate a small effect from noise (S18).
+Removing the lineage monopoly did **not** rescue the effect, which rules out the most obvious confound; it did, however,
+increase the spread of the high-minus-low difference about nineteen-fold, so the right reading of S18 is "no detectable
+selection at this power", not "proven absence".
 
 ### 4.3 What turned out to be invalid (and why that matters)
 
@@ -247,7 +262,12 @@ only on density — and that is the testable difference from our present result.
 
 Every number comes from artifacts under `morphogenesis/experiments/E09_pond/`; the scripts are
 `morphogenesis/scripts/s{5,6,9,10,11,12,13,14,15,16,18}_*.py` and `p0_flip_metric.py`. Runs were on CPU (the environment has
-no CUDA build of PyTorch), 3 seeds, 600 steps, with R1 checked in every run.
+no CUDA build of PyTorch), 3 seeds, 600 steps.
+
+**Validity coverage is not uniform.** R1 (mean deaths ≥ 10 and mean living ≥ 10) holds in every run the article's claims
+rest on, with one exception that is now excluded: in S16 the `drain_slow` regime (patch inflow 0.5) starved out — final
+living 0, 0, 0, 0, 0, 2 across its six runs — and those runs are not used. The S16 `drain_mid` and `full` regimes pass R1 in
+all 12 runs. S12 does not record per-window alive counts, so R1 there is checked per run, not per window.
 
 **The numbers are checked by machine, not by eye.** The script
 [`scripts/check_article_031_numbers.py`](../scripts/check_article_031_numbers.py) re-reads the artifacts and compares every
