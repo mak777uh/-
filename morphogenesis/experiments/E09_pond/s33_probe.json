@@ -1,0 +1,88 @@
+{
+ "kind": "s33_h10_displacement",
+ "steps": 300,
+ "window": 100,
+ "lag": 10,
+ "mobilities": [
+  1,
+  3
+ ],
+ "note": "measures how far a living cell actually travels from its birth cell; if the cell is a local random walker the displacement stays small and the memory can only act as a local smoother, which explains why distance (H9) does not matter",
+ "n_seeds": 1,
+ "rows": [
+  {
+   "seed": 1,
+   "lag": 10,
+   "moves_per_step": 1,
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "mean_displacement": 0.073,
+     "p90_displacement": 0.0,
+     "max_displacement": 3.0,
+     "alive_mean": 62.6
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "mean_displacement": 0.112,
+     "p90_displacement": 1.0,
+     "max_displacement": 2.236,
+     "alive_mean": 70.3
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "mean_displacement": 0.139,
+     "p90_displacement": 1.0,
+     "max_displacement": 3.162,
+     "alive_mean": 263.4
+    }
+   ],
+   "final": {
+    "alive": 403,
+    "born": 372,
+    "died": 1384
+   },
+   "R1": true
+  },
+  {
+   "seed": 1,
+   "lag": 10,
+   "moves_per_step": 3,
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "mean_displacement": 0.246,
+     "p90_displacement": 1.0,
+     "max_displacement": 4.123,
+     "alive_mean": 60.8
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "mean_displacement": 0.159,
+     "p90_displacement": 1.0,
+     "max_displacement": 4.123,
+     "alive_mean": 97.7
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "mean_displacement": 0.185,
+     "p90_displacement": 1.0,
+     "max_displacement": 5.099,
+     "alive_mean": 283.7
+    }
+   ],
+   "final": {
+    "alive": 439,
+    "born": 463,
+    "died": 1388
+   },
+   "R1": true
+  }
+ ]
+}
