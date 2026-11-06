@@ -571,6 +571,12 @@ def test_lit_comment(tmp: Path) -> None:
     check("lit_comment: комментарий или честный отказ", ok, res.stdout[:300])
 
 
+def test_lib_auto(tmp: Path) -> None:
+    """lib_auto: --dry показывает план и не падает."""
+    res = run("library/tools/lib_auto.py", "--dry")
+    check("lib_auto: dry-прогон зелёный", res.returncode == 0 and "всё зелёное" in res.stdout, res.stdout[:300])
+
+
 def main() -> int:
     with tempfile.TemporaryDirectory() as tdir:
         tmp = Path(tdir)
@@ -604,6 +610,8 @@ def main() -> int:
         test_science_digest(tmp)
         print("== topic lit ==")
         test_topic_lit(tmp)
+        print("== lib_auto ==")
+        test_lib_auto(tmp)
         print("== lit_comment ==")
         test_lit_comment(tmp)
         print("== result_lit ==")

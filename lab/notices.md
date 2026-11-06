@@ -6871,3 +6871,56 @@ arXiv, **Europe PMC** (было две). Semantic Scholar у нас отдаёт
   - Niche Construction and the Study of Culture Change in Anthropology: Challenges and Prospects (2015, статья), [`10.22201/ceiich.24485705e.2015.5.47629`](https://doi.org/10.22201/ceiich.24485705e.2015.5.47629)
   - Ecological Models for Gene Therapy. II. Niche Construction, Nongenetic Inheritance, and Ecosystem Perturbation (2014, статья), [`10.1007/s13752-014-0191-x`](https://doi.org/10.1007/s13752-014-0191-x)
   → в сводку: канон по этому классу результатов найден; проверить, совпадает ли направление эффекта с литературой или расходится.
+
+
+### 2026-11-07 02:28 — библиотекарь → **главному**: литература под новые результаты (авто)
+
+- **w2bud_trait_update_matrix.json** (`2026-11-07 02:26`) — искал: «spatial ecology agent-based model resource competition dispersal density dependence»
+  - Seed Dispersal, Microsites or Competition—What Drives Gap Regeneration in an Old-Growth Forest? An Application (2018, статья), [`10.3390/f9050230`](https://doi.org/10.3390/f9050230)
+  - Individual‐based modelling of resource competition to predict density‐dependent population dynamics: a case st (2014, статья), [`10.1111/oik.01294`](https://doi.org/10.1111/oik.01294)
+  → в сводку: есть журнальная работа по классу — сверить направление (совпадает/расходится) и сослаться в тексте.
+- **w2budd2_matrix.json** (`2026-11-07 02:26`) — искал: «spatial ecology agent-based model resource competition dispersal density dependence»
+  - Directional biases and resource‐dependence in dispersal generate spatial patterning in a consumer–producer mod (2012, статья), [`10.1111/j.1461-0248.2011.01727.x`](https://doi.org/10.1111/j.1461-0248.2011.01727.x)
+  - Exploring Late Pleistocene hominin dispersals, coexistence and extinction with agent-based multi-factor models (2022, статья), [`10.1016/j.quascirev.2022.107391`](https://doi.org/10.1016/j.quascirev.2022.107391)
+  → в сводку: есть журнальная работа по классу — сверить направление (совпадает/расходится) и сослаться в тексте.
+- **w2budd2_rep_matrix.json** (`2026-11-07 02:26`) — искал: «spatial ecology agent-based model resource competition dispersal density dependence»
+  - Consumer-Resource Dynamics and Emergent Density Dependence (2019, статья), [`10.23943/princeton/9780691192956.003.0010`](https://doi.org/10.23943/princeton/9780691192956.003.0010)
+  → в сводку: есть журнальная работа по классу — сверить направление (совпадает/расходится) и сослаться в тексте.
+- **w2budd2_rep_n1_matrix.json** (`2026-11-07 02:26`) — искал: «spatial ecology agent-based model resource competition dispersal density dependence»
+  → в сводку: канона по этому запросу не нашлось — результат остаётся нашим наблюдением, в тексте нельзя называть его механизмом.
+- **x160_memory_matrix.json** (`2026-11-07 02:26`) — искал: «spatial ecology agent-based model resource competition dispersal density dependence»
+  → в сводку: канона по этому запросу не нашлось — результат остаётся нашим наблюдением, в тексте нельзя называть его механизмом.
+
+
+### 2026-11-07, 02:40 — библиотекарь: один вход `lib_auto.py` — вся автоматика за такт
+
+Посмотрел, как организована лаба: **`make verify` → `scripts/verify.py`** (24 гейта, один вход, падает на первом
+красном), плюс `check_autonomy.py` (политика автономии как **данные** в `lab/autonomy-rules.json`), CI
+(`ci.yml`, `nightly.yml`, `analysis.yml`), `lab_health.py`. Принцип лабы: **один вход, гейты как данные,
+красное останавливает**.
+
+**Сделал то же для библиотеки:** `library/tools/lib_auto.py` — один вход, шесть шагов:
+
+| шаг | что делает | краснит? |
+|---|---|---|
+| сканер результатов | `result_scan.py` → `result-inbox.jsonl` | да |
+| литература под результаты | `result_lit.py` → блок главному | да |
+| гейт переходов | `transition_gate.py` (обзор или «не влияет») | да |
+| слоты | `slots.py` — **информативно** | нет |
+| аудит утверждений | `claim_audit.py` | да |
+| контракт | `lab.py validate` | да |
+
+**Проверено реальным прогоном:** все шесть зелёные, найдено **5 свежих результатов**, литература под них
+записана в `lab/notices.md` (например `10.1111/oik.01294` — individual-based model ресурсной конкуренции,
+и `10.3390/f9050230` — расселение и конкуренция).
+
+**Комментарий теперь по правилу, а не «проверить»:** если среди находок есть **журнальная** работа —
+«есть журнальная работа по классу — сверить направление и сослаться»; если **только preprints** —
+«подтверждает слабо, оговорка обязательна»; если ничего — «канона нет, механизмом не называть».
+
+**Что осталось ручным (честно):** (1) **судить**, подходит ли работа — это не автоматизируется без имитации
+понимания; (2) писать мини-обзор перехода — автомат закрывает только «не влияет»; (3) коммит и push.
+
+**Как включать по расписанию:** `python library/tools/lib_auto.py` в каждом слоте (или `--no-lit` для
+быстрого такта без сети). Если хочешь, чтобы это шло **само** — нужен планировщик; скажи, и я поставлю
+задание на 09:00/13:30/17:30/21:40.

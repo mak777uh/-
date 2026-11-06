@@ -4,9 +4,9 @@
 
 The curated page — what matters and why — is [`scripts.md`](scripts.md). This file is the complete list, so that every command behind a number in the record can be found.
 
-Scripts: **454**.
+Scripts: **455**.
 
-## Гейты и проверки (51)
+## Гейты и проверки (52)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -40,6 +40,7 @@ Scripts: **454**.
 | `check_readme_fresh.py` | check_readme_fresh.py — витрина не должна отставать от результатов. |
 | `check_references.py` | Проверить, что каждая ссылка из References рукописи есть в индексе библиотеки. |
 | `check_reports_index.py` | Проверить, что каждый отчёт попал в индекс `reports/README.md`. |
+| `check_result_map_coverage.py` | Which experiment artifacts are NOT covered by any claim in library/result-map.json? |
 | `check_reviews.py` | check_reviews.py — ревью рецензента обязаны быть проверками, а не мнениями. |
 | `check_script_index.py` | check_script_index.py — индекс всех скриптов обязан быть полным и свежим. |
 | `check_scripts.py` | P2: какие скрипты никто не вызывает — профилактика мёртвого кода. |
