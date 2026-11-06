@@ -70,6 +70,8 @@ class PondConfig:
     flip_at: int = 0                  # если > 0: на этом шаге градиент переворачивается
     flip2_at: int = 0                 # S6/C3: если > 0: на этом шаге градиент переворачивается ОБРАТНО
                                       # (0 = выключено, бит-в-бит со старым миром)
+    flip2_mode: str = "vertical"      # S7/C3b: vertical = вернуться в A (A->B->A)
+                                      # horizontal = повернуть на 90° в новую среду C (A->B->C)
     drift_at: int = 0                  # если > 0: с этого шага градиент дрейфует
     drift_steps: int = 0               # за сколько шагов дрейф переворачивает верх и низ
     income_mode: str = "cap"           # cap (min(ресурс, доход)) | proportional (доход*ресурс)
@@ -640,6 +642,17 @@ class Pond:
             return 1.0 - up
         return up
 
+    def _horizontal_phase(self) -> bool:
+        """S7/C3b: среда C — градиент по столбцам (поворот на 90°).
+
+        Включается только после второго переворота при `flip2_mode="horizontal"`;
+        во всех прочих случаях False (поведение бит-в-бит прежнее).
+        """
+        cfg = self.cfg
+        return bool(cfg.flip_at and cfg.flip2_at
+                    and str(getattr(cfg, "flip2_mode", "vertical") or "vertical") == "horizontal"
+                    and self.state.step >= cfg.flip2_at)
+
     def regenerate(self) -> None:
         """Ресурс прибывает с ограниченной скоростью; в катастрофу — падает."""
         cfg = self.cfg
@@ -672,7 +685,13 @@ class Pond:
         if cfg.resource_layout == "gradient":
             # «свет» сверху: верх богат, низ беден
             rows = torch.arange(cfg.grid, device=self.device, dtype=torch.float32)
-            inflow = inflow * (0.1 + 0.9 * (1.0 - rows / max(cfg.grid - 1, 1)))[:, None]
+            if self._horizontal_phase():
+                # S7/C3b: среда C — тот же градиент, но по СТОЛБЦАМ (поворот на 90°).
+                # Важно: профиль ЗАМЕНЯЕТ строковый, а не умножается на него, иначе
+                # получается диагональ (поймано проверкой: col profile был плоским).
+                inflow = inflow * (0.1 + 0.9 * (1.0 - rows / max(cfg.grid - 1, 1)))[None, :]
+            else:
+                inflow = inflow * (0.1 + 0.9 * (1.0 - rows / max(cfg.grid - 1, 1)))[:, None]
         elif cfg.resource_layout == "patches":
             # три источника, остальное бедно
             base = torch.full((cfg.grid, cfg.grid), cfg.resource_regen * cfg.patch_inflow_base, device=self.device)
@@ -685,7 +704,12 @@ class Pond:
         ceiling = torch.full((cfg.grid, cfg.grid), cfg.resource_max, device=self.device)
         if cfg.resource_layout == "gradient":
             position = self._gradient_position()
-            ceiling = ceiling * (0.2 + 0.8 * position)[:, None]
+            if self._horizontal_phase():
+                # S7/C3b: среда C — потолок по СТОЛБЦАМ (поворот на 90°), иначе ресурс
+                # всё равно ограничен сверху строковым профилем и среда C не возникает.
+                ceiling = ceiling * (0.2 + 0.8 * position)[None, :]
+            else:
+                ceiling = ceiling * (0.2 + 0.8 * position)[:, None]
         elif cfg.resource_layout == "patches":
             ceiling = torch.full((cfg.grid, cfg.grid), cfg.resource_max * 0.2, device=self.device)
             third = cfg.grid // 3

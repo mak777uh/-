@@ -60,7 +60,7 @@ def mirror_world(run) -> None:
         pass
 
 
-def run_one(seed, args, double: bool):
+def run_one(seed, args, double: bool, new_env: bool = False):
     cfg = PondConfig(
         grid=args.grid, resource_layout="gradient", income_mode=args.income_mode,
         init_resource_fill=args.init_resource_fill, baseline_income=args.income,
@@ -68,6 +68,7 @@ def run_one(seed, args, double: bool):
         budding_mass=24, budding_cost=0.2, resource_max=1.0,
         resource_regen=args.resource_regen, flip_at=args.flip_at,
         flip2_at=(args.flip2_at if double else 0),
+        flip2_mode=("horizontal" if new_env else "vertical"),
         plastic_eta=args.plastic_eta, plastic_move_cost=args.plastic_move_cost,
         plastic_gate=args.plastic_gate, plastic_nomove=args.plastic_nomove,
         plastic_prob=0.5, plastic_direction=args.plastic_direction,
@@ -99,7 +100,7 @@ def run_one(seed, args, double: bool):
                         "alive_mean": round(acc["alive"] / acc["n"], 2)})
     final = run.log[-1] if run.log else {}
     died = final.get("died", 0); alive = final.get("alive_cells", 0)
-    return {"seed": seed, "arm": "double" if double else "control",
+    return {"seed": seed, "arm": ("double_new" if new_env else ("double" if double else "control")),
             "windows": windows,
             "final": {"alive": alive, "born": final.get("born"), "died": died},
             "R1": bool(died >= 10 and alive >= 10)}
@@ -128,6 +129,8 @@ def main(argv=None):
     ap.add_argument("--plastic-nomove", action="store_true")
     ap.add_argument("--mutation-rate", type=float, default=0.0)
     ap.add_argument("--mutation-trait-sigma", type=float, default=0.05)
+    ap.add_argument("--with-new-env", action="store_true",
+                    help="S7/C3b: also run A->B->C (90-degree rotation) arm")
     ap.add_argument("--device", default="cuda" if torch.cuda.is_available() else "cpu")
     ap.add_argument("--checkpoint", default=os.path.join(_MORPH, "checkpoints", "world_base_rule.pt"))
     ap.add_argument("--out", required=True)
@@ -137,6 +140,8 @@ def main(argv=None):
     for s in args.seeds:
         rows.append(run_one(s, args, double=False))
         rows.append(run_one(s, args, double=True))
+        if args.with_new_env:
+            rows.append(run_one(s, args, double=True, new_env=True))
     out = {"kind": "s6_double_flip", "flip_at": args.flip_at, "flip2_at": args.flip2_at,
            "steps": args.steps, "window": args.window, "plastic_eta": args.plastic_eta,
            "plastic_direction": args.plastic_direction, "mutation_rate": args.mutation_rate,
@@ -145,8 +150,10 @@ def main(argv=None):
     with open(args.out, "w", encoding="utf-8") as fh:
         json.dump(out, fh, ensure_ascii=False, indent=1)
     # compact print: per arm, per window mean correct_share
-    for arm in ("control", "double"):
+    for arm in ("control", "double", "double_new"):
         ar = [r for r in rows if r["arm"] == arm]
+        if not ar:
+            continue
         nw = max((len(r["windows"]) for r in ar), default=0)
         means = []
         for i in range(nw):
