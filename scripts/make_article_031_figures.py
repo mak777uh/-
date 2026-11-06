@@ -29,7 +29,23 @@ POND = os.path.join(ROOT, "morphogenesis", "experiments", "E09_pond")
 OUT = os.path.join(ROOT, "articles", "031-figures")
 os.makedirs(OUT, exist_ok=True)
 
-plt.rcParams.update({"font.size": 9, "axes.spines.top": False, "axes.spines.right": False})
+plt.rcParams.update({
+    "font.size": 9,
+    "axes.spines.top": False,
+    "axes.spines.right": False,
+    "axes.titlesize": 9.5,
+    "axes.labelsize": 9,
+    "legend.fontsize": 8,
+    "xtick.labelsize": 8,
+    "ytick.labelsize": 8,
+    "savefig.dpi": 300,
+    "figure.dpi": 150,
+    "pdf.fonttype": 42,          # embed TrueType so the PDF text stays selectable and searchable
+    "ps.fonttype": 42,
+    "axes.grid": True,
+    "grid.alpha": 0.25,
+    "grid.linewidth": 0.6,
+})
 
 
 def load(name):
@@ -53,7 +69,7 @@ def series(doc, arm, field="favourable_share", regime=None):
 
 def save(fig, stem):
     for ext in ("png", "pdf"):
-        fig.savefig(os.path.join(OUT, f"{stem}.{ext}"), dpi=200, bbox_inches="tight")
+        fig.savefig(os.path.join(OUT, f"{stem}.{ext}"), dpi=300, bbox_inches="tight")
     plt.close(fig)
     print(f"wrote {stem}.png / .pdf")
 
@@ -72,7 +88,7 @@ def figure1():
     ax1.fill_between(x, b, l, color="#1f6fb4", alpha=0.15)
     ax1.set_xlabel("window after seeding (100 steps each)")
     ax1.set_ylabel("share of alive cells in the rich zone")
-    ax1.set_title("A. The advantage is real and it decays")
+    ax1.set_title("A. The advantage is real, and it decays", loc="left")
     ax1.legend(frameon=False, fontsize=8)
     ax1.set_ylim(0, 0.55)
 
@@ -84,7 +100,7 @@ def figure1():
     ax2.axhline(0, color="black", lw=0.8, ls=":")
     ax2.set_xlabel("window")
     ax2.set_ylabel("local greed − baseline")
-    ax2.set_title("B. The gain shrinks as the population thickens")
+    ax2.set_title("B. The gain shrinks as the population thickens", loc="left")
     ax2.legend(frameon=False, fontsize=8)
 
     save(fig, "fig1-the-advantage-decays")
@@ -112,7 +128,7 @@ def figure2():
     ax1.axhline(0, color="black", lw=0.8, ls=":")
     ax1.set_xlabel("rich-zone occupancy (baseline)")
     ax1.set_ylabel("local greed − baseline")
-    ax1.set_title(f"B. The gain falls as the rich zone fills (r = {r:.2f})")
+    ax1.set_title(f"B. The gain falls as the rich zone fills (r = {r:.2f})", loc="left")
     ax1.legend(frameon=False, fontsize=8)
 
     for regime, colour in (("low_density", "#2a9d5c"), ("base", "#1f6fb4"), ("high_density", "#c0392b")):
@@ -122,7 +138,7 @@ def figure2():
         ax2.plot(range(len(rres)), rres, "s--", color=colour, alpha=0.55, label=f"{regime.replace('_',' ')}: resource")
     ax2.set_xlabel("window")
     ax2.set_ylabel("fraction / resource")
-    ax2.set_title("A. Cells fill the zone; its food stays put")
+    ax2.set_title("A. Cells fill the zone; its food stays put", loc="left")
     ax2.legend(frameon=False, fontsize=6.5, ncol=2)
 
     save(fig, "fig2-why-it-decays")
@@ -152,7 +168,7 @@ def figure3():
         ax.set_xlabel("window")
         ax.legend(frameon=False, fontsize=7)
     axes[0].set_ylabel("share in the favourable half")
-    fig.suptitle("Four independent tests of inherited adaptation: all arms end together near chance", fontsize=9.5)
+    fig.suptitle("Four tests of inherited adaptation: every arm ends together, near chance", fontsize=9.5, y=1.02)
     save(fig, "fig3-the-four-nulls")
 
 

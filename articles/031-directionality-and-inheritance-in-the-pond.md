@@ -1,30 +1,13 @@
 # 031: Directionality and inheritance in the pond — what works, where the boundary is
 
-- **Type:** research article (a negative result on inheritance plus a positive result with a measured mechanism on directionality)
-- **Version:** v1.0
-- **Date:** 2026-11-06
-- **Status:** draft; not submitted, not deposited
-- **Authors:** Morphogenesis Laboratory
-- **Related reports:** [S0/A1](../reports/2026-11-05-s0-a1-directionality.md), [S1/A2](../reports/2026-11-05-s1-a2-move-ci.md),
-  [S2/B1](../reports/2026-11-05-s2-b1-gradpos-taxis.md), [S2/B2](../reports/2026-11-05-s2-b2-tumble.md),
-  [S3/D](../reports/2026-11-05-s3-d-transfer-env-families.md), [S4](../reports/2026-11-06-s4-reproducibility.md),
-  [S5/C](../reports/2026-11-06-s5-c-lineage-selection.md), [S6/C3](../reports/2026-11-06-s6-c3-double-flip.md),
-  [S7/C3b](../reports/2026-11-06-s7-c3b-new-environment.md), [S9/C2](../reports/2026-11-06-s9-c2-behavioural-trait.md),
-  [S10/C2b](../reports/2026-11-06-s10-c2b-directionality.md), [S11/D](../reports/2026-11-06-s11-d-patches-insensitive.md),
-  [S12/D2](../reports/2026-11-06-s12-d2-patches-sensitive.md), [S13/D3](../reports/2026-11-06-s13-d3-crowding-vs-drift.md),
-  [S14/D4](../reports/2026-11-06-s14-d4-local-crowding.md), [S15/E1](../reports/2026-11-06-s15-e1-refresh-insensitive.md),
-  [S16/E1b](../reports/2026-11-06-s16-e1b-refresh-window.md), [S17/F1](../reports/2026-11-06-s17-f1-food-competition-impossible.md),
-  [S18/C4](../reports/2026-11-06-s18-c4-lineage-diversity.md)
-- **Artifacts:** `morphogenesis/experiments/E09_pond/s{0..18}_*.json`, `p0_*.json`, `p1_*.json`, `s2_*.json`
-- **Figures:** [`031-figures/`](031-figures/) — built by
-  [`scripts/make_article_031_figures.py`](../scripts/make_article_031_figures.py) from artifacts only
+**Ilya Vladimirov** · [10.5281/zenodo.23970711](https://doi.org/10.5281/zenodo.23970711) · 6 November 2026 · v2.0 · CC BY 4.0
 
 ## Abstract
 
 We asked whether a simple world with a resource, death and reproduction can learn to behave better after its environment
-changes — and whether such a skill can be inherited by descendants. The answer splits in two. **Directionality works, but
-it runs into crowding:** a cell that steps towards the neighbour with more resource holds 0.475 of the favourable half
-against 0.357 for the control on a patchy environment, and the advantage falls to +0.036 as the rich zone fills
+changes — and whether such a skill can be inherited by descendants. The answer splits in two. **Directionality works, but it
+runs into crowding:** a cell that steps towards the neighbour with more resource holds 0.475 of the favourable half against
+0.357 for the control on a patchy environment, and the advantage falls to +0.036 as the rich zone fills
 (correlation of the advantage with rich-zone occupancy −0.57 over 18 points). **Inheritance does not work:** four tests —
 lineage selection, a double flip back to the native environment, a flip to a new environment, and a heritable behavioural
 trait with a transplant control — give a consistent null, and the null survives the removal of the lineage-monopoly
@@ -37,7 +20,8 @@ them as results.
 
 The world: a 32×32 grid, a resource in the cells, organisms with energy on the cells. An organism spends energy on
 upkeep, takes it from the resource of its own cell, reproduces when it accumulates mass, and dies when its energy runs
-out. The resource arrives at a limited rate and has a ceiling.
+out. The resource arrives at a limited rate and has a ceiling. Nothing in the world is trained: the organisms follow a
+fixed local rule, and what changes between our experiments is that rule and the environment, not a learned network.
 
 The question we were interested in: **does behaviour appear in such a world that helps survive a change of environment —
 and does it become fixed in descendants?**
@@ -101,9 +85,9 @@ gives the previous world bit-for-bit.
 
 ![The advantage of directionality and its decay](031-figures/fig1-the-advantage-decays.png)
 
-*Figure 1.* **A.** The share of the living in the rich zone: local greed against the control, window by window after
-seeding on a patch (S12/D2). **B.** The gap (greed − control) at three population densities (S13/D3): the denser the
-population, the smaller the gain.
+**Figure 1.** The advantage of directionality and its decay. **A.** The share of the living in the rich zone, local greed
+against the control, window by window after seeding on a patch (S12/D2). **B.** The gap (greed − control) at three
+population densities (S13/D3): the denser the population, the smaller the gain.
 
 | test | what was measured | result |
 |---|---|---|
@@ -132,14 +116,14 @@ consistent in sign; it should still be read as "the gain has shrunk to a few per
 **A caveat about the correlation.** −0.57 is computed over 18 points (3 regimes × 6 windows) using the **control arm's**
 rich-zone occupancy; with the greedy arm's occupancy it is −0.497, and on windows 3–6 only it falls to −0.377. Points
 within one run are dependent, so no p-value is given or claimed. The conclusion "the relation is negative" rests on the
-monotonicity across regimes and on the fact that it survives dropping any single regime (−0.59…−0.62) or any single window
-(−0.53…−0.60), not on a significance test.
+monotonicity across regimes and on the fact that it survives dropping any single regime (−0.62…−0.59) or any single window
+(−0.60…−0.53), not on a significance test.
 
 ![Why the advantage falls](031-figures/fig2-why-it-decays.png)
 
-*Figure 2.* **A.** The rich zone fills with the living (solid lines), but its resource barely falls (dashed) — cells get in
-each other's way by occupying space, not by eating. **B.** The gap against rich-zone occupancy, across every regime and
-window: correlation −0.57.
+**Figure 2.** Why the advantage falls. **A.** The rich zone fills with the living (solid lines), but its resource barely
+falls (dashed) — cells get in each other's way by occupying space, not by eating. **B.** The gap against rich-zone
+occupancy, across every regime and window: correlation −0.57.
 
 **A refinement: competition for space, not for food.** A direct measurement (S15/E1, S16/E1b) showed that the resource on
 rich cells barely falls (0.26 → 0.22) although occupancy rises (0.025 → 0.348). Cells obstruct each other **physically**: a
@@ -164,7 +148,7 @@ world, which we did not make.
 
 ![Four tests of inheritance](031-figures/fig3-the-four-nulls.png)
 
-*Figure 3.* Four tests of inherited adaptation. In all of them the arms converge to ~0.50 after the environment changes —
+**Figure 3.** Four tests of inherited adaptation. In all of them the arms converge to ~0.50 after the environment changes —
 the level of a random distribution over the two halves. The double flip (S6) and the new environment (S7) both produce
 recovery, and the same one; the heritable trait — both mobility (S9) and directionality (S10) — makes no difference, and the
 transplant changes nothing.
@@ -188,8 +172,9 @@ another world.
 dispersal and survival, not selection on a trait. One lineage holds 95–97% of the population, late lineages stay at 1–5%,
 and their share in the favourable zone does not grow.
 
-**How strong that conclusion is.** It is strong where the manipulation demonstrably reached the dynamics (S9, S10's
-heritable arm) and weak where it did not (S10's transplant) or where n = 3 cannot separate a small effect from noise (S18).
+**How strong that conclusion is.** It is strong where the manipulation demonstrably reached the dynamics (S9, S10's heritable
+arm) and weak where it did not (S10's transplant) or where n = 3 cannot separate a small effect from noise: in S18 the last
+window favours the high-trait lineages in only one seed of three, and the sign flips between seeds.
 Removing the lineage monopoly did **not** rescue the effect, which rules out the most obvious confound; it did, however,
 increase the spread of the high-minus-low difference about nineteen-fold, so the right reading of S18 is "no detectable
 selection at this power", not "proven absence".
@@ -266,17 +251,29 @@ no CUDA build of PyTorch), 3 seeds, 600 steps.
 
 **Validity coverage is not uniform.** R1 (mean deaths ≥ 10 and mean living ≥ 10) holds in every run the article's claims
 rest on, with one exception that is now excluded: in S16 the `drain_slow` regime (patch inflow 0.5) starved out — final
-living 0, 0, 0, 0, 0, 2 across its six runs — and those runs are not used. The S16 `drain_mid` and `full` regimes pass R1 in
-all 12 runs. S12 does not record per-window alive counts, so R1 there is checked per run, not per window.
+living 0, 0, 0, 0, 0, 2 across its six runs — and those runs are not used, so six of the eighteen S16 runs are excluded.
+The S16 `drain_mid` and `full` regimes pass R1 in all 12 runs. S12 does not record per-window alive counts, so R1 there is
+checked per run, not per window.
 
-**The numbers are checked by machine, not by eye.** The script
-[`scripts/check_article_031_numbers.py`](../scripts/check_article_031_numbers.py) re-reads the artifacts and compares every
-headline number of this article with them (20 checks, tolerance 0.002–0.01):
+**The numbers are checked by machine, not by eye.** The script [check_article_031_numbers.py](../scripts/check_article_031_numbers.py) re-reads the artifacts and compares
+every headline number of this article with them (49 checks, each of which must also appear verbatim in the text):
 
 ```bash
-python scripts/check_article_031_numbers.py   # 0 failures out of 20 checks
+python scripts/check_article_031_numbers.py --ci   # 0 failures out of 49 checks
 ```
 
 The check was written after the first pass over the article and **immediately found two bugs in itself** (it mis-parsed the
 `s13`/`s16` schema, whose rows carry a `regime` field) — that is, it verifies rather than rubber-stamps. The prose is checked
 against the artifact, never the other way round.
+
+## Version history
+
+- **v1.0** (2026-11-06): first edition, in Russian, as a working note for the lab.
+- **v1.1** (2026-11-06): translated to English, which is the article language from now on; the independent review's
+  corrections applied (S18 is underpowered rather than null, the S13 monotonicity is a first-window effect, the S6/S7 and
+  S10/S18 arms share runs, the S10 transplant collapsed the trait spread and is invalid).
+- **v2.0** (2026-11-06, this edition): prepared for an outside reader. The header now carries the author, the licence and
+  the DOI of the previous article; the abstract and §1 say what the world is and that nothing in it is trained; the
+  correlation's sensitivity range is quoted in the order its checks produce; §9 states the excluded runs as a count; the
+  number gate grew from 20 to 49 checks; the PDF is typeset for reading (serif body, justified text with hyphenation,
+  figures that keep their captions, running heads and page numbers). No result changed: 49 of 49 checks pass.
