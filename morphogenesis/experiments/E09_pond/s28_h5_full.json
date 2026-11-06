@@ -1,0 +1,809 @@
+{
+ "kind": "s28_h5_memory_field",
+ "steps": 600,
+ "window": 100,
+ "move_at": 300,
+ "new_patch": [
+  24,
+  24
+ ],
+ "diffusion": 0.1,
+ "decay": 0.05,
+ "lag": 40,
+ "note": "the rich patches JUMP at move_at, so a cell standing where the food was sees a strong memory field but no food - the memory is either useful (it points at food that is still there) or harmful (it points at food that left)",
+ "n_seeds": 3,
+ "rows": [
+  {
+   "seed": 1,
+   "arm": "no_field",
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "favourable_share": 0.3501,
+     "stability_sd": 0.0733,
+     "field_amplitude": 0.0,
+     "moves_per_step": 0.0,
+     "alive_mean": 68.0
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "favourable_share": 0.2176,
+     "stability_sd": 0.0813,
+     "field_amplitude": 0.0,
+     "moves_per_step": 0.0,
+     "alive_mean": 82.1
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "favourable_share": 0.1244,
+     "stability_sd": 0.0156,
+     "field_amplitude": 0.0,
+     "moves_per_step": 0.0,
+     "alive_mean": 159.5
+    },
+    {
+     "start": 301,
+     "end": 400,
+     "favourable_share": 0.1605,
+     "stability_sd": 0.032,
+     "field_amplitude": 0.0,
+     "moves_per_step": 0.0,
+     "alive_mean": 337.2
+    },
+    {
+     "start": 401,
+     "end": 500,
+     "favourable_share": 0.2757,
+     "stability_sd": 0.0284,
+     "field_amplitude": 0.0,
+     "moves_per_step": 0.0,
+     "alive_mean": 473.5
+    },
+    {
+     "start": 501,
+     "end": 600,
+     "favourable_share": 0.3132,
+     "stability_sd": 0.0156,
+     "field_amplitude": 0.0,
+     "moves_per_step": 0.0,
+     "alive_mean": 553.5
+    }
+   ],
+   "final": {
+    "alive": 561,
+    "born": 1465,
+    "died": 7646
+   },
+   "R1": true
+  },
+  {
+   "seed": 1,
+   "arm": "mem_field",
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "favourable_share": 0.3834,
+     "stability_sd": 0.0687,
+     "field_amplitude": 2.1255,
+     "moves_per_step": 2.2,
+     "alive_mean": 66.1
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "favourable_share": 0.2889,
+     "stability_sd": 0.0692,
+     "field_amplitude": 4.8661,
+     "moves_per_step": 5.8,
+     "alive_mean": 70.4
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "favourable_share": 0.1505,
+     "stability_sd": 0.026,
+     "field_amplitude": 4.6912,
+     "moves_per_step": 20.7,
+     "alive_mean": 211.4
+    },
+    {
+     "start": 301,
+     "end": 400,
+     "favourable_share": 0.1994,
+     "stability_sd": 0.0724,
+     "field_amplitude": 3.9101,
+     "moves_per_step": 40.9,
+     "alive_mean": 406.7
+    },
+    {
+     "start": 401,
+     "end": 500,
+     "favourable_share": 0.3243,
+     "stability_sd": 0.0206,
+     "field_amplitude": 3.0252,
+     "moves_per_step": 51.1,
+     "alive_mean": 513.7
+    },
+    {
+     "start": 501,
+     "end": 600,
+     "favourable_share": 0.3318,
+     "stability_sd": 0.0184,
+     "field_amplitude": 2.6815,
+     "moves_per_step": 51.8,
+     "alive_mean": 540.2
+    }
+   ],
+   "final": {
+    "alive": 544,
+    "born": 1619,
+    "died": 6072
+   },
+   "R1": true
+  },
+  {
+   "seed": 1,
+   "arm": "now_field",
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "favourable_share": 0.3688,
+     "stability_sd": 0.0673,
+     "field_amplitude": 1.0823,
+     "moves_per_step": 1.1,
+     "alive_mean": 68.9
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "favourable_share": 0.2728,
+     "stability_sd": 0.0988,
+     "field_amplitude": 1.2284,
+     "moves_per_step": 1.7,
+     "alive_mean": 68.9
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "favourable_share": 0.1316,
+     "stability_sd": 0.0169,
+     "field_amplitude": 3.9076,
+     "moves_per_step": 4.0,
+     "alive_mean": 233.5
+    },
+    {
+     "start": 301,
+     "end": 400,
+     "favourable_share": 0.1556,
+     "stability_sd": 0.0508,
+     "field_amplitude": 6.5604,
+     "moves_per_step": 3.5,
+     "alive_mean": 361.6
+    },
+    {
+     "start": 401,
+     "end": 500,
+     "favourable_share": 0.2955,
+     "stability_sd": 0.0225,
+     "field_amplitude": 9.6534,
+     "moves_per_step": 1.6,
+     "alive_mean": 520.1
+    },
+    {
+     "start": 501,
+     "end": 600,
+     "favourable_share": 0.321,
+     "stability_sd": 0.0137,
+     "field_amplitude": 11.1723,
+     "moves_per_step": 0.1,
+     "alive_mean": 576.2
+    }
+   ],
+   "final": {
+    "alive": 568,
+    "born": 1624,
+    "died": 8466
+   },
+   "R1": true
+  },
+  {
+   "seed": 1,
+   "arm": "mem_lag0",
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "favourable_share": 0.3501,
+     "stability_sd": 0.0733,
+     "field_amplitude": 0.0,
+     "moves_per_step": 0.0,
+     "alive_mean": 68.0
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "favourable_share": 0.2176,
+     "stability_sd": 0.0813,
+     "field_amplitude": 0.0,
+     "moves_per_step": 0.0,
+     "alive_mean": 82.1
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "favourable_share": 0.1244,
+     "stability_sd": 0.0156,
+     "field_amplitude": 0.0,
+     "moves_per_step": 0.0,
+     "alive_mean": 159.5
+    },
+    {
+     "start": 301,
+     "end": 400,
+     "favourable_share": 0.1605,
+     "stability_sd": 0.032,
+     "field_amplitude": 0.0,
+     "moves_per_step": 0.0,
+     "alive_mean": 337.2
+    },
+    {
+     "start": 401,
+     "end": 500,
+     "favourable_share": 0.2757,
+     "stability_sd": 0.0284,
+     "field_amplitude": 0.0,
+     "moves_per_step": 0.0,
+     "alive_mean": 473.5
+    },
+    {
+     "start": 501,
+     "end": 600,
+     "favourable_share": 0.3132,
+     "stability_sd": 0.0156,
+     "field_amplitude": 0.0,
+     "moves_per_step": 0.0,
+     "alive_mean": 553.5
+    }
+   ],
+   "final": {
+    "alive": 561,
+    "born": 1465,
+    "died": 7646
+   },
+   "R1": true
+  },
+  {
+   "seed": 2,
+   "arm": "no_field",
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "favourable_share": 0.354,
+     "stability_sd": 0.0864,
+     "field_amplitude": 0.0,
+     "moves_per_step": 0.0,
+     "alive_mean": 69.5
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "favourable_share": 0.2325,
+     "stability_sd": 0.0446,
+     "field_amplitude": 0.0,
+     "moves_per_step": 0.0,
+     "alive_mean": 74.3
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "favourable_share": 0.1229,
+     "stability_sd": 0.0195,
+     "field_amplitude": 0.0,
+     "moves_per_step": 0.0,
+     "alive_mean": 241.8
+    },
+    {
+     "start": 301,
+     "end": 400,
+     "favourable_share": 0.2186,
+     "stability_sd": 0.0321,
+     "field_amplitude": 0.0,
+     "moves_per_step": 0.0,
+     "alive_mean": 438.0
+    },
+    {
+     "start": 401,
+     "end": 500,
+     "favourable_share": 0.2949,
+     "stability_sd": 0.022,
+     "field_amplitude": 0.0,
+     "moves_per_step": 0.0,
+     "alive_mean": 505.1
+    },
+    {
+     "start": 501,
+     "end": 600,
+     "favourable_share": 0.3228,
+     "stability_sd": 0.0174,
+     "field_amplitude": 0.0,
+     "moves_per_step": 0.0,
+     "alive_mean": 549.4
+    }
+   ],
+   "final": {
+    "alive": 555,
+    "born": 1654,
+    "died": 8482
+   },
+   "R1": true
+  },
+  {
+   "seed": 2,
+   "arm": "mem_field",
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "favourable_share": 0.3956,
+     "stability_sd": 0.0732,
+     "field_amplitude": 2.1242,
+     "moves_per_step": 2.1,
+     "alive_mean": 63.9
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "favourable_share": 0.3624,
+     "stability_sd": 0.0825,
+     "field_amplitude": 4.8922,
+     "moves_per_step": 2.6,
+     "alive_mean": 36.7
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "favourable_share": 0.199,
+     "stability_sd": 0.0737,
+     "field_amplitude": 4.9356,
+     "moves_per_step": 16.4,
+     "alive_mean": 170.7
+    },
+    {
+     "start": 301,
+     "end": 400,
+     "favourable_share": 0.1667,
+     "stability_sd": 0.0269,
+     "field_amplitude": 4.0224,
+     "moves_per_step": 34.0,
+     "alive_mean": 345.2
+    },
+    {
+     "start": 401,
+     "end": 500,
+     "favourable_share": 0.3161,
+     "stability_sd": 0.0412,
+     "field_amplitude": 3.3646,
+     "moves_per_step": 51.1,
+     "alive_mean": 505.3
+    },
+    {
+     "start": 501,
+     "end": 600,
+     "favourable_share": 0.3381,
+     "stability_sd": 0.0164,
+     "field_amplitude": 2.6363,
+     "moves_per_step": 51.8,
+     "alive_mean": 546.5
+    }
+   ],
+   "final": {
+    "alive": 547,
+    "born": 1481,
+    "died": 5672
+   },
+   "R1": true
+  },
+  {
+   "seed": 2,
+   "arm": "now_field",
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "favourable_share": 0.3727,
+     "stability_sd": 0.0774,
+     "field_amplitude": 1.0808,
+     "moves_per_step": 1.2,
+     "alive_mean": 68.2
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "favourable_share": 0.2037,
+     "stability_sd": 0.0568,
+     "field_amplitude": 1.4434,
+     "moves_per_step": 2.2,
+     "alive_mean": 83.4
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "favourable_share": 0.1295,
+     "stability_sd": 0.0177,
+     "field_amplitude": 4.6354,
+     "moves_per_step": 4.1,
+     "alive_mean": 280.9
+    },
+    {
+     "start": 301,
+     "end": 400,
+     "favourable_share": 0.2445,
+     "stability_sd": 0.0493,
+     "field_amplitude": 8.2405,
+     "moves_per_step": 2.6,
+     "alive_mean": 453.7
+    },
+    {
+     "start": 401,
+     "end": 500,
+     "favourable_share": 0.3191,
+     "stability_sd": 0.0148,
+     "field_amplitude": 10.5212,
+     "moves_per_step": 0.2,
+     "alive_mean": 546.6
+    },
+    {
+     "start": 501,
+     "end": 600,
+     "favourable_share": 0.3168,
+     "stability_sd": 0.0143,
+     "field_amplitude": 10.9259,
+     "moves_per_step": 0.0,
+     "alive_mean": 561.8
+    }
+   ],
+   "final": {
+    "alive": 575,
+    "born": 1802,
+    "died": 9125
+   },
+   "R1": true
+  },
+  {
+   "seed": 2,
+   "arm": "mem_lag0",
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "favourable_share": 0.354,
+     "stability_sd": 0.0864,
+     "field_amplitude": 0.0,
+     "moves_per_step": 0.0,
+     "alive_mean": 69.5
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "favourable_share": 0.2325,
+     "stability_sd": 0.0446,
+     "field_amplitude": 0.0,
+     "moves_per_step": 0.0,
+     "alive_mean": 74.3
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "favourable_share": 0.1229,
+     "stability_sd": 0.0195,
+     "field_amplitude": 0.0,
+     "moves_per_step": 0.0,
+     "alive_mean": 241.8
+    },
+    {
+     "start": 301,
+     "end": 400,
+     "favourable_share": 0.2186,
+     "stability_sd": 0.0321,
+     "field_amplitude": 0.0,
+     "moves_per_step": 0.0,
+     "alive_mean": 438.0
+    },
+    {
+     "start": 401,
+     "end": 500,
+     "favourable_share": 0.2949,
+     "stability_sd": 0.022,
+     "field_amplitude": 0.0,
+     "moves_per_step": 0.0,
+     "alive_mean": 505.1
+    },
+    {
+     "start": 501,
+     "end": 600,
+     "favourable_share": 0.3228,
+     "stability_sd": 0.0174,
+     "field_amplitude": 0.0,
+     "moves_per_step": 0.0,
+     "alive_mean": 549.4
+    }
+   ],
+   "final": {
+    "alive": 555,
+    "born": 1654,
+    "died": 8482
+   },
+   "R1": true
+  },
+  {
+   "seed": 3,
+   "arm": "no_field",
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "favourable_share": 0.3684,
+     "stability_sd": 0.0776,
+     "field_amplitude": 0.0,
+     "moves_per_step": 0.0,
+     "alive_mean": 68.2
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "favourable_share": 0.1654,
+     "stability_sd": 0.0596,
+     "field_amplitude": 0.0,
+     "moves_per_step": 0.0,
+     "alive_mean": 126.2
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "favourable_share": 0.1202,
+     "stability_sd": 0.0337,
+     "field_amplitude": 0.0,
+     "moves_per_step": 0.0,
+     "alive_mean": 308.6
+    },
+    {
+     "start": 301,
+     "end": 400,
+     "favourable_share": 0.298,
+     "stability_sd": 0.026,
+     "field_amplitude": 0.0,
+     "moves_per_step": 0.0,
+     "alive_mean": 525.1
+    },
+    {
+     "start": 401,
+     "end": 500,
+     "favourable_share": 0.3299,
+     "stability_sd": 0.0149,
+     "field_amplitude": 0.0,
+     "moves_per_step": 0.0,
+     "alive_mean": 569.4
+    },
+    {
+     "start": 501,
+     "end": 600,
+     "favourable_share": 0.3237,
+     "stability_sd": 0.0181,
+     "field_amplitude": 0.0,
+     "moves_per_step": 0.0,
+     "alive_mean": 561.6
+    }
+   ],
+   "final": {
+    "alive": 562,
+    "born": 1932,
+    "died": 9858
+   },
+   "R1": true
+  },
+  {
+   "seed": 3,
+   "arm": "mem_field",
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "favourable_share": 0.3999,
+     "stability_sd": 0.0703,
+     "field_amplitude": 2.1256,
+     "moves_per_step": 2.3,
+     "alive_mean": 65.8
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "favourable_share": 0.2672,
+     "stability_sd": 0.0534,
+     "field_amplitude": 4.8504,
+     "moves_per_step": 6.1,
+     "alive_mean": 71.8
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "favourable_share": 0.1559,
+     "stability_sd": 0.0438,
+     "field_amplitude": 4.7035,
+     "moves_per_step": 26.4,
+     "alive_mean": 258.1
+    },
+    {
+     "start": 301,
+     "end": 400,
+     "favourable_share": 0.281,
+     "stability_sd": 0.0217,
+     "field_amplitude": 3.5465,
+     "moves_per_step": 45.0,
+     "alive_mean": 462.5
+    },
+    {
+     "start": 401,
+     "end": 500,
+     "favourable_share": 0.3345,
+     "stability_sd": 0.0206,
+     "field_amplitude": 2.8737,
+     "moves_per_step": 52.5,
+     "alive_mean": 535.3
+    },
+    {
+     "start": 501,
+     "end": 600,
+     "favourable_share": 0.3299,
+     "stability_sd": 0.0158,
+     "field_amplitude": 2.6103,
+     "moves_per_step": 52.8,
+     "alive_mean": 522.9
+    }
+   ],
+   "final": {
+    "alive": 519,
+    "born": 1654,
+    "died": 6259
+   },
+   "R1": true
+  },
+  {
+   "seed": 3,
+   "arm": "now_field",
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "favourable_share": 0.3751,
+     "stability_sd": 0.0748,
+     "field_amplitude": 1.0785,
+     "moves_per_step": 1.3,
+     "alive_mean": 67.7
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "favourable_share": 0.2222,
+     "stability_sd": 0.0469,
+     "field_amplitude": 1.5476,
+     "moves_per_step": 2.3,
+     "alive_mean": 89.5
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "favourable_share": 0.1452,
+     "stability_sd": 0.0243,
+     "field_amplitude": 4.4745,
+     "moves_per_step": 3.7,
+     "alive_mean": 276.3
+    },
+    {
+     "start": 301,
+     "end": 400,
+     "favourable_share": 0.2405,
+     "stability_sd": 0.049,
+     "field_amplitude": 8.4053,
+     "moves_per_step": 3.7,
+     "alive_mean": 455.9
+    },
+    {
+     "start": 401,
+     "end": 500,
+     "favourable_share": 0.3067,
+     "stability_sd": 0.0282,
+     "field_amplitude": 10.0679,
+     "moves_per_step": 0.6,
+     "alive_mean": 527.4
+    },
+    {
+     "start": 501,
+     "end": 600,
+     "favourable_share": 0.3254,
+     "stability_sd": 0.0146,
+     "field_amplitude": 11.1332,
+     "moves_per_step": 0.0,
+     "alive_mean": 568.4
+    }
+   ],
+   "final": {
+    "alive": 537,
+    "born": 1769,
+    "died": 8981
+   },
+   "R1": true
+  },
+  {
+   "seed": 3,
+   "arm": "mem_lag0",
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "favourable_share": 0.3684,
+     "stability_sd": 0.0776,
+     "field_amplitude": 0.0,
+     "moves_per_step": 0.0,
+     "alive_mean": 68.2
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "favourable_share": 0.1654,
+     "stability_sd": 0.0596,
+     "field_amplitude": 0.0,
+     "moves_per_step": 0.0,
+     "alive_mean": 126.2
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "favourable_share": 0.1202,
+     "stability_sd": 0.0337,
+     "field_amplitude": 0.0,
+     "moves_per_step": 0.0,
+     "alive_mean": 308.6
+    },
+    {
+     "start": 301,
+     "end": 400,
+     "favourable_share": 0.298,
+     "stability_sd": 0.026,
+     "field_amplitude": 0.0,
+     "moves_per_step": 0.0,
+     "alive_mean": 525.1
+    },
+    {
+     "start": 401,
+     "end": 500,
+     "favourable_share": 0.3299,
+     "stability_sd": 0.0149,
+     "field_amplitude": 0.0,
+     "moves_per_step": 0.0,
+     "alive_mean": 569.4
+    },
+    {
+     "start": 501,
+     "end": 600,
+     "favourable_share": 0.3237,
+     "stability_sd": 0.0181,
+     "field_amplitude": 0.0,
+     "moves_per_step": 0.0,
+     "alive_mean": 561.6
+    }
+   ],
+   "final": {
+    "alive": 562,
+    "born": 1932,
+    "died": 9858
+   },
+   "R1": true
+  }
+ ]
+}

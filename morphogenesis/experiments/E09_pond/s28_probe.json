@@ -1,0 +1,209 @@
+{
+ "kind": "s28_h5_memory_field",
+ "steps": 400,
+ "window": 100,
+ "move_at": 200,
+ "new_patch": [
+  24,
+  24
+ ],
+ "diffusion": 0.1,
+ "decay": 0.05,
+ "lag": 40,
+ "note": "the rich patches JUMP at move_at, so a cell standing where the food was sees a strong memory field but no food - the memory is either useful (it points at food that is still there) or harmful (it points at food that left)",
+ "n_seeds": 1,
+ "rows": [
+  {
+   "seed": 1,
+   "arm": "no_field",
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "favourable_share": 0.3501,
+     "stability_sd": 0.0733,
+     "field_amplitude": 0.0,
+     "moves_per_step": 0.0,
+     "alive_mean": 68.0
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "favourable_share": 0.2176,
+     "stability_sd": 0.0813,
+     "field_amplitude": 0.0,
+     "moves_per_step": 0.0,
+     "alive_mean": 82.1
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "favourable_share": 0.1242,
+     "stability_sd": 0.0155,
+     "field_amplitude": 0.0,
+     "moves_per_step": 0.0,
+     "alive_mean": 159.5
+    },
+    {
+     "start": 301,
+     "end": 400,
+     "favourable_share": 0.2068,
+     "stability_sd": 0.0554,
+     "field_amplitude": 0.0,
+     "moves_per_step": 0.0,
+     "alive_mean": 405.0
+    }
+   ],
+   "final": {
+    "alive": 476,
+    "born": 677,
+    "died": 3295
+   },
+   "R1": true
+  },
+  {
+   "seed": 1,
+   "arm": "mem_field",
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "favourable_share": 0.3834,
+     "stability_sd": 0.0687,
+     "field_amplitude": 2.1255,
+     "moves_per_step": 2.2,
+     "alive_mean": 66.1
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "favourable_share": 0.2889,
+     "stability_sd": 0.0692,
+     "field_amplitude": 4.8661,
+     "moves_per_step": 5.9,
+     "alive_mean": 70.4
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "favourable_share": 0.1582,
+     "stability_sd": 0.0237,
+     "field_amplitude": 4.6513,
+     "moves_per_step": 25.9,
+     "alive_mean": 265.5
+    },
+    {
+     "start": 301,
+     "end": 400,
+     "favourable_share": 0.2275,
+     "stability_sd": 0.0509,
+     "field_amplitude": 3.6592,
+     "moves_per_step": 42.0,
+     "alive_mean": 416.1
+    }
+   ],
+   "final": {
+    "alive": 492,
+    "born": 769,
+    "died": 2840
+   },
+   "R1": true
+  },
+  {
+   "seed": 1,
+   "arm": "now_field",
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "favourable_share": 0.3688,
+     "stability_sd": 0.0673,
+     "field_amplitude": 1.0823,
+     "moves_per_step": 1.1,
+     "alive_mean": 68.9
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "favourable_share": 0.2728,
+     "stability_sd": 0.0988,
+     "field_amplitude": 1.2284,
+     "moves_per_step": 1.7,
+     "alive_mean": 68.9
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "favourable_share": 0.1316,
+     "stability_sd": 0.0169,
+     "field_amplitude": 3.9076,
+     "moves_per_step": 4.0,
+     "alive_mean": 233.5
+    },
+    {
+     "start": 301,
+     "end": 400,
+     "favourable_share": 0.1558,
+     "stability_sd": 0.0506,
+     "field_amplitude": 6.5604,
+     "moves_per_step": 3.5,
+     "alive_mean": 361.6
+    }
+   ],
+   "final": {
+    "alive": 484,
+    "born": 692,
+    "died": 3356
+   },
+   "R1": true
+  },
+  {
+   "seed": 1,
+   "arm": "mem_lag0",
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "favourable_share": 0.3501,
+     "stability_sd": 0.0733,
+     "field_amplitude": 0.0,
+     "moves_per_step": 0.0,
+     "alive_mean": 68.0
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "favourable_share": 0.2176,
+     "stability_sd": 0.0813,
+     "field_amplitude": 0.0,
+     "moves_per_step": 0.0,
+     "alive_mean": 82.1
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "favourable_share": 0.1242,
+     "stability_sd": 0.0155,
+     "field_amplitude": 0.0,
+     "moves_per_step": 0.0,
+     "alive_mean": 159.5
+    },
+    {
+     "start": 301,
+     "end": 400,
+     "favourable_share": 0.2068,
+     "stability_sd": 0.0554,
+     "field_amplitude": 0.0,
+     "moves_per_step": 0.0,
+     "alive_mean": 405.0
+    }
+   ],
+   "final": {
+    "alive": 476,
+    "born": 677,
+    "died": 3295
+   },
+   "R1": true
+  }
+ ]
+}

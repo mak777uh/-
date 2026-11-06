@@ -111,6 +111,11 @@ class PondConfig:
     signal_external: float = 0.0       # амплитуда внешнего источника (0 = выкл)
     signal_external_period: int = 0    # период внешнего ритма в шагах (0 = постоянно)
     signal_external_mode: str = "wave"  # wave (бегущая волна) | pulse (вспышка целиком)
+    # H5: поле-ПАМЯТЬ — источник там, где ресурс был `signal_memory_lag` шагов назад.
+    # Это единственный вариант, где поле несёт информацию, которой у клетки нет,
+    # но при этом связанную с едой (а не независимую, как внешний ритм).
+    signal_memory_lag: int = 0         # сколько шагов назад брать ресурс (0 = выключено)
+    signal_memory_source: float = 0.0  # сила источника от прошлого ресурса
     plastic_prob: float = 0.5          # доля клеток за шаг при gate=random
     plastic_nomove: bool = False       # ablation: предсказание без перемещений
     invest_rate: float = 0.0           # B2: энергия на подъём ресурса в своей клетке
@@ -677,7 +682,8 @@ class Pond:
         return bool(getattr(cfg, "signal_diffusion", 0.0) > 0.0
                     or getattr(cfg, "signal_source", 0.0) > 0.0
                     or getattr(cfg, "signal_noise", 0.0) > 0.0
-                    or getattr(cfg, "signal_external", 0.0) > 0.0)
+                    or getattr(cfg, "signal_external", 0.0) > 0.0
+                    or int(getattr(cfg, "signal_memory_lag", 0) or 0) > 0)
 
     def update_signal(self) -> None:
         """H2: шаг непрерывного поля h: диффузия + распад + источник от клеток (+ шум/колебания).
@@ -717,6 +723,17 @@ class Pond:
             src = src * (1.0 + cfg.signal_oscillate * math.sin(phase))
         if cfg.signal_noise > 0.0:
             src = src + cfg.signal_noise * torch.randn_like(h)
+        # H5: источник из ПРОШЛОГО ресурса (память среды)
+        lag = int(getattr(cfg, "signal_memory_lag", 0) or 0)
+        mem_src = float(getattr(cfg, "signal_memory_source", 0.0) or 0.0)
+        if lag > 0 and mem_src > 0.0:
+            if not hasattr(self, "_signal_hist") or self._signal_hist is None:
+                self._signal_hist = []
+            self._signal_hist.append(s.resource.clone())
+            if len(self._signal_hist) > lag:
+                self._signal_hist.pop(0)
+            if len(self._signal_hist) >= lag:
+                src = src + mem_src * self._signal_hist[0]
         h = h + src
         # H4: внешний источник — клетки его НЕ создают, только читают.
         # wave: бегущая волна по строкам (фаза зависит от места и времени);
