@@ -1,0 +1,89 @@
+{
+ "kind": "s31_h8_mobility_curve",
+ "steps": 300,
+ "lags": [
+  0,
+  10,
+  40
+ ],
+ "mobilities": [
+  1,
+  3
+ ],
+ "note": "moves_per_step = how many movement rounds a step allows; the move cost is charged per move, so faster cells pay more. The patches are ~24 cells apart, so if the optimum tracks mobility the best lag should FALL as mobility rises.",
+ "n_seeds": 1,
+ "rows": [
+  {
+   "seed": 1,
+   "lag": 0,
+   "moves_per_step": 1,
+   "overall": 0.2306,
+   "final": {
+    "alive": 260,
+    "born": 323,
+    "died": 1466
+   },
+   "R1": true
+  },
+  {
+   "seed": 1,
+   "lag": 10,
+   "moves_per_step": 1,
+   "overall": 0.2931,
+   "final": {
+    "alive": 403,
+    "born": 372,
+    "died": 1384
+   },
+   "R1": true
+  },
+  {
+   "seed": 1,
+   "lag": 40,
+   "moves_per_step": 1,
+   "overall": 0.2742,
+   "final": {
+    "alive": 310,
+    "born": 352,
+    "died": 1165
+   },
+   "R1": true
+  },
+  {
+   "seed": 1,
+   "lag": 0,
+   "moves_per_step": 3,
+   "overall": 0.2306,
+   "final": {
+    "alive": 260,
+    "born": 323,
+    "died": 1466
+   },
+   "R1": true
+  },
+  {
+   "seed": 1,
+   "lag": 10,
+   "moves_per_step": 3,
+   "overall": 0.2842,
+   "final": {
+    "alive": 439,
+    "born": 463,
+    "died": 1388
+   },
+   "R1": true
+  },
+  {
+   "seed": 1,
+   "lag": 40,
+   "moves_per_step": 3,
+   "overall": 0.2994,
+   "final": {
+    "alive": 368,
+    "born": 405,
+    "died": 1312
+   },
+   "R1": true
+  }
+ ]
+}
