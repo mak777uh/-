@@ -1,0 +1,423 @@
+{
+ "kind": "s18_c4_lineage_diversity",
+ "flip_at": 200,
+ "steps": 600,
+ "window": 100,
+ "mutation_rate": 0.05,
+ "mutation_trait_sigma": 0.3,
+ "quota": 0.25,
+ "refractory": 20,
+ "type_mode": "mixfixed",
+ "sensitivity_note": "trait varies only with mutation_rate>0 and type_mode!=fixed; quota 0.25 of ~550 cells is ~137, above the observed top-lineage sizes, so the knob can bind",
+ "n_seeds": 3,
+ "rows": [
+  {
+   "seed": 1,
+   "arm": "monopoly",
+   "quota_share": 1.0,
+   "bud_refractory": 0,
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "correct_share": 0.5464,
+     "hi_trait_correct": 0.5471,
+     "lo_trait_correct": 0.5446,
+     "n_lineages": 3.9,
+     "top_lineage_share": 0.97
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "correct_share": 0.6475,
+     "hi_trait_correct": 0.6458,
+     "lo_trait_correct": 0.6494,
+     "n_lineages": 16.1,
+     "top_lineage_share": 0.958
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "correct_share": 0.4351,
+     "hi_trait_correct": 0.4374,
+     "lo_trait_correct": 0.4372,
+     "n_lineages": 21.7,
+     "top_lineage_share": 0.951
+    },
+    {
+     "start": 301,
+     "end": 400,
+     "correct_share": 0.4628,
+     "hi_trait_correct": 0.4645,
+     "lo_trait_correct": 0.4636,
+     "n_lineages": 24.2,
+     "top_lineage_share": 0.942
+    },
+    {
+     "start": 401,
+     "end": 500,
+     "correct_share": 0.4595,
+     "hi_trait_correct": 0.4615,
+     "lo_trait_correct": 0.4595,
+     "n_lineages": 27.9,
+     "top_lineage_share": 0.94
+    },
+    {
+     "start": 501,
+     "end": 600,
+     "correct_share": 0.4362,
+     "hi_trait_correct": 0.4356,
+     "lo_trait_correct": 0.4372,
+     "n_lineages": 29.1,
+     "top_lineage_share": 0.937
+    }
+   ],
+   "final": {
+    "alive": 492,
+    "born": 1765,
+    "died": 4052
+   },
+   "R1": true
+  },
+  {
+   "seed": 1,
+   "arm": "diverse",
+   "quota_share": 0.25,
+   "bud_refractory": 20,
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "correct_share": 0.5574,
+     "hi_trait_correct": 0.5584,
+     "lo_trait_correct": 0.5551,
+     "n_lineages": 5.5,
+     "top_lineage_share": 0.955
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "correct_share": 0.669,
+     "hi_trait_correct": 0.6739,
+     "lo_trait_correct": 0.6626,
+     "n_lineages": 28.2,
+     "top_lineage_share": 0.879
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "correct_share": 0.4187,
+     "hi_trait_correct": 0.4242,
+     "lo_trait_correct": 0.4124,
+     "n_lineages": 44.6,
+     "top_lineage_share": 0.843
+    },
+    {
+     "start": 301,
+     "end": 400,
+     "correct_share": 0.4684,
+     "hi_trait_correct": 0.4782,
+     "lo_trait_correct": 0.4519,
+     "n_lineages": 49.8,
+     "top_lineage_share": 0.822
+    },
+    {
+     "start": 401,
+     "end": 500,
+     "correct_share": 0.4599,
+     "hi_trait_correct": 0.4687,
+     "lo_trait_correct": 0.4534,
+     "n_lineages": 50.7,
+     "top_lineage_share": 0.817
+    },
+    {
+     "start": 501,
+     "end": 600,
+     "correct_share": 0.4641,
+     "hi_trait_correct": 0.427,
+     "lo_trait_correct": 0.443,
+     "n_lineages": 61.2,
+     "top_lineage_share": 0.777
+    }
+   ],
+   "final": {
+    "alive": 435,
+    "born": 1045,
+    "died": 3489
+   },
+   "R1": true
+  },
+  {
+   "seed": 2,
+   "arm": "monopoly",
+   "quota_share": 1.0,
+   "bud_refractory": 0,
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "correct_share": 0.5228,
+     "hi_trait_correct": 0.5224,
+     "lo_trait_correct": 0.523,
+     "n_lineages": 5.9,
+     "top_lineage_share": 0.969
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "correct_share": 0.6253,
+     "hi_trait_correct": 0.6214,
+     "lo_trait_correct": 0.6284,
+     "n_lineages": 22.7,
+     "top_lineage_share": 0.948
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "correct_share": 0.4222,
+     "hi_trait_correct": 0.4242,
+     "lo_trait_correct": 0.4191,
+     "n_lineages": 26.8,
+     "top_lineage_share": 0.939
+    },
+    {
+     "start": 301,
+     "end": 400,
+     "correct_share": 0.4374,
+     "hi_trait_correct": 0.4364,
+     "lo_trait_correct": 0.4338,
+     "n_lineages": 26.9,
+     "top_lineage_share": 0.941
+    },
+    {
+     "start": 401,
+     "end": 500,
+     "correct_share": 0.4646,
+     "hi_trait_correct": 0.4665,
+     "lo_trait_correct": 0.4647,
+     "n_lineages": 24.9,
+     "top_lineage_share": 0.946
+    },
+    {
+     "start": 501,
+     "end": 600,
+     "correct_share": 0.4351,
+     "hi_trait_correct": 0.4357,
+     "lo_trait_correct": 0.4345,
+     "n_lineages": 28.3,
+     "top_lineage_share": 0.938
+    }
+   ],
+   "final": {
+    "alive": 508,
+    "born": 1882,
+    "died": 4159
+   },
+   "R1": true
+  },
+  {
+   "seed": 2,
+   "arm": "diverse",
+   "quota_share": 0.25,
+   "bud_refractory": 20,
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "correct_share": 0.5891,
+     "hi_trait_correct": 0.5884,
+     "lo_trait_correct": 0.5941,
+     "n_lineages": 6.3,
+     "top_lineage_share": 0.922
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "correct_share": 0.6493,
+     "hi_trait_correct": 0.6444,
+     "lo_trait_correct": 0.6559,
+     "n_lineages": 35.3,
+     "top_lineage_share": 0.871
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "correct_share": 0.4284,
+     "hi_trait_correct": 0.4276,
+     "lo_trait_correct": 0.4387,
+     "n_lineages": 48.0,
+     "top_lineage_share": 0.844
+    },
+    {
+     "start": 301,
+     "end": 400,
+     "correct_share": 0.4489,
+     "hi_trait_correct": 0.4437,
+     "lo_trait_correct": 0.4264,
+     "n_lineages": 51.6,
+     "top_lineage_share": 0.823
+    },
+    {
+     "start": 401,
+     "end": 500,
+     "correct_share": 0.4623,
+     "hi_trait_correct": 0.4676,
+     "lo_trait_correct": 0.3916,
+     "n_lineages": 49.6,
+     "top_lineage_share": 0.821
+    },
+    {
+     "start": 501,
+     "end": 600,
+     "correct_share": 0.4688,
+     "hi_trait_correct": 0.4826,
+     "lo_trait_correct": 0.3173,
+     "n_lineages": 58.0,
+     "top_lineage_share": 0.803
+    }
+   ],
+   "final": {
+    "alive": 436,
+    "born": 1113,
+    "died": 3384
+   },
+   "R1": true
+  },
+  {
+   "seed": 3,
+   "arm": "monopoly",
+   "quota_share": 1.0,
+   "bud_refractory": 0,
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "correct_share": 0.6055,
+     "hi_trait_correct": 0.6036,
+     "lo_trait_correct": 0.6113,
+     "n_lineages": 6.1,
+     "top_lineage_share": 0.969
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "correct_share": 0.6488,
+     "hi_trait_correct": 0.6468,
+     "lo_trait_correct": 0.6468,
+     "n_lineages": 20.7,
+     "top_lineage_share": 0.949
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "correct_share": 0.4359,
+     "hi_trait_correct": 0.4393,
+     "lo_trait_correct": 0.4373,
+     "n_lineages": 26.7,
+     "top_lineage_share": 0.945
+    },
+    {
+     "start": 301,
+     "end": 400,
+     "correct_share": 0.4429,
+     "hi_trait_correct": 0.4458,
+     "lo_trait_correct": 0.4436,
+     "n_lineages": 25.2,
+     "top_lineage_share": 0.944
+    },
+    {
+     "start": 401,
+     "end": 500,
+     "correct_share": 0.4468,
+     "hi_trait_correct": 0.4447,
+     "lo_trait_correct": 0.4477,
+     "n_lineages": 25.1,
+     "top_lineage_share": 0.942
+    },
+    {
+     "start": 501,
+     "end": 600,
+     "correct_share": 0.4563,
+     "hi_trait_correct": 0.4587,
+     "lo_trait_correct": 0.4548,
+     "n_lineages": 27.5,
+     "top_lineage_share": 0.939
+    }
+   ],
+   "final": {
+    "alive": 438,
+    "born": 1799,
+    "died": 4285
+   },
+   "R1": true
+  },
+  {
+   "seed": 3,
+   "arm": "diverse",
+   "quota_share": 0.25,
+   "bud_refractory": 20,
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "correct_share": 0.6164,
+     "hi_trait_correct": 0.614,
+     "lo_trait_correct": 0.6201,
+     "n_lineages": 5.4,
+     "top_lineage_share": 0.96
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "correct_share": 0.6934,
+     "hi_trait_correct": 0.6899,
+     "lo_trait_correct": 0.6877,
+     "n_lineages": 32.1,
+     "top_lineage_share": 0.882
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "correct_share": 0.4278,
+     "hi_trait_correct": 0.4371,
+     "lo_trait_correct": 0.4176,
+     "n_lineages": 42.7,
+     "top_lineage_share": 0.852
+    },
+    {
+     "start": 301,
+     "end": 400,
+     "correct_share": 0.477,
+     "hi_trait_correct": 0.481,
+     "lo_trait_correct": 0.4596,
+     "n_lineages": 52.3,
+     "top_lineage_share": 0.811
+    },
+    {
+     "start": 401,
+     "end": 500,
+     "correct_share": 0.4651,
+     "hi_trait_correct": 0.4243,
+     "lo_trait_correct": 0.4591,
+     "n_lineages": 52.9,
+     "top_lineage_share": 0.828
+    },
+    {
+     "start": 501,
+     "end": 600,
+     "correct_share": 0.4869,
+     "hi_trait_correct": 0.3998,
+     "lo_trait_correct": 0.4917,
+     "n_lineages": 53.1,
+     "top_lineage_share": 0.814
+    }
+   ],
+   "final": {
+    "alive": 398,
+    "born": 1116,
+    "died": 3406
+   },
+   "R1": true
+  }
+ ]
+}

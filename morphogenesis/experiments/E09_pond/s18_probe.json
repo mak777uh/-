@@ -1,0 +1,97 @@
+{
+ "kind": "s18_c4_lineage_diversity",
+ "flip_at": 200,
+ "steps": 300,
+ "window": 100,
+ "mutation_rate": 0.05,
+ "mutation_trait_sigma": 0.3,
+ "quota": 0.25,
+ "refractory": 20,
+ "type_mode": "mixfixed",
+ "sensitivity_note": "trait varies only with mutation_rate>0 and type_mode!=fixed; quota 0.25 of ~550 cells is ~137, above the observed top-lineage sizes, so the knob can bind",
+ "n_seeds": 1,
+ "rows": [
+  {
+   "seed": 1,
+   "arm": "monopoly",
+   "quota_share": 1.0,
+   "bud_refractory": 0,
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "correct_share": 0.5464,
+     "hi_trait_correct": 0.5471,
+     "lo_trait_correct": 0.5446,
+     "n_lineages": 3.9,
+     "top_lineage_share": 0.97
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "correct_share": 0.6475,
+     "hi_trait_correct": 0.6458,
+     "lo_trait_correct": 0.6494,
+     "n_lineages": 16.1,
+     "top_lineage_share": 0.958
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "correct_share": 0.4351,
+     "hi_trait_correct": 0.4374,
+     "lo_trait_correct": 0.4372,
+     "n_lineages": 21.7,
+     "top_lineage_share": 0.951
+    }
+   ],
+   "final": {
+    "alive": 431,
+    "born": 683,
+    "died": 1226
+   },
+   "R1": true
+  },
+  {
+   "seed": 1,
+   "arm": "diverse",
+   "quota_share": 0.25,
+   "bud_refractory": 20,
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "correct_share": 0.5574,
+     "hi_trait_correct": 0.5584,
+     "lo_trait_correct": 0.5551,
+     "n_lineages": 5.5,
+     "top_lineage_share": 0.955
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "correct_share": 0.669,
+     "hi_trait_correct": 0.6739,
+     "lo_trait_correct": 0.6626,
+     "n_lineages": 28.2,
+     "top_lineage_share": 0.879
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "correct_share": 0.4187,
+     "hi_trait_correct": 0.4242,
+     "lo_trait_correct": 0.4124,
+     "n_lineages": 44.6,
+     "top_lineage_share": 0.843
+    }
+   ],
+   "final": {
+    "alive": 427,
+    "born": 398,
+    "died": 1081
+   },
+   "R1": true
+  }
+ ]
+}
