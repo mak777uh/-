@@ -1,0 +1,166 @@
+{
+ "kind": "s38_h12_wave_predicts_food",
+ "steps": 300,
+ "window": 100,
+ "period": 40,
+ "coupling": 0.8,
+ "lags": [
+  -10,
+  0,
+  10
+ ],
+ "note": "lag > 0: the crest arrives before the food (prediction); lag = 0: crest and food coincide; lag < 0: the crest arrives after the food (chasing). wave_off is the S27 control: wave present but not coupled to food.",
+ "n_seeds": 1,
+ "rows": [
+  {
+   "seed": 1,
+   "arm": "no_wave",
+   "lag": 0,
+   "coupling": 0.0,
+   "overall": 0.2306,
+   "windows": [
+    {
+     "favourable_share": 0.3501,
+     "moves_per_step": 0.0,
+     "alive_mean": 68.0
+    },
+    {
+     "favourable_share": 0.2176,
+     "moves_per_step": 0.0,
+     "alive_mean": 82.1
+    },
+    {
+     "favourable_share": 0.1242,
+     "moves_per_step": 0.0,
+     "alive_mean": 159.5
+    }
+   ],
+   "final": {
+    "alive": 260,
+    "born": 323,
+    "died": 1466
+   },
+   "R1": true
+  },
+  {
+   "seed": 1,
+   "arm": "wave_off",
+   "lag": 0,
+   "coupling": 0.0,
+   "overall": 0.2757,
+   "windows": [
+    {
+     "favourable_share": 0.4288,
+     "moves_per_step": 2.97,
+     "alive_mean": 57.9
+    },
+    {
+     "favourable_share": 0.2258,
+     "moves_per_step": 7.83,
+     "alive_mean": 98.3
+    },
+    {
+     "favourable_share": 0.1724,
+     "moves_per_step": 28.17,
+     "alive_mean": 324.8
+    }
+   ],
+   "final": {
+    "alive": 405,
+    "born": 491,
+    "died": 1802
+   },
+   "R1": true
+  },
+  {
+   "seed": 1,
+   "arm": "wave_lag-10",
+   "lag": -10,
+   "coupling": 0.8,
+   "overall": 0.2533,
+   "windows": [
+    {
+     "favourable_share": 0.4057,
+     "moves_per_step": 3.2,
+     "alive_mean": 61.6
+    },
+    {
+     "favourable_share": 0.2292,
+     "moves_per_step": 8.05,
+     "alive_mean": 98.0
+    },
+    {
+     "favourable_share": 0.1249,
+     "moves_per_step": 20.59,
+     "alive_mean": 260.4
+    }
+   ],
+   "final": {
+    "alive": 300,
+    "born": 401,
+    "died": 1675
+   },
+   "R1": true
+  },
+  {
+   "seed": 1,
+   "arm": "wave_lag0",
+   "lag": 0,
+   "coupling": 0.8,
+   "overall": 0.2515,
+   "windows": [
+    {
+     "favourable_share": 0.4155,
+     "moves_per_step": 3.12,
+     "alive_mean": 58.4
+    },
+    {
+     "favourable_share": 0.2162,
+     "moves_per_step": 9.4,
+     "alive_mean": 112.5
+    },
+    {
+     "favourable_share": 0.1228,
+     "moves_per_step": 24.79,
+     "alive_mean": 296.9
+    }
+   ],
+   "final": {
+    "alive": 386,
+    "born": 451,
+    "died": 1781
+   },
+   "R1": true
+  },
+  {
+   "seed": 1,
+   "arm": "wave_lag10",
+   "lag": 10,
+   "coupling": 0.8,
+   "overall": 0.2709,
+   "windows": [
+    {
+     "favourable_share": 0.4123,
+     "moves_per_step": 3.52,
+     "alive_mean": 63.3
+    },
+    {
+     "favourable_share": 0.2637,
+     "moves_per_step": 7.93,
+     "alive_mean": 105.5
+    },
+    {
+     "favourable_share": 0.1366,
+     "moves_per_step": 21.44,
+     "alive_mean": 245.0
+    }
+   ],
+   "final": {
+    "alive": 297,
+    "born": 384,
+    "died": 1466
+   },
+   "R1": true
+  }
+ ]
+}

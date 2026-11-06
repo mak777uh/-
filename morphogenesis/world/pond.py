@@ -116,6 +116,11 @@ class PondConfig:
     # но при этом связанную с едой (а не независимую, как внешний ритм).
     signal_memory_lag: int = 0         # сколько шагов назад брать ресурс (0 = выключено)
     signal_memory_source: float = 0.0  # сила источника от прошлого ресурса
+    # H12: еда ПРИВЯЗАНА к фазе волны. Волна с задержкой `signal_food_lag` создаёт еду:
+    # при положительной задержке волна ПРЕДСКАЗЫВАЕТ еду, при отрицательной — опаздывает.
+    # 0 = выключено (еда от волны не зависит, как в H4).
+    signal_food_coupling: float = 0.0  # сила влияния волны на приток еды
+    signal_food_lag: int = 0           # насколько волна опережает еду (шагов)
     plastic_prob: float = 0.5          # доля клеток за шаг при gate=random
     plastic_nomove: bool = False       # ablation: предсказание без перемещений
     invest_rate: float = 0.0           # B2: энергия на подъём ресурса в своей клетке
@@ -821,6 +826,21 @@ class Pond:
             base[cfg.grid - third : cfg.grid - third // 2, cfg.grid - third : cfg.grid - third // 2] = cfg.resource_regen * cfg.patch_inflow_rich
             base[third // 2 : third // 2 + third // 2, cfg.grid - third : cfg.grid - third // 2] = cfg.resource_regen * cfg.patch_inflow_rich
             inflow = base
+        # H12: еда, привязанная к фазе волны. Волна с задержкой `signal_food_lag` создаёт еду:
+        # при положительной задержке гребень волны ПРЕДСКАЗЫВАЕТ еду через lag шагов,
+        # при отрицательной — опаздывает (контроль: следование за ней должно вредить).
+        food_coupling = float(getattr(cfg, "signal_food_coupling", 0.0) or 0.0)
+        if food_coupling > 0.0:
+            period = int(getattr(cfg, "signal_external_period", 0) or 0)
+            if period > 0:
+                lag = int(getattr(cfg, "signal_food_lag", 0) or 0)
+                # фаза волны в момент (t - lag): волна опережает еду на `lag` шагов
+                t = 2.0 * math.pi * (float(self.state.step) - float(lag)) / float(period)
+                rows = torch.arange(cfg.grid, device=self.device, dtype=torch.float32)
+                phase = t - 2.0 * math.pi * rows / max(cfg.grid, 1)
+                wave = torch.sin(phase)[:, None].expand(cfg.grid, cfg.grid)
+                # гребень волны (wave > 0) добавляет приток, впадина отнимает
+                inflow = inflow * (1.0 + food_coupling * wave).clamp_min(0.0)
         # потолок зависит от раскладки: иначе ресурс насыщается везде одинаково
         ceiling = torch.full((cfg.grid, cfg.grid), cfg.resource_max, device=self.device)
         if cfg.resource_layout == "gradient":
