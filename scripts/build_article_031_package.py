@@ -83,7 +83,7 @@ This package contains the article, its figures, and the machine-readable artifac
 | `{stem}.pdf` | the article as a PDF, three figures embedded |
 | `figures/` | the three figures, PNG (reading) and PDF (typesetting) |
 | `artifacts/` | the JSON aggregates the article's numbers come from, verbatim from the repository |
-| `check_article_031_numbers.py` | the machine check: re-derives 49 printed numbers and compares them with the text |
+| `check_article_031_numbers.py` | the machine check: re-derives 50 printed numbers and compares them with the text |
 | `references.md` | the three context references, with the identifier each was checked against |
 | `LICENSE` | CC BY 4.0 |
 | `zenodo.json` | deposit metadata |
@@ -103,7 +103,7 @@ and windows. Two families:
 ## How to check the numbers
 
 ```bash
-python check_article_031_numbers.py --ci     # 0 failures out of 49 checks
+python check_article_031_numbers.py --ci     # 0 failures out of 50 checks
 ```
 
 The script resolves the artifacts next to itself (`artifacts/`), so it runs unchanged inside this package. It checks

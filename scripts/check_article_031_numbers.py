@@ -202,7 +202,8 @@ def s16_drain_slow_window_lengths() -> list[int]:
 
 # --------------------------------------------------------------------------- the needles
 NEEDLES: dict[str, object] = {
-    # abstract and §1
+    # the opening paragraph and the abstract
+    "previous_step_merging_length": "9 ± 1",
     "abstract_local_greed_share": "0.475",
     "abstract_control_share": "0.357",
     "abstract_decay_to": "+0.036",
@@ -268,6 +269,7 @@ def main(argv=None) -> int:
     text = ARTICLE.read_text(encoding="utf-8")
 
     checks: list[tuple[str, object, str]] = [
+        ("previous_step_merging_length", "9 ± 1", "9 ± 1"),
         ("abstract_local_greed_share", round(window_means(S12, "local1", "favourable_share")[0], 3), "0.475"),
         ("abstract_control_share", round(window_means(S12, "baseline", "favourable_share")[0], 3), "0.357"),
         ("abstract_decay_to", f"{s12_gap()[5]:+.3f}", "+0.036"),

@@ -16,6 +16,28 @@ them as results.
 
 **Keywords:** pond, directionality, taxis, inheritance, lineage selection, boundary of the setup
 
+## The line this article continues
+
+**Last time.** In *How lineages begin and end in a pattern-forming chemical medium* (Zenodo, DOI
+[10.5281/zenodo.23933440](https://doi.org/10.5281/zenodo.23933440)) we followed bodies of pattern in a reaction–diffusion
+medium and measured four things: two bodies merge when their surfaces come within about 9 ± 1 cells whatever their size; a
+fusion is a merger, both lineages ending on the same step; a lineage usually ends by losing its name rather than its cells;
+and the habit that maximises generations is not the one in which a lineage survives. Its continuation, *The gap between
+surfaces, not the body size, switches fusion* (DOI [10.5281/zenodo.23970711](https://doi.org/10.5281/zenodo.23970711)),
+asked what decides a meeting between two bodies and found that the gap between their surfaces switches it while their size
+only shifts it, that a body's shape is inherited about half, and that the unit of observation has to be checked for every
+statistic — a result that holds for runs can vanish for worlds.
+
+**What we decided to check, and the path we took.** Both articles described what bodies *are* and how they *meet*; neither
+asked what a body *does*. So we built a second world — the pond: a 32×32 grid of resource, organisms that pay upkeep, eat
+from their own cell, reproduce and die — and asked whether behaviour appears in it that helps survive a change of
+environment, and whether such a skill becomes fixed in descendants. The path was not straight, and the detours are part of
+the record: we first measured the process (S1–S4, the `move_ci` of a step rule that prefers the neighbour with more
+resource), then tried to make the gain last (S11–S16: seeding, density, smoothing the signal, refreshing the rich zone),
+found that it decays because cells compete for **space** rather than food (S17/F1), and only then turned to inheritance
+(S5–S10, S18) — where three experiments turned out to be invalid by construction and are recorded as such in §4.3. The
+result is one positive finding with a measured limit, one consistent null, and a boundary we can name.
+
 ## 1. The question
 
 The world: a 32×32 grid, a resource in the cells, organisms with energy on the cells. An organism spends energy on
@@ -256,10 +278,10 @@ The S16 `drain_mid` and `full` regimes pass R1 in all 12 runs. S12 does not reco
 checked per run, not per window.
 
 **The numbers are checked by machine, not by eye.** The script [check_article_031_numbers.py](../scripts/check_article_031_numbers.py) re-reads the artifacts and compares
-every headline number of this article with them (49 checks, each of which must also appear verbatim in the text):
+every headline number of this article with them (50 checks, each of which must also appear verbatim in the text):
 
 ```bash
-python scripts/check_article_031_numbers.py --ci   # 0 failures out of 49 checks
+python scripts/check_article_031_numbers.py --ci   # 0 failures out of 50 checks
 ```
 
 The check was written after the first pass over the article and **immediately found two bugs in itself** (it mis-parsed the
@@ -272,8 +294,9 @@ against the artifact, never the other way round.
 - **v1.1** (2026-11-06): translated to English, which is the article language from now on; the independent review's
   corrections applied (S18 is underpowered rather than null, the S13 monotonicity is a first-window effect, the S6/S7 and
   S10/S18 arms share runs, the S10 transplant collapsed the trait spread and is invalid).
-- **v2.0** (2026-11-06, this edition): prepared for an outside reader. The header now carries the author, the licence and
+- **v2.0** (2026-11-06, this edition): prepared for an outside reader, and given the opening the series uses — one
+  paragraph on what the previous step found and one on the path this article took to its result. The header now carries the author, the licence and
   the DOI of the previous article; the abstract and §1 say what the world is and that nothing in it is trained; the
   correlation's sensitivity range is quoted in the order its checks produce; §9 states the excluded runs as a count; the
   number gate grew from 20 to 49 checks; the PDF is typeset for reading (serif body, justified text with hyphenation,
-  figures that keep their captions, running heads and page numbers). No result changed: 49 of 49 checks pass.
+  figures that keep their captions, running heads and page numbers). No result changed: 50 of 50 checks pass.

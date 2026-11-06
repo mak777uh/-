@@ -39,7 +39,7 @@ Repository: `C:\Users\Admin\Documents\Qoder\2026-10-18\82ab86cd\repo`
 | the article (Markdown) | `articles\031-directionality-and-inheritance-in-the-pond.md` | **ready** |
 | the article as PDF, eight pages, three figures embedded | `articles\031-directionality-and-inheritance-in-the-pond.pdf` | **ready** |
 | the three figures, PNG (reading) and PDF (typesetting) | `articles\031-figures\` | **ready** |
-| the machine check of every printed number (49 checks) | `scripts\check_article_031_numbers.py` | **ready** |
+| the machine check of every printed number (50 checks) | `scripts\check_article_031_numbers.py` | **ready** |
 | the figure builder (reads artifacts only) | `scripts\make_article_031_figures.py` | **ready** |
 | the artifacts the article cites (23 files) | `morphogenesis\experiments\E09_pond\s{1,2,4,6,7,9,10,11,12,13,14,15,16,18}_*.json` | **ready** |
 | the reports behind each section | `reports\2026-11-0{5,6}-s*-*.md` | **ready** |
@@ -54,7 +54,7 @@ Repository: `C:\Users\Admin\Documents\Qoder\2026-10-18\82ab86cd\repo`
 Run from the repository root. All three must pass:
 
 ```bash
-python scripts/check_article_031_numbers.py --ci   # expect: 0 failures out of 49 checks
+python scripts/check_article_031_numbers.py --ci   # expect: 0 failures out of 50 checks
 python scripts/make_article_031_figures.py         # rebuilds the three figures from artifacts
 python scripts/build_article_031_package.py        # rebuilds the archive and its MANIFEST.sha256
 ```
@@ -65,7 +65,7 @@ where it finds the artifacts next to itself:
 
 ```bash
 cd _exports/031-directionality-and-inheritance
-python check_article_031_numbers.py --ci           # expect: 0 failures out of 49 checks
+python check_article_031_numbers.py --ci           # expect: 0 failures out of 50 checks
 ```
 
 `check_article_031_numbers.py` re-reads the artifacts and compares them with the numbers the prose states, in both
@@ -126,7 +126,7 @@ form, and check afterwards that the folders survived.
 
 ## 8. One-paragraph summary for the depositor
 
-The article is written, typeset and its numbers are verified by machine (49 checks, 0 failures); the archive is built and
+The article is written, typeset and its numbers are verified by machine (50 checks, 0 failures); the archive is built and
 its manifest covers 37 of 38 files, the 38th being the manifest itself. It is **not** uploaded: the author has not
 authorised a deposit. When the author says so, run the three checks in section 3, then follow section 5. If anything in the
 article looks wrong, the artifacts are the truth — report the discrepancy to the author rather than editing a number.
