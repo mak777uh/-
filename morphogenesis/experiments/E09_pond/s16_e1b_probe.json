@@ -1,0 +1,647 @@
+{
+ "kind": "s15_e1_refresh",
+ "steps": 600,
+ "window": 100,
+ "regimes": {
+  "depleted": {
+   "patch_inflow_rich": 0.5,
+   "patch_inflow_per_step": 0.025
+  },
+  "base": {
+   "patch_inflow_rich": 4.0,
+   "patch_inflow_per_step": 0.2
+  },
+  "refreshed": {
+   "patch_inflow_rich": 12.0,
+   "patch_inflow_per_step": 0.6
+  }
+ },
+ "sensitivity_note": "income(1.0)=0.160, spent=0.060 -> net +0.100 at a full patch; the refresh rate decides how long that persists after being eaten",
+ "n_seeds": 3,
+ "rows": [
+  {
+   "seed": 1,
+   "arm": "baseline",
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "favourable_share": 0.0959,
+     "rich_occupancy": 0.0051,
+     "rich_resource": 0.2458,
+     "alive_mean": 67.3
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "favourable_share": 0.054,
+     "rich_occupancy": 0.0041,
+     "rich_resource": 0.249,
+     "alive_mean": 74.4
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "favourable_share": 0.0488,
+     "rich_occupancy": 0.0118,
+     "rich_resource": 0.2487,
+     "alive_mean": 179.8
+    },
+    {
+     "start": 301,
+     "end": 400,
+     "favourable_share": 0.0781,
+     "rich_occupancy": 0.0407,
+     "rich_resource": 0.2518,
+     "alive_mean": 258.5
+    },
+    {
+     "start": 401,
+     "end": 600,
+     "favourable_share": 0.0513,
+     "rich_occupancy": 0.0065,
+     "rich_resource": 0.2493,
+     "alive_mean": 66.9
+    }
+   ],
+   "final": {
+    "alive": 0,
+    "born": 561,
+    "died": 3735
+   },
+   "R1": false,
+   "regime": "depleted",
+   "patch_inflow_rich": 0.5
+  },
+  {
+   "seed": 1,
+   "arm": "local1",
+   "windows": [
+    {
+     "start": 1,
+     "end": 600,
+     "favourable_share": 0.1498,
+     "rich_occupancy": 0.0064,
+     "rich_resource": 0.2483,
+     "alive_mean": 30.4
+    }
+   ],
+   "final": {
+    "alive": 0,
+    "born": 40,
+    "died": 115
+   },
+   "R1": false,
+   "regime": "depleted",
+   "patch_inflow_rich": 0.5
+  },
+  {
+   "seed": 2,
+   "arm": "baseline",
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "favourable_share": 0.0985,
+     "rich_occupancy": 0.0052,
+     "rich_resource": 0.2453,
+     "alive_mean": 67.7
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "favourable_share": 0.0586,
+     "rich_occupancy": 0.0036,
+     "rich_resource": 0.2502,
+     "alive_mean": 56.9
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "favourable_share": 0.0443,
+     "rich_occupancy": 0.0045,
+     "rich_resource": 0.2544,
+     "alive_mean": 83.2
+    },
+    {
+     "start": 301,
+     "end": 400,
+     "favourable_share": 0.2789,
+     "rich_occupancy": 0.0028,
+     "rich_resource": 0.2521,
+     "alive_mean": 10.5
+    },
+    {
+     "start": 401,
+     "end": 600,
+     "favourable_share": 0.1546,
+     "rich_occupancy": 0.001,
+     "rich_resource": 0.2539,
+     "alive_mean": 6.3
+    }
+   ],
+   "final": {
+    "alive": 0,
+    "born": 228,
+    "died": 1156
+   },
+   "R1": false,
+   "regime": "depleted",
+   "patch_inflow_rich": 0.5
+  },
+  {
+   "seed": 2,
+   "arm": "local1",
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "favourable_share": 0.2042,
+     "rich_occupancy": 0.0074,
+     "rich_resource": 0.2459,
+     "alive_mean": 39.2
+    },
+    {
+     "start": 101,
+     "end": 600,
+     "favourable_share": 0.0417,
+     "rich_occupancy": 0.0,
+     "rich_resource": 0.2567,
+     "alive_mean": 1.0
+    }
+   ],
+   "final": {
+    "alive": 0,
+    "born": 65,
+    "died": 163
+   },
+   "R1": false,
+   "regime": "depleted",
+   "patch_inflow_rich": 0.5
+  },
+  {
+   "seed": 3,
+   "arm": "baseline",
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "favourable_share": 0.0979,
+     "rich_occupancy": 0.0052,
+     "rich_resource": 0.2447,
+     "alive_mean": 66.5
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "favourable_share": 0.0378,
+     "rich_occupancy": 0.0035,
+     "rich_resource": 0.2514,
+     "alive_mean": 90.4
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "favourable_share": 0.1231,
+     "rich_occupancy": 0.0962,
+     "rich_resource": 0.2364,
+     "alive_mean": 342.6
+    },
+    {
+     "start": 301,
+     "end": 400,
+     "favourable_share": 0.2958,
+     "rich_occupancy": 0.2919,
+     "rich_resource": 0.1559,
+     "alive_mean": 504.4
+    },
+    {
+     "start": 401,
+     "end": 500,
+     "favourable_share": 0.2244,
+     "rich_occupancy": 0.1414,
+     "rich_resource": 0.1926,
+     "alive_mean": 281.8
+    },
+    {
+     "start": 501,
+     "end": 600,
+     "favourable_share": 0.2239,
+     "rich_occupancy": 0.0033,
+     "rich_resource": 0.2441,
+     "alive_mean": 14.6
+    }
+   ],
+   "final": {
+    "alive": 2,
+    "born": 1118,
+    "died": 6792
+   },
+   "R1": false,
+   "regime": "depleted",
+   "patch_inflow_rich": 0.5
+  },
+  {
+   "seed": 3,
+   "arm": "local1",
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "favourable_share": 0.157,
+     "rich_occupancy": 0.0072,
+     "rich_resource": 0.2461,
+     "alive_mean": 38.8
+    },
+    {
+     "start": 101,
+     "end": 600,
+     "favourable_share": 0.0,
+     "rich_occupancy": 0.0,
+     "rich_resource": 0.2532,
+     "alive_mean": 1.0
+    }
+   ],
+   "final": {
+    "alive": 0,
+    "born": 64,
+    "died": 165
+   },
+   "R1": false,
+   "regime": "depleted",
+   "patch_inflow_rich": 0.5
+  },
+  {
+   "seed": 1,
+   "arm": "baseline",
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "favourable_share": 0.3501,
+     "rich_occupancy": 0.0246,
+     "rich_resource": 0.26,
+     "alive_mean": 68.0
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "favourable_share": 0.2176,
+     "rich_occupancy": 0.0174,
+     "rich_resource": 0.2644,
+     "alive_mean": 82.1
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "favourable_share": 0.1242,
+     "rich_occupancy": 0.0281,
+     "rich_resource": 0.2775,
+     "alive_mean": 159.5
+    },
+    {
+     "start": 301,
+     "end": 400,
+     "favourable_share": 0.2068,
+     "rich_occupancy": 0.1685,
+     "rich_resource": 0.2793,
+     "alive_mean": 405.0
+    },
+    {
+     "start": 401,
+     "end": 500,
+     "favourable_share": 0.3043,
+     "rich_occupancy": 0.3173,
+     "rich_resource": 0.2325,
+     "alive_mean": 533.0
+    },
+    {
+     "start": 501,
+     "end": 600,
+     "favourable_share": 0.3194,
+     "rich_occupancy": 0.3435,
+     "rich_resource": 0.2182,
+     "alive_mean": 550.5
+    }
+   ],
+   "final": {
+    "alive": 546,
+    "born": 1610,
+    "died": 8225
+   },
+   "R1": true,
+   "regime": "base",
+   "patch_inflow_rich": 4.0
+  },
+  {
+   "seed": 1,
+   "arm": "local1",
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "favourable_share": 0.4671,
+     "rich_occupancy": 0.0281,
+     "rich_resource": 0.2593,
+     "alive_mean": 58.0
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "favourable_share": 0.2521,
+     "rich_occupancy": 0.027,
+     "rich_resource": 0.2659,
+     "alive_mean": 103.2
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "favourable_share": 0.1581,
+     "rich_occupancy": 0.073,
+     "rich_resource": 0.2914,
+     "alive_mean": 267.7
+    },
+    {
+     "start": 301,
+     "end": 400,
+     "favourable_share": 0.3023,
+     "rich_occupancy": 0.2887,
+     "rich_resource": 0.2591,
+     "alive_mean": 476.1
+    },
+    {
+     "start": 401,
+     "end": 500,
+     "favourable_share": 0.3592,
+     "rich_occupancy": 0.3852,
+     "rich_resource": 0.2233,
+     "alive_mean": 548.9
+    },
+    {
+     "start": 501,
+     "end": 600,
+     "favourable_share": 0.3505,
+     "rich_occupancy": 0.3638,
+     "rich_resource": 0.225,
+     "alive_mean": 531.1
+    }
+   ],
+   "final": {
+    "alive": 523,
+    "born": 1740,
+    "died": 5861
+   },
+   "R1": true,
+   "regime": "base",
+   "patch_inflow_rich": 4.0
+  },
+  {
+   "seed": 2,
+   "arm": "baseline",
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "favourable_share": 0.354,
+     "rich_occupancy": 0.0253,
+     "rich_resource": 0.2598,
+     "alive_mean": 69.5
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "favourable_share": 0.2325,
+     "rich_occupancy": 0.0185,
+     "rich_resource": 0.2634,
+     "alive_mean": 74.3
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "favourable_share": 0.1229,
+     "rich_occupancy": 0.0501,
+     "rich_resource": 0.2846,
+     "alive_mean": 241.8
+    },
+    {
+     "start": 301,
+     "end": 400,
+     "favourable_share": 0.235,
+     "rich_occupancy": 0.2066,
+     "rich_resource": 0.268,
+     "alive_mean": 442.6
+    },
+    {
+     "start": 401,
+     "end": 500,
+     "favourable_share": 0.3016,
+     "rich_occupancy": 0.309,
+     "rich_resource": 0.2311,
+     "alive_mean": 522.7
+    },
+    {
+     "start": 501,
+     "end": 600,
+     "favourable_share": 0.3207,
+     "rich_occupancy": 0.3487,
+     "rich_resource": 0.2176,
+     "alive_mean": 556.3
+    }
+   ],
+   "final": {
+    "alive": 569,
+    "born": 1778,
+    "died": 8761
+   },
+   "R1": true,
+   "regime": "base",
+   "patch_inflow_rich": 4.0
+  },
+  {
+   "seed": 2,
+   "arm": "local1",
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "favourable_share": 0.4799,
+     "rich_occupancy": 0.03,
+     "rich_resource": 0.259,
+     "alive_mean": 60.5
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "favourable_share": 0.2695,
+     "rich_occupancy": 0.0263,
+     "rich_resource": 0.2656,
+     "alive_mean": 96.7
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "favourable_share": 0.1607,
+     "rich_occupancy": 0.0642,
+     "rich_resource": 0.2901,
+     "alive_mean": 255.0
+    },
+    {
+     "start": 301,
+     "end": 400,
+     "favourable_share": 0.2408,
+     "rich_occupancy": 0.198,
+     "rich_resource": 0.2824,
+     "alive_mean": 412.7
+    },
+    {
+     "start": 401,
+     "end": 500,
+     "favourable_share": 0.3366,
+     "rich_occupancy": 0.3313,
+     "rich_resource": 0.239,
+     "alive_mean": 503.6
+    },
+    {
+     "start": 501,
+     "end": 600,
+     "favourable_share": 0.3584,
+     "rich_occupancy": 0.3789,
+     "rich_resource": 0.226,
+     "alive_mean": 541.0
+    }
+   ],
+   "final": {
+    "alive": 543,
+    "born": 1689,
+    "died": 5830
+   },
+   "R1": true,
+   "regime": "base",
+   "patch_inflow_rich": 4.0
+  },
+  {
+   "seed": 3,
+   "arm": "baseline",
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "favourable_share": 0.3684,
+     "rich_occupancy": 0.0258,
+     "rich_resource": 0.2594,
+     "alive_mean": 68.2
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "favourable_share": 0.1654,
+     "rich_occupancy": 0.0221,
+     "rich_resource": 0.2687,
+     "alive_mean": 126.2
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "favourable_share": 0.1202,
+     "rich_occupancy": 0.0715,
+     "rich_resource": 0.2941,
+     "alive_mean": 308.6
+    },
+    {
+     "start": 301,
+     "end": 400,
+     "favourable_share": 0.3,
+     "rich_occupancy": 0.315,
+     "rich_resource": 0.2362,
+     "alive_mean": 534.6
+    },
+    {
+     "start": 401,
+     "end": 500,
+     "favourable_share": 0.3188,
+     "rich_occupancy": 0.3468,
+     "rich_resource": 0.2164,
+     "alive_mean": 556.9
+    },
+    {
+     "start": 501,
+     "end": 600,
+     "favourable_share": 0.324,
+     "rich_occupancy": 0.3524,
+     "rich_resource": 0.2172,
+     "alive_mean": 556.9
+    }
+   ],
+   "final": {
+    "alive": 567,
+    "born": 1869,
+    "died": 9782
+   },
+   "R1": true,
+   "regime": "base",
+   "patch_inflow_rich": 4.0
+  },
+  {
+   "seed": 3,
+   "arm": "local1",
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "favourable_share": 0.4788,
+     "rich_occupancy": 0.0286,
+     "rich_resource": 0.2588,
+     "alive_mean": 57.9
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "favourable_share": 0.2974,
+     "rich_occupancy": 0.0234,
+     "rich_resource": 0.263,
+     "alive_mean": 75.8
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "favourable_share": 0.1674,
+     "rich_occupancy": 0.0617,
+     "rich_resource": 0.2862,
+     "alive_mean": 241.3
+    },
+    {
+     "start": 301,
+     "end": 400,
+     "favourable_share": 0.2638,
+     "rich_occupancy": 0.2225,
+     "rich_resource": 0.2786,
+     "alive_mean": 415.7
+    },
+    {
+     "start": 401,
+     "end": 500,
+     "favourable_share": 0.3626,
+     "rich_occupancy": 0.38,
+     "rich_resource": 0.2242,
+     "alive_mean": 536.4
+    },
+    {
+     "start": 501,
+     "end": 600,
+     "favourable_share": 0.3608,
+     "rich_occupancy": 0.3868,
+     "rich_resource": 0.2219,
+     "alive_mean": 548.7
+    }
+   ],
+   "final": {
+    "alive": 529,
+    "born": 1686,
+    "died": 5664
+   },
+   "R1": true,
+   "regime": "base",
+   "patch_inflow_rich": 4.0
+  }
+ ]
+}
