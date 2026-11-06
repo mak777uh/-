@@ -1,5 +1,5 @@
 {
- "updated_at": "2026-11-04T03:42:00+03:00",
+ "updated_at": "2026-11-06T15:27:53+03:00",
  "items": [
   {
    "id": "L-001",
@@ -795,6 +795,33 @@
    "target": "library/hypotheses/discrete-heredity-x161.md",
    "deliverable": "annotated sources: 3-6 papers that measure or argue fidelity of discrete vs continuous inheritance in artificial systems",
    "created_at": "2026-11-04T03:42:00+03:00",
+   "status": "open"
+  },
+  {
+   "id": "B-Q051",
+   "question": "Competition for SPACE versus competition for FOOD in grid-based agent models. Looking for: models where space itself is the limiting resource with local density-dependent payoffs; results on how inefficiency/inequality depend on population density; and any statement of when filling a patch stops paying.",
+   "why": "S14/D4 measured that our advantage decays with rich-zone occupancy (r=-0.57) while the resource there barely falls (0.26->0.22), i.e. our agents compete for space, not food. S17/F1 proved analytically that food competition cannot arise without letting several agents share a cell. Need the literature frame for this distinction.",
+   "target": "Mathew & Sasidevan 2024/2025 arXiv:2407.21537 (competition for space, density-dependent payoffs)",
+   "deliverable": "Short note: is 'space as the resource' an established frame, and what does it predict for directed movement at high density?",
+   "created_at": "2026-11-06T15:27:53+03:00",
+   "status": "open"
+  },
+  {
+   "id": "B-Q052",
+   "question": "Mechanisms that let directed movement KEEP an advantage under density. Looking for: multiple occupants per site, interference competition, resource replenishment rates, and the Ideal Free Distribution prediction for when moving stops paying.",
+   "why": "Our zone-refresh experiment (S15/S16) failed to restore the advantage, and S17 showed the reason is structural (one organism per cell). Need to know which of these levers the literature identifies as decisive, before changing the engine.",
+   "target": "Food Income and the Evolution of Forager Mobility (Sci Rep 2019, s41598-019-42006-2); Briozzo, Sibona & Peruani 2025 arXiv:2512.08762",
+   "deliverable": "List of levers with predicted direction, ranked by how cheaply they can be added additively to our engine",
+   "created_at": "2026-11-06T15:27:53+03:00",
+   "status": "open"
+  },
+  {
+   "id": "B-Q053",
+   "question": "Searching along resource gradients and the limitation of species range: does local gradient-following movement produce clustering, stall, or range limits, and under what density does it stop helping?",
+   "why": "Our directionality result (S12: local greed 0.475 vs 0.357, decaying to +0.036) is a gradient-following result. Rowell 2009 gives a mechanism by which local searching limits spread and clusters populations - directly comparable to our occupancy data.",
+   "target": "Rowell 2009, The limitation of species range (PMC2760341)",
+   "deliverable": "Comparison table: their mechanism vs our measurements, and which of our numbers would falsify it",
+   "created_at": "2026-11-06T15:27:53+03:00",
    "status": "open"
   }
  ]
