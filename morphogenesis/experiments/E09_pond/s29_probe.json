@@ -1,0 +1,169 @@
+{
+ "kind": "s29_h6_memory_curve",
+ "steps": 400,
+ "window": 100,
+ "lags": [
+  0,
+  40
+ ],
+ "move_everys": [
+  0,
+  100
+ ],
+ "note": "lag 0 is the no-memory control; move_every 0 = static environment, 300 = one jump, 100 = six jumps. The prediction is that the best lag scales with the change rate.",
+ "n_seeds": 1,
+ "rows": [
+  {
+   "seed": 1,
+   "lag": 0,
+   "move_every": 0,
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "favourable_share": 0.3501,
+     "alive_mean": 68.0
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "favourable_share": 0.2176,
+     "alive_mean": 82.1
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "favourable_share": 0.1242,
+     "alive_mean": 159.5
+    },
+    {
+     "start": 301,
+     "end": 400,
+     "favourable_share": 0.2068,
+     "alive_mean": 405.0
+    }
+   ],
+   "overall": 0.2247,
+   "final": {
+    "alive": 476,
+    "born": 677,
+    "died": 3295
+   },
+   "R1": true
+  },
+  {
+   "seed": 1,
+   "lag": 40,
+   "move_every": 0,
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "favourable_share": 0.3834,
+     "alive_mean": 66.1
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "favourable_share": 0.2889,
+     "alive_mean": 70.4
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "favourable_share": 0.1505,
+     "alive_mean": 211.4
+    },
+    {
+     "start": 301,
+     "end": 400,
+     "favourable_share": 0.2028,
+     "alive_mean": 405.9
+    }
+   ],
+   "overall": 0.2564,
+   "final": {
+    "alive": 467,
+    "born": 716,
+    "died": 2572
+   },
+   "R1": true
+  },
+  {
+   "seed": 1,
+   "lag": 0,
+   "move_every": 100,
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "favourable_share": 0.3501,
+     "alive_mean": 68.0
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "favourable_share": 0.2201,
+     "alive_mean": 82.1
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "favourable_share": 0.1525,
+     "alive_mean": 145.2
+    },
+    {
+     "start": 301,
+     "end": 400,
+     "favourable_share": 0.1909,
+     "alive_mean": 373.5
+    }
+   ],
+   "overall": 0.2284,
+   "final": {
+    "alive": 484,
+    "born": 648,
+    "died": 2980
+   },
+   "R1": true
+  },
+  {
+   "seed": 1,
+   "lag": 40,
+   "move_every": 100,
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "favourable_share": 0.3834,
+     "alive_mean": 66.1
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "favourable_share": 0.3219,
+     "alive_mean": 59.0
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "favourable_share": 0.2335,
+     "alive_mean": 107.4
+    },
+    {
+     "start": 301,
+     "end": 400,
+     "favourable_share": 0.1951,
+     "alive_mean": 334.3
+    }
+   ],
+   "overall": 0.2835,
+   "final": {
+    "alive": 422,
+    "born": 482,
+    "died": 1822
+   },
+   "R1": true
+  }
+ ]
+}
