@@ -245,3 +245,31 @@ scales», «symmetry breaking memory size pattern».
 - **принято (partial):** `10.2307/3546022` — Tyler & Hargrove, 1997, *Oikos*: IFD на ландшафте ресурсов
   (B-Q051/B-Q052, §2/§8). Абстракт в Crossref — только библиографическая запись, статус `partial`.
 - **оставлено:** Rowell 2009 (PMC2760341) — единственный из трёх текущих источников, работающий по делу (§2/§8).
+
+## 2026-11-07, 03:30 — сверка DOI, стоящих на доске (17 штук)
+
+Ведущий прислал старые непроверенные пункты. Проверил **все DOI, которые стоят на доске**, но не проходили
+через `search-log`/`publications`: **17 уникальных, все 17 подтверждены Crossref** (0 провалов).
+
+| DOI | год | что это | пункты |
+|---|---|---|---|
+| `10.1007/978-3-642-16684-6` | 2011 | Viability Theory (Aubin) | B-049 |
+| `10.1007/bf01204182` | 1994 | Approximation of the viability kernel | B-049 |
+| `10.1007/978-3-642-40867-0_2` | 2013 | A Guided Tour of Asynchronous Cellular Automata | B-043, B-044 |
+| `10.1016/j.displa.2016.05.002` | 2017 | Sonification of a network's self-organized criticality | B-051 |
+| `10.1016/j.ins.2012.04.016` | 2012 | Local measures of information storage | B-043 |
+| `10.1016/j.jtbi.2015.02.029` | 2015 | Biological organisation as closure of constraints | B-046 |
+| `10.1016/j.solener.2012.04.021` | 2012 | Testing for nonlinearity in solar radiation time series | B-053 |
+| `10.1016/j.tpb.2006.08.003` | 2006 | Spatial effects favour the evolution of niche construction | B-043, B-045 |
+| `10.1017/9781316671665` | 2019 | Topological Data Analysis for Genomics and Evolution | B-043, B-047 |
+| `10.1038/s41586-024-07711-7` | 2024 | Loss of plasticity in deep continual learning | B-043 |
+| `10.1103/PhysRevE.104.054217` | 2021 | Testing for nonlinearity in nonstationary time series | B-051 |
+| `10.1103/PhysRevLett.63.105` | 1989 | Inferring statistical complexity (Crutchfield) | B-047 |
+| `10.1103/PhysRevLett.77.635` | 1996 | Improved Surrogate Data for Nonlinearity Tests (IAAFT) | B-053 |
+| `10.1103/RevModPhys.62.251` | 1990 | Reaction-rate theory: fifty years after Kramers | B-054 |
+| `10.1109/mmul.2005.36` | 2005 | Parametric Orchestral Sonification of EEG in Real Time | B-051 |
+| `10.1111/evo.14061` | 2020 | An estimator of the Opportunity for Selection | B-080 |
+| `10.1111/j.1558-5646.1983.tb00236.x` | 1983 | The measurement of selection on correlated characters | B-059 |
+
+**Вывод:** непроверенными они были **не потому, что неверны** — все существуют и совпадают по названию и году.
+Просто не проходили через мой журнал поиска. Теперь прошли.
