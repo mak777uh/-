@@ -1,0 +1,121 @@
+{
+ "kind": "s10_c2b_directionality_trait",
+ "flip_at": 200,
+ "steps": 300,
+ "window": 50,
+ "mutation_rate": 0.05,
+ "mutation_trait_sigma": 0.3,
+ "trait_scale": 2.0,
+ "type_mode": "mixfixed",
+ "n_seeds": 1,
+ "rows": [
+  {
+   "seed": 1,
+   "arm": "neutral",
+   "windows": [
+    {
+     "start": 1,
+     "end": 50,
+     "correct_share": 0.5379,
+     "hi_trait_correct": 0.5404,
+     "lo_trait_correct": 0.5373
+    },
+    {
+     "start": 51,
+     "end": 100,
+     "correct_share": 0.5722,
+     "hi_trait_correct": 0.574,
+     "lo_trait_correct": 0.5705
+    },
+    {
+     "start": 101,
+     "end": 150,
+     "correct_share": 0.6481,
+     "hi_trait_correct": 0.65,
+     "lo_trait_correct": 0.647
+    },
+    {
+     "start": 151,
+     "end": 200,
+     "correct_share": 0.6541,
+     "hi_trait_correct": 0.6511,
+     "lo_trait_correct": 0.652
+    },
+    {
+     "start": 201,
+     "end": 250,
+     "correct_share": 0.3818,
+     "hi_trait_correct": 0.382,
+     "lo_trait_correct": 0.3838
+    },
+    {
+     "start": 251,
+     "end": 300,
+     "correct_share": 0.466,
+     "hi_trait_correct": 0.4643,
+     "lo_trait_correct": 0.4671
+    }
+   ],
+   "final": {
+    "alive": 482,
+    "born": 746,
+    "died": 1249
+   },
+   "R1": true
+  },
+  {
+   "seed": 1,
+   "arm": "heritable",
+   "windows": [
+    {
+     "start": 1,
+     "end": 50,
+     "correct_share": 0.5382,
+     "hi_trait_correct": 0.5408,
+     "lo_trait_correct": 0.5377
+    },
+    {
+     "start": 51,
+     "end": 100,
+     "correct_share": 0.5547,
+     "hi_trait_correct": 0.5535,
+     "lo_trait_correct": 0.5514
+    },
+    {
+     "start": 101,
+     "end": 150,
+     "correct_share": 0.6343,
+     "hi_trait_correct": 0.6328,
+     "lo_trait_correct": 0.6353
+    },
+    {
+     "start": 151,
+     "end": 200,
+     "correct_share": 0.6607,
+     "hi_trait_correct": 0.6589,
+     "lo_trait_correct": 0.6635
+    },
+    {
+     "start": 201,
+     "end": 250,
+     "correct_share": 0.3582,
+     "hi_trait_correct": 0.3604,
+     "lo_trait_correct": 0.3582
+    },
+    {
+     "start": 251,
+     "end": 300,
+     "correct_share": 0.5121,
+     "hi_trait_correct": 0.5145,
+     "lo_trait_correct": 0.5161
+    }
+   ],
+   "final": {
+    "alive": 431,
+    "born": 683,
+    "died": 1226
+   },
+   "R1": true
+  }
+ ]
+}
