@@ -1,0 +1,102 @@
+{
+ "kind": "s39_h13_prediction_mobile",
+ "steps": 300,
+ "period": 40,
+ "coupling": 0.8,
+ "lags": [
+  -20,
+  20
+ ],
+ "mobilities": [
+  1,
+  5
+ ],
+ "note": "same lag sweep as H12 but with mobile cells; prediction (positive lag) should beat chasing (negative lag) if the H10 explanation is right",
+ "n_seeds": 1,
+ "rows": [
+  {
+   "seed": 1,
+   "lag": -20,
+   "coupling": 0.8,
+   "moves_per_step": 1,
+   "overall": 0.2913,
+   "moves_actual": 10.04,
+   "final": {
+    "alive": 317,
+    "born": 377,
+    "died": 1509
+   },
+   "R1": true
+  },
+  {
+   "seed": 1,
+   "lag": 20,
+   "coupling": 0.8,
+   "moves_per_step": 1,
+   "overall": 0.2923,
+   "moves_actual": 9.9,
+   "final": {
+    "alive": 267,
+    "born": 369,
+    "died": 1461
+   },
+   "R1": true
+  },
+  {
+   "seed": 1,
+   "lag": 0,
+   "coupling": 0.0,
+   "moves_per_step": 1,
+   "overall": 0.2757,
+   "moves_actual": 12.99,
+   "final": {
+    "alive": 405,
+    "born": 491,
+    "died": 1802
+   },
+   "R1": true
+  },
+  {
+   "seed": 1,
+   "lag": -20,
+   "coupling": 0.8,
+   "moves_per_step": 5,
+   "overall": 0.2861,
+   "moves_actual": 16.72,
+   "final": {
+    "alive": 364,
+    "born": 413,
+    "died": 1577
+   },
+   "R1": true
+  },
+  {
+   "seed": 1,
+   "lag": 20,
+   "coupling": 0.8,
+   "moves_per_step": 5,
+   "overall": 0.286,
+   "moves_actual": 16.72,
+   "final": {
+    "alive": 364,
+    "born": 413,
+    "died": 1577
+   },
+   "R1": true
+  },
+  {
+   "seed": 1,
+   "lag": 0,
+   "coupling": 0.0,
+   "moves_per_step": 5,
+   "overall": 0.2864,
+   "moves_actual": 13.78,
+   "final": {
+    "alive": 418,
+    "born": 413,
+    "died": 1381
+   },
+   "R1": true
+  }
+ ]
+}
