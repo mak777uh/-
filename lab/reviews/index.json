@@ -231,6 +231,23 @@
     "X189 -0.08655 / +0.00387 / -0.20158, 9 of 12 at step 40, 2 cold vs 1 warm site per level; X188 +0.234 against bar 0.5, sensitivity -0.781 to +0.394 (article writes +0.395), all 24 runs positive",
     "not independently checkable: X180 pooled point-biserial -0.527 and z -7.807, X183 AUC/deviance scalars, X172 predicted 0.436+/-0.08 and 9-15 of 20, and the field-derived corridor/bridge ratios themselves"
    ]
+  },
+  {
+   "file": "lab/reviews/2026-11-06-031-numbers.md",
+   "claim": "Article 031: local resource-greedy movement transfers to a patchy environment but its advantage decays as the rich zone fills (r = -0.57 with rich-zone occupancy), and four tests of inherited adaptation all give null",
+   "section": "4.1, 4.2, 4.3",
+   "verdict": "держится с оговоркой",
+   "date": "2026-11-06",
+   "reviewer": "lead (self-review, not independent)",
+   "checked_numbers": [
+    "check_article_031_numbers.py: 20 printed numbers vs artifacts, 0 mismatches",
+    "S12 gap per window 0.118/0.068/0.040/0.022/0.045/0.035 recomputed from s12_d2_full.json",
+    "S14 pearson_gap_vs_rich_occupancy = -0.5675 recomputed from s14_d4_full.json over 18 points",
+    "S16 drain_mid rich_resource 0.193 vs full 0.218 - depletion is real, comparison not degenerate",
+    "R1 (died>=10, alive>=10) holds in all 9 S13 runs and all 9 S16 runs",
+    "four nulls reproduce: S6 0.6479/0.3559, S7 0.6086, S9 0.4587/0.5327, S10 0.4291/0.4311/0.4267",
+    "caveats recorded: favourable zone is a relative top-50% definition; the +0.036 last-window gap is within seed scatter; the -0.57 correlation has no p-value and its points are serially dependent; the four nulls share one world and are independent by mechanism, not by data"
+   ]
   }
  ]
 }

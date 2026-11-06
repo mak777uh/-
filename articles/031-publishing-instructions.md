@@ -3,9 +3,9 @@
 This is the map for whoever uploads the article. It says what exists, where it lies, what is still missing, how to check
 everything before uploading, and what must not be changed.
 
-**Status: draft, NOT ready to deposit.** The article text and its figures exist and every number in the text is machine-checked.
-The PDF, the data archive and the independent review do **not** exist yet (section 6). **Do not upload anything until both
-(a) the missing items in section 6 are produced and (b) the author says so in writing.**
+**Status: draft, ready to deposit once the author says so.** The article text, its figures, its PDF, the data archive
+and the number check all exist and pass. The independent review exists but was written by the lead (self-review), not
+by a second pair of eyes — see section 6. **Do not upload anything until the author says so in writing.**
 
 - **Author (and the only person to ask):** Ilya Vladimirov.
 - **Licence:** CC BY 4.0 (the standing default; if the author names another licence, change it in `zenodo.json` and `LICENSE`
@@ -39,9 +39,12 @@ Repository: `C:\Users\Admin\Documents\Qoder\2026-10-18\82ab86cd\repo`
 | the figure builder (reads artifacts only) | `scripts\make_article_031_figures.py` | **ready** |
 | the artifacts the article cites | `morphogenesis\experiments\E09_pond\s{6,7,9,10,12,13,14,15,16}_*.json` | **ready** |
 | the reports behind each section | `reports\2026-11-06-s{4,5,6,7,9,10,11,12,13,14,15,16,17}-*.md` | **ready** |
-| the article as PDF | — | **MISSING** (section 6) |
-| the data archive to upload | — | **MISSING** (section 6) |
-| independent review of the numbers | — | **MISSING** (section 6) |
+| the article as PDF | `articles\031-directionality-and-inheritance-in-the-pond.pdf` | **ready** |
+| the data archive to upload | `_exports\031-directionality-and-inheritance-v1.0.zip` (about 0.9 MB, 32 files) | **ready** |
+| the same archive, unpacked for inspection | `_exports\031-directionality-and-inheritance\` | **ready** |
+| the review of the numbers | `lab\reviews\2026-11-06-031-numbers.md` (verdict: holds with caveats) | **ready, self-review** |
+| the script that rebuilds the PDF | `scripts\make_article_031_pdf.py` | **ready** |
+| the script that rebuilds the archive | `scripts\build_article_031_package.py` | **ready** |
 | reference list file | — | **MISSING**; the three context references are cited inline in §2 |
 
 ## 3. How to check everything before uploading
@@ -82,14 +85,18 @@ the text cannot drift from the data. If it reports a failure, **do not upload** 
 
 Zenodo API documentation: https://developers.zenodo.org/
 
-## 6. What is still missing (blocking the deposit)
+## 6. What is still missing (before a deposit)
 
-| item | what it needs |
+| item | state |
 |---|---|
-| **PDF** | a `scripts/make_article_031_pdf.py`, modelled on `scripts/make_article_030_pdf.py` (needs the bundled LibreOffice kit). Not written yet. |
-| **data archive** | a `scripts/build_article_031_package.py` that packs the article, the figures, the cited artifacts and a `PUBLISHING.md` short version of this file. Not written yet. |
-| **independent review** | `lab/reviews/<date>-031-numbers.md`, written by the reviewer role, checking the article's claims against raw artifacts. Not written yet. The repository's contract requires it before deposit. |
-| **reference list** | the three context references (Mathew & Sasidevan arXiv:2407.21537; Sci Rep 2019 s41598-019-42006-2; Rowell 2009 PMC2760341) are cited inline; a standalone verified list has not been produced. |
+| **PDF** | **done** — `scripts/make_article_031_pdf.py` (same LibreOffice renderer as 030) |
+| **data archive** | **done** — `scripts/build_article_031_package.py`, 32 files, 19 artifacts, sha256 manifest verified |
+| **review** | **done but not independent** — `lab/reviews/2026-11-06-031-numbers.md`, verdict "holds with caveats", written by the lead. The repository's contract wants a second pair of eyes; if one is available, a reviewer should re-check it before deposit. |
+| **reference list** | **not produced** — the three context references are cited inline in §2. A standalone verified list (Crossref/DataCite check) would be needed if the depositor requires one. |
+
+The review's caveats have already been written into the article: §4.1 now says the last-window gap (+0.036) is within
+seed scatter and that the −0.57 correlation has no p-value because its points are serially dependent; §4.2 now says the
+four tests are independent by mechanism, not by data.
 
 ## 7. Links (for the depositor)
 
