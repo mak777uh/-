@@ -1,0 +1,220 @@
+{
+ "kind": "s14_d4_local_crowding",
+ "steps": 300,
+ "window": 100,
+ "regimes": {
+  "low_density": {
+   "update_cost": 0.07,
+   "repair_cost": 0.04,
+   "spent": 0.11000000000000001
+  },
+  "base": {
+   "update_cost": 0.038,
+   "repair_cost": 0.022,
+   "spent": 0.06
+  },
+  "high_density": {
+   "update_cost": 0.02,
+   "repair_cost": 0.01,
+   "spent": 0.03
+  }
+ },
+ "sensitivity_note": "spent = update+repair; income(1.0)=0.160; all regimes keep a positive net balance at a patch, so no extinction artefact",
+ "pearson_gap_vs_rich_occupancy": -0.0034,
+ "n_points": 6,
+ "points": [
+  {
+   "regime": "low_density",
+   "window": 0,
+   "gap": 0.2264,
+   "baseline_rich_occupancy": 0.0253,
+   "baseline_rich_resource": 0.2586
+  },
+  {
+   "regime": "low_density",
+   "window": 1,
+   "gap": 0.0215,
+   "baseline_rich_occupancy": 0.0181,
+   "baseline_rich_resource": 0.2602
+  },
+  {
+   "regime": "low_density",
+   "window": 2,
+   "gap": 0.037,
+   "baseline_rich_occupancy": 0.0263,
+   "baseline_rich_resource": 0.2719
+  },
+  {
+   "regime": "high_density",
+   "window": 0,
+   "gap": 0.0576,
+   "baseline_rich_occupancy": 0.0263,
+   "baseline_rich_resource": 0.261
+  },
+  {
+   "regime": "high_density",
+   "window": 1,
+   "gap": 0.0439,
+   "baseline_rich_occupancy": 0.0235,
+   "baseline_rich_resource": 0.2724
+  },
+  {
+   "regime": "high_density",
+   "window": 2,
+   "gap": 0.0721,
+   "baseline_rich_occupancy": 0.1299,
+   "baseline_rich_resource": 0.2881
+  }
+ ],
+ "n_seeds": 1,
+ "rows": [
+  {
+   "seed": 1,
+   "arm": "baseline",
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "rich_occupancy": 0.0253,
+     "favourable_share": 0.4534,
+     "rich_resource": 0.2586,
+     "alive_mean": 53.8
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "rich_occupancy": 0.0181,
+     "favourable_share": 0.4445,
+     "rich_resource": 0.2602,
+     "alive_mean": 44.6
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "rich_occupancy": 0.0263,
+     "favourable_share": 0.1674,
+     "rich_resource": 0.2719,
+     "alive_mean": 126.7
+    }
+   ],
+   "final": {
+    "alive": 228,
+    "born": 281,
+    "died": 2158
+   },
+   "R1": true,
+   "regime": "low_density"
+  },
+  {
+   "seed": 1,
+   "arm": "local1",
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "rich_occupancy": 0.0274,
+     "favourable_share": 0.6798,
+     "rich_resource": 0.2575,
+     "alive_mean": 39.4
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "rich_occupancy": 0.0222,
+     "favourable_share": 0.466,
+     "rich_resource": 0.2606,
+     "alive_mean": 48.2
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "rich_occupancy": 0.0217,
+     "favourable_share": 0.2044,
+     "rich_resource": 0.2684,
+     "alive_mean": 92.0
+    }
+   ],
+   "final": {
+    "alive": 114,
+    "born": 272,
+    "died": 1480
+   },
+   "R1": true,
+   "regime": "low_density"
+  },
+  {
+   "seed": 1,
+   "arm": "baseline",
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "rich_occupancy": 0.0263,
+     "favourable_share": 0.2682,
+     "rich_resource": 0.261,
+     "alive_mean": 101.6
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "rich_occupancy": 0.0235,
+     "favourable_share": 0.1079,
+     "rich_resource": 0.2724,
+     "alive_mean": 165.5
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "rich_occupancy": 0.1299,
+     "favourable_share": 0.1591,
+     "rich_resource": 0.2881,
+     "alive_mean": 408.0
+    }
+   ],
+   "final": {
+    "alive": 475,
+    "born": 566,
+    "died": 1151
+   },
+   "R1": true,
+   "regime": "high_density"
+  },
+  {
+   "seed": 1,
+   "arm": "local1",
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "rich_occupancy": 0.0309,
+     "favourable_share": 0.3258,
+     "rich_resource": 0.261,
+     "alive_mean": 97.8
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "rich_occupancy": 0.0468,
+     "favourable_share": 0.1518,
+     "rich_resource": 0.2793,
+     "alive_mean": 226.7
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "rich_occupancy": 0.2287,
+     "favourable_share": 0.2312,
+     "rich_resource": 0.2792,
+     "alive_mean": 488.4
+    }
+   ],
+   "final": {
+    "alive": 581,
+    "born": 657,
+    "died": 503
+   },
+   "R1": true,
+   "regime": "high_density"
+  }
+ ]
+}
