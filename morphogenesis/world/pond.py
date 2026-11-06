@@ -29,6 +29,8 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 
+import math
+
 import torch
 
 
@@ -94,6 +96,16 @@ class PondConfig:
     plastic_gate: str = "pred"         # pred | random: чем гейтится шаг
     plastic_direction: str = "gradient" # gradient|random|gradpos|gradpos_free|gradpos_improve|tumble(B2: persist if improving else reorient)
     plastic_tumble_p: float = 0.6      # B2: вероятность переориентации при падении сигнала
+    # --- H2 (S26): непрерывное диффундирующее поле «химического» сигнала ---
+    # Всё выключено при signal_diffusion == 0 и signal_source == 0 (мир бит-в-бит).
+    signal_diffusion: float = 0.0      # D: скорость диффузии поля (0 = выключено)
+    signal_decay: float = 0.0          # lambda: распад поля за шаг (0 = без распада)
+    signal_source: float = 0.0         # сколько каждая живая клетка выделяет за шаг
+    signal_source_mode: str = "alive"  # alive (все живые) | eat (пропорционально доходу)
+    signal_noise: float = 0.0          # шумовой источник (контроль: поле, не связанное с едой)
+    signal_oscillate: float = 0.0      # амплитуда колебаний глобального источника
+    signal_period: int = 0             # период колебаний в шагах (0 = нет колебаний)
+    signal_move: float = 0.0           # вес градиента поля при выборе направления шага (0 = выкл)
     plastic_prob: float = 0.5          # доля клеток за шаг при gate=random
     plastic_nomove: bool = False       # ablation: предсказание без перемещений
     invest_rate: float = 0.0           # B2: энергия на подъём ресурса в своей клетке
@@ -190,6 +202,7 @@ class PondState:
     tag_trait: torch.Tensor | None = None   # (H, W) float: признак линии (наследуемый)
     pred: torch.Tensor | None = None    # (H, W) L2: предсказание локального ресурса
     res_prev: torch.Tensor | None = None # (H, W) B2: ресурс на прошлом шаге решения (run-tumble)
+    signal: torch.Tensor | None = None   # (H, W) H2: непрерывное поле «химического» сигнала
     heading: torch.Tensor | None = None  # (H, W) int8: -1/0/+1 курс по строке (персистентность)
     w_cell: torch.Tensor | None = None  # (H, W) локальный вес политики (учится)
     step: int = 0
@@ -652,6 +665,72 @@ class Pond:
         return bool(cfg.flip_at and cfg.flip2_at
                     and str(getattr(cfg, "flip2_mode", "vertical") or "vertical") == "horizontal"
                     and self.state.step >= cfg.flip2_at)
+
+    def signal_enabled(self) -> bool:
+        """H2: включено ли непрерывное поле. False при нулевых параметрах (мир бит-в-бит)."""
+        cfg = self.cfg
+        return bool(getattr(cfg, "signal_diffusion", 0.0) > 0.0
+                    or getattr(cfg, "signal_source", 0.0) > 0.0
+                    or getattr(cfg, "signal_noise", 0.0) > 0.0)
+
+    def update_signal(self) -> None:
+        """H2: шаг непрерывного поля h: диффузия + распад + источник от клеток (+ шум/колебания).
+
+        Дискретный лапласиан 5-точечный с отражающими краями. Источник:
+        - `alive`  — каждая живая клетка даёт `signal_source` за шаг;
+        - `eat`    — клетка даёт пропорционально съеденному за шаг (доходу);
+        - `signal_noise` — независимый от еды источник (контроль: поле как канал, а не как датчик);
+        - `signal_oscillate`/`signal_period` — глобальная модуляция источника во времени.
+        """
+        cfg = self.cfg
+        s = self.state
+        if not self.signal_enabled():
+            return
+        if s.signal is None:
+            s.signal = torch.zeros_like(s.resource)
+        h = s.signal
+        # диффузия: 5-точечный лапласиан с отражающими краями
+        if cfg.signal_diffusion > 0.0:
+            padded = torch.nn.functional.pad(h.unsqueeze(0).unsqueeze(0), (1, 1, 1, 1), mode="replicate")
+            # сумма 9 соседей в окне 3x3 (avg_pool2d с stride 1 даёт 32x32 из 34x34)
+            neigh_sum = torch.nn.functional.avg_pool2d(padded, 3, stride=1) * 9.0
+            lap = neigh_sum.squeeze(0).squeeze(0) - 9.0 * h
+            h = h + cfg.signal_diffusion * lap
+        # распад
+        if cfg.signal_decay > 0.0:
+            h = h * (1.0 - cfg.signal_decay)
+        # источник
+        src = torch.zeros_like(h)
+        if cfg.signal_source > 0.0:
+            if str(getattr(cfg, "signal_source_mode", "alive")) == "eat":
+                src = src + cfg.signal_source * (s.resource.clamp_min(0.0) * s.alive.float())
+            else:
+                src = src + cfg.signal_source * s.alive.float()
+        if cfg.signal_oscillate > 0.0 and cfg.signal_period > 0:
+            phase = 2.0 * math.pi * float(s.step) / float(cfg.signal_period)
+            src = src * (1.0 + cfg.signal_oscillate * math.sin(phase))
+        if cfg.signal_noise > 0.0:
+            src = src + cfg.signal_noise * torch.randn_like(h)
+        h = h + src
+        s.signal = h
+
+    def signal_gradient_step(self, y: int, x: int, taken: torch.Tensor,
+                             n: int) -> tuple[int, int] | None:
+        """H2: шаг в сторону роста поля h (по свободным соседям). None, если идти некуда."""
+        s = self.state
+        if s.signal is None:
+            return None
+        best, best_v = None, float(s.signal[y, x])
+        for dy, dx in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+            ny, nx = y + dy, x + dx
+            if not (0 <= ny < n and 0 <= nx < n):
+                continue
+            if bool(s.alive[ny, nx]) or bool(taken[ny, nx]):
+                continue
+            v = float(s.signal[ny, nx])
+            if v > best_v:
+                best, best_v = (ny, nx), v
+        return best
 
     def regenerate(self) -> None:
         """Ресурс прибывает с ограниченной скоростью; в катастрофу — падает."""

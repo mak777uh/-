@@ -1,0 +1,159 @@
+{
+ "kind": "s26_h2_signal_field",
+ "steps": 300,
+ "window": 100,
+ "diffusion": 0.1,
+ "decay": 0.05,
+ "source": 1.0,
+ "noise": 0.5,
+ "oscillate": 0.8,
+ "period": 50,
+ "note": "field is additive: with all signal_* at zero the world is bit-for-bit the old one (anchor checked). field_noise is the control that separates 'field as a channel' from 'field as another food sensor'.",
+ "n_seeds": 1,
+ "rows": [
+  {
+   "seed": 1,
+   "arm": "no_field",
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "favourable_share": 0.3501,
+     "stability_sd": 0.0733,
+     "field_amplitude": 0.0,
+     "alive_mean": 68.0
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "favourable_share": 0.2176,
+     "stability_sd": 0.0813,
+     "field_amplitude": 0.0,
+     "alive_mean": 82.1
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "favourable_share": 0.1242,
+     "stability_sd": 0.0155,
+     "field_amplitude": 0.0,
+     "alive_mean": 159.5
+    }
+   ],
+   "final": {
+    "alive": 260,
+    "born": 323,
+    "died": 1466
+   },
+   "R1": true
+  },
+  {
+   "seed": 1,
+   "arm": "field_static",
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "favourable_share": 0.3688,
+     "stability_sd": 0.0673,
+     "field_amplitude": 1.0823,
+     "alive_mean": 68.9
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "favourable_share": 0.2728,
+     "stability_sd": 0.0988,
+     "field_amplitude": 1.2284,
+     "alive_mean": 68.9
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "favourable_share": 0.1316,
+     "stability_sd": 0.0169,
+     "field_amplitude": 3.9076,
+     "alive_mean": 233.5
+    }
+   ],
+   "final": {
+    "alive": 291,
+    "born": 371,
+    "died": 1710
+   },
+   "R1": true
+  },
+  {
+   "seed": 1,
+   "arm": "field_osc",
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "favourable_share": 0.3701,
+     "stability_sd": 0.0675,
+     "field_amplitude": 1.1078,
+     "alive_mean": 69.1
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "favourable_share": 0.1927,
+     "stability_sd": 0.0543,
+     "field_amplitude": 1.7632,
+     "alive_mean": 110.6
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "favourable_share": 0.1332,
+     "stability_sd": 0.0206,
+     "field_amplitude": 4.8181,
+     "alive_mean": 288.2
+    }
+   ],
+   "final": {
+    "alive": 354,
+    "born": 469,
+    "died": 2157
+   },
+   "R1": true
+  },
+  {
+   "seed": 1,
+   "arm": "field_noise",
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "favourable_share": 0.4668,
+     "stability_sd": 0.0685,
+     "field_amplitude": 0.4622,
+     "alive_mean": 56.7
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "favourable_share": 0.3652,
+     "stability_sd": 0.0505,
+     "field_amplitude": 0.4638,
+     "alive_mean": 42.2
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "favourable_share": 0.2191,
+     "stability_sd": 0.1002,
+     "field_amplitude": 0.4621,
+     "alive_mean": 150.6
+    }
+   ],
+   "final": {
+    "alive": 314,
+    "born": 279,
+    "died": 788
+   },
+   "R1": true
+  }
+ ]
+}
