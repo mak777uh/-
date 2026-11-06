@@ -1,0 +1,137 @@
+{
+ "kind": "s34_h11_field_vs_smoothing",
+ "steps": 300,
+ "window": 100,
+ "lag": 10,
+ "diffusion": 0.1,
+ "decay": 0.05,
+ "note": "if the memory field is only a smoother, one of the plain smoothing radii should match it; the field's effective spread is ~sqrt(4*0.10*10) ~ 2 cells (5x5), so smooth_r3 (7x7) is the closest analogue",
+ "n_seeds": 1,
+ "rows": [
+  {
+   "seed": 1,
+   "arm": "no_field",
+   "windows": [
+    {
+     "favourable_share": 0.3501,
+     "alive_mean": 68.0
+    },
+    {
+     "favourable_share": 0.2176,
+     "alive_mean": 82.1
+    },
+    {
+     "favourable_share": 0.1242,
+     "alive_mean": 159.5
+    }
+   ],
+   "overall": 0.2306,
+   "final": {
+    "alive": 260,
+    "born": 323,
+    "died": 1466
+   },
+   "R1": true
+  },
+  {
+   "seed": 1,
+   "arm": "mem_field",
+   "windows": [
+    {
+     "favourable_share": 0.4204,
+     "alive_mean": 62.6
+    },
+    {
+     "favourable_share": 0.2813,
+     "alive_mean": 70.3
+    },
+    {
+     "favourable_share": 0.1776,
+     "alive_mean": 263.4
+    }
+   ],
+   "overall": 0.2931,
+   "final": {
+    "alive": 403,
+    "born": 372,
+    "died": 1384
+   },
+   "R1": true
+  },
+  {
+   "seed": 1,
+   "arm": "smooth_r1",
+   "windows": [
+    {
+     "favourable_share": 0.4013,
+     "alive_mean": 65.6
+    },
+    {
+     "favourable_share": 0.2751,
+     "alive_mean": 88.9
+    },
+    {
+     "favourable_share": 0.1348,
+     "alive_mean": 239.9
+    }
+   ],
+   "overall": 0.2704,
+   "final": {
+    "alive": 314,
+    "born": 423,
+    "died": 1400
+   },
+   "R1": true
+  },
+  {
+   "seed": 1,
+   "arm": "smooth_r3",
+   "windows": [
+    {
+     "favourable_share": 0.3887,
+     "alive_mean": 66.3
+    },
+    {
+     "favourable_share": 0.2856,
+     "alive_mean": 76.8
+    },
+    {
+     "favourable_share": 0.1698,
+     "alive_mean": 199.3
+    }
+   ],
+   "overall": 0.2814,
+   "final": {
+    "alive": 284,
+    "born": 339,
+    "died": 1115
+   },
+   "R1": true
+  },
+  {
+   "seed": 1,
+   "arm": "smooth_r5",
+   "windows": [
+    {
+     "favourable_share": 0.4003,
+     "alive_mean": 60.5
+    },
+    {
+     "favourable_share": 0.3318,
+     "alive_mean": 56.0
+    },
+    {
+     "favourable_share": 0.1639,
+     "alive_mean": 184.8
+    }
+   ],
+   "overall": 0.2987,
+   "final": {
+    "alive": 368,
+    "born": 317,
+    "died": 978
+   },
+   "R1": true
+  }
+ ]
+}

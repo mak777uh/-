@@ -1,0 +1,567 @@
+{
+ "kind": "s34_h11_field_vs_smoothing",
+ "steps": 600,
+ "window": 100,
+ "lag": 10,
+ "diffusion": 0.1,
+ "decay": 0.05,
+ "note": "if the memory field is only a smoother, one of the plain smoothing radii should match it; the field's effective spread is ~sqrt(4*0.10*10) ~ 2 cells (5x5), so smooth_r3 (7x7) is the closest analogue",
+ "n_seeds": 3,
+ "rows": [
+  {
+   "seed": 1,
+   "arm": "no_field",
+   "windows": [
+    {
+     "favourable_share": 0.3501,
+     "alive_mean": 68.0
+    },
+    {
+     "favourable_share": 0.2176,
+     "alive_mean": 82.1
+    },
+    {
+     "favourable_share": 0.1242,
+     "alive_mean": 159.5
+    },
+    {
+     "favourable_share": 0.2068,
+     "alive_mean": 405.0
+    },
+    {
+     "favourable_share": 0.3043,
+     "alive_mean": 533.0
+    },
+    {
+     "favourable_share": 0.3194,
+     "alive_mean": 550.5
+    }
+   ],
+   "overall": 0.2537,
+   "final": {
+    "alive": 546,
+    "born": 1610,
+    "died": 8225
+   },
+   "R1": true
+  },
+  {
+   "seed": 2,
+   "arm": "no_field",
+   "windows": [
+    {
+     "favourable_share": 0.354,
+     "alive_mean": 69.5
+    },
+    {
+     "favourable_share": 0.2325,
+     "alive_mean": 74.3
+    },
+    {
+     "favourable_share": 0.1229,
+     "alive_mean": 241.8
+    },
+    {
+     "favourable_share": 0.235,
+     "alive_mean": 442.6
+    },
+    {
+     "favourable_share": 0.3016,
+     "alive_mean": 522.7
+    },
+    {
+     "favourable_share": 0.3207,
+     "alive_mean": 556.3
+    }
+   ],
+   "overall": 0.2611,
+   "final": {
+    "alive": 569,
+    "born": 1778,
+    "died": 8761
+   },
+   "R1": true
+  },
+  {
+   "seed": 3,
+   "arm": "no_field",
+   "windows": [
+    {
+     "favourable_share": 0.3684,
+     "alive_mean": 68.2
+    },
+    {
+     "favourable_share": 0.1654,
+     "alive_mean": 126.2
+    },
+    {
+     "favourable_share": 0.1202,
+     "alive_mean": 308.6
+    },
+    {
+     "favourable_share": 0.3,
+     "alive_mean": 534.6
+    },
+    {
+     "favourable_share": 0.3188,
+     "alive_mean": 556.9
+    },
+    {
+     "favourable_share": 0.324,
+     "alive_mean": 556.9
+    }
+   ],
+   "overall": 0.2661,
+   "final": {
+    "alive": 567,
+    "born": 1869,
+    "died": 9782
+   },
+   "R1": true
+  },
+  {
+   "seed": 1,
+   "arm": "mem_field",
+   "windows": [
+    {
+     "favourable_share": 0.4204,
+     "alive_mean": 62.6
+    },
+    {
+     "favourable_share": 0.2813,
+     "alive_mean": 70.3
+    },
+    {
+     "favourable_share": 0.1776,
+     "alive_mean": 263.4
+    },
+    {
+     "favourable_share": 0.2347,
+     "alive_mean": 413.3
+    },
+    {
+     "favourable_share": 0.2926,
+     "alive_mean": 474.0
+    },
+    {
+     "favourable_share": 0.3449,
+     "alive_mean": 542.5
+    }
+   ],
+   "overall": 0.2919,
+   "final": {
+    "alive": 559,
+    "born": 1551,
+    "died": 6204
+   },
+   "R1": true
+  },
+  {
+   "seed": 2,
+   "arm": "mem_field",
+   "windows": [
+    {
+     "favourable_share": 0.4391,
+     "alive_mean": 62.1
+    },
+    {
+     "favourable_share": 0.2701,
+     "alive_mean": 96.3
+    },
+    {
+     "favourable_share": 0.1614,
+     "alive_mean": 276.9
+    },
+    {
+     "favourable_share": 0.1714,
+     "alive_mean": 339.0
+    },
+    {
+     "favourable_share": 0.3147,
+     "alive_mean": 514.1
+    },
+    {
+     "favourable_share": 0.3414,
+     "alive_mean": 539.5
+    }
+   ],
+   "overall": 0.283,
+   "final": {
+    "alive": 557,
+    "born": 1616,
+    "died": 6254
+   },
+   "R1": true
+  },
+  {
+   "seed": 3,
+   "arm": "mem_field",
+   "windows": [
+    {
+     "favourable_share": 0.4233,
+     "alive_mean": 62.5
+    },
+    {
+     "favourable_share": 0.3004,
+     "alive_mean": 86.5
+    },
+    {
+     "favourable_share": 0.1761,
+     "alive_mean": 324.3
+    },
+    {
+     "favourable_share": 0.3073,
+     "alive_mean": 487.1
+    },
+    {
+     "favourable_share": 0.3452,
+     "alive_mean": 541.7
+    },
+    {
+     "favourable_share": 0.3417,
+     "alive_mean": 529.6
+    }
+   ],
+   "overall": 0.3157,
+   "final": {
+    "alive": 529,
+    "born": 1794,
+    "died": 6760
+   },
+   "R1": true
+  },
+  {
+   "seed": 1,
+   "arm": "smooth_r1",
+   "windows": [
+    {
+     "favourable_share": 0.4013,
+     "alive_mean": 65.6
+    },
+    {
+     "favourable_share": 0.2751,
+     "alive_mean": 88.9
+    },
+    {
+     "favourable_share": 0.1348,
+     "alive_mean": 239.9
+    },
+    {
+     "favourable_share": 0.2235,
+     "alive_mean": 403.8
+    },
+    {
+     "favourable_share": 0.3361,
+     "alive_mean": 543.1
+    },
+    {
+     "favourable_share": 0.3402,
+     "alive_mean": 558.8
+    }
+   ],
+   "overall": 0.2852,
+   "final": {
+    "alive": 558,
+    "born": 1796,
+    "died": 6397
+   },
+   "R1": true
+  },
+  {
+   "seed": 2,
+   "arm": "smooth_r1",
+   "windows": [
+    {
+     "favourable_share": 0.4067,
+     "alive_mean": 66.4
+    },
+    {
+     "favourable_share": 0.3266,
+     "alive_mean": 70.4
+    },
+    {
+     "favourable_share": 0.1594,
+     "alive_mean": 289.4
+    },
+    {
+     "favourable_share": 0.2228,
+     "alive_mean": 398.7
+    },
+    {
+     "favourable_share": 0.316,
+     "alive_mean": 503.5
+    },
+    {
+     "favourable_share": 0.3355,
+     "alive_mean": 544.7
+    }
+   ],
+   "overall": 0.2945,
+   "final": {
+    "alive": 548,
+    "born": 1619,
+    "died": 6261
+   },
+   "R1": true
+  },
+  {
+   "seed": 3,
+   "arm": "smooth_r1",
+   "windows": [
+    {
+     "favourable_share": 0.397,
+     "alive_mean": 66.0
+    },
+    {
+     "favourable_share": 0.3037,
+     "alive_mean": 75.5
+    },
+    {
+     "favourable_share": 0.1527,
+     "alive_mean": 251.8
+    },
+    {
+     "favourable_share": 0.2748,
+     "alive_mean": 456.3
+    },
+    {
+     "favourable_share": 0.324,
+     "alive_mean": 524.3
+    },
+    {
+     "favourable_share": 0.3283,
+     "alive_mean": 530.3
+    }
+   ],
+   "overall": 0.2968,
+   "final": {
+    "alive": 531,
+    "born": 1660,
+    "died": 6418
+   },
+   "R1": true
+  },
+  {
+   "seed": 1,
+   "arm": "smooth_r3",
+   "windows": [
+    {
+     "favourable_share": 0.3887,
+     "alive_mean": 66.3
+    },
+    {
+     "favourable_share": 0.2856,
+     "alive_mean": 76.8
+    },
+    {
+     "favourable_share": 0.1698,
+     "alive_mean": 199.3
+    },
+    {
+     "favourable_share": 0.185,
+     "alive_mean": 357.5
+    },
+    {
+     "favourable_share": 0.3324,
+     "alive_mean": 530.6
+    },
+    {
+     "favourable_share": 0.3289,
+     "alive_mean": 533.3
+    }
+   ],
+   "overall": 0.2817,
+   "final": {
+    "alive": 535,
+    "born": 1556,
+    "died": 5683
+   },
+   "R1": true
+  },
+  {
+   "seed": 2,
+   "arm": "smooth_r3",
+   "windows": [
+    {
+     "favourable_share": 0.393,
+     "alive_mean": 68.3
+    },
+    {
+     "favourable_share": 0.2182,
+     "alive_mean": 94.2
+    },
+    {
+     "favourable_share": 0.1227,
+     "alive_mean": 212.1
+    },
+    {
+     "favourable_share": 0.2013,
+     "alive_mean": 381.8
+    },
+    {
+     "favourable_share": 0.3246,
+     "alive_mean": 517.7
+    },
+    {
+     "favourable_share": 0.3328,
+     "alive_mean": 536.5
+    }
+   ],
+   "overall": 0.2654,
+   "final": {
+    "alive": 550,
+    "born": 1631,
+    "died": 5854
+   },
+   "R1": true
+  },
+  {
+   "seed": 3,
+   "arm": "smooth_r3",
+   "windows": [
+    {
+     "favourable_share": 0.3829,
+     "alive_mean": 66.7
+    },
+    {
+     "favourable_share": 0.3474,
+     "alive_mean": 54.4
+    },
+    {
+     "favourable_share": 0.1596,
+     "alive_mean": 233.0
+    },
+    {
+     "favourable_share": 0.2188,
+     "alive_mean": 410.4
+    },
+    {
+     "favourable_share": 0.311,
+     "alive_mean": 499.4
+    },
+    {
+     "favourable_share": 0.3411,
+     "alive_mean": 553.6
+    }
+   ],
+   "overall": 0.2935,
+   "final": {
+    "alive": 565,
+    "born": 1564,
+    "died": 6228
+   },
+   "R1": true
+  },
+  {
+   "seed": 1,
+   "arm": "smooth_r5",
+   "windows": [
+    {
+     "favourable_share": 0.4003,
+     "alive_mean": 60.5
+    },
+    {
+     "favourable_share": 0.3318,
+     "alive_mean": 56.0
+    },
+    {
+     "favourable_share": 0.1639,
+     "alive_mean": 184.8
+    },
+    {
+     "favourable_share": 0.2665,
+     "alive_mean": 459.2
+    },
+    {
+     "favourable_share": 0.3052,
+     "alive_mean": 501.4
+    },
+    {
+     "favourable_share": 0.3331,
+     "alive_mean": 542.2
+    }
+   ],
+   "overall": 0.3001,
+   "final": {
+    "alive": 566,
+    "born": 1601,
+    "died": 6030
+   },
+   "R1": true
+  },
+  {
+   "seed": 2,
+   "arm": "smooth_r5",
+   "windows": [
+    {
+     "favourable_share": 0.4095,
+     "alive_mean": 62.1
+    },
+    {
+     "favourable_share": 0.4112,
+     "alive_mean": 43.1
+    },
+    {
+     "favourable_share": 0.1247,
+     "alive_mean": 215.7
+    },
+    {
+     "favourable_share": 0.2622,
+     "alive_mean": 450.2
+    },
+    {
+     "favourable_share": 0.3283,
+     "alive_mean": 541.8
+    },
+    {
+     "favourable_share": 0.3404,
+     "alive_mean": 557.4
+    }
+   ],
+   "overall": 0.3127,
+   "final": {
+    "alive": 557,
+    "born": 1561,
+    "died": 6609
+   },
+   "R1": true
+  },
+  {
+   "seed": 3,
+   "arm": "smooth_r5",
+   "windows": [
+    {
+     "favourable_share": 0.3996,
+     "alive_mean": 62.8
+    },
+    {
+     "favourable_share": 0.2442,
+     "alive_mean": 87.3
+    },
+    {
+     "favourable_share": 0.1423,
+     "alive_mean": 228.1
+    },
+    {
+     "favourable_share": 0.2399,
+     "alive_mean": 433.2
+    },
+    {
+     "favourable_share": 0.3416,
+     "alive_mean": 550.1
+    },
+    {
+     "favourable_share": 0.3319,
+     "alive_mean": 545.7
+    }
+   ],
+   "overall": 0.2833,
+   "final": {
+    "alive": 547,
+    "born": 1640,
+    "died": 6492
+   },
+   "R1": true
+  }
+ ]
+}
