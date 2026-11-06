@@ -210,6 +210,17 @@ def main(argv=None) -> int:
         blocks.append("\n".join(lines))
         done.add(k)
 
+    # один блок на такт: если блок уже был в этот час — не дублируем
+    import datetime as _dt
+    now = _dt.datetime.now()
+    try:
+        tail = NOTICES.read_text(encoding="utf-8")[-4000:]
+    except Exception:
+        tail = ""
+    stamp = now.strftime("%Y-%m-%d %H:")
+    if f"литература под новые результаты (авто)" in tail and stamp in tail:
+        print("блок литературы уже был в этот час — пропускаю")
+        return 0
     text = ("\n\n### " + __import__("datetime").datetime.now().strftime("%Y-%m-%d %H:%M")
             + " — библиотекарь → **главному**: литература под новые результаты (авто)\n\n"
             + "\n".join(blocks) + "\n")
