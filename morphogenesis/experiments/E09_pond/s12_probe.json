@@ -1,0 +1,74 @@
+{
+ "kind": "s12_d2_patches_sensitive",
+ "radius": 2,
+ "steps": 300,
+ "window": 100,
+ "patch_xy": [
+  7,
+  7
+ ],
+ "sensitivity_note": "spent=0.060/step; income(res)=baseline*res*4; net(0.2)=-0.028, net(1.0)=+0.100; colony seeded ON a patch so movement can be paid for (contract 3c arithmetic).",
+ "n_seeds": 1,
+ "rows": [
+  {
+   "seed": 1,
+   "arm": "baseline",
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "favourable_share": 0.3501,
+     "resource_under_alive": 0.3206
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "favourable_share": 0.2176,
+     "resource_under_alive": 0.2251
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "favourable_share": 0.1242,
+     "resource_under_alive": 0.1549
+    }
+   ],
+   "final": {
+    "alive": 260,
+    "born": 323,
+    "died": 1466
+   },
+   "R1": true
+  },
+  {
+   "seed": 1,
+   "arm": "local5",
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "favourable_share": 0.3902,
+     "resource_under_alive": 0.3352
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "favourable_share": 0.2329,
+     "resource_under_alive": 0.2117
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "favourable_share": 0.1439,
+     "resource_under_alive": 0.1502
+    }
+   ],
+   "final": {
+    "alive": 329,
+    "born": 414,
+    "died": 1517
+   },
+   "R1": true
+  }
+ ]
+}
