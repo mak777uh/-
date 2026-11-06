@@ -1,0 +1,50 @@
+{
+ "kind": "s43_e3_niche_construction",
+ "steps": 300,
+ "construct": 0.3,
+ "gamma": 0.05,
+ "niche_gain": 0.5,
+ "note": "three controls from the literature: closed loop / open (placebo) / frozen environment replayed from the closed arm",
+ "n_seeds": 1,
+ "rows": [
+  {
+   "seed": 1,
+   "arm": "closed",
+   "overall": 0.7539,
+   "alive_niche_corr": 0.9791,
+   "niche_final": 0.949248,
+   "final": {
+    "alive": 443,
+    "born": 520,
+    "died": 1464
+   },
+   "R1": true
+  },
+  {
+   "seed": 1,
+   "arm": "open",
+   "overall": 0.2224,
+   "alive_niche_corr": 0.9931,
+   "niche_final": 0.01021,
+   "final": {
+    "alive": 302,
+    "born": 467,
+    "died": 2340
+   },
+   "R1": true
+  },
+  {
+   "seed": 1,
+   "arm": "frozen",
+   "overall": 0.1888,
+   "alive_niche_corr": 0.9722,
+   "niche_final": 0.949248,
+   "final": {
+    "alive": 494,
+    "born": 559,
+    "died": 1538
+   },
+   "R1": true
+  }
+ ]
+}
