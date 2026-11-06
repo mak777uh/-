@@ -558,6 +558,12 @@ def test_transition_gate(tmp: Path) -> None:
         shutil.rmtree(work, ignore_errors=True)
 
 
+def test_result_lit(tmp: Path) -> None:
+    """result_lit: без свежих результатов — «новых результатов нет» (сеть не нужна)."""
+    res = run("library/tools/result_lit.py", "--dry", "--max-results", "1")
+    check("result_lit: пустой вход не падает", res.returncode == 0, res.stdout[:300])
+
+
 def main() -> int:
     with tempfile.TemporaryDirectory() as tdir:
         tmp = Path(tdir)
@@ -591,6 +597,8 @@ def main() -> int:
         test_science_digest(tmp)
         print("== topic lit ==")
         test_topic_lit(tmp)
+        print("== result_lit ==")
+        test_result_lit(tmp)
         print("== transition gate ==")
         test_transition_gate(tmp)
         print("== pairwise audit ==")

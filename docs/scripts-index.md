@@ -4,9 +4,9 @@
 
 The curated page — what matters and why — is [`scripts.md`](scripts.md). This file is the complete list, so that every command behind a number in the record can be found.
 
-Scripts: **447**.
+Scripts: **454**.
 
-## Гейты и проверки (49)
+## Гейты и проверки (51)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -16,6 +16,8 @@ Scripts: **447**.
 | `check_aggregates_fresh.py` | check_aggregates_fresh.py — агрегаты в git обязаны совпадать с пересборкой. |
 | `check_article_029_numbers.py` | check_article_029_numbers.py — every number printed in article 029 must trace to an aggregate. |
 | `check_article_030_numbers.py` | check_article_030_numbers.py — every number printed in article 030 must trace to an aggregate. |
+| `check_article_031_numbers.py` | check_article_031_numbers.py — every headline number in article 031 must trace to an artifact. |
+| `check_article_032_numbers.py` | Verify the headline numbers of article 032 against the committed artifacts. |
 | `check_article_numbers.py` | check_article_numbers.py — числа статьи 028 обязаны воспроизводиться из агрегатов. |
 | `check_autonomy.py` | check_autonomy.py — the autonomy policy has to be machine-readable, and its protected paths have to be enforced. |
 | `check_claim_artifacts.py` | check_claim_artifacts.py — an artifact cited by a claim must exist in git. |
@@ -156,17 +158,21 @@ Scripts: **447**.
 | `w2bud_metric_variants.py` | w2bud_metric_variants.py — инвариантность эффекта к устройству метрики. |
 | `w2bud_quota_matrix.py` | w2bud_quota_matrix.py — агрегат серии с квотой (H-ALIVE-53). |
 
-## Сборка отчётов и таблиц (19)
+## Сборка отчётов и таблиц (23)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
 | `aggregate_check.py` | aggregate_check.py — сверка агрегатов с артефактами и внутренняя согласованность. |
 | `build_article_029_package.py` | build_article_029_package.py — assemble the deposit package for article 029. |
 | `build_article_030_package.py` | build_article_030_package.py — assemble the deposit package for article 030. |
+| `build_article_031_package.py` | build_article_031_package.py — assemble the deposit package for article 031. |
+| `build_x160_memory_matrix.py` | Build x160_memory_matrix.json from the x160_memory series (63 artifacts, 3 arms x 20 seeds). |
 | `make_article_029_figures.py` | make_article_029_figures.py — figures and derived tables for article 029 (v2, plain-language edition). |
 | `make_article_029_pdf.py` | make_article_029_pdf.py — render article 029 as a self-contained PDF for the deposit. |
 | `make_article_030_figures.py` | make_article_030_figures.py — figures for articles/030 (the gap between surfaces switches fusion). |
 | `make_article_030_pdf.py` | make_article_030_pdf.py — render article 030 as a self-contained PDF for the deposit. |
+| `make_article_031_figures.py` | Build the figures of article 031 from committed artifacts only. |
+| `make_article_031_pdf.py` | make_article_031_pdf.py — render article 031 as a self-contained PDF for the deposit. |
 | `make_artifact_table.py` | Собрать приложение-таблицу артефактов с хешами (manuscript/SUPPLEMENT.md). |
 | `make_arxiv_figures.py` | make_arxiv_figures.py — четыре фигуры для черновика (26.10). |
 | `make_carrier_figures.py` | Собрать два рисунка по закрытиям carriers/кластеров из сырых артефактов. |
@@ -180,7 +186,7 @@ Scripts: **447**.
 | `make_seed_grid_figure.py` | Собрать Figure 4 рукописи: сетка «инициализация × порядок данных» (§4.13). |
 | `make_simple_poster.py` | Простой постер для владельца: что мы узнали, без терминов. |
 
-## Прочее (303)
+## Прочее (304)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -399,6 +405,7 @@ Scripts: **447**.
 | `x200_clone_pairs.py` | x200_clone_pairs.py — X200: is the "world" of X199 a cluster? Clone pairs at one (cell, phase). |
 | `x201_edge_intervention.py` | X201 — edge-distance intervention (pre-registration: reports/2026-11-05-x201-edge-intervention-plan.md). |
 | `x202_clone_repro.py` | X202 — reproduce sensitive X200 clone-pairs and test clean clones (fixed phase + fixed edge). |
+| `x203_clean_clone.py` | X203 — larger-n clean clones at fixed (geometry, phase, edge) on verified non-zero-baseline strata. |
 | `x56_matrix.py` | x56_matrix.py — сходимость по шагу: контраст при dt = 1.0, 0.5, 2.0. |
 | `x58_analyse.py` | x58_analyse.py — the same measurement on a 128 grid: β₀, β₁, wavelength, normalised count. |
 | `x58_series.py` | x60_series.py — X60: the twenty field runs that keep their snapshots. |
