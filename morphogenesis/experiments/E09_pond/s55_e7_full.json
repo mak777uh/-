@@ -1,0 +1,111 @@
+{
+ "kind": "s55_e7_what_is_selectable",
+ "steps": 600,
+ "radius": 2,
+ "sample_every": 10,
+ "horizon": 20,
+ "n_observations": 174,
+ "finals": [
+  {
+   "alive": 561,
+   "born": 1862,
+   "died": 10516,
+   "R1": true
+  },
+  {
+   "alive": 562,
+   "born": 1971,
+   "died": 11363,
+   "R1": true
+  },
+  {
+   "alive": 541,
+   "born": 1907,
+   "died": 9906,
+   "R1": true
+  }
+ ],
+ "note": "nothing is added to the rules; the script only observes whether survival and division differ between the low and high quartiles of quantities the world already contains",
+ "table": {
+  "age": {
+   "survive": {
+    "q25": 1.0,
+    "q75": 7.0,
+    "p_low": 0.5603,
+    "p_high": 0.6668,
+    "diff": 0.1065,
+    "n_low": 19812,
+    "n_high": 18609
+   },
+   "divide": {
+    "q25": 1.0,
+    "q75": 7.0,
+    "p_low": 0.9259,
+    "p_high": 0.6196,
+    "diff": -0.3063,
+    "n_low": 19812,
+    "n_high": 18609
+   }
+  },
+  "density": {
+   "survive": {
+    "q25": 12.0,
+    "q75": 16.0,
+    "p_low": 0.5499,
+    "p_high": 0.6542,
+    "diff": 0.1043,
+    "n_low": 23822,
+    "n_high": 17216
+   },
+   "divide": {
+    "q25": 12.0,
+    "q75": 16.0,
+    "p_low": 0.8749,
+    "p_high": 0.7437,
+    "diff": -0.1312,
+    "n_low": 23822,
+    "n_high": 17216
+   }
+  },
+  "rich": {
+   "survive": {
+    "q25": 0.0,
+    "q75": 1.0,
+    "p_low": 0.5804,
+    "p_high": 0.6213,
+    "diff": 0.0409,
+    "n_low": 49427,
+    "n_high": 17884
+   },
+   "divide": {
+    "q25": 0.0,
+    "q75": 1.0,
+    "p_low": 0.88,
+    "p_high": 0.7516,
+    "diff": -0.1284,
+    "n_low": 49427,
+    "n_high": 17884
+   }
+  },
+  "energy": {
+   "survive": {
+    "q25": 0.2231,
+    "q75": 0.4554,
+    "p_low": 0.551,
+    "p_high": 0.6862,
+    "diff": 0.1352,
+    "n_low": 16828,
+    "n_high": 16828
+   },
+   "divide": {
+    "q25": 0.2231,
+    "q75": 0.4554,
+    "p_low": 0.9635,
+    "p_high": 0.5298,
+    "diff": -0.4337,
+    "n_low": 16828,
+    "n_high": 16828
+   }
+  }
+ }
+}

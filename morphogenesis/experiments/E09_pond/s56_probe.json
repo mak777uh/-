@@ -1,0 +1,40 @@
+{
+ "kind": "s56_e8_environment_diagnosis",
+ "steps": 300,
+ "env_steps": 200,
+ "n_seeds": 1,
+ "environment": [
+  {
+   "recovery_time": null,
+   "patch_lifetime": 1,
+   "autocorr": {
+    "lag1": 0.999,
+    "lag5": 0.9906,
+    "lag20": 0.9525
+   },
+   "rich_cells": 1024,
+   "target": 0.2327
+  }
+ ],
+ "occupancy": [
+  {
+   "occupancy": 0.0494,
+   "mean_age": 26.46,
+   "alive_mean": 215.6,
+   "final": {
+    "alive": 426,
+    "born": 465,
+    "died": 2662
+   },
+   "R1": true
+  }
+ ],
+ "summary": {
+  "recovery_time": null,
+  "patch_lifetime": 1.0,
+  "occupancy": 0.049,
+  "mean_body_age": 26.46,
+  "body_to_env_ratio": null
+ },
+ "note": "nothing is added to the rules; the script measures quantities the environment already has: how fast it recovers, how long a patch lasts, how much of the rich zone bodies occupy, and how long the field remembers its own past"
+}
