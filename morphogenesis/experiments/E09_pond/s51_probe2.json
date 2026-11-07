@@ -1,0 +1,68 @@
+{
+ "kind": "s51_e5b_membrane_gate_fixed",
+ "steps": 300,
+ "portions": 30,
+ "portion": 20.0,
+ "period": 10,
+ "total_injected": 600.0,
+ "note": "equal dose by construction and ASSERTED: every arm releases exactly `portions` portions of `portion` units; only the TIMING differs",
+ "n_seeds": 1,
+ "rows": [
+  {
+   "seed": 1,
+   "arm": "regular",
+   "overall": 0.2265,
+   "released": 30,
+   "dose_nominal": 600.0,
+   "dose_actual": 550.4289,
+   "final": {
+    "alive": 316,
+    "born": 385,
+    "died": 1557
+   },
+   "R1": true
+  },
+  {
+   "seed": 1,
+   "arm": "random",
+   "overall": 0.2394,
+   "released": 30,
+   "dose_nominal": 600.0,
+   "dose_actual": 549.4449,
+   "final": {
+    "alive": 355,
+    "born": 371,
+    "died": 1402
+   },
+   "R1": true
+  },
+  {
+   "seed": 1,
+   "arm": "clustered",
+   "overall": 0.2467,
+   "released": 30,
+   "dose_nominal": 600.0,
+   "dose_actual": 543.3768,
+   "final": {
+    "alive": 245,
+    "born": 327,
+    "died": 1352
+   },
+   "R1": true
+  },
+  {
+   "seed": 1,
+   "arm": "matched",
+   "overall": 0.2426,
+   "released": 30,
+   "dose_nominal": 600.0,
+   "dose_actual": 549.3683,
+   "final": {
+    "alive": 353,
+    "born": 409,
+    "died": 2015
+   },
+   "R1": true
+  }
+ ]
+}

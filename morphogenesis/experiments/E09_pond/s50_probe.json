@@ -1,0 +1,79 @@
+{
+ "kind": "s50_e5_membrane_gate",
+ "steps": 300,
+ "portions": 60,
+ "portion": 0.5,
+ "period": 10,
+ "where": "patch",
+ "total_injected": 30.0,
+ "doses_by_arm": {
+  "regular": [
+   15.0
+  ],
+  "random": [
+   30.0
+  ],
+  "in_phase": [
+   15.0
+  ],
+  "anti_phase": [
+   0.0
+  ]
+ },
+ "note": "equal dose by construction: every arm releases the same number of portions of the same size; only the TIMING differs",
+ "n_seeds": 1,
+ "rows": [
+  {
+   "seed": 1,
+   "arm": "regular",
+   "overall": 0.2306,
+   "released": 30,
+   "dose": 15.0,
+   "final": {
+    "alive": 260,
+    "born": 323,
+    "died": 1466
+   },
+   "R1": true
+  },
+  {
+   "seed": 1,
+   "arm": "random",
+   "overall": 0.2306,
+   "released": 60,
+   "dose": 30.0,
+   "final": {
+    "alive": 260,
+    "born": 323,
+    "died": 1466
+   },
+   "R1": true
+  },
+  {
+   "seed": 1,
+   "arm": "in_phase",
+   "overall": 0.2306,
+   "released": 30,
+   "dose": 15.0,
+   "final": {
+    "alive": 260,
+    "born": 323,
+    "died": 1466
+   },
+   "R1": true
+  },
+  {
+   "seed": 1,
+   "arm": "anti_phase",
+   "overall": 0.2306,
+   "released": 0,
+   "dose": 0.0,
+   "final": {
+    "alive": 260,
+    "born": 323,
+    "died": 1466
+   },
+   "R1": true
+  }
+ ]
+}
