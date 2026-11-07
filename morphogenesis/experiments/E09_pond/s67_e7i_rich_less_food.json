@@ -1,0 +1,563 @@
+{
+ "kind": "s62_e7e_trait_in_rule",
+ "steps": 600,
+ "window": 100,
+ "mutation_rate": 0.05,
+ "trait_sigma": 0.1,
+ "rule_strength": 0.06,
+ "margin": 0.02,
+ "note": "the trait scales the cell's UPKEEP, i.e. it is inside the rule, not an add-on",
+ "n_seeds": 5,
+ "rows": [
+  {
+   "seed": 1,
+   "arm": "fixed",
+   "mutation_rate": 0.0,
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "trait_mean": 0.0,
+     "trait_std": 0.0,
+     "alive_mean": 152.5
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "trait_mean": 0.0,
+     "trait_std": 0.0,
+     "alive_mean": 174.6
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "trait_mean": 0.0,
+     "trait_std": 0.0,
+     "alive_mean": 384.1
+    },
+    {
+     "start": 301,
+     "end": 400,
+     "trait_mean": 0.0,
+     "trait_std": 0.0,
+     "alive_mean": 570.3
+    },
+    {
+     "start": 401,
+     "end": 500,
+     "trait_mean": 0.0,
+     "trait_std": 0.0,
+     "alive_mean": 586.2
+    },
+    {
+     "start": 501,
+     "end": 600,
+     "trait_mean": 0.0,
+     "trait_std": 0.0,
+     "alive_mean": 592.2
+    }
+   ],
+   "final": {
+    "alive": 605,
+    "born": 4677,
+    "died": 10951
+   },
+   "R1": true
+  },
+  {
+   "seed": 1,
+   "arm": "heritable",
+   "mutation_rate": 0.05,
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "trait_mean": -0.0,
+     "trait_std": 0.01375,
+     "alive_mean": 154.4
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "trait_mean": -0.00042,
+     "trait_std": 0.01917,
+     "alive_mean": 247.8
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "trait_mean": -0.00068,
+     "trait_std": 0.02254,
+     "alive_mean": 544.2
+    },
+    {
+     "start": 301,
+     "end": 400,
+     "trait_mean": -0.00077,
+     "trait_std": 0.02425,
+     "alive_mean": 601.7
+    },
+    {
+     "start": 401,
+     "end": 500,
+     "trait_mean": -0.00102,
+     "trait_std": 0.02607,
+     "alive_mean": 600.8
+    },
+    {
+     "start": 501,
+     "end": 600,
+     "trait_mean": -0.00023,
+     "trait_std": 0.02388,
+     "alive_mean": 587.5
+    }
+   ],
+   "final": {
+    "alive": 572,
+    "born": 4415,
+    "died": 12932
+   },
+   "R1": true
+  },
+  {
+   "seed": 2,
+   "arm": "fixed",
+   "mutation_rate": 0.0,
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "trait_mean": 0.0,
+     "trait_std": 0.0,
+     "alive_mean": 164.5
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "trait_mean": 0.0,
+     "trait_std": 0.0,
+     "alive_mean": 198.8
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "trait_mean": 0.0,
+     "trait_std": 0.0,
+     "alive_mean": 458.2
+    },
+    {
+     "start": 301,
+     "end": 400,
+     "trait_mean": 0.0,
+     "trait_std": 0.0,
+     "alive_mean": 574.2
+    },
+    {
+     "start": 401,
+     "end": 500,
+     "trait_mean": 0.0,
+     "trait_std": 0.0,
+     "alive_mean": 569.7
+    },
+    {
+     "start": 501,
+     "end": 600,
+     "trait_mean": 0.0,
+     "trait_std": 0.0,
+     "alive_mean": 566.4
+    }
+   ],
+   "final": {
+    "alive": 573,
+    "born": 5245,
+    "died": 11315
+   },
+   "R1": true
+  },
+  {
+   "seed": 2,
+   "arm": "heritable",
+   "mutation_rate": 0.05,
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "trait_mean": -0.00061,
+     "trait_std": 0.00994,
+     "alive_mean": 156.6
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "trait_mean": 0.00062,
+     "trait_std": 0.01781,
+     "alive_mean": 206.8
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "trait_mean": -0.00097,
+     "trait_std": 0.02593,
+     "alive_mean": 497.1
+    },
+    {
+     "start": 301,
+     "end": 400,
+     "trait_mean": -0.00075,
+     "trait_std": 0.02588,
+     "alive_mean": 582.4
+    },
+    {
+     "start": 401,
+     "end": 500,
+     "trait_mean": -0.00077,
+     "trait_std": 0.02564,
+     "alive_mean": 597.2
+    },
+    {
+     "start": 501,
+     "end": 600,
+     "trait_mean": -0.00015,
+     "trait_std": 0.02647,
+     "alive_mean": 578.2
+    }
+   ],
+   "final": {
+    "alive": 613,
+    "born": 4910,
+    "died": 11586
+   },
+   "R1": true
+  },
+  {
+   "seed": 3,
+   "arm": "fixed",
+   "mutation_rate": 0.0,
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "trait_mean": 0.0,
+     "trait_std": 0.0,
+     "alive_mean": 155.6
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "trait_mean": 0.0,
+     "trait_std": 0.0,
+     "alive_mean": 232.6
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "trait_mean": 0.0,
+     "trait_std": 0.0,
+     "alive_mean": 532.8
+    },
+    {
+     "start": 301,
+     "end": 400,
+     "trait_mean": 0.0,
+     "trait_std": 0.0,
+     "alive_mean": 584.1
+    },
+    {
+     "start": 401,
+     "end": 500,
+     "trait_mean": 0.0,
+     "trait_std": 0.0,
+     "alive_mean": 586.8
+    },
+    {
+     "start": 501,
+     "end": 600,
+     "trait_mean": 0.0,
+     "trait_std": 0.0,
+     "alive_mean": 567.5
+    }
+   ],
+   "final": {
+    "alive": 565,
+    "born": 5029,
+    "died": 11759
+   },
+   "R1": true
+  },
+  {
+   "seed": 3,
+   "arm": "heritable",
+   "mutation_rate": 0.05,
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "trait_mean": 0.00046,
+     "trait_std": 0.00583,
+     "alive_mean": 155.4
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "trait_mean": -0.00081,
+     "trait_std": 0.02165,
+     "alive_mean": 221.6
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "trait_mean": -0.00076,
+     "trait_std": 0.02641,
+     "alive_mean": 477.2
+    },
+    {
+     "start": 301,
+     "end": 400,
+     "trait_mean": -1e-05,
+     "trait_std": 0.02624,
+     "alive_mean": 553.1
+    },
+    {
+     "start": 401,
+     "end": 500,
+     "trait_mean": -0.00057,
+     "trait_std": 0.02488,
+     "alive_mean": 583.8
+    },
+    {
+     "start": 501,
+     "end": 600,
+     "trait_mean": -0.00054,
+     "trait_std": 0.02594,
+     "alive_mean": 572.0
+    }
+   ],
+   "final": {
+    "alive": 573,
+    "born": 4940,
+    "died": 11691
+   },
+   "R1": true
+  },
+  {
+   "seed": 4,
+   "arm": "fixed",
+   "mutation_rate": 0.0,
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "trait_mean": 0.0,
+     "trait_std": 0.0,
+     "alive_mean": 154.9
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "trait_mean": 0.0,
+     "trait_std": 0.0,
+     "alive_mean": 209.0
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "trait_mean": 0.0,
+     "trait_std": 0.0,
+     "alive_mean": 447.6
+    },
+    {
+     "start": 301,
+     "end": 400,
+     "trait_mean": 0.0,
+     "trait_std": 0.0,
+     "alive_mean": 565.1
+    },
+    {
+     "start": 401,
+     "end": 500,
+     "trait_mean": 0.0,
+     "trait_std": 0.0,
+     "alive_mean": 592.2
+    },
+    {
+     "start": 501,
+     "end": 600,
+     "trait_mean": 0.0,
+     "trait_std": 0.0,
+     "alive_mean": 588.5
+    }
+   ],
+   "final": {
+    "alive": 596,
+    "born": 4528,
+    "died": 12053
+   },
+   "R1": true
+  },
+  {
+   "seed": 4,
+   "arm": "heritable",
+   "mutation_rate": 0.05,
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "trait_mean": -0.0004,
+     "trait_std": 0.00884,
+     "alive_mean": 151.5
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "trait_mean": 3e-05,
+     "trait_std": 0.01684,
+     "alive_mean": 184.8
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "trait_mean": -0.00058,
+     "trait_std": 0.02579,
+     "alive_mean": 472.9
+    },
+    {
+     "start": 301,
+     "end": 400,
+     "trait_mean": 0.00034,
+     "trait_std": 0.02817,
+     "alive_mean": 600.7
+    },
+    {
+     "start": 401,
+     "end": 500,
+     "trait_mean": 0.0,
+     "trait_std": 0.02863,
+     "alive_mean": 592.1
+    },
+    {
+     "start": 501,
+     "end": 600,
+     "trait_mean": -0.00044,
+     "trait_std": 0.02562,
+     "alive_mean": 591.6
+    }
+   ],
+   "final": {
+    "alive": 577,
+    "born": 4380,
+    "died": 11393
+   },
+   "R1": true
+  },
+  {
+   "seed": 5,
+   "arm": "fixed",
+   "mutation_rate": 0.0,
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "trait_mean": 0.0,
+     "trait_std": 0.0,
+     "alive_mean": 151.8
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "trait_mean": 0.0,
+     "trait_std": 0.0,
+     "alive_mean": 158.4
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "trait_mean": 0.0,
+     "trait_std": 0.0,
+     "alive_mean": 422.9
+    },
+    {
+     "start": 301,
+     "end": 400,
+     "trait_mean": 0.0,
+     "trait_std": 0.0,
+     "alive_mean": 562.4
+    },
+    {
+     "start": 401,
+     "end": 500,
+     "trait_mean": 0.0,
+     "trait_std": 0.0,
+     "alive_mean": 579.0
+    },
+    {
+     "start": 501,
+     "end": 600,
+     "trait_mean": 0.0,
+     "trait_std": 0.0,
+     "alive_mean": 576.9
+    }
+   ],
+   "final": {
+    "alive": 555,
+    "born": 5044,
+    "died": 10818
+   },
+   "R1": true
+  },
+  {
+   "seed": 5,
+   "arm": "heritable",
+   "mutation_rate": 0.05,
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "trait_mean": -0.00026,
+     "trait_std": 0.00667,
+     "alive_mean": 153.6
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "trait_mean": -0.00019,
+     "trait_std": 0.02022,
+     "alive_mean": 225.0
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "trait_mean": -0.00034,
+     "trait_std": 0.02797,
+     "alive_mean": 554.3
+    },
+    {
+     "start": 301,
+     "end": 400,
+     "trait_mean": -0.00011,
+     "trait_std": 0.02484,
+     "alive_mean": 593.7
+    },
+    {
+     "start": 401,
+     "end": 500,
+     "trait_mean": -0.00052,
+     "trait_std": 0.02549,
+     "alive_mean": 598.2
+    },
+    {
+     "start": 501,
+     "end": 600,
+     "trait_mean": 0.00073,
+     "trait_std": 0.02534,
+     "alive_mean": 590.3
+    }
+   ],
+   "final": {
+    "alive": 602,
+    "born": 4568,
+    "died": 12393
+   },
+   "R1": true
+  }
+ ]
+}
