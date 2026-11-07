@@ -1170,32 +1170,146 @@ which is P39, and which is why the **reset** is the right experiment: it does no
 
 ---
 
+## P56. The one who wants to change is part of what has to change — a thief posing as a policeman
+
+**The move.** Naudé: "that he is in fact **a thief pretending to be a policeman to catch himself**." K: "Right."
+
+**In our world.** Every "adaptive" mechanism we built was a **policeman** — a part of the cell that watches the
+rest and corrects it. And the policeman is made of the same record as the thief. **The correction is the record
+correcting the record.**
+
+**What it explains.** Why the adaptive arms were **worse** than the non-adaptive ones (S22: 0.166 vs 0.340). The
+policeman did not catch the thief; it **added a second thief**.
+
+**Testable / and it is measurable.** If the "policeman" is the same material as the "thief", then the adaptive
+mechanism should be **indistinguishable from a random perturbation of the same magnitude**. That is a control we
+never ran: an adaptive arm vs a **randomly perturbed** arm with the same variance. If they match, the adaptation was
+noise with extra steps.
+
+**Status:** hypothesis; the random-perturbation control is the missing control of the whole G-line.
+
+---
+
+## P57. Will is resistance — and one fragment dominating another is still disorder
+
+**The move.** "When there is the operation of will, it is a form of resistance... One fragment dominates another
+fragment... And that there is still conflict? There is still disorder by that very fact."
+
+**In our world.** The gate **is will**: one condition (the threshold) dominating the whole behaviour. And the
+pattern says the outcome is **still disorder** — because the dominating fragment is itself a fragment.
+
+**What it explains.** Why the gate produced the trap: the threshold fragment dominated the cell, and the cell's
+behaviour became the threshold's behaviour, not the situation's.
+
+**Testable.** P17's continuous-gate test is the direct test of this pattern: remove the dominance (no threshold) and
+see whether the behaviour becomes a function of the situation rather than of the threshold.
+
+**Status:** supports P17.
+
+---
+
+## P58. "I am the master of my destiny" — the belief that will can change one's own behaviour
+
+**The move.** Naudé: "people say, 'By exercising will I have stopped smoking, by exercising will I have got up
+earlier... I am the master of my destiny, I can change' — everybody really believes this."
+
+**In our world.** This is the belief **built into every adaptive mechanism we wrote**: a controller that exercises
+will over the cell's own behaviour. And the pattern says it is a **belief**, not a fact — because the controller is
+inside the thing it controls.
+
+**What it explains.** Why we kept writing adaptive mechanisms even after they failed: the belief that will works is
+**prior** to the evidence.
+
+**Testable / methodological rule.** Any mechanism with a controller must be tested against a **null controller** of
+the same variance (P56). Without that control, the mechanism's success is indistinguishable from the belief in it.
+
+**Status:** methodological rule.
+
+---
+
+## P59. The "superior" fragment is a product of the other fragments
+
+**The move.** "That fragment which we call superior, intelligence, intellect, reason, logic, is the product of the
+many other fragments. One fragment has assumed authority over other fragments. But it is still a fragment."
+
+**In our world.** Our **metric** is the superior fragment: we declared "favourable share" or "trait mean" to be the
+measure of success, and it **assumed authority** over the rest of the cell's behaviour. But the metric is a product
+of the same data — it is a fragment of the record, elevated.
+
+**What it explains.** Why optimising our metric produced no qualitative change: we elevated one fragment of the
+record and called it the goal. That is P51 (juggling) with a crown on.
+
+**Testable / measurement rule.** Never let one metric assume authority. Report **the cell's own measures** (energy,
+survival, offspring) **alongside** ours (P27), and treat a disagreement between them as the finding, not as noise.
+
+**Status:** measurement rule; it completes P27.
+
+---
+
+## P60. Stating a truth is one thing; the realisation of it is another
+
+**The move.** "But stating a truth is one thing, the realization of it is another."
+
+**In our world.** This is the difference between **knowing a pattern** and **having it change the experiment**. We
+have now stated fifty-nine patterns. **Stating them changes nothing.** What changes something is an experiment that
+**embodies** one of them.
+
+**What it explains.** Why this file, on its own, is worth nothing: it is a collection of **statements**. Its only
+value is in the experiments it forces.
+
+**Testable / and it is a rule for this file.** Every pattern must end in either **a concrete experiment** or **a
+concrete rule that changes what we run**. A pattern that ends in neither is decoration and should be deleted.
+
+**Status:** rule for this file; audited below.
+
+---
+
+## Audit of this file against P60
+
+Patterns that force an **experiment** (concrete, runnable):
+P1/P6/P11 (`pred` removal; `resource − pred` on existing data), P9 (recovery test), P14 (two-environment sweep),
+P15 (ratio law), P17 (continuous gate), P22 (neighbour read), P25/P26/P31 (reset sweep), P29 (move-rate curve),
+P32 (stereotypy ratio), P36/P40 (initial-`pred`), P41 (move-cost), P42 (mutual information), P49 (repertoire across
+the environmental grid), P54 (responsiveness), P56 (random-perturbation control).
+
+Patterns that force a **rule** (and would have changed our history):
+P4 (report from the first steps), P27/P59 (report the cell's own measures), P33/P39 (no predicted sign; "what is"
+not "how to"), P46 (which of the first two states does this address), P48 (measure behaviour, not its shadow),
+P51 (set of variables, not values), P56/P58 (null controller of equal variance).
+
+Patterns that are **design constraints** for the next world:
+P13/P18/P38 (novelty must come from outside the record), P19/P21/P34 (relationship, not isolation),
+P24 (a drive not aimed at repetition), P28/P52 (no controller inside the cell), P43/P47 (one quantity that is at
+once outer, inner and beyond), P45 (do not help the cell), P53 (container and contained are one).
+
+Patterns that are **restatements** of an earlier one and add nothing new:
+P2 (≈P17), P7 (≈P41), P12 (≈P13), P16 (≈P13), P20 (≈P19), P23 (≈P41), P26 (≈P25), P44 (≈P28), P53 (≈P28/P51),
+P57 (≈P17), P58 (≈P56).
+
+**So: 60 patterns reduce to about 15 distinct instructions.** The rest is the same pattern said again in different
+words — which is itself a finding: a strong mind **repeats its few insights** in many domains, and the repetition
+is what makes them recognisable.
+
+---
+
 ## What the reading has changed in our plan (updated)
 
-1. **The `pred`-reset sweep is the top experiment** (P25, P26, P30, P31, P37, P44, P50, P53) — and its readout is
-   **responsiveness** (P54), not score: does the mutual information between environment and behaviour **rise** as
-   the record is shortened?
-2. **The `pred`-removal experiment** (P1, P6, P8, P9, P10, P11, P13, P18, P29, P31, P35, P37, P42, P44).
-3. **The move-cost test** (P41): `plastic_move_cost = 0` — was the trap energy or information?
-4. **The initial-`pred` test** (P36, P40).
-5. **Behaviour logging** (P48, P49) — the move sequence, and whether the **repertoire** changes.
-6. **The move-rate curve** (P29); **the stereotypy ratio** (P32); **the cell's own success measure** (P27).
-7. **Check on existing data:** is `resource − pred` indistinguishable across E10's four patterns? (P11)
-8. **The continuous-gate test** (P17); **the recovery test** (P9); **the two-environment sweep** (P14); **the ratio
-   law** (P15); **the neighbour-read experiment** (P22).
-9. **Measurement rules:** from the first steps (P4); no predicted sign (P33, P39); "what is" not "how to" (P39);
-   measure behaviour not its shadow (P48).
-10. **The pre-registration rule from P51:** does the experiment change the **set** of variables or only their
-    **values**? If only values, it is **juggling** and cannot produce a new kind of outcome.
-11. **The design space is three options** (P38): novelty from the **environment**, from **another cell**, or from a
-    **random term not a function of the record**.
-12. **The unitary constraint** (P43, P47): one quantity that is at once outer, inner and beyond.
-13. **Structural constraints:** no controller inside the cell (P52); do not help the cell (P45); do not add a third
-    state (P46); do not ask the cell to do anything (P55).
+1. **The `pred`-reset sweep** — readout is **responsiveness** (P54), and the move rate should restore **immediately**
+   (P31).
+2. **The `pred`-removal experiment** — with the mutual-information prediction (P42).
+3. **The random-perturbation control** (P56, P58) — the missing control of the whole adaptive line.
+4. **The move-cost test** (P41); **the initial-`pred` test** (P36, P40); **the continuous-gate test** (P17).
+5. **The recovery test** (P9); **the two-environment sweep** (P14); **the ratio law** (P15); **the neighbour-read
+   test** (P22); **the move-rate curve** (P29); **the stereotypy ratio** (P32); **the repertoire test** (P49).
+6. **On existing data:** `resource − pred` across E10's patterns (P11); the cell's own measures (P27, P59).
+7. **Rules:** from the first steps (P4); no predicted sign (P33); "what is" not "how to" (P39); which of the first
+   two states (P46); measure behaviour not its shadow (P48); set of variables not values (P51).
+8. **Design constraints:** novelty from outside the record (P38); relationship not isolation (P34); no controller
+   inside the cell (P52); one quantity outer-inner-beyond (P43); do not help the cell (P45).
 
 ---
 
 ## Reading progress
 
-- Pages 1–86 of 409 read (Part III, the Naudé conversation: the change in consciousness).
-- Next: the rest of Part III (what change means when there is no entity to change; on good and evil).
+- Pages 1–90 of 409 read (Part III, the Naudé conversation: the observer is the observed; will as resistance).
+- Next: the rest of Part III (fragmentation, effort, and the end of the "how").
