@@ -1929,36 +1929,145 @@ consequence**; a **carrying** changes what the cell **is**. Our mechanisms were 
 
 ---
 
+## P91. There is no such thing as voluntary acceptance — because acceptance is already conditioned
+
+**The move.** "Is there such a thing as voluntary acceptance — voluntary, free acceptance? Or am I already
+influenced, because you are a teacher... and you promise me a reward at the end of it... which leads me to
+'voluntarily' accept it? **I do not accept it freely. If I am free, I do not accept it at all. I live.**"
+
+**In our world.** This is a **precise statement about every "adaptive" mechanism**: it assumes the cell can
+**voluntarily accept** a rule. But acceptance is itself a function of the record — the cell "accepts" the rule
+because the rule is **already in its record** (we wrote it there). **There is no voluntary acceptance in a system
+that is made of its record.**
+
+**What it explains.** Why the adaptive mechanisms **could not be refused** by the cell and **could not be
+improved** by it: the cell had no position from which to accept or reject. The mechanism was **installed**, not
+**accepted**.
+
+**Testable / design requirement.** No mechanism may be installed as a rule the cell follows. If the design requires
+the cell to "follow" something, it requires an acceptor, and there is none (P52). The only alternative is that the
+rule **is** the cell (P16, P53) — which means changing the rule is changing the cell, not teaching it.
+
+**Status:** design rule; it is the final form of P52.
+
+---
+
+## P92. Virtue cannot be cultivated by me or by society
+
+**The move.** "Behaviour, virtue, is something which **cannot be cultivated by me or by society**... Virtue is
+something which is not an acceptance of patterns, or following a deadly pattern of routine. **Goodness is not
+routine.**"
+
+**In our world.** This is P68 with the **social** half added, and it names **both** of our levers:
+- **"by me"** — the cell's own adaptation;
+- **"by society"** — the environment we designed.
+
+**Neither can cultivate order.** And it says what order is **not**: **routine**. Our cell is **pure routine** — the
+same rule applied every step.
+
+**What it explains.** Why both levers failed: we tried to cultivate order **from inside** (adaptation) and **from
+outside** (environment design), and the pattern says **neither is a lever**.
+
+**Testable / rule.** If a mechanism works by **repetition of a rule**, it is routine and cannot produce order. That
+excludes **all** our mechanisms, and leaves only **removal** (P74).
+
+**Status:** rule; it closes the "cultivation" thread.
+
+---
+
+## P93. A system makes the mind mechanical — practice makes it narrower, and the promise of heaven is the bait
+
+**The move.** "The moment you practise a method... Every day I practise it. **I become more and more mechanical.**"
+And: "anything I practise, any discipline, any practice in the accepted sense of the word makes my mind **more and
+more narrow, limited and dull**, and you are promising at the end of it, heaven."
+
+**In our world.** This is P36 and P84 completed with the **mechanism of the harm**: practice makes the mind
+**narrow**. Our cell became narrow in exactly this sense — its behaviour became a **function of one threshold**
+rather than of the situation. That is narrowness, and it is measurable (P80: the record-explained fraction of
+behaviour variance).
+
+**What it explains.** Why the more we "trained" the cell, the **less** it responded: each practice **narrowed** the
+range of situations it could respond to. The gate is the narrowing, mechanised.
+
+**Testable.** The variance decomposition **is** the measure of narrowness: a narrow cell has most of its behaviour
+variance explained by its **record**; a wide cell by its **situation**. The prediction: adaptive arms are
+**narrower** than the baseline.
+
+**Status:** testable on existing data (S22 arms).
+
+---
+
+## P94. Learn as you go along — that is the only way, and it is the opposite of method
+
+**The move.** "This is the only way. That is real Bhawana: **Learn as you go along, therefore be alert as you go
+along.** If I take a walk and I have a system, a method of walking, that is all I am concerned with: I shall not see
+the birds, the trees, the marvellous light on the leaf, nothing."
+
+**In our world.** This is the **positive** instruction of the whole reading, and it is **precise**: learning is
+**not** a method applied to a situation; it is **alertness to the situation as it goes**. The method **replaces**
+the situation with itself.
+
+**What it explains.** Why our cell, which follows a method, **cannot see** the situation: the method **is** what it
+sees. Every mechanism we added was a more elaborate method, and each one **hid more** of the situation.
+
+**Testable / design requirement.** A cell with **no method** — no threshold, no procedure — is the only one that can
+"learn as it goes". That is the "remove the boss" experiment (P61) stated as an instruction rather than a prediction.
+
+**Status:** design requirement; it converges with P17, P61, P74.
+
+---
+
+## P95. A toy keeps the mind small — and that is what we gave the cell
+
+**The move.** "Therefore you are giving him a toy to play with?... Yes a toy and he enjoys that and practises all
+day and **his mind remains very small**."
+
+**In our world.** The **final judgement on our whole programme**, and it is exact: **we gave the cell toys**. The
+field was a toy; the niche was a toy; the signal was a toy; the decoder was a toy. Each was **enjoyable** (it
+produced a measurable effect) and each **kept the cell small**.
+
+**What it explains.** Why our effects were **small but real**: a toy produces a real effect (the cell plays with it)
+and no growth (the mind stays small). **That is exactly the signature of our results** — effects of 0.005 to 0.05,
+reproducible, and nothing qualitative.
+
+**Testable / rule.** A mechanism that produces a **small reproducible effect and no qualitative change** is a
+**toy**. The rule: do not report a toy as a finding; report it as a toy, and then remove it.
+
+**Status:** rule; it gives a name to our whole result set.
+
+---
+
 ## What the reading has changed in our plan (updated)
 
-1. **The filter for the next experiment** (P81, P84, P89, P90): it must **remove**, not add; it must not **prevent a
-   collision**; it must not **carry** the cell.
-2. **The problem must be classified first** (P86): a **relation** problem cannot be fixed by a **technical** fix.
-3. **The experiment must start from a symptom** (P88), not a target; and must not be an **escape from the last null**
+1. **The filter for the next experiment** (P81, P84, P89, P90, P92, P94): it must **remove**, not add; it must not
+   **prevent a collision**; it must not **carry**; it must not be a **routine**; it must not be a **method**.
+2. **No acceptance is possible** (P91): no mechanism may be installed as a rule the cell "follows".
+3. **The problem must be classified first** (P86): a **relation** problem cannot be fixed by a **technical** fix.
+4. **The experiment must start from a symptom** (P88), not a target; and must not be an **escape from the last null**
    (P87).
-4. **Adopt the variance decomposition** (P80, P82): behaviour variance explained by **situation** vs by **record** —
-   also the measure of maturity.
-5. **The core hypothesis** (P71): the cell is made of the contradiction between what is and what should be.
-6. **The decisive experiment** (P74, P75, P77): **empty** the record and test for a **step**, not a slope.
-7. **The clean two-arm test** (P78): more **physical** protection vs removal of **psychological** protection.
-8. **The missing control** (P56, P76): adaptive arm vs **random perturbation of equal variance**.
-9. **The only legitimate lever** (P85): change **what knocks the cell** — the consequences — not what points at it.
-10. **On existing data:** residual variance of the adaptive arms vs baseline in S22 (P79); `resource − pred` across
-    E10's patterns (P11); the cell's own measures (P27, P59).
-11. **The remaining tests:** move-cost (P41); initial-`pred` (P36, P40); recovery (P9); two-environment sweep (P14);
+5. **Adopt the variance decomposition** (P80, P82, P93): behaviour variance explained by **situation** vs by
+   **record** — the measure of maturity, of narrowness, and of order.
+6. **The core hypothesis** (P71): the cell is made of the contradiction between what is and what should be.
+7. **The decisive experiment** (P74, P75, P77): **empty** the record and test for a **step**, not a slope.
+8. **The clean two-arm test** (P78): more **physical** protection vs removal of **psychological** protection.
+9. **The missing control** (P56, P76): adaptive arm vs **random perturbation of equal variance**.
+10. **The only legitimate lever** (P85): change **what knocks the cell** — the consequences — not what points at it.
+11. **On existing data:** residual variance and narrowness of the adaptive arms vs baseline in S22 (P79, P93);
+    `resource − pred` across E10's patterns (P11); the cell's own measures (P27, P59).
+12. **The remaining tests:** move-cost (P41); initial-`pred` (P36, P40); recovery (P9); two-environment sweep (P14);
     ratio law (P15); neighbour-read (P22); move-rate curve (P29); stereotypy ratio (P32); repertoire (P49);
     field-order vs cell-order (P70).
-12. **Rules:** from the first steps (P4); no predicted sign (P33); "what is" not "how to" (P39); which of the first
+13. **Rules:** from the first steps (P4); no predicted sign (P33); "what is" not "how to" (P39); which of the first
     two states (P46); measure behaviour not its shadow (P48); set of variables not values (P51); no "should" for the
     cell (P63); the proof that a pattern was seen is that the next experiment changed shape (P64); report the range
-    (P73); no gain as a justification (P83); no story (P84); enquiry not search (P88).
-13. **Design constraints:** novelty from outside the record (P38); relationship not isolation (P34); no controller
+    (P73); no gain as a justification (P83); no story (P84); enquiry not search (P88); **call a toy a toy** (P95).
+14. **Design constraints:** novelty from outside the record (P38); relationship not isolation (P34); no controller
     inside the cell (P52); one quantity outer-inner-beyond (P43); do not help the cell (P45, P86, P90); one process
-    not parts (P65); no blueprint (P67); no planning (P72); no will (P76).
+    not parts (P65); no blueprint (P67); no planning (P72); no will (P76); no method (P94).
 
 ---
 
 ## Reading progress
 
-- Pages 1–113 of 409 read (Part IV: the guru, discipline, maturity, the question of help; the four yogas begun).
-- Next: the four schools of yoga scrutinised.
+- Pages 1–117 of 409 read (Part IV: Karma Yoga scrutinised — authority, voluntary acceptance, method, toys).
+- Next: the remaining yogas (Bhakti, Raja, Gnana) and the mahavakyas.
