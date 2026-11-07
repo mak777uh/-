@@ -1,0 +1,81 @@
+{
+ "kind": "s59_e7c_inheritance",
+ "steps": 300,
+ "window": 100,
+ "mutation_rate": 0.05,
+ "trait_sigma": 0.1,
+ "trait_effect": 5.0,
+ "budding_mass": 24.0,
+ "note": "the trait is inherited with mutation through register_births (type_mode mixfixed) and acts on the cell energy each step; the question is whether its mean MOVES under selection",
+ "n_seeds": 1,
+ "rows": [
+  {
+   "seed": 1,
+   "arm": "fixed",
+   "mutation_rate": 0.0,
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "trait_mean": 0.0,
+     "trait_std": 0.0,
+     "alive_mean": 152.7
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "trait_mean": 0.0,
+     "trait_std": 0.0,
+     "alive_mean": 155.8
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "trait_mean": 0.0,
+     "trait_std": 0.0,
+     "alive_mean": 376.7
+    }
+   ],
+   "final": {
+    "alive": 470,
+    "born": 568,
+    "died": 3066
+   },
+   "R1": true
+  },
+  {
+   "seed": 1,
+   "arm": "heritable",
+   "mutation_rate": 0.05,
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "trait_mean": 0.0016,
+     "trait_std": 0.01712,
+     "alive_mean": 154.6
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "trait_mean": 0.00702,
+     "trait_std": 0.03299,
+     "alive_mean": 205.7
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "trait_mean": 0.00586,
+     "trait_std": 0.02863,
+     "alive_mean": 416.5
+    }
+   ],
+   "final": {
+    "alive": 510,
+    "born": 605,
+    "died": 3208
+   },
+   "R1": true
+  }
+ ]
+}

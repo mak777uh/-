@@ -1,0 +1,82 @@
+{
+ "kind": "s60_e7d_trait_threshold",
+ "steps": 300,
+ "window": 100,
+ "mutation_rate": 0.05,
+ "trait_sigma": 0.1,
+ "budding_mass": 8.0,
+ "note": "the trait sets the DIVISION THRESHOLD, so it changes an action; the engine's own budding is disabled and division is performed by the script",
+ "n_seeds": 1,
+ "rows": [
+  {
+   "seed": 1,
+   "arm": "fixed",
+   "mutation_rate": 0.0,
+   "divisions": 148,
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "trait_mean": 0.0,
+     "trait_std": 0.0,
+     "alive_mean": 123.9
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "trait_mean": 0.0,
+     "trait_std": 0.0,
+     "alive_mean": 67.7
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "trait_mean": 0.0,
+     "trait_std": 0.0,
+     "alive_mean": 80.6
+    }
+   ],
+   "final": {
+    "alive": 74,
+    "born": 0,
+    "died": 785
+   },
+   "R1": true
+  },
+  {
+   "seed": 1,
+   "arm": "heritable",
+   "mutation_rate": 0.05,
+   "divisions": 147,
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "trait_mean": -8e-05,
+     "trait_std": 0.00503,
+     "alive_mean": 123.9
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "trait_mean": -0.00094,
+     "trait_std": 0.01825,
+     "alive_mean": 68.2
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "trait_mean": -0.00142,
+     "trait_std": 0.03041,
+     "alive_mean": 81.8
+    }
+   ],
+   "final": {
+    "alive": 79,
+    "born": 0,
+    "died": 782
+   },
+   "R1": true
+  }
+ ]
+}
