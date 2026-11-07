@@ -537,24 +537,135 @@ cell loses the benefit of the record in the fast-recovery environment (P14).
 
 ---
 
+## P26. Pleasure has continuity; love is new every day
+
+**The move.** "Love is something totally new every day, but pleasure is not, pleasure has continuity. Love is
+always new and therefore it is its own eternity."
+
+**In our world.** `pred` is **pure continuity** — an average that carries the past forward. Every behaviour driven
+by `pred` is therefore **pleasure** in this exact sense: the pursuit of continuity. The cell has **no term that is
+new every day**, because a new day is precisely what a running average cannot represent.
+
+**What it explains.** P24 in one line, and it makes the design requirement sharper: it is not enough to add a
+novelty term (P24) — the **continuity itself** must be interrupted (P25). The two patterns are the same
+instruction from two sides: *end the continuity, and something new can appear.*
+
+**Testable.** Same experiment as P25 (the reset sweep). P26 adds a **prediction about what should appear after the
+reset**: in the steps immediately after a reset, the cell's behaviour should be **less correlated with its own
+past** — measurable as the autocorrelation of the move/no-move series dropping at reset boundaries.
+
+**Status:** hypothesis; measurable in the same run as P25.
+
+---
+
+## P27. A concept of the good is a product of thought — and therefore of the past
+
+**The move.** "The conception of good is the product of thought... A concept means a future, a tomorrow. It may be
+very far away, or very close, but it is still in time." And: "In the understanding of 'what is' — not by comparing
+'what is' with 'what should be' — in that understanding flowers goodness."
+
+**In our world.** Our whole experimental programme has been **comparison with "what should be"**: we defined a
+metric (favourable share, trait mean) and asked whether the world moves toward it. That metric **is a concept of
+the good**, produced by us, projected into the future. The cell never sees it.
+
+**What it explains.** A methodological point that has cost us repeatedly: **we judge the cell by a target it cannot
+represent.** When the cell "fails" our metric, we conclude the cell is deficient — but the metric was ours. E10's
+null may be a statement about our metric, not about the cell.
+
+**Testable / methodological rule.** For every result, report **the cell's own success measure** (energy, survival,
+offspring) alongside our metric. If the two disagree, the disagreement is the finding.
+
+**Status:** methodological rule; cheap to apply to existing artifacts.
+
+---
+
+## P28. You cannot quieten the mind — because you are the mind
+
+**The move.** "You cannot quieten the mind: full stop! Those are tricks... you absolutely cannot make the mind
+quiet, because you are the mind."
+
+**In our world.** This is the **strongest form of P16** and it has a precise mechanical meaning: a cell cannot
+**set** its own `pred`, because `pred` **is** what the cell is. Any attempt to "tune the record from outside" is not
+the cell doing it — it is us. And any attempt to tune it **from inside** would require a term in the cell that is
+not the record — which is exactly what the cell does not have.
+
+**What it explains.** Why every parameter tuning we did was **us** changing the cell, never the cell changing
+itself. And it is the reason the reset (P25) is interesting: a reset is **not** the cell quietening its mind — it is
+the **ending** of the record, which is a different operation. P28 says: **do not try to make the cell calm; end the
+record.**
+
+**Testable / design requirement.** No self-tuning mechanism can be built inside this cell. If we want adaptation of
+the record's own timescale, it must come from a **second process** (a second cell, or the environment), not from the
+cell.
+
+**Status:** design constraint.
+
+---
+
+## P29. Knowledge creates the distance it then tries to cross
+
+**The move.** "When you observe a tree, between you and the tree there is time and space... And there is also the
+botanical knowledge about it... the separation which comes through knowledge of the tree. To look at that tree
+without knowledge... does not mean identifying yourself with the tree, but to observe the tree so attentively that
+the boundaries of time don't come into it at all."
+
+**In our world.** `pred` **is** the botanical knowledge. The cell's distance from the environment — the very gap it
+spends its life trying to cross by moving — is **created by** `pred`. Without `pred` there is no gap: the cell is
+in the resource it is in.
+
+**What it explains.** The trap of inaction in its deepest form: the cell creates a gap between itself and its food
+by remembering, and then exhausts itself crossing that gap. **The gap is made of memory.**
+
+**Testable, and it is the sharpest prediction in the file.** If the gap is made of memory, then a cell **without**
+`pred` should show **no trap at all** — its move rate should not decline over time. A cell **with** `pred` should
+show a declining move rate. That is a single measurable curve, and S22's data already hints at it (the fraction
+able to act fell 0.31 → 0.17).
+
+**Status:** testable on existing data (S22 windows) and in one new run.
+
+---
+
+## P30. Awareness is not the wish to be free of the conditioning
+
+**The move.** "I must be aware of my conditioning... not trying to go beyond the conditioning, not trying to be
+free of it... because that is an escape from actuality."
+
+**In our world.** Every mechanism we added was an attempt to **go beyond** the cell's conditioning (its
+`pred`-driven rule): a field, a memory, a decoder, a signal. Each was an **escape from actuality** — an attempt to
+give the cell something better than what it is.
+
+**What it explains.** Why the additions did not work: they were escapes, and an escape does not change the thing
+escaped from. The cell remained the same rule, with an extra term.
+
+**Testable / design requirement.** The opposite move: **do not add** — **remove** and **observe what remains**. That
+is exactly the `pred`-removal and `pred`-reset experiments. P30 is the pattern that **justifies the whole
+direction**: stop adding, start ending.
+
+**Status:** design principle; it is the strongest support in the file for the reset experiment.
+
+---
+
 ## What the reading has changed in our plan (updated)
 
-1. **The `pred`-reset sweep is now the top experiment** (P25) — it is the first fix that is **not** a re-weighting
-   of the past, and it targets the trap directly.
-2. **The `pred`-removal experiment** (P1, P6, P8, P9, P10, P11, P13, P18) — the limiting case of the reset (N = 1).
-3. **Check on existing data:** is `resource − pred` indistinguishable across E10's four patterns? (P11)
-4. **The continuous-gate test** (P17) — act on magnitude, not sign.
-5. **The recovery test** (P9) — does a cell with `pred` resume moving when food returns?
-6. **The two-environment sweep** (P14) — is the best smoothing rate different in stable vs changing environments?
-7. **The ratio law** (P15) — does `(change time)/(record time constant)` predict the sign?
-8. **The neighbour-read experiment** (P22) — does reading one neighbour's resource create competition?
-9. **New measurement rule:** report the effect **from the first steps** (P4).
-10. **Design direction:** a **relationship** between cells that is neither isolation nor extraction (P19, P21),
-    and a **novelty term** in the cell's drive (P24).
+1. **The `pred`-reset sweep is the top experiment** (P25, P26, P30) — the first fix that is not a re-weighting of
+   the past.
+2. **The `pred`-removal experiment** (P1, P6, P8, P9, P10, P11, P13, P18, P29) — the limiting case (N = 1); P29
+   predicts the trap **disappears entirely** without `pred`.
+3. **The move-rate curve** (P29) — does the fraction able to act decline over time with `pred` and stay flat
+   without it? S22 already hints yes (0.31 → 0.17).
+4. **Report the cell's own success measure** alongside our metric (P27) — on existing artifacts.
+5. **Check on existing data:** is `resource − pred` indistinguishable across E10's four patterns? (P11)
+6. **The continuous-gate test** (P17) — act on magnitude, not sign.
+7. **The recovery test** (P9) — does a cell with `pred` resume moving when food returns?
+8. **The two-environment sweep** (P14) and the **ratio law** (P15).
+9. **The neighbour-read experiment** (P22) — does reading one neighbour's resource create competition?
+10. **New measurement rule:** report the effect **from the first steps** (P4).
+11. **Design direction:** a **relationship** between cells that is neither isolation nor extraction (P19, P21); a
+    **novelty term** (P24); and **no self-tuning inside the cell** (P28).
 
 ---
 
 ## Reading progress
 
-- Pages 1–63 of 409 read (Part II talk 2 "Relationship": loneliness, love, passion, death).
-- Next: the rest of talk 2 (the questions), then talk 3 (religious experience, meditation).
+- Pages 1–67 of 409 read (Part II talk 2 complete with questions, moving into the questions on conditioning).
+- Next: the rest of the questions, then talk 3 (religious experience, meditation).
