@@ -1,0 +1,81 @@
+{
+ "kind": "s62_e7e_trait_in_rule",
+ "steps": 300,
+ "window": 100,
+ "mutation_rate": 0.05,
+ "trait_sigma": 0.1,
+ "rule_strength": 0.06,
+ "margin": 0.1,
+ "note": "the trait scales the cell's UPKEEP, i.e. it is inside the rule, not an add-on",
+ "n_seeds": 1,
+ "rows": [
+  {
+   "seed": 1,
+   "arm": "fixed",
+   "mutation_rate": 0.0,
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "trait_mean": 0.0,
+     "trait_std": 0.0,
+     "alive_mean": 152.7
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "trait_mean": 0.0,
+     "trait_std": 0.0,
+     "alive_mean": 155.8
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "trait_mean": 0.0,
+     "trait_std": 0.0,
+     "alive_mean": 376.7
+    }
+   ],
+   "final": {
+    "alive": 470,
+    "born": 568,
+    "died": 3066
+   },
+   "R1": true
+  },
+  {
+   "seed": 1,
+   "arm": "heritable",
+   "mutation_rate": 0.05,
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "trait_mean": 0.00018,
+     "trait_std": 0.01694,
+     "alive_mean": 154.9
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "trait_mean": 0.00023,
+     "trait_std": 0.02266,
+     "alive_mean": 216.1
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "trait_mean": -0.00107,
+     "trait_std": 0.02475,
+     "alive_mean": 456.4
+    }
+   ],
+   "final": {
+    "alive": 560,
+    "born": 681,
+    "died": 3567
+   },
+   "R1": true
+  }
+ ]
+}
