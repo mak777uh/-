@@ -430,25 +430,131 @@ Then "the world is us" becomes a measurable loop rather than a metaphor.
 
 ---
 
+## P21. Loneliness is the absence of relationship, and it is escaped through use
+
+**The move.** "Do you know what it means [to be lonely]? — that you have no relationship with another, are
+completely isolated... Till you solve that completely, your relationship becomes a means of escape and therefore
+it leads to corruption."
+
+**In our world.** Our cells are **lonely in exactly this sense**: each has no relationship with any other, and
+each is completely isolated in its own grid cell. And the escape is the same one he describes: the cell **uses**
+its environment — it reads the resource and takes it — because there is nothing else to relate to.
+
+**What it explains.** Why the world is a **collection of isolated takers** and nothing else. Not because the
+mechanism is missing, but because **isolation is the starting condition** and every mechanism we added was a
+better way to take from the environment, i.e. a better escape.
+
+**Testable / design requirement.** The design question becomes precise: **how do you give a cell something to
+relate to that is not the resource?** (P19's "relationship that is neither isolation nor extraction" is the same
+requirement, stated from the other end.)
+
+**Status:** design principle, and it reframes P19.
+
+---
+
+## P22. Comparison is the engine of conflict
+
+**The move.** "The moment you compare, then there is conflict, there is envy, there is the desire to achieve, to
+go beyond the other."
+
+**In our world.** We have **no comparison at all**. A cell does not compare itself to another cell — it has no
+access to any other cell's state. It compares the **present to its own past** (`resource` vs `pred`), which is a
+comparison in **time**, not between agents.
+
+**What it explains.** Why our world has **conflict but no competition**: the cell's conflict is with its own
+record, not with a rival. And competition is exactly what a world of isolated cells cannot have — you cannot
+compete with someone you cannot see.
+
+**Testable.** The minimal change that creates comparison: let a cell read **one** neighbour's resource (not
+transfer it, just read it) and let its gate depend on the **difference**. If competition appears — cells doing
+worse where neighbours are richer — then comparison is the missing ingredient, and it is a **single number**.
+
+**Status:** hypothesis; the smallest possible experiment in this file.
+
+---
+
+## P23. Passion comes out of sorrow, not out of pleasure
+
+**The move.** "The root meaning of the word passion is sorrow... When we remain with that sorrow totally, without
+trying to rationalize it, without trying to escape from it... then you will find, out of that sorrow comes
+passion."
+
+**In our world.** A cell has no sorrow, but it has the mechanical analogue: **sustained deficit**. And the pattern
+says something specific: **staying with the deficit** (not escaping it, not correcting it) is what produces
+energy. Our cell does the opposite — it **escapes** the deficit by moving, or **corrects** it by adjusting `pred`.
+
+**What it explains.** Possibly why "hard environments" produced the strongest selection in E7f: the cells that
+**stayed** in deficit were the ones under the strongest pressure. The pattern says this is not a side effect but
+the **source** of the pressure.
+
+**Testable.** A cell that **cannot move** and **cannot adjust `pred`** — pure exposure to deficit — should show
+the strongest differential of all. We have this arm (E15 `rule_strength=0`, immobile); the prediction is that the
+**survival differential** there is larger than in any mobile arm.
+
+**Status:** partially testable on existing data (E7f/E15).
+
+---
+
+## P24. "We have no passion; we have lust, we have pleasure"
+
+**The move.** The distinction is between **pleasure** (the repetition of a recorded good event) and **passion**
+(energy that is not aimed at repetition).
+
+**In our world.** The cell has **only pleasure** in this sense: `pred` is the recorded average of good events, and
+the cell's whole behaviour is aimed at **repeating** the conditions under which the record was formed. There is no
+term in the cell that is not aimed at repetition.
+
+**What it explains.** The ceiling again, in the sharpest form: a cell whose only drive is **repetition of the
+recorded** can never do anything for the first time. That is P13 in motivational language.
+
+**Testable / design requirement.** Any design that gives the cell a drive **not** aimed at repeating the past.
+The simplest candidate: a drive toward **novelty** — a term that increases when the cell encounters a state its
+record does not contain. That is a single added term, and it is the first design change in this file that is not a
+re-weighting of the past.
+
+**Status:** design requirement; the novelty term is concrete and small.
+
+---
+
+## P25. Die psychologically today — end the continuity, and the mind stays fresh
+
+**The move.** "Can you die psychologically today, die to everything that you have known?... To end all that every
+day, so that the next day your mind is fresh and young. Such a mind can never be hurt."
+
+**In our world.** This is a **literal design instruction** for `pred`: **reset the record periodically**. Not
+smooth it more, not smooth it less — **end it**. A cell whose `pred` is reset every N steps cannot accumulate a
+stale image, and by P9 it cannot become stuck.
+
+**What it explains.** It is the **opposite** of every fix we tried (tune the rate, add memory, add a decoder). And
+it directly targets the trap of inaction: a reset `pred` cannot say "food is low" forever.
+
+**Testable, and this is the cleanest experiment in the file.** Sweep the reset period N (never / 300 / 100 / 30 /
+10 steps) in the **slow-recovery** environment where the trap is worst (S22: 0.340 baseline vs 0.166 greedy_ema).
+P25 predicts the trap **disappears** as N shrinks, and that there is an **optimum** — too frequent a reset and the
+cell loses the benefit of the record in the fast-recovery environment (P14).
+
+**Status:** hypothesis; **cheap and decisive**. This is the experiment to run.
+
+---
+
 ## What the reading has changed in our plan (updated)
 
-1. **The `pred`-removal experiment is the top priority** (P1, P6, P8, P9, P10, P11, P13, P18).
-2. **Check on existing data first:** is `resource − pred` statistically indistinguishable across E10's four
-   patterns? (P11) — zero new runs.
-3. **The continuous-gate test:** act on the magnitude, not the sign (P17) — cheapest change to the step rule.
-4. **The recovery test:** does a cell with `pred` resume moving when food returns? (P9)
-5. **The two-environment sweep:** is the best smoothing rate different in stable vs changing environments? (P14)
-6. **The ratio law:** does `(change time)/(record time constant)` predict the sign of the effect? (P15) — on
-   existing E1/E15 artifacts.
-7. **New measurement rule:** report the effect **from the first steps**, not only the last window (P4).
-8. **New design requirement:** the decision must contain a term that is **not** a function of the cell's past
-   (P13, P18).
-9. **The design direction for the next world:** create a **relationship** between cells — a two-way dependence
-   that is neither isolation nor extraction (P19, P20).
+1. **The `pred`-reset sweep is now the top experiment** (P25) — it is the first fix that is **not** a re-weighting
+   of the past, and it targets the trap directly.
+2. **The `pred`-removal experiment** (P1, P6, P8, P9, P10, P11, P13, P18) — the limiting case of the reset (N = 1).
+3. **Check on existing data:** is `resource − pred` indistinguishable across E10's four patterns? (P11)
+4. **The continuous-gate test** (P17) — act on magnitude, not sign.
+5. **The recovery test** (P9) — does a cell with `pred` resume moving when food returns?
+6. **The two-environment sweep** (P14) — is the best smoothing rate different in stable vs changing environments?
+7. **The ratio law** (P15) — does `(change time)/(record time constant)` predict the sign?
+8. **The neighbour-read experiment** (P22) — does reading one neighbour's resource create competition?
+9. **New measurement rule:** report the effect **from the first steps** (P4).
+10. **Design direction:** a **relationship** between cells that is neither isolation nor extraction (P19, P21),
+    and a **novelty term** in the cell's drive (P24).
 
 ---
 
 ## Reading progress
 
-- Pages 1–59 of 409 read (Part II talk 1 complete, start of talk 2 "Relationship").
-- Next: the rest of talk 2 (loneliness, love, death), then talk 3 (religious experience, meditation).
+- Pages 1–63 of 409 read (Part II talk 2 "Relationship": loneliness, love, passion, death).
+- Next: the rest of talk 2 (the questions), then talk 3 (religious experience, meditation).
