@@ -174,6 +174,10 @@ def main(argv=None) -> int:
     have = {item.get("title", "") for item in queue["items"]}
     added = 0
     for tr in transitions:
+        # 07.11: «новый режим/плечо» — это новый АРТЕФАКТ, а не смена утверждения. Такие задачи размножались
+        # по 5 target'ам и дали 410 открытых пунктов. Литература под артефакты идёт через result_lit.py.
+        if tr.get("kind") == "new_mode":
+            continue
         title = f"мини-обзор: {tr['kind']} — {tr['detail'][:60]}"
         if any(title[:45] in h for h in have):
             continue
