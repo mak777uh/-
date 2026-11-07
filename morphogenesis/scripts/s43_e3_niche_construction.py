@@ -81,8 +81,15 @@ def run_one(seed, args, arm, frozen_trace=None):
         built = args.construct * consumed
         if arm == "closed":
             niche = niche * (1.0 - args.gamma) + built
-            # the niche raises inflow where it was built
-            s.resource = torch.clamp(s.resource + args.niche_gain * niche, max=cfg.resource_max)
+            # FIX 07.11: the niche ACCELERATES RECOVERY, it does not create food.
+            # The first version added `niche_gain * niche` to the resource every step, which
+            # grew without bound (0.001 -> 2.23) and injected 1.12 resource/step while one cell
+            # eats 0.16 - a resource tap, not a feedback loop. Caught by the long-horizon run,
+            # where the FROZEN arm overtook the closed one (0.853 vs 0.799), which is impossible
+            # for a real loop. Now the niche scales the inflow, and the resource ceiling still
+            # applies, so the niche cannot lift a cell above resource_max.
+            s.resource = torch.clamp(
+                s.resource + args.niche_gain * niche * cfg.resource_regen, max=cfg.resource_max)
             trace.append(float(niche.mean()))
         elif arm == "open":
             # same building cost, but the niche does not feed back
@@ -92,7 +99,8 @@ def run_one(seed, args, arm, frozen_trace=None):
         else:  # frozen: replay the closed arm's niche, agents cannot change it
             if frozen_trace is not None and step < len(frozen_trace):
                 niche = torch.full_like(niche, frozen_trace[step])
-                s.resource = torch.clamp(s.resource + args.niche_gain * niche, max=cfg.resource_max)
+                s.resource = torch.clamp(
+                    s.resource + args.niche_gain * niche * cfg.resource_regen, max=cfg.resource_max)
             trace.append(float(niche.mean()))
         a = s.alive
         cnt = int(a.sum())
