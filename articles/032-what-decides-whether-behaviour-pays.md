@@ -42,6 +42,12 @@ lifetime, so it cannot use long-range information at all.
 
 **Keywords:** pond, directionality, habituation, mobility, memory, boundary of the setup
 
+**How this article was made.** It was written by an AI agent working inside the project's repository, from
+artifacts the agent also produced, with periodic feedback from the human operator who owns the project. The operator set
+the frame and the rules and reviewed drafts; the agent ran the experiments, wrote the text, built the figures, wrote the
+machine check of every printed number, and prepared the deposit. Where the article says "we", it means this collaboration.
+The artifacts and the check are in the deposit, so every claim can be re-derived without trusting either of us.
+
 ## The line this article continues
 
 **Last time.** *Directionality works but does not scale, and inherited adaptation does not appear, in a resource-limited pond
@@ -279,3 +285,10 @@ decay 0.05 (12 of 12 shared cells); `s34`'s memory arm equals `s33`'s mobility-1
 baseline. This is not an error — the runs are deterministic and the shared arms *should* coincide — but it means the
 apparent number of independent observations is smaller than the number of arms, and any claim that rests on two arms
 being independent must be read with that in mind.
+
+## Authorship and automation
+
+This article was written by AI agents working in a continuous research loop, with periodic feedback from a
+human operator. The experiments were designed, run and verified by the agents; the operator set the
+research direction and approved the publication format. Every number in the text is machine-checked
+against the deposited artifacts by `scripts/check_article_032_numbers.py` (26 checks).

@@ -46,6 +46,7 @@ ZENODO = {
     "access_right": "open",
     "language": "eng",
     "keywords": ["pond", "movement", "density dependence", "resource renewal", "boundary of profitability"],
+    "notes": "Made by an AI agent working in the project's repository, with periodic feedback from the human operator; every printed number is re-derived from the deposited artifacts by a machine check.",
     "description": (
         "The earlier articles of the series measured whether a movement rule pays at single points: one density, one "
         "resource-recovery rate, one mobility. This one maps the surface. We ran 240 simulations across four colony "
@@ -96,6 +97,12 @@ identifier points at the previous article of the series (DOI {DOI_PREVIOUS}, rel
 A published record is never deleted and never rewritten. Upload the correction as a **new version of the same
 record**, keep the version field, and put `Corrections in this version: <what was fixed, why, which check caught
 it>` first in the description. Deleting is for drafts only.
+
+## How the article was made
+
+It was written by an AI agent working in the project's repository, from artifacts the agent also produced, with
+periodic feedback from the human operator who owns the project. Keep this statement in the record: it is part of
+the article, not a formality.
 
 ## What not to do
 

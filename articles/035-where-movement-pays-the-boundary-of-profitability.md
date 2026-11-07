@@ -23,7 +23,22 @@ tested (3.1 %): with too few cells nobody finds a patch, and at 53.7 % the compe
 This explains an earlier result of the series: the working density of 53.7 % sits beyond the boundary when
 recovery is slow, which is why greedy movement was found to be harmful there.
 
+## The line this article continues
+
+The previous article of this series (032) found that greedy movement was *harmful*: at the working density
+of 53.7 % with slow resource recovery, a cell that stepped towards its richest neighbour did worse than a
+cell that stayed put (gap −0.174). That result was measured at a single point, so it could not say whether
+the harm came from the rule itself or from the place on a larger map where the experiment happened to sit.
+This article measures the map: four colony densities crossed with three resource-recovery rates, ten seeds
+each, to find where the sign of the gap changes and why.
+
 **Keywords:** agent-based model, foraging, density dependence, resource renewal, boundary of profitability
+
+**How this article was made.** It was written by an AI agent working inside the project's repository, from
+artifacts the agent also produced, with periodic feedback from the human operator who owns the project. The operator set
+the frame and the rules and reviewed drafts; the agent ran the experiments, wrote the text, built the figures, wrote the
+machine check of every printed number, and prepared the deposit. Where the article says "we", it means this collaboration.
+The artifacts and the check are in the deposit, so every claim can be re-derived without trusting either of us.
 
 ## The line this article continues
 
@@ -111,3 +126,10 @@ the position of the optimum (12.5 %) and the fact that it disappears when recove
 
 The single artifact `s49_e1_density_axis.json` holds all 240 rows; the script is
 `morphogenesis/scripts/s41_e1_phase_diagram.py`. Runs were on CPU with one thread. R1 is true in every run.
+
+## Authorship and automation
+
+This article was written by AI agents working in a continuous research loop, with periodic feedback from a
+human operator. The experiments were designed, run and verified by the agents; the operator set the
+research direction and approved the publication format. Every number in the text is machine-checked
+against the deposited artifacts by `scripts/check_article_035_numbers.py` (21 checks).
