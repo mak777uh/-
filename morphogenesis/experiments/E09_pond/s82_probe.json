@@ -1,0 +1,108 @@
+{
+ "kind": "s82_e12_paired",
+ "steps": 300,
+ "lag": 2,
+ "feed_amount": 0.2,
+ "budding_mass": 40.0,
+ "note": "PAIRED design: every environment runs with its own generator seeded identically, so the same random numbers drive the same decisions in every arm",
+ "per_seed": {
+  "1": {
+   "none": {
+    "last": 0.28809,
+    "R1": true,
+    "alive": 284
+   },
+   "external_linked": {
+    "last": 0.29499,
+    "R1": true,
+    "alive": 432
+   },
+   "external": {
+    "last": 0.33173,
+    "R1": true,
+    "alive": 474
+   },
+   "cpu": {
+    "last": 0.27037,
+    "R1": true,
+    "alive": 473
+   }
+  },
+  "2": {
+   "none": {
+    "last": 0.23232,
+    "R1": true,
+    "alive": 399
+   },
+   "external_linked": {
+    "last": 0.2311,
+    "R1": true,
+    "alive": 314
+   },
+   "external": {
+    "last": 0.27223,
+    "R1": true,
+    "alive": 390
+   },
+   "cpu": {
+    "last": 0.23307,
+    "R1": true,
+    "alive": 408
+   }
+  },
+  "3": {
+   "none": {
+    "last": 0.30723,
+    "R1": true,
+    "alive": 357
+   },
+   "external_linked": {
+    "last": 0.25486,
+    "R1": true,
+    "alive": 448
+   },
+   "external": {
+    "last": 0.19981,
+    "R1": true,
+    "alive": 281
+   },
+   "cpu": {
+    "last": 0.24649,
+    "R1": true,
+    "alive": 384
+   }
+  }
+ },
+ "paired": {
+  "external_linked": {
+   "n": 3,
+   "mean_diff": -0.0156,
+   "positive": 1,
+   "diffs": [
+    0.0069,
+    -0.0012,
+    -0.0524
+   ]
+  },
+  "external": {
+   "n": 3,
+   "mean_diff": -0.008,
+   "positive": 2,
+   "diffs": [
+    0.0436,
+    0.0399,
+    -0.1074
+   ]
+  },
+  "cpu": {
+   "n": 3,
+   "mean_diff": -0.0259,
+   "positive": 1,
+   "diffs": [
+    -0.0177,
+    0.0008,
+    -0.0607
+   ]
+  }
+ }
+}
