@@ -21,3 +21,4 @@
 2026-11-05 | gradpos sanity (e00d1eb0c): regression vs B1/B1b, tumble-like 0.594 CI 0.491 | регрессия кода/метрики, не смена научного вывода | ЗАКРЫТО 06.11: bisect (ba44f365a) показал не регрессию кода, а зависимость от бэкенда — см. library/reviews/transition-s4-backend.md
 2026-11-06 | S4 bisect: B1/B1b 'stable gradpos' not CPU-verified, plastic runs backend-dependent | смена типа свидетельства: аппаратно-зависимый результат | review:library/reviews/transition-s4-backend.md
 2026-11-06 | G4/G6/G7 (d99cc1696): 'adaptation trap' is a trap of inaction | смена вывода: фиксированная норма не лечит, платит подвижность | review:library/reviews/transition-g7-inaction.md
+2026-11-07 | E3 niche construction (5e8a4da91 -> a97af411e): 0.734 artefact, NULL with free-rider mechanism | отзыв сильного положительного в тот же день | review:library/reviews/transition-e3-niche.md
