@@ -1606,35 +1606,154 @@ That is a **one-step** test, and it cannot be explained by anything gradual.
 
 ---
 
+## P76. Will is evil — because will is the intention to hurt, and you cannot will to do good
+
+**The move.** "Then we shall have to say that will is evil." Naudé: "Someone might say: the will to do you good —
+is that will also evil?" K: "**You cannot will to do good. Either you are good, or not good, you cannot will
+goodness. Will being the concentration of thought as resistance.**"
+
+**In our world.** Every "adaptive" mechanism we built was **will**: the concentration of the record as resistance —
+`pred` concentrated into a threshold, and the threshold used to **overcome** the situation. And the pattern says
+what P57 said in another language: **will is resistance, and it cannot produce the good**.
+
+**What it explains.** Why the adaptive arms were **worse** (S22: 0.166 vs 0.340) and why "the will to do good"
+(the adaptive mechanism, designed to help) produced **harm**. The intention to help, expressed as will, is the
+intention to **overcome**, and overcoming is the disorder.
+
+**Testable.** P56's random-perturbation control is the test: if will is just resistance, an adaptive arm should be
+indistinguishable from a **randomly resisting** arm of equal magnitude.
+
+**Status:** supports P56; it is the moral form of the same mechanical fact.
+
+---
+
+## P77. Absolute evil cannot exist — evil is always cumulative, always a degree
+
+**The move.** K: "There is absolute good, but **absolute evil cannot exist**." Naudé: "because evil is always
+cumulative, it is always to some degree or another." K: "Yes."
+
+**In our world.** This is a **structural asymmetry**, and it has a precise reading: **order is a state** (it either
+holds or does not), while **disorder is a quantity** (it accumulates). In our cell, the trap is **cumulative** — the
+record accumulates, and the disorder grows with it. There is no "absolute trap"; there is **more or less** trap.
+
+**What it explains.** Why our results were always **graded** (0.166, 0.238, 0.264, 0.340) and never categorical:
+we were measuring a **cumulative** quantity, and a cumulative quantity can only be graded. **Order, by contrast,
+would show up as a jump.**
+
+**Testable, and it changes what to look for.** If order is a state and disorder is a quantity, then the reset
+experiment should show a **step**, not a slope. That is the same prediction as P75, arrived at from the other side.
+
+**Status:** hypothesis; the step-vs-slope test.
+
+---
+
+## P78. Self-protection in the physical sense is not evil — psychological self-protection is
+
+**The move.** "Anything that is **self-protective in the physical sense is not evil**. But **protecting oneself
+psychologically**, resisting any movement, leads to disorder."
+
+**In our world.** This is a **precise distinction that our experiments never made**, and it may be the most
+practically useful pattern in the file. Our cell has **two kinds of self-protection**:
+- **physical** — spending energy to stay alive, repairing, not starving. **Not disorder.**
+- **psychological** — the gate, which protects the cell from acting when it is "not safe". **Disorder.**
+
+**What it explains.** Why the trap could not be fixed by making the cell **safer** (more energy, cheaper movement,
+lower thresholds): all of those improved the **physical** protection, and the disorder was in the
+**psychological** one. We were strengthening the wrong protection.
+
+**Testable, and it is a clean two-arm experiment.** Arm A: give the cell more energy (physical protection). Arm B:
+remove the gate (psychological protection). P78 predicts **A does not fix the trap** and **B does**.
+
+**Status:** hypothesis; the cleanest two-arm test in the file.
+
+---
+
+## P79. The "me" is the centre of disorder because it is divisive
+
+**The move.** "Goodness implies total abnegation of the self. Because the 'me' is always separative... the self,
+the person, the ego, is **the centre of disorder, because it is a divisive factor**. The 'me' is the mind, is
+thought."
+
+**In our world.** The cell's "me" is `pred` — the **divisive factor** that separates the cell from its situation
+(P29, P31). And the pattern says: the "me" is **the centre of disorder**, which is exactly P66's residual variance.
+
+**What it explains.** Why the residual variance (disorder) should be **highest** in the arms with the strongest
+`pred` and **lowest** without it. That is a direct, checkable prediction on the arms we already have.
+
+**Testable on existing artifacts.** Compute the residual variance for the adaptive arms vs the baseline in S22.
+P79 predicts the adaptive arm has **higher** residual variance (more disorder) even though its score is lower.
+
+**Status:** testable on existing data.
+
+---
+
+## P80. Order means behaviour in freedom — and freedom is love, not pleasure
+
+**The move.** "Order means behaviour in freedom. And freedom means love and not pleasure."
+
+**In our world.** This is P24/P26 completed: the cell's behaviour is **pleasure** (the pursuit of continuity,
+P24), and therefore **not free**. And "order means behaviour in freedom" gives the **definition** we have been
+missing: **order is behaviour that is not driven by the pursuit of continuity**.
+
+**What it explains.** Why we could not define "order" precisely before: we were looking for a **number** (P66), and
+order is a **property of the relation between behaviour and its driver**. The operational form: **order is the
+fraction of behaviour variance explained by the situation**; **pleasure is the fraction explained by the record**.
+They sum to one, and that is the measurement.
+
+**Testable, and it is the measurement to adopt.** Variance decomposition of the behaviour series: how much is
+explained by the current situation, how much by the record. That is the single number this whole file has been
+converging on.
+
+**Status:** the measurement to adopt; it unifies P66, P79 and P54.
+
+---
+
+## The measurement this file has been converging on
+
+Across seventy-nine patterns, one quantity keeps appearing in different words:
+
+> **the fraction of the cell's behavioural variance explained by its current situation, versus the fraction
+> explained by its own record.**
+
+- P66 calls the residual **disorder**;
+- P79 calls the record the **centre of disorder**;
+- P80 calls the situation-explained part **order** and the record-explained part **pleasure**;
+- P54 calls the situation-explained part **responsiveness**;
+- P61 predicts it **rises** when the boss is removed;
+- P71 predicts it is **zero by construction** when `pred` is removed;
+- P75 and P77 predict the change appears as a **step**, not a slope.
+
+**That is one number, computable from any run that logs the resource, the record and the moves.** It is the
+measurement to build next, and it is the answer to "what should we measure instead of the favourable share".
+
+---
+
 ## What the reading has changed in our plan (updated)
 
-1. **The core hypothesis is P71:** the cell is **made of** the contradiction between what is and what should be.
-   Remove `pred` and the contradiction is gone by construction.
-2. **The decisive experiment is the emptying** (P74, P75): remove or reset `pred`, and test whether the change is
-   **immediate** (one step, not convergence).
-3. **The readouts, in order of importance:**
-   - **order** = the variance of the residuals (P66) — behaviour explained by situation, not by the record;
-   - **responsiveness** = mutual information between environment and behaviour (P54);
-   - **the fraction able to act** (P72) — should rise from 0.17 toward and past 0.31;
-   - **behaviour↔situation vs behaviour↔own-past correlations** (P61).
-4. **The missing control** (P56, P58): adaptive arm vs **random perturbation of equal variance**.
-5. **The rule about partial unconditioning** (P73): report the **range**, not a point; a single-point result is a
-   conditioning.
-6. **The remaining tests:** move-cost (P41); initial-`pred` (P36, P40); recovery (P9); two-environment sweep (P14);
+1. **Adopt the variance decomposition** (P80): behaviour variance explained by **situation** vs by **record**. One
+   number, from any run that logs resource, record and moves.
+2. **The core hypothesis** (P71): the cell is made of the contradiction between what is and what should be.
+3. **The decisive experiment** (P74, P75, P77): **empty** the record (remove or reset `pred`) and test for a
+   **step**, not a slope.
+4. **The clean two-arm test** (P78): more **physical** protection vs removal of **psychological** protection. P78
+   predicts only the second fixes the trap.
+5. **The missing control** (P56, P76): adaptive arm vs **random perturbation of equal variance**.
+6. **On existing data:** residual variance of the adaptive arms vs baseline in S22 (P79); `resource − pred` across
+   E10's patterns (P11); the cell's own measures (P27, P59).
+7. **The remaining tests:** move-cost (P41); initial-`pred` (P36, P40); recovery (P9); two-environment sweep (P14);
    ratio law (P15); neighbour-read (P22); move-rate curve (P29); stereotypy ratio (P32); repertoire (P49);
-   field-order vs cell-order correlation (P70).
-7. **On existing data:** `resource − pred` across E10's patterns (P11); the cell's own measures (P27, P59).
+   field-order vs cell-order (P70).
 8. **Rules:** from the first steps (P4); no predicted sign (P33); "what is" not "how to" (P39); which of the first
    two states (P46); measure behaviour not its shadow (P48); set of variables not values (P51); no "should" for the
    cell (P63); the proof that a pattern was seen is that the next experiment changed shape (P64); report the range
    (P73).
 9. **Design constraints:** novelty from outside the record (P38); relationship not isolation (P34); no controller
    inside the cell (P52); one quantity outer-inner-beyond (P43); do not help the cell (P45); one process not parts
-   (P65); no blueprint (P67); **no planning, because planning is the demand for security** (P72).
+   (P65); no blueprint (P67); no planning (P72); no will (P76).
 
 ---
 
 ## Reading progress
 
-- Pages 1–101 of 409 read (Part III: "On good and evil" — order not planned; goodness as negation).
-- Next: the rest of "On good and evil" (absolute evil), then Part IV (India).
+- Pages 1–106 of 409 read (Part III complete: "On good and evil". Part IV, the Venkatesananda conversation, begun).
+- Next: Part IV (the guru and search; the four schools of yoga).
