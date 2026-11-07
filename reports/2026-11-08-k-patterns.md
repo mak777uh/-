@@ -962,28 +962,136 @@ a decoder. Each was a **gift from outside**, and each was therefore **not the ce
 
 ---
 
+## P46. The third state is a consolation invented when the first two fail
+
+**The move.** "Not being able to deal with either, or both, we create the hope of some other, some third state,
+which we call God." And K's reply: "an outside agency" — "an outside agency which will be the consolation, the
+final solution."
+
+**In our world.** This names **exactly what we did**, and it is the sharpest diagnosis in the file. The first two
+states were:
+- **outer** — the resource field, which we tuned (E1, E5, E12: recovery rates, doses, leads);
+- **inner** — the cell's `pred` and energy, which we tuned (E15, E6, E7c–E7e: smoothing, cost, strength);
+
+Neither solved it. And then we invented a **third state**: the "mechanism" — field, niche, signal, decoder,
+membrane. Each was an **outside agency** that would be the final solution. **Five of them.**
+
+**What it explains.** The whole shape of our experiment list. It was not a search for truth; it was a **sequence of
+consolations** produced by the failure of the first two states.
+
+**Testable / methodological rule.** Before any new experiment, ask: **which of the first two states is this
+addressing?** If the answer is "neither, this is a new kind of thing", the experiment is a **consolation** and
+should not be run. That rule alone would have removed E3, E5, E6, E10 and E15 from our history.
+
+**Status:** methodological rule; verifiable against our own history.
+
+---
+
+## P47. The outer world is created by the agent — so outer and inner are one fact
+
+**The move.** "The world outside of me is created by me — not the trees, not the clouds... but human existence in
+relationship, which is called society, that is created by you and by me. So the world is me and I am the world."
+
+**In our world.** Our cells **do** create their world: they deplete the resource field, and the field's state is
+their own activity. But we treated the field as **outer** — as an independent variable we could tune — while it was
+in fact **the cells' own past activity**.
+
+**What it explains.** Why every "environment" manipulation was **not** an independent manipulation: changing the
+recovery rate, the patch inflow, the dose — all of these changed the **terms** on which the cells' own history was
+replayed. We were not varying the world; we were varying **the cells' memory of the world**.
+
+**Testable / and it is a design requirement.** The unitary version (P43): a world where the field the cells write
+is the field that **sets their own terms**. Then outer and inner are **one variable**, and there is no independent
+knob left to tune — which is exactly the condition the pattern describes.
+
+**Status:** design requirement; it is P43 stated from the other side.
+
+---
+
+## P48. Behaviour is the point of contact between inner and outer — and it is the only world there is
+
+**The move.** Naudé: "the events of history, the events of life, are in fact this point of contact between the
+inner and the outer. It is in fact the behaviour of man." K agrees.
+
+**In our world.** The cell's **behaviour** — its step decision — is the only place where inner (`pred`, energy) and
+outer (resource field) meet. Everything we measured was a **consequence** of behaviour; we never measured the
+**behaviour itself** as the unit.
+
+**What it explains.** Why our metrics (favourable share, trait mean) were **downstream** of the thing that matters.
+The behaviour is the contact point, and we were measuring its shadow.
+
+**Testable / measurement rule.** Measure the **behaviour** directly: the sequence of moves, its statistics, its
+change over time. A behaviour series is a small object and it can be compared across arms in ways that a share
+cannot.
+
+**Status:** measurement rule; cheap to adopt.
+
+---
+
+## P49. "Create the right environment and the mind will change" — the belief of every institution
+
+**The move.** "'Create the right environment' — the communists have said it a hundred times — 'then the human mind
+will change according to that.'"
+
+**In our world.** This is **our entire experimental strategy**: create the right environment (recovery rate,
+density, dose, signal) and the cell will change. It did not — and the pattern says why: the environment does not
+produce the mind; the mind **is** the environment, in the sense that it is made of the same record.
+
+**What it explains.** All the nulls where we varied the environment and the cell stayed the same cell. The cell
+**did** change its numbers, but never its **kind**.
+
+**Testable.** The decisive comparison: vary the environment as widely as possible (E1's 4×3 grid) and ask whether
+the cell's **behavioural repertoire** changes, not its score. If the repertoire is invariant across the whole
+environmental grid, then the environment cannot produce a different cell — which is a strong, checkable claim.
+
+**Status:** testable on existing artifacts (behaviour series are not logged, so this needs one new run with
+behaviour logging).
+
+---
+
+## P50. The crisis is in consciousness, not in organisation
+
+**The move.** "The crisis is in this consciousness, not in organization, not in bettering the roads." And Naudé:
+"It is consciousness that is in disorder; there is no disorder anywhere else."
+
+**In our world.** The "consciousness" of the cell is its `pred`. And the pattern says: **the disorder is there**,
+not in the environment, not in the organisation of the experiment. Every attempt to fix the **organisation** (the
+world's parameters, the cell's architecture) left the disorder in place, because the disorder is in the **record**.
+
+**What it explains.** Why five architectural changes and dozens of parameter sweeps changed nothing qualitative:
+they were all fixes to the **organisation**, and the disorder was in the **content**.
+
+**Testable.** The reset experiment is the direct test: it changes the **content** (the record) and nothing else.
+If the trap disappears, the disorder was in the content — exactly as the pattern says.
+
+**Status:** supports the reset direction; it is the strongest justification for it.
+
+---
+
 ## What the reading has changed in our plan (updated)
 
-1. **The `pred`-reset sweep is the top experiment** (P25, P26, P30, P31, P37, P44).
-2. **The `pred`-removal experiment** (P1, P6, P8, P9, P10, P11, P13, P18, P29, P31, P35, P37, P42, P44) — with the
-   added prediction that the mutual information between past and future behaviour **drops to zero** (P42).
-3. **The move-cost test** (P41): set `plastic_move_cost = 0` in the trap experiment. If `greedy_ema` then matches
-   `baseline`, the trap was **energy**, not information. One parameter.
+1. **The `pred`-reset sweep is the top experiment** (P25, P26, P30, P31, P37, P44, P50) — it changes the **content**
+   and nothing else, which is exactly what P50 says is the only place the disorder lives.
+2. **The `pred`-removal experiment** (P1, P6, P8, P9, P10, P11, P13, P18, P29, P31, P35, P37, P42, P44).
+3. **The move-cost test** (P41): `plastic_move_cost = 0` — was the trap energy or information? One parameter.
 4. **The initial-`pred` test** (P36, P40).
-5. **The move-rate curve** (P29); **the stereotypy ratio** (P32); **the cell's own success measure** (P27).
-6. **Check on existing data:** is `resource − pred` indistinguishable across E10's four patterns? (P11)
-7. **The continuous-gate test** (P17); **the recovery test** (P9); **the two-environment sweep** (P14); **the ratio
+5. **Behaviour logging** (P48, P49): log the move sequence, and ask whether the **repertoire** changes across the
+   environmental grid, not the score.
+6. **The move-rate curve** (P29); **the stereotypy ratio** (P32); **the cell's own success measure** (P27).
+7. **Check on existing data:** is `resource − pred` indistinguishable across E10's four patterns? (P11)
+8. **The continuous-gate test** (P17); **the recovery test** (P9); **the two-environment sweep** (P14); **the ratio
    law** (P15); **the neighbour-read experiment** (P22).
-8. **Measurement rules:** from the first steps (P4); no predicted sign (P33, P39); "what is" not "how to" (P39).
-9. **The design space is three options** (P38): novelty from the **environment**, from **another cell**, or from a
-   **random term not a function of the record**.
-10. **The unitary constraint** (P43): one quantity that is at once outer, inner and beyond — in our world that is
-    **the resource the cell stands in**. This rules out every design we have tried.
-11. **Do not help the cell** (P45): change what it **is**, or change the world it is in.
+9. **Measurement rules:** from the first steps (P4); no predicted sign (P33, P39); "what is" not "how to" (P39);
+   measure behaviour, not its shadow (P48).
+10. **The design space is three options** (P38): novelty from the **environment**, from **another cell**, or from a
+    **random term not a function of the record**.
+11. **The unitary constraint** (P43, P47): one quantity that is at once outer, inner and beyond — the resource the
+    cell stands in; and the field the cells write must be the field that sets their own terms.
+12. **Do not help the cell** (P45); **do not add a third state** (P46).
 
 ---
 
 ## Reading progress
 
-- Pages 1–79 of 409 read (Part II complete; Part III, the Naudé conversation, begun).
-- Next: the rest of Part III (the circus of man's struggle; on good and evil).
+- Pages 1–83 of 409 read (Part III, the Naudé conversation on "the circus of man's struggle").
+- Next: the rest of Part III (the change in consciousness; on good and evil).
