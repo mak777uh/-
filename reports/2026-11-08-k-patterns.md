@@ -1500,32 +1500,141 @@ order (residual variance, P66) in the same run. The pattern predicts they **move
 
 ---
 
+## P71. The "what is" versus "what should be" contradiction IS the source of disorder
+
+**The move.** "The moment your life is planned according to a pattern then you are not living, you are merely
+conforming to a certain standard and therefore that conformity leads to contradiction in oneself. The '**what is**'
+and the '**what should be**', that breeds contradiction and therefore conflict. **That very conflict is the source of
+disorder.**"
+
+**In our world.** This is the **precise mechanism** of our cell, and it is the clearest description of the trap in
+the whole file. The cell holds `what is` (the resource) and `what should be` (`pred`, the expected resource). The
+**difference between them is the cell's entire decision variable**. So the cell is **built out of the
+contradiction** — it is not a cell that has a contradiction, it is a contradiction that has a cell.
+
+**What it explains.** The trap of inaction, the E10 null, the failure of every addition — all of them are
+consequences of the cell being **made of** a comparison between what is and what should be.
+
+**Testable, and this is the decisive form.** Remove `what should be` (remove `pred`) and the contradiction is gone
+by construction — there is nothing left to compare. P71 predicts that the cell then has **no internal conflict to
+resolve**, and therefore **no trap**, **no disorder** (P66's residual variance), and **no need for the gate**
+(P61's boss has nothing to boss).
+
+**Status:** the core hypothesis of this file.
+
+---
+
+## P72. Order cannot be planned — because planning is the demand for security
+
+**The move.** "Order is not planned, can never be planned. If it is planned, then the mind is seeking security,
+because the brain demands security; seeking security it will suppress, or destroy, or pervert what is and try to
+conform, imitate."
+
+**In our world.** Every design we made was **planning**, and the pattern names the **motive**: the demand for
+security. Our cell's gate is exactly that demand — it acts only when it is **safe** to act (the deviation is large
+enough). The gate **is** the search for security, mechanised.
+
+**What it explains.** Why the gate produced **suppression** rather than response: a gate that demands security must
+suppress everything that does not meet the condition. That is what a gate does.
+
+**Testable.** The "remove the boss" experiment is the test: no security condition, direct response. P72 predicts
+that the **suppression** disappears — measurable as the fraction of steps on which the cell could act rising from
+S22's 0.17 back toward the baseline's 0.31 and beyond.
+
+**Status:** hypothesis; the "fraction able to act" curve is the readout.
+
+---
+
+## P73. Partial unconditioning falls into another conditioning
+
+**The move.** "One either frees oneself totally from all the conditioning and therefore is absolutely free; or
+there may be partial unconditioning... the slow peeling off of conditioning may temporarily give the appearance of
+freedom, but is not absolute freedom."
+
+**In our world.** This is a **warning about our own method**, and it is the sharpest one available. Every
+experiment that **peeled off one conditioning** (remove the niche, remove the field, reduce the cost) fell into
+**another conditioning** (a different parameter regime). And we reported each peeling as progress.
+
+**What it explains.** Why our results kept **flipping sign** between experiments: each was a partial unconditioning,
+and a partial unconditioning is a **different conditioning**, not freedom.
+
+**Testable / rule.** A result that only holds **at one setting** is a conditioning, not a finding. The rule: report
+the **range** over which an effect holds, not its value at a point — and if the range is a single point, call it a
+conditioning.
+
+**Status:** rule; it applies directly to our whole E1/E15 style of result.
+
+---
+
+## P74. Goodness is negative — the emptying of violence is the richness of the good
+
+**The move.** Naudé: "Are you saying that goodness is a wholly negative affair then?" K: "Yes, it must be." And:
+"**The emptying of violence is the richness of the good.**"
+
+**In our world.** This is the **methodological core** of the whole reading, and it is the opposite of everything we
+did. We tried to **add** the good (a field, a niche, a signal, a decoder). The pattern says: the good is
+**negative** — it is what remains when the violence is **emptied**, not something added on top.
+
+**What it explains.** Why every addition failed: **an addition is not an emptying.** You cannot reach a negative by
+adding positives.
+
+**Testable, and it is the whole direction of the next experiments.** The reset and removal experiments are
+**emptying** experiments — the only kind that this pattern allows. Nothing else in this file is as decisive about
+**what to run**.
+
+**Status:** the methodological conclusion of the reading so far.
+
+---
+
+## P75. It can be wiped away immediately — not gradually
+
+**The move.** "That violence, by becoming aware of it, **can be wiped away**." Naudé: "Not a gradual wiping away;
+wipe it away as you wipe out a..." K: "...take a mark off the wall." And: "It can be done immediately."
+
+**In our world.** This is the **timing prediction** and it is what makes the reset experiment **decisive rather than
+gradual**. Every mechanism we built worked **gradually** (EMA, adaptation, selection over generations). The pattern
+says the change is **immediate** — a mark taken off a wall, not a stain fading.
+
+**What it explains.** Why our gradual mechanisms never produced a qualitative change (P68): they were **fading**,
+and fading is not wiping.
+
+**Testable, and it is the sharpest prediction in the file.** After a reset, the cell's behaviour should be
+**indistinguishable from a cell that never had a record**, on the **very next step** — not converging toward it.
+That is a **one-step** test, and it cannot be explained by anything gradual.
+
+**Status:** the prediction to run.
+
+---
+
 ## What the reading has changed in our plan (updated)
 
-1. **Measure ORDER, not value** (P66): the variance of the residuals — how much the cell's behaviour departs from
-   what its situation predicts. This may be the most important change in the file.
-2. **Remove the boss** (P61, P57, P17, P67): no gate, continuous response on magnitude. Readout: behaviour↔situation
-   correlation **up**, behaviour↔own-past correlation **down**, residual variance **down**.
-3. **The `pred`-reset sweep** — readout **responsiveness** (P54) and **order** (P66); order appears **immediately**,
-   not gradually (P31, P68).
-4. **The `pred`-removal experiment** — behaviour becomes a direct function of the resource (P62); mutual information
-   with the past drops to zero (P42).
-5. **The random-perturbation control** (P56, P58) — the missing control of the adaptive line.
-6. **The field-order / cell-order correlation** (P70) — one correlation between two existing measurements.
-7. **The move-cost test** (P41); **the initial-`pred` test** (P36, P40); **the recovery test** (P9); **the
-   two-environment sweep** (P14); **the ratio law** (P15); **the neighbour-read test** (P22); **the move-rate curve**
-   (P29); **the stereotypy ratio** (P32); **the repertoire test** (P49).
-8. **On existing data:** `resource − pred` across E10's patterns (P11); the cell's own measures (P27, P59).
-9. **Rules:** from the first steps (P4); no predicted sign (P33); "what is" not "how to" (P39); which of the first
+1. **The core hypothesis is P71:** the cell is **made of** the contradiction between what is and what should be.
+   Remove `pred` and the contradiction is gone by construction.
+2. **The decisive experiment is the emptying** (P74, P75): remove or reset `pred`, and test whether the change is
+   **immediate** (one step, not convergence).
+3. **The readouts, in order of importance:**
+   - **order** = the variance of the residuals (P66) — behaviour explained by situation, not by the record;
+   - **responsiveness** = mutual information between environment and behaviour (P54);
+   - **the fraction able to act** (P72) — should rise from 0.17 toward and past 0.31;
+   - **behaviour↔situation vs behaviour↔own-past correlations** (P61).
+4. **The missing control** (P56, P58): adaptive arm vs **random perturbation of equal variance**.
+5. **The rule about partial unconditioning** (P73): report the **range**, not a point; a single-point result is a
+   conditioning.
+6. **The remaining tests:** move-cost (P41); initial-`pred` (P36, P40); recovery (P9); two-environment sweep (P14);
+   ratio law (P15); neighbour-read (P22); move-rate curve (P29); stereotypy ratio (P32); repertoire (P49);
+   field-order vs cell-order correlation (P70).
+7. **On existing data:** `resource − pred` across E10's patterns (P11); the cell's own measures (P27, P59).
+8. **Rules:** from the first steps (P4); no predicted sign (P33); "what is" not "how to" (P39); which of the first
    two states (P46); measure behaviour not its shadow (P48); set of variables not values (P51); no "should" for the
-   cell (P63); the proof that a pattern was seen is that the next experiment changed shape (P64).
-10. **Design constraints:** novelty from outside the record (P38); relationship not isolation (P34); no controller
-    inside the cell (P52); one quantity outer-inner-beyond (P43); do not help the cell (P45); one process not parts
-    (P65); **no blueprint** (P67).
+   cell (P63); the proof that a pattern was seen is that the next experiment changed shape (P64); report the range
+   (P73).
+9. **Design constraints:** novelty from outside the record (P38); relationship not isolation (P34); no controller
+   inside the cell (P52); one quantity outer-inner-beyond (P43); do not help the cell (P45); one process not parts
+   (P65); no blueprint (P67); **no planning, because planning is the demand for security** (P72).
 
 ---
 
 ## Reading progress
 
-- Pages 1–97 of 409 read (Part III: "On good and evil" — goodness as order, order not a blueprint).
-- Next: the rest of "On good and evil", then Part IV (India).
+- Pages 1–101 of 409 read (Part III: "On good and evil" — order not planned; goodness as negation).
+- Next: the rest of "On good and evil" (absolute evil), then Part IV (India).
