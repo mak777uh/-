@@ -1,0 +1,111 @@
+{
+ "kind": "s69_e8_immobile_signal",
+ "steps": 300,
+ "window": 100,
+ "mutation_rate": 0.05,
+ "sigma": 0.1,
+ "period": 40,
+ "note": "cells never move; the heritable trait is how strongly a dividing cell places its offspring toward the signal; three environments differ only in whether a signal exists and where it comes from",
+ "n_seeds": 1,
+ "rows": [
+  {
+   "seed": 1,
+   "env": "none",
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "trait_mean": 0.49321,
+     "trait_std": 0.25219,
+     "alive_mean": 154.6
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "trait_mean": 0.37207,
+     "trait_std": 0.12799,
+     "alive_mean": 175.9
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "trait_mean": 0.20683,
+     "trait_std": 0.06371,
+     "alive_mean": 445.6
+    }
+   ],
+   "final": {
+    "alive": 547,
+    "born": 1489,
+    "died": 3356
+   },
+   "R1": true
+  },
+  {
+   "seed": 1,
+   "env": "cpu",
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "trait_mean": 0.4932,
+     "trait_std": 0.25219,
+     "alive_mean": 154.6
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "trait_mean": 0.36997,
+     "trait_std": 0.12868,
+     "alive_mean": 175.9
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "trait_mean": 0.20494,
+     "trait_std": 0.06357,
+     "alive_mean": 445.6
+    }
+   ],
+   "final": {
+    "alive": 547,
+    "born": 1489,
+    "died": 3356
+   },
+   "R1": true
+  },
+  {
+   "seed": 1,
+   "env": "external",
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "trait_mean": 0.49321,
+     "trait_std": 0.25219,
+     "alive_mean": 154.6
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "trait_mean": 0.36991,
+     "trait_std": 0.12846,
+     "alive_mean": 175.9
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "trait_mean": 0.19958,
+     "trait_std": 0.06263,
+     "alive_mean": 404.7
+    }
+   ],
+   "final": {
+    "alive": 554,
+    "born": 1380,
+    "died": 3070
+   },
+   "R1": true
+  }
+ ]
+}
