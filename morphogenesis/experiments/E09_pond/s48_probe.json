@@ -1,0 +1,104 @@
+{
+ "kind": "s48_e3e_free_rider",
+ "steps": 300,
+ "construct": 0.5,
+ "gamma": 0.05,
+ "niche_gain": 0.2,
+ "mobilities": [
+  "mobile",
+  "immobile"
+ ],
+ "arithmetic": {
+  "eat": 0.16,
+  "contribution": 0.016,
+  "cap": 0.04
+ },
+ "note": "free-rider test: if the negative gap is caused by the benefit leaking to neighbours, then IMMOBILE cells should show a POSITIVE gap",
+ "n_seeds": 1,
+ "rows": [
+  {
+   "seed": 1,
+   "arm": "closed",
+   "mobility": "mobile",
+   "overall": 0.2857,
+   "peak_fav": 0.9706,
+   "saturated": true,
+   "final": {
+    "alive": 419,
+    "born": 429,
+    "died": 1299
+   },
+   "R1": true
+  },
+  {
+   "seed": 1,
+   "arm": "open",
+   "mobility": "mobile",
+   "overall": 0.3218,
+   "peak_fav": 0.9706,
+   "saturated": true,
+   "final": {
+    "alive": 306,
+    "born": 330,
+    "died": 1119
+   },
+   "R1": true
+  },
+  {
+   "seed": 1,
+   "arm": "frozen",
+   "mobility": "mobile",
+   "overall": 0.2924,
+   "peak_fav": 0.9706,
+   "saturated": true,
+   "final": {
+    "alive": 370,
+    "born": 427,
+    "died": 1285
+   },
+   "R1": true
+  },
+  {
+   "seed": 1,
+   "arm": "closed",
+   "mobility": "immobile",
+   "overall": 0.2384,
+   "peak_fav": 0.6765,
+   "saturated": false,
+   "final": {
+    "alive": 271,
+    "born": 306,
+    "died": 1378
+   },
+   "R1": true
+  },
+  {
+   "seed": 1,
+   "arm": "open",
+   "mobility": "immobile",
+   "overall": 0.2547,
+   "peak_fav": 0.6765,
+   "saturated": false,
+   "final": {
+    "alive": 262,
+    "born": 353,
+    "died": 1417
+   },
+   "R1": true
+  },
+  {
+   "seed": 1,
+   "arm": "frozen",
+   "mobility": "immobile",
+   "overall": 0.2306,
+   "peak_fav": 0.6765,
+   "saturated": false,
+   "final": {
+    "alive": 260,
+    "born": 323,
+    "died": 1466
+   },
+   "R1": true
+  }
+ ]
+}
