@@ -1397,30 +1397,135 @@ description, not of the world.
 
 ---
 
+## P66. Goodness is not a value — it is total order; and disorder is what produces "evil"
+
+**The move.** "I feel goodness is total order. Not only outwardly, but especially inwardly... And it is **disorder
+that leads to chaos, to destruction, to anarchy, to the so-called evil**." And: "goodness is absolute order... order
+in the mind, order in one's heart, order in one's physical activities — the harmony between the three."
+
+**In our world.** This **replaces our whole notion of a metric**, and it is the most useful reframing in the file.
+We have been asking "how much favourable share does the cell have?" — a **value**. The pattern says: the thing to
+measure is **order** — the harmony between the cell's parts (its energy, its record, its behaviour), and between the
+cell and its situation.
+
+**What it explains.** Why our metric never distinguished the arms: a **value** can be the same in ordered and
+disordered systems. Two cells with the same favourable share can be one in harmony and one in conflict. **We measured
+the average of a quantity that is blind to order.**
+
+**Testable, and it is a new measurement.** Order has a concrete form in a dynamical system: **the variance of the
+residuals** — how much the cell's behaviour departs from what its situation would predict. High order = the
+behaviour is fully explained by the situation. Disorder = the behaviour is partly explained by the cell's own
+internal conflict (its record fighting its situation). That is measurable and it is **not** the same as the score.
+
+**Status:** measurement rule; it may be the most important single change in this file.
+
+---
+
+## P67. Order is not a blueprint — imitation and conformity are the beginning of disorder
+
+**The move.** "Is order something to be copied according to a design? ... if it is imitated then the imitation leads
+to disorder, or to conformity. **Conformity, imitation, and the denial of what is, is the beginning of disorder.**"
+
+**In our world.** Every mechanism we added was a **blueprint**: the cell was to imitate a designed procedure (move
+when the deviation is negative; place offspring toward the signal; lower upkeep when the trait is high). And the
+pattern says: **imitation is the beginning of disorder** — not of order.
+
+**What it explains.** Why the more "designed" the cell, the more mechanical and the worse it did (P36). We were
+building **conformity** and calling it adaptation.
+
+**Testable / design requirement.** No blueprint: the cell's rule must not be a procedure it imitates. The only
+non-blueprint rule available is **a direct response to the situation** (P17, P61) — which is exactly the
+"remove the boss" experiment.
+
+**Status:** design requirement; it converges with P17/P61.
+
+---
+
+## P68. Can virtue be cultivated? Cultivation implies time — and order is only in the now
+
+**The move.** "Can virtue ever be cultivated? To cultivate implies to bring slowly into being, which means time...
+Or is virtue, order, only in the now? **The now is not related to the past.**"
+
+**In our world.** This is the **decisive** form of P51 and P25. Every "learning" mechanism we built was a
+**cultivation**: bring the cell slowly toward a target, over time. And the pattern says: **cultivation is time**, and
+**order is not in time**.
+
+**What it explains.** Why all our "gradual" mechanisms (EMA, adaptation, mutation-and-selection over generations)
+produced **gradual numbers but no qualitative change**: cultivation can only move a quantity, never establish order.
+
+**Testable.** The reset experiment is the test of this pattern in its pure form: the reset does **not cultivate**
+anything — it **ends** the record, and order (if it appears) appears **immediately**, not gradually. That is the
+prediction P31 already made about the move rate.
+
+**Status:** supports the reset; adds the "immediately, not gradually" form.
+
+---
+
+## P69. People fear that order without thought means inertia — it is the opposite
+
+**The move.** Naudé: "people get the feeling that this is a sort of disincarnate energy, which can have no action
+and no relationship to the world of men and events... they think that therefore it has no real value."
+
+**In our world.** This is **exactly our fear about removing `pred`**: that a cell without a record would be **inert
+and blind** (P54 said the same about the emptied consciousness). And the pattern says the fear is the **reason we
+never tried it**.
+
+**What it explains.** The whole shape of our experiment list: we kept the record because removing it looked like
+**damage**. Every addition was a defence against the fear of inertia.
+
+**Testable.** The reset/removal experiments, with the readout being **responsiveness and order** (P54, P66), not
+score. If responsiveness and order **rise**, the fear was the obstacle; if they fall, the fear was right.
+
+**Status:** hypothesis; it is the honest framing of the experiment we have not run.
+
+---
+
+## P70. "The world is me and I am the world" — so order inside is order outside
+
+**The move.** "Because the world is me, and I am the world; my consciousness is the consciousness of the world...
+So when there is order within the human being then there is order in the world."
+
+**In our world.** This is P47 with a **measurable** consequence: the cell's internal order and the field's order
+should be **the same quantity**, not two. A cell in conflict produces a disordered field; a cell in order produces
+an ordered field. **They are one process** (P65).
+
+**What it explains.** Why our "environment" and "cell" measurements were always correlated in ways we treated as
+noise: they were **one variable measured twice**.
+
+**Testable.** Measure the **field's** order (spatial autocorrelation, variance of the resource) and the **cell's**
+order (residual variance, P66) in the same run. The pattern predicts they **move together** — and if they do, then
+"changing the environment" and "changing the cell" were never two operations.
+
+**Status:** hypothesis; a single correlation between two existing measurements.
+
+---
+
 ## What the reading has changed in our plan (updated)
 
-1. **Remove the boss** (P61, P57, P17): no gate, continuous response on the magnitude. Readout: the correlation
-   between behaviour and the **environment** should rise, and between behaviour and the cell's own **past** should
-   fall.
-2. **The `pred`-reset sweep** — readout **responsiveness** (P54); move rate restores **immediately** (P31).
-3. **The `pred`-removal experiment** — with the prediction that behaviour becomes a **direct function of the
-   resource** (P62), and the mutual information with the past **drops to zero** (P42).
-4. **The random-perturbation control** (P56, P58) — the missing control of the adaptive line.
-5. **The move-cost test** (P41); **the initial-`pred` test** (P36, P40); **the recovery test** (P9); **the
+1. **Measure ORDER, not value** (P66): the variance of the residuals — how much the cell's behaviour departs from
+   what its situation predicts. This may be the most important change in the file.
+2. **Remove the boss** (P61, P57, P17, P67): no gate, continuous response on magnitude. Readout: behaviour↔situation
+   correlation **up**, behaviour↔own-past correlation **down**, residual variance **down**.
+3. **The `pred`-reset sweep** — readout **responsiveness** (P54) and **order** (P66); order appears **immediately**,
+   not gradually (P31, P68).
+4. **The `pred`-removal experiment** — behaviour becomes a direct function of the resource (P62); mutual information
+   with the past drops to zero (P42).
+5. **The random-perturbation control** (P56, P58) — the missing control of the adaptive line.
+6. **The field-order / cell-order correlation** (P70) — one correlation between two existing measurements.
+7. **The move-cost test** (P41); **the initial-`pred` test** (P36, P40); **the recovery test** (P9); **the
    two-environment sweep** (P14); **the ratio law** (P15); **the neighbour-read test** (P22); **the move-rate curve**
    (P29); **the stereotypy ratio** (P32); **the repertoire test** (P49).
-6. **On existing data:** `resource − pred` across E10's patterns (P11); the cell's own measures (P27, P59).
-7. **Rules:** from the first steps (P4); no predicted sign (P33); "what is" not "how to" (P39); which of the first
-   two states (P46); measure behaviour not its shadow (P48); set of variables not values (P51); **no "should" for
-   the cell** (P63); **the proof that a pattern was seen is that the next experiment changed shape** (P64).
-8. **Design constraints:** novelty from outside the record (P38); relationship not isolation (P34); no controller
-   inside the cell (P52); one quantity outer-inner-beyond (P43); do not help the cell (P45); **describe the cell as
-   one process, not as parts** (P65).
+8. **On existing data:** `resource − pred` across E10's patterns (P11); the cell's own measures (P27, P59).
+9. **Rules:** from the first steps (P4); no predicted sign (P33); "what is" not "how to" (P39); which of the first
+   two states (P46); measure behaviour not its shadow (P48); set of variables not values (P51); no "should" for the
+   cell (P63); the proof that a pattern was seen is that the next experiment changed shape (P64).
+10. **Design constraints:** novelty from outside the record (P38); relationship not isolation (P34); no controller
+    inside the cell (P52); one quantity outer-inner-beyond (P43); do not help the cell (P45); one process not parts
+    (P65); **no blueprint** (P67).
 
 ---
 
 ## Reading progress
 
-- Pages 1–94 of 409 read (Part III: the Naudé conversation on will and fragmentation complete; "On good and evil"
-  begun).
-- Next: "On good and evil", then Part IV (India).
+- Pages 1–97 of 409 read (Part III: "On good and evil" — goodness as order, order not a blueprint).
+- Next: the rest of "On good and evil", then Part IV (India).
