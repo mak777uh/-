@@ -447,7 +447,7 @@
     {
       "id": "lineage-selection-windows",
       "ru": "Отбор по линиям: неравенство репродуктивного успеха и потеря линий",
-      "status": "current",
+      "status": "next",
       "links": [
         "library/search-log.md",
         "reports/2026-11-06-s4-reproducibility.md"
@@ -471,6 +471,34 @@
       ],
       "min_score": 4,
       "implication": "S5/C меряет I = Var(w)/mean(w)^2. Нужен канон: что этот индекс предсказывает и какие условия обязательны, чтобы он не был артефактом малого числа линий."
+    },
+    {
+      "id": "movement-profitability-boundary",
+      "ru": "Граница выгодности движения: плотность × скорость восстановления ресурса",
+      "status": "current",
+      "links": [
+        "morphogenesis/experiments/E09_pond/s49_e1_density_axis.json",
+        "reports/2026-11-07-e1-density-axis.md"
+      ],
+      "queries": [
+        "movement profitability density resource recovery rate boundary",
+        "ideal free distribution density dependent movement benefit",
+        "taxis pays only at low density resource renewal"
+      ],
+      "terms": [
+        "density",
+        "recovery",
+        "movement",
+        "boundary",
+        "taxis",
+        "foraging"
+      ],
+      "must": [
+        "density",
+        "movement"
+      ],
+      "min_score": 4,
+      "implication": "E1 показал: при медленном восстановлении движение вредит на 320/550, при быстром платит везде. Нужен канон: где граница выгодности движения и от чего она зависит."
     }
   ]
 }
