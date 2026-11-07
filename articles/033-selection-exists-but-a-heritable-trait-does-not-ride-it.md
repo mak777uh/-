@@ -3,11 +3,12 @@
 - **Type:** research article (short format, one negative result)
 - **Version:** v3.0 — rewritten after two independent referee rounds
 - **Date:** 2026-11-07
-- **Status:** draft; not deposited
+- **Status:** v3.0 reviewed by the lead; ready for the publisher checklist once the author says so
 - **Authors:** Ilya Vladimirov
 - **Previous article of the series:** [032](032-what-decides-whether-behaviour-pays.md)
 - **Artifacts:** `morphogenesis/experiments/E09_pond/s{55,58,63,91}_*.json`
 - **Reviews:** `lab/reviews/2026-11-07-033-independent.md` (v1.0), `lab/reviews/2026-11-07-033-v2-independent.md` (v2.0)
+- **Figures:** `033-figures/` — built by `scripts/make_article_033_figures.py` from the artifacts only
 
 ## Corrections in this version
 
@@ -40,6 +41,12 @@ of surviving** — not a selection coefficient.
 
 ## 2. There is a great deal to select on
 
+![What the world discriminates on, and what the trait price does](033-figures/fig1-selection-and-cost.png)
+
+**Figure 1.** **A.** The probability of surviving a 20-step horizon in the low and the high quartile of each quantity;
+the black dashes are the replication on ten fresh seeds. **B.** The paired difference between the heritable and the fixed
+arm at three trait prices, in the rich and in the poor zone; at zero price the difference is indistinguishable from zero.
+
 | quantity | P(survive): low → high quartile | P(divide): low → high |
 |---|---|---|
 | energy | 0.551 → 0.686 (**+0.135**) | 0.964 → 0.530 (**−0.434**) |
@@ -57,8 +64,8 @@ strongly, on energy and age.**
 inherited with mutation). The trait makes the cell **pay more**: a cell with trait `t` loses
 `strength × t` energy per step. `strength` is the only thing varied:
 
-- **`strength = 0`** — the trait costs nothing. Any systematic shift here is **selection alone**;
-- **`strength > 0`** — the shift mixes selection and cost.
+- **strength = 0** — the trait costs nothing. Any systematic shift here is **selection alone**;
+- **strength > 0** — the shift mixes selection and cost.
 
 Two zones (the rich patch at (7,7) and the poor centre at (16,16)), five seeds, 600 steps. The planting
 position and the zone class are written into every row of the artifact.

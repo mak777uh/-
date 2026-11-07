@@ -10,6 +10,9 @@ import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 POND = os.path.join(ROOT, "morphogenesis", "experiments", "E09_pond")
+# Inside the deposit package the verifier sits beside `artifacts/`, so it runs unchanged there.
+if not os.path.isdir(POND):
+    POND = os.path.join(os.path.dirname(os.path.abspath(__file__)), "artifacts")
 
 CHECKS = []
 
