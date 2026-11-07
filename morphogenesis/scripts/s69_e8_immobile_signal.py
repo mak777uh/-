@@ -140,34 +140,18 @@ def divide(pond, w_weights, signal, mutation_rate, sigma, gen, reach: int = 3):
         y, x = int(ys[k]), int(xs[k])
         if not bool(s.alive[y, x]):
             continue
-        # every candidate is a free cell within `reach` of the parent, so "close" and "far" are no
-        # longer different between the listening and the random branch - only the SIGNAL differs
-        r0 = reach
-        y0, y1 = max(0, y - r0), min(n, y + r0 + 1)
-        x0, x1 = max(0, x - r0), min(n, x + r0 + 1)
-        free_mask = (~s.alive[y0:y1, x0:x1]) & (~newly[y0:y1, x0:x1])
-        if not bool(free_mask.any()):
+        # THE OFFSPRING GOES TO A NEIGHBOUR ONLY, so "far from the parent" no longer exists as a
+        # cost. The trait decides WHICH neighbour: the one with the strongest signal, or a random one.
+        free = [(y + dy, x + dx) for dy, dx in ((1, 0), (-1, 0), (0, 1), (0, -1))
+                if 0 <= y + dy < n and 0 <= x + dx < n
+                and not bool(s.alive[y + dy, x + dx])
+                and not bool(newly[y + dy, x + dx])]
+        if not free:
             continue
-        fy, fx = free_mask.nonzero(as_tuple=True)
-        free = [(y0 + int(a), x0 + int(b)) for a, b in zip(fy.tolist(), fx.tolist())]
         w = float(s.tag_trait[y, x]) if s.tag_trait is not None else 0.0
         if signal is not None and float(torch.rand(1, generator=gen)) < w:
-            # LISTENING EXPANDS THE CHOICE: look at every free cell within `reach` and take the one
-            # with the strongest signal. The previous version only looked at the four neighbours,
-            # which NARROWED the choice, so listening never paid and the trait fell in every
-            # environment (s69 probe 3).
-            r = reach
-            y0, y1 = max(0, y - r), min(n, y + r + 1)
-            x0, x1 = max(0, x - r), min(n, x + r + 1)
-            window = signal[y0:y1, x0:x1]
-            free_mask = (~s.alive[y0:y1, x0:x1]) & (~newly[y0:y1, x0:x1])
-            if bool(free_mask.any()):
-                masked = torch.where(free_mask, window, torch.full_like(window, -1e9))
-                flat = int(torch.argmax(masked))
-                wy, wx = divmod(flat, window.shape[1])
-                target = (y0 + wy, x0 + wx)
-            else:
-                target = free[int(torch.randint(len(free), (1,), generator=gen))]
+            # among the FREE NEIGHBOURS take the one with the strongest signal
+            target = max(free, key=lambda q: float(signal[q[0], q[1]]))
         else:
             target = free[int(torch.randint(len(free), (1,), generator=gen))]
         ny, nx = target
