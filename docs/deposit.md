@@ -131,3 +131,6 @@ Corrections in this version: <что исправлено, почему, как�
 | 031 — Directionality works but does not scale | v2.1 | [10.5281/zenodo.24035630](https://doi.org/10.5281/zenodo.24035630) | 10.5281/zenodo.24012535 | 37 файлов, 1 498 850 Б; v2.0 — 10.5281/zenodo.24012536 |
 | 030 — The gap between surfaces, not the body size, switches fusion | v2.1 | [10.5281/zenodo.23970711](https://doi.org/10.5281/zenodo.23970711) | 10.5281/zenodo.23970710 | 72 файла, 3 678 545 Б |
 | 029 — How lineages begin and end in a pattern-forming chemical medium | v2.0 | [10.5281/zenodo.23933440](https://doi.org/10.5281/zenodo.23933440) | 10.5281/zenodo.23933439 | 48 файлов, 1 454 255 Б |
+| 032 — What decides whether behaviour pays | v1.2 | [10.5281/zenodo.24043982](https://doi.org/10.5281/zenodo.24043982) | 10.5281/zenodo.24043981 | 41 файл, 740 161 Б |
+| 034 — What a signal should change | v1.0 | [10.5281/zenodo.24044020](https://doi.org/10.5281/zenodo.24044020) | 10.5281/zenodo.24044019 | 11 файлов, 514 979 Б |
+| 035 — Where movement pays | v1.0 | [10.5281/zenodo.24044032](https://doi.org/10.5281/zenodo.24044032) | 10.5281/zenodo.24044031 | 11 файлов, 601 649 Б |

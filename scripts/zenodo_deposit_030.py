@@ -23,6 +23,7 @@ import json
 import os
 import pathlib
 import sys
+import time
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -132,6 +133,29 @@ def entries_of(payload: dict) -> list[dict]:
     return files or []
 
 
+def upload_one(client: Client, record_id: str, key: str, payload: bytes, content_url: str, attempts: int = 4) -> None:
+    """Upload and commit one file.
+
+    Zenodo intermittently answers `400 Empty files are not accepted` on the commit even though the PUT succeeded, and it
+    sometimes drops the pending entry altogether; both are cured by putting the bytes again into whatever entry exists.
+    """
+    for attempt in range(attempts):
+        status, body = client.call("GET", f"{API}/records/{record_id}/draft/files")
+        entry = next((e for e in entries_of({"files": body}) if e["key"] == key), None)
+        if entry is None:
+            _, created = client.call("POST", f"{API}/records/{record_id}/draft/files",
+                                     json.dumps([{"key": key}]).encode("utf-8"))
+            entry = created["entries"][0]
+        client.call("PUT", entry["links"]["content"], payload, "application/octet-stream")
+        try:
+            client.call("POST", f"{API}/records/{record_id}/draft/files/{urllib.parse.quote(key, safe='')}/commit")
+            return
+        except SystemExit:
+            if attempt == attempts - 1:
+                raise
+            time.sleep(2)
+
+
 def check(client: Client, record_id: str, files: list[tuple[str, pathlib.Path]]) -> list[dict]:
     _, draft = client.call("GET", f"{API}/records/{record_id}/draft")
     local = dict(files)
@@ -203,8 +227,7 @@ def main(argv=None) -> int:
                              json.dumps([{"key": key} for key, _ in files]).encode("utf-8"))
     by_key = {entry["key"]: entry for entry in entries["entries"]}
     for key, path in files:
-        client.call("PUT", by_key[key]["links"]["content"], path.read_bytes(), "application/octet-stream")
-        client.call("POST", f"{API}/records/{record_id}/draft/files/{urllib.parse.quote(key, safe='')}/commit")
+        upload_one(client, record_id, key, path.read_bytes(), by_key[key]["links"]["content"])
     state = {"id": record_id, "doi": None,
              "html": draft.get("links", {}).get("self_html"),
              "files": len(files), "bytes": sum(p.stat().st_size for _, p in files)}
