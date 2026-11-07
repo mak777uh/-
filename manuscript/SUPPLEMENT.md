@@ -874,6 +874,8 @@
 | [`morphogenesis/experiments/E09_pond/s3_d_patches_steady_randdir.json`](../morphogenesis/experiments/E09_pond/s3_d_patches_steady_randdir.json) | other | 7081 | `3d11e5ef17343ee5c304d0d31f879d012f1f9aea9a5ce8d59d56594d6815d831` |
 | [`morphogenesis/experiments/E09_pond/s43_e3_full.json`](../morphogenesis/experiments/E09_pond/s43_e3_full.json) | other | 3419 | `cc1de05d037a1059a10e6db3a04e3f5e9057efb907e743180d20ca57dd4e1e27` |
 | [`morphogenesis/experiments/E09_pond/s43_probe.json`](../morphogenesis/experiments/E09_pond/s43_probe.json) | other | 893 | `33825755937818c97e47f18e4e1b0928f4ea005f049d6e216235185cadf4aaf0` |
+| [`morphogenesis/experiments/E09_pond/s46_e3c_full.json`](../morphogenesis/experiments/E09_pond/s46_e3c_full.json) | other | 4220 | `e633505b1631d73dfbeb5ab3223ba10e4f219ee5da6df129d3ec6dcd8f08e42a` |
+| [`morphogenesis/experiments/E09_pond/s47_probe.json`](../morphogenesis/experiments/E09_pond/s47_probe.json) | other | 4547 | `ce5fa92b6234f88b9aa7b8b5838194e71441a25a13f8c6d026cf23a53ad972e9` |
 | [`morphogenesis/experiments/E09_pond/s4_baseline_flip200_current.json`](../morphogenesis/experiments/E09_pond/s4_baseline_flip200_current.json) | other | 7013 | `237ff1a670e4cc76e18491342c2b8fd1ae4322c2d41bafc61dde7055ab51af92` |
 | [`morphogenesis/experiments/E09_pond/s4_bisect_b1_drift_rerun.json`](../morphogenesis/experiments/E09_pond/s4_bisect_b1_drift_rerun.json) | other | 6662 | `5943d64254fa2a2d43182814cf7834d519562326b53ceb8d1e156ebcf5a2a224` |
 | [`morphogenesis/experiments/E09_pond/s4_bisect_b1_exact.json`](../morphogenesis/experiments/E09_pond/s4_bisect_b1_exact.json) | other | 6672 | `12adda9f4262bc42d0cef6f53af3cd744f10de8f65e4dd54168babf7e3de38a0` |
@@ -6532,6 +6534,7 @@
 | [`reports/figures/e02b_transition_matrix.png`](../reports/figures/e02b_transition_matrix.png) | figure | 152522 | `81f1b4fe50fd819f45411c31fb737a0c232d9c4f993f5233184c8b276779f5b9` |
 | [`reports/figures/e02c_seed_grid.png`](../reports/figures/e02c_seed_grid.png) | figure | 69503 | `a14f0a6eb28fa0675629e539dc863049d97c3a7ef1914c34ebd7348b5c71776f` |
 <!-- artifacts:end -->
+
 
 
 
