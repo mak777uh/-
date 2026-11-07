@@ -1292,24 +1292,135 @@ is what makes them recognisable.
 
 ---
 
+## P61. The boss must maintain fragmentation — because the boss is a fragment
+
+**The move.** "One fragment of those many fragments becomes the authority, the censor, the observer, the examiner,
+the thinker." Naudé: "The boss." K: "The boss. And so he maintains fragmentation. **The moment he assumes the
+authority, he must maintain fragmentation**... Therefore he must maintain conflict."
+
+**In our world.** This is P56 completed and it is the **most precise statement about our architecture** in the whole
+file. Our cell has a boss: **the gate**, and behind it **`pred`**. The boss **assumes authority** — it decides when
+the cell acts. And the pattern says something we could not have guessed: **the boss must maintain the fragmentation
+in order to exist**. A gate that did not maintain a threshold would not be a gate.
+
+**What it explains.** Why the trap of inaction is **not a bug but the boss's job**: a gate that stopped separating
+"worth moving" from "not worth moving" would cease to be a gate. The trap is **the price of having a boss**.
+
+**Testable, and it is the cleanest form of the whole file.** Remove the boss: no gate, act on the **magnitude** of
+the deviation continuously (P17). The pattern predicts not merely a better score but a **qualitative difference** —
+the cell's behaviour should become a function of the **situation** rather than of the **threshold**. That is
+measurable: the correlation between behaviour and the environment should **rise**, and the correlation between
+behaviour and the cell's own past should **fall**.
+
+**Status:** hypothesis; the two correlations are the right readout.
+
+---
+
+## P62. Consciousness exists only as the battle between fragments
+
+**The move.** "Consciousness is its fragments and consciousness is the battle between the fragments." And: "When
+they are not battling together they are not fragments... The fragments disappear when they are not acting against
+each other."
+
+**In our world.** This is a **strong and strange claim** with a mechanical reading: what we call "the cell's
+state" **is** the tension between its parts — the resource and the record, the gate and the threshold. **Remove the
+tension and there is no "state" left to speak of** — there is just the situation.
+
+**What it explains.** Why every attempt to "improve the state" failed: the state **is** the conflict, and improving
+one side of a conflict does not end the conflict, it **moves** it (P51: juggling).
+
+**Testable.** The reset and removal experiments are the test: if the "state" is the tension between `resource` and
+`pred`, then removing `pred` should not leave a weaker state — it should leave **no state at all**, i.e. behaviour
+that is a direct function of the resource. That is a **qualitatively different** prediction from "a better score".
+
+**Status:** hypothesis; it sharpens what to look for after the reset.
+
+---
+
+## P63. "What is such a mind to do?" — and the circus goes on only through will
+
+**The move.** "For such a mind is there anything to do?" Naudé: "If there is nothing to do then the circus goes
+on." K: "**No. The circus goes on only when there is the exercise of will.**"
+
+**In our world.** This closes P55. We asked "what should the cell do" and there was no one to do it (P52). The
+pattern adds the **positive** half: **doing is itself the circus**. Every "should" we wrote into the cell was a
+fragment asserting authority (P61).
+
+**What it explains.** Why the experiments that **asked the cell to do something** (adapt, predict, decide) all
+produced conflict-shaped results, and the experiments that **measured a state** (E7: is there selection? E1: where
+is the boundary?) produced clean ones.
+
+**Testable / rule.** The experiment must not contain a "should" for the cell. If the design has a target the cell is
+supposed to reach, it is a circus. That is P33/P39 stated as a **prohibition**.
+
+**Status:** rule; it is the operational form of P33.
+
+---
+
+## P64. The change has already taken place in the seeing
+
+**The move.** After the mind has seen that will is not the way: Naudé: "It is such a great change, it is difficult
+to say what the extent of that change is." K: "**It has already taken place!** That is my point."
+
+**In our world.** This is P60 with teeth. **Seeing is the change.** A mind that has seen that the observer is the
+observed does not then have to **do** something about it — the seeing **is** the end of the division.
+
+**What it explains.** Why our "insights" never changed anything: we treated them as **statements to act on later**
+(P60), not as **the end of the thing seen**. The fifty-nine patterns in this file are, by this pattern, **already a
+change if they were actually seen** — and the test of whether they were seen is whether the **next experiment is
+different**.
+
+**Testable / rule for this file.** The proof that a pattern was seen is that an experiment **changed shape**
+because of it. If the next experiment is another juggle (P51), nothing was seen.
+
+**Status:** rule; it is the honest self-test of this file.
+
+---
+
+## P65. Fragmentation is not a fact about the world — it is an activity
+
+**The move.** Naudé: "The fragments disappear when they are not acting against each other." K: "Naturally! When
+Pakistan and India are no longer fighting, there is no more Pakistan and India."
+
+**In our world.** We treated the cell's parts — energy, record, gate, threshold — as **real separate things** that
+interact. The pattern says: they are **not separate things**; they are **one process described in parts**, and the
+parts exist only while they act against each other.
+
+**What it explains.** Why "adding a mechanism" always felt like adding a **part** but never changed the **process**:
+there was no part to add; there was only the process, described more elaborately.
+
+**Testable / design requirement.** Describe the cell as **one process** (a single update rule over one state), not
+as parts with interfaces. If the description cannot be reduced to one rule, the "parts" are doing the work of the
+description, not of the world.
+
+**Status:** design requirement; it is P43 in the language of parts.
+
+---
+
 ## What the reading has changed in our plan (updated)
 
-1. **The `pred`-reset sweep** — readout is **responsiveness** (P54), and the move rate should restore **immediately**
-   (P31).
-2. **The `pred`-removal experiment** — with the mutual-information prediction (P42).
-3. **The random-perturbation control** (P56, P58) — the missing control of the whole adaptive line.
-4. **The move-cost test** (P41); **the initial-`pred` test** (P36, P40); **the continuous-gate test** (P17).
-5. **The recovery test** (P9); **the two-environment sweep** (P14); **the ratio law** (P15); **the neighbour-read
-   test** (P22); **the move-rate curve** (P29); **the stereotypy ratio** (P32); **the repertoire test** (P49).
+1. **Remove the boss** (P61, P57, P17): no gate, continuous response on the magnitude. Readout: the correlation
+   between behaviour and the **environment** should rise, and between behaviour and the cell's own **past** should
+   fall.
+2. **The `pred`-reset sweep** — readout **responsiveness** (P54); move rate restores **immediately** (P31).
+3. **The `pred`-removal experiment** — with the prediction that behaviour becomes a **direct function of the
+   resource** (P62), and the mutual information with the past **drops to zero** (P42).
+4. **The random-perturbation control** (P56, P58) — the missing control of the adaptive line.
+5. **The move-cost test** (P41); **the initial-`pred` test** (P36, P40); **the recovery test** (P9); **the
+   two-environment sweep** (P14); **the ratio law** (P15); **the neighbour-read test** (P22); **the move-rate curve**
+   (P29); **the stereotypy ratio** (P32); **the repertoire test** (P49).
 6. **On existing data:** `resource − pred` across E10's patterns (P11); the cell's own measures (P27, P59).
 7. **Rules:** from the first steps (P4); no predicted sign (P33); "what is" not "how to" (P39); which of the first
-   two states (P46); measure behaviour not its shadow (P48); set of variables not values (P51).
+   two states (P46); measure behaviour not its shadow (P48); set of variables not values (P51); **no "should" for
+   the cell** (P63); **the proof that a pattern was seen is that the next experiment changed shape** (P64).
 8. **Design constraints:** novelty from outside the record (P38); relationship not isolation (P34); no controller
-   inside the cell (P52); one quantity outer-inner-beyond (P43); do not help the cell (P45).
+   inside the cell (P52); one quantity outer-inner-beyond (P43); do not help the cell (P45); **describe the cell as
+   one process, not as parts** (P65).
 
 ---
 
 ## Reading progress
 
-- Pages 1–90 of 409 read (Part III, the Naudé conversation: the observer is the observed; will as resistance).
-- Next: the rest of Part III (fragmentation, effort, and the end of the "how").
+- Pages 1–94 of 409 read (Part III: the Naudé conversation on will and fragmentation complete; "On good and evil"
+  begun).
+- Next: "On good and evil", then Part IV (India).
