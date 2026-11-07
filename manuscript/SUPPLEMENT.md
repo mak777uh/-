@@ -946,6 +946,8 @@
 | [`morphogenesis/experiments/E09_pond/s77_share0.3_full.json`](../morphogenesis/experiments/E09_pond/s77_share0.3_full.json) | other | 9546 | `0608ce6c9b73c1556e45c653b6389c4c8fab61790b8505b41d6e184fc357b6d3` |
 | [`morphogenesis/experiments/E09_pond/s77_share0.6_full.json`](../morphogenesis/experiments/E09_pond/s77_share0.6_full.json) | other | 9536 | `d4056b33b4ceb04dbc133993416f2d04e874a32b2431658095ff4128223b738a` |
 | [`morphogenesis/experiments/E09_pond/s77_share0_full.json`](../morphogenesis/experiments/E09_pond/s77_share0_full.json) | other | 9544 | `5db92373e80df6ad97a5a530ff91d672cd66cf344138a5c053a7c0561f9dfae0` |
+| [`morphogenesis/experiments/E09_pond/s78_probe.json`](../morphogenesis/experiments/E09_pond/s78_probe.json) | other | 2505 | `c0c35da0901fbd2519187e7c462bc9898ae3a257e3d144d0a43e847c1395b279` |
+| [`morphogenesis/experiments/E09_pond/s79_e10_full.json`](../morphogenesis/experiments/E09_pond/s79_e10_full.json) | other | 37284 | `618dca3b5cc8e5cb521467d2c8d335a613eb5ffb01faf2d335251e2bb9dedfc1` |
 | [`morphogenesis/experiments/E09_pond/s7_c3b_baseline_ABC.json`](../morphogenesis/experiments/E09_pond/s7_c3b_baseline_ABC.json) | other | 11030 | `254837f0101c1e286d8dea7128736b1a44238cf69341f91fa7f2c1a4d745d098` |
 | [`morphogenesis/experiments/E09_pond/s7_c3b_localres_ABC.json`](../morphogenesis/experiments/E09_pond/s7_c3b_localres_ABC.json) | other | 11016 | `a1e9eda2a770933a88785d6616abd52bce6b16b6e64ed812c274d63a61b85818` |
 | [`morphogenesis/experiments/E09_pond/s8_anchor_after_audit.json`](../morphogenesis/experiments/E09_pond/s8_anchor_after_audit.json) | other | 2760 | `5bdb4d11f1bf530730d5b12089b42ecc53ccb630dbf8efb89dfc00aa587ffc5b` |
@@ -6579,6 +6581,7 @@
 | [`reports/figures/e02b_transition_matrix.png`](../reports/figures/e02b_transition_matrix.png) | figure | 152522 | `81f1b4fe50fd819f45411c31fb737a0c232d9c4f993f5233184c8b276779f5b9` |
 | [`reports/figures/e02c_seed_grid.png`](../reports/figures/e02c_seed_grid.png) | figure | 69503 | `a14f0a6eb28fa0675629e539dc863049d97c3a7ef1914c34ebd7348b5c71776f` |
 <!-- artifacts:end -->
+
 
 
 
