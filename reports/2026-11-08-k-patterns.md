@@ -254,18 +254,109 @@ term that is **not** a function of the past. That is a concrete design requireme
 
 ---
 
-## What the reading has changed in our plan
+## P13. Thought is never free — it can only imagine freedom
 
-1. **The `pred`-removal experiment is now the top priority.** P1, P6, P8, P9, P10, P11 all point at `pred`, and
-   P11 can be **checked on existing data** before running anything.
-2. **A new measurement rule:** report the effect **from the first steps**, not only the last window (P4).
-3. **A new design requirement:** the decision must contain a term that is **not** a function of the past (P12).
-4. **A new test type:** the **recovery test** (P9) — does the cell resume moving when food returns?
+**The move.** "Thought is the response of the past, which may project itself into the future, going through the
+present, modifying it as the future. But it is still the past. So thought is never free — how can it be? It can
+imagine what is freedom, it can idealize what freedom should be, create a Utopia of freedom. But thought itself is
+of the past and therefore it is not free, it is always old."
+
+**In our world.** This is the strongest statement of the ceiling we keep hitting. Our cell's decision is a function
+of `pred`; `pred` is the past. Therefore the cell **cannot** produce a decision that is not in its past. It can
+only **re-weight** its past. Every mechanism we added — field, niche, signal, memory, decoder — was a
+**re-weighting of the past**, and that is why each one either did nothing or helped equally in all arms.
+
+**What it explains.** All of 07.11's nulls in one sentence. And the literature's "evolution inside a given
+ontology" is the same statement in evolutionary language.
+
+**Testable / design requirement.** Not a test — a **constraint on any future design**: the decision must contain a
+term that is **not** a function of the cell's own past. Candidates: the present resource read **directly** (no
+`pred`), or a term supplied from **outside** the cell's history (another cell, the environment's instantaneous
+state).
+
+**Status:** design principle, and the clearest one in the file.
+
+---
+
+## P14. Recording is the same act for pleasure and for fear
+
+**The move.** "The very process of recording is knowledge, which is the past, and thought is the past. So thought,
+as pleasure, is sustained... So thought sustains and gives nourishment to pleasure as well as to fear. Thought is
+responsible for this."
+
+**In our world.** `pred` does not know whether it is recording plenty or shortage — it is a **symmetric average**.
+The same mechanism that lets a cell "remember" a good patch also makes it **stuck** in a bad one. There is no
+separate "good memory" and "bad memory"; there is one recorder.
+
+**What it explains.** Why we could not fix the trap by tuning: any change that makes the record **more useful** in
+plenty makes it **more sticky** in shortage. The mechanism cannot be tuned to be good at one and bad at the other.
+
+**Testable.** Sweep the smoothing rate `plastic_eta` over a wide range, in **both** a stable and a
+suddenly-changing environment. P14 predicts the optimum is **different** in the two, so no single value is good
+for both — and that the best stable-environment value is the worst changing-environment value.
+
+**Status:** hypothesis; the two-environment sweep is a clean test.
+
+---
+
+## P15. Thought has a rational function and an irrational one — and they are the same machinery
+
+**The move.** "There must be the exercise of thought in doing things. Technologically, in the office, when you
+cook... knowledge must function perfectly. There is the rationality, the logic of thought in action. But also
+thought becomes totally irrational when it sustains pleasure or fear."
+
+**In our world.** The cell's `pred` is **rational** when the environment is stationary (a good estimate of where
+food is) and **irrational** when the environment changes (an estimate of where food *was*). **Same code, opposite
+verdict** — the difference is entirely in the environment.
+
+**What it explains.** Why our results were **contradictory across experiments**: the same `pred` helped in E1's
+fast-recovery cells and hurt in the slow-recovery ones. We reported this as "the sign depends on recovery rate" —
+but the pattern says something sharper: the sign depends on **whether the environment is stationary relative to
+the record's own timescale**.
+
+**Testable.** The ratio `(environment change time) / (record time constant)` should predict the sign of the
+effect. If it does, `pred` is not "good" or "bad" — it is **matched or mismatched**, and the sign is a function of
+that ratio. That is a **quantitative law**, not a regime.
+
+**Status:** testable on existing artifacts (E1 has three recovery rates; E15 has three strengths).
+
+---
+
+## P16. "As you think, what you think, you are"
+
+**The move.** "As you think, what you think, you are. You think you are greater than somebody else, that you are
+inferior... what you think you are."
+
+**In our world.** The cell **is** its decision rule. There is nothing else to it — no separate "cell" behind the
+rule. So its identity is exactly `resource − pred`, and the record is not something the cell *has*; it is
+something the cell *is*.
+
+**What it explains.** Why "adding" a mechanism never produced a new kind of agent: there is no substrate to add
+to. A mechanism added to a cell is a mechanism added to **the same rule**, i.e. a re-weighting (P13 again).
+
+**Testable.** Not directly; it is the **justification** for the next design step: to get a different agent, the
+**rule** must be different, not the parameters.
+
+**Status:** design principle.
+
+---
+
+## What the reading has changed in our plan (updated)
+
+1. **The `pred`-removal experiment is the top priority** (P1, P6, P8, P9, P10, P11, P13).
+2. **Check on existing data first:** is `resource − pred` statistically indistinguishable across E10's four
+   patterns? (P11) — zero new runs.
+3. **The recovery test:** does a cell with `pred` resume moving when food returns? (P9)
+4. **The two-environment sweep:** is the best smoothing rate different in stable vs changing environments? (P14)
+5. **The ratio law:** does `(change time)/(record time constant)` predict the sign of the effect? (P15) — on
+   existing E1/E15 artifacts.
+6. **New measurement rule:** report the effect **from the first steps**, not only the last window (P4).
+7. **New design requirement:** the decision must contain a term that is **not** a function of the cell's past
+   (P13, P16).
 
 ---
 
 ## Reading progress
 
-- Pages 1–52 of 409 read (front matter, Part I conversation, Part II talk 1 through "thought is the response of
-  memory").
-- Next: the rest of Part II talk 1 (the questions on observer and observed, fragmentation, resistance).
+- Pages 1–56 of 409 read (Part II talk 1 through the questions on observer and observed).
+- Next: Part II talk 2 (relationship), then talk 3 (religious experience, meditation).
