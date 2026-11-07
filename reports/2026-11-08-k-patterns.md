@@ -761,28 +761,132 @@ in this sense — which is the `pred`-removal experiment once more, now with a r
 
 ---
 
+## P36. A system makes the mind mechanical — and freedom is at the beginning, not at the end
+
+**The move.** "A system implies practice, following, repetition, changing 'what actually is' and therefore
+increasing your conflict. Systems make the mind mechanical, they don't give you freedom, they may promise freedom
+at the end, but **freedom is at the beginning, not at the end**."
+
+**In our world.** Every mechanism we added was a **system**: a prescribed procedure the cell follows. And the
+prediction of the pattern is exact: a system **changes "what actually is"** — it makes the cell behave according to
+the procedure rather than according to the situation.
+
+**What it explains.** Why the cell became **more mechanical** with every addition, never less: the field, the
+memory, the decoder, the gate were all **procedures**. A cell with more procedures is a more mechanical cell.
+
+**Testable / design requirement.** The operational form: **freedom at the beginning** means the cell's **first
+step** must already be unconstrained. Concretely — no initial condition that pre-commits the cell to a procedure.
+This is checkable: run the same world with **different initial `pred`** and see whether the cell's long-run
+behaviour depends on it. If it does, the procedure dominates the situation.
+
+**Status:** hypothesis; the initial-`pred` test is cheap.
+
+---
+
+## P37. Understanding the origin of thought, not controlling it
+
+**The move.** "What is important is not controlling thought, but **understanding it**, understanding the origin,
+the beginning of thought, which is in yourself."
+
+**In our world.** We spent enormous effort **controlling** the cell: tuning `plastic_eta`, `plastic_gate`,
+`plastic_move_cost`, the niche gain, the signal strength. **Every one of those was control.** We never asked about
+the **origin** of the cell's "thought" — which is `pred`, i.e. the record.
+
+**What it explains.** Why tuning produced a landscape of small effects and no qualitative change: control adjusts
+the **expression** of the mechanism, not its **origin**.
+
+**Testable / design requirement.** The origin of the cell's behaviour is **one line**: `pred` is updated from the
+resource. Change **that line** — not the parameters around it — and the cell is a different cell. That is exactly
+the reset/removal experiment, and P37 says it is the **only** place worth changing.
+
+**Status:** supports the reset/removal direction; it is the same instruction as P30 and P35.
+
+---
+
+## P38. The brain can only operate in the field of knowledge
+
+**The move.** "While the brain cells continue to operate, they can only operate in the field of knowledge... The
+only thing the brain can do is to function in the field of experience, of knowledge, in the field of time — which
+is the past."
+
+**In our world.** This is the **hard ceiling**, stated as a fact about the substrate: a cell whose state is a
+record can only compute functions of the record. **No amount of architecture changes that**, because the
+architecture is also made of the record.
+
+**What it explains.** All of our nulls, in one sentence, without exception.
+
+**The consequence for design — and it is the important part.** If the cell cannot leave the field of knowledge,
+then **novelty cannot come from the cell**. It must come from **outside**: from the environment, from another cell,
+or from a **random** term that is not a function of the record. That is the only logical possibility, and it
+narrows the design space to exactly three options.
+
+**Status:** design principle; it is the strongest constraint in the file.
+
+---
+
+## P39. "How" is already a system — so the question must be "what is", not "how to"
+
+**The move.** "Now, how does the mind become quiet? — without effort, without control... The moment you ask 'how'
+you are introducing a system. Therefore there is no 'how'."
+
+**In our world.** Our entire experimental method is **"how"**: how to make the cell evolve, how to make the signal
+work, how to make the niche pay. Each "how" presupposed the answer and built a procedure around it.
+
+**What it explains.** P33 in a sharper form: a "how" question **cannot fail informatively** — it always produces
+either a working procedure (which we then over-generalise) or a null (which we then explain away). Neither
+teaches us what the world **is**.
+
+**Testable / methodological rule.** Replace "how to make X work" with "**what is the case** when X happens". The
+operational form: an experiment that **measures a state**, not one that **tests a procedure**. Our best results
+(E7: selection exists; E1: the boundary; E7f: properties matter only in the poor zone) were all of the first kind.
+
+**Status:** methodological rule; it is P33 completed.
+
+---
+
+## P40. The first step is the last step
+
+**The move.** "You must begin at the beginning and **the first step is the last step**, and this is meditation."
+
+**In our world.** We have read this before (P4) as "no transitional regime", and here it is given its strongest
+form: the **quality of the first step** is the quality of the whole. If the cell's first step is a procedure, the
+whole life is a procedure; if the first step is free, the whole is.
+
+**What it explains.** Why our long runs never produced anything the short runs did not: the first step already
+determined the trajectory. And it is why the **initial-`pred` test** (P36) is decisive — it reads the whole future
+off the beginning.
+
+**Testable.** The same initial-`pred` test, plus: compare the **first 20 steps** of two runs that end differently.
+If the difference is already visible at step 20, the first step is the last step in a measurable sense.
+
+**Status:** testable; cheap.
+
+---
+
 ## What the reading has changed in our plan (updated)
 
-1. **The `pred`-reset sweep is the top experiment** (P25, P26, P30, P31) — with the sharper prediction that the
-   move rate **restores immediately** after a reset (P31), not gradually.
-2. **The `pred`-removal experiment** (P1, P6, P8, P9, P10, P11, P13, P18, P29, P31, P35) — the limiting case; P29
-   and P31 predict the trap **disappears entirely**.
-3. **The move-rate curve** (P29) — does the fraction able to act decline with `pred` and stay flat without it?
-   S22 already hints yes (0.31 → 0.17).
-4. **The stereotypy ratio** (P32) — is the cell's behavioural variance **lower** than its input variance? Computable
-   from existing runs.
-5. **Report the cell's own success measure** alongside our metric (P27).
-6. **Check on existing data:** is `resource − pred` indistinguishable across E10's four patterns? (P11)
-7. **The continuous-gate test** (P17); **the recovery test** (P9); **the two-environment sweep** (P14); **the ratio
+1. **The `pred`-reset sweep is the top experiment** (P25, P26, P30, P31, P37) — with the prediction that the move
+   rate **restores immediately** after a reset (P31).
+2. **The `pred`-removal experiment** (P1, P6, P8, P9, P10, P11, P13, P18, P29, P31, P35, P37) — the limiting case.
+3. **The initial-`pred` test** (P36, P40) — does the cell's long-run behaviour depend on its starting record? If
+   yes, the procedure dominates the situation; the **first step is the last step**, measurably.
+4. **The move-rate curve** (P29) — does the fraction able to act decline with `pred` and stay flat without it?
+5. **The stereotypy ratio** (P32) — is the cell's behavioural variance lower than its input variance?
+6. **Report the cell's own success measure** alongside our metric (P27).
+7. **Check on existing data:** is `resource − pred` indistinguishable across E10's four patterns? (P11)
+8. **The continuous-gate test** (P17); **the recovery test** (P9); **the two-environment sweep** (P14); **the ratio
    law** (P15); **the neighbour-read experiment** (P22).
-8. **New measurement rule:** report the effect **from the first steps** (P4).
-9. **New register:** experiments **with no predicted sign** (P33) — our best results were of this kind.
-10. **Design direction:** cells that are **alone, not isolated** (P34) — neighbours affect each other's **terms**
-    without transfer; a **novelty term** (P24); **no self-tuning inside the cell** (P28).
+9. **New measurement rules:** report the effect from the first steps (P4); keep a register of experiments **with no
+   predicted sign** (P33, P39); ask "**what is**" rather than "**how to**" (P39).
+10. **The design space is narrowed to three options** (P38): novelty from the **environment**, from **another
+    cell**, or from a **random term that is not a function of the record**. Nothing else can work.
+11. **Design direction:** cells that are **alone, not isolated** (P34) — neighbours affect each other's **terms**
+    without transfer; a **novelty term** (P24); **no self-tuning inside the cell** (P28); **freedom at the
+    beginning** (P36).
 
 ---
 
 ## Reading progress
 
-- Pages 1–71 of 409 read (Part II complete; talk 3 "Religious experience. Meditation" begun).
-- Next: the rest of talk 3 (meditation, the known and the unknown, the first step is the last step).
+- Pages 1–74 of 409 read (Part II talk 3 "Religious experience. Meditation" through the questions).
+- Next: the rest of talk 3, then Part III (the Naudé conversations).
