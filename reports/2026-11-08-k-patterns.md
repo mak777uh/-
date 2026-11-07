@@ -863,30 +863,127 @@ If the difference is already visible at step 20, the first step is the last step
 
 ---
 
+## P41. Energy comes from observing what is, not from escaping it
+
+**The move.** "Unfortunately you won't do it because it needs energy, and **energy comes only when you observe
+actually what is and don't run away from it**. When you see actually what is, then in the observing of it, you have
+the energy to go beyond it."
+
+**In our world.** This is P7 and P23 completed, and it has a **mechanical** form: a cell that **escapes** a deficit
+(moves away, or adjusts `pred` downward) spends energy on the escape. A cell that **stays** in the deficit has that
+energy available. The pattern says the escape **is** the waste.
+
+**What it explains.** Why S22's `greedy_ema` (0.166) did worse than `baseline` (0.340): the "adaptive" cell was
+**paying to escape** a situation it could not escape, and the payment was the loss. The baseline cell did not pay.
+
+**Testable.** The prediction is sharp: the **cost of movement** should be the whole difference. Run the trap
+experiment with `plastic_move_cost = 0`. If `greedy_ema` then matches `baseline`, the trap was an **energy** effect,
+not an information effect. That is a single parameter and it settles the mechanism.
+
+**Status:** hypothesis; a one-parameter test.
+
+---
+
+## P42. Tomorrow is the invention of thought — and it is what makes the present incomplete
+
+**The move.** "'Tomorrow I will be, tomorrow I will change, tomorrow I will become'; psychologically we have
+created time — tomorrow... So tomorrow is the invention of thought as time, and if there is no tomorrow
+psychologically, what happens in life today?"
+
+**In our world.** `pred` **is** the tomorrow: it is the projection of the past into the present, and every decision
+of the cell is a comparison with that projection. The cell is **never living in the present resource**; it is always
+living in the difference between the present and its projected tomorrow.
+
+**What it explains.** P29/P31 in temporal language: the gap is **tomorrow**, and the gap is made by the record.
+
+**Testable.** Same reset/removal experiments, with one added prediction: a cell **without** `pred` should be
+**indifferent to the future** — its behaviour should depend on the **current** resource only, and therefore should
+**not** be predictable from its past. That is measurable as the **mutual information between past and future
+behaviour** dropping to zero.
+
+**Status:** testable; a clean information-theoretic prediction.
+
+---
+
+## P43. The division into inner, outer and beyond is itself the problem
+
+**The move.** "Why have I, as a human being, divided the world outside of me from the world inside me, and from the
+world which I am trying to grasp? ... Not being able to solve the outer, we turn to the inner; not being able to
+solve the inner, we move away from both to some other dimension."
+
+**In our world.** We have made **exactly this three-way division** in our experiments:
+- **outer** — the resource field;
+- **inner** — the cell's `pred` and energy;
+- **beyond** — the "mechanism" we keep looking for (field, niche, signal, decoder), the thing that would solve it
+  from another dimension.
+
+**What it explains.** Why we kept adding a third category: the outer did not solve it (E1's boundary), the inner did
+not solve it (E15's null), so we looked **beyond** — five times. The pattern says the division itself is the error,
+and the answer is **one movement**, not three categories.
+
+**Testable / design requirement.** The unitary version: **one quantity** that is at once outer, inner and beyond.
+The natural candidate in our world is the **resource the cell is standing in** — it is outer (the field), inner (the
+cell's energy comes from it), and it is the only "beyond" there is. A design in which **all three are the same
+variable** is the unitary movement. That is a strong constraint and it rules out every design we have tried.
+
+**Status:** design principle; it is the most demanding constraint in the file.
+
+---
+
+## P44. Consciousness is known only by its content
+
+**The move.** "You only know consciousness by its content, and its content is what is happening in the world, of
+which you are a part."
+
+**In our world.** The cell's "consciousness" is `pred`, and `pred` is **only** the content — the accumulated
+resource values. There is nothing behind it. This is P28 and P38 in one line.
+
+**What it explains.** Why "emptying" is not "having no consciousness" (his words): emptying `pred` does not make the
+cell blind, it makes the cell **see the content directly** instead of through its record. That is the reset
+experiment's rationale, stated exactly.
+
+**Status:** supports the reset/removal direction.
+
+---
+
+## P45. "I want to help another" is itself the problem
+
+**The move.** "Then go, preach, talk about it — not with the desire to help another, you understand? — that's the
+most terrible thing to say, 'I want to help another'. Who are you to help another? ... The beauty of the tree or the
+flower doesn't want to help you, it is there."
+
+**In our world.** Every mechanism we added was an attempt to **help the cell**: give it a field, a memory, a signal,
+a decoder. Each was a **gift from outside**, and each was therefore **not the cell's own**.
+
+**What it explains.** Why the gifts did not take: a gift changes what the cell **has**, not what the cell **is**
+(P16). And it gives the design rule: **do not help the cell — change what it is**, or change the world it is in.
+
+**Status:** design principle; it rules out the whole "add a mechanism" family definitively.
+
+---
+
 ## What the reading has changed in our plan (updated)
 
-1. **The `pred`-reset sweep is the top experiment** (P25, P26, P30, P31, P37) — with the prediction that the move
-   rate **restores immediately** after a reset (P31).
-2. **The `pred`-removal experiment** (P1, P6, P8, P9, P10, P11, P13, P18, P29, P31, P35, P37) — the limiting case.
-3. **The initial-`pred` test** (P36, P40) — does the cell's long-run behaviour depend on its starting record? If
-   yes, the procedure dominates the situation; the **first step is the last step**, measurably.
-4. **The move-rate curve** (P29) — does the fraction able to act decline with `pred` and stay flat without it?
-5. **The stereotypy ratio** (P32) — is the cell's behavioural variance lower than its input variance?
-6. **Report the cell's own success measure** alongside our metric (P27).
-7. **Check on existing data:** is `resource − pred` indistinguishable across E10's four patterns? (P11)
-8. **The continuous-gate test** (P17); **the recovery test** (P9); **the two-environment sweep** (P14); **the ratio
+1. **The `pred`-reset sweep is the top experiment** (P25, P26, P30, P31, P37, P44).
+2. **The `pred`-removal experiment** (P1, P6, P8, P9, P10, P11, P13, P18, P29, P31, P35, P37, P42, P44) — with the
+   added prediction that the mutual information between past and future behaviour **drops to zero** (P42).
+3. **The move-cost test** (P41): set `plastic_move_cost = 0` in the trap experiment. If `greedy_ema` then matches
+   `baseline`, the trap was **energy**, not information. One parameter.
+4. **The initial-`pred` test** (P36, P40).
+5. **The move-rate curve** (P29); **the stereotypy ratio** (P32); **the cell's own success measure** (P27).
+6. **Check on existing data:** is `resource − pred` indistinguishable across E10's four patterns? (P11)
+7. **The continuous-gate test** (P17); **the recovery test** (P9); **the two-environment sweep** (P14); **the ratio
    law** (P15); **the neighbour-read experiment** (P22).
-9. **New measurement rules:** report the effect from the first steps (P4); keep a register of experiments **with no
-   predicted sign** (P33, P39); ask "**what is**" rather than "**how to**" (P39).
-10. **The design space is narrowed to three options** (P38): novelty from the **environment**, from **another
-    cell**, or from a **random term that is not a function of the record**. Nothing else can work.
-11. **Design direction:** cells that are **alone, not isolated** (P34) — neighbours affect each other's **terms**
-    without transfer; a **novelty term** (P24); **no self-tuning inside the cell** (P28); **freedom at the
-    beginning** (P36).
+8. **Measurement rules:** from the first steps (P4); no predicted sign (P33, P39); "what is" not "how to" (P39).
+9. **The design space is three options** (P38): novelty from the **environment**, from **another cell**, or from a
+   **random term not a function of the record**.
+10. **The unitary constraint** (P43): one quantity that is at once outer, inner and beyond — in our world that is
+    **the resource the cell stands in**. This rules out every design we have tried.
+11. **Do not help the cell** (P45): change what it **is**, or change the world it is in.
 
 ---
 
 ## Reading progress
 
-- Pages 1–74 of 409 read (Part II talk 3 "Religious experience. Meditation" through the questions).
-- Next: the rest of talk 3, then Part III (the Naudé conversations).
+- Pages 1–79 of 409 read (Part II complete; Part III, the Naudé conversation, begun).
+- Next: the rest of Part III (the circus of man's struggle; on good and evil).
