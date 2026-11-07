@@ -1,0 +1,111 @@
+{
+ "kind": "s69_e8_immobile_signal",
+ "steps": 300,
+ "window": 100,
+ "mutation_rate": 0.05,
+ "sigma": 0.1,
+ "period": 40,
+ "note": "cells never move; the heritable trait is how strongly a dividing cell places its offspring toward the signal; three environments differ only in whether a signal exists and where it comes from",
+ "n_seeds": 1,
+ "rows": [
+  {
+   "seed": 1,
+   "env": "none",
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "trait_mean": 0.49654,
+     "trait_std": 0.24593,
+     "alive_mean": 162.6
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "trait_mean": 0.42941,
+     "trait_std": 0.10142,
+     "alive_mean": 182.7
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "trait_mean": 0.27571,
+     "trait_std": 0.06736,
+     "alive_mean": 392.9
+    }
+   ],
+   "final": {
+    "alive": 491,
+    "born": 1337,
+    "died": 3232
+   },
+   "R1": true
+  },
+  {
+   "seed": 1,
+   "env": "cpu",
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "trait_mean": 0.49428,
+     "trait_std": 0.24505,
+     "alive_mean": 164.2
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "trait_mean": 0.45897,
+     "trait_std": 0.12067,
+     "alive_mean": 163.0
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "trait_mean": 0.29105,
+     "trait_std": 0.06406,
+     "alive_mean": 480.7
+    }
+   ],
+   "final": {
+    "alive": 575,
+    "born": 1265,
+    "died": 3654
+   },
+   "R1": true
+  },
+  {
+   "seed": 1,
+   "env": "external",
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "trait_mean": 0.49216,
+     "trait_std": 0.25062,
+     "alive_mean": 157.4
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "trait_mean": 0.35545,
+     "trait_std": 0.12308,
+     "alive_mean": 143.1
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "trait_mean": 0.19326,
+     "trait_std": 0.05411,
+     "alive_mean": 396.4
+    }
+   ],
+   "final": {
+    "alive": 530,
+    "born": 1224,
+    "died": 2979
+   },
+   "R1": true
+  }
+ ]
+}

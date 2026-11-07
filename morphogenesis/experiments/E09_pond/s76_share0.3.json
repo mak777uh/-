@@ -1,0 +1,45 @@
+{
+ "kind": "s69_e8_immobile_signal",
+ "steps": 300,
+ "window": 100,
+ "mutation_rate": 0.05,
+ "sigma": 0.1,
+ "period": 40,
+ "note": "cells never move; the heritable trait is how strongly a dividing cell places its offspring toward the signal; three environments differ only in whether a signal exists and where it comes from",
+ "n_seeds": 1,
+ "rows": [
+  {
+   "seed": 1,
+   "env": "cpu",
+   "windows": [
+    {
+     "start": 1,
+     "end": 100,
+     "trait_mean": 0.49677,
+     "trait_std": 0.2351,
+     "alive_mean": 178.6
+    },
+    {
+     "start": 101,
+     "end": 200,
+     "trait_mean": 0.449,
+     "trait_std": 0.0882,
+     "alive_mean": 253.3
+    },
+    {
+     "start": 201,
+     "end": 300,
+     "trait_mean": 0.30878,
+     "trait_std": 0.06511,
+     "alive_mean": 503.7
+    }
+   ],
+   "final": {
+    "alive": 583,
+    "born": 1552,
+    "died": 4298
+   },
+   "R1": true
+  }
+ ]
+}

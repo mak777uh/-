@@ -85,12 +85,24 @@ def external_signal(step: int, n: int, period: int, gen) -> torch.Tensor:
     return base + noise
 
 
-def feed_at_crest(pond, signal, amount: float) -> None:
-    """Put food where the signal is strongest.
+def external_linked(step: int, n: int, period: int, lag: int) -> torch.Tensor:
+    """An external stream that PREDICTS the food.
 
-    This is the fix the previous run demanded: in s69 the signal was a wave running along rows while
-    the food sat in corner patches, so following the signal meant walking away from the food and the
-    trait FELL in every environment. Here the signal CREATES the food, so reading it is useful.
+    The food is placed where this signal was `lag` steps ago (see the `external_linked` branch of the
+    feeding code), so a cell that reads the signal at time t learns where the food will be at t+lag.
+    This is the owner's point: an external signal can be CONSISTENT with the world without depending on
+    the cells. The previous `external` arm was a wave plus noise unrelated to anything - a disturbance,
+    not a perception.
+    """
+    return cpu_signal(step - lag, n, period)
+
+
+def feed_at_crest(pond, signal, amount: float, share: float = 1.0, gen=None) -> None:
+    """Put food where the signal is strongest - for a FRACTION `share` of the dose.
+
+    The principle being tested: a signal is worth exactly as much as it reduces uncertainty about the
+    food. So `share` is the fraction of the dose the signal predicts; the rest is placed at random.
+    With share = 0 the signal is pure noise, with share = 1 it predicts every portion.
     """
     if signal is None:
         return
@@ -100,7 +112,15 @@ def feed_at_crest(pond, signal, amount: float) -> None:
     k = max(1, flat.numel() // 10)          # the top 10 % of cells by signal
     idx = torch.topk(flat, k=k, largest=True).indices
     ys, xs = idx // n, idx % n
-    s.resource[ys, xs] = torch.clamp(s.resource[ys, xs] + amount, max=pond.cfg.resource_max)
+    # split the dose: `share` at the crest, the rest at random
+    s.resource[ys, xs] = torch.clamp(s.resource[ys, xs] + amount * share, max=pond.cfg.resource_max)
+    rest = amount * (1.0 - share)
+    if rest > 0.0 and gen is not None:
+        k2 = max(1, n * n // 10)
+        ridx = torch.randint(n * n, (k2,), generator=gen)
+        ry, rx = ridx // n, ridx % n
+        ry, rx = ry.to(pond.device), rx.to(pond.device)
+        s.resource[ry, rx] = torch.clamp(s.resource[ry, rx] + rest, max=pond.cfg.resource_max)
 
 
 def divide(pond, w_weights, signal, mutation_rate, sigma, gen, reach: int = 3):
@@ -120,11 +140,16 @@ def divide(pond, w_weights, signal, mutation_rate, sigma, gen, reach: int = 3):
         y, x = int(ys[k]), int(xs[k])
         if not bool(s.alive[y, x]):
             continue
-        free = [(y + dy, x + dx) for dy, dx in ((1, 0), (-1, 0), (0, 1), (0, -1))
-                if 0 <= y + dy < n and 0 <= x + dx < n and not bool(s.alive[y + dy, x + dx])
-                and not bool(newly[y + dy, x + dx])]
-        if not free:
+        # every candidate is a free cell within `reach` of the parent, so "close" and "far" are no
+        # longer different between the listening and the random branch - only the SIGNAL differs
+        r0 = reach
+        y0, y1 = max(0, y - r0), min(n, y + r0 + 1)
+        x0, x1 = max(0, x - r0), min(n, x + r0 + 1)
+        free_mask = (~s.alive[y0:y1, x0:x1]) & (~newly[y0:y1, x0:x1])
+        if not bool(free_mask.any()):
             continue
+        fy, fx = free_mask.nonzero(as_tuple=True)
+        free = [(y0 + int(a), x0 + int(b)) for a, b in zip(fy.tolist(), fx.tolist())]
         w = float(s.tag_trait[y, x]) if s.tag_trait is not None else 0.0
         if signal is not None and float(torch.rand(1, generator=gen)) < w:
             # LISTENING EXPANDS THE CHOICE: look at every free cell within `reach` and take the one
@@ -193,13 +218,20 @@ def run_one(seed, args, env):
             sig = cpu_signal(step, args.grid, args.period).to(pond.device)
         elif env == "external":
             sig = external_signal(step, args.grid, args.period, gen).to(pond.device)
+        elif env == "external_linked":
+            # the cell reads the CURRENT signal; the food follows it with a lag, so reading predicts
+            sig = external_linked(step, args.grid, args.period, 0).to(pond.device)
         else:
             sig = None
         # EQUAL DOSE in every environment: the same amount of food is added each step, the signal
         # only decides WHERE. Without a signal the food is placed at random, so the dose matches.
         if step % args.feed_every == 0:
-            if sig is not None:
-                feed_at_crest(pond, sig, args.feed_amount)
+            if env == "external_linked":
+                # food goes where the signal was `lag` steps ago: the signal PREDICTS the food
+                past = external_linked(step, args.grid, args.period, args.lag).to(pond.device)
+                feed_at_crest(pond, past, args.feed_amount, args.share, gen)
+            elif sig is not None:
+                feed_at_crest(pond, sig, args.feed_amount, args.share, gen)
             else:
                 s = pond.state
                 n = args.grid
@@ -265,7 +297,12 @@ def main(argv=None):
                     help="how far a listening cell can place its offspring")
     ap.add_argument("--feed-amount", type=float, default=0.05,
                     help="resource added per fed cell; equal dose in every environment")
-    ap.add_argument("--envs", nargs="+", default=["none", "cpu", "external"])
+    ap.add_argument("--envs", nargs="+",
+                    default=["none", "cpu", "external", "external_linked"])
+    ap.add_argument("--share", type=float, default=1.0,
+                    help="fraction of the dose the signal predicts; the rest is random")
+    ap.add_argument("--lag", type=int, default=10,
+                    help="how far the external signal leads the food")
     ap.add_argument("--device", default="cuda" if torch.cuda.is_available() else "cpu")
     ap.add_argument("--checkpoint", default=os.path.join(_MORPH, "checkpoints", "world_base_rule.pt"))
     ap.add_argument("--out", required=True)
