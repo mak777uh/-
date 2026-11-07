@@ -1,9 +1,9 @@
 # 032: What decides whether behaviour pays — movement, not the signal it follows
 
 - **Type:** research article (two negative results that reorder an earlier positive one, plus one refuted mechanism)
-- **Version:** v1.1
+- **Version:** v1.2
 - **Date:** 2026-11-06
-- **Status:** draft v1.1; not submitted, not deposited. v1.1 applies the independent referee verdict ("does not hold as written"): the two unverifiable trap counts were withdrawn, the G7 budget imbalance restated at +53% over the run, the memory-optimum table corrected to show that the change rate DOES shift it under six jumps, the displacement metric described as instantaneous rather than per-lifetime, the anchor scope narrowed, and the duplicated-run structure disclosed
+- **Status:** ready for deposit once the author says so; not submitted, not deposited. v1.1 applies the independent referee verdict ("does not hold as written"): the two unverifiable trap counts were withdrawn, the G7 budget imbalance restated at +53% over the run, the memory-optimum table corrected to show that the change rate DOES shift it under six jumps, the displacement metric described as instantaneous rather than per-lifetime, the anchor scope narrowed, and the duplicated-run structure disclosed
 - **Authors:** Ilya Vladimirov
 - **Related reports:** [S19/G1](../reports/2026-11-06-s19-g1-recovery-rate.md),
   [S21/G2](../reports/2026-11-06-s21-g2-adaptation-trap.md), [S22/G3](../reports/2026-11-06-s22-g3-fixed-reference.md),
@@ -41,6 +41,18 @@ rather than at a single cell. A direct measurement explains why: a cell moves 0.
 lifetime, so it cannot use long-range information at all.
 
 **Keywords:** pond, directionality, habituation, mobility, memory, boundary of the setup
+
+## The line this article continues
+
+**Last time.** *Directionality works but does not scale, and inherited adaptation does not appear, in a resource-limited pond
+world* (Zenodo, DOI [10.5281/zenodo.24012536](https://doi.org/10.5281/zenodo.24012536)) found that a cell stepping towards the
+richer neighbour holds 0.475 of the favourable half against 0.357 for the control, that the gain decays to +0.036 as the rich
+zone fills because cells compete for space rather than for food, and that four tests of inherited adaptation give null.
+
+**What we decided to check.** That article measured *how much* the rule pays in one setting; it did not say what decides
+whether it pays at all. So this article moves the levers one at a time: the rate at which the resource comes back, the
+adaptation inside the rule, and a diffusing signal field that the cells could in principle follow. Two of the three answers
+we expected turned out to be wrong, and the article reports the wrong ones first.
 
 ## 1. The question
 
