@@ -645,27 +645,144 @@ direction**: stop adding, start ending.
 
 ---
 
+## P31. It is the image that separates — not the distance
+
+**The move.** "It is the image that separates; it is the image that creates distance and time."
+
+**In our world.** The cleanest statement of P29, and it removes a possible misunderstanding: `pred` does not merely
+*measure* the gap — it **creates** it. Take the image away and there is no gap to cross, because the cell is
+already in what it wants.
+
+**What it explains.** Why every "better movement rule" we tried failed to fix the trap: the trap is not in the
+movement, it is in the **image that makes movement necessary**. S22's numbers (0.340 baseline vs 0.166 greedy_ema)
+are a measurement of a gap that the EMA itself manufactures.
+
+**Testable.** Same as P29, and it gives the **prediction for the reset**: if the image creates the gap, then a
+reset should **restore the move rate to the no-image level** immediately after the reset, not gradually.
+
+**Status:** hypothesis; the immediate-restoration prediction is a sharp, checkable detail.
+
+---
+
+## P32. Experience is recognition, and recognition is the known — so it is never new
+
+**The move.** "The word experience means to go through, to go right to the end and finish with it... One of the
+essential meanings of experience is recognition. And when there is recognition, it has already been known, has
+already been experienced, otherwise you could not recognize it."
+
+**In our world.** This is a **precise, mechanical statement** and it is the deepest form of P13/P24. Our cell
+**cannot experience anything new**, because to register an event it must compare it to `pred` — i.e. recognise it.
+An event that does not match the record is **not registered as an event at all**; it is registered as noise.
+
+**What it explains.** Why every "novel" situation in our experiments produced **no new behaviour**: the cell
+recognised only what it already had. E10's four patterns were, for the cell, **the same experience** — because
+recognition collapses them.
+
+**Testable, and it is measurable on existing artifacts.** If recognition is the bottleneck, then the **variance of
+the cell's response** should be **lower** than the variance of the environment it faces — the cell's behaviour
+should be more stereotyped than its input. That is a single ratio, computable from any run that logs both.
+
+**Status:** testable on existing data.
+
+---
+
+## P33. The search is a projection of the past
+
+**The move.** "If he finds what is true — at least what he thinks is true — that depends on his conditioning, on
+his knowledge, on his past experiences; search then merely becomes a further projection of his own past hopes,
+fears and longings." And the contrast: "a mind that is **enquiring** — not seeking."
+
+**In our world.** Our whole programme has been a **search**: we looked for the mechanism that would produce
+evolution, and each search was a **projection of our own past** — the mechanisms we already knew (field, niche,
+signal, memory, decoder). Each "new" experiment was a re-projection.
+
+**What it explains.** Why our experiment list looks like a tour of the literature rather than a discovery: we were
+**seeking**, and seeking projects.
+
+**The distinction and its operational form.** *Seeking* has a target and therefore a direction, and the direction
+comes from the past. *Enquiring* has **no target** — it asks "what is actually here?" This is operationally
+different: a seeking experiment has a **predicted sign**; an enquiring experiment has **no predicted sign**, only a
+**measurement**.
+
+**Testable / methodological rule.** Keep a register of experiments **with no predicted sign** — pure measurements
+of what the world does. Our best results (E7: selection exists; E1: the boundary) were of this kind; our worst
+(E3, E5, E10, E15) all had a predicted sign.
+
+**Status:** methodological rule; verifiable against our own history.
+
+---
+
+## P34. Isolation and aloneness are not the same
+
+**The move.** "One has to stand completely alone — **not isolated**. There is a vast difference between isolation
+and being completely alone... Isolation is a state of mind in which relationship ceases, when you have actually
+built a wall around yourself so as not to be hurt... Aloneness implies a mind that does not depend on another
+psychologically, is not attached to any person; which does not mean that there is no love."
+
+**In our world.** Our cells are **isolated**, not alone: each has built a wall (the gate) and has no relationship.
+The distinction gives a **design criterion** that is much more precise than P19's:
+
+| | isolated (what we have) | alone (what we would want) |
+|---|---|---|
+| relationship | none | present, but without dependence |
+| wall | yes (the gate) | no |
+| dependence | on the resource only | on nothing psychological |
+
+**What it explains.** Why "add a social mechanism" would fail: it would add a **dependence** (one cell extracting
+from another), which is the opposite of the target. The target is cells that **affect each other's terms** without
+either depending on or extracting from the other.
+
+**Testable / design requirement.** The concrete version: a cell's **upkeep** depends on its neighbours' **state**
+(not on a transfer). Then a cell can be helped or hurt by neighbours without anyone taking anything — which is
+exactly "relationship without dependence".
+
+**Status:** design requirement; the clearest formulation so far.
+
+---
+
+## P35. Discipline means to learn, not to conform
+
+**The move.** "The root meaning of that word [discipline] is to learn; a mind that is willing to learn — not to
+conform — must be curious... and a mind that already knows, cannot possibly learn."
+
+**In our world.** Every "adaptive" mechanism we built was a **conformity**: it adjusted a parameter toward a
+target. `pred` conforms to the past; the gate conforms to a threshold; the niche conformed to a gain. **None of
+them learned** — they all **conformed**.
+
+**What it explains.** Why tuning never produced anything qualitatively new: tuning is **conformity to a design**,
+and conformity cannot discover.
+
+**Testable / design requirement.** A mechanism that **learns** rather than conforms must be able to **change its
+own target**. In our world, the only quantity with that property is the **environment** (it changes on its own).
+So: a cell that takes its target **from the environment each step** rather than from its own record is "learning"
+in this sense — which is the `pred`-removal experiment once more, now with a reason about *why* it should work.
+
+**Status:** design principle.
+
+---
+
 ## What the reading has changed in our plan (updated)
 
-1. **The `pred`-reset sweep is the top experiment** (P25, P26, P30) — the first fix that is not a re-weighting of
-   the past.
-2. **The `pred`-removal experiment** (P1, P6, P8, P9, P10, P11, P13, P18, P29) — the limiting case (N = 1); P29
-   predicts the trap **disappears entirely** without `pred`.
-3. **The move-rate curve** (P29) — does the fraction able to act decline over time with `pred` and stay flat
-   without it? S22 already hints yes (0.31 → 0.17).
-4. **Report the cell's own success measure** alongside our metric (P27) — on existing artifacts.
-5. **Check on existing data:** is `resource − pred` indistinguishable across E10's four patterns? (P11)
-6. **The continuous-gate test** (P17) — act on magnitude, not sign.
-7. **The recovery test** (P9) — does a cell with `pred` resume moving when food returns?
-8. **The two-environment sweep** (P14) and the **ratio law** (P15).
-9. **The neighbour-read experiment** (P22) — does reading one neighbour's resource create competition?
-10. **New measurement rule:** report the effect **from the first steps** (P4).
-11. **Design direction:** a **relationship** between cells that is neither isolation nor extraction (P19, P21); a
-    **novelty term** (P24); and **no self-tuning inside the cell** (P28).
+1. **The `pred`-reset sweep is the top experiment** (P25, P26, P30, P31) — with the sharper prediction that the
+   move rate **restores immediately** after a reset (P31), not gradually.
+2. **The `pred`-removal experiment** (P1, P6, P8, P9, P10, P11, P13, P18, P29, P31, P35) — the limiting case; P29
+   and P31 predict the trap **disappears entirely**.
+3. **The move-rate curve** (P29) — does the fraction able to act decline with `pred` and stay flat without it?
+   S22 already hints yes (0.31 → 0.17).
+4. **The stereotypy ratio** (P32) — is the cell's behavioural variance **lower** than its input variance? Computable
+   from existing runs.
+5. **Report the cell's own success measure** alongside our metric (P27).
+6. **Check on existing data:** is `resource − pred` indistinguishable across E10's four patterns? (P11)
+7. **The continuous-gate test** (P17); **the recovery test** (P9); **the two-environment sweep** (P14); **the ratio
+   law** (P15); **the neighbour-read experiment** (P22).
+8. **New measurement rule:** report the effect **from the first steps** (P4).
+9. **New register:** experiments **with no predicted sign** (P33) — our best results were of this kind.
+10. **Design direction:** cells that are **alone, not isolated** (P34) — neighbours affect each other's **terms**
+    without transfer; a **novelty term** (P24); **no self-tuning inside the cell** (P28).
 
 ---
 
 ## Reading progress
 
-- Pages 1–67 of 409 read (Part II talk 2 complete with questions, moving into the questions on conditioning).
-- Next: the rest of the questions, then talk 3 (religious experience, meditation).
+- Pages 1–71 of 409 read (Part II complete; talk 3 "Religious experience. Meditation" begun).
+- Next: the rest of talk 3 (meditation, the known and the unknown, the first step is the last step).
