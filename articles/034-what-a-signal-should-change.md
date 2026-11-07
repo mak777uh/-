@@ -40,12 +40,19 @@ Twenty seeds, 600 steps. R1 (mean deaths ≥ 10 and mean living ≥ 10) holds in
 
 ## 2. Result
 
+![Where the signal acts, and what it buys](034-figures/fig1-where-the-signal-acts.png)
+
+**Figure 1.** The same world, the same seeds, the signal acting in three different places. **A.** The favourable share in
+the last window for each arm; the control is the leftmost bar. **B.** The paired difference against the control, with the
+number of seeds out of twenty that agree in sign. The rule arm is four times the map arm, and the clock arm is
+indistinguishable from zero.
+
 | arm | favourable share (window 5) | paired difference | seeds positive |
 |---|---|---|---|
 | `none` | 0.093 | — | — |
 | `local` | 0.105 | +0.0117 | 14/20 |
 | `wave` | 0.101 | +0.0080 | 11/20 |
-| **`rule`** | **0.145** | **+0.0512** | **18/20** |
+| **rule** | **0.145** | **+0.0512** | **18/20** |
 | `ab` | 0.111 | +0.0172 | 15/20 |
 
 **The signal that changes the rules is four times stronger than the signal that says where**, and eighteen of

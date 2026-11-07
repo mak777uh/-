@@ -10,6 +10,9 @@ import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ARTIFACT = os.path.join(ROOT, "morphogenesis", "experiments", "E09_pond", "s89_e14b_20seeds.json")
+# Inside the deposit package the verifier sits beside `artifacts/`, so it runs unchanged there.
+if not os.path.exists(ARTIFACT):
+    ARTIFACT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "artifacts", "s89_e14b_20seeds.json")
 
 with open(ARTIFACT, encoding="utf-8") as fh:
     D = json.load(fh)
