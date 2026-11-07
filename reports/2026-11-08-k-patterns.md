@@ -341,22 +341,114 @@ to. A mechanism added to a cell is a mechanism added to **the same rule**, i.e. 
 
 ---
 
+## P17. Resistance is what creates the separation it is trying to escape
+
+**The move.** "The moment you resist, you are separate from the noise... The noise goes on, I can cut myself off
+from it by resisting it, putting a wall between myself and that noise. Then what takes place, when I resist
+something? There is conflict, isn't there?" And: "as long as there is resistance, there must be conflict."
+
+**In our world.** The gate is the wall. And the wall does something specific: it **creates the separation** it was
+built to manage. A cell that resists the environment (acts only on threshold crossings) is thereby **separated**
+from the environment — it stops reading it continuously and reads only the crossings.
+
+**What it explains.** Two of our results at once. (a) E8/E12: adding a signal to a cell with a wall added nothing,
+because the wall filtered it. (b) The trap of inaction: the wall is where the cell "protects" itself from a
+falling resource, and the wall is exactly what stops it acting.
+
+**Testable.** Replace the gate with a **continuous** response (act on the magnitude of the deviation, not on its
+sign). If the cell then responds to the *structure* of the environment rather than only to crossings, the wall was
+the filter. Small change to the step rule; same experiment as E10.
+
+**Status:** hypothesis; the continuous-gate variant is the cheapest test in this file.
+
+---
+
+## P18. The description is not the described
+
+**The move.** "Knowing that the description is not the described." Repeated throughout: the map is not the
+territory; the word is not the thing.
+
+**In our world.** This is `pred` again, in its most general form: `pred` is a **description** of the resource, and
+the cell acts on the description. Every mechanism we built was a **better description** — a field, a memory, a
+signal — and every one failed to change the outcome, because a better description of a moving thing is still not
+the thing.
+
+**What it explains.** Why our "add a channel" strategy had a ceiling: we kept improving the description.
+
+**Testable / design requirement.** The decision must use the **described** (the instantaneous resource) at least
+in part, not only the description. That is the `pred`-removal experiment again, now with a reason.
+
+**Status:** design principle.
+
+---
+
+## P19. Relationship is not dependence; dependence destroys relationship
+
+**The move.** "To be related means not to be dependent on each other, not to escape from your loneliness through
+another, not to try to find comfort, companionship, through another. When you seek comfort through another, are
+dependent... can there be any kind of relationship? Or are you then using each other?"
+
+**In our world.** This is the **sharpest available statement about our cells' interaction**, and it says our world
+has **no relationship at all**. Cells are not related to each other; they are **adjacent**. They exchange nothing,
+they do not depend on each other, they do not use each other. Each is alone in its cell, reading only its own
+resource.
+
+**What it explains.** This is, in one sentence, why nothing social ever appeared in our world: **there is no
+relationship to have**. No cooperation, no conflict, no niche, no inheritance of environment — because a cell's
+only relation is to its own cell.
+
+**And it is the design requirement for the next world.** Not "add a social mechanism", but: **create a relation
+that is not dependence and not isolation.** Concretely: cells must be able to **affect each other's terms** (the
+resource they receive, the cost they pay) **without one being able to extract from the other**. That is the
+difference between a shared environment (which we have) and a relationship (which we do not).
+
+**Testable.** A minimal version: let a cell's upkeep depend on the **state of its neighbours** (not on their
+identity, not on a transfer). If any structure of dependence appears — cells clustering where upkeep is low,
+moving away where it is high — then a relationship exists and can be studied. If nothing appears, the world is
+still a set of isolated cells.
+
+**Status:** hypothesis; this is the most promising **design** direction in the file.
+
+---
+
+## P20. "You are the world" — the agent and its environment are one process
+
+**The move.** "We are the world and the world is us. The world is each one of us... Each one of us is that
+culture; the community is each one of us — we are not separate from it."
+
+**In our world.** Our cells **are** the resource field in the sense that they deplete it; but the field is not
+**them**. There is a one-way relation: cells read the field, the field does not read the cells. The pattern says
+the interesting case is the **two-way** one.
+
+**What it explains.** Why niche construction (E3) failed: we made the field **written by** cells, but the cells did
+not **read** what they wrote in a way that changed their own terms. The loop was open at the reading end.
+
+**Testable.** The two-way version: the field that cells write must be the field that **sets their own upkeep**.
+Then "the world is us" becomes a measurable loop rather than a metaphor.
+
+**Status:** hypothesis; overlaps P19 and is the same design move.
+
+---
+
 ## What the reading has changed in our plan (updated)
 
-1. **The `pred`-removal experiment is the top priority** (P1, P6, P8, P9, P10, P11, P13).
+1. **The `pred`-removal experiment is the top priority** (P1, P6, P8, P9, P10, P11, P13, P18).
 2. **Check on existing data first:** is `resource − pred` statistically indistinguishable across E10's four
    patterns? (P11) — zero new runs.
-3. **The recovery test:** does a cell with `pred` resume moving when food returns? (P9)
-4. **The two-environment sweep:** is the best smoothing rate different in stable vs changing environments? (P14)
-5. **The ratio law:** does `(change time)/(record time constant)` predict the sign of the effect? (P15) — on
+3. **The continuous-gate test:** act on the magnitude, not the sign (P17) — cheapest change to the step rule.
+4. **The recovery test:** does a cell with `pred` resume moving when food returns? (P9)
+5. **The two-environment sweep:** is the best smoothing rate different in stable vs changing environments? (P14)
+6. **The ratio law:** does `(change time)/(record time constant)` predict the sign of the effect? (P15) — on
    existing E1/E15 artifacts.
-6. **New measurement rule:** report the effect **from the first steps**, not only the last window (P4).
-7. **New design requirement:** the decision must contain a term that is **not** a function of the cell's past
-   (P13, P16).
+7. **New measurement rule:** report the effect **from the first steps**, not only the last window (P4).
+8. **New design requirement:** the decision must contain a term that is **not** a function of the cell's past
+   (P13, P18).
+9. **The design direction for the next world:** create a **relationship** between cells — a two-way dependence
+   that is neither isolation nor extraction (P19, P20).
 
 ---
 
 ## Reading progress
 
-- Pages 1–56 of 409 read (Part II talk 1 through the questions on observer and observed).
-- Next: Part II talk 2 (relationship), then talk 3 (religious experience, meditation).
+- Pages 1–59 of 409 read (Part II talk 1 complete, start of talk 2 "Relationship").
+- Next: the rest of talk 2 (loneliness, love, death), then talk 3 (religious experience, meditation).
