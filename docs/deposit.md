@@ -134,3 +134,4 @@ Corrections in this version: <что исправлено, почему, как�
 | 032 — What decides whether behaviour pays | v1.2 | [10.5281/zenodo.24043982](https://doi.org/10.5281/zenodo.24043982) | 10.5281/zenodo.24043981 | 41 файл, 740 161 Б |
 | 034 — What a signal should change | v1.0 | [10.5281/zenodo.24044020](https://doi.org/10.5281/zenodo.24044020) | 10.5281/zenodo.24044019 | 11 файлов, 514 979 Б |
 | 035 — Where movement pays | v1.0 | [10.5281/zenodo.24044032](https://doi.org/10.5281/zenodo.24044032) | 10.5281/zenodo.24044031 | 11 файлов, 601 649 Б |
+| 033 — Selection exists, but a heritable trait is not selected | v3.0 | [10.5281/zenodo.24044218](https://doi.org/10.5281/zenodo.24044218) | 10.5281/zenodo.24044217 | 14 файлов, 559 700 Б |
