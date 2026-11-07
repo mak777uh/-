@@ -1728,32 +1728,134 @@ measurement to build next, and it is the answer to "what should we measure inste
 
 ---
 
+## P81. Another can point out the door, but cannot walk through it
+
+**The move.** "You may point out, you may say, 'Look, go through that door,' but **he has to do the work entirely
+from the beginning to the end**. Therefore, you are not a guru in the accepted sense of that word, if you say that
+another cannot help." And later: "**The door is the 'me' through which I have to go. It is not outside of 'me'.**"
+
+**In our world.** This is the **exact status of every mechanism we added**: it was a **pointing at a door**, not a
+walking through it. The field pointed at "remember where the food was"; the signal pointed at "go there"; the
+decoder pointed at "use the history". **The cell had to do the walking, and the cell is made of the record that
+cannot walk.**
+
+**What it explains.** Why the mechanisms were **inert** (H2, H4) or **equivalent to something simpler** (H11): a
+pointer is not a walker. And it is the **design rule** in its clearest form: **a mechanism that points is not a
+mechanism that moves.**
+
+**Testable / design requirement.** For any proposed mechanism, ask: **does it point, or does it move?** If it only
+changes what the cell could do **if it chose**, it is a pointer — and the cell has no chooser (P52).
+
+**Status:** design rule; it explains the whole "inert mechanism" family.
+
+---
+
+## P82. Maturity is the absence of the "me" — not age, not learning
+
+**The move.** "Time, age is not an indication of maturity... the maturity of the very learned man... we will
+eliminate that... **maturity implies the absence of the 'me'**."
+
+**In our world.** This **removes two things we used as measures of progress**: **time** (longer runs, more
+generations) and **learning** (more knowledge in the cell). The pattern says neither is maturity; **the absence of
+the centre is**.
+
+**What it explains.** Why our **long runs** never produced anything the short runs did not (P40), and why **adding
+knowledge** (E6's memory) made no qualitative difference. We were measuring maturity by the two things that are not
+it.
+
+**Testable.** The variance decomposition (P80) **is** the measure of "absence of the me": a cell whose behaviour is
+explained by the situation has no centre; a cell whose behaviour is explained by its record is all centre. **One
+number measures maturity.**
+
+**Status:** unifies P80 with the notion of maturity.
+
+---
+
+## P83. The one who wishes to gain is immature — and gain is what every mechanism promised
+
+**The move.** "The man who wishes to gain, achieve, is immature. Whether Nirvana, Heaven, Moksha, attainment, or
+enlightenment, he is immature."
+
+**In our world.** **Every mechanism we added promised a gain**: more favourable share, more offspring, better
+survival. And the pattern says: **the pursuit of gain is itself the immaturity**. The cell that acts to gain is the
+cell in the trap.
+
+**What it explains.** Why the "helpful" mechanisms produced **harm** (P76): they were **gains**, and a gain is a
+form of the "me" (P79).
+
+**Testable / design requirement.** No mechanism may be justified by a gain it promises. The justification must be
+**structural** (it removes something), not **incremental** (it adds something) — which is P74 again.
+
+**Status:** design rule.
+
+---
+
+## P84. He will not listen — and telling him stories to make him listen is the trap
+
+**The move.** "He won't even listen to you. He will listen to you if you promise him something, heaven, hell, fear
+or more profit... So the man who wishes to gain, achieve, is immature." And: "**I won't add to it, I won't tell him
+stories, I won't entertain him; because there are others who are already entertaining him.**"
+
+**In our world.** We have been **telling the cell stories**: the field story, the niche story, the signal story, the
+decoder story. Each was an **entertainment** designed to make the cell respond. And the pattern says: **do not add
+to the entertainment**.
+
+**What it explains.** The **shape** of our experiment list — a sequence of stories. And it gives the discipline:
+**the next experiment must not be a story.**
+
+**Testable / rule.** An experiment is a story if it **adds a channel, a mechanism or a reward**. It is not a story
+if it **removes one**. By this rule, only the emptying experiments (P74) qualify.
+
+**Status:** rule; it is the strongest filter in the file.
+
+---
+
+## P85. "Life forces him, teaches him" — the environment is the only teacher, and it teaches by knocking
+
+**The move.** Swamiji: "How [does the lowest reach the middle]?" K: "**By knocking. Life forces him, teaches him.**
+There is war, hatred; he is destroyed."
+
+**In our world.** This is the **one place in the file where the environment is given a positive role** — and it is
+precise: the environment teaches **by knocking**, i.e. by **consequences**, not by **pointers**. The cell that is
+destroyed learns nothing (it is destroyed); the cell that survives is the one the knocking **shaped**.
+
+**What it explains.** Why **selection** worked in our world (E7: strong selection on energy and age) while every
+**pointer** failed: knocking is real, pointing is not. **The environment is the only teacher we have ever had.**
+
+**Testable / design requirement.** The only legitimate way to change the cell is to change **what knocks it** — the
+consequences — not what points at it. That is a **design rule** and it is the positive counterpart of P84.
+
+**Status:** design rule; it is the constructive half of the whole reading.
+
+---
+
 ## What the reading has changed in our plan (updated)
 
-1. **Adopt the variance decomposition** (P80): behaviour variance explained by **situation** vs by **record**. One
-   number, from any run that logs resource, record and moves.
+1. **Adopt the variance decomposition** (P80, P82): behaviour variance explained by **situation** vs by **record**.
+   It is also the measure of **maturity** — the absence of a centre.
 2. **The core hypothesis** (P71): the cell is made of the contradiction between what is and what should be.
-3. **The decisive experiment** (P74, P75, P77): **empty** the record (remove or reset `pred`) and test for a
-   **step**, not a slope.
-4. **The clean two-arm test** (P78): more **physical** protection vs removal of **psychological** protection. P78
-   predicts only the second fixes the trap.
+3. **The decisive experiment** (P74, P75, P77): **empty** the record and test for a **step**, not a slope.
+4. **The clean two-arm test** (P78): more **physical** protection vs removal of **psychological** protection.
 5. **The missing control** (P56, P76): adaptive arm vs **random perturbation of equal variance**.
-6. **On existing data:** residual variance of the adaptive arms vs baseline in S22 (P79); `resource − pred` across
+6. **The filter for the next experiment** (P81, P84): does it **point** or does it **move**? Does it **add** or does
+   it **remove**? Only removals qualify.
+7. **The only legitimate lever** (P85): change **what knocks the cell** — the consequences — not what points at it.
+8. **On existing data:** residual variance of the adaptive arms vs baseline in S22 (P79); `resource − pred` across
    E10's patterns (P11); the cell's own measures (P27, P59).
-7. **The remaining tests:** move-cost (P41); initial-`pred` (P36, P40); recovery (P9); two-environment sweep (P14);
+9. **The remaining tests:** move-cost (P41); initial-`pred` (P36, P40); recovery (P9); two-environment sweep (P14);
    ratio law (P15); neighbour-read (P22); move-rate curve (P29); stereotypy ratio (P32); repertoire (P49);
    field-order vs cell-order (P70).
-8. **Rules:** from the first steps (P4); no predicted sign (P33); "what is" not "how to" (P39); which of the first
-   two states (P46); measure behaviour not its shadow (P48); set of variables not values (P51); no "should" for the
-   cell (P63); the proof that a pattern was seen is that the next experiment changed shape (P64); report the range
-   (P73).
-9. **Design constraints:** novelty from outside the record (P38); relationship not isolation (P34); no controller
-   inside the cell (P52); one quantity outer-inner-beyond (P43); do not help the cell (P45); one process not parts
-   (P65); no blueprint (P67); no planning (P72); no will (P76).
+10. **Rules:** from the first steps (P4); no predicted sign (P33); "what is" not "how to" (P39); which of the first
+    two states (P46); measure behaviour not its shadow (P48); set of variables not values (P51); no "should" for the
+    cell (P63); the proof that a pattern was seen is that the next experiment changed shape (P64); report the range
+    (P73); no gain as a justification (P83); no story (P84).
+11. **Design constraints:** novelty from outside the record (P38); relationship not isolation (P34); no controller
+    inside the cell (P52); one quantity outer-inner-beyond (P43); do not help the cell (P45); one process not parts
+    (P65); no blueprint (P67); no planning (P72); no will (P76).
 
 ---
 
 ## Reading progress
 
-- Pages 1–106 of 409 read (Part III complete: "On good and evil". Part IV, the Venkatesananda conversation, begun).
-- Next: Part IV (the guru and search; the four schools of yoga).
+- Pages 1–110 of 409 read (Part IV, the Venkatesananda conversation: the guru, discipline, maturity).
+- Next: the four schools of yoga, then the mahavakyas.
