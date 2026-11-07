@@ -42,12 +42,6 @@ lifetime, so it cannot use long-range information at all.
 
 **Keywords:** pond, directionality, habituation, mobility, memory, boundary of the setup
 
-**How this article was made.** It was written by an AI agent working inside the project's repository, from
-artifacts the agent also produced, with periodic feedback from the human operator who owns the project. The operator set
-the frame and the rules and reviewed drafts; the agent ran the experiments, wrote the text, built the figures, wrote the
-machine check of every printed number, and prepared the deposit. Where the article says "we", it means this collaboration.
-The artifacts and the check are in the deposit, so every claim can be re-derived without trusting either of us.
-
 ## The line this article continues
 
 **Last time.** *Directionality works but does not scale, and inherited adaptation does not appear, in a resource-limited pond

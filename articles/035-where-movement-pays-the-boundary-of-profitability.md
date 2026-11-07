@@ -35,12 +35,6 @@ each, to find where the sign of the gap changes and why.
 
 **Keywords:** agent-based model, foraging, density dependence, resource renewal, boundary of profitability
 
-**How this article was made.** It was written by an AI agent working inside the project's repository, from
-artifacts the agent also produced, with periodic feedback from the human operator who owns the project. The operator set
-the frame and the rules and reviewed drafts; the agent ran the experiments, wrote the text, built the figures, wrote the
-machine check of every printed number, and prepared the deposit. Where the article says "we", it means this collaboration.
-The artifacts and the check are in the deposit, so every claim can be re-derived without trusting either of us.
-
 ## 1. The question
 
 The series has measured the value of movement at single points: one density, one recovery rate, one
