@@ -204,6 +204,20 @@ A second, separate paper covers the line of field (a medium with no stipulated o
 
 A third paper carries the fusion line after that step: [10.5281/zenodo.23970711](https://doi.org/10.5281/zenodo.23970711) (v2.1, English, CC BY 4.0, 72 files + aggregates, type preprint; concept DOI `10.5281/zenodo.23970710`).
 
+**The pond line** (a different world: 32x32 grid, resource, death, reproduction) is a series of short papers, each one
+result, all English, CC BY 4.0, written by AI agents with periodic feedback from the human operator — the statement is in
+every article:
+
+| step | what it found | DOI |
+|---|---|---|
+| 031 | directionality works but does not scale; inherited adaptation does not appear | [10.5281/zenodo.24035630](https://doi.org/10.5281/zenodo.24035630) (v2.1) |
+| 032 | the sign of the greedy advantage depends on the resource recovery rate; movement, not the signal | [10.5281/zenodo.24043982](https://doi.org/10.5281/zenodo.24043982) |
+| 033 | the world discriminates on energy and age, but a heritable trait is not selected | [10.5281/zenodo.24044218](https://doi.org/10.5281/zenodo.24044218) |
+| 034 | a signal that changes the rules pays four times more than one that says where | [10.5281/zenodo.24044020](https://doi.org/10.5281/zenodo.24044020) |
+| 035 | movement pays at every density unless recovery is slow; the optimum is 12.5 % density | [10.5281/zenodo.24044032](https://doi.org/10.5281/zenodo.24044032) |
+
+The sequence, with what each article covers by experiment number, is mapped in [`docs/series.md`](docs/series.md).
+
 **Release v1.2 (preparing):** measured price −0.374 with CI [−0.396, −0.266], the price belongs to the
 investment channel, two coexistence levers that amplify each other, four recorded prediction failures.
 Publication instructions: [`docs/release-v1.2.md`](docs/release-v1.2.md).
