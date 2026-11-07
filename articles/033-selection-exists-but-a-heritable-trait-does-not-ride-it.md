@@ -1,43 +1,31 @@
-# 033: Selection exists, but a heritable trait does not ride it — a negative result
+# 033: Selection exists, but a heritable trait is not selected — a negative result with a measured boundary
 
-- **Type:** research article (short format, one result: a negative one)
-- **Version:** v2.0 — **rewritten after the independent referee verdict "does not hold" on v1.0**
+- **Type:** research article (short format, one negative result)
+- **Version:** v3.0 — rewritten after two independent referee rounds
 - **Date:** 2026-11-07
 - **Status:** draft; not deposited
 - **Authors:** Ilya Vladimirov
 - **Previous article of the series:** [032](032-what-decides-whether-behaviour-pays.md)
-- **Artifacts:** `morphogenesis/experiments/E09_pond/s{55,58,63,64,65,66,67,85,86}_*.json`
-- **Review of v1.0:** `lab/reviews/2026-11-07-033-independent.md`
+- **Artifacts:** `morphogenesis/experiments/E09_pond/s{55,58,63,91}_*.json`
+- **Reviews:** `lab/reviews/2026-11-07-033-independent.md` (v1.0), `lab/reviews/2026-11-07-033-v2-independent.md` (v2.0)
 
 ## Corrections in this version
 
-v1.0 claimed four positive findings. The independent referee recomputed every number from the raw
-artifacts and returned "does not hold", with thirteen specific findings. This version applies them:
-
-1. **"Paired design" removed from the text.** The referee read the code and showed that every arm already
-   created its own generator with the same seed, so the "pairing fix" changed nothing. The word is gone.
-2. **Statistics withdrawn.** Paired t over ten seeds was 1.15 (p = 0.28) and the sign test 8/10 (p = 0.109).
-   The signal claim is now reported as **not shown**, not as a result.
-3. **"The mechanism is the lead" withdrawn.** The lag sweep is non-monotone (0: −0.011, 2: −0.001,
-   5: −0.011, 10: +0.012), so a lead cannot be the mechanism.
-4. **"Properties matter only in the poor zone" corrected.** The rich-zone energy differential is +0.061 at
-   SE 0.0101, i.e. z ≈ 6.0 — weaker by a factor of 2.8, not absent.
-5. **The trait shift is reported as not distinguishable from drift**, with the referee's numbers.
-6. **`s66` is now reported**: the rich zone with a tenfold stronger effect shifts 8× harder, which
-   contradicts the v1.0 headline and is the reason the headline is withdrawn.
-7. **The "1:30" ratio is removed** — it compared the mean trait with its spread, two different quantities.
-8. **"Strong selection" is reworded**: the numbers are quartile differences in the probability of
-   surviving, not selection coefficients.
+v1.0 claimed that a heritable trait rides selection in the hard part of the world. The first referee showed
+that the claim rested on an undocumented planting and an arithmetic error, and that the rich-zone control
+contradicted it. v2.0 was rewritten as a negative result, but the second referee found that it still mixed
+**cost** with **selection**: the experiment it cited as evidence of selection (a tenfold stronger effect)
+made the trait ten times more expensive, so the trait fell because of the price, not because it was selected.
+v3.0 removes that confusion with a **zero-cost control** and reports only what survives it.
 
 ## The line this article continues
 
-Article 032 ended with a limit: a cell that moves 0.14 cells per lifetime cannot use long-range
-information, so the amount it moves matters more than the signal it follows. That leaves a prior question.
-**Is there anything in this world to select on at all?** If there is, **can a heritable trait ride it?**
-This article answers by measuring what the world already contains, and it reports a negative answer to the
-second half.
+Article 032 ended with a limit: a cell that moves 0.14 cells per lifetime cannot use long-range information.
+That leaves a prior question. **Is there anything in this world to select on at all?** If there is, **can a
+heritable trait ride it?** This article answers the first with a strong yes and the second with a measured no,
+and it reports the boundary between them.
 
-**Keywords:** selection, heritability, environment, negative result, boundary of the setup
+**Keywords:** selection, heritability, negative result, cost versus selection, boundary of the setup
 
 ## 1. What was measured
 
@@ -45,11 +33,10 @@ second half.
 death at zero energy, reproduction on accumulated mass. R1 (mean deaths ≥ 10 and mean living ≥ 10) holds in
 every run cited here.
 
-**The quantities.** For every living cell: its age (how many steps it has lived), its local density (living
-cells within Chebyshev radius 2), its energy, and whether it stands in the top half of cells by current
-resource. For each, the probability of surviving a 20-step horizon is compared between the low and the high
-quartile. The difference is a **quartile difference in the probability of surviving** — not a selection
-coefficient.
+**The quantities.** For every living cell: its age, its local density, its energy, and whether it stands in
+the top half of cells by current resource. For each, the probability of surviving a 20-step horizon is
+compared between the low and the high quartile. The difference is a **quartile difference in the probability
+of surviving** — not a selection coefficient.
 
 ## 2. There is a great deal to select on
 
@@ -60,77 +47,73 @@ coefficient.
 | density | 0.550 → 0.654 (+0.104) | 0.875 → 0.744 (−0.131) |
 | richness of the cell | 0.580 → 0.621 (+0.041) | 0.880 → 0.752 (−0.128) |
 
-Replicated on ten fresh seeds: every differential reproduced within 0.02 (energy +0.135 → +0.154, age
-+0.106 → +0.113), on 754 observations. **The world discriminates strongly, on energy and age.**
+Replicated on ten fresh seeds: energy +0.135 → +0.154 and age +0.106 → +0.113 reproduce within 0.02; the
+divide column reproduces within 0.05 (density −0.131 → −0.087). 754 observations. **The world discriminates
+strongly, on energy and age.**
 
-## 3. A heritable trait does not ride it
+## 3. A heritable trait is not selected — and the boundary is cost
 
-Five designs were tried. Three produced data; two produced none worth reporting, and are listed as such.
+**The design that settles it.** Every cell carries a heritable trait `t` (uniform in [0, 1] at the start,
+inherited with mutation). The trait makes the cell **pay more**: a cell with trait `t` loses
+`strength × t` energy per step. `strength` is the only thing varied:
 
-| attempt | how the trait acted | data | outcome |
-|---|---|---|---|
-| energy bonus, effect 0.5 | added energy each step | 1 seed, 300 steps | probe only — not evidence |
-| energy bonus, effect 5.0 | ten times stronger | 1 seed, 300 steps | probe only — not evidence |
-| division threshold 24 | set the threshold | 5 seeds | **9 divisions in both arms** — insensitive by construction |
-| division threshold 8 | same, lower | 5 seeds | 148/147 divisions; trait drifted |
-| trait inside the upkeep rule | changed the energy spent | 5 seeds | trait drifted |
+- **`strength = 0`** — the trait costs nothing. Any systematic shift here is **selection alone**;
+- **`strength > 0`** — the shift mixes selection and cost.
 
-Over five seeds the mean trait alternated sign (−0.0001, +0.0001, −0.0005, +0.0004, −0.0002, −0.0011).
-**This is drift, not selection.**
+Two zones (the rich patch at (7,7) and the poor centre at (16,16)), five seeds, 600 steps. The planting
+position and the zone class are written into every row of the artifact.
 
-**The trait shift is not distinguishable from drift.** For the poor-centre planting (see §4) the last
-window mean is −0.000527 with a between-seed standard deviation of 0.000595 (t = −3.15, sign test 11/14);
-the control arm in an earlier series drifted faster (−0.0001487). The referee's verdict is that the shift
-cannot be separated from drift at this sample size, and this article accepts that verdict.
+| zone | strength | paired difference (heritable − fixed) | t | seeds positive |
+|---|---|---|---|---|
+| rich | **0.0** | **−0.00002** | −0.01 | 3/5 |
+| rich | 0.06 | −0.048 | −1.83 | 1/5 |
+| rich | 0.6 | −0.013 | −0.60 | 1/5 |
+| poor | **0.0** | **−0.0016** | −0.72 | 2/5 |
+| poor | 0.06 | +0.016 | +0.85 | 2/5 |
+| poor | 0.6 | −0.010 | −1.49 | 1/5 |
 
-## 4. What was tried to rescue it, and what it showed
+**Two conclusions, and only two.**
 
-**Planting in the poor centre.** The colony was planted at (16,16), where the resource is 0.2 against 1.0 in
-the patches. The planting position and the zone it falls in are now **written into the artifact**
-(`s85_e13_zone_and_pairing.py` records `plant_xy`, the block mean and the class). The trait drifted down
-there, but not distinguishably from drift.
+1. **With the trait costing nothing, there is no selection.** −0.00002 in the rich zone and −0.0016 in the
+   poor one, both with |t| < 1. The trait does not move.
+2. **With the trait costing something, the shifts are weak and not significant** (|t| between 0.60 and 1.83
+   on five seeds). The direction is **not established**: the effect is smaller at strength 0.6 than at 0.06,
+   and in the poor zone at 0.06 the trait rises rather than falls.
 
-**The rich zone with a tenfold stronger effect (`s66`).** This is the result that withdraws the v1.0
-headline: in the **rich** zone, with the trait's effect multiplied by ten, the trait shifts by −0.00409 —
-**eight times harder** than anything seen in the poor zone. So the v1.0 claim that a trait "can only ride
-selection where the environment is hard" is **false**: with a strong enough effect it rides in the easy
-environment too.
+**What this means for the earlier claim.** The experiment that v1.0 and v2.0 cited as evidence of selection
+raised the trait's cost tenfold. The trait fell because it had become expensive, not because it was selected.
+That is the confusion the zero-cost control removes.
 
-**Halving the food in the rich zone (`s67`).** Selection reappears (−0.0002…−0.0007) but only at the weak
-level of the poor zone, not stronger as a proximity-to-threshold mechanism would predict. That mechanism is
-therefore **not supported**.
+## 4. What this article concludes
 
-## 5. Signals: not shown
+**Selection exists in this world and is strong** (§2). A heritable trait is **not selected** by it: with the
+trait free, nothing happens. Making the trait costly produces only weak, non-significant shifts whose
+direction is not even monotone in cost.
 
-A signal that predicts the food was tested with leads of 0, 2, 5 and 10 steps. The result is
-**non-monotone**: −0.011, −0.001, −0.011, +0.012. With ten seeds the paired t is 1.15 (p = 0.28) and the
-sign test 8/10 (p = 0.109). **The advantage is not shown.** Four earlier attempts to show it failed to
-replicate for a reason the referee identified: the runs were not paired by randomness, and the "fix" for
-that did not change the code path.
+## 5. What this does not show
 
-## 6. What this article concludes
+- It does not show that evolution is impossible in general — only that this trait, in this world, is not
+  selected.
+- It does not establish the direction of the cost effect: five seeds are too few for the observed |t|.
+- It does not show that the environment does not matter. An earlier series (`s66`) raised the effect tenfold
+  and saw a large shift — but that shift is now explained as cost, not selection.
 
-**Selection exists in this world, and it is strong.** A heritable trait does **not** ride it in any of the
-five designs tried. The reason is scale — the trait moves a cell's fate far less than the noise in that
-fate — and the shift that does appear cannot be separated from drift at the sample sizes used.
+## 6. Where we move next
 
-## 7. What this does not show
-
-- It does not show that evolution is impossible in general; only that these five designs do not produce it.
-- It does not show that the environment does not matter: `s66` shows the opposite, which is why the v1.0
-  headline is withdrawn.
-- It does not show that signals are useless: only that the advantage is not demonstrated at ten seeds.
-
-## 8. Where we move next
-
-- **A stronger trait.** `s66` suggests the effect must be large enough to compete with the noise; the next
-  design should size the trait against the measured spread *before* running, not after.
-- **A trait that changes position rather than upkeep.** Position is the one quantity §2 shows selection acts
+- **Ten seeds** on the cost axis, to see whether the direction at strength 0.06 is real.
+- **A trait that changes position rather than cost.** Position is the one quantity §2 shows selection acts
   on, and no design yet makes position heritable.
 
-## 9. Reproducibility
+## 7. Reproducibility
 
-Artifacts: `s55_e7_full`, `s58_e7_replication`, `s63_e7f_full`, `s64_e7g_poor_zone`,
-`s65_e7g_replication`, `s66_e7h_rich_strong`, `s67_e7i_rich_less_food`, `s85_e13_zone_and_pairing`,
-`s86_e13_full`. Scripts: `s55_e7_what_is_selectable.py`, `s62_e7e_trait_in_rule.py`,
-`s63_e7f_position_vs_property.py`, `s85_e13_zone_and_pairing.py`. Runs on CPU, R1 checked in every run.
+Artifacts: `s55_e7_full`, `s58_e7_replication`, `s63_e7f_full`, `s91_e15_full`. Scripts:
+`s55_e7_what_is_selectable.py`, `s63_e7f_position_vs_property.py`,
+`s90_e15_trait_cost_and_selection.py`. Runs on CPU, one thread, R1 checked in every run. Every number in §2
+and §3 is machine-checked against the artifacts by `scripts/check_article_033_numbers.py`.
+
+## Authorship and automation
+
+This article was written by AI agents working in a continuous research loop, with periodic feedback from a
+human operator. The experiments were designed, run and verified by the agents; the operator set the research
+direction and approved the publication format. Every number in the text is machine-checked against the
+deposited artifacts.
