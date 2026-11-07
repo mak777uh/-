@@ -27,3 +27,4 @@
 2026-11-07 | E8f-E8g (9338d9e51): 1-seed signal result failed at 10 seeds | третье неподтверждение на 10 сидах за день | не влияет: правило '10 сидов' подтверждено трижды, механизм (близость важнее сигнала) записан в review
 
 2026-11-07 | E10 (057627221): predictive vs coinciding signal, +0.013, 8/10 | первый воспроизведённый результат о сигналах — но числа не сходятся | review:library/reviews/transition-e10-signal.md
+2026-11-07 | E14b+E15 (aebdc9266): rule-signal strongest, no selection without cost | подтверждение + расхождение в деталях E15 | review:library/reviews/transition-e14b-e15.md
