@@ -78,7 +78,8 @@ INSTRUCTION = f"""# Publishing instruction - article 035
 
 1. `{STEM}.md` - the article (Markdown source)
 2. `{STEM}.pdf` - the rendered article
-3. `artifacts/s49_e1_density_axis.json` - the 240 runs the article's table comes from
+3. `artifacts/s49_e1_density_axis.json` - the 240 runs the article's table and figure come from
+4. `figures/fig1-the-boundary.png` and `.pdf` - the figure, reading and typesetting versions
 4. `scripts/s41_e1_phase_diagram.py` - the script that produced them
 5. `check_article_035_numbers.py` - the machine check of every printed number (run it inside the unpacked archive:
    `python check_article_035_numbers.py` -> 0 failures out of 27 checks)
@@ -116,7 +117,8 @@ def sha256(data: bytes) -> str:
 
 
 def main() -> int:
-    missing = [p for p in (ART, PDF, VERIFIER, SCRIPT) if not p.exists()]
+    missing = [p for p in (ART, PDF, VERIFIER, SCRIPT, ROOT / "scripts" / "make_article_035_figures.py")
+               if not p.exists()]
     if missing:
         raise SystemExit(f"[035-package] missing: {[str(p) for p in missing]}\n"
                          "Run scripts/make_article_035_pdf.py first.")
@@ -126,12 +128,21 @@ def main() -> int:
 
     # Forward-slash keys only: on Windows `zf.write(path, "a/b")` stores backslashes and the archive then fails to
     # open on Linux and on Zenodo.
+    figdir = ROOT / "articles" / "035-figures"
+    figures = [(f"figures/{p.name}", p.read_bytes()) for p in sorted(figdir.iterdir())
+               if p.suffix.lower() in (".png", ".pdf")]
+    article = (ART.read_text(encoding="utf-8")
+               .replace("](035-figures/", "](figures/")
+               .replace("](032-what-decides-whether-behaviour-pays.md)",
+                        "](https://github.com/mak777uh/-/blob/main/articles/032-what-decides-whether-behaviour-pays.md)"))
     entries: list[tuple[str, bytes]] = [
-        (ART.name, ART.read_bytes()),
+        (ART.name, article.encode("utf-8")),
         (PDF.name, PDF.read_bytes()),
+        *figures,
         (f"artifacts/{artifact.name}", artifact.read_bytes()),
         (f"scripts/{SCRIPT.name}", SCRIPT.read_bytes()),
         ("check_article_035_numbers.py", VERIFIER.read_bytes()),
+        ("make_article_035_figures.py", (ROOT / "scripts" / "make_article_035_figures.py").read_bytes()),
         ("LICENSE", LICENSE.encode("utf-8")),
         ("zenodo.json", (json.dumps(ZENODO, ensure_ascii=False, indent=1) + "\n").encode("utf-8")),
         ("INSTRUCTION.md", INSTRUCTION.encode("utf-8")),

@@ -93,6 +93,7 @@ ZENODO = {
     "language": "eng",
     "keywords": ["pond", "directionality", "habituation", "mobility", "memory", "signal field",
                  "negative result"],
+    "notes": "Made by an AI agent working in the project's repository, with periodic feedback from the human operator; every printed number is re-derived from the deposited artifacts by a machine check.",
     "description": (
         "The previous article of the series reported that local resource-greedy movement helps in a patchy pond "
         "world but that its advantage shrinks as the rich zone fills. This article asks what decides whether a "

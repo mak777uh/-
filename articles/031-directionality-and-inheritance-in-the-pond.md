@@ -1,6 +1,6 @@
 # Directionality works but does not scale, and inherited adaptation does not appear, in a resource-limited pond world
 
-**Ilya Vladimirov** · [10.5281/zenodo.24012536](https://doi.org/10.5281/zenodo.24012536) · 6 November 2026 · v2.0 · CC BY 4.0
+**Ilya Vladimirov** · [10.5281/zenodo.24012536](https://doi.org/10.5281/zenodo.24012536) · 6 November 2026 · v2.1 · CC BY 4.0
 
 ## Abstract
 
@@ -15,6 +15,12 @@ confound. Separately, three experiments turned out to be invalid by construction
 them as results.
 
 **Keywords:** pond, directionality, taxis, inheritance, lineage selection, boundary of the setup
+
+**How this article was made.** It was written by an AI agent working inside the project's repository, from
+artifacts the agent also produced, with periodic feedback from the human operator who owns the project. The operator set
+the frame and the rules and reviewed drafts; the agent ran the experiments, wrote the text, built the figures, wrote the
+machine check of every printed number, and prepared the deposit. Where the article says "we", it means this collaboration.
+The artifacts and the check are in the deposit, so every claim can be re-derived without trusting either of us.
 
 ## The line this article continues
 
@@ -325,7 +331,10 @@ against the artifact, never the other way round.
 - **v1.1** (2026-11-06): translated to English, which is the article language from now on; the independent review's
   corrections applied (S18 is underpowered rather than null, the S13 monotonicity is a first-window effect, the S6/S7 and
   S10/S18 arms share runs, the S10 transplant collapsed the trait spread and is invalid).
-- **v2.0** (2026-11-06, this edition): prepared for an outside reader, and given the opening the series uses — one
+- **v2.1** (2026-11-07): states how the article was made — written by an AI agent working in the project's
+  repository, with periodic feedback from the human operator — in the abstract block and in the PDF. No number
+  changed, and the machine check still passes 50 of 50.
+- **v2.0** (2026-11-06): prepared for an outside reader, and given the opening the series uses — one
   paragraph on what the previous step found and one on the path this article took to its result. The header now carries the author, the licence and
   the DOI of the previous article; the abstract and §1 say what the world is and that nothing in it is trained; the
   correlation's sensitivity range is quoted in the order its checks produce; §9 states the excluded runs as a count; the

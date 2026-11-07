@@ -7,6 +7,7 @@
 - **Authors:** Ilya Vladimirov
 - **Previous article of the series:** [032](032-what-decides-whether-behaviour-pays.md)
 - **Artifacts:** `morphogenesis/experiments/E09_pond/s49_e1_density_axis.json`
+- **Figures:** `035-figures/` — built by `scripts/make_article_035_figures.py` from the artifact only
 
 ## Abstract
 
@@ -40,17 +41,6 @@ the frame and the rules and reviewed drafts; the agent ran the experiments, wrot
 machine check of every printed number, and prepared the deposit. Where the article says "we", it means this collaboration.
 The artifacts and the check are in the deposit, so every claim can be re-derived without trusting either of us.
 
-## The line this article continues
-
-**Last time.** *What decides whether behaviour pays: movement, not the signal it follows* (article 032, v1.2) showed that
-the sign of the greedy-movement advantage depends on the resource recovery rate — it loses under slow recovery and wins under
-fast — and that the dominant variable is how much a cell moves, not what it compares with. *Directionality works but does not
-scale* (article 031, Zenodo DOI [10.5281/zenodo.24012536](https://doi.org/10.5281/zenodo.24012536)) had already found that the
-gain decays as the rich zone fills.
-
-**What we decided to check.** Both results were single points: one density, one recovery rate, one mobility. This article maps
-the surface — four densities × three recovery rates, ten seeds each, 240 runs — and asks where movement stops paying.
-
 ## 1. The question
 
 The series has measured the value of movement at single points: one density, one recovery rate, one
@@ -73,6 +63,12 @@ current resource — and the gap between the arms. R1 (mean deaths ≥ 10 and me
 **240 of 240** runs.
 
 ## 3. Results
+
+![The boundary of profitability](035-figures/fig1-the-boundary.png)
+
+**Figure 1.** Where movement pays. **A.** The gap between the greedy and the non-moving arm against colony density, one
+line per resource-recovery rate; the dotted line is zero. **B.** The same twelve cells, coloured by the gap, with the
+number of seeds out of ten that agree in sign. The slow-recovery row crosses zero; the medium and fast rows do not.
 
 | recovery | density 3.1 % | 12.5 % | 31.2 % | 53.7 % |
 |---|---|---|---|---|
