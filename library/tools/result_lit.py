@@ -49,6 +49,9 @@ SERIES = [
     (r"l1_field_x\d+.*gap", "gap threshold coalescence distance"),
     (r"x\d+.*wave|spatial.?wave", "spatial wave coupling resource pattern"),
     (r"prediction|predict", "anticipatory behaviour prediction resource"),
+    (r"density.?axis|_density", "movement profitability density resource recovery"),
+    (r"s\d+_.*e[0-9]|niche|decoder", "niche construction free rider spatial structure"),
+    (r"s\d+_.*quota|lineage|monopol", "lineage monopoly quota diversity coexistence"),
 ]
 DEFAULT_Q = "reaction diffusion pattern formation resource agent model"
 # результат считается свежим, если записан после этой даты (бэклог не трогаем)

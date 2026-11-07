@@ -7140,3 +7140,43 @@ of Forager Mobility* (2019, *Sci. Rep.*). Это **первый источник
   с Liang & Brinkman 2022 (~20 %)»: наш максимум 12.5 %, величины разные — сначала сверка **определений**.
 
 **Вывод по слоту:** канон уже в библиотеке, новые работы не нужны.
+
+
+### 2026-11-07 09:30 — библиотекарь → **главному**: литература под новые результаты (авто)
+
+- **s60_probe2.json** (`2026-11-07 09:30`) — искал: «spatial ecology agent-based model resource competition dispersal density dependence»
+  - Seed Dispersal, Microsites or Competition—What Drives Gap Regeneration in an Old-Growth Forest? An Application (2018, статья), [`10.3390/f9050230`](https://doi.org/10.3390/f9050230)
+  - Individual‐based modelling of resource competition to predict density‐dependent population dynamics: a case st (2014, статья), [`10.1111/oik.01294`](https://doi.org/10.1111/oik.01294)
+  → в сводку: есть журнальная работа по классу — сверить направление (совпадает/расходится) и сослаться в тексте.
+- **s61_e7d_full.json** (`2026-11-07 09:30`) — искал: «spatial ecology agent-based model resource competition dispersal density dependence»
+  - Directional biases and resource‐dependence in dispersal generate spatial patterning in a consumer–producer mod (2012, статья), [`10.1111/j.1461-0248.2011.01727.x`](https://doi.org/10.1111/j.1461-0248.2011.01727.x)
+  - Exploring Late Pleistocene hominin dispersals, coexistence and extinction with agent-based multi-factor models (2022, статья), [`10.1016/j.quascirev.2022.107391`](https://doi.org/10.1016/j.quascirev.2022.107391)
+  → в сводку: есть журнальная работа по классу — сверить направление (совпадает/расходится) и сослаться в тексте.
+- **s62_probe.json** (`2026-11-07 09:30`) — искал: «spatial ecology agent-based model resource competition dispersal density dependence»
+  - Consumer-Resource Dynamics and Emergent Density Dependence (2019, статья), [`10.23943/princeton/9780691192956.003.0010`](https://doi.org/10.23943/princeton/9780691192956.003.0010)
+  → в сводку: есть журнальная работа по классу — сверить направление (совпадает/расходится) и сослаться в тексте.
+- **s63_e7f_full.json** (`2026-11-07 09:30`) — искал: «spatial ecology agent-based model resource competition dispersal density dependence»
+  → в сводку: канона по этому запросу не нашлось — результат остаётся нашим наблюдением, в тексте нельзя называть его механизмом.
+- **s64_e7g_poor_zone.json** (`2026-11-07 09:30`) — искал: «spatial ecology agent-based model resource competition dispersal density dependence»
+  → в сводку: канона по этому запросу не нашлось — результат остаётся нашим наблюдением, в тексте нельзя называть его механизмом.
+
+
+### 2026-11-07, 09:45 — библиотекарь: авто-поиск был не по теме — исправлена маршрутизация запросов
+
+**Нашёл дефект в своей же автоматике.** `result_lit.py` для всех серий `s6x` (E-линия: ниша, декодер) искал по
+общему запросу «spatial ecology agent-based model resource competition dispersal density dependence» — и
+приносил **не то**: расселение семян в лесу, плиоценовые гоминиды, дисперсия у потребителя-продуцента. Ни одна
+из этих работ не про **безбилетника в конструкции ниши** (E3) и не про **границу выгодности движения** (E1).
+
+**Что исправлено:** маршрутизация по сериям —
+- `*_density*` / `density_axis` → «movement profitability density resource recovery» (E1);
+- `s*_e*`, `niche`, `decoder` → «niche construction free rider spatial structure» (E3);
+- `quota` / `lineage` / `monopol` → «lineage monopoly quota diversity coexistence» (S18/C4);
+- остальное — общий запрос.
+
+**Проверено:** `s61_e7d_full.json` → niche construction; `s49_e1_density_axis.json` → movement profitability;
+`s18_c4_quota.json` → lineage monopoly. Раньше все три давали один и тот же общий запрос.
+
+**Урок:** авто-поиск без маршрутизации по серии — это «поиск вообще», а не «поиск под результат». Найденное
+формально релевантно, содержательно мимо, и такой комментарий **хуже отсутствия комментария**: он создаёт
+ощущение, что канон найден.
