@@ -1068,30 +1068,134 @@ If the trap disappears, the disorder was in the content — exactly as the patte
 
 ---
 
+## P51. Changing the content of consciousness is juggling — and it is no change at all
+
+**The move.** "When we talk about change in consciousness we are still changing the pieces from one corner to the
+other." Naudé: "We are changing variables in the same set of things." K: "That's right. You have put it perfectly,
+better than I have."
+
+**In our world.** This is **the exact description of every experiment we ran**. We changed variables **in the same
+set of things**: `plastic_eta`, `plastic_gate`, `plastic_move_cost`, `budget`, `niche_gain`, `signal_strength`,
+`rule_strength`, `dose`, `lag`, `density`, `recovery`. **Every one of them was a piece moved from one corner of the
+box to another.**
+
+**What it explains.** The entire shape of our results: **small effects, no qualitative change, and a null whenever
+we looked for something new.** We were not changing the cell; we were **rearranging its contents**.
+
+**Testable / and this is the sharpest methodological statement in the file.** The test for whether an experiment is
+juggling: **does it change the SET of variables, or the VALUES?** If the set is the same, the experiment cannot
+produce a new kind of outcome — only a different number. That is a **pre-registration rule** and it is checkable
+before running.
+
+**Status:** methodological rule; it explains our whole history.
+
+---
+
+## P52. The juggler is part of what is juggled — there is no one outside to change it
+
+**The move.** Naudé: "there is no entity to decide, to will, and to juggle, when the contents to be juggled are
+absent." K: "The thinker who within this consciousness says that he must change, is consciousness trying to
+change."
+
+**In our world.** This is P28 and P16 in their final form: **the cell's "decision-maker" is `pred`**, and `pred` is
+part of what is being changed. There is **no part of the cell standing outside its record** that could decide to
+change the record.
+
+**What it explains.** Why **every "adaptive" mechanism failed**: an adaptive mechanism assumes a part of the cell
+that stands outside and adjusts. **There is no such part.** The mechanism we added was itself made of the record,
+so it was the record adjusting the record.
+
+**Testable / design requirement.** Any design with a **controller** — a part that watches and adjusts — is
+structurally impossible in this cell. The only options are: **no controller at all** (the reset, which is external
+to the cell's decision), or a controller **outside the cell** (another cell, or the environment).
+
+**Status:** design constraint; it rules out the whole "adaptive" family.
+
+---
+
+## P53. The container and the contained are one — so there is nothing to empty from outside
+
+**The move.** Naudé: "The container and contained are an indivisible thing?" K: "That's right." And: "the content
+of consciousness is consciousness and the two are not separate."
+
+**In our world.** The cell's "container" (its state) and its "content" (`pred`) are **the same array**. There is no
+empty cell waiting to be filled, and no separate record to be emptied. **This is why "removing `pred`" is not
+"emptying the cell"** — it is **changing the container**, i.e. changing what the cell is.
+
+**What it explains.** Why the reset is a **structural** change and not a parameter change (P51): it changes the
+**container**, not a value inside it.
+
+**Status:** supports the reset direction; it clarifies **why** it is not juggling.
+
+---
+
+## P54. An emptied consciousness is not a vague or inert one — it is the opposite
+
+**The move.** Naudé: "doesn't that reduce one to a state of considerable vagueness and inertia?" K: "On the
+contrary. To have come to this point requires a great deal of enquiry, a great deal of reason, logic, and with it
+comes **intelligence**."
+
+**In our world.** This is a **prediction** for the reset experiment, and it is the opposite of the obvious one. The
+obvious worry is that a cell with its record erased will be **blind and passive**. The pattern says the opposite:
+**less record should mean more responsiveness**, not less.
+
+**What it explains.** Why we never tried the reset: it looked like **damage**. The pattern says it is the opposite
+of damage.
+
+**Testable, and it is the decisive form of the reset experiment.** Measure not the score but the **responsiveness**:
+the mutual information between the environment and the cell's behaviour. P54 predicts it **rises** as the record is
+shortened (or reset more often). If it falls, the pattern is wrong and the record is doing real work.
+
+**Status:** hypothesis; the responsiveness measure is the right readout for the reset experiment.
+
+---
+
+## P55. "What are we going to do about it?" — and there is no one to do it
+
+**The move.** Naudé: "since there is no entity who can do something about it..." — the question collapses on
+itself.
+
+**In our world.** This is where our whole experimental programme has been standing without knowing it. Every
+experiment asked **"what should the cell do differently?"** — and the answer required a part of the cell that
+decides. **There is no such part** (P52). So the question, as posed, **cannot be answered by any experiment**.
+
+**What it explains.** Why we kept producing nulls and then explaining them away: the question was **malformed**.
+Not "the cell failed to do X" but "there is no one in the cell to do X".
+
+**The correct question.** Not "what should the cell do", but "**what is the case** when the behaviour changes" —
+which is P39, and which is why the **reset** is the right experiment: it does not ask the cell to do anything, it
+**changes what the cell is** and observes what follows.
+
+**Status:** methodological; it closes the loop opened by P46.
+
+---
+
 ## What the reading has changed in our plan (updated)
 
-1. **The `pred`-reset sweep is the top experiment** (P25, P26, P30, P31, P37, P44, P50) — it changes the **content**
-   and nothing else, which is exactly what P50 says is the only place the disorder lives.
+1. **The `pred`-reset sweep is the top experiment** (P25, P26, P30, P31, P37, P44, P50, P53) — and its readout is
+   **responsiveness** (P54), not score: does the mutual information between environment and behaviour **rise** as
+   the record is shortened?
 2. **The `pred`-removal experiment** (P1, P6, P8, P9, P10, P11, P13, P18, P29, P31, P35, P37, P42, P44).
-3. **The move-cost test** (P41): `plastic_move_cost = 0` — was the trap energy or information? One parameter.
+3. **The move-cost test** (P41): `plastic_move_cost = 0` — was the trap energy or information?
 4. **The initial-`pred` test** (P36, P40).
-5. **Behaviour logging** (P48, P49): log the move sequence, and ask whether the **repertoire** changes across the
-   environmental grid, not the score.
+5. **Behaviour logging** (P48, P49) — the move sequence, and whether the **repertoire** changes.
 6. **The move-rate curve** (P29); **the stereotypy ratio** (P32); **the cell's own success measure** (P27).
 7. **Check on existing data:** is `resource − pred` indistinguishable across E10's four patterns? (P11)
 8. **The continuous-gate test** (P17); **the recovery test** (P9); **the two-environment sweep** (P14); **the ratio
    law** (P15); **the neighbour-read experiment** (P22).
 9. **Measurement rules:** from the first steps (P4); no predicted sign (P33, P39); "what is" not "how to" (P39);
-   measure behaviour, not its shadow (P48).
-10. **The design space is three options** (P38): novelty from the **environment**, from **another cell**, or from a
+   measure behaviour not its shadow (P48).
+10. **The pre-registration rule from P51:** does the experiment change the **set** of variables or only their
+    **values**? If only values, it is **juggling** and cannot produce a new kind of outcome.
+11. **The design space is three options** (P38): novelty from the **environment**, from **another cell**, or from a
     **random term not a function of the record**.
-11. **The unitary constraint** (P43, P47): one quantity that is at once outer, inner and beyond — the resource the
-    cell stands in; and the field the cells write must be the field that sets their own terms.
-12. **Do not help the cell** (P45); **do not add a third state** (P46).
+12. **The unitary constraint** (P43, P47): one quantity that is at once outer, inner and beyond.
+13. **Structural constraints:** no controller inside the cell (P52); do not help the cell (P45); do not add a third
+    state (P46); do not ask the cell to do anything (P55).
 
 ---
 
 ## Reading progress
 
-- Pages 1–83 of 409 read (Part III, the Naudé conversation on "the circus of man's struggle").
-- Next: the rest of Part III (the change in consciousness; on good and evil).
+- Pages 1–86 of 409 read (Part III, the Naudé conversation: the change in consciousness).
+- Next: the rest of Part III (what change means when there is no entity to change; on good and evil).
