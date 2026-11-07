@@ -1829,33 +1829,136 @@ consequences — not what points at it. That is a **design rule** and it is the 
 
 ---
 
+## P86. The approach of wanting to help is not valid
+
+**The move.** "I think **the approach of wanting to help is not valid**, except in the medical world or in the
+technological world. If I am ill it is necessary to go to the doctor to be cured. Here, psychologically, if I am
+asleep, I won't listen to you."
+
+**In our world.** This is P45 completed, and it draws a **line we never drew**: help is valid in the **medical and
+technical** domain and invalid in the **psychological** one. Our experiments were **technical** (a mechanism, a
+parameter, a reward) applied to a **psychological** problem (the cell's relation to its own record). **That is the
+category error of the whole programme.**
+
+**What it explains.** Why our technical fixes never touched the thing that was wrong: a technical fix is valid only
+where the problem is technical. The trap of inaction is not a technical fault; it is the cell's relation to its
+record.
+
+**Testable / design rule.** Classify the problem before choosing the fix. If the problem is a **relation** (the cell
+to its record, the cell to its situation), a **technical** fix is invalid by category — no matter how well built.
+
+**Status:** design rule; it names the category error.
+
+---
+
+## P87. Why do we seek? Because we are unhappy — and the search is the escape from that
+
+**The move.** "So why do I seek? Because, deeply I am unhappy, deeply I am confused, deeply there is great sorrow in
+me and **I want to find a way out of it**... The basic reason for my search is to **escape** from this agony."
+
+**In our world.** This is the **motive analysis** of our own programme, and it is uncomfortable and exact. We sought
+a mechanism **because the nulls were painful**. Every new experiment was an **escape from the previous null** — not
+an enquiry.
+
+**What it explains.** The **sequence** of our experiments: each was a way out of the last one's failure. That is why
+the list looks like an escape route rather than a map.
+
+**Testable / rule.** Before running an experiment, ask: **is this an enquiry or an escape from the last null?** If
+the motive is the previous failure, it is an escape, and escapes do not find anything (P30).
+
+**Status:** rule; it is the honest self-audit of the experiment list.
+
+---
+
+## P88. Enquiry is not search — and the difference is whether there is a target
+
+**The move.** "So what I have to do is to find out in myself why sorrow has come into being... Then, is that a
+search? **No.** When I want to find out why I am suffering, that is not searching. It is not even a quest. It is
+like going to a doctor and saying I have a bad tummy."
+
+**In our world.** This is P33 completed with a **criterion**: search has a **target** (enlightenment, a mechanism,
+a result); enquiry has a **cause to be understood** (why does the trap exist?). And the pattern adds the crucial
+detail: enquiry is like **going to a doctor with a symptom** — you **describe what is**, and the diagnosis follows.
+
+**What it explains.** Why our "what is" experiments (E7: is there selection? E1: where is the boundary?) were
+productive and our "how to" experiments were not: the first described a symptom, the second chased a target.
+
+**Testable / rule.** An experiment must start from a **symptom** (a measured fact that is puzzling), not from a
+**target** (a state we want). That is the operational form of P33/P39.
+
+**Status:** rule; it is the clearest formulation of the methodological half of the file.
+
+---
+
+## P89. If he is enquiring he will find the table himself — leading him is treating him as a child
+
+**The move.** "He must learn that the table is there... **If he is enquiring, he will find out.** But if you come
+along and say, 'There is the door, there is the table, don't knock against it', you are treating him just like a
+child, leading him to the door. **There is no meaning to it.**"
+
+**In our world.** Every mechanism we added was a **"don't knock against the table"**: the field said "don't forget
+where the food was"; the signal said "don't go the wrong way"; the niche said "don't starve". Each was a
+**prevention of a collision** that the cell would have learned from.
+
+**What it explains.** Why the mechanisms left the cell **less able**, not more: they removed the collisions, and the
+collisions were the **only teacher** (P85).
+
+**Testable / design rule.** A mechanism that **prevents a collision** removes a lesson. The only legitimate
+intervention is to let the collision happen and observe what the cell does — which is **measurement**, not help.
+
+**Status:** design rule; it is P85 from the other side.
+
+---
+
+## P90. Any decent man will say "don't go there, there is a precipice" — and that is the limit of help
+
+**The move.** "**Any decent man with a decent heart will say, Don't go there, there is a precipice.**"
+
+**In our world.** This is the **boundary** of the whole reading, and it is generous: help is legitimate when it
+prevents **immediate physical harm**, and illegitimate when it tries to **produce understanding**. Our mechanisms
+were all of the second kind.
+
+**What it explains.** Why the file has been so severe about "help": the severity is **specific** — it is about help
+that tries to produce understanding. **Warning about a precipice is fine; carrying someone down the mountain is
+not.**
+
+**Testable / rule.** The distinction is operational: a **warning** changes what the cell **knows about a
+consequence**; a **carrying** changes what the cell **is**. Our mechanisms were all carrying.
+
+**Status:** rule; it closes the "help" thread of the file.
+
+---
+
 ## What the reading has changed in our plan (updated)
 
-1. **Adopt the variance decomposition** (P80, P82): behaviour variance explained by **situation** vs by **record**.
-   It is also the measure of **maturity** — the absence of a centre.
-2. **The core hypothesis** (P71): the cell is made of the contradiction between what is and what should be.
-3. **The decisive experiment** (P74, P75, P77): **empty** the record and test for a **step**, not a slope.
-4. **The clean two-arm test** (P78): more **physical** protection vs removal of **psychological** protection.
-5. **The missing control** (P56, P76): adaptive arm vs **random perturbation of equal variance**.
-6. **The filter for the next experiment** (P81, P84): does it **point** or does it **move**? Does it **add** or does
-   it **remove**? Only removals qualify.
-7. **The only legitimate lever** (P85): change **what knocks the cell** — the consequences — not what points at it.
-8. **On existing data:** residual variance of the adaptive arms vs baseline in S22 (P79); `resource − pred` across
-   E10's patterns (P11); the cell's own measures (P27, P59).
-9. **The remaining tests:** move-cost (P41); initial-`pred` (P36, P40); recovery (P9); two-environment sweep (P14);
-   ratio law (P15); neighbour-read (P22); move-rate curve (P29); stereotypy ratio (P32); repertoire (P49);
-   field-order vs cell-order (P70).
-10. **Rules:** from the first steps (P4); no predicted sign (P33); "what is" not "how to" (P39); which of the first
+1. **The filter for the next experiment** (P81, P84, P89, P90): it must **remove**, not add; it must not **prevent a
+   collision**; it must not **carry** the cell.
+2. **The problem must be classified first** (P86): a **relation** problem cannot be fixed by a **technical** fix.
+3. **The experiment must start from a symptom** (P88), not a target; and must not be an **escape from the last null**
+   (P87).
+4. **Adopt the variance decomposition** (P80, P82): behaviour variance explained by **situation** vs by **record** —
+   also the measure of maturity.
+5. **The core hypothesis** (P71): the cell is made of the contradiction between what is and what should be.
+6. **The decisive experiment** (P74, P75, P77): **empty** the record and test for a **step**, not a slope.
+7. **The clean two-arm test** (P78): more **physical** protection vs removal of **psychological** protection.
+8. **The missing control** (P56, P76): adaptive arm vs **random perturbation of equal variance**.
+9. **The only legitimate lever** (P85): change **what knocks the cell** — the consequences — not what points at it.
+10. **On existing data:** residual variance of the adaptive arms vs baseline in S22 (P79); `resource − pred` across
+    E10's patterns (P11); the cell's own measures (P27, P59).
+11. **The remaining tests:** move-cost (P41); initial-`pred` (P36, P40); recovery (P9); two-environment sweep (P14);
+    ratio law (P15); neighbour-read (P22); move-rate curve (P29); stereotypy ratio (P32); repertoire (P49);
+    field-order vs cell-order (P70).
+12. **Rules:** from the first steps (P4); no predicted sign (P33); "what is" not "how to" (P39); which of the first
     two states (P46); measure behaviour not its shadow (P48); set of variables not values (P51); no "should" for the
     cell (P63); the proof that a pattern was seen is that the next experiment changed shape (P64); report the range
-    (P73); no gain as a justification (P83); no story (P84).
-11. **Design constraints:** novelty from outside the record (P38); relationship not isolation (P34); no controller
-    inside the cell (P52); one quantity outer-inner-beyond (P43); do not help the cell (P45); one process not parts
-    (P65); no blueprint (P67); no planning (P72); no will (P76).
+    (P73); no gain as a justification (P83); no story (P84); enquiry not search (P88).
+13. **Design constraints:** novelty from outside the record (P38); relationship not isolation (P34); no controller
+    inside the cell (P52); one quantity outer-inner-beyond (P43); do not help the cell (P45, P86, P90); one process
+    not parts (P65); no blueprint (P67); no planning (P72); no will (P76).
 
 ---
 
 ## Reading progress
 
-- Pages 1–110 of 409 read (Part IV, the Venkatesananda conversation: the guru, discipline, maturity).
-- Next: the four schools of yoga, then the mahavakyas.
+- Pages 1–113 of 409 read (Part IV: the guru, discipline, maturity, the question of help; the four yogas begun).
+- Next: the four schools of yoga scrutinised.
