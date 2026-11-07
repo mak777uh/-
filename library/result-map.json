@@ -101,6 +101,47 @@
    "question": "does this result reproduce or contradict a known mechanism in spatial ecology (density dependence, resource renewal, dispersal, niche construction)?",
    "lit_query": "spatial ecology agent-based model resource competition dispersal density dependence",
    "catch_all": true
+  },
+  {
+   "id": "POND_SIGNAL_PREDICTIVE",
+   "title": "predictive signals: does a signal pay only when it leads the food",
+   "globs": [
+    "morphogenesis/experiments/E09_pond/s80_lag*.json",
+    "morphogenesis/experiments/E09_pond/s82_*.json",
+    "morphogenesis/experiments/E09_pond/s83_e12*.json",
+    "morphogenesis/experiments/E09_pond/s84_lag*.json",
+    "morphogenesis/experiments/E09_pond/s76_share*.json",
+    "morphogenesis/experiments/E09_pond/s77_share*.json"
+   ],
+   "question": "when does an environmental signal carry information an agent can use, and does a signal pay only when it PREDICTS the resource rather than coinciding with it?",
+   "lit_query": "predictive information environmental cue foraging anticipation lead time"
+  },
+  {
+   "id": "POND_SIGNAL_TARGET",
+   "title": "what should a signal change: the place, the time, or the rules",
+   "globs": [
+    "morphogenesis/experiments/E09_pond/s87_*.json",
+    "morphogenesis/experiments/E09_pond/s88_e14*.json",
+    "morphogenesis/experiments/E09_pond/s69_*.json",
+    "morphogenesis/experiments/E09_pond/s70_*.json",
+    "morphogenesis/experiments/E09_pond/s71_*.json",
+    "morphogenesis/experiments/E09_pond/s72_*.json",
+    "morphogenesis/experiments/E09_pond/s73_*.json",
+    "morphogenesis/experiments/E09_pond/s74_*.json",
+    "morphogenesis/experiments/E09_pond/s75_*.json"
+   ],
+   "question": "should an environmental signal change where the resource is, how much of it there is, or the organism's own rules - and which of these pays for an immobile agent?",
+   "lit_query": "signal effect on organism physiology versus resource distribution adaptation"
+  },
+  {
+   "id": "POND_ZONE_PAIRING",
+   "title": "zone classification and paired designs in agent experiments",
+   "globs": [
+    "morphogenesis/experiments/E09_pond/s85_*.json",
+    "morphogenesis/experiments/E09_pond/s86_e13*.json"
+   ],
+   "question": "how should a rich zone be defined in a bimodal resource field, and how should paired random numbers be handled when comparing agent arms?",
+   "lit_query": "paired design common random numbers agent-based simulation variance reduction"
   }
  ],
  "arms": [
