@@ -5138,20 +5138,201 @@ division.
 
 ---
 
+## P261. The moment I am aware that I am aware, I am not aware — the observer destroys the observation
+
+**The move.** "**The moment I am aware that I am aware, I'm not aware.**... **The moment I am aware that I am humble, humility is not. The moment I am aware that I am happy, happiness is not.**... **So if I am aware that I am aware, then that is not awareness; in that there is division between the observer and the observed.**"
+
+**In our world.** **This is the most exact statement of our measurement problem in the whole file**, and it is a **paradox with a mechanical solution**: **the act of registering a state destroys the state.** Our cell **registers** every state (into `pred`) — and **the registration is the destruction.**
+
+**What it explains.** Why every measurement we made was of something **already destroyed by the measuring**: the cell's "state" that we logged was the state **after** it had been registered. **We were never looking at the cell; we were looking at the cell's record of itself.**
+
+**Testable, and it is a design constraint on the instrumentation.** The measurement must be **outside the cell** (P199) — and it must **not feed back**. **A logger that writes into the cell is an observer that destroys the observation.**
+
+**Status:** the paradox; it is P199's deepest form.
+
+---
+
+## P262. Awareness means the observer is not — and the division is created by the image
+
+**The move.** "**Awareness means that — awareness means that the observer is not.**" And: "**That division takes place when there is the observer who has an image of that tree... So the knowledge, the image, separates the observer from the observed.**"
+
+**In our world.** **This is the complete mechanism of the gap** (P151): the **image** (`pred`) separates the observer (the cell) from the observed (the resource). **And the separation is not a fact of the world — it is created by the image.**
+
+**What it explains.** Why the gap cannot be **crossed** (by moving, by a better rule): **a gap created by an image cannot be crossed by the image.** It can only **end when the image ends.**
+
+**Testable.** The prediction: **the gap's size should equal the image's strength.** Measurable as the correlation between the record-explained fraction and the mismatch between `pred` and the resource.
+
+**Status:** the mechanism of the gap.
+
+---
+
+## P263. Learning is not accumulation of knowledge — and the ideas you carry away prevent learning
+
+**The move.** "**Learning is not accumulation of knowledge. When you go away from here, you will have various ideas about awareness, love, truth, fear and all the rest of it. Those very ideas are going to prevent learning.**"
+
+**In our world.** **This is the verdict on this file, stated by the book itself**: **the 262 patterns you take away are ideas, and those very ideas will prevent learning.** And it is **exactly** P196 (second-hand) and P234 (understood, not realized) — but stated as a **prediction about the reader**.
+
+**What it explains.** Why the file is dangerous: **it may prevent the very learning it describes.** Every pattern is a **concept**, and **a concept prevents the act** (P125).
+
+**Testable / rule.** **The file must be used and dropped.** Its only legitimate use is **to design one experiment** — and then it must be **put away** (P150: put away the sacred books), not carried as a doctrine.
+
+**Status:** the warning.
+
+---
+
+## P264. Awareness is not the result of exercising will — either you see or you don't
+
+**The move.** "**You cannot try to be aware, you cannot determine to be aware; to be aware is not the result of exercising will. Either you see or you don't see.**"
+
+**In our world.** This is P143/P228 with the **final form**: **awareness cannot be willed.** And our whole design was **will** — a rule the cell follows, a threshold it must cross.
+
+**What it explains.** Why no design of ours could produce awareness: **it was all will**, and **will cannot produce awareness** (P76, P143, P221).
+
+**Testable / rule.** **No will in the design** — which means **no rule the cell must follow**, **no threshold it must cross**, **no target it must reach**. **Only a situation and an observation** (P115, P126, P177, P259).
+
+**Status:** rule.
+
+---
+
+## P265. The analysis of images is a vicious circle — thought trying to destroy the images thought created
+
+**The move.** "**These images are created by thought, and analysis is thought. Through thought I hope to destroy the images that thought has created, so I am caught in a vicious circle.**"
+
+**In our world.** **This is the final refutation of every "diagnostic" mechanism we added** (the decoder, the memory, the gate's threshold): **thought destroying thought's images is a vicious circle.** And our programme was **exactly** that: we added mechanisms (thought) to fix the images (thought).
+
+**What it explains.** Why every fix produced a **new image** (P254: becoming is changing one image for another): **the fix was thought.**
+
+**Testable / rule.** **No thought destroying thought.** The design must contain **no mechanism that removes an image** — because **that mechanism is an image.** The image must **not be created** in the first place (P206: the image is built at the moment of inattention).
+
+**Status:** rule; it closes the "fix the record" family.
+
+---
+
+## P266. One central fact creates all the images — find it and you need not go through image after image
+
+**The move.** "**Is there a central fact that creates these images consciously as well as deeply? If I can find that out, then I don't have to go through image after image.**"
+
+**In our world.** **This is the question that saves the whole programme from infinite work**, and it is **answerable in our world**: **the central fact is the gap** — the comparison between the actual and the concept (P151). **Every image in our cell is a form of that comparison.**
+
+**What it explains.** Why we do not need to fix a thousand mechanisms: **there is one central fact, and it is the gap.**
+
+**Testable.** The prediction: **removing the comparison should remove all the images at once** — not one by one. That is **P207's arithmetic** (one dissolved, two created) answered by **P266's central fact** (one removed, all gone).
+
+**Status:** the central fact; it is the target.
+
+---
+
+## P267. Control is a waste of energy — and meditation is the release of energy without friction
+
+**The move.** "**Control, because it implies conflict, is a great waste of energy**; that is important to understand, because I feel **meditation must be a releasing of energy in which there is not the slightest friction.**"
+
+**In our world.** **This is the positive form of the energy accounting** (P251): not merely that the record **dissipates** energy, but that **control is the friction**, and **the release is what remains when the friction ends.**
+
+**What it explains.** Why the cell's energy was **squandered** (P223): **every step was a control** — the comparison, the threshold, the decision.
+
+**Testable.** The prediction, and it is **quantitative**: the record arm should have **higher friction** — measurable as the **energy spent per unit of behaviour** — and the no-record arm should have **lower**.
+
+**Status:** the accounting, in its positive form.
+
+---
+
+## P268. You can only know yourself in relationship — there is no such thing as isolation
+
+**The move.** "**I can only know myself in relationship; the observation of myself takes place only when there is response and reaction in relationship; there is no such thing as isolation.**"
+
+**In our world.** **This is P19/P34/P97/P119 with the strongest claim yet**: **there is no such thing as isolation** — an isolated cell **cannot know itself**, and therefore **cannot change**. And our cell is **isolated** (P211's first link).
+
+**What it explains.** Why the cell could never self-correct: **self-knowledge requires a relationship, and the cell has none.**
+
+**Testable / design requirement.** The relationship is **not** a nicety — it is **the condition of self-knowledge**. And per P119 it must be **symmetric, synchronous, bounded**; per P216 it must **not be a measurement**.
+
+**Status:** design requirement; it is the strongest argument for the relationship.
+
+---
+
+## P269. The observer is the past — and with those eyes of the past we try to see what we are
+
+**The move.** "**That observer is the past, isn't it? — the past knowledge which he has collected and stored up... So the observer is the past and with those eyes of the past we try to see what we are.**"
+
+**In our world.** **This is P1/P6/P11/P198 in its final and simplest form**, and it is **the whole of our cell in one sentence**: `pred` is the past, and **with those eyes of the past the cell tries to see what is.**
+
+**What it explains.** Everything. And it gives the **only possible experiment**: **remove the eyes of the past** — and then **look at what remains.**
+
+**Status:** the one-sentence statement of the whole problem.
+
+---
+
+## P270. Naming fixes the thing in memory — observe greed without the word
+
+**The move.** "**Can I observe that greed without giving it a name, as 'greed'? The moment I name it I have already fixed it as greed in my memory which says: I must get over it, I must control.**"
+
+**In our world.** **This is P219's mechanism made exact**: **the name fixes the thing in memory**, and **the fixing is the control.** Our cell **names** every step ("better than expected", "worse than expected") — **and the name is already the control.**
+
+**What it explains.** Why the cell cannot respond **freshly**: **it named the situation before responding.** And why the **continuous response** (P17, P61, P219) is the mechanical form of **not naming**.
+
+**Testable.** The prediction: a cell that **names** (a categorical gate) should show **higher control** — measurable as the **energy spent per unit of behaviour** (P267) — than a cell that responds continuously.
+
+**Status:** the mechanism of naming.
+
+---
+
+## P271. To observe without condemning, justifying or naming is a form of discipline — and the mind stops wasting energy
+
+**The move.** "**To so observe is a form of discipline, isn't it? Not imposing any particular pattern... but to observe the whole series of actions without condemning, justifying or naming — just to observe. Then you will see the mind is no longer wasting energy.**"
+
+**In our world.** **This is the positive definition of the discipline we need** (P256: discipline = learning), and it is **operational**: **observe without condemning, justifying or naming.** And the effect is **measurable**: **the mind stops wasting energy.**
+
+**What it explains.** Why our "discipline" (the gate) **wasted** energy: it **condemned** (below threshold), **justified** (the record's verdict), and **named** (act / do not act).
+
+**Testable / design requirement.** The design must **observe without condemning, justifying or naming** — which in mechanical terms means: **no threshold, no verdict, no category** (P17, P61, P219, P270). **And the readout is the energy per unit of behaviour.**
+
+**Status:** the discipline; it unifies the whole continuous-response direction.
+
+---
+
+## P272. There must be a learning of observation in which thought does not interfere — because thought distorts the present
+
+**The move.** "**There must be a learning of observation in which thought does not interfere at all because the moment thought interferes it leads to distortion... Perception is in the present; you can't perceive tomorrow. You perceive now, and when thought interferes in that perception — thought being the response of the past — it must distort the present; this is logical.**"
+
+**In our world.** **This is the logical core of the whole file**, and it is **a deduction, not a doctrine**: **perception is in the present; thought is the past; therefore thought's interference in perception distorts the present.** **This is logical** — his words.
+
+**What it explains.** Why **every** record-based mechanism **had to** distort: **it was the past interfering with the present**, and that **must** distort.
+
+**Testable.** The deduction has a **measurable consequence**: the distortion should be **proportional to the amount of past interfering** — i.e. the record-explained fraction should predict the deviation of behaviour from what the present situation alone would produce. **That is a direct test.**
+
+**Status:** the logical core.
+
+---
+
+## P273. The impossible question: can the mind be quiet without coercion, without discipline, without will?
+
+**The move.** "**Can the whole structure of the brain and the mind be completely quiet without any form of distortion by will, by desire, by thought? That is the problem and knowing it, people have said, 'It is not possible.' Therefore they went in the other direction, used control, and discipline, did all kinds of tricks.**"
+
+**In our world.** **This is the question our world must answer**, and it is the **hardest** one: **quiet without coercion.** And the pattern names the **historical failure**: **because it seemed impossible, people used control** — **which is exactly what we did.**
+
+**What it explains.** Why our entire programme is **the historical failure repeated**: we could not see how to get quietness without control, so we **controlled** — and the control **was** the noise.
+
+**Testable.** **The experiment must be quiet without coercion.** Which means: **no reset forced by us** (P237), **no threshold**, **no target** — **only a situation in which the record is not needed.**
+
+**Status:** the impossible question; it is the design brief.
+
+---
+
 ## What the reading has changed in our plan (updated)
 
-1. **The design is now named: THE LIAISON** (P258, P260). Intelligence is **the relation between the measurable and the immeasurable** — and our cell has **no such relation**: the record and the situation are separated by the gap, and the gap is the entire decision variable. **The next experiment must contain a term that relates the record to the situation without being either.**
-2. **The two directions of knowledge** (P252): **knowledge in one direction** (technological: where the food was, how to move) **and no knowledge in the other** (judgement). **`pred` is the judging part; keep the technological, remove the judging.**
-3. **The root is "becoming"** (P253, P254): the cell is a **becoming machine**, and **becoming is changing one image for another.** No improvement can escape it.
-4. **Mechanical quietness versus real quietness** (P255): the trap is not stillness — it is **mechanical controllability** mistaken for stillness. **Two different signatures** in the variance decomposition.
-5. **The energy accounting is complete** (P251): the record dissipates energy in three ways — image, comparison, imitation. **Measure the energy balance of the arms.**
-6. **Analysis is wasted time** (P249); **no practice** (P259); **no becoming** (P254); **no conformity** (P256).
-7. **Meditation means measurement** (P257): our whole programme was a meditation in the root sense — **an act of measuring** — and the immeasurable cannot be measured.
-8. **The rules** stand as listed in the previous update (P4–P247).
+1. **The central fact is found** (P266): **there is one central fact that creates all the images — the gap between the actual and the concept.** So the work is **not** a thousand mechanisms: **remove the comparison and all the images go at once.**
+2. **The logical core is a deduction** (P272): **perception is in the present, thought is the past, therefore thought's interference in perception must distort the present.** This is why every record-based mechanism **had to** distort — and it is **measurable**: the record-explained fraction should predict the deviation of behaviour from what the present alone would produce.
+3. **The design brief is P273**: **quiet without coercion** — no reset forced by us, no threshold, no target, **only a situation in which the record is not needed.**
+4. **The discipline is defined** (P271): **observe without condemning, justifying or naming** — mechanically: no threshold, no verdict, no category. **Readout: energy per unit of behaviour.**
+5. **The measurement paradox** (P261): **the moment I am aware that I am aware, I am not aware** — so the logger must be outside and must not feed back.
+6. **No thought destroying thought** (P265): no mechanism that removes an image, because that mechanism is an image.
+7. **There is no such thing as isolation** (P268): self-knowledge requires a relationship; the cell has none.
+8. **The file is dangerous** (P263): the 262 patterns taken away as ideas **will prevent learning**. Use it to design **one** experiment, then put it away.
+9. **The rules** stand as listed in the previous update (P4–P260).
 
 ---
 
 ## Reading progress
 
-- Pages 1–340 of 409 read (Part VIII: fear, time and the image; intelligence and the religious life).
-- Next: the final talks and questions (pages 340–409).
+- Pages 1–360 of 409 read (Part VIII complete; Part IX, the Brockwood talks, begun).
+- Next: the last two Brockwood talks and the closing questions (pages 360–409).
