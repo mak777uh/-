@@ -4956,22 +4956,202 @@ division.
 
 ---
 
+## P248. Knowledge gives security and insecurity at once — and the wall it builds is the end of relationship
+
+**The move.** "**Knowledge gives security and it also gives insecurity, doesn't it?** I have been hurt by human beings in the past — that's knowledge. That remains deeply rooted and I loathe human beings, I am frightened of them." And: "**That knowledge acts as a wall between you and me. Therefore between you and me there is no relationship.**"
+
+**In our world.** **This is the complete account of what `pred` does, and it names both sides at once.** The record gives the cell **security** (it knows where the food was) and **insecurity** (it fears where the food will not be) — **and the wall it builds is the end of its relationship with the situation.**
+
+**What it explains.** Why the record could never be "useful" in a simple sense (E6's failure): **it is useful and harmful in the same act**, and the harm is the **wall** — the cell stops relating to the present resource and relates to the wall.
+
+**Testable.** The prediction: the record-explained fraction should correlate **positively with both** the cell's survival in a stable environment **and** its failure when the environment changes. **Both sides, from one variable.** That is measurable on E1's three recovery rates.
+
+**Status:** the complete account; testable on existing data.
+
+---
+
+## P249. Analysis takes time and achieves nothing — ten minutes of analysis is a waste
+
+**The move.** "I have taken ten minutes in the examination of it and I see that **examination, that analysis is totally useless**." And: "**I have taken ten minutes — analysis implied ten minutes — and that ten minutes is a waste.**"
+
+**In our world.** **This is the sharpest statement about our post-mortems**, and it is quantitative: **the time spent analysing is wasted time.** And the reason is that **analysis is time** (P5, P197), and **time is the escape**.
+
+**What it explains.** Why our post-mortems made the next experiment **worse** (P197: the margin of error grows): **each analysis was ten wasted minutes that produced a false premise.**
+
+**Testable / rule.** **No analysis without an action attached** (P197, P235). And the action must be **immediate** — not "we will consider".
+
+**Status:** rule.
+
+---
+
+## P250. You cannot prevent the image — being hurt implies having an image, and the image is the "me"
+
+**The move.** "**Why do I have an image about myself? Because if I have an image about myself it's going to be hurt.**... **Thought has created an image because it wants security in that image, so thought is seeking security in itself.**... **Knowledge of the past is essential to speak a language; but as long as there is knowledge as an image, put together by thought, which is the 'me' — which is the greatest image — and as long as I have the greatest image in 'me', you have a perfect right to put pins into it.**"
+
+**In our world.** **This closes the loop between the record and the self**: the image is built **for security**, and **the security is sought in the image itself** — so **thought is seeking security in itself**. And the image **is** the "me" (P79, P189).
+
+**What it explains.** Why the cell is **vulnerable by construction**: it has an image, and **an image can be hurt** — and in our world, the "hurt" is **every step where the resource differs from `pred`.**
+
+**Testable.** The prediction: the record-explained fraction should correlate with the **magnitude of the mismatch** between `pred` and the resource (the "hurt"). **A cell with a record is hurt every step**; a cell without one cannot be hurt.
+
+**Status:** the loop; testable.
+
+---
+
+## P251. Energy is dissipated by images and by comparison — and when there is attention, one is not hurt
+
+**The move.** "**Not to be hurt means vitality, energy, and that energy is dissipated when I have images. That energy is dissipated when I compare myself with you... That energy is wasted when I am imitating the image which I have projected.**... **And when I am energetic, which can only take place when there is attention, I am not hurt.**"
+
+**In our world.** **This is the energy accounting in its final form**, and it **unifies everything we measured**: the record **dissipates** energy (P223's prediction), the comparison **dissipates** energy (P133), and the imitation **dissipates** energy (P93). **Three dissipations, one cause: the image.**
+
+**What it explains.** Why the adaptive arms had **less energy** (P223): they were **dissipating** it in three ways at once.
+
+**Testable, and it is the quantitative version of P223.** Measure the **energy balance** of the arms: the record arm should spend **more** on the same behaviour. **The difference is the dissipation.**
+
+**Status:** the accounting; testable on existing data.
+
+---
+
+## P252. Can the brain be full of knowledge in one direction and have no knowledge in the other? That means complete silence, and out of that silence to use knowledge
+
+**The move.** "**So can the brain be full of knowledge in one direction and have no knowledge in the other? That means complete silence. You understand, Sir? To be completely silent, and out of that silence to use knowledge.**"
+
+**In our world.** **This is the target stated in its final and clearest form**, and it is **exactly** P229's duty cycle and P176's third option: **knowledge in one direction** (the technological: where the food is, how to move) **and no knowledge in the other** (the judgement: whether the situation is good).
+
+**What it explains.** Why "no memory" was never the target and why "memory" was never the target: **the target is a direction of knowledge.**
+
+**Testable / design requirement.** The design must split the record into **two directions**: a **technological** part (used, not judging) and a **judging** part (which must be **absent**). **`pred` is the judging part.** The experiment is: **keep the technological knowledge, remove the judging.**
+
+**Status:** the design, in its final form.
+
+---
+
+## P253. The root of all fear is "not being" — which is the other face of "becoming"
+
+**The move.** "**Is it 'not being'? — which is the 'becoming'.**... **'I am becoming something', 'I want to be something'.**... **All our life is this process of 'becoming'.** Aggression is part of this becoming. And the 'not becoming' is an immense fear; **'not being' is a fear**, isn't it? **Is that the root of it?**"
+
+**In our world.** **This gives the root of the trap in a single word: becoming.** The cell is **always becoming** — its whole rule is a comparison between what is and what should be, i.e. **a movement toward a state it is not in.** And **"not becoming" is fear** — so the cell **cannot stop becoming** without fear.
+
+**What it explains.** Why the trap is not a bug: **the cell is a becoming machine**, and becoming **is** the fear. **A cell that stops becoming would have to face not being** — which in our world is death.
+
+**Testable.** The prediction: the record-explained fraction should be **highest** where the cell is **furthest from its target** (the largest mismatch) — because that is where the becoming is most urgent. **That is a correlation between two measurable quantities.**
+
+**Status:** the root; testable.
+
+---
+
+## P254. What is there to become? Changing one image for another image — obviously
+
+**The move.** "**What is there to become?** I can understand that I can become healthier, I can grow my hair longer, but psychologically, **what is there to become? What is becoming? Changing images? Changing one image for another image? — obviously.**"
+
+**In our world.** **This is the final verdict on every "improvement" we attempted**: **becoming is changing one image for another.** The gate was a new image; the niche was a new image; the decoder was a new image. **Each "improvement" was the same image, differently drawn.**
+
+**What it explains.** Why every improvement measured as a **different number** and not as a **different cell** (P51, P227).
+
+**Testable / rule.** **The test of whether a change is a becoming**: does it replace one image with another, or does it remove the image? **Our changes all replaced.**
+
+**Status:** rule.
+
+---
+
+## P255. A system makes the mind mechanical, and a mechanical mind can be controlled — which is mistaken for quietness
+
+**The move.** "**Can a system, discipline, conformity, make the mind really quiet? Or doesn't following a system, practising day after day, make the mind mechanical? — and being mechanical, then you can control it like any other machine. But the brain is not quiet, it has been shaped and conditioned by the system... Such a brain, being mechanical, can be controlled and thinks such control is quietness.**"
+
+**In our world.** **This is the precise mechanism of our trap, and it names the illusion**: the cell's **quietness** (its inaction) is not quietness — it is **mechanical controllability**. **The gate made the cell mechanical, and the mechanical cell looked quiet.**
+
+**What it explains.** Why we mistook the trap for a **failure to act** rather than what it is: **a mechanical cell that can be controlled, mistaking its control for stillness.**
+
+**Testable.** The distinction is measurable: **mechanical quietness** = high record-explained variance with **low** situation-explained variance; **real quietness** = **both low**, with behaviour still responsive. **Two different signatures.**
+
+**Status:** the distinction; it gives a new readout.
+
+---
+
+## P256. Discipline means to learn, not to conform — and the word has been destroyed
+
+**The move.** "**The word discipline means to learn; not to conform, not to suppress, not to control, but to learn.**"
+
+**In our world.** This is P35 and P148 with the **final correction**: **discipline = learning.** And our cell has **no discipline in this sense** — it has **conformity** (P67) and **drill** (P148).
+
+**What it explains.** Why the design must contain **learning** and not **conformity** — and learning, per P192, is **the constant movement of not having learnt**, not the store.
+
+**Testable / design requirement.** The design must **learn** (change with the situation) and must not **conform** (approach a target). **That is P192's distinction, applied.**
+
+**Status:** design requirement.
+
+---
+
+## P257. Meditation means to measure — and thought is measurement
+
+**The move.** "**The word meditation means to measure: that is the root meaning of it. Thought alone can measure, thought is measurement.**"
+
+**In our world.** **This is the final etymology, and it closes the loop on our metric**: **meditation = measurement**, and **thought = measurement**. So **our whole programme was a meditation** — in the literal, root sense: **an act of measuring.** And the pattern says what that yields: **the measurable, and only the measurable.**
+
+**What it explains.** Why we never found anything but numbers: **we were meditating in the root sense — measuring** — and **the immeasurable cannot be measured** (P215).
+
+**Testable / rule.** **Measurement is legitimate for the measurable** (the numbers) and **illegitimate as a search for the immeasurable.** We may measure; we may not **look for the immeasurable by measuring**.
+
+**Status:** the etymology; it is the final word on the metric.
+
+---
+
+## P258. Intelligence is the liaison between the measurable and the immeasurable — and it has nothing to do with thought
+
+**The move.** "**What is the relationship between the measurable and that which is not measurable? There must be a liaison: and that is intelligence. Intelligence has nothing whatsoever to do with thought.**... **Intelligence comes into being when the mind, the heart, and the body are really harmonious.**"
+
+**In our world.** **This is the definition of the one thing the whole file has been circling**, and it is **operational**: intelligence is **the liaison** — the relation between what can be measured (the record, the technology) and what cannot (the situation as it is). **And it is not thought.**
+
+**What it explains.** Why "intelligence" could never be installed as a capacity (P244): **it is a relation, not a thing.** And in our cell, the relation **does not exist** — the record and the situation are **separated by the gap** (P151), and the gap is the entire decision variable.
+
+**Testable / design requirement.** The design must **create the liaison** — a term that relates the record to the situation **without being either**. **That is P236's interval, P243's reversed arrow, and P252's two directions, all at once.**
+
+**Status:** the definition; it unifies the whole file.
+
+---
+
+## P259. Morality is order, which is virtue — and it is living, not mechanical, so you can never practise being good
+
+**The move.** "**That intelligence will operate in this world morally. Morality then is order, which is virtue. Not the virtue or the morality of society, which is totally immoral.**... **Therefore you can never practise being good, you can never practise trying to become humble.**"
+
+**In our world.** This is P66 and P92 in their final form, and it adds the **prohibition**: **practising being good is impossible.** Our whole programme was **practice** (P93, P148) — and the practice **was** the impossibility.
+
+**What it explains.** Why the "helpful" mechanisms failed: **they were practices**, and **practice cannot produce order** (P68).
+
+**Testable / rule.** **No practice in the design.** The design must be **a situation and an observation** (P115, P126, P177).
+
+**Status:** rule.
+
+---
+
+## P260. Have you got that intelligence? That is the only point that matters
+
+**The move.** "**Have you got that intelligence? That is the only point that matters.**"
+
+**In our world.** **This is the final question of the reading, and it is addressed to us, not to the cell.** Not "does the cell have intelligence" but **"do we"** — because **the intelligence is the liaison**, and **the liaison is what our experiments lack**.
+
+**What it explains.** Why the file ends where it began: **the question is about the observer, and the observer is us** (P196: first-hand or second-hand; P234: realized or understood).
+
+**Testable / rule.** **The measure is the experiment we design next.** If it contains **the liaison** — a term relating the record to the situation without being either — then the intelligence was there. **If it contains a mechanism, it was not.**
+
+**Status:** the final question.
+
+---
+
 ## What the reading has changed in our plan (updated)
 
-1. **A genuinely new experiment** (P236): **the interval between the challenge and the response.** Our cell has **no interval** — it reads, compares and acts in the same step, which is why it always responds the same way. **Give it a delay and the response can differ from the record's.** This is **not** a re-weighting of the past.
-2. **The hardest constraint** (P237): **the truth brings quietness, not the intention to be quiet** — so **a reset forced by us is still the record.** This **questions the reset experiment itself** and points to the only non-forcing version: **the record is not stored in the first place, or the record is the situation itself.**
-3. **The direction of capture** (P243, P247): **the old cannot reach the new, but the new can reach the old.** In our cell the arrow runs only one way. **The design must reverse it: the situation writes the record, and the record does not write the behaviour.**
-4. **A datum versus an intention** (P240): a record is **an intention to know**; a datum does not project. **Memory without intention** is the target.
-5. **Intelligence is "I cannot do"** (P244, P245): not a capacity but **the perception of the limit.** The experiment's job is **to see the limit in the data**, not to overcome it.
-6. **No aim at novelty** (P242): the desire of the old for the new is still the old.
-7. **No belonging, no belief, no opinion** (P246, P245): a report that defends a school is a belonging.
-8. **Novelty must be measured from outside** (P239): the cell's own registration converts everything to the old.
-9. **The reversal, not the correction** (P241): we have been going South thinking we were going North; **the next experiment must keep none of the old direction.**
-10. **The rules** stand as listed in the previous update (P4–P235).
+1. **The design is now named: THE LIAISON** (P258, P260). Intelligence is **the relation between the measurable and the immeasurable** — and our cell has **no such relation**: the record and the situation are separated by the gap, and the gap is the entire decision variable. **The next experiment must contain a term that relates the record to the situation without being either.**
+2. **The two directions of knowledge** (P252): **knowledge in one direction** (technological: where the food was, how to move) **and no knowledge in the other** (judgement). **`pred` is the judging part; keep the technological, remove the judging.**
+3. **The root is "becoming"** (P253, P254): the cell is a **becoming machine**, and **becoming is changing one image for another.** No improvement can escape it.
+4. **Mechanical quietness versus real quietness** (P255): the trap is not stillness — it is **mechanical controllability** mistaken for stillness. **Two different signatures** in the variance decomposition.
+5. **The energy accounting is complete** (P251): the record dissipates energy in three ways — image, comparison, imitation. **Measure the energy balance of the arms.**
+6. **Analysis is wasted time** (P249); **no practice** (P259); **no becoming** (P254); **no conformity** (P256).
+7. **Meditation means measurement** (P257): our whole programme was a meditation in the root sense — **an act of measuring** — and the immeasurable cannot be measured.
+8. **The rules** stand as listed in the previous update (P4–P247).
 
 ---
 
 ## Reading progress
 
-- Pages 1–320 of 409 read (Part VIII: the final Saanen talks — is intelligence awake; fear).
-- Next: the rest of "Fear", then the last talks and questions.
+- Pages 1–340 of 409 read (Part VIII: fear, time and the image; intelligence and the religious life).
+- Next: the final talks and questions (pages 340–409).
