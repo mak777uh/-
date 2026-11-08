@@ -1,0 +1,191 @@
+{
+  "_comment": "Machine-readable list of the numbers article 036 states. Each entry names the command, the exit code the command must return, and the values parsed from its output. scripts/check_article_036_numbers.py reads this file; the article is checked against it, not against a hand-written list in the script. Adding a number to the article means adding an entry here.",
+  "claims": [
+    {
+      "id": "reports",
+      "phrase": "583 reports",
+      "how": "count",
+      "glob": "reports/*.md",
+      "expected": 583
+    },
+    {
+      "id": "articles",
+      "phrase": "43 articles",
+      "how": "count",
+      "glob": "articles/*.md",
+      "expected": 43
+    },
+    {
+      "id": "artifacts",
+      "phrase": "791 raw artifacts",
+      "how": "count",
+      "glob": "morphogenesis/experiments/E09_pond/*.json",
+      "expected": 791
+    },
+    {
+      "id": "scripts",
+      "phrase": "490 scripts",
+      "how": "count",
+      "glob": "scripts/*.py",
+      "expected": 490
+    },
+    {
+      "id": "lean_files",
+      "phrase": "8 Lean files",
+      "how": "count",
+      "glob": "formal/*.lean",
+      "expected": 8
+    },
+    {
+      "id": "tests",
+      "phrase": "83 tests",
+      "how": "count",
+      "glob": "morphogenesis/tests/test_*.py",
+      "expected": 83
+    },
+    {
+      "id": "theorems",
+      "phrase": "40 theorems",
+      "how": "command",
+      "command": [
+        "python",
+        "scripts/lean_check.py"
+      ],
+      "expect_rc": 0,
+      "parse": "гипотез:\\s*\\d+,\\s*теорем:\\s*(\\d+)",
+      "expected": 40
+    },
+    {
+      "id": "bridge_rules",
+      "phrase": "15 rules",
+      "how": "command",
+      "command": [
+        "python",
+        "scripts/policy_bridge.py"
+      ],
+      "expect_rc": 0,
+      "parse": "действий:\\s*(\\d+),",
+      "expected": 15
+    },
+    {
+      "id": "bridge_disagreements",
+      "phrase": "0 disagreements",
+      "how": "command",
+      "command": [
+        "python",
+        "scripts/policy_bridge.py"
+      ],
+      "expect_rc": 0,
+      "parse": "расхождений с файлом:\\s*(\\d+)",
+      "expected": 0
+    },
+    {
+      "id": "diff_cases",
+      "phrase": "7 cases",
+      "how": "command",
+      "command": [
+        "python",
+        "scripts/policy_diff.py"
+      ],
+      "expect_rc": 0,
+      "parse": "случаев:\\s*(\\d+)",
+      "expected": 7
+    },
+    {
+      "id": "diff_implementations",
+      "phrase": "3 implementations",
+      "how": "command",
+      "command": [
+        "python",
+        "scripts/policy_diff.py"
+      ],
+      "expect_rc": 0,
+      "parse": "реализаций:\\s*(\\d+)",
+      "expected": 3
+    },
+    {
+      "id": "diff_disagreements",
+      "phrase": "0 disagreements",
+      "how": "command",
+      "command": [
+        "python",
+        "scripts/policy_diff.py"
+      ],
+      "expect_rc": 0,
+      "parse": "расхождений:\\s*(\\d+)",
+      "expected": 0
+    },
+    {
+      "id": "closure_scenarios",
+      "phrase": "5 probes",
+      "how": "command",
+      "command": [
+        "python",
+        "scripts/closure_probe.py"
+      ],
+      "expect_rc": 0,
+      "parse": "сценариев:\\s*(\\d+)",
+      "expected": 5
+    },
+    {
+      "id": "closure_caught",
+      "phrase": "5 caught",
+      "how": "command",
+      "command": [
+        "python",
+        "scripts/closure_probe.py"
+      ],
+      "expect_rc": 0,
+      "parse": "поймано с ожидаемой причиной:\\s*(\\d+)",
+      "expected": 5
+    },
+    {
+      "id": "closure_recovered",
+      "phrase": "5 recoveries verified",
+      "how": "command",
+      "command": [
+        "python",
+        "scripts/closure_probe.py"
+      ],
+      "expect_rc": 0,
+      "parse": "восстановление проверено:\\s*(\\d+)",
+      "expected": 5
+    },
+    {
+      "id": "closure_holes",
+      "phrase": "0 holes",
+      "how": "command",
+      "command": [
+        "python",
+        "scripts/closure_probe.py"
+      ],
+      "expect_rc": 0,
+      "parse": "дыр:\\s*(\\d+)",
+      "expected": 0
+    },
+    {
+      "id": "gates",
+      "phrase": "29 gates",
+      "how": "count_gates",
+      "expected": 29
+    },
+    {
+      "id": "corpus_can_answer",
+      "phrase": "300 can answer",
+      "how": "command",
+      "command": [
+        "python",
+        "scripts/audit_corpus.py"
+      ],
+      "expect_rc": 0,
+      "parse": "A \\(own measures\\):\\s*(\\d+)",
+      "expected": 300
+    },
+    {
+      "id": "corpus_total",
+      "phrase": "320 artifacts",
+      "how": "sum_audit",
+      "expected": 320
+    }
+  ]
+}

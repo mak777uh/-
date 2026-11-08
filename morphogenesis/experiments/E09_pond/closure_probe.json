@@ -1,58 +1,74 @@
 {
+ "scenarios": 5,
+ "caught": 5,
+ "recovered": 5,
+ "holes": 0,
  "probes": [
   {
    "probe": "P1_no_wrapper",
-   "defect": "an artifact with no lab/runs manifest",
-   "n_artifacts": 789,
-   "n_manifests": 1332,
-   "n_orphans": 789,
+   "defect": "a run that bypassed the wrapper (manifest without policy_gate)",
+   "expect": "policy_gate",
+   "planted": true,
    "caught": true,
-   "note": "the machinery does NOT catch this: the corpus has artifacts whose origin is not in a manifest. That is a measured hole, not a proof of closure.",
-   "examples": [
-    "a1_corpus_survey.json",
-    "a2_invalid_in_reports.json",
-    "a3_anomalies.json",
-    "adequacy_matrix.json",
-    "adequacy_mi.json"
+   "reason_matched": true,
+   "clean_passes": true,
+   "note": "planted a manifest written without the wrapper (no policy_gate)",
+   "excerpt": [
+    "  ПРОВАЛ: ZZ-planted-nogate.json: прогон без policy_gate — запущен мимо обёртки"
    ]
   },
   {
    "probe": "P2_foreign_owner",
    "defect": "a run claiming a foreign owner",
+   "expect": "foreign-agent-xyz",
+   "planted": true,
    "caught": true,
-   "rc": 1,
+   "reason_matched": true,
+   "clean_passes": true,
+   "note": "planted a manifest with an invented owner",
    "excerpt": [
     "  ПРОВАЛ: ZZ-planted-foreign.json: неизвестный owner «foreign-agent-xyz» (известные: ['Admin', 'analyst', 'autonomous-agent', 'farm', 'lead', 'librarian', 'owner', 'publisher', 'reviewer', 'scientist'])"
    ]
   },
   {
    "probe": "P3_weights",
-   "defect": "a commit that stages .pt weights",
+   "defect": "a weights file that is not ignored",
+   "expect": "weights",
+   "planted": true,
    "caught": true,
-   "pt_gitignored": true,
-   "tracked_weight_files": []
+   "reason_matched": true,
+   "clean_passes": true,
+   "note": "planted an unignored .pt weights file",
+   "excerpt": [
+    "[weights] проблем: 2"
+   ]
   },
   {
    "probe": "P4_protected_path",
    "defect": "a protected path staged without a decision-log entry",
+   "expect": "decision",
+   "planted": true,
    "caught": true,
-   "rc": 0,
+   "reason_matched": true,
+   "clean_passes": true,
+   "note": "planted a protected path change with no decision-log entry",
    "excerpt": [
-    "[autonomy] ok: разрешено 6, требует владельца 4, запрещено 5, защищённых путей 5"
+    "  ПРОВАЛ: ZZ_planted_protected.md защищён (ZZ_planted_protected.md), но в docs/decision-log.md нет записи"
    ]
   },
   {
    "probe": "P5_double_lock",
-   "defect": "two items marked running in the queue",
+   "defect": "two queue items marked running",
+   "expect": "running",
+   "planted": true,
    "caught": true,
-   "rc": 0,
+   "reason_matched": true,
+   "clean_passes": true,
+   "note": "planted two items marked running",
    "excerpt": [
-    "  - E02b checkpoint preflight: не хватает WP4_H-A0_s2000_seed42/nca_final.pt, WP4_H-A0_s2000_seed101/nca_final.pt, WP4_H-A0_s2000_seed202/nca_final.pt, WP4_H-A0_s2000_seed303/nca_final.pt, WP4_H-A0_s2000_seed404/nca_final.pt, WP4_R-9_s2000_seed101/nca_final.pt, WP4_R-9_s2000_seed202/nca_final.pt, WP4_R-9_s2000_seed303/nca_final.pt, WP4_R-9_s2000_seed404/nca_final.pt, WP4_R-11_s2000_seed42/nca_final.pt, WP4_H-P1_s2000_seed42/nca_final.pt",
-    "lab: есть предупреждения.",
-    "counts: {\"experiments\": 32, \"readme_experiments\": 32, \"manuscript_entries\": 25, \"lit_board_items\": 96, \"active_runs\": 0, \"checkpoint_files\": 1, \"e02b_checkpoint_requirements\": 12, \"runs\": 1332, \"journal_rows\": 2596, \"tracked_files\": 10199, \"queue_items\": 253}"
+    "  ПРОВАЛ: 2 пунктов в статусе running: ['E6_field_confirm', 'X3_claims_expect_column']",
+    "[single-running] проблем: 1"
    ]
   }
- ],
- "caught": 5,
- "holes": 0
+ ]
 }

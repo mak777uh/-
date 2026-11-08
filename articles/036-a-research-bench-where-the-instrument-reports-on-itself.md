@@ -62,8 +62,12 @@ found by a command.
 | mediator | the decision, in three implementations | `scripts/policy_mediator.py`, `mediator/` |
 | gates | 29 checks that must fail on a planted defect | `scripts/check_*.py`, `scripts/verify.py` |
 
-The repository at the time of writing: **2 141 commits, 583 reports, 43 articles, 791 raw artifacts,
-486 scripts, 8 Lean files, 84 tests, 29 gates.**
+**A note on the counters.** The bench at the moment this check runs: **583 reports, 43 articles, 791 raw
+artifacts, 490 scripts, 8 Lean files, 83 tests, 29 gates.** These are checked by
+`scripts/check_article_036_numbers.py` against the repository, and they move whenever the repository moves —
+including when this article itself is committed. They describe the bench **at the moment the check runs**, not
+at publication. A commit count is deliberately absent: it cannot be stable, because publishing the article adds
+commits, and a number that is wrong by construction is worse than no number.
 
 ---
 
@@ -191,6 +195,12 @@ owner+forbidden).
 
 **Result: 3 implementations available, 7 cases, 0 disagreements.**
 
+Seven cases is not a proof of agreement in general. The cases exercise every branch of the rule, but three
+implementations can share a wrong specification, a wrong reading of the priorities, or an incomplete set of
+cases. What the comparison establishes is narrower and worth stating exactly: **the three implementations agree
+on the branch structure of the rule**, not that the rule is right. Property-based testing over randomly generated
+policies and a mutation test of each implementation are the obvious next step and are not done.
+
 The Rust mediator (`mediator/`) has no dependencies, six unit tests, and exists because the thing that runs
 in a harness is compiled and has no interpreter to argue with.
 
@@ -206,8 +216,23 @@ in a harness is compiled and has no interpreter to argue with.
 | P4 | a protected path staged without a decision-log entry | caught |
 | P5 | two items marked running in the queue | caught |
 
-**5 probes, 5 caught, 0 holes.** The number 5 is a measure of our imagination, not of the system, and the
-report says so.
+**5 scenarios, 5 defects caught with the expected reason, 5 recoveries verified, 0 holes.**
+
+The first version of this probe was wrong, and a reviewer of this paper found it. Four of its five probes did
+not plant a defect at all: they ran a check on the existing repository and reported "caught" when the check
+exited 0. A check that passes on a clean tree proves nothing about whether it would fail on a dirty one. The
+rewritten probe follows a six-step scheme, and a probe that cannot demonstrate step 4 (fails on the defect) and
+step 6 (passes again after cleanup) is reported as a HOLE and the script exits non-zero:
+
+1. copy the laboratory into a scratch tree;
+2. plant one concrete defect;
+3. run exactly the mechanism that should catch it;
+4. require that it fails **and names the expected reason**;
+5. remove the defect;
+6. require that the same mechanism passes again.
+
+Two numbers are reported, not one: **how many defects were caught** and **how many scenarios were exercised**.
+The number 5 is a measure of our imagination, not of the system, and the report says so.
 
 ---
 
@@ -226,6 +251,23 @@ In one day of work on the formal layer, six defects were found. Five were the au
 
 The theorems are short. What the machines did was refuse to let an error pass quietly.
 
+### 6a. The six defects in detail
+
+| # | what was wrong | why it happened | what it could have distorted | found by | fixed by | regression guard |
+|---|---|---|---|---|---|---|
+| 1 | a Lean proof did not compile (`simp` could not see `contains`) | the proof was written against an assumed simp set, not against the actual definitions | nothing — it never compiled | Lean | three Boolean lemmas instead of `simp` | the file is compiled by `lean_check.py` on every verify |
+| 2 | a Lean proof did not compile (`rewrite` could not find the pattern) | the pattern was written for a different form of the goal | nothing — it never compiled | Lean | explicit `and_true_left` / `and_true_right` | same |
+| 3 | generated Lean had no space before `⟩` | the generator built the string by concatenation | the three-way comparison silently reported "Lean unavailable" | Lean | a space in the literal | `policy_diff.py` now fails loudly on a Lean error |
+| 4 | `check_autonomy` never looked at the run's owner | the check validated the policy structure, not the manifests | any run could claim any owner, and nothing noticed | probe P2 | `check_owners()` with a known-owner list | P2 plants a foreign owner and requires the gate to fail |
+| 5 | probe P2 grepped the output instead of planting a defect | the probe was written to confirm, not to test | the probe passed for the wrong reason | a review of the probe | P2 now copies the lab, plants a manifest, runs the gate | the probe is itself checked by the six-step scheme |
+| 6 | the three-way comparison put all seven cases into one policy | the test wrote one policy for all cases | the mediator was right and the test was wrong; three "disagreements" were reported that did not exist | the disagreement itself | one policy per case | `policy_diff.py` runs each case in its own policy |
+
+**The pattern in the table is the argument of the paper.** Defects 1–3 were found by a machine that refuses to
+accept a proof that does not compile. Defect 4 was found by a probe that was written to plant a defect. Defects
+5 and 6 were found by reviewing the instruments themselves — and defect 6 was found only because the
+disagreement it produced was investigated rather than explained away.
+
+
 ---
 
 ## 7. What this apparatus does not do
@@ -235,8 +277,10 @@ The theorems are short. What the machines did was refuse to let an error pass qu
 2. **Closure is measured on five probes.** There may be bypasses we did not think to probe.
 3. **The Lean model is a model.** The bridge connects it to the file, but the mapping from an English rule to
    an action is explicit and auditable, not automatic.
-4. **The corpus audit counted artifacts, not conclusions.** 300 of 320 artifacts record the cell's own
-   measures; the audit does not yet say what those measures show.
+4. **The corpus audit counted artifacts, not conclusions.** Of 320 artifacts, **300 can answer** the question
+   "did this help the cell, in the cell's own terms" and 20 cannot; the audit does not yet say what those
+   measures show. The split matters: an artifact that records only the ranking metric cannot answer the
+   question, because a ranking is blind to order.
 5. **The three new readouts exist but have not been used in a completed experiment.** The instrument is
    built; the measurement is not made.
 
@@ -348,6 +392,88 @@ A short, literal checklist. Each step has a command and an expected result.
 **The rule the agent must not break:** if a command reports `skipped`, that is not a pass. The repository
 distinguishes "checked and correct" from "not checked" everywhere, and a report that blurs the two is the one
 failure mode this apparatus cannot catch for you.
+
+---
+
+
+## 8a. Related work
+
+The bench combines five families of practice. None of the individual methods is new; the claim of this paper is
+about their **integration and about one addition** — that the checks themselves are required to fail on planted
+defects, and that the failures of the authors are published as part of the evidence.
+
+| family | what it contributes here | what it does not cover |
+|---|---|---|
+| computational reproducibility (environment capture, seeds, artifact archives) | the manifest, the anchor, the raw artifact as the source of truth | whether a *check* can detect a defect |
+| scientific workflow systems (provenance graphs, run registries) | the run registry, the queue, the lock | the proof that the policy is consistent |
+| mutation testing | the idea that a test is only worth what it can kill | applied here to the **gates**, not to the code |
+| formal verification (Lean, model checking) | the theorems about the policy, the bridge from file to model | the correspondence between model and execution |
+| AI-agent governance (permission models, sandboxes) | the three levels: policy, mediator, closure | the proof that the mediator is what runs |
+
+**What is new here, stated narrowly:** the combination in which (a) the policy that governs the agents is a data
+file whose properties are proved, (b) the file is bridged to the model by a command that fails on disagreement,
+(c) the decision is implemented three times and the harness refuses to act when they disagree, and (d) every gate
+is accompanied by a probe that plants the defect it is supposed to catch. Each of (a)–(d) exists elsewhere;
+their conjunction, and the requirement that (d) apply to (a)–(c) as well, is the contribution.
+
+**What is not new and should not be claimed:** the simulation, the statistical practice, the use of Lean, the
+idea of a run manifest, and the idea of mutation testing.
+
+## 8b. What the apparatus cost
+
+The paper's subtitle promises to say what the bench cost. The honest answer is that the cost was not
+instrumented, and the numbers below are reconstructions from the repository, not measurements taken at the time.
+
+| quantity | value | how it was obtained |
+|---|---|---|
+| commits | *(not stated — see the note in §2)* | publishing the article changes it |
+| reports written | 583 | `ls reports/*.md | wc -l` |
+| articles | 43 | `ls articles/*.md | wc -l` |
+| raw artifacts in the pond line | 791 | `ls morphogenesis/experiments/E09_pond/*.json | wc -l` |
+| scripts | 490 | `ls scripts/*.py | wc -l` |
+| tests | 83 | `ls morphogenesis/tests/test_*.py | wc -l` |
+| Lean files / theorems | 8 / 40 | `python scripts/lean_check.py` |
+| gates | 29 | `python scripts/verify.py` |
+
+**What is missing and why it matters.** There is no record of human hours, of compute hours, of the wall time of
+`make verify`, of the size of the artifact store, or of the time to find and fix a single defect. The last of
+these is the most interesting and the most absent: the paper's argument is that the apparatus catches errors
+quickly, and it cannot say how quickly, because nobody wrote the timestamps down.
+
+**A qualitative statement that the numbers support:** the apparatus was built alongside the research, not
+before it. Most gates were added *after* the mistake they now catch — the design checks exist because five
+invalid designs were run in a row; the manifest gate exists because four tautologies were published and
+retracted. **The bench is a record of failures, turned into checks.**
+
+## 8c. Portability: what another researcher can reuse
+
+The bench has two halves. One is domain-independent and can be lifted whole; the other is tied to this policy
+and this world.
+
+| component | reusable? | what a new project must supply |
+|---|---|---|
+| `scripts/lab.py run` (wrapper, lock, manifest) | **yes, as is** | the command to wrap |
+| `lab/autonomy-rules.json` + `formal/Policy.lean` | **the shape, not the content** | its own rules and its own theorems |
+| `scripts/policy_mediator.py` + `mediator/` | **yes, as is** | its own policy file |
+| `scripts/closure_probe.py` | **the scheme, not the probes** | probes for its own gates |
+| `scripts/check_experiment_manifest.py` | **yes, as is** | its own manifest fields |
+| `scripts/check_report_style.py` | **the shape, not the words** | its own forbidden list |
+| the world, the gates about the world, the articles | **no** | everything |
+
+**The minimal bench** for a new project is four files and two commands: a wrapper that writes a manifest, a
+manifest gate, one probe that plants a defect the manifest gate should catch, and a number gate for the first
+paper. That is the smallest version that can fail honestly.
+
+## 8d. Authorship and automation
+
+This article was written by AI agents working in the repository it describes, with periodic feedback from a
+human operator. The operator set the research frame and the standing permissions, and reviewed the results; the
+agents designed the gates, wrote the code, ran the checks and wrote the text. The failures reported in §6 are
+the agents' own, found by the agents' own instruments and by a reviewer.
+
+The claim that the bench "refuses to let the authors be wrong quietly" should be read with that authorship in
+mind: the authors are the same agents whose errors the bench is designed to catch, and the bench has caught them
+six times in a single day of work.
 
 ---
 
