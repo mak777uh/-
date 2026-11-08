@@ -2343,40 +2343,137 @@ condition**, not as an object among others.
 
 ---
 
+## P111. The demand for the highest is born of the present inadequacy
+
+**The move.** "Why does the 'I' demand the experience of the highest, which promises happiness, or ecstasy, bliss or
+peace?" Swamiji: "Obviously because **in the present state we feel inadequate**." K: "**That's all. That's all.**"
+
+**In our world.** **This is the diagnosis of every goal we ever set for the cell**, and it is the most uncomfortable
+pattern in the file. We wanted **evolution**, **open-endedness**, **life** — and the pattern says: **the demand for
+the highest is born of the present inadequacy.**
+
+**What it explains.** Why our goals were so **large** and our results so **small**: the size of the goal measured
+the **inadequacy**, not the distance to the goal. And why each null made the next goal **larger** (P87).
+
+**Testable / rule.** The size of the goal is a **measurement of the experimenter**, not of the system. The rule:
+**state the goal in the smallest possible terms** — and if the goal cannot be stated small, it is a demand, not a
+question.
+
+**Status:** rule; it is P87 completed.
+
+---
+
+## P112. Cut down all cravings — even the craving to be one with God
+
+**The move.** Swamiji quotes a Tamil sage: "**Cut down all these cravings. Even the craving to be one with God, cut
+it down.**" K: "Yes, I understand."
+
+**In our world.** This is the **strongest form** of P83, and it applies to the one craving we never questioned: **the
+craving for the result to be interesting.** We wanted evolution to appear; we wanted a signal to work; we wanted the
+trait to shift. **Even that craving had to be cut** — because it shaped the design (P109).
+
+**What it explains.** Why our most honest experiments were the ones about which we **did not care** what happened
+(E7: is there selection? E1: where is the boundary?). **The craving for an interesting result is the last craving,
+and it is the one that distorts.**
+
+**Testable / rule.** An experiment is clean if **we would be equally satisfied by either answer**. That is a
+checkable property of the design, and it is the criterion P109's "factual" was reaching for.
+
+**Status:** rule; it is the final form of the "no gain" thread.
+
+---
+
+## P113. If the mind frees itself from its agony, it does not ask for the highest — the question dissolves
+
+**The move.** "If the mind can free itself from this agony, then **what is the need of asking for an experience of
+the Supreme? There won't be.**... Therefore the desire to experience the highest is **essentially wrong**."
+
+**In our world.** This is the **dissolution of our central question**. We asked: *how do we get open-ended
+evolution?* The pattern says: **if the trap is gone, the question does not arise** — because the question was born of
+the trap (P111).
+
+**What it explains.** Why our question kept **growing** instead of getting answered: it was not a question about the
+world, it was a **symptom** (P88). **A symptom is not answered; it is dissolved.**
+
+**Testable / rule.** Ask of the central question: **is this a question or a symptom?** If the question would
+disappear when the trap disappears, it is a symptom, and the work is on the trap, not on the question.
+
+**Status:** rule; it reframes the whole programme.
+
+---
+
+## P114. The other way is hypocrisy — "I am seeking God" while kicking people
+
+**The move.** "The other way is such a **hypocritical state**; it leads to hypocrisy. '**I am seeking God**', but I am
+all the time **kicking people**."
+
+**In our world.** **This is the exact description of our programme's hypocrisy**, and it is the most uncomfortable
+thing in the file. We said: *we are seeking open-ended evolution, life, understanding.* And all the time we were
+**kicking the cell**: installing thresholds, forcing doses, tuning parameters, adding mechanisms it could not refuse
+(P91).
+
+**What it explains.** Why the programme felt **right** and produced **nothing**: the stated aim and the actual
+activity were different things. **The aim was understanding; the activity was control.**
+
+**Testable / rule.** Compare the **stated aim** with the **actual activity** of the experiment. If the activity is
+control and the aim is understanding, it is hypocrisy, and the result will be a toy (P95).
+
+**Status:** rule; it is the self-audit of the whole programme.
+
+---
+
+## P115. There is no message — only "look at yourself", and that is enough
+
+**The move.** "Am I conveying a message?... What is he saying? He says, '**Look, look at yourself.**'" Swamiji:
+"Nothing more is necessary." K: "**Nothing more is necessary.** Look at yourself. Observe yourself. Go into
+yourself... **That's not a message. You can do it yourself if you want to.**"
+
+**In our world.** This is the **final instruction of the reading**, and it is the simplest thing in the file. Not a
+mechanism, not a method, not a message: **look at what is there.**
+
+**What it explains.** Why every mechanism failed and why **measurement** is the only thing that ever worked: looking
+is not a mechanism. **Our best results were all acts of looking** — E7 looked at what the world selects on; E1 looked
+at where the boundary is; E7f looked at where properties matter. **None of them added anything.**
+
+**Testable / rule.** The next experiment is a **look**, not a **fix**: it must be describable as "we look at X and
+report what we see", with no mechanism in the sentence.
+
+**Status:** the rule that closes the reading so far.
+
+---
+
 ## What the reading has changed in our plan (updated)
 
-1. **The scope limit** (P106): the cell can only **lose** a condition, never **reach** a state. Every experiment
-   whose success criterion is a **gain** is outside its scope.
-2. **Remove the comparison from the measurement** (P102, P107, P110): measure the cell against **its own situation**,
-   not against other cells. A comparison is a judgment, a judgment installs a "me", and a "me" is blind to order.
-3. **The question before every experiment** (P100, P101): **would I run this if I had never heard of the mechanism?**
-   and **does it start from where the cell actually is?**
-4. **Classify the experiment** (P109): **factual** (we do not know what will happen) or **demanded** (we need a
-   particular outcome). Demanded experiments should not be run, or should be run and reported as demanded.
-5. **The neighbour-read experiment is the top design requirement** (P97, P22): the cell needs a **relationship** to
-   be correctable.
-6. **Close the return path** (P103, P43, P47): the field the cells write must **shape the cells' own terms**.
-7. **State the danger of the addition** (P104, P89, P93); **report nulls as descriptions of the world** (P105).
-8. **The filter for the next experiment** (P81, P84, P89, P90, P92, P94, P99): it must **remove**, not add; it must
-   not **prevent a collision**; it must not **carry**; it must not be a **routine**; it must not be a **method**; it
-   must not **step back and look**.
-9. **No acceptance is possible** (P91); **no cultivation is a lever** (P92); **the practice of responsiveness makes
-   it dull** (P98).
-10. **The problem must be classified first** (P86); **the experiment must start from a symptom** (P88).
-11. **Adopt the variance decomposition** (P80, P82, P93): behaviour variance explained by **situation** vs by
-    **record**.
-12. **The core hypothesis** (P71): the cell is made of the contradiction between what is and what should be.
-13. **The decisive experiment** (P74, P75, P77): **empty** the record and test for a **step**, not a slope.
-14. **The clean two-arm test** (P78); **the missing control** (P56, P76); **the only legitimate lever** (P85).
-15. **On existing data:** residual variance, narrowness and the fraction able to act in the S22 arms (P79, P93,
-    P98); `resource − pred` across E10's patterns (P11); the cell's own measures (P27, P59).
-16. **Rules:** from the first steps (P4); no predicted sign (P33); "what is" not "how to" (P39); which of the first
+1. **The next experiment is a LOOK, not a fix** (P115): describable as "we look at X and report what we see", with
+   no mechanism in the sentence.
+2. **The central question may be a symptom** (P113): if it would disappear when the trap disappears, the work is on
+   the trap, not on the question.
+3. **The scope limit** (P106): the cell can only **lose** a condition, never **reach** a state.
+4. **The size of the goal measures the experimenter** (P111); **cut even the craving for an interesting result**
+   (P112); **an experiment is clean if we would be equally satisfied by either answer**.
+5. **Compare the stated aim with the actual activity** (P114): if the activity is control and the aim is
+   understanding, it is hypocrisy and the result will be a toy.
+6. **Remove the comparison from the measurement** (P102, P107, P110): measure the cell against **its own situation**.
+7. **The question before every experiment** (P100, P101): would I run this if I had never heard of the mechanism; does
+   it start from where the cell is.
+8. **Classify the experiment** (P109): factual or demanded.
+9. **The neighbour-read experiment** (P97, P22); **close the return path** (P103, P43, P47).
+10. **State the danger of the addition** (P104); **report nulls as descriptions** (P105).
+11. **The filter** (P81, P84, P89, P90, P92, P94, P99): remove, not add; no collision-prevention; no carrying; no
+    routine; no method; no step-back-and-look.
+12. **Adopt the variance decomposition** (P80, P82, P93); **the core hypothesis** (P71); **the decisive experiment**
+    (P74, P75, P77); **the two-arm test** (P78); **the missing control** (P56, P76); **the only legitimate lever**
+    (P85).
+13. **On existing data:** the S22 arms (P79, P93, P98); `resource − pred` across E10's patterns (P11); the cell's own
+    measures (P27, P59).
+14. **Rules:** from the first steps (P4); no predicted sign (P33); "what is" not "how to" (P39); which of the first
     two states (P46); measure behaviour not its shadow (P48); set of variables not values (P51); no "should" for the
     cell (P63); the proof that a pattern was seen is that the next experiment changed shape (P64); report the range
     (P73); no gain as a justification (P83); no story (P84); enquiry not search (P88); call a toy a toy (P95); would
     I run this if I knew nothing (P100); start from where the cell is (P101); state the danger of the addition
-    (P104); report nulls as descriptions (P105); factual or demanded (P109).
-17. **Design constraints:** novelty from outside the record (P38); relationship not isolation (P34, P97); no
+    (P104); report nulls as descriptions (P105); factual or demanded (P109); equally satisfied by either answer
+    (P112); question or symptom (P113); aim versus activity (P114); a look not a fix (P115).
+15. **Design constraints:** novelty from outside the record (P38); relationship not isolation (P34, P97); no
     controller inside the cell (P52, P99); one quantity outer-inner-beyond (P43); do not help the cell (P45, P86,
     P90); one process not parts (P65); no blueprint (P67); no planning (P72); no will (P76); no method (P94).
 
@@ -2384,5 +2481,5 @@ condition**, not as an object among others.
 
 ## Reading progress
 
-- Pages 1–128 of 409 read (Part IV: the mahavakyas — the conditioned mind, experience as recognition and judgment).
-- Next: the ending of knowledge; then Part V (Madras).
+- Pages 1–132 of 409 read (Part IV complete: the mahavakyas, experience, the question of communication).
+- Next: Part V (three talks in Madras: the art of seeing).
