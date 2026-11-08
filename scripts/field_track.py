@@ -98,11 +98,16 @@ def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description="поле с отслеживанием компонент и наследуемым составом")
     ap.add_argument("--steps", type=int, default=6000)
     ap.add_argument("--grid", type=int, default=96)
-    ap.add_argument("--dt", type=float, default=1.0)
+    ap.add_argument("--dt", type=float, default=1.0,
+                    help="INTEGRATOR parameter: the time step. Not a property of the world. "
+                         "The stability condition couples it with Du/Dv/Dw (D*dt/dx^2 <= 1/4); "
+                         "lowering dt keeps the model and costs steps, lowering D changes the model.")
     ap.add_argument("--seed", type=int, default=171)
     ap.add_argument("--device", default="cuda")
-    ap.add_argument("--Du", type=float, default=0.16)
-    ap.add_argument("--Dv", type=float, default=0.08)
+    ap.add_argument("--Du", type=float, default=0.16,
+                    help="MODEL parameter: how fast u diffuses. Not a numerical knob.")
+    ap.add_argument("--Dv", type=float, default=0.08,
+                    help="MODEL parameter: how fast v diffuses. Not a numerical knob.")
     # X96 (owner-approved 02.11): третье поле w — медленный ингибитор со СВОЕЙ длиной диффузии. Это новое правило мира, а
     # не параметр, поэтому по умолчанию выключено: без флага уравнения бит-в-бит прежние, и якорь проверяется по
     # закоммиченному артефакту x100_f030_s291.json, а не по свежему прогону.
@@ -242,6 +247,17 @@ def main(argv=None) -> int:
     ap.add_argument("--save-fields-at", default="2000,4000,6000",
                     help="X60: шаги, на которых сохраняется поле (по умолчанию 2000,4000,6000)")
     args = ap.parse_args(argv)
+
+    # Q5: refuse to run an unstable scheme. Clipping a divergence away hides it; the run must stop and say
+    # which of the two fixes it wants. `scripts/check_stability.py` is the same arithmetic as a gate.
+    _dx = 1.0
+    for _name, _D in (("Du", float(args.Du)), ("Dv", float(args.Dv)), ("Dw", float(args.Dw))):
+        _r = _D * float(args.dt) / (_dx * _dx)
+        if _r > 0.25:
+            raise SystemExit(
+                f"[track] UNSTABLE: {_name} = {_D} with dt = {args.dt} gives D*dt/dx^2 = {_r:.3f} > 0.25.\n"
+                f"  (a) keep the model and lower dt to <= {0.25 * _dx * _dx / _D:.4f} - costs more steps;\n"
+                f"  (b) lower {_name} to <= {0.25 * _dx * _dx / float(args.dt):.4f} - the MODEL changes.")
 
     import numpy as np
     import torch

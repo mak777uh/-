@@ -4,7 +4,7 @@
 
 The curated page — what matters and why — is [`scripts.md`](scripts.md). This file is the complete list, so that every command behind a number in the record can be found.
 
-Scripts: **505**.
+Scripts: **508**.
 
 ## Гейты и проверки (65)
 
@@ -218,7 +218,7 @@ Scripts: **505**.
 | `make_seed_grid_figure.py` | Собрать Figure 4 рукописи: сетка «инициализация × порядок данных» (§4.13). |
 | `make_simple_poster.py` | Простой постер для владельца: что мы узнали, без терминов. |
 
-## Прочее (323)
+## Прочее (326)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -226,6 +226,7 @@ Scripts: **505**.
 | `a2_invalid_in_reports.py` | A2: did any INVALID run reach a report? |
 | `a3_anomalies.py` | A3: find ANOMALIES in the corpus - series whose results depart from their peers. |
 | `additivity_interaction.py` | additivity_interaction.py — взаимодействие двух механизмов на парных сидах. |
+| `analyse_e18.py` | Analyse E18: does the cell's behaviour follow the situation when it has no record? |
 | `analyse_e3.py` | analyse_e3.py — сходятся ли три пути после того, как история закончилась. |
 | `analyse_e3_state.py` | analyse_e3_state.py — сравнение по СОСТОЯНИЮ, а не по времени. |
 | `analysis_task.py` | analysis_task.py — ферма CPU-задач на GitHub Actions: берёт задачу из очереди и считает. |
@@ -233,6 +234,7 @@ Scripts: **505**.
 | `attention.py` | attention.py — one page that answers "what needs a human, right now". |
 | `audit_corpus.py` | Audit the whole corpus with one question: did each mechanism help the cell, in the cell's own terms? |
 | `backfill_not_claimed.py` | backfill_not_claimed.py — дописать `not_claimed` в старые агрегаты. |
+| `boundary_effect.py` | Q9: does the boundary condition change the outcome in OUR world, or is it a numerical detail? |
 | `cadence_match.py` | cadence_match.py — is the `dt` dependence of the contrast a snapshot-cadence artefact? |
 | `calibrate_thresholds.py` | Откалибровать и заморозить пороги OOD и тривиальности (протокол v1.2 §6b, §7). |
 | `capture_stream.py` | capture_stream.py — запись настоящего потока из мира в артефакт. |
@@ -293,6 +295,7 @@ Scripts: **505**.
 | `stream_profile.py` | stream_profile.py — измеряет профиль живых источников, а не угадывает «какой лучше». |
 | `stream_sources.py` | stream_sources.py — источники живого сигнала извне для цифрового мира. |
 | `test_lib_tools.py` | Регрессионные тесты инструментов библиотеки. |
+| `threshold_sensitivity.py` | Q8: how much do the lifetimes and division counts depend on the matching threshold? |
 | `v8_matrix.py` | v8_matrix.py — агрегат серии V8 (размещение инокулята × правило слияния). |
 | `verify.py` | Единый гейт перед отправкой: `python scripts/verify.py` (или `make verify`). |
 | `world_invariants.py` | Gate: the world's invariants, as one command. |

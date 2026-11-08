@@ -116,6 +116,25 @@ def _all_config(cfg) -> dict:
     return out
 
 
+def _k_rows(state) -> list[dict]:
+    """Per-cell rows for the K-readouts: one row per cell that ACTED, with its situation and its record.
+
+    Why this exists: the three measures live in the state (`acted`, `res_at_act`, `pred_at_act`) and were never
+    written to the artifact, so an experiment whose readout is `situation_explained` could not be analysed from
+    its own output. The rows are LOG-ONLY; nothing in the dynamics reads them.
+    """
+    if getattr(state, "acted", None) is None:
+        return []
+    import numpy as _np
+    acted = state.acted.detach().cpu().numpy()
+    res = state.res_at_act.detach().cpu().numpy()
+    pred = state.pred_at_act.detach().cpu().numpy()
+    ys, xs = _np.nonzero(acted)
+    return [{"cell": f"{int(y)}_{int(x)}", "acted": 1,
+             "res_at_act": float(res[y, x]), "pred_at_act": float(pred[y, x])}
+            for y, x in zip(ys, xs)]
+
+
 def config_block(cfg) -> dict:
     """Конфигурация прогона в `summary["config"]`.
 
@@ -149,7 +168,17 @@ def config_block(cfg) -> dict:
         "invade_placement": getattr(cfg, "invade_placement", "random"),
         "merge_rule": getattr(cfg, "merge_rule", "majority"),
         "trait_effect": getattr(cfg, "trait_effect", 0.0),
-        "budding_unit": getattr(cfg, "budding_unit", "colony"),
+        "budding_unit": getattr(cfg, "budding_unit", "colony_mean"),
+        # Q3: the three axes that locate a collective on the Darwinian scale. `colony_mean` has NONE of them:
+        # no bottleneck (the child is a mean, not a sample), no germ-soma split, no integration beyond
+        # geometry. That is why it is blending inheritance and not clonal reproduction.
+        "darwinian_axes": {
+            "bottleneck": False,        # is the child founded by a small sample of the parent?
+            "germ_soma": False,         # is there a specialised reproductive part?
+            "integration": False,       # is there organisation beyond spatial connection?
+            "note": ("colony_mean: the child's genome is the MEAN of the parent component's genomes, so the "
+                     "child is the clone of neither lineage. Blending, not clonal."),
+        },
 
         "require_placement": getattr(cfg, "require_placement", 0),
         "buds_per_component": getattr(cfg, "buds_per_component", 1),
@@ -1641,7 +1670,8 @@ def main(argv: list[str] | None = None) -> int:
                 pass
     if args.out:
         with open(args.out, "w", encoding="utf-8") as fh:
-            json.dump({"summary": summary, "log": run.log}, fh, ensure_ascii=False, indent=2)
+            json.dump({"summary": summary, "k_steps": _k_rows(run.pond.state),
+                       "log": run.log}, fh, ensure_ascii=False, indent=2)
     _safe_print(json.dumps(summary, ensure_ascii=False, indent=2))
     if args.snapshots_out and run.snapshots:
         import numpy as _np

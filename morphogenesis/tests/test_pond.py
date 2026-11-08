@@ -1260,12 +1260,19 @@ def test_budding_unit_cell_picks_single_parent():
     assert bool((parent & mask).any()), "выбранная клетка принадлежит телу"
 
 
-def test_budding_unit_default_is_colony():
-    """Дефолт обязан быть colony: иначе прошлые серии перестанут быть бит-в-бит."""
+def test_budding_unit_default_is_colony_mean():
+    """The default mode keeps its BEHAVIOUR and changes its NAME.
+
+    Q3 in docs/open-questions.md: averaging the genomes of a connected component is BLENDING inheritance, not
+    clonal reproduction, so the mode is called `colony_mean`. The old value "colony" is still accepted and
+    resolves to the same behaviour, so past series stay bit-for-bit: the name changed, not the world.
+    """
     from world.run_pond import build_parser
-    from world.pond import PondConfig
-    assert build_parser().get_default("budding_unit") == "colony"
-    assert PondConfig().budding_unit == "colony"
+    from world.pond import PondConfig, _budding_unit
+    assert build_parser().get_default("budding_unit") in ("colony", "colony_mean")
+    assert PondConfig().budding_unit == "colony_mean"
+    # the old alias still means the same thing
+    assert _budding_unit(PondConfig(budding_unit="colony")) == "colony_mean"
 
 
 def _type_run(start: str, fd: float, steps: int = 40, grid: int = 16, seed: int = 1):

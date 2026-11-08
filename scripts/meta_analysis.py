@@ -147,6 +147,45 @@ def _measures(rec: dict) -> dict:
     return out
 
 
+
+# ---- Q14: are two parameters the same mechanism? ---------------------------------------------------
+#
+# The mechanist literature individuates a mechanism by the phenomenon it explains and by its causal
+# organisation; the operational test is mutual manipulability. Two parameters are the same mechanism only if
+# (a) they explain the same phenomenon and (b) an intervention in one changes the other in the same way.
+#
+# We cannot run interventions from the corpus, so the report states what it CAN see: whether the two fields
+# ever appear in the same artifact (so they were varied together), and whether each appears alone. That is a
+# necessary condition, not a sufficient one, and it is labelled as such.
+MECHANISM_PAIRS = [
+    ("trait_effect", "signal_gain"),
+    ("plastic_eta", "plastic_gate"),
+    ("budding_unit", "buds_per_component"),
+    ("freq_dep", "mortality_gain"),
+]
+
+
+def mechanism_identity(records: list[dict]) -> list[dict]:
+    out = []
+    for a, b in MECHANISM_PAIRS:
+        both = sum(1 for r in records if a in r["config"] and b in r["config"])
+        only_a = sum(1 for r in records if a in r["config"] and b not in r["config"])
+        only_b = sum(1 for r in records if b in r["config"] and a not in r["config"])
+        if both == 0:
+            verdict = "unresolved"
+            why = "the two fields never appear together, so mutual manipulability cannot be checked"
+        elif only_a == 0 and only_b == 0:
+            verdict = "related"
+            why = "they always appear together; the corpus cannot separate them"
+        else:
+            verdict = "related"
+            why = f"they appear together {both} times and separately {only_a}/{only_b} times; a correlation " \
+                  f"between them would be the next test"
+        out.append({"a": a, "b": b, "together": both, "only_a": only_a, "only_b": only_b,
+                    "verdict": verdict, "why": why})
+    return out
+
+
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--json")
@@ -210,6 +249,12 @@ def main(argv=None) -> int:
         for row in r["measures"]:
             print(f"    {row['measure']:14s} лучший {row['best']:>10.4f} против {row['worst']:>10.4f} "
                   f"разница {row['difference']:+.4f}")
+
+    print()
+    print("=" * 78)
+    print("Q14: are two parameters the same mechanism? (mutual manipulability)")
+    for row in mechanism_identity(records):
+        print(f"  {row['a']} vs {row['b']}: {row['verdict']} - {row['why']}")
 
     print()
     print("[meta] чего этот отчёт не делает: он не проверяет, что разница вызвана механизмом. "

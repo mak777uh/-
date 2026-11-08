@@ -151,7 +151,12 @@ class PondConfig:
     mutation_rate: float = 0.0         # 0..1: новый tag (метка линии) при рождении (условие B)
     ignition_gate: bool = False        # запретить правилу зажигать без живого 4-соседа (пропагул)
     trait_effect: float = 0.0          # eps: насколько tag_trait меняет интенсивность инвестирования (E)
-    budding_unit: str = "colony"       # colony (W1) | cell (W2-bud): кто почкуется — колония или клетка
+    # Who reproduces. `colony_mean` is the historical "colony" mode: the parent is the whole connected
+    # component and the child's genome is the MEAN of the component's genomes. That is BLENDING inheritance,
+    # not clonal reproduction (docs/open-questions.md Q3): two lineages that touch produce a synthetic genome
+    # that is the clone of neither parent. The old value "colony" is still accepted and reported as
+    # "colony_mean", so stored configs load and the artifact never calls it clonal.
+    budding_unit: str = "colony_mean"  # colony_mean (W1) | cell (W2-bud) | pair
     niche_free_min: int = 0           # H-ALIVE-52: фильтр «свободная компонента >= N» (0 = без фильтра)
     pair_mode: str = "same_tag"        # H-ALIVE-49: same_tag (пара одной метки) | any_tag (любой сосед)
     death_return: float = 0.0          # W1-niche: доля взятого за жизнь ресурса, возвращаемая при смерти
@@ -207,6 +212,16 @@ class PondConfig:
     membrane_rebuild: float = 0.10    # скорость восстановления мембраны
     membrane_rebuild_cost: float = 0.01  # энергия на единицу восстановления
     membrane_threshold: float = 0.2   # ниже этого порога притока нет
+
+
+def _budding_unit(cfg) -> str:
+    """The reproduction unit, with the historical alias resolved.
+
+    "colony" meant colony-mean from the start; the name was wrong, not the behaviour. Resolving it here means
+    every comparison reads one value, and the artifact reports `colony_mean` even for an old config.
+    """
+    v = str(getattr(cfg, "budding_unit", "colony_mean") or "colony_mean")
+    return "colony_mean" if v == "colony" else v
 
 
 @dataclass
@@ -1754,7 +1769,7 @@ class Pond:
         (ресурс минус теснота), иначе — случайная живая клетка тела. Это единственное
         изменение мира: спора и её метка принадлежат клетке, а не компоненте.
         """
-        if getattr(self.cfg, "budding_unit", "colony") != "cell":
+        if _budding_unit(self.cfg) != "cell":
             return parent_mask
         s = self.state
         body = parent_mask & s.alive
@@ -1786,13 +1801,13 @@ class Pond:
         тому же `score` (ресурс минус теснота); `one_bud_per_lineage` запрещает два бутона одной
         линии, чтобы N не усиливал предка, а давал шанс мутанту.
         """
-        if getattr(self.cfg, "budding_unit", "colony") == "pair":
+        if _budding_unit(self.cfg) == "pair":
             return [self.budding_parent_pair(body)]
         n_buds = int(getattr(self.cfg, "buds_per_component", 1))
         quota = float(getattr(self.cfg, "quota_share", 1.0) or 1.0)
         # При quota >= 1.0 старый путь сохраняется бит-в-бит (одна ветка, без лишних вычислений).
         if (quota >= 1.0 and int(getattr(self.cfg, "bud_refractory", 0) or 0) <= 0
-                and (getattr(self.cfg, "budding_unit", "colony") != "cell" or n_buds <= 1)):
+                and (_budding_unit(self.cfg) != "cell" or n_buds <= 1)):
             return [self.budding_parent(body)]
         s = self.state
         alive_body = body & s.alive
