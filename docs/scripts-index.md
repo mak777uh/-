@@ -4,9 +4,9 @@
 
 The curated page — what matters and why — is [`scripts.md`](scripts.md). This file is the complete list, so that every command behind a number in the record can be found.
 
-Scripts: **455**.
+Scripts: **490**.
 
-## Гейты и проверки (52)
+## Гейты и проверки (62)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -18,6 +18,10 @@ Scripts: **455**.
 | `check_article_030_numbers.py` | check_article_030_numbers.py — every number printed in article 030 must trace to an aggregate. |
 | `check_article_031_numbers.py` | check_article_031_numbers.py — every headline number in article 031 must trace to an artifact. |
 | `check_article_032_numbers.py` | Verify the headline numbers of article 032 against the committed artifacts. |
+| `check_article_033_numbers.py` | Verify the headline numbers of article 033 v3.0 against the committed artifacts. |
+| `check_article_034_numbers.py` | Verify the headline numbers of article 034 against the committed artifact. |
+| `check_article_035_numbers.py` | Verify the headline numbers of article 035 against the committed artifact. |
+| `check_article_036_numbers.py` | Number gate for article 036: every number in the text is produced by a command that must succeed. |
 | `check_article_numbers.py` | check_article_numbers.py — числа статьи 028 обязаны воспроизводиться из агрегатов. |
 | `check_autonomy.py` | check_autonomy.py — the autonomy policy has to be machine-readable, and its protected paths have to be enforced. |
 | `check_claim_artifacts.py` | check_claim_artifacts.py — an artifact cited by a claim must exist in git. |
@@ -28,6 +32,7 @@ Scripts: **455**.
 | `check_draft_numbers.py` | check_draft_numbers.py — числа в тексте статьи обязаны совпадать с агрегатами. |
 | `check_empty_aggregates.py` | check_empty_aggregates.py — агрегат с нулём строк при живых данных — ошибка, а не результат. |
 | `check_environment_assumptions.py` | check_environment_assumptions.py — гейты не должны зависеть от календаря и концов строк. |
+| `check_experiment_manifest.py` | Gate: an experiment may not run without a manifest that passes the standing rules. |
 | `check_external_content.py` | check_external_content.py — секреты и попытки инъекции во внешнем контенте, попавшем в репозиторий. |
 | `check_field_analyses.py` | check_field_analyses.py — the field line's aggregates must re-derive from the stored artifacts. |
 | `check_hourly_refs.py` | check_hourly_refs.py — audits references to `_hourly/` artifacts, and says which no longer exist. |
@@ -36,12 +41,15 @@ Scripts: **455**.
 | `check_metric_definitions.py` | check_metric_definitions.py — реализация метрики обязана совпадать с её определением. |
 | `check_mutual_information.py` | check_mutual_information.py — калибровка оценки взаимной информации на данных с ИЗВЕСТНЫМ ответом. |
 | `check_plan_split.py` | check_plan_split.py — план разложен по файлам без потерь и без дублей. |
+| `check_protected_staged.py` | Gate: a protected path may not change without a decision-log entry. |
 | `check_readme_commands.py` | check_readme_commands.py — команды из README должны запускаться в CI, а не только существовать. |
 | `check_readme_fresh.py` | check_readme_fresh.py — витрина не должна отставать от результатов. |
 | `check_references.py` | Проверить, что каждая ссылка из References рукописи есть в индексе библиотеки. |
+| `check_report_style.py` | Gate: a report written after 08.11 must be an observation, not an argument. |
 | `check_reports_index.py` | Проверить, что каждый отчёт попал в индекс `reports/README.md`. |
 | `check_result_map_coverage.py` | Which experiment artifacts are NOT covered by any claim in library/result-map.json? |
 | `check_reviews.py` | check_reviews.py — ревью рецензента обязаны быть проверками, а не мнениями. |
+| `check_run_manifest_gate.py` | Gate: every run manifest must carry a policy_gate record. |
 | `check_script_index.py` | check_script_index.py — индекс всех скриптов обязан быть полным и свежим. |
 | `check_scripts.py` | P2: какие скрипты никто не вызывает — профилактика мёртвого кода. |
 | `check_section_refs.py` | Проверить внутренние ссылки на разделы (`§4.7`, `§5.6`) в рукописи. |
@@ -49,9 +57,11 @@ Scripts: **455**.
 | `check_seed_replication.py` | check_seed_replication.py — a seed is replication only if it changes the world. |
 | `check_series_followthrough.py` | check_series_followthrough.py — серия закончилась, а агрегат не собран? |
 | `check_series_homogeneity.py` | Гейт: серия должна быть снята одним кодом. |
+| `check_single_running.py` | Gate: at most one queue item may be marked running. |
 | `check_single_spec.py` | check_single_spec.py — не должно быть двух документов, объявляющих одну версию требований. |
 | `check_snapshots.py` | check_snapshots.py — снимки лабораторного состояния обязаны совпадать с диском. |
 | `check_uid_rule.py` | check_uid_rule.py — the identity rule of the field tracker, pinned as a data check. |
+| `check_weights_ignored.py` | Gate: weights files must be ignored by git. |
 | `check_wilson_consistency.py` | check_wilson_consistency.py — все реализации интервала Уилсона должны давать одно и то же. |
 | `claims_lint.py` | Линтер матрицы утверждений (manuscript/CLAIMS.md). |
 | `lean_check.py` | Проверка формальных гипотез: компилирует formal/*.lean и ведёт инвентарь. |
@@ -159,7 +169,7 @@ Scripts: **455**.
 | `w2bud_metric_variants.py` | w2bud_metric_variants.py — инвариантность эффекта к устройству метрики. |
 | `w2bud_quota_matrix.py` | w2bud_quota_matrix.py — агрегат серии с квотой (H-ALIVE-53). |
 
-## Сборка отчётов и таблиц (23)
+## Сборка отчётов и таблиц (34)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -167,6 +177,10 @@ Scripts: **455**.
 | `build_article_029_package.py` | build_article_029_package.py — assemble the deposit package for article 029. |
 | `build_article_030_package.py` | build_article_030_package.py — assemble the deposit package for article 030. |
 | `build_article_031_package.py` | build_article_031_package.py — assemble the deposit package for article 031. |
+| `build_article_032_package.py` | Build the deposit package for article 032. |
+| `build_article_033_package.py` | build_article_033_package.py — assemble the deposit package for article 033. |
+| `build_article_034_package.py` | build_article_034_package.py — assemble the deposit package for article 034. |
+| `build_article_035_package.py` | build_article_035_package.py — assemble the deposit package for article 035. |
 | `build_x160_memory_matrix.py` | Build x160_memory_matrix.json from the x160_memory series (63 artifacts, 3 arms x 20 seeds). |
 | `make_article_029_figures.py` | make_article_029_figures.py — figures and derived tables for article 029 (v2, plain-language edition). |
 | `make_article_029_pdf.py` | make_article_029_pdf.py — render article 029 as a self-contained PDF for the deposit. |
@@ -174,6 +188,13 @@ Scripts: **455**.
 | `make_article_030_pdf.py` | make_article_030_pdf.py — render article 030 as a self-contained PDF for the deposit. |
 | `make_article_031_figures.py` | Build the figures of article 031 from committed artifacts only. |
 | `make_article_031_pdf.py` | make_article_031_pdf.py — render article 031 as a self-contained PDF for the deposit. |
+| `make_article_032_pdf.py` | Build the PDF for article 032 by reusing the article-031 renderer. |
+| `make_article_033_figures.py` | make_article_033_figures.py — the figure of article 033, built from the artifacts only. |
+| `make_article_033_pdf.py` | Build the PDF for article 032 by reusing the article-031 renderer. |
+| `make_article_034_figures.py` | make_article_034_figures.py — the figure of article 034, built from the artifact only. |
+| `make_article_034_pdf.py` | Build the PDF for article 032 by reusing the article-031 renderer. |
+| `make_article_035_figures.py` | make_article_035_figures.py — the figure of article 035, built from the artifact only. |
+| `make_article_035_pdf.py` | Build the PDF for article 032 by reusing the article-031 renderer. |
 | `make_artifact_table.py` | Собрать приложение-таблицу артефактов с хешами (manuscript/SUPPLEMENT.md). |
 | `make_arxiv_figures.py` | make_arxiv_figures.py — четыре фигуры для черновика (26.10). |
 | `make_carrier_figures.py` | Собрать два рисунка по закрытиям carriers/кластеров из сырых артефактов. |
@@ -187,22 +208,27 @@ Scripts: **455**.
 | `make_seed_grid_figure.py` | Собрать Figure 4 рукописи: сетка «инициализация × порядок данных» (§4.13). |
 | `make_simple_poster.py` | Простой постер для владельца: что мы узнали, без терминов. |
 
-## Прочее (304)
+## Прочее (318)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
+| `a1_corpus_survey.py` | A1: survey the whole artifact corpus - what do we actually have? |
+| `a2_invalid_in_reports.py` | A2: did any INVALID run reach a report? |
+| `a3_anomalies.py` | A3: find ANOMALIES in the corpus - series whose results depart from their peers. |
 | `additivity_interaction.py` | additivity_interaction.py — взаимодействие двух механизмов на парных сидах. |
 | `analyse_e3.py` | analyse_e3.py — сходятся ли три пути после того, как история закончилась. |
 | `analyse_e3_state.py` | analyse_e3_state.py — сравнение по СОСТОЯНИЮ, а не по времени. |
 | `analysis_task.py` | analysis_task.py — ферма CPU-задач на GitHub Actions: берёт задачу из очереди и считает. |
 | `analyze_grid_failures.py` | Какие шумовые старты не дают доминирующий класс в клетках сетки H-E02C-6. |
 | `attention.py` | attention.py — one page that answers "what needs a human, right now". |
+| `audit_corpus.py` | Audit the whole corpus with one question: did each mechanism help the cell, in the cell's own terms? |
 | `backfill_not_claimed.py` | backfill_not_claimed.py — дописать `not_claimed` в старые агрегаты. |
 | `cadence_match.py` | cadence_match.py — is the `dt` dependence of the contrast a snapshot-cadence artefact? |
 | `calibrate_thresholds.py` | Откалибровать и заморозить пороги OOD и тривиальности (протокол v1.2 §6b, §7). |
 | `capture_stream.py` | capture_stream.py — запись настоящего потока из мира в артефакт. |
 | `claim_audit.py` | Проверить пакеты доказательств в library/claims-evidence.md. |
 | `claim_comparator.py` | claim_comparator.py — независимый аудит утверждения против его Setup (перенос идеи LongTails). |
+| `closure_probe.py` | Closure probes: does the machinery actually catch a planted defect, and does it recover? |
 | `coexistence_metrics.py` | coexistence_metrics.py — метрики сосуществования линий из СУЩЕСТВУЮЩИХ артефактов (0 GPU). |
 | `compact_field_series.py` | compact_field_series.py — keep the derivable part of a dense-logging series in git. |
 | `compact_world.py` | Helpers for reading the committed `.compact.json` projections of the dense series. |
@@ -217,8 +243,10 @@ Scripts: **455**.
 | `entrainment.py` | entrainment.py — захватывает ли мир ритм входного потока (энтрейнмент), и связано ли это с «энергией». |
 | `farm_reader.py` | farm_reader.py — читать результаты фермы GitHub Actions. |
 | `founding_matrix.py` | founding_matrix.py — агрегат серии «порог основания» (H-ALIVE-23 / V10). |
+| `gate_refusal_selftest.py` | Does the live gate actually refuse? Plant a disagreement and check that no run starts. |
 | `github_intake.py` | github_intake.py — GitHub issues as a task source, with an author allowlist. |
 | `index_report.py` | index_report.py — add a report row to reports/README.md, or check which reports lack one. |
+| `k_readouts.py` | The three readouts the reading implies, replacing the favourable share as the primary metric. |
 | `l1_field_matrix.py` | l1_field_matrix.py — агрегат линии поля: медианы, разброс и интервалы по плечам. |
 | `lean_axioms.py` | lean_axioms.py — независимая проверка теорем Lean на «чистоту аксиом» и неизменность формулировок. |
 | `literature_harvest.py` | literature_harvest.py — собрать настоящие работы по теме, с аннотациями и ссылками на полные тексты. |
@@ -226,11 +254,17 @@ Scripts: **455**.
 | `metric_variants.py` | metric_variants.py — инвариантность вывода к устройству метрики (H-ALIVE-39). |
 | `neutral_yardstick.py` | neutral_yardstick.py — нейтральная линейка для наших миров. |
 | `paired_compare.py` | paired_compare.py — парное сравнение двух плеч по сидам, без «средних по плечу». |
+| `pdf_to_text_k.py` | Convert the Krishnamurti PDF into plain text so the whole book can be read at once. |
 | `periodicity.py` | periodicity.py — есть ли у мира СВОЙ ритм, и синхронизирован ли он с петлёй. |
+| `policy_bridge.py` | Bridge: the policy FILE and the policy MODEL must agree. |
+| `policy_diff.py` | Three implementations of the same policy decision must agree. |
+| `policy_mediator.py` | The mediator that the harness calls: Python rule plus a cross-check against the Rust mediator. |
+| `policy_mediator_selftest.py` | Self-test for the live mediator: does the cross-check actually happen, and does it actually refuse? |
 | `predictions.py` | predictions.py — реестр предсказаний: что мы обещали до данных и что вышло. |
 | `probe_invasion_state.py` | probe_invasion_state.py — проба пути инъекции: где и когда исчезает инвайдер (§10at.1). |
 | `recheck_partial_rho.py` | Independent recount of the C series in `metric_variants.json` (partial rho, trait against cell steps at fixed energy). |
 | `reciprocity.py` | reciprocity.py — двусторонняя связь потока и мира: считается ОБА направления передачи. |
+| `register_check.py` | Tell me where a NEW artifact has to be registered. |
 | `response_independent.py` | Отклик признака, проверенный величиной, независимой от `w`. |
 | `result_scan.py` | Сканер результатов: переходы берутся из данных, а не из таймера. |
 | `rotate_notices.py` | Ротация доски notices.md: текущее — на доске, история — в архив. |
@@ -247,6 +281,7 @@ Scripts: **455**.
 | `test_lib_tools.py` | Регрессионные тесты инструментов библиотеки. |
 | `v8_matrix.py` | v8_matrix.py — агрегат серии V8 (размещение инокулята × правило слияния). |
 | `verify.py` | Единый гейт перед отправкой: `python scripts/verify.py` (или `make verify`). |
+| `write_zenodo_032.py` | Write the zenodo.json metadata file for article 032 (and, generically, for others). |
 | `x100_analyse.py` | x100_analyse.py — does the heredity of size survive a definition that needs no excursion cut? |
 | `x100_series.py` | x100_series.py — heredity with a size that needs no excursion cut (X100). |
 | `x101_analyse.py` | x101_analyse.py — basins by steepest ascent: a structure size with no level set at all. |
