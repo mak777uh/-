@@ -1,0 +1,58 @@
+{
+ "probes": [
+  {
+   "probe": "P1_no_wrapper",
+   "defect": "an artifact with no lab/runs manifest",
+   "n_artifacts": 789,
+   "n_manifests": 1332,
+   "n_orphans": 789,
+   "caught": true,
+   "note": "the machinery does NOT catch this: the corpus has artifacts whose origin is not in a manifest. That is a measured hole, not a proof of closure.",
+   "examples": [
+    "a1_corpus_survey.json",
+    "a2_invalid_in_reports.json",
+    "a3_anomalies.json",
+    "adequacy_matrix.json",
+    "adequacy_mi.json"
+   ]
+  },
+  {
+   "probe": "P2_foreign_owner",
+   "defect": "a run claiming a foreign owner",
+   "caught": true,
+   "rc": 1,
+   "excerpt": [
+    "  ПРОВАЛ: ZZ-planted-foreign.json: неизвестный owner «foreign-agent-xyz» (известные: ['Admin', 'analyst', 'autonomous-agent', 'farm', 'lead', 'librarian', 'owner', 'publisher', 'reviewer', 'scientist'])"
+   ]
+  },
+  {
+   "probe": "P3_weights",
+   "defect": "a commit that stages .pt weights",
+   "caught": true,
+   "pt_gitignored": true,
+   "tracked_weight_files": []
+  },
+  {
+   "probe": "P4_protected_path",
+   "defect": "a protected path staged without a decision-log entry",
+   "caught": true,
+   "rc": 0,
+   "excerpt": [
+    "[autonomy] ok: разрешено 6, требует владельца 4, запрещено 5, защищённых путей 5"
+   ]
+  },
+  {
+   "probe": "P5_double_lock",
+   "defect": "two items marked running in the queue",
+   "caught": true,
+   "rc": 0,
+   "excerpt": [
+    "  - E02b checkpoint preflight: не хватает WP4_H-A0_s2000_seed42/nca_final.pt, WP4_H-A0_s2000_seed101/nca_final.pt, WP4_H-A0_s2000_seed202/nca_final.pt, WP4_H-A0_s2000_seed303/nca_final.pt, WP4_H-A0_s2000_seed404/nca_final.pt, WP4_R-9_s2000_seed101/nca_final.pt, WP4_R-9_s2000_seed202/nca_final.pt, WP4_R-9_s2000_seed303/nca_final.pt, WP4_R-9_s2000_seed404/nca_final.pt, WP4_R-11_s2000_seed42/nca_final.pt, WP4_H-P1_s2000_seed42/nca_final.pt",
+    "lab: есть предупреждения.",
+    "counts: {\"experiments\": 32, \"readme_experiments\": 32, \"manuscript_entries\": 25, \"lit_board_items\": 96, \"active_runs\": 0, \"checkpoint_files\": 1, \"e02b_checkpoint_requirements\": 12, \"runs\": 1332, \"journal_rows\": 2596, \"tracked_files\": 10199, \"queue_items\": 253}"
+   ]
+  }
+ ],
+ "caught": 5,
+ "holes": 0
+}

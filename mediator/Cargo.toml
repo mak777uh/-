@@ -1,0 +1,14 @@
+[package]
+name = "mediator"
+version = "0.1.0"
+edition = "2021"
+description = "Policy mediator: the small piece of code that decides what an agent may do. Level B in the herness model. No dependencies: the whole rule fits in one file and can be read in one sitting."
+license = "MIT"
+
+# Deliberately NO dependencies. Every dependency brings a build script, and a build script needs a linker that
+# the machine may not have (MSVC was absent on 08.11). A mediator whose proof is in Lean does not need a
+# serialisation library: it reads a line-based format and writes a line-based format.
+
+[[bin]]
+name = "mediator"
+path = "src/main.rs"

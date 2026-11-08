@@ -21,6 +21,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import subprocess
 import sys
 from pathlib import Path
@@ -99,6 +100,41 @@ def check_staged() -> list[str]:
     return []
 
 
+# Registered agent labels. Two sessions with the SAME label cannot tell each other apart, so a manifest
+# whose owner is not in this list is a hole: either a typo, or a run that never went through the wrapper.
+KNOWN_OWNERS = {"lead", "analyst", "scientist", "librarian", "publisher", "reviewer", "farm",
+                "owner", "Admin", "autonomous-agent"}
+
+
+def check_owners() -> list[str]:
+    """Every lab/runs manifest must name an owner the policy knows about.
+
+    This closes the P2 hole found by closure_probe.py on 08.11: a run could claim any owner and nothing
+    noticed, because check_autonomy only validated the structure of the policy file.
+    """
+    problems: list[str] = []
+    runs = os.path.join(ROOT, "lab", "runs")
+    if not os.path.isdir(runs):
+        return problems
+    for f in sorted(os.listdir(runs)):
+        if not f.endswith(".json"):
+            continue
+        try:
+            with open(os.path.join(runs, f), encoding="utf-8") as fh:
+                m = json.load(fh)
+        except Exception:  # noqa: BLE001
+            continue
+        owner = m.get("owner")
+        # grandfather: manifests written before 08.11 have no "schema" field and are history
+        new_format = "schema" in m or str(m.get("started_at", "")) >= "2026-11-08"
+        if owner is None:
+            if new_format:
+                problems.append(f"{f}: прогон без owner")
+        elif owner not in KNOWN_OWNERS:
+            problems.append(f"{f}: неизвестный owner «{owner}» (известные: {sorted(KNOWN_OWNERS)})")
+    return problems
+
+
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description="autonomy policy check")
     ap.add_argument("--range", help="диапазон коммитов, например origin/main..HEAD")
@@ -106,6 +142,7 @@ def main(argv=None) -> int:
     args = ap.parse_args(argv)
 
     problems = check_structure()
+    problems += check_owners()
     if args.staged:
         problems += check_staged()
     if args.range:

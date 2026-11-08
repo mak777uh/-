@@ -220,6 +220,11 @@ class PondState:
     founder: torch.Tensor | None = None     # (H, W) int64: ID линии-основателя (не мутирует)
     tag_trait: torch.Tensor | None = None   # (H, W) float: признак линии (наследуемый)
     pred: torch.Tensor | None = None    # (H, W) L2: предсказание локального ресурса
+    # K-readouts (07.11, additive): the three measures the reading implies. LOGS ONLY - they do not
+    # enter any dynamics, so the anchor stays bit-exact.
+    acted: torch.Tensor | None = None        # (H, W) bool: a cell acted this step
+    res_at_act: torch.Tensor | None = None   # (H, W) float: the resource it stood in when it acted
+    pred_at_act: torch.Tensor | None = None  # (H, W) float: its record at the moment of acting
     res_prev: torch.Tensor | None = None # (H, W) B2: ресурс на прошлом шаге решения (run-tumble)
     signal: torch.Tensor | None = None   # (H, W) H2: непрерывное поле «химического» сигнала
     heading: torch.Tensor | None = None  # (H, W) int8: -1/0/+1 курс по строке (персистентность)
@@ -308,6 +313,10 @@ class Pond:
             self.state.pred = self.state.resource.clone()
             self.state.res_prev = self.state.resource.clone()
             self.state.heading = torch.zeros((n, n), dtype=torch.int8, device=self.device)
+        # K-readouts: allocated unconditionally, LOGS ONLY (no dynamics read them)
+        self.state.acted = torch.zeros_like(self.state.alive)
+        self.state.res_at_act = torch.zeros_like(self.state.resource)
+        self.state.pred_at_act = torch.zeros_like(self.state.resource)
         if self.cfg.freq_dep > 0.0 or self.cfg.type_mode != "fixed":
             self.state.resource_b = self.state.resource.clone()
             self.state.cell_type = torch.zeros((n, n), dtype=torch.int64, device=self.device)

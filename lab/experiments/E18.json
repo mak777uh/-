@@ -1,0 +1,28 @@
+{
+  "_comment": "Manifest of one experiment, written BEFORE the run. The gate check_experiment_manifest.py fails if any required field is missing or if the experiment violates the standing rules (no additions, no juggling, a checked manipulation).",
+  "id": "E18",
+  "title": "Remove the record: what the cell does when it has no memory of the resource",
+  "question": "When the cell has no record of the resource, does its behaviour follow the situation?",
+  "symptom": "The trap of inaction (S22: baseline 0.340 vs greedy_ema 0.166) and the falling fraction able to act (0.31 -> 0.17) are measured facts that no mechanism has explained.",
+  "first_hand": true,
+  "first_hand_where": "S22, E10, E1, E7 - all run by us",
+  "second_hand_sources": ["P1", "P6", "P11", "P29", "P71", "P151", "P176", "P278"],
+  "adds_or_removes": "remove",
+  "changes_set_or_values": "set",
+  "has_direction": false,
+  "manipulation_reaches_dynamics": {
+    "how": "the arms differ in plastic_eta (0.0 vs 0.05) and the gate reads pred only when plastic_eta > 0, so the record arm and the no-record arm MUST diverge; checked by comparing the first 50 steps of both arms",
+    "checked": true
+  },
+  "sensitivity": {
+    "expected_spread_of_the_readout": "unknown - this is the first measurement of situation_explained in this world",
+    "why_it_can_still_be_run": "the readout is a WITHIN-CELL statistic, not a between-arm difference, so it does not need the same power calculation as an arm comparison"
+  },
+  "readouts": ["situation_explained", "record_explained", "energy_per_behaviour", "action_rate"],
+  "first_steps_reported": true,
+  "equally_satisfied_by_either_answer": true,
+  "no_should_for_the_cell": true,
+  "no_mechanism_added": true,
+  "preregistered": true,
+  "date": "2026-11-08"
+}

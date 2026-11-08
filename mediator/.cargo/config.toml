@@ -1,0 +1,15 @@
+# The mediator crate is built with rust-lld from the rustup toolchain, not with the system `cc`.
+#
+# Why. On this machine `cc` resolves to the mingw linker that ships with miniconda
+# (C:/Users/Admin/miniconda3/Library/mingw-w64/bin/...), which rejects the flags rustc passes
+# (`--eh-frame-hdr`) and does not provide `GetHostNameW`. The rustup toolchain carries its own linker
+# (`rust-lld.exe`), which needs nothing from the system.
+#
+# Note: do NOT add `-flavor gnu` to rustflags — rustc already passes it when invoking rust-lld, and a second
+# one is rejected ("unknown argument: -flavor").
+#
+# Build:   cargo build
+# Test:    cargo test
+
+[target.x86_64-pc-windows-gnu]
+linker = "rust-lld.exe"

@@ -565,6 +565,14 @@ class PondRun:
                 self.genome[0, :, sy, sx] = 0.0
         self.pond.apply_organism_moves(moves, cost=float(cfg.plastic_move_cost))
         self.plastic_moves_total += len(moves)
+        # K-readout: record the situation and the record AT THE MOMENT OF ACTING (logs only)
+        s = self.pond.state
+        if s.acted is not None:
+            with torch.no_grad():
+                for sy, sx, dy, dx in moves:
+                    s.acted[dy, dx] = True
+                    s.res_at_act[dy, dx] = float(s.resource[dy, dx])
+                    s.pred_at_act[dy, dx] = float(s.pred[dy, dx]) if s.pred is not None else 0.0
         return len(moves)
 
     # ---------- шаг ----------
