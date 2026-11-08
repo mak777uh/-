@@ -5318,21 +5318,165 @@ division.
 
 ---
 
+## P274. The impossible question: see the whole content at one glance, without time
+
+**The move.** "**How is one to expose the whole hidden content at one glance?** Not through a series of dreams, not through analysis, all that implies time and wastage of energy... **To understand all that immediately gives immense energy.**... **We have to ask the impossible question to find a way out of it. Unless we ask the most impossible question we shall always be dealing with what is possible, and what is possible is very little.**"
+
+**In our world.** **This is the method of the whole programme, stated as a demand**: not layer after layer (which is **what we did** — one mechanism at a time, P220's fragments), but **the whole at one glance.**
+
+**What it explains.** Why our fragmentary method **could not** answer: **it was the possible, and the possible is very little.** And it gives the criterion for the next experiment: **it must ask the impossible question** — i.e. **look at the whole at once**, not at a mechanism.
+
+**Testable / rule.** **One experiment, the whole at once** (P220): all readouts, one run, no fragments.
+
+**Status:** the method.
+
+---
+
+## P275. "I really don't know" — when the mind is not waiting for an answer, it is completely alone, and it has emptied itself
+
+**The move.** "**When I say, 'I don't know, I really don't know' — I am not waiting for anybody to tell me, I am not expecting anything because nobody can answer it.**... **When I really mean I don't know, the mind has no answer. It is not expecting anything from anybody. It is not waiting, it is not expecting. So what happens? Is it not completely alone?**... **Therefore the mind has emptied itself of all its content.**"
+
+**In our world.** **This is the answer to the impossible question, and it is the answer we have been circling for 274 patterns**: **the emptying is not an act — it is what happens when the mind really does not know and is not waiting.** And **not waiting** is the whole difference (P185).
+
+**What it explains.** Why every emptying we attempted was **forced** (P237) and therefore **still the record**: **we were waiting for a result.** **The emptying happens when there is no waiting.**
+
+**Testable / design requirement.** The experiment must be designed **without waiting for a result** — which means **without a hypothesis about what will happen** and **without a criterion of success**. **That is P112 (equally satisfied by either answer), now with its mechanism: not waiting.**
+
+**Status:** the emptying; it is the target, stated without a method.
+
+---
+
+## P276. Meditation is putting aside everything that man has conceived of himself and the world
+
+**The move.** "**Meditation is a way of putting aside altogether everything that man has conceived of himself and of the world. So he has a totally different kind of mind.**"
+
+**In our world.** **This is the definition that finally makes meditation operational for us**: **putting aside everything that has been conceived** — i.e. **the literature, the mechanisms, the designs, this file.** Not adding a practice; **putting aside the conceptions.**
+
+**What it explains.** Why our programme could not work: **it was built entirely of conceptions** (P125, P146), and **meditation is the putting aside of conceptions** — **the opposite of what we did.**
+
+**Testable / rule.** **The next experiment must contain none of our conceptions**: no mechanism, no parameter, no target, no hypothesis. **Only the cell, the situation, and an observation.**
+
+**Status:** the definition; it is P150 in its final form.
+
+---
+
+## P277. The observation takes a second; the explanation takes a long time
+
+**The move.** "**The observation takes a second, the explanation and the description takes a long time, but the act of observation is instantaneous.**"
+
+**In our world.** **This is the sharpest contrast in the file**: **observation is instantaneous; explanation is long.** And **this file is the explanation** — 276 patterns of description — **while the observation would have taken a second.**
+
+**What it explains.** Why the file grew and nothing changed: **we were explaining, and explanation takes a long time.** **The observation was available at any moment and we never made it.**
+
+**Testable / rule.** **The experiment must be an observation, not an explanation.** If the design requires a long procedure, it is an explanation.
+
+**Status:** the contrast; it is P136 (ploughing, not sowing) with a clock.
+
+---
+
+## P278. The brain is a recording instrument — and the "me" is thought using the recording as itself
+
+**The move.** "**The brain records, that is its function. It functions only through memory which protects it, otherwise it can't function.**... **So the brain then is a recording instrument, without thought using it as the 'me' in operation.**"
+
+**In our world.** **This is the crucial distinction that saves the record**: **a recording instrument is not a self.** The brain **must** record (P176, P183, P229). **What must end is not the recording but thought using the recording as the "me".**
+
+**What it explains.** Why "remove the record" was too crude and why "keep the record" was too much (P176): **the record is fine; the "me" using it is not.** And in our cell, **`pred` is used as the "me"** — it **judges** (P107, P270).
+
+**Testable / design requirement.** **The record must be an instrument, not a self.** Mechanically: **it must be readable and not judging** — **no comparison producing a verdict.** That is **P252's two directions** and **P271's no-naming**, arriving at the same design.
+
+**Status:** the distinction; it is the final form of the design.
+
+---
+
+## P279. If you remain with loneliness without escaping, it ceases to be
+
+**The move.** "**If you remain with it, do not escape from it, just look at it completely without condemning it or trying to overcome it, but observe it actually as it is, then you will see that what you considered to be loneliness ceases to be.**"
+
+**In our world.** **This is the operational instruction for the trap**, and it is the **inverse** of everything we did: **do not escape the trap; remain with it; observe it without condemning; and it ceases to be.**
+
+**What it explains.** Why every escape (a mechanism, a parameter, a new field) **strengthened** the trap: **escape is what keeps it.** And it gives the **experiment**: **remain with the trap** (P214) — no fix, no escape, just observation.
+
+**Testable / design requirement.** **The experiment must not escape the trap.** No mechanism, no parameter — **only the trap, observed.** **And the observation must not condemn** (P161: no moral judgement).
+
+**Status:** the instruction; it is P214 completed.
+
+---
+
+## P280. Awareness is not a trick to dissolve what you dislike
+
+**The move.** "**'When I am aware of my sexual desires they seem to disappear.' So awareness is a trick which will help me to make things, which I don't like, disappear.**... **Awareness is not a trick, it is not something that will help me to dissolve the things we don't want. Awareness means to observe the whole movement of like and dislike.**"
+
+**In our world.** **This is the final warning about our own use of observation**: we have been using "observation" as a **trick to make the trap disappear.** And the pattern says: **that is not awareness — it is the "me" using awareness as an instrument.**
+
+**What it explains.** Why our "observations" were **selective** (P203: picking and choosing): **we observed what we wanted to dissolve and ignored what we wanted to keep** (E7's strong selection, E1's boundary — the flattering results).
+
+**Testable / rule.** **Observe the whole movement of like and dislike** — **including the results we like.** A report that observes only the failures is as selective as one that observes only the successes.
+
+**Status:** rule.
+
+---
+
+## P281. Any movement of the "me" in any direction — including the movement to get rid of the "me" — is still the "me"
+
+**The move.** "**Any movement on the part of the 'me' to get rid of itself, to say 'I must wither away', 'I must destroy myself', 'I must gradually get rid of myself', is still that same movement of the 'me'**... **Do I actually, sensuously, intelligently, see the truth of it?**"
+
+**In our world.** **This is the final closure of every self-correction we attempted**: **the cell's movement to get rid of its record is still the record.** Every "adaptive" mechanism, every reset we impose, every threshold we tune — **all are the "me" moving.**
+
+**What it explains.** Why **no internal mechanism can remove the record** (P52, P228, P265): **the removal is the record moving.**
+
+**Testable / design requirement.** **The removal must not be a movement of the cell.** It must be **structural** — the record **not used as a self** (P278), not the record **destroyed by the cell**.
+
+**Status:** the closure; it is the final form of the controller problem.
+
+---
+
+## P282. There are two seeings: the "me" seeing, and seeing
+
+**The move.** "**There are two different observations: the 'me' seeing, and 'seeing'. The 'me' seeing must inevitably be afraid, and must therefore resist... But there is a mere seeing of the map, which is entirely different.**" And: "**The seeing is not the 'me'.**... **Seeing is acting.**"
+
+**In our world.** **This is the distinction the whole file has been reaching for**, and it is **operational**: 
+- **the "me" seeing** = `pred` comparing, judging, resisting — **our cell's entire operation**;
+- **seeing** = the situation observed **without** the comparison.
+
+**What it explains.** Why the cell cannot see: **it only has the "me" seeing.** And it gives the target: **seeing without the "me"** — which is **the record present but not judging** (P278).
+
+**Testable / design requirement.** **The experiment must produce "seeing" and not "the me seeing"** — mechanically: **a readout of the situation that does not enter the decision as a verdict.**
+
+**Status:** the distinction; it is the design.
+
+---
+
+## P283. Looking with a direction is not looking
+
+**The move.** "**Looking with a direction is not looking, obviously.**" And: "**When I look with a direction, it is the 'me'.**"
+
+**In our world.** **This is the final criterion, and it is the simplest**: **direction = the "me" = not looking.** And **every experiment we designed had a direction** — a mechanism to test, a result to obtain, a hypothesis to confirm.
+
+**What it explains.** Why our "observations" were never looking: **they had a direction.**
+
+**Testable / rule.** **The experiment must have no direction** — no hypothesis, no target, no mechanism. **"Just look"** (P115, P135, P204, P279).
+
+**Status:** the criterion.
+
+---
+
 ## What the reading has changed in our plan (updated)
 
-1. **The central fact is found** (P266): **there is one central fact that creates all the images — the gap between the actual and the concept.** So the work is **not** a thousand mechanisms: **remove the comparison and all the images go at once.**
-2. **The logical core is a deduction** (P272): **perception is in the present, thought is the past, therefore thought's interference in perception must distort the present.** This is why every record-based mechanism **had to** distort — and it is **measurable**: the record-explained fraction should predict the deviation of behaviour from what the present alone would produce.
-3. **The design brief is P273**: **quiet without coercion** — no reset forced by us, no threshold, no target, **only a situation in which the record is not needed.**
-4. **The discipline is defined** (P271): **observe without condemning, justifying or naming** — mechanically: no threshold, no verdict, no category. **Readout: energy per unit of behaviour.**
-5. **The measurement paradox** (P261): **the moment I am aware that I am aware, I am not aware** — so the logger must be outside and must not feed back.
-6. **No thought destroying thought** (P265): no mechanism that removes an image, because that mechanism is an image.
-7. **There is no such thing as isolation** (P268): self-knowledge requires a relationship; the cell has none.
-8. **The file is dangerous** (P263): the 262 patterns taken away as ideas **will prevent learning**. Use it to design **one** experiment, then put it away.
-9. **The rules** stand as listed in the previous update (P4–P260).
+1. **The emptying is not an act** (P275): it is what happens **when the mind really does not know and is not waiting.** So the experiment must be designed **without waiting for a result** — no hypothesis, no success criterion.
+2. **The record is an instrument, not a self** (P278, P282): **the brain must record**; what must end is **thought using the record as the "me"**. Mechanically: **readable, not judging — no comparison producing a verdict.**
+3. **Any movement of the cell to remove its record is still the record** (P281): the removal must be **structural** (the record not used as a self), **not a movement of the cell**.
+4. **Looking with a direction is not looking** (P283): the experiment must have **no direction** — no hypothesis, no target, no mechanism.
+5. **Remain with the trap** (P279): no escape, no fix, no condemnation — **and it ceases to be.**
+6. **Awareness is not a trick** (P280): observe the whole movement of like and dislike, **including the results we like.**
+7. **The impossible question** (P274): look at the **whole at once**, not at a mechanism — **the possible is very little.**
+8. **Meditation is putting aside the conceptions** (P276): the next experiment must contain **none of our conceptions.**
+9. **Observation is instantaneous; explanation is long** (P277): this file is the explanation; **the observation would have taken a second.**
+10. **The rules** stand as listed in the previous update (P4–P273).
 
 ---
 
 ## Reading progress
 
-- Pages 1–360 of 409 read (Part VIII complete; Part IX, the Brockwood talks, begun).
-- Next: the last two Brockwood talks and the closing questions (pages 360–409).
+- Pages 1–382 of 409 read (Part IX complete; Part X, the Brockwood discussion on violence and the "me"; Part XI,
+  the Bohm conversation, begun).
+- Next: the Bohm conversation on intelligence, and the closing pages.
