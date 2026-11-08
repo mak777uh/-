@@ -4,9 +4,9 @@
 
 The curated page — what matters and why — is [`scripts.md`](scripts.md). This file is the complete list, so that every command behind a number in the record can be found.
 
-Scripts: **490**.
+Scripts: **497**.
 
-## Гейты и проверки (62)
+## Гейты и проверки (63)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -22,6 +22,7 @@ Scripts: **490**.
 | `check_article_034_numbers.py` | Verify the headline numbers of article 034 against the committed artifact. |
 | `check_article_035_numbers.py` | Verify the headline numbers of article 035 against the committed artifact. |
 | `check_article_036_numbers.py` | Number gate for article 036: every number in the text is produced by a command that must succeed. |
+| `check_article_037_numbers.py` | Number gate for article 037: every count in the manifesto is produced by a command. |
 | `check_article_numbers.py` | check_article_numbers.py — числа статьи 028 обязаны воспроизводиться из агрегатов. |
 | `check_autonomy.py` | check_autonomy.py — the autonomy policy has to be machine-readable, and its protected paths have to be enforced. |
 | `check_claim_artifacts.py` | check_claim_artifacts.py — an artifact cited by a claim must exist in git. |
@@ -169,7 +170,7 @@ Scripts: **490**.
 | `w2bud_metric_variants.py` | w2bud_metric_variants.py — инвариантность эффекта к устройству метрики. |
 | `w2bud_quota_matrix.py` | w2bud_quota_matrix.py — агрегат серии с квотой (H-ALIVE-53). |
 
-## Сборка отчётов и таблиц (34)
+## Сборка отчётов и таблиц (40)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -181,6 +182,8 @@ Scripts: **490**.
 | `build_article_033_package.py` | build_article_033_package.py — assemble the deposit package for article 033. |
 | `build_article_034_package.py` | build_article_034_package.py — assemble the deposit package for article 034. |
 | `build_article_035_package.py` | build_article_035_package.py — assemble the deposit package for article 035. |
+| `build_article_036_package.py` | build_article_036_package.py — assemble the deposit package for article 036. |
+| `build_article_037_package.py` | build_article_037_package.py — assemble the deposit package for article 037. |
 | `build_x160_memory_matrix.py` | Build x160_memory_matrix.json from the x160_memory series (63 artifacts, 3 arms x 20 seeds). |
 | `make_article_029_figures.py` | make_article_029_figures.py — figures and derived tables for article 029 (v2, plain-language edition). |
 | `make_article_029_pdf.py` | make_article_029_pdf.py — render article 029 as a self-contained PDF for the deposit. |
@@ -195,6 +198,10 @@ Scripts: **490**.
 | `make_article_034_pdf.py` | Build the PDF for article 032 by reusing the article-031 renderer. |
 | `make_article_035_figures.py` | make_article_035_figures.py — the figure of article 035, built from the artifact only. |
 | `make_article_035_pdf.py` | Build the PDF for article 032 by reusing the article-031 renderer. |
+| `make_article_036_figures.py` | Figures for article 036: the layer diagram and the defect-attribution table. |
+| `make_article_036_pdf.py` | Build the PDF for article 036 by reusing the article-031 renderer. |
+| `make_article_037_figures.py` | Figures for article 037: the three claims and the four constraints. |
+| `make_article_037_pdf.py` | Build the PDF for article 037 by reusing the article-031 renderer. |
 | `make_artifact_table.py` | Собрать приложение-таблицу артефактов с хешами (manuscript/SUPPLEMENT.md). |
 | `make_arxiv_figures.py` | make_arxiv_figures.py — четыре фигуры для черновика (26.10). |
 | `make_carrier_figures.py` | Собрать два рисунка по закрытиям carriers/кластеров из сырых артефактов. |
@@ -246,7 +253,7 @@ Scripts: **490**.
 | `gate_refusal_selftest.py` | Does the live gate actually refuse? Plant a disagreement and check that no run starts. |
 | `github_intake.py` | github_intake.py — GitHub issues as a task source, with an author allowlist. |
 | `index_report.py` | index_report.py — add a report row to reports/README.md, or check which reports lack one. |
-| `k_readouts.py` | The three readouts the reading implies, replacing the favourable share as the primary metric. |
+| `k_readouts.py` | The within-cell readouts: does a cell's behaviour follow its situation or its own record? |
 | `l1_field_matrix.py` | l1_field_matrix.py — агрегат линии поля: медианы, разброс и интервалы по плечам. |
 | `lean_axioms.py` | lean_axioms.py — независимая проверка теорем Lean на «чистоту аксиом» и неизменность формулировок. |
 | `literature_harvest.py` | literature_harvest.py — собрать настоящие работы по теме, с аннотациями и ссылками на полные тексты. |

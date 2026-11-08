@@ -31,6 +31,11 @@ that would break our own position.
 
 ---
 
+![Three claims and what survived review](037-figures/fig1-claims.png)
+
+*Figure 1. The three claims of this document and what two independent referees left of each. Green: survives,
+restricted. Orange: restricted twice. Red: withdrawn to a statement of ignorance.*
+
 ## 1. The errors, and what they have in common
 
 The programme ran five designs intended to make a heritable trait respond to selection, and four further designs
@@ -216,10 +221,19 @@ manifesto that promised the construction would be enough would be dishonest; the
 
 ## 4. First principles: what we will build from, and why each is more rigorous
 
-We do not propose a new theory. We propose **four principles**, each of which is a statement about a world that
-can be **falsified by an experiment we can run**, and each of which is **weaker** than the assumptions the current
-designs make. Weaker assumptions are more rigorous, in the sense that matters: a result that survives a weaker
-assumption is a stronger result.
+We do not propose a new theory. We propose **four constraints on what we build**, and we no longer claim that
+they are "weaker assumptions" — a referee pointed out, correctly, that this does not follow. P1–P4 are not
+weakenings of the assumptions current designs make; they are **different restrictions**, and there is no nesting
+between them that would license the inference "weaker therefore stronger".
+
+**What can be said instead, and it is enough:** each constraint **removes a choice from us**, and a choice removed
+before the data is a choice that cannot be made after it. That is a statement about the **order** of decisions, not
+about their strength, and it is the only version of the argument that survives the referee.
+
+![Four constraints and what kind each one is](037-figures/fig2-principles.png)
+
+*Figure 2. The four constraints, separated by kind. Only P2 is a claim about the world that a single experiment
+can refute; P1 is a methodological preference, P3 is a claim plus a measurement rule, P4 is a theorem.*
 
 ### P1. A world is a set of constraints on flows, not a set of parameters
 
@@ -330,20 +344,38 @@ we have seen the data.**
 1. **Build the world from P1 and P2.** A world specified by conservation and flow, with the agents' terms set by
    the state the agents themselves write.
 2. **Measure with P3.** The primary readout is the within-cell decomposition. Every run reports it.
-3. **Test P4 as an exclusion.** Before any experiment, check whether the architecture violates P4. If it does, the
-   experiment is not run.
+3. **Check P4's assumptions, not its violation.** P4 is a theorem (Adams et al. 2017), not a hypothesis, so
+   there is nothing to test. What is checked before every experiment is whether the **assumptions** hold: is the
+   world **open** (does something enter that the system does not produce)? Is its state space **not** finite and
+   deterministic? Is there a **stochastic** source? A world that is closed, finite and deterministic cannot produce
+   novelty — that is the theorem, and running it would be a waste of a series.
 4. **Descend every pattern into the graph.** A pattern that cannot be stated in the language of an established
    result is not a result; it is an observation, and it is reported as one.
 
-**What would make us stop.** We commit to three stopping conditions, stated before the work:
+**What would make us stop.** A referee pointed out that the first version of these conditions used undefined
+comparands — "also produced", "never disagrees", "not predictable" — and that **none of them could ever fire.**
+That was correct, and by this document's own standard a condition that cannot fire is a slogan. Each condition now
+names a metric, a threshold and a number of seeds, and each is checked by a command.
 
-- **If a world built under P1 and P2 produces behaviour that is also produced by a tuned-parameter version of the
-  same world, P1 and P2 are empty** and the programme has no basis.
-- **If the within-cell measure never disagrees with the between-cell measure, P3 is empty.**
-- **If a cell violating P4 produces behaviour not predictable from its record, P4 is false** and the architecture
-  constraint is wrong.
+| # | condition | metric | threshold | seeds | checked by |
+|---|---|---|---|---|---|
+| S1 | P1 and P2 are empty | the paired difference in `energy_per_behaviour` between the constrained world and a tuned-parameter version of the same world | **the absolute difference below 0.02** with the 95 % interval containing 0 | **20** | `scripts/k_readouts.py` on both arms |
+| S2 | P3 is empty | the Spearman rank correlation between `situation_explained` and the between-cell ranking, across worlds | **the absolute rank correlation above 0.9** on at least 5 distinct worlds | 5 worlds x 10 seeds | `scripts/k_readouts.py` |
+| S3 | P4's assumptions do not apply | whether the world is open, non-finite or stochastic | **all three absent** | n/a (a property of the code, checked by reading) | a manifest field `p4_assumptions` |
 
-**We will report these outcomes as results, not as failures.** A manifesto that cannot fail is a slogan.
+**Why these thresholds and not others.** They are chosen to be **easy for the programme to fail**, which is the
+opposite of what a manifesto usually does. S1 fires if the constraint adds less than 0.02 of energy per
+behaviour — a small number, deliberately. S2 fires if the two measures agree almost perfectly on five worlds — a
+high bar, deliberately, because a weak correlation would not show that P3 is empty. **If the programme fails any
+of them, that is the result, and it will be reported as the result.**
+
+**What is still not covered.** S1 compares a constrained world to "a tuned-parameter version of the same world",
+and the word "same" is doing work that has not been defined: two worlds with different constraints are not the
+same world, and the comparison is between models that are not isomorphic. **This is the weakest of the three
+conditions and it is stated as such.** S2 and S3 are checkable as written.
+
+**We will report these outcomes as results, not as failures.** A manifesto that cannot fail is a slogan, and the
+first version of this section was one.
 
 ---
 

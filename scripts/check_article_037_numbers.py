@@ -90,6 +90,14 @@ def main(argv=None) -> int:
     # the manifesto must state what it does not claim
     check("has a 'does not claim' section", "## 6. What this document does not claim" in text)
 
+    # the three stopping conditions must each be present with a metric, a threshold and a seed count, or they
+    # cannot fire - which was the referee's objection to the first version
+    for tag in ("S1", "S2", "S3"):
+        check(f"stopping condition {tag} is present", f"| {tag} |" in text)
+    check("stopping conditions carry numeric thresholds",
+          "0.02" in text and "0.9" in text, "thresholds missing")
+    check("the weakest condition is named as such", "weakest of the three" in text)
+
     # the evidence appendix must point at files that exist
     for path in ("docs/eliminations.md", "scripts/check_experiment_manifest.py",
                  "scripts/check_design.py", "scripts/k_readouts.py",

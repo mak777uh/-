@@ -81,7 +81,11 @@ def probe(name: str, defect: str, expect: str, parts: list[str], plant, run_chec
     result = {"probe": name, "defect": defect, "expect": expect,
               "planted": False, "caught": False, "reason_matched": False,
               "clean_passes": False, "note": ""}
-    with tempfile.TemporaryDirectory() as tmp:
+    # The scratch tree must live OUTSIDE the repository. tempfile honours TMPDIR, and on one run it placed the
+    # copy inside the repository, where check_links.py then found thousands of "broken" links in the copy. The
+    # directory is created explicitly under the system temp dir and removed in a finally block.
+    tmp = tempfile.mkdtemp(prefix="closure-probe-")
+    try:
         scratch_copy(tmp, parts)
         # step 6 baseline: the clean copy must pass BEFORE we plant anything, otherwise the probe measures
         # the copy, not the defect
@@ -104,6 +108,8 @@ def probe(name: str, defect: str, expect: str, parts: list[str], plant, run_chec
             cleanup(tmp)
             rc2, _ = run_check(tmp)
             result["clean_passes"] = rc2 == 0
+    finally:
+        shutil.rmtree(tmp, ignore_errors=True)
     return result
 
 
