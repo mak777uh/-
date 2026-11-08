@@ -4,7 +4,7 @@
 
 The curated page — what matters and why — is [`scripts.md`](scripts.md). This file is the complete list, so that every command behind a number in the record can be found.
 
-Scripts: **509**.
+Scripts: **510**.
 
 ## Гейты и проверки (65)
 
@@ -218,7 +218,7 @@ Scripts: **509**.
 | `make_seed_grid_figure.py` | Собрать Figure 4 рукописи: сетка «инициализация × порядок данных» (§4.13). |
 | `make_simple_poster.py` | Простой постер для владельца: что мы узнали, без терминов. |
 
-## Прочее (327)
+## Прочее (328)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -227,6 +227,7 @@ Scripts: **509**.
 | `a3_anomalies.py` | A3: find ANOMALIES in the corpus - series whose results depart from their peers. |
 | `additivity_interaction.py` | additivity_interaction.py — взаимодействие двух механизмов на парных сидах. |
 | `analyse_e18.py` | Analyse E18: does the cell's behaviour follow the situation when it has no record? |
+| `analyse_e19.py` | Analyse E19: does turning the record on kill the body? |
 | `analyse_e3.py` | analyse_e3.py — сходятся ли три пути после того, как история закончилась. |
 | `analyse_e3_state.py` | analyse_e3_state.py — сравнение по СОСТОЯНИЮ, а не по времени. |
 | `analysis_task.py` | analysis_task.py — ферма CPU-задач на GitHub Actions: берёт задачу из очереди и считает. |

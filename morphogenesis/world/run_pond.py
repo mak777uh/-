@@ -1334,18 +1334,6 @@ def main(argv: list[str] | None = None) -> int:
     world.organism_mobility_every = args.organism_mobility_every
     world.plastic_eta = args.plastic_eta
 
-    # The profile is applied AFTER the command-line arguments, so it is a BASE: a field the user passed
-    # explicitly still wins only if it differs from the argument default. The order matters and the
-    # first version had it backwards, which silently zeroed plastic_eta.
-    _profile_name = getattr(args, "profile", None)
-    if _profile_name:
-        from world.profiles import apply_profile
-        _set_by_profile = apply_profile(world, _profile_name)
-        # an argument the user actually changed must still win
-        for _f in _set_by_profile:
-            _arg = "--" + _f.replace("_", "-")
-            if any(a == _arg or a.startswith(_arg + "=") for a in sys.argv[1:]):
-                setattr(world, _f, getattr(args, _f.replace("-", "_"), getattr(world, _f)))
     world.plastic_move_cost = args.plastic_move_cost
     world.plastic_gate = args.plastic_gate
     world.plastic_direction = getattr(args, "plastic_direction", "gradient")
@@ -1433,6 +1421,18 @@ def main(argv: list[str] | None = None) -> int:
     world.income_mode = args.income_mode
     world.init_resource_fill = args.init_resource_fill
     world.resource_regen = args.resource_regen
+    # The profile is applied AFTER the command-line arguments, so it is a BASE: a field the user passed
+    # explicitly still wins only if it differs from the argument default. The order matters and the
+    # first version had it backwards, which silently zeroed plastic_eta.
+    _profile_name = getattr(args, "profile", None)
+    if _profile_name:
+        from world.profiles import apply_profile
+        _set_by_profile = apply_profile(world, _profile_name)
+        # an argument the user actually changed must still win
+        for _f in _set_by_profile:
+            _arg = "--" + _f.replace("_", "-")
+            if any(a == _arg or a.startswith(_arg + "=") for a in sys.argv[1:]):
+                setattr(world, _f, getattr(args, _f.replace("-", "_"), getattr(world, _f)))
     # Воспроизводимость: сеем глобальные ГПСЧ сидом прогона. Без этого часть
     # случайности (например, глобальный torch-ГПСЧ в служебных операциях) шла мимо
     # `self.gen`, и один и тот же сид давал разные pop_time (проверено 24.10).
