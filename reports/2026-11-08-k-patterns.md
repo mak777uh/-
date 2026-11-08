@@ -3155,62 +3155,309 @@ observation.**
 
 ---
 
+## P151. The gap between the actual and the concept is the whole problem
+
+**The move.** "My concept is different from the actuality that is taking place now. Right? So there is an **interval, a
+gap between what is, and what should be, or the concept**... When I have toothache it is not a concept. It is an
+actuality. When I am hungry, it is not a concept... But the next moment I say 'No, I must not' or 'I must'... **So
+there is a division between the actual, the what is, and the conceptual.**"
+
+**In our world.** This is **the exact architecture of our cell**, and it is the clearest statement of it in the file.
+The cell has:
+- **the actual** — the resource it is standing in;
+- **the concept** — `pred`, the expected resource;
+- **the gap** — the difference, which is the **entire decision variable**.
+
+**What it explains.** Everything: the trap (the gap is the conflict), the nulls (the cell reads the gap, not the
+actual), the failure of every addition (each addition was a **concept** — P45's gift, P84's story, P95's toy).
+
+**And it gives the crucial distinction we never made:** **hunger is not a concept; the memory of yesterday's hunger
+is.** "If it is born out of yesterday's hunger it is not actual." **Our `pred` is born out of yesterday's resource,
+and therefore it is not actual.**
+
+**Testable.** The removal experiment is the test of P151: with the concept gone, **the cell lives in the actual** —
+measurable as the fraction of behaviour explained by the situation (P80) going to one.
+
+**Status:** the architecture, stated.
+
+---
+
+## P152. The concept is an escape from what is — and we only escape when it is painful
+
+**The move.** "Why do you want to escape from what is? **You would not want to escape from what is if it were
+pleasurable. You only want to escape from what is when it is painful.**"
+
+**In our world.** This is **the mechanism of why the record exists at all**, and it is a prediction about **when**
+it will be strongest: `pred` is an escape from a painful actuality, so it should be **more entrenched where the
+environment is worse**.
+
+**What it explains.** Why the trap was worst in the **slow-recovery** environment (S22: 0.166 vs 0.340): the actual
+was more painful there, so the escape was more attractive. **And it explains why the trap is not a bug of the rule
+but a response to the world.**
+
+**Testable, and it is a clean prediction on existing data.** The record-explained fraction (P80) should be
+**higher** in the slow-recovery arms than in the fast-recovery arms. If it is, the escape theory holds.
+
+**Status:** hypothesis; testable on E1/S22 artifacts.
+
+---
+
+## P153. Concepts are a barrier that prevents looking
+
+**The move.** "**So concepts are a barrier; they act as a barrier which prevents you from looking.**"
+
+**In our world.** This is P140 in the language of barriers, and it is **the answer to "why can't the cell see?"**:
+`pred` is a barrier between the cell and its resource. **The cell is not looking at the resource; it is looking at
+the barrier.**
+
+**What it explains.** Why the four E10 patterns were indistinguishable: **a barrier is opaque to the pattern behind
+it.**
+
+**Testable.** Same as P151. And it gives a **new readout**: the barrier's opacity is the record-explained fraction.
+
+**Status:** the barrier statement.
+
+---
+
+## P154. Escape is a waste of energy — and that is the whole argument
+
+**The move.** "I have to deal with what is, and to deal with what is **I need energy. Therefore I will not escape.
+Escape is a waste of energy.**"
+
+**In our world.** This is P133 and P41 with the **reason**: escape is not merely ineffective, it **costs**. And the
+pattern gives the **accounting** we have been missing: **the energy needed to deal with the actual is spent on
+escaping it.**
+
+**What it explains.** Why the adaptive arms had **less energy**: they were paying for the escape. And it unifies the
+energy and information readings of the trap (P133) into one sentence.
+
+**Testable.** The move-cost test (P41) is the test: if escape is the waste, then **removing the cost of the escape**
+(movement) should remove the trap's disadvantage.
+
+**Status:** the accounting.
+
+---
+
+## P155. There is no good image and no bad image — an impression is an impression
+
+**The move.** "A bad impression or a good impression is still an impression. **There is no 'good image' and 'bad
+image'.**"
+
+**In our world.** This **closes the last possible hope**: that the cell could keep a **good** record (of plenty) and
+discard a **bad** one (of shortage). **There is no good record and bad record** — there is only the record, and the
+record is the barrier.
+
+**What it explains.** Why P14 was right that the record cannot be tuned: **tuning assumes a good and a bad record,
+and there is no such distinction.** The record is one thing with one effect: separation.
+
+**Testable / design requirement.** No design may distinguish "useful memory" from "harmful memory". The only
+operation available is **the whole record or none**.
+
+**Status:** rule; it closes the tuning direction permanently.
+
+---
+
+## P156. You cannot force anyone to be free of a habit — force produces revolt, and the revolt is violence
+
+**The move.** "If the Government were to say, 'You must not be envious', you would then find other ways of being
+envious, more subtle ones... **So by forcing you to be non-envious you will revolt against it, and the revolt is
+violence.**"
+
+**In our world.** This is the **final judgement on the "fix" family**, and it is a **mechanism**: forcing a habit out
+**produces a subtler version of the habit**, and the revolt is itself the harm. Our cell, forced to act better (the
+gate), found **subtler ways of not acting** — the trap.
+
+**What it explains.** Why the "helpful" mechanisms produced harm (P76, P129): **force produces revolt**, and the
+revolt is the harm.
+
+**Testable.** The prediction: any mechanism that **forces** a behaviour should produce a **more subtle version of the
+opposite behaviour**. In our data: the gate forced action and produced inaction.
+
+**Status:** rule; it closes the "force" direction.
+
+---
+
+## P157. Awareness of the habit is the only thing that ends it — and it takes no time
+
+**The move.** "But **if you become aware of the habit you have cultivated for forty, twenty or ten years of comparing
+yourself with another, then what takes place?**"
+
+**In our world.** This is P139 and P25 completed: the habit ends by **awareness**, not by force (P156) and not by
+cultivation (P68). And the pattern's form is a **question**, not an instruction: **what takes place?** — i.e. **the
+effect of awareness is to be observed, not asserted.**
+
+**What it explains.** Why the removal experiment is the right one: it is the **only** operation that is neither force
+nor cultivation — it is **the removal of the condition**, and then **we observe what takes place**.
+
+**Testable / rule.** The experiment's report must be **"what took place"**, not "the mechanism worked". That is P105
+and P115 in one form.
+
+**Status:** the form of the report.
+
+---
+
+## P158. We are not in contact — and we are in contact only when we talk about concepts
+
+**The move.** "So we lose contact with each other when we are not talking about concepts. **When we talk about
+concepts, we are in contact.**... But when you come down to an actual fact — of greed, envy — **then we lose
+contact**."
+
+**In our world.** This is a **warning about our own communication**, and it is exact: **we are in contact with each
+other about concepts and out of contact about facts.** Our reports were full of concepts ("selection", "signal",
+"niche", "evolution") and thin on facts ("the fraction able to act fell from 0.31 to 0.17").
+
+**What it explains.** Why our discussions felt productive and changed nothing: **concepts are where we meet, and
+facts are where we part.**
+
+**Testable / rule.** Report **facts** — numbers, sequences, curves — and **name the concepts as concepts** when they
+appear. A report that is all concepts is a conversation, not a finding.
+
+**Status:** rule; it is P125 applied to our communication.
+
+---
+
+## P159. To get illumination you must have a clear mind — you must be able to look
+
+**The move.** "**To get illumination you must have a clear mind, you must be able to look.**"
+
+**In our world.** This is the **condition for any result** and it is a condition on **us**, not on the cell: **a
+clear mind, able to look.** And the whole reading has been an account of how unclear our mind was: full of concepts
+(P125), full of tradition (P146), full of holy sticks (P147), full of goals born of inadequacy (P111).
+
+**What it explains.** Why the file had to come before the experiment: **not to accumulate knowledge, but to clear the
+mind** — which is P150's "put away the sacred books".
+
+**Testable / rule.** The test of a clear mind is **the experiment it designs**: if the design contains a mechanism,
+a goal, or an inherited form, the mind was not clear.
+
+**Status:** the condition.
+
+---
+
+## P160. Love is not a concept — and because you have no love, you live in concepts
+
+**The move.** "**Love is not a concept. And because you have no love, you live in concepts.**"
+
+**In our world.** This is the **causal chain of the whole reading** in one line: **no love → concepts → separation →
+conflict → disorder**. And it maps exactly onto our cell: **no contact → record → separation → trap**.
+
+**What it explains.** Why the trap cannot be fixed by any arrangement of concepts: **the concepts are the symptom of
+the absence, and arranging them does not produce the presence.**
+
+**Testable / design requirement.** The only thing that can change is **the presence of contact** — the fraction of
+behaviour explained by the situation. **That is the one quantity, and everything else in the reading points at it.**
+
+**Status:** the chain; it makes P80 the single measure one last time.
+
+---
+
+## P161. Most of us are interested in ourselves — and thinking that is wrong is itself a concept
+
+**The move.** "The actual daily fact is that **one is interested in oneself**, and you think it is wrong. **But what
+you think is irrelevant, it has no validity at all.** Why introduce that factor? Why say 'It is wrong'? That is an
+idea, is it not? — it is a concept."
+
+**In our world.** This is a **warning about our own moralising**, and it is precise: we kept saying that our designs
+were **wrong** (the tap, the saturation, the artefact) — and **"it is wrong" is itself a concept**, which **prevents
+looking** (P153).
+
+**What it explains.** Why our post-mortems were so long and so unproductive: they were **moral**, not factual. **"The
+design was wrong" is a concept; "the dose was clipped by the ceiling" is a fact.**
+
+**Testable / rule.** **No moral judgements in the reports.** Only facts: what the numbers were, what the artefact
+was, what the ceiling did.
+
+**Status:** rule; it is P105 and P158 combined.
+
+---
+
+## P162. Satisfaction is self-concern — and helping others for satisfaction is the same process
+
+**The move.** "If you are seeking satisfaction in helping others and therefore that gives greater satisfaction, **you
+are still concerned about yourself**... It is all the same process, is it not?"
+
+**In our world.** This is **the final judgement on the "help the cell" family** (P45, P86, P90), and it is
+**mechanical**: a mechanism designed to **satisfy** us (to produce an effect, to give us a result) is
+**self-concern**, whatever its content. **The content of the help does not matter; the search for satisfaction is the
+same process.**
+
+**What it explains.** Why every helpful mechanism was a **toy** (P95): a toy **satisfies**. The satisfaction was the
+design criterion, and it produced the toy.
+
+**Testable / rule.** Ask: **is this experiment designed to satisfy me or to see?** If the answer is "to see", the
+design will look different — it will have **no success criterion** (P112: equally satisfied by either answer).
+
+**Status:** rule; it is P112's mechanism.
+
+---
+
+## P163. Why do we want satisfaction? — find out the mechanism, not whether it is right
+
+**The move.** "**Why do we want satisfaction?** Not that 'we should not', that is only a concept, a formula, and
+hence there is contradiction, and therefore conflict. So why not find out **why** we want satisfaction?"
+
+**In our world.** This is the **method** of the whole reading, stated as a procedure: **not "should we", but "why
+do we"**. And it applies to us: **not "should we add a mechanism", but "why do we want to add one?"**
+
+**What it explains.** The answer, from P111 and P162: **because we are inadequate and a mechanism promises
+satisfaction.** And **that answer is the end of the mechanism family** — not because it is wrong, but because **the
+motive is now visible.**
+
+**Testable / rule.** Before an experiment, answer **"why do I want this?"** and write the answer down. If the answer
+is "because the last one failed", it is an escape (P87). If it is "because I want a result", it is satisfaction
+(P162).
+
+**Status:** rule; it is the last filter.
+
+---
+
+## P164. The craving for position is the craving not to be nobody
+
+**The move.** "**Are we afraid of being nobody, and that is why we want position?**... Inwardly we are just ordinary
+people with aching sorrows... and to have an outward position where I am regarded as a terribly respectable citizen,
+that is very satisfactory."
+
+**In our world.** This is **the diagnosis of our own programme's appetite for results**, and it is exact: **the
+craving for a result is the craving not to be nobody.** Each mechanism was a **position** — a way of being
+**somebody** in the field. And when a result failed to appear, the position was threatened, which is why the
+retractions were so painful (P147).
+
+**What it explains.** Why we kept producing **reports** rather than **findings**: a report is a position; a finding
+is a fact that does not care who found it.
+
+**Testable / rule.** A finding **needs no author**. If the result would be less interesting if someone else had
+found it, it is a position, not a finding.
+
+**Status:** rule; it is the last word on the reports.
+
+---
+
 ## What the reading has changed in our plan (updated)
 
-1. **The next experiment: only the cell, the situation, and an observation** (P150, P146, P136): no mechanism from
-   the literature, no design from our history, no parameter that is "the way".
-2. **We have run zero original experiments** (P146): originality is a property of the **origin**, not of the
-   arrangement.
-3. **The disorder is the state, not the arrangement** (P145): the removal experiment is not an improvement, it is an
-   **ending** — and the change must be **immediate** (P75).
-4. **The drill is deadly** (P148): a rule applied identically every step is slavery to a habit.
-5. **The single measure** (P149, P80): the fraction of behaviour explained by the situation **is** attention, and
-   attention is virtue, beauty, love and order in this world.
-6. **Is this holy or is it a stick?** (P147) Before reusing a mechanism.
-7. **The experiment is fully specified** (P142): one experiment, three readouts — no centre, no division, no
-   conflict.
-8. **The experiment must measure DISORDER, not produce order** (P141); **it must be an awareness of inattention**
-   (P139); **no design may contain a "make the cell attend" step** (P143).
-9. **No comparatives in reporting** (P144); **no adjectives** (P130); **write what we do not know** (P127).
-10. **Concentration is deadly** (P138); **the image is what is in contact** (P140); **we are ploughing not sowing**
-    (P136).
-11. **Separation means conflict** (P128); **every between-cell measure is abandoned** (P132); **the quiet readout**
-    (P131); **the energy accounting** (P133).
-12. **The next experiment has no method in it** (P126); **the question is an observation, not a concept** (P125).
-13. **Re-read the corpus: did each mechanism help, in the cell's own terms?** (P122); **when a result contradicts the
-    design, it is a finding about the design** (P123).
-14. **A rule applied identically every step is a memorised chapter** (P121); **look at the obvious** (P118); **the
-    relationship specification** (P119); **is this an instruction to look?** (P116).
-15. **The central question may be a symptom** (P113); **the scope limit** (P106); **the size of the goal measures the
-    experimenter** (P111); **cut the craving for an interesting result** (P112); **aim versus activity** (P114).
-16. **Would I run this if I had never heard of the mechanism** (P100); **start from where the cell is** (P101);
-    **factual or demanded** (P109).
-17. **The neighbour-read experiment** (P97, P22, P119); **close the return path** (P103, P43, P47).
-18. **State the danger of the addition** (P104); **report nulls as descriptions** (P105).
-19. **The filter** (P81, P84, P89, P90, P92, P94, P99): remove, not add; no collision-prevention; no carrying; no
-    routine; no method; no step-back-and-look.
-20. **The core hypothesis** (P71); **the decisive experiment** (P74, P75, P77); **the two-arm test** (P78); **the
-    missing control** (P56, P76); **the only legitimate lever** (P85).
-21. **On existing data:** the S22 arms (P79, P93, P98, P128, P133, P148); `resource − pred` across E10's patterns
-    (P11); did each mechanism help (P122).
-22. **Rules:** from the first steps (P4); no predicted sign (P33); "what is" not "how to" (P39); which of the first
-    two states (P46); measure behaviour not its shadow (P48); set of variables not values (P51); no "should" for the
-    cell (P63); the proof that a pattern was seen is that the next experiment changed shape (P64); report the range
-    (P73); no gain as a justification (P83); no story (P84); enquiry not search (P88); call a toy a toy (P95); would
-    I run this if I knew nothing (P100); start from where the cell is (P101); state the danger of the addition
-    (P104); report nulls as descriptions (P105); factual or demanded (P109); equally satisfied by either answer
-    (P112); question or symptom (P113); aim versus activity (P114); a look not a fix (P115); is this an instruction
-    to look (P116); look at the obvious (P118); observation not concept (P125); no method (P126); write what we do
-    not know (P127); no adjectives (P130); no between-cell measure (P132); sow not plough (P136); no comparatives
-    (P144); is this holy or a stick (P147).
-23. **Design constraints:** novelty from outside the record (P38); relationship not isolation (P34, P97, P119); no
-    controller inside the cell (P52, P99); one quantity outer-inner-beyond (P43); do not help the cell (P45, P86,
-    P90); one process not parts (P65); no blueprint (P67); no planning (P72); no will (P76, P143); no method (P94,
-    P126); no concentration (P138); no drill (P148).
+1. **The architecture is named** (P151): the cell has the **actual** (the resource), the **concept** (`pred`), and the
+   **gap** between them — and the gap is the entire decision variable. **Hunger is not a concept; the memory of
+   yesterday's hunger is.**
+2. **Escape is a waste of energy** (P154, P133, P41): the energy needed to deal with the actual is spent escaping it.
+3. **There is no good record and no bad record** (P155): **the whole record or none** — the tuning direction is
+   closed.
+4. **Force produces revolt, and the revolt is the harm** (P156, P76, P129): the gate forced action and produced
+   inaction.
+5. **Awareness ends the habit and takes no time** (P157, P139, P25): the report must be **"what took place"**.
+6. **Concepts are a barrier** (P153, P140); **the concept is an escape from what is, and we escape only when it is
+   painful** (P152) — testable: the record-explained fraction should be **higher** in slow-recovery arms.
+7. **No moral judgements** (P161); **no concepts in the report** (P158); **no comparatives** (P144); **no adjectives**
+   (P130).
+8. **Why do I want this?** (P163): if the answer is "because the last one failed", it is an escape; if "because I want
+   a result", it is satisfaction.
+9. **A finding needs no author** (P164).
+10. **The next experiment: only the cell, the situation, and an observation** (P150, P146, P136).
+11. **The experiment is fully specified** (P142): no centre, no division, no conflict.
+12. **The single measure** (P149, P80, P160): the fraction of behaviour explained by the situation.
+13. **The remaining rules** stand as listed in the previous update (P4–P148).
 
 ---
 
 ## Reading progress
 
-- Pages 1–173 of 409 read (Part V complete: "The sacred"; Part VI, the first Madras dialogue on conflict, begun).
-- Next: the four Madras dialogues (conflict, pleasure, time and the centre, a fundamental question).
+- Pages 1–188 of 409 read (Part VI: the Madras dialogues on conflict and the pursuit of pleasure).
+- Next: the rest of "The pursuit of pleasure", then "Time, space and the centre".
