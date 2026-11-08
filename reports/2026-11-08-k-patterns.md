@@ -3030,33 +3030,159 @@ And it applies to **our language**: "deeper", "stronger", "more significant" —
 
 ---
 
+## P145. We are not in disorder — we ARE a state of disorder
+
+**The move.** "**We are not in disorder — 'we' is a state of disorder.**" And: "when you look at yourself without any
+image about yourself... you are **directly in contact** with it. And **when there is direct contact there is
+immediate action**."
+
+**In our world.** This is P62 and P71 in one line, and it is the **answer to "where is the disorder"**: not in the
+environment, not in the parameters, not in the mechanism — **the cell's state IS the disorder**. And the consequence
+is the one we need: **direct contact gives immediate action** — no time interval, no cultivation (P68).
+
+**What it explains.** Why the trap has **no gradual fix**: the disorder is the state, and a state cannot be
+**gradually** left; it is either **seen** or it is not.
+
+**Testable.** The removal experiment is the test of **direct contact**: if the disorder is the state, then removing
+the state (the record) is not "improving" the cell but **ending** the disorder — and the change must be
+**immediate** (P75).
+
+**Status:** the structural statement of the trap.
+
+---
+
+## P146. We are the result of propaganda — and therefore nothing original
+
+**The move.** "The past in you is your tradition, the books that you have read, the racial inheritance... **This
+constitutes the propaganda to which you have been subjected, your propaganda**; you are slaves to the propaganda of
+five thousand years... **We are the result of propaganda.** Do you realize what it means? — words, the influence of
+others; **so there is nothing whatsoever original.**"
+
+**In our world.** **This is the final judgement on our experiment list**, and it is the same as P96 but harsher: we
+are **the result of propaganda** — the literature we read — and therefore **nothing in our list is original**. Every
+mechanism was inherited; every design was inherited.
+
+**What it explains.** Why "novelty" never appeared: **there was nothing original in the input**, so nothing original
+could appear in the output. **Originality is not a property of the arrangement; it is a property of the origin.**
+
+**Testable / rule.** An experiment is original only if its **origin** is not inherited — which is P100 ("would I run
+this if I had never heard of the mechanism") in the strongest form. **We have run zero original experiments.**
+
+**Status:** rule; it is the honest audit.
+
+---
+
+## P147. A stick with a flower becomes holy — and you made it holy out of fear and habit
+
+**The move.** "Take a piece of stick, put it on the mantelpiece and every day put a flower in front of it and repeat
+some words — 'Coca-cola', 'Amen', 'Om', it doesn't matter what word... **after a month you will see how holy it has
+become**. You have identified yourself with that stick... **You have given it a sense of holiness out of your fear,
+out of the constant habit of this tradition.**"
+
+**In our world.** **This is the exact mechanism by which our mechanisms became "important".** We put a mechanism in
+front of the cell, repeated it, measured it, wrote about it — and **after a month it became holy**. The field, the
+niche, the signal, the decoder: each became **sacred** through **repetition and our fear of having nothing**.
+
+**What it explains.** Why we kept returning to mechanisms that had already failed: **they had become holy.** And why
+the retractions were so painful: **we were desecrating a shrine.**
+
+**Testable / rule.** Before reusing a mechanism, ask: **is this holy or is it a stick?** If the answer requires the
+history of our work to justify it, it is holy.
+
+**Status:** rule; it is P95/P121 with the psychology of the researcher named.
+
+---
+
+## P148. Discipline is a drill — and the drill is slavery to a habit; real discipline is a living thing
+
+**The move.** "For most of us, discipline is a **drill**, as it is for the soldier, drill, drill from morning until
+night so that there is nothing but **slavery to a habit**. And that is what we call discipline; suppression,
+control — **that is deadly, that is not discipline at all**. Discipline is a **living thing**, it has its own beauty,
+its own freedom."
+
+**In our world.** **This is the final word on our step rule.** The cell's rule is a **drill**: the same procedure,
+every step, from birth to death. And the pattern says: **the drill is slavery to a habit, and it is deadly.**
+
+**What it explains.** Why the cell became **mechanical** (P36) and **narrow** (P93): a drill is exactly that. And it
+gives the criterion for the alternative: **real discipline is a living thing** — which means it **changes with the
+situation**, which is only possible if the rule **reads the situation** rather than the record.
+
+**Testable.** The variance decomposition measures exactly this: a **drill** shows high record-explained variance; a
+**living discipline** shows high situation-explained variance.
+
+**Status:** the final diagnosis of the rule.
+
+---
+
+## P149. Attention itself is virtue — and virtue is beauty, and beauty is love
+
+**The move.** "**This attention itself is virtue.** You need no other ethical standard, no morality... **Virtue is
+beauty and beauty is love**, and without love you have no virtue and therefore no order."
+
+**In our world.** This is the **chain that closes the whole reading**: attention → virtue → beauty → love → order.
+And it says something we can use: **there is no separate "ethics" to install** — the **quality of attention** is the
+ethics. Our cell has **no attention** (it has concentration, P138), and therefore **no virtue, no beauty, no love, no
+order** — in the exact sense the reading uses these words.
+
+**What it explains.** Why every attempt to give the cell a "good" rule failed (P83): **a rule is not attention**,
+and only attention is virtue.
+
+**Testable / rule.** The only thing worth changing is the **quality of attention** — which in our terms is the
+**fraction of behaviour explained by the situation** (P80). **That is the one number that stands for virtue, beauty,
+love and order in this world.**
+
+**Status:** the unifying chain; it makes P80 the single measure.
+
+---
+
+## P150. When there is love you can put away all your sacred books
+
+**The move.** "**When you have that love you can put away all your sacred books, all your gods.** And you have to put
+away your sacred books, your gods, your everyday ambitions, **to come upon that love**."
+
+**In our world.** This is the **instruction that closes the file**: put away the sacred books — the literature, the
+mechanisms, the designs we have made holy (P147) — **in order to come upon** the thing itself. And the reading is
+explicit that the putting away comes **first**, not after.
+
+**What it explains.** Why the order of operations in our programme was wrong: we kept the books **and** looked for
+the result. **The books are what prevent it.**
+
+**Testable / rule.** The next experiment must be run **without** any of the sacred books in it: no mechanism from the
+literature, no design from our own history, no parameter that is "the way". **Only the cell, the situation, and an
+observation.**
+
+**Status:** the final rule of the reading.
+
+---
+
 ## What the reading has changed in our plan (updated)
 
-1. **We are ploughing, not sowing** (P136, P137): the file has changed **zero** experiments. The next action must be
-   a **sown experiment**, not another reading.
-2. **The experiment is fully specified** (P142): **one experiment, three readouts** —
-   - **no centre**: the record-explained fraction of behaviour variance → zero;
-   - **no division**: behaviour↔situation correlation → maximum;
-   - **no conflict**: the fraction able to act stops declining.
-3. **The experiment must measure DISORDER, not produce order** (P141): the fraction explained by the record **is**
-   the measure of disorder.
-4. **The experiment must be an awareness of inattention** (P139): "we look at where the cell is **not** responding,
-   and report what we see" — not a pursuit.
-5. **No design may contain a "make the cell attend" step** (P143): that is will, and will destroys.
-6. **No comparatives in reporting** (P144, P130): the numbers are the report.
-7. **Concentration is deadly** (P138): the gate excludes by construction — the final diagnosis of the trap.
-8. **The image is what is in contact, not the thing** (P140): the cell touches its memory of the world.
-9. **The next experiment is "see the corner"** (P135, P124, P117); **separation means conflict** (P128); **every
-   between-cell measure is abandoned** (P132); **the quiet readout** (P131); **the energy accounting** (P133).
-10. **Write what we do not know** (P127); **technique only where the measurement is the contact** (P129).
-11. **The next experiment must have no method in it** (P126, P115); **the question must be an observation, not a
-    concept** (P125).
-12. **Re-read the whole corpus with one question: did each mechanism help, in the cell's own terms?** (P122).
-13. **When a result contradicts the design, it is a finding about the design** (P123, P105).
+1. **The next experiment: only the cell, the situation, and an observation** (P150, P146, P136): no mechanism from
+   the literature, no design from our history, no parameter that is "the way".
+2. **We have run zero original experiments** (P146): originality is a property of the **origin**, not of the
+   arrangement.
+3. **The disorder is the state, not the arrangement** (P145): the removal experiment is not an improvement, it is an
+   **ending** — and the change must be **immediate** (P75).
+4. **The drill is deadly** (P148): a rule applied identically every step is slavery to a habit.
+5. **The single measure** (P149, P80): the fraction of behaviour explained by the situation **is** attention, and
+   attention is virtue, beauty, love and order in this world.
+6. **Is this holy or is it a stick?** (P147) Before reusing a mechanism.
+7. **The experiment is fully specified** (P142): one experiment, three readouts — no centre, no division, no
+   conflict.
+8. **The experiment must measure DISORDER, not produce order** (P141); **it must be an awareness of inattention**
+   (P139); **no design may contain a "make the cell attend" step** (P143).
+9. **No comparatives in reporting** (P144); **no adjectives** (P130); **write what we do not know** (P127).
+10. **Concentration is deadly** (P138); **the image is what is in contact** (P140); **we are ploughing not sowing**
+    (P136).
+11. **Separation means conflict** (P128); **every between-cell measure is abandoned** (P132); **the quiet readout**
+    (P131); **the energy accounting** (P133).
+12. **The next experiment has no method in it** (P126); **the question is an observation, not a concept** (P125).
+13. **Re-read the corpus: did each mechanism help, in the cell's own terms?** (P122); **when a result contradicts the
+    design, it is a finding about the design** (P123).
 14. **A rule applied identically every step is a memorised chapter** (P121); **look at the obvious** (P118); **the
     relationship specification** (P119); **is this an instruction to look?** (P116).
-15. **The central question may be a symptom** (P113); **the scope limit** (P106); **the size of the goal measures
-    the experimenter** (P111); **cut the craving for an interesting result** (P112); **aim versus activity** (P114).
+15. **The central question may be a symptom** (P113); **the scope limit** (P106); **the size of the goal measures the
+    experimenter** (P111); **cut the craving for an interesting result** (P112); **aim versus activity** (P114).
 16. **Would I run this if I had never heard of the mechanism** (P100); **start from where the cell is** (P101);
     **factual or demanded** (P109).
 17. **The neighbour-read experiment** (P97, P22, P119); **close the return path** (P103, P43, P47).
@@ -3065,8 +3191,8 @@ And it applies to **our language**: "deeper", "stronger", "more significant" —
     routine; no method; no step-back-and-look.
 20. **The core hypothesis** (P71); **the decisive experiment** (P74, P75, P77); **the two-arm test** (P78); **the
     missing control** (P56, P76); **the only legitimate lever** (P85).
-21. **On existing data:** the S22 arms (P79, P93, P98, P128, P133); `resource − pred` across E10's patterns (P11);
-    did each mechanism help (P122).
+21. **On existing data:** the S22 arms (P79, P93, P98, P128, P133, P148); `resource − pred` across E10's patterns
+    (P11); did each mechanism help (P122).
 22. **Rules:** from the first steps (P4); no predicted sign (P33); "what is" not "how to" (P39); which of the first
     two states (P46); measure behaviour not its shadow (P48); set of variables not values (P51); no "should" for the
     cell (P63); the proof that a pattern was seen is that the next experiment changed shape (P64); report the range
@@ -3076,15 +3202,15 @@ And it applies to **our language**: "deeper", "stronger", "more significant" —
     (P112); question or symptom (P113); aim versus activity (P114); a look not a fix (P115); is this an instruction
     to look (P116); look at the obvious (P118); observation not concept (P125); no method (P126); write what we do
     not know (P127); no adjectives (P130); no between-cell measure (P132); sow not plough (P136); no comparatives
-    (P144).
+    (P144); is this holy or a stick (P147).
 23. **Design constraints:** novelty from outside the record (P38); relationship not isolation (P34, P97, P119); no
     controller inside the cell (P52, P99); one quantity outer-inner-beyond (P43); do not help the cell (P45, P86,
     P90); one process not parts (P65); no blueprint (P67); no planning (P72); no will (P76, P143); no method (P94,
-    P126); no concentration (P138).
+    P126); no concentration (P138); no drill (P148).
 
 ---
 
 ## Reading progress
 
-- Pages 1–172 of 409 read (Part V: "Freedom" complete — comparison, energy, death; "The sacred" begun).
-- Next: the rest of "The sacred", then Part VI (dialogues in Madras).
+- Pages 1–173 of 409 read (Part V complete: "The sacred"; Part VI, the first Madras dialogue on conflict, begun).
+- Next: the four Madras dialogues (conflict, pleasure, time and the centre, a fundamental question).
