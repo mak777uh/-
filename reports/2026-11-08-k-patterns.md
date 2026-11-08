@@ -2855,37 +2855,219 @@ The pattern replaces the question with an **act**: **see the corner.**
 
 ---
 
+## P136. We are always ploughing, never sowing — and therefore never reaping
+
+**The move.** "One can go on endlessly reading, discussing, piling up words upon words, **without ever doing anything
+about it**. It is like a man that is **always ploughing, never sowing**, and therefore never reaping. **Most of us
+are in that position.**"
+
+**In our world.** **This is the description of this file, and of our whole research practice.** We have ploughed
+**one hundred and thirty-five patterns** and sown **nothing**. And the pattern says what that produces: **no
+harvest**.
+
+**What it explains.** Why a day of reading can feel like progress and produce nothing: **ploughing is not sowing.**
+The harvest is an experiment that could not have existed before the reading (P120).
+
+**Testable / rule.** The file must be followed by **one sown experiment** — and the sowing is the point, not the
+ploughing. If the next action is another reading, we are still ploughing.
+
+**Status:** rule; it is the sharpest statement about this file.
+
+---
+
+## P137. Ideas become more important than living — and erudition makes people dull
+
+**The move.** "Words, ideas, theories, have become much more important than **actual living, which is acting,
+doing**... And you know all those people who are erudite, who read, who theorize, who can discuss brilliantly, are
+**extraordinarily dull people**."
+
+**In our world.** **This is a warning about the file itself and about me.** The reading has produced a **beautiful
+structure of ideas** — and the pattern says: **ideas have become more important than the doing**, and the erudite
+are **dull**.
+
+**What it explains.** Why the file, for all its precision, has **not yet changed a single experiment**: it is
+erudition. And erudition is exactly what the pattern calls dull.
+
+**Testable / rule.** The measure of whether the reading was **not** erudition is **the number of experiments it
+changed**. So far: **zero**.
+
+**Status:** rule; it is P120 in the negative.
+
+---
+
+## P138. Concentration is a deadly thing — it excludes and resists
+
+**The move.** "You know **concentration is a most deadly thing**... concentration, which is an **exercise of will
+which excludes and resists**."
+
+**In our world.** **This is the final diagnosis of the gate.** The gate is **concentration**: it **excludes**
+everything below the threshold and **resists** everything the record does not expect. And the pattern says
+concentration is **deadly** — not merely limited, but **destructive**.
+
+**What it explains.** Why the gate made the cell **less** responsive (P98) and **narrower** (P93): **concentration
+excludes by construction.** A gate that concentrates on one condition **must** exclude the rest of the situation.
+
+**Testable.** The continuous-gate experiment (P17, P61) is the test: no concentration, no exclusion — and the
+prediction is that the **breadth** of response rises (P80's situation-explained fraction).
+
+**Status:** supports P17/P61 with the sharpest language yet.
+
+---
+
+## P139. Attention comes about by being aware that you are inattentive — through negation, not pursuit
+
+**The move.** "This attention then comes about naturally, easily, **when you know you are inattentive** — right? When
+you are aware that you are inattentive, **being aware of that fact is being attentive, and you have nothing else to
+do**. Through **negation** you come to the positive, but **not through the pursuit of the positive**."
+
+**In our world.** This is the **method-free method** of the whole reading, and it is the **exact procedure** for the
+next experiment: **do not pursue attention; be aware of inattention.** Do not pursue order; **be aware of disorder.**
+Do not pursue evolution; **be aware of what prevents it.**
+
+**What it explains.** Why every pursuit failed: **pursuit is will** (P76), and will is the exercise that **excludes**
+(P138). And it explains why the **emptying** direction works where the **adding** direction cannot: **negation comes
+to the positive; pursuit does not.**
+
+**Testable / rule.** The experiment must be stated as **an awareness of inattention**: "we look at where the cell is
+**not** responding, and report what we see." That is a concrete, non-pursuing design.
+
+**Status:** the procedure for the next experiment.
+
+---
+
+## P140. The image is the past, and what is in contact is memory — not the thing
+
+**The move.** "The image is, after all, **the past**... and with that image you look at your wife, your children, your
+neighbour, the world... **So what is in contact is your memory, the image which has been put together by memory. And
+that image looks and therefore there is no direct contact.**"
+
+**In our world.** This is P124/P128 stated as **contact**: the cell has **no direct contact** with the resource. What
+is in contact is `pred`. **The cell is not touching the world; it is touching its memory of the world.**
+
+**What it explains.** Everything: why the signal could not be distinguished (E10), why the trap is sticky (P9), why
+the additions did nothing (P81), why the cell cannot learn (P131).
+
+**And it gives the contrast that makes the experiment clear:** "You know when you have **pain** there is no image,
+there is only pain, and therefore there is **immediate action**." **Pain is the one state with no image.** So the
+question becomes: **is there a state of the cell with no image?** — and that is what the removal experiment asks.
+
+**Status:** the thesis, in the language of contact.
+
+---
+
+## P141. Order is not engendered by the mind — the mind can only find out what disorder is
+
+**The move.** "As virtue cannot be cultivated, put together, so **order cannot be engendered, put together by the
+mind; but what the mind can do is to find out what disorder is**... then out of that understanding will come order."
+
+**In our world.** This is P74 and P92 completed with the **division of labour**: the mind **cannot** produce order;
+it **can** find out disorder. **That is the whole scope of what an experiment can do** — and it is exactly the scope
+of what we have been trying to do wrong.
+
+**What it explains.** Why every design that tried to **produce** order (a mechanism, a rule, a target) failed: order
+is not producible. And why **measurement of disorder** is the only legitimate operation.
+
+**Testable / rule.** The experiment must **measure disorder**, not produce order. Disorder in our world has a
+measure: **the fraction of behaviour explained by the record** (P80/P128). **Measuring that fraction is finding out
+what disorder is.**
+
+**Status:** the scope of the experiment, stated exactly.
+
+---
+
+## P142. When you give complete attention there is no centre — no observer, no division, no conflict
+
+**The move.** "When you give your attention completely... you will find **there is no centre at all, there is no
+observer and therefore there is no division between the observed and the observer, and you eradicate conflict
+totally**, this conflict brought about by separation, by division."
+
+**In our world.** This is the **prediction of the removal experiment** in its final form: **no centre → no
+division → no conflict.** And it is **measurable** as three things we already know how to measure:
+- **no centre** = the record-explained fraction of behaviour variance → zero (P80);
+- **no division** = behaviour↔situation correlation → maximum (P61);
+- **no conflict** = the trap disappears; the fraction able to act stops declining (P29, P72).
+
+**What it explains.** It unifies every prediction in the file into **one experiment with three readouts**.
+
+**Status:** the experiment, fully specified.
+
+---
+
+## P143. Attention cannot be willed — will is the most destructive thing man has cultivated
+
+**The move.** "**Attention does not demand any quality of will or desire**... But the exercise of will is not
+attention. **Will is the most destructive thing that man has cultivated.**"
+
+**In our world.** This is P76 in its strongest form, and it **rules out the last possible design**: a mechanism
+that **wills attention** — i.e. a controller that makes the cell attend. **There is no such mechanism**, because
+will **is** the destruction.
+
+**What it explains.** Why the "adaptive" family was not merely ineffective but **harmful** (S22: 0.166 vs 0.340):
+it was **will**, and will is destructive.
+
+**Testable / rule.** Any design containing a **"make the cell attend"** step is will, and it will destroy. The only
+alternative is **removal**, which contains no will.
+
+**Status:** rule; it closes the design space.
+
+---
+
+## P144. The mind has no measurement — and comparison is a waste of energy
+
+**The move.** "Again, these words are difficult because **there is no measurement** — when you say 'deeper',
+'more', you are **comparing, and comparison is a waste of energy**."
+
+**In our world.** This is P132/P133 with the **reason** added: comparison is not merely immature, it is **wasteful**.
+And it applies to **our language**: "deeper", "stronger", "more significant" — every comparative in our reports is a
+**waste of energy** and an **installation of the measure**.
+
+**What it explains.** Why our reports were exhausting to write and to read: **they were full of comparisons**.
+
+**Testable / rule.** **No comparatives in reporting.** Not "stronger effect", but "the effect was 0.012 in arm A and
+0.003 in arm B". **The numbers are the report; the comparison is the waste.**
+
+**Status:** rule; it is P130 generalised.
+
+---
+
 ## What the reading has changed in our plan (updated)
 
-1. **The next experiment is "see the corner"** (P135, P124, P117): plot the fraction of behaviour variance explained
-   by the record over time, in the arms we already have. **No mechanism, no method, no fix.**
-2. **Separation means conflict** (P128): that fraction should **predict the trap's severity** across arms.
-3. **Every between-cell measure is abandoned** (P132, P102, P110): only within-cell measures.
-4. **The quiet readout** (P131): with the image gone, the variance of the internal state should drop to the variance
-   of the situation.
-5. **The energy accounting** (P133, P41): the trap is wasted energy; the comparison itself costs.
-6. **Report without adjectives** (P130); **write what we do not know** (P127).
-7. **Technique only where the measurement is the contact** (P129).
-8. **The next experiment must have no method in it** (P126, P115).
-9. **The question must be an observation, not a concept** (P125).
-10. **Re-read the whole corpus with one question: did each mechanism help, in the cell's own terms?** (P122).
-11. **When a result contradicts the design, it is a finding about the design** (P123, P105).
-12. **A rule applied identically every step is a memorised chapter** (P121).
-13. **Look at the obvious** (P118); **the relationship specification** (P119); **is this an instruction to look?**
-    (P116).
-14. **The central question may be a symptom** (P113); **the scope limit** (P106); **the size of the goal measures
+1. **We are ploughing, not sowing** (P136, P137): the file has changed **zero** experiments. The next action must be
+   a **sown experiment**, not another reading.
+2. **The experiment is fully specified** (P142): **one experiment, three readouts** —
+   - **no centre**: the record-explained fraction of behaviour variance → zero;
+   - **no division**: behaviour↔situation correlation → maximum;
+   - **no conflict**: the fraction able to act stops declining.
+3. **The experiment must measure DISORDER, not produce order** (P141): the fraction explained by the record **is**
+   the measure of disorder.
+4. **The experiment must be an awareness of inattention** (P139): "we look at where the cell is **not** responding,
+   and report what we see" — not a pursuit.
+5. **No design may contain a "make the cell attend" step** (P143): that is will, and will destroys.
+6. **No comparatives in reporting** (P144, P130): the numbers are the report.
+7. **Concentration is deadly** (P138): the gate excludes by construction — the final diagnosis of the trap.
+8. **The image is what is in contact, not the thing** (P140): the cell touches its memory of the world.
+9. **The next experiment is "see the corner"** (P135, P124, P117); **separation means conflict** (P128); **every
+   between-cell measure is abandoned** (P132); **the quiet readout** (P131); **the energy accounting** (P133).
+10. **Write what we do not know** (P127); **technique only where the measurement is the contact** (P129).
+11. **The next experiment must have no method in it** (P126, P115); **the question must be an observation, not a
+    concept** (P125).
+12. **Re-read the whole corpus with one question: did each mechanism help, in the cell's own terms?** (P122).
+13. **When a result contradicts the design, it is a finding about the design** (P123, P105).
+14. **A rule applied identically every step is a memorised chapter** (P121); **look at the obvious** (P118); **the
+    relationship specification** (P119); **is this an instruction to look?** (P116).
+15. **The central question may be a symptom** (P113); **the scope limit** (P106); **the size of the goal measures
     the experimenter** (P111); **cut the craving for an interesting result** (P112); **aim versus activity** (P114).
-15. **Would I run this if I had never heard of the mechanism** (P100); **start from where the cell is** (P101);
+16. **Would I run this if I had never heard of the mechanism** (P100); **start from where the cell is** (P101);
     **factual or demanded** (P109).
-16. **The neighbour-read experiment** (P97, P22, P119); **close the return path** (P103, P43, P47).
-17. **State the danger of the addition** (P104); **report nulls as descriptions** (P105).
-18. **The filter** (P81, P84, P89, P90, P92, P94, P99): remove, not add; no collision-prevention; no carrying; no
+17. **The neighbour-read experiment** (P97, P22, P119); **close the return path** (P103, P43, P47).
+18. **State the danger of the addition** (P104); **report nulls as descriptions** (P105).
+19. **The filter** (P81, P84, P89, P90, P92, P94, P99): remove, not add; no collision-prevention; no carrying; no
     routine; no method; no step-back-and-look.
-19. **The core hypothesis** (P71); **the decisive experiment** (P74, P75, P77); **the two-arm test** (P78); **the
+20. **The core hypothesis** (P71); **the decisive experiment** (P74, P75, P77); **the two-arm test** (P78); **the
     missing control** (P56, P76); **the only legitimate lever** (P85).
-20. **On existing data:** the S22 arms (P79, P93, P98, P128, P133); `resource − pred` across E10's patterns (P11);
+21. **On existing data:** the S22 arms (P79, P93, P98, P128, P133); `resource − pred` across E10's patterns (P11);
     did each mechanism help (P122).
-21. **Rules:** from the first steps (P4); no predicted sign (P33); "what is" not "how to" (P39); which of the first
+22. **Rules:** from the first steps (P4); no predicted sign (P33); "what is" not "how to" (P39); which of the first
     two states (P46); measure behaviour not its shadow (P48); set of variables not values (P51); no "should" for the
     cell (P63); the proof that a pattern was seen is that the next experiment changed shape (P64); report the range
     (P73); no gain as a justification (P83); no story (P84); enquiry not search (P88); call a toy a toy (P95); would
@@ -2893,15 +3075,16 @@ The pattern replaces the question with an **act**: **see the corner.**
     (P104); report nulls as descriptions (P105); factual or demanded (P109); equally satisfied by either answer
     (P112); question or symptom (P113); aim versus activity (P114); a look not a fix (P115); is this an instruction
     to look (P116); look at the obvious (P118); observation not concept (P125); no method (P126); write what we do
-    not know (P127); no adjectives (P130); no between-cell measure (P132).
-22. **Design constraints:** novelty from outside the record (P38); relationship not isolation (P34, P97, P119); no
+    not know (P127); no adjectives (P130); no between-cell measure (P132); sow not plough (P136); no comparatives
+    (P144).
+23. **Design constraints:** novelty from outside the record (P38); relationship not isolation (P34, P97, P119); no
     controller inside the cell (P52, P99); one quantity outer-inner-beyond (P43); do not help the cell (P45, P86,
-    P90); one process not parts (P65); no blueprint (P67); no planning (P72); no will (P76); no method (P94, P126).
+    P90); one process not parts (P65); no blueprint (P67); no planning (P72); no will (P76, P143); no method (P94,
+    P126); no concentration (P138).
 
 ---
 
 ## Reading progress
 
-- Pages 1–170 of 409 read (Part V, "The art of seeing" and into "Freedom": comparison, maturity, the waste of
-  energy).
-- Next: the rest of "Freedom", then "The sacred".
+- Pages 1–172 of 409 read (Part V: "Freedom" complete — comparison, energy, death; "The sacred" begun).
+- Next: the rest of "The sacred", then Part VI (dialogues in Madras).
