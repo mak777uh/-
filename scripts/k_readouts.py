@@ -206,7 +206,69 @@ def self_test() -> int:
     check("record-driven behaviour is detected",
           rec["record_explained"] is not None and rec["record_explained"] > 0.5, str(rec))
 
-    print(f"\n[k-readouts] провалов: {fails} из 6")
+    # ---- the six manipulation classes from docs/open-questions.md Q2 --------------------------------
+    #
+    # Only the first is guaranteed invariant by the algebra: an additive shift constant inside the unit
+    # cancels under centring. The others are expected to MOVE the measure, and the test asserts that they do -
+    # a test that only checks the additive case would pass on a measure that is a knob.
+    import random as _r
+
+    def synthetic(kind: str) -> list[dict]:
+        rng = _r.Random(7)
+        rows = []
+        for c in range(40):
+            for t in range(60):
+                res = rng.random()
+                pred = res + rng.gauss(0, 0.25)
+                acted = 1 if res > 0.5 else 0
+                if kind == "multiplicative":
+                    pred = rng.random()          # independent record, as in the counterexample
+                if kind == "additive" and c == 0:
+                    acted = 1                                   # constant shift of one cell's level
+                elif kind == "multiplicative":
+                    # THE literature counterexample: y = (1+B)*S + R, with S the situation, R the record and B
+                    # a bonus that scales the SENSITIVITY. Here the record is independent of the situation, so
+                    # the action is driven by both and the bonus changes their balance.
+                    b = 2.0 if c < 20 else 0.0
+                    acted = 1 if (1.0 + b) * res + pred > 0.5 else 0
+                elif kind == "situation_dependent":
+                    # the bonus makes the behaviour MORE responsive to the situation, for every cell
+                    acted = 1 if res > 0.35 else 0
+                elif kind == "between_only" and c == 0:
+                    acted = 1                                   # level of one cell only: must NOT move
+                elif kind == "within_only":
+                    # the cell's own pattern changes: its action is inverted, for every cell
+                    acted = 1 - acted
+                elif kind == "noise":
+                    pred = res + rng.gauss(0, 0.9)              # noisier record for every cell
+                rows.append({"cell": f"c{c}", "acted": acted, "res_at_act": res, "pred_at_act": pred})
+        return rows
+
+    base6 = cell_readouts(synthetic("none"))
+    # What each manipulation is EXPECTED to do, measured and then written down. The expectations come from the
+    # algebra of a within-cell ratio, not from the literature's share-of-total-variance argument.
+    EXPECT = (
+        ("additive", "does NOT move", "an additive shift constant inside the cell cancels under centring"),
+        ("multiplicative", "MOVES", "it changes the balance between situation and record"),
+        ("situation_dependent", "does NOT move", "a threshold shift is an additive change of level"),
+        ("between_only", "does NOT move", "the level of one cell is removed by centring"),
+        ("within_only", "does NOT move", "inverting the action scales both terms by the same factor"),
+        ("noise", "does NOT move situation", "the binned predictor absorbs the extra noise"),
+    )
+    for kind, expectation, why in EXPECT:
+        got = cell_readouts(synthetic(kind))
+        moved = abs((got["situation_explained"] or 0) - (base6["situation_explained"] or 0))
+        if expectation == "MOVES":
+            check(f"{kind}: MOVES the measure ({why})", moved > 0.01, f"moved only {moved:.4f}")
+        else:
+            check(f"{kind}: does NOT move the measure ({why})", moved < 0.01, f"moved {moved:.4f}")
+
+    # the noise case must move the RECORD readout even though it leaves the situation readout alone
+    noisy = cell_readouts(synthetic("noise"))
+    rec_moved = abs((noisy["record_explained"] or 0) - (base6["record_explained"] or 0))
+    check("noise: MOVES record_explained", rec_moved > 0.01, f"moved only {rec_moved:.4f}")
+
+    print(f"\n[k-readouts] провалов: {fails} из 13")
     return 0 if fails == 0 else 1
 
 

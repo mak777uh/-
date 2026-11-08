@@ -34,6 +34,14 @@ modelling versus parameter-based.
 
 ---
 
+**Answer (partial).** No work derives a minimal set of world elements from the questions; the closest is
+Taylor's methodological frame (list the low-level phenomena the target must explain, then build a model with
+exactly those and nothing more) and the ODD protocol, which requires stating entities, state variables, scales,
+processes, scheduling, initialisation and boundary. **What this settles:** a world is specified by a
+**contract**, not by a grid; three worlds can share a contract without sharing a cell ontology. **What it does
+not settle:** which contract. Sources: Taylor 2013 (arXiv 1710.06055); Grimm et al., ODD 2020
+(10.18564/jasss.4259).
+
 ## Q2. Is a within-cell measure really not available as a knob?
 
 **Undecided.** Manifesto 037's P3 says the primary measure is the fraction of a cell's behavioural variance
@@ -57,6 +65,18 @@ decomposition invariant, and which do not.
 sensitivity; "variance explained" confound between-subject; intraclass correlation manipulation invariance.
 
 ---
+
+**Answer: the general claim is FALSE, and the literature says so.** Three independent searches agree
+that a within-unit variance decomposition is **not** automatically immune to between-unit manipulation. The
+decisive counterexample: let the behaviour be `y = (1 + B_i)·S + R` with `S` the situation and `R` the record,
+and let the bonus `B_i` be constant inside the unit but change the SENSITIVITY to the situation. The share
+explained by the situation is `(1+B_i)²/[(1+B_i)²+1]` — 1/2 at `B_i=0`, 4/5 at `B_i=1`. Centring does not
+remove it. **What survives:** an ADDITIVE manipulation, constant inside the unit, leaves the centred
+deviations unchanged. **Consequences for P3 of manifesto 037:** the claim "the measure cannot be moved by a
+bonus" must be replaced by "the measure is invariant to additive within-unit shifts and is NOT invariant to
+manipulations that change the within-unit variance, the responsiveness, or the measurement noise". The
+`--self-test` of `k_readouts.py` must cover all six cases, not only the additive one. Sources: Curran & Bauer
+2011 (PMC3059070); Wang & Maxwell on global standardisation (PMC6696920).
 
 ## Q3. What are the legitimate units of reproduction, and what is a "group genome"?
 
@@ -83,6 +103,17 @@ multilevel selection Price equation; clonal versus blending inheritance; "unit o
 
 ---
 
+**Answer: averaging genomes is BLENDING inheritance, not clonal reproduction, and a colony so defined
+is not a legitimate unit of selection.** The criterion from the major-transitions literature is that a
+collective must have heritable variation in fitness at its own level, and Godfrey-Smith's three axes locate
+it: bottleneck size (B), germ–soma specialisation (G), integration (I). `budding_unit = "colony"` has **no
+bottleneck and no lineage**: two lineages that touch produce a synthetic genome that is the clone of neither
+parent. **What to do:** (a) rename the mode so the word "clonal" never applies to it; (b) record the three
+axes for every reproduction mode; (c) if a group genome is wanted, define the transmission operator
+explicitly — the mean vector is a phenotype, not a genome. Sources: Godfrey-Smith 2009 (Conditions for
+Evolution by Natural Selection); Okasha / Bourrat on Price versus contextual partitions (PMC7133510);
+Doulcier et al. 2020 (PMC7440921).
+
 ## Q4. Should a cell grown by the rule inherit its parent's genome?
 
 **Undecided.** Today a grown cell receives the genome that was pre-assigned to its grid position (activation
@@ -106,6 +137,16 @@ artificial life; genome inheritance in cellular automata growth.
 
 ---
 
+**Evidence: activation and reproduction ARE distinguished in the literature, and the distinction is
+operational.** Avida names the operations separately — `Inject` (external creation), `h-alloc` (memory
+allocation), `h-copy` (instruction copying), `h-divide` (offspring separation); copying and division are
+different operations, and injection is not a parent. Growing NCA uses ONE rule shared by all cells, so a new
+active cell is not a genetic offspring at all. **What this settles:** a world may have both paths, but they
+must be named and counted separately. **What it does not settle:** whether growth SHOULD inherit. **What we
+do:** every artifact records `grown_genome = "field"`; the next step is `birth_mode` (`activation` /
+`reproduction` / `injection`) per cell, and an inheritance analysis stratified by it. Sources: Ofria & Wilke
+2004 (Avida); Mordvintsev et al. 2020 (Growing NCA).
+
 ## Q5. What is the right fix for an unstable diffusion coefficient?
 
 **Undecided.** `Dw = 0.32` at `dt = 1` gives a high-frequency amplification of −1.56. Three fixes are
@@ -127,6 +168,16 @@ diffusion; implicit versus explicit reaction-diffusion stability.
 
 ---
 
+**Answer: the criterion is `D·dt/h² ≤ 1/4` for the explicit scheme with the 5-point Laplacian, and
+lowering `Dw` is NOT a neutral fix.** All four searches give the same formula; the high-frequency mode has
+amplification `1 − 8·D·dt`, so 0.32 gives −1.56 (unstable) and 0.24 gives −0.92 (stable with almost no
+margin). **The choice depends on what the third field MEANS:** if `Dw` is a physical diffusion coefficient,
+lower `dt` (or use an implicit/IMEX scheme) and keep `Dw`; if `Dw` is a free modelling parameter, lowering it
+is a change of model and must be declared as one. **What we do:** `Dw` was lowered to 0.24 as an
+**interim** correction; the model parameter and the integrator parameter must be separated, and the stability
+condition must be a gate (it is: `world_invariants.py` W5). Sources: Cambridge lecture notes on 2D diffusion
+stability; Langtangen, finite difference methods for diffusion.
+
 ## Q6. How much clipping is too much?
 
 **Undecided.** `clamp(u + dt*du, 0, 1)` can hold a trajectory in range while the numerical correction becomes
@@ -146,6 +197,15 @@ equations.
 does clamping change the solution.
 
 ---
+
+**Answer: there is no published acceptable fraction of clipping; the criterion is whether the
+correction vanishes under refinement.** Clipping negative values is known to be non-conservative and to
+introduce artificial mass; positivity-preserving schemes exist precisely so that clipping is unnecessary.
+**Operational criterion:** record the clipped mass per step and compare it with the local truncation error of
+the scheme; if the clipped mass is of the same order or larger, clipping is part of the mechanism. Any
+clipping caused by the instability of Q5 is a scheme error, not a correction. **What we do:** add
+`clipped_mass` and `clip_fraction` to the run artifact. Sources: Nguyen, Caboussat & Dabdub 2009 (mass
+conservative positive definite integrator); projected dynamical systems (Nagurney).
 
 ## Q7. Should maintenance and repair be two named parameters?
 
@@ -187,6 +247,17 @@ overlap threshold; watershed segmentation identity across frames.
 
 ---
 
+**Answer: 0.5 is not canonical, and the choice has measurable consequences.** Trackers use absolute or
+relative overlap thresholds that differ by tool (Lineage Mapper uses 0.2 in its example), and the Cell
+Tracking Challenge evaluates not only overlap but complete tracks, branching correctness and cell-cycle
+accuracy. The documented consequence of a wrong rule: false divisions and broken tracks from over- or
+under-segmentation. **Our own case is the sharp one:** a symmetric split gives each daughter exactly half the
+parent, so the verdict flips on the sign of the inequality and on the denominator. **What we do:** the counter
+now uses a RELATIVE threshold (a parent counts if it holds at least half of the best share of that child);
+the next step is a sensitivity sweep over 0.2 / 0.3 / 0.5 showing how lifetimes and division counts move.
+Sources: Matula et al. 2015 (AOGM, PLOS ONE); Cell Tracking Challenge 2023 (s41592-023-01879-y); TrackMate
+overlap tracker keys.
+
 ## Q9. Should two worlds in one bench be allowed different boundary conditions?
 
 **Undecided.** The field world is periodic, the pond is absorbing. Neither states it in the config.
@@ -205,6 +276,15 @@ numerical detail.
 population models; edge effects in lattice models.
 
 ---
+
+**Answer: a boundary is part of the model whenever the interaction scale is comparable to the domain;
+it is a numerical detail only in the limit of a large homogeneous system.** The literature is explicit:
+periodic and absorbing boundaries give qualitatively different fates for spreading populations, a lethal
+boundary can be modelled by a Robin condition, and edge effects appear in lattice Lotka–Volterra. Periodic
+boundaries replace one artefact with another rather than removing all of them. **What we do:** `boundary` is
+now in the config and in the artifact; the remaining obligation is to show that a difference between two
+worlds is not explained by the boundary alone. Sources: Cantrell & Cosner (effects of spatial heterogeneity);
+GROMACS periodic boundary conditions; ODD on toroidal space.
 
 ## Q10. Full diff or hashes for a dirty working tree?
 
@@ -243,6 +323,14 @@ convenience.
 **Search for:** initial conditions periodic domain; seeding in periodic lattices.
 
 ---
+
+**Answer: the initial condition is part of the problem, and in a periodic world the seed must use the
+minimum-image distance.** The literature on periodic domains is unambiguous: distances are computed by the
+minimum-image convention, and the domain must not be smaller than twice the interaction range. **Our numbers
+confirm the defect:** a disc of radius 2 has 13 nodes at the centre and 6 at a corner, so the initial mass
+depends on where the seed is placed. **What we do:** the seed must be built with toroidal distance, or the
+initial mass must be recorded as an explicit factor. Sources: ODD (initialisation is a model element);
+GROMACS minimum-image convention.
 
 ## Q12. Generated model text, or a model that matches its text?
 
@@ -301,6 +389,17 @@ series and `signal_gain` in another may be the same mechanism with two names, or
 mechanism" criteria.
 
 ---
+
+**Answer: a mechanism is individuated by the phenomenon it explains and by its causal organisation,
+not by a parameter name.** The mechanist literature (Machamer, Darden & Craver) defines a mechanism as
+entities and activities organised so as to produce a phenomenon; Glennan's minimal definition drops the
+requirement of regularity; individuation is relative to the phenomenon. **Operational test for `trait_effect`
+versus `signal_gain`:** they are the same mechanism only if they explain the same phenomenon AND an
+intervention in one changes the other in the same way (mutual manipulability). If the phenomenon is the same
+but the interventions are independent, they are two mechanisms sharing a functional name. **What we do:** the
+meta-analysis must group by causal organisation, and record `same_mechanism` / `related_mechanism` /
+`unresolved` rather than forcing a merge. Sources: Machamer, Darden & Craver 2000; Stanford Encyclopedia,
+Mechanisms in Science; Rubenstein et al. 2017 (causal consistency).
 
 ## Summary table
 

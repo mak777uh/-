@@ -277,6 +277,29 @@ except by changing what the cell reads. **The measure is not available to us as 
 worlds in the same order, **for reasons that are not trivial**. If the two measures never disagree, the first
 adds nothing.
 
+**What the literature said when we looked (08.11), and why this principle narrows.** A search on the claim that
+a within-cell measure "cannot be moved by a bonus" found that **it is false in general**. The counterexample is
+short. Let the behaviour be `y = (1 + B)·S + R`, with `S` the situation, `R` the record, and a bonus `B` that is
+constant **inside** a cell but changes the cell's **sensitivity** to the situation. The share explained by the
+situation is `(1+B)² / [(1+B)² + 1]`: one half at `B = 0`, four fifths at `B = 1`. Centring removes nothing,
+because the bonus multiplies rather than shifts.
+
+**What survives, and it is the case we test.** An **additive** manipulation, constant inside the cell, leaves
+the centred deviations unchanged. That is exactly what `k_readouts.py` checks, and it holds: a cell-level bonus
+moves the measure by 0.0000. **It is one case out of six.** The other five — a multiplicative bonus, a bonus
+that depends on the situation, a change confined to between-cell variance, a change confined to within-cell
+variance, and a change of measurement noise — are not covered, and three of them are known to move the measure.
+
+**So P3 is restated, not withdrawn:**
+
+> The primary measure is invariant to **additive within-cell shifts**, and is **not** invariant to
+> manipulations that change the within-cell variance, the responsiveness, or the measurement noise.
+
+**This is the second time P3 has been corrected.** The first was the implementation: the original
+`k_readouts.py` was not a within-cell statistic at all, and a between-cell bonus moved it by 0.31. The second is
+the claim itself. Both are recorded, because a principle that survives two corrections by narrowing has earned
+the narrower form.
+
 ### P4. In a finite, deterministic, closed system, unbounded novelty is impossible — this is a theorem, not a principle
 
 **We withdraw P4 as a principle and state it as what it is.** A referee of this document pointed out that P4 has

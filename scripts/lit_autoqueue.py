@@ -64,7 +64,8 @@ def trigger_open_questions() -> list[dict]:
         if not m:
             continue
         qid, title = m.group(1), m.group(2).strip()
-        if "**Answer.**" in b:
+        # an answer may be "**Answer.**", "**Answer (partial).**" or "**Evidence:**" - any of them closes it
+        if re.search(r"\*\*(Answer|Evidence)", b):
             continue
         search = ""
         sm = re.search(r"\*\*Search for:\*\*\s*(.+)", b)

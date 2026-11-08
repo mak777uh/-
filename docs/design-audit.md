@@ -413,3 +413,90 @@ world and need the owner's decision, a series with an anchor, and a version bump
 3. **The reviews' claims about the literature are not checked here**; they are in `docs/open-questions.md`.
 4. **The four defects that were fixed change every number the bench has produced.** Nothing in this document
    says what the new numbers are.
+
+---
+
+## Part 7. What the literature said, and what it changes
+
+Ten of the fourteen open questions were answered by search on 08.11 (the answers are in
+`docs/open-questions.md`). Four are owner decisions and remain open. **Three of the answers change something
+this audit already did**, and one of them says a claim in manifesto 037 is false.
+
+### A1. Q2 — P3 of manifesto 037 is false in general, and must be restated
+
+**What the search found.** Three independent passes agree: a within-unit variance decomposition is **not**
+automatically immune to between-unit manipulation. The counterexample is decisive. Let the behaviour be
+`y = (1 + B_i)·S + R`, with `S` the situation, `R` the record, and a bonus `B_i` that is constant **inside**
+the unit but changes the **sensitivity** to the situation. The share explained by the situation is
+`(1+B_i)²/[(1+B_i)²+1]`: 1/2 at `B_i = 0`, 4/5 at `B_i = 1`. Centring removes nothing, because the bonus
+multiplies rather than shifts.
+
+**What survives.** An **additive** manipulation, constant inside the unit, leaves the centred deviations
+unchanged. That is exactly the case the rewritten `k_readouts.py` tests, and it holds (a bonus moves the
+measure by 0.0000). It is one case out of six.
+
+**What changes.**
+- **Manifesto 037, P3:** "the measure cannot be moved by a bonus" becomes "the measure is invariant to
+  additive within-unit shifts and is **not** invariant to manipulations that change the within-unit variance,
+  the responsiveness, or the measurement noise". The claim narrows; it does not disappear.
+- **`scripts/k_readouts.py --self-test`:** must cover six cases, not one — additive bonus, multiplicative
+  bonus, situation-dependent bonus, between-unit-only change, within-unit-only change, and a change of
+  measurement noise. Only the first is currently tested.
+- **This is the second time P3 has been refuted.** The first was the implementation (a between-cell bonus
+  moved the measure by 0.31); this is the claim itself. Both are now recorded.
+
+### A2. Q3 — `budding_unit = "colony"` is blending inheritance and must not be called clonal
+
+**What the search found.** The criterion for a collective to be a unit of selection is heritable variation in
+fitness **at its own level**, and Godfrey-Smith locates it on three axes: bottleneck size (B), germ–soma
+specialisation (G), integration (I). A colony whose genome is the **mean** of its members' genomes has **no
+bottleneck and no lineage**: two lineages that touch produce a synthetic genome that is the clone of neither
+parent.
+
+**What changes.**
+- **The mode must be renamed.** The word "clonal" cannot apply to it. Candidate names: `colony-mean` (what it
+  computes) or `blending` (what it is).
+- **Every reproduction mode must record the three axes** (B, G, I) in the artifact, so a reader can see at once
+  whether a mode is a Darwinian unit.
+- **A group genome, if wanted, needs its own transmission operator defined** — the mean vector is a
+  **phenotype**, not a genome.
+
+### A3. Q5 — lowering `Dw` changed the model, and that must be declared
+
+**What the search found.** All four passes give the same stability condition, `D·dt/h² ≤ 1/4`, and all four
+add the same caveat: **the right fix depends on what the field means**. If `Dw` is a physical diffusion
+coefficient, the fix is to lower `dt` (or use an implicit scheme) and **keep `Dw`**; lowering `Dw` changes the
+speed at which the field spreads. If `Dw` is a free modelling parameter, lowering it is legitimate but is a
+**change of model**.
+
+**What changes.**
+- The correction to 0.24 is an **interim** fix and is now labelled as one.
+- **The model parameter and the integrator parameter must be separated** in the config: `Dw` (what the field
+  diffuses at) and `dt` (how finely we integrate). A stability gate then checks the combination, not a
+  hard-coded number.
+- **`world_invariants.py` W5** already checks the combination; it should check it for **whatever** `Dw` and
+  `dt` the config carries, not for the two literals it has now.
+
+### A4. Q6, Q8, Q9, Q11, Q14 — what is already done and what is still owed
+
+| question | what the search settled | what is done | what is still owed |
+|---|---|---|---|
+| **Q6** clipping | no acceptable fraction exists; the criterion is whether the correction vanishes under refinement | nothing | record `clipped_mass` and `clip_fraction` per step |
+| **Q8** component matching | 0.5 is not canonical; the choice has measurable consequences | the counter now uses a **relative** threshold | a sensitivity sweep over 0.2 / 0.3 / 0.5 |
+| **Q9** boundaries | a boundary is part of the model unless the domain is the large-system limit | `boundary` is in the config and the artifact | show that a difference between worlds is not explained by the boundary alone |
+| **Q11** initial condition | in a periodic world the seed must use the minimum-image distance | nothing | build the seed with toroidal distance, or record the initial mass as a factor |
+| **Q14** mechanism identity | a mechanism is individuated by its phenomenon and causal organisation, not by a parameter name | the meta-analysis groups by config field (a first approximation) | group by mutual manipulability, and record `same` / `related` / `unresolved` |
+
+### A5. Q4 — activation and reproduction are distinguished in the literature, and we now record which one ran
+
+Avida separates `Inject`, `h-alloc`, `h-copy` and `h-divide`: copying and division are different operations and
+injection is not a parent. Growing NCA uses one rule for all cells, so a new active cell is not a genetic
+offspring at all. **Our `grown_genome = "field"` is the right record**, and the next step is a per-cell
+`birth_mode` (`activation` / `reproduction` / `injection`) with the inheritance analysis stratified by it.
+
+### A6. The four questions that remain open
+
+Q7 (maintenance versus repair naming), Q10 (diff or hashes), Q12 (generated text or changed model) and Q13
+(automatic triggers) are **owner decisions**; no search can settle them. They are marked as such in
+`docs/open-questions.md` and in Part 5 of this audit.
+
