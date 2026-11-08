@@ -3653,28 +3653,345 @@ it survive** (R1, alive, offspring)?
 
 ---
 
+## P176. You need memory to function and yet must be free of the memory that creates the centre
+
+**The move.** "**Is it possible to live in this world, completely doing your job... without a centre, knowing what the
+centre is, and knowing that to live in this world you need memory?** You need memory to go to the office, to function
+there... **You need memory, and yet to be free of the memory which creates the centre.** See the difficulty?"
+
+**In our world.** **This is the precise form of our problem, and it is much sharper than "remove `pred`".** The cell
+**needs** memory to function — it needs to know where the food was, to eat at all. And it must be **free of the memory
+that creates the centre**. **So the answer is not "no memory" but "memory that does not become a centre".**
+
+**What it explains.** Why the naive removal experiment might kill the cell rather than free it: **a cell with no
+memory at all cannot function.** The pattern says the target is **memory without a centre** — memory that is **used
+and dropped**, not accumulated into a self.
+
+**Testable / design requirement.** The experiment must test **three** conditions, not two:
+- **full record** (the centre);
+- **no record** (no function);
+- **memory used and dropped** (the target: the reset, P25).
+
+**And the prediction is that the third is the only one that both functions and is free.**
+
+**Status:** the sharpest form of the design question in the file.
+
+---
+
+## P177. There is no method, because method belongs to time
+
+**The move.** "Now, is there a method to get rid of the centre?... **Method belongs to time, obviously, and therefore
+a method is no good**, whether it is the method of Shankara, Buddha, your pet Guru, or no Guru, or you invent it.
+**Time has no value** and yet, if you are not free from that centre you are not free."
+
+**In our world.** This is P126 and P174 joined with the **reason**: **method belongs to time**, and time is the
+escape. So **every method is an escape by construction** — not because methods are badly designed, but because **the
+form of a method is time**.
+
+**What it explains.** Why **no method we tried could work**, however well built: the form was the problem.
+
+**Testable / rule.** **No method in the experiment.** Not "first do X then Y", not "repeat until Z". The experiment
+must be **a situation and an observation**, with no ordered procedure.
+
+**Status:** rule; the strongest form of "no method".
+
+---
+
+## P178. By merely watching the movement of thought the mind becomes extraordinarily alert — you did nothing to make it so
+
+**The move.** "**By merely observing**, the mind has become extraordinarily alert. Right? **You have done nothing to
+make it alert**, but by merely watching the movement of thought, step by step, it has become extraordinarily clear."
+
+**In our world.** This is P171 with the **crucial clause**: **you have done nothing to make it alert.** The alertness
+is a **by-product of watching**, not a result of effort. And that is exactly what our programme got wrong: we tried
+to **make** the cell alert (the gate, the adaptation) instead of **watching** it.
+
+**What it explains.** Why the "make it alert" mechanisms made it **duller** (P98): **making is the opposite of
+watching.**
+
+**Testable / rule.** The experiment must **not try to make the cell anything**. It watches, and reports what
+happened. **The alertness, if it comes, is a by-product — and must not be a criterion.**
+
+**Status:** rule.
+
+---
+
+## P179. The centre itself sees it — nobody else is asking it
+
+**The move.** "That centre is saying to itself (**nobody else is asking it**) 'I realize I am living in a prison, and
+obviously to be free from pain, sorrow, there must be no centre.' It sees this. **The centre itself sees it — not
+somebody else above or below telling the centre.**"
+
+**In our world.** This is the **last word on the controller question** (P52, P56, P99): **there is no "somebody else
+above or below"**. The centre sees its own prison — **not a supervisor, not an observer standing outside**. Every
+design we built had a **supervisor** (the gate watching the cell, `pred` watching the resource). **There is no
+supervisor.**
+
+**What it explains.** Why the "step back and look" pattern failed in every form: it assumed a **somebody else above**
+who does the looking.
+
+**Testable / design requirement.** No part of the cell may be positioned **above** another part. The cell is **one
+process** (P65), and the seeing, if it happens, is **the process seeing itself** — which in mechanical terms means
+**the measurement is external to the cell** and the cell is unchanged.
+
+**Status:** design constraint; it closes the controller thread for good.
+
+---
+
+## P180. You see the dirt every day and you don't see it at all — because if you felt it you would act
+
+**The move.** "You see that dirt on the road every day... **Of course you see it without feeling. If you felt, you
+would do something about it.**... **Which means you don't see it at all.**"
+
+**In our world.** This is the **criterion of seeing**, and it is operational: **seeing is proved by acting.** If
+nothing is done, nothing was seen. And it applies to **us**: we have "seen" the trap many times — and **nothing was
+done**. **Which means we did not see it at all.**
+
+**What it explains.** Why the file, for all its precision, has changed **zero** experiments (P136, P137): **we did not
+see.** Seeing would have produced action.
+
+**Testable / rule.** **The proof of seeing is the action it produces.** A report that ends in "we should look into
+this" is proof that nothing was seen.
+
+**Status:** rule; the hardest self-test in the file.
+
+---
+
+## P181. Simplicity is to look at things as they are — not a loincloth and third class
+
+**The move.** "Your simplicity is to put on a loincloth and travel third class and do so-called meditation... **But
+that is not simplicity. Simplicity is to look at things as they are — to look.** To look at the tree, without the
+centre."
+
+**In our world.** This **names our own austerity**: the minimal designs, the reduced parameters, the "clean"
+experiments. **That is not simplicity** — it is **exhibitionism** (P134's "bourgeois mind"). **Simplicity is looking
+at things as they are.**
+
+**What it explains.** Why our "minimal" experiments were not simple: they were **elaborate in a different way** —
+elaborate in their **restraint**. **A design that is proud of its minimalism is not simple.**
+
+**Testable / rule.** The test of simplicity: **does the design look at the thing, or at its own restraint?** A simple
+design has **no ornament, including the ornament of austerity**.
+
+**Status:** rule.
+
+---
+
+## P182. Can the past produce clear action? — the question that decides everything
+
+**The move.** "**Can the past produce clear action?** Because action is thought... can that thing which is old, the
+past, ever be clear? If I do anything out of tradition... **can that action be clear?**"
+
+**In our world.** **This is our experiment, asked as a question.** The cell's action **is** produced by the past
+(`pred`). And the question is: **can that action be clear** — i.e. **can it be a response to the situation?**
+
+**What it explains.** Why our metric (favourable share) could never answer it: it measured **outcomes**, not
+**clarity of action**. **Clarity is a property of the relation between action and situation** — which is exactly the
+variance decomposition (P80).
+
+**Testable.** The experiment measures **clarity of action**: the fraction of the action explained by the situation.
+**That is the direct answer to "can the past produce clear action" — and the prediction is: no, unless the past is
+dropped.**
+
+**Status:** the question, in measurable form.
+
+---
+
+## P183. The past may help in technology but not in the field of life
+
+**The move.** "**The past may help in the field of technology, but it does not help in the field of life.**"
+
+**In our world.** This is the **two-field distinction** (P176) and it is **the most practically useful thing in the
+whole reading for a designer**: memory is **necessary** in one field and **harmful** in the other. And it says where
+our cell sits: **the cell's memory is used in the field of life** (where to go, whether to act) — **where memory does
+not help.**
+
+**What it explains.** Why the cell's memory, unlike a technological memory, **always hurt**: it was applied in the
+wrong field. **A memory of where food was is technological; a memory of whether it is worth living is not** — and our
+`pred` is the second kind, disguised as the first.
+
+**Testable / design requirement.** Any memory given to the cell must be **strictly technological**: a fact about the
+world that is **used and dropped**, never a **judgement about the situation**. **`pred` is a judgement** (P107: it
+evaluates), and that is why it is in the wrong field.
+
+**Status:** design requirement; it explains the failure of every memory mechanism.
+
+---
+
+## P184. How can I live without fragmentation? — and the answer is "I don't know", which is silence
+
+**The move.** "**How am I to live so that there is no fragmentation at all?**... I respond to it by saying, '**I
+really don't know**'... **When a challenge is put to you, a new challenge, the right response is humility: 'I don't
+know.'**"
+
+**In our world.** This is the **correct response to our central question**, and it is the one we never gave. We
+answered "I don't know" **and then went looking for an answer** — which the pattern says is **waiting**, and waiting
+is memory looking for an answer (P185).
+
+**What it explains.** Why every answer we produced was **fragmentation**: an answer from memory is a fragment
+answering a whole question.
+
+**Testable / rule.** The experiment must be designed **from "I don't know"** — i.e. with **no hypothesis about what
+will happen**, and **no waiting for an answer**. That is P112 (equally satisfied by either answer) with the reason.
+
+**Status:** rule.
+
+---
+
+## P185. "I don't know" that waits is not "I don't know" — it is memory hoping to be told
+
+**The move.** "When I say 'I don't know', I really don't know. But **am I waiting to find out, or waiting for
+somebody to tell me?**... **If your memory is going to tell you, you are back again in the same old rut.** So what
+are you waiting for?"
+
+**In our world.** This **distinguishes two "I don't know"s** that look identical and are opposite:
+- **waiting** — memory hoping to be told (our whole programme);
+- **not waiting** — the mind silent before a question it cannot answer (the target).
+
+**What it explains.** Why our "open questions" were not open: each was **waiting** for the next mechanism to tell us.
+**The waiting was the rut.**
+
+**Testable / rule.** A question is genuinely open **only if nothing in our memory could answer it**. If we can name
+the mechanism we expect to answer it, we are **waiting**, not asking.
+
+**Status:** rule; it is the sharpest test of whether a question is real.
+
+---
+
+## P186. When the mind is silent in the face of a new challenge, the silence is not blankness
+
+**The move.** "So the mind is **silent in the face of a new challenge. It is silent because it can't answer the new
+challenge.**... You know when you see a marvellous mountain... **it forces you to be silent**... this may last a
+second but the very grandeur of it makes you silent. And a second later all the reactions begin."
+
+**In our world.** This is the **positive form of the reset** (P131, P54): **silence is what happens when the
+challenge cannot be answered by memory** — and it is **not blankness**, it is **the absence of the answering
+machine**. And the pattern adds the **timing**: **it lasts a second, then the reactions begin.**
+
+**What it explains.** Why the effect of the reset, if it appears, will be **brief** — and why measuring the **last
+window** would miss it entirely (P4, P170). **The silence is at the beginning.**
+
+**Testable, and this is the measurement.** After a reset, the **first steps** should show **maximum
+situation-explained behaviour**, decaying as the reactions (the record) rebuild. **That is a curve, and it is the
+signature of P186.**
+
+**Status:** the measurement to run.
+
+---
+
+## P187. You are more concerned with the solution than with the question — and that is greed
+
+**The move.** "**So you are more concerned with the solution than with the question.**... You don't see the magnitude
+of this question because **you want to reach it, get it, you are greedy**. So **your greed is preventing you from
+seeing the immensity of it.**"
+
+**In our world.** **This is the final diagnosis of our programme**, and it is exact: we were **more concerned with the
+solution than with the question**. Every experiment was an attempt to **get** the answer. And the greed **prevented
+us from seeing the question**.
+
+**What it explains.** Why our questions kept **shrinking** to fit the solutions we could build: a greedy question is
+a question already shaped by its answer.
+
+**Testable / rule.** **Spend the experiment on the question, not on the solution.** If the design contains a
+solution, the question was not seen.
+
+**Status:** rule; it is P111 and P162 in their final form.
+
+---
+
+## P188. What is it that sees something new? — thought is always old
+
+**The move.** "**Thought is always old** — follow it carefully — when Adi Shankara said something, **his thought was
+already old**... So thought is never new and can never be new, and **living now, every day, is something which is the
+active present**... So **can you live so completely that there is only the active present now?**"
+
+**In our world.** This is P13 and P38 with the **final question**: **what is it that sees something new?** — and the
+answer must be **something that is not thought**. In our cell, **there is nothing that is not `pred`**. So the
+question becomes: **can the cell have a part that is not the record?** — and the only candidate is **the situation
+itself**, read directly.
+
+**What it explains.** Why the answer to "how do we get novelty" was always "from outside" (P38): **inside there is
+only the old.**
+
+**Testable.** The removal experiment is the test: **with the record gone, is there anything that sees?** — and if the
+cell still acts (and acts *better*), then **the situation was seeing**, and the cell was never needed as a seer.
+
+**Status:** the final question, in measurable form.
+
+---
+
+## P189. We are not individuals at all — we are the result of the culture in which we live
+
+**The move.** "**We are not individuals at all; we are the result of the culture in which we live.** An individual
+means an entity who is **not fragmented, who is whole**; we are not that. We are broken up, fragmented, in a state of
+contradiction within ourselves, **therefore we are not individuals**."
+
+**In our world.** **This is the definition that our cell fails, and it is a definition we can use.** An individual
+is **an entity that is not fragmented, that is whole**. Our cell is **fragmented by construction**: the resource and
+`pred` are two parts in contradiction (P62, P71). **Therefore our cell is not an individual** — it is a **conflict
+with a boundary**.
+
+**What it explains.** Why nothing "individual" ever emerged: **there was never an individual to begin with** — only
+a contradiction. And it explains why "agents" in our world could not compete, cooperate, or relate (P19, P22): **they
+were not agents.**
+
+**Testable / design requirement.** The cell becomes an individual **only when it is not fragmented** — i.e. when the
+contradiction is gone. **That is the same experiment again**, now with a definition attached: **wholeness is the
+absence of the gap between the actual and the concept** (P151).
+
+**Status:** the definition; it unifies P151, P173, P175 and P189.
+
+---
+
+## P190. What is your overriding interest? — and the answer decides what you will see
+
+**The move.** "**What is your primary interest, your deep, abiding intention?**... If that interest is vague,
+superficial, depending on surroundings and the wind that blows in any direction, then our activities... will be
+rather **casual, without any significance**."
+
+**In our world.** This is the **question that decides the whole programme**, and it is asked **before** any
+experiment. Our overriding interest, honestly stated, was: **to make evolution appear**. And the pattern says: **an
+interest decides what you will see** — a vague interest produces **casual activity without significance**.
+
+**What it explains.** Why our experiments were **casual in their significance**: they were aimed at an outcome, not
+at an interest. And why the file has changed nothing: **the interest was in the result, not in the seeing.**
+
+**Testable / rule.** **State the overriding interest before the experiment**, and check whether it is **an interest
+or an outcome**. "To see what the cell does when X" is an interest; "to show that X works" is an outcome.
+
+**Status:** rule; it is the question that precedes all the others.
+
+---
+
 ## What the reading has changed in our plan (updated)
 
-1. **The question is now answerable** (P175): not "how do we get evolution" but **"can a cell live fully without a
-   centre"** — and the removal experiment asks it.
-2. **The cleanest test in the file** (P170, P172): measure the record-explained fraction **in the first 20 steps** and
-   **in the last window**. P170 predicts **low at the start, high at the end**; and **the moment it crosses** is the
-   answer to "why does thought come in".
-3. **The two-arm test we never ran** (P166): **enclosure** (more space) vs **fear** (more energy). If the trap is
-   enclosure, space fixes it; if fear, energy does.
-4. **Dullness accumulates** (P167, P168): the trap should deepen with time — S22 already shows it (0.31 → 0.17).
-5. **Dullness should be greatest where the environment was most pleasant for longest** (P168, P169): the **rich**
-   zone should be duller than the poor one — the opposite of the naive expectation, checkable on E7f/E15.
-6. **No experiment may rely on "eventually"** (P174): time is the escape, not the solution.
-7. **Watching is the discipline** (P171): the method is watching, not rules.
-8. **A finding needs no recognition** (P165): a finding that needs recognition is a position.
-9. **The architecture is named** (P151); **escape is a waste of energy** (P154); **there is no good record and no bad
-   record** (P155); **force produces revolt** (P156); **awareness ends the habit and takes no time** (P157).
-10. **The rules** stand as listed in the previous update (P4–P164).
+1. **The design question is now three-way, not two-way** (P176, P183): **full record** (the centre) / **no record**
+   (no function) / **memory used and dropped** (the target). The prediction is that **only the third both functions
+   and is free.**
+2. **Memory must be strictly technological** (P183): a fact about the world, used and dropped — never a **judgement
+   about the situation**. `pred` is a judgement (P107), which is why it is in the wrong field.
+3. **The measurement is a curve, not a window** (P186, P170): after a reset, the **first steps** show maximum
+   situation-explained behaviour, **decaying** as the record rebuilds. **The silence is at the beginning.**
+4. **The proof of seeing is the action it produces** (P180): we have "seen" the trap many times and done nothing —
+   **which means we did not see it.**
+5. **A question is genuinely open only if nothing in our memory could answer it** (P185): if we can name the expected
+   mechanism, we are **waiting**, not asking.
+6. **State the overriding interest** (P190): "to see what the cell does when X" is an interest; "to show that X
+   works" is an outcome.
+7. **No method** (P177): method belongs to time, and time is the escape.
+8. **No supervisor** (P179): no part of the cell may be positioned above another; the cell is one process.
+9. **Do not try to make the cell anything** (P178): alertness is a by-product of watching, and must not be a
+   criterion.
+10. **Simplicity is looking, not austerity** (P181); **spend the experiment on the question, not the solution**
+    (P187).
+11. **The definition of an individual** (P189): **an entity that is not fragmented, that is whole** — our cell is a
+    contradiction with a boundary, and therefore not an individual.
+12. **The rules** stand as listed in the previous update (P4–P175).
 
 ---
 
 ## Reading progress
 
-- Pages 1–206 of 409 read (Part VI: the Madras dialogues on pleasure, and "Time, space and the centre").
-- Next: the rest of "Time, space and the centre", then "A fundamental question".
+- Pages 1–229 of 409 read (Part VI complete; Part VII, the Saanen talks, begun: "What is your overriding
+  interest?").
+- Next: the rest of the Saanen talks (order, self-knowledge, loneliness, thought and the immeasurable, will).
