@@ -174,7 +174,21 @@ def git_tracked() -> list[str]:
         return []
 
 
+# The world's version. Bumped on 08.11 when budding, death, repair and mobility were corrected: a series
+# taken before that date ran a world with a different energy budget and a different death rule, and the
+# two must never be pooled. Rule: docs/eliminations.md.
+WORLD_VERSION = 2
+
+
 def git_info() -> dict[str, Any]:
+    """Commit, dirtiness, and - when dirty - WHICH files changed and their hashes.
+
+    Why the hashes. `dirty: true` says a run cannot be reconstructed from its commit, but not what was
+    different. A run on a modified `world/pond.py` recorded only that fact, so the artifact could not say
+    which world it came from. The manifest now carries `dirty_files: [{path, sha256}]`, which is enough to
+    verify a reconstruction and small enough to keep in git (the bench's rule: the repository is thin
+    memory, so a hash is a pointer where a diff would be content).
+    """
     try:
         commit = subprocess.check_output(
             ["git", "-C", str(ROOT), "rev-parse", "--short", "HEAD"],
@@ -186,9 +200,25 @@ def git_info() -> dict[str, Any]:
             stderr=subprocess.DEVNULL,
             text=True,
         )
-        return {"commit": commit or None, "dirty": bool(status.strip())}
+        dirty_files: list[dict[str, Any]] = []
+        if status.strip():
+            for line in status.splitlines():
+                path = line[3:].strip()
+                if " -> " in path:            # rename: take the destination
+                    path = path.split(" -> ", 1)[1]
+                full = ROOT / path
+                sha = None
+                try:
+                    if full.is_file():
+                        import hashlib
+                        sha = hashlib.sha256(full.read_bytes()).hexdigest()
+                except OSError:
+                    sha = None
+                dirty_files.append({"path": path, "sha256": sha})
+        return {"commit": commit or None, "dirty": bool(status.strip()),
+                "dirty_files": dirty_files}
     except (OSError, subprocess.CalledProcessError):
-        return {"commit": None, "dirty": None}
+        return {"commit": None, "dirty": None, "dirty_files": []}
 
 
 def package_version(name: str) -> str | None:
@@ -1203,6 +1233,10 @@ def run_command(args: argparse.Namespace) -> int:
         "finished_at": None,
         "git_commit": git["commit"],
         "git_dirty": git["dirty"],
+        "dirty_files": git.get("dirty_files", []),
+        # which world this run belongs to. Bumped when a change alters the world's dynamics; series of
+        # different versions are not pooled (docs/eliminations.md).
+        "world_version": WORLD_VERSION,
         "command": command,
         "cwd": "morphogenesis",
         "owner": args.owner,

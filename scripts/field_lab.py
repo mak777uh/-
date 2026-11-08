@@ -39,6 +39,56 @@ def laplacian(x):
             torch.roll(x, 1, 1) + torch.roll(x, -1, 1) - 4.0 * x)
 
 
+def label_components(mask):
+    """4-connected labels of a boolean mask, periodic in both axes (the world is a torus)."""
+    import numpy as np
+    h, w = mask.shape
+    lab = np.zeros((h, w), dtype=np.int32)
+    cur = 0
+    for y in range(h):
+        for x in range(w):
+            if mask[y, x] and lab[y, x] == 0:
+                cur += 1
+                stack = [(y, x)]
+                lab[y, x] = cur
+                while stack:
+                    cy, cx = stack.pop()
+                    for dy, dx in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+                        ny, nx = (cy + dy) % h, (cx + dx) % w
+                        if mask[ny, nx] and lab[ny, nx] == 0:
+                            lab[ny, nx] = cur
+                            stack.append((ny, nx))
+    return lab, cur
+
+
+def match_events(prev_lab, lab_now, min_overlap: float = 0.5):
+    """Count real splits and merges by matching components across two snapshots on overlap.
+
+    A component of the previous snapshot is a PARENT of a component now if at least `min_overlap` of the
+    current component's cells belonged to it. A parent with two or more children is one split event; a child
+    with two or more parents is one merge event. This is the definition the tracker uses for identity, so the
+    two agree.
+    """
+    import numpy as np
+    parents_of = {}
+    children_of = {}
+    for cid in range(1, int(lab_now.max()) + 1):
+        cells = lab_now == cid
+        total = int(cells.sum())
+        if total == 0:
+            continue
+        vals, counts = np.unique(prev_lab[cells], return_counts=True)
+        for v, c in zip(vals, counts):
+            if v == 0:
+                continue
+            if float(c) / total >= min_overlap:
+                parents_of.setdefault(int(v), set()).add(cid)
+                children_of.setdefault(cid, set()).add(int(v))
+    splits = sum(1 for kids in parents_of.values() if len(kids) >= 2)
+    merges = sum(1 for ps in children_of.values() if len(ps) >= 2)
+    return splits, merges
+
+
 def components(mask):
     """Число и размеры 4-связных компонент (периодические границы)."""
     import numpy as np
@@ -114,7 +164,10 @@ def main(argv=None) -> int:
 
     Du, Dv, F, k = float(args.Du), float(args.Dv), float(args.F), float(args.k)
     series, prev_n = [], None
-    splits = 0
+    component_count_delta = 0
+    split_events = 0
+    merge_events = 0
+    prev_lab = None
     for step in range(1, int(args.steps) + 1):
         uvv = u * v * v if not bool(args.no_catalysis) else torch.zeros_like(u)
         du = Du * laplacian(u) - uvv + F * (1.0 - u)
@@ -141,8 +194,19 @@ def main(argv=None) -> int:
             f = u.detach().cpu().numpy()
             mask = p > float(args.threshold)
             n, sizes = components(mask)
+            # `component_count_delta` is what the old `splits` actually measured: the rise in the number of
+            # components between two snapshots. It is kept under its honest name.
             if prev_n is not None and n > prev_n:
-                splits += n - prev_n
+                component_count_delta += n - prev_n
+            # Real events: match the components of this snapshot to those of the previous one by overlap, and
+            # count a parent with several children as a split, several parents with one child as a merge.
+            # A split plus a merge in one interval gives delta = 0 but two events; the old counter saw nothing.
+            lab_now, _ = label_components(mask)
+            if prev_lab is not None:
+                sp, mg = match_events(prev_lab, lab_now)
+                split_events += sp
+                merge_events += mg
+            prev_lab = lab_now
             prev_n = n
             series.append({
                 "step": step, "components": n,
@@ -161,7 +225,9 @@ def main(argv=None) -> int:
         "model": "Gray-Scott: du=Du*lap(u)-u*v^2+F*(1-u); dv=Dv*lap(v)+u*v^2-(F+k)*v",
         "params": {kk: vv for kk, vv in vars(args).items() if kk != "out"},
         "series": series,
-        "splits": splits,
+        "component_count_delta": component_count_delta,
+        "split_events": split_events,
+        "merge_events": merge_events,
         "final_components": series[-1]["components"] if series else 0,
         "max_components": max((r["components"] for r in series), default=0),
         "note": ("нет клеток, меток и правил деления: пятна делятся сами. Компоненты — описательная величина, "
@@ -180,7 +246,7 @@ def main(argv=None) -> int:
     last = series[-1] if series else {}
     print(f"[field] шагов {args.steps}, сетка {g}, F={F}, k={k}")
     print(f"[field] компонент: конец {summary['final_components']}, максимум {summary['max_components']}, "
-          f"событий роста числа компонент: {splits}")
+          f"прирост числа компонент: {component_count_delta}, делений: {split_events}, слияний: {merge_events}")
     if last:
         print(f"[field] занято {last['occupied_share']:.3f}, v внутри {last['v_inside']:.3f} против "
               f"{last['v_outside']:.3f}; u внутри {last['u_inside']:.3f} против {last['u_outside']:.3f}")
