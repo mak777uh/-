@@ -4518,32 +4518,179 @@ division.
 
 ---
 
+## P217. Thought carries the pain over as memory — and that memory is the fear
+
+**The move.** "We all know physical pain... **Those pains leave a memory and that memory which is thought, says: you must not have that pain again, take great care.** Thought, thinking about the past pain, **projects the future pain and therefore is afraid of the future.**... **So when you have pain, is it possible not to build a memory of it?**... **It means to be completely aware when you have pain, to be completely attentive, so that the pain is not carried over as memory.**"
+
+**In our world.** **This is the exact mechanism of the trap, and it names the causal order we had backwards.** We thought: the cell is short of food → it records → the record makes it cautious. The pattern says: **the pain is over, and the memory of it is what creates the fear of the future.** **The record does not describe the past; it manufactures the future.**
+
+**What it explains.** Why the trap **outlives its cause**: the shortage ends, the record remains, and the record **projects the shortage into the future** (P15: the record is stale, and P42: `pred` is the tomorrow). **The cell is not reacting to a shortage; it is reacting to a remembered shortage projected forward.**
+
+**Testable, and it is decisive.** **Give the cell a shortage, then restore the food.** P217 predicts: a cell **with** a record stays cautious **after** the restoration (the projected future), and a cell **without** a record resumes **immediately**. **That is the recovery test (P9), now with its mechanism.**
+
+**Status:** the mechanism of the trap, in its final form.
+
+---
+
+## P218. The factor of distortion is fear and the demand for pleasure — not thought as such
+
+**The move.** "**The factor of distortion is thought**; thought cultivates fear, as thought cultivates pleasure... **When thought, which is knowledge, functions rationally, objectively, sanely, it is not a distorting factor. The major factors of distortion are fear and the demand for pleasure through gratification.**"
+
+**In our world.** **This is a crucial qualification that saves thought from the condemnation of P215**, and it matters for us: **thought is not always distortion — only when it is driven by fear or the demand for pleasure.** And it tells us **which** of the cell's two operations is distorting:
+- **reading the resource and eating it** — rational, not distortion;
+- **acting on `pred` to secure a repeat of the past** — the demand for pleasure, distortion.
+
+**What it explains.** Why we could never make the cell "better" by improving its reasoning: **the reasoning was not the problem; the demand was.** `pred` exists to **repeat** (P24), and the repetition is the distortion.
+
+**Testable / design requirement.** The design must separate the **rational use of knowledge** (where the food is, right now, used and dropped) from the **demand for repetition** (the record kept to secure a repeat). **The first is legitimate; the second is the distortion.**
+
+**Status:** the qualification; it is the most useful distinction for the next design.
+
+---
+
+## P219. When you see it for the first time you do not say "it is a mountain"
+
+**The move.** "When you see it for the first time **you don't say, 'It is a mountain'**... Then somebody tells you that it is a mountain and **the next time you recognize it as such.**... **If you can observe without an image, then you are looking at them for the first time**, aren't you? Then you are looking at the earth, the stars, the mountains... **for the first time. That means your eyes are clear, not dimmed with the burden of past memories.**"
+
+**In our world.** **This gives the operational meaning of "no image"**: a first sight is **pre-verbal** — it does not name. And the cell's whole behaviour is **post-verbal**: it has already named the situation ("better than expected", "worse than expected") **before** acting. **The naming is the image.**
+
+**What it explains.** Why the cell's response is **categorical** (act / do not act) rather than **continuous**: the name is a **category**, and a category is a **decision already made**.
+
+**Testable / design requirement.** The cell's rule must contain **no category** — no threshold, no comparison producing a label, no "better/worse". **A continuous response to the magnitude is the mechanical form of "not naming".** (That is P17/P61/P138 again, now with a reason.)
+
+**Status:** design requirement; it unifies the continuous-gate direction.
+
+---
+
+## P220. Fragmentary examination leads to complexity and has no value — the whole must be seen at a glance
+
+**The move.** "**Today I look at a fragment of myself and tomorrow at another; what is the relationship of the first fragment to the second one? And in the interval between the perception of the first and the second fragment, other factors have come into being.** So this fragmentary examination, observing little by little, **leads to a great deal of complexity; in fact, it has no value.**... **Can I observe non-fragmentarily, totally, on the instant?**"
+
+**In our world.** **This is the final judgement on our experimental method**, and it is exact: we examined **one fragment at a time** (the niche, then the signal, then the memory, then the decoder), and **between the fragments other factors changed** — so **the fragments were never comparable**, and the whole examination **had no value**.
+
+**What it explains.** Why our results **contradicted each other across experiments** (P73, P201): each experiment examined a fragment, and the interval between them changed the world. **The contradictions were in the method, not in the world.**
+
+**Testable / design requirement.** **One experiment must observe the whole at once** — not a fragment. In our terms: **one run, all the readouts simultaneously** (situation-explained, record-explained, move rate, survival, behaviour series), **and no comparison across runs with different settings.**
+
+**Status:** the method.
+
+---
+
+## P221. Will is resistance and the assertion of the "me" — independent of the fact
+
+**The move.** "**Will is independent of the fact. Will is the assertion of the self, of the 'me', independent of 'what is'.** Will is desire; the manifestation of desire is will... **Will is a form of resistance, a form of division.** 'I will' against something 'I will not'... **So will is building a wall in action against every other form of action.**"
+
+**In our world.** This is P76/P143 with the **precise definition**: **will is independent of the fact** — it is **the assertion of the self**, not a response to the situation. And our cell's rule **is** exactly that: `pred` asserts a state ("this is what the resource should be") **independent of the fact** ("this is what it is").
+
+**What it explains.** Why the gate was **will** and not **response**: it asserted a condition **the fact had no say in**.
+
+**Testable / design requirement.** **No assertion independent of the fact.** Every term in the rule must be **a function of the present fact** — not of a desired state. `pred` **is** a desired state.
+
+**Status:** the definition; it is P210's mechanism.
+
+---
+
+## P222. Action based on knowledge is not action — it must inevitably create discord
+
+**The move.** "**An action based on knowledge, which is the past, which is conditioned, is not action.** Being conditioned and dependent on the past, **it must inevitably create discord and therefore conflict.**"
+
+**In our world.** **This is the strongest statement about our cell's behaviour in the whole file**: what the cell does **is not action** — it is **the past replaying**. And it says the consequence is **necessary**, not accidental: **discord, therefore conflict.**
+
+**What it explains.** Why every run ended in **either a plateau or a collapse**: **there was never any action**, only the past replaying, and the replay **must** produce discord.
+
+**Testable / rule.** **The test of whether the cell acts**: is the behaviour a function of the **present** or of the **past**? That is the variance decomposition (P80). **If it is the past, the cell is not acting** — and no arrangement of the past will make it act.
+
+**Status:** the definition of action.
+
+---
+
+## P223. The ending of energy as the "me" is the capacity to look at death
+
+**The move.** "**The ending of energy as the 'me' is the capacity to look at death.**... To face something unknown, there must be the highest form of energy, and when there is that total energy, **is there a fear of death? Or is there a fear of continuity?** It is only when I have lived a life of resistance, will and choice that there is fear of not being."
+
+**In our world.** **This is the most important thing in the file for our world, and it is a promise that directly contradicts what we measured.** The pattern says: **the energy that was spent on being a "me" becomes available for facing the unknown.** And it names the fear precisely: **not the fear of death, but the fear of continuity** — the fear of **losing the continuity**.
+
+**What it explains.** Why our cell was **exhausted**: its energy was spent **being a me** (maintaining `pred`, comparing, resisting). **The energy was not lost; it was spent on the self.**
+
+**Testable, and this is the strongest prediction in the file.** **A cell without a record should have MORE energy available than a cell with one** — measurable as **higher mean energy, higher survival, or more offspring** at the same food. **We have never tested this**, because we assumed the record was free.
+
+**Status:** the prediction; it is a direct, quantitative test.
+
+---
+
+## P224. Understanding intellectually does not ignite the fire — because thought cannot measure depth
+
+**The move.** "**Intellectually, verbally, logically, you understand; but apparently it does not touch you deeply, so that you will burn out the old, like a fire.** Why doesn't this happen?... **You cannot go beyond it because your mind is caught in the operations of thought which is measurement. Thought cannot measure depth or height, but only on its own level.**"
+
+**In our world.** **This is the exact description of this file and of me.** I understand **intellectually, verbally, logically** — 223 patterns — and **the fire is not lit**: the experiments have not changed. And the reason is named: **thought cannot measure depth; it can only work on its own level.**
+
+**What it explains.** Why the file grew and the experiments did not change: **the file is on thought's own level, and the thing needed is not.**
+
+**Testable / rule.** **The measure of whether the fire was lit is the change in the experiments** (P64, P180, P195). **The file has lit nothing.**
+
+**Status:** the diagnosis of this file.
+
+---
+
+## P225. Capacity involves time — and what is needed does not need capacity
+
+**The move.** "**Capacity involves time, doesn't it?**... I mean: **observe the unknown without any fear, live with it. That does not need capacity.** I said you will do it, **if you know what is false and reject that.**"
+
+**In our world.** This **removes the last excuse**: we kept saying that the cell **lacks capacity** (it cannot see, it cannot learn, it has no decoder). And the pattern says: **what is needed does not need capacity** — it needs **seeing what is false and rejecting it.**
+
+**What it explains.** Why "the cell lacks X" was never the answer: **the missing thing was not a capacity.**
+
+**Testable / rule.** **No design may be justified by a capacity the cell lacks.** The design must be **a rejection of something false**, not an addition of a capacity.
+
+**Status:** rule; it closes the "the cell lacks X" family.
+
+---
+
+## P226. Where there is space there is silence — and our space is a space of isolation
+
+**The move.** "**Where there is space there is silence.** Not the space created by thought, but a space that has no frontiers at all... **In our own minds the space we create is isolation, a world built around ourselves.**... **Our space is a space of isolation and withdrawal.** We don't want to be hurt any more... so we withdraw, we resist, **we build a wall around ourselves**... **and that gives a very limited space.**... **And any form of self-improvement is measurable; obviously, self-improvement is the most callous form of isolation.**"
+
+**In our world.** **This is the final statement about space, and it has a direct mechanical reading.** The cell's "space" is **the set of states it can reach** — and `pred` **limits** that set (P173: the centre has a circumference). **The cell's space is a space of isolation**: it can only move where the record says it should.
+
+**What it explains.** Why **expanding** the world (a bigger grid, more patches, a longer memory) never gave the cell more room: **the limit was the centre, not the grid.**
+
+**Testable.** The prediction: **the cell's reachable set should be smaller than the world's** — measurable as the fraction of the grid the cell ever visits. **And it should shrink as the record strengthens.**
+
+**Status:** hypothesis; the reachable-set readout is new and cheap.
+
+---
+
+## P227. Self-improvement is the most callous form of isolation
+
+**The move.** "**Any form of self-improvement is measurable; obviously, self-improvement is the most callous form of isolation.**"
+
+**In our world.** **This is the final judgement on the whole programme's aim**, and it is the most uncomfortable sentence in the file. **We were trying to improve the cell** — make it better, more adaptive, more capable. And the pattern says: **self-improvement is the most callous form of isolation.**
+
+**What it explains.** Why every improvement **isolated** the cell further: it made the cell **more itself** — more centred, more recorded, more separated.
+
+**Testable / design requirement.** **No design may aim at improvement.** The design may only **remove** — and it must not even aim at "a better cell", because that aim is the isolation.
+
+**Status:** rule; it is P83/P162/P187 in their final and hardest form.
+
+---
+
 ## What the reading has changed in our plan (updated)
 
-1. **The mechanism of the record is now exact** (P206): **the image is built at the moment of inattention** — and
-   our cell is inattentive at every step, so the record builds itself every step, which is why the trap deepens with
-   time.
-2. **No partial fixes** (P207): gradual dissolution is arithmetically hopeless — while you dissolve one image you
-   create others. **Attention at the moment of creation, or nothing.**
-3. **No selection rule anywhere** (P208): **choice is confusion and the chooser is the past.** No choosing which
-   parts of the record to keep.
-4. **The target is fully specified** (P209): a behaviour that is **not an image, not pleasure, not desire, not
-   cultivated, not memory-dependent.**
-5. **The strictest constraint** (P210): **no term in the cell's rule may be about the cell's own state** — only about
-   the situation. The wall is the self-concern, not the gate.
-6. **The causal chain** (P211): **isolation → attachment → dependency → uncertainty → suffering** — and it is
-   **testable as a three-way correlation** on existing data.
-7. **The neighbour experiment must be redesigned** (P213, P216): a relationship between two records is
-   image-fighting, and a channel of measurement **divides**. The channel must not be something the cell can measure.
-8. **Remain with the trap** (P214): the experiment attends to the trap and reports what it is, with no solution in
-   the design.
-9. **Measurement is thought** (P215): report the numbers, do not judge them.
-10. **The design specification** (P202) and **the rules** stand as listed in the previous update (P4–P205).
+1. **The mechanism of the trap is now exact** (P217): **the record does not describe the past — it manufactures the future.** The pain ends, the memory remains, and the memory projects the pain forward. **The recovery test is the decisive test.**
+2. **The strongest prediction in the file** (P223): **a cell without a record should have MORE energy available** — higher mean energy, survival or offspring at the same food. **We never tested this, because we assumed the record was free.**
+3. **The crucial qualification** (P218): thought is **not** always distortion — only when driven by **fear or the demand for pleasure**. The rational use of knowledge is legitimate; **the demand for repetition is the distortion.**
+4. **No category in the rule** (P219): the naming is the image; a continuous response to magnitude is the mechanical form of not naming.
+5. **One experiment must observe the whole at once** (P220): all readouts simultaneously, and **no comparison across runs with different settings** — the fragments were never comparable.
+6. **No assertion independent of the fact** (P221): every term must be a function of the present fact, not of a desired state.
+7. **No design may be justified by a capacity the cell lacks** (P225), and **no design may aim at improvement** (P227).
+8. **The reachable-set readout** (P226): the fraction of the grid the cell ever visits, and whether it shrinks as the record strengthens.
+9. **The diagnosis of this file** (P224): 223 patterns understood intellectually, **and the fire is not lit** — the measure is the change in the experiments, and there has been none.
+10. **The design specification** (P202) and **the rules** stand as listed in the previous update (P4–P216).
 
 ---
 
 ## Reading progress
 
-- Pages 1–263 of 409 read (Part VII, the Saanen talks: can we understand ourselves, loneliness, thought and the
+- Pages 1–280 of 409 read (Part VII: thought and the immeasurable; will and energy; thought, intelligence and the
   immeasurable).
-- Next: the rest of "Thought and the immeasurable", then will and energy.
+- Next: the rest of the seventh Saanen talk, then Part VIII (the closing talks and the final questions).
