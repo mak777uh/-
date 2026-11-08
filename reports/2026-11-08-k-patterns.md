@@ -3963,35 +3963,348 @@ or an outcome**. "To see what the cell does when X" is an interest; "to show tha
 
 ---
 
+## P191. Control is not order — because control implies a controller and the thing controlled
+
+**The move.** "**Control implies, does it not, a controller and the thing to be controlled**... I am angry and I must
+control my anger; and **where there is control, there is conflict**... **So control is not order.** This is very
+important to understand. **One can never have order through control**, because order implies functioning clearly,
+seeing wholly, without any distortion; but where there is conflict, there must be distortion."
+
+**In our world.** **This is the final and complete diagnosis of the gate**, and it is a **logical** argument, not a
+moral one: **control requires a controller and a controlled** — that is, it requires **fragmentation** (P65, P173) —
+and fragmentation **is** conflict, and conflict **is** distortion. **So the gate cannot produce order by
+construction.**
+
+**What it explains.** Why the gate made the cell **worse** (S22: 0.166 vs 0.340): it did not merely fail to help, it
+**introduced the division** that is the disorder. **The gate was the disorder, not the cure.**
+
+**Testable.** The continuous-gate experiment (P17, P61, P138) is the test: **no controller, no controlled** — and the
+prediction is **order** (the situation-explained fraction high) with **no conflict** (the trap gone).
+
+**Status:** the diagnosis, in its final form.
+
+---
+
+## P192. Learning is not storing knowledge and acting from it — learning is the constant movement of not having learnt
+
+**The move.** "**Learning means the active present of that verb, to learn, which is a constant movement of learning,
+not having learnt and then applying that knowledge**, which is something quite different from learning all the time.
+Do you see the difference? We are learning together; we are not storing up knowledge and then acting according to
+that knowledge; **in that there is contradiction and therefore control**, whereas a mind that is constantly learning
+has no authority, no contradiction, no control, no discipline, **but the very learning itself demands order**."
+
+**In our world.** **This is the exact distinction our cell fails**, and it is the **positive** form of P176/P183. Our
+cell does **not learn**: it **stores** (`pred`), and then **acts according to the store**. And the pattern says what
+that produces: **contradiction, therefore control, therefore disorder.**
+
+**What it explains.** Why every "learning" mechanism we built produced **control** (adaptation, thresholds,
+budgets): they were **storing**, not learning. **A store that acts is a controller.**
+
+**Testable / design requirement.** The cell must **not act from a store**. It may **read** the situation each step
+(learning as movement) — which is the removal direction. **And the pattern adds the reason: learning itself demands
+order**, so the order we were trying to install **comes with the learning, not with the rule.**
+
+**Status:** the distinction; it names what "learning" must mean for the next design.
+
+---
+
+## P193. A mind that has learnt brings disorder — the store itself is the disorder
+
+**The move.** "**A mind that is learning all the time is actually in a state of order, but the mind that is not
+learning, which says 'I have learnt', such a mind brings disorder.**"
+
+**In our world.** **This is the sharpest statement about `pred` in the whole file.** `pred` **is** the mind that says
+"I have learnt" — it is the accumulated conclusion about where the food is. **And such a mind brings disorder.**
+
+**What it explains.** Why the record's effect was **always** disorder (P155, P169), never order: **the record is the
+"I have learnt", and "I have learnt" is disorder.**
+
+**Testable.** The prediction is **directional and unconditional**: the record-explained fraction should correlate
+**positively** with disorder (the trap, the dullness, the declining move rate) **across every arm**. That is a
+correlation on existing data.
+
+**Status:** the thesis about the record, in its final form.
+
+---
+
+## P194. The state of "not knowing" is not waiting — it is terribly alive and active
+
+**The move.** "**The state of 'not knowing' is not waiting to be told, it is not expecting an answer; it is terribly
+alive, active, but it does not know**; it knows what is disorder and therefore rejects it completely. **When such a
+mind says, 'I do not know', then it is totally free. It has denied the disorder and because it is free, it has found
+order.**"
+
+**In our world.** This is P185 completed with the **positive** description, and it gives **the mechanism of the
+experiment**: the mind that **knows disorder and rejects it** is **free** — and **freedom is order**. So the
+operation is: **know the disorder completely, reject it completely** — and order comes **without being pursued**
+(P139).
+
+**What it explains.** Why "pursuing order" never worked and **"denying disorder"** is the only operation: **order is
+not built, it is what remains.** And it makes the experiment concrete: **the experiment must deny the disorder (the
+record) completely — not reduce it, not tune it, not reset it partially.**
+
+**Testable / design requirement.** **Complete denial, not partial.** The reset must be **total** (the record
+emptied), not gradual (P174) and not partial (P155: no good record, no bad record).
+
+**Status:** the operation, stated.
+
+---
+
+## P195. When you see the danger of disorder there is instant action — no arguing, no hesitation
+
+**The move.** "**When you see something very dangerous, a precipice, a wild animal, or a man with a gun, you avoid it
+instantly**, don't you? There is no arguing, no hesitation, no temporizing, there is **immediate action**. In the same
+way, **when you see the danger of disorder, there is instant action** which is the total denial of the whole culture
+which has brought about disorder."
+
+**In our world.** This is P75 and P157 with the **analogy that makes it concrete**: **the precipice**. And it gives
+the **test of whether we have seen the danger**: **instant action**. We have described the trap a hundred times and
+**hesitated every time** — which means **we have not seen it as a precipice.**
+
+**What it explains.** Why the file grew and the experiments did not change: **we were arguing, not seeing.**
+
+**Testable / rule.** **The measure of seeing is the speed of the action.** If a finding does not change the next
+experiment **immediately**, it was not seen as a precipice.
+
+**Status:** rule; it is P180 with a clock.
+
+---
+
+## P196. Are you aware of this yourself, or only when it is pointed out to you? — the difference between first-hand and second-hand
+
+**The move.** "**Are you aware of all this in yourself as you live from day to day? Or are you only aware when it is
+pointed out to you?** Please see the difference. If you are aware of this whole problem... **because you have been
+observing, living, and watching, then it is your own; the other is second-hand.** Now which is it? **For most of us,
+it is second-hand, because we are second-hand people.**"
+
+**In our world.** **This is the test of the whole file**, and it is merciless: **everything in these 195 patterns is
+second-hand** — it was pointed out to us by the book. **It becomes first-hand only if we were already observing it.**
+
+**What it explains.** Why the file may be worth nothing: **a second-hand pattern cannot change an experiment** (P64,
+P180). **Only a first-hand observation can.**
+
+**Testable / rule.** For each pattern, ask: **did we observe this ourselves, or was it pointed out?** The ones we
+observed ourselves (the trap, the E10 null, the boundary) are first-hand. **The rest is second-hand and must be
+discarded** — which is P150's "put away the sacred books", applied to this file.
+
+**Status:** the audit criterion for this file.
+
+---
+
+## P197. Analysis is the denial of action — and it increases the margin of error
+
+**The move.** "**Analysis implies time**... And analysis also implies that everything analysed must be final and
+complete, **and if it is not (which it can't be), then that finding is incorrect, and with this faulty analysis I
+proceed to examine the next experience**... **so all the time I am working from a false premise, consequently my
+judgments are wrong and I am increasing the margin of error.**... **Analysis implies the postponement of action.
+When I am analysing myself, I am not acting... therefore analysis is the denial of action.**"
+
+**In our world.** This is P5 with the **mechanism of the compounding**: each analysis is **incomplete**, so the next
+one starts from a **false premise**, and **the margin of error grows.** And it names the consequence:
+**postponement of action.**
+
+**What it explains.** Why our post-mortems made things **worse rather than better**: each was an incomplete analysis,
+and the next experiment started from its false premise. **The margin of error grew** — which is why the same
+mistakes recurred (tap, saturation, clipping).
+
+**Testable / rule.** **No analysis without action.** An analysis that does not change the next action is a
+postponement, and a postponement is an error being carried forward.
+
+**Status:** rule; it explains the recurrence of our mistakes.
+
+---
+
+## P198. The observer is the memory, the conditioned entity — and it judges according to that conditioning
+
+**The move.** "**When I look at myself, the observer is conditioned by the culture in which he has lived; so the
+observer is the memory, the observer is the entity that is conditioned — the 'me'.** According to that conditioned
+background of the 'me', I judge, I evaluate; I observe myself according to that culture, and **according to my
+conditioning I hope to bring about a change in the observed.**"
+
+**In our world.** This is P1/P6/P11 in its **final and complete** form, and it adds the **hope**: **according to the
+conditioning I hope to bring about a change in the observed.** That is **exactly** our adaptive mechanism: `pred`
+(the conditioned observer) **hopes to change** the cell's behaviour (the observed). **And it cannot**, because it is
+the same conditioning.
+
+**What it explains.** Why the adaptive mechanisms were **structurally** incapable: **the observer cannot change the
+observed when it is the observed.**
+
+**Testable.** The random-perturbation control (P56, P76) is the test: if the observer is the observed, the "change"
+it produces should be **indistinguishable from noise**.
+
+**Status:** the final form of the observer problem.
+
+---
+
+## P199. Can you look at yourself only when there is no fragmentation of thought?
+
+**The move.** "When one thought separates itself from the other thoughts, **is such a thought capable of looking?**
+Or **can you look at yourself only when there is no fragmentation of thought?**"
+
+**In our world.** This is the **question that decides whether any self-observation is possible in our cell**: can
+**one part of the cell look at another part**? And the pattern's answer is: **no** — **a separated thought cannot
+look**; looking requires **no fragmentation**.
+
+**What it explains.** Why every "diagnostic" we added to the cell (a logger, a controller, an observer) **could not
+see anything**: it was **a separated thought**.
+
+**Testable / design requirement.** **The observation must be outside the cell.** Any "self-observation" inside the
+cell is a separated thought and cannot look. **That is why our logging is external — and why it works.**
+
+**Status:** design requirement; it justifies external measurement.
+
+---
+
+## P200. Order is not habit — habit becomes automatic and loses all its vitality
+
+**The move.** "**Order is not habit**; habit becomes automatic and **loses all its vitality** when human beings merely
+become orderly in the mechanical sense."
+
+**In our world.** This is P148 with the **consequence named**: **vitality**. Our cell's rule is a **habit** applied
+every step, and it **lost its vitality** — measurable as the declining move rate (S22: 0.31 → 0.17).
+
+**What it explains.** Why the trap looks like **death by habit**: the cell did not decide to stop, it **became
+automatic**.
+
+**Testable.** Vitality has a measure in our data: **the variability of behaviour over time**. A habitual cell's
+behaviour should become **less variable** (more stereotyped) as the run proceeds. **That is measurable.**
+
+**Status:** hypothesis; the variability-over-time readout.
+
+---
+
+## P201. A reaction is disorder — the permissive society is as disordered as the ordered one
+
+**The move.** "There is the order of the older generation, which is really **total disorder**... In reaction to that
+there is the permissive society... **which is also disorder — isn't it? A reaction is disorder.**"
+
+**In our world.** **This names the failure mode of every "fix" we attempted**: each was a **reaction** to the
+previous failure, and **a reaction is disorder**. The gate was a reaction to the trap; the removal would be a
+reaction to the gate. **Both are disorder.**
+
+**What it explains.** Why our corrections kept **reproducing the problem** (P73: partial unconditioning falls into
+another conditioning): **a reaction is the same disorder, inverted.**
+
+**Testable / rule.** Ask of any design: **is this a reaction to the last one?** If yes, it is disorder. **The design
+must not be defined by what it opposes.**
+
+**Status:** rule; it is P87 and P73 in their final form.
+
+---
+
+## P202. There must be order, and it cannot come from control, discipline, conformity or authority — so what is your answer?
+
+**The move.** "**No control... and a total denial of the whole structure and nature of authority, which negates
+freedom. And yet there must be order; see the complications of it.**... **How is one to bring about order? That is
+your problem.**... **To whom will you turn?**"
+
+**In our world.** This is **the exact specification of our design problem**, and it is **harder than we thought**:
+
+| requirement | what it forbids |
+|---|---|
+| there must be **order** | not chaos, not "anything goes" |
+| **no control** | no gate, no threshold, no controller |
+| **no discipline** | no rule applied every step |
+| **no conformity** | no blueprint to imitate |
+| **no authority** | no target, no ideal, no "should" |
+
+**And the question is: what is left?** The pattern's answer is P194: **the state of not-knowing that knows disorder
+and rejects it.** **That is the only remaining design.**
+
+**What it explains.** Why every design we tried fell into one of the forbidden categories: **we had no design that
+was none of them.**
+
+**Testable / design requirement.** **The design must satisfy all five constraints simultaneously.** That is a
+**checklist for the next experiment**, and it is the most demanding thing in the file.
+
+**Status:** the design specification.
+
+---
+
+## P203. You can't pick and choose out of the disorder what you think is order
+
+**The move.** "**You can't pick and choose out of that disorder what you think is order.** Are you aware that your
+life is disorderly... then you will **pick and choose what you think is order out of the disorder**."
+
+**In our world.** **This is the exact description of our experiment list**: we **picked and chose** — this mechanism
+here, that parameter there — **out of the disorder**, and called the result order. **Each experiment was a chosen
+fragment of the disorder.**
+
+**What it explains.** Why the experiments were **fragments** (P51, P65) and why they produced **fragments of
+results**: **you cannot pick order out of disorder.**
+
+**Testable / rule.** A design that **selects** parts of the situation (this feature, that signal) is picking and
+choosing. **The design must take the whole situation or nothing.**
+
+**Status:** rule.
+
+---
+
+## P204. Have you ever looked at yourself for ten minutes without judgment, just watching? That is the main issue
+
+**The move.** "**Have you ever spent ten minutes, as you do at a mirror, watching yourself, without any choice,
+without any sense of judgment or evaluation, just watching yourself? That is the main issue.**"
+
+**In our world.** **This is the experiment**, in the simplest possible form, and it is **exactly what we have never
+done**: we have **judged** the cell (better/worse, works/fails) but never **watched** it **without judgement** for a
+sustained period.
+
+**What it explains.** Why we do not know what the cell **does**: we only know what it **scores**. **Ten minutes of
+watching without judgement** would have told us what the score could not.
+
+**Testable, and it is the concrete next experiment.** **Watch the cell for a sustained period, recording what it
+does, with no metric and no judgement** — and report **what was seen**. That is P115/P171/P204 in one.
+
+**Status:** the experiment, in its simplest form.
+
+---
+
+## P205. Are we journeying together or are you being led? — if you are following, there is no relationship
+
+**The move.** "**Are we taking a journey together? Or are you merely following?**... **If you are being led, if you
+are following, there is no relationship**, because the speaker says, 'Don't follow.'"
+
+**In our world.** This is P119 (the relationship specification) applied to **us and the world**: are we **journeying
+with** the cell, or **leading** it? **Every mechanism we added was leading.** And the pattern says: **if you are
+leading, there is no relationship** — which is why the cell never told us anything.
+
+**What it explains.** Why our experiments were **one-way**: we led, it followed (or did not). **A relationship would
+have required the cell to be able to tell us something** — which requires the cell to have a **voice**, i.e. a
+behaviour we read without directing.
+
+**Testable / design requirement.** **The cell must be able to surprise us.** A design in which every outcome is
+anticipated is a **leading**, not a journey. **The next experiment must have at least one outcome we cannot
+predict.**
+
+**Status:** design requirement.
+
+---
+
 ## What the reading has changed in our plan (updated)
 
-1. **The design question is now three-way, not two-way** (P176, P183): **full record** (the centre) / **no record**
-   (no function) / **memory used and dropped** (the target). The prediction is that **only the third both functions
-   and is free.**
-2. **Memory must be strictly technological** (P183): a fact about the world, used and dropped — never a **judgement
-   about the situation**. `pred` is a judgement (P107), which is why it is in the wrong field.
-3. **The measurement is a curve, not a window** (P186, P170): after a reset, the **first steps** show maximum
-   situation-explained behaviour, **decaying** as the record rebuilds. **The silence is at the beginning.**
-4. **The proof of seeing is the action it produces** (P180): we have "seen" the trap many times and done nothing —
-   **which means we did not see it.**
-5. **A question is genuinely open only if nothing in our memory could answer it** (P185): if we can name the expected
-   mechanism, we are **waiting**, not asking.
-6. **State the overriding interest** (P190): "to see what the cell does when X" is an interest; "to show that X
-   works" is an outcome.
-7. **No method** (P177): method belongs to time, and time is the escape.
-8. **No supervisor** (P179): no part of the cell may be positioned above another; the cell is one process.
-9. **Do not try to make the cell anything** (P178): alertness is a by-product of watching, and must not be a
-   criterion.
-10. **Simplicity is looking, not austerity** (P181); **spend the experiment on the question, not the solution**
-    (P187).
-11. **The definition of an individual** (P189): **an entity that is not fragmented, that is whole** — our cell is a
-    contradiction with a boundary, and therefore not an individual.
-12. **The rules** stand as listed in the previous update (P4–P175).
+1. **The design specification is now a five-constraint checklist** (P202): **order, but no control, no discipline, no
+   conformity, no authority.** The only design that satisfies all five is **the state of not-knowing that knows
+   disorder and rejects it** (P194).
+2. **Complete denial, not partial** (P194, P155): the record must be **emptied**, not reduced, tuned or partially
+   reset.
+3. **The cell must not act from a store** (P192, P193): a store that acts **is** a controller, and **"I have learnt"
+   is disorder.**
+4. **The observation must be outside the cell** (P199): a separated thought cannot look — which is why external
+   logging works and internal diagnostics could not.
+5. **The simplest experiment is ten minutes of watching without judgement** (P204): record what the cell does, with
+   **no metric and no judgement**, and report what was seen.
+6. **The cell must be able to surprise us** (P205): at least one outcome we cannot predict.
+7. **No analysis without action** (P197): an analysis that does not change the next action is a postponement
+   carrying an error forward.
+8. **Is this a reaction to the last one?** (P201) If yes, it is disorder.
+9. **First-hand or second-hand?** (P196) Everything pointed out by the book is second-hand and must be discarded;
+   only what we observed ourselves can change an experiment.
+10. **The measure of seeing is the speed of the action** (P195).
+11. **The rules** stand as listed in the previous update (P4–P190).
 
 ---
 
 ## Reading progress
 
-- Pages 1–229 of 409 read (Part VI complete; Part VII, the Saanen talks, begun: "What is your overriding
-  interest?").
-- Next: the rest of the Saanen talks (order, self-knowledge, loneliness, thought and the immeasurable, will).
+- Pages 1–245 of 409 read (Part VII, the Saanen talks: overriding interest, order, can we understand ourselves).
+- Next: the rest of the Saanen talks (loneliness, thought and the immeasurable, will and energy).
