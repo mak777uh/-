@@ -37,20 +37,45 @@ The programme ran five designs intended to make a heritable trait respond to sel
 intended to make a signal pay. The public record is 583 reports and 43 articles; the register of eliminated
 directions has 45 entries. The errors below are the ones that survived into a report before being retracted.
 
-| # | the error | the shape of it | how it was found |
-|---|---|---|---|
-| 1 | a mechanism that added resource every step | a tap, not a feedback loop | recomputation |
-| 2 | two arms given unequal doses | the comparison measured the dose | recomputation |
-| 3 | an effect clipped by the resource ceiling | the recorded dose was not the dose applied | recomputation |
-| 4 | a trait the world never read | the "selection" was a tautology | code reading |
-| 5 | a "paired design" that was a no-op | the arms were already seeded identically | an independent referee |
-| 6 | a signal advantage that did not replicate | one lead, ten seeds, p = 0.28 | an independent referee |
-| 7 | a zero-cost control that could not fail | at zero cost the trait entered no equation | an independent referee |
+| # | the error | the shape of it | how it was found | where the evidence is |
+|---|---|---|---|---|
+| 1 | a mechanism that added resource every step | a tap, not a feedback loop | recomputation | `reports/` (6 mentions of the tap) |
+| 2 | two arms given unequal doses | the comparison measured the dose | recomputation | `reports/` (116 mentions of dose) |
+| 3 | an effect clipped by the resource ceiling | the recorded dose was not the dose applied | recomputation | `reports/` (12 mentions of the ceiling) |
+| 4 | a trait the world never read | the "selection" was a tautology | code reading | `lab/reviews/2026-11-07-033-v3-independent.md` §"сквозная проверка кодом" |
+| 5 | a "paired design" that was a no-op | the arms were already seeded identically | an independent referee | `lab/reviews/2026-11-07-033-independent.md` |
+| 6 | a signal advantage that did not replicate | one lead, ten seeds, p = 0.28 | an independent referee | `reports/` and the 033 review round 2 |
+| 7 | a zero-cost control that could not fail | at zero cost the trait entered no equation | an independent referee | `lab/reviews/2026-11-07-033-v3-independent.md` |
 
-**The common shape.** In every one of the seven, the design **assumed the mechanism was present** and then
-measured its consequences. In none of them was there a step that established, **before the measurement**, that
-the mechanism could act. The check that would have caught all seven is one sentence long: *compare two arms that
-must differ; if they are bit-identical, the manipulation does not reach the dynamics.*
+**A note on where the evidence is, because it matters for the argument.** Errors 1-3 and 6 are documented in our
+own reports: we found them ourselves, by recomputing. **Errors 4, 5 and 7 are documented only in the referee's
+reviews, not in our reports.** In those three cases the error was in a design we had already described as sound,
+and it was an outside reader who found it. That asymmetry is itself part of the argument of §1: a
+hypothesis-first design does not merely fail to catch its own errors; **it reports them as results.**
+
+**The common shape — for three of the seven, not for all seven.** A referee of this document pointed out that
+the shape fits errors 4, 5 and 7 and does not fit the other four, and the referee is right:
+
+| # | does it fit "the mechanism was assumed present"? |
+|---|---|
+| 1 | **no** — the mechanism was present but **mischaracterised**: a tap was called a feedback loop |
+| 2 | **no** — the comparison was **confounded** by unequal doses; bit-identity would have been the opposite failure |
+| 3 | **no** — a **logging** error: the recorded dose was not the applied dose |
+| 6 | **no** — the manipulation **did** reach the dynamics; the claim was **underpowered** (ten seeds, p = 0.28) |
+| 4, 5, 7 | **yes** — the mechanism was assumed and was not there |
+
+**So the common shape is not one shape but two, and only one of them is the one we claimed:**
+
+- **absent mechanism** (4, 5, 7): the check is *compare two arms that must differ; if they are bit-identical,
+  the manipulation does not reach the dynamics.*
+- **present but misdescribed mechanism** (1, 2, 3, 6): the check is different, and it is the one we now run —
+  *state what the manipulation does to the dynamics, in arithmetic, before the run.*
+
+**The correction matters, and it weakens the claim in a way that must be stated.** We originally wrote that one
+sentence would have caught all seven. It would have caught three. The other four needed a different instrument,
+and the fact that we found them by recomputation rather than by a check is the actual finding: **we had no
+instrument at all for "the mechanism is present but I have described it wrongly", and that is the more common
+error of the two.**
 
 **Why this is structural, not accidental.** A design built from a hypothesis about a mechanism has the hypothesis
 in it. The hypothesis decides what counts as the manipulation, what counts as the outcome, and what counts as a
@@ -76,17 +101,58 @@ signal that predicts the field, a constructed niche, a memory of the past, an ad
 behaviour is a consequence of those conditions. Remove the condition and the behaviour disappears, exactly and
 completely.
 
-**The evidence from our own world.** Four designs were built to make a signal pay. In every one, the effect was
-either absent, or equal in all arms, or smaller than the difference between two implementations of the same
-control. The pattern was consistent: **the signal was a term in a rule, and the rule was ours.** The cell did not
-use the signal; the rule did. A second line of evidence: when the trait was made to cost nothing, the trait
-entered no equation at all, and the "selection" that had been reported was a tautology.
+**The evidence from our own world — and the result that contradicts the first version of this paragraph.** The
+first version said: *four designs were built to make a signal pay; in every one the effect was absent, equal in
+all arms, or smaller than the difference between two implementations of the same control.* **That is false against
+our own record.** A referee checked it against article 034, which reports, on 20 seeds with R1 20/20:
 
-**Why this is a property of the class, not of our tuning.** A parameter is a quantity we choose. A system whose
-state evolves as a function of chosen quantities can produce, at best, the trajectories those quantities admit.
-If the behaviour we are looking for is defined by *not* being a function of our choices, then no arrangement of
-our choices can produce it. This is an argument about the form of the model, not about its size. A larger field,
-a longer memory, a better controller: each is another chosen quantity.
+| arm | paired difference vs `none` | seeds positive |
+|---|---|---|
+| `local` | +0.0117 | 14/20 |
+| `wave` | +0.0080 | 11/20 |
+| **`rule`** | **+0.0512** | **18/20** (binomial p ≈ 0.0004) |
+| `ab` | +0.0172 | 15/20 |
+
+**The `rule` arm is a real effect, and it is the case the first version of this paragraph said could not exist.**
+The corrected statement is the one the select/specify distinction makes possible:
+
+- **`rule` does not add a term to the dynamics.** It **modulates a cell's upkeep** as a function of the signal,
+  and which cells benefit is then decided by **selection**. The signal is not a term we wrote into the behaviour;
+  it is a quantity the cells compete over.
+- **That is selection, not specification**, and it is exactly the class of design §2 says is *not* excluded by
+  the argument.
+- **The other three arms (`local`, `wave`, `ab`) are the specification case**, and there the first version's
+  description holds: the effect was small, and in the `wave` case indistinguishable from the control.
+
+**So the evidence supports a narrower claim than the one we first made:** in the designs where the signal was a
+term in a rule, the effect was ours; in the one design where the signal modulated a cost and selection decided the
+outcome, the effect was real. **The first version of this document reported the opposite, and it was wrong.**
+
+**A second line of evidence, which survives.** When the trait was made to cost nothing, the trait entered no
+equation at all, and the "selection" that had been reported was a tautology (review of 033 v3,
+`lab/reviews/2026-11-07-033-v3-independent.md`). That result is about **specification**: a term at zero weight is
+still a term, and it does nothing.
+
+**Why this is a property of the class, not of our tuning — and where the argument is weakest.** A parameter is a
+quantity we choose. A system whose state evolves as a function of chosen quantities can produce, at best, the
+trajectories those quantities admit. A larger field, a longer memory, a better controller: each is another chosen
+quantity. This is an argument about the form of the model, not its size.
+
+**Stated this way, the argument is close to a tautology**, and a tautology is not a finding: "a system that can
+only do what its parameters allow can only do what its parameters allow" is true and empty. The argument acquires
+content only from its **second premise**, which is a definitional choice and must be named as one:
+
+> **We define the property we are looking for as independence from the modeller's choices.**
+
+That definition is not forced. The alternative definition is the one the field mostly uses: *a property is
+interesting if it is hard to produce and was not put there on purpose*, where "on purpose" means at the level of
+the mechanism, not at the level of the parameter. Under that definition, a parameterised model **can** produce
+interesting behaviour — the behaviour is not a term we wrote, even though the parameter is a number we chose.
+
+**The two definitions are not equivalent, and the choice between them is the actual content of this manifesto.**
+We choose the second half of the field's definition — *not put there on purpose* — and we sharpen "on purpose" to
+"at any level, including the choice of which parameters exist". That sharpening is what makes the claim
+falsifiable: §5 states what would show it is empty.
 
 **What this does not say.** It does not say that the living cannot be modelled. It says that **a model whose
 degrees of freedom are all set by the modeller cannot exhibit a property defined as independence from the
@@ -105,10 +171,33 @@ graph is trustworthy.
 ontology** — not a better parameter, but a different kind of object — is not reachable by extending the edge. The
 edge can only extend into the space the current ontology defines.
 
-**Our reading of the evidence.** The models that have produced open-ended behaviour all did so by **adding a
-mechanism to an existing ontology**: a new instruction, a new resource, a new interaction. None produced a new
-ontology. The literature we surveyed is explicit about this: the boundary is not "we have not found the right
-parameters" but "the class of models we build cannot generate a new class."
+**Our reading of the evidence, restated as ignorance rather than as a boundary.** A referee of this document
+made the decisive objection: **as written, the claim cannot fail.** "A different ontology" was defined only
+negatively — *not a better parameter, but a different kind of object* — and with no operational test, any result
+can be absorbed: if a new object appears, it is called an extension of the same ontology; if none appears, it is
+called the prediction. **That is exactly what §5 of this document condemns as a slogan, and the claim was one.**
+
+**The defensible version, which is what we now assert:**
+
+> **The designs we surveyed have not produced a new kind of object. We do not know whether they can.**
+
+That is a statement about a survey and about our ignorance. It is not a theorem about a class, and it does not
+support the programme on its own.
+
+**What would make it a boundary rather than an observation** — the operational test the first version lacked:
+
+1. **Name the kind of object in advance.** Before the experiment, write down what a new kind of object would be in
+   this world, in the world's own terms (a new conserved quantity, a new relation between cells, a new level at
+   which selection acts), and what would count as its appearance.
+2. **Name what would count as an extension.** If the candidate is expressible as a re-parameterisation of an
+   existing kind, it is an extension — and that judgement is made **before** the result is known.
+3. **Pre-register both.** The test is then falsifiable in the ordinary sense: a candidate that satisfies (1) and
+   not (2) refutes the claim.
+
+**We also correct a citation.** The first version said "the literature we surveyed is explicit about this". It is
+not. Sayama & Nehaniv (2024, arXiv:2402.03961) list autopoiesis and self-examination reproduction as **open
+problems** — *"it remains unclear how one could integrate..."* — not as a proven boundary. Citing an open problem
+as an established limit is the kind of error this document is about, and a referee caught it.
 
 **What we therefore propose, and what it costs.** We propose to work **outside** the graph for the construction
 and **inside** it for the validation:
@@ -174,34 +263,63 @@ except by changing what the cell reads. **The measure is not available to us as 
 worlds in the same order, **for reasons that are not trivial**. If the two measures never disagree, the first
 adds nothing.
 
-### P4. Novelty must enter from outside the agent's own history
+### P4. In a finite, deterministic, closed system, unbounded novelty is impossible — this is a theorem, not a principle
 
-**The principle.** An agent whose state is a record can compute only functions of that record. Therefore novelty
-cannot originate inside the agent; it must enter from **the environment, another agent, or a source that is not a
-function of the record.** This is a **constraint on the architecture**, not a preference.
+**We withdraw P4 as a principle and state it as what it is.** A referee of this document pointed out that P4 has
+two readings, and under neither is it a falsifiable principle:
 
-**Why it is more rigorous.** It is a **deduction**, not an assumption: it follows from what a record is. An
-architecture that violates it is not a candidate for open-ended behaviour, and can be excluded **before** the
-experiment rather than after. **A principle that excludes designs in advance is more rigorous than a search that
-tests them one by one.**
+- **trivial reading** — *behaviour computable only from a record is computable from the record* — true by
+  definition and excludes nothing;
+- **substantive reading** — *a finite closed deterministic system cannot produce unbounded novelty* — true, but it
+  is a **theorem**, and a theorem is not falsified by an experiment.
 
-**What would falsify it.** A cell whose entire state is a record, in a world with no external source of novelty,
-that nevertheless produces behaviour not predictable from its record. We do not believe this is possible, and we
-state it as a claim we would be glad to be wrong about.
+**The theorem, with its assumptions and its source.** For a finite deterministic closed system, the Poincaré
+recurrence time is an upper bound on any appearance of unbounded novelty: the trajectory must repeat. Adams,
+Zenil, Davies and Walker (2017, *Scientific Reports* 7:997, doi 10.1038/s41598-017-00810-8) state this directly
+and derive the corollary we were reaching for: **unbounded evolution is possible only for a subsystem that
+interacts with an external environment.**
 
-### Why these four and not others
+**What this changes about how we use it.** We do not test it; we **use its assumptions as a design constraint**.
+A world in which we hope to see novelty must be **open** (something enters that the system does not produce),
+**not finite-and-deterministic in its state space**, or **stochastic**. That is a checklist, not a hypothesis, and
+it is the one genuinely deductive part of this document.
 
-Each of the four **removes a degree of freedom from the modeller**:
+**What would violate its assumptions** (which is the only thing that can be "tested" here): a world that is
+**closed** in the sense of the theorem, and still produces novelty. If we find one, the theorem's assumptions do
+not apply to it, and we say so rather than claiming a refutation.
 
-| principle | the freedom it removes |
-|---|---|
-| P1 constraints, not parameters | the freedom to tune until the behaviour appears |
-| P2 two-way coupling | the freedom to set the agents' terms independently |
-| P3 within-cell measurement | the freedom to move the metric with a bonus |
-| P4 novelty from outside | the freedom to claim novelty inside a closed record |
+**What we keep as our own claim, now separated from the theorem.** The theorem says novelty cannot come from a
+closed record. It does **not** say where it must come from. Our claim — that it must come from the environment,
+another agent, or a source that is not a function of the record — is a **design choice**, and we label it as one.
 
-**This is the whole argument in one line: rigour here means having fewer knobs.** A design with fewer knobs
-produces results that are harder to produce and therefore worth more.
+### Why these four, and what the "fewer knobs" argument got wrong
+
+The first version of this document said: each principle removes a degree of freedom, therefore rigour here means
+having fewer knobs. **A referee showed that this argument cannot stand, for two reasons, and both are right.**
+
+**First, it contradicts §2.** §2 says dependence on a parameter is the defect; §4 said fewer parameters is the
+virtue. If parameter dependence is the problem, then removing parameters cannot be the solution — the model
+becomes *less* able to differ from its alternatives, which makes it *harder* to falsify, not easier. Removing a
+degree of freedom can strengthen a result or weaken it, and which one happens depends on whether the removed
+freedom was one the modeller could have used to manufacture the result.
+
+**Second, the four are not the same kind of thing.** The table below separates them honestly:
+
+| | principle | what it constrains | kind |
+|---|---|---|---|
+| P1 | constraints on flows, not parameters | **the model** | methodological preference, with a definition |
+| P2 | the environment is written and read by the agents | **the model** | **a claim about the world** |
+| P3 | the primary measure is within-cell | **what may be reported** | **a claim about the world, and a measurement rule** |
+| P4 | novelty cannot come from a closed record | **what may be claimed** | **a theorem, with assumptions** |
+
+**Only P2 is a claim about the world that a single experiment can refute.** P1 is a choice of how to build; P3 is
+a rule about what counts as evidence; P4 is a theorem we use as a design constraint. Presenting four items of
+different kinds as one argument was a category error, and the corrected version says so.
+
+**What the four do have in common, stated without the false arithmetic:** each one **moves a decision from after
+the result to before it** — which constraints, which coupling, which measure, which assumptions. That is the
+honest version of the "fewer knobs" intuition: not fewer parameters, but **fewer decisions left open until after
+we have seen the data.**
 
 ---
 

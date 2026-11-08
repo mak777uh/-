@@ -56,18 +56,36 @@ def main(argv=None) -> int:
     else:
         check("eliminations register exists", False, "missing docs/eliminations.md")
 
-    # the seven errors: the table must have seven numbered rows
-    rows = re.findall(r"^\| (\d) \| ", text, re.M)
-    check("the error table has 7 rows", len(rows) == 7, f"found {rows}")
-    check("the errors are numbered 1..7", rows == [str(i) for i in range(1, 8)], str(rows))
+    # the seven errors: the FIRST numbered table must have seven rows numbered 1..7.
+    # A later table in the same document also numbers rows 1,2,3,6 (the "does it fit the shape" check), so
+    # counting every "| N |" row across the file gives 11 and is not what the claim is about.
+    first_table: list[str] = []
+    started = False
+    for line in text.splitlines():
+        m = re.match(r"^\| (\d) \| ", line)
+        if m:
+            started = True
+            first_table.append(m.group(1))
+        elif started:
+            break
+    check("the error table has 7 rows", len(first_table) == 7, f"found {first_table}")
+    check("the errors are numbered 1..7",
+          first_table == [str(i) for i in range(1, 8)], str(first_table))
 
     # the four principles
     ps = re.findall(r"^### P(\d)\. ", text, re.M)
     check("four principles", ps == ["1", "2", "3", "4"], str(ps))
 
-    # each principle must state what would falsify it
-    check("every principle has a falsification", text.count("**What would falsify it.**") == 4,
-          f"found {text.count('**What would falsify it.**')}")
+    # Each of P1-P3 must state what would falsify it. P4 is no longer a principle but a theorem (Adams et al.
+    # 2017, Poincare recurrence), and a theorem is not falsified by an experiment - what can be checked is
+    # whether its ASSUMPTIONS apply. Demanding a falsifier of P4 was the first version's mistake, and the gate
+    # must not repeat it.
+    n_falsify = text.count("**What would falsify it.**")
+    check("P1-P3 each state a falsification", n_falsify == 3, f"found {n_falsify}")
+    check("P4 states what would violate its assumptions",
+          "**What would violate its assumptions**" in text, "phrase missing")
+    check("P4 is labelled a theorem, not a principle",
+          "this is a theorem, not a principle" in text.lower(), "phrase missing")
 
     # the manifesto must state what it does not claim
     check("has a 'does not claim' section", "## 6. What this document does not claim" in text)
