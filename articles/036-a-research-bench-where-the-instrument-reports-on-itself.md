@@ -62,8 +62,14 @@ found by a command.
 | mediator | the decision, in three implementations | `scripts/policy_mediator.py`, `mediator/` |
 | gates | 29 checks that must fail on a planted defect | `scripts/check_*.py`, `scripts/verify.py` |
 
+![The bench in eight layers: what is proved and what is only measured](036-figures/fig1-layers.png)
+
+*Figure 1. The eight layers of the bench. Green: level A, proved. Blue: level B, proved for small code.
+Orange: level C, measured and not proved. Grey: data. The double arrow is the bridge — a script that fails on
+disagreement, not a promise.*
+
 **A note on the counters.** The bench at the moment this check runs: **583 reports, 43 articles, 791 raw
-artifacts, 490 scripts, 8 Lean files, 83 tests, 29 gates.** These are checked by
+artifacts, 493 scripts, 8 Lean files, 83 tests, 29 gates.** These are checked by
 `scripts/check_article_036_numbers.py` against the repository, and they move whenever the repository moves —
 including when this article itself is committed. They describe the bench **at the moment the check runs**, not
 at publication. A commit count is deliberately absent: it cannot be stable, because publishing the article adds
@@ -251,6 +257,12 @@ In one day of work on the formal layer, six defects were found. Five were the au
 
 The theorems are short. What the machines did was refuse to let an error pass quietly.
 
+![What the apparatus caught, and which instrument caught it](036-figures/fig2-defects.png)
+
+*Figure 2. The six defects of one day of formal work and the instrument that found each. Five of the six were
+the authors'. The colours separate the three kinds of instrument: a compiler that refuses an uncompilable proof,
+a probe that plants a defect, and a review of the instruments themselves.*
+
 ### 6a. The six defects in detail
 
 | # | what was wrong | why it happened | what it could have distorted | found by | fixed by | regression guard |
@@ -426,12 +438,12 @@ instrumented, and the numbers below are reconstructions from the repository, not
 
 | quantity | value | how it was obtained |
 |---|---|---|
-| commits | *(not stated — see the note in §2)* | publishing the article changes it |
-| reports written | 583 | `ls reports/*.md | wc -l` |
-| articles | 43 | `ls articles/*.md | wc -l` |
-| raw artifacts in the pond line | 791 | `ls morphogenesis/experiments/E09_pond/*.json | wc -l` |
-| scripts | 490 | `ls scripts/*.py | wc -l` |
-| tests | 83 | `ls morphogenesis/tests/test_*.py | wc -l` |
+| commits | not stated | publishing the article changes it (see the note in §2) |
+| reports written | 583 | `python -c "import glob;print(len(glob.glob('reports/*.md')))"` |
+| articles | 43 | `python -c "import glob;print(len(glob.glob('articles/*.md')))"` |
+| raw artifacts in the pond line | 791 | `python -c "import glob;print(len(glob.glob('morphogenesis/experiments/E09_pond/*.json')))"` |
+| scripts | 490 | `python -c "import glob;print(len(glob.glob('scripts/*.py')))"` |
+| tests | 83 | `python -c "import glob;print(len(glob.glob('morphogenesis/tests/test_*.py')))"` |
 | Lean files / theorems | 8 / 40 | `python scripts/lean_check.py` |
 | gates | 29 | `python scripts/verify.py` |
 
