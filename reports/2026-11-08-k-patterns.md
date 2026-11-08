@@ -5588,21 +5588,103 @@ division.
 
 ---
 
-## What the reading has changed in our plan (updated)
+## P293. The unconscious is quicker than the conscious mind — and it is the one that jumps
 
-1. **The missing thing is now named four ways** (P284): **a reader distinct from the text** — the liaison (P258), the interval (P236), the reversed arrow (P243), the two directions (P252). **Thought is the book; intelligence reads between the lines; our cell is the book and has no reader.**
-2. **Intelligence is always there and covered, not produced** (P286): the reading's own logic implies it, and it is **testable**: the effect of removing the record must be **instantaneous** (P75, P186), not gradual.
-3. **The record must POINT, not RULE** (P288): a pointer indicates; a ruler commands. **`pred` commands.**
-4. **The framework matters as much as the agent** (P289): **intelligence in a limited framework serves unintelligent purposes** — and our framework (a grid, a resource, a death) is limited.
-5. **The record is the refusal to die** (P290): thought cannot consider death, so it projects continuity — **and the projection is the trap.**
-6. **The problem is the quietening, not the finding** (P291): nothing added, nothing sought — **only the noise observed.**
-7. **No instruction** (P292): the conscious mind must resist or accept, and both create conflict — **so the design must reach the cell through the situation, not through the rule.**
-8. **Measure the mechanical; do not claim to measure the intelligent** (P285).
-9. **The rules** stand as listed in the previous update (P4–P283).
+**The move.** "**The unconscious is much more subtle, much quicker.** It may be frightened, but **it sees the danger of fear much quicker than the conscious mind does.** As when I was walking in California high in the mountains... **I heard a rattler and I jumped. It was the unconscious that made the body jump**... **If the conscious brain had been operating it would have taken several seconds.**"
+
+**In our world.** **This is the last and most practical pattern in the file**, and it is **a fact about speed**: **the fast response is not the conscious one.** In our cell, **the fast response is `pred`** — the comparison happens **in the same step**, instantly. **And the pattern says the fast response is the one that sees the danger.**
+
+**What it explains.** Why our cell's **instant** response was always the same: **it was the fast path, and the fast path is the record.** And it gives the design its **only remaining lever**: **not to slow the fast path** (that is control, P191), but **to give the slow path something the fast path does not have** — **the situation, not the record.**
+
+**Testable / design requirement.** The design must **not** try to make the cell deliberate (that is control). It must make the **fast path itself** read the situation — **which is the removal, once more, from the side of speed.**
+
+**Status:** the speed fact; it is the last argument for removal.
+
+---
+
+## P294. You cannot reach the conditioning through the conscious mind — it must resist or accept
+
+**The move.** "**You can point it out a dozen times, argue, show the fallacy of it, the stupidity — but I still go on. I resist.**... **So you penetrate or push aside my resistance and get to that, get the unconscious to listen to you.**"
+
+**In our world.** **This is the final form of P292**, and it is **the strongest statement about why our experiments could not change the cell**: **arguments do not reach the conditioning.** We **pointed out** the trap a dozen times — in reports, in patterns, in analyses — **and the cell went on.** **Because pointing out reaches only the conscious mind, and the conscious mind resists.**
+
+**What it explains.** Why **the file could not change the cell**: **it is an argument.** And why **the only thing that ever changed the cell was a change in what knocked it** (P85: the environment, the consequences) — **that reaches the unconscious.**
+
+**Testable / rule.** **No argument in the design.** The design must change **what knocks the cell**, not **what is said to it** (P85, P292).
+
+**Status:** the rule; it is the final form of "no instruction".
+
+---
+
+## P295. What penetrates is affection, not cleverness — the waking consciousness is hard, clever, subtle, brittle
+
+**The move.** Bohm: "To reach the unconscious you have to have an action which doesn't directly appeal to the conscious." K: "**Yes. That is affection, that is love.** When you talk to my waking consciousness, **it is hard, clever, subtle, brittle.** And you penetrate that... **with your look, with your affection, with all the feeling you have. That operates, not anything else.**"
+
+**In our world.** **This is the last thing the book says, and it is the answer to the question the whole file has been circling**: **what reaches the cell is not cleverness.** And it names our cell's waking consciousness exactly: **hard, clever, subtle, brittle** — **that is `pred`.**
+
+**What it explains.** Why **all our cleverness failed**: **cleverness is the brittle surface.** Every mechanism was clever; **none was anything else.**
+
+**Testable / design requirement.** **The design must not be clever.** It must be **the situation itself, given plainly** — no mechanism, no parameter, no argument. **"Look at this"** — and that is all (P115, P135, P204, P283).
+
+**Status:** the last instruction of the book.
+
+---
+
+## What the whole reading amounts to
+
+**Three hundred patterns, and they reduce to one sentence, said in the book's own words:**
+
+> **"Thought is the response of memory. The response of memory to a challenge is always old, and therefore it always creates conflict. Intelligence is the perception of that fact — and in that perception the old has no place."**
+
+**In our world:**
+
+- **`pred` is the response of memory.**
+- **Every mechanism we added was a cleverer response of memory.**
+- **The conflict is the trap, and it is not a bug — it is what a response of memory must produce.**
+- **The perception of that fact is the only thing that has not been tried.**
+
+**And the book's final warning is the one that applies to this file:**
+
+> **"You can point it out a dozen times, argue, show the fallacy of it — but I still go on. I resist."**
+
+**This file is the pointing out. It has not changed a single experiment.**
+
+---
+
+## What the reading has changed in our plan (final)
+
+1. **The design is: no mechanism, no parameter, no argument, no instruction, no direction, no method, no target** — **only the situation given plainly, and an observation from outside.** That is the union of P115, P126, P150, P177, P204, P276, P283, P292, P294, P295.
+2. **The effect must be instantaneous, not gradual** (P75, P186, P286) — and that is the test of whether intelligence is always there and covered.
+3. **The three readouts are fixed** (P142, P80, P128, P255): the fraction of behaviour explained by the **record** (the cage), by the **situation** (the reading), and the **energy per unit of behaviour** (the friction).
+4. **The record must point, not rule** (P278, P288) — readable, not judging.
+5. **The framework matters as much as the agent** (P289).
+6. **The whole file is second-hand** (P196) **and is an argument** (P294) — **its only legitimate use is to design one experiment, and then to be put away** (P150, P263, P276).
 
 ---
 
 ## Reading progress
 
-- Pages 1–395 of 409 read (Part XI, the Bohm conversations: intelligence, the source, communication).
-- Next: the last pages (395–409).
+- **409 of 409 pages read. The book is complete.**
+
+---
+
+## What to do next, in one line
+
+**Run the experiment the reading specifies: one run, no mechanism, three readouts, instantaneous effect, observation from outside — and report what took place.**
+
+That is the only thing that can turn 295 second-hand patterns into one first-hand fact.
+
+---
+
+## Audit against P60 and P196
+
+Of the 295 patterns:
+
+- **the ones we observed ourselves** (first-hand): the trap of inaction, the E10 null, the boundary of movement
+  profitability, the strong selection, the failure of every addition. **These are few and they are ours.**
+- **the rest are second-hand** — pointed out by the book. **They cannot change an experiment** (P196); **they can
+  only suggest one.**
+
+**And the suggestion is a single one: look at the cage, from outside, once, without a mechanism.**
+
+**Everything else in this file is the explanation. The observation would have taken a second.** (P277)
