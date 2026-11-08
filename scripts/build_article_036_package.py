@@ -27,7 +27,7 @@ VERIFIER = ROOT / "scripts" / "check_article_036_numbers.py"
 CLAIMS = ROOT / "lab" / "article-036-claims.json"
 OUT = ROOT / "_exports" / "036-a-research-bench-v1.0.zip"
 VERSION = "v1.0"
-DOI_PREVIOUS = "10.5281/zenodo.24044032"
+DOI_PREVIOUS = "10.5281/zenodo.24044218"
 
 # the instruments the article describes; a reader must be able to run them
 INSTRUMENTS = [

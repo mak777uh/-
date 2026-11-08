@@ -9,8 +9,8 @@ checkable — and what it cost**
 
 We describe the engineering and methodological apparatus of a long-running study of a minimal artificial
 world: a 32×32 grid of cells that take up a resource, pay for maintenance, and divide. The study produced
-583 reports, 43 articles and 791 raw artifacts, and it produced mostly null results. This paper is not about
-those results. It is about the bench: the machinery that made it possible to run 2 141 commits of
+583 reports, 44 articles and 791 raw artifacts, and it produced mostly null results. This paper is not about
+those results. It is about the bench: the machinery that made it possible to run 2151 commits of
 experiments without losing track of which numbers were real, and that repeatedly caught the authors being
 wrong.
 
@@ -68,8 +68,8 @@ found by a command.
 Orange: level C, measured and not proved. Grey: data. The double arrow is the bridge — a script that fails on
 disagreement, not a promise.*
 
-**A note on the counters.** The bench at the moment this check runs: **583 reports, 43 articles, 791 raw
-artifacts, 493 scripts, 8 Lean files, 83 tests, 29 gates.** These are checked by
+**A note on the counters.** The bench at the moment this check runs: **583 reports, 44 articles, 791 raw
+artifacts, 497 scripts, 8 Lean files, 83 tests, 29 gates.** These are checked by
 `scripts/check_article_036_numbers.py` against the repository, and they move whenever the repository moves —
 including when this article itself is committed. They describe the bench **at the moment the check runs**, not
 at publication. A commit count is deliberately absent: it cannot be stable, because publishing the article adds

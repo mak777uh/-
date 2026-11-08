@@ -70,6 +70,11 @@ def evaluate(claim: dict) -> tuple[bool, str]:
     if claim["how"] == "count":
         n = len(glob.glob(os.path.join(ROOT, claim["glob"])))
         return n == claim["expected"], f"найдено {n}, ожидалось {claim['expected']}"
+    if claim["how"] == "at_least":
+        # Counters such as "N articles" grow with every commit, so the article states them for the commit it
+        # describes and the gate requires the repository to have reached them, not to match them exactly.
+        n = len(glob.glob(os.path.join(ROOT, claim["glob"])))
+        return n >= claim["expected"], f"найдено {n}, ожидалось не меньше {claim['expected']}"
     if claim["how"] == "count_gates":
         # verify.py declares its gates as a local list `steps` inside main(), and runs ONE more check outside
         # that list: check_no_sorry(). Counting only the list gives 28 and looks like a discrepancy; the real
