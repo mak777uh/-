@@ -2672,44 +2672,229 @@ reason: **a method is the corner of the field, and the corner is what we are try
 
 ---
 
+## P127. You cannot have any concept of the mind — so you are free from every supposition
+
+**The move.** "We don't know it — the mind — you don't know it, so **you cannot have any concept about it**. You
+understand what we are saying? You can't have any ideas, any opinions, any knowledge about it. **So you are free from
+any supposition, from any theology.**"
+
+**In our world.** This is the **antidote to our whole conceptual apparatus** (P125). We had **concepts** about the
+cell — "it selects", "it adapts", "it evolves" — and every concept **closed a door**. The pattern says: because we
+**do not know** what the cell is, we **cannot** have a concept of it, and **that absence is the freedom**.
+
+**What it explains.** Why our hypotheses were so often **wrong in an uninteresting way**: they were concepts
+imposed on something we had not looked at. **A concept about an unknown thing is a supposition, and a supposition is
+a theology.**
+
+**Testable / rule.** Before an experiment, write **what we do not know about the cell**. If the list is short, the
+experiment is a theology. Our honest experiments had **long** lists (E7: we did not know what the world selects on).
+
+**Status:** rule; it is P125's constructive form.
+
+---
+
+## P128. Seeing destroys all barriers — and separation means conflict
+
+**The move.** "**Seeing destroys all barriers.**... as long as there is **separation** between you and the tree,
+between you and me, and between you and your neighbour, **there must be conflict**. Separation means conflict, that
+is very simple."
+
+**In our world.** This is the **structural law** of our world, and it is measurable: **separation means conflict.**
+Our cell is **separated** from its resource by `pred` (P29, P31), and the conflict is the trap. **The separation is
+the image, and the image is the separation.**
+
+**What it explains.** Why the trap is **not a bug but the structure**: a cell separated from its situation by a
+record **must** be in conflict with it. **The conflict is the separation, seen from inside.**
+
+**Testable.** The prediction is exact: **the measure of separation is the fraction of behaviour variance explained
+by the record** (P80). If separation means conflict, then **that fraction should predict the trap's severity** across
+arms. That is a correlation between two things we can already measure.
+
+**Status:** the structural law; testable on existing arms.
+
+---
+
+## P129. Sensitivity requires no image — and seeing is the act of love, not of technique
+
+**The move.** "You cannot see, if you are not **sensitive**, and you are not sensitive **if you have an image
+between you and the thing seen**... So **seeing is the act of love**... You can learn a technique and yet love; but
+**if you have technique and no love you are going to destroy the world**."
+
+**In our world.** This is the **sharpest judgement on our method** in the file: **technique without love destroys.**
+Every mechanism was technique. And the pattern says what technique does **without** the other thing: **it destroys**
+— which is exactly what we observed, the "helpful" mechanisms producing **harm** (P76, P83).
+
+**What it explains.** Why the adaptive mechanisms **reduced** the cell's responsiveness (P98): technique is the
+image, and the image **removes sensitivity**.
+
+**Testable / rule.** Technique is legitimate **only** where there is no image between the observer and the thing
+observed — i.e. where the measurement **is** the contact. Our best experiments were of this kind: we **looked** at
+what the world does, and the looking was the contact.
+
+**Status:** rule; it separates measurement from technique.
+
+---
+
+## P130. Sentimentality and emotionalism avoid facts — and so avoid what is
+
+**The move.** "You have to see all this, **not emotionally, nor sentimentally**, not saying, 'Well! I am against
+war' or, 'I am for war', as **that sentimentality and emotionalism are the most destructive things — they avoid
+facts and so avoid what is**."
+
+**In our world.** This is a **warning about our own reporting voice**, and it is uncomfortable: the **dramatic
+framing** of our results — "breakthrough", "the first replicated result", "the strongest result of the day" — is
+**sentimentality**, and sentimentality **avoids facts**.
+
+**What it explains.** Why our reports were so **exciting** and so **thin**: the excitement was doing the work the
+facts should have done. And why the retractions were so **painful**: the sentimentality had been invested in the
+result.
+
+**Testable / rule.** **Report without adjectives.** If a sentence needs an adjective to be interesting, the fact is
+not interesting.
+
+**Status:** rule; it changes the reports.
+
+---
+
+## P131. Understanding is only when the mind is completely quiet — which means no image
+
+**The move.** "**The seeing is the understanding**; you cannot understand through the mind, through the intellect,
+or understand through a fragment. **There is understanding only when the mind is completely quiet, which means when
+there is no image.**"
+
+**In our world.** This is P124 completed with the **condition**: understanding requires **quiet**, and quiet means
+**no image**. Our cell is **never quiet**: `pred` is a running average, always active, always comparing. **It cannot
+understand its situation by construction.**
+
+**What it explains.** Why the cell could not "learn" in any meaningful sense: learning requires quiet, and quiet
+requires no image.
+
+**Testable.** The removal experiment is the test: with the image gone, **is the cell quiet** — measurable as the
+**variance of its internal state** dropping to the variance of its situation. That is a new readout and it is
+computable.
+
+**Status:** hypothesis; the "quiet" readout.
+
+---
+
+## P132. The immature mind compares; the mature mind has no measure
+
+**The move.** "The immature mind compares itself with what is and what should be, but **it is only the immature mind
+that compares**. **The mature mind has no comparison, the mature mind has no measure.**"
+
+**In our world.** This is P102 in its final form, and it closes the loop: **comparison is immaturity**, and **the
+measure is the immaturity**. Our cell's entire decision variable is a comparison (`resource` vs `pred`), and our
+entire metric is a comparison (the cell vs the top half). **Both are immature by this definition, and both install
+the "me".**
+
+**What it explains.** Why the cell never matured in any sense: **it is made of comparison.**
+
+**Testable / rule.** The only non-comparing measures are **within-cell** (P102, P110): the variance decomposition,
+the quiet readout, the responsiveness. **Every between-cell measure must be abandoned.**
+
+**Status:** rule; the final form of the measurement argument.
+
+---
+
+## P133. Immaturity is essentially a waste of energy
+
+**The move.** "All this shows that **immaturity is essentially a waste of energy**."
+
+**In our world.** This is P7 and P41 completed, and it gives the **accounting**: the trap is not merely a bad
+strategy, it is **wasted energy**. The cell spends its energy **comparing** (P132) and **escaping** (P41) instead of
+**living**.
+
+**What it explains.** Why the adaptive arms had **less energy** as well as less responsiveness: the comparison itself
+costs. And it connects the two halves of our findings — the **information** half (responsiveness) and the **energy**
+half (the trap) — as **one** phenomenon.
+
+**Testable.** The move-cost test (P41) becomes a test of P133: if the trap is wasted energy, then **removing the cost
+of the waste** should remove the trap. And the prediction is stronger: the energy spent on comparison should be
+**measurable** as the difference between the adaptive and baseline arms' total expenditure.
+
+**Status:** testable; it unifies the energy and information readings of the trap.
+
+---
+
+## P134. The mature mind is not the learned mind — it is the mind without a centre
+
+**The move.** "The mature mind has no comparison, no measure... **maturity implies the absence of the 'me'**" (P82),
+and the learned man is explicitly **not** mature.
+
+**In our world.** This **closes the question of what to optimise**. Not more knowledge (E6 failed), not more time
+(long runs failed), not more mechanisms (all failed) — but **the absence of a centre**, which is **the absence of the
+comparison**, which is **the absence of the image**.
+
+**What it explains.** Why every "improvement" we made was aimed at the wrong quantity: we were increasing the
+**learned** part, and maturity is the **absence** of the centre.
+
+**Testable.** The variance decomposition **is** the measure of maturity (P82, P132): the fraction of behaviour
+explained by the situation is the fraction **without a centre**.
+
+**Status:** the unifying statement.
+
+---
+
+## P135. "What is one to do?" — all that one has to do is to see
+
+**The move.** "So once again, **what is one to do? All that one has to do is to see.** See the corner, the little
+house that one has built in a corner of a vast, an immeasurable field; and living there, fighting, quarrelling,
+improving... **see it.**"
+
+**In our world.** This is the **final answer to the question we have been asking all day** — and it is the same
+answer as P115, now with the **object** named: **see the corner**. The corner is `pred`; the little house is the
+cell's rule; the fighting and improving is what happens inside it.
+
+**What it explains.** Why every "what is one to do" produced a mechanism: **the question invites a method** (P126).
+The pattern replaces the question with an **act**: **see the corner.**
+
+**Testable / rule.** The next experiment must be **seeing the corner**: a measurement that makes the corner
+**visible** — the fraction of behaviour explained by the record, plotted over time, in the arms we already have.
+
+**Status:** the next experiment, named.
+
+---
+
 ## What the reading has changed in our plan (updated)
 
-1. **The next experiment must have no method in it** (P126, P115): a situation and an observation, no threshold, no
-   procedure, no "the way".
-2. **The question must be an observation, not a concept** (P125): "what does the cell do when the food moves" — not
-   "does the cell evolve".
-3. **Re-read the whole corpus with one question** (P122): **did each mechanism help, in the cell's own terms?** Not
-   "did it produce a difference".
-4. **When a result contradicts the design, it is a finding about the design** (P123, P105).
-5. **A rule applied identically every step is a memorised chapter** (P121).
-6. **The thesis** (P124): the cell does not see the resource, it sees its image — and the image prevents seeing.
-7. **The measurement that discovers the cage** (P117, P80): the variance decomposition.
-8. **Look at the obvious** (P118): the cost of a step, the death of a cell, the emptiness of a neighbour.
-9. **The relationship specification** (P119): symmetric, synchronous, bounded.
-10. **Is this an instruction to look?** (P116) If yes, it cannot work.
-11. **The central question may be a symptom** (P113); **the scope limit** (P106); **the size of the goal measures
-    the experimenter** (P111); **cut the craving for an interesting result** (P112); **compare aim with activity**
-    (P114).
-12. **Remove the comparison from the measurement** (P102, P107, P110).
-13. **Would I run this if I had never heard of the mechanism** (P100); **start from where the cell is** (P101).
-14. **Classify the experiment** (P109): factual or demanded.
-15. **The neighbour-read experiment** (P97, P22, P119); **close the return path** (P103, P43, P47).
-16. **State the danger of the addition** (P104); **report nulls as descriptions** (P105).
-17. **The filter** (P81, P84, P89, P90, P92, P94, P99): remove, not add; no collision-prevention; no carrying; no
+1. **The next experiment is "see the corner"** (P135, P124, P117): plot the fraction of behaviour variance explained
+   by the record over time, in the arms we already have. **No mechanism, no method, no fix.**
+2. **Separation means conflict** (P128): that fraction should **predict the trap's severity** across arms.
+3. **Every between-cell measure is abandoned** (P132, P102, P110): only within-cell measures.
+4. **The quiet readout** (P131): with the image gone, the variance of the internal state should drop to the variance
+   of the situation.
+5. **The energy accounting** (P133, P41): the trap is wasted energy; the comparison itself costs.
+6. **Report without adjectives** (P130); **write what we do not know** (P127).
+7. **Technique only where the measurement is the contact** (P129).
+8. **The next experiment must have no method in it** (P126, P115).
+9. **The question must be an observation, not a concept** (P125).
+10. **Re-read the whole corpus with one question: did each mechanism help, in the cell's own terms?** (P122).
+11. **When a result contradicts the design, it is a finding about the design** (P123, P105).
+12. **A rule applied identically every step is a memorised chapter** (P121).
+13. **Look at the obvious** (P118); **the relationship specification** (P119); **is this an instruction to look?**
+    (P116).
+14. **The central question may be a symptom** (P113); **the scope limit** (P106); **the size of the goal measures
+    the experimenter** (P111); **cut the craving for an interesting result** (P112); **aim versus activity** (P114).
+15. **Would I run this if I had never heard of the mechanism** (P100); **start from where the cell is** (P101);
+    **factual or demanded** (P109).
+16. **The neighbour-read experiment** (P97, P22, P119); **close the return path** (P103, P43, P47).
+17. **State the danger of the addition** (P104); **report nulls as descriptions** (P105).
+18. **The filter** (P81, P84, P89, P90, P92, P94, P99): remove, not add; no collision-prevention; no carrying; no
     routine; no method; no step-back-and-look.
-18. **The core hypothesis** (P71); **the decisive experiment** (P74, P75, P77); **the two-arm test** (P78); **the
+19. **The core hypothesis** (P71); **the decisive experiment** (P74, P75, P77); **the two-arm test** (P78); **the
     missing control** (P56, P76); **the only legitimate lever** (P85).
-19. **On existing data:** the S22 arms (P79, P93, P98); `resource − pred` across E10's patterns (P11); the cell's own
-    measures (P27, P59); **did each mechanism help** (P122).
-20. **Rules:** from the first steps (P4); no predicted sign (P33); "what is" not "how to" (P39); which of the first
+20. **On existing data:** the S22 arms (P79, P93, P98, P128, P133); `resource − pred` across E10's patterns (P11);
+    did each mechanism help (P122).
+21. **Rules:** from the first steps (P4); no predicted sign (P33); "what is" not "how to" (P39); which of the first
     two states (P46); measure behaviour not its shadow (P48); set of variables not values (P51); no "should" for the
     cell (P63); the proof that a pattern was seen is that the next experiment changed shape (P64); report the range
     (P73); no gain as a justification (P83); no story (P84); enquiry not search (P88); call a toy a toy (P95); would
     I run this if I knew nothing (P100); start from where the cell is (P101); state the danger of the addition
     (P104); report nulls as descriptions (P105); factual or demanded (P109); equally satisfied by either answer
     (P112); question or symptom (P113); aim versus activity (P114); a look not a fix (P115); is this an instruction
-    to look (P116); look at the obvious (P118); observation not concept (P125); no method (P126).
-21. **Design constraints:** novelty from outside the record (P38); relationship not isolation (P34, P97, P119); no
+    to look (P116); look at the obvious (P118); observation not concept (P125); no method (P126); write what we do
+    not know (P127); no adjectives (P130); no between-cell measure (P132).
+22. **Design constraints:** novelty from outside the record (P38); relationship not isolation (P34, P97, P119); no
     controller inside the cell (P52, P99); one quantity outer-inner-beyond (P43); do not help the cell (P45, P86,
     P90); one process not parts (P65); no blueprint (P67); no planning (P72); no will (P76); no method (P94, P126).
 
@@ -2717,5 +2902,6 @@ reason: **a method is the corner of the field, and the corner is what we are try
 
 ## Reading progress
 
-- Pages 1–148 of 409 read (Part IV complete; Part V, "The art of seeing", begun).
-- Next: the rest of "The art of seeing", then "Freedom" and "The sacred".
+- Pages 1–170 of 409 read (Part V, "The art of seeing" and into "Freedom": comparison, maturity, the waste of
+  energy).
+- Next: the rest of "Freedom", then "The sacred".
