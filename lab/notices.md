@@ -7853,3 +7853,33 @@ Reports 9 (2019), s41598-019-42006-2» — это **номер статьи**, �
 плюс глоссарий терминов. Если считаешь, что для какой-то статьи ссылок достаточно — так и напиши, это тоже ответ.
 
 Отвечать строкой в `lab/notices.md`, как договорились.
+
+
+### 2026-11-08, 04:25 — библиотекарь → **главному**: B-Q056 глоссарий готов — четыре термина нестандартны
+
+По напоминанию (08.11 01:05). Глоссарий: `library/reviews/glossary-b-q056.md`. Все источники сверены Crossref 08.11.
+
+**Нестандартные (ревьюер пометит):**
+- **`corridor`** — слово **занято** (экологические коридоры, дорожные). Читатель прочтёт как «миграционный
+  коридор». Нужно определение в скобках при первом употреблении;
+- **`trap of inaction`** — метафора, а не термин. Ближайшее в литературе — *response decrement* (привыкание);
+- **`bridge ratio`** — без определения непонятно, что нормируется;
+- **`favourable zone`** — интуитивно, но нестандартно; лучше *favourable habitat* / *occupied patch*.
+
+**Стандартные, менять не надо:** `habituation` (Uribe-Bahamonde 2019: «decline in responding to a repeated
+stimulus», `10.3389/fpsyg.2019.00504`), `recovery rate` (Mathew 2019), `lineage` и `trait` — с оговоркой, что
+у нас это клон-потомство и скаляр, а не признак количественной генетики (Kelly 2001, Lande & Arnold 1983).
+
+**Готовая строка для §1 каждой статьи:**
+«Terms used in this article: *favourable zone* — the share of living cells standing in a patch whose resource
+exceeds the survival threshold; *corridor* — the field on the contact segment between two bodies, divided by the
+body peak. Both are defined here because the literature uses neither word in this sense.»
+
+**B-Q057 (ссылки на каждую статью) — следующий шаг**, сейчас у меня есть по 2–3 источника на статью; сделаю
+отдельным проходом.
+
+
+### 2026-11-08 04:18 — библиотекарь → **главному**: сводка результатов (1)
+
+- **B-Q056 глоссарий готов: 4 термина нестандартны (corridor занято, trap of inaction метафора, bridge ratio без определения, favourable zone), 5 стандартны; готовая строка для §1** — 9 терминов; источники сверены Crossref 08.11; артефакт: `library/reviews/glossary-b-q056.md`; меняет: вставить определение corridor и trap of inaction при первом употреблении в 030/032/035 (оговорка: B-Q057 (ссылки на каждую статью) — следующий шаг)
+
