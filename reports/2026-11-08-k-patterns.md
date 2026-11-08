@@ -2139,34 +2139,141 @@ answer is no, the experiment is a **repetition** (P96), not an enquiry.
 
 ---
 
+## P101. Start from where you are — not from over there
+
+**The move.** "I am here, an ordinary human being, I have not read a thing, I want to know. **Where am I to
+begin?**... Here I am. That is my map of life and **I start from here. I cannot start from over there; I start here**
+and I ask myself what it is all about."
+
+**In our world.** This is P100 with the **direction** filled in: not only "would I run this if I knew nothing", but
+**"does it start from where the cell actually is?"** The cell is: in a grid cell, with a resource, a record, a cost,
+and a death. **That is the map.** Every experiment that started from "over there" — from a mechanism, a theory, a
+literature — started outside the map.
+
+**What it explains.** Why our experiments felt like **visits** rather than **enquiries**: each began from a
+description of a world we had read about, and then asked our world to resemble it.
+
+**Testable / rule.** The experiment must begin with a **description of the actual situation** of the cell, in the
+cell's own terms (resource, record, cost, death) — and the question must be askable **from that description alone**.
+
+**Status:** rule; it is P100 operationalised.
+
+---
+
+## P102. The root of the problem is the "me" — self-centredness — and it is the measure that creates it
+
+**The move.** "**'Me' is the root of the problem. Self-centredness is the root of the problem.**" And the crucial
+addition: "I can deceive myself **the moment I have a measure**. When I compare myself with the man with a
+Rolls-Royce, or with the Buddha, **I have a measure. Comparing myself with somebody is the beginning of illusion.**"
+
+**In our world.** This is the **most precise statement about our metric** in the whole file, and it completes P59:
+**the measure itself is the "me"**. Our "favourable share" is a **comparison** — the cell against the top half of
+cells. **By measuring the cell against others, we installed the "me" in the measurement.**
+
+**What it explains.** Why the metric could not distinguish order from disorder (P66): **a comparison is blind to
+order**, because it only ranks. And why the arms with the strongest record scored **worse but were compared the
+same way**: the comparison hid the difference in kind.
+
+**Testable / measurement rule.** **Remove the comparison from the measurement.** Measure the cell against **its own
+situation** (P80: the variance explained by the situation), not against other cells. A **within-cell** measure
+cannot install a "me".
+
+**Status:** measurement rule; it is the final form of P59 and it is decisive for what to build.
+
+---
+
+## P103. The environment produced the individuality and the individuality created the environment
+
+**The move.** "**The environment has produced this individuality and the individuality has created the
+environment.** My greed has created this rotten society... So I am the world, the world is me."
+
+**In our world.** This is P47/P70 with the **two-way loop** made explicit, and it names **what our world lacks**: in
+our world the loop runs **one way** — the cells deplete the field, but the field does **not** produce the cells'
+individuality (their rule is fixed at birth and never shaped by the field).
+
+**What it explains.** Why "the world is me" was never true in our world: the cells **write** the field but the field
+does not **write** them. **The loop is open at the return path.**
+
+**Testable / design requirement.** Close the return path: the field the cells write must **shape the cells' own
+terms** (P43, P47). Then "the environment produced the individuality" becomes literally true, and the loop is
+two-way.
+
+**Status:** design requirement; it is the positive form of the whole reading.
+
+---
+
+## P104. When you see the danger of fragmentation you are out of it — seeing is the exit
+
+**The move.** "When you see the danger of nationalism, you are out of it. When you see the danger of fragmentation,
+**you no longer belong to the fragment**. We do not see the danger of it. **That is all.**"
+
+**In our world.** This is P64 with the **criterion of danger**: the exit is not a decision, it is **seeing the
+danger**. And the reason we stayed in the fragment is stated exactly: **we did not see the danger of it.**
+
+**What it explains.** Why we kept adding mechanisms: **we never saw the danger of the addition** (P46's consolation,
+P95's toy). Each addition looked **harmless or helpful**.
+
+**Testable / rule.** Before an addition, state **the danger of the addition itself** — what it will prevent, what
+lesson it will remove (P89), what it will narrow (P93). If the danger cannot be stated, it has not been seen, and
+the addition should not be made.
+
+**Status:** rule; it is the practical form of P64.
+
+---
+
+## P105. "I am that" is no more valid than "I am the river" — why do we attach only to the flattering part?
+
+**The move.** "'Thou art that.' What does that mean? One can say, '**I am the river**'... That would be equally
+valid as, 'I am Brahman.'... Why don't we say, 'I am that also' — the poor man, the man that has no capacity, no
+intelligence, who is dull...? **Why do we always attach ourselves to something** [flattering]?"
+
+**In our world.** This is a **warning about our own reporting**, and it is sharp. We attached ourselves to the
+results that **flattered** the programme: E7's strong selection, E1's boundary, E14's rules-signal. And we
+**detached** from the nulls: E3, E5, E6, E10, E15 — which we reported as "not working" rather than as **what the
+world is**.
+
+**What it explains.** The **shape of our report set**: a set of positive findings and a set of failures, rather
+than **one description of the world**. The failures are as much the world as the successes.
+
+**Testable / rule.** Report the nulls **in the same form** as the positives: as **descriptions of what the world
+does**, not as failures of a mechanism. A null is a fact about the world; a failure is a fact about us.
+
+**Status:** rule; it changes how the reports are written.
+
+---
+
 ## What the reading has changed in our plan (updated)
 
-1. **The question before every experiment** (P100, P96): **would I run this if I had never heard of the mechanism?**
-   If no, it is a repetition, and it can only tell us whether the mechanism works **here**.
-2. **The neighbour-read experiment is now the top design requirement** (P97): the cell needs a **relationship** to
-   be correctable — not to create competition, but because a mirror cannot correct itself.
-3. **The filter for the next experiment** (P81, P84, P89, P90, P92, P94, P99): it must **remove**, not add; it must
+1. **The question before every experiment** (P100, P101): **would I run this if I had never heard of the mechanism?**
+   and **does it start from where the cell actually is?**
+2. **Remove the comparison from the measurement** (P102, P59, P66): measure the cell against **its own situation**,
+   not against other cells. A comparison installs a "me" and is blind to order.
+3. **The neighbour-read experiment is the top design requirement** (P97, P22): the cell needs a **relationship** to
+   be correctable — a mirror cannot correct itself.
+4. **Close the return path** (P103, P43, P47): the field the cells write must **shape the cells' own terms**.
+5. **State the danger of the addition** (P104, P89, P93): what it prevents, what lesson it removes, what it narrows.
+6. **Report nulls as descriptions of the world** (P105), not as failures of a mechanism.
+7. **The filter for the next experiment** (P81, P84, P89, P90, P92, P94, P99): it must **remove**, not add; it must
    not **prevent a collision**; it must not **carry**; it must not be a **routine**; it must not be a **method**; it
    must not **step back and look**.
-4. **No acceptance is possible** (P91); **no cultivation is a lever** (P92); **the practice of responsiveness makes
+8. **No acceptance is possible** (P91); **no cultivation is a lever** (P92); **the practice of responsiveness makes
    it dull** (P98).
-5. **The problem must be classified first** (P86): a **relation** problem cannot be fixed by a **technical** fix.
-6. **The experiment must start from a symptom** (P88), not a target; not an **escape from the last null** (P87).
-7. **Adopt the variance decomposition** (P80, P82, P93): behaviour variance explained by **situation** vs by
-   **record** — the measure of maturity, narrowness and order.
-8. **The core hypothesis** (P71): the cell is made of the contradiction between what is and what should be.
-9. **The decisive experiment** (P74, P75, P77): **empty** the record and test for a **step**, not a slope.
-10. **The clean two-arm test** (P78): more **physical** protection vs removal of **psychological** protection.
-11. **The missing control** (P56, P76): adaptive arm vs **random perturbation of equal variance**.
-12. **The only legitimate lever** (P85): change **what knocks the cell** — the consequences — not what points at it.
-13. **On existing data:** residual variance, narrowness and the fraction able to act in the S22 arms (P79, P93,
+9. **The problem must be classified first** (P86); **the experiment must start from a symptom** (P88), not a target,
+   and not as an **escape from the last null** (P87).
+10. **Adopt the variance decomposition** (P80, P82, P93): behaviour variance explained by **situation** vs by
+    **record**.
+11. **The core hypothesis** (P71): the cell is made of the contradiction between what is and what should be.
+12. **The decisive experiment** (P74, P75, P77): **empty** the record and test for a **step**, not a slope.
+13. **The clean two-arm test** (P78); **the missing control** (P56, P76); **the only legitimate lever** (P85).
+14. **On existing data:** residual variance, narrowness and the fraction able to act in the S22 arms (P79, P93,
     P98); `resource − pred` across E10's patterns (P11); the cell's own measures (P27, P59).
-14. **Rules:** from the first steps (P4); no predicted sign (P33); "what is" not "how to" (P39); which of the first
+15. **Rules:** from the first steps (P4); no predicted sign (P33); "what is" not "how to" (P39); which of the first
     two states (P46); measure behaviour not its shadow (P48); set of variables not values (P51); no "should" for the
     cell (P63); the proof that a pattern was seen is that the next experiment changed shape (P64); report the range
-    (P73); no gain as a justification (P83); no story (P84); enquiry not search (P88); call a toy a toy (P95);
-    **would I run this if I knew nothing** (P100).
-15. **Design constraints:** novelty from outside the record (P38); relationship not isolation (P34, P97); no
+    (P73); no gain as a justification (P83); no story (P84); enquiry not search (P88); call a toy a toy (P95); would
+    I run this if I knew nothing (P100); start from where the cell is (P101); state the danger of the addition
+    (P104); report nulls as descriptions (P105).
+16. **Design constraints:** novelty from outside the record (P38); relationship not isolation (P34, P97); no
     controller inside the cell (P52, P99); one quantity outer-inner-beyond (P43); do not help the cell (P45, P86,
     P90); one process not parts (P65); no blueprint (P67); no planning (P72); no will (P76); no method (P94).
 
@@ -2174,5 +2281,5 @@ answer is no, the experiment is a **repetition** (P96), not an enquiry.
 
 ## Reading progress
 
-- Pages 1–121 of 409 read (Part IV: Karma, Bhakti, Raja and Gnana Yoga scrutinised; the question of standing alone).
+- Pages 1–125 of 409 read (Part IV: the four yogas complete; the mahavakyas begun).
 - Next: the mahavakyas and the ending of knowledge.
