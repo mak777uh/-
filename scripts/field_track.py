@@ -108,7 +108,10 @@ def main(argv=None) -> int:
     # закоммиченному артефакту x100_f030_s291.json, а не по свежему прогону.
     ap.add_argument("--second-species", action="store_true",
                     help="X96: включить третье поле w: uvv/(1+gamma*w), dw/dt = Dw*lap(w) + beta_w*(v - w)")
-    ap.add_argument("--Dw", type=float, default=0.32, help="X96: коэффициент диффузии w (по умолчанию 4*Dv)")
+    ap.add_argument("--Dw", type=float, default=0.24,
+                    help="X96: коэффициент диффузии w. Было 0.32 = 4*Dv, но при dt=1 явная схема "
+                         "устойчива только при D*dt <= 0.25 (множитель 1-8*D*dt); при 0.32 он равен "
+                         "-1.56, то есть высокочастотная мода растёт по модулю. 0.24 даёт -0.92.")
     ap.add_argument("--gamma", type=float, default=1.0, help="X96: сила ослабления автокатализа третьим полем")
     ap.add_argument("--beta-w", type=float, default=0.05, help="X96: скорость релаксации w к v")
     ap.add_argument("--F", type=float, default=0.035)

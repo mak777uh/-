@@ -4,7 +4,7 @@
 
 The curated page — what matters and why — is [`scripts.md`](scripts.md). This file is the complete list, so that every command behind a number in the record can be found.
 
-Scripts: **499**.
+Scripts: **501**.
 
 ## Гейты и проверки (64)
 
@@ -99,7 +99,7 @@ Scripts: **499**.
 | `zenodo_link.py` | zenodo_link.py — вставить DOI депозита во все места репозитория одной командой. |
 | `zenodo_upload.py` | zenodo_upload.py — депозит новой версии в Zenodo одной командой (без ручной загрузки в браузере). |
 
-## Библиотека и литература (13)
+## Библиотека и литература (14)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -110,6 +110,7 @@ Scripts: **499**.
 | `library_inbox.py` | Входящие библиотеки: что появилось и что я ещё не прочитал. |
 | `library_wake.py` | Пробуждение библиотекаря по событию, а не только по календарю. |
 | `lit_audit.py` | Аудит DOI в библиотеке: резолвятся ли и совпадает ли название. |
+| `lit_autoqueue.py` | Automatic literature enqueueing: the librarian should not wait to be asked. |
 | `lit_board.py` | Доска литературы: замечания к текущей работе. |
 | `lit_check.py` | Очередь проверок литературы: срабатывает на «нам нужен параметр/механизм X». |
 | `lit_duty.py` | Обязательный шаг литературы в каждом цикле. |
@@ -216,7 +217,7 @@ Scripts: **499**.
 | `make_seed_grid_figure.py` | Собрать Figure 4 рукописи: сетка «инициализация × порядок данных» (§4.13). |
 | `make_simple_poster.py` | Простой постер для владельца: что мы узнали, без терминов. |
 
-## Прочее (319)
+## Прочее (320)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -290,6 +291,7 @@ Scripts: **499**.
 | `test_lib_tools.py` | Регрессионные тесты инструментов библиотеки. |
 | `v8_matrix.py` | v8_matrix.py — агрегат серии V8 (размещение инокулята × правило слияния). |
 | `verify.py` | Единый гейт перед отправкой: `python scripts/verify.py` (или `make verify`). |
+| `world_invariants.py` | Gate: the world's invariants, as one command. |
 | `write_zenodo_032.py` | Write the zenodo.json metadata file for article 032 (and, generically, for others). |
 | `x100_analyse.py` | x100_analyse.py — does the heredity of size survive a definition that needs no excursion cut? |
 | `x100_series.py` | x100_series.py — heredity with a size that needs no excursion cut (X100). |

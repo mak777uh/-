@@ -97,6 +97,12 @@ def main() -> int:
     ("сид-репликация не выдаёт один мир за пять", [PY, "scripts/check_seed_replication.py", "--check"], None),
     ("пре-регистрации несут пять разделов", [PY, "scripts/check_design.py", "--scan-plans"], None),
     ("политика автономии читается машиной", [PY, "scripts/check_autonomy.py"], None),
+        # 08.11: four defects in the world were found by a human reading the code - budding created
+        # energy, age killed, repair_cost was charged every step, a step was unaffordable at its own
+        # price. No gate tripped. This one checks the invariants directly.
+        ("инварианты мира держатся", [PY, "scripts/world_invariants.py"], None),
+        ("артефакт восстанавливает мир (полнота конфига)",
+         [PY, "scripts/check_config_completeness.py"], None),
     ("страница внимания не теряет решений", [PY, "scripts/attention.py", "--check"], None),
     ("артефакт, на который ссылается утверждение, лежит в git", [PY, "scripts/check_claim_artifacts.py", "--ci"], None),
         # X19 (по схеме LongTails): утверждение отдельно от Setup, бюджет явно, аудит отказывает при выходе за допущения
