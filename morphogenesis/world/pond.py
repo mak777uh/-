@@ -1107,8 +1107,12 @@ class Pond:
             # (остаточную ЭНЕРГИЮ возвращать нельзя: клетка умирает при energy <= 0)
             self.resource_taken = self.resource_taken + income
 
-        spent = cfg.update_cost + cfg.repair_cost
-        s.energy = torch.where(alive, s.energy - spent, s.energy)
+        # `update_cost` is the price of living a step and is charged always. `repair_cost` is the price
+        # of a REPAIR and is charged only when a repair actually happens, below. The old line charged
+        # both every step, so `repair_cost` was a maintenance cost wearing a repair's name and no
+        # experiment that varied it could be interpreted.
+        s.energy = torch.where(alive, s.energy - cfg.update_cost, s.energy)
+        spent = cfg.update_cost
         if s.tag is not None and bool(alive.any()):
             uniq_a, inv_a = torch.unique(s.tag[alive], return_inverse=True)
             cnt = torch.zeros(uniq_a.numel(), device=self.device, dtype=torch.long)
@@ -1217,10 +1221,18 @@ class Pond:
             & (s.energy > spent)
             & (repair_roll < cfg.repair_rate)
         )
+        # A repair costs `repair_cost`, and only a repair costs it. This is the other half of fix 3:
+        # the charge used to sit in `spent` and was taken from every living cell every step.
+        if float(cfg.repair_cost) > 0.0:
+            s.energy = torch.where(repaired, s.energy - float(cfg.repair_cost), s.energy)
         s.damage = torch.where(repaired, s.damage - 1, s.damage)
 
         s.age = torch.where(alive, s.age + 1, s.age)
-        dies = alive & ((s.energy <= 0.0) | (s.damage >= cfg.damage_max) | (s.age > cfg.max_age))
+        # Age is diagnostic only, as the module docstring says. `max_age` is kept as a field because
+        # existing configs set it, but it no longer kills: a cell dies of starvation or of damage.
+        # The old line was `... | (s.age > cfg.max_age)`, and a test (`test_old_cell_dies_of_age`)
+        # asserted that behaviour, so code and prose disagreed and the test pinned the wrong one.
+        dies = alive & ((s.energy <= 0.0) | (s.damage >= cfg.damage_max))
         died_now = int(dies.sum())
         if s.tag is not None and died_now and bool(dies.any()):
             uniq, counts = torch.unique(s.tag[dies], return_counts=True)
@@ -2006,9 +2018,15 @@ class Pond:
         child[spots[:, 0], spots[:, 1]] = True
 
         # родитель платит, потомок получает перенос (бюджет не растёт)
+        # The parent pays `pay` ONCE for the whole event; the spore receives `pay` in total, minus the
+        # mobility it spent, and that total is shared among the spore's cells. The old code gave every
+        # spore cell `pay * 0.5` and subtracted mobility from every cell, so three or four cells created
+        # 4 or 8 units of energy from nothing (measured: spore_cells 3 -> +4.00, 4 -> +8.00).
         pay = min(float(cfg.budding_cost), float(s.energy[parent].sum()))
         s.energy[parent] -= pay / max(int(parent.sum()), 1)
-        s.energy[child] = max(max(pay * 0.5, 1.0) - mobility_spent, 0.0)
+        n_child = max(int(child.sum()), 1)
+        pot = max(pay - float(mobility_spent), 0.0)
+        s.energy[child] = pot / n_child
         s.alive |= child
         s.age[child] = 0
         s.damage[child] = 0
