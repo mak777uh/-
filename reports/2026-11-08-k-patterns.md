@@ -5460,23 +5460,149 @@ division.
 
 ---
 
+## P284. Intelligence is "to read between the lines" — and thought is the book
+
+**The move.** Bohm: "**It comes from inter and legere, which means 'to read between'.** So it seems to me that you could say that **thought is like the information in a book and that intelligence has to read it, the meaning of it.**" K: "**To read between the lines.**"
+
+**In our world.** **This is the most useful definition in the whole file for a designer**, because it makes the relation **concrete**: **thought is the book; intelligence is reading between the lines.** And our cell **has the book** (`pred`) **and no reader** — it **is** the book, and the book **acts**.
+
+**What it explains.** Why the record could never be "read": **there was no reader, only the text acting.** And it gives the design target precisely: **a reader that is not the text.**
+
+**Testable / design requirement.** The design must have **a reader distinct from the text** — which is **exactly** the liaison (P258), the interval (P236), and the reversed arrow (P243). **Four different statements of the same missing thing.**
+
+**Status:** the definition.
+
+---
+
+## P285. Thought is mechanical and measurable; intelligence is not — and it is not the product of thought
+
+**The move.** Bohm: "**Simply because thought is mechanical.**" K: "**Thought is mechanical, that is right.**" Bohm: "**Intelligence is not.**" K: "**So thought is measurable; intelligence is not.**"
+
+**In our world.** **This settles the question of what can be measured in our world**: **thought (the record) is measurable; intelligence is not.** So **our metrics measured the mechanical part** — and **that is all they could ever measure.**
+
+**What it explains.** Why no metric distinguished order from disorder (P66, P215, P257): **the metric is of the mechanical order, and order is not.**
+
+**Testable / rule.** **Measure the mechanical; do not claim to measure the intelligent.** A metric can report **the record's behaviour**; it cannot report **the reading of the situation**.
+
+**Status:** the limit of measurement, stated by a physicist and a mystic together.
+
+---
+
+## P286. Is the cessation of thought the awakening of intelligence, or is intelligence always there and covered over?
+
+**The move.** K: "**So is the cessation of thought the awakening of intelligence? Or is it that intelligence, being independent of thought, not of time, therefore exists always?**" Bohm: "**That raises many difficult questions.**"
+
+**In our world.** **This is the question our experiment can actually answer**, and it is **the most important open question in the file**: is intelligence **produced** by the removal of the record, or is it **always there and covered**?
+
+**What it explains.** Why the answer matters practically: if intelligence is **produced**, the removal is a **construction**; if it is **always there**, the removal is only **the lifting of a cover** — and **the cell already has it.**
+
+**Testable, and it is a real experimental distinction.** If intelligence is **always there**, then a cell **without** a record should show it **from the first step** (P186: the silence at the beginning). If it is **produced**, it should **appear gradually** — which the whole reading says is impossible (P174, P207, P68).
+
+**So the reading's own logic implies: intelligence is always there and covered.** And **that is testable**: the effect of removing the record should be **instantaneous** (P75).
+
+**Status:** the open question, and the reading's answer.
+
+---
+
+## P287. The past is a material process — and matter, thought and intelligence may have a common source
+
+**The move.** Bohm: "**Matter, thought, intelligence have a common source, are one energy; why did it divide?**" And K: "**Thought is a material process.**"
+
+**In our world.** **This is the deepest structural claim in the file**, and it has a **concrete consequence for our world**: **if thought and intelligence have a common source, then the record and the situation are not two substances** — they are **one energy in two forms.** And **the division is not a fact; it is an act.**
+
+**What it explains.** Why the gap (P151) could be **created** by an image (P262) and **ended** by the ending of the image: **there was never a real gap** — only a **division made by thought**.
+
+**Testable / design requirement.** **No two substances in the design.** The record and the situation must be **one process** (P65), and **the division between them must not be built in.**
+
+**Status:** the structural claim; it is P65 in its deepest form.
+
+---
+
+## P288. The brain is the instrument of intelligence, and thought is a pointer
+
+**The move.** "**Brain the instrument of intelligence; thought as a pointer.**"
+
+**In our world.** **This gives the final role to both parts**, and it is **humble**: the brain **serves**; thought **points**. Neither **rules**.
+
+**What it explains.** Why the cell's rule was wrong: **thought (the record) was not a pointer — it was the ruler.** And why the brain (the cell) was not an instrument — **it was the master.**
+
+**Testable / design requirement.** **The record must point, not rule.** A pointer **indicates**; a ruler **commands**. **`pred` commands.**
+
+**Status:** the role; it is P278's distinction in its final form.
+
+---
+
+## P289. Intelligence operating in a limited framework can serve highly unintelligent purposes
+
+**The move.** "**Intelligence operating in a limited framework can serve highly unintelligent purposes.**"
+
+**In our world.** **This is the most important warning for the next design**, and it is **counter-intuitive**: even if we **succeeded** in making the cell intelligent, **inside a limited framework it would serve unintelligent purposes.** And our framework **is** limited: a grid, a resource, a death.
+
+**What it explains.** Why **the framework matters as much as the agent** — and why our whole programme, which focused on the agent, was **half the problem.**
+
+**Testable / design requirement.** **The framework must be examined as carefully as the agent.** A better cell in the same grid would serve the same limits.
+
+**Status:** the warning; it turns attention to the world.
+
+---
+
+## P290. Thought cannot consider death properly — and security and survival are the limit of thought
+
+**The move.** "**Security and survival: thought cannot consider death properly.**"
+
+**In our world.** **This explains the cell's whole behaviour in one line**: the cell is a **security-and-survival machine**, and **thought (the record) cannot consider its own ending.** So it **projects continuity** (P42: `pred` is the tomorrow) — **and the projection is the trap.**
+
+**What it explains.** Why the cell cannot let go of the record: **letting go is death, and thought cannot consider death.** **The record is the refusal to die.**
+
+**Testable.** The prediction: a cell **with** a record should show **more** behaviour aimed at continuity (staying near the remembered good spot) than a cell without one — **even when moving would help.** That is measurable as the **distance from the remembered site**.
+
+**Status:** the root of the refusal.
+
+---
+
+## P291. Can the mind keep the purity of the original source? — the problem of the quietening of thought
+
+**The move.** "**Can the mind keep the purity of the original source? Problem of the quietening of thought.**"
+
+**In our world.** **This is the final question of the file, and it is the same as P286**: is the source **always there** and can the mind **keep** it? **And the problem is the quietening** — not the finding.
+
+**What it explains.** Why every "finding" we attempted failed and **quietening** was never attempted: **we were searching for something, and the problem was the noise.**
+
+**Testable.** **The experiment is a quietening, not a search.** Which means: **nothing added, nothing sought** — **only the noise observed** (P279: remain with the trap).
+
+**Status:** the final question.
+
+---
+
+## P292. You cannot talk to the conscious mind — it must resist or accept, and both create conflict; so one talks to the unconscious
+
+**The move.** "**Your conscious mind is never in operation. When it operates it must inevitably either resist, or say, 'I will accept'; therefore it creates a conflict in itself. So can you talk to my unconscious?**"
+
+**In our world.** **This is the final diagnosis of every instruction we gave the cell**: **the conscious mind (the rule) must either resist or accept** — and **both create conflict.** So **no instruction can reach the cell without creating conflict.**
+
+**What it explains.** Why every mechanism we added produced **conflict** (the trap, the revolt of P156): **it was an instruction to a conscious mind.**
+
+**Testable / design requirement.** **No instruction.** The design must reach the cell **not as an instruction** — which means **not through the rule at all**, but **through the situation** (P85: the environment teaches by knocking).
+
+**Status:** the final diagnosis of the mechanism family.
+
+---
+
 ## What the reading has changed in our plan (updated)
 
-1. **The emptying is not an act** (P275): it is what happens **when the mind really does not know and is not waiting.** So the experiment must be designed **without waiting for a result** — no hypothesis, no success criterion.
-2. **The record is an instrument, not a self** (P278, P282): **the brain must record**; what must end is **thought using the record as the "me"**. Mechanically: **readable, not judging — no comparison producing a verdict.**
-3. **Any movement of the cell to remove its record is still the record** (P281): the removal must be **structural** (the record not used as a self), **not a movement of the cell**.
-4. **Looking with a direction is not looking** (P283): the experiment must have **no direction** — no hypothesis, no target, no mechanism.
-5. **Remain with the trap** (P279): no escape, no fix, no condemnation — **and it ceases to be.**
-6. **Awareness is not a trick** (P280): observe the whole movement of like and dislike, **including the results we like.**
-7. **The impossible question** (P274): look at the **whole at once**, not at a mechanism — **the possible is very little.**
-8. **Meditation is putting aside the conceptions** (P276): the next experiment must contain **none of our conceptions.**
-9. **Observation is instantaneous; explanation is long** (P277): this file is the explanation; **the observation would have taken a second.**
-10. **The rules** stand as listed in the previous update (P4–P273).
+1. **The missing thing is now named four ways** (P284): **a reader distinct from the text** — the liaison (P258), the interval (P236), the reversed arrow (P243), the two directions (P252). **Thought is the book; intelligence reads between the lines; our cell is the book and has no reader.**
+2. **Intelligence is always there and covered, not produced** (P286): the reading's own logic implies it, and it is **testable**: the effect of removing the record must be **instantaneous** (P75, P186), not gradual.
+3. **The record must POINT, not RULE** (P288): a pointer indicates; a ruler commands. **`pred` commands.**
+4. **The framework matters as much as the agent** (P289): **intelligence in a limited framework serves unintelligent purposes** — and our framework (a grid, a resource, a death) is limited.
+5. **The record is the refusal to die** (P290): thought cannot consider death, so it projects continuity — **and the projection is the trap.**
+6. **The problem is the quietening, not the finding** (P291): nothing added, nothing sought — **only the noise observed.**
+7. **No instruction** (P292): the conscious mind must resist or accept, and both create conflict — **so the design must reach the cell through the situation, not through the rule.**
+8. **Measure the mechanical; do not claim to measure the intelligent** (P285).
+9. **The rules** stand as listed in the previous update (P4–P283).
 
 ---
 
 ## Reading progress
 
-- Pages 1–382 of 409 read (Part IX complete; Part X, the Brockwood discussion on violence and the "me"; Part XI,
-  the Bohm conversation, begun).
-- Next: the Bohm conversation on intelligence, and the closing pages.
+- Pages 1–395 of 409 read (Part XI, the Bohm conversations: intelligence, the source, communication).
+- Next: the last pages (395–409).
