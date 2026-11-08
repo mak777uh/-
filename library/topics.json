@@ -475,7 +475,7 @@
     {
       "id": "movement-profitability-boundary",
       "ru": "Граница выгодности движения: плотность × скорость восстановления ресурса",
-      "status": "current",
+      "status": "next",
       "links": [
         "morphogenesis/experiments/E09_pond/s49_e1_density_axis.json",
         "reports/2026-11-07-e1-density-axis.md"
@@ -499,6 +499,33 @@
       ],
       "min_score": 4,
       "implication": "E1 показал: при медленном восстановлении движение вредит на 320/550, при быстром платит везде. Нужен канон: где граница выгодности движения и от чего она зависит."
+    },
+    {
+      "id": "reproducibility-of-simulation",
+      "ru": "Воспроизводимость симуляций: что считается доказательством, а что — артефактом железа",
+      "status": "current",
+      "links": [
+        "library/claims-evidence.md",
+        "reports/2026-11-06-s4-reproducibility.md"
+      ],
+      "queries": [
+        "reproducibility computational experiment bit-exact hardware dependence",
+        "reproducible research simulation stochastic seed backend",
+        "verification validation simulation model credibility"
+      ],
+      "terms": [
+        "reproducibility",
+        "replication",
+        "simulation",
+        "verification",
+        "credibility"
+      ],
+      "must": [
+        "reproducib",
+        "simulation"
+      ],
+      "min_score": 4,
+      "implication": "S4 показал: baseline бит-в-бит, plastic-прогоны зависят от бэкенда. Статья 036 заявляет воспроизводимость — нужен канон, что считается доказательством воспроизводимости."
     }
   ]
 }

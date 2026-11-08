@@ -402,6 +402,8 @@ H29-пункт «ядро от цели»).
 | G118 | [Vriend, Engen & Gustafsson, 2025, Evolution: stochastic influences on response to selection](https://doi.org/10.1093/evolut/qpaf108) | Как количественно отделять стохастичность от отклика на отбор | — | «эффект меньше шума, но не значим» = шум не отделён, а не «эффекта нет» (B-Q055) | `open` | `library/search-log.md` |
 | G119 | [Ponzi, Keller & Bonnet, 2018, Evolution: heritability with measurement error](https://doi.org/10.1111/evo.13573) | Определение наследуемости и цена ошибки измерения | — | статья 031 §4.2 — четыре теста назвать в этих терминах | `open` | `library/search-log.md` |
 | G120 | [Tyler & Hargrove, 1997, Oikos: IFD over large resource landscapes](https://doi.org/10.2307/3546022) | IFD на ландшафте ресурсов: конкуренция за пространство как частный случай | — | статья 031 §2/§8 — предсказание: при совместном занятии клетки выигрыш зависит от скорости восстановления ресурса (B-Q051/B-Q052) | `open` | `library/search-log.md` |
+| G121 | [Hill, 2019, HPCS: repeatability and reproducibility for stochastic simulation](https://doi.org/10.1109/hpcs48598.2019.9188157) | Воспроизводимость как критерий научности (Поппер), применённая к стохастическим симуляциям | — | статья 036: «воспроизводимость как критерий», а не «доказана»; S4 показывает частичную (baseline бит-в-бит, plastic зависит от бэкенда) | `open` | `library/search-log.md` |
+| G122 | [ASME 2019 V&V: risk assessment for model credibility](https://doi.org/10.1115/vvs2019-5152) | Достоверность модели как оцениваемая величина (риск), а не бинарная | — | статья 036 §7: не писать «воспроизводимость доказана» — достоверность оценивают | `open` | `library/search-log.md` |
 
 ## H. ALife: классика, открытая эволюция, рамки, индивидуальность
 
