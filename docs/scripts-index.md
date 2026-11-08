@@ -4,7 +4,7 @@
 
 The curated page — what matters and why — is [`scripts.md`](scripts.md). This file is the complete list, so that every command behind a number in the record can be found.
 
-Scripts: **501**.
+Scripts: **502**.
 
 ## Гейты и проверки (64)
 
@@ -217,7 +217,7 @@ Scripts: **501**.
 | `make_seed_grid_figure.py` | Собрать Figure 4 рукописи: сетка «инициализация × порядок данных» (§4.13). |
 | `make_simple_poster.py` | Простой постер для владельца: что мы узнали, без терминов. |
 
-## Прочее (320)
+## Прочее (321)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -285,6 +285,7 @@ Scripts: **501**.
 | `size_resolved_contrast.py` | size_resolved_contrast.py — what size are the structures that make the contrast? |
 | `slim_checkpoint.py` | Облегчить чекпоинт для инференса: только веса правила + метаданные. |
 | `smc_interval.py` | smc_interval.py — интервалы вместо счёта «N из M». |
+| `split_merge_selftest.py` | Prove the new split/merge counter sees events the old delta counter could not. |
 | `split_world_design.py` | split_world_design.py — разложить план линии по файлам, оставив индекс. |
 | `stream_profile.py` | stream_profile.py — измеряет профиль живых источников, а не угадывает «какой лучше». |
 | `stream_sources.py` | stream_sources.py — источники живого сигнала извне для цифрового мира. |

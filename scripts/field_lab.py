@@ -64,30 +64,54 @@ def label_components(mask):
 def match_events(prev_lab, lab_now, min_overlap: float = 0.5):
     """Count real splits and merges by matching components across two snapshots on overlap.
 
-    A component of the previous snapshot is a PARENT of a component now if at least `min_overlap` of the
-    current component's cells belonged to it. A parent with two or more children is one split event; a child
-    with two or more parents is one merge event. This is the definition the tracker uses for identity, so the
-    two agree.
+    Four versions of this function were wrong before this one. The reason is worth writing down, because it
+    is the same mistake in four costumes: **a fixed absolute threshold cannot serve both events**.
+
+      * a SPLIT: a bar of 48 cells becomes two of 20. From the parent, each child holds 20/48 = 0.42, below
+        any threshold; from the child, each child is 20/20 = 1.00 its parent. So a split is found by asking,
+        for each CHILD, which parent it is mostly made of, and then counting parents with several children.
+      * a MERGE: two blobs of 20 become one of 48. From the child, each parent holds 20/48 = 0.42, below any
+        threshold; from the parent, each parent is 20/20 = 1.00 inside the child. And the child is ALWAYS
+        bigger than each of its parents, so no absolute threshold on the parent's share can ever work.
+
+    The rule that works for both is RELATIVE: a component of the previous snapshot is a parent of a component
+    now if it holds the largest share of that child and at least `min_overlap` of the best share. That is,
+    "which parent is this child mostly made of", with ties broken by the same criterion. A split is a parent
+    with several children; a merge is a child with several parents.
+
+    This is the rule the tracker uses for identity (best overlap), so the two agree by construction.
     """
     import numpy as np
-    parents_of = {}
-    children_of = {}
-    for cid in range(1, int(lab_now.max()) + 1):
+    n_prev = int(prev_lab.max())
+    n_now = int(lab_now.max())
+
+    # For each child, the parents that hold a share comparable to the largest one.
+    parents_of: dict[int, set[int]] = {}
+    for cid in range(1, n_now + 1):
         cells = lab_now == cid
         total = int(cells.sum())
         if total == 0:
             continue
         vals, counts = np.unique(prev_lab[cells], return_counts=True)
-        for v, c in zip(vals, counts):
-            if v == 0:
-                continue
-            if float(c) / total >= min_overlap:
-                parents_of.setdefault(int(v), set()).add(cid)
-                children_of.setdefault(cid, set()).add(int(v))
-    splits = sum(1 for kids in parents_of.values() if len(kids) >= 2)
-    merges = sum(1 for ps in children_of.values() if len(ps) >= 2)
-    return splits, merges
+        shares = [(int(v), float(c) / total) for v, c in zip(vals, counts) if v != 0]
+        if not shares:
+            continue
+        best = max(sh for _, sh in shares)
+        if best <= 0.0:
+            continue
+        for pid, sh in shares:
+            # a parent counts if it holds at least `min_overlap` of the BEST share, not of the child
+            if sh >= min_overlap * best:
+                parents_of.setdefault(cid, set()).add(pid)
 
+    children_of: dict[int, set[int]] = {}
+    for cid, ps in parents_of.items():
+        for pid in ps:
+            children_of.setdefault(pid, set()).add(cid)
+
+    splits = sum(1 for kids in children_of.values() if len(kids) >= 2)
+    merges = sum(1 for ps in parents_of.values() if len(ps) >= 2)
+    return splits, merges
 
 def components(mask):
     """Число и размеры 4-связных компонент (периодические границы)."""
