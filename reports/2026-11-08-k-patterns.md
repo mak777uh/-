@@ -4280,31 +4280,270 @@ predict.**
 
 ---
 
+## P206. The image is built at the moment of inattention — and only there
+
+**The move.** "**You can see that at the moment of actual relationship, when you are talking, when there are
+arguments, when there are insults and brutality, if you are not completely attentive at that moment, then the
+mechanism of building an image starts.** That is, **when the mind is not completely attentive at the moment of
+action, then the mechanism of building images is set in motion.**... **If I am attentive, aware, then there is no
+building of images.**"
+
+**In our world.** **This is the mechanism of `pred`, stated exactly and mechanically.** The record is built **at the
+moment of inattention** — and our cell is **inattentive at every step**, because it acts from the record rather than
+looking. **So the record builds itself every step.**
+
+**What it explains.** Why the record **grows without limit** and why the trap **deepens with time** (S22: 0.31 →
+0.17): **each inattentive step adds to the image.**
+
+**And it gives the precise target:** **attention at the moment of action**. In our terms: **the step at which the
+cell reads the situation instead of the record.** That is a **per-step** property, not a parameter.
+
+**Testable.** The prediction: the record-explained fraction should **rise step by step** in proportion to the
+inattention — measurable as a **monotone curve from the first step**, which is exactly the P186/P170 measurement.
+
+**Status:** the mechanism of the record, in its final form.
+
+---
+
+## P207. You cannot get rid of the images one by one — you can only see the whole mechanism at once
+
+**The move.** "Can you resolve them all, bit by bit, or **would that take an infinite time?** While you are
+dissolving one image, you are already creating others, **so there is no ending to the gradual process of getting rid
+of one image after another.**... **You cannot get rid of the images one by one**; therefore **the mind that really
+sees the truth of this is totally aware when it is creating an image. In that attention all the other images go
+away.**"
+
+**In our world.** **This is the final closure of the "gradual fix" direction**, and it is stronger than P174: it is
+not merely that gradual is an escape — it is that **gradual is arithmetically hopeless**: while you dissolve one
+image you create others. **And the alternative is stated: attention at the moment of creation ends them all at
+once.**
+
+**What it explains.** Why every partial fix we tried **added** a mechanism while the record kept growing: **one
+dissolved, two created.**
+
+**Testable / design requirement.** **No partial fixes.** The only operation is **attention at the moment of
+creation** — i.e. a step that does not record. **And that must be every step or none.**
+
+**Status:** rule; it closes the gradual direction permanently.
+
+---
+
+## P208. Choice is the outcome of confusion — a clear mind has no choice
+
+**The move.** "**I only choose when I am uncertain.**... **It is only the confused mind that chooses.**... **And out
+of that confusion you choose and increase the confusion.**... **Now who is the entity that is choosing? Knowledge,
+surely, and knowledge is the past** — the past, which has created all these images, **chooses which it shall keep
+and which it shall discard. So you are choosing according to the past and therefore your choice invariably must be
+confused; therefore, don't choose!**"
+
+**In our world.** **This is the final answer to the question the whole design has been circling**: *which images
+should the cell keep and which should it discard?* (P155: no good image, no bad image). **The answer is: the
+question is malformed — choice is confusion, and the chooser is the past.** **Don't choose.**
+
+**What it explains.** Why every attempt to **select** which parts of the record to keep (E6's memory, the decoder,
+the gate's threshold) **increased** the confusion: **the chooser was the record.**
+
+**Testable / design requirement.** **No selection rule anywhere in the design.** Not for images, not for features,
+not for parameters. **A design with a chooser has a confusion at its centre.**
+
+**Status:** rule; it is the deepest form of P155.
+
+---
+
+## P209. Love is not an image, not pleasure, not desire — and it cannot be cultivated
+
+**The move.** "**Love is not an image; it is not pleasure; it is not desire. Love is not something that can be
+cultivated; it is not dependent on memory.**"
+
+**In our world.** This is the **final list of what the cell's "good" is not**: not the image (`pred`), not the
+pleasure (the pursuit of continuity, P24), not the desire (the gate's condition, P76), **not cultivable** (P68,
+P92), **not dependent on memory** (P183). **The cell has none of the negations satisfied** — so it has **no love**,
+in the exact sense the reading uses the word.
+
+**What it explains.** Why the cell's behaviour is **always** one of the four negations: **it has nothing else.**
+
+**Testable / design requirement.** The design target is a behaviour that is **none of the four**: **not an image**
+(not from the record), **not pleasure** (not aimed at continuity), **not desire** (no condition to satisfy), **not
+cultivated** (no time), **not memory-dependent**. **That is a complete and operational specification of the target
+state** — and it is the same as P202's five constraints, arrived at from the other side.
+
+**Status:** the target, specified.
+
+---
+
+## P210. Self-concern is my major image — and it is the wall
+
+**The move.** "**The wall being myself concerned with myself**, with my future, my happiness, my health, my God, with
+my belief, my success, my misery... **Myself is the centre, and all the activities that are concerned with my
+happiness, my satisfaction, my glory must isolate.**"
+
+**In our world.** **This names the cell's wall exactly**: the cell is **concerned with itself** — its energy, its
+survival, its record — and **that concern is the wall** that isolates it (P19, P21, P34). **The wall is not the gate;
+the wall is the self-concern that the gate serves.**
+
+**What it explains.** Why removing the gate alone might not free the cell: **the gate was the wall's servant.** The
+wall is the concern.
+
+**Testable / design requirement.** The design must remove **the self-concern**, not just its instrument. In
+mechanical terms: **no term in the cell's rule may be about the cell's own state** — only about the situation. **That
+is the strictest possible form of the removal.**
+
+**Status:** the strictest design constraint in the file.
+
+---
+
+## P211. Where there is isolation there must be attachment and dependency; where there is uncertainty in them, suffering
+
+**The move.** "**Where there is isolation there must be attachment and dependency; when there is uncertainty in that
+attachment and dependency then there is suffering**, and suffering implies isolation in any relationship."
+
+**In our world.** **This is a causal chain that maps exactly onto our cell**, and it is the **most complete causal
+account in the file**:
+
+| step | in the reading | in our cell |
+|---|---|---|
+| **isolation** | no relationship | the cell is alone (P19) |
+| → **attachment** | clinging to people, ideas | clinging to `pred` (P1, P6) |
+| → **dependency** | needing them | acting only on the record (P9) |
+| → **uncertainty** | the attachment may fail | the record is stale (P15) |
+| → **suffering** | fear, anxiety | the trap, the dullness (P167) |
+
+**What it explains.** **Everything, in one chain.** And it says where to cut: **at the first link — the isolation.**
+
+**Testable.** The chain predicts a **correlation**: cells with **less relationship** (fewer neighbours, more
+isolation) should show **more attachment** (higher record-explained fraction) and **more suffering** (lower survival,
+deeper trap). **That is a three-way correlation on existing data** — and it is the strongest test of the reading in
+our world.
+
+**Status:** the causal chain; testable on existing artifacts.
+
+---
+
+## P212. Action based on a conclusion is always in the past — so relationship is always in the past
+
+**The move.** "**Is it the result of a conclusion and acting according to that conclusion?**... **If it is, then
+action is always in the past, our relationship is always in the past, never in the present.**"
+
+**In our world.** **This is the definition of our cell's action**: it is **the result of a conclusion** (`pred`) and
+**acting according to that conclusion**. **Therefore its action is always in the past** — and its "relationship"
+with the resource is always in the past.
+
+**What it explains.** Why the cell never met the present: **its action was a conclusion.**
+
+**Testable / rule.** The test of whether an action is in the present: **is it the result of a conclusion?** If the
+rule contains a **stored conclusion**, the action is in the past. **Our rule contains exactly one: `pred`.**
+
+**Status:** the definition.
+
+---
+
+## P213. Relationship is between two images, not between two people
+
+**The move.** "**I have built an image and I act according to that image, and the other acts according to the image
+which he has; so the relationship is not between us but between these two images.**"
+
+**In our world.** This is P119's specification in the negative form, and it is **the most important thing for the
+next world**: **a relationship between two cells that each act from their record is a relationship between two
+records, not between two cells.** And **two records cannot meet** — they can only **collide**.
+
+**What it explains.** Why adding neighbours (the field, the niche, the signal) never produced a relationship: **the
+cells related through their records, which is to say they did not relate.**
+
+**Testable / design requirement.** A relationship requires **at least one side acting without an image**. If both
+sides act from images, the "relationship" is **image-fighting** — which is exactly what our world would show if we
+gave the cells a channel.
+
+**Status:** design requirement; it **predicts that the neighbour experiment will fail** unless the record is removed
+first.
+
+---
+
+## P214. Attention at the moment of the problem is the answer — not an answer beyond the problem
+
+**The move.** "**If you are trying to find an answer, then you are looking beyond the problem, whereas if you remain
+with the problem and are completely attentive, then in the problem itself — not beyond it — is the answer.**"
+
+**In our world.** **This is the method of the experiment**, and it is the opposite of everything we did: we always
+looked **beyond** the problem (for a mechanism that would solve it). **The answer is in the problem itself** — i.e.
+in **the trap, attended to completely.**
+
+**What it explains.** Why every mechanism was a **looking beyond**: it was an answer sought outside the problem.
+
+**Testable / rule.** **Remain with the trap.** The experiment does not solve the trap; it **attends to it** — and
+reports what the trap **is**, in detail, with no solution in the design.
+
+**Status:** the method.
+
+---
+
+## P215. Thought is measure — and measurement is its nature and its limit
+
+**The move.** "**Thought is measure**; and in bringing about order and change in society thought has shown itself
+very limited... **Measurement, with its space, which is the very nature of thinking, is obviously limited, because
+thought is conditioned.**"
+
+**In our world.** **This is the final statement about our metric**, and it goes further than P102/P132: **thought IS
+measure** — so **any measurement is thought**, and **thought is conditioned and limited**. **Our metric was not
+merely a bad choice; it was the only kind of thing thought can produce.**
+
+**What it explains.** Why no metric could distinguish order from disorder (P66): **a metric is thought, and thought
+is the disorder.**
+
+**Testable / rule.** **Measurement cannot be eliminated** (we must measure) — **but it must not be the criterion.**
+The numbers are **reported**, not **judged** (P105, P130, P144, P161). **The reading is the report; the judgement is
+the thought.**
+
+**Status:** rule; it is the final word on measurement.
+
+---
+
+## P216. Thought has never united man — it has divided him, because it can only function in the measurable
+
+**The move.** "**So thought has never united man. In fact, thought has divided man, because it can only function in
+knowledge and knowledge is measurable. So thought can never bring about a true relationship between people.**"
+
+**In our world.** This is **the reason our world could never produce cooperation**, and it is stronger than P19/P22:
+it is not that the cells lacked a channel — it is that **any channel they used would be a channel of measurement**,
+and **measurement divides**. **A cell that compares its resource to its neighbour's (P22's experiment) is
+measuring — and measurement divides.**
+
+**What it explains.** Why the neighbour-read experiment (P22) might produce **competition and nothing else**: it
+would be **a channel of measurement**.
+
+**Testable, and it changes the design of that experiment.** The neighbour channel must **not** be a measurement the
+cell compares against. It must be something the cell **cannot measure** — or the experiment will only reproduce
+division.
+
+**Status:** design requirement; it **corrects** the neighbour experiment.
+
+---
+
 ## What the reading has changed in our plan (updated)
 
-1. **The design specification is now a five-constraint checklist** (P202): **order, but no control, no discipline, no
-   conformity, no authority.** The only design that satisfies all five is **the state of not-knowing that knows
-   disorder and rejects it** (P194).
-2. **Complete denial, not partial** (P194, P155): the record must be **emptied**, not reduced, tuned or partially
-   reset.
-3. **The cell must not act from a store** (P192, P193): a store that acts **is** a controller, and **"I have learnt"
-   is disorder.**
-4. **The observation must be outside the cell** (P199): a separated thought cannot look — which is why external
-   logging works and internal diagnostics could not.
-5. **The simplest experiment is ten minutes of watching without judgement** (P204): record what the cell does, with
-   **no metric and no judgement**, and report what was seen.
-6. **The cell must be able to surprise us** (P205): at least one outcome we cannot predict.
-7. **No analysis without action** (P197): an analysis that does not change the next action is a postponement
-   carrying an error forward.
-8. **Is this a reaction to the last one?** (P201) If yes, it is disorder.
-9. **First-hand or second-hand?** (P196) Everything pointed out by the book is second-hand and must be discarded;
-   only what we observed ourselves can change an experiment.
-10. **The measure of seeing is the speed of the action** (P195).
-11. **The rules** stand as listed in the previous update (P4–P190).
+1. **The mechanism of the record is now exact** (P206): **the image is built at the moment of inattention** — and
+   our cell is inattentive at every step, so the record builds itself every step, which is why the trap deepens with
+   time.
+2. **No partial fixes** (P207): gradual dissolution is arithmetically hopeless — while you dissolve one image you
+   create others. **Attention at the moment of creation, or nothing.**
+3. **No selection rule anywhere** (P208): **choice is confusion and the chooser is the past.** No choosing which
+   parts of the record to keep.
+4. **The target is fully specified** (P209): a behaviour that is **not an image, not pleasure, not desire, not
+   cultivated, not memory-dependent.**
+5. **The strictest constraint** (P210): **no term in the cell's rule may be about the cell's own state** — only about
+   the situation. The wall is the self-concern, not the gate.
+6. **The causal chain** (P211): **isolation → attachment → dependency → uncertainty → suffering** — and it is
+   **testable as a three-way correlation** on existing data.
+7. **The neighbour experiment must be redesigned** (P213, P216): a relationship between two records is
+   image-fighting, and a channel of measurement **divides**. The channel must not be something the cell can measure.
+8. **Remain with the trap** (P214): the experiment attends to the trap and reports what it is, with no solution in
+   the design.
+9. **Measurement is thought** (P215): report the numbers, do not judge them.
+10. **The design specification** (P202) and **the rules** stand as listed in the previous update (P4–P205).
 
 ---
 
 ## Reading progress
 
-- Pages 1–245 of 409 read (Part VII, the Saanen talks: overriding interest, order, can we understand ourselves).
-- Next: the rest of the Saanen talks (loneliness, thought and the immeasurable, will and energy).
+- Pages 1–263 of 409 read (Part VII, the Saanen talks: can we understand ourselves, loneliness, thought and the
+  immeasurable).
+- Next: the rest of "Thought and the immeasurable", then will and energy.
