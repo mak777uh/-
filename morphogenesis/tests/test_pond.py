@@ -58,17 +58,21 @@ def test_starved_cell_dies_and_returns_energy_to_zero():
     assert float(pond.state.energy[2, 2]) == 0.0
 
 
-def test_old_cell_dies_of_age():
+def test_old_cell_does_not_die_of_age():
+    """Age is diagnostic only (module docstring). This test REPLACES test_old_cell_dies_of_age, which
+    pinned the opposite behaviour: the code killed by age while the prose said it did not, and the test
+    made the code look correct. A test can guard a defect."""
     pond = Pond(PondConfig(grid=8, resource_regen=1.0, baseline_income=0.01,
                            update_cost=0.0, repair_cost=0.0, damage_rate=0.0,
                            max_age=3, noise=0.0))
     mask = torch.zeros((8, 8), dtype=torch.bool)
     mask[1, 1] = True
-    pond.seed_life(mask, energy=5.0)
+    pond.seed_life(mask, energy=50.0)
     for _ in range(6):
         pond.regenerate()
         pond.step_cells()
-    assert not bool(pond.state.alive[1, 1])
+    assert bool(pond.state.alive[1, 1]), "a cell died of age although age is diagnostic only"
+    assert int(pond.state.age[1, 1]) > 3, "the cell should be older than max_age by now"
 
 
 def test_budding_requires_mass_and_energy():
@@ -194,11 +198,28 @@ def test_bud_blocked_when_no_free_neighbours():
     assert abs(float(pond.state.energy.sum()) - energy_before) < 1e-6
 
 
-def test_repair_cost_controls_lifetime():
+def test_repair_cost_has_a_window():
+    """Repair has a WINDOW, not a monotone price: too cheap is no repair, too dear is unpayable.
+
+    The previous version of this test asserted that a cheap repair outlives a dear one, and it passed
+    for the wrong reason: `repair_cost` was charged to every living cell every step, so the comparison
+    measured maintenance, not repair. After the fix (repair is charged only when a repair happens) the
+    shape is a window, and this test pins the window rather than a direction:
+
+        0.0    -> no repair at all: the body dies of accumulated damage
+        mid    -> survives the horizon
+        huge   -> the repair is unaffordable: dies faster than with no repair at all
+
+    Measured on the current world: 0.0 -> 1314 steps, 0.004..0.2 -> 4000 (horizon), 1.0 -> 343.
+    """
     from world.pond import survival_probe
-    cheap = survival_probe(0.004, steps=600)
-    pricey = survival_probe(0.05, steps=600)
-    assert cheap > pricey, "дешёвый ремонт должен давать большую продолжительность жизни"
+    none_at_all = survival_probe(0.0, steps=4000)
+    mid = survival_probe(0.02, steps=4000)
+    huge = survival_probe(1.0, steps=4000)
+    assert none_at_all < 4000, f"with no repair the body should die of damage, lived {none_at_all}"
+    assert mid == 4000, f"a reasonable repair price should keep the body alive, lived {mid}"
+    assert huge < none_at_all, (
+        f"an unaffordable repair should be worse than none: huge={huge}, none={none_at_all}")
 
 
 # ---------- политика matching (I-002: melioration -> matching) ----------
@@ -506,27 +527,37 @@ def test_free_mobility_walks_toward_richer_cells():
     assert int(xs[0]) > 3, "при бесплатной подвижности спора должна уйти вправо"
     assert int(ys[0]) == 5
     assert pond.mobility_shift > 0
-    # бесплатно — энергия споры не уменьшилась
-    assert abs(float(pond.state.energy[child]) - 1.0) < 1e-6
+    # бесплатно — энергия споры осталась той, что заплатил родитель (budding_cost, одна клетка споры)
+    assert abs(float(pond.state.energy[child]) - pond.cfg.budding_cost) < 1e-6
 
 
 def test_expensive_mobility_limited_by_budget():
-    # цена 0.2, заряд споры 1.0 -> не больше 5 шагов
+    """A price above the budget buys no steps at all: the spore stays where the parent put it."""
     pond, parent = _mobility_pond(steps=10, cost=0.2)
     child = pond.bud(parent)
     ys, xs = child.nonzero(as_tuple=True)
-    assert int(xs[0]) == 3 + 5
-    assert pond.mobility_moves == 5
-    assert abs(float(pond.state.energy[child]) - 0.0) < 1e-6
+    budget = float(pond.cfg.budding_cost) / max(int(pond.cfg.spore_cells), 1)
+    expected = min(int(pond.cfg.mobility_steps), int(budget / 0.2 + 1e-9))
+    assert int(xs[0]) == 3 + expected
+    assert pond.mobility_moves == expected
+    assert abs(float(pond.state.energy[child]) - (budget - 0.2 * expected)) < 1e-6
 
 
 def test_cheap_mobility_pays_but_keeps_energy():
+    """The spore walks while it can pay, and keeps the rest.
+
+    The budget is what the parent paid for the event (budding_cost, shared among the spore's cells), not
+    the old floor of 1.0. The expected number of steps is therefore derived from the budget.
+    """
     pond, parent = _mobility_pond(steps=10, cost=0.05)
     child = pond.bud(parent)
     ys, xs = child.nonzero(as_tuple=True)
     moved = int(xs[0]) - 3
-    assert moved > 5
-    assert abs(float(pond.state.energy[child]) - (1.0 - 0.05 * moved)) < 1e-6
+    budget = float(pond.cfg.budding_cost) / max(int(pond.cfg.spore_cells), 1)
+    assert moved >= 1, "при цене ниже бюджета спора должна сделать хотя бы один шаг"
+    assert moved == min(int(pond.cfg.mobility_steps), int(budget / 0.05 + 1e-9)), (
+        f"steps {moved} should be the budget {budget} divided by the price 0.05")
+    assert abs(float(pond.state.energy[child]) - (budget - 0.05 * moved)) < 1e-6
 
 
 def test_mobility_is_reproducible():

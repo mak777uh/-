@@ -4,9 +4,9 @@
 
 The curated page — what matters and why — is [`scripts.md`](scripts.md). This file is the complete list, so that every command behind a number in the record can be found.
 
-Scripts: **497**.
+Scripts: **499**.
 
-## Гейты и проверки (63)
+## Гейты и проверки (64)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -27,6 +27,7 @@ Scripts: **497**.
 | `check_autonomy.py` | check_autonomy.py — the autonomy policy has to be machine-readable, and its protected paths have to be enforced. |
 | `check_claim_artifacts.py` | check_claim_artifacts.py — an artifact cited by a claim must exist in git. |
 | `check_commit_claims.py` | check_commit_claims.py — сообщение коммита не должно утверждать того, чего нет в диффе. |
+| `check_config_completeness.py` | Gate: the artifact must be able to reconstruct the world. |
 | `check_cross_audit.py` | check_cross_audit.py — аудиты обязаны быть помечены как внешние утверждения. |
 | `check_design.py` | check_design.py — пять проверок дизайна ДО серии. Гейт против нашего главного провала. |
 | `check_determinism.py` | check_determinism.py — эталон для новой ветки кода: два прогона с одним конфигом и сидом. |
@@ -215,7 +216,7 @@ Scripts: **497**.
 | `make_seed_grid_figure.py` | Собрать Figure 4 рукописи: сетка «инициализация × порядок данных» (§4.13). |
 | `make_simple_poster.py` | Простой постер для владельца: что мы узнали, без терминов. |
 
-## Прочее (318)
+## Прочее (319)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -240,6 +241,7 @@ Scripts: **497**.
 | `compact_field_series.py` | compact_field_series.py — keep the derivable part of a dense-logging series in git. |
 | `compact_world.py` | Helpers for reading the committed `.compact.json` projections of the dense series. |
 | `compare.py` | Второй фильтр сравнения: не одно число, а распределение по сидам (B-008, I-014). |
+| `config_gate_selftest.py` | Prove the config gate can fail: plant a field that config_block does not save. |
 | `contrast_stationarity.py` | contrast_stationarity.py — стационарен ли контраст «неоднородность минус однородность». |
 | `corpus_manifest.py` | corpus_manifest.py — манифест корпуса: что в нём, зачем и насколько прочитано. |
 | `e02c_seed_grid.py` | Собрать 2×2-сетку «инициализация × порядок данных» и применить критерий H-E02C-6. |

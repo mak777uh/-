@@ -93,6 +93,29 @@ def file_sha256(path: str | None) -> str | None:
         return None
 
 
+def _all_config(cfg) -> dict:
+    """Every field of the config, JSON-safe.
+
+    Values that are not JSON-serialisable (tensors, paths, callables) are rendered as a string with their
+    type, so the block never fails to serialise and never silently drops a field.
+    """
+    import dataclasses
+    out: dict = {}
+    if not dataclasses.is_dataclass(cfg):
+        return out
+    for f in dataclasses.fields(cfg):
+        v = getattr(cfg, f.name, None)
+        if v is None or isinstance(v, (bool, int, float, str)):
+            out[f.name] = v
+        elif isinstance(v, (list, tuple)):
+            out[f.name] = list(v)
+        elif isinstance(v, dict):
+            out[f.name] = dict(v)
+        else:
+            out[f.name] = f"<{type(v).__name__}> {v}"
+    return out
+
+
 def config_block(cfg) -> dict:
     """Конфигурация прогона в `summary["config"]`.
 
@@ -102,8 +125,16 @@ def config_block(cfg) -> dict:
 
     `invade_at` здесь — **запрошенный** шаг инвазии; фактический шаг лежит в
     `summary["invade_at"]` (он сдвигается, если колония ещё меньше `invade_min_cells`).
+
+    Полнота: после курируемого блока добавляются ВСЕ поля `PondConfig` (см. `_all_config`). До 08.11
+    сохранялось 37 из 133 полей, и среди пропущенных были `grid`, `budding_cost`, `budding_mass`,
+    `damage_rate`, `income_mode` — то есть артефакт не позволял восстановить мир. Курируемый блок
+    оставлен, потому что он несёт пояснения; полный блок — потому что он несёт факты.
     """
-    return {
+    block = {
+        # which model gave a GROWN cell its genome: "field" = the pre-assigned field value at that
+        # position (activation, not inheritance); "parent" would be inheritance and is not implemented.
+        "grown_genome": "field",
         "freq_dep": getattr(cfg, "freq_dep", None),
         "freq_dep_range": "0..1 (непрерывный множитель: 0 — обратной связи нет, "
                           "1 — максимальная; метки fd0/fd05/fd10 = 0.0/0.5/1.0)",
@@ -144,6 +175,8 @@ def config_block(cfg) -> dict:
         "update_cost": getattr(cfg, "update_cost", None),
         "repair_cost": getattr(cfg, "repair_cost", None),
     }
+    block.update(_all_config(cfg))
+    return block
 
 
 
@@ -577,7 +610,30 @@ class PondRun:
 
     # ---------- шаг ----------
     def _sync_state_to_world(self, birth_energy: float = 0.5) -> int:
-        """Перенести живость из состояния в мир: новые клетки получают стартовый заряд."""
+        """Перенести живость из состояния в мир: новые клетки получают стартовый заряд.
+
+        НАСЛЕДОВАНИЕ ПРИ РОСТЕ — ЯВНЫЙ ВЫБОР, А НЕ УМОЛЧАНИЕ (08.11).
+
+        В этом мире два разных способа получить геном, и до 08.11 различие не было записано:
+
+        * **рост правила** (эта функция): новая клетка получает геном, который лежал в её позиции
+          с самого начала — `self.genome = torch.randn((1, k, n, n)) * 0.1` создаётся для ВСЕХ
+          позиций поля, включая пустые. Это не наследование от родителя, а **активация заранее
+          распределённой неоднородности**: правило открывает позицию, а геном в ней уже был;
+        * **почкование** (`Pond.bud`): потомок получает геном родителя, усреднённый по компоненте,
+          с мутацией. Это наследование с изменчивостью.
+
+        Обе модели законны, но вопрос «наследуется ли признак» имеет РАЗНЫЙ ответ в зависимости от
+        того, какая из них породила клетку. Поэтому:
+
+        * режим записывается в прогон (`grown_genome = "field"`), чтобы артефакт говорил, какая
+          модель работала;
+        * доля клеток, пришедших ростом, и доля, пришедших почкованием, уже считаются
+          (`clonal_attached`, `clonal_separate`, `births`), и по ним видно, какая модель доминирует.
+
+        Переделывать рост в наследование от родителя — смена мира, а не исправление: она требует
+        серии с якорем и решения владельца. Здесь зафиксировано то, что есть.
+        """
         s = self.pond.state
         with torch.no_grad():
             alive_now = torch.sigmoid(self.state[0, self.rule_cfg.alive_channel]) > 0.5

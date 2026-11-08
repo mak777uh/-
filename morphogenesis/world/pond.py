@@ -1227,6 +1227,7 @@ class Pond:
             s.energy = torch.where(repaired, s.energy - float(cfg.repair_cost), s.energy)
         s.damage = torch.where(repaired, s.damage - 1, s.damage)
 
+        # Age is recorded and reported, never used to kill (see the note below).
         s.age = torch.where(alive, s.age + 1, s.age)
         # Age is diagnostic only, as the module docstring says. `max_age` is kept as a field because
         # existing configs set it, but it no longer kills: a cell dies of starvation or of damage.
@@ -1350,8 +1351,10 @@ class Pond:
         s = self.state
         n = cfg.grid
         cost = float(cfg.mobility_cost)
-        # столько получит спора при рождении (как в bud: max(pay/2, 1.0))
-        budget = max(float(cfg.budding_cost) * 0.5, 1.0)
+        # How much the spore has to spend on walking: what the parent pays for the event, shared among
+        # the spore's cells. The old line was `max(budding_cost * 0.5, 1.0)`, which was a second tap:
+        # with budding_cost = 0.2 the parent paid 0.2 and the spore walked on 1.0.
+        budget = float(cfg.budding_cost) / max(int(cfg.spore_cells), 1)
         claimed: set[tuple[int, int]] = set()
         out: list[tuple[int, int]] = []
         spent = 0.0
@@ -1360,7 +1363,12 @@ class Pond:
             cy, cx = int(y), int(x)
             start = (cy, cx)
             for _ in range(steps):
-                if cost > 0.0 and budget <= cost:
+                # A step is affordable when the remaining budget COVERS its price, i.e. when budget >= cost.
+                # The old condition was `budget <= cost`, so a spore whose budget exactly equalled the price
+                # could not take a single step. That was invisible while the budget was floored at 1.0
+                # (1.0 <= 0.2 is false, so the step happened); after the floor was removed it became a
+                # visible bug: budding_cost 0.2 with mobility_cost 0.2 bought zero steps.
+                if cost > 0.0 and budget + 1e-9 < cost:
                     break
                 best, best_res = None, float(perceived[cy, cx])
                 for dy, dx in ((1, 0), (-1, 0), (0, 1), (0, -1)):
