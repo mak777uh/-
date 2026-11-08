@@ -58,8 +58,18 @@ def main(argv=None) -> int:
     until = f"{day} 23:59"
     rev_before = git("rev-list", "-1", f"--before={since}", "HEAD").strip() or "HEAD~1"
 
-    commits = [l for l in git("log", f"--since={since}", f"--until={until}",
-                              "--format=%h|%s", "--no-merges").splitlines() if l]
+    # 08.11: в истории есть коммиты, чей subject содержит перевод строки — тогда --format=%h|%s даёт
+    # строки без разделителя, и разбор падал с IndexError. Склеиваем такие строки обратно.
+    raw = git("log", f"--since={since}", f"--until={until}",
+              "--format=%h|%s", "--no-merges").splitlines()
+    commits: list[str] = []
+    for line in raw:
+        if not line:
+            continue
+        if "|" in line:
+            commits.append(line)
+        elif commits:
+            commits[-1] += " " + line.strip()
     mine = [c for c in commits if c.split("|", 1)[1].startswith(MINE)]
     external = [c for c in commits if c not in mine]
     corrections = [c for c in mine if CORRECTION.search(c.split("|", 1)[1])]
@@ -82,7 +92,10 @@ def main(argv=None) -> int:
     closed_today = [i for i in items if i.get("status") == "done"
                     and (i.get("done_at") or "").startswith(day)]
     closed_with_note = [i for i in closed_today if (i.get("result") or "").strip()]
-    open_items = [i for i in items if i.get("status") != "done"]
+    # 08.11: «открыто» — это не всё, что не done. Superseded/declined/deferred — закрытые с причиной;
+    # 410 дубликатов new_mode были закрыты как superseded и всё равно считались «открытыми».
+    OPEN_STATES = {"open", "planned", "in_progress", "blocked"}
+    open_items = [i for i in items if i.get("status") in OPEN_STATES]
     blocked = [i for i in open_items if i.get("blocked_by")]
     no_date = [i for i in open_items if not i.get("created_at")]
 
