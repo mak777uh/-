@@ -1144,6 +1144,27 @@ def _environment() -> dict[str, Any]:
     return env
 
 
+def _ask_mediator(action: dict) -> dict:
+    """Ask the live mediator for a decision, with the Rust cross-check when it is available.
+
+    The mediator is the harness's own policy gate (scripts/policy_mediator.py). It is asked BEFORE the lock is
+    taken, so a refused action leaves nothing behind. If the mediator cannot be imported - a stripped checkout,
+    a machine without the scripts - the run proceeds and the manifest records that the gate did not run, rather
+    than pretending it did.
+    """
+    try:
+        sys.path.insert(0, str(Path(__file__).resolve().parent))
+        import policy_mediator as pm  # noqa: WPS433
+    except Exception as exc:  # noqa: BLE001
+        return {"ran": False, "why": f"mediator not importable: {exc}"}
+    policy = {"allowed": [action], "needsOwner": [], "forbidden": []}
+    try:
+        d = pm.decide(action, policy)
+    except RuntimeError as exc:
+        return {"ran": True, "refused": True, "why": str(exc)}
+    return {"ran": True, "refused": False, **d}
+
+
 def run_command(args: argparse.Namespace) -> int:
     command = list(args.command)
     if command and command[0] == "--":
@@ -1152,6 +1173,14 @@ def run_command(args: argparse.Namespace) -> int:
         raise SystemExit("Нужна команда после `--`, например: ... run ... -- python train.py ...")
     if command[0] in {"python", "python3"}:
         command[0] = sys.executable
+
+    # The policy gate runs before the lock: a refused action must leave no lock and no manifest behind.
+    gate = _ask_mediator({"who": args.owner, "what": "run_series", "res": "gpu"})
+    if gate.get("refused"):
+        print(f"[lab] mediator refused the run: {gate.get('why')}")
+        return 2
+    if not gate.get("ran"):
+        print(f"[lab] mediator did not run ({gate.get('why')}); the manifest will say so")
 
     lock = claim(args.experiment, args.owner, args.run_id, args.ttl_minutes, False)
     run_id = lock["run_id"]
@@ -1177,6 +1206,7 @@ def run_command(args: argparse.Namespace) -> int:
         "command": command,
         "cwd": "morphogenesis",
         "owner": args.owner,
+        "policy_gate": gate,
         "environment": _environment(),
         "checkpoint_in": (
             {"path": rel(Path(args.checkpoint_in)), "sha256": None}
