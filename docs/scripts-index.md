@@ -4,7 +4,7 @@
 
 The curated page — what matters and why — is [`scripts.md`](scripts.md). This file is the complete list, so that every command behind a number in the record can be found.
 
-Scripts: **502**.
+Scripts: **503**.
 
 ## Гейты и проверки (64)
 
@@ -217,7 +217,7 @@ Scripts: **502**.
 | `make_seed_grid_figure.py` | Собрать Figure 4 рукописи: сетка «инициализация × порядок данных» (§4.13). |
 | `make_simple_poster.py` | Простой постер для владельца: что мы узнали, без терминов. |
 
-## Прочее (321)
+## Прочее (322)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -261,6 +261,7 @@ Scripts: **502**.
 | `lean_axioms.py` | lean_axioms.py — независимая проверка теорем Lean на «чистоту аксиом» и неизменность формулировок. |
 | `literature_harvest.py` | literature_harvest.py — собрать настоящие работы по теме, с аннотациями и ссылками на полные тексты. |
 | `log_signal_scan.py` | log_signal_scan.py — майнер логов прогонов (LDD): какие сбои повторяются. |
+| `meta_analysis.py` | Meta-analysis: across all series, did mechanism X help the cell? |
 | `metric_variants.py` | metric_variants.py — инвариантность вывода к устройству метрики (H-ALIVE-39). |
 | `neutral_yardstick.py` | neutral_yardstick.py — нейтральная линейка для наших миров. |
 | `paired_compare.py` | paired_compare.py — парное сравнение двух плеч по сидам, без «средних по плечу». |

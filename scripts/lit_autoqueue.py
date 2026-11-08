@@ -163,6 +163,8 @@ def trigger_manifests() -> list[dict]:
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--write", action="store_true")
+    ap.add_argument("--check", action="store_true",
+                    help="выйти с кодом 1, если в очереди не хватает вопросов (для make verify)")
     args = ap.parse_args(argv)
 
     queue = _load_queue()
@@ -181,6 +183,11 @@ def main(argv=None) -> int:
         print(f"[lit-auto] записано в {QUEUE}: {len(new)} новых")
     elif new:
         print("[lit-auto] запустите с --write, чтобы добавить")
+
+    # --check is the mode `make verify` uses: it fails when the queue is behind reality, so a gap the bench
+    # itself discovered cannot sit unnoticed until a human remembers to ask.
+    if args.check:
+        return 0 if not new else 1
     return 0
 
 

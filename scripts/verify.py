@@ -100,6 +100,9 @@ def main() -> int:
         # 08.11: four defects in the world were found by a human reading the code - budding created
         # energy, age killed, repair_cost was charged every step, a step was unaffordable at its own
         # price. No gate tripped. This one checks the invariants directly.
+        # 08.11: the librarian worked only when asked. The autoqueue makes a gap the bench itself
+        # discovered visible in `make verify` instead of waiting for someone to remember.
+        ("вопросы к литературе поставлены в очередь", [PY, "scripts/lit_autoqueue.py", "--check"], None),
         ("инварианты мира держатся", [PY, "scripts/world_invariants.py"], None),
         ("артефакт восстанавливает мир (полнота конфига)",
          [PY, "scripts/check_config_completeness.py"], None),

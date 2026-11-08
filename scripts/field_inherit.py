@@ -144,8 +144,16 @@ def main(argv=None) -> int:
     first, last = (series[0] if series else {}), (series[-1] if series else {})
     summary = {
         "kind": "field_inherit",
-        "model": ("Грей–Скотт + пассивный наследуемый состав s: ds = Ds·lap(s) + P·v − λ·s + шум·v; "
-                  "F_eff = F·(1 + eps·(s − s̄)) — состав влияет на рост, поэтому возможен отбор"),
+        # The description is GENERATED from the parameters that the loop actually uses. The old text said
+        # `F_eff = F*(1 + eps*(s - s̄))` while the code computes `F_eff = F*(1 + eps*(s - s_ref))`: a
+        # description that disagrees with the code is the error class this bench exists to prevent, and it
+        # was written twice by hand. One source of truth: the arguments.
+        "model": (
+            "Грей–Скотт + пассивный наследуемый состав s: ds = Ds·lap(s) + P·v − λ·s + шум·v; "
+            f"F_eff = F·clamp(1 + eps·(s − s_ref), 0.5, 1.5) с s_ref = {float(args.s_ref):.4g} "
+            f"(фиксированный опорный состав, а НЕ среднее по живым: среднее может уехать, и тогда "
+            f"модуляция исчезла бы) — состав влияет на рост, поэтому возможен отбор"
+        ),
         "params": {k: v for k, v in vars(args).items() if k != "out"},
         "series": series,
         "selection": {
