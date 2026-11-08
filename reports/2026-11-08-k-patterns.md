@@ -2037,37 +2037,142 @@ reproducible, and nothing qualitative.
 
 ---
 
+## P96. Repetition is not the real — and standing alone is the price
+
+**The move.** "If I am not alone in the deeper sense of that word, I am just **repeating** what Sankara, Buddha, or
+X, Y, Z said. What is the point of it, knowing very well that **repetition is not the real**?"
+
+**In our world.** **This is the judgement on our whole experiment list.** Every experiment we ran was a
+**repetition** — of a mechanism someone else had already described (field, niche, signal, decoder, membrane). We
+**repeated** them in our world and measured whether the repetition worked. **Repetition is not the real.**
+
+**What it explains.** Why nothing new appeared: we were not **standing alone**; we were **repeating the
+literature** in a new setting. P33 said this about search; P96 says it about **repetition**, which is sharper.
+
+**Testable / rule.** An experiment that **repeats a known mechanism** can only tell us whether the mechanism works
+**here** — it cannot tell us anything new about the world. That is a legitimate but **small** kind of result, and it
+should be labelled as such: **a local repetition, not a finding**.
+
+**Status:** rule; it reclassifies most of our history.
+
+---
+
+## P97. Sorrow is understood only in relationship — sitting alone, the mind deceives itself
+
+**The move.** "I can only understand it in **relationship with another**. I cannot sit by myself and dig into it
+because **I may pervert it**; my mind is too silly, prejudiced... if I sit by myself I can deceive myself very
+easily. But by being awake in relationship, I can spot it immediately."
+
+**In our world.** This is **the most important structural statement for the next world**, and it is a **design
+requirement**, not a moral one. Our cell is **alone** — it has no relationship (P19, P21, P34), and therefore it
+**cannot understand its own situation**: it can only **deceive itself** with its record.
+
+**What it explains.** Why the cell's self-knowledge is impossible: self-knowledge requires a **partner**, and the
+cell has none. Its record is a **mirror**, and a mirror cannot correct itself.
+
+**Testable / design requirement.** The cell needs a **relationship** — another cell whose state it can read — for
+its own behaviour to become **correctable**. That is P22's neighbour-read experiment, now with a **reason**: not to
+create competition, but to give the cell the **only** possible source of correction.
+
+**Status:** design requirement; it is the strongest argument yet for the neighbour-read experiment.
+
+---
+
+## P98. The practice of alertness makes alertness dull
+
+**The move.** "If there is a method which will help me to be aware, I shall practise it; but **is that awareness**?
+Because in that is involved routine, acceptance of authority, repetition; that is gradually **making my alertness
+dull**. So I reject that: **the practice of alertness**."
+
+**In our world.** This is P93 in its sharpest form, and it applies to a mechanism we never suspected: **the
+adaptation itself**. We built mechanisms to make the cell **more responsive**, and the pattern says: **the practice
+of responsiveness makes it dull**. That is **exactly** what happened — the gate was built to make the cell act
+better, and it made the cell act **less** (S22: 0.166 vs 0.340).
+
+**What it explains.** The trap of inaction, one more time, from the other end: the mechanism designed to improve
+responsiveness **is** the dulling.
+
+**Testable.** The prediction is that **any** mechanism whose purpose is "be more responsive" will **reduce** the
+measured responsiveness. That is checkable against our own history: every adaptive arm we built reduced the
+fraction able to act.
+
+**Status:** supported by our own data; it is the general form of the trap.
+
+---
+
+## P99. If you escape from the battle you have not understood it — the battle is you
+
+**The move.** "If you escape from the battle you have not understood the battle. **The battle is you.** How can you
+escape from yourself?... You say, 'Get away quietly from it and then come back to it.' **That is a
+fragmentation.**"
+
+**In our world.** Every mechanism we added was a **"get away from it and come back"**: a separate part of the cell
+that steps back, looks, and returns with a correction. **That is fragmentation** (P65), and it is why the correction
+never worked.
+
+**What it explains.** Why the "controller" pattern failed in every form (P52, P56, P76): it is an **escape from the
+battle**, disguised as a solution to it.
+
+**Testable / rule.** Any design with a **"step back and look"** step is a fragmentation. The only non-fragmented
+design is one where the cell **is** the battle — i.e. where there is no separate observer (P1, P6, P11).
+
+**Status:** rule; it closes the controller thread definitively.
+
+---
+
+## P100. "What would you do if you had read none of these?" — the question that clears the field
+
+**The move.** K: "If you have read none of these — Patanjali, Sankara, Chan Upanishads, Raja Yoga, Karma Yoga, Bhakti
+Yoga, Gnana Yoga, nothing — **what would you do?**" Swamiji: "I shall have to find out." K: "What would you do?"
+Swamiji: "**Struggle.**" K: "Which you are doing anyhow."
+
+**In our world.** This is the **question to ask before every experiment**, and it is the cleanest form of P96:
+**if you had read none of the literature, what would you do?**
+
+**What it explains.** Our whole list, by contrast: we **had** read the literature (or the owner had), and every
+experiment was an answer to "what would Sankara do" rather than "what would I do if I knew nothing".
+
+**Testable / rule.** Before an experiment, ask: **would I run this if I had never heard of the mechanism?** If the
+answer is no, the experiment is a **repetition** (P96), not an enquiry.
+
+**Status:** rule; it is the operational form of P96 and the best single filter in the file.
+
+---
+
 ## What the reading has changed in our plan (updated)
 
-1. **The filter for the next experiment** (P81, P84, P89, P90, P92, P94): it must **remove**, not add; it must not
-   **prevent a collision**; it must not **carry**; it must not be a **routine**; it must not be a **method**.
-2. **No acceptance is possible** (P91): no mechanism may be installed as a rule the cell "follows".
-3. **The problem must be classified first** (P86): a **relation** problem cannot be fixed by a **technical** fix.
-4. **The experiment must start from a symptom** (P88), not a target; and must not be an **escape from the last null**
-   (P87).
-5. **Adopt the variance decomposition** (P80, P82, P93): behaviour variance explained by **situation** vs by
-   **record** — the measure of maturity, of narrowness, and of order.
-6. **The core hypothesis** (P71): the cell is made of the contradiction between what is and what should be.
-7. **The decisive experiment** (P74, P75, P77): **empty** the record and test for a **step**, not a slope.
-8. **The clean two-arm test** (P78): more **physical** protection vs removal of **psychological** protection.
-9. **The missing control** (P56, P76): adaptive arm vs **random perturbation of equal variance**.
-10. **The only legitimate lever** (P85): change **what knocks the cell** — the consequences — not what points at it.
-11. **On existing data:** residual variance and narrowness of the adaptive arms vs baseline in S22 (P79, P93);
-    `resource − pred` across E10's patterns (P11); the cell's own measures (P27, P59).
-12. **The remaining tests:** move-cost (P41); initial-`pred` (P36, P40); recovery (P9); two-environment sweep (P14);
-    ratio law (P15); neighbour-read (P22); move-rate curve (P29); stereotypy ratio (P32); repertoire (P49);
-    field-order vs cell-order (P70).
-13. **Rules:** from the first steps (P4); no predicted sign (P33); "what is" not "how to" (P39); which of the first
+1. **The question before every experiment** (P100, P96): **would I run this if I had never heard of the mechanism?**
+   If no, it is a repetition, and it can only tell us whether the mechanism works **here**.
+2. **The neighbour-read experiment is now the top design requirement** (P97): the cell needs a **relationship** to
+   be correctable — not to create competition, but because a mirror cannot correct itself.
+3. **The filter for the next experiment** (P81, P84, P89, P90, P92, P94, P99): it must **remove**, not add; it must
+   not **prevent a collision**; it must not **carry**; it must not be a **routine**; it must not be a **method**; it
+   must not **step back and look**.
+4. **No acceptance is possible** (P91); **no cultivation is a lever** (P92); **the practice of responsiveness makes
+   it dull** (P98).
+5. **The problem must be classified first** (P86): a **relation** problem cannot be fixed by a **technical** fix.
+6. **The experiment must start from a symptom** (P88), not a target; not an **escape from the last null** (P87).
+7. **Adopt the variance decomposition** (P80, P82, P93): behaviour variance explained by **situation** vs by
+   **record** — the measure of maturity, narrowness and order.
+8. **The core hypothesis** (P71): the cell is made of the contradiction between what is and what should be.
+9. **The decisive experiment** (P74, P75, P77): **empty** the record and test for a **step**, not a slope.
+10. **The clean two-arm test** (P78): more **physical** protection vs removal of **psychological** protection.
+11. **The missing control** (P56, P76): adaptive arm vs **random perturbation of equal variance**.
+12. **The only legitimate lever** (P85): change **what knocks the cell** — the consequences — not what points at it.
+13. **On existing data:** residual variance, narrowness and the fraction able to act in the S22 arms (P79, P93,
+    P98); `resource − pred` across E10's patterns (P11); the cell's own measures (P27, P59).
+14. **Rules:** from the first steps (P4); no predicted sign (P33); "what is" not "how to" (P39); which of the first
     two states (P46); measure behaviour not its shadow (P48); set of variables not values (P51); no "should" for the
     cell (P63); the proof that a pattern was seen is that the next experiment changed shape (P64); report the range
-    (P73); no gain as a justification (P83); no story (P84); enquiry not search (P88); **call a toy a toy** (P95).
-14. **Design constraints:** novelty from outside the record (P38); relationship not isolation (P34); no controller
-    inside the cell (P52); one quantity outer-inner-beyond (P43); do not help the cell (P45, P86, P90); one process
-    not parts (P65); no blueprint (P67); no planning (P72); no will (P76); no method (P94).
+    (P73); no gain as a justification (P83); no story (P84); enquiry not search (P88); call a toy a toy (P95);
+    **would I run this if I knew nothing** (P100).
+15. **Design constraints:** novelty from outside the record (P38); relationship not isolation (P34, P97); no
+    controller inside the cell (P52, P99); one quantity outer-inner-beyond (P43); do not help the cell (P45, P86,
+    P90); one process not parts (P65); no blueprint (P67); no planning (P72); no will (P76); no method (P94).
 
 ---
 
 ## Reading progress
 
-- Pages 1–117 of 409 read (Part IV: Karma Yoga scrutinised — authority, voluntary acceptance, method, toys).
-- Next: the remaining yogas (Bhakti, Raja, Gnana) and the mahavakyas.
+- Pages 1–121 of 409 read (Part IV: Karma, Bhakti, Raja and Gnana Yoga scrutinised; the question of standing alone).
+- Next: the mahavakyas and the ending of knowledge.
