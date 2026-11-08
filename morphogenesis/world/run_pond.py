@@ -135,6 +135,12 @@ def _k_rows(state) -> list[dict]:
             for y, x in zip(ys, xs)]
 
 
+def _profile_block(cfg) -> dict:
+    """Which profile this config came from, if any. The name is stamped on the config by apply_profile."""
+    from world.profiles import profile_block
+    return profile_block(cfg, getattr(cfg, "_profile_name", None))
+
+
 def config_block(cfg) -> dict:
     """Конфигурация прогона в `summary["config"]`.
 
@@ -169,6 +175,7 @@ def config_block(cfg) -> dict:
         "merge_rule": getattr(cfg, "merge_rule", "majority"),
         "trait_effect": getattr(cfg, "trait_effect", 0.0),
         "budding_unit": getattr(cfg, "budding_unit", "colony_mean"),
+        "profile": _profile_block(cfg),
         # Q3: the three axes that locate a collective on the Darwinian scale. `colony_mean` has NONE of them:
         # no bottleneck (the child is a mean, not a sample), no germ-soma split, no integration beyond
         # geometry. That is why it is blending inheritance and not clonal reproduction.
@@ -1162,6 +1169,9 @@ def build_parser() -> argparse.ArgumentParser:
     ap.add_argument("--ignition-gate", action="store_true",
                     help="запретить правилу зажигать клетку без живого 4-соседа "
                          "(пустое поле остаётся пустым, плечо пропагула)")
+    ap.add_argument("--profile", default=None,
+                    help="named, versioned combination of config fields (world/profiles.py). "
+                         "The artifact records which profile ran and which fields it set.")
     ap.add_argument("--start-cells", type=int, default=4,
                     help="сколько клеток засеять на старте (0 = пустое поле, плечо resident_free)")
     ap.add_argument("--invade-placement", default="random", choices=["random", "gap"],
@@ -1300,6 +1310,7 @@ def main(argv: list[str] | None = None) -> int:
     code_provenance = git_provenance()   # снимается на старте, до записи артефакта
     code_provenance["rule_sha256"] = file_sha256(args.rule_checkpoint)
     world = PondConfig(grid=args.grid)
+
     if args.income is not None:
         world.baseline_income = args.income
     if args.update_cost is not None:
@@ -1322,6 +1333,19 @@ def main(argv: list[str] | None = None) -> int:
     world.organism_mobility_cost = args.organism_mobility_cost
     world.organism_mobility_every = args.organism_mobility_every
     world.plastic_eta = args.plastic_eta
+
+    # The profile is applied AFTER the command-line arguments, so it is a BASE: a field the user passed
+    # explicitly still wins only if it differs from the argument default. The order matters and the
+    # first version had it backwards, which silently zeroed plastic_eta.
+    _profile_name = getattr(args, "profile", None)
+    if _profile_name:
+        from world.profiles import apply_profile
+        _set_by_profile = apply_profile(world, _profile_name)
+        # an argument the user actually changed must still win
+        for _f in _set_by_profile:
+            _arg = "--" + _f.replace("_", "-")
+            if any(a == _arg or a.startswith(_arg + "=") for a in sys.argv[1:]):
+                setattr(world, _f, getattr(args, _f.replace("-", "_"), getattr(world, _f)))
     world.plastic_move_cost = args.plastic_move_cost
     world.plastic_gate = args.plastic_gate
     world.plastic_direction = getattr(args, "plastic_direction", "gradient")

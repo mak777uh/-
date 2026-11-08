@@ -4,7 +4,7 @@
 
 The curated page — what matters and why — is [`scripts.md`](scripts.md). This file is the complete list, so that every command behind a number in the record can be found.
 
-Scripts: **508**.
+Scripts: **509**.
 
 ## Гейты и проверки (65)
 
@@ -218,7 +218,7 @@ Scripts: **508**.
 | `make_seed_grid_figure.py` | Собрать Figure 4 рукописи: сетка «инициализация × порядок данных» (§4.13). |
 | `make_simple_poster.py` | Простой постер для владельца: что мы узнали, без терминов. |
 
-## Прочее (326)
+## Прочее (327)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -298,6 +298,7 @@ Scripts: **508**.
 | `threshold_sensitivity.py` | Q8: how much do the lifetimes and division counts depend on the matching threshold? |
 | `v8_matrix.py` | v8_matrix.py — агрегат серии V8 (размещение инокулята × правило слияния). |
 | `verify.py` | Единый гейт перед отправкой: `python scripts/verify.py` (или `make verify`). |
+| `world_alive_sweep.py` | Why does the body die by step 150? Find parameters under which the world supports life. |
 | `world_invariants.py` | Gate: the world's invariants, as one command. |
 | `write_zenodo_032.py` | Write the zenodo.json metadata file for article 032 (and, generically, for others). |
 | `x100_analyse.py` | x100_analyse.py — does the heredity of size survive a definition that needs no excursion cut? |
