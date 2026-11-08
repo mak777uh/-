@@ -4,9 +4,9 @@
 
 The curated page — what matters and why — is [`scripts.md`](scripts.md). This file is the complete list, so that every command behind a number in the record can be found.
 
-Scripts: **503**.
+Scripts: **505**.
 
-## Гейты и проверки (64)
+## Гейты и проверки (65)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -62,6 +62,7 @@ Scripts: **503**.
 | `check_single_running.py` | Gate: at most one queue item may be marked running. |
 | `check_single_spec.py` | check_single_spec.py — не должно быть двух документов, объявляющих одну версию требований. |
 | `check_snapshots.py` | check_snapshots.py — снимки лабораторного состояния обязаны совпадать с диском. |
+| `check_stability.py` | Gate: the integrator must be stable for the parameters the run actually uses. |
 | `check_uid_rule.py` | check_uid_rule.py — the identity rule of the field tracker, pinned as a data check. |
 | `check_weights_ignored.py` | Gate: weights files must be ignored by git. |
 | `check_wilson_consistency.py` | check_wilson_consistency.py — все реализации интервала Уилсона должны давать одно и то же. |
@@ -217,7 +218,7 @@ Scripts: **503**.
 | `make_seed_grid_figure.py` | Собрать Figure 4 рукописи: сетка «инициализация × порядок данных» (§4.13). |
 | `make_simple_poster.py` | Простой постер для владельца: что мы узнали, без терминов. |
 
-## Прочее (322)
+## Прочее (323)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -282,6 +283,7 @@ Scripts: **503**.
 | `run_replicator.py` | replicator.py — мир `R1`: репликаторы БЕЗ тела (H-ALIVE-50). |
 | `runs_chain.py` | runs_chain.py — печать целостности манифестов прогонов (наш аналог аттестации TEE). |
 | `safe_commit.py` | safe_commit.py — коммит только при зелёном verify. |
+| `seed_selftest.py` | Prove the seed is toroidal: the same disc must have the same mass wherever it is placed. |
 | `self_review.py` | Дневной самоаудит библиотеки: что сработало, что нет, что поправить. |
 | `size_resolved_contrast.py` | size_resolved_contrast.py — what size are the structures that make the contrast? |
 | `slim_checkpoint.py` | Облегчить чекпоинт для инференса: только веса правила + метаданные. |

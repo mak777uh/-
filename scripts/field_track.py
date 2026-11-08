@@ -264,9 +264,16 @@ def main(argv=None) -> int:
         _r = float(r0) * float(_jr.uniform(0.8, 1.2))
         c = ((g // 2 + _dx) % g, (g // 2 + _dy) % g)
         r0 = max(2.0, _r)
-        m = ((((xx - c[0] + g // 2) % g) - g // 2) ** 2 + (((yy - c[1] + g // 2) % g) - g // 2) ** 2) <= r0 * r0
+        _jx = ((xx - c[0] + g // 2) % g) - g // 2
+        _jy = ((yy - c[1] + g // 2) % g) - g // 2
+        m = (_jx * _jx + _jy * _jy) <= r0 * r0
     else:
-        m = ((xx - c) ** 2 + (yy - c) ** 2) <= r0 * r0
+        # Minimum-image (toroidal) distance: the world is periodic, so the seed must be too. With the Euclidean
+        # distance a disc of radius 2 has 13 nodes at the centre and 6 at a corner, which makes the initial mass
+        # depend on where the seed sits. The old line was `((xx - c) ** 2 + (yy - c) ** 2) <= r0 * r0`.
+        _dx = ((xx - c + g // 2) % g) - g // 2
+        _dy = ((yy - c + g // 2) % g) - g // 2
+        m = (_dx * _dx + _dy * _dy) <= r0 * r0
     h_trait = None
     mem_t = None   # X48: медленная память о ходе события
     cue_pos = 0.0
@@ -449,6 +456,11 @@ def main(argv=None) -> int:
     uid_pairs: list[tuple[int, int]] = []   # (uid родителя, uid дочери) при --split-new-uid
     splits = 0
     series = []
+    # Q6: clipping is recorded, not hidden. `clipped_mass` is how much the clamp added or
+    # removed in total; if it does not vanish under refinement, the clamp is part of the mechanism.
+    clipped_mass = 0.0
+    clip_nodes = 0
+    clip_steps = 0
     _save_at = {int(x) for x in str(args.save_fields_at).split(",") if x.strip()}
     fields_saved: list[str] = []
 
@@ -578,8 +590,16 @@ def main(argv=None) -> int:
             uvv = uvv / (1.0 + float(args.gamma) * w)
         du = args.Du * laplacian(u) - uvv + F_eff * (1.0 - u)
         dv = args.Dv * laplacian(v) + uvv - (F_eff + k_eff) * v
-        u = torch.clamp(u + args.dt * du, 0.0, 1.0)
-        v = torch.clamp(v + args.dt * dv, 0.0, 1.0)
+        u_raw = u + args.dt * du
+        v_raw = v + args.dt * dv
+        cu = torch.clamp(u_raw, 0.0, 1.0)
+        cv = torch.clamp(v_raw, 0.0, 1.0)
+        clipped_mass += float((cu - u_raw).abs().sum()) + float((cv - v_raw).abs().sum())
+        _n = int(((u_raw < 0.0) | (u_raw > 1.0)).sum()) + int(((v_raw < 0.0) | (v_raw > 1.0)).sum())
+        clip_nodes += _n
+        if _n:
+            clip_steps += 1
+        u, v = cu, cv
         if args.second_species:
             dw = args.Dw * laplacian(w) + args.beta_w * (v - w)
             w = torch.clamp(w + args.dt * dw, 0.0, 1.0)
@@ -774,7 +794,10 @@ def main(argv=None) -> int:
             "s_mean_first": series[0]["s_mean"] if series else None,
             "s_mean_last": series[-1]["s_mean"] if series else None,
             "s_sd_between_last": series[-1]["s_sd_between"] if series else None,
-            "splits": splits,
+            "clipped_mass": round(clipped_mass, 6),
+        "clip_nodes": clip_nodes,
+        "clip_steps": clip_steps,
+        "splits": splits,
             "parent_child_pairs": len(pairs),
             "inheritability_r": round(r_parent, 3) if r_parent is not None else None,
             "invader_rate": inv_rate,

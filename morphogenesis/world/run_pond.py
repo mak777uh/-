@@ -635,6 +635,10 @@ class PondRun:
         серии с якорем и решения владельца. Здесь зафиксировано то, что есть.
         """
         s = self.pond.state
+        # Q4: which path made this cell. LOG-ONLY: nothing in the dynamics reads it.
+        if not hasattr(self, "birth_mode"):
+            self.birth_mode = torch.zeros((self.world_cfg.grid, self.world_cfg.grid),
+                                          dtype=torch.int8, device=self.device)
         with torch.no_grad():
             alive_now = torch.sigmoid(self.state[0, self.rule_cfg.alive_channel]) > 0.5
         if bool(getattr(self.world_cfg, "ignition_gate", False)):
@@ -658,6 +662,7 @@ class PondRun:
                     attached += 1
             self.clonal_attached += attached
             self.clonal_separate += births - attached
+            self.birth_mode[newly] = 1          # 1 = activation (grown by the rule)
             s.energy = torch.where(newly, torch.full_like(s.energy, birth_energy), s.energy)
             s.age = torch.where(newly, torch.zeros_like(s.age), s.age)
             s.damage = torch.where(newly, torch.zeros_like(s.damage), s.damage)
@@ -885,6 +890,11 @@ class PondRun:
                 child = self.pond.bud(parent)
                 if child is None:
                     continue
+                # Q4: this cell came from REPRODUCTION, not from activation. LOG-ONLY.
+                if not hasattr(self, "birth_mode"):
+                    self.birth_mode = torch.zeros((self.world_cfg.grid, self.world_cfg.grid),
+                                                  dtype=torch.int8, device=self.device)
+                self.birth_mode[child] = 2
                 # геном: медиана родителя и мутация. Считаем по явным координатам, а не
                 # маской: родитель может быть ОДНОЙ клеткой, и тогда `[:, mask]` даёт
                 # [C, 1], а `mean(dim=1, keepdim=True)` — лишнюю ось (падение 26.10).
