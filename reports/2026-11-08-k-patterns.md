@@ -3432,32 +3432,249 @@ found it, it is a position, not a finding.
 
 ---
 
+## P165. Seeking a position is aggression — and the saint is as aggressive as the chicken
+
+**The move.** "To seek a position is a form of aggression... **the saint who seeks a position with regard to his
+saintliness is as aggressive as the chicken pecking in the yard!**" And: "a position which must be **recognized by
+others**, otherwise it is no position at all."
+
+**In our world.** This is P164 completed with the **mechanism**: a position requires **recognition by others**, and
+therefore seeking one is **aggression**. Our programme sought positions: the "first replicated result", the "strongest
+effect", the "novel mechanism". Each required **recognition** — and each was **aggression** against the cell and
+against the facts.
+
+**What it explains.** Why our reports were **competitive**: they were positions. And why the retractions felt like
+**defeats**: a position was lost.
+
+**Testable / rule.** A finding that **needs recognition** is a position. A finding that would stand **if nobody
+read it** is a finding. That is P164's rule in its sharpest form.
+
+**Status:** rule.
+
+---
+
+## P166. Aggression comes from fear or from enclosure — and we prefer the aggression to the fear
+
+**The move.** "So we may be aggressive because we have **not enough space** around us physically... And also one may
+be aggressive because one is **frightened**." And the sharp observation: "**knowing that you will lose the pleasure of
+being aggressive, you do not mind being afraid.**... aggressiveness with its pleasure balances fear."
+
+**In our world.** This is **the most useful diagnostic in the file for a system**, because it names **two different
+causes** of the same behaviour — **fear** and **enclosure** — and says they require **different** responses. And it
+adds the trap: **we prefer the aggression to the fear**, because aggression carries pleasure.
+
+**What it explains.** Why the cell's "aggressive" behaviour (moving, taking) persisted even when it hurt: **the
+aggression balances the fear.** And it gives a **new hypothesis for the trap**: the cell's inaction may be an
+**enclosure** response (no space to act) rather than a **fear** response.
+
+**Testable, and it is a clean two-arm test.** Arm A: **give the cell more space** (lower density, more free
+neighbours). Arm B: **reduce the cell's fear** (more energy, less risk). If the trap is enclosure, A fixes it; if
+fear, B does. **We have never separated these two.**
+
+**Status:** hypothesis; a clean two-arm test that we have not run.
+
+---
+
+## P167. Fear, not understood, reduces you to dullness — and we get used to it
+
+**The move.** "You are frightened and you get used to this fear... so gradually you become **duller and duller**.
+Gradually you lose all sensitivity. You don't look at trees which you looked at before, you never smile. **So
+gradually you become dull.**... **fear (your not having understood it) reduces you to dullness.**"
+
+**In our world.** This is P93 and P98 with the **cause** named: **ununderstood fear → dullness**. And our cell is
+exactly this: it **gets used to** its resource level (the record), and becomes **dull** — its behaviour stops
+responding to the situation.
+
+**What it explains.** The trap as **dullness**, not as a mistake: the cell is not choosing badly, it is **dull**. And
+dullness is **measurable** as the fraction of behaviour explained by the record (P80).
+
+**Testable.** The prediction: the trap should **deepen with time** (dullness accumulates) — which is exactly what
+S22 shows (0.31 → 0.17). **That is already evidence for P167.**
+
+**Status:** supported by S22.
+
+---
+
+## P168. Pleasure breeds habit, and habit is the beginning of indifference
+
+**The move.** "I look at it every day — and say 'How nice'. Then I get used to it... **So the pleasure of looking at
+it every day has brought about a habit which now prevents me from looking.**... **habit, getting used to something,
+is the beginning of indifference.**"
+
+**In our world.** **This is the mechanism of the record, stated exactly.** The cell finds a good patch, **records**
+it (`pred`), looks at it every day — and the **habit prevents it from looking**. **The record is the habit, and the
+habit is the beginning of indifference.**
+
+**What it explains.** Why the cell stops responding to the situation: **it got used to it.** And why the trap is
+**worst in a stable good environment followed by change**: the habit was formed in the good period.
+
+**Testable, and it is a strong prediction.** The dullness should be **greatest where the environment was most
+pleasant for longest**. In our experiments: the **rich zone** should produce more dullness than the poor one — which
+is the **opposite** of the naive expectation, and it is checkable on E7f/E15 data.
+
+**Status:** hypothesis; testable on existing artifacts.
+
+---
+
+## P169. There are no roots of heaven in pleasure — only roots of indifference and pain
+
+**The move.** "**There are no roots of heaven in pleasure, there are only roots of indifference and pain.**"
+
+**In our world.** This is the **thesis about the record** in one line, and it is the **inverse of everything we
+assumed**: we assumed that a record of **good** things would be **useful**. The pattern says: **the roots of heaven
+are not in pleasure**; the record of pleasure produces **indifference and pain**.
+
+**What it explains.** Why the "useful memory" hypothesis (E6) failed **completely**: there is no useful memory of
+pleasure. **And why the record's effect is always the same sign** (P155: no good image, no bad image).
+
+**Testable.** The prediction: a cell with a record of **plenty** should be **duller** than a cell with a record of
+**shortage** — both dull, but differently. That is measurable as the record-explained fraction across the E15 zones.
+
+**Status:** the thesis about the record.
+
+---
+
+## P170. When I look, there is no pleasure — pleasure only arises when thought comes in
+
+**The move.** "So I look. You understand? I look... **When I look, there is no pleasure.**... **The pleasure only
+arises when thought comes in.**"
+
+**In our world.** This is the **decisive statement for the experiment**, and it is a **prediction about timing**:
+**looking is pleasureless and immediate; pleasure is the second step, when the record comes in.** So the cell's
+behaviour has **two phases**: the look (immediate, situation-driven) and the record (delayed, pleasure-driven).
+
+**What it explains.** Why the first steps of a run should be **different** from the later ones — and why we never
+saw it: **we always measured the last window** (P4). **The first steps are the look; the last window is the record.**
+
+**Testable, and this is the cleanest test in the file.** Measure the record-explained fraction **in the first 20
+steps** and **in the last window**. P170 predicts: **low in the beginning, high at the end.** We have the data.
+
+**Status:** the prediction to run on existing artifacts.
+
+---
+
+## P171. Watching is the discipline — not an imposed discipline
+
+**The move.** "By watching that I am callous, indifferent — watching it, and watching it — **the mind has become
+sensitive. Watching is the discipline.**... In this kind of discipline there is no suppression."
+
+**In our world.** This is P139 and P157 with the **name of the discipline**: **watching is the discipline**. Not
+rules, not thresholds, not cultivation — **watching**. And it says what watching produces: **sensitivity**, without
+suppression.
+
+**What it explains.** Why our "discipline" (the gate, the threshold) produced **suppression** (P156) and the
+**watching** we never did would have produced sensitivity.
+
+**Testable / rule.** The experiment is a **watching**: we watch where the cell is not responding, and report. **That
+is the discipline, and it is the whole method.**
+
+**Status:** the method.
+
+---
+
+## P172. Why does thought come in at all? — the question that has no answer from memory
+
+**The move.** "So I say — '**Why does thought come into this at all?**' I look at that tree... Why can't I just look
+at that tree? Why? **Why does thought come into this?**"
+
+**In our world.** This is the **question of the experiment**, and it is the one question that cannot be answered by
+the record: **why does the record come in at all?** Not "what does the record do" (we know), but **why does it
+enter?** — and the pattern insists it can only be answered by **looking**, not by theory.
+
+**What it explains.** Why our explanations of the trap were always **circular**: we explained the record by the
+record. **The question "why does it come in" is outside the record's reach.**
+
+**Testable.** The experiment must **locate the moment** the record enters: the first step at which the
+record-explained fraction rises above the situation-explained fraction. **That moment is the answer** — and it is a
+measurement, not a theory.
+
+**Status:** the question of the experiment.
+
+---
+
+## P173. The centre is a bundle of memories, and as long as there is a centre there is no freedom
+
+**The move.** "**The centre is a bundle of memories**, a bundle of traditions... **As long as there is a centre, it
+must have a circumference**... as long as it is a centre its space must always be limited... **the centre can never
+be free!** It is like a prisoner saying 'I am free', within the prison walls."
+
+**In our world.** This is **the formal statement of our cell**: `pred` **is** the centre, a bundle of memories; the
+cell's behaviour is the circumference; and **the space it can act in is limited by the centre**. **And the
+conclusion is exact: as long as there is a centre, there is no freedom.**
+
+**What it explains.** Why every "expansion" we attempted (a wider field, a longer memory, a bigger budget) failed:
+**expanding the prison is not leaving it.** That is P51 (juggling) in spatial language.
+
+**Testable.** The removal experiment is the test: **no centre → no circumference → no limit.** Measurable as the
+situation-explained fraction going to one.
+
+**Status:** the formal statement.
+
+---
+
+## P174. The centre invents time as a means of escape — gradually, tomorrow, next life
+
+**The move.** "So, see what it does! **It invents time as a means of escape. I will gradually escape from this
+prison.** Right? I will practise, I will meditate... **Gradually, tomorrow, tomorrow, next life, the future.** It has
+not only created space which is limited, but also **it has created time! And it has become a slave to a space and a
+time of its own.**"
+
+**In our world.** This is P42 and P68 with the **mechanism of time**: **the centre invents time as a means of
+escape** — "gradually" is the escape. And our whole programme was **gradual**: longer runs, more generations, more
+steps. **We invented time as a means of escape.**
+
+**What it explains.** Why "give it more time" never worked: **time is the escape, not the solution.** And why the
+change, if it comes, must be **immediate** (P75).
+
+**Testable / rule.** **No experiment may rely on "eventually".** If the design needs time to work, it is an escape.
+The effect must be visible **immediately** (P4, P75).
+
+**Status:** rule; it closes the "gradual" direction.
+
+---
+
+## P175. The question is whether it is possible not to have a centre and yet live completely in this world
+
+**The move.** "**Is it possible not to have a centre and yet live completely, fully, in this world?** That is the
+real problem."
+
+**In our world.** **This is the question of our entire programme**, stated in the form the reading gives it — and it
+is **not** "how do we get evolution" (P113's symptom). It is: **can a cell live fully without a centre?**
+
+**What it explains.** Why the question we were asking was the wrong one: "how do we get open-ended evolution" is a
+question **about a result**; "can a cell live without a centre" is a question **about the cell**. **The first cannot
+be answered; the second can be looked at.**
+
+**Testable.** The removal experiment **is** this question, asked of a cell: with no centre, does the cell live
+**completely** — i.e. does its behaviour follow the situation fully (situation-explained fraction → one) **and does
+it survive** (R1, alive, offspring)?
+
+**Status:** the question, in its answerable form.
+
+---
+
 ## What the reading has changed in our plan (updated)
 
-1. **The architecture is named** (P151): the cell has the **actual** (the resource), the **concept** (`pred`), and the
-   **gap** between them — and the gap is the entire decision variable. **Hunger is not a concept; the memory of
-   yesterday's hunger is.**
-2. **Escape is a waste of energy** (P154, P133, P41): the energy needed to deal with the actual is spent escaping it.
-3. **There is no good record and no bad record** (P155): **the whole record or none** — the tuning direction is
-   closed.
-4. **Force produces revolt, and the revolt is the harm** (P156, P76, P129): the gate forced action and produced
-   inaction.
-5. **Awareness ends the habit and takes no time** (P157, P139, P25): the report must be **"what took place"**.
-6. **Concepts are a barrier** (P153, P140); **the concept is an escape from what is, and we escape only when it is
-   painful** (P152) — testable: the record-explained fraction should be **higher** in slow-recovery arms.
-7. **No moral judgements** (P161); **no concepts in the report** (P158); **no comparatives** (P144); **no adjectives**
-   (P130).
-8. **Why do I want this?** (P163): if the answer is "because the last one failed", it is an escape; if "because I want
-   a result", it is satisfaction.
-9. **A finding needs no author** (P164).
-10. **The next experiment: only the cell, the situation, and an observation** (P150, P146, P136).
-11. **The experiment is fully specified** (P142): no centre, no division, no conflict.
-12. **The single measure** (P149, P80, P160): the fraction of behaviour explained by the situation.
-13. **The remaining rules** stand as listed in the previous update (P4–P148).
+1. **The question is now answerable** (P175): not "how do we get evolution" but **"can a cell live fully without a
+   centre"** — and the removal experiment asks it.
+2. **The cleanest test in the file** (P170, P172): measure the record-explained fraction **in the first 20 steps** and
+   **in the last window**. P170 predicts **low at the start, high at the end**; and **the moment it crosses** is the
+   answer to "why does thought come in".
+3. **The two-arm test we never ran** (P166): **enclosure** (more space) vs **fear** (more energy). If the trap is
+   enclosure, space fixes it; if fear, energy does.
+4. **Dullness accumulates** (P167, P168): the trap should deepen with time — S22 already shows it (0.31 → 0.17).
+5. **Dullness should be greatest where the environment was most pleasant for longest** (P168, P169): the **rich**
+   zone should be duller than the poor one — the opposite of the naive expectation, checkable on E7f/E15.
+6. **No experiment may rely on "eventually"** (P174): time is the escape, not the solution.
+7. **Watching is the discipline** (P171): the method is watching, not rules.
+8. **A finding needs no recognition** (P165): a finding that needs recognition is a position.
+9. **The architecture is named** (P151); **escape is a waste of energy** (P154); **there is no good record and no bad
+   record** (P155); **force produces revolt** (P156); **awareness ends the habit and takes no time** (P157).
+10. **The rules** stand as listed in the previous update (P4–P164).
 
 ---
 
 ## Reading progress
 
-- Pages 1–188 of 409 read (Part VI: the Madras dialogues on conflict and the pursuit of pleasure).
-- Next: the rest of "The pursuit of pleasure", then "Time, space and the centre".
+- Pages 1–206 of 409 read (Part VI: the Madras dialogues on pleasure, and "Time, space and the centre").
+- Next: the rest of "Time, space and the centre", then "A fundamental question".
