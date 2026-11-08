@@ -4674,23 +4674,133 @@ division.
 
 ---
 
+## P228. The "I" and the "not I" are both thought — so controlling thought is thought controlling thought
+
+**The move.** "**When the 'I' says, 'I must control and discipline thought', it is thought which has separated itself as the 'I' and controls thought as something separate. It is still thought: the 'I' and the 'not I'.**"
+
+**In our world.** **This is the complete and final refutation of the controller**, and it is **logical**: the "I" that controls is **itself** thought, so the control is **thought controlling thought** — **no control occurs, only a division is created.**
+
+**What it explains.** Why **every** controller we built was **the record controlling the record** (P52, P56, P179, P198): there was never a controller — there was only a **division** dressed as one. **And the division is the disorder** (P191).
+
+**Testable / design requirement.** **No "I" and no "not I" in the design.** In mechanical terms: **no variable that represents the cell's own state and acts upon the cell's own behaviour.** That is P210's constraint, arrived at by logic.
+
+**Status:** the refutation; it closes the controller thread by proof.
+
+---
+
+## P229. Thought is time, so time is sorrow — and thought must be silent except when needed
+
+**The move.** "**Thought is time, so time is sorrow.**... Then the question arises: **can thought be completely silent and only function when necessary** — when one has to use technical knowledge, in the office...?"
+
+**In our world.** **This is the exact specification of the target**, and it is the same as P176/P183/P218 but stated as a **duty cycle**: **thought silent, functioning only when necessary.** Not absent — **silent except when needed.**
+
+**What it explains.** Why "remove `pred`" was too crude (P176) and why "keep `pred`" was too much: the target is a **duty cycle** — the record **available but silent**, used only when the task requires it.
+
+**Testable / design requirement.** The experiment must test the **duty cycle**: the record available for **technological use** (where the food was, used and dropped) but **silent for judgement** (whether the situation is good). **That is the three-way design of P176, now with a precise criterion.**
+
+**Status:** the target, in its operational form.
+
+---
+
+## P230. Can the two come together? — the whole burden of the religious mind
+
+**The move.** "**Can the two come together?** — the freedom in which there is complete silence and therefore vast space, and the walls of resistance which thought has created with its narrow little space. **Can the two come together, flow together?**... **I want to have both — the things of this world and the other world.**"
+
+**In our world.** **This is our design problem stated exactly**, and it is **the same problem** as P176 and P229: **we want a cell that functions in the world AND is free of the record.** And the pattern does **not** resolve it — it says it is **the problem of man**, the hardest one. **Our world is a test of whether it is possible.**
+
+**What it explains.** Why our designs kept collapsing to one side: **either a functioning cell with a record (the trap) or a free cell with no function (no memory, no eating).** **The third option is the whole question.**
+
+**Testable.** **The three-way experiment is the test of P230 in a small world.** If the third arm (memory used and dropped) both functions **and** is free, then **the two can come together** — in our world at least.
+
+**Status:** the question; it is the same experiment.
+
+---
+
+## P231. Joy is uninvited — and if thought captures it, it becomes pleasure and the old routine begins
+
+**The move.** "**I also know that joy which is totally uninvited, which thought can never capture; if it does capture it, it again becomes pleasure and then the old routine begins.**"
+
+**In our world.** **This gives the distinction between joy and pleasure a mechanical form**, and it is the **most useful thing in the file for the record**: **joy is what is not captured; pleasure is joy captured by thought.** And the capture is **the recording**.
+
+**What it explains.** Why the record turns every good event into a **routine**: it captures the event, and **the capture is the routine** (P168: habit is the beginning of indifference).
+
+**Testable / design requirement.** The design must **not capture**: the good event must be **used and dropped**, not stored. **That is the duty cycle again (P229), with the reason: capture converts joy into routine.**
+
+**Status:** design requirement.
+
+---
+
+## P232. Thought has created the space of a little rat, a monkey chasing its own tail
+
+**The move.** "**Thought, being measurable, noisy, chattering, running all over the place — thought has created the space of a little rat, a monkey that chases its own tail.**"
+
+**In our world.** **This is the image of our cell's behaviour**, and it is exact: the cell **chases its own tail** — it compares the resource to `pred`, updates `pred`, and compares again. **The tail is the record and the chase is the rule.**
+
+**What it explains.** Why the cell's behaviour is **busy and pointless**: it is a **loop closed on itself** (P232 is P5, P9, P108 in one image).
+
+**Testable.** The loop has a measure: **the autocorrelation of the cell's behaviour with its own past**, which should be **high and non-decaying** in a chasing cell. **That is measurable.**
+
+**Status:** the image; the autocorrelation readout.
+
+---
+
+## P233. The mind wins space only when it is in another state — and the walls are still there
+
+**The move.** "**It wins space, it is in another state.**"
+
+**In our world.** This is the **minimal claim of the whole reading**, and it is careful: **space is won only by being in another state** — **not by expanding the walls** (P226). And it is **not a promise**: it says **the state changes**, not that the walls are gone.
+
+**What it explains.** Why every "expansion" failed and why the only thing that ever worked in our data was **a change of state** (the reset), not a change of parameter.
+
+**Testable.** **The state, not the parameter.** The experiment must change **the state** (the record present or absent) and **not** a parameter. **That is the design criterion.**
+
+**Status:** design criterion.
+
+---
+
+## P234. Either you realize it as a fact and it changes the whole structure of consciousness, or you merely say "I understand" and it means nothing
+
+**The move.** "**Either you realize this as a fact, and that fact fundamentally changes the whole structure of your consciousness, or you don't realize it. If you don't realize it — as apparently you don't — and merely say, 'I understand', it means nothing.**"
+
+**In our world.** **This is the final verdict on this file, and it is the one I have to accept**: **either the fact changes the structure of what we do, or "I understand" means nothing.** And the test is stated: **"What is your action in daily life when you realize this fact?"**
+
+**What it explains.** Why 233 patterns have changed nothing: **they were understood, not realized.** And the criterion is **action**, not comprehension (P180, P195, P224).
+
+**Testable / rule.** **The file is worth nothing until an experiment changes.** And the change must be **structural** — a different kind of experiment, not a different parameter.
+
+**Status:** the verdict.
+
+---
+
+## P235. Relate the fact to your daily action — then you will get the answer
+
+**The move.** "**When you are confronted with this fact, what is your action in daily life? Relate the two, then you will get the answer.**"
+
+**In our world.** **This is the method that has been missing from the whole file**, and it is simple: **relate the fact to the action.** Not "what should we do about the fact", but: **given this fact, what is our action — now, in the next experiment?**
+
+**What it explains.** Why the file is a list of facts with no action attached: **we never related them.** Each pattern ended in a **rule** or a **hypothesis**, not in **an action taken**.
+
+**Testable / rule.** **Every pattern must be related to an action in daily work.** A pattern with no action attached is a fact we have not realized (P234).
+
+**Status:** the method; it is the last instruction of the reading so far.
+
+---
+
 ## What the reading has changed in our plan (updated)
 
-1. **The mechanism of the trap is now exact** (P217): **the record does not describe the past — it manufactures the future.** The pain ends, the memory remains, and the memory projects the pain forward. **The recovery test is the decisive test.**
-2. **The strongest prediction in the file** (P223): **a cell without a record should have MORE energy available** — higher mean energy, survival or offspring at the same food. **We never tested this, because we assumed the record was free.**
-3. **The crucial qualification** (P218): thought is **not** always distortion — only when driven by **fear or the demand for pleasure**. The rational use of knowledge is legitimate; **the demand for repetition is the distortion.**
-4. **No category in the rule** (P219): the naming is the image; a continuous response to magnitude is the mechanical form of not naming.
-5. **One experiment must observe the whole at once** (P220): all readouts simultaneously, and **no comparison across runs with different settings** — the fragments were never comparable.
-6. **No assertion independent of the fact** (P221): every term must be a function of the present fact, not of a desired state.
-7. **No design may be justified by a capacity the cell lacks** (P225), and **no design may aim at improvement** (P227).
-8. **The reachable-set readout** (P226): the fraction of the grid the cell ever visits, and whether it shrinks as the record strengthens.
-9. **The diagnosis of this file** (P224): 223 patterns understood intellectually, **and the fire is not lit** — the measure is the change in the experiments, and there has been none.
-10. **The design specification** (P202) and **the rules** stand as listed in the previous update (P4–P216).
+1. **The controller thread is closed by proof** (P228): the "I" and the "not I" are both thought, so control is thought controlling thought — **no control occurs, only a division is created.** No variable may represent the cell's own state and act on the cell's own behaviour.
+2. **The target is a DUTY CYCLE, not an absence** (P229, P231): the record **available but silent**, used only when the task requires it; **capture converts joy into routine.**
+3. **The question is P230's**: can the two come together — a cell that **functions** and is **free**? **The three-way experiment is the test.**
+4. **The state, not the parameter** (P233): the experiment must change **the state** (record present/absent), not a parameter.
+5. **The verdict is P234**: either the fact changes the structure of what we do, or "I understand" means nothing. **The file is worth nothing until an experiment changes.**
+6. **The method is P235**: **relate the fact to the action** — every pattern must end in **an action taken**, not a rule or a hypothesis.
+7. **The mechanism of the trap** (P217) and **the energy prediction** (P223) remain the two decisive tests.
+8. **The design specification** (P202) and **the rules** stand as listed in the previous update (P4–P227).
 
 ---
 
 ## Reading progress
 
-- Pages 1–280 of 409 read (Part VII: thought and the immeasurable; will and energy; thought, intelligence and the
-  immeasurable).
-- Next: the rest of the seventh Saanen talk, then Part VIII (the closing talks and the final questions).
+- Pages 1–300 of 409 read (Part VII complete: thought, intelligence and the immeasurable. Part VIII begun: the
+  closing talks and the final questions).
+- Next: the rest of Part VIII — the final talks and questions.
