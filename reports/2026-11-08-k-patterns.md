@@ -2442,44 +2442,280 @@ report what we see", with no mechanism in the sentence.
 
 ---
 
+## P116. Being asked to look is not looking
+
+**The move.** "I asked you to look at that flower. **By my asking you to look at that flower, do you look at that
+flower?**" Swamiji: "I have the opportunity, yes." K: "No. **Do you really look at that flower because somebody asks
+you to look?**" Swamiji: "No." K: "**No, you can't.**"
+
+**In our world.** This is the **exact reason every mechanism failed**, and it is the shortest statement of it in the
+file. **A mechanism is "somebody asks you to look".** The field asked the cell to look at where the food was; the
+signal asked it to look at the crest; the decoder asked it to look at its own history. **And being asked is not
+looking.**
+
+**What it explains.** Why the mechanisms were inert (H2, H4) and why they were equivalent to something simpler
+(H11): **an instruction to look does not produce looking.** The cell looked at the instruction.
+
+**Testable / rule.** Ask of any design: **is this an instruction to look?** If the design works by **telling the
+cell what to attend to**, it is an instruction, and it cannot work. The only alternative is that the cell's
+attention **is** its situation — which is the removal direction.
+
+**Status:** rule; it is P81 in its shortest form.
+
+---
+
+## P117. We are shut in a cage of our own thinking — and looking at everything is how you discover the cage
+
+**The move.** "We are so concentrated upon our own worries, our own hopes, our own desires and experiences, that we
+**shut ourselves in a cage of our own thinking**; and we don't look beyond it. He says, 'Don't do that. **Look at
+everything and through looking at everything you'll discover your cage.**' That's all."
+
+**In our world.** The cage is `pred`, and the pattern gives the **method of discovering it**: **look at everything**,
+not at the cage. Our experiments looked **at the cage** — at the record's effect, at the threshold's behaviour, at
+the mechanism's gain. **We never looked at everything**, i.e. at the cell **and** its situation **together**, as one
+process (P65).
+
+**What it explains.** Why we could describe the trap so well and still not dissolve it: **describing the cage is not
+looking at everything.** The cage is discovered by **looking beyond it**, not at it.
+
+**Testable.** The variance decomposition (P80) **is** looking at everything: it measures the cell **and** its
+situation together, and the fraction explained by the record **is** the cage. **That is the measurement that
+discovers the cage.**
+
+**Status:** supports P80 as the central measurement.
+
+---
+
+## P118. Nature has no value for us, and "I can see the tree any time" is the reason
+
+**The move.** "**Nature has no value at all for most of us.** We say, 'Well, I can see the tree any time I want
+to.' That's one thing."
+
+**In our world.** This names **why the obvious was never looked at**. The resource field was **always there** — it
+is the most obvious thing in the world — and precisely because it was always there, **we never looked at it**. We
+looked at the **mechanisms** instead.
+
+**What it explains.** Why our best results came from looking at the **obvious** (E7: what does the world select on?
+E1: where is the boundary?) and our worst from looking at the **elaborate** (fields, decoders, membranes). **The
+elaborate is interesting; the obvious is not, until it is.**
+
+**Testable / rule.** Before an experiment, list **the obvious things that are always there** and ask which of them
+has never been looked at. In our world: the **cost of a step**, the **death of a cell**, the **emptiness of a
+neighbour**. The most obvious of all — **that the cell is alone** — we only looked at in P19.
+
+**Status:** rule; it is a source of experiments, not a filter.
+
+---
+
+## P119. A relationship needs a meeting at the same level, the same time, the same intensity
+
+**The move.** "With any kind of relationship that has meaning there must be a **meeting at the same level, at the
+same time, with the same intensity**, otherwise there is no communication, there is no relationship."
+
+**In our world.** This is the **specification** of the relationship the cell lacks (P19, P34, P97), and it is much
+more precise than "affect each other's terms":
+
+| requirement | what it means mechanically |
+|---|---|
+| **same level** | the two cells must be **comparable** — neither is the other's environment |
+| **same time** | the exchange must be **simultaneous**, not one writing and the other reading later |
+| **same intensity** | neither may be able to **overwhelm** the other |
+
+**What it explains.** Why "the field the cells write" (E3) was not a relationship: it was **different levels**
+(field vs cell), **different times** (written now, read later), and **unlimited intensity** (a tap). **All three
+requirements failed.**
+
+**Testable / design requirement.** A relationship between cells must be: **symmetric** (same level), **synchronous**
+(same time), and **bounded** (same intensity). That is a precise design specification, and it rules out the field
+approach entirely.
+
+**Status:** design specification; it is the most precise form of the relationship requirement.
+
+---
+
+## P120. Printed words have no life — but you can give life to them if you are serious
+
+**The move.** Swamiji: "A book has no life." K: "**Printed words have no life, but you can give life to the printed
+word if you are serious.**"
+
+**In our world.** This is the **status of this file**, and it is the honest one. **One hundred and nineteen patterns
+are printed words.** They have no life. They acquire life **only if they change what we run** — which is P64
+("the proof that a pattern was seen is that the next experiment changed shape") stated from the other side.
+
+**What it explains.** Why the file is worth nothing **as a file**: its only value is as a **cause** of a different
+experiment. If the next experiment is another toy, the file was entertainment (P84).
+
+**Testable / rule for this file.** The file must end in **one experiment that could not have been designed before
+reading it**. If it does not, the reading was not serious.
+
+**Status:** rule; it is the self-test of the whole reading.
+
+---
+
+## P121. Repetition kills the meaning — and memorising is how it happens
+
+**The move.** Swamiji: "They repeat it daily, every morning they are asked to repeat a chapter of the Bhagavad
+Gita... **When and how did I kill the spirit?**" K: "They never questioned it... They know nothing but **memory,
+memory, the cultivation of memory**."
+
+**In our world.** This is P93 and P95 with the **mechanism of the death** named: **repetition kills the meaning**,
+and **memorising is the instrument**. Our cell is a **memorising machine**: `pred` is the cultivation of memory, and
+the rule is applied identically every step. **The meaning of the resource died in the memorising.**
+
+**What it explains.** Why the cell's behaviour became **more mechanical** with every addition (P36): each addition
+was another chapter to repeat.
+
+**Testable / rule.** A rule applied **identically every step** is a memorised chapter. The rule must be able to
+**mean something different each step** — which is only possible if it reads the situation rather than the record.
+
+**Status:** rule; it is P94's mechanism.
+
+---
+
+## P122. Throw out all tradition and find out — has anyone actually helped?
+
+**The move.** "**Throw out all tradition!** Let's find out, Sir, whether these teachers and gurus and sages, have
+really helped people. Has Marx really helped people?... **They have imposed their ideas on them.**"
+
+**In our world.** This is the **most direct instruction in the file for us**: throw out the tradition — the field,
+the niche, the signal, the decoder, the membrane — and **find out** whether any of them actually helped. **Not
+whether they are described in the literature; whether they helped here.**
+
+**What it explains.** Why our literature-informed experiments were **impositions**: we **imposed** the ideas of
+others on the cell and measured the imposition.
+
+**Testable / rule.** For each mechanism we have already run: **did it help, in the cell's own terms (P27)?** Not "did
+it produce a difference" — **did it help**. That is a re-reading of our whole corpus and it is free.
+
+**Status:** rule; it turns our corpus into a single question.
+
+---
+
+## P123. The lunatic is the man who questions my authority
+
+**The move.** "The lunatic is a man who **questions my authority**." Swamiji: "Yesterday's ruler might be today's
+lunatic."
+
+**In our world.** This is a **warning about our own gatekeeping**: any result that **questions the design** gets
+labelled — as noise, as an artefact, as "not significant". We did this **four times on 07.11**: E7d, E8d, E8g, E10
+were all results that questioned our designs, and each was filed as a failure of the **mechanism** rather than as a
+question about the **design**.
+
+**What it explains.** Why our corpus is full of "the mechanism did not work" and thin on "the design was wrong": the
+first is safe, the second questions authority.
+
+**Testable / rule.** When a result **contradicts the design**, treat it as a **finding about the design**, not as a
+failure of the mechanism. That is P105 applied to the design itself.
+
+**Status:** rule; it changes how nulls are attributed.
+
+---
+
+## P124. The act of seeing is the only truth — and the image is what prevents it
+
+**The move.** "**The act of seeing is the only truth; there is nothing else.**... But that seeing of the bird, of the
+leaf... becomes almost impossible because of the **image** that one has built... And these images actually prevent
+us from seeing and feeling."
+
+**In our world.** This is the **thesis of the whole reading**, stated in one line, and it is the thesis of our
+problem: **the cell does not see the resource; it sees its image of the resource.** The image is `pred`, and it
+**prevents seeing**.
+
+**What it explains.** Everything in this file, in one sentence.
+
+**Testable.** The removal experiment is the test of P124 in its purest form: with the image gone, **is there
+seeing?** — measurable as the fraction of behaviour explained by the situation (P80/P117).
+
+**Status:** the thesis.
+
+---
+
+## P125. We never see anything completely — and a concept prevents the act
+
+**The move.** "We never see anything completely... we see the tree **through the image** that we have of it, the
+concept of that tree; but the concept, the knowledge, the experience, is **entirely different from the actual
+tree**." And: "**conceptual living prevents us from actually seeing, doing; and therefore we say we have problems of
+action**... and the conflict that arises between the act and the concept."
+
+**In our world.** This names **our own methodological error** in its final form: we lived **conceptually** — we had
+a concept of "evolution", a concept of "selection", a concept of "signal" — and **the concept prevented the seeing**.
+And then we said we had **problems of action**: "the mechanism does not work", "the cell does not evolve".
+
+**What it explains.** Why our **questions** were so hard to answer: they were **concepts** ("does evolution appear?")
+asked of a world that has no concept of evolution. **The conflict between the act and the concept was ours, not the
+cell's.**
+
+**Testable / rule.** Ask of any experiment: **is the question a concept or an observation?** "Does the cell evolve?"
+is a concept. "What does the cell do when the food moves?" is an observation. **Only the second can be answered.**
+
+**Status:** rule; it is the deepest methodological point in the file.
+
+---
+
+## P126. There is no method — and realising it frees you from the weight of all authority
+
+**The move.** "Now, first of all **there is no method**. Because any method, system, repetition or habit, is
+essentially part of the corner of that field... **There is no method.** Please do realize this, because when you
+realize it, you are **free of the enormous weight of all authority**, and so free of the past."
+
+**In our world.** This is the **conclusion of the reading**, and it is the **opposite of everything we built**.
+Every mechanism was a method. And the pattern says: **there is no method**, and **realising it is the freedom**.
+
+**What it explains.** Why the file has been so severe about method, routine, practice and mechanism: **they are all
+the same thing**, and the same thing is the corner of the field.
+
+**Testable / rule.** The next experiment must have **no method in it**: no threshold, no procedure, no parameter
+that is "the way". It must be a **situation and an observation** — which is P115's "a look, not a fix", now with the
+reason: **a method is the corner of the field, and the corner is what we are trying to leave.**
+
+**Status:** the final rule of the reading.
+
+---
+
 ## What the reading has changed in our plan (updated)
 
-1. **The next experiment is a LOOK, not a fix** (P115): describable as "we look at X and report what we see", with
-   no mechanism in the sentence.
-2. **The central question may be a symptom** (P113): if it would disappear when the trap disappears, the work is on
-   the trap, not on the question.
-3. **The scope limit** (P106): the cell can only **lose** a condition, never **reach** a state.
-4. **The size of the goal measures the experimenter** (P111); **cut even the craving for an interesting result**
-   (P112); **an experiment is clean if we would be equally satisfied by either answer**.
-5. **Compare the stated aim with the actual activity** (P114): if the activity is control and the aim is
-   understanding, it is hypocrisy and the result will be a toy.
-6. **Remove the comparison from the measurement** (P102, P107, P110): measure the cell against **its own situation**.
-7. **The question before every experiment** (P100, P101): would I run this if I had never heard of the mechanism; does
-   it start from where the cell is.
-8. **Classify the experiment** (P109): factual or demanded.
-9. **The neighbour-read experiment** (P97, P22); **close the return path** (P103, P43, P47).
-10. **State the danger of the addition** (P104); **report nulls as descriptions** (P105).
-11. **The filter** (P81, P84, P89, P90, P92, P94, P99): remove, not add; no collision-prevention; no carrying; no
+1. **The next experiment must have no method in it** (P126, P115): a situation and an observation, no threshold, no
+   procedure, no "the way".
+2. **The question must be an observation, not a concept** (P125): "what does the cell do when the food moves" — not
+   "does the cell evolve".
+3. **Re-read the whole corpus with one question** (P122): **did each mechanism help, in the cell's own terms?** Not
+   "did it produce a difference".
+4. **When a result contradicts the design, it is a finding about the design** (P123, P105).
+5. **A rule applied identically every step is a memorised chapter** (P121).
+6. **The thesis** (P124): the cell does not see the resource, it sees its image — and the image prevents seeing.
+7. **The measurement that discovers the cage** (P117, P80): the variance decomposition.
+8. **Look at the obvious** (P118): the cost of a step, the death of a cell, the emptiness of a neighbour.
+9. **The relationship specification** (P119): symmetric, synchronous, bounded.
+10. **Is this an instruction to look?** (P116) If yes, it cannot work.
+11. **The central question may be a symptom** (P113); **the scope limit** (P106); **the size of the goal measures
+    the experimenter** (P111); **cut the craving for an interesting result** (P112); **compare aim with activity**
+    (P114).
+12. **Remove the comparison from the measurement** (P102, P107, P110).
+13. **Would I run this if I had never heard of the mechanism** (P100); **start from where the cell is** (P101).
+14. **Classify the experiment** (P109): factual or demanded.
+15. **The neighbour-read experiment** (P97, P22, P119); **close the return path** (P103, P43, P47).
+16. **State the danger of the addition** (P104); **report nulls as descriptions** (P105).
+17. **The filter** (P81, P84, P89, P90, P92, P94, P99): remove, not add; no collision-prevention; no carrying; no
     routine; no method; no step-back-and-look.
-12. **Adopt the variance decomposition** (P80, P82, P93); **the core hypothesis** (P71); **the decisive experiment**
-    (P74, P75, P77); **the two-arm test** (P78); **the missing control** (P56, P76); **the only legitimate lever**
-    (P85).
-13. **On existing data:** the S22 arms (P79, P93, P98); `resource − pred` across E10's patterns (P11); the cell's own
-    measures (P27, P59).
-14. **Rules:** from the first steps (P4); no predicted sign (P33); "what is" not "how to" (P39); which of the first
+18. **The core hypothesis** (P71); **the decisive experiment** (P74, P75, P77); **the two-arm test** (P78); **the
+    missing control** (P56, P76); **the only legitimate lever** (P85).
+19. **On existing data:** the S22 arms (P79, P93, P98); `resource − pred` across E10's patterns (P11); the cell's own
+    measures (P27, P59); **did each mechanism help** (P122).
+20. **Rules:** from the first steps (P4); no predicted sign (P33); "what is" not "how to" (P39); which of the first
     two states (P46); measure behaviour not its shadow (P48); set of variables not values (P51); no "should" for the
     cell (P63); the proof that a pattern was seen is that the next experiment changed shape (P64); report the range
     (P73); no gain as a justification (P83); no story (P84); enquiry not search (P88); call a toy a toy (P95); would
     I run this if I knew nothing (P100); start from where the cell is (P101); state the danger of the addition
     (P104); report nulls as descriptions (P105); factual or demanded (P109); equally satisfied by either answer
-    (P112); question or symptom (P113); aim versus activity (P114); a look not a fix (P115).
-15. **Design constraints:** novelty from outside the record (P38); relationship not isolation (P34, P97); no
+    (P112); question or symptom (P113); aim versus activity (P114); a look not a fix (P115); is this an instruction
+    to look (P116); look at the obvious (P118); observation not concept (P125); no method (P126).
+21. **Design constraints:** novelty from outside the record (P38); relationship not isolation (P34, P97, P119); no
     controller inside the cell (P52, P99); one quantity outer-inner-beyond (P43); do not help the cell (P45, P86,
-    P90); one process not parts (P65); no blueprint (P67); no planning (P72); no will (P76); no method (P94).
+    P90); one process not parts (P65); no blueprint (P67); no planning (P72); no will (P76); no method (P94, P126).
 
 ---
 
 ## Reading progress
 
-- Pages 1–132 of 409 read (Part IV complete: the mahavakyas, experience, the question of communication).
-- Next: Part V (three talks in Madras: the art of seeing).
+- Pages 1–148 of 409 read (Part IV complete; Part V, "The art of seeing", begun).
+- Next: the rest of "The art of seeing", then "Freedom" and "The sacred".
