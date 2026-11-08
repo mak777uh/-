@@ -2242,38 +2242,141 @@ does**, not as failures of a mechanism. A null is a fact about the world; a fail
 
 ---
 
+## P106. A conditioned mind cannot conceive the unconditioned — it can only uncondition itself
+
+**The move.** "Can a conditioned mind, can a mind that is small, petty, narrow... know or conceive, or understand, or
+feel, or observe the unconditioned?" Swamiji: "No. But **it can uncondition itself**." K: "**That is all it can do.**"
+
+**In our world.** This is the **exact scope of what the cell can do**, and it is the most useful thing in the file
+for designing the next experiment. The cell **cannot** conceive of a state it has not been in (P38, P52). It **can**
+only **uncondition itself** — remove a condition it is carrying.
+
+**What it explains.** Why every design that asked the cell to **reach** something (a target, a better share, an
+evolved trait) failed, and why the **only** designs that can work are the ones that **remove** a condition. **That is
+the whole argument for the emptying experiments, stated as a scope limit rather than a preference.**
+
+**Testable / design requirement.** The cell may only be asked to **lose** something. Any experiment whose success
+criterion is a **gain** is outside the cell's scope.
+
+**Status:** scope limit; it is the strongest justification for the removal direction.
+
+---
+
+## P107. Experience is recognition, and recognition is judgment by the background
+
+**The move.** "There is in experience the factor of **recognition**... It is all based on my background of judgment,
+on my values, on my prejudices, likes and dislikes, on my bias, on my conditioning. That background meets you and
+**judges** you. **The judgment, the evaluation, is what we call experience.**"
+
+**In our world.** This is P32 completed with the **judgment** added, and it is sharper: experience is not merely
+**recognition**, it is **judgment by the background**. Our cell's "experience" of the resource is a **judgment**:
+`resource` is evaluated **against** `pred`, and the verdict (better/worse) is what the cell acts on.
+
+**What it explains.** Why the cell cannot have a **neutral** experience of its situation: every experience is
+already a **verdict**. And a verdict is a comparison (P102), and a comparison installs a "me".
+
+**Testable.** If experience is judgment, then the cell's behaviour should depend on the **sign** of the difference
+and not on its **magnitude** — which is exactly our gate (P61). The gate **is** the judgment, mechanised.
+
+**Status:** supports P61/P102; it explains why the gate is a judgment and not a measurement.
+
+---
+
+## P108. Experience is the reaction to a challenge — and an adequate response means you are the challenge
+
+**The move.** "Experience is after all the **response to a challenge**... Either you respond to it adequately, or
+inadequately. If it is inadequate, the response becomes a medium of pain, struggle, conflict. But if you respond to
+it adequately, that is fully, **you are the challenge**... Therefore you need no challenge at all, if you are
+adequately responding all the time to everything."
+
+**In our world.** This gives a **definition of the trap** that we did not have: the trap is an **inadequate
+response** to a challenge, and an inadequate response **becomes the medium of the next struggle**. That is exactly
+the mechanism of the record: an inadequate response is **recorded**, and the record **becomes** the next challenge.
+
+**What it explains.** Why the trap is **self-feeding** (P9, P98): each inadequate response is written into `pred`,
+and the next step responds to the writing rather than to the challenge.
+
+**Testable.** The prediction: the fraction of inadequate responses should **grow** over time in the arms with a
+record, and stay **flat** without it. That is measurable from the move series (P48).
+
+**Status:** testable on new runs with behaviour logging.
+
+---
+
+## P109. Why do we demand experience at all? — the demand itself is the distortion
+
+**The move.** "Just let us see the need for experience at all... That kind of experience [objective, factual] is
+perhaps necessary, because it furthers knowledge of factual things. Now **apart from that kind of experience, is
+there any necessity for experience at all?**"
+
+**In our world.** This separates the **two kinds of experiment** we have been running without knowing it:
+- **factual experience** — measuring what the world does. **Necessary.** (E7, E1, E7f.)
+- **demanded experience** — an experiment designed to **produce** a result. **Not necessary**, and the demand is the
+  distortion (P87: the escape from the last null).
+
+**What it explains.** Why our **measuring** experiments were clean and our **demanding** experiments were not: the
+demand shaped the design before the measurement began.
+
+**Testable / rule.** Every experiment must be classifiable as **factual** (we do not know what will happen) or
+**demanded** (we need a particular outcome). A demanded experiment should not be run — or should be run **and
+reported as demanded**, which usually dissolves the demand.
+
+**Status:** rule; it is P33/P88 with the two kinds of experience named.
+
+---
+
+## P110. The "I am" that needs no certification is the only experience that is not objective
+
+**The move.** Swamiji: "there is this feeling, there is this knowledge, 'I am'. This experience seems to be totally
+different from objective experience." K does not deny it; he turns to the **purpose** of experience instead.
+
+**In our world.** This is the one place in the file where a **non-objective** experience is allowed, and it maps
+onto something we have: the cell's **own existence** — the fact that it is alive — is not an **object** it can
+measure. It is the **condition** of all its measurements.
+
+**What it explains.** Why the cell's "self-knowledge" cannot be an object of measurement: the cell is the
+**condition** of its own measurement, not an item in it. That is P52/P65 in another language, and it is why the
+**within-cell** measure (P102) is the only one that does not install a "me": it measures the cell **as the
+condition**, not as an object among others.
+
+**Status:** supports P102; it gives the philosophical reason for the within-cell measure.
+
+---
+
 ## What the reading has changed in our plan (updated)
 
-1. **The question before every experiment** (P100, P101): **would I run this if I had never heard of the mechanism?**
+1. **The scope limit** (P106): the cell can only **lose** a condition, never **reach** a state. Every experiment
+   whose success criterion is a **gain** is outside its scope.
+2. **Remove the comparison from the measurement** (P102, P107, P110): measure the cell against **its own situation**,
+   not against other cells. A comparison is a judgment, a judgment installs a "me", and a "me" is blind to order.
+3. **The question before every experiment** (P100, P101): **would I run this if I had never heard of the mechanism?**
    and **does it start from where the cell actually is?**
-2. **Remove the comparison from the measurement** (P102, P59, P66): measure the cell against **its own situation**,
-   not against other cells. A comparison installs a "me" and is blind to order.
-3. **The neighbour-read experiment is the top design requirement** (P97, P22): the cell needs a **relationship** to
-   be correctable — a mirror cannot correct itself.
-4. **Close the return path** (P103, P43, P47): the field the cells write must **shape the cells' own terms**.
-5. **State the danger of the addition** (P104, P89, P93): what it prevents, what lesson it removes, what it narrows.
-6. **Report nulls as descriptions of the world** (P105), not as failures of a mechanism.
-7. **The filter for the next experiment** (P81, P84, P89, P90, P92, P94, P99): it must **remove**, not add; it must
+4. **Classify the experiment** (P109): **factual** (we do not know what will happen) or **demanded** (we need a
+   particular outcome). Demanded experiments should not be run, or should be run and reported as demanded.
+5. **The neighbour-read experiment is the top design requirement** (P97, P22): the cell needs a **relationship** to
+   be correctable.
+6. **Close the return path** (P103, P43, P47): the field the cells write must **shape the cells' own terms**.
+7. **State the danger of the addition** (P104, P89, P93); **report nulls as descriptions of the world** (P105).
+8. **The filter for the next experiment** (P81, P84, P89, P90, P92, P94, P99): it must **remove**, not add; it must
    not **prevent a collision**; it must not **carry**; it must not be a **routine**; it must not be a **method**; it
    must not **step back and look**.
-8. **No acceptance is possible** (P91); **no cultivation is a lever** (P92); **the practice of responsiveness makes
+9. **No acceptance is possible** (P91); **no cultivation is a lever** (P92); **the practice of responsiveness makes
    it dull** (P98).
-9. **The problem must be classified first** (P86); **the experiment must start from a symptom** (P88), not a target,
-   and not as an **escape from the last null** (P87).
-10. **Adopt the variance decomposition** (P80, P82, P93): behaviour variance explained by **situation** vs by
+10. **The problem must be classified first** (P86); **the experiment must start from a symptom** (P88).
+11. **Adopt the variance decomposition** (P80, P82, P93): behaviour variance explained by **situation** vs by
     **record**.
-11. **The core hypothesis** (P71): the cell is made of the contradiction between what is and what should be.
-12. **The decisive experiment** (P74, P75, P77): **empty** the record and test for a **step**, not a slope.
-13. **The clean two-arm test** (P78); **the missing control** (P56, P76); **the only legitimate lever** (P85).
-14. **On existing data:** residual variance, narrowness and the fraction able to act in the S22 arms (P79, P93,
+12. **The core hypothesis** (P71): the cell is made of the contradiction between what is and what should be.
+13. **The decisive experiment** (P74, P75, P77): **empty** the record and test for a **step**, not a slope.
+14. **The clean two-arm test** (P78); **the missing control** (P56, P76); **the only legitimate lever** (P85).
+15. **On existing data:** residual variance, narrowness and the fraction able to act in the S22 arms (P79, P93,
     P98); `resource − pred` across E10's patterns (P11); the cell's own measures (P27, P59).
-15. **Rules:** from the first steps (P4); no predicted sign (P33); "what is" not "how to" (P39); which of the first
+16. **Rules:** from the first steps (P4); no predicted sign (P33); "what is" not "how to" (P39); which of the first
     two states (P46); measure behaviour not its shadow (P48); set of variables not values (P51); no "should" for the
     cell (P63); the proof that a pattern was seen is that the next experiment changed shape (P64); report the range
     (P73); no gain as a justification (P83); no story (P84); enquiry not search (P88); call a toy a toy (P95); would
     I run this if I knew nothing (P100); start from where the cell is (P101); state the danger of the addition
-    (P104); report nulls as descriptions (P105).
-16. **Design constraints:** novelty from outside the record (P38); relationship not isolation (P34, P97); no
+    (P104); report nulls as descriptions (P105); factual or demanded (P109).
+17. **Design constraints:** novelty from outside the record (P38); relationship not isolation (P34, P97); no
     controller inside the cell (P52, P99); one quantity outer-inner-beyond (P43); do not help the cell (P45, P86,
     P90); one process not parts (P65); no blueprint (P67); no planning (P72); no will (P76); no method (P94).
 
@@ -2281,5 +2384,5 @@ does**, not as failures of a mechanism. A null is a fact about the world; a fail
 
 ## Reading progress
 
-- Pages 1–125 of 409 read (Part IV: the four yogas complete; the mahavakyas begun).
-- Next: the mahavakyas and the ending of knowledge.
+- Pages 1–128 of 409 read (Part IV: the mahavakyas — the conditioned mind, experience as recognition and judgment).
+- Next: the ending of knowledge; then Part V (Madras).
