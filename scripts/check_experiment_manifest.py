@@ -29,6 +29,46 @@ REQUIRED = [
 READOUTS_REQUIRED = {"situation_explained", "record_explained", "energy_per_behaviour"}
 
 
+WAIVER_WORDS = ("unknown", "tbd", "to be determined", "неизвестно", "n/a", "потом")
+
+
+def _numbers_in(obj) -> int:
+    """How many actual numbers the sensitivity block contains, at any depth."""
+    if isinstance(obj, bool):
+        return 0
+    if isinstance(obj, (int, float)):
+        return 1
+    if isinstance(obj, str):
+        return 1 if any(ch.isdigit() for ch in obj) else 0
+    if isinstance(obj, dict):
+        return sum(_numbers_in(v) for v in obj.values())
+    if isinstance(obj, list):
+        return sum(_numbers_in(v) for v in obj)
+    return 0
+
+
+def _check_sensitivity(mid: str, sens: dict) -> list[str]:
+    """The arithmetic must be arithmetic: a spread, a seed count with a reason, a refusal rule.
+
+    A block that contains only prose, or that waives the calculation with a word like "unknown", fails.
+    """
+    errs: list[str] = []
+    flat = json.dumps(sens, ensure_ascii=False).lower()
+    if _numbers_in(sens) == 0:
+        errs.append(f"{mid}: в sensitivity нет ни одного числа - это не арифметика")
+    for word in WAIVER_WORDS:
+        if word in flat and "estimate" not in flat and "оценк" not in flat:
+            errs.append(f"{mid}: sensitivity откладывает расчёт словом «{word}»")
+            break
+    if "spread" not in flat and "разброс" not in flat and "sd" not in flat:
+        errs.append(f"{mid}: sensitivity не называет ожидаемый разброс")
+    if "seed" not in flat and "сид" not in flat:
+        errs.append(f"{mid}: sensitivity не называет число сидов")
+    if "refusal" not in flat and "отказ" not in flat:
+        errs.append(f"{mid}: sensitivity не содержит правила отказа")
+    return errs
+
+
 def check_one(path: str, allow_add: bool) -> list[str]:
     errs: list[str] = []
     try:
@@ -55,6 +95,8 @@ def check_one(path: str, allow_add: bool) -> list[str]:
     sens = m.get("sensitivity") or {}
     if not sens:
         errs.append(f"{m.get('id', '?')}: нет арифметики чувствительности")
+    else:
+        errs.extend(_check_sensitivity(m.get("id", "?"), sens))
     readouts = set(m.get("readouts") or [])
     missing = READOUTS_REQUIRED - readouts
     if missing:

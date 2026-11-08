@@ -86,12 +86,25 @@ the arm that did not, in the cell's own measures?**
 
 ## 3. What it means
 
-*(filled after the table)*
+**320 artifacts were classified and 471 were not read at all.** The 471 are matrices, Betti numbers, summaries
+and configuration dumps: they have no `rows` array, so the scanner skips them silently. That is a defect of this
+audit and it is stated here rather than hidden: **the corpus is 791 files and this audit speaks about 320 of
+them.** A file that cannot be read is not evidence for or against anything, and counting it as "neither" would
+have been worse than counting it as unread.
 
 ## 4. What we do not know
 
-*(filled after the table)*
+**The 20 artifacts in category C are not failures; they are the wrong shape.** They are matrices and
+probes (`b2_matrix.json`, `colony_type_matrix.json`, `invader_dose_matrix.json`, `l1_field_betti.json` and
+similar): they record a structure — a matrix, a Betti number, a state — and not a per-cell trajectory. The
+question "did this help the cell" cannot be asked of them, because they do not contain cells. **They are useful
+for a different question** (does the field have a topology at all), and mixing the two questions is what made the
+first version of this audit look like a verdict on the corpus when it was a verdict on a file format.
 
 ## 5. What this changes in the next experiment
 
-*(filled after the table)*
+**What this audit does not establish.** It does not say that any mechanism helped. It says that **300
+artifacts contain the cell's own measures**, which is the necessary condition for asking the question. The
+sufficient condition — that the same mechanism was run with and without, on the same seeds, and the cell's own
+measures differ — has not been checked for a single mechanism yet. **The next step is not another count; it is one
+mechanism, two arms, the cell's own measures, and a paired comparison.**

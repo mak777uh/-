@@ -1,28 +1,65 @@
 {
-  "_comment": "Manifest of one experiment, written BEFORE the run. The gate check_experiment_manifest.py fails if any required field is missing or if the experiment violates the standing rules (no additions, no juggling, a checked manipulation).",
-  "id": "E18",
-  "title": "Remove the record: what the cell does when it has no memory of the resource",
-  "question": "When the cell has no record of the resource, does its behaviour follow the situation?",
-  "symptom": "The trap of inaction (S22: baseline 0.340 vs greedy_ema 0.166) and the falling fraction able to act (0.31 -> 0.17) are measured facts that no mechanism has explained.",
-  "first_hand": true,
-  "first_hand_where": "S22, E10, E1, E7 - all run by us",
-  "second_hand_sources": ["P1", "P6", "P11", "P29", "P71", "P151", "P176", "P278"],
-  "adds_or_removes": "remove",
-  "changes_set_or_values": "set",
-  "has_direction": false,
-  "manipulation_reaches_dynamics": {
-    "how": "the arms differ in plastic_eta (0.0 vs 0.05) and the gate reads pred only when plastic_eta > 0, so the record arm and the no-record arm MUST diverge; checked by comparing the first 50 steps of both arms",
-    "checked": true
+ "_comment": "Manifest of one experiment, written BEFORE the run. The gate check_experiment_manifest.py fails if any required field is missing or if the experiment violates the standing rules (no additions, no juggling, a checked manipulation).",
+ "id": "E18",
+ "title": "Remove the record: what the cell does when it has no memory of the resource",
+ "question": "When the cell has no record of the resource, does its behaviour follow the situation?",
+ "symptom": "The trap of inaction (S22: baseline 0.340 vs greedy_ema 0.166) and the falling fraction able to act (0.31 -> 0.17) are measured facts that no mechanism has explained.",
+ "first_hand": true,
+ "first_hand_where": "S22, E10, E1, E7 - all run by us",
+ "second_hand_sources": [
+  "P1",
+  "P6",
+  "P11",
+  "P29",
+  "P71",
+  "P151",
+  "P176",
+  "P278"
+ ],
+ "adds_or_removes": "remove",
+ "changes_set_or_values": "set",
+ "has_direction": false,
+ "manipulation_reaches_dynamics": {
+  "how": "the arms differ in plastic_eta (0.0 vs 0.05) and the gate reads pred only when plastic_eta > 0, so the record arm and the no-record arm MUST diverge; checked by comparing the first 50 steps of both arms",
+  "checked": true
+ },
+ "sensitivity": {
+  "why_a_power_calculation_is_needed_here": "Not for an arm comparison. The readout is a within-cell explained fraction, and the question is whether a value measured on 20 seeds is distinguishable from the value the same world produces when the record carries no information. That null value is not zero, and it must be estimated, not assumed.",
+  "null_value_estimated_before_the_run": {
+   "how": "On synthetic data where the record is the situation plus gaussian noise (sigma = 0.25) and the behaviour is a deterministic function of the situation, the record still explains a non-trivial share because it correlates with the situation. scripts/k_readouts.py --self-test reports it.",
+   "observed_on_synthetic": {
+    "situation_explained": 0.9329,
+    "record_explained": 0.5739
+   },
+   "consequence": "A record_explained of 0.57 is NOT evidence that the cell follows its record. The comparison must be against this null, not against zero."
   },
-  "sensitivity": {
-    "expected_spread_of_the_readout": "unknown - this is the first measurement of situation_explained in this world",
-    "why_it_can_still_be_run": "the readout is a WITHIN-CELL statistic, not a between-arm difference, so it does not need the same power calculation as an arm comparison"
+  "expected_spread_of_the_readout": {
+   "estimate": 0.05,
+   "how": "The per-cell explained fractions are weighted by the cell's own variance; with 40 cells of 60 steps the seed-to-seed spread of the weighted mean is expected to be about 0.05. This is an ESTIMATE, and it is labelled as one: the first real run will replace it with the measured spread."
   },
-  "readouts": ["situation_explained", "record_explained", "energy_per_behaviour", "action_rate"],
-  "first_steps_reported": true,
-  "equally_satisfied_by_either_answer": true,
-  "no_should_for_the_cell": true,
-  "no_mechanism_added": true,
-  "preregistered": true,
-  "date": "2026-11-08"
+  "seeds": {
+   "planned": 20,
+   "why": "An effect of 0.10 against a spread of 0.05 gives a standardised effect of 2.0; with 20 seeds the standard error is 0.05/sqrt(20) = 0.011, so 0.10 is about 9 standard errors. Fewer than 10 seeds would not distinguish 0.10 from the null."
+  },
+  "refusal_rule": "If the measured seed-to-seed spread exceeds 0.10, the run is declared insensitive by construction and the readout is reported as a range, not as a value.",
+  "what_would_make_this_run_uninformative": [
+   "fewer than 10 seeds",
+   "a spread above 0.10",
+   "a null value for record_explained above 0.80 (then the record and the situation are not separable in this world, and the question cannot be asked here)"
+  ],
+  "status": "arithmetic done on synthetic data; the real spread is unknown until the run"
+ },
+ "readouts": [
+  "situation_explained",
+  "record_explained",
+  "energy_per_behaviour",
+  "action_rate"
+ ],
+ "first_steps_reported": true,
+ "equally_satisfied_by_either_answer": true,
+ "no_should_for_the_cell": true,
+ "no_mechanism_added": true,
+ "preregistered": true,
+ "date": "2026-11-08",
+ "sensitivity_arithmetic_done": true
 }
