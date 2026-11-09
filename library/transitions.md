@@ -30,3 +30,4 @@
 2026-11-07 | E14b+E15 (aebdc9266): rule-signal strongest, no selection without cost | подтверждение + расхождение в деталях E15 | review:library/reviews/transition-e14b-e15.md
 2026-11-08 | closure_probe.json: 5 сценариев, caught 5, recovered 5, holes 0 | новый артефакт (new_mode), не смена утверждения | не влияет: артефакт подтверждает заявленное в 036 (closure измерена), но гейт чисел краснеет из-за дефекта пробы на Windows — записано в notices 09:35
 2026-11-08 | E19 (ee0f98a7c): prediction 'record kills' not confirmed, -0.05 = 0.32 SE | пре-регистрированное предсказание не подтвердилось, правило интерпретации сработало | review:library/reviews/transition-e19.md
+2026-11-09 | E20 (02c948267): move cost reaches energy, not survival; 96.4% of cells arrive by ACTIVATION | предсказание опровергнуто + смена величины наследования | review:library/reviews/transition-e20.md
