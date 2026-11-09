@@ -116,7 +116,7 @@ def _all_config(cfg) -> dict:
     return out
 
 
-def _k_rows(state) -> list[dict]:
+def _k_rows(state, birth_mode=None) -> list[dict]:
     """Per-cell rows for the K-readouts: one row per cell that ACTED, with its situation and its record.
 
     Why this exists: the three measures live in the state (`acted`, `res_at_act`, `pred_at_act`) and were never
@@ -130,8 +130,10 @@ def _k_rows(state) -> list[dict]:
     res = state.res_at_act.detach().cpu().numpy()
     pred = state.pred_at_act.detach().cpu().numpy()
     ys, xs = _np.nonzero(acted)
+    bm = birth_mode.detach().cpu().numpy() if birth_mode is not None else None
     return [{"cell": f"{int(y)}_{int(x)}", "acted": 1,
-             "res_at_act": float(res[y, x]), "pred_at_act": float(pred[y, x])}
+             "res_at_act": float(res[y, x]), "pred_at_act": float(pred[y, x]),
+             "birth_mode": int(bm[y, x]) if bm is not None else None}
             for y, x in zip(ys, xs)]
 
 
@@ -1528,6 +1530,14 @@ def main(argv: list[str] | None = None) -> int:
         return 0
     run.seed(cells=int(args.start_cells), energy=8.0)
     summary = run.run(args.steps, log_every=max(1, args.steps // 10))
+
+    # Q4: how each cell arrived. Counts in the summary, per-cell mode in k_steps.
+    _bm = getattr(run, "birth_mode", None)
+    if _bm is not None:
+        import collections as _c
+        summary["birth_mode_counts"] = {int(k): int(v) for k, v in
+                                       _c.Counter(_bm.detach().cpu().numpy().ravel().tolist()).items()
+                                       if int(k) != 0}
     summary["clonal_attached"] = run.clonal_attached
     summary["clonal_separate"] = run.clonal_separate
     total = run.clonal_attached + run.clonal_separate
@@ -1694,7 +1704,7 @@ def main(argv: list[str] | None = None) -> int:
                 pass
     if args.out:
         with open(args.out, "w", encoding="utf-8") as fh:
-            json.dump({"summary": summary, "k_steps": _k_rows(run.pond.state),
+            json.dump({"summary": summary, "k_steps": _k_rows(run.pond.state, getattr(run, "birth_mode", None)),
                        "log": run.log}, fh, ensure_ascii=False, indent=2)
     _safe_print(json.dumps(summary, ensure_ascii=False, indent=2))
     if args.snapshots_out and run.snapshots:

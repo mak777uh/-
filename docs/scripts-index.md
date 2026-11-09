@@ -4,9 +4,9 @@
 
 The curated page — what matters and why — is [`scripts.md`](scripts.md). This file is the complete list, so that every command behind a number in the record can be found.
 
-Scripts: **510**.
+Scripts: **514**.
 
-## Гейты и проверки (65)
+## Гейты и проверки (66)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -14,6 +14,7 @@ Scripts: **510**.
 | `check_aggregate_claims.py` | check_aggregate_claims.py — каждый агрегат обязан говорить, чего он НЕ утверждает. |
 | `check_aggregate_coverage.py` | check_aggregate_coverage.py — каждый научный артефакт обязан входить хотя бы в один агрегат. |
 | `check_aggregates_fresh.py` | check_aggregates_fresh.py — агрегаты в git обязаны совпадать с пересборкой. |
+| `check_arm_matches.py` | Gate: the arm a run says it ran must be the arm it actually ran. |
 | `check_article_029_numbers.py` | check_article_029_numbers.py — every number printed in article 029 must trace to an aggregate. |
 | `check_article_030_numbers.py` | check_article_030_numbers.py — every number printed in article 030 must trace to an aggregate. |
 | `check_article_031_numbers.py` | check_article_031_numbers.py — every headline number in article 031 must trace to an artifact. |
@@ -218,7 +219,7 @@ Scripts: **510**.
 | `make_seed_grid_figure.py` | Собрать Figure 4 рукописи: сетка «инициализация × порядок данных» (§4.13). |
 | `make_simple_poster.py` | Простой постер для владельца: что мы узнали, без терминов. |
 
-## Прочее (328)
+## Прочее (331)
 
 | script | what it does (first line of its docstring) |
 | --- | --- |
@@ -228,10 +229,12 @@ Scripts: **510**.
 | `additivity_interaction.py` | additivity_interaction.py — взаимодействие двух механизмов на парных сидах. |
 | `analyse_e18.py` | Analyse E18: does the cell's behaviour follow the situation when it has no record? |
 | `analyse_e19.py` | Analyse E19: does turning the record on kill the body? |
+| `analyse_e20.py` | Analyse E20: does moving cost survival? |
 | `analyse_e3.py` | analyse_e3.py — сходятся ли три пути после того, как история закончилась. |
 | `analyse_e3_state.py` | analyse_e3_state.py — сравнение по СОСТОЯНИЮ, а не по времени. |
 | `analysis_task.py` | analysis_task.py — ферма CPU-задач на GitHub Actions: берёт задачу из очереди и считает. |
 | `analyze_grid_failures.py` | Какие шумовые старты не дают доминирующий класс в клетках сетки H-E02C-6. |
+| `arm_gate_selftest.py` | Prove the arm gate can fail, and that it passes on the real series. |
 | `attention.py` | attention.py — one page that answers "what needs a human, right now". |
 | `audit_corpus.py` | Audit the whole corpus with one question: did each mechanism help the cell, in the cell's own terms? |
 | `backfill_not_claimed.py` | backfill_not_claimed.py — дописать `not_claimed` в старые агрегаты. |
@@ -260,6 +263,7 @@ Scripts: **510**.
 | `gate_refusal_selftest.py` | Does the live gate actually refuse? Plant a disagreement and check that no run starts. |
 | `github_intake.py` | github_intake.py — GitHub issues as a task source, with an author allowlist. |
 | `index_report.py` | index_report.py — add a report row to reports/README.md, or check which reports lack one. |
+| `inheritance_by_birth.py` | Inheritance, stratified by how the cell was born. |
 | `k_readouts.py` | The within-cell readouts: does a cell's behaviour follow its situation or its own record? |
 | `l1_field_matrix.py` | l1_field_matrix.py — агрегат линии поля: медианы, разброс и интервалы по плечам. |
 | `lean_axioms.py` | lean_axioms.py — независимая проверка теорем Lean на «чистоту аксиом» и неизменность формулировок. |

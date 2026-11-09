@@ -103,6 +103,11 @@ def main() -> int:
         # 08.11: the librarian worked only when asked. The autoqueue makes a gap the bench itself
         # discovered visible in `make verify` instead of waiting for someone to remember.
         ("вопросы к литературе поставлены в очередь", [PY, "scripts/lit_autoqueue.py", "--check"], None),
+        # 08.11: twice a field was silently overwritten after it was set, and both times the result
+        # looked plausible (E18: the no-record arm took no actions; E19: the two acting arms were the
+        # same arm). No gate compared what the artifact says against what it contains.
+        ("плечо в артефакте совпадает с заявленным",
+         [PY, "scripts/arm_gate_selftest.py"], None),
         ("инварианты мира держатся", [PY, "scripts/world_invariants.py"], None),
         ("артефакт восстанавливает мир (полнота конфига)",
          [PY, "scripts/check_config_completeness.py"], None),
