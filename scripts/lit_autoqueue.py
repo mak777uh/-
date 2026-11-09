@@ -82,8 +82,10 @@ def trigger_open_questions() -> list[dict]:
     return out
 
 
-# Only reports this recent are candidates for T3. Older reports were read when they were written; a queue
-# that re-adds them on every run is noise, and noise makes the queue unreadable.
+# The owner's decision on Q13 (09.11): keep triggers 1 and 2, drop the manifest and audit triggers, and add
+# "read the reports after every run". A report written after a run is where the bench says what it does not
+# understand, so it must reach the queue without waiting for a weekly sweep - but only ONCE per report, which
+# is what the idempotent key already gives.
 RECENT_DAYS = 7
 DATE_RE = re.compile(r"(\d{4})-(\d{2})-(\d{2})")
 
@@ -161,6 +163,14 @@ def trigger_manifests() -> list[dict]:
     return out
 
 
+def trigger_manifest_disabled() -> list[dict]:
+    """The manifest trigger is OFF by the owner's decision of 09.11.
+
+    It was kept in the file rather than deleted, so that turning it back on is one line and not a rewrite.
+    """
+    return []
+
+
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--write", action="store_true")
@@ -170,7 +180,9 @@ def main(argv=None) -> int:
 
     queue = _load_queue()
     have = _existing_keys(queue)
-    candidates = trigger_open_questions() + trigger_reports() + trigger_manifests()
+    # Q13 (owner, 09.11): triggers 1 and 2 only. The manifest trigger is off, the audit-question trigger
+    # is off, and the reports trigger now runs after every run rather than on a weekly sweep.
+    candidates = trigger_open_questions() + trigger_reports()
     new = [c for c in candidates if c["key"] not in have]
 
     print(f"[lit-auto] кандидатов: {len(candidates)}, новых: {len(new)}")

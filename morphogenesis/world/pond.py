@@ -58,7 +58,15 @@ class PondConfig:
     spore_cells: int = 2              # из скольких клеток стартует потомок
     damage_max: int = 50              # сколько повреждений выдерживает клетка
     damage_rate: float = 0.02         # вероятность получить повреждение за шаг
-    repair_cost: float = 0.02         # энергия на ремонт (калибровка: 0.02 -> тело живёт ~500 шагов без роста)
+    # Q7 (owner's decision, 09.11): the two costs are named separately.
+    #   maintenance_cost  - the price of being alive for a step, charged ALWAYS
+    #   repair_event_cost - the price of a repair, charged ONLY when a repair happens
+    # The old name `repair_cost` is kept as an accepted alias for `repair_event_cost`, and `update_cost`
+    # keeps its meaning (the price of a step). `_costs(cfg)` resolves the aliases in one place, so a stored
+    # config never becomes unreadable.
+    repair_cost: float = 0.02                # ALIAS of repair_event_cost; kept so stored configs load
+    repair_event_cost: float | None = None   # the price of a repair; None = take `repair_cost`
+    maintenance_cost: float | None = None    # the price of being alive; None = take `update_cost`
     repair_rate: float = 0.5          # вероятность ремонта за шаг (если есть чем платить)
     max_age: int = 100_000            # диагностический предел, не причина смерти
     noise: float = 0.002              # шум в поле ресурса
@@ -212,6 +220,21 @@ class PondConfig:
     membrane_rebuild: float = 0.10    # скорость восстановления мембраны
     membrane_rebuild_cost: float = 0.01  # энергия на единицу восстановления
     membrane_threshold: float = 0.2   # ниже этого порога притока нет
+
+
+def _costs(cfg) -> tuple[float, float]:
+    """Resolve the two costs, honouring the old names.
+
+    Returns `(maintenance, repair_event)`. A config that sets `maintenance_cost` or `repair_event_cost` gets
+    those; a config that only sets the old names gets them mapped, so nothing stored becomes unreadable.
+    """
+    maint = getattr(cfg, "maintenance_cost", None)
+    if maint is None:
+        maint = float(getattr(cfg, "update_cost", 0.0))
+    rep = getattr(cfg, "repair_event_cost", None)
+    if rep is None:
+        rep = float(getattr(cfg, "repair_cost", 0.0))
+    return float(maint), float(rep)
 
 
 def _budding_unit(cfg) -> str:
@@ -1131,8 +1154,9 @@ class Pond:
         # of a REPAIR and is charged only when a repair actually happens, below. The old line charged
         # both every step, so `repair_cost` was a maintenance cost wearing a repair's name and no
         # experiment that varied it could be interpreted.
-        s.energy = torch.where(alive, s.energy - cfg.update_cost, s.energy)
-        spent = cfg.update_cost
+        _maint, _repair = _costs(cfg)
+        s.energy = torch.where(alive, s.energy - _maint, s.energy)
+        spent = _maint
         if s.tag is not None and bool(alive.any()):
             uniq_a, inv_a = torch.unique(s.tag[alive], return_inverse=True)
             cnt = torch.zeros(uniq_a.numel(), device=self.device, dtype=torch.long)
@@ -1237,14 +1261,14 @@ class Pond:
         repaired = (
             alive
             & (s.damage > 0)
-            & (cfg.repair_cost > 0.0)
+            & (_repair > 0.0)
             & (s.energy > spent)
             & (repair_roll < cfg.repair_rate)
         )
         # A repair costs `repair_cost`, and only a repair costs it. This is the other half of fix 3:
         # the charge used to sit in `spent` and was taken from every living cell every step.
-        if float(cfg.repair_cost) > 0.0:
-            s.energy = torch.where(repaired, s.energy - float(cfg.repair_cost), s.energy)
+        if _repair > 0.0:
+            s.energy = torch.where(repaired, s.energy - _repair, s.energy)
         s.damage = torch.where(repaired, s.damage - 1, s.damage)
 
         # Age is recorded and reported, never used to kill (see the note below).
