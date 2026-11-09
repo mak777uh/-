@@ -404,6 +404,7 @@ H29-пункт «ядро от цели»).
 | G120 | [Tyler & Hargrove, 1997, Oikos: IFD over large resource landscapes](https://doi.org/10.2307/3546022) | IFD на ландшафте ресурсов: конкуренция за пространство как частный случай | — | статья 031 §2/§8 — предсказание: при совместном занятии клетки выигрыш зависит от скорости восстановления ресурса (B-Q051/B-Q052) | `open` | `library/search-log.md` |
 | G121 | [Hill, 2019, HPCS: repeatability and reproducibility for stochastic simulation](https://doi.org/10.1109/hpcs48598.2019.9188157) | Воспроизводимость как критерий научности (Поппер), применённая к стохастическим симуляциям | — | статья 036: «воспроизводимость как критерий», а не «доказана»; S4 показывает частичную (baseline бит-в-бит, plastic зависит от бэкенда) | `open` | `library/search-log.md` |
 | G122 | [ASME 2019 V&V: risk assessment for model credibility](https://doi.org/10.1115/vvs2019-5152) | Достоверность модели как оцениваемая величина (риск), а не бинарная | — | статья 036 §7: не писать «воспроизводимость доказана» — достоверность оценивают | `open` | `library/search-log.md` |
+| G123 | [Shirokawa & Shimada, 2016, Proc. R. Soc. B: cytoplasmic inheritance in clonal diatom](https://doi.org/10.1098/rspb.2016.1632) | Два механизма передачи: **hangover** (структура остаётся) и **structural inheritance** (шаблон) | — | E20: наша «активация» = hangover, «размножение» = structural inheritance; наше — доля (96.4/3.6), не различение | `open` | `library/search-log.md` |
 
 ## H. ALife: классика, открытая эволюция, рамки, индивидуальность
 

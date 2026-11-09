@@ -503,7 +503,7 @@
     {
       "id": "reproducibility-of-simulation",
       "ru": "Воспроизводимость симуляций: что считается доказательством, а что — артефактом железа",
-      "status": "current",
+      "status": "next",
       "links": [
         "library/claims-evidence.md",
         "reports/2026-11-06-s4-reproducibility.md"
@@ -526,6 +526,34 @@
       ],
       "min_score": 4,
       "implication": "S4 показал: baseline бит-в-бит, plastic-прогоны зависят от бэкенда. Статья 036 заявляет воспроизводимость — нужен канон, что считается доказательством воспроизводимости."
+    },
+    {
+      "id": "birth-mode-and-inheritance",
+      "ru": "Наследование против активации: что измеряет корреляция родитель–потомок",
+      "status": "current",
+      "links": [
+        "library/reviews/transition-e20.md",
+        "morphogenesis/experiments/E20"
+      ],
+      "queries": [
+        "parent offspring correlation heritability activation not reproduction",
+        "heritability estimate bias environmental similarity common garden",
+        "clonal vs sexual inheritance parent-offspring regression"
+      ],
+      "terms": [
+        "heritability",
+        "parent",
+        "offspring",
+        "correlation",
+        "inheritance",
+        "activation"
+      ],
+      "must": [
+        "heritab",
+        "parent"
+      ],
+      "min_score": 4,
+      "implication": "E20: 96.4% клеток пришли активацией, не размножением => 'наследование' мерило корреляцию с позицией. Нужен канон: как отделяют наследование от сходства среды."
     }
   ]
 }
